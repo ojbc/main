@@ -33,7 +33,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -53,6 +52,7 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
+import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -383,10 +383,16 @@ public class RequestMessageBuilderUtilities {
         	adminSearchRequestIndicator.setTextContent("true");
         }
         
-        if (BooleanUtils.isTrue(subscriptionSearchRequest.getActive())){
+        if (subscriptionSearchRequest.getStatus().size() == 1 ){
         	Element subscriptionActiveIndicator = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscriptionActiveIndicator");
-        	subscriptionActiveIndicator.setTextContent("true");
+        	
+        	if (subscriptionSearchRequest.getStatus().contains(SubscriptionStatus.ACTIVE.name())){
+        		subscriptionActiveIndicator.setTextContent("true");
+        	}
+        	else{
+        		subscriptionActiveIndicator.setTextContent("false");
+        	}
         }
         
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()) 
@@ -423,7 +429,7 @@ public class RequestMessageBuilderUtilities {
         }
 		
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid())
-        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getSubscriptionCategory())){
+        		|| subscriptionSearchRequest.getSubscriptionCategories().size()>0){
         	Element fbiSubscription = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "FBISubscription");
         	
@@ -439,10 +445,10 @@ public class RequestMessageBuilderUtilities {
                 identificationID.setTextContent(subscriptionSearchRequest.getSid());
         	}
         	
-        	if (StringUtils.isNotBlank(subscriptionSearchRequest.getSubscriptionCategory())){
+        	for (String category : subscriptionSearchRequest.getSubscriptionCategories()){
         		Element criminalSubscriptionReasonCode = 
         				XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "CriminalSubscriptionReasonCode");
-        		criminalSubscriptionReasonCode.setTextContent(subscriptionSearchRequest.getSubscriptionCategory());
+        		criminalSubscriptionReasonCode.setTextContent(category);
         	}
         }
 		return doc;

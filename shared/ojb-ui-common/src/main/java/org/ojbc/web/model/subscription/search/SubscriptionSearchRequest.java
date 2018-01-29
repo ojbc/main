@@ -17,19 +17,24 @@
 package org.ojbc.web.model.subscription.search;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 public class SubscriptionSearchRequest implements Serializable{
 	private static final long serialVersionUID = 6272003361243548121L;
-	private boolean  adminSearch;
+	private boolean adminSearch;
 	private String ownerOri; 
 	private String ownerLastName; 
 	private String ownerFirstName; 
-	private Boolean active;
-	private String subscriptionCategory;  
-	private String sid; 
+	private String subjectLastName; 
+	private String subjectFirstName; 
+	private List<String> status = new ArrayList<>();
+	private List<String> subscriptionCategories = new ArrayList<>();  
+	private String sid;
+	private String ucn; 
 
 	public SubscriptionSearchRequest() {
 		super();
@@ -77,27 +82,51 @@ public class SubscriptionSearchRequest implements Serializable{
 		this.ownerFirstName = ownerFirstName;
 	}
 
-	public String getSubscriptionCategory() {
-		return subscriptionCategory;
-	}
-
-	public void setSubscriptionCategory(String subscriptionCategory) {
-		this.subscriptionCategory = subscriptionCategory;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
 	public String getSid() {
 		return sid;
 	}
 
 	public void setSid(String sid) {
 		this.sid = sid;
+	}
+
+	public String getSubjectLastName() {
+		return subjectLastName;
+	}
+
+	public void setSubjectLastName(String subjectLastName) {
+		this.subjectLastName = subjectLastName;
+	}
+
+	public String getSubjectFirstName() {
+		return subjectFirstName;
+	}
+
+	public void setSubjectFirstName(String subjectFirstName) {
+		this.subjectFirstName = subjectFirstName;
+	}
+
+	public String getUcn() {
+		return ucn;
+	}
+
+	public void setUcn(String ucn) {
+		this.ucn = ucn;
+	}
+
+	public List<String> getStatus() {
+		return status;
+	}
+
+	public void setStatus(List<String> status) {
+		this.status = status;
+	}
+
+	public List<String> getSubscriptionCategories() {
+		return subscriptionCategories;
+	}
+
+	public void setSubscriptionCategories(List<String> subscriptionCategories) {
+		this.subscriptionCategories = subscriptionCategories;
 	}
 }

@@ -47,8 +47,6 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
-import org.ojbc.util.model.rapback.IdentificationResultCategory;
-import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -82,6 +80,7 @@ import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
+import org.ojbc.web.portal.validators.subscriptions.SubscriptionSearchRequestValidator;
 import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -183,6 +182,9 @@ public class SubscriptionsController {
 	SubscriptionValidator subscriptionValidator;
 	
 	@Resource
+	SubscriptionSearchRequestValidator subscriptionSearchRequestValidator;
+	
+	@Resource
 	SearchResultConverter searchResultConverter;
 	
 	@Resource
@@ -246,10 +248,28 @@ public class SubscriptionsController {
 	}
 
 
+	@RequestMapping(value = "advancedSearch", method = RequestMethod.POST)
+	public String advancedSearch(HttpServletRequest request,	
+			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
+	        BindingResult errors,
+	        Map<String, Object> model) {	
+//		subscriptionSearchRequestValidator.validate(subscriptionSearchRequest, errors);
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "subscriptions/admin/_searchForm";
+		}
+					
+		Element samlElement = samlService.getSamlAssertion(request);
+		
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		
+		return "subscriptions/_subscriptionResults";
+	}
+	
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
-	        Map<String, Object> model) {		
-								
+			Map<String, Object> model) {		
+		
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
@@ -1420,6 +1440,11 @@ public class SubscriptionsController {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
 		binder.addValidators(subscriptionValidator);
+	}
+	
+	@InitBinder("subscriptionSearchRequest")
+	public void initSubscriptionSearchRequestBinder(WebDataBinder binder) {
+		binder.addValidators(subscriptionSearchRequestValidator);
 	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
