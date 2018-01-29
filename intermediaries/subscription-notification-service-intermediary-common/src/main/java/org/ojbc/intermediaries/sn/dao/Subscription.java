@@ -51,6 +51,8 @@ public class Subscription {
 	private Integer subscriptionOwnerFk;
 	private String subscriptionOwner;
 	private String subscriptionOwnerEmailAddress;
+	private String subscriptionOwnerFirstName;
+	private String subscriptionOwnerLastName;
 
 	private String subscriptionIdentifier;
 	private String subscribingSystemIdentifier;
@@ -250,6 +252,22 @@ public class Subscription {
 
 	public void setSubscriptionOwnerFk(Integer subscriptionOwnerFk) {
 		this.subscriptionOwnerFk = subscriptionOwnerFk;
+	}
+
+	public String getSubscriptionOwnerFirstName() {
+		return subscriptionOwnerFirstName;
+	}
+
+	public void setSubscriptionOwnerFirstName(String subscriptionOwnerFirstName) {
+		this.subscriptionOwnerFirstName = subscriptionOwnerFirstName;
+	}
+
+	public String getSubscriptionOwnerLastName() {
+		return subscriptionOwnerLastName;
+	}
+
+	public void setSubscriptionOwnerLastName(String subscriptionOwnerLastName) {
+		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
 	}
 
 }

@@ -66,6 +66,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         List<Subscription> searchResponse = new ArrayList<Subscription>();
         searchResponse.add(subscriptionSearchResponse);
 
+        createSubscribedEntity(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscriptionSubjects(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscriptionEmails(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
@@ -102,6 +103,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         }
 
         createFbiSubscriptions(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscribedEntity(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionSubjects(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionEmails(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
@@ -113,6 +115,28 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         
     }
 
+    private void createSubscribedEntity(List<Subscription> subscriptionSearchResponseList, Document doc, 
+    		Element root, String extensionSchema)
+    {
+        for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
+
+        	int index = subscriptionSearchResponseList.indexOf(subscriptionSearchResponse) + 1;
+
+	        Element subscribedEntityElement = XmlUtils.appendElement(root, extensionSchema, "SubscribedEntity");
+	        XmlUtils.addAttribute(subscribedEntityElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "SE" + index);
+	        
+	        Element entityPersonElement = XmlUtils.appendElement(subscribedEntityElement, OjbcNamespaceContext.NS_NC, "EntityPerson");
+	        
+	        Element personNameElement = XmlUtils.appendElement(entityPersonElement, OjbcNamespaceContext.NS_NC, "PersonName");
+	        Element ownerGivenName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+	        ownerGivenName.setTextContent(subscriptionSearchResponse.getSubscriptionOwnerFirstName());
+	        
+	        Element ownerLastName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonSurName");
+	        ownerLastName.setTextContent(subscriptionSearchResponse.getSubscriptionOwnerLastName());
+
+        }   
+    }
+    
     private void createStateSubscriptionFBISubscriptionAssociation(
 			List<Subscription> subscriptionList, Element root) {
     	
@@ -208,9 +232,6 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         Element subscriptionTopicElement = XmlUtils.appendElement(subscriptionElement, OjbcNamespaceContext.NS_WSN_BROKERED, "Topic");
         subscriptionTopicElement.setAttribute("Dialect", "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete");
         subscriptionTopicElement.setTextContent(subscriptionSearchResponse.getTopic());
-
-        Element subscribedEntityElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscribedEntity");
-        XmlUtils.addAttribute(subscribedEntityElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "SE" + searchResponseIndex);
 
         Element subscriptionOriginatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionOriginator");
 
