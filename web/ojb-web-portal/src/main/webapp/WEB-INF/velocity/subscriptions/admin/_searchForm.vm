@@ -20,7 +20,6 @@
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
  		  ojbc.handleEsc();
-    	  $( "#searchTabs" ).tabs();
     	  
 		    $( ".datePicker" ).datepicker({
 		       showOn: "both",
@@ -35,35 +34,28 @@
 		    
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
-	            var formData = $('#advancedSearchForm').serialize();
-	        
-	  	       	xhr = $.post("#springUrl('/rapbacks/rapbackAdvancedSearch')",formData,function(data) {
-			        $('#portalContent').html(data);
+	        	var formData = $('#advancedSearchForm').serialize();
+	  	       	xhr = $.post("#springUrl('/subscriptions/advancedSearch')",formData,function(data) {
+			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
 		
-		   $("a[href='\\#advancedSearchTab']").click (function(){
-		       $("#search-tab-title").html("ADVANCED SEARCH: RAP BACK");
-		   });
-           
 	        $('#advanceSearchClearButton').click (function(event){
-			  ojbc.clearSearchPurposeFields();
-			  ojbc.clearSearchResultsFilterFields();
-			  $.get("#springUrl('/rapbacks/searchForm?resetForm=true')", function(data) {
-			    $('#portalContent').html(data);
+			  $.get("#springUrl('/subscriptions/searchForm?resetForm=true')", function(data) {
+			    $('#subsAdminContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)
 	      	});
 	
 			//This allows the input fields on the search form to submit form with enter key
-			$('#advancedSearchTab input').keyup(function(e) {
+			$('#searchTabs input').keyup(function(e) {
 			    if (e.keyCode == 13) {
 			        $('#advanceSearchSubmitButton').click();
 			    }
 			});
 	
 			//This allows the select fields on the search form to submit form with enter key			
-			$('#advancedSearchTab select').keyup(function(e) {
+			$('#searchTabs select').keyup(function(e) {
 			    if (e.keyCode == 13) {
 			        $('#advanceSearchSubmitButton').click();
 			    }
@@ -90,12 +82,23 @@
 			        
 					<div class="labelText">
 						<p class="searchSubHeader"> Subscription Status</p>
-						#springFormCheckboxes("subscriptionSearchRequest.active" $subscriptionStatusMap " " "")
+						#springFormCheckboxes("subscriptionSearchRequest.status" $subscriptionStatusMap " " "")
 					</div>    				        
 					<div class="labelText">
 						<p class="searchSubHeader"> Subscription Purpose</p>
-						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategory" $subscriptionPurposeMap "<br>" "")
+						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategories" $subscriptionPurposeMap "<br>" "")
 					</div>    				        
+	        	</td>
+  				<td>
+			        <p class="searchSubHeader"> SUBJECT</p>
+			        <div>#springFormInput("subscriptionSearchRequest.subjectFirstName" "placeholder='First Name'")</div>
+			        <div>#springFormInput("subscriptionSearchRequest.subjectLastName" "placeholder='Last Name'")</div>
+			        <div>#springFormInput("subscriptionSearchRequest.sid" "placeholder='SID'")
+			        	#springShowErrors( "<br/>" "error" ) 
+			        </div>
+			        <div>#springFormInput("subscriptionSearchRequest.ucn" "placeholder='UCN'")
+			        	#springShowErrors( "<br/>" "error" ) 
+			        </div>
 	        	</td>
         	<tr>
         </table>
