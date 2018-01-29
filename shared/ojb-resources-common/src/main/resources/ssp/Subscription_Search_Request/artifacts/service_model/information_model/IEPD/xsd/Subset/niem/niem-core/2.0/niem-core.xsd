@@ -27,6 +27,23 @@
   <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
   <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:complexType name="ActivityType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a single or set of related actions, events, or process steps.
+</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="AssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for a connection, relationship, or involvement somehow linking people and/or things together.</xsd:documentation>
@@ -49,6 +66,38 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:ContactMeans" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:ContactEntity" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DateRangeType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a period of time.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="nc:EndDate" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DateType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a calendar date.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -78,7 +127,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -94,6 +143,21 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PersonContactInformationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a person and contact information.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -119,8 +183,10 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -151,7 +217,8 @@
     <xsd:complexContent>
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -178,12 +245,35 @@
       <xsd:extension base="niem-xsd:string"/>
     </xsd:simpleContent>
   </xsd:complexType>
-  <xsd:element name="ContactEmailID" type="niem-xsd:string" substitutionGroup="nc:ContactMeans">
+  <xsd:element name="ActivityDateRange" type="nc:DateRangeType" substitutionGroup="nc:ActivityDateRepresentation">
+    <xsd:annotation>
+      <xsd:documentation>A period of time over which an activity occurs.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ActivityDateRepresentation"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ActivityDateRepresentation" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A date an activity occurs.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identification that references an activity.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactEmailID" type="niem-xsd:string" substitutionGroup="nc:ContactMeans" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
       <xsd:appinfo>
         <i:Base i:name="ContactMeans"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactEntity" type="nc:EntityType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An entity that may be contacted by using the given contact information.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ContactInformationReference" type="s:ReferenceType">
@@ -202,6 +292,24 @@
   <xsd:element name="ContactMeans" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A means of contacting someone.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Date" type="niem-xsd:date" substitutionGroup="nc:DateRepresentation">
+    <xsd:annotation>
+      <xsd:documentation>A full date.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="DateRepresentation"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DateRepresentation" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A representation of a date.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="EndDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An end date.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
@@ -256,9 +364,29 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="Person" type="nc:PersonType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A human being.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonBirthDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a person was born.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A complete name of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A first name of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonMiddleName" type="nc:PersonNameTextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A middle name of a person.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonName" type="nc:PersonNameType" nillable="true">
@@ -274,6 +402,25 @@
   <xsd:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A last name or family name of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="RoleOf" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A property of a role object. This specifies the base object, of which the role object is a function.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="RoleOfPersonReference" type="s:ReferenceType" substitutionGroup="nc:RoleOf">
+    <xsd:annotation>
+      <xsd:documentation>A person of whom the role object is a function.</xsd:documentation>
+      <xsd:appinfo>
+        <i:ReferenceTarget i:name="PersonType"/>
+        <i:Base i:name="RoleOf"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="StartDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date on which something begins.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>
