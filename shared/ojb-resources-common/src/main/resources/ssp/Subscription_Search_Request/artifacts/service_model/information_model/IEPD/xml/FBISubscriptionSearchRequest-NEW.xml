@@ -55,9 +55,17 @@
 	</ssreq-ext:SubscribedEntityContactInformationAssociation>
 	<ssreq-ext:FBISubscription>
 		<ssreq-ext:SubscriptionSubject>
+			<nc:PersonName>
+				<nc:PersonGivenName>Thomas</nc:PersonGivenName>
+				<nc:PersonSurName>Jones</nc:PersonSurName>
+			</nc:PersonName>
 			<j:PersonAugmentation>
+				<!-- sometimes called UCN -->
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>123456789</nc:IdentificationID>
+				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>A1234567</nc:IdentificationID>
+					<nc:IdentificationID>A1099109188</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 		</ssreq-ext:SubscriptionSubject>
