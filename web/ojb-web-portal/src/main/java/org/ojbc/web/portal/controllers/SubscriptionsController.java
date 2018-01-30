@@ -262,7 +262,7 @@ public class SubscriptionsController {
 		
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/admin/_subscriptionResults";
 	}
 	
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)

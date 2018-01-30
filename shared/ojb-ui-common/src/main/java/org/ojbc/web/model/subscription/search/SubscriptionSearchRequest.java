@@ -32,13 +32,15 @@ public class SubscriptionSearchRequest implements Serializable{
 	private String ownerFederatedId; 
 	private String subjectLastName; 
 	private String subjectFirstName; 
-	private List<String> status = new ArrayList<>();
-	private List<String> subscriptionCategories = new ArrayList<>();  
+	private List<String> status;
+	private List<String> subscriptionCategories;  
 	private String sid;
 	private String ucn; 
 
 	public SubscriptionSearchRequest() {
 		super();
+		status = new ArrayList<>();
+		subscriptionCategories = new ArrayList<>();
 	}
 
 	public SubscriptionSearchRequest(Boolean adminSearch) {

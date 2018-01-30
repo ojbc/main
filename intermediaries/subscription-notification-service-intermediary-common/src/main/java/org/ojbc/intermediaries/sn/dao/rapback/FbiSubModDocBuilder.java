@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 public class FbiSubModDocBuilder {
 	
 	
+	@SuppressWarnings("unused")
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilder.class);

@@ -170,7 +170,7 @@ public abstract class SubscriptionRequest {
 		subscriptionOwnerEmailAddress = (String) message.getHeader("subscriptionOwnerEmailAddress");
 		subscriptionOwnerFirstName = (String) message.getHeader("subscriptionOwnerFirstName");
 		subscriptionOwnerLastName = (String) message.getHeader("subscriptionOwnerLastName");
-		subscriptionOwnerOri = (String) message.getHeader("subscriptionOwnerOri");
+		subscriptionOwnerOri = ori;
 		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 		// subscriptionProperties intentionally left out - should be populated by derived class

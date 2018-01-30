@@ -23,26 +23,108 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.camel.Body;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcessor{
+    private static final Log log = LogFactory.getLog(SubscriptionMessageProcessor.class);
 
 	public final String SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME = "Subscriptions";
+    private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 
     public SubscriptionSearchQueryProcessor(){
     	super();
     }
     
-    /**
+    public Document searchBySubscripitonSearchRequest(@Body Document request) throws Exception{
+    	SubscriptionSearchRequest subscriptionSearchRequest = parseSubscriptionSearchRequest(request);
+    	List<Subscription> subscriptions = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+    	return buildSubscriptionSearchResponseDoc(subscriptions); 
+    }
+    
+    private SubscriptionSearchRequest parseSubscriptionSearchRequest(
+			Document request) throws Exception {
+    	SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+    	String adminSearchIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator");
+    	subscriptionSearchRequest.setAdminSearch(BooleanUtils.toBooleanObject(adminSearchIndicator));
+    	
+    	String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscriptionActiveIndicator");
+    	subscriptionSearchRequest.setActive(BooleanUtils.toBooleanObject(subscriptionActiveIndicator));
+    	
+    	String ownerFirstName = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+    	subscriptionSearchRequest.setOwnerFirstName(ownerFirstName);
+    	
+    	String ownerLastName = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+    	subscriptionSearchRequest.setOwnerLastName(ownerLastName);
+    	
+    	String ownerFederatedId = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/ssreq-ext:SubscribedEntityFederatedIdentification/nc:IdentificationID");
+    	subscriptionSearchRequest.setOwnerFederatedId(ownerFederatedId);
+    	
+    	String ownerOri = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/jxdm41:Organization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
+    	subscriptionSearchRequest.setOwnerOri(ownerOri);
+    	
+    	String subjectFirstName = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/nc:PersonName/nc:PersonGivenName");
+    	subscriptionSearchRequest.setSubjectFirstName(subjectFirstName);
+    	if (StringUtils.isNotBlank(subjectFirstName)){
+    		subscriptionSearchRequest.getSubjectIdentifiers().put("firstName", subjectFirstName);
+    	}
+    	
+    	String subjectLastName = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/nc:PersonName/nc:PersonSurName");
+    	subscriptionSearchRequest.setSubjectLastName(subjectLastName);
+    	if (StringUtils.isNotBlank(subjectLastName)){
+    		subscriptionSearchRequest.getSubjectIdentifiers().put("lastName", subjectLastName);
+    	}
+    	
+    	String ucn = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+    	subscriptionSearchRequest.setUcn(ucn);
+    	
+    	if (StringUtils.isNotBlank(ucn)){
+    		subscriptionSearchRequest.getSubjectIdentifiers().put("FBI_ID", ucn);
+    	}
+    	
+    	String sid = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+    	subscriptionSearchRequest.setSid(sid);
+    	if(StringUtils.isNotBlank(sid)){
+    		subscriptionSearchRequest.getSubjectIdentifiers().put("SID", sid);
+    	}
+    	
+    	NodeList reasonCodeNodeList = XmlUtils.xPathNodeListSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:CriminalSubscriptionReasonCode");
+		if (reasonCodeNodeList != null && reasonCodeNodeList.getLength() > 0){
+			for (int i = 0; i < reasonCodeNodeList.getLength(); i++) {
+                Element reasonCodeElement = (Element) reasonCodeNodeList.item(i);
+				if (StringUtils.isNotBlank(reasonCodeElement.getTextContent())){
+					subscriptionSearchRequest.getSubscriptionCategories().add(reasonCodeElement.getTextContent());
+				}
+	        }
+		}
+
+    	log.info("Parsed subscriptionSearchRequest " + subscriptionSearchRequest);
+		return subscriptionSearchRequest;
+	}
+
+	/**
      * Convert the POJO to the equivalent XML document
      */
     public Document buildSubscriptionQueryResponseDoc(Subscription subscriptionSearchResponse) throws Exception {
@@ -350,5 +432,13 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 			appendPersonInfo(personElement, subscriptionSearchResponse);
         }
     }
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+	public void setSubscriptionSearchQueryDAO(SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
 
 }
