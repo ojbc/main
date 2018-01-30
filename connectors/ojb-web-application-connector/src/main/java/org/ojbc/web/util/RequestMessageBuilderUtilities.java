@@ -469,10 +469,12 @@ public class RequestMessageBuilderUtilities {
         		}
         	}
         	
-        	for (String category : subscriptionSearchRequest.getSubscriptionCategories()){
-        		Element criminalSubscriptionReasonCode = 
-        				XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "CriminalSubscriptionReasonCode");
-        		criminalSubscriptionReasonCode.setTextContent(category);
+        	if (subscriptionSearchRequest.getSubscriptionCategories() != null){
+	        	for (String category : subscriptionSearchRequest.getSubscriptionCategories()){
+	        		Element criminalSubscriptionReasonCode = 
+	        				XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "CriminalSubscriptionReasonCode");
+	        		criminalSubscriptionReasonCode.setTextContent(category);
+	        	}
         	}
         }
         

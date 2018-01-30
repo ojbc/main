@@ -85,6 +85,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -97,7 +98,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
-@DirtiesContext
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionSearchQueryDAO {
 
 	private static final Log log = LogFactory
@@ -112,7 +113,8 @@ public class TestSubscriptionSearchQueryDAO {
 	private ValidationDueDateStrategy springConfiguredStrategy;
 
     //This is used to update database to achieve desired state for test
-    private JdbcTemplate jdbcTemplate;
+    @SuppressWarnings("unused")
+	private JdbcTemplate jdbcTemplate;
 	
 	@Before
 	public void setUp() {
@@ -133,6 +135,7 @@ public class TestSubscriptionSearchQueryDAO {
 		loadTestData("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet_manual.xml");
 	}
 
+	@SuppressWarnings("unused")
 	private void loadEmptyTestData() throws Exception {
 		loadTestData("src/test/resources/xmlInstances/dbUnit/emptySubscriptionDataSet.xml");
 	}
@@ -731,7 +734,7 @@ public class TestSubscriptionSearchQueryDAO {
 		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
 				subscriptionProperties);
 		
-		request.setSubscriptionOwnerOri("123456789");
+		request.setSubscriptionOwnerOri("1234567890");
 		
 		LocalDate currentDate = new LocalDate();
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
@@ -768,7 +771,7 @@ public class TestSubscriptionSearchQueryDAO {
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
 				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
 				assertEquals("admin@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
-				assertEquals("123456789", rs.getString("ori"));
+				assertEquals("1234567890", rs.getString("ori"));
 				
 			}
 		}
@@ -1038,7 +1041,7 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_single() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
+		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(1);
 
@@ -1048,8 +1051,8 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_multiple() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)"
-				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
+		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) "
+				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(2);
 

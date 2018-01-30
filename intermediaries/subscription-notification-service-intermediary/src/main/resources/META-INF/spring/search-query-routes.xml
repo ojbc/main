@@ -18,7 +18,9 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0" 
+	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
@@ -99,7 +101,27 @@
 		<camel:route id="processSubscriptionSearchRoute">
 			<camel:from uri="direct:processSubscriptionSearch"/>
 			<camel:log message="processing subscription search" />
+			<camel:choice>
+				<camel:when>
+					<camel:xpath>/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator='true'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionSearchRequest"></camel:to>
+				</camel:when>
+				<camel:otherwise>
+					<camel:to uri="direct:processSubscriptionSearchByOwner"></camel:to>
+				</camel:otherwise>
+			</camel:choice>
+		</camel:route>
+		 
+		<camel:route id="processSubscriptionSearchRequest">			
+			<camel:from uri="direct:processSubscriptionSearchRequest"/>
+			<camel:log message="Process Subscription Search Request: ${body}"/>
 			
+			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest"/>
+			<camel:log message="This is the subscription search response: ${body}"/>
+		</camel:route>		
+		
+		<camel:route id="processSubscriptionSearchByOwner">			
+			<camel:from uri="direct:processSubscriptionSearchByOwner"/>
 			<camel:setHeader headerName="subscriptionSearchResultCount"><camel:simple>bean:subscriptionSearchQueryDAO?method=countSubscriptionsInSearch</camel:simple></camel:setHeader>
 			
 			<camel:log message="Subscription Search Results Count: ${in.headers.subscriptionSearchResultCount}"/>

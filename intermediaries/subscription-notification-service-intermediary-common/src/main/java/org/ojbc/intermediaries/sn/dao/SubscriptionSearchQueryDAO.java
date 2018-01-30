@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -44,6 +45,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionSearchRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.dao.DataAccessException;
@@ -65,7 +67,8 @@ public class SubscriptionSearchQueryDAO {
 
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
-			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, so.federation_id as subscriptionOwner, "
+			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, "
+			+ "so.federation_id as subscriptionOwner, "
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
@@ -86,6 +89,7 @@ public class SubscriptionSearchQueryDAO {
     private SubscriptionResultsSetExtractor resultSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
     private boolean fbiSubscriptionMember = false;
+	private Integer maxSubscriptionsCount; 
     private ValidationDueDateStrategy validationDueDateStrategy = new DefaultValidationDueDateStrategy();
     
     public SubscriptionSearchQueryDAO() {
@@ -395,6 +399,7 @@ public class SubscriptionSearchQueryDAO {
         return ret;
 
     }
+    
     
     public Integer subscribe(@Header("subscriptionRequest")SubscriptionRequest request){
     	Number subscriptionId = subscribe(request, new LocalDate());
@@ -858,7 +863,7 @@ public class SubscriptionSearchQueryDAO {
     		if (i > 0) {
     			sql.append(" and s.id in");
     		}
-    		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)");
+    		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ");
     	}
     	
     	return sql.toString();
@@ -951,6 +956,78 @@ public class SubscriptionSearchQueryDAO {
 	public void setValidationDueDateStrategy(
 			ValidationDueDateStrategy validationDueDateStrategy) {
 		this.validationDueDateStrategy = validationDueDateStrategy;
+	}
+
+	public List<Subscription> findBySubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest) {
+        
+        List<String> criteriaList = new ArrayList<String>();
+        
+        StringBuffer staticCriteria = new StringBuffer();
+
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFederatedId()))
+        {
+        	criteriaList.add(subscriptionSearchRequest.getOwnerFederatedId().trim());
+        	staticCriteria.append(" and upper(so.federation_id) = upper(?)");
+        }	
+        
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()))
+        {
+        	criteriaList.add(subscriptionSearchRequest.getOwnerFirstName().trim());
+        	staticCriteria.append(" and upper(so.first_name) like concat(upper(?), '%') ");
+        }	
+        
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName()))
+        {
+        	criteriaList.add(subscriptionSearchRequest.getOwnerLastName().trim());
+        	staticCriteria.append(" and upper(so.last_name) like concat(upper(?), '%') ");
+        }
+        
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerOri()))
+        {
+        	criteriaList.add(subscriptionSearchRequest.getOwnerOri().trim());
+        	staticCriteria.append(" and upper(ap.agency_ori) = upper(?) ");
+        }	
+        
+        if (subscriptionSearchRequest.getSubscriptionCategories().size() > 0){
+        	staticCriteria.append( " and ( ");
+        	for (int i=0 ; i < subscriptionSearchRequest.getSubscriptionCategories().size(); i++){
+	        	criteriaList.add(subscriptionSearchRequest.getSubscriptionCategories().get(i));
+	        	
+	        	if (i > 0){
+	        		staticCriteria.append(" or "); 
+	        	}
+	        	staticCriteria.append(" s.SUBSCRIPTION_CATEGORY_CODE = ? ");
+        	}
+        	staticCriteria.append( " ) ");
+        }
+
+        //TODO find out how to return active or inactive records. 
+        Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
+
+        Map<String, String> subjectIdentifiers = subscriptionSearchRequest.getSubjectIdentifiers();
+        criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
+
+        String queryString = BASE_QUERY_STRING + staticCriteria.toString() ; 
+        
+        if (subjectIdentifiers.size() > 0 ){
+            queryString += " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
+        }
+        
+        queryString+= " order by s.timestamp desc ";
+        
+        List<Subscription> ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
+
+        log.info("Found " + ret.size() + " Subscriptions");
+        return ret.stream().limit(maxSubscriptionsCount).collect(Collectors.toList());
+
+	}
+
+	public Integer getMaxSubscriptionsCount() {
+		return maxSubscriptionsCount;
+	}
+
+	public void setMaxSubscriptionsCount(Integer maxSubscriptionsCount) {
+		this.maxSubscriptionsCount = maxSubscriptionsCount;
 	}
 
 }
