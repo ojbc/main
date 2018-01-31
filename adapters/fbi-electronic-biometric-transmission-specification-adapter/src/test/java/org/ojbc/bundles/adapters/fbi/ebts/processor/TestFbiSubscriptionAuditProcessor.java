@@ -18,6 +18,8 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.CamelContext;
@@ -29,7 +31,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.context.ContextConfiguration;
+import org.w3c.dom.Document;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -52,13 +56,17 @@ public class TestFbiSubscriptionAuditProcessor {
 	private EnhancedAuditDAOImpl enhancedAuditDAOImpl;
 	
 	@Test
-	public void testAuditSubscription()
+	public void testAuditSubscription() throws Exception
 	{
 	    CamelContext ctx = new DefaultCamelContext(); 
 	    Exchange ex = new DefaultExchange(ctx);
 	    
 	    ex.getIn().setHeader("pathToRequestFile", "/some/path/request");
 	    ex.getIn().setHeader("controlID", "123456789");
+	    
+	    Document input = XmlUtils.parseFileToDocument(new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
+	    assertNotNull(input);
+	    ex.getIn().setBody(input);
 	    
 	    fbiSubscriptionAuditProcessor.auditFBISubscriptionRequest(ex);
 
@@ -68,6 +76,10 @@ public class TestFbiSubscriptionAuditProcessor {
 	    ex.getIn().setHeader("trxCatCode", "ERRA");
 	    ex.getIn().setHeader("transactionControlReferenceIdentification", "123456789");
 	    
+	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_SUBSCRIPTION_RESPONSE_ERRA.xml"));
+	    assertNotNull(input);
+	    ex.getIn().setBody(input);
+
 	    fbiSubscriptionAuditProcessor.auditFBISubscriptionResponse(ex);
 	    
 	    FederalRapbackSubscription federalRapbackSubscription = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionFromTCN("123456789");
@@ -76,6 +88,10 @@ public class TestFbiSubscriptionAuditProcessor {
 	    assertEquals("/some/path/response", federalRapbackSubscription.getPathToResponseFile());
 	    assertEquals("ERRA", federalRapbackSubscription.getTransactionCategoryCode());
 	    assertEquals("123456789", federalRapbackSubscription.getTransactionControlReferenceIdentification());
+	    assertEquals("A398118900", federalRapbackSubscription.getSid());
+	    assertEquals("S128483", federalRapbackSubscription.getStateSubscriptionId());
+	    assertEquals("CI", federalRapbackSubscription.getSubscriptonCategoryCode());
+	    assertEquals("This is the transaction text", federalRapbackSubscription.getTransactionStatusText());
 	    
 	}
 	

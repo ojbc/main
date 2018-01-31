@@ -22,6 +22,9 @@ import java.util.logging.Logger;
 import org.apache.camel.Exchange;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 public class FbiSubscriptionAuditProcessor {
 
@@ -44,9 +47,25 @@ public class FbiSubscriptionAuditProcessor {
 		federalRapbackSubscription.setPathToRequestFile(pathToRequestFile);
 		federalRapbackSubscription.setTransactionControlReferenceIdentification(transactionControlReferenceID);
 		
-		logger.info("Federal rapback subscription request audit entry to save: " + federalRapbackSubscription.toString());
+		Document input = (Document) ex.getIn().getBody(Document.class);
 		
-		enhancedAuditDAO.saveFederalRapbackSubscription(federalRapbackSubscription);
+		try {
+			
+			XmlUtils.printNode(input);
+			
+			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
+			
+			federalRapbackSubscription.setSubscriptonCategoryCode(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackCategoryCode"));
+			federalRapbackSubscription.setStateSubscriptionId(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText"));
+			federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Fingerprint ID']/ebts:UserDefinedElementText"));
+			
+			logger.info("Federal rapback subscription request audit entry to save: " + federalRapbackSubscription.toString());
+			
+			enhancedAuditDAO.saveFederalRapbackSubscription(federalRapbackSubscription);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Unable to audit FBI subscription");
+		}
 		
 	}
 
@@ -69,11 +88,14 @@ public class FbiSubscriptionAuditProcessor {
 			
 			logger.info("Audit entry returned from database:" + federalRapbackSubscriptionFromDatabase);
 			
+			Document input = (Document) ex.getIn().getBody();
+			
 			FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
 			
 			federalRapbackSubscription.setResponseRecievedTimestamp(responseTimestamp);
 			federalRapbackSubscription.setPathToResponseFile(pathToResponseFile);
 			federalRapbackSubscription.setTransactionCategoryCode(transactionCategoryCode);
+			federalRapbackSubscription.setTransactionStatusText(XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText"));
 			
 			logger.info("Federal rapback subscription response audit entry to save: " + federalRapbackSubscription.toString());
 			
