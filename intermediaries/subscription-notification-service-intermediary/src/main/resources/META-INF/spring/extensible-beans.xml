@@ -182,11 +182,26 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="defaultValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy"/>
+	<bean id="defaultGracePeriodStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultGracePeriodStrategy"/>
+	<bean id="staticGracePeriodStrategy" class="org.ojbc.intermediaries.sn.dao.StaticGracePeriodStrategy">
+		<property name="gracePeriodDays" value="0"/>
+	</bean>
+	
 	<bean id="gracePeriodStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="gracePeriodStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.intermediaries.sn.dao.DefaultGracePeriodStrategy" />
+			<bean class="org.ojbc.intermediaries.sn.dao.TopicMapGracePeriodStrategy">
+				<constructor-arg name="map">
+					<util:map id="gracePeriodTopicMap">
+						<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="defaultGracePeriodStrategy" />
+						<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticGracePeriodStrategy" />
+						<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticGracePeriodStrategy" />
+						<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value-ref="defaultGracePeriodStrategy" />
+					</util:map>
+				</constructor-arg>
+			</bean>
 		</constructor-arg>
 	</bean>
 	
@@ -197,7 +212,7 @@
 			<bean class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy" />
 		</constructor-arg>
 	</bean>
-
+	
 	<bean id="notificationsSentStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="notificationsSentStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />

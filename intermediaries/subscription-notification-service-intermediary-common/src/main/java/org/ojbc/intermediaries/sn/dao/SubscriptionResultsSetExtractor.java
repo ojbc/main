@@ -113,7 +113,7 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 
 	            	if (validationExemptionFilter.requiresValidation(subscription)) {
 	                    Date validationDueDate = rs.getDate("validationDueDate");
-	                    if (validationDueDate != null)
+	                    if (validationDueDate != null ||subscription.getEndDate() != null )
 	                    {
 	                        subscription.setValidationDueDate(new DateTime(validationDueDate));
 	                        subscription.setGracePeriod(gracePeriodStrategy.getGracePeriod(subscription));
