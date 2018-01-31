@@ -183,6 +183,10 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
 		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
 		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId("456");
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionStatusText("text");
 		
 		enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
 
@@ -201,6 +205,13 @@ public class EnhancedAuditDaoTest {
 		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
 		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
 		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCode());
+		
+		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
+		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
+		assertEquals("text", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
+		
+		
 		
 	}
 
