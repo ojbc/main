@@ -191,11 +191,16 @@
 				
 		    $('#searchBarButtonDiv').css("display", "none");
 
-			//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
-		    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
-
-		    ojbc.populatePortalContentFromUrl("#springUrl('/subscriptions/adminLandingPage')");
-					    
+    		xhr = $.get("#springUrl('/subscriptions/adminLandingPage')", function(data) {
+				$('#portalContent').html(data);	
+			}).done(function(){
+				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+								    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
+			}).fail(ojbc.displayFailMessage);
+							    					    
 		    return false;
 		})
     		 
