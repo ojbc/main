@@ -32,6 +32,14 @@ public class FederalRapbackSubscription {
 	private String pathToResponseFile;
 	
 	private String pathToRequestFile;
+	
+	private String stateSubscriptionId;
+	
+	private String sid;
+	
+	private String subscriptonCategoryCode;
+	
+	private String transactionStatusText;
 
 	private LocalDateTime requestSentTimestamp;
 	
@@ -96,6 +104,38 @@ public class FederalRapbackSubscription {
 
 	public void setFederalRapbackSubscriptionId(Integer federalRapbackSubscriptionId) {
 		this.federalRapbackSubscriptionId = federalRapbackSubscriptionId;
+	}
+
+	public String getStateSubscriptionId() {
+		return stateSubscriptionId;
+	}
+
+	public void setStateSubscriptionId(String stateSubscriptionId) {
+		this.stateSubscriptionId = stateSubscriptionId;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public String getTransactionStatusText() {
+		return transactionStatusText;
+	}
+
+	public void setTransactionStatusText(String transactionStatusText) {
+		this.transactionStatusText = transactionStatusText;
+	}
+
+	public String getSubscriptonCategoryCode() {
+		return subscriptonCategoryCode;
+	}
+
+	public void setSubscriptonCategoryCode(String subscriptonCategoryCode) {
+		this.subscriptonCategoryCode = subscriptonCategoryCode;
 	}
 	
 }
