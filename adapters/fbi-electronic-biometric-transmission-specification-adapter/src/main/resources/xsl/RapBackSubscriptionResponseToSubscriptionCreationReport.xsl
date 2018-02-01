@@ -16,14 +16,10 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet version="2.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:itl="http://biometrics.nist.gov/standard/2011"
-	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
-	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
-	xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+<xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0" xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:s30="http://release.niem.gov/niem/structures/3.0/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="no" />
 	<xsl:template match="/">
@@ -35,19 +31,17 @@
 		<fed_subcr-doc:FederalSubscriptionCreationReport>
 			<xsl:apply-templates select="ebts:RecordRapBackData" />
 			<xsl:apply-templates select="ebts:RecordSubject" />
-			<!-- ignoring the rap sheet as we work on CJ rap back.  will need to handle this when we start on civil -->
-<!-- 			<xsl:apply-templates -->
-<!-- 				select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" -->
-<!-- 				mode="rapsheet" /> -->
+			<!-- ignoring the rap sheet as we work on CJ rap back. will need to handle this when we start on civil -->
+			<!-- <xsl:apply-templates -->
+			<!-- select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" -->
+			<!-- mode="rapsheet" /> -->
 		</fed_subcr-doc:FederalSubscriptionCreationReport>
 	</xsl:template>
-	<xsl:template
-		match="ebts:RecordSubject/jxdm50:PersonFBIIdentification/nc:IdentificationID">
+	<xsl:template match="ebts:RecordSubject/jxdm50:PersonFBIIdentification/nc:IdentificationID">
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackData">
 		<fed_subcr-ext:RapBackSubscriptionData>
-			<xsl:apply-templates
-				select="ebts:RecordRapBackActivityNotificationFormatCode" />
+			<xsl:apply-templates select="ebts:RecordRapBackActivityNotificationFormatCode" />
 			<xsl:apply-templates select="ebts:RecordRapBackAttentionText" />
 			<xsl:apply-templates select="ebts:RecordRapBackCategoryCode" />
 			<xsl:apply-templates select="ebts:RecordRapBackExpirationDate" />
@@ -56,13 +50,13 @@
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionID" />
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionTerm" />
 			<xsl:apply-templates select="ebts:RecordRapBackTermDate" />
-			<xsl:apply-templates
-				select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
+			<xsl:apply-templates select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
 			<xsl:apply-templates
 				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('STATE SUBSCRIPTION ID')]/ebts:UserDefinedElementText"
 				mode="stateSubscrID" />
-			<xsl:apply-templates
-				select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
+			<xsl:apply-templates select="../ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionStatusText"
+				mode="transactionStatus" />
+			<xsl:apply-templates select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
 			<xsl:apply-templates select="../ansi-nist:RecordForwardOrganizations" />
 		</fed_subcr-ext:RapBackSubscriptionData>
 	</xsl:template>
@@ -194,8 +188,12 @@
 			</nc30:IdentificationID>
 		</fed_subcr-ext:StateSubscriptionIdentification>
 	</xsl:template>
-	<xsl:template
-		match="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
+	<xsl:template match="ebts:TransactionStatusText" mode="transactionStatus">
+		<fed_subcr-ext:SubscribtionTransactionStatusText>
+			<xsl:value-of select="." />
+		</fed_subcr-ext:SubscribtionTransactionStatusText>
+	</xsl:template>
+	<xsl:template match="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
 		mode="rapsheet">
 		<fed_subcr-ext:CriminalHistoryDocument>
 			<xsl:attribute name="s30:id"><xsl:value-of select="generate-id(.)" /></xsl:attribute>
