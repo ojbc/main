@@ -16,8 +16,10 @@
  */
 package org.ojbc.web.portal.validators.subscriptions;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class SubscriptionSearchRequestValidator implements Validator{
     @Value("${sidRegexForAddSubscription:([a-zA-Z]\\d+)?}")
     String sidRegexForSubscription;
     
+    @Value("${sidRegexValidationErrorMessage: SID must start with a letter}")
+    String sidRegexValidationErrorMessage;
+    
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return SubscriptionSearchRequest.class.equals(clazz);
@@ -41,6 +46,16 @@ public class SubscriptionSearchRequestValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) target; 
 		log.info("Validating subscription " + subscriptionSearchRequest);
+		
+		if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid()) 
+				&& !subscriptionSearchRequest.getSid().matches(sidRegexForSubscription)){
+			errors.rejectValue("sid", null, sidRegexValidationErrorMessage);
+		}
+		
+		if (StringUtils.isNotBlank(subscriptionSearchRequest.getUcn()) 
+				&& !subscriptionSearchRequest.getUcn().matches(OjbcWebConstants.FBI_ID_REGEX)){
+			errors.rejectValue("ucn", null, "Invalid format");
+		}
 
 	}
 
