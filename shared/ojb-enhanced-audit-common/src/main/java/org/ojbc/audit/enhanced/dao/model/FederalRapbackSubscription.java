@@ -20,6 +20,10 @@ import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class FederalRapbackSubscription {
 	
@@ -41,8 +45,12 @@ public class FederalRapbackSubscription {
 	
 	private String transactionStatusText;
 
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime requestSentTimestamp;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime responseRecievedTimestamp;
 
 	public Integer getFederalRapbackSubscriptionId() {
