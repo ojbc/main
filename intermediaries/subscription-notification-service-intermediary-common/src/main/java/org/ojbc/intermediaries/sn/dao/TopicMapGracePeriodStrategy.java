@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.joda.time.Interval;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * A strategy that looks up the appropriate child strategy by the subscription's topic, and returns the result of executing that strategy on the subscription.  This allows

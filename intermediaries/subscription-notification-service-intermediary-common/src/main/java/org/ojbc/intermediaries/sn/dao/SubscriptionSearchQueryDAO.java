@@ -48,6 +48,7 @@ import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionSearchRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.model.rapback.AgencyProfile;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;

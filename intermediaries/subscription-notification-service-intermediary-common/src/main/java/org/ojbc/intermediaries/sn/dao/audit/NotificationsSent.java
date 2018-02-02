@@ -18,7 +18,7 @@ package org.ojbc.intermediaries.sn.dao.audit;
 
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class NotificationsSent {
 

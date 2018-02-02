@@ -29,8 +29,8 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 

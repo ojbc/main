@@ -16,6 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
+import org.ojbc.util.model.rapback.Subscription;
+
 /**
  * A default implementation of the exemption interface that exempts no Subscriptions from validation requirements.
  */

@@ -24,7 +24,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * The class of objects representing email-based notifications.  This class is used to communicate between processors and through steps in the
