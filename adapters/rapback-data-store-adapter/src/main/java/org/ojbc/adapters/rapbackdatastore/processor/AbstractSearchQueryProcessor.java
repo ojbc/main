@@ -33,8 +33,8 @@ import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;
 

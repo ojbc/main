@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.Interval;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * The interface for objects that figure out a grace period for a subscription.

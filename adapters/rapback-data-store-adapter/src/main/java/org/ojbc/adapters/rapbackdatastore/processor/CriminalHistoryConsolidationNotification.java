@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class CriminalHistoryConsolidationNotification {
 

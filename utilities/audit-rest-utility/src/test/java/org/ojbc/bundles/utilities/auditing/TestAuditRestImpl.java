@@ -45,12 +45,16 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
@@ -213,41 +217,6 @@ public class TestAuditRestImpl {
 	}
 	
 	@Test
-	public void testRetrieveExpiredSubscriptions() throws Exception
-	{
-		String uri = "http://localhost:9898/auditServer/audit/retrieveExpiredSubscriptions";
-		
-    	DateTime now = new DateTime();
-    	DateTime updatedEndDate= now.minusDays(1);
-    	String updatedEndDateAsString = updatedEndDate.toString("yyyy-MM-dd");
-
-    	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
-    	int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set enddate='" + updatedEndDateAsString  + "', agency_case_number='12345' where ID ='62724'");
-    	assertEquals(1, rowsUpdated);
-    	
-    	rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set validationduedate='" + updatedEndDateAsString  + "', agency_case_number=56789 where ID ='62725'");
-    	assertEquals(1, rowsUpdated);    	
-    			
-		ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest();
-		
-		List<String> oris = new ArrayList<String>();
-		oris.add("1234567890");
-		
-		expiringSubscriptionRequest.setDaysUntilExpiry(2);
-
-		expiringSubscriptionRequest.setOris(oris);
-		
-		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
-		
-		String response = restTemplate.postForObject(uri, expiringSubscriptionRequest, String.class);
-		
-		logger.info("Reponse: " + response);
-
-		printMapContents(response);	
-		
-	}
-	
-	@Test
 	public void testRetrieveExpiringSubscriptions() throws Exception
 	{
 		String uri = "http://localhost:9898/auditServer/audit/retrieveExpiringSubscriptions";
@@ -265,6 +234,61 @@ public class TestAuditRestImpl {
 		
 		ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest();
 		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		List<String> oris = new ArrayList<String>();
+		oris.add("1234567890");
+		expiringSubscriptionRequest.setOris(oris);
+		
+		expiringSubscriptionRequest.setDaysUntilExpiry(2);
+		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
+		
+		HttpEntity<ExpiringSubscriptionRequest> entity = new HttpEntity<ExpiringSubscriptionRequest>(expiringSubscriptionRequest, headers);
+		
+		ResponseEntity<List<Subscription>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<Subscription>>() {});
+		
+		List<Subscription> subscriptions = response.getBody();
+		
+		assertEquals(2, subscriptions.size());
+		assertEquals("2014-10-15",subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
+		assertEquals("2018-02-03",subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals("2018-02-02",subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+		assertEquals("2014-10-15",subscriptions.get(0).getCreationDate().toString("yyyy-MM-dd"));
+		
+		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
+		assertEquals("Test W Jane",subscriptions.get(0).getPersonFullName());
+		assertEquals("1234567890",subscriptions.get(0).getOri());
+		assertEquals("Demo Agency",subscriptions.get(0).getAgencyName());
+		assertEquals("bill",subscriptions.get(0).getSubscriptionOwnerFirstName());
+		assertEquals("padmanabhan",subscriptions.get(0).getSubscriptionOwnerLastName());
+		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
+
+		assertEquals("56789",subscriptions.get(1).getAgencyCaseNumber());
+
+	}
+
+	@Test
+	public void testRetrieveExpiredSubscriptionsPojo() throws Exception
+	{
+		String uri = "http://localhost:9898/auditServer/audit/retrieveExpiredSubscriptions";
+		
+    	DateTime now = new DateTime();
+    	DateTime updatedEndDate= now.minusDays(1);
+    	String updatedEndDateAsString = updatedEndDate.toString("yyyy-MM-dd");
+
+    	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set enddate='" + updatedEndDateAsString  + "', agency_case_number='12345' where ID ='62724'");
+    	assertEquals(1, rowsUpdated);
+    	
+    	rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set validationduedate='" + updatedEndDateAsString  + "', agency_case_number=56789 where ID ='62725'");
+    	assertEquals(1, rowsUpdated);    	
+    			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest();
+		
 		List<String> oris = new ArrayList<String>();
 		oris.add("1234567890");
 		
@@ -274,74 +298,28 @@ public class TestAuditRestImpl {
 		
 		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
 		
-		String response = restTemplate.postForObject(uri, expiringSubscriptionRequest, String.class);
+		HttpEntity<ExpiringSubscriptionRequest> entity = new HttpEntity<ExpiringSubscriptionRequest>(expiringSubscriptionRequest, headers);
 		
-		logger.info("Reponse: " + response);
-
-		printMapContents(response);	
+		ResponseEntity<List<Subscription>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<Subscription>>() {});
 		
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void printMapContents(String response) throws IOException,
-			JsonParseException, JsonMappingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<HashMap> dataAsMap = objectMapper.readValue(response, List.class);
+		List<Subscription> subscriptions = response.getBody();
 		
-		logger.info(dataAsMap.toString());
+		assertEquals(2, subscriptions.size());
+		assertEquals("2014-10-15",subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
+		assertEquals("2018-02-01",subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals("2018-02-02",subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+		assertEquals("2014-10-15",subscriptions.get(0).getCreationDate().toString("yyyy-MM-dd"));
 		
-		for (HashMap mapEntry : dataAsMap)
-		{
-			Long lastValidationDateTimeStamp = (Long)mapEntry.get("lastValidationDate");
-			
-			LocalDateTime lastValidationDate =
-				    LocalDateTime.ofInstant(Instant.ofEpochMilli(lastValidationDateTimeStamp), ZoneId.systemDefault());
-			
-			logger.info("Last Validation Date: " + lastValidationDate.toString());
+		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
+		assertEquals("Test W Jane",subscriptions.get(0).getPersonFullName());
+		assertEquals("1234567890",subscriptions.get(0).getOri());
+		assertEquals("Demo Agency",subscriptions.get(0).getAgencyName());
+		assertEquals("bill",subscriptions.get(0).getSubscriptionOwnerFirstName());
+		assertEquals("padmanabhan",subscriptions.get(0).getSubscriptionOwnerLastName());
+		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
 
-			Long validationDueDateTimeStamp = (Long)mapEntry.get("validationDueDate");
-			
-			if (validationDueDateTimeStamp != null)
-			{	
-				LocalDateTime validationDueDate =
-					    LocalDateTime.ofInstant(Instant.ofEpochMilli(validationDueDateTimeStamp), ZoneId.systemDefault());
-				
-				logger.info("Last Validation Date: " + validationDueDate.toString());
-			}	
-				
-			Long startDateTimestamp = (Long)mapEntry.get("startDate");
-			
-			LocalDateTime startDate =
-				    LocalDateTime.ofInstant(Instant.ofEpochMilli(startDateTimestamp), ZoneId.systemDefault());
-			
-			logger.info("Start Date: " + startDate.toString());
-
-			Long endDateTimeStamp = (Long)mapEntry.get("endDate");
-			
-			LocalDateTime endDate =
-				    LocalDateTime.ofInstant(Instant.ofEpochMilli(endDateTimeStamp), ZoneId.systemDefault());
-			
-			logger.info("End Date: " + endDate.toString());
-			
-			String agencyCaseNumber = (String)mapEntry.get("agencyCaseNumber");
-			logger.info("Agency Case Number: " + agencyCaseNumber);
-			
-			String subject = (String)mapEntry.get("personFullName");
-			logger.info("Subject: " + subject);
-
-			String ori = (String)mapEntry.get("ori");
-			logger.info("ORI: " + ori);
-			
-			String agencyName = (String)mapEntry.get("agencyName");
-			logger.info("Agency Name: " + agencyName);
-
-			String subscriptionOwnerFirstName = (String)mapEntry.get("subscriptionOwnerFirstName");
-			logger.info("Subscription Owner First Name: " + subscriptionOwnerFirstName);
-
-			String subscriptionOwnerLastName = (String)mapEntry.get("subscriptionOwnerLastName");
-			logger.info("Subscription Owner Last Name: " + subscriptionOwnerLastName);
-			
-		}
+		assertEquals("56789",subscriptions.get(1).getAgencyCaseNumber());
+		
 	}
 	
 	
@@ -368,5 +346,5 @@ public class TestAuditRestImpl {
 		assertEquals(true,agency1.getFbiSubscriptionQualification());
 
 	}
-
+	
 }

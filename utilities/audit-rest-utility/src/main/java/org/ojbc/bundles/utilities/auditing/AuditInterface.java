@@ -31,9 +31,9 @@ import javax.ws.rs.core.Response;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 @Path("/audit")
 @WebService
@@ -67,13 +67,13 @@ public interface AuditInterface {
    @Path("/retrieveExpiringSubscriptions")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Subscription[] retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request );
+   public List<Subscription> retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request );
    
    @POST
    @Path("/retrieveExpiredSubscriptions")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Subscription[] retrieveExpiredSubscriptions(ExpiringSubscriptionRequest request );
+   public List<Subscription> retrieveExpiredSubscriptions(ExpiringSubscriptionRequest request );
 
    @GET
    @Path("/retrieveAllAgencies")

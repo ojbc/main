@@ -28,10 +28,10 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -91,31 +91,25 @@ public class AuditRestImpl implements AuditInterface {
 	}
 
 	@Override
-	public Subscription[] retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request) {
+	public List<Subscription> retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request) {
 		
 		log.info("Days until expiration: " + request.getDaysUntilExpiry());
 		log.info("ORIs: " + request.getOris());
 		
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiringAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
 		
-		Subscription[] subscriptionsArray = new Subscription[subscriptions.size()];
-		subscriptionsArray = subscriptions.toArray(subscriptionsArray);
-		
-		return subscriptionsArray;
+		return subscriptions;
 	}
 
 	@Override
-	public Subscription[] retrieveExpiredSubscriptions(
+	public List<Subscription> retrieveExpiredSubscriptions(
 			ExpiringSubscriptionRequest request) {
 		log.info("Days until expiration: " + request.getDaysUntilExpiry());
 		log.info("ORIs: " + request.getOris());
 		
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiredAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
 		
-		Subscription[] subscriptionsArray = new Subscription[subscriptions.size()];
-		subscriptionsArray = subscriptions.toArray(subscriptionsArray);
-		
-		return subscriptionsArray;
+		return subscriptions;
 	}
 
 	@Override

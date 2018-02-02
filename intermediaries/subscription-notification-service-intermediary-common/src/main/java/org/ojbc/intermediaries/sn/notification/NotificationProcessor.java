@@ -25,12 +25,12 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.rapback.RapbackNotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * The abstract base class for topic-specific notification processors...there will be a concrete derivation of this class for each topic.
