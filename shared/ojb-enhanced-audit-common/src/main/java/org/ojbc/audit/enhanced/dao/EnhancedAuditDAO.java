@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.dao;
 
+import java.util.List;
+
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -37,6 +39,8 @@ public interface EnhancedAuditDAO {
 	public void updateFederalRapbackSubscriptionWithResponse(FederalRapbackSubscription federalRapbackSubscription) throws Exception;
 	
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
+	
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(String stateSubscriptionId);
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	

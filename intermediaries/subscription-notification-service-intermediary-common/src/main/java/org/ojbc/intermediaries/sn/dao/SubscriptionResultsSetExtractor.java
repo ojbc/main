@@ -139,6 +139,7 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	
 	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
 	            	subscription.setOri(rs.getString("ori"));
+	            	subscription.setAgencyName(rs.getString("agency_name"));
 	            	
 	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 
 	    			if (StringUtils.isNotBlank(fbiSubscriptionId)){

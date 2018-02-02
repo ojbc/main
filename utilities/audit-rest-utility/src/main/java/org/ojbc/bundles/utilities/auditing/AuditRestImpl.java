@@ -16,6 +16,8 @@
  */
 package org.ojbc.bundles.utilities.auditing;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -23,8 +25,13 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.util.model.rapback.AgencyProfile;
+import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +41,9 @@ public class AuditRestImpl implements AuditInterface {
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
+	
+	@Resource
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
 	private static final String LOGIN_ACTION="login";
 	
@@ -69,5 +79,51 @@ public class AuditRestImpl implements AuditInterface {
 		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGOUT_ACTION);
 		
 		return Response.status(Status.OK).entity(userInfo).build();
+	}
+
+	@Override
+	public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(String subscriptionId) {
+		log.info("Subscription ID: " + subscriptionId);
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId(subscriptionId);
+		
+		return federalRapbackSubscriptions;
+	}
+
+	@Override
+	public Subscription[] retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request) {
+		
+		log.info("Days until expiration: " + request.getDaysUntilExpiry());
+		log.info("ORIs: " + request.getOris());
+		
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiringAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
+		
+		Subscription[] subscriptionsArray = new Subscription[subscriptions.size()];
+		subscriptionsArray = subscriptions.toArray(subscriptionsArray);
+		
+		return subscriptionsArray;
+	}
+
+	@Override
+	public Subscription[] retrieveExpiredSubscriptions(
+			ExpiringSubscriptionRequest request) {
+		log.info("Days until expiration: " + request.getDaysUntilExpiry());
+		log.info("ORIs: " + request.getOris());
+		
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiredAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
+		
+		Subscription[] subscriptionsArray = new Subscription[subscriptions.size()];
+		subscriptionsArray = subscriptions.toArray(subscriptionsArray);
+		
+		return subscriptionsArray;
+	}
+
+	@Override
+	public List<AgencyProfile> retrieveAllAgencies() {
+		
+		List<AgencyProfile> agencyProfiles = subscriptionSearchQueryDAO.returnAllAgencies();
+		
+		
+		return agencyProfiles;
 	}
 }

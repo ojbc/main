@@ -64,6 +64,7 @@ public class Subscription {
 	private String agencyCaseNumber; 
 	private String subscriptionCategoryCode; 
 	private String ori; 
+	private String agencyName;
 
 	private Map<String, String> subscriptionProperties;
 	
@@ -268,6 +269,14 @@ public class Subscription {
 
 	public void setSubscriptionOwnerLastName(String subscriptionOwnerLastName) {
 		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
+	}
+
+	public String getAgencyName() {
+		return agencyName;
+	}
+
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
 	}
 
 }

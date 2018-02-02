@@ -47,12 +47,15 @@ import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionSearchRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -68,7 +71,7 @@ public class SubscriptionSearchQueryDAO {
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
 			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, "
-			+ "so.federation_id as subscriptionOwner, "
+			+ "so.federation_id as subscriptionOwner, ap.agency_name, "
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
@@ -86,7 +89,10 @@ public class SubscriptionSearchQueryDAO {
     private static final Log log = LogFactory.getLog(SubscriptionSearchQueryDAO.class);
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate jdbcTemplateNamedParameter;
+
     private SubscriptionResultsSetExtractor resultSetExtractor;
+    private AgencyResultsExtractor agencyResultsSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
     private boolean fbiSubscriptionMember = false;
 	private Integer maxSubscriptionsCount; 
@@ -94,6 +100,7 @@ public class SubscriptionSearchQueryDAO {
     
     public SubscriptionSearchQueryDAO() {
         resultSetExtractor = new SubscriptionResultsSetExtractor();
+        agencyResultsSetExtractor = new AgencyResultsExtractor();
         setGracePeriodStrategy(new DefaultGracePeriodStrategy());
         setValidationExemptionFilter(new DefaultValidationExemptionFilter());
     }
@@ -108,8 +115,79 @@ public class SubscriptionSearchQueryDAO {
 
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.jdbcTemplateNamedParameter = new NamedParameterJdbcTemplate(dataSource);
     }
+    
+    public List<AgencyProfile> returnAllAgencies()
+    {
+    	String sqlQuery = "SELECT * FROM AGENCY_PROFILE order by agency_name";
+    	
+        List<AgencyProfile> agencies = this.jdbcTemplate.query(sqlQuery, agencyResultsSetExtractor);
+        
+        return agencies;
+    }
+    
+    //Subscriptions that are within X days of expiration/validation due
+    public List<Subscription> searchForExpiringAndInvalidSubscriptions(List<String> oris, int dayThreshold, String systemName) {
 
+    	DateTime now = new DateTime();
+    	String nowAsString = now.toString("yyyy-MM-dd");
+    	
+    	DateTime dateToCheck= now.plusDays(dayThreshold);
+    	String dateToCheckAsString = dateToCheck.toString("yyyy-MM-dd");
+    	
+        String sqlQuery = BASE_QUERY_STRING + " "
+        		+ " and ((enddate is not null "
+        		+ " and enddate > '" + nowAsString + "'"
+        		+ " and enddate < '" + dateToCheckAsString + "')"
+        		+ " OR "
+        		+ "(validationduedate is not null "
+                + " and validationduedate > '" + nowAsString + "'"
+                + " and validationduedate < '" + dateToCheckAsString + "'))"
+        		+ " and ap.agency_ori in (:ids) and subscribingsystemidentifier=:systemName  ";
+
+        log.info(sqlQuery);
+        
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("ids", oris);
+        parameters.addValue("systemName", systemName);
+        
+        List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
+
+        return subscriptions;
+    }	
+
+    //Subscriptions that have passed their end date/validation due date by X days
+    public List<Subscription> searchForExpiredAndInvalidSubscriptions(List<String> oris, int dayThreshold, String systemName) {
+
+    	DateTime now = new DateTime();
+    	String nowAsString = now.toString("yyyy-MM-dd");
+    	
+    	DateTime dateToCheck= now.minusDays(dayThreshold);
+    	String dateToCheckAsString = dateToCheck.toString("yyyy-MM-dd");
+    	
+        String sqlQuery = BASE_QUERY_STRING + " "
+        		+ " and ((enddate is not null "
+        		+ " and enddate < '" + nowAsString + "'"
+        		+ " and enddate > '" + dateToCheckAsString + "')"
+        		+ " OR "
+        		+ "(validationduedate is not null "
+                + " and validationduedate < '" + nowAsString + "'"
+                + " and validationduedate > '" + dateToCheckAsString + "'))"
+        		+ " and ap.agency_ori in (:ids) "
+        		+ " and subscribingsystemidentifier=:systemName  ";
+
+        log.info(sqlQuery);
+        
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("ids", oris);
+        parameters.addValue("systemName", systemName);
+        
+        List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
+
+        return subscriptions;
+    }	
+    
     /**
      * Search for subscriptions by the person who owns them.
      * @param subscriptionOwner the federation-wide unique identifier for the person that owns the subscriptions
@@ -168,7 +246,7 @@ public class SubscriptionSearchQueryDAO {
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
 				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
-                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + " fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
