@@ -35,7 +35,7 @@
 			</nc:ActivityDateRange>
 			<sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
 			<sqr-ext:SubscriptionQualifierIdentification>
-				<nc:IdentificationID>Q12345</nc:IdentificationID>
+				<nc:IdentificationID>Q123456</nc:IdentificationID>
 			</sqr-ext:SubscriptionQualifierIdentification>
 			<sqr-ext:SubscriptionCreationDate>
 				<nc:Date>2014-03-12</nc:Date>
