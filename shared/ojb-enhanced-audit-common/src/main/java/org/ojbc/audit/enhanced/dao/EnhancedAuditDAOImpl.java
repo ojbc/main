@@ -980,4 +980,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
 
+	@Override
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(
+			String stateSubscriptionId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM FEDERAL_RAPBACK_SUBSCRIPTION WHERE STATE_SUBSCRIPTION_ID = ?";
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = jdbcTemplate.query(SUBSCRIPTION_SELECT, new FederalRapbackSubscriptionRowMapper(), stateSubscriptionId);
+		
+		return federalRapbackSubscriptions;
+	}
+
 }

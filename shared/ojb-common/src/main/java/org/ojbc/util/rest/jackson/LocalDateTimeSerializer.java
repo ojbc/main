@@ -14,22 +14,19 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.dao;
+package org.ojbc.util.rest.jackson;
 
-import org.joda.time.Interval;
-import org.ojbc.util.model.rapback.Subscription;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
-/**
- * The interface for objects that figure out a grace period for a subscription.
- */
-public interface GracePeriodStrategy {
-    
-    /**
-     * Figure out the grace period in which a subscription must be validated prior to inactivation.
-     * @param subscription the subscription
-     * @return the grace period
-     * @throws Exception
-     */
-    public Interval getGracePeriod(Subscription subscription);
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.JsonSerializer;
+import org.codehaus.jackson.map.SerializerProvider;
 
+public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+    @Override
+    public void serialize(LocalDateTime arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException, JsonProcessingException {
+        arg1.writeString(arg0.toString());
+    }
 }

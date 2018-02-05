@@ -26,8 +26,8 @@ import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class ExpiringSubscriptionsManager {
 

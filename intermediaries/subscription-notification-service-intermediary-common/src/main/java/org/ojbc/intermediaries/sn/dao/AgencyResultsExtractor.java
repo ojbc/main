@@ -16,20 +16,29 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import org.joda.time.Interval;
-import org.ojbc.util.model.rapback.Subscription;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- * The interface for objects that figure out a grace period for a subscription.
- */
-public interface GracePeriodStrategy {
-    
-    /**
-     * Figure out the grace period in which a subscription must be validated prior to inactivation.
-     * @param subscription the subscription
-     * @return the grace period
-     * @throws Exception
-     */
-    public Interval getGracePeriod(Subscription subscription);
+import org.ojbc.util.model.rapback.AgencyProfile;
+import org.springframework.jdbc.core.RowMapper;
 
+public class AgencyResultsExtractor implements RowMapper<AgencyProfile> {
+	public AgencyProfile mapRow(ResultSet rs, int rowNum)
+			throws SQLException {
+		AgencyProfile agencyProfile = buildAgencyProfile(rs);
+		return agencyProfile;
+	}
+
+	private AgencyProfile buildAgencyProfile(
+			ResultSet rs) throws SQLException{
+
+		AgencyProfile agencyProfile = new AgencyProfile();
+		
+		agencyProfile.setAgencyName(rs.getString("AGENCY_NAME"));
+		agencyProfile.setAgencyOri(rs.getString("AGENCY_ORI"));
+		agencyProfile.setCivilAgencyIndicator(rs.getBoolean("CIVIL_AGENCY_INDICATOR"));
+		agencyProfile.setFbiSubscriptionQualification(rs.getBoolean("FBI_SUBSCRIPTION_QUALIFICATION"));
+		
+		return agencyProfile;
+	}
 }

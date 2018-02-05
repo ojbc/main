@@ -28,9 +28,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

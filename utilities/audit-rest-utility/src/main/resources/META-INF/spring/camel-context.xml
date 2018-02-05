@@ -54,9 +54,61 @@
 					<to uri="direct:auditUserLogout" />
 				</when>
 				
+				<when>
+					<simple>${header.operationName} == 'searchForFederalRapbackSubscriptions'</simple>
+					<to uri="direct:searchForFederalRapbackSubscriptionsByStateSubscriptionId" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveExpiringSubscriptions'</simple>
+					<to uri="direct:retrieveExpiringSubscriptions" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveExpiredSubscriptions'</simple>
+					<to uri="direct:retrieveExpiredSubscriptions" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveAllAgencies'</simple>
+					<to uri="direct:retrieveAllAgencies" />
+				</when>
+				
 			</choice>
 		</route>
+		
+		<route id="directRetrieveAllAgencies">
+			<from uri="direct:retrieveAllAgencies" />
+			
+			<camel:log message="Retrieve All Agencies"/>
+			
+			<bean ref="auditRestImpl" method="retrieveAllAgencies" />
+		</route>		
+		
+		<route id="directRetrieveExpiredSubscriptions">
+			<from uri="direct:retrieveExpiredSubscriptions" />
+			
+			<camel:log message="Retrieve Expired Subscriptions"/>
+			
+			<bean ref="auditRestImpl" method="retrieveExpiredSubscriptions" />
+		</route>
 
+		<route id="directRetrieveExpiringSubscriptions">
+			<from uri="direct:retrieveExpiringSubscriptions" />
+			
+			<camel:log message="Retrieve Expiring Subscriptions"/>
+			
+			<bean ref="auditRestImpl" method="retrieveExpiringSubscriptions" />
+		</route>
+
+		<route id="directSearchForFederalRapbackSubscriptionsByStateSubscriptionId">
+			<from uri="direct:searchForFederalRapbackSubscriptionsByStateSubscriptionId" />
+			
+			<camel:log message="Searching for federal subscriptions"/>
+			
+			<bean ref="auditRestImpl" method="searchForFederalRapbackSubscriptions" />
+		</route>
+		
 		<route id="directAuditPrintResults">
 			<from uri="direct:auditPrintResults" />
 			<bean ref="auditRestImpl" method="auditPrintResults" />
@@ -86,6 +138,25 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
 	</bean>    
+    
+    <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
+        <property name="dataSource" ref="dataSourceSubscriptions"/>
+		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:5000}"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:true}"/>
+    </bean>
+    
+    
+    <bean id="dataSourceSubscriptions" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
+		<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
+		<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
+		<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
+		<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
+		<property name="maxActive" value="${rapbackDatastoreAdapter.dataSource.maxPoolSize}" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testOnBorrow" value="true" />
+	</bean>	
     
 	<bean id="dataSourceEnhancedAudit" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">

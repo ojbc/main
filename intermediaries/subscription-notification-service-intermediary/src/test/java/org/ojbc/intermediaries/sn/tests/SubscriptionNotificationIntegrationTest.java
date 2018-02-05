@@ -44,13 +44,13 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.audit.AuditDAO;
 import org.ojbc.intermediaries.sn.dao.audit.NotificationsSent;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.WiserMessage;
 
