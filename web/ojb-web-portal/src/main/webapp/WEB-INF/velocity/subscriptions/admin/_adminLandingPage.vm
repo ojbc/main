@@ -18,6 +18,8 @@
 <script type="text/javascript">
  
 	$(function() {
+	  	$('#searchBarButtonDiv').hide();    		
+  	
     	var reStyleButtonsBasedOnSelection = function() {
     			// Make the selected search button blue, and the others gray
     	        $(this).siblings().addClass('grayButton').removeClass('blueButton');
@@ -27,7 +29,7 @@
 		$('#adminButtons a:not(.ui-state-disabled)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#advancedAdminSearch').click (function() { 
-			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/searchForm')")
+			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/search')")
 	    });
 	    
 	    $("#searchResultsTable").DataTable({
@@ -44,6 +46,110 @@
 		});
 	
 		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+
+		function getCheckedValues() {
+		
+			var checkedValues = $('input:checkbox:checked').map(function() {
+				var id = JSON.parse(this.value).id;
+			    return '"' + id +'":' + this.value;
+			}).get();
+			
+			if (!String(checkedValues)) {
+				return null; 
+			}
+			else {
+				return	'{' + checkedValues + '}';
+			}	  		
+		}
+	
+		$('#subscriptionButtons').on('click', '#validateLink',function() {
+			var checkedValues = getCheckedValues();	
+																																		
+			if( !checkedValues ){
+				alert('No subscriptions selected');
+				return false;
+			}
+			    
+			var confirmValidate = confirm('Are you sure you want to validate?');				
+			
+			if(!confirmValidate){
+				return false;
+			}				    				    
+			    				    
+			var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
+			
+			//call spring controller and refresh the current page with the subscription search results returned				 
+			$.post(urlRequest, function(data) {										
+			      $('#portalContent').html(data);					      
+				}
+			).fail(ojbc.displayFailMessage);
+				
+			return false;
+		});	  
+		
+		$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
+			var checkedValues = getCheckedValues();	
+			
+			if(!checkedValues){
+				alert('No subscriptions selected');
+				return false;
+			}
+			
+			//console.log("checkedValues: " + checkedValues);
+									
+			var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
+			
+			if(confirmUnsubscribe == true){
+																			
+				var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
+				
+				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+				$.get(urlRequest, function(data) {										
+				      $('#portalContent').html(data);					      
+					}
+				).fail(ojbc.displayFailMessage);
+					
+				return false;
+														 																		 
+			}else{
+			  return false;
+			}
+			
+	    });
+		
+		// listener for click on any editSubscriptionLink button
+		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
+			var editMvcUrl = encodeURI(this + "&admin=true");
+				 	    		    			
+	  		$.get(editMvcUrl, 
+	  			function(data){			  			
+	    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+	    			 vSubDialog.dialog({                    
+			                position: {
+	                           my: "left top",
+	                           at: "left top",
+	                           of: $("#stateBanner")
+			                },
+			                modal:true,
+					        maxWidth:800,
+					        maxHeight:800,
+					        resizable:false,
+					        open:function(event,ui){
+					        	$('#editSubscriptionDialog').html(data);
+					        },
+					        close: function(event, ui){
+					        	$(this).dialog("close");
+					        	$('#editSubscriptionDialog').remove();
+					        }    	                                  
+	                    }); 			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);	
+	  		
+	  		//prevent default browser navigation to link<a> href url, because we're using the url 
+	  		// as a spring mvc call
+	  		return false;		  					  					  		                                                     
+	 	});   		 
+	    
 	    
 	});
 	
