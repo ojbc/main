@@ -191,7 +191,7 @@
 				
 		    $('#searchBarButtonDiv').css("display", "none");
 
-    		xhr = $.get("#springUrl('/subscriptions/adminLandingPage')", function(data) {
+    		xhr = $.get("#springUrl('/subscriptions/admin/landingPage')", function(data) {
 				$('#portalContent').html(data);	
 			}).done(function(){
 				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {

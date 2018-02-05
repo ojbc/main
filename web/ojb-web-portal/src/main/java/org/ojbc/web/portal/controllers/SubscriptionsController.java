@@ -39,6 +39,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.tools.generic.DateTool;
@@ -224,17 +225,6 @@ public class SubscriptionsController {
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
     }
     
-    @RequestMapping("adminLandingPage")
-    public String admingDefaultSearch(HttpServletRequest request,	        
-	        Map<String, Object> model){
-		Element samlElement = samlService.getSamlAssertion(request);
-		
-		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
-		
-	    return "subscriptions/admin/_adminLandingPage";
-	}
-    
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
@@ -248,23 +238,6 @@ public class SubscriptionsController {
 	}
 
 
-	@RequestMapping(value = "advancedSearch", method = RequestMethod.POST)
-	public String advancedSearch(HttpServletRequest request,	
-			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
-	        BindingResult errors,
-	        Map<String, Object> model) {	
-		if (errors.hasErrors()) {
-			model.put("errors", errors);
-			return "subscriptions/admin/_searchForm";
-		}
-					
-		Element samlElement = samlService.getSamlAssertion(request);
-		
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
-		
-		return "subscriptions/admin/_subscriptionResults";
-	}
-	
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
 			Map<String, Object> model) {		
@@ -277,7 +250,7 @@ public class SubscriptionsController {
 		return "subscriptions/_subscriptionResults";
 	}
 
-	private void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
+	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
 			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
 		
@@ -490,7 +463,7 @@ public class SubscriptionsController {
 			
 	}
 
-	private CriminalHistoryRapsheetData getChRapsheetData(HttpServletRequest request, String sid) throws Exception {
+	CriminalHistoryRapsheetData getChRapsheetData(HttpServletRequest request, String sid) throws Exception {
 		
 		CriminalHistoryRapsheetData sidLookupResult = new CriminalHistoryRapsheetData();
 		
@@ -619,7 +592,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void initDatesForEditForm(Map<String, Object> model, String topic){
+	void initDatesForEditForm(Map<String, Object> model, String topic){
 		
 		SubscriptionStartDateStrategy editSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(topic);
 		
@@ -640,7 +613,7 @@ public class SubscriptionsController {
 		model.put("isEndDateEditable", endDateStrategy.isEditable());				
 	}
 	
-	private void initDatesForEditVehicleCrashForm(Map<String, Object> model){
+	void initDatesForEditVehicleCrashForm(Map<String, Object> model){
 		
 		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
 		
@@ -841,7 +814,7 @@ public class SubscriptionsController {
 	 * @throws Exception 
 	 * 		if no response received from subscribe operation
 	 */
-	private List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
+	List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
 				
 		if(subscription == null){
 			throw new Exception("subscription was null");
@@ -1099,6 +1072,7 @@ public class SubscriptionsController {
 	public String getSubscriptionEditModal(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
+			@RequestParam(required=false) String admin,
 			Map<String, Object> model) {
 		
 		try{			
@@ -1163,7 +1137,12 @@ public class SubscriptionsController {
 			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
 		}
 		
-		return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
+		if (! BooleanUtils.toBoolean(admin)){
+			return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
+		}
+		else{
+			return "subscriptions/admin/edit/_editSubscriptionModal";
+		}
 	}
 	
 	
@@ -1179,7 +1158,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private Document runSubscriptionQueryForEditModal(String identificationID,
+	Document runSubscriptionQueryForEditModal(String identificationID,
 			HttpServletRequest request) throws Exception {
 
 		Document subQueryResponseDoc = null;
@@ -1318,7 +1297,7 @@ public class SubscriptionsController {
 	}
 
 
-	private String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList){
+	String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList){
 				
 		String resultMessage = null;
 		
@@ -1398,7 +1377,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void refreshSubscriptionsContent(HttpServletRequest request, Map<String, Object> model, String informationMessage) {
+	void refreshSubscriptionsContent(HttpServletRequest request, Map<String, Object> model, String informationMessage) {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 		
@@ -1468,7 +1447,7 @@ public class SubscriptionsController {
 		return subscriptionPurposeMap;
 	}
 
-	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
+	Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("purpose", purpose);
@@ -1511,7 +1490,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private List<String> getValidationBindingErrorsList(Errors errors){
+	List<String> getValidationBindingErrorsList(Errors errors){
 		
 		List<String> errorMsgList = null;
 		
@@ -1645,7 +1624,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getFbiIdFromRapsheet(Document rapSheetDoc){
+	String getFbiIdFromRapsheet(Document rapSheetDoc){
 	
 		String fbiId = null;
 		
