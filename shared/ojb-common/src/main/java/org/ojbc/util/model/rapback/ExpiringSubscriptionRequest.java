@@ -14,22 +14,33 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.dao;
+package org.ojbc.util.model.rapback;
 
-import org.joda.time.Interval;
-import org.ojbc.util.model.rapback.Subscription;
+import java.util.List;
 
-/**
- * The interface for objects that figure out a grace period for a subscription.
- */
-public interface GracePeriodStrategy {
-    
-    /**
-     * Figure out the grace period in which a subscription must be validated prior to inactivation.
-     * @param subscription the subscription
-     * @return the grace period
-     * @throws Exception
-     */
-    public Interval getGracePeriod(Subscription subscription);
+public class ExpiringSubscriptionRequest {
 
+	private int daysUntilExpiry;
+	private List<String> oris;
+	private String systemName;
+	
+	public int getDaysUntilExpiry() {
+		return daysUntilExpiry;
+	}
+	public void setDaysUntilExpiry(int daysUntilExpiry) {
+		this.daysUntilExpiry = daysUntilExpiry;
+	}
+	public List<String> getOris() {
+		return oris;
+	}
+	public void setOris(List<String> oris) {
+		this.oris = oris;
+	}
+	public String getSystemName() {
+		return systemName;
+	}
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+	
 }

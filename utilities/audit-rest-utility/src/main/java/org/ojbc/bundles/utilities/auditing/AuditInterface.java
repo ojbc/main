@@ -16,16 +16,24 @@
  */
 package org.ojbc.bundles.utilities.auditing;
 
+import java.util.List;
+
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.util.model.rapback.AgencyProfile;
+import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 @Path("/audit")
 @WebService
@@ -48,5 +56,29 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response auditUserLogout(UserInfo userInfo);
+
+   @GET
+   @Path("/searchForFederalRapbackSubscriptionsByStateSubscriptionId/{subscriptionId}")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(@PathParam("subscriptionId") String subscriptionId);
+
+   @POST
+   @Path("/retrieveExpiringSubscriptions")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<Subscription> retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request );
+   
+   @POST
+   @Path("/retrieveExpiredSubscriptions")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<Subscription> retrieveExpiredSubscriptions(ExpiringSubscriptionRequest request );
+
+   @GET
+   @Path("/retrieveAllAgencies")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<AgencyProfile> retrieveAllAgencies();
 
 }

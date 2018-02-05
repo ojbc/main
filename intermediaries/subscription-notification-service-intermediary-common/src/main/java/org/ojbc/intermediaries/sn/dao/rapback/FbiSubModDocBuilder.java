@@ -22,6 +22,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.helper.OJBCXMLUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;

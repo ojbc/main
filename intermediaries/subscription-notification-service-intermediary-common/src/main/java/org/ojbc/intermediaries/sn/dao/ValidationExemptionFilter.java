@@ -16,6 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
+import org.ojbc.util.model.rapback.Subscription;
+
 /**
  * The interface for objects that express whether a Subscription is exempt from requirements to be validated.
  */

@@ -20,8 +20,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;

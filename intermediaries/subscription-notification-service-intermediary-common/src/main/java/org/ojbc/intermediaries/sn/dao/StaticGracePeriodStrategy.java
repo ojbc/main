@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * A strategy that sets the grace period with a start date of the validation due date (as determined by a passed-in ValidationDueDateStrategy) or subscription end date, and an end date some 

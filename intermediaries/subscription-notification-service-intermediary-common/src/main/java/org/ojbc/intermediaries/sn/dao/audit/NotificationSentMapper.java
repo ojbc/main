@@ -19,7 +19,7 @@ package org.ojbc.intermediaries.sn.dao.audit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.jdbc.core.RowMapper;
 
 public class NotificationSentMapper implements RowMapper<NotificationsSent> {

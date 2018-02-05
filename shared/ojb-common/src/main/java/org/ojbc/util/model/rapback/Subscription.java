@@ -14,16 +14,20 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.dao;
+package org.ojbc.util.model.rapback;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.util.rest.jackson.JodaDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.JodaDateTimeSerializer;
 
 /**
  * Data Access Object for subscriptions.
@@ -33,22 +37,35 @@ public class Subscription {
 
 	private long id;
 	
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime startDate;
+
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime endDate;
+
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime lastValidationDate;
+
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime creationDate;
 	
     private String topic;
 	
 	private String personFirstName;
-	private String personLastName;
-	private String personFullName;
-	private String dateOfBirth;
+    private String personLastName;
+    private String personFullName;
+    private String dateOfBirth;
 	
 	private Set<String> emailAddressesToNotify;
 	private Map<String, String> subscriptionSubjectIdentifiers;
 	
+	@JsonIgnore
 	private Integer subscriptionOwnerFk;
+	
 	private String subscriptionOwner;
 	private String subscriptionOwnerEmailAddress;
 	private String subscriptionOwnerFirstName;
@@ -57,16 +74,24 @@ public class Subscription {
 	private String subscriptionIdentifier;
 	private String subscribingSystemIdentifier;
 	
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime validationDueDate;
+	
 	private Interval gracePeriod;
+	
+	@JsonIgnore
 	private Boolean active; 
 	
 	private String agencyCaseNumber; 
-	private String subscriptionCategoryCode; 
-	private String ori; 
+
+	private String subscriptionCategoryCode;
+	private String ori;
+	private String agencyName;
 
 	private Map<String, String> subscriptionProperties;
 	
+	@JsonIgnore
 	private FbiRapbackSubscription fbiRapbackSubscription;
 	
     public DateTime getValidationDueDate() {
@@ -91,6 +116,7 @@ public class Subscription {
     public void setLastValidationDate(DateTime lastValidationDate) {
         this.lastValidationDate = lastValidationDate;
     }
+    
 	public DateTime getStartDate() {
 		return startDate;
 	}
@@ -268,6 +294,14 @@ public class Subscription {
 
 	public void setSubscriptionOwnerLastName(String subscriptionOwnerLastName) {
 		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
+	}
+
+	public String getAgencyName() {
+		return agencyName;
+	}
+
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
 	}
 
 }

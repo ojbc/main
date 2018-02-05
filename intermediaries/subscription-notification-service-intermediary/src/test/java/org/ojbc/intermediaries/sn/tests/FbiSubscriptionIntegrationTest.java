@@ -40,8 +40,8 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
@@ -57,7 +57,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	//TODO ensure prod java code uses correct data source
 		
 	@Resource
-	private DataSource rapbackDataSource;
+	private DataSource dataSource;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -78,7 +78,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 			
 	protected IDatabaseConnection getConnection() throws Exception {
 		
-		Connection con = rapbackDataSource.getConnection();
+		Connection con = dataSource.getConnection();
 		IDatabaseConnection connection = new DatabaseConnection(con);
 		return connection;
 	}	
