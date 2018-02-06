@@ -30,6 +30,6 @@ public interface ValidationDueDateStrategy {
      * @return the date on which the subscription must be validated
      * @throws Exception
      */
-    public DateTime getValidationDueDate(String subscriptionOwner, String topic, LocalDate validationDate);
+    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode, LocalDate validationDate);
 
 }

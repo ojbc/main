@@ -34,7 +34,11 @@
     
     <bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
         <property name="dataSource" ref="dataSource"/>
+        <property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+        <property name="validationDueDateStrategy" ref="subscriptionCategoryValidationDueDateStrategy"/>
     </bean>
+
+	<bean id="subscriptionCategoryValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />

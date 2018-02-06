@@ -22,32 +22,22 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 
-/**
- * A due date strategy that determines the due date based on a fixed number of days from the last validated date.
- */
-public class StaticValidationDueDateStrategy implements ValidationDueDateStrategy {
-    
-    private int validDays;
+public class SubscriptionCategoryValidationDueDateStrategy implements ValidationDueDateStrategy {
+
+	private int criminalSupervisionLengthInYears =5;
+	private int criminalInvestigationLengthInYears =1;
     
     /**
      * List of exempt subscription owners who don't need validation due dates
      */
     private List<String> exemptSubscriptionOwners;
 
-    public int getValidDays() {
-        return validDays;
-    }
-
-    public void setValidDays(int validDays) {
-        this.validDays = validDays;
-    }
 
     /**
      * Default constructor so exempt list property not required
      */
-    public StaticValidationDueDateStrategy ()
+    public SubscriptionCategoryValidationDueDateStrategy ()
     {
     	
     }
@@ -55,7 +45,7 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
     /**
      * This constructor takes a comma separated list of exempt owners for comparison later
      */
-    public StaticValidationDueDateStrategy (String exemptSubscriptionOwnersAsCommaSeperatedList) {
+    public SubscriptionCategoryValidationDueDateStrategy (String exemptSubscriptionOwnersAsCommaSeperatedList) {
 		
 		if (StringUtils.isNotBlank(exemptSubscriptionOwnersAsCommaSeperatedList))
 		{	
@@ -72,7 +62,7 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
      * there is no validation due date.
      */
     @Override
-    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode, LocalDate validationDate)  {
+    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode,LocalDate validationDate)  {
     	
     	//If an exempt subscriber list is defined, see if the subscription owner is in that list.
     	//The 'exempt' subscription owner is allowed to have no validation due date
@@ -89,11 +79,50 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
 		DateTime ret = null;
 
         if (validationDate != null) {
-            ret = validationDate.plusDays(validDays).toDateTimeAtCurrentTime();
+        	if (StringUtils.isNotBlank(subscriptionCategoryCode))
+        	{	
+        		if (subscriptionCategoryCode.equals("CS"))
+        		{	
+        			ret = validationDate.plusYears(criminalSupervisionLengthInYears).toDateTimeAtCurrentTime();
+        		}
+        		
+        		if (subscriptionCategoryCode.equals("CI"))
+        		{	
+        			ret = validationDate.plusYears(criminalInvestigationLengthInYears).toDateTimeAtCurrentTime();
+        		}	
+
+        	}
+        	
+        	
         }
         
         return ret;
     }
 
+	public int getCriminalSupervisionLengthInYears() {
+		return criminalSupervisionLengthInYears;
+	}
+
+	public void setCriminalSupervisionLengthInYears(
+			int criminalSupervisionLengthInYears) {
+		this.criminalSupervisionLengthInYears = criminalSupervisionLengthInYears;
+	}
+
+	public int getCriminalInvestigationLengthInYears() {
+		return criminalInvestigationLengthInYears;
+	}
+
+	public void setCriminalInvestigationLengthInYears(
+			int criminalInvestigationLengthInYears) {
+		this.criminalInvestigationLengthInYears = criminalInvestigationLengthInYears;
+	}
+
+	public List<String> getExemptSubscriptionOwners() {
+		return exemptSubscriptionOwners;
+	}
+
+	public void setExemptSubscriptionOwners(List<String> exemptSubscriptionOwners) {
+		this.exemptSubscriptionOwners = exemptSubscriptionOwners;
+	}
 
 }

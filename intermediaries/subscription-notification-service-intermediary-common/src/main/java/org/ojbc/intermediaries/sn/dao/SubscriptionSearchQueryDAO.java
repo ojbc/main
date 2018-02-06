@@ -502,7 +502,7 @@ public class SubscriptionSearchQueryDAO {
     	// allow nulls
     	Date endDate = getSqlDateFromString(request.getEndDateString());
     	
-    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request.getSubscriptionOwner(), request.getTopic(), creationDateTime);
+    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request.getSubscriptionOwner(), request.getTopic(), request.getReasonCategoryCode(), creationDateTime);
     	
     	java.util.Date validationDueDate = null;
     	

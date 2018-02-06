@@ -148,11 +148,13 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         List<Subscription> searchResponse = new ArrayList<Subscription>();
         searchResponse.add(subscriptionSearchResponse);
 
+        createFbiSubscriptions(searchResponse, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntity(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscriptionSubjects(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscriptionEmails(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-
+        createStateSubscriptionFBISubscriptionAssociation(searchResponse, root);
+        
         ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
 
         return doc;

@@ -16,6 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +26,10 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,11 +47,13 @@ public class SubscriptionValidationMessageProcessor {
 	
 	private JdbcTemplate jdbcTemplate;
 	
-	private FaultMessageProcessor faultMessageProcessor;
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+	private FaultMessageProcessor faultMessageProcessor = new FaultMessageProcessor();
 	
 	private ValidationDueDateStrategy validationDueDateStrategy;
 	
-	private static final String SUBSCRIPTION_VALIDATION_QUERY = "update subscription set lastValidationDate = curdate() where id = ?";
+	private static final String SUBSCRIPTION_VALIDATION_QUERY = "update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =? where id = ?";
 	
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -65,9 +72,14 @@ public class SubscriptionValidationMessageProcessor {
 		
 		String subscriptionID="";
 		
+		List<Subscription> subscriptions = null;
+		Subscription subscription = null;
+		
 		//Try to get the subscription ID.  If not found or not set, create a fault
 		try {
 			subscriptionID = returnSubscriptionIDFromSubscriptionValidationRequestMessage(subscriptionValidationRequestMessage);
+			subscriptions = subscriptionSearchQueryDAO.queryForSubscription(subscriptionID);
+			subscription = subscriptions.get(0);
 		} catch (Exception e) {
 			
 			exchange.getIn().setHeader("subscriptionID", subscriptionID);
@@ -76,10 +88,11 @@ public class SubscriptionValidationMessageProcessor {
 			return;
 		}
 
-		//TODO: We need to get topic, subscription owner and creation date here 
-		//validationDueDateStrategy.getValidationDueDate(request.get, creationDate);
+		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription.getSubscriptionOwner(), subscription.getTopic(), subscription.getSubscriptionCategoryCode(), subscription.getLastValidationDate().toLocalDate());
 		
-		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {subscriptionID.trim()});
+		String validationDueDateString = validationDueDate.toString("yyyy-MM-dd");
+		
+		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {validationDueDateString, validationDueDateString, subscriptionID.trim()});
 		
 		//Send a good response back if a row has been updated
 		if (rowsUpdated == 1)
@@ -173,5 +186,16 @@ public class SubscriptionValidationMessageProcessor {
 	public void setValidationDueDateStrategy(
 			ValidationDueDateStrategy validationDueDateStrategy) {
 		this.validationDueDateStrategy = validationDueDateStrategy;
+	}
+
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+
+	public void setSubscriptionSearchQueryDAO(
+			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
 }

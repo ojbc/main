@@ -37,6 +37,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -56,10 +57,13 @@ public class TestSubscriptionValidationMessageProcessor {
 	@Autowired
 	private SubscriptionValidationMessageProcessor subscriptionValidationMessageProcessor;
 
+    //This is used to update database to achieve desired state for test
+	private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
-		subscriptionValidationMessageProcessor = new SubscriptionValidationMessageProcessor();
 		subscriptionValidationMessageProcessor.setDataSource(dataSource);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Test
@@ -76,6 +80,9 @@ public class TestSubscriptionValidationMessageProcessor {
 
 		ex.getIn().setBody(document);
 
+		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62720'");
+		assertEquals(1,rowsUpdated);
+		
 		subscriptionValidationMessageProcessor.validateSubscription(ex);
 
 		Document response = (Document) ex.getIn().getBody();
