@@ -111,6 +111,16 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
                     {
                     	throw new IllegalStateException("Creation date can not be null");
                     }	
+                    
+                    Date lastUpdatedDate = rs.getDate("lastUpdatedDate");
+                    if (lastUpdatedDate != null)
+                    {
+                        subscription.setLastUpdatedDate(new DateTime(lastUpdatedDate));
+                    }
+                    else
+                    {
+                    	throw new IllegalStateException("Last updated date can not be null");
+                    }	                    
 
 	            	if (validationExemptionFilter.requiresValidation(subscription)) {
 	                    Date validationDueDate = rs.getDate("validationDueDate");

@@ -72,7 +72,7 @@ public class SubscriptionSearchQueryDAO {
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
 			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, "
-			+ "so.federation_id as subscriptionOwner, ap.agency_name, "
+			+ "so.federation_id as subscriptionOwner, ap.agency_name, s.timestamp as lastUpdatedDate, "
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
@@ -246,7 +246,7 @@ public class SubscriptionSearchQueryDAO {
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
-				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
+				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName,  s.timestamp as lastUpdatedDate, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + " fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
@@ -268,7 +268,7 @@ public class SubscriptionSearchQueryDAO {
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subjectName,  "
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 				+ "so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
-				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
+				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, s.timestamp as lastUpdatedDate,"
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub  "
@@ -502,14 +502,13 @@ public class SubscriptionSearchQueryDAO {
     	// allow nulls
     	Date endDate = getSqlDateFromString(request.getEndDateString());
     	
-    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request, creationDateTime);
+    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request.getSubscriptionOwner(), request.getTopic(), creationDateTime);
     	
     	java.util.Date validationDueDate = null;
     	
-    	
     	if (validationDueDateRet != null)
     	{	
-    		validationDueDate =  validationDueDateStrategy.getValidationDueDate(request, creationDateTime).toDate();
+    		validationDueDate =  validationDueDateRet.toDate();
     	}	
     	
     	java.util.Date creationDate = creationDateTime.toDateTimeAtStartOfDay().toDate();

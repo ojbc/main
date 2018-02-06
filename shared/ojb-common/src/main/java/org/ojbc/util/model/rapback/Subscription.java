@@ -52,7 +52,11 @@ public class Subscription {
 	@JsonSerialize(using = JodaDateTimeSerializer.class)
 	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
 	private DateTime creationDate;
-	
+
+	@JsonSerialize(using = JodaDateTimeSerializer.class)
+	@JsonDeserialize(using = JodaDateTimeDeserializer.class)
+	private DateTime lastUpdatedDate;
+
     private String topic;
 	
 	private String personFirstName;
@@ -302,6 +306,14 @@ public class Subscription {
 
 	public void setAgencyName(String agencyName) {
 		this.agencyName = agencyName;
+	}
+
+	public DateTime getLastUpdatedDate() {
+		return lastUpdatedDate;
+	}
+
+	public void setLastUpdatedDate(DateTime lastUpdatedDate) {
+		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
 }

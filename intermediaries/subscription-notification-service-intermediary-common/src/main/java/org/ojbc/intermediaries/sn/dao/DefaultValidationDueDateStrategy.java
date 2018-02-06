@@ -18,7 +18,6 @@ package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 
 /**
  * A default (Null Object) implementation of the strategy.
@@ -29,7 +28,7 @@ public class DefaultValidationDueDateStrategy implements ValidationDueDateStrate
      * The default implementation returns a null date, indicating that validation is never due.
      */
     @Override
-    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate creationDate) {
+    public DateTime getValidationDueDate(String subscriptionOwner, String topic, LocalDate validationDate) {
         return null;
     }
 

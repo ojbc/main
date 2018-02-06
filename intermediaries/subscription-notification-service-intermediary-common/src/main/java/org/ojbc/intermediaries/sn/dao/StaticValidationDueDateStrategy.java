@@ -72,7 +72,7 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
      * there is no validation due date.
      */
     @Override
-    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate creationDate)  {
+    public DateTime getValidationDueDate(String subscriptionOwner, String topic, LocalDate validationDate)  {
     	
     	//If an exempt subscriber list is defined, see if the subscription owner is in that list.
     	//The 'exempt' subscription owner is allowed to have no validation due date
@@ -80,7 +80,7 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
 		{
 			//determine if submitting ORI exists in the list of authorized ORIs
 			for(String s:exemptSubscriptionOwners){
-				if(s.replaceAll("\\s","").equalsIgnoreCase(request.getSubscriptionOwner())){
+				if(s.replaceAll("\\s","").equalsIgnoreCase(subscriptionOwner)){
 					return null;
 				}
 			}
@@ -88,8 +88,8 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
     	
 		DateTime ret = null;
 
-        if (creationDate != null) {
-            ret = creationDate.plusDays(validDays).toDateTimeAtCurrentTime();
+        if (validationDate != null) {
+            ret = validationDate.plusDays(validDays).toDateTimeAtCurrentTime();
         }
         
         return ret;

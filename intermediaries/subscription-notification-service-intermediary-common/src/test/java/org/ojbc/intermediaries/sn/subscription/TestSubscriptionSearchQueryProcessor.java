@@ -115,7 +115,7 @@ public class TestSubscriptionSearchQueryProcessor {
         
         Document doc = processor.buildSubscriptionQueryResponseDoc(subscriptionSearchResponse);
 
-        //XmlUtils.printNode(doc);
+        //sXmlUtils.printNode(doc);
         
         //XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd", 
         //      "Subset/niem", "exchange_schema.xsd", doc);
@@ -132,11 +132,22 @@ public class TestSubscriptionSearchQueryProcessor {
         
         String endDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date");
         assertEquals("2014-04-05",endDate);
-        
+
+        String creationDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionCreationDate/nc:Date");
+        assertEquals("2013-03-13",creationDate);
+
+        String lastUpdatedDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionLastUpdatedDate/nc:Date");
+        assertEquals("2013-03-13",lastUpdatedDate);
+
         String agencyCaseNumber = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
         assertEquals("123",agencyCaseNumber);
-        
-        
+
+        String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionActiveIndicator");
+        assertEquals("true",subscriptionActiveIndicator);
+
+        String subscriptionQualifierIdentification = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionQualifierIdentification");
+        assertEquals("2109639",subscriptionQualifierIdentification);
+
         String personReference = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
         assertEquals("P0",personReference);
         
@@ -419,6 +430,10 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptionSearchResponse.setSubscriptionProperties(subscriptionProperties);
         subscriptionSearchResponse.setAgencyCaseNumber("123");
+        subscriptionSearchResponse.setActive(true);
+        subscriptionSearchResponse.setCreationDate(startDateDate);
+        subscriptionSearchResponse.setLastUpdatedDate(startDateDate);
+
         
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
@@ -445,6 +460,9 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setValidationDueDate(validationDueDate);
         subscriptionSearchResponse.setGracePeriod(new Interval(validationDueDate, validationDueDate.plusDays(30)));
         subscriptionSearchResponse.setLastValidationDate(startDateDate);
+        subscriptionSearchResponse.setActive(true);
+        subscriptionSearchResponse.setCreationDate(startDateDate);
+        subscriptionSearchResponse.setLastUpdatedDate(startDateDate);
         
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
