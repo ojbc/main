@@ -28,7 +28,7 @@ public class DefaultValidationDueDateStrategy implements ValidationDueDateStrate
      * The default implementation returns a null date, indicating that validation is never due.
      */
     @Override
-    public DateTime getValidationDueDate(String subscriptionOwner, String topic, LocalDate validationDate) {
+    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode, LocalDate validationDate) {
         return null;
     }
 

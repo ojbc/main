@@ -18,13 +18,9 @@ package org.ojbc.intermediaries.sn.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultMessage;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -33,24 +29,21 @@ import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
 import org.w3c.dom.Document;
 
-public class TestTopicMapValidationDueDateStrategy {
-    
-    @Test
-    public void testTopicMapValidationDueDateStrategy() throws Exception{
-        
-        StaticValidationDueDateStrategy staticStrategy1 = new StaticValidationDueDateStrategy();
-        StaticValidationDueDateStrategy staticStrategy2 = new StaticValidationDueDateStrategy();
-        staticStrategy1.setValidDays(10);
-        staticStrategy2.setValidDays(20);
-        
-        Map<String, ValidationDueDateStrategy> map = new HashMap<String, ValidationDueDateStrategy>();
-        map.put("t1", staticStrategy1);
-        map.put("t2", staticStrategy2);
-        
-        TopicMapValidationDueDateStrategy strategy = new TopicMapValidationDueDateStrategy(map);
-        
+/**
+ * Basic unit test for static validation due date strategy.
+ *
+ */
+public class TestSubscriptionCategoryValidationDueDateStrategy {
+
+	@Test
+	public void testStaticValidationDueDateStrategy() throws Exception
+	{
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 		
+		SubscriptionCategoryValidationDueDateStrategy strategy = new SubscriptionCategoryValidationDueDateStrategy();
+		
+		DateTime currentDate = new DateTime();
+
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
 		
 		Message message = new DefaultMessage();
@@ -62,17 +55,10 @@ public class TestTopicMapValidationDueDateStrategy {
 		
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
-        
-        DateTime baseDate = DateTime.now();
-        
-        sub.setTopic("t1");
-        DateTime validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t1","", new LocalDate());
-        assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
-
-        sub.setTopic("t2");
-        validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t2", "",new LocalDate());
-        assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
-
-    }
-
+		
+		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "CI",new LocalDate())));
+		
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "CS",new LocalDate())));
+	}
+	
 }
