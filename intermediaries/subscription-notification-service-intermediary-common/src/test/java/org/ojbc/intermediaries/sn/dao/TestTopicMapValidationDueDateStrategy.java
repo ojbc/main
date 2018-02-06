@@ -66,11 +66,11 @@ public class TestTopicMapValidationDueDateStrategy {
         DateTime baseDate = DateTime.now();
         
         sub.setTopic("t1");
-        DateTime validationDueDate = strategy.getValidationDueDate(sub, new LocalDate());
+        DateTime validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t1", new LocalDate());
         assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
 
         sub.setTopic("t2");
-        validationDueDate = strategy.getValidationDueDate(sub, new LocalDate());
+        validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t2", new LocalDate());
         assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
 
     }

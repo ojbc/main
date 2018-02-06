@@ -20,13 +20,13 @@ import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,6 +43,8 @@ public class SubscriptionValidationMessageProcessor {
 	private JdbcTemplate jdbcTemplate;
 	
 	private FaultMessageProcessor faultMessageProcessor;
+	
+	private ValidationDueDateStrategy validationDueDateStrategy;
 	
 	private static final String SUBSCRIPTION_VALIDATION_QUERY = "update subscription set lastValidationDate = curdate() where id = ?";
 	
@@ -73,6 +75,9 @@ public class SubscriptionValidationMessageProcessor {
 			faultMessageProcessor.createFault(exchange);
 			return;
 		}
+
+		//TODO: We need to get topic, subscription owner and creation date here 
+		//validationDueDateStrategy.getValidationDueDate(request.get, creationDate);
 		
 		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {subscriptionID.trim()});
 		
@@ -157,5 +162,16 @@ public class SubscriptionValidationMessageProcessor {
 
 	public void setFaultMessageProcessor(FaultMessageProcessor faultMessageProcessor) {
 		this.faultMessageProcessor = faultMessageProcessor;
+	}
+
+
+	public ValidationDueDateStrategy getValidationDueDateStrategy() {
+		return validationDueDateStrategy;
+	}
+
+
+	public void setValidationDueDateStrategy(
+			ValidationDueDateStrategy validationDueDateStrategy) {
+		this.validationDueDateStrategy = validationDueDateStrategy;
 	}
 }

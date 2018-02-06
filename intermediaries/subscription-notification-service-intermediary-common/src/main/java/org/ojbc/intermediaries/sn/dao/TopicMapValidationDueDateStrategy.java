@@ -41,13 +41,12 @@ public class TopicMapValidationDueDateStrategy implements ValidationDueDateStrat
 
 
 	@Override
-	public DateTime getValidationDueDate(SubscriptionRequest request,
-			LocalDate creationDate) {
-        String topic = request.getTopic();
-        if (topic != null) {
+	public DateTime getValidationDueDate(String subscriptionOwner, String topic, LocalDate validationDate) {
+
+		if (topic != null) {
             ValidationDueDateStrategy s = map.get(topic);
             if (s != null) {
-                return s.getValidationDueDate(request, creationDate);
+                return s.getValidationDueDate(subscriptionOwner, topic, validationDate);
             }
             throw new IllegalArgumentException("Topic " + topic + " not found in validation due date strategy map");
         }

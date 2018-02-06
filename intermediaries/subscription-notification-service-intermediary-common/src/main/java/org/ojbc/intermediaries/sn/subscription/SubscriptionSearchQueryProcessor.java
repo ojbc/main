@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.subscription;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -37,7 +38,6 @@ import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcessor{
@@ -300,7 +300,51 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
         XmlUtils.appendActivityDateRangeElement(subscriptionElement,  OjbcNamespaceContext.NS_NC,
         		subscriptionSearchResponse.getStartDate(), subscriptionSearchResponse.getEndDate());
+
+//		<sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
+//		<sqr-ext:SubscriptionQualifierIdentification>
+//			<nc:IdentificationID>Q123456</nc:IdentificationID>
+//		</sqr-ext:SubscriptionQualifierIdentification>
+//		<sqr-ext:SubscriptionCreationDate>
+//			<nc:Date>2014-03-12</nc:Date>
+//		</sqr-ext:SubscriptionCreationDate>
+//		<sqr-ext:SubscriptionLastUpdatedDate>
+//			<nc:Date>2014-05-20</nc:Date>
+//		</sqr-ext:SubscriptionLastUpdatedDate>        
+        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
+        subscriptionActiveIndicatorElement.setTextContent(subscriptionSearchResponse.getActive().toString());
         
+        Map<String, String> identifiers = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers();
+        String subscriptionQualifier = identifiers.get("subscriptionQualifier");
+        
+        if (StringUtils.isNotBlank(subscriptionQualifier))
+        {
+        	Element subscriptionQualifierIdentificationElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionQualifierIdentification");
+        	subscriptionQualifierIdentificationElement.setTextContent(subscriptionQualifier);
+        }	
+        
+        DateTime creationDate = subscriptionSearchResponse.getCreationDate();
+        
+        if (creationDate != null) {
+            if (creationDate != null) {
+                Element e = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionCreationDate");
+                e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
+                e.setTextContent(creationDate.toString("yyyy-MM-dd"));
+            }
+
+        }
+
+        DateTime lastUpdatedDate = subscriptionSearchResponse.getLastUpdatedDate();
+        
+        if (lastUpdatedDate != null) {
+            if (lastUpdatedDate != null) {
+                Element e = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionLastUpdatedDate");
+                e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
+                e.setTextContent(lastUpdatedDate.toString("yyyy-MM-dd"));
+            }
+
+        }
+
 //		<sqr-ext:SubscriptionRelatedCaseIdentification>
 //			<nc:IdentificationID>0123ABC</nc:IdentificationID>
 //		</sqr-ext:SubscriptionRelatedCaseIdentification>

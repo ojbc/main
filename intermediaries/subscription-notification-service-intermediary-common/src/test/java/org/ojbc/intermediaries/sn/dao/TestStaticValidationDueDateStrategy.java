@@ -59,13 +59,13 @@ public class TestStaticValidationDueDateStrategy {
 		
 		sub.setSubscriptionOwner("SYSTEM");
 		
-		assertNull(staticValidationDueDateStrategy.getValidationDueDate(sub, new LocalDate()));
+		assertNull(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", new LocalDate()));
 		
 		sub.setSubscriptionOwner("NOT_SYSTEM");
-		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub, new LocalDate())));
+		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", new LocalDate())));
 		
 		staticValidationDueDateStrategy.setValidDays(30);
-		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub, new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", new LocalDate())));
 	}
 	
 }
