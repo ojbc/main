@@ -252,8 +252,8 @@ public class TestAuditRestImpl {
 		
 		assertEquals(2, subscriptions.size());
 		assertEquals("2014-10-15",subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
-		assertEquals("2018-02-03",subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
-		assertEquals("2018-02-02",subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+		assertEquals(updatedEndDateAsString,subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals(now.toString("yyyy-MM-dd"),subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
 		assertEquals("2014-10-15",subscriptions.get(0).getCreationDate().toString("yyyy-MM-dd"));
 		
 		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
@@ -306,8 +306,8 @@ public class TestAuditRestImpl {
 		
 		assertEquals(2, subscriptions.size());
 		assertEquals("2014-10-15",subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
-		assertEquals("2018-02-01",subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
-		assertEquals("2018-02-02",subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+		assertEquals(updatedEndDateAsString,subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals(now.toString("yyyy-MM-dd"),subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
 		assertEquals("2014-10-15",subscriptions.get(0).getCreationDate().toString("yyyy-MM-dd"));
 		
 		assertEquals("12345",subscriptions.get(0).getAgencyCaseNumber());
