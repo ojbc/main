@@ -70,6 +70,9 @@
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="sqr-ext:SubscriptionActiveIndicator" minOccurs="0" />
+					<xsd:element ref="sqr-ext:SubscriptionQualifierIdentification" minOccurs="0" />
+					<xsd:element ref="sqr-ext:SubscriptionCreationDate" minOccurs="0" />
+					<xsd:element ref="sqr-ext:SubscriptionLastUpdatedDate" minOccurs="0" />
 					<xsd:element ref="sqr-ext:SubscriptionRelatedCaseIdentification" minOccurs="0" />
 					<xsd:element ref="sqr-ext:FBISubscription" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation" />
@@ -100,6 +103,22 @@
 	<xsd:element name="SubscriptionActiveIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the subscription is active; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionQualifierIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A qualifying subscription ID provided by the Subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionCreationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date a subscription was created.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionLastUpdatedDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date a subscription was last updated.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="FBISubscriptionType">

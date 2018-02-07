@@ -34,6 +34,15 @@
 				</nc:EndDate>
 			</nc:ActivityDateRange>
 			<sqr-ext:SubscriptionActiveIndicator>false</sqr-ext:SubscriptionActiveIndicator>
+			<sqr-ext:SubscriptionQualifierIdentification>
+				<nc:IdentificationID>Q123456</nc:IdentificationID>
+			</sqr-ext:SubscriptionQualifierIdentification>
+			<sqr-ext:SubscriptionCreationDate>
+				<nc:Date>2014-03-12</nc:Date>
+			</sqr-ext:SubscriptionCreationDate>
+			<sqr-ext:SubscriptionLastUpdatedDate>
+				<nc:Date>2014-05-20</nc:Date>
+			</sqr-ext:SubscriptionLastUpdatedDate>
 			<sqr-ext:SubscriptionRelatedCaseIdentification>
 				<nc:IdentificationID>0123ABC</nc:IdentificationID>
 			</sqr-ext:SubscriptionRelatedCaseIdentification>

@@ -17,18 +17,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	targetNamespace="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./Subset/niem/structures/2.0/structures.xsd" />
 	<xsd:complexType name="SubscriptionQueryRequestType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="sqreq-ext:SubscriptionIdentification"/>
+					<xsd:element ref="sqreq-ext:AdminQueryRequestIndicator" minOccurs="0" />
+					<xsd:element ref="sqreq-ext:SubscriptionIdentification" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -36,6 +35,11 @@
 	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AdminQueryRequestIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the request is an admin query request; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
