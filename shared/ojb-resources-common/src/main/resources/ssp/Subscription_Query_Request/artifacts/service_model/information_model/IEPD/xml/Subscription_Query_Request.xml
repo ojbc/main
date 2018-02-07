@@ -17,9 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<sqreq:SubscriptionQueryRequest xmlns:Q3="http://niem.gov/niem/niem-core/2.0" xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0" xmlns:sqreq="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0" xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0 exchange_schema.xsd ">
-  <sqreq-ext:SubscriptionIdentification>
-    <Q3:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</Q3:IdentificationID>
-    <Q3:IdentificationSourceText>Subscriptions</Q3:IdentificationSourceText>
-  </sqreq-ext:SubscriptionIdentification>
+<sqreq:SubscriptionQueryRequest xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0"
+	xmlns:sqreq="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0" xmlns:p1="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0 ../xsd/exchange_schema.xsd ">
+	<sqreq-ext:AdminQueryRequestIndicator>true</sqreq-ext:AdminQueryRequestIndicator>
+	<sqreq-ext:SubscriptionIdentification>
+		<nc:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
+		<nc:IdentificationSourceText>Subscriptions</nc:IdentificationSourceText>
+	</sqreq-ext:SubscriptionIdentification>
 </sqreq:SubscriptionQueryRequest>
