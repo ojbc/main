@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_CREATION;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_UPDATE;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -37,8 +38,6 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -129,9 +128,9 @@ public class TestSubscriptionReportingService {
 		assertEquals("123456", fbiRapbackSubscriptionAfterReporting.getFbiSubscriptionId());
 		assertEquals("F", fbiRapbackSubscriptionAfterReporting.getRapbackCategory());
 		assertEquals("5", fbiRapbackSubscriptionAfterReporting.getSubscriptionTerm());
-		assertEquals(new DateTime(2010,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackExpirationDate());
-		assertEquals(new DateTime(2015,1,1,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackTermDate());
-		assertEquals(new DateTime(2011,01,25,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackStartDate());
+		assertEquals(LocalDate.of(2010,2,24), fbiRapbackSubscriptionAfterReporting.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2015,1,1), fbiRapbackSubscriptionAfterReporting.getRapbackTermDate());
+		assertEquals(LocalDate.of(2011,01,25), fbiRapbackSubscriptionAfterReporting.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterReporting.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterReporting.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterReporting.getUcn());
@@ -163,9 +162,9 @@ public class TestSubscriptionReportingService {
 		assertEquals("123456", fbiRapbackSubscriptionAfterUpdate.getFbiSubscriptionId());
 		assertEquals("F", fbiRapbackSubscriptionAfterUpdate.getRapbackCategory());
 		assertEquals("5", fbiRapbackSubscriptionAfterUpdate.getSubscriptionTerm());
-		assertEquals(new DateTime(2010,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
-		assertEquals(new DateTime(2015,1,1,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackTermDate());
-		assertEquals(new DateTime(2011,1,25,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackStartDate());
+		assertEquals(LocalDate.of(2010,2,24), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2015,1,1), fbiRapbackSubscriptionAfterUpdate.getRapbackTermDate());
+		assertEquals(LocalDate.of(2011,1,25), fbiRapbackSubscriptionAfterUpdate.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterUpdate.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterUpdate.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterUpdate.getUcn());

@@ -55,7 +55,7 @@ public final class OJBCDateUtils {
 				return LocalDateTime.parse(dateTimeString);
 			}
 			else{
-				log.warn("The dateTimeString can not be blank");
+				log.warn("The dateTimeString is blank");
 			}
 		}
 		catch (DateTimeParseException e){
@@ -76,7 +76,7 @@ public final class OJBCDateUtils {
 				return LocalDate.parse(dateString);
 			}
 			else{
-				log.warn("The dateString can not be blank");
+				log.warn("The dateString is blank");
 			}
 		}
 		catch (DateTimeParseException e){

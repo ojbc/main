@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -53,6 +54,7 @@ import org.w3c.dom.NodeList;
         "classpath:META-INF/spring/subscription-management-routes.xml"
       })
 @DirtiesContext
+@Ignore
 public class TestSubscriptionModificationXMLProcessor {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionModificationXMLProcessor.class );
