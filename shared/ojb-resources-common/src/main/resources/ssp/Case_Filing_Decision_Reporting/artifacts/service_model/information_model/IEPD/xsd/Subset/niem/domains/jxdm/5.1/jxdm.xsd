@@ -26,6 +26,18 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an activity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:CaseLinkage" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityCaseAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
@@ -107,6 +119,7 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
+          <xs:element ref="j:CaseAmendedCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
@@ -114,7 +127,20 @@
           <xs:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOtherEntity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseLinkageType">
+    <xs:annotation>
+      <xs:documentation>A data type for an identifying number for a case submitted by an agency which is known or believed to be related to the case of this activity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:OrganizationORIIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -125,6 +151,14 @@
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="j:JudicialOfficialType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ChargeType">
@@ -138,7 +172,9 @@
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
@@ -147,6 +183,7 @@
           <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeVictim" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -380,10 +417,31 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectOffenderNoticeText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectCautionInformation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="VictimType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VictimEntity" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActivityAugmentation" type="j:ActivityAugmentationType" substitutionGroup="nc:ActivityAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and a case.</xs:documentation>
@@ -444,6 +502,11 @@
       <xs:documentation>A code indicating whether or not the driver held a CDL/CLP at the time of the citation.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseAmendedCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A charge different than the original charge a person is being tried for in a court of law.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
     <xs:annotation>
       <xs:documentation>Additional information about a case.</xs:documentation>
@@ -484,9 +547,19 @@
       <xs:documentation>A judicial official assigned to a case.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseLinkage" type="j:CaseLinkageType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifying number for a case submitted by an agency which is known or believed to be related to the case of this activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseOfficial" type="j:CaseOfficialType" nillable="true">
     <xs:annotation>
       <xs:documentation>A justice official's involvement in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOtherEntity" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A miscellaneous entity involved in a court case.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseProsecutionAttorney" type="j:CaseOfficialType" nillable="true">
@@ -524,9 +597,19 @@
       <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a charge was filed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identification number assigned to a particular charge by an arresting agency, prosecuting attorney, or a court for case management purposes.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeQualifierText" type="nc:TextType" nillable="true">
@@ -567,6 +650,11 @@
   <xs:element name="ChargeTrackingIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identification number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeVictim" type="j:VictimType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person or entity who is the victim of an offense designated by the charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
@@ -674,6 +762,16 @@
       <xs:documentation>A relationship between an offense and a location at which the offense occurred.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationIdentification" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an identification for an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationORIIdentification" type="nc:IdentificationType" substitutionGroup="j:OrganizationIdentification" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint">
     <xs:annotation>
       <xs:documentation>Additional information about a person.</xs:documentation>
@@ -714,6 +812,31 @@
       <xs:documentation>An identification of a criminal offense within a code book.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="SubjectAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SubjectType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectCautionInformation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a piece of cautionary information about a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectCautionInformationCode" type="ncic:CMCCodeType" substitutionGroup="j:SubjectCautionInformation">
+    <xs:annotation>
+      <xs:documentation>A piece of cautionary information about a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectCautionInformationText" type="nc:TextType" substitutionGroup="j:SubjectCautionInformation">
+    <xs:annotation>
+      <xs:documentation>A piece of cautionary information about a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectOffenderNoticeText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An additional piece of information associated with a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="TelephoneNumberHomeIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if this is the person's home number; false otherwise.</xs:documentation>
@@ -727,6 +850,21 @@
   <xs:element name="TelephoneNumberWorkIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if this is a work number; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VictimEntity" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an entity who suffers injury, loss, or death as a result of an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VictimOrganization" type="nc:OrganizationType" substitutionGroup="j:VictimEntity">
+    <xs:annotation>
+      <xs:documentation>An entity who suffers injury, loss, or death as a result of an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VictimPerson" type="nc:PersonType" substitutionGroup="j:VictimEntity" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity who suffers injury, loss, or death as a result of an incident.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
