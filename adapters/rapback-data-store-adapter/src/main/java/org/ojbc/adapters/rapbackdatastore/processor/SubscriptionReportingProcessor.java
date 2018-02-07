@@ -29,6 +29,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,13 +103,13 @@ public class SubscriptionReportingProcessor {
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat(rapBackActivityNotificationFormatCode);
 		
 		String rapBackExpirationDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackExpirationDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackExpirationDate(XmlUtils.parseXmlDate(rapBackExpirationDate));
+		fbiRapbackSubscription.setRapbackExpirationDate(OJBCDateUtils.parseLocalDate(rapBackExpirationDate));
 		
 		String rapBackInStateOptOutIndicator = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackInStateOptOutIndicator");
 		fbiRapbackSubscription.setRapbackOptOutInState(BooleanUtils.toBooleanObject(rapBackInStateOptOutIndicator));
 		
 		String rapBackSubscriptionDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackSubscriptionDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackStartDate(XmlUtils.parseXmlDate(rapBackSubscriptionDate));
+		fbiRapbackSubscription.setRapbackStartDate(OJBCDateUtils.parseLocalDate(rapBackSubscriptionDate));
 		
 		String rapBackSubscriptionIdentification = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackSubscriptionIdentification/nc30:IdentificationID");
 		fbiRapbackSubscription.setFbiSubscriptionId(rapBackSubscriptionIdentification);
@@ -117,7 +118,7 @@ public class SubscriptionReportingProcessor {
 		fbiRapbackSubscription.setSubscriptionTerm(rapBackSubscriptionTermCode);
 		
 		String rapBackTermDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackTermDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackTermDate(XmlUtils.parseXmlDate(rapBackTermDate));
+		fbiRapbackSubscription.setRapbackTermDate(OJBCDateUtils.parseLocalDate(rapBackTermDate));
 		
 		String ucn = XmlUtils.xPathStringSearch(rootNode, "nc30:Person[@s30:id=../jxdm50:Subject/nc30:RoleOfPerson/@s30:ref]/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
 		fbiRapbackSubscription.setUcn(ucn);
@@ -137,13 +138,13 @@ public class SubscriptionReportingProcessor {
 		fbiRapbackSubscription.setRapbackCategory(rapBackCategoryCode);
 		
 		String rapBackExpirationDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackExpirationDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackExpirationDate(XmlUtils.parseXmlDate(rapBackExpirationDate));
+		fbiRapbackSubscription.setRapbackExpirationDate(OJBCDateUtils.parseLocalDate(rapBackExpirationDate));
 		
 		String rapBackInStateOptOutIndicator = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackInStateOptOutIndicator");
 		fbiRapbackSubscription.setRapbackOptOutInState(BooleanUtils.toBooleanObject(rapBackInStateOptOutIndicator));
 		
 		String rapBackSubscriptionDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackSubscriptionDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackStartDate(XmlUtils.parseXmlDate(rapBackSubscriptionDate));
+		fbiRapbackSubscription.setRapbackStartDate(OJBCDateUtils.parseLocalDate(rapBackSubscriptionDate));
 		
 		String rapBackSubscriptionIdentification = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackSubscriptionIdentification/nc30:IdentificationID");
 		fbiRapbackSubscription.setFbiSubscriptionId(rapBackSubscriptionIdentification);
@@ -155,7 +156,7 @@ public class SubscriptionReportingProcessor {
 		fbiRapbackSubscription.setSubscriptionTerm(rapBackSubscriptionTermCode);
 		
 		String rapBackTermDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackTermDate/nc30:Date");
-		fbiRapbackSubscription.setRapbackTermDate(XmlUtils.parseXmlDate(rapBackTermDate));
+		fbiRapbackSubscription.setRapbackTermDate(OJBCDateUtils.parseLocalDate(rapBackTermDate));
 		
 		String ucn = XmlUtils.xPathStringSearch(rootNode, 
 				"nc30:Person[@s30:id=../jxdm50:Subject/nc30:RoleOfPerson/@s30:ref]/jxdm50:PersonAugmentation"

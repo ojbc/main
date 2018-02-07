@@ -145,8 +145,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return date == null? null : new java.sql.Date(date.getMillis()); 
 	}
 	
-	private Date toDate(DateTime date){
-		return date == null? null : date.toDate(); 
+	private Date toSqlDate(LocalDate date){
+		return date == null? null : java.sql.Date.valueOf(date); 
 	}
 
 	@Override
@@ -310,9 +310,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            fbiRapbackSubscription.getUcn(),
         	            fbiRapbackSubscription.getRapbackCategory(),
         	            fbiRapbackSubscription.getSubscriptionTerm(),
-        	            toDate(fbiRapbackSubscription.getRapbackExpirationDate()),
-        	            toDate(fbiRapbackSubscription.getRapbackStartDate()),
-        	            toDate(fbiRapbackSubscription.getRapbackTermDate()),
+        	            toSqlDate(fbiRapbackSubscription.getRapbackExpirationDate()),
+        	            toSqlDate(fbiRapbackSubscription.getRapbackStartDate()),
+        	            toSqlDate(fbiRapbackSubscription.getRapbackTermDate()),
         	            fbiRapbackSubscription.getRapbackOptOutInState(),
         	            fbiRapbackSubscription.getRapbackActivityNotificationFormat(),
         	            fbiRapbackSubscription.getStateSubscriptionId());
@@ -774,9 +774,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		paramMap.put("rapbackSubscriptionTermCode", fbiRapbackSubscription.getSubscriptionTerm()); 
-		paramMap.put("rapbackExpirationDate", toDate(fbiRapbackSubscription.getRapbackExpirationDate())); 
-		paramMap.put("rapbackStartDate", toDate(fbiRapbackSubscription.getRapbackStartDate())); 
-		paramMap.put("rapbackTermDate", toDate(fbiRapbackSubscription.getRapbackTermDate())); 
+		paramMap.put("rapbackExpirationDate", toSqlDate(fbiRapbackSubscription.getRapbackExpirationDate())); 
+		paramMap.put("rapbackStartDate", toSqlDate(fbiRapbackSubscription.getRapbackStartDate())); 
+		paramMap.put("rapbackTermDate", toSqlDate(fbiRapbackSubscription.getRapbackTermDate())); 
 		paramMap.put("rapbackOptOutInStateIndicator", fbiRapbackSubscription.getRapbackOptOutInState()); 
 		paramMap.put("rapbackActivityNotificationFormatCode", fbiRapbackSubscription.getRapbackActivityNotificationFormat()); 
 		paramMap.put("fbiSubscriptionId", fbiRapbackSubscription.getFbiSubscriptionId()); 

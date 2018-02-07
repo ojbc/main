@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -266,9 +267,9 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setFbiSubscriptionId("12345");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
-		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(2016, 5, 12));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(2014, 5, 12));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2016, 5, 12));
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
@@ -281,9 +282,9 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", savedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", savedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("2", savedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(LocalDate.of(2016, 5, 12), savedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2016, 5, 12), savedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(LocalDate.of(2014, 5, 12), savedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
@@ -291,7 +292,7 @@ public class RapbackDAOImplTest {
 		
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
 		fbiRapbackSubscription.setSubscriptionTerm("5");
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2019, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2019, 5, 12));
 		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
 		
 		FbiRapbackSubscription updatedFbiRapbackSubscription = fbiSubscriptionDao.getFbiRapbackSubscription("CI", "LI3456789");
@@ -299,9 +300,9 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", updatedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", updatedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("5", updatedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime(2019, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(LocalDate.of(2016, 5, 12), updatedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2019, 5, 12), updatedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(LocalDate.of(2014, 5, 12), updatedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
@@ -314,9 +315,9 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiSubscriptionId");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
-		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(2016, 5, 12));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(2014, 5, 12));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2016, 5, 12));
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
