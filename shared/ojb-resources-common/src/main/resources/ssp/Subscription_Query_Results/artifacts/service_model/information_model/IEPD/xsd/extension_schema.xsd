@@ -43,6 +43,7 @@
 					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscribedEntitySubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="qrm:QueryResultsMetadata" minOccurs="0" />
@@ -366,7 +367,7 @@
 	</xsd:complexType>
 	<xsd:element name="SubscribedEntityContactInformationAssociation" type="sqr-ext:SubscribedEntityContactInformationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A relationship between a subscribed entity and contact information.
+			<xsd:documentation>A relationship between a subscription subject and contact information.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
