@@ -312,9 +312,11 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 //		</sqr-ext:SubscriptionCreationDate>
 //		<sqr-ext:SubscriptionLastUpdatedDate>
 //			<nc:Date>2014-05-20</nc:Date>
-//		</sqr-ext:SubscriptionLastUpdatedDate>        
-        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
-        subscriptionActiveIndicatorElement.setTextContent(subscriptionSearchResponse.getActive().toString());
+//		</sqr-ext:SubscriptionLastUpdatedDate>
+        if(subscriptionSearchResponse.getActive()!= null){
+	        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
+	        subscriptionActiveIndicatorElement.setTextContent(subscriptionSearchResponse.getActive().toString());
+        }
         
         Map<String, String> identifiers = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers();
         String subscriptionQualifier = identifiers.get("subscriptionQualifier");
