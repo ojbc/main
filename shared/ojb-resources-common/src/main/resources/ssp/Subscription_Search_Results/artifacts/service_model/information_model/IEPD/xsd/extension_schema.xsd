@@ -43,6 +43,7 @@
 					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:SubscribedEntitySubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:StateSubscriptionFBISubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -65,7 +66,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-				<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
+					<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
 					<xsd:element ref="ssr-ext:SubscriptionFBIIdentification" />
 					<xsd:element ref="ssr-ext:SubscriptionReasonRepresentation" />
 					<xsd:element ref="ssr-ext:RapBackSubscriptionTermCode" minOccurs="0" />
@@ -129,7 +130,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					
 					<xsd:element ref="ssr-ext:Subscription" />
 					<xsd:element ref="ssr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0" />
@@ -146,7 +146,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-				<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
+					<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
 					<xsd:element ref="ssr-ext:SubscriptionSubjectRepresentation" />
 					<xsd:element ref="wsn-br:Topic" />
 					<xsd:element ref="ssr-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded" />
