@@ -132,6 +132,7 @@
 		</j:PersonAugmentation>
 	</ssr-ext:Person>
 	<j:Organization s:id="SO01">
+		<nc:OrganizationName>Agency Name</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
 				<nc:IdentificationID>ORI23456</nc:IdentificationID>
@@ -181,7 +182,6 @@
 	</ssr-ext:SubscribedEntitySubscriptionAssociation>
 	<ssr-ext:StateSubscriptionFBISubscriptionAssociation>
 		<ssr-ext:StateSubscriptionReference s:ref="S001" />
-		<ssr-ext:StateSubscriptionReference s:ref="S002" />
 		<ssr-ext:FBISubscriptionReference s:ref="FBI001" />
 	</ssr-ext:StateSubscriptionFBISubscriptionAssociation>
 </ssr:SubscriptionSearchResults>
