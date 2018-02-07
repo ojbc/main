@@ -30,7 +30,6 @@ import org.apache.camel.Message;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestUnSubscriptionRequest;
 import org.w3c.dom.Document;
 
 public class ProsecutionDecisionUpdateUnSubscriptionRequestTest {

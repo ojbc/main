@@ -196,9 +196,9 @@ public class FbiRapbackDao {
 			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
 			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
 			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
-			fbiSubscription.setRapbackExpirationDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_expiration_date")));
-			fbiSubscription.setRapbackStartDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_start_date")));
-			fbiSubscription.setRapbackTermDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_term_date")));
+			fbiSubscription.setRapbackExpirationDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_expiration_date")));
+			fbiSubscription.setRapbackStartDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackTermDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_term_date")));
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
 			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
 			fbiSubscription.setUcn(rs.getString("ucn"));

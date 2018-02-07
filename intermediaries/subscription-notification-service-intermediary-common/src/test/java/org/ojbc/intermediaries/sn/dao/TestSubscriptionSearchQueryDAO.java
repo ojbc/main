@@ -98,6 +98,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionSearchQueryDAO {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(TestSubscriptionSearchQueryDAO.class);
 
@@ -319,9 +320,9 @@ public class TestSubscriptionSearchQueryDAO {
 		assertThat(fbiRapbackSubscription.getFbiSubscriptionId(), is("fbiId1"));
 		assertThat(fbiRapbackSubscription.getRapbackCategory(), is("CI"));
 		assertThat(fbiRapbackSubscription.getSubscriptionTerm(), is("5"));
-		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(new DateTime(2017,9,27,0,0,0,0,DateTimeZone.getDefault())));
-		assertThat(fbiRapbackSubscription.getRapbackTermDate(), is(new DateTime(2017,9,27,0,0,0,0,DateTimeZone.getDefault())));
-		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(new DateTime(2012,9,27,0,0,0,0,DateTimeZone.getDefault())));
+		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(java.time.LocalDate.of(2017,9,27)));
+		assertThat(fbiRapbackSubscription.getRapbackTermDate(), is(java.time.LocalDate.of(2017,9,27)));
+		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(java.time.LocalDate.of(2012,9,27)));
 		assertThat(fbiRapbackSubscription.getRapbackOptOutInState(), is(true));
 		assertThat(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), is("1"));
 		assertThat(fbiRapbackSubscription.getUcn(), is("074644NG0"));

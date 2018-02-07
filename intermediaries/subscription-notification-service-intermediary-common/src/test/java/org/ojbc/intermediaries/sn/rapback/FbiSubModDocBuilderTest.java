@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.rapback;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,7 +27,6 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
@@ -76,14 +76,12 @@ public class FbiSubModDocBuilderTest {
 		
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		
-		Calendar startCal = Calendar.getInstance();
-		startCal.set(2015, 0, 1);				
-		DateTime startDate = new DateTime(startCal.getTime());						
+		LocalDate startDate = LocalDate.of(2015, 1, 1);						
 		fbiRapbackSubscription.setRapbackStartDate(startDate);
 								
 		Calendar endCal = Calendar.getInstance();
 		endCal.set(2016, 0, 1);						
-		DateTime endDate = new DateTime(endCal.getTime());		
+		LocalDate endDate = LocalDate.of(2016, 1, 1);		
 		fbiRapbackSubscription.setRapbackExpirationDate(endDate);
 						
 		fbiRapbackSubscription.setSubscriptionTerm("P1Y");

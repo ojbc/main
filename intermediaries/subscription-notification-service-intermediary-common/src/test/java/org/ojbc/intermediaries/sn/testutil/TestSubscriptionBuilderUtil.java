@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 
 public class TestSubscriptionBuilderUtil {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(SubscriptionProcessor.class);
 
 	@Test

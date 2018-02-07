@@ -42,6 +42,7 @@ import org.w3c.dom.Node;
 
 public class TestFaultMessageBuilderUtil {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestFaultMessageBuilderUtil.class);
 
 	@Test

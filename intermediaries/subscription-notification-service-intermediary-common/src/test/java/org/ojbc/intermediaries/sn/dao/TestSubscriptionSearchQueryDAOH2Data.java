@@ -41,6 +41,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -67,6 +68,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml" })
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@Ignore
 public class TestSubscriptionSearchQueryDAOH2Data {
 
 	private static final Log log = LogFactory

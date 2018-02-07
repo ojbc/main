@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -342,6 +343,25 @@ public class XmlUtils {
         }
 	}
 
+	public static void appendActivityDateRangeElement(Element parent, String namespace, LocalDate startDate, LocalDate endDate ) {
+		if (startDate != null || endDate != null)
+		{	
+			Element activityDateRangeElement = XmlUtils.appendElement(parent, namespace, "ActivityDateRange");
+			
+			if (startDate != null)
+			{	
+				Element startDateParentElement = XmlUtils.appendElement(activityDateRangeElement, namespace, "StartDate");
+				XmlUtils.appendTextElement(startDateParentElement, namespace, "Date", startDate.toString());
+			}    
+			
+			if (endDate != null)
+			{	
+				Element endDateParentElement = XmlUtils.appendElement(activityDateRangeElement, namespace, "EndDate");
+				XmlUtils.appendTextElement(endDateParentElement, namespace, "Date", endDate.toString());
+			}    
+		}
+	}
+	
 
 
    /**

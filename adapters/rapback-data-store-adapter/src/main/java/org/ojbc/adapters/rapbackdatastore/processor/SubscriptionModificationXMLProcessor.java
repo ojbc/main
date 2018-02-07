@@ -116,7 +116,7 @@ public class SubscriptionModificationXMLProcessor {
 		
 		subscriptionXMLPojo.setEmailList(new ArrayList<String>(subscription.getEmailAddressesToNotify()));
 		
-		subscriptionXMLPojo.setSubscriptionQualificationID(subscription.getSubscriptionIdentifier());
+		subscriptionXMLPojo.setSubscriptionQualificationId(subscription.getSubscriptionIdentifier());
 		
 		subscriptionXMLPojo.setSubscriptionStartDate(subscription.getStartDate().toDate());
 		subscriptionXMLPojo.setSubscriptionEndDate(subscription.getEndDate().toDate());

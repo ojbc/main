@@ -21,6 +21,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.camel.Body;
@@ -32,7 +33,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
@@ -267,22 +267,20 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 				
 		Element dateRangeElement = XmlUtils.appendElement(relatedFBISubscriptionElement, OjbcNamespaceContext.NS_NC, "DateRange");				
 		
-		DateTime jtStartDate = fbiRapbackSubscription.getRapbackStartDate();
+		LocalDate jtStartDate = fbiRapbackSubscription.getRapbackStartDate();
 		
 		if(jtStartDate != null){
 			Element startDateElement = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC, "StartDate");		
 			Element startDateValElement = XmlUtils.appendElement(startDateElement, OjbcNamespaceContext.NS_NC, "Date");																	
-			String sStartDate = sdf.format(jtStartDate.toDate());			
-			startDateValElement.setTextContent(sStartDate);			
+			startDateValElement.setTextContent(jtStartDate.toString());			
 		}
 						
-		DateTime jtEndDate = fbiRapbackSubscription.getRapbackExpirationDate();
+		LocalDate jtEndDate = fbiRapbackSubscription.getRapbackExpirationDate();
 		
 		if(jtEndDate != null){
 			Element endDateElement = XmlUtils.appendElement(dateRangeElement, OjbcNamespaceContext.NS_NC, "EndDate");
 			Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC, "Date");								
-			String sEndDate = sdf.format(jtEndDate.toDate());
-			endDateValElement.setTextContent(sEndDate);			
+			endDateValElement.setTextContent(jtEndDate.toString());			
 		}
 									
 		String fbiId = fbiRapbackSubscription.getFbiSubscriptionId();
