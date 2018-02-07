@@ -20,7 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -28,8 +28,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-
-import junit.framework.Assert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,7 +70,7 @@ public class RapbackSearchProcessorTest {
 	@Before
 	public void setUp() throws Exception {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		Assert.assertNotNull(rapbackSearchProcessor);
+		assertNotNull(rapbackSearchProcessor);
 		
     	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
     	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = '2011-10-18' where id=62720 or id=62721 or id=62722");
