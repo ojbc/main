@@ -22,18 +22,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
-import org.ojbc.util.model.rapback.FbiRapbackSubscription;
-import org.ojbc.util.model.rapback.Subscription;
-import org.ojbc.util.xml.XmlUtils;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -41,6 +36,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -439,9 +439,13 @@ public class TestSubscriptionSearchQueryProcessor {
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
 		fbiRapbackSubscription.setRapbackCategory("CI");
 		fbiRapbackSubscription.setSubscriptionTerm("1");
-		fbiRapbackSubscription.setRapbackExpirationDate(subscriptionSearchResponse.getStartDate().plusDays(365));
-		fbiRapbackSubscription.setRapbackTermDate(subscriptionSearchResponse.getStartDate().plusDays(365));
-		fbiRapbackSubscription.setRapbackStartDate(subscriptionSearchResponse.getStartDate());
+		DateTime rapbackExpirationDate = subscriptionSearchResponse.getStartDate().plusDays(365);
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(rapbackExpirationDate.getYear(), rapbackExpirationDate.getMonthOfYear(), rapbackExpirationDate.getDayOfMonth()));
+		DateTime rapbackTermDate = subscriptionSearchResponse.getStartDate().plusDays(365);
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(rapbackTermDate.getYear(), rapbackTermDate.getMonthOfYear(), rapbackTermDate.getDayOfMonth()));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(subscriptionSearchResponse.getStartDate().getYear(), 
+				subscriptionSearchResponse.getStartDate().getMonthOfYear(), 
+				subscriptionSearchResponse.getStartDate().getDayOfMonth()));
 		fbiRapbackSubscription.setRapbackOptOutInState(true);
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("1");
 		fbiRapbackSubscription.setUcn("074644NG0");
@@ -468,9 +472,13 @@ public class TestSubscriptionSearchQueryProcessor {
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
 		fbiRapbackSubscription.setRapbackCategory("CI");
 		fbiRapbackSubscription.setSubscriptionTerm("1");
-		fbiRapbackSubscription.setRapbackExpirationDate(subscriptionSearchResponse.getStartDate().plusDays(365));
-		fbiRapbackSubscription.setRapbackTermDate(subscriptionSearchResponse.getStartDate().plusDays(365));
-		fbiRapbackSubscription.setRapbackStartDate(subscriptionSearchResponse.getStartDate());
+		DateTime rapbackExpirationDate = subscriptionSearchResponse.getStartDate().plusDays(365);
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(rapbackExpirationDate.getYear(), rapbackExpirationDate.getMonthOfYear(), rapbackExpirationDate.getDayOfMonth()));
+		DateTime rapbackTermDate = subscriptionSearchResponse.getStartDate().plusDays(365);
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(rapbackTermDate.getYear(), rapbackTermDate.getMonthOfYear(), rapbackTermDate.getDayOfMonth()));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(subscriptionSearchResponse.getStartDate().getYear(), 
+				subscriptionSearchResponse.getStartDate().getMonthOfYear(), 
+				subscriptionSearchResponse.getStartDate().getDayOfMonth()));
 		fbiRapbackSubscription.setRapbackOptOutInState(true);
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("1");
 		fbiRapbackSubscription.setUcn("074644NG0");

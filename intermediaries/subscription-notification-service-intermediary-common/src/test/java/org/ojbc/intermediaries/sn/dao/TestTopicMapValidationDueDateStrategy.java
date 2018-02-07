@@ -26,8 +26,6 @@ import org.apache.camel.impl.DefaultMessage;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
@@ -49,8 +47,6 @@ public class TestTopicMapValidationDueDateStrategy {
         
         TopicMapValidationDueDateStrategy strategy = new TopicMapValidationDueDateStrategy(map);
         
-		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
 		
 		Message message = new DefaultMessage();

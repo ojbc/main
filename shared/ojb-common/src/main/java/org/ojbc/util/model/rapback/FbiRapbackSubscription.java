@@ -17,10 +17,10 @@
 package org.ojbc.util.model.rapback;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 
 public class FbiRapbackSubscription implements Serializable{
@@ -31,9 +31,9 @@ public class FbiRapbackSubscription implements Serializable{
 	private Integer stateSubscriptionId; 
 	private String rapbackCategory;
 	private String subscriptionTerm;
-	private DateTime rapbackExpirationDate;
-	private DateTime rapbackTermDate;
-	private DateTime rapbackStartDate; 
+	private LocalDate rapbackExpirationDate;
+	private LocalDate rapbackTermDate;
+	private LocalDate rapbackStartDate; 
 	private Boolean rapbackOptOutInState; 
 	private String rapbackActivityNotificationFormat; 
 	private String rapbackActivityNotificationFormatDescription; 
@@ -68,19 +68,19 @@ public class FbiRapbackSubscription implements Serializable{
 		this.subscriptionTerm = subscriptionTerm;
 	}
 
-	public DateTime getRapbackExpirationDate() {
+	public LocalDate getRapbackExpirationDate() {
 		return rapbackExpirationDate;
 	}
 
-	public void setRapbackExpirationDate(DateTime rapbackExpirationDate) {
+	public void setRapbackExpirationDate(LocalDate rapbackExpirationDate) {
 		this.rapbackExpirationDate = rapbackExpirationDate;
 	}
 
-	public DateTime getRapbackStartDate() {
+	public LocalDate getRapbackStartDate() {
 		return rapbackStartDate;
 	}
 
-	public void setRapbackStartDate(DateTime rapbackStartDate) {
+	public void setRapbackStartDate(LocalDate rapbackStartDate) {
 		this.rapbackStartDate = rapbackStartDate;
 	}
 
@@ -117,11 +117,11 @@ public class FbiRapbackSubscription implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public DateTime getRapbackTermDate() {
+	public LocalDate getRapbackTermDate() {
 		return rapbackTermDate;
 	}
 
-	public void setRapbackTermDate(DateTime rapbackTermDate) {
+	public void setRapbackTermDate(LocalDate rapbackTermDate) {
 		this.rapbackTermDate = rapbackTermDate;
 	}
 

@@ -17,13 +17,11 @@
 package org.ojbc.intermediaries.sn.topic.chcycle;
 
 import java.util.HashMap;
-import java.util.Set;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.camel.Message;
 
 public class ChCycleSubscriptionRequest extends SubscriptionRequest {
 

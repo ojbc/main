@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -105,9 +106,11 @@ public final class OJBCDateUtils {
 		return null;
 	}
 
-	public static DateTime toDateTime(Date date){
-	return date == null? null : new DateTime(date); 
-}
+	public static DateTime toDateTime(Date date) {
+		return date == null ? null : new DateTime(date);
+	}
 
-
+	public static LocalDate toLocalDate(java.sql.Date date){
+		return Optional.ofNullable(date).map(java.sql.Date::toLocalDate).orElse(null);
+	}
 }

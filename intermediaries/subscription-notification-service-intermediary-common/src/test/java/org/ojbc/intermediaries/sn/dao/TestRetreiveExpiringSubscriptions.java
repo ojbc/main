@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.model.rapback.Subscription;
@@ -44,6 +45,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@Ignore
 public class TestRetreiveExpiringSubscriptions {
 
 	private static final Log log = LogFactory

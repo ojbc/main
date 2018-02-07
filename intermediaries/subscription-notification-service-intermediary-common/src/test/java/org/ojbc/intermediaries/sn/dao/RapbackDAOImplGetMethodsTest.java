@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -31,7 +32,6 @@ import junit.framework.Assert;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -110,12 +110,12 @@ public class RapbackDAOImplGetMethodsTest {
 		boolean optOutInState = fbiSubscription.getRapbackOptOutInState();
 		Assert.assertEquals(false, optOutInState);
 		
-		DateTime expDate = fbiSubscription.getRapbackExpirationDate();
-		String sExpDate = expDate.toString("yyyy-MM-dd");
+		LocalDate expDate = fbiSubscription.getRapbackExpirationDate();
+		String sExpDate = expDate.toString();
 		Assert.assertEquals("2015-12-19", sExpDate);
 		
-		DateTime startDate = fbiSubscription.getRapbackStartDate();
-		String sStartDate = startDate.toString("yyyy-MM-dd");
+		LocalDate startDate = fbiSubscription.getRapbackStartDate();
+		String sStartDate = startDate.toString();
 		Assert.assertEquals("2014-10-19", sStartDate);
 				
 		String term = fbiSubscription.getSubscriptionTerm();

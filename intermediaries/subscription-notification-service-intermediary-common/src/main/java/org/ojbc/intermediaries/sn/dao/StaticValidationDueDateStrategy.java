@@ -22,7 +22,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 
 /**
  * A due date strategy that determines the due date based on a fixed number of days from the last validated date.
