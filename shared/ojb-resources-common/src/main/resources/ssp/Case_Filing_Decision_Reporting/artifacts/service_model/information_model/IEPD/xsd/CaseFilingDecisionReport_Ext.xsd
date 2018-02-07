@@ -290,5 +290,23 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubjectCareerCriminalIndicator" type="niem-xs:boolean" substitutionGroup="j:SubjectAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if subject is a career criminal; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectFirearmsIndicator" type="niem-xs:boolean" substitutionGroup="j:SubjectAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if subject is known to carry a firearm; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectMentalHealthConditionIndicator" type="niem-xs:boolean" substitutionGroup="j:SubjectAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if subject has a mental health condition; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
 </xsd:schema>
