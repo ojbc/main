@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<exc:JJISProsCaseExchange xmlns="http://www.w3.org/2001/XMLSchema" xmlns:exc="http://jjis.hawaii.gov/JJISExchange"
+	xmlns:ext="http://jjis.hawaii.gov/JJISCommonExtension" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jjis.hawaii.gov/JJISExchange   
+JJISProsCaseExchange.xsd">
+	<nc:Document>
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<!-- - - - - - - - - - - Standard document information - - - - - - - - -->
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<nc:DocumentApplicationName>AgencyProgramName</nc:DocumentApplicationName>
+		<nc:DocumentCategoryName>ProsecutorCase</nc:DocumentCategoryName>
+		<nc:DocumentDispositionInstructionText>ADD</nc:DocumentDispositionInstructionText>
+		<nc:DocumentFileControlID />
+		<nc:DocumentStatus>
+			<nc:StatusText>SUBMITTED</nc:StatusText>
+			<nc:StatusDate>
+				<nc:DateTime>2013-08-01T08:00:00</nc:DateTime>
+			</nc:StatusDate>
+		</nc:DocumentStatus>
+		<nc:DocumentSummaryText>Reason for transaction</nc:DocumentSummaryText>
+		<nc:DocumentSubmitter>
+			<nc:EntityOrganization>
+				<nc:OrganizationAbbreviationText>KPA</nc:OrganizationAbbreviationText>
+				<nc:OrganizationName>Kauai Prosecuting Attorney</nc:OrganizationName>
+			</nc:EntityOrganization>
+			<nc:EntityPerson>
+				<nc:PersonOtherIdentification>
+					<nc:IdentificationID>KPAUserID</nc:IdentificationID>
+				</nc:PersonOtherIdentification>
+			</nc:EntityPerson>
+		</nc:DocumentSubmitter>
+	</nc:Document>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - Case information - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:Case>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>13-123456</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>MASTER REPORT</nc:IdentificationCategoryDescriptionText>
+		</nc:ActivityIdentification>
+		<nc:CaseCategoryText>Prosecutor</nc:CaseCategoryText>
+		<nc:CaseGeneralCategoryText>Juvenile</nc:CaseGeneralCategoryText>
+		<nc:CaseTrackingID>12345678</nc:CaseTrackingID>
+		<nc:CaseFiling>
+			<!-- Referring Agency -->
+			<nc:DocumentReceivedDate>
+				<nc:Date>2013-06-01</nc:Date>
+			</nc:DocumentReceivedDate>
+			<nc:DocumentSubmitter>
+				<nc:EntityOrganization>
+					<nc:OrganizationAbbreviationText>KPD</nc:OrganizationAbbreviationText>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>51</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+					<nc:OrganizationName>Kauai Police Department</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</nc:DocumentSubmitter>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseAmendedCharge s:id="idCHG001">
+				<j:ChargeApplicabilityText>AC</j:ChargeApplicabilityText>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00010</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>264-0006</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>HIWAY DISTURBANCE</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
+			</j:CaseAmendedCharge>
+			<j:CaseCharge s:id="idCHG002">
+				<j:ChargeApplicabilityText>AC</j:ChargeApplicabilityText>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>1</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00020</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>708-0833</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>THEFT 4</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
+			</j:CaseCharge>
+			<j:CaseCharge s:id="idCHG003">
+				<j:ChargeApplicabilityText />
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00030</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>2</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>708-0814.5</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>TRESPASS PUBLIC PARKS</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
+			</j:CaseCharge>
+			<j:CaseOtherIdentification>
+				<nc:IdentificationID>2222</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</j:CaseOtherIdentification>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPersonReference s:ref="idPER002" />
+				<j:CaseOfficialRoleText />
+				<j:CaseOfficialStartDate>
+					<nc:Date>2013-07-01</nc:Date>
+				</j:CaseOfficialStartDate>
+			</j:CaseProsecutionAttorney>
+			<j:CaseTerminationCategoryText />
+			<j:CaseSeverityText>MISDEMEANOR</j:CaseSeverityText>
+		</j:CaseAugmentation>
+	</j:Case>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - Juvenile information - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:Person s:id="idPER001">
+		<ext:PersonAlternateName s:id="idALTNAME001">
+			<nc:PersonGivenName>FIRSTALIAS</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLEALIAS</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTALIAS, FIRSTALIAS MIDDLEALIAS JR</nc:PersonFullName>
+			<ext:PersonAlternateNameIdnt>
+				<nc:IdentificationID>100</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonAlternateNameIdnt>
+		</ext:PersonAlternateName>
+		<ext:PersonAlternateName s:id="idALTNAME002">
+			<nc:PersonGivenName>DOUGHBOY</nc:PersonGivenName>
+			<nc:PersonMiddleName />
+			<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
+			<nc:PersonNameSuffixText />
+			<nc:PersonFullName>LASTALIAS, DOUGHBOY</nc:PersonFullName>
+			<ext:PersonAlternateNameIdnt>
+				<nc:IdentificationID>101</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonAlternateNameIdnt>
+		</ext:PersonAlternateName>
+		<nc:PersonBirthDate>
+			<nc:Date>1995-05-14</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBuildText>MED</nc:PersonBuildText>
+		<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage />
+		<nc:PersonEducationLevelText>HIGH SCHOOL</nc:PersonEducationLevelText>
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>HA</nc:PersonEthnicityCode>
+		<nc:PersonEthnicityText>CHINESE</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>CH</nc:PersonEthnicityCode>
+		<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+		<nc:PersonEyeColorText>BROWN</nc:PersonEyeColorText>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonHairColorText>BLACK</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>5</nc:MeasureText>
+			<nc:MeasureUnitText>FT</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>8</nc:MeasureText>
+			<nc:MeasureUnitText>IN</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTNAME</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>INT123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>AGY123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>J1234567</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AFIS</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>JJIS</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<ext:PersonPhysicalFeature>
+			<nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
+			<nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureCategoryText />
+			<nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
+			<nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
+			<ext:PersonPhysicalFeatureIdnt>
+				<nc:IdentificationID>200</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonPhysicalFeatureIdnt>
+		</ext:PersonPhysicalFeature>
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonRaceText>WHITE</nc:PersonRaceText>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSexText>MALE</nc:PersonSexText>
+		<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
+		<nc:PersonSkinToneText>DARK</nc:PersonSkinToneText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>152</nc:MeasureText>
+			<nc:MeasureUnitText>LBS</nc:MeasureUnitText>
+		</nc:PersonWeightMeasure>
+	</j:Person>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - Staff Person, Prosecuting Attorney (all fields) - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:Person s:id="idPER002">
+		<ext:PersonAlternateName />
+		<nc:PersonBirthDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonBirthDate>
+		<nc:PersonBuildText />
+		<nc:PersonComplexionText />
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>Prosecuting Attorney</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage />
+		<nc:PersonEducationLevelText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEyeColorCode xsi:nil="true" />
+		<nc:PersonEyeColorText />
+		<nc:PersonHairColorCode xsi:nil="true" />
+		<nc:PersonHairColorText />
+		<nc:PersonHeightMeasure />
+		<nc:PersonHeightMeasure />
+		<nc:PersonName>
+			<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTNAME</nc:PersonSurName>
+			<nc:PersonNameSuffixText />
+			<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>INT123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>AGY123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>STF123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>STAFFID</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<ext:PersonPhysicalFeature />
+		<nc:PersonRaceCode xsi:nil="true" />
+		<nc:PersonRaceText />
+		<nc:PersonSexCode xsi:nil="true" />
+		<nc:PersonSexText />
+		<nc:PersonSkinToneCode xsi:nil="true" />
+		<nc:PersonSkinToneText />
+		<nc:PersonSSNIdentification />
+		<nc:PersonUSCitizenIndicator xsi:nil="true" />
+		<nc:PersonWeightMeasure />
+	</nc:Person>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - Associated Person, Parent (all fields) - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:Person s:id="idPER003">
+		<ext:PersonAlternateName s:id="idALTNAME003">
+			<nc:PersonGivenName>FIRSTALIAS</nc:PersonGivenName>
+			<nc:PersonMiddleName />
+			<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
+			<nc:PersonNameSuffixText />
+			<nc:PersonFullName>LASTALIAS, FIRSTALIAS</nc:PersonFullName>
+			<ext:PersonAlternateNameIdnt>
+				<nc:IdentificationID>500</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonAlternateNameIdnt>
+		</ext:PersonAlternateName>
+		<nc:PersonBirthDate>
+			<nc:Date>1960-05-04</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBuildText>MED</nc:PersonBuildText>
+		<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>FATHER</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage xsi:nil="true" />
+		<nc:PersonEducationLevelText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEyeColorCode xsi:nil="true" />
+		<nc:PersonEyeColorText />
+		<nc:PersonHairColorCode xsi:nil="true" />
+		<nc:PersonHairColorText />
+		<nc:PersonHeightMeasure />
+		<nc:PersonHeightMeasure />
+		<nc:PersonName>
+			<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTNAME</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>INT523456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>AGY523456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<ext:PersonPhysicalFeature />
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonRaceText />
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSexText>MALE</nc:PersonSexText>
+		<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
+		<nc:PersonSkinToneText>DARK</nc:PersonSkinToneText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonWeightMeasure />
+	</nc:Person>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - Associated Person, Relative (all fields) - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:Person s:id="idPER004">
+		<ext:PersonAlternateName />
+		<nc:PersonBirthDate>
+			<nc:Date>1963-05-04</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBuildText>MED</nc:PersonBuildText>
+		<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>COUSIN</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage xsi:nil="true" />
+		<nc:PersonEducationLevelText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText />
+		<nc:PersonEyeColorCode xsi:nil="true" />
+		<nc:PersonEyeColorText />
+		<nc:PersonHairColorCode xsi:nil="true" />
+		<nc:PersonHairColorText />
+		<nc:PersonHeightMeasure />
+		<nc:PersonHeightMeasure />
+		<nc:PersonName>
+			<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTNAME</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>INT123333389</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>AGY523456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<ext:PersonPhysicalFeature />
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonRaceText />
+		<nc:PersonSexCode>F</nc:PersonSexCode>
+		<nc:PersonSexText>FEMALE</nc:PersonSexText>
+		<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
+		<nc:PersonSkinToneText>DARK</nc:PersonSkinToneText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>0876456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonWeightMeasure />
+	</nc:Person>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - Contact information (all fields)- - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - -Juvenile contact info - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:ContactInformation s:id="idCONT001">
+		<nc:ContactWebsiteURI />
+		<nc:ContactTelephoneNumber />
+		<nc:ContactMobileTelephoneNumber s:id="idPHN001">
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>8081234567</nc:TelephoneNumberFullID>
+				<nc:TelephoneSuffixID xsi:nil="true" />
+			</nc:FullTelephoneNumber>
+		</nc:ContactMobileTelephoneNumber>
+		<nc:ContactEmailID>juvenile@yahoo.com</nc:ContactEmailID>
+		<nc:ContactEntityDescriptionText>JUVENILE CONTACT INFO</nc:ContactEntityDescriptionText>
+	</nc:ContactInformation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - staff work contact info - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:ContactInformation s:id="idCONT002">
+		<nc:ContactWebsiteURI />
+		<nc:ContactTelephoneNumber s:id="idPHN002">
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>8085550123</nc:TelephoneNumberFullID>
+				<nc:TelephoneSuffixID>101</nc:TelephoneSuffixID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+		<nc:ContactMobileTelephoneNumber />
+		<nc:ContactEmailID>staff@kauai.gov</nc:ContactEmailID>
+		<nc:ContactEntityDescriptionText>Prosecuting Attorney</nc:ContactEntityDescriptionText>
+	</nc:ContactInformation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - Residential address with ident (all fields) - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<ext:Location s:id="idLOC001">
+		<nc:LocationAddress>
+			<!-- Structured Address can use either the full text or the individual components -->
+			<nc:StructuredAddress>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 TEST DR</nc:StreetFullText>
+					<nc:StreetNumberText />
+					<nc:StreetPredirectionalText />
+					<nc:StreetName />
+					<nc:StreetCategoryText />
+					<nc:StreetPostdirectionalText />
+				</nc:LocationStreet>
+				<nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
+				<nc:LocationCityName>LIHUE</nc:LocationCityName>
+				<nc:LocationStateName>HI</nc:LocationStateName>
+				<nc:LocationCountryName />
+				<nc:LocationPostalCode>96768</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
+			</nc:StructuredAddress>
+			<nc:AddressFullText />
+		</nc:LocationAddress>
+		<nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
+		<nc:LocationContactInformation s:id="idCONT005">
+			<nc:ContactEmailID>CONTACT@RESIDENCE.COM</nc:ContactEmailID>
+			<nc:ContactTelephoneNumber s:id="idPHN003">
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>555-1212</nc:TelephoneNumberFullID>
+					<nc:TelephoneSuffixID xsi:nil="true" />
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
+			<nc:ContactWebsiteURI xsi:nil="true" />
+			<nc:ContactEntityDescriptionText>PARENT'S HOME</nc:ContactEntityDescriptionText>
+		</nc:LocationContactInformation>
+		<nc:LocationDescriptionText />
+		<nc:LocationMapLocation>
+			<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
+			<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
+		</nc:LocationMapLocation>
+		<nc:LocationName xsi:nil="true" />
+		<ext:LocationIdnt>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			<nc:IdentificationEffectiveDate xsi:nil="true" />
+		</ext:LocationIdnt>
+	</ext:Location>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - Offense location, with ident (all fields) - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<ext:Location s:id="idLOC003">
+		<nc:LocationAddress>
+			<!-- Structured Address can use either the full text or the individual components -->
+			<nc:StructuredAddress>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 RICE ST</nc:StreetFullText>
+					<nc:StreetNumberText />
+					<nc:StreetPredirectionalText />
+					<nc:StreetName />
+					<nc:StreetCategoryText />
+					<nc:StreetPostdirectionalText />
+				</nc:LocationStreet>
+				<nc:AddressSecondaryUnitText>STE 300A</nc:AddressSecondaryUnitText>
+				<nc:LocationCityName>LIHUE</nc:LocationCityName>
+				<nc:LocationStateName>HI</nc:LocationStateName>
+				<nc:LocationCountryName />
+				<nc:LocationPostalCode>96768</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
+			</nc:StructuredAddress>
+			<nc:AddressFullText />
+		</nc:LocationAddress>
+		<nc:LocationCategoryText>BUSINESS</nc:LocationCategoryText>
+		<nc:LocationContactInformation />
+		<nc:LocationDescriptionText />
+		<nc:LocationMapLocation>
+			<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
+			<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
+		</nc:LocationMapLocation>
+		<nc:LocationName>LIHUE MC DONALDs</nc:LocationName>
+		<ext:LocationIdnt>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			<nc:IdentificationEffectiveDate xsi:nil="true" />
+		</ext:LocationIdnt>
+	</ext:Location>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - Offense object(s) - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:Offense s:id="idOFF001">
+		<!-- this may match the internal identifier of the charge -->
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>1234567</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:DateTime>2010-12-23T12:35:00</nc:DateTime>
+		</nc:ActivityDate>
+		<j:OffenseViolatedStatute>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>13A-8-41</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeSectionIdentification>
+			<j:StatuteDescriptionText>ROBBERY; FIRST DEGREE</j:StatuteDescriptionText>
+			<j:StatuteLevelText>FELONY</j:StatuteLevelText>
+		</j:OffenseViolatedStatute>
+	</j:Offense>
+	<j:Offense s:id="idOFF002">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>1234590</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:DateTime>2010-12-23T12:35:00</nc:DateTime>
+		</nc:ActivityDate>
+		<j:OffenseViolatedStatute>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>ACT 230 2006-B</nc:IdentificationID>
+				<nc:IdentificationJurisdictionText>HI</nc:IdentificationJurisdictionText>
+			</j:StatuteCodeSectionIdentification>
+			<j:StatuteDescriptionText>UNAUTH ENTRY OF VEHICLE</j:StatuteDescriptionText>
+			<j:StatuteLevelText>MISDEMEANOR</j:StatuteLevelText>
+		</j:OffenseViolatedStatute>
+	</j:Offense>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - Organization, School - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:Organization s:id="idORG001">
+		<nc:OrganizationAbbreviationText>KHS</nc:OrganizationAbbreviationText>
+		<nc:OrganizationActivityText />
+		<nc:OrganizationCategoryText>SCHOOL</nc:OrganizationCategoryText>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>00000001</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>CODE</nc:IdentificationCategoryDescriptionText>
+		</nc:OrganizationIdentification>
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<!-- - - - - - - Organization Location, with ident - - - - - - - - - -->
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<ext:OrganizationLocation s:id="idLOC002">
+			<nc:LocationAddress>
+				<!-- Structured Address can use either the full text or the individual components -->
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>123 Rice Street</nc:StreetFullText>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetPredirectionalText />
+						<nc:StreetName>Rice</nc:StreetName>
+						<nc:StreetCategoryText>Street</nc:StreetCategoryText>
+						<nc:StreetPostdirectionalText />
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText />
+					<nc:LocationCityName>LIHUE</nc:LocationCityName>
+					<nc:LocationStateName>HI</nc:LocationStateName>
+					<nc:LocationCountryName />
+					<nc:LocationPostalCode>96799</nc:LocationPostalCode>
+					<nc:LocationPostalExtensionCode />
+				</nc:StructuredAddress>
+				<nc:AddressFullText />
+			</nc:LocationAddress>
+			<nc:LocationCategoryText>SCHOOL</nc:LocationCategoryText>
+			<nc:LocationContactInformation s:id="idCONT009">
+				<nc:ContactEmailID />
+				<nc:ContactTelephoneNumber s:id="idPHN005">
+					<nc:FullTelephoneNumber>
+						<nc:TelephoneNumberFullID>808 873-3000</nc:TelephoneNumberFullID>
+						<nc:TelephoneSuffixID xsi:nil="true" />
+					</nc:FullTelephoneNumber>
+				</nc:ContactTelephoneNumber>
+				<nc:ContactWebsiteURI>http://www.kauaihigh.edu/</nc:ContactWebsiteURI>
+				<nc:ContactEntityDescriptionText />
+			</nc:LocationContactInformation>
+			<nc:LocationDescriptionText />
+			<nc:LocationMapLocation>
+				<nc:MapHorizontalCoordinateText>4443456.612314</nc:MapHorizontalCoordinateText>
+				<nc:MapVerticalCoordinateText>18524.704147</nc:MapVerticalCoordinateText>
+			</nc:LocationMapLocation>
+			<nc:LocationName />
+			<ext:OrganizationLocationIdnt>
+				<nc:IdentificationID>600067</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				<nc:IdentificationEffectiveDate xsi:nil="true" />
+			</ext:OrganizationLocationIdnt>
+		</ext:OrganizationLocation>
+		<nc:OrganizationName>KAUAI HIGH SCHOOL</nc:OrganizationName>
+	</nc:Organization>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - Associations - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - Cohabitant associations - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:CohabitantAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2005-01-02</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate />
+		<nc:PersonReference s:ref="idPER004" />
+		<nc:PersonReference s:ref="idPER001" />
+	</nc:CohabitantAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - Immediate family associations - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:ImmediateFamilyAssociation>
+		<nc:PersonParentReference s:ref="idPER003" />
+		<nc:PersonChildReference s:ref="idPER001" />
+		<nc:FamilyKinshipText>FATHER</nc:FamilyKinshipText>
+	</nc:ImmediateFamilyAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Offense(s) and charge(s) associations - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:OffenseChargeAssociation>
+		<j:OffenseReference s:ref="idOFF001" />
+		<j:ChargeReference s:ref="idCHG001" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:OffenseReference s:ref="idOFF001" />
+		<j:ChargeReference s:ref="idCHG002" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:OffenseReference s:ref="idOFF002" />
+		<j:ChargeReference s:ref="idCHG003" />
+	</j:OffenseChargeAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Offense location association - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:OffenseLocationAssociation>
+		<j:OffenseReference s:ref="idOFF001" />
+		<nc:LocationReference s:ref="idLOC003" />
+	</j:OffenseLocationAssociation>
+	<j:OffenseLocationAssociation>
+		<j:OffenseReference s:ref="idOFF002" />
+		<nc:LocationReference s:ref="idLOC003" />
+	</j:OffenseLocationAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Offense subject association - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<j:OffenseSubjectAssociation>
+		<j:OffenseReference s:ref="idOFF001" />
+		<j:SubjectReference s:ref="idPER001" />
+		<j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+		<j:OffenseUnderInfluenceIndicator xsi:nil="true" />
+	</j:OffenseSubjectAssociation>
+	<j:OffenseSubjectAssociation>
+		<j:OffenseReference s:ref="idOFF002" />
+		<j:SubjectReference s:ref="idPER001" />
+		<j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+		<j:OffenseUnderInfluenceIndicator xsi:nil="true" />
+	</j:OffenseSubjectAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Person contact information, juvenile primary - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:PersonContactInformationAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2009-08-01</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate xsi:nil="true" />
+		<nc:PersonReference s:ref="idPER001" />
+		<nc:ContactInformationReference s:ref="idCONT001" />
+		<nc:ContactInformationIsPrimaryIndicator>true</nc:ContactInformationIsPrimaryIndicator>
+		<nc:ContactInformationIsHomeIndicator>false</nc:ContactInformationIsHomeIndicator>
+		<nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
+	</nc:PersonContactInformationAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Person contact information, prosecuting attorney work contact - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:PersonContactInformationAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2001-05-11</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate xsi:nil="true" />
+		<nc:PersonReference s:ref="idPER002" />
+		<nc:ContactInformationReference s:ref="idCONT002" />
+		<nc:ContactInformationIsPrimaryIndicator>true</nc:ContactInformationIsPrimaryIndicator>
+		<nc:ContactInformationIsHomeIndicator>false</nc:ContactInformationIsHomeIndicator>
+		<nc:ContactInformationIsWorkIndicator>true</nc:ContactInformationIsWorkIndicator>
+	</nc:PersonContactInformationAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Person contact information, parent home info - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:PersonContactInformationAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2009-08-01</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate xsi:nil="true" />
+		<nc:PersonReference s:ref="idPER003" />
+		<nc:ContactInformationReference s:ref="idCONT005" />
+		<nc:ContactInformationIsPrimaryIndicator>false</nc:ContactInformationIsPrimaryIndicator>
+		<nc:ContactInformationIsHomeIndicator>true</nc:ContactInformationIsHomeIndicator>
+		<nc:ContactInformationIsWorkIndicator>false</nc:ContactInformationIsWorkIndicator>
+	</nc:PersonContactInformationAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Person organization association, juvenile school - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:PersonOrganizationAssociation>
+		<nc:PersonReference s:ref="idPER001" />
+		<nc:OrganizationReference s:ref="idORG001" />
+	</nc:PersonOrganizationAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Residence association, juvenile - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:ResidenceAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2009-08-01</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate xsi:nil="true" />
+		<nc:PersonReference s:ref="idPER001" />
+		<nc:LocationReference s:ref="idLOC001" />
+	</nc:ResidenceAssociation>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Residence association, parent - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<nc:ResidenceAssociation>
+		<nc:AssociationBeginDate>
+			<nc:Date>2009-08-01</nc:Date>
+		</nc:AssociationBeginDate>
+		<nc:AssociationEndDate xsi:nil="true" />
+		<nc:PersonReference s:ref="idPER003" />
+		<nc:LocationReference s:ref="idLOC001" />
+	</nc:ResidenceAssociation>
+</exc:JJISProsCaseExchange>

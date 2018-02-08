@@ -42,8 +42,8 @@
 					<xsd:element ref="ssr-ext:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ssr-ext:SubscribedEntityOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:SubscribedEntitySubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:StateSubscriptionFBISubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -331,6 +331,26 @@
 	<xsd:element name="SubscribedEntityContactInformationAssociation" type="ssr-ext:SubscribedEntityContactInformationAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>A relationship between a subscribed entity and contact information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscribedEntityOrganizationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a relationship between a subscribed entity and an organization.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="ssr-ext:SubscribedEntityReference" />
+					<xsd:element ref="nc:OrganizationReference" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscribedEntityOrganizationAssociation" type="ssr-ext:SubscribedEntityOrganizationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A relationship between a subscribed entity and an organization.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
