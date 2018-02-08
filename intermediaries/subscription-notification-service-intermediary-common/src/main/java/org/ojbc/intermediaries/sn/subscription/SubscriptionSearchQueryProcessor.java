@@ -152,8 +152,8 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         createSubscriptionEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscriptionOwnerEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         
-        createOwnerOrganizationAssociation(Arrays.asList(subscription), root);
         createSubjectContactInformationAssociations(Arrays.asList(subscription), root);
+        createOwnerOrganizationAssociation(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createStateSubscriptionFBISubscriptionAssociation(Arrays.asList(subscription), root);
         
@@ -162,18 +162,18 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         return doc;
     }
 
-    private void createOwnerOrganizationAssociation(List<Subscription> subscriptions, Element root) {
+    private void createOwnerOrganizationAssociation(List<Subscription> subscriptions, Element root, String extensionNamespace) {
         for (int i=0; i < subscriptions.size(); i++) {
         	Subscription subscription = subscriptions.get(i);
 
             if (StringUtils.isNotBlank(subscription.getOri())) {
-                Element personOrganizationAssociation = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC, "PersonOrganizationAssociation");
+                Element subscribedEntityOrganizationAssociation = XmlUtils.appendElement(root, extensionNamespace, "SubscribedEntityOrganizationAssociatio");
 
-                Element personReference = XmlUtils.appendElement(personOrganizationAssociation, OjbcNamespaceContext.NS_NC, "PersonReference");
-				XmlUtils.addAttribute(personReference, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("SE", i));
+                Element subscribedEntityReference = XmlUtils.appendElement(subscribedEntityOrganizationAssociation, extensionNamespace, "SubscribedEntityReference");
+				XmlUtils.addAttribute(subscribedEntityReference, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("SE", i));
 
                 Element organizationReference = XmlUtils
-                        .appendElement(personOrganizationAssociation, OjbcNamespaceContext.NS_NC, "OrganizationReference");
+                        .appendElement(subscribedEntityOrganizationAssociation, OjbcNamespaceContext.NS_NC, "OrganizationReference");
                 XmlUtils.addAttribute(organizationReference, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("SO", i));
             }
         }
