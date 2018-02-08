@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -127,7 +127,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 	/**
      * Convert the POJO to the equivalent XML document
      */
-    public Document buildSubscriptionQueryResponseDoc(Subscription subscriptionSearchResponse) throws Exception {
+    public Document buildSubscriptionQueryResponseDoc(Subscription subscription) throws Exception {
 
         Document doc = null;
 
@@ -142,18 +142,14 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
         Element subscriptionSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT, "SubscriptionQueryResult");
 
-        appendSubscriptionParentResponse(subscriptionSearchResponse, doc, subscriptionSearchResultElement, 0, 
+        appendSubscriptionQueryResult(subscription, subscriptionSearchResultElement, 
         		OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
 
-        List<Subscription> searchResponse = new ArrayList<Subscription>();
-        searchResponse.add(subscriptionSearchResponse);
-
-        createFbiSubscriptions(searchResponse, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscribedEntity(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-        createSubscriptionSubjects(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-        createSubscriptionEmails(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-        createSubscribedEntityContactInformationAssociations(searchResponse, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-        createStateSubscriptionFBISubscriptionAssociation(searchResponse, root);
+        //Fix the email associations, for both the subject and the owner
+        createSubscriptionSubjects(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
+        createSubscriptionEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
+        createSubscribedEntityContactInformationAssociations(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
+        createStateSubscriptionFBISubscriptionAssociation(Arrays.asList(subscription), root);
         
         ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
 
@@ -187,10 +183,10 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         }
 
         createFbiSubscriptions(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscribedEntity(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionSubjects(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionEmails(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscribedEntityContactInformationAssociations(subscriptionSearchResponseList, doc, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscribedEntity(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionSubjects(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionEmails(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscribedEntityContactInformationAssociations(subscriptionSearchResponseList, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createStateSubscriptionFBISubscriptionAssociation(subscriptionSearchResponseList, root);
         
         ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
@@ -199,24 +195,22 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         
     }
 
-    private void createSubscribedEntity(List<Subscription> subscriptionSearchResponseList, Document doc, 
-    		Element root, String extensionSchema)
-    {
-        for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
+    private void createSubscribedEntity(List<Subscription> subscriptions, Element parent, String extensionSchema){
+        for (int i=0; i<subscriptions.size(); i++) {
+        	Subscription subscription = subscriptions.get(i);
 
-        	int index = subscriptionSearchResponseList.indexOf(subscriptionSearchResponse) + 1;
-
-	        Element subscribedEntityElement = XmlUtils.appendElement(root, extensionSchema, "SubscribedEntity");
-	        XmlUtils.addAttribute(subscribedEntityElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "SE" + index);
+        	String subscribedEntityId = "SE" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+	        Element subscribedEntityElement = XmlUtils.appendElement(parent, extensionSchema, "SubscribedEntity");
+	        XmlUtils.addAttribute(subscribedEntityElement, OjbcNamespaceContext.NS_STRUCTURES, "id",  subscribedEntityId);
 	        
 	        Element entityPersonElement = XmlUtils.appendElement(subscribedEntityElement, OjbcNamespaceContext.NS_NC, "EntityPerson");
 	        
 	        Element personNameElement = XmlUtils.appendElement(entityPersonElement, OjbcNamespaceContext.NS_NC, "PersonName");
 	        Element ownerGivenName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
-	        ownerGivenName.setTextContent(subscriptionSearchResponse.getSubscriptionOwnerFirstName());
+	        ownerGivenName.setTextContent(subscription.getSubscriptionOwnerFirstName());
 	        
 	        Element ownerLastName = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonSurName");
-	        ownerLastName.setTextContent(subscriptionSearchResponse.getSubscriptionOwnerLastName());
+	        ownerLastName.setTextContent(subscription.getSubscriptionOwnerLastName());
 
         }   
     }
@@ -246,17 +240,17 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 		}
 	}
 
-	private void createFbiSubscriptions( List<Subscription> subscriptionList,
-			Element root, String nsSubscriptionSearchResultsExt) {
-		for (Subscription subscription : subscriptionList){
+	private void createFbiSubscriptions( List<Subscription> subscriptions, Element parent, String nsSubscriptionSearchResultsExt) {
+		for (int i = 0; i < subscriptions.size(); i++){
 			
-			int subscriptionIndex = subscriptionList.indexOf(subscription) + 1;
+			Subscription subscription = subscriptions.get(i);
+			int subscriptionIndex = i + 1;
 			
 			if (subscription.getFbiRapbackSubscription() != null){
 				
 				FbiRapbackSubscription fbiRapbackSubscription = subscription.getFbiRapbackSubscription();
 				
-		        Element fbiSubscriptionElement = XmlUtils.appendElement(root, nsSubscriptionSearchResultsExt, "FBISubscription");
+		        Element fbiSubscriptionElement = XmlUtils.appendElement(parent, nsSubscriptionSearchResultsExt, "FBISubscription");
 		        XmlUtils.addAttribute(fbiSubscriptionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", 
 		        		"FBI" + StringUtils.leftPad(String.valueOf(subscriptionIndex), 3, '0'));
 		        
@@ -294,40 +288,78 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 		
 	}
 
-    private Element appendSubscriptionParentResponse(Subscription subscriptionSearchResponse, Document doc, 
+    private Element appendSubscriptionParentResponse(Subscription subscription, Document doc, 
     		Element subscriptionSearchResultElement, int searchResponseIndex, String extensionSchema) {
 
         Element subscriptionElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "Subscription");
         XmlUtils.addAttribute(subscriptionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "S" + StringUtils.leftPad(String.valueOf(searchResponseIndex), 3, '0'));
 
         XmlUtils.appendActivityDateRangeElement(subscriptionElement,  OjbcNamespaceContext.NS_NC,
-        		subscriptionSearchResponse.getStartDate(), subscriptionSearchResponse.getEndDate());
+        		subscription.getStartDate(), subscription.getEndDate());
 
-//		<sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
-//		<sqr-ext:SubscriptionQualifierIdentification>
-//			<nc:IdentificationID>Q123456</nc:IdentificationID>
-//		</sqr-ext:SubscriptionQualifierIdentification>
-//		<sqr-ext:SubscriptionCreationDate>
-//			<nc:Date>2014-03-12</nc:Date>
-//		</sqr-ext:SubscriptionCreationDate>
-//		<sqr-ext:SubscriptionLastUpdatedDate>
-//			<nc:Date>2014-05-20</nc:Date>
-//		</sqr-ext:SubscriptionLastUpdatedDate>
-        if(subscriptionSearchResponse.getActive()!= null){
-	        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
-	        subscriptionActiveIndicatorElement.setTextContent(subscriptionSearchResponse.getActive().toString());
-        }
+        appendSubscriptionActiveIndicator(subscription, extensionSchema, subscriptionElement);
+        appendSubscriptionQualifierIdentification(subscription, extensionSchema,subscriptionElement);	
+        appendCreationDate(subscription, extensionSchema,subscriptionElement);
+        appendLastUpdateDate(subscription, extensionSchema, subscriptionElement);
+
+//		<sqr-ext:SubscriptionRelatedCaseIdentification>
+//			<nc:IdentificationID>0123ABC</nc:IdentificationID>
+//		</sqr-ext:SubscriptionRelatedCaseIdentification>
+        appendSubscriptionRelatedCaseIdentification(subscriptionElement, extensionSchema, subscription);
         
-        Map<String, String> identifiers = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers();
+        Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
+        Element roleOfPersonReferenceElement = XmlUtils.appendElement(subscriptionSubjectElement, OjbcNamespaceContext.NS_NC, "RoleOfPersonReference");
+        XmlUtils.addAttribute(roleOfPersonReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", "P" + StringUtils.leftPad(String.valueOf(searchResponseIndex), 3, '0'));
+
+        appendTopic(subscription, subscriptionElement);
+
+        appendSubscriptionOriginator(subscription, extensionSchema, subscriptionElement);
+
+        Element sourceSystemNameTextElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "SourceSystemNameText");
+        sourceSystemNameTextElement.setTextContent(subscription.getSubscribingSystemIdentifier());
+
+        Element systemIdentifierElement = XmlUtils.appendElement(subscriptionSearchResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
+
+        Element sysIdentificationIDElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        sysIdentificationIDElement.setTextContent(subscription.getSubscriptionIdentifier());
+
+        Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
+        systemNameElement.setTextContent(SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME);
+        
+        appendSubscriptionValidation(subscription, extensionSchema,
+				subscriptionElement);
+        
+        appendGracePeriod(subscription, extensionSchema,subscriptionElement);
+        appendSubscritionReasonCode(subscription, extensionSchema,subscriptionElement);        
+        createSubscriptionTriggeringEvents(subscriptionElement, extensionSchema, subscription);
+        createFederalRapSheetDisclosure(subscriptionElement, extensionSchema, subscription);
+        
+        return subscriptionElement;
+    }
+
+	private void appendSubscriptionActiveIndicator(Subscription subscription, String extensionSchema,
+			Element subscriptionElement) {
+		if(subscription.getActive()!= null){
+	        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
+	        subscriptionActiveIndicatorElement.setTextContent(subscription.getActive().toString());
+        }
+	}
+
+	private void appendSubscriptionQualifierIdentification(Subscription subscriptionSearchResponse,
+			String extensionSchema, Element subscriptionElement) {
+		Map<String, String> identifiers = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers();
         String subscriptionQualifier = identifiers.get("subscriptionQualifier");
         
         if (StringUtils.isNotBlank(subscriptionQualifier))
         {
         	Element subscriptionQualifierIdentificationElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionQualifierIdentification");
         	subscriptionQualifierIdentificationElement.setTextContent(subscriptionQualifier);
-        }	
-        
-        DateTime creationDate = subscriptionSearchResponse.getCreationDate();
+        }
+	}
+
+	private void appendCreationDate(Subscription subscriptionSearchResponse,
+			String extensionSchema, Element subscriptionElement) {
+		DateTime creationDate = subscriptionSearchResponse.getCreationDate();
         
         if (creationDate != null) {
             if (creationDate != null) {
@@ -337,51 +369,11 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
             }
 
         }
+	}
 
-        DateTime lastUpdatedDate = subscriptionSearchResponse.getLastUpdatedDate();
-        
-        if (lastUpdatedDate != null) {
-            if (lastUpdatedDate != null) {
-                Element e = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionLastUpdatedDate");
-                e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
-                e.setTextContent(lastUpdatedDate.toString("yyyy-MM-dd"));
-            }
-
-        }
-
-//		<sqr-ext:SubscriptionRelatedCaseIdentification>
-//			<nc:IdentificationID>0123ABC</nc:IdentificationID>
-//		</sqr-ext:SubscriptionRelatedCaseIdentification>
-        appendSubscriptionRelatedCaseIdentification(subscriptionElement, extensionSchema, subscriptionSearchResponse);
-        
-        Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
-
-        Element roleOfPersonReferenceElement = XmlUtils.appendElement(subscriptionSubjectElement, OjbcNamespaceContext.NS_NC, "RoleOfPersonReference");
-        XmlUtils.addAttribute(roleOfPersonReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", "P" + searchResponseIndex);
-
-        Element subscriptionTopicElement = XmlUtils.appendElement(subscriptionElement, OjbcNamespaceContext.NS_WSN_BROKERED, "Topic");
-        subscriptionTopicElement.setAttribute("Dialect", "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete");
-        subscriptionTopicElement.setTextContent(subscriptionSearchResponse.getTopic());
-
-        Element subscriptionOriginatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionOriginator");
-
-        Element subscriptionOriginatorIdentificationElement = XmlUtils.appendElement(subscriptionOriginatorElement, extensionSchema, "SubscriptionOriginatorIdentification");
-
-        Element identificationIDElement = XmlUtils.appendElement(subscriptionOriginatorIdentificationElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        identificationIDElement.setTextContent(subscriptionSearchResponse.getSubscriptionOwner());
-
-        Element sourceSystemNameTextElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "SourceSystemNameText");
-        sourceSystemNameTextElement.setTextContent(subscriptionSearchResponse.getSubscribingSystemIdentifier());
-
-        Element systemIdentifierElement = XmlUtils.appendElement(subscriptionSearchResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-
-        Element sysIdentificationIDElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        sysIdentificationIDElement.setTextContent(subscriptionSearchResponse.getSubscriptionIdentifier());
-
-        Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
-        systemNameElement.setTextContent(SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME);
-        
-        DateTime validationDueDate = subscriptionSearchResponse.getValidationDueDate();
+	private void appendSubscriptionValidation(Subscription subscriptionSearchResponse,
+			String extensionSchema, Element subscriptionElement) {
+		DateTime validationDueDate = subscriptionSearchResponse.getValidationDueDate();
         DateTime lastValidatedDate = subscriptionSearchResponse.getLastValidationDate();
 
         if (validationDueDate != null || lastValidatedDate != null) {
@@ -397,8 +389,11 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
                 e.setTextContent(lastValidatedDate.toString("yyyy-MM-dd"));
             }
         }
-        
-        Interval gracePeriodInterval = subscriptionSearchResponse.getGracePeriod();
+	}
+
+	private void appendGracePeriod(Subscription subscriptionSearchResponse,
+			String extensionSchema, Element subscriptionElement) {
+		Interval gracePeriodInterval = subscriptionSearchResponse.getGracePeriod();
         
         if (gracePeriodInterval != null) {
             Element gracePeriodElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionGracePeriod");
@@ -410,22 +405,102 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
             e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
             e.setTextContent(gracePeriodInterval.getEnd().toString("yyyy-MM-dd"));
         }
+	}
 
-        String categoryReasonCode = subscriptionSearchResponse.getSubscriptionCategoryCode();
+    private Element appendSubscriptionQueryResult(Subscription subscription,
+    		Element subscriptionQueryResultElement, String extensionSchema) {
+
+        Element subscriptionElement = XmlUtils.appendElement(subscriptionQueryResultElement, extensionSchema, "Subscription");
+        XmlUtils.addAttribute(subscriptionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "S001");
+
+        XmlUtils.appendActivityDateRangeElement(subscriptionElement,  OjbcNamespaceContext.NS_NC,
+        		subscription.getStartDate(), subscription.getEndDate());
+
+        appendSubscriptionActiveIndicator(subscription, extensionSchema, subscriptionElement);
         
-        if(StringUtils.isNotEmpty(categoryReasonCode)){
-        	
-            Element reasonCodeElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "CriminalSubscriptionReasonCode");
-            reasonCodeElement.setTextContent(categoryReasonCode);        	
-        }        
+        appendSubscriptionQualifierIdentification(subscription, extensionSchema, subscriptionElement);	
         
-        createSubscriptionTriggeringEvents(subscriptionElement, extensionSchema, subscriptionSearchResponse);
-        createFederalRapSheetDisclosure(subscriptionElement, extensionSchema, subscriptionSearchResponse);
+        appendCreationDate(subscription, extensionSchema, subscriptionElement);
+
+        appendLastUpdateDate(subscription, extensionSchema, subscriptionElement);
+//		<sqr-ext:SubscriptionRelatedCaseIdentification>
+//			<nc:IdentificationID>0123ABC</nc:IdentificationID>
+//		</sqr-ext:SubscriptionRelatedCaseIdentification>
+        appendSubscriptionRelatedCaseIdentification(subscriptionElement, extensionSchema, subscription);
+        createFbiSubscriptions(Arrays.asList(subscription), subscriptionElement, extensionSchema);
+        Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
+        Element roleOfPersonReferenceElement = XmlUtils.appendElement(subscriptionSubjectElement, OjbcNamespaceContext.NS_NC, "RoleOfPersonReference");
+        XmlUtils.addAttribute(roleOfPersonReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", "P001");
+
+        appendTopic(subscription, subscriptionElement);
         
+        createSubscribedEntity(Arrays.asList(subscription), subscriptionElement, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
+        appendSubscriptionOriginator(subscription, extensionSchema, subscriptionElement);
+
+        appendSubscriptionValidation(subscription, extensionSchema, subscriptionElement);
+        appendGracePeriod(subscription, extensionSchema, subscriptionElement);
+        appendSubscritionReasonCode(subscription, extensionSchema, subscriptionElement);        
+        
+        createSubscriptionTriggeringEvents(subscriptionElement, extensionSchema, subscription);
+        createFederalRapSheetDisclosure(subscriptionElement, extensionSchema, subscription);
+        
+        Element sourceSystemNameTextElement = XmlUtils.appendElement(subscriptionQueryResultElement, extensionSchema, "SourceSystemNameText");
+        sourceSystemNameTextElement.setTextContent(subscription.getSubscribingSystemIdentifier());
+
+        Element systemIdentifierElement = XmlUtils.appendElement(subscriptionQueryResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
+
+        Element sysIdentificationIDElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        sysIdentificationIDElement.setTextContent(subscription.getSubscriptionIdentifier());
+
+        Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
+        systemNameElement.setTextContent(SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME);
+        
+
         return subscriptionElement;
     }
 
-	private static void createSubscriptionEmails(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {
+	private void appendLastUpdateDate(Subscription subscription, String extensionSchema,
+			Element subscriptionElement) {
+		DateTime lastUpdatedDate = subscription.getLastUpdatedDate();
+        
+        if (lastUpdatedDate != null) {
+            if (lastUpdatedDate != null) {
+                Element e = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionLastUpdatedDate");
+                e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
+                e.setTextContent(lastUpdatedDate.toString("yyyy-MM-dd"));
+            }
+
+        }
+	}
+
+	private void appendTopic(Subscription subscription,
+			Element subscriptionElement) {
+		Element subscriptionTopicElement = XmlUtils.appendElement(subscriptionElement, OjbcNamespaceContext.NS_WSN_BROKERED, "Topic");
+        subscriptionTopicElement.setAttribute("Dialect", "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete");
+        subscriptionTopicElement.setTextContent(subscription.getTopic());
+	}
+
+	private void appendSubscriptionOriginator(Subscription subscription, String extensionSchema,
+			Element subscriptionElement) {
+		Element subscriptionOriginatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionOriginator");
+
+        Element subscriptionOriginatorIdentificationElement = XmlUtils.appendElement(subscriptionOriginatorElement, extensionSchema, "SubscriptionOriginatorIdentification");
+
+        Element identificationIDElement = XmlUtils.appendElement(subscriptionOriginatorIdentificationElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        identificationIDElement.setTextContent(subscription.getSubscriptionOwner());
+	}
+
+	private void appendSubscritionReasonCode(Subscription subscription, String extensionSchema,
+			Element subscriptionElement) {
+		String categoryReasonCode = subscription.getSubscriptionCategoryCode();
+        if(StringUtils.isNotEmpty(categoryReasonCode)){
+        	//TODO based on the reason code type, create either civil or criminal reason code element
+            Element reasonCodeElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "CriminalSubscriptionReasonCode");
+            reasonCodeElement.setTextContent(categoryReasonCode);        	
+        }
+	}
+    
+	private static void createSubscriptionEmails(List<Subscription> subscriptionSearchResponseList, Element root, String extensionSchema) {
         for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
 
             Set<String> emailAddresses = subscriptionSearchResponse.getEmailAddressesToNotify();
@@ -446,7 +521,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         }
     }
 
-    private static void createSubscribedEntityContactInformationAssociations(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {
+    private static void createSubscribedEntityContactInformationAssociations(List<Subscription> subscriptionSearchResponseList, Element root, String extensionSchema) {
         for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
 
         	int index = subscriptionSearchResponseList.indexOf(subscriptionSearchResponse) + 1;
@@ -470,7 +545,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         }
     }
     
-    private void createSubscriptionSubjects(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {
+    private void createSubscriptionSubjects(List<Subscription> subscriptionSearchResponseList, Element root, String extensionSchema) {
         for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
 
             Element personElement = XmlUtils.appendElement(root, extensionSchema, "Person");

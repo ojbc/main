@@ -115,7 +115,7 @@ public class TestSubscriptionSearchQueryProcessor {
         
         Document doc = processor.buildSubscriptionQueryResponseDoc(subscriptionSearchResponse);
 
-        //sXmlUtils.printNode(doc);
+        XmlUtils.printNode(doc);
         
         //XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd", 
         //      "Subset/niem", "exchange_schema.xsd", doc);
@@ -124,62 +124,62 @@ public class TestSubscriptionSearchQueryProcessor {
         assertNotNull(subscriptions);
         assertEquals(1, subscriptions.getLength());
         
-        Node subscription = subscriptions.item(0);
-        assertNotNull(subscription);
+        Node subscriptionQueryResult = subscriptions.item(0);
+        assertNotNull(subscriptionQueryResult);
         
-        String startDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date");
+        String startDate = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date");
         assertEquals("2013-03-13",startDate);
         
-        String endDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date");
+        String endDate = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date");
         assertEquals("2014-04-05",endDate);
 
-        String creationDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionCreationDate/nc:Date");
+        String creationDate = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionCreationDate/nc:Date");
         assertEquals("2013-03-13",creationDate);
 
-        String lastUpdatedDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionLastUpdatedDate/nc:Date");
+        String lastUpdatedDate = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionLastUpdatedDate/nc:Date");
         assertEquals("2013-03-13",lastUpdatedDate);
 
-        String agencyCaseNumber = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+        String agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
         assertEquals("123",agencyCaseNumber);
 
-        String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionActiveIndicator");
+        String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionActiveIndicator");
         assertEquals("true",subscriptionActiveIndicator);
 
-        String subscriptionQualifierIdentification = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionQualifierIdentification");
+        String subscriptionQualifierIdentification = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionQualifierIdentification");
         assertEquals("2109639",subscriptionQualifierIdentification);
 
-        String personReference = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
-        assertEquals("P0",personReference);
+        String personReference = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
+        assertEquals("P001",personReference);
         
-        String topicDialect = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/wsn-br:Topic/@Dialect");
+        String topicDialect = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/wsn-br:Topic/@Dialect");
         assertEquals("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete",topicDialect);
         
-        String topic = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/wsn-br:Topic");
+        String topic = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/wsn-br:Topic");
         assertEquals("{http://ojbc.org/wsn/topics}:person/incident",topic);
         
-        String subscriptionOwner = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionOriginator/sqr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
+        String subscriptionOwner = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionOriginator/sqr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
         assertEquals("OJBC:IDP:OJBC:USER:admin",subscriptionOwner);
         
-        assertNull(XmlUtils.xPathNodeSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidationDueDate/nc:Date"));
-        assertNull(XmlUtils.xPathNodeSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidatedDate/nc:Date"));
-        assertNull(XmlUtils.xPathNodeSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionGracePeriod/sqr-ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"));
+        assertNull(XmlUtils.xPathNodeSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidationDueDate/nc:Date"));
+        assertNull(XmlUtils.xPathNodeSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidatedDate/nc:Date"));
+        assertNull(XmlUtils.xPathNodeSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscriptionGracePeriod/sqr-ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"));
         
-        String subscribingSystemName = XmlUtils.xPathStringSearch(subscription, "sqr-ext:SourceSystemNameText");
+        String subscribingSystemName = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:SourceSystemNameText");
         assertEquals("{http://demostate.gov/SystemNames/1.0}SystemC",subscribingSystemName);
         
-        String subscriptionId = XmlUtils.xPathStringSearch(subscription, "intel:SystemIdentifier/nc:IdentificationID");
+        String subscriptionId = XmlUtils.xPathStringSearch(subscriptionQueryResult, "intel:SystemIdentifier/nc:IdentificationID");
         assertEquals("61623",subscriptionId);
         
-        String systemName = XmlUtils.xPathStringSearch(subscription, "intel:SystemIdentifier/intel:SystemName");
+        String systemName = XmlUtils.xPathStringSearch(subscriptionQueryResult, "intel:SystemIdentifier/intel:SystemName");
         assertEquals("Subscriptions",systemName);
 
-        String subscribedEntityReference = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity/@s:id");
-        assertEquals("SE1",subscribedEntityReference);
+        String subscribedEntityReference = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscribedEntity/@s:id");
+        assertEquals("SE001",subscribedEntityReference);
         
-        String ownerFirstName = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+        String ownerFirstName = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscribedEntity[@s:id='SE001']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
         assertEquals("ownerFirst", ownerFirstName);
 
-        String ownerLastName = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+        String ownerLastName = XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:SubscribedEntity[@s:id='SE001']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
         assertEquals("ownerLast", ownerLastName);
         
         String personReferenceId = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:Person/@s:id");
@@ -217,14 +217,14 @@ public class TestSubscriptionSearchQueryProcessor {
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
         assertEquals("SE1CE2",contactInfoReferenceReference2Id);
         
-        NodeList triggeringEvents = XmlUtils.xPathNodeListSearch(subscription, "sqr-ext:Subscription/sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
+        NodeList triggeringEvents = XmlUtils.xPathNodeListSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
         
         assertEquals(2, triggeringEvents.getLength());
         assertEquals(FederalTriggeringEventCode.ARREST.toString(), triggeringEvents.item(0).getTextContent());
         assertEquals(FederalTriggeringEventCode.DISPOSITION.toString(), triggeringEvents.item(1).getTextContent());
         
-        assertEquals("true", XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator"));
-        assertEquals("bill padmanabhan", XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText"));
+        assertEquals("true", XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator"));
+        assertEquals("bill padmanabhan", XmlUtils.xPathStringSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText"));
 
     }
 
@@ -304,7 +304,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("2014-04-05", endDate);
 
         String personReference = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
-        assertEquals("P1", personReference);
+        assertEquals("P001", personReference);
 
         String topicDialect = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/wsn-br:Topic/@Dialect");
         assertEquals("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete", topicDialect);
@@ -313,12 +313,12 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals(TOPIC, topic);
 
         String subscribedEntityReference = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity/@s:id");
-        assertEquals("SE1", subscribedEntityReference);
+        assertEquals("SE001", subscribedEntityReference);
 
-        String ownerFirstName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+        String ownerFirstName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE001']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
         assertEquals("ownerFirst", ownerFirstName);
 
-        String ownerLastName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+        String ownerLastName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE001']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
         assertEquals("ownerLast", ownerLastName);
 
         String subscriptionOwner = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscriptionOriginator/ssr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
