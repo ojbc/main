@@ -35,7 +35,8 @@
 		<nc:CaseCategoryText>A</nc:CaseCategoryText>
 		<nc:CaseTrackingID>CR05-12345</nc:CaseTrackingID>
 		<j:CaseAugmentation>
-			<j:CaseAmendedCharge structures:ref="CHRG01">
+			<j:CaseAmendedCharge structures:ref="Chg1">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
 						<nc:Date>2005-05-01</nc:Date>
@@ -45,7 +46,7 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>05-00001</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>Attempted</j:ChargeQualifierText>
+				<j:ChargeQualifierText>N</j:ChargeQualifierText>
 				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -54,7 +55,8 @@
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
 			</j:CaseAmendedCharge>
-			<j:CaseAmendedCharge structures:ref="CHRG02">
+			<j:CaseAmendedCharge structures:ref="Chg2">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
 						<nc:Date>2005-05-01</nc:Date>
@@ -64,7 +66,7 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>ADD-ON</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>Attempted</j:ChargeQualifierText>
+				<j:ChargeQualifierText>Y</j:ChargeQualifierText>
 				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -73,7 +75,7 @@
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
 			</j:CaseAmendedCharge>
-			<j:CaseCharge structures:id="CHRG01">
+			<j:CaseCharge structures:id="Chg1">
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
@@ -93,17 +95,17 @@
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
 				<j:ChargeSubject>
-					<nc:RoleOfPerson structures:ref="DEF01" />
+					<nc:RoleOfPerson structures:ref="Def01" />
 					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
 					<cfd-ext:SubjectCareerCriminalIndicator>true</cfd-ext:SubjectCareerCriminalIndicator>
 					<cfd-ext:SubjectFirearmsIndicator>false</cfd-ext:SubjectFirearmsIndicator>
 					<cfd-ext:SubjectMentalHealthConditionIndicator>false</cfd-ext:SubjectMentalHealthConditionIndicator>
 				</j:ChargeSubject>
 				<j:ChargeVictim>
-					<nc:RoleOfPerson structures:ref="VIC01" />
+					<nc:RoleOfPerson structures:ref="Vic01" />
 				</j:ChargeVictim>
 			</j:CaseCharge>
-			<j:CaseCharge structures:id="CHRG02">
+			<j:CaseCharge structures:id="Chg2">
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
@@ -123,24 +125,53 @@
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
 				<j:ChargeSubject>
-					<nc:RoleOfPerson structures:ref="DEF01" />
+					<nc:RoleOfPerson structures:ref="Def01" />
 					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
 					<cfd-ext:SubjectCareerCriminalIndicator>true</cfd-ext:SubjectCareerCriminalIndicator>
 					<cfd-ext:SubjectFirearmsIndicator>false</cfd-ext:SubjectFirearmsIndicator>
 					<cfd-ext:SubjectMentalHealthConditionIndicator>false</cfd-ext:SubjectMentalHealthConditionIndicator>
 				</j:ChargeSubject>
 				<j:ChargeVictim>
-					<nc:RoleOfPerson structures:ref="VIC01" />
+					<nc:RoleOfPerson structures:ref="Vic01" />
+				</j:ChargeVictim>
+			</j:CaseCharge>
+			<j:CaseCharge>
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>05-00005</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>N</j:ChargeQualifierText>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>710-1077</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<j:ChargeSubject>
+					<nc:RoleOfPerson structures:ref="Def01" />
+					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
+					<cfd-ext:SubjectCareerCriminalIndicator>true</cfd-ext:SubjectCareerCriminalIndicator>
+					<cfd-ext:SubjectFirearmsIndicator>false</cfd-ext:SubjectFirearmsIndicator>
+					<cfd-ext:SubjectMentalHealthConditionIndicator>false</cfd-ext:SubjectMentalHealthConditionIndicator>
+				</j:ChargeSubject>
+				<j:ChargeVictim>
+					<nc:RoleOfPerson structures:ref="Vic01" />
 				</j:ChargeVictim>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
-	<nc:Person structures:id="DEF01">
+	<nc:Person structures:id="Def01">
 		<nc:PersonBirthDate>
 			<nc:Date>1981-02-23</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonNamePrefixText>Prefix</nc:PersonNamePrefixText>
 			<nc:PersonGivenName>Wayne</nc:PersonGivenName>
 			<nc:PersonMiddleName>K</nc:PersonMiddleName>
 			<nc:PersonSurName>Campbell</nc:PersonSurName>
@@ -156,7 +187,7 @@
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
-	<nc:Person structures:id="VIC01">
+	<nc:Person structures:id="Vic01">
 		<nc:PersonBirthDate>
 			<nc:Date>1951-01-01</nc:Date>
 		</nc:PersonBirthDate>
