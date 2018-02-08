@@ -370,9 +370,6 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         		subscription.getStartDate(), subscription.getEndDate());
 
         appendSubscriptionActiveIndicator(subscription, extensionSchema, subscriptionElement);
-        appendSubscriptionQualifierIdentification(subscription, extensionSchema,subscriptionElement);	
-        appendCreationDate(subscription, extensionSchema,subscriptionElement);
-        appendLastUpdateDate(subscription, extensionSchema, subscriptionElement);
 
 //		<sqr-ext:SubscriptionRelatedCaseIdentification>
 //			<nc:IdentificationID>0123ABC</nc:IdentificationID>
@@ -425,7 +422,8 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         if (StringUtils.isNotBlank(subscriptionQualifier))
         {
         	Element subscriptionQualifierIdentificationElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionQualifierIdentification");
-        	subscriptionQualifierIdentificationElement.setTextContent(subscriptionQualifier);
+        	Element identificationID = XmlUtils.appendElement(subscriptionQualifierIdentificationElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        	identificationID.setTextContent(subscriptionQualifier);
         }
 	}
 
