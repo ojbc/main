@@ -156,6 +156,7 @@
     <xsd:complexContent>
       <xsd:extension base="nc:AssociationType">
         <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
@@ -361,6 +362,11 @@
   <xsd:element name="PersonBirthDate" type="nc:DateType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A date a person was born.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonContactInformationAssociation" type="nc:PersonContactInformationAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and contact information.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">
