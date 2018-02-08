@@ -182,9 +182,9 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		Element idNode = XmlUtils.appendElement(subQualIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 				
-		if (StringUtils.isNotBlank(subscription.getSubscriptionQualificationID()))
+		if (StringUtils.isNotBlank(subscription.getSubscriptionQualificationId()))
 		{
-			idNode.setTextContent(subscription.getSubscriptionQualificationID());
+			idNode.setTextContent(subscription.getSubscriptionQualificationId());
 		}
 		else
 		{

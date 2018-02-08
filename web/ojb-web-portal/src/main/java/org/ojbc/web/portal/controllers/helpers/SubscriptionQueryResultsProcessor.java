@@ -17,13 +17,16 @@
 package org.ojbc.web.portal.controllers.helpers;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.BooleanUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,14 +54,78 @@ public class SubscriptionQueryResultsProcessor {
 						
 		Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
 		parsePersonNode(personNode, subscription);
-
-		parseContactInfoNode(rootSubQueryResultsNode, subscription);
+		//TODO change this when the SSP is ready for the subject contact info
+		parseSubjectContactInfoNode(rootSubQueryResultsNode, subscription);
 		
+		parseSubscriptionOwnerInfo(rootSubQueryResultsNode, subscription);
+		parseFbiSubscriptionInfo(rootSubQueryResultsNode, subscription);
 		parseFederalInformationNodes(subQueryResultNode, subscription);
 		
 		return subscription;
 	}		
 	
+	private void parseFbiSubscriptionInfo(Node rootSubQueryResultsNode,
+			Subscription subscription) throws Exception{
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
+		Node fbiSubscriptionNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Subscription/sqr-ext:FBISubscription");
+		
+		if (fbiSubscriptionNode != null){
+			String startDateString = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:StartDate/nc:Date");
+			fbiRapbackSubscription.setRapbackStartDate(Optional.ofNullable(startDateString).map(LocalDate::parse).orElse(null));
+			
+			String endDateString = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:EndDate/nc:Date");
+			fbiRapbackSubscription.setRapbackExpirationDate(Optional.ofNullable(endDateString).map(LocalDate::parse).orElse(null));
+			
+			String ucn = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+			fbiRapbackSubscription.setUcn(ucn);
+			
+			String subscriptionReasonCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:CriminalSubscriptionReasonCode|sqr-ext:CivilSubscriptionReasonCode");
+			fbiRapbackSubscription.setRapbackCategory(subscriptionReasonCode);
+			
+			String termCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:RapBackSubscriptionTermCode");
+			fbiRapbackSubscription.setSubscriptionTerm(termCode);
+			
+			String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:RapBackActivityNotificationFormatCode");
+			fbiRapbackSubscription.setRapbackActivityNotificationFormatDescription(rapBackActivityNotificationFormatCode);
+			
+			String rapbackOptOutInState = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:RapBackInStateOptOutIndicator");
+			fbiRapbackSubscription.setRapbackOptOutInState(BooleanUtils.toBooleanObject(rapbackOptOutInState));
+
+		}
+		
+		subscription.setFbiRapbackSubscription(fbiRapbackSubscription);
+	}
+
+	private void parseSubscriptionOwnerInfo(Node rootSubQueryResultsNode,
+			Subscription subscription) throws Exception {
+		
+//		  ori=<null>
+//		  subscriptionQualificationId=<null>
+//		  federalRapSheetDisclosureIndicator=<null>
+//		  federalRapSheetDisclosureAttentionDesignationText=<null>
+//		  federalTriggeringEventCode=[ARREST]
+//		  fbiSubscriptionID=<null>
+//		  fbiRapbackSubscription=FbiRapbackSubscription[fbiSubscriptionId=<null>,stateSubscriptionId=<null>,rapbackCategory=<null>,subscriptionTerm=<null>,rapbackExpirationDate=<null>,rapbackTermDate=<null>,rapbackStartDate=<null>,rapbackOptOutInState=<null>,rapbackActivityNotificationFormat=<null>,rapbackActivityNotificationFormatDescription=<null>,ucn=<null>,timestamp=<null>]
+
+		Node subscribedEntity = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscribedEntity");
+		String subscribedEntityId = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscribedEntity/@s:id");
+		String ownerContactInfoId = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, 
+				"sqr-ext:SubscribedEntityContactInformationAssociation[sqr-ext:SubscribedEntityReference/@s:ref='" + subscribedEntityId+ "']"
+						+ "/nc:ContactInformationReference/@s:ref");
+		String ownerEmailAddress = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "nc:ContactInformation[@s:id='"+ ownerContactInfoId +"']/nc:ContactEmailID");
+		subscription.setOwnerEmailAddress(ownerEmailAddress);
+		
+		String ownerFirstName = XmlUtils.xPathStringSearch(subscribedEntity, "nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+		subscription.setOwnerFirstName(ownerFirstName);
+		String ownerLastName = XmlUtils.xPathStringSearch(subscribedEntity, "nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+		subscription.setOwnerLastName(ownerLastName);
+		
+		String ownerFederationId = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, 
+				"sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscriptionOriginator/sqr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
+		subscription.setOwnerFederationId(ownerFederationId);
+		
+	}
+
 	private void parseFederalInformationNodes(Node subQueryResultNode,
 			Subscription subscription) throws Exception {
 		
@@ -105,16 +172,43 @@ public class SubscriptionQueryResultsProcessor {
 		Node subscriptionNode = XmlUtils.xPathNodeSearch(subQueryResultNode, "sqr-ext:Subscription");
 		
 		Node dateRangeNode = XmlUtils.xPathNodeSearch(subscriptionNode, "nc:ActivityDateRange");		
-		parseDateNode(dateRangeNode, subscription);				
+		parseSubscriptionDateNode(dateRangeNode, subscription);				
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
 		subscription.setTopic(topic.trim());
-		
+//		TODO		  emailList=[andrew@ojbc.local, andrew@search.org]
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
 		subscription.setSystemId(systemId);		
+		
+		String systemName = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/intel:SystemName");
+		subscription.setSystemName(systemName);		
+		
+		String activeString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionActiveIndicator");
+		subscription.setActive(BooleanUtils.toBooleanObject(activeString));
+		
+		String subscriptionQualifierId = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
+		subscription.setSubscriptionQualificationId(subscriptionQualifierId);
+		
+		String creationDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionCreationDate/nc:Date");
+		subscription.setCreationDate(Optional.ofNullable(creationDateString).map(LocalDate::parse).orElse(null));
+		
+		String lastUpdateDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionLastUpdatedDate/nc:Date");
+		subscription.setLastUpdatedDate(Optional.ofNullable(lastUpdateDateString).map(LocalDate::parse).orElse(null));
+		
+		String validationDueDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidationDueDate/nc:Date");
+		subscription.setValidationDueDate(Optional.ofNullable(validationDueDateString).map(LocalDate::parse).orElse(null));
+		
+		String lastValidatedDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionValidation/sqr-ext:SubscriptionValidatedDate/nc:Date");
+		subscription.setLastValidationDate(Optional.ofNullable(lastValidatedDateString).map(LocalDate::parse).orElse(null));
+		
+		String gracePeriodStartDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionGracePeriod/sqr-ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date");
+		subscription.setGracePeriodStartDate(Optional.ofNullable(gracePeriodStartDateString).map(LocalDate::parse).orElse(null));
+		
+		String gracePeriodEndDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionGracePeriod/sqr-ext:SubscriptionGracePeriodDateRange/nc:EndDate/nc:Date");
+		subscription.setGracePeriodEndDate(Optional.ofNullable(gracePeriodEndDateString).map(LocalDate::parse).orElse(null));
 	}	
 	
-	private void parseDateNode(Node dateRangeNode, Subscription subscription) throws Exception{				
+	private void parseSubscriptionDateNode(Node dateRangeNode, Subscription subscription) throws Exception{				
 
 		String sStartDate = XmlUtils.xPathStringSearch(dateRangeNode, "nc:StartDate/nc:Date");			
 		if(StringUtils.isNotEmpty(sStartDate)){
@@ -159,9 +253,9 @@ public class SubscriptionQueryResultsProcessor {
 	}
 	
 	
-	private void parseContactInfoNode(Node rootSubQueryResultsNode, Subscription subscription) throws Exception{
+	private void parseSubjectContactInfoNode(Node rootSubQueryResultsNode, Subscription subscription) throws Exception{
 		
-		NodeList contactInfoNodeList = XmlUtils.xPathNodeListSearch(rootSubQueryResultsNode, "nc:ContactInformation");
+		NodeList contactInfoNodeList = XmlUtils.xPathNodeListSearch(rootSubQueryResultsNode, "nc:ContactInformation[@s:id=following-sibling::nc:PersonContactInformationAssociation/nc:ContactInformationReference/@s:ref]");
 		
 		for(int i=0; i<contactInfoNodeList.getLength(); i++){
 			
