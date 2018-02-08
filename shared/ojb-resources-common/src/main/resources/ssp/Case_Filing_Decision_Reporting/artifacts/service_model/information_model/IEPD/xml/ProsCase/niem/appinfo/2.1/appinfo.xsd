@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+    targetNamespace="http://niem.gov/niem/appinfo/2.1" 
+    version="1"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation>This appinfo schema provides support for augmented types and augmented elements in NIEM domain schemas.  It was written to work in tandem with the NIEM appinfo v2.0 schema.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="AugmentedTypeIndicator" type="xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>The AugmentedTypeIndicator may be applied to any NIEM-conformant type.  A type that occurs in a NIEM domain and that uses an augmentation element must have an AugmentedTypeIndicator with a true value.  No other type should have a true value.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AugmentedElementIndicator" type="xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>The AugmentedElementIndicator may be applied to any NIEM-conformant element.  An element that occurs in a NIEM domain and that has a type that is an augmented type should have a true value.  No other elements should have a true value.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

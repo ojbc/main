@@ -1,0 +1,68 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+xmlns:s="http://niem.gov/niem/structures/2.0" 
+xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+xmlns:i="http://niem.gov/niem/appinfo/2.0" 
+xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+xmlns:doc="http://jjis.hawaii.gov/JJISProsCaseExtension" 
+targetNamespace="http://jjis.hawaii.gov/JJISProsCaseExtension" 
+elementFormDefault="unqualified" attributeFormDefault="unqualified"> 
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="niem/domains/jxdm/4.1/jxdm.xsd"/> 
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - Define Documents  - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<xsd:complexType name="JJISProsCaseDocumentType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Document" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="j:Case" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/> 
+					<!-- - - - - - Associations - - - - - -->
+					<xsd:element ref="nc:CohabitantAssociation" minOccurs="0" maxOccurs="unbounded" /> 
+					<xsd:element ref="nc:ImmediateFamilyAssociation"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>					
+					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded"/> 
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonLocationAssociation"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonOrganizationAssociation"  minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

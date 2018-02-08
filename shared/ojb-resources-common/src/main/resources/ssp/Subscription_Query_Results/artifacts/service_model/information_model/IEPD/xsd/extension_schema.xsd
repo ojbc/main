@@ -42,8 +42,8 @@
 					<xsd:element ref="sqr-ext:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="sqr-ext:SubscribedEntityOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscribedEntitySubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="qrm:QueryResultsMetadata" minOccurs="0" />
@@ -368,6 +368,26 @@
 	<xsd:element name="SubscribedEntityContactInformationAssociation" type="sqr-ext:SubscribedEntityContactInformationAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>A relationship between a subscription subject and contact information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscribedEntityOrganizationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a relationship between a subscribed entity and an organization.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="sqr-ext:SubscribedEntityReference" />
+					<xsd:element ref="nc:OrganizationReference" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscribedEntityOrganizationAssociation" type="sqr-ext:SubscribedEntityOrganizationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A relationship between a subscription entity and an organization.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

@@ -171,9 +171,11 @@
           <xs:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDegreeText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
@@ -404,6 +406,7 @@
           <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:StatuteLevelText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteOffenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -592,6 +595,11 @@
       <xs:documentation>A number of times a person is charged with committing the same crime.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDegreeText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A degree of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
@@ -605,6 +613,11 @@
   <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a charge was filed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeHighestIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a charge is the most serious charge within a group of charges; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
@@ -805,6 +818,11 @@
   <xs:element name="StatuteDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a statute.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteLevelText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of crime a statute applies to.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StatuteOffenseIdentification" type="nc:IdentificationType" nillable="true">

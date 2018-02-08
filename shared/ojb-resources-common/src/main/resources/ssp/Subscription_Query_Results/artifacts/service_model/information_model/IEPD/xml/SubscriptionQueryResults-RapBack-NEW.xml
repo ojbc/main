@@ -148,6 +148,7 @@
 		</j:PersonAugmentation>
 	</sqr-ext:Person>
 	<j:Organization s:id="SO01">
+		<nc:OrganizationName>Agency Name</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
 				<nc:IdentificationID>ORI23456</nc:IdentificationID>
@@ -166,10 +167,6 @@
 	<nc:ContactInformation s:id="SCI003">
 		<nc:ContactEmailID>subjectEmail3@gov.gov</nc:ContactEmailID>
 	</nc:ContactInformation>
-	<nc:PersonOrganizationAssociation>
-		<nc:PersonReference s:ref="SE001" />
-		<nc:OrganizationReference s:ref="SO01" />
-	</nc:PersonOrganizationAssociation>
 	<nc:PersonContactInformationAssociation>
 		<nc:PersonReference s:ref="P001" />
 		<nc:ContactInformationReference s:ref="SCI001" />
@@ -182,6 +179,10 @@
 		<nc:PersonReference s:ref="P001" />
 		<nc:ContactInformationReference s:ref="SCI003" />
 	</nc:PersonContactInformationAssociation>
+	<sqr-ext:SubscribedEntityOrganizationAssociation>
+		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
+		<nc:OrganizationReference s:ref="SO01" />
+	</sqr-ext:SubscribedEntityOrganizationAssociation>
 	<sqr-ext:SubscribedEntityContactInformationAssociation>
 		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
 		<nc:ContactInformationReference s:ref="CI001" />
