@@ -22,27 +22,180 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
 	xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<!-- ADD DOCUMENT ELEMENTS -->
+	<nc:Document>
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<!-- - - - - - - - - - - Standard document information - - - - - - - - -->
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		<nc:DocumentApplicationName>AgencyProgramName</nc:DocumentApplicationName>
+		<nc:DocumentCategoryName>ProsecutorCase</nc:DocumentCategoryName>
+		<nc:DocumentDispositionInstructionText>ADD</nc:DocumentDispositionInstructionText>
+		<nc:DocumentFileControlID />
+		<nc:DocumentStatus>
+			
+			<nc:StatusDate>
+				<nc:DateTime>2013-08-01T08:00:00</nc:DateTime>
+			</nc:StatusDate>
+			<nc:StatusIssuerText>SUBMITTED</nc:StatusIssuerText>
+		</nc:DocumentStatus>
+		<nc:DocumentSummaryText>Reason for transaction</nc:DocumentSummaryText>
+		<nc:DocumentSubmitter>
+			<nc:EntityOrganization>
+				<nc:OrganizationAbbreviationText>KPA</nc:OrganizationAbbreviationText>
+				<nc:OrganizationName>Kauai Prosecuting Attorney</nc:OrganizationName>
+			</nc:EntityOrganization>
+			<nc:EntityPerson>
+				<nc:PersonOtherIdentification>
+					<nc:IdentificationID>KPAUserID</nc:IdentificationID>
+				</nc:PersonOtherIdentification>
+			</nc:EntityPerson>
+		</nc:DocumentSubmitter>
+	</nc:Document>
 	<!-- JJIS Juvenile Case -->
 	<cyfs:JuvenileCase structures:id="JJIS_Def_01">
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>JJIS Case Number</nc:IdentificationID>
+		<nc:IdentificationCategoryDescriptionText>MASTER REPORT</nc:IdentificationCategoryDescriptionText>
 		</nc:ActivityIdentification>
+		
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</nc:DispositionDate>
 			<nc:DispositionDescriptionText>JJIS Disposition</nc:DispositionDescriptionText>
 		</nc:ActivityDisposition>
+		<nc:CaseCategoryText>Prosecutor</nc:CaseCategoryText>
+		<nc:CaseGeneralCategoryText>Juvenile</nc:CaseGeneralCategoryText>
+		<nc:CaseTrackingID>12345678</nc:CaseTrackingID>
+		<nc:CaseFiling>
+			<!-- Referring Agency -->
+			<nc:DocumentReceivedDate>
+				<nc:Date>2013-06-01</nc:Date>
+			</nc:DocumentReceivedDate>
+			<nc:DocumentSubmitter>
+				<nc:EntityOrganization>
+					<nc:OrganizationAbbreviationText>KPD</nc:OrganizationAbbreviationText>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>51</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+					<nc:OrganizationName>Kauai Police Department</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</nc:DocumentSubmitter>
+		</nc:CaseFiling>
+		
 		<j:CaseAugmentation>
-			<j:CaseCharge structures:id="JJIS_Charge_01">
-				<j:ChargeQualifierText>JJIS Charge Modifier</j:ChargeQualifierText>
+		
+		<j:CaseAmendedCharge structures:id="idCHG001">
+				<j:ChargeApplicabilityText>AC</j:ChargeApplicabilityText>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00010</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
 				<j:ChargeStatute>
-					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>JJIS Charge</nc:IdentificationID>
-					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>264-0006</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>HIWAY DISTURBANCE</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
 				</j:ChargeStatute>
-				<j:ChargeText>JJIS Charge Notes</j:ChargeText>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
+			</j:CaseAmendedCharge>
+		
+		
+			<j:CaseCharge structures:id="idCHG002">
+				<j:ChargeApplicabilityText>AC</j:ChargeApplicabilityText>
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>1</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00020</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+			<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>708-0833</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>THEFT 4</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
 			</j:CaseCharge>
+			<j:CaseCharge structures:id="idCHG003">
+				<j:ChargeApplicabilityText />
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDegreeText />
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2013-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
+					<nc:DispositionText>D2</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>00030</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeIdentification>
+				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
+				<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>708-0814.5</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>TRESPASS PUBLIC PARKS</j:StatuteDescriptionText>
+					<j:StatuteLevelText>PM</j:StatuteLevelText>
+				</j:ChargeStatute>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>13-000001</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>Police Report Number</nc:IdentificationCategoryDescriptionText>
+				</j:ChargeTrackingIdentification>
+			</j:CaseCharge>
+			
+			<j:CaseOtherIdentification>
+				<nc:IdentificationID>2222</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</j:CaseOtherIdentification>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPerson structures:ref="idPER002" />
+				<j:CaseOfficialRoleText />
+				<j:CaseOfficialStartDate>
+					<nc:Date>2013-07-01</nc:Date>
+				</j:CaseOfficialStartDate>
+			</j:CaseProsecutionAttorney>
+			<j:CaseTerminationCategoryText />
+			<j:CaseSeverityText>MISDEMEANOR</j:CaseSeverityText>
+			
 		</j:CaseAugmentation>
 		<cyfs:Caseworker>
 			<nc:RoleOfPerson>
@@ -100,37 +253,129 @@
 		</nc:ActivityDate>
 	</j:Offense>
 	<!-- JJIS Defendant -->
-	<nc:Person structures:id="Defendant_01" />
-	<nc:Person structures:id="JJIS_Defendant_01">
+	<!-- nc:Person structures:id="Defendant_01" />
+	
+		<ext:PersonAlternateName s:id="idALTNAME001">
+			<nc:PersonGivenName>FIRSTALIAS</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLEALIAS</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTALIAS, FIRSTALIAS MIDDLEALIAS JR</nc:PersonFullName>
+			<ext:PersonAlternateNameIdnt>
+				<nc:IdentificationID>100</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonAlternateNameIdnt>
+		</ext:PersonAlternateName>
+		<ext:PersonAlternateName s:id="idALTNAME002">
+			<nc:PersonGivenName>DOUGHBOY</nc:PersonGivenName>
+			<nc:PersonMiddleName />
+			<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
+			<nc:PersonNameSuffixText />
+			<nc:PersonFullName>LASTALIAS, DOUGHBOY</nc:PersonFullName>
+			<ext:PersonAlternateNameIdnt>
+				<nc:IdentificationID>101</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonAlternateNameIdnt>
+		</ext:PersonAlternateName>
 		<nc:PersonBirthDate>
-			<nc:Date>1980-07-26</nc:Date>
+			<nc:Date>1995-05-14</nc:Date>
 		</nc:PersonBirthDate>
-		<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
+		<nc:PersonBuildText>MED</nc:PersonBuildText>
+		<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage />
+		<nc:PersonEducationLevelText>HIGH SCHOOL</nc:PersonEducationLevelText>
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>HA</nc:PersonEthnicityCode>
+		<nc:PersonEthnicityText>CHINESE</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>CH</nc:PersonEthnicityCode>
+		<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+		<nc:PersonEyeColorText>BROWN</nc:PersonEyeColorText>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonHairColorText>BLACK</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>5</nc:MeasureText>
+			<nc:MeasureUnitText>FT</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>8</nc:MeasureText>
+			<nc:MeasureUnitText>IN</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
 		<nc:PersonName>
-			<nc:PersonGivenName>First</nc:PersonGivenName>
-			<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
-			<nc:PersonSurName>Last</nc:PersonSurName>
-			<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
+			<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
+			<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
+			<nc:PersonSurName>LASTNAME</nc:PersonSurName>
+			<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
+			<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
 		</nc:PersonName>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>INT123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>AGY123456789</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AGENCY</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>J1234567</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>AFIS</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>JJIS</nc:IdentificationCategoryDescriptionText>
+		</nc:PersonOtherIdentification>
+		<ext:PersonPhysicalFeature>
+			<nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
+			<nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureCategoryText />
+			<nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
+			<nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
+			<ext:PersonPhysicalFeatureIdnt>
+				<nc:IdentificationID>200</nc:IdentificationID>
+				<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
+			</ext:PersonPhysicalFeatureIdnt>
+		</ext:PersonPhysicalFeature>
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonRaceText>WHITE</nc:PersonRaceText>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSexText>MALE</nc:PersonSexText>
+		<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
+		<nc:PersonSkinToneText>DARK</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>SSN</nc:IdentificationID>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<cfd-ext:PersonJuvenileIndicator>true</cfd-ext:PersonJuvenileIndicator>
-	</nc:Person>
+		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>152</nc:MeasureText>
+			<nc:MeasureUnitText>LBS</nc:MeasureUnitText>
+		</nc:PersonWeightMeasure>
+	</nc:Person-->
 	<!-- JJIS Associate -->
 	<nc:Person structures:id="JJIS_Associate_01">
 		<nc:PersonBirthDate>
-			<nc:Date>1980-07-26</nc:Date>
+			<nc:Date>1995-05-14</nc:Date>
 		</nc:PersonBirthDate>
-		<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
-		<nc:PersonName>
-			<nc:PersonGivenName>First</nc:PersonGivenName>
-			<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
-			<nc:PersonSurName>Last</nc:PersonSurName>
-			<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
-		</nc:PersonName>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<!--  -nc:PersonBuildText>MED</nc:PersonBuildText -->
+		<nc:PersonComplexionText>FRECKLED</nc:PersonComplexionText>
+		<nc:PersonDeathDate>
+			<nc:Date xsi:nil="true" />
+		</nc:PersonDeathDate>
+		<nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
+		<nc:PersonDigitalImage />
+		<nc:PersonEducationLevelText>HIGH SCHOOL</nc:PersonEducationLevelText>
+		<nc:PersonEthnicityCode xsi:nil="true" />
+		<nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>HA</nc:PersonEthnicityCode>
+		<nc:PersonEthnicityText>CHINESE</nc:PersonEthnicityText>
+		<nc:PersonEthnicityCode>CH</nc:PersonEthnicityCode>
+		<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+		<nc:PersonEyeColorText>BROWN</nc:PersonEyeColorText>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonHairColorText>BLACK</nc:PersonHairColorText>
 	</nc:Person>
 	<!-- JJIS Alias -->
 	<nc:Identity structures:id="JJIS_Identity_01">

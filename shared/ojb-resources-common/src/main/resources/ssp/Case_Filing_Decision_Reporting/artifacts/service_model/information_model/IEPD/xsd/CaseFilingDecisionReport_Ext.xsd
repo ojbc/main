@@ -47,6 +47,7 @@
 					<xsd:element ref="cfd-ext:CaseFilingDecisionRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="cyfs:JuvenileCase" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" />
