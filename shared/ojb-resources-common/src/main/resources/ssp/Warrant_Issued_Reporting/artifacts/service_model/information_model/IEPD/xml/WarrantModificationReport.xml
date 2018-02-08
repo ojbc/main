@@ -34,8 +34,13 @@
 		</wir-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wir-ext:OriginalOffenseCodeText>4901
+				<wir-ext:GeneralOffenseCharacterDescriptionText>B
+				</wir-ext:GeneralOffenseCharacterDescriptionText>
+				<wir-ext:ChargeCodeText>4901</wir-ext:ChargeCodeText>
+				<wir-ext:OriginalOffenseCodeText>2201
 				</wir-ext:OriginalOffenseCodeText>
+				<wir-ext:ProsecutionChargeCodeText>750.115-6[4]
+				</wir-ext:ProsecutionChargeCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
