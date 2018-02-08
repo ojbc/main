@@ -158,8 +158,8 @@
    <nc:ContactInformation s:id="SE0CE1">
       <nc:ContactEmailID>officer@gmail.com</nc:ContactEmailID>
    </nc:ContactInformation>
-   <sqr-ext:SubscribedEntityContactInformationAssociation>
-      <sqr-ext:SubscribedEntityReference s:ref="SE0"/>
+   <nc:PersonContactInformationAssociation>
+      <nc:SubscribedEntityReference s:ref="P0"/>
       <nc:ContactInformationReference s:ref="SE0CE1"/>
-   </sqr-ext:SubscribedEntityContactInformationAssociation>
+   </nc:PersonContactInformationAssociation>
 </sqr:SubscriptionQueryResults>
