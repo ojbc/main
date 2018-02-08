@@ -54,7 +54,7 @@ public class SubscriptionQueryResultsProcessor {
 						
 		Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
 		parsePersonNode(personNode, subscription);
-		//TODO change this when the SSP is ready for the subject contact info
+		
 		parseSubjectContactInfoNode(rootSubQueryResultsNode, subscription);
 		
 		parseSubscriptionOwnerInfo(rootSubQueryResultsNode, subscription);
@@ -67,9 +67,12 @@ public class SubscriptionQueryResultsProcessor {
 	private void parseFbiSubscriptionInfo(Node rootSubQueryResultsNode,
 			Subscription subscription) throws Exception{
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
-		Node fbiSubscriptionNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Subscription/sqr-ext:FBISubscription");
+		Node fbiSubscriptionNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:FBISubscription");
 		
 		if (fbiSubscriptionNode != null){
+			String fbiSubscriptionId = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+			fbiRapbackSubscription.setFbiSubscriptionId(fbiSubscriptionId);
+			
 			String startDateString = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:StartDate/nc:Date");
 			fbiRapbackSubscription.setRapbackStartDate(Optional.ofNullable(startDateString).map(LocalDate::parse).orElse(null));
 			
@@ -86,7 +89,7 @@ public class SubscriptionQueryResultsProcessor {
 			fbiRapbackSubscription.setSubscriptionTerm(termCode);
 			
 			String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:RapBackActivityNotificationFormatCode");
-			fbiRapbackSubscription.setRapbackActivityNotificationFormatDescription(rapBackActivityNotificationFormatCode);
+			fbiRapbackSubscription.setRapbackActivityNotificationFormat(rapBackActivityNotificationFormatCode);
 			
 			String rapbackOptOutInState = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:RapBackInStateOptOutIndicator");
 			fbiRapbackSubscription.setRapbackOptOutInState(BooleanUtils.toBooleanObject(rapbackOptOutInState));
@@ -124,6 +127,10 @@ public class SubscriptionQueryResultsProcessor {
 				"sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscriptionOriginator/sqr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
 		subscription.setOwnerFederationId(ownerFederationId);
 		
+		String ori = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "jxdm41:Organization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
+		subscription.setOri(ori);
+		String agencyName = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "jxdm41:Organization/nc:OrganizationName");
+		subscription.setAgencyName(agencyName);
 	}
 
 	private void parseFederalInformationNodes(Node subQueryResultNode,
@@ -176,7 +183,7 @@ public class SubscriptionQueryResultsProcessor {
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
 		subscription.setTopic(topic.trim());
-//		TODO		  emailList=[andrew@ojbc.local, andrew@search.org]
+
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
 		subscription.setSystemId(systemId);		
 		
