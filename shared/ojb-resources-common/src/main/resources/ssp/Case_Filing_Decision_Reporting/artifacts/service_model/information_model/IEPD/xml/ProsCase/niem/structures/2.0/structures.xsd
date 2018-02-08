@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<schema
+    targetNamespace="http://niem.gov/niem/structures/2.0"
+    version="1"
+    xmlns:i="http://niem.gov/niem/appinfo/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns="http://www.w3.org/2001/XMLSchema">
+
+  <import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../appinfo/2.0/appinfo.xsd"/>
+
+  <annotation><appinfo>
+      <i:resource i:name="Object"/>
+  </appinfo></annotation>
+
+  <annotation><appinfo>
+      <i:resource i:name="Association"/>
+  </appinfo></annotation>
+
+  <attribute name="id" type="ID"/>
+  <attribute name="linkMetadata" type="IDREFS"/>
+  <attribute name="metadata" type="IDREFS"/>
+  <attribute name="ref" type="IDREF"/>
+  <attribute name="sequenceID" type="integer"/>
+   
+  <attributeGroup name="SimpleObjectAttributeGroup">
+    <attribute ref="s:id"/>
+    <attribute ref="s:metadata"/>
+    <attribute ref="s:linkMetadata"/>
+  </attributeGroup>
+
+  <element name="Augmentation" type="s:AugmentationType" abstract="true"/>
+  <element name="Metadata" type="s:MetadataType" abstract="true"/>
+
+  <complexType name="AugmentationType" abstract="true">
+      <attribute ref="s:id"/>
+      <attribute ref="s:metadata"/>
+  </complexType>
+
+  <complexType name="ComplexObjectType" abstract="true">
+      <attribute ref="s:id"/>
+      <attribute ref="s:metadata"/>
+      <attribute ref="s:linkMetadata"/>
+  </complexType>
+
+  <complexType name="MetadataType" abstract="true">
+      <attribute ref="s:id"/>
+  </complexType>
+
+  <complexType name="ReferenceType" final="#all">
+      <attribute ref="s:id"/>
+      <attribute ref="s:ref"/>
+      <attribute ref="s:linkMetadata"/>
+  </complexType>
+
+</schema>

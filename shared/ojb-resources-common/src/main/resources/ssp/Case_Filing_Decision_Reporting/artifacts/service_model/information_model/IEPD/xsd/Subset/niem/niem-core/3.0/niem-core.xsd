@@ -101,6 +101,7 @@
         <xs:sequence>
           <xs:element ref="nc:CaseTitleText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:CaseGeneralCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseTrackingID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:CaseFiling" minOccurs="0" maxOccurs="unbounded"/>
@@ -176,6 +177,7 @@
         <xs:sequence>
           <xs:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DispositionDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DispositionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -192,12 +194,18 @@
           <xs:element ref="nc:DocumentCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentCreationDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentDispositionInstructionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentFileControlID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentFormatText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentReceivedDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentRelatedResourceText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentStatus" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentSummaryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentTitleText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentAuthor" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentSubmitter" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -238,6 +246,7 @@
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IdentificationJurisdiction" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IdentificationCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentificationCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -327,6 +336,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:OrganizationAbbreviationText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
@@ -437,6 +447,7 @@
           <xs:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonPassportIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonResident" minOccurs="0" maxOccurs="unbounded"/>
@@ -457,6 +468,19 @@
     <xs:simpleContent>
       <xs:extension base="nc:TextType"/>
     </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>A data type for a state of something or someone.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StatusDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:StatusIssuerText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="StreetType">
     <xs:annotation>
@@ -606,6 +630,11 @@
       <xs:documentation>A document or other piece of information filed by someone or something involved in a case.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseGeneralCategoryText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A broadly defined kind of case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseTitleText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An official name of a case.</xs:documentation>
@@ -686,6 +715,11 @@
       <xs:documentation>A description of a disposition.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DispositionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or outcome of a disposition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Document" type="nc:DocumentType" nillable="true">
     <xs:annotation>
       <xs:documentation>A paper or electronic document.</xs:documentation>
@@ -736,9 +770,19 @@
       <xs:documentation>A description of the content of a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DocumentDispositionInstructionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An instruction on how to handle or process information in a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentEffectiveDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date in which the content or action becomes enforceable, active, or effective.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentFileControlID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a document to locate it within a file control system.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DocumentFiledDate" type="nc:DateType" nillable="true">
@@ -751,9 +795,29 @@
       <xs:documentation>A file format, content type (e.g., a MIME type), or physical format of a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DocumentReceivedDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date a transmitted document was received.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentRelatedResourceText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A reference to another document or resource related to the document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentSubmitter" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity responsible for making the resource available.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentSummaryText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A short description of the subject, content, and key points of a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DocumentTitleText" type="nc:TextType" nillable="true">
@@ -814,6 +878,11 @@
   <xs:element name="IdentificationCategory" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a kind of identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentificationCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a kind of identification.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IdentificationCategoryText" type="nc:TextType" substitutionGroup="nc:IdentificationCategory" nillable="true">
@@ -951,6 +1020,11 @@
       <xs:documentation>A unit which conducts some sort of business or operations.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationAbbreviationText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An abbreviation, acronym, or code for an organization name.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
@@ -1081,6 +1155,11 @@
       <xs:documentation>A term appended after the family name that qualifies the name.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification with a kind that is not explicitly defined in the standard that refers to a person within a certain domain.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonPassportIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification of a passport issued to a person.</xs:documentation>
@@ -1169,6 +1248,21 @@
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which something begins.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusDate" type="nc:DateType" substitutionGroup="nc:StatusDateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A date a status was set, effected, or reported.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusDateRepresentation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a date a status is given.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusIssuerText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name, identifier, or other reference of a person or organization which assigns a status.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StreetFullText" type="nc:TextType" nillable="true">
