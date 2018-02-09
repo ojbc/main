@@ -127,6 +127,160 @@ https://www.leo.gov</xs:documentation>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:simpleType name="EYECodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Eye Color.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BLK">
+        <xs:annotation>
+          <xs:documentation>Black</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLU">
+        <xs:annotation>
+          <xs:documentation>Blue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRO">
+        <xs:annotation>
+          <xs:documentation>Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRN">
+        <xs:annotation>
+          <xs:documentation>Green</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRY">
+        <xs:annotation>
+          <xs:documentation>Gray</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HAZ">
+        <xs:annotation>
+          <xs:documentation>Hazel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MAR">
+        <xs:annotation>
+          <xs:documentation>Maroon</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MUL">
+        <xs:annotation>
+          <xs:documentation>Multicolored</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PNK">
+        <xs:annotation>
+          <xs:documentation>Pink</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XXX">
+        <xs:annotation>
+          <xs:documentation>Unknown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="EYECodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Eye Color.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:EYECodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="HAICodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Hair Color.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BLD">
+        <xs:annotation>
+          <xs:documentation>Bald</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLK">
+        <xs:annotation>
+          <xs:documentation>Black</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLN">
+        <xs:annotation>
+          <xs:documentation>Blond or Strawberry</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLU">
+        <xs:annotation>
+          <xs:documentation>Blue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRO">
+        <xs:annotation>
+          <xs:documentation>Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRN">
+        <xs:annotation>
+          <xs:documentation>Green</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRY">
+        <xs:annotation>
+          <xs:documentation>Gray or Partially Gray</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ONG">
+        <xs:annotation>
+          <xs:documentation>Orange</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PLE">
+        <xs:annotation>
+          <xs:documentation>Purple</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PNK">
+        <xs:annotation>
+          <xs:documentation>Pink</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RED">
+        <xs:annotation>
+          <xs:documentation>Red or Auburn</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SDY">
+        <xs:annotation>
+          <xs:documentation>Sandy</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WHI">
+        <xs:annotation>
+          <xs:documentation>White</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="XXX">
+        <xs:annotation>
+          <xs:documentation>Unknown or Completely Bald</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="HAICodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Hair Color.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:HAICodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:simpleType name="LISCodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for License State.</xs:documentation>
@@ -3378,6 +3532,48 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:simpleType name="RACCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Race.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="A">
+        <xs:annotation>
+          <xs:documentation>Asian or Pacific Islander - a person having origins in any of the original peoples of the Far East, Southeast Asia, the Indian subcontinent or the Pacific Islands.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="B">
+        <xs:annotation>
+          <xs:documentation>Black - a person having origins in any of the black racial groups of Africa.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="I">
+        <xs:annotation>
+          <xs:documentation>American Indian or Alaskan Native - a person having origins in any of the original peoples of the Americas and maintaining cultural identification through tribal affiliations or community recognition.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="U">
+        <xs:annotation>
+          <xs:documentation>Unknown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="W">
+        <xs:annotation>
+          <xs:documentation>White - a person having origins in any of the original peoples of Europe, North Africa, or Middle East.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RACCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Race.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:RACCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:simpleType name="SEXCodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Sex.</xs:documentation>
@@ -3406,6 +3602,3675 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="ncic:SEXCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SKNCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Skin Color.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ALB">
+        <xs:annotation>
+          <xs:documentation>Albino</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLK">
+        <xs:annotation>
+          <xs:documentation>Black</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DBR">
+        <xs:annotation>
+          <xs:documentation>Dark Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DRK">
+        <xs:annotation>
+          <xs:documentation>Dark</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FAR">
+        <xs:annotation>
+          <xs:documentation>Fair</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LBR">
+        <xs:annotation>
+          <xs:documentation>Light Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LGT">
+        <xs:annotation>
+          <xs:documentation>Light</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MBR">
+        <xs:annotation>
+          <xs:documentation>Medium Brown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MED">
+        <xs:annotation>
+          <xs:documentation>Medium</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OLV">
+        <xs:annotation>
+          <xs:documentation>Olive</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RUD">
+        <xs:annotation>
+          <xs:documentation>Ruddy</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SAL">
+        <xs:annotation>
+          <xs:documentation>Sallow</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="YEL">
+        <xs:annotation>
+          <xs:documentation>Yellow</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SKNCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Skin Color.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:SKNCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SMTCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for Scars/Marks/Tattoos.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ART ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART BRSTS">
+        <xs:annotation>
+          <xs:documentation>Breast implant, left and right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART ELBOW">
+        <xs:annotation>
+          <xs:documentation>Artificial elbow joint</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART HIP">
+        <xs:annotation>
+          <xs:documentation>Artificial hip joint</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART KNEE">
+        <xs:annotation>
+          <xs:documentation>Artificial knee joint</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART LARYNX">
+        <xs:annotation>
+          <xs:documentation>Artificial larynx</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L BRST">
+        <xs:annotation>
+          <xs:documentation>Breast implant, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L FT">
+        <xs:annotation>
+          <xs:documentation>Foot, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R BRST">
+        <xs:annotation>
+          <xs:documentation>Breast implant, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R FT">
+        <xs:annotation>
+          <xs:documentation>Foot, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right, artificial</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ART SHLD">
+        <xs:annotation>
+          <xs:documentation>Artificial shoulder joint</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BALD">
+        <xs:annotation>
+          <xs:documentation>Bald/balding</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLIND">
+        <xs:annotation>
+          <xs:documentation>Blind, both eyes</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLND EYE">
+        <xs:annotation>
+          <xs:documentation>Blind, one eye, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLND L EYE">
+        <xs:annotation>
+          <xs:documentation>Blind, left eye</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BLND R EYE">
+        <xs:annotation>
+          <xs:documentation>Blind, right eye</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC ARM">
+        <xs:annotation>
+          <xs:documentation>Brace, one arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRACE BACK">
+        <xs:annotation>
+          <xs:documentation>Brace, back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRACE NECK">
+        <xs:annotation>
+          <xs:documentation>Brace, neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC L ARM">
+        <xs:annotation>
+          <xs:documentation>Brace, left arm</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC LEG">
+        <xs:annotation>
+          <xs:documentation>Brace, one leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC L LEG">
+        <xs:annotation>
+          <xs:documentation>Brace, left leg</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC R ARM">
+        <xs:annotation>
+          <xs:documentation>Brace, right arm</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC R LEG">
+        <xs:annotation>
+          <xs:documentation>Brace, right leg</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRAC TEETH">
+        <xs:annotation>
+          <xs:documentation>Braces, teeth</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRA LR ARM">
+        <xs:annotation>
+          <xs:documentation>Brace, left and right arms</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BRA LR LEG">
+        <xs:annotation>
+          <xs:documentation>Brace, left and right legs</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CANE">
+        <xs:annotation>
+          <xs:documentation>Cane</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CARD PACEM">
+        <xs:annotation>
+          <xs:documentation>Cardiac pacemaker</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CATA L EYE">
+        <xs:annotation>
+          <xs:documentation>Cataract, left eye</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CATARACT">
+        <xs:annotation>
+          <xs:documentation>Cataract, (nonspecific)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CATA R EYE">
+        <xs:annotation>
+          <xs:documentation>Cataract, right eye</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CAUL L EAR">
+        <xs:annotation>
+          <xs:documentation>Cauliflower ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CAUL R EAR">
+        <xs:annotation>
+          <xs:documentation>Cauliflower ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CLEFT CHIN">
+        <xs:annotation>
+          <xs:documentation>Cleft chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CLEFT PAL">
+        <xs:annotation>
+          <xs:documentation>Cleft palate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CL LIP">
+        <xs:annotation>
+          <xs:documentation>Harelip</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CL LIP">
+        <xs:annotation>
+          <xs:documentation>Cleft lip</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COLOST APP">
+        <xs:annotation>
+          <xs:documentation>Colostomy appliances</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CON LENSES">
+        <xs:annotation>
+          <xs:documentation>Contact lenses</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L ARM">
+        <xs:annotation>
+          <xs:documentation>Crippled arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L FGR">
+        <xs:annotation>
+          <xs:documentation>Crippled finger(s), left hand (2)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L FT">
+        <xs:annotation>
+          <xs:documentation>Crippled foot, left (3)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L HND">
+        <xs:annotation>
+          <xs:documentation>Crippled hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L LEG">
+        <xs:annotation>
+          <xs:documentation>Crippled leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP L TOE">
+        <xs:annotation>
+          <xs:documentation>Crippled toe(s), left (4)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R ARM">
+        <xs:annotation>
+          <xs:documentation>Crippled arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R FGR">
+        <xs:annotation>
+          <xs:documentation>Crippled finger(s), right hand (2)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R FT">
+        <xs:annotation>
+          <xs:documentation>Crippled foot, right (3)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R HND">
+        <xs:annotation>
+          <xs:documentation>Crippled hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R LEG">
+        <xs:annotation>
+          <xs:documentation>Crippled leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRIP R TOE">
+        <xs:annotation>
+          <xs:documentation>Crippled toe(s), right (4)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CROSSEYED">
+        <xs:annotation>
+          <xs:documentation>Cross-eyed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CRUTCHES">
+        <xs:annotation>
+          <xs:documentation>Crutches</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA ALCOHOL">
+        <xs:annotation>
+          <xs:documentation>Alcohol</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA AMPHETA">
+        <xs:annotation>
+          <xs:documentation>Amphetamines (includes stimulants, speed, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA BARBITU">
+        <xs:annotation>
+          <xs:documentation>Barbiturates</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA COCAINE">
+        <xs:annotation>
+          <xs:documentation>Cocaine (includes crack)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA GLUE">
+        <xs:annotation>
+          <xs:documentation>Glue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA HALLUCI">
+        <xs:annotation>
+          <xs:documentation>Hallucinogens</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA MARIJUA">
+        <xs:annotation>
+          <xs:documentation>Marijuana</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA NARCOTI">
+        <xs:annotation>
+          <xs:documentation>Narcotics (includes heroin, morphine, Dilaudid, methadone, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA OTHER">
+        <xs:annotation>
+          <xs:documentation>Other drugs of abuse not listed, identify in the MIS Field</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA PAINT">
+        <xs:annotation>
+          <xs:documentation>Paint (includes thinner)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA RITALIN">
+        <xs:annotation>
+          <xs:documentation>Ritalin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DA ROHYPNL">
+        <xs:annotation>
+          <xs:documentation>Rohypnol (brand name for Flunitrazepam.  Also referred to as rophies, roofies, ruffies, and roche.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEAF">
+        <xs:annotation>
+          <xs:documentation>Deaf, left and right ears</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEAF EAR">
+        <xs:annotation>
+          <xs:documentation>Deaf, one ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEAF L EAR">
+        <xs:annotation>
+          <xs:documentation>Deaf, left ear</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEAF MUTE">
+        <xs:annotation>
+          <xs:documentation>Deaf-mute</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEAF R EAR">
+        <xs:annotation>
+          <xs:documentation>Deaf, right ear</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DENT LOW">
+        <xs:annotation>
+          <xs:documentation>Denture, lower only</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DENT UP">
+        <xs:annotation>
+          <xs:documentation>Denture, upper only</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DENT UP LO">
+        <xs:annotation>
+          <xs:documentation>Denture, upper and lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DEV SEPTUM">
+        <xs:annotation>
+          <xs:documentation>Deviated septum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DIMP CHIN">
+        <xs:annotation>
+          <xs:documentation>Dimple, chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DIMP L CHK">
+        <xs:annotation>
+          <xs:documentation>Dimples, left cheek (face)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DIMP R CHK">
+        <xs:annotation>
+          <xs:documentation>Dimples, right cheek (face)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC ABDOM">
+        <xs:annotation>
+          <xs:documentation>Abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC CHEEK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC CHEST">
+        <xs:annotation>
+          <xs:documentation>Chest</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC CHIN">
+        <xs:annotation>
+          <xs:documentation>Chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC FACE">
+        <xs:annotation>
+          <xs:documentation>Face, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC FGR">
+        <xs:annotation>
+          <xs:documentation>Finger, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC FHD">
+        <xs:annotation>
+          <xs:documentation>Forehead</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC HEAD">
+        <xs:annotation>
+          <xs:documentation>Head</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L ANK">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L BRS">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L BUT">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, left/left eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L FT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC LKNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC LSHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC LTHGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC L WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R ANK">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R BRS">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R BUT">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, right/right eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R FT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC RKNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC RSHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC RTHGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC R WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC U LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DISC WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EAR TUBES">
+        <xs:annotation>
+          <xs:documentation>Tubes in ears, left and right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR BRST">
+        <xs:annotation>
+          <xs:documentation>Extra breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR CBRST">
+        <xs:annotation>
+          <xs:documentation>Extra breast, center</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR C NIP">
+        <xs:annotation>
+          <xs:documentation>Extra nipple, center</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR C VRT">
+        <xs:annotation>
+          <xs:documentation>Extra cervical vertebra(e)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR LBRST">
+        <xs:annotation>
+          <xs:documentation>Extra breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR L FGR">
+        <xs:annotation>
+          <xs:documentation>Extra finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR L NIP">
+        <xs:annotation>
+          <xs:documentation>Extra nipple, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR L TOE">
+        <xs:annotation>
+          <xs:documentation>Extra toe(s), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR L TTH">
+        <xs:annotation>
+          <xs:documentation>Extra tooth/teeth (lower jaw)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR L VRT">
+        <xs:annotation>
+          <xs:documentation>Extra lumbar vertebra(e)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR NIP">
+        <xs:annotation>
+          <xs:documentation>Extra nipple, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR RBRST">
+        <xs:annotation>
+          <xs:documentation>Extra breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR R FGR">
+        <xs:annotation>
+          <xs:documentation>Extra finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR R NIP">
+        <xs:annotation>
+          <xs:documentation>Extra nipple, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR R TOE">
+        <xs:annotation>
+          <xs:documentation>Extra toe(s), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR U TTH">
+        <xs:annotation>
+          <xs:documentation>Extra tooth/teeth (upper jaw)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EXTR VRT">
+        <xs:annotation>
+          <xs:documentation>Extra vertebra(e), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC CLAVIC">
+        <xs:annotation>
+          <xs:documentation>Clavicle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LCLAVI">
+        <xs:annotation>
+          <xs:documentation>Clavicle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LL JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LL LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LPELVI">
+        <xs:annotation>
+          <xs:documentation>Pelvic bone, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L RIB">
+        <xs:annotation>
+          <xs:documentation>Rib(s), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LR JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC LR LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), left foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC L WRST">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC PELVIS">
+        <xs:annotation>
+          <xs:documentation>Pelvis, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC RCLAVI">
+        <xs:annotation>
+          <xs:documentation>Clavicle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R FGR">
+        <xs:annotation>
+          <xs:documentation>FInger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC RIBS">
+        <xs:annotation>
+          <xs:documentation>Rib(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC RPELVI">
+        <xs:annotation>
+          <xs:documentation>Pelvic bone, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R RIB">
+        <xs:annotation>
+          <xs:documentation>Rib(s), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), right foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC R WRST">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC SKULL">
+        <xs:annotation>
+          <xs:documentation>Skull</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC SPINE">
+        <xs:annotation>
+          <xs:documentation>Spine</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC STERN">
+        <xs:annotation>
+          <xs:documentation>Sternum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UL JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UL LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UR JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC UR LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRC WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FRECKLES">
+        <xs:annotation>
+          <xs:documentation>Freckles</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GLASSES">
+        <xs:annotation>
+          <xs:documentation>Glasses (prescription)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GLAUCOMA">
+        <xs:annotation>
+          <xs:documentation>Glaucoma</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GOLD TOOTH">
+        <xs:annotation>
+          <xs:documentation>Gold tooth</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HAIR IMPL">
+        <xs:annotation>
+          <xs:documentation>Hair implants</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HEAR AID">
+        <xs:annotation>
+          <xs:documentation>Hearing aid</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HERMAPHR">
+        <xs:annotation>
+          <xs:documentation>Hermaphrodite</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR CLAVIC">
+        <xs:annotation>
+          <xs:documentation>Clavicle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LCLAVI">
+        <xs:annotation>
+          <xs:documentation>Clavicle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LL JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LL LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LPELVI">
+        <xs:annotation>
+          <xs:documentation>Pelvic bone, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L RIB">
+        <xs:annotation>
+          <xs:documentation>Rib(s), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LR JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR LR LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), left foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR L WRST">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR PELVIS">
+        <xs:annotation>
+          <xs:documentation>Pelvis, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR RCLAVI">
+        <xs:annotation>
+          <xs:documentation>Clavicle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR RIBS">
+        <xs:annotation>
+          <xs:documentation>Rib(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR RPELVI">
+        <xs:annotation>
+          <xs:documentation>Pelvic bone, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R RIB">
+        <xs:annotation>
+          <xs:documentation>Rib(s), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), right foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR R WRST">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR SKULL">
+        <xs:annotation>
+          <xs:documentation>Skull</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR SPINE">
+        <xs:annotation>
+          <xs:documentation>Spine</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR STERN">
+        <xs:annotation>
+          <xs:documentation>Sternum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UL JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UL LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, upper left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UR JAW">
+        <xs:annotation>
+          <xs:documentation>Jaw, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR UR LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, upper right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HFR WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HUMPBACKED">
+        <xs:annotation>
+          <xs:documentation>Humpbacked</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IMPL PENIS">
+        <xs:annotation>
+          <xs:documentation>Penile implant</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INTRA ROD">
+        <xs:annotation>
+          <xs:documentation>Intramedullary rod</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IUD">
+        <xs:annotation>
+          <xs:documentation>Intrauterine device</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ACNE">
+        <xs:annotation>
+          <xs:documentation>Acne</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ADD">
+        <xs:annotation>
+          <xs:documentation>Attention Deficit Disorder</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ALCOHOL">
+        <xs:annotation>
+          <xs:documentation>Alcoholism</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ALLERGY">
+        <xs:annotation>
+          <xs:documentation>Allergies (including asthma)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ALZHMRS">
+        <xs:annotation>
+          <xs:documentation>Alzheimers disease</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC ARTHRTS">
+        <xs:annotation>
+          <xs:documentation>Arthritis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC BEHAVIO">
+        <xs:annotation>
+          <xs:documentation>Behavior disorder (including autism, depression, schizophrenia, and suicidal tendencies [past and present])</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC BLOOD">
+        <xs:annotation>
+          <xs:documentation>Hematological diseases (diseases of the blood - including anemia, hemophilia, leukemia, and sickle-cell anemia)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC CANCER">
+        <xs:annotation>
+          <xs:documentation>Cancer</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC DIABTIC">
+        <xs:annotation>
+          <xs:documentation>Diabetic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC DOWNSYN">
+        <xs:annotation>
+          <xs:documentation>Down Syndrome</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC DRUGAB">
+        <xs:annotation>
+          <xs:documentation>Drug abuse</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC EATDIS">
+        <xs:annotation>
+          <xs:documentation>Eating disorders</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC HEART">
+        <xs:annotation>
+          <xs:documentation>Heart or circulatory diseases (including circulation problems, hardening of the arteries, heart attack, heart failure, and high blood pressure)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC KIDNEY">
+        <xs:annotation>
+          <xs:documentation>Kidney conditions or diseases</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC LIVER">
+        <xs:annotation>
+          <xs:documentation>Liver disease (including cirrhosis and hepatitis)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC NERVOUS">
+        <xs:annotation>
+          <xs:documentation>Nervous conditions (including mental retardation, seizures, senility, and stroke)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC NRLGCAL">
+        <xs:annotation>
+          <xs:documentation>Neurological conditions or diseases (including cerebral palsy, epilepsy, multiple sclerosis, Parkinsons disease)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC OTHER">
+        <xs:annotation>
+          <xs:documentation>Other medical disorders/conditions not listed, identify in the MIS Field</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC PARPLGC">
+        <xs:annotation>
+          <xs:documentation>Paraplegic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC PASTPRE">
+        <xs:annotation>
+          <xs:documentation>Pregnancy - past (used when the individual has had past pregnancies but is not pregnant at the time the report is written)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC PLMNARY">
+        <xs:annotation>
+          <xs:documentation>Pulmonary (lung) diseases (including cystic fibrosis and emphysema)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC PREGNAN">
+        <xs:annotation>
+          <xs:documentation>Pregnancy - present (used when the individual is pregnant at the time the record is entered into NCIC)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC QUADPLG">
+        <xs:annotation>
+          <xs:documentation>Quadriplegic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC SKIN">
+        <xs:annotation>
+          <xs:documentation>Skin disorders (including psoriasis and eczema)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC TB">
+        <xs:annotation>
+          <xs:documentation>Tuberculosis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC THYROID">
+        <xs:annotation>
+          <xs:documentation>Thyroid conditions or diseases</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC TOURETE">
+        <xs:annotation>
+          <xs:documentation>Tourettes syndrome</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS ADND">
+        <xs:annotation>
+          <xs:documentation>Adenoids</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS APPNX">
+        <xs:annotation>
+          <xs:documentation>Appendix</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS BRSTS">
+        <xs:annotation>
+          <xs:documentation>Breasts</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS C VRT">
+        <xs:annotation>
+          <xs:documentation>Cervical vertebra(e)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS GALL">
+        <xs:annotation>
+          <xs:documentation>Gallbladder</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS INTES">
+        <xs:annotation>
+          <xs:documentation>Intestines</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L FJT">
+        <xs:annotation>
+          <xs:documentation>Finger joint(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L FT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L KID">
+        <xs:annotation>
+          <xs:documentation>Kidney, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LLARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LLLEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LLUNG">
+        <xs:annotation>
+          <xs:documentation>Lung, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LOVAR">
+        <xs:annotation>
+          <xs:documentation>Ovary, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LRARM">
+        <xs:annotation>
+          <xs:documentation>Arm, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LRLEG">
+        <xs:annotation>
+          <xs:documentation>Leg, lower right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS LRYNX">
+        <xs:annotation>
+          <xs:documentation>Larynx</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L TES">
+        <xs:annotation>
+          <xs:documentation>Testis, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), left foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS L VRT">
+        <xs:annotation>
+          <xs:documentation>Lumbar vertebra(e)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS OVARS">
+        <xs:annotation>
+          <xs:documentation>Ovaries</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS PANCR">
+        <xs:annotation>
+          <xs:documentation>Pancreas</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS PROST">
+        <xs:annotation>
+          <xs:documentation>Prostate gland</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS RBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R FJT">
+        <xs:annotation>
+          <xs:documentation>Finger joint(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R FT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R KID">
+        <xs:annotation>
+          <xs:documentation>Kidney, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS RLUNG">
+        <xs:annotation>
+          <xs:documentation>Lung, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS ROVAR">
+        <xs:annotation>
+          <xs:documentation>Ovary, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R TES">
+        <xs:annotation>
+          <xs:documentation>Testis, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS R TOE">
+        <xs:annotation>
+          <xs:documentation>Toe(s), right foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS SPLEN">
+        <xs:annotation>
+          <xs:documentation>Spleen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS STOMA">
+        <xs:annotation>
+          <xs:documentation>Stomach</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS THYRD">
+        <xs:annotation>
+          <xs:documentation>Thyroid</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS TONG">
+        <xs:annotation>
+          <xs:documentation>Tongue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS TONSL">
+        <xs:annotation>
+          <xs:documentation>Tonsils</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS UTRUS">
+        <xs:annotation>
+          <xs:documentation>Uterus</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MISS VRT">
+        <xs:annotation>
+          <xs:documentation>Vertebra(e), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE ABDOM">
+        <xs:annotation>
+          <xs:documentation>Abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttocks, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE CHEST">
+        <xs:annotation>
+          <xs:documentation>Chest</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE CHIN">
+        <xs:annotation>
+          <xs:documentation>Chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE FHD">
+        <xs:annotation>
+          <xs:documentation>Forehead</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE GROIN">
+        <xs:annotation>
+          <xs:documentation>Groin area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE HEAD">
+        <xs:annotation>
+          <xs:documentation>Head, nonspecific (use the MIS Field to further describe location)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L ANK">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE LBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L BUT">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, left/left eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L FT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L KNE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L SHD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L THG">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE L WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R ANK">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE RBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R BUT">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, right/right eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R FT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R KNE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R SHD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R THG">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE R WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MOLE U LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MUTE">
+        <xs:annotation>
+          <xs:documentation>Mute (5)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L THIGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM L WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R THIGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NM R WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ORTH NAIL">
+        <xs:annotation>
+          <xs:documentation>Orthopedic nail or pin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ORTH PLATE">
+        <xs:annotation>
+          <xs:documentation>Orthopedic plate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ORTH SCREW">
+        <xs:annotation>
+          <xs:documentation>Orthopedic screw</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="POCKMARKS">
+        <xs:annotation>
+          <xs:documentation>Pockmarks</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD ABDMN">
+        <xs:annotation>
+          <xs:documentation>Pierced abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD BACK">
+        <xs:annotation>
+          <xs:documentation>Pierced back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD CHIN">
+        <xs:annotation>
+          <xs:documentation>Pierced chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD EAR">
+        <xs:annotation>
+          <xs:documentation>Pierced ear, one, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD EARS">
+        <xs:annotation>
+          <xs:documentation>Pierced ears</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD EYE">
+        <xs:annotation>
+          <xs:documentation>Pierced eyebrow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD FACE">
+        <xs:annotation>
+          <xs:documentation>Pierced face, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD GNTLS">
+        <xs:annotation>
+          <xs:documentation>Pierced genitalia</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD L EAR">
+        <xs:annotation>
+          <xs:documentation>Pierced ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD L EYE">
+        <xs:annotation>
+          <xs:documentation>Pierced eyebrow, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD LIP">
+        <xs:annotation>
+          <xs:documentation>Pierced lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD LLIP">
+        <xs:annotation>
+          <xs:documentation>Pierced lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD L NIP">
+        <xs:annotation>
+          <xs:documentation>Pierced nipple, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD NIPPL">
+        <xs:annotation>
+          <xs:documentation>Pierced nipple, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD NOSE">
+        <xs:annotation>
+          <xs:documentation>Pierced nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD R EAR">
+        <xs:annotation>
+          <xs:documentation>Pierced ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD R EYE">
+        <xs:annotation>
+          <xs:documentation>Pierced eyebrow, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD R NIP">
+        <xs:annotation>
+          <xs:documentation>Pierced nipple, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD TONGU">
+        <xs:annotation>
+          <xs:documentation>Pierced tongue</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PRCD ULIP">
+        <xs:annotation>
+          <xs:documentation>Pierced lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROT L JAW">
+        <xs:annotation>
+          <xs:documentation>Protruding lower jaw</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROT U JAW">
+        <xs:annotation>
+          <xs:documentation>Protruding upper jaw</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT ABDM">
+        <xs:annotation>
+          <xs:documentation>Abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttocks, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT CHEEK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT CHEST">
+        <xs:annotation>
+          <xs:documentation>Chest</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT CHIN">
+        <xs:annotation>
+          <xs:documentation>Chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT ELBOW">
+        <xs:annotation>
+          <xs:documentation>Elbow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FACE">
+        <xs:annotation>
+          <xs:documentation>Face, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FHD">
+        <xs:annotation>
+          <xs:documentation>Forehead</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FLBOD">
+        <xs:annotation>
+          <xs:documentation>Full body</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FNGR">
+        <xs:annotation>
+          <xs:documentation>Finger, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT GROIN">
+        <xs:annotation>
+          <xs:documentation>Groin area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT HEAD">
+        <xs:annotation>
+          <xs:documentation>Head, nonspecific (use the MIS Field to further describe location)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LBUTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LCALF">
+        <xs:annotation>
+          <xs:documentation>Calf, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L ELB">
+        <xs:annotation>
+          <xs:documentation>Elbow, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LFARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LFOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LKNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LSHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LTHGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LWLIP">
+        <xs:annotation>
+          <xs:documentation>Lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT LWRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RBRST">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RBUTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RCALF">
+        <xs:annotation>
+          <xs:documentation>Calf, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R ELB">
+        <xs:annotation>
+          <xs:documentation>Elbow, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RFARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RFOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RKNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RSHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RTHGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT RWRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT ULARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT UPLIP">
+        <xs:annotation>
+          <xs:documentation>Lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT URARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RTAT WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC ABDOM">
+        <xs:annotation>
+          <xs:documentation>Abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC BREAST">
+        <xs:annotation>
+          <xs:documentation>Breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC CHEST">
+        <xs:annotation>
+          <xs:documentation>Chest</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC CHIN">
+        <xs:annotation>
+          <xs:documentation>Chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC ELBOW">
+        <xs:annotation>
+          <xs:documentation>Elbow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC FACE">
+        <xs:annotation>
+          <xs:documentation>Face, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC F ARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC FGR">
+        <xs:annotation>
+          <xs:documentation>Finger, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC FHD">
+        <xs:annotation>
+          <xs:documentation>Forehead</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC GROIN">
+        <xs:annotation>
+          <xs:documentation>Groin area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC HEAD">
+        <xs:annotation>
+          <xs:documentation>Head, nonspecific (use the MIS Field to further describe location)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L ELB">
+        <xs:annotation>
+          <xs:documentation>Elbow, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, left/left eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC LF ARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L FT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC LOW LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC L WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R ELB">
+        <xs:annotation>
+          <xs:documentation>Elbow, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R EYE">
+        <xs:annotation>
+          <xs:documentation>Eyebrow, right/right eye area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC RF ARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R FT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC R WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC UL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC UP LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC UR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC WRIST">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHRT L LEG">
+        <xs:annotation>
+          <xs:documentation>Shorter left leg</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHRT R LEG">
+        <xs:annotation>
+          <xs:documentation>Shorter right leg</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHUNT ART">
+        <xs:annotation>
+          <xs:documentation>Shunt, arterial vascular</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SHUNT CERB">
+        <xs:annotation>
+          <xs:documentation>Shunt, cerebral ventricle</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SKL PLATE">
+        <xs:annotation>
+          <xs:documentation>Skull plate</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SLVR TOOTH">
+        <xs:annotation>
+          <xs:documentation>Silver tooth</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STAPLES">
+        <xs:annotation>
+          <xs:documentation>Staples</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STUTTERS">
+        <xs:annotation>
+          <xs:documentation>Stutters</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT ABDOM">
+        <xs:annotation>
+          <xs:documentation>Abdomen</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT BACK">
+        <xs:annotation>
+          <xs:documentation>Back</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT BREAST">
+        <xs:annotation>
+          <xs:documentation>Breast, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT BUTTK">
+        <xs:annotation>
+          <xs:documentation>Buttocks, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT CHEEK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT CHEST">
+        <xs:annotation>
+          <xs:documentation>Chest</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT CHIN">
+        <xs:annotation>
+          <xs:documentation>Chin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT ELBOW">
+        <xs:annotation>
+          <xs:documentation>Elbow, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FACE">
+        <xs:annotation>
+          <xs:documentation>Face, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FHD">
+        <xs:annotation>
+          <xs:documentation>Forehead</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FLBODY">
+        <xs:annotation>
+          <xs:documentation>Full body (used when arms, legs, chest, and back are covered with tattoos)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FNGR">
+        <xs:annotation>
+          <xs:documentation>Finger, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT GROIN">
+        <xs:annotation>
+          <xs:documentation>Groin area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT HAND">
+        <xs:annotation>
+          <xs:documentation>Hand, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT HEAD">
+        <xs:annotation>
+          <xs:documentation>Head, nonspecific (use the MIS Field to further describe location)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L BUTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT LELBOW">
+        <xs:annotation>
+          <xs:documentation>Elbow, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT LF ARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), left hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L HND">
+        <xs:annotation>
+          <xs:documentation>Hand, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L TOE">
+        <xs:annotation>
+          <xs:documentation>Toes, left foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT LW LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, lower</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT L WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, left</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT NECK">
+        <xs:annotation>
+          <xs:documentation>Neck</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT NOSE">
+        <xs:annotation>
+          <xs:documentation>Nose</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT PENIS">
+        <xs:annotation>
+          <xs:documentation>Penis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R ANKL">
+        <xs:annotation>
+          <xs:documentation>Ankle, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R BRST">
+        <xs:annotation>
+          <xs:documentation>Breast, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R BUTK">
+        <xs:annotation>
+          <xs:documentation>Buttock, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R CALF">
+        <xs:annotation>
+          <xs:documentation>Calf, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R CHK">
+        <xs:annotation>
+          <xs:documentation>Cheek (face), right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R EAR">
+        <xs:annotation>
+          <xs:documentation>Ear, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT RELBOW">
+        <xs:annotation>
+          <xs:documentation>Elbow, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R EYE">
+        <xs:annotation>
+          <xs:documentation>Eye, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT RF ARM">
+        <xs:annotation>
+          <xs:documentation>Forearm, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R FGR">
+        <xs:annotation>
+          <xs:documentation>Finger(s), right hand</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R FOOT">
+        <xs:annotation>
+          <xs:documentation>Foot, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R HIP">
+        <xs:annotation>
+          <xs:documentation>Hip, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R HND">
+        <xs:annotation>
+          <xs:documentation>Hand, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R KNEE">
+        <xs:annotation>
+          <xs:documentation>Knee, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R LEG">
+        <xs:annotation>
+          <xs:documentation>Leg, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R TOE">
+        <xs:annotation>
+          <xs:documentation>Toes, right foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT R WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, right</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT SHLD">
+        <xs:annotation>
+          <xs:documentation>Shoulder, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT THGH">
+        <xs:annotation>
+          <xs:documentation>Thigh, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT TOE">
+        <xs:annotation>
+          <xs:documentation>Toes, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT UL ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, left upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT UP LIP">
+        <xs:annotation>
+          <xs:documentation>Lip, upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT UR ARM">
+        <xs:annotation>
+          <xs:documentation>Arm, right upper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TAT WRS">
+        <xs:annotation>
+          <xs:documentation>Wrist, nonspecific</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD ACONVUL">
+        <xs:annotation>
+          <xs:documentation>Anticonvulsants (seizure medicines) (includes Dilantin, Mysoline, phenobarbital, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD ADEPRES">
+        <xs:annotation>
+          <xs:documentation>Antidepressants (mood-lifters) (includes amitriptylene, Elavil, Norpramine, Prozac, Triavil, Zoloft, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD ANALGES">
+        <xs:annotation>
+          <xs:documentation>Analgesics (pain relievers) (includes Darvon, acetaminophen, aspirin, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD ANTBTCS">
+        <xs:annotation>
+          <xs:documentation>Antibiotics</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD ANTINFL">
+        <xs:annotation>
+          <xs:documentation>Anti-inflammatory medication</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD BRNCHDL">
+        <xs:annotation>
+          <xs:documentation>Bronchial dilators (includes inhalers)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD CARDIAC">
+        <xs:annotation>
+          <xs:documentation>Cardiac (heart medications) (includes digitalis, digoxin, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD HYPNOTI">
+        <xs:annotation>
+          <xs:documentation>Hypnotics (sleeping aids) (includes barbiturates, chloral hydrate, glutethemide, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD INSULIN">
+        <xs:annotation>
+          <xs:documentation>Insulin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD OTHER">
+        <xs:annotation>
+          <xs:documentation>Other therapeutic medications not listed, identify in the MIS Field.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD RITALIN">
+        <xs:annotation>
+          <xs:documentation>Ritalin</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TD TRANQUI">
+        <xs:annotation>
+          <xs:documentation>Tranquilizers (includes Valium, Thorazine, Stellazine, etc.)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRANSSXL">
+        <xs:annotation>
+          <xs:documentation>Transsexual (use MIS Field to indicate what the individual was at birth and what he/she is at the time the record is entered [Example: Born male - had surgery and is now female])</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TRANSVST">
+        <xs:annotation>
+          <xs:documentation>Transvestite</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TUBE L EAR">
+        <xs:annotation>
+          <xs:documentation>Tube in left ear</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TUBE R EAR">
+        <xs:annotation>
+          <xs:documentation>Tube in right ear</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="VASC PROTH">
+        <xs:annotation>
+          <xs:documentation>Vascular prosthesis</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WHEELCHAIR">
+        <xs:annotation>
+          <xs:documentation>Wheelchair</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WIRE SUTUR">
+        <xs:annotation>
+          <xs:documentation>Wire sutures</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SMTCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for Scars/Marks/Tattoos.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ncic:SMTCodeSimpleType">
         <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
       </xs:extension>
     </xs:simpleContent>
