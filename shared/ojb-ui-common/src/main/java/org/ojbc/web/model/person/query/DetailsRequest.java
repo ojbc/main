@@ -23,16 +23,27 @@ import org.ojbc.web.OJBCWebServiceURIs;
 
 public class DetailsRequest implements Serializable{
 
-    private static final long serialVersionUID = -8308338659183972879L;
+	private static final long serialVersionUID = -8308338659183972879L;
     private String identificationID;
 	private String identificationSourceText;
 	private String queryType;
 	private String activeAccordionId; 
+	private Boolean admin; 
 
 	//Logging
 	private String purpose;
 	private String onBehalfOf;
 	
+    public DetailsRequest() {
+		super();
+	}
+
+	public DetailsRequest(String identificationID, Boolean admin) {
+		this();
+		this.identificationID = identificationID;
+		this.admin = admin;
+	}
+    
 	public String getIdentificationID() {
 		return identificationID;
 	}
@@ -103,5 +114,11 @@ public class DetailsRequest implements Serializable{
     public void setActiveAccordionId(String activeAccordionId) {
         this.activeAccordionId = activeAccordionId;
     }
+	public Boolean getAdmin() {
+		return admin;
+	}
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
 
 }

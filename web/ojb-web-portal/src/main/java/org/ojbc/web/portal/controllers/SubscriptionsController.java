@@ -1073,14 +1073,14 @@ public class SubscriptionsController {
 	public String getSubscriptionEditModal(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
-			@RequestParam(required=false) String admin,
+			@RequestParam(required=false, defaultValue="false") Boolean admin,
 			Map<String, Object> model) {
 		
 		try{			
 			//init success flag to true - allow processing below to set it to false if things go wrong
 			model.put("initializationSucceeded", true);
 						
-			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request);
+			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request, admin);
 			
 			Subscription subscription = parseSubscriptionQueryResults(subQueryResponseDoc);				
 			
@@ -1138,7 +1138,7 @@ public class SubscriptionsController {
 			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
 		}
 		
-		if (! BooleanUtils.toBoolean(admin)){
+		if (!BooleanUtils.isTrue(admin)){
 			return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
 		}
 		else{
@@ -1160,21 +1160,16 @@ public class SubscriptionsController {
 	
 	
 	Document runSubscriptionQueryForEditModal(String identificationID,
-			HttpServletRequest request) throws Exception {
-
-		Document subQueryResponseDoc = null;
+			HttpServletRequest request, Boolean admin) throws Exception {
 
 		Element samlAssertion = samlService.getSamlAssertion(request);
 
-		DetailsRequest subscriptionQueryRequest = new DetailsRequest();
-		subscriptionQueryRequest.setIdentificationID(identificationID);
+		DetailsRequest subscriptionQueryRequest = new DetailsRequest(identificationID, admin);
 
-		String subQueryResponse = null;
-
-		subQueryResponse = subConfig.getSubscriptionQueryBean().invokeRequest(
+		String subQueryResponse = subConfig.getSubscriptionQueryBean().invokeRequest(
 				subscriptionQueryRequest, getFederatedQueryId(), samlAssertion);
 
-		subQueryResponseDoc = getDocBuilder().parse(new InputSource(new StringReader(subQueryResponse)));
+		Document subQueryResponseDoc = getDocBuilder().parse(new InputSource(new StringReader(subQueryResponse)));
 
 		logger.info("subQueryResponseDoc: \n");
 		XmlUtils.printNode(subQueryResponseDoc);

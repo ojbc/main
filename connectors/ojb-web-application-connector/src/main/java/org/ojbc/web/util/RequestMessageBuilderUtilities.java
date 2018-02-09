@@ -511,6 +511,11 @@ public class RequestMessageBuilderUtilities {
         doc.appendChild(root);
         root.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_QUERY_REQUEST);
         
+        if (BooleanUtils.isTrue(subscriptionQueryRequest.getAdmin())){
+        	Element adminQueryRequestIndicator = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_REQUEST_EXT, "AdminQueryRequestIndicator");
+        	adminQueryRequestIndicator.setTextContent("true");
+        }
+        
         Element subIdentification = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_REQUEST_EXT, "SubscriptionIdentification");
         
         Element identificationId = XmlUtils.appendElement(subIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");

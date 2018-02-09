@@ -37,6 +37,7 @@ public class SubscriptionQueryRequestTest {
 		
 		subscriptionQueryRequest.setIdentificationID("62720");
 		subscriptionQueryRequest.setIdentificationSourceText("subscriptions");
+		subscriptionQueryRequest.setAdmin(true);
 
 		Document subscriptionQueryDocument = RequestMessageBuilderUtilities.createSubscriptionQueryRequest(subscriptionQueryRequest);
 		
@@ -52,6 +53,9 @@ public class SubscriptionQueryRequestTest {
         
         String identificationSourceText = XmlUtils.xPathStringSearch(subscriptionQueryDocument, "/sqreq:SubscriptionQueryRequest/sqreq-ext:SubscriptionIdentification/nc:IdentificationSourceText");
         assertEquals("subscriptions", identificationSourceText);
+
+        String adminQueryRequestIndicator = XmlUtils.xPathStringSearch(subscriptionQueryDocument, "/sqreq:SubscriptionQueryRequest/sqreq-ext:AdminQueryRequestIndicator");
+        assertEquals("true", adminQueryRequestIndicator);
         
 	}	
 	
