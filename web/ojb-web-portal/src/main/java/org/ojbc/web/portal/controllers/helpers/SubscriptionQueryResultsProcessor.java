@@ -102,14 +102,6 @@ public class SubscriptionQueryResultsProcessor {
 	private void parseSubscriptionOwnerInfo(Node rootSubQueryResultsNode,
 			Subscription subscription) throws Exception {
 		
-//		  ori=<null>
-//		  subscriptionQualificationId=<null>
-//		  federalRapSheetDisclosureIndicator=<null>
-//		  federalRapSheetDisclosureAttentionDesignationText=<null>
-//		  federalTriggeringEventCode=[ARREST]
-//		  fbiSubscriptionID=<null>
-//		  fbiRapbackSubscription=FbiRapbackSubscription[fbiSubscriptionId=<null>,stateSubscriptionId=<null>,rapbackCategory=<null>,subscriptionTerm=<null>,rapbackExpirationDate=<null>,rapbackTermDate=<null>,rapbackStartDate=<null>,rapbackOptOutInState=<null>,rapbackActivityNotificationFormat=<null>,rapbackActivityNotificationFormatDescription=<null>,ucn=<null>,timestamp=<null>]
-
 		Node subscribedEntity = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscribedEntity");
 		String subscribedEntityId = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult/sqr-ext:Subscription/sqr-ext:SubscribedEntity/@s:id");
 		String ownerContactInfoId = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, 

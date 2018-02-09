@@ -18,9 +18,11 @@ package org.ojbc.util.xml.subscription;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -28,8 +30,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 
 public class Subscription implements Serializable {
-		
 	private static final long serialVersionUID = 7990280609495398189L;
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 	private String stateId;	
 	
@@ -321,6 +324,12 @@ public class Subscription implements Serializable {
 		return creationDate;
 	}
 
+	public String getCreationDateString() {
+		return Optional.ofNullable(creationDate)
+					.map(date-> date.format(formatter))
+					.orElse("");
+	}
+	
 	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
@@ -329,6 +338,10 @@ public class Subscription implements Serializable {
 		return lastUpdatedDate;
 	}
 
+	public String getLastUpdatedDateString() {
+		return Optional.ofNullable(lastUpdatedDate).map(date-> date.format(formatter)).orElse("");
+	}
+	
 	public void setLastUpdatedDate(LocalDate lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}

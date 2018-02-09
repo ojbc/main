@@ -76,19 +76,19 @@
 				Agency Name
 			</td>
 			<td>
-				Demo Agency
+				$subscription.agencyName
 			</td>
 		</tr>
 		<tr>
 			<td class="detailsLabel">System Identifier</td>
 			<td>
-				Portal Subscriptions
+				$subscription.systemId
 			</td>
 			<td  class="detailsLabel">
 				Qualifier
 			</td>
 			<td>
-				123456
+				$subscription.subscriptionQualificationId
 			</td>
 		</tr>
 		<tr>
@@ -113,7 +113,7 @@
 			<tr>
 				<td class="detailsLabel">Disclosure Contact Information</td>
 				<td colspan=1>
-				#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
+					#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
 					title='Federal RapSheet Disclosure Contact Info' rows='2' cols='25' maxlength='50'" )
 				</td>
 			    <td class="detailsLabel">Case ID</td>
@@ -153,9 +153,9 @@
 		</tr>
 	    <tr>
 			<td class="detailsLabel">Creation Date</td>
-			<td>$subscription.subscriptionStartDate</td>
+			<td>$subscription.creationDateString</td>
 		    <td class="detailsLabel">Last Update Date</td>
-		    <td>$subscription.subscriptionStartDate</td>
+		    <td>$subscription.lastUpdatedDateString</td>
 		</tr>
 	    <tr>
 		    <td class="detailsLabel">E-mail</td>
@@ -172,22 +172,22 @@
   <div>
 	<table class="detailsTable">
 		<tr>
-		    <td class="detailsLabel">START DATE</td>
-		    <td>12/01/2017</td>
-		    <td class="detailsLabel">EXPIRATION DATE</td>
-		    <td>12/01/2018</td>
+		    <td class="detailsLabel" style="width:35%">START DATE</td>
+		    <td style="width:20%">$!subscription.fbiRapbackSubscription.rapbackStartDateString</td>
+		    <td class="detailsLabel" style="width:25%">EXPIRATION DATE</td>
+		    <td style="width:20%">$!subscription.fbiRapbackSubscription.rapbackExpirationDateString</td>
 		</tr>
 		<tr>
 		    <td class="detailsLabel">UCN</td>
-		    <td>830420WX6</td>
+		    <td>$!subscription.fbiRapbackSubscription.ucn</td>
 		    <td class="detailsLabel">OPT OUT IN STATE</td>
-		    <td>true</td>
+		    <td>$!subscription.fbiRapbackSubscription.rapbackOptOutInState</td>
 	    </tr>
 	    <tr>
 		    <td class="detailsLabel">ACTIVITY NOTIFICATION FORMAT</td>
-		    <td>3</td>
+		    <td>$!subscription.fbiRapbackSubscription.rapbackActivityNotificationFormat</td>
 		    <td class="detailsLabel">RAP BACK CATEGORY</td>
-		    <td>Criminal Investigation</td>
+		    <td>$!subscription.fbiRapbackSubscription.rapbackCategory</td>
 		</tr>
 	</table>
   </div>
