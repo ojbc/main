@@ -60,7 +60,6 @@ import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
@@ -474,7 +473,7 @@ public class TestSubscriptionSearchQueryDAO {
 	public void testQueryForSubscriptionsByOwnerAndId() throws Exception {
 		loadManualTestData();
 		Subscription subscription = subscriptionSearchQueryDAO
-				.queryForSubscription("OJBC:IDP:OJBC:USER:admin", "1");
+				.queryForSubscription("OJBC:IDP:OJBC:USER:admin", "1", "false");
 		assertNotNull(subscription);
 		assertEquals("bill", subscription.getPersonFirstName());
 		assertEquals("padmanabhan", subscription.getPersonLastName());

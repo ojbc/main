@@ -226,12 +226,22 @@ public class SubscriptionSearchQueryDAO {
      * @param id the identifier for the subscription
      * @return the matching subscription
      */
-    public Subscription queryForSubscription(@Header("saml_FederationID") String subscriptionOwner, @Header("subscriptionQueryId") String id) {
-        String sqlQuery = BASE_QUERY_STRING + " and so.federation_id=? and s.id=? and s.active = 1";
-
-        List<Subscription> subscriptions = this.jdbcTemplate.query(sqlQuery, new Object[] {
-            subscriptionOwner, id
-        }, resultSetExtractor);
+    public Subscription queryForSubscription(@Header("saml_FederationID") String subscriptionOwner, 
+    		@Header("subscriptionQueryId") String id,
+    		@Header("adminQuery") String adminQuery) {
+    	
+        String sqlQuery = BASE_QUERY_STRING + " and s.id=? and s.active = 1";
+        
+        List<Subscription> subscriptions = null;
+        
+        if (!BooleanUtils.toBoolean(adminQuery)){
+        	sqlQuery += " and so.federation_id=? ";
+        	subscriptions = this.jdbcTemplate.query(sqlQuery, resultSetExtractor,  
+        			id, subscriptionOwner);
+        }
+        else{
+        	subscriptions = this.jdbcTemplate.query(sqlQuery, resultSetExtractor, id);
+        }
 
         if (subscriptions.size() != 1) {
             throw new IllegalStateException("Query did not return the correct number of results.");
