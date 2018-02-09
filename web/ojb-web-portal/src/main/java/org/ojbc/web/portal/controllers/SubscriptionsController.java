@@ -48,6 +48,7 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -1127,7 +1128,7 @@ public class SubscriptionsController {
 			}
 											
 			logger.info("Subscription Edit Request: " + subscription);
-									
+						//TODO remove this before checking in 
 			model.put("subscription", subscription);	
 											
 		}catch(Exception e){

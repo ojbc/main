@@ -18,6 +18,8 @@ package org.ojbc.util.model.rapback;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -26,7 +28,7 @@ import org.joda.time.DateTime;
 public class FbiRapbackSubscription implements Serializable{
 
 	private static final long serialVersionUID = 5492996006114314857L;
-	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	private String fbiSubscriptionId; 
 	private Integer stateSubscriptionId; 
 	private String rapbackCategory;
@@ -71,6 +73,13 @@ public class FbiRapbackSubscription implements Serializable{
 	public LocalDate getRapbackExpirationDate() {
 		return rapbackExpirationDate;
 	}
+	
+	public String getRapbackExpirationDateString() {
+		return Optional.ofNullable(rapbackExpirationDate)
+					.map(date-> date.format(formatter))
+					.orElse("");
+	}
+
 
 	public void setRapbackExpirationDate(LocalDate rapbackExpirationDate) {
 		this.rapbackExpirationDate = rapbackExpirationDate;
@@ -78,6 +87,12 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public LocalDate getRapbackStartDate() {
 		return rapbackStartDate;
+	}
+	
+	public String getRapbackStartDateString() {
+		return Optional.ofNullable(rapbackStartDate)
+					.map(date-> date.format(formatter))
+					.orElse("");
 	}
 
 	public void setRapbackStartDate(LocalDate rapbackStartDate) {
@@ -119,6 +134,12 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public LocalDate getRapbackTermDate() {
 		return rapbackTermDate;
+	}
+	
+	public String getRapbackTermDateString() {
+		return Optional.ofNullable(rapbackTermDate)
+					.map(date-> date.format(formatter))
+					.orElse("");
 	}
 
 	public void setRapbackTermDate(LocalDate rapbackTermDate) {
