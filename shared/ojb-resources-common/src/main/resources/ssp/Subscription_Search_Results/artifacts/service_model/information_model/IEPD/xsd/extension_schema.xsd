@@ -47,6 +47,7 @@
 					<xsd:element ref="ssr-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:SubscribedEntitySubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssr-ext:StateSubscriptionFBISubscriptionAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ssr-ext:SubscriptionContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -98,6 +99,26 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="SubscriptionContactInformationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a relationship between a subscription and contacts.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="ssr-ext:SubscriptionReference" />
+					<xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionContactInformationAssociation" type="ssr-ext:SubscriptionContactInformationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A relationship between a subscription and contacts.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="StateSubscriptionReference" type="s:ReferenceType">
 		<xsd:annotation>
 			<xsd:documentation>A reference to a state subscription.
