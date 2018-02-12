@@ -17,7 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-		<ssr-ext:Subscription>
+		<ssr-ext:Subscription s:id="S002">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
 					<nc:Date>2001-01-01</nc:Date>
@@ -73,7 +73,7 @@
 		</jxdm41:PersonAugmentation>
 	</ssr-ext:Person><nc:ContactInformation s:id="SE2CE1">
 		<nc:ContactEmailID>arrestActive@localhost</nc:ContactEmailID>
-	</nc:ContactInformation><ssr-ext:SubscribedEntityContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:SubscribedEntityReference s:ref="SE2"/>
+	</nc:ContactInformation><ssr-ext:SubscriptionContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscriptionReference s:ref="S002"/>
 		<nc:ContactInformationReference s:ref="SE2CE1"/>
-	</ssr-ext:SubscribedEntityContactInformationAssociation></ssr:SubscriptionSearchResults>
+	</ssr-ext:SubscriptionContactInformationAssociation></ssr:SubscriptionSearchResults>

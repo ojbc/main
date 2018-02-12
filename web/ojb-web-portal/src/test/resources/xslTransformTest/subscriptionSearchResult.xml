@@ -269,22 +269,26 @@
     <nc:ContactInformation s:id="CI004">
   	<nc:ContactEmailID>officer@gov.gov</nc:ContactEmailID>
   </nc:ContactInformation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE001" />
+  <ext:SubscriptionContactInformationAssociation>
+  	<ext:SubscriptionReference s:ref="S001" />
   	<nc:ContactInformationReference s:ref="CI001" />
-  </ext:SubscribedEntityContactInformationAssociation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE002" />
-  	<nc:ContactInformationReference s:ref="CI002" />
-  </ext:SubscribedEntityContactInformationAssociation>
-  <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE003" />
-  	<nc:ContactInformationReference s:ref="CI003" />
-  </ext:SubscribedEntityContactInformationAssociation>
-   <ext:SubscribedEntityContactInformationAssociation>
-  	<ext:SubscribedEntityReference s:ref="SE004" />
+  </ext:SubscriptionContactInformationAssociation>
+  <ext:SubscriptionContactInformationAssociation>
+  	<ext:SubscriptionReference s:ref="S002" />
   	<nc:ContactInformationReference s:ref="CI004" />
-  </ext:SubscribedEntityContactInformationAssociation>
+  </ext:SubscriptionContactInformationAssociation>
+  <ext:SubscriptionContactInformationAssociation>
+  	<ext:SubscriptionReference s:ref="S003" />
+  	<nc:ContactInformationReference s:ref="CI002" />
+  </ext:SubscriptionContactInformationAssociation>
+  <ext:SubscriptionContactInformationAssociation>
+  	<ext:SubscriptionReference s:ref="S003" />
+  	<nc:ContactInformationReference s:ref="CI003" />
+  </ext:SubscriptionContactInformationAssociation>
+   <ext:SubscriptionContactInformationAssociation>
+  	<ext:SubscriptionReference s:ref="S004" />
+  	<nc:ContactInformationReference s:ref="CI004" />
+  </ext:SubscriptionContactInformationAssociation>
   <ext:StateSubscriptionFBISubscriptionAssociation>
 	<ext:StateSubscriptionReference s:ref="S001" />
 	<ext:FBISubscriptionReference	s:ref="FBI001" />

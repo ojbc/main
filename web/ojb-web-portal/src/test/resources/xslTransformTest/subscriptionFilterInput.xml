@@ -23,7 +23,7 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
 	<ssr-ext:SubscriptionSearchResult>
-		<ssr-ext:Subscription>
+		<ssr-ext:Subscription s:id="S000">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
 					<nc:Date>2003-01-01</nc:Date>
@@ -65,7 +65,7 @@
 		</intel:SystemIdentifier>
 	</ssr-ext:SubscriptionSearchResult>
 	<ssr-ext:SubscriptionSearchResult>
-		<ssr-ext:Subscription>
+		<ssr-ext:Subscription s:id="S001">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
 					<nc:Date>2002-01-01</nc:Date>
@@ -107,7 +107,7 @@
 		</intel:SystemIdentifier>
 	</ssr-ext:SubscriptionSearchResult>
 	<ssr-ext:SubscriptionSearchResult>
-		<ssr-ext:Subscription>
+		<ssr-ext:Subscription s:id="S002">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
 					<nc:Date>2001-01-01</nc:Date>
@@ -184,44 +184,44 @@
 			</jxdm41:PersonStateFingerprintIdentification>
 		</jxdm41:PersonAugmentation>
 	</ssr-ext:Person>
-	<nc:ContactInformation s:id="SE0CE1">
+	<nc:ContactInformation s:id="S000CE1">
 		<nc:ContactEmailID>email4@email.com</nc:ContactEmailID>
 	</nc:ContactInformation>
-	<nc:ContactInformation s:id="SE0CE2">
+	<nc:ContactInformation s:id="S000CE2">
 		<nc:ContactEmailID>email5@email.com</nc:ContactEmailID>
 	</nc:ContactInformation>
-	<ssr-ext:SubscribedEntityContactInformationAssociation>
-		<ssr-ext:SubscribedEntityReference
-			s:ref="SE0" />
-		<nc:ContactInformationReference s:ref="SE0CE1" />
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
-	<ssr-ext:SubscribedEntityContactInformationAssociation>
-		<ssr-ext:SubscribedEntityReference
-			s:ref="SE0" />
-		<nc:ContactInformationReference s:ref="SE0CE2" />
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
+	<ssr-ext:SubscriptionContactInformationAssociation>
+		<ssr-ext:SubscriptionReference
+			s:ref="S000" />
+		<nc:ContactInformationReference s:ref="S000CE1" />
+	</ssr-ext:SubscriptionContactInformationAssociation>
+	<ssr-ext:SubscriptionContactInformationAssociation>
+		<ssr-ext:SubscriptionReference
+			s:ref="S000" />
+		<nc:ContactInformationReference s:ref="S000CE2" />
+	</ssr-ext:SubscriptionContactInformationAssociation>
 	<nc:ContactInformation s:id="SE1CE1">
 		<nc:ContactEmailID>email3@email.com</nc:ContactEmailID>
 	</nc:ContactInformation>
 	<nc:ContactInformation s:id="SE1CE2">
 		<nc:ContactEmailID>email2@email.com</nc:ContactEmailID>
 	</nc:ContactInformation>
-	<ssr-ext:SubscribedEntityContactInformationAssociation>
-		<ssr-ext:SubscribedEntityReference
-			s:ref="SE1" />
+	<ssr-ext:SubscriptionContactInformationAssociation>
+		<ssr-ext:SubscriptionReference
+			s:ref="S001" />
 		<nc:ContactInformationReference s:ref="SE1CE1" />
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
-	<ssr-ext:SubscribedEntityContactInformationAssociation>
-		<ssr-ext:SubscribedEntityReference
-			s:ref="SE1" />
+	</ssr-ext:SubscriptionContactInformationAssociation>
+	<ssr-ext:SubscriptionContactInformationAssociation>
+		<ssr-ext:SubscriptionReference
+			s:ref="S001" />
 		<nc:ContactInformationReference s:ref="SE1CE2" />
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
+	</ssr-ext:SubscriptionContactInformationAssociation>
 	<nc:ContactInformation s:id="SE2CE1">
 		<nc:ContactEmailID>arrestActive@localhost</nc:ContactEmailID>
 	</nc:ContactInformation>
-	<ssr-ext:SubscribedEntityContactInformationAssociation>
-		<ssr-ext:SubscribedEntityReference
-			s:ref="SE2" />
+	<ssr-ext:SubscriptionContactInformationAssociation>
+		<ssr-ext:SubscriptionReference
+			s:ref="S002" />
 		<nc:ContactInformationReference s:ref="SE2CE1" />
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
+	</ssr-ext:SubscriptionContactInformationAssociation>
 </ssr:SubscriptionSearchResults>
