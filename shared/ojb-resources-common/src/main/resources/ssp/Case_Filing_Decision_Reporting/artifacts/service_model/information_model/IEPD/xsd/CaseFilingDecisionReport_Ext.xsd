@@ -75,6 +75,7 @@
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cyfs:AssociatedPersonChildAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cyfs:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>

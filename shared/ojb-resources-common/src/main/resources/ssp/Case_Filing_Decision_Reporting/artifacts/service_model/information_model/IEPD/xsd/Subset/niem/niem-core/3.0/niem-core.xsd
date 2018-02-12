@@ -62,6 +62,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:AddressFullText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:AddressSecondaryUnitText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:AddressDeliveryPoint" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="unbounded"/>
@@ -659,6 +660,11 @@
       <xs:documentation>A data concept for a single place or unit at which mail is delivered.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="AddressFullText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete address.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="AddressSecondaryUnitText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A particular unit within a larger unit or grouping at a location.</xs:documentation>
@@ -772,6 +778,11 @@
   <xs:element name="ContactTelephoneNumber" type="nc:TelephoneNumberType" substitutionGroup="nc:ContactMeans">
     <xs:annotation>
       <xs:documentation>A telephone number for a telecommunication device by which a person or organization may be contacted.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ContactWebsiteURI" type="niem-xs:anyURI" substitutionGroup="nc:ContactMeans">
+    <xs:annotation>
+      <xs:documentation>A website address by which a person or organization may be contacted.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Conveyance" type="nc:ConveyanceType" nillable="true">
