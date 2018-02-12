@@ -141,7 +141,7 @@
 		<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
 	</nc:ContactInformation>
 	<nc:ContactInformation s:id="SCI001">
-		<nc:ContactEmailID>subjectEmail1@gov.gov</nc:ContactEmailID>
+		<nc:ContactEmailID>Email1@gov.gov</nc:ContactEmailID>
 	</nc:ContactInformation>
 	<sqr-ext:SubscribedEntityOrganizationAssociation>
 		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
@@ -155,4 +155,8 @@
 		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
 		<sqr-ext:SubscriptionReference s:ref="S001" />
 	</sqr-ext:SubscribedEntitySubscriptionAssociation>
+	<sqr-ext:SubscriptionContactInformationAssociation>
+		<sqr-ext:SubscriptionReference s:ref="S001" />
+		<nc:ContactInformationReference s:ref="SCI001" />
+	</sqr-ext:SubscriptionContactInformationAssociation>
 </sqr-doc:SubscriptionQueryResults>
