@@ -18,7 +18,7 @@
 
 -->
 <ssr:SubscriptionSearchResults xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"><ssr-ext:SubscriptionSearchResult xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:Subscription>
+		<ssr-ext:Subscription s:id="S000">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
 					<nc:Date>2003-01-01</nc:Date>
@@ -66,15 +66,15 @@
 			<nc:PersonGivenName>First</nc:PersonGivenName>
 			<nc:PersonSurName>Last</nc:PersonSurName>
 		</nc:PersonName>
-	</ssr-ext:Person><nc:ContactInformation s:id="SE0CE1">
+	</ssr-ext:Person><nc:ContactInformation s:id="S000CE1">
 		<nc:ContactEmailID>email4@email.com</nc:ContactEmailID>
-	</nc:ContactInformation><nc:ContactInformation s:id="SE0CE2">
+	</nc:ContactInformation><nc:ContactInformation s:id="S000CE2">
 		<nc:ContactEmailID>email5@email.com</nc:ContactEmailID>
-	</nc:ContactInformation><ssr-ext:SubscribedEntityContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:SubscribedEntityReference s:ref="SE0"/>
-		<nc:ContactInformationReference s:ref="SE0CE1"/>
-	</ssr-ext:SubscribedEntityContactInformationAssociation><ssr-ext:SubscribedEntityContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:SubscribedEntityReference s:ref="SE0"/>
-		<nc:ContactInformationReference s:ref="SE0CE2"/>
-	</ssr-ext:SubscribedEntityContactInformationAssociation>
+	</nc:ContactInformation><ssr-ext:SubscriptionContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscriptionReference s:ref="S000"/>
+		<nc:ContactInformationReference s:ref="S000CE1"/>
+	</ssr-ext:SubscriptionContactInformationAssociation><ssr-ext:SubscriptionContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscriptionReference s:ref="S000"/>
+		<nc:ContactInformationReference s:ref="S000CE2"/>
+	</ssr-ext:SubscriptionContactInformationAssociation>
 </ssr:SubscriptionSearchResults>

@@ -55,7 +55,7 @@ public class SubscriptionQueryResultsProcessor {
 		Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
 		parsePersonNode(personNode, subscription);
 		
-		parseSubjectContactInfoNode(rootSubQueryResultsNode, subscription);
+		parseSubscriptionContactInfoNode(rootSubQueryResultsNode, subscription);
 		
 		parseSubscriptionOwnerInfo(rootSubQueryResultsNode, subscription);
 		parseFbiSubscriptionInfo(rootSubQueryResultsNode, subscription);
@@ -252,9 +252,9 @@ public class SubscriptionQueryResultsProcessor {
 	}
 	
 	
-	private void parseSubjectContactInfoNode(Node rootSubQueryResultsNode, Subscription subscription) throws Exception{
+	private void parseSubscriptionContactInfoNode(Node rootSubQueryResultsNode, Subscription subscription) throws Exception{
 		
-		NodeList contactInfoNodeList = XmlUtils.xPathNodeListSearch(rootSubQueryResultsNode, "nc:ContactInformation[@s:id=following-sibling::nc:PersonContactInformationAssociation/nc:ContactInformationReference/@s:ref]");
+		NodeList contactInfoNodeList = XmlUtils.xPathNodeListSearch(rootSubQueryResultsNode, "nc:ContactInformation[@s:id=following-sibling::sqr-ext:SubscriptionContactInformationAssociation/nc:ContactInformationReference/@s:ref]");
 		
 		for(int i=0; i<contactInfoNodeList.getLength(); i++){
 			

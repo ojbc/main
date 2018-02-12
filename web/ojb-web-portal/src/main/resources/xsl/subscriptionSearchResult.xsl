@@ -106,6 +106,7 @@
 		<xsl:param name="pos"/>
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
+		<xsl:variable name="subscriptionRefId" select="ext:Subscription/@s:id"/>
 		<xsl:variable name="subscriptionTopic" select="ext:Subscription/wsn-br:Topic"/>
 		<xsl:variable name="subjectPerson" select="../ext:Person[@s:id=$subjectID]"/>
 		<xsl:variable name="subscribedEntity" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
@@ -174,7 +175,7 @@
 			</td>		
 							
 			<td>
-				<xsl:apply-templates select="/p:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref=$subscribedEntity]"/>
+				<xsl:apply-templates select="/p:SubscriptionSearchResults/nc:ContactInformation[@s:id = /p:SubscriptionSearchResults/ext:SubscriptionContactInformationAssociation[ext:SubscriptionReference/@s:ref=$subscriptionRefId]/nc:ContactInformationReference/@s:ref]"/>
 			</td>
 		</tr>
 	</xsl:template>
@@ -192,16 +193,11 @@
 		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
 		
 		<xsl:choose>
-			<xsl:when test="/p:SubscriptionSearchResults/ext:FBISubscription/@s:id = $fbiSubscriptionRefId">
+			<xsl:when test="$fbiSubscriptionRefId and /p:SubscriptionSearchResults/ext:FBISubscription[@s:id = $fbiSubscriptionRefId]">
 				<xsl:value-of select="../ext:Person[@s:id=$subjectID]/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID"/>				 
 			</xsl:when>
 			<xsl:otherwise><xsl:text>None</xsl:text></xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
-	
-	<xsl:template match="ext:SubscribedEntityContactInformationAssociation">
-		<xsl:variable name="contactInfo" select="nc:ContactInformationReference/@s:ref"/>
-		<xsl:apply-templates select="/p:SubscriptionSearchResults/nc:ContactInformation[@s:id=$contactInfo]"/>
 	</xsl:template>
 	
 	<xsl:template match="nc:ContactInformation">
