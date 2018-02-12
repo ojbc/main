@@ -203,7 +203,7 @@
 		$("#editSubscriptionDialog").dialog('close');
 		
 		// redisplay subscription results having the new subscription 
-		$.post("#springUrl('/subscriptions/subscriptionResults')", 
+		$.post("#springUrl('/subscriptions/admin/landingPage')", 
 			function(data) {										
 		      $('#portalContent').html(data);					      
 			}
