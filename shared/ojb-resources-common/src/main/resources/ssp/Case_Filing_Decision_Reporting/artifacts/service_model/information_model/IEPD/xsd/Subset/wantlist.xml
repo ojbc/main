@@ -22,6 +22,7 @@
   xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/"
+  xmlns:ucr="http://release.niem.gov/niem/codes/fbi_ucr/3.0/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
   xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
@@ -29,8 +30,13 @@
   <w:Element w:name="cyfs:AssociatedPersonChildAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="cyfs:JuvenileCase" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="cyfs:ParentChildAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="cyfs:ParentChildKinshipCategoryText"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="cyfs:PersonAssociationCategoryDescriptionText"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="cyfs:PersonOtherKinAssociation"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
@@ -51,8 +57,17 @@
   <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OffenseLocationAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:OffenseSubjectAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonContactAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PersonEthnicityCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonSkinToneCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PhysicalFeatureCategoryCode"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SubjectCautionInformationCode"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SubjectCautionInformationText"
@@ -73,6 +88,7 @@
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactMailingAddress" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactTelephoneNumber" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ContactWebsiteURI" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:DateRepresentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
@@ -94,25 +110,35 @@
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountryName" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:LocationStateName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStateUSPostalServiceCode"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStreet" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:OrganizationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonBuildText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonCitizenshipText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonConveyanceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEmploymentAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonIdentityAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonOrganizationAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonResidentText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PhysicalFeatureCategoryText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PrimaryDocument" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:RoleOf" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:RoleOfPerson" w:isReference="false" w:nillable="true"/>
@@ -188,6 +214,29 @@
     <w:ElementInType w:name="cyfs:JuvenileAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="cyfs:ParentChildAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="cyfs:Child" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:Parent" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:ParentChildKinshipCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="cyfs:PersonOtherKinAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="cyfs:SourcePerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:TargetPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:FamilyIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:HouseholdMemberIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:PersonOtherKinAssociationCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType
+      w:name="cyfs:PersonOtherKinAssociationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ActivityAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseLinkage" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -241,14 +290,25 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseOtherEntity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseProsecutionAttorney"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseTerminationCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseSeverityText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CaseLinkageType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationORIIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:CaseOfficialType" w:isRequested="true"/>
+  <w:Type w:name="j:CaseOfficialType" w:isRequested="true">
+    <w:ElementInType w:name="j:CaseOfficialRoleText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseOfficialStartDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ChargeDispositionType" w:isRequested="true"/>
   <w:Type w:name="j:ChargeType" w:isRequested="false">
     <w:ElementInType w:name="j:ChargeApplicabilityText"
@@ -362,9 +422,21 @@
     <w:ElementInType w:name="nc:Location" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:OffenseSubjectAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="j:Offense" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Subject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseJuvenileIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseUnderInfluenceIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:OffenseType" w:isRequested="true">
     <w:ElementInType w:name="j:OffenseCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseViolatedStatute"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"
@@ -429,6 +501,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:AddressType" w:isRequested="false">
+    <w:ElementInType w:name="nc:AddressFullText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:AddressSecondaryUnitText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:AddressDeliveryPoint"
@@ -441,8 +515,13 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationPostalCode"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationPostalExtensionCode"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:AssociationType" w:isRequested="true"/>
+  <w:Type w:name="nc:AssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:AssociationDateRange"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:BinaryType" w:isRequested="true">
     <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -468,10 +547,17 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ContactInformation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType
+      w:name="nc:ContactInformationAssociationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ContactInformationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ContactMeans" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ContactEntityDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ContactInformationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
@@ -538,6 +624,8 @@
   <w:Type w:name="nc:FullTelephoneNumberType" w:isRequested="false">
     <w:ElementInType w:name="nc:TelephoneNumberFullID"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:TelephoneSuffixID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
@@ -548,9 +636,13 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationCategoryDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationEffectiveDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IdentityType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentityAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ImageType" w:isRequested="true"/>
@@ -566,11 +658,23 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationContactInformation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationMapLocation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:MapLocationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:MapHorizontalCoordinateText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:MapVerticalCoordinateText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:MeasureType" w:isRequested="false">
@@ -581,6 +685,10 @@
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationAbbreviationText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationActivityText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationCategory"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -633,16 +741,34 @@
     <w:ElementInType w:name="nc:PersonFullName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:PersonOrganizationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Organization" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonResidenceAssociationType" w:isRequested="true"/>
   <w:Type w:name="nc:PersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonBuild" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonCitizenship" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonComplexionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonDeathDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonDigitalImage"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonDigitizedSignatureImage"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonEducationLevelText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonEthnicity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEyeColor" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonHairColor" w:isReference="false"
@@ -655,11 +781,15 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonPassportIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonPhysicalFeature"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonResident" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSex" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonSkinTone" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSSNIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -670,6 +800,18 @@
     <w:ElementInType w:name="nc:PersonWeightMeasure"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PhysicalFeatureType" w:isRequested="false">
+    <w:ElementInType w:name="nc:PhysicalFeatureGeneralCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PhysicalFeatureCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PhysicalFeatureLocationText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PhysicalFeatureAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:StatusType" w:isRequested="true">
@@ -683,8 +825,14 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:StreetNumberText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StreetPredirectionalText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:StreetName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StreetCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StreetPostdirectionalText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TelephoneNumberType" w:isRequested="false">
     <w:ElementInType w:name="nc:TelephoneNumberRepresentation"
@@ -716,6 +864,34 @@
     <w:Facet w:facet="enumeration" w:value="80"/>
     <w:Facet w:facet="enumeration" w:value="85"/>
     <w:Facet w:facet="enumeration" w:value="90"/>
+  </w:Type>
+  <w:Type w:name="ncic:EYECodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="BLU"/>
+    <w:Facet w:facet="enumeration" w:value="BRO"/>
+    <w:Facet w:facet="enumeration" w:value="GRN"/>
+    <w:Facet w:facet="enumeration" w:value="GRY"/>
+    <w:Facet w:facet="enumeration" w:value="HAZ"/>
+    <w:Facet w:facet="enumeration" w:value="MAR"/>
+    <w:Facet w:facet="enumeration" w:value="MUL"/>
+    <w:Facet w:facet="enumeration" w:value="PNK"/>
+    <w:Facet w:facet="enumeration" w:value="XXX"/>
+  </w:Type>
+  <w:Type w:name="ncic:HAICodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="BLD"/>
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="BLN"/>
+    <w:Facet w:facet="enumeration" w:value="BLU"/>
+    <w:Facet w:facet="enumeration" w:value="BRO"/>
+    <w:Facet w:facet="enumeration" w:value="GRN"/>
+    <w:Facet w:facet="enumeration" w:value="GRY"/>
+    <w:Facet w:facet="enumeration" w:value="ONG"/>
+    <w:Facet w:facet="enumeration" w:value="PLE"/>
+    <w:Facet w:facet="enumeration" w:value="PNK"/>
+    <w:Facet w:facet="enumeration" w:value="RED"/>
+    <w:Facet w:facet="enumeration" w:value="SDY"/>
+    <w:Facet w:facet="enumeration" w:value="WHI"/>
+    <w:Facet w:facet="enumeration" w:value="XXX"/>
   </w:Type>
   <w:Type w:name="ncic:LISCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="00"/>
@@ -1364,12 +1540,755 @@
     <w:Facet w:facet="enumeration" w:value="ZO"/>
     <w:Facet w:facet="enumeration" w:value="ZR"/>
   </w:Type>
+  <w:Type w:name="ncic:RACCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="A"/>
+    <w:Facet w:facet="enumeration" w:value="B"/>
+    <w:Facet w:facet="enumeration" w:value="I"/>
+    <w:Facet w:facet="enumeration" w:value="U"/>
+    <w:Facet w:facet="enumeration" w:value="W"/>
+  </w:Type>
   <w:Type w:name="ncic:SEXCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="F"/>
     <w:Facet w:facet="enumeration" w:value="M"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
+  <w:Type w:name="ncic:SKNCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="ALB"/>
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="DBR"/>
+    <w:Facet w:facet="enumeration" w:value="DRK"/>
+    <w:Facet w:facet="enumeration" w:value="FAR"/>
+    <w:Facet w:facet="enumeration" w:value="LBR"/>
+    <w:Facet w:facet="enumeration" w:value="LGT"/>
+    <w:Facet w:facet="enumeration" w:value="MBR"/>
+    <w:Facet w:facet="enumeration" w:value="MED"/>
+    <w:Facet w:facet="enumeration" w:value="OLV"/>
+    <w:Facet w:facet="enumeration" w:value="RUD"/>
+    <w:Facet w:facet="enumeration" w:value="SAL"/>
+    <w:Facet w:facet="enumeration" w:value="YEL"/>
+  </w:Type>
+  <w:Type w:name="ncic:SMTCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="ART ARM"/>
+    <w:Facet w:facet="enumeration" w:value="ART BRSTS"/>
+    <w:Facet w:facet="enumeration" w:value="ART ELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="ART HIP"/>
+    <w:Facet w:facet="enumeration" w:value="ART KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="ART L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="ART LARYNX"/>
+    <w:Facet w:facet="enumeration" w:value="ART L BRST"/>
+    <w:Facet w:facet="enumeration" w:value="ART L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="ART L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="ART L FT"/>
+    <w:Facet w:facet="enumeration" w:value="ART L HND"/>
+    <w:Facet w:facet="enumeration" w:value="ART L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="ART R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="ART R BRST"/>
+    <w:Facet w:facet="enumeration" w:value="ART R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="ART R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="ART R FT"/>
+    <w:Facet w:facet="enumeration" w:value="ART R HND"/>
+    <w:Facet w:facet="enumeration" w:value="ART R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="ART SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="BALD"/>
+    <w:Facet w:facet="enumeration" w:value="BLIND"/>
+    <w:Facet w:facet="enumeration" w:value="BLND EYE"/>
+    <w:Facet w:facet="enumeration" w:value="BLND L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="BLND R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC ARM"/>
+    <w:Facet w:facet="enumeration" w:value="BRACE BACK"/>
+    <w:Facet w:facet="enumeration" w:value="BRACE NECK"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC LEG"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="BRAC TEETH"/>
+    <w:Facet w:facet="enumeration" w:value="BRA LR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="BRA LR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="CANE"/>
+    <w:Facet w:facet="enumeration" w:value="CARD PACEM"/>
+    <w:Facet w:facet="enumeration" w:value="CATA L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="CATARACT"/>
+    <w:Facet w:facet="enumeration" w:value="CATA R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="CAUL L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="CAUL R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="CLEFT CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="CLEFT PAL"/>
+    <w:Facet w:facet="enumeration" w:value="CL LIP"/>
+    <w:Facet w:facet="enumeration" w:value="CL LIP"/>
+    <w:Facet w:facet="enumeration" w:value="COLOST APP"/>
+    <w:Facet w:facet="enumeration" w:value="CON LENSES"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L FT"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L HND"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R FT"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R HND"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="CRIP R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="CROSSEYED"/>
+    <w:Facet w:facet="enumeration" w:value="CRUTCHES"/>
+    <w:Facet w:facet="enumeration" w:value="DA ALCOHOL"/>
+    <w:Facet w:facet="enumeration" w:value="DA AMPHETA"/>
+    <w:Facet w:facet="enumeration" w:value="DA BARBITU"/>
+    <w:Facet w:facet="enumeration" w:value="DA COCAINE"/>
+    <w:Facet w:facet="enumeration" w:value="DA GLUE"/>
+    <w:Facet w:facet="enumeration" w:value="DA HALLUCI"/>
+    <w:Facet w:facet="enumeration" w:value="DA MARIJUA"/>
+    <w:Facet w:facet="enumeration" w:value="DA NARCOTI"/>
+    <w:Facet w:facet="enumeration" w:value="DA OTHER"/>
+    <w:Facet w:facet="enumeration" w:value="DA PAINT"/>
+    <w:Facet w:facet="enumeration" w:value="DA RITALIN"/>
+    <w:Facet w:facet="enumeration" w:value="DA ROHYPNL"/>
+    <w:Facet w:facet="enumeration" w:value="DEAF"/>
+    <w:Facet w:facet="enumeration" w:value="DEAF EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DEAF L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DEAF MUTE"/>
+    <w:Facet w:facet="enumeration" w:value="DEAF R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DENT LOW"/>
+    <w:Facet w:facet="enumeration" w:value="DENT UP"/>
+    <w:Facet w:facet="enumeration" w:value="DENT UP LO"/>
+    <w:Facet w:facet="enumeration" w:value="DEV SEPTUM"/>
+    <w:Facet w:facet="enumeration" w:value="DIMP CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="DIMP L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="DIMP R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC ABDOM"/>
+    <w:Facet w:facet="enumeration" w:value="DISC ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="DISC ARM"/>
+    <w:Facet w:facet="enumeration" w:value="DISC BACK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC BRST"/>
+    <w:Facet w:facet="enumeration" w:value="DISC BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC CHEEK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC CHEST"/>
+    <w:Facet w:facet="enumeration" w:value="DISC CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="DISC EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC EYE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC FACE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC FGR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC FHD"/>
+    <w:Facet w:facet="enumeration" w:value="DISC FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="DISC HEAD"/>
+    <w:Facet w:facet="enumeration" w:value="DISC HIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L ANK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L BRS"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L BUT"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC LEG"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L FT"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L HIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L HND"/>
+    <w:Facet w:facet="enumeration" w:value="DISC LIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC LKNEE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L LIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC LSHLD"/>
+    <w:Facet w:facet="enumeration" w:value="DISC LTHGH"/>
+    <w:Facet w:facet="enumeration" w:value="DISC L WRS"/>
+    <w:Facet w:facet="enumeration" w:value="DISC NECK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R ANK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R BRS"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R BUT"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R FT"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R HIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R HND"/>
+    <w:Facet w:facet="enumeration" w:value="DISC RKNEE"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="DISC RSHLD"/>
+    <w:Facet w:facet="enumeration" w:value="DISC RTHGH"/>
+    <w:Facet w:facet="enumeration" w:value="DISC R WRS"/>
+    <w:Facet w:facet="enumeration" w:value="DISC SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="DISC THGH"/>
+    <w:Facet w:facet="enumeration" w:value="DISC U LIP"/>
+    <w:Facet w:facet="enumeration" w:value="DISC WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="EAR TUBES"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR BRST"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR CBRST"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR C NIP"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR C VRT"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR LBRST"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR L NIP"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR L TTH"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR L VRT"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR NIP"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR RBRST"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR R NIP"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR U TTH"/>
+    <w:Facet w:facet="enumeration" w:value="EXTR VRT"/>
+    <w:Facet w:facet="enumeration" w:value="FRC ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="FRC ARM"/>
+    <w:Facet w:facet="enumeration" w:value="FRC BACK"/>
+    <w:Facet w:facet="enumeration" w:value="FRC CLAVIC"/>
+    <w:Facet w:facet="enumeration" w:value="FRC FGR"/>
+    <w:Facet w:facet="enumeration" w:value="FRC FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="FRC HAND"/>
+    <w:Facet w:facet="enumeration" w:value="FRC JAW"/>
+    <w:Facet w:facet="enumeration" w:value="FRC KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LCLAVI"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LEG"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L HAND"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LL JAW"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LL LEG"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LPELVI"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L RIB"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LR JAW"/>
+    <w:Facet w:facet="enumeration" w:value="FRC LR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC L WRST"/>
+    <w:Facet w:facet="enumeration" w:value="FRC NECK"/>
+    <w:Facet w:facet="enumeration" w:value="FRC NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC PELVIS"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="FRC RCLAVI"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R HAND"/>
+    <w:Facet w:facet="enumeration" w:value="FRC RIBS"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC RPELVI"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R RIB"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC R WRST"/>
+    <w:Facet w:facet="enumeration" w:value="FRC SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="FRC SKULL"/>
+    <w:Facet w:facet="enumeration" w:value="FRC SPINE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC STERN"/>
+    <w:Facet w:facet="enumeration" w:value="FRC TOE"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UL JAW"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UL LEG"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UR JAW"/>
+    <w:Facet w:facet="enumeration" w:value="FRC UR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="FRC WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="FRECKLES"/>
+    <w:Facet w:facet="enumeration" w:value="GLASSES"/>
+    <w:Facet w:facet="enumeration" w:value="GLAUCOMA"/>
+    <w:Facet w:facet="enumeration" w:value="GOLD TOOTH"/>
+    <w:Facet w:facet="enumeration" w:value="HAIR IMPL"/>
+    <w:Facet w:facet="enumeration" w:value="HEAR AID"/>
+    <w:Facet w:facet="enumeration" w:value="HERMAPHR"/>
+    <w:Facet w:facet="enumeration" w:value="HFR ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="HFR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="HFR BACK"/>
+    <w:Facet w:facet="enumeration" w:value="HFR CLAVIC"/>
+    <w:Facet w:facet="enumeration" w:value="HFR FGR"/>
+    <w:Facet w:facet="enumeration" w:value="HFR FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="HFR HAND"/>
+    <w:Facet w:facet="enumeration" w:value="HFR JAW"/>
+    <w:Facet w:facet="enumeration" w:value="HFR KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LCLAVI"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L HAND"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LL JAW"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LL LEG"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LPELVI"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L RIB"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LR JAW"/>
+    <w:Facet w:facet="enumeration" w:value="HFR LR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR L WRST"/>
+    <w:Facet w:facet="enumeration" w:value="HFR NECK"/>
+    <w:Facet w:facet="enumeration" w:value="HFR NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR PELVIS"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="HFR RCLAVI"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R HAND"/>
+    <w:Facet w:facet="enumeration" w:value="HFR RIBS"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR RPELVI"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R RIB"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR R WRST"/>
+    <w:Facet w:facet="enumeration" w:value="HFR SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="HFR SKULL"/>
+    <w:Facet w:facet="enumeration" w:value="HFR SPINE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR STERN"/>
+    <w:Facet w:facet="enumeration" w:value="HFR TOE"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UL JAW"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UL LEG"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UR JAW"/>
+    <w:Facet w:facet="enumeration" w:value="HFR UR LEG"/>
+    <w:Facet w:facet="enumeration" w:value="HFR WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="HUMPBACKED"/>
+    <w:Facet w:facet="enumeration" w:value="IMPL PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="INTRA ROD"/>
+    <w:Facet w:facet="enumeration" w:value="IUD"/>
+    <w:Facet w:facet="enumeration" w:value="MC ACNE"/>
+    <w:Facet w:facet="enumeration" w:value="MC ADD"/>
+    <w:Facet w:facet="enumeration" w:value="MC ALCOHOL"/>
+    <w:Facet w:facet="enumeration" w:value="MC ALLERGY"/>
+    <w:Facet w:facet="enumeration" w:value="MC ALZHMRS"/>
+    <w:Facet w:facet="enumeration" w:value="MC ARTHRTS"/>
+    <w:Facet w:facet="enumeration" w:value="MC BEHAVIO"/>
+    <w:Facet w:facet="enumeration" w:value="MC BLOOD"/>
+    <w:Facet w:facet="enumeration" w:value="MC CANCER"/>
+    <w:Facet w:facet="enumeration" w:value="MC DIABTIC"/>
+    <w:Facet w:facet="enumeration" w:value="MC DOWNSYN"/>
+    <w:Facet w:facet="enumeration" w:value="MC DRUGAB"/>
+    <w:Facet w:facet="enumeration" w:value="MC EATDIS"/>
+    <w:Facet w:facet="enumeration" w:value="MC HEART"/>
+    <w:Facet w:facet="enumeration" w:value="MC KIDNEY"/>
+    <w:Facet w:facet="enumeration" w:value="MC LIVER"/>
+    <w:Facet w:facet="enumeration" w:value="MC NERVOUS"/>
+    <w:Facet w:facet="enumeration" w:value="MC NRLGCAL"/>
+    <w:Facet w:facet="enumeration" w:value="MC OTHER"/>
+    <w:Facet w:facet="enumeration" w:value="MC PARPLGC"/>
+    <w:Facet w:facet="enumeration" w:value="MC PASTPRE"/>
+    <w:Facet w:facet="enumeration" w:value="MC PLMNARY"/>
+    <w:Facet w:facet="enumeration" w:value="MC PREGNAN"/>
+    <w:Facet w:facet="enumeration" w:value="MC QUADPLG"/>
+    <w:Facet w:facet="enumeration" w:value="MC SKIN"/>
+    <w:Facet w:facet="enumeration" w:value="MC TB"/>
+    <w:Facet w:facet="enumeration" w:value="MC THYROID"/>
+    <w:Facet w:facet="enumeration" w:value="MC TOURETE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS ADND"/>
+    <w:Facet w:facet="enumeration" w:value="MISS APPNX"/>
+    <w:Facet w:facet="enumeration" w:value="MISS BRSTS"/>
+    <w:Facet w:facet="enumeration" w:value="MISS C VRT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS GALL"/>
+    <w:Facet w:facet="enumeration" w:value="MISS INTES"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LBRST"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L FJT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L FT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L HND"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L KID"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LLARM"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LLLEG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LLUNG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LOVAR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LRARM"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LRLEG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS LRYNX"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L TES"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS L VRT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS OVARS"/>
+    <w:Facet w:facet="enumeration" w:value="MISS PANCR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="MISS PROST"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="MISS RBRST"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R FJT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R FT"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R HND"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R KID"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS RLUNG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS ROVAR"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R TES"/>
+    <w:Facet w:facet="enumeration" w:value="MISS R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="MISS SPLEN"/>
+    <w:Facet w:facet="enumeration" w:value="MISS STOMA"/>
+    <w:Facet w:facet="enumeration" w:value="MISS THYRD"/>
+    <w:Facet w:facet="enumeration" w:value="MISS TONG"/>
+    <w:Facet w:facet="enumeration" w:value="MISS TONSL"/>
+    <w:Facet w:facet="enumeration" w:value="MISS UTRUS"/>
+    <w:Facet w:facet="enumeration" w:value="MISS VRT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE ABDOM"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE BACK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE BRST"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE CHEST"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE CHK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE EAR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE FGR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE FHD"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE GROIN"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE HAND"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE HEAD"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE HIP"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L ANK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE LBRST"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L BUT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE LEG"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L FT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L HIP"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L HND"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE LIP"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L KNE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L LIP"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L SHD"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L THG"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE L WRS"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE NECK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R ANK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE RBRST"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R BUT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R FT"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R HIP"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R HND"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R KNE"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R SHD"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R THG"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE R WRS"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE THGH"/>
+    <w:Facet w:facet="enumeration" w:value="MOLE U LIP"/>
+    <w:Facet w:facet="enumeration" w:value="MUTE"/>
+    <w:Facet w:facet="enumeration" w:value="NM L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="NM L BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="NM L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="NM L FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="NM L HND"/>
+    <w:Facet w:facet="enumeration" w:value="NM L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="NM L THIGH"/>
+    <w:Facet w:facet="enumeration" w:value="NM L WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="NM R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="NM R BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="NM R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="NM R FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="NM R HND"/>
+    <w:Facet w:facet="enumeration" w:value="NM R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="NM R THIGH"/>
+    <w:Facet w:facet="enumeration" w:value="NM R WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="ORTH NAIL"/>
+    <w:Facet w:facet="enumeration" w:value="ORTH PLATE"/>
+    <w:Facet w:facet="enumeration" w:value="ORTH SCREW"/>
+    <w:Facet w:facet="enumeration" w:value="POCKMARKS"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD ABDMN"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD BACK"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD EAR"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD EARS"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD EYE"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD FACE"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD GNTLS"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD LIP"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD LLIP"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD L NIP"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD NIPPL"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD R NIP"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD TONGU"/>
+    <w:Facet w:facet="enumeration" w:value="PRCD ULIP"/>
+    <w:Facet w:facet="enumeration" w:value="PROT L JAW"/>
+    <w:Facet w:facet="enumeration" w:value="PROT U JAW"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT ABDM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT ARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT BACK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT BRST"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT CALF"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT CHEEK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT CHEST"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT EAR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT ELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FACE"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FHD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FLBOD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FNGR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT GROIN"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT HAND"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT HEAD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT HIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LANKL"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LBRST"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LBUTK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LCALF"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LEG"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L ELB"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LFARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LFOOT"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L HIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L HND"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LKNEE"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LSHLD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LTHGH"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LWLIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT LWRS"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT NECK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RANKL"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RBRST"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RBUTK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RCALF"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R ELB"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RFARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RFOOT"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R HIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R HND"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RKNEE"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RSHLD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RTHGH"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT RWRS"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT THGH"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT ULARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT UPLIP"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT URARM"/>
+    <w:Facet w:facet="enumeration" w:value="RTAT WRS"/>
+    <w:Facet w:facet="enumeration" w:value="SC ABDOM"/>
+    <w:Facet w:facet="enumeration" w:value="SC ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="SC ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC BACK"/>
+    <w:Facet w:facet="enumeration" w:value="SC BREAST"/>
+    <w:Facet w:facet="enumeration" w:value="SC BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="SC CALF"/>
+    <w:Facet w:facet="enumeration" w:value="SC CHEST"/>
+    <w:Facet w:facet="enumeration" w:value="SC CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="SC CHK"/>
+    <w:Facet w:facet="enumeration" w:value="SC EAR"/>
+    <w:Facet w:facet="enumeration" w:value="SC ELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="SC EYE"/>
+    <w:Facet w:facet="enumeration" w:value="SC FACE"/>
+    <w:Facet w:facet="enumeration" w:value="SC F ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC FGR"/>
+    <w:Facet w:facet="enumeration" w:value="SC FHD"/>
+    <w:Facet w:facet="enumeration" w:value="SC FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="SC GROIN"/>
+    <w:Facet w:facet="enumeration" w:value="SC HAND"/>
+    <w:Facet w:facet="enumeration" w:value="SC HEAD"/>
+    <w:Facet w:facet="enumeration" w:value="SC HIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="SC L ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="SC L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC L BRST"/>
+    <w:Facet w:facet="enumeration" w:value="SC L BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="SC L CALF"/>
+    <w:Facet w:facet="enumeration" w:value="SC L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="SC L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="SC LEG"/>
+    <w:Facet w:facet="enumeration" w:value="SC L ELB"/>
+    <w:Facet w:facet="enumeration" w:value="SC L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="SC LF ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="SC L FT"/>
+    <w:Facet w:facet="enumeration" w:value="SC L HIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC L HND"/>
+    <w:Facet w:facet="enumeration" w:value="SC LIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC L KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="SC L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="SC LOW LIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC L SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="SC L THGH"/>
+    <w:Facet w:facet="enumeration" w:value="SC L WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="SC NECK"/>
+    <w:Facet w:facet="enumeration" w:value="SC NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="SC PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="SC R ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="SC R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC R BRST"/>
+    <w:Facet w:facet="enumeration" w:value="SC R BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="SC R CALF"/>
+    <w:Facet w:facet="enumeration" w:value="SC R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="SC R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="SC R ELB"/>
+    <w:Facet w:facet="enumeration" w:value="SC R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="SC RF ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="SC R FT"/>
+    <w:Facet w:facet="enumeration" w:value="SC R HIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC R HND"/>
+    <w:Facet w:facet="enumeration" w:value="SC R KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="SC R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="SC R SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="SC R THGH"/>
+    <w:Facet w:facet="enumeration" w:value="SC R WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="SC SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="SC THGH"/>
+    <w:Facet w:facet="enumeration" w:value="SC UL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC UP LIP"/>
+    <w:Facet w:facet="enumeration" w:value="SC UR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="SC WRIST"/>
+    <w:Facet w:facet="enumeration" w:value="SHRT L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="SHRT R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="SHUNT ART"/>
+    <w:Facet w:facet="enumeration" w:value="SHUNT CERB"/>
+    <w:Facet w:facet="enumeration" w:value="SKL PLATE"/>
+    <w:Facet w:facet="enumeration" w:value="SLVR TOOTH"/>
+    <w:Facet w:facet="enumeration" w:value="STAPLES"/>
+    <w:Facet w:facet="enumeration" w:value="STUTTERS"/>
+    <w:Facet w:facet="enumeration" w:value="TAT ABDOM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="TAT ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT BACK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT BREAST"/>
+    <w:Facet w:facet="enumeration" w:value="TAT BUTTK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT CALF"/>
+    <w:Facet w:facet="enumeration" w:value="TAT CHEEK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT CHEST"/>
+    <w:Facet w:facet="enumeration" w:value="TAT CHIN"/>
+    <w:Facet w:facet="enumeration" w:value="TAT EAR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT ELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="TAT EYE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FACE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FHD"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FLBODY"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FNGR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="TAT GROIN"/>
+    <w:Facet w:facet="enumeration" w:value="TAT HAND"/>
+    <w:Facet w:facet="enumeration" w:value="TAT HEAD"/>
+    <w:Facet w:facet="enumeration" w:value="TAT HIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L BRST"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L BUTK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L CALF"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L CHK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT LEG"/>
+    <w:Facet w:facet="enumeration" w:value="TAT LELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L EYE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT LF ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L FGR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L HIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L HND"/>
+    <w:Facet w:facet="enumeration" w:value="TAT LIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L LEG"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L THGH"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L TOE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT LW LIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT L WRS"/>
+    <w:Facet w:facet="enumeration" w:value="TAT NECK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT NOSE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT PENIS"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R ANKL"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R BRST"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R BUTK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R CALF"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R CHK"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT RELBOW"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R EYE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT RF ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R FGR"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R FOOT"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R HIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R HND"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R KNEE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R LEG"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R THGH"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R TOE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT R WRS"/>
+    <w:Facet w:facet="enumeration" w:value="TAT SHLD"/>
+    <w:Facet w:facet="enumeration" w:value="TAT THGH"/>
+    <w:Facet w:facet="enumeration" w:value="TAT TOE"/>
+    <w:Facet w:facet="enumeration" w:value="TAT UL ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT UP LIP"/>
+    <w:Facet w:facet="enumeration" w:value="TAT UR ARM"/>
+    <w:Facet w:facet="enumeration" w:value="TAT WRS"/>
+    <w:Facet w:facet="enumeration" w:value="TD ACONVUL"/>
+    <w:Facet w:facet="enumeration" w:value="TD ADEPRES"/>
+    <w:Facet w:facet="enumeration" w:value="TD ANALGES"/>
+    <w:Facet w:facet="enumeration" w:value="TD ANTBTCS"/>
+    <w:Facet w:facet="enumeration" w:value="TD ANTINFL"/>
+    <w:Facet w:facet="enumeration" w:value="TD BRNCHDL"/>
+    <w:Facet w:facet="enumeration" w:value="TD CARDIAC"/>
+    <w:Facet w:facet="enumeration" w:value="TD HYPNOTI"/>
+    <w:Facet w:facet="enumeration" w:value="TD INSULIN"/>
+    <w:Facet w:facet="enumeration" w:value="TD OTHER"/>
+    <w:Facet w:facet="enumeration" w:value="TD RITALIN"/>
+    <w:Facet w:facet="enumeration" w:value="TD TRANQUI"/>
+    <w:Facet w:facet="enumeration" w:value="TRANSSXL"/>
+    <w:Facet w:facet="enumeration" w:value="TRANSVST"/>
+    <w:Facet w:facet="enumeration" w:value="TUBE L EAR"/>
+    <w:Facet w:facet="enumeration" w:value="TUBE R EAR"/>
+    <w:Facet w:facet="enumeration" w:value="VASC PROTH"/>
+    <w:Facet w:facet="enumeration" w:value="WHEELCHAIR"/>
+    <w:Facet w:facet="enumeration" w:value="WIRE SUTUR"/>
+  </w:Type>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
+  <w:Type w:name="ucr:EthnicityCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="H"/>
+    <w:Facet w:facet="enumeration" w:value="N"/>
+    <w:Facet w:facet="enumeration" w:value="U"/>
+  </w:Type>
   <w:Type w:name="unece:LengthCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="4H"/>
     <w:Facet w:facet="enumeration" w:value="77"/>
