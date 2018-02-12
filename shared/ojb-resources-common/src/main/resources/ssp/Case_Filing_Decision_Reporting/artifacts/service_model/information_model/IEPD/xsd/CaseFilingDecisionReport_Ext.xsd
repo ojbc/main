@@ -71,10 +71,13 @@
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cyfs:AssociatedPersonChildAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cyfs:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -307,6 +310,44 @@
 		<xsd:annotation>
 			<xsd:documentation>True if subject has a mental health condition; false otherwise.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- Check the following element type and definition in NIEM -->
+	<xsd:element name="DocumentApplicationName" type="nc:TextType" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>DEFINITION
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PhysicalFeatureIdentification" type="nc:IdentificationType" substitutionGroup="nc:PhysicalFeatureAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a physical feature.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentityPersonIdentification" type="nc:IdentificationType" substitutionGroup="nc:IdentityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a person identity.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LocationIdentification" type="nc:IdentificationType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a location.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="PrimaryContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if contact information is primary; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HomeContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if contact information is home; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WorkContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if contact information is home; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
