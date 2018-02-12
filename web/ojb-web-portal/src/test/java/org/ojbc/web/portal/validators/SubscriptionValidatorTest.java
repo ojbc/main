@@ -19,12 +19,14 @@ package org.ojbc.web.portal.validators;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.controllers.SubscriptionsController;
 import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
@@ -63,7 +65,8 @@ public class SubscriptionValidatorTest {
 		errors = new BeanPropertyBindingResult(subscription, "subscription");
 		subscriptionValidator.validate(subscription, errors);
 		assertThat(errors.getErrorCount(), is(1));
-		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End Date may not be more than " + years + " year after the Start Date"));
+		LocalDate maxEndDate = OJBCDateUtils.toLocalDate(subscription.getSubscriptionStartDate()).plusYears(years);
+		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End Date may not be later than " + maxEndDate));
 	}
 	
 	private void assertNoErrors(Subscription subscription) {

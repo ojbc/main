@@ -18,6 +18,7 @@ package org.ojbc.util.helper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -112,5 +113,11 @@ public final class OJBCDateUtils {
 
 	public static LocalDate toLocalDate(java.sql.Date date){
 		return Optional.ofNullable(date).map(java.sql.Date::toLocalDate).orElse(null);
+	}
+	
+	public static LocalDate toLocalDate(Date date){
+		return Optional.ofNullable(date)
+				.map(input->input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+				.orElse(null);
 	}
 }

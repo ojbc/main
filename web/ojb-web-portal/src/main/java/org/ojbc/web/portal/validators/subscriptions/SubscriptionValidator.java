@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.portal.validators.subscriptions;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -161,34 +162,46 @@ public class SubscriptionValidator implements Validator{
 	public void validateSubscriptionEndDate(Subscription subscription,
 			Errors errors) {
 		
-		Date subEndDate = subscription.getSubscriptionEndDate();
-		Date subStartDate = subscription.getSubscriptionStartDate();
+		LocalDate subEndDate = OJBCDateUtils.toLocalDate(subscription.getSubscriptionEndDate()); 
+		LocalDate subStartDate = OJBCDateUtils.toLocalDate(subscription.getSubscriptionStartDate());
 		
 		if(subEndDate != null && subStartDate != null){			
-			if(subEndDate.before(subStartDate)){
+			if(subEndDate.isBefore(subStartDate)){
 				errors.rejectValue("subscriptionEndDate", "End Date may not occur before Start Date");
 			}
 			else {
-				SubscriptionEndDateStrategy endDateStrategy = null;
-				switch(StringUtils.trimToEmpty(subscription.getSubscriptionPurpose())){
-				case "CS": 
-					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CS);
-					break; 
-				case "CI": 
-					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CI);
-					break;
-				default: 
-					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE);
-				}
+				LocalDate maxEndDate = getMaxEndDate(subscription);
 				
-				Date defaultEndDate = OJBCDateUtils.getEndDate(subStartDate,
-						endDateStrategy.getPeriod());
-
-				if(defaultEndDate != null && subEndDate.after(defaultEndDate)){
-					errors.rejectValue("subscriptionEndDate", "End Date may not be more than " + endDateStrategy.getPeriod() + " year after the Start Date");
+				if(maxEndDate != null && subEndDate.isAfter(maxEndDate)){
+					errors.rejectValue("subscriptionEndDate", "End Date may not be later than " + maxEndDate);
 				}
 			}
 		}
+	}
+
+
+	private LocalDate getMaxEndDate(Subscription subscription) {
+		LocalDate defaultEndDate = null;
+		if (subscription.getValidationDueDate() != null){
+			defaultEndDate = subscription.getValidationDueDate();
+		}
+		else {
+			SubscriptionEndDateStrategy endDateStrategy = null;
+			switch(StringUtils.trimToEmpty(subscription.getSubscriptionPurpose())){
+			case "CS": 
+				endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CS);
+				break; 
+			case "CI": 
+				endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CI);
+				break;
+			default: 
+				endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE);
+			}
+			
+			defaultEndDate = OJBCDateUtils.toLocalDate(
+					OJBCDateUtils.getEndDate( subscription.getSubscriptionStartDate(), endDateStrategy.getPeriod()));
+		}
+		return defaultEndDate;
 	}
 
 }
