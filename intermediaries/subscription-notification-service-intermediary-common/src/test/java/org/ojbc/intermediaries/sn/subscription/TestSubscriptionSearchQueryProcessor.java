@@ -199,13 +199,13 @@ public class TestSubscriptionSearchQueryProcessor {
         String sid = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         assertEquals("A123456789",sid);
         
-        String email1 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='P001CE001']/nc:ContactEmailID");
+        String email1 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='S001CE001']/nc:ContactEmailID");
         assertEquals("a@b.com",email1);
         
-        String email2 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='P001CE002']/nc:ContactEmailID");
+        String email2 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='S001CE002']/nc:ContactEmailID");
         assertEquals("b@c.com",email2);
         
-        NodeList contactInfoReferenceNodes = XmlUtils.xPathNodeListSearch(doc, "/sqr:SubscriptionQueryResults/nc:PersonContactInformationAssociation/nc:PersonReference[@s:ref='P001']/following-sibling::nc:ContactInformationReference");
+        NodeList contactInfoReferenceNodes = XmlUtils.xPathNodeListSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:SubscriptionContactInformationAssociation/sqr-ext:SubscriptionReference[@s:ref='S001']/following-sibling::nc:ContactInformationReference");
         assertNotNull(contactInfoReferenceNodes);
         
         assertEquals(2, contactInfoReferenceNodes.getLength());
@@ -214,10 +214,10 @@ public class TestSubscriptionSearchQueryProcessor {
         Node contactInfoReference2 = contactInfoReferenceNodes.item(1);
         
         String contactInfoReferenceReference1Id = XmlUtils.xPathStringSearch(contactInfoReference1, "@s:ref");
-        assertEquals("P001CE001",contactInfoReferenceReference1Id);
+        assertEquals("S001CE001",contactInfoReferenceReference1Id);
 
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
-        assertEquals("P001CE002",contactInfoReferenceReference2Id);
+        assertEquals("S001CE002",contactInfoReferenceReference2Id);
         
         NodeList triggeringEvents = XmlUtils.xPathNodeListSearch(subscriptionQueryResult, "sqr-ext:Subscription/sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
         
@@ -354,15 +354,15 @@ public class TestSubscriptionSearchQueryProcessor {
         String sid = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         assertEquals("A123456789", sid);
 
-        String email1 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='P001CE001']/nc:ContactEmailID");
+        String email1 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='S001CE001']/nc:ContactEmailID");
         assertEquals("a@b.com", email1);
 
-        String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='P001CE002']/nc:ContactEmailID");
+        String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='S001CE002']/nc:ContactEmailID");
         assertEquals("b@c.com", email2);
 
         NodeList contactInfoReferenceNodes = XmlUtils
                 .xPathNodeListSearch(doc,
-                        "/ssr:SubscriptionSearchResults/nc:PersonContactInformationAssociation/nc:PersonReference[@s:ref='P001']/following-sibling::nc:ContactInformationReference");
+                        "/ssr:SubscriptionSearchResults/ssr-ext:SubscriptionContactInformationAssociation/ssr-ext:SubscriptionReference[@s:ref='S001']/following-sibling::nc:ContactInformationReference");
         assertNotNull(contactInfoReferenceNodes);
 
         assertEquals(2, contactInfoReferenceNodes.getLength());
@@ -371,10 +371,10 @@ public class TestSubscriptionSearchQueryProcessor {
         Node contactInfoReference2 = contactInfoReferenceNodes.item(1);
 
         String contactInfoReferenceReference1Id = XmlUtils.xPathStringSearch(contactInfoReference1, "@s:ref");
-        assertEquals("P001CE001", contactInfoReferenceReference1Id);
+        assertEquals("S001CE001", contactInfoReferenceReference1Id);
 
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
-        assertEquals("P001CE002", contactInfoReferenceReference2Id);
+        assertEquals("S001CE002", contactInfoReferenceReference2Id);
         
         NodeList fbiSubScripitonNodes = XmlUtils.xPathNodeListSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:FBISubscription"); 
         assertNotNull(fbiSubScripitonNodes);

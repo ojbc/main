@@ -150,9 +150,9 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         createOrganization(Arrays.asList(subscription), root);
         
         createSubscriptionEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
-        createSubscriptionOwnerEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionOwnerEmails(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         
-        createSubjectContactInformationAssociations(Arrays.asList(subscription), root);
+        createSubscriptionContactInformationAssociations(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT );
         createOwnerOrganizationAssociation(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(Arrays.asList(subscription), root, OjbcNamespaceContext.NS_SUBSCRIPTION_QUERY_RESULTS_EXT);
         createStateSubscriptionFBISubscriptionAssociation(Arrays.asList(subscription), root);
@@ -220,24 +220,22 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         doc.appendChild(root);
         root.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_RESULTS);
 
-        for (Subscription subscriptionSearchResponse : subscriptions) {
-
+        for (Subscription subscription : subscriptions) {
             Element subscriptionSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT, "SubscriptionSearchResult");
-            int index = subscriptions.indexOf(subscriptionSearchResponse) + 1;
+            int index = subscriptions.indexOf(subscription);
 
-            appendSubscriptionParentResponse(subscriptionSearchResponse, doc, subscriptionSearchResultElement, index, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT
-                    );
-
+            appendSubscriptionParentResponse(subscription, doc, subscriptionSearchResultElement, index, 
+            		OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT );
         }
 
         createFbiSubscriptions(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntity(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionSubjects(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionEmails(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionOwnerEmails(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubjectContactInformationAssociations(subscriptions, root);
+        createSubscriptionEmails(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createStateSubscriptionFBISubscriptionAssociation(subscriptions, root);
+        createSubscriptionContactInformationAssociations(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         
         ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
 
@@ -361,10 +359,10 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 	}
 
     private Element appendSubscriptionParentResponse(Subscription subscription, Document doc, 
-    		Element subscriptionSearchResultElement, int searchResponseIndex, String extensionSchema) {
+    		Element subscriptionSearchResultElement, int subscriptionIndex, String extensionSchema) {
 
         Element subscriptionElement = XmlUtils.appendElement(subscriptionSearchResultElement, extensionSchema, "Subscription");
-        XmlUtils.addAttribute(subscriptionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", "S" + StringUtils.leftPad(String.valueOf(searchResponseIndex), 3, '0'));
+        XmlUtils.addAttribute(subscriptionElement, OjbcNamespaceContext.NS_STRUCTURES, "id", getElementId("S", subscriptionIndex));
 
         XmlUtils.appendActivityDateRangeElement(subscriptionElement,  OjbcNamespaceContext.NS_NC,
         		subscription.getStartDate(), subscription.getEndDate());
@@ -378,7 +376,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         
         Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
         Element roleOfPersonReferenceElement = XmlUtils.appendElement(subscriptionSubjectElement, OjbcNamespaceContext.NS_NC, "RoleOfPersonReference");
-        XmlUtils.addAttribute(roleOfPersonReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", "P" + StringUtils.leftPad(String.valueOf(searchResponseIndex), 3, '0'));
+        XmlUtils.addAttribute(roleOfPersonReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("P", subscriptionIndex));
 
         appendTopic(subscription, subscriptionElement);
 
@@ -580,7 +578,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
                 for (int j=0; j<emailAddresses.size(); j++) {
                     Element contactInformationElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC, "ContactInformation");
-                    XmlUtils.addAttribute(contactInformationElement, OjbcNamespaceContext.NS_STRUCTURES, "id", getElementId("P", i) + getElementId("CE", j));
+                    XmlUtils.addAttribute(contactInformationElement, OjbcNamespaceContext.NS_STRUCTURES, "id", getElementId("S", i) + getElementId("CE", j));
 
                     Element contactEmailID = XmlUtils.appendElement(contactInformationElement, OjbcNamespaceContext.NS_NC, "ContactEmailID");
                     contactEmailID.setTextContent(emailAddresses.get(j));
@@ -607,7 +605,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 		}
 	}
 	
-    private void createSubjectContactInformationAssociations(List<Subscription> subscriptions, Element root) {
+    private void createSubscriptionContactInformationAssociations(List<Subscription> subscriptions, Element root, String extensionNS) {
         for (int i=0; i < subscriptions.size(); i++) {
         	Subscription subscription = subscriptions.get(i);
 
@@ -615,15 +613,15 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
             if (emailAddresses != null) {
 
-                for (int j= 0; j < emailAddresses.size(); j++) {
-                    Element subscribedEntityContactInformationAssociationElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC, "PersonContactInformationAssociation");
-
-                    Element subscribedEntityReferenceElement = XmlUtils.appendElement(subscribedEntityContactInformationAssociationElement, OjbcNamespaceContext.NS_NC, "PersonReference");
-					XmlUtils.addAttribute(subscribedEntityReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("P", i));
+            	Element subscriptionContactInformationAssociation = XmlUtils.appendElement(root, extensionNS, "SubscriptionContactInformationAssociation");
+	            Element subscriptionReferenceElement = XmlUtils.appendElement(subscriptionContactInformationAssociation, extensionNS, "SubscriptionReference");
+				XmlUtils.addAttribute(subscriptionReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("S", i));
+				
+				for (int j= 0; j < emailAddresses.size(); j++) {
 
                     Element contactInformationReferenceElement = XmlUtils
-                            .appendElement(subscribedEntityContactInformationAssociationElement, OjbcNamespaceContext.NS_NC, "ContactInformationReference");
-                    XmlUtils.addAttribute(contactInformationReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("P", i)
+                            .appendElement(subscriptionContactInformationAssociation, OjbcNamespaceContext.NS_NC, "ContactInformationReference");
+                    XmlUtils.addAttribute(contactInformationReferenceElement, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("S", i)
                             + getElementId("CE", j));
 
                 }
