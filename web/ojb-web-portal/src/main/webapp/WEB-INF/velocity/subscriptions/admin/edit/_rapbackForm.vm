@@ -43,6 +43,39 @@
 		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
   	}
   	
+	$('#idLookupLink').click(function(){    	
+		var sidPattern = new RegExp('$sidRegexForAddSubscription');
+	  	var sidVal = $('#stateId').val();
+	  	
+	  	if (sidPattern.test(sidVal)){	
+	  					  					  					  	    					    						 
+			var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
+			    	
+			// calls a spring mvc method returning a json string w/format key,value
+			// where the key is an int index as a string - and the value is an object {first, last}
+			// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+			// to js layer here instead of using json			    						     
+		    $.get(requestUrl, function(data){		  			  			
+					//console.log(data);
+					//generate html drop-down options based on json values from java layer
+					if( data && Object.keys(data.allNames).length > 0){
+						$("#fbiId").val(data.fbiId);
+						$("#formattedFbiId").val(data.formattedFbiId)
+					}else{
+						alert('Requested SID not found');
+						$("#fbiId").val("");
+						$("#formattedFbiId").val("N/A");
+					}
+					
+	  			}
+  			).fail(ojbc.displayFailMessage);
+		}else{
+			alert('$sidRegexValidationErrorMessage');
+			$("#fbiId").val("");
+			$("#formattedFbiId").val("N/A");
+		}	
+	});    		
+  	
     $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
     
     	if ('${subscription.subscriptionPurpose}'==="CI"){
@@ -126,10 +159,15 @@
 		    <td class="detailsLabel">SID</td>
 		    <td>
 		    	#springFormInput("subscription.stateId" "readonly='readonly' title='SID' style='width:110px'")
-		    	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
 		    </td>
 		    <td class="detailsLabel">FBI UCN</td>
-		    <td><span id="fbiIdString">$subscription.formattedFbiId</span></td>
+		    <td>
+		    	#springFormInput("subscription.formattedFbiId" "readonly='readonly' title='FBI ID' style='width:110px'")
+		    	#if( !$subscription.fbiId  ) 
+					<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
+				#end
+				#springFormHiddenInput("subscription.fbiId")
+	    	</td>
 	    </tr>
 	    <tr>
 		    <td class="detailsLabel">Full Name</td>
