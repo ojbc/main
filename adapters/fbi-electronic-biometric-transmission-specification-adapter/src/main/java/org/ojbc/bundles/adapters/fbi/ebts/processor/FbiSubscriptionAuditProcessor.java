@@ -96,6 +96,7 @@ public class FbiSubscriptionAuditProcessor {
 			federalRapbackSubscription.setPathToResponseFile(pathToResponseFile);
 			federalRapbackSubscription.setTransactionCategoryCode(transactionCategoryCode);
 			federalRapbackSubscription.setTransactionStatusText(XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText"));
+			federalRapbackSubscription.setFbiSubscriptionId(XmlUtils.xPathStringSearch(input, "//ebts:RecordRapBackSubscriptionID"));
 			
 			logger.info("Federal rapback subscription response audit entry to save: " + federalRapbackSubscription.toString());
 			

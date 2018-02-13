@@ -198,8 +198,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         log.debug("Inserting row into FEDERAL_RAPBACK_SUBSCRIPTION table : " + federalRapbackSubscription);
         
         final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into FEDERAL_RAPBACK_SUBSCRIPTION "
-        		+ "(REQUEST_SENT_TIMESTAMP, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE,SUBSCRIPTION_CATEGORY_CODE, SID, TRANSACTION_STATUS_TEXT, STATE_SUBSCRIPTION_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        		+ "(REQUEST_SENT_TIMESTAMP, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE,SUBSCRIPTION_CATEGORY_CODE, SID, TRANSACTION_STATUS_TEXT, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -215,6 +215,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getSid(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getTransactionStatusText(), ps, 6);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getStateSubscriptionId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getFbiSubscriptionId(), ps, 8);
         	            
         	            return ps;
         	        }
@@ -814,6 +815,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			federalRapbackSubscription.setSid(rs.getString("SID"));
 			federalRapbackSubscription.setTransactionStatusText(rs.getString("TRANSACTION_STATUS_TEXT"));
 			federalRapbackSubscription.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
+			federalRapbackSubscription.setFbiSubscriptionId(rs.getString("FBI_SUBSCRIPTION_ID"));
 			
 			return federalRapbackSubscription;
 		}
