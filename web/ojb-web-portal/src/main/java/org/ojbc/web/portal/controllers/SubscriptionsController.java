@@ -1128,7 +1128,6 @@ public class SubscriptionsController {
 			}
 											
 			logger.info("Subscription Edit Request: " + subscription);
-						//TODO remove this before checking in 
 			model.put("subscription", subscription);	
 											
 		}catch(Exception e){
