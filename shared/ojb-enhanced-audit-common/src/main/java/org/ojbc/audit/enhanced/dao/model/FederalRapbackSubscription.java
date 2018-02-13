@@ -39,6 +39,8 @@ public class FederalRapbackSubscription {
 	
 	private String stateSubscriptionId;
 	
+	private String fbiSubscriptionId;
+	
 	private String sid;
 	
 	private String subscriptonCategoryCode;
@@ -144,6 +146,14 @@ public class FederalRapbackSubscription {
 
 	public void setSubscriptonCategoryCode(String subscriptonCategoryCode) {
 		this.subscriptonCategoryCode = subscriptonCategoryCode;
+	}
+
+	public String getFbiSubscriptionId() {
+		return fbiSubscriptionId;
+	}
+
+	public void setFbiSubscriptionId(String fbiSubscriptionId) {
+		this.fbiSubscriptionId = fbiSubscriptionId;
 	}
 	
 }

@@ -185,6 +185,7 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
 		federalRapbackSubscription.setSid("123");
 		federalRapbackSubscription.setStateSubscriptionId("456");
+		federalRapbackSubscription.setFbiSubscriptionId("789");
 		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
 		federalRapbackSubscription.setTransactionStatusText("text");
 		
@@ -208,6 +209,7 @@ public class EnhancedAuditDaoTest {
 		
 		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+		assertEquals("789", federalRapbackSubscriptionFromDatabase.getFbiSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		assertEquals("text", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
 		
