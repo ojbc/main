@@ -544,36 +544,8 @@ public class SubscriptionSearchQueryDAO {
     		
     		long subscriptionID = subscriptions.get(0).getId();
     		
-    		String federationIdInDatabase = subscriptions.get(0).getSubscriptionOwner();
-    		
-    		Integer subscriptionOwnerPk = null;
-    		
-    		if (federationIdInDatabase.equals(request.getSubscriptionOwner()))
-    		{
-    			subscriptionOwnerPk = subscriptions.get(0).getSubscriptionOwnerFk();
-    		}
-    		else
-    		{	
-    			//This table has an entry for the owner 'SYSTEM' which is an automated subscription
-    			subscriptionOwnerPk = returnSubscriptionOwnerFromFederationId(request.getSubscriptionOwner());
-    			
-    			//Null subscription ID, add subscription owner to database
-    			if (subscriptionOwnerPk == null)
-    			{
-    				try {
-    					Number subscriptionOwnerNumber = saveSubscriptionOwner(request.getSubscriptionOwnerFirstName(), request.getSubscriptionOwnerLastName(), request.getSubscriptionOwnerEmailAddress(), request.getSubscriptionOwner(), request.getSubscriptionOwnerOri());
-    					subscriptionOwnerPk = subscriptionOwnerNumber.intValue();
-    					
-    				} catch (Exception e) {
-    					log.error("Unable to save subscription owner.  ORI does not exist");
-    					return null;
-    				}
-    			}	
-    			
-    		}	
-    		
     		updateSubscription(request.getSubjectName(), startDate, endDate,
-    				creationDate, fullyQualifiedTopic, subscriptionID, subscriptionOwnerPk);
+    				creationDate, fullyQualifiedTopic, subscriptionID, subscriptions.get(0).getSubscriptionOwnerFk());
     		
     		updateEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), subscriptionID);
     		
