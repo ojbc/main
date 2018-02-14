@@ -48,7 +48,6 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
-import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -226,19 +225,6 @@ public class SubscriptionsController {
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
     }
     
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
-	        Map<String, Object> model) {
-		log.info("Presenting the search Form");
-		if (resetForm) {
-			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
-			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
-		} 
-
-		return "subscriptions/admin/_searchForm";
-	}
-
-
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
 			Map<String, Object> model) {		
@@ -246,13 +232,13 @@ public class SubscriptionsController {
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, true);
 		
 		return "subscriptions/_subscriptionResults";
 	}
 
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
-			SubscriptionSearchRequest subscriptionSearchRequest) {
+			SubscriptionSearchRequest subscriptionSearchRequest, Boolean validateSubscriptionButton) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
@@ -275,6 +261,7 @@ public class SubscriptionsController {
 		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
 		subResultsHtmlXsltParamMap.put("messageIfNoResults", "You do not have any subscriptions.");
+		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(validateSubscriptionButton));
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 
@@ -826,8 +813,7 @@ public class SubscriptionsController {
 		
 		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
 		
-			FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, 
-					getFederatedQueryId(), samlElement);
+		FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, getFederatedQueryId(), samlElement);
 				
 		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
 		
@@ -859,11 +845,8 @@ public class SubscriptionsController {
 		Document subResponseDoc = getSubscriptionResponseDoc(faultableSoapResponse);
 						
 		if(subResponseDoc != null){
-			
 			errorsList = getErrorsFromSubscriptionResponse(subResponseDoc);	
-			
 		}else{
-			
 			errorsList = Arrays.asList("Did not receive subscription confirmation");			
 		}	
 		
@@ -873,29 +856,29 @@ public class SubscriptionsController {
 	
 	private Document getSubscriptionResponseDoc(FaultableSoapResponse faultableSoapResponse) throws Exception{
 		
-	  if(faultableSoapResponse == null){
-		  throw new Exception("Cannot get Document from null " + FaultableSoapResponse.class.getName());
-	  }
-		
-	  String sSoapEnvelope = faultableSoapResponse.getSoapResponse();
-	  
-	  if(StringUtils.isBlank(sSoapEnvelope)){
-		  throw new Exception("soap envelope was blank in the FaultableSoapResponse");
-	  }
-	  				
-	  Document soapEnvDoc = getDocBuilder().parse(new InputSource(new StringReader(sSoapEnvelope)));
-      
-	  if(soapEnvDoc == null){
-		  throw new Exception("soapEnvDoc Document could not be parsed");
-	  }
-	  	  
-      Document subResponseDoc = getSubscriptionResponseDocFromSoapEnvDoc(soapEnvDoc);   
-      
-      if(subResponseDoc == null){
-    	  throw new Exception("Could not get subscription response document from soap envelope document");
-      }
-            		
-      return subResponseDoc;
+		  if(faultableSoapResponse == null){
+			  throw new Exception("Cannot get Document from null " + FaultableSoapResponse.class.getName());
+		  }
+			
+		  String sSoapEnvelope = faultableSoapResponse.getSoapResponse();
+		  
+		  if(StringUtils.isBlank(sSoapEnvelope)){
+			  throw new Exception("soap envelope was blank in the FaultableSoapResponse");
+		  }
+		  				
+		  Document soapEnvDoc = getDocBuilder().parse(new InputSource(new StringReader(sSoapEnvelope)));
+	      
+		  if(soapEnvDoc == null){
+			  throw new Exception("soapEnvDoc Document could not be parsed");
+		  }
+		  	  
+	      Document subResponseDoc = getSubscriptionResponseDocFromSoapEnvDoc(soapEnvDoc);   
+	      
+	      if(subResponseDoc == null){
+	    	  throw new Exception("Could not get subscription response document from soap envelope document");
+	      }
+	            		
+	      return subResponseDoc;
 	}
 	
 	
