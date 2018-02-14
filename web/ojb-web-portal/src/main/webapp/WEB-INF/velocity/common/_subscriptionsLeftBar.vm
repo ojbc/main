@@ -19,12 +19,13 @@
 	<script type="text/javascript">
 	
 		$(function(){
-		 							         								
+		
 			$('#subResultsFilterButton').click(function() {	
 																		
+				validateLinkExists = $("#validateLink").length > 0; 
 				var formData = $('#filterSubscriptionForm').serialize();
 								             	
-		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
 		  			formData,	  		
 		  			function(data) {		  			
     					$('#portalContent').html(data);	        									         					        				      
@@ -36,8 +37,9 @@
 			$('#subResultsFilterClearButton').click (function() {	
 
 				var formData = 'subscriptionStatus=All';
+				validateLinkExists = $("#validateLink").length > 0;
 								             	
-		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
 		  			formData,	  		
 		  			function(data) {		  			
     					$('#portalContent').html(data);	        									         					        				      
