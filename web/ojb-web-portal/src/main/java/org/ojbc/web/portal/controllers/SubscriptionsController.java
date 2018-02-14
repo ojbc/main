@@ -95,6 +95,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,6 +113,7 @@ import org.xml.sax.InputSource;
 @RequestMapping("/subscriptions/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
 public class SubscriptionsController {
+	@SuppressWarnings("unused")
 	private Log log = LogFactory.getLog(this.getClass());
 
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -279,8 +281,9 @@ public class SubscriptionsController {
 	}
 
 
-	@RequestMapping(value="filter", method = RequestMethod.POST)
+	@RequestMapping(value="filter/{showValidationButton}", method = RequestMethod.POST)
 	public String filter(@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
+			@PathVariable("showValidationButton") Boolean showValidationButton,
 			BindingResult errors, Map<String, Object> model) {
 		
 		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
@@ -319,6 +322,7 @@ public class SubscriptionsController {
 		//transform the filtered xml results into html		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
 		subResultsHtmlXsltParamMap.put("messageIfNoResults", "No " + subscriptionStatus +" subscriptions");
+		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
 		
 		String htmlResult = "";
 		
