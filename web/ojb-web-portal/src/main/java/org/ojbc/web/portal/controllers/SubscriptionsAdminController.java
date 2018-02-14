@@ -31,12 +31,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
-import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
-import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
@@ -54,7 +51,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @Controller
@@ -62,7 +58,6 @@ import org.w3c.dom.Element;
 @RequestMapping("/subscriptions/admin/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
 public class SubscriptionsAdminController extends SubscriptionsController{
-	@SuppressWarnings("unused")
 	private Log log = LogFactory.getLog(this.getClass());
 
 	@Value("${defaultPersonSearchSubscriptionTopic:}")
@@ -76,9 +71,21 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, false);
 		
 	    return "subscriptions/admin/_adminLandingPage";
+	}
+    
+	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	        Map<String, Object> model) {
+		log.info("Presenting the search Form");
+		if (resetForm) {
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
+			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		} 
+
+		return "subscriptions/admin/_searchForm";
 	}
     
 	@RequestMapping(value = "search", method = RequestMethod.POST)
@@ -93,7 +100,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 					
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, false);
 		
 		return "subscriptions/admin/_subscriptionResults";
 	}
@@ -138,6 +145,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		//transform the filtered xml results into html		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
 		subResultsHtmlXsltParamMap.put("messageIfNoResults", "No " + subscriptionStatus +" subscriptions");
+		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", "false");
 		
 		String htmlResult = "";
 		

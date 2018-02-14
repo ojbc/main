@@ -35,13 +35,13 @@
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#advancedSearchForm').serialize();
-	  	       	xhr = $.post("#springUrl('/subscriptions/advancedSearch')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/subscriptions/admin/search')",formData,function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
 		
 	        $('#advanceSearchClearButton').click (function(event){
-			  $.get("#springUrl('/subscriptions/searchForm?resetForm=true')", function(data) {
+			  $.get("#springUrl('/subscriptions/admin/searchForm?resetForm=true')", function(data) {
 			    $('#subsAdminContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)

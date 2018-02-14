@@ -27,6 +27,21 @@
 	    }).fail(ojbc.displayFailMessage);
 	
 	});  
+
+    $("#searchResultsTable").DataTable({
+		 "order": [[ 3, "asc" ]],
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 colReorder: true,
+	     "aoColumns": [
+		      { "bSortable": false, "bSearchable":false },
+		      { "bSortable": false, "bSearchable":false },
+			      null, null,null, null, null, null
+		    ] 
+	});
+	
+	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
     
   });
     
