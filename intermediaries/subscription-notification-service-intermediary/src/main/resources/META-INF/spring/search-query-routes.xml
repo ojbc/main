@@ -184,7 +184,8 @@
 				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
 				
 				<camel:setHeader headerName="subscriptionQueryId"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:SubscriptionIdentification/nc:IdentificationID/text()</xpath></camel:setHeader>
-				<camel:setHeader headerName="adminQuery"><xpath>/sqr:SubscriptionSearchRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath></camel:setHeader>
+				<camel:setHeader headerName="adminQuery"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath></camel:setHeader>
+				<camel:log message="adminQuery: ${in.headers.adminQuery}"/>
 				
 				<camel:to uri="direct:processSubscriptionQuery"/>
 
