@@ -42,6 +42,28 @@
 						<nc:Date>2005-05-01</nc:Date>
 					</nc:DispositionDate>
 					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+					<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+					<!-- Types Of Dispositions: In (parenthesis) is the narrative
+						description of the disposition in CJIS-Hawaii to help give better understanding
+						of the difference between similar dispositions. -->
+					<!--
+						Complaint – Circuit Court (A complaint was filed by the Prosecutors office in Circuit Court)
+						Complaint – GJ Waived (A complaint was filed by the Prosecutors office waiving grand jury)
+						Complaint – Prelim (A complaint was filed by the Prosecutors office)
+						Complaint – Super-Ind (A complaint superseding the indictment was filed by the Prosecutors office
+						Complaint (A complaint was filed by the Prosecutors office)
+						Decline to Prosecute (Prosecution was declined)
+						Extradition Charge (This charge is an extradition charge)
+						Indictment – No Bill (There was no bill by the grand jury)
+						Indictment – True Bill (Subject was indicted by the grand jury)
+						Info Charge
+						Informational No Charge
+						Merged Charge (The charge was merged into another charge)
+						MP-Charge Added (The prosecutors added the actual charge)
+						No Action Charge (No action charge closed by prosecutor)
+						Not Addressed (This charge will not be addressed – refer to case-in-chief)
+						Penal Summons Complaint (A penal summons complaint was filed)
+						Petition (A petition was filed) -->
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>05-00001</nc:IdentificationID>
