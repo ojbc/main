@@ -24,6 +24,17 @@ public class ExpiringSubscriptionRequest {
 	private List<String> oris;
 	private String systemName;
 	
+	public ExpiringSubscriptionRequest() {
+		super();
+	}
+	
+	public ExpiringSubscriptionRequest(int daysUntilExpiry, List<String> oris) {
+		this();
+		this.daysUntilExpiry = daysUntilExpiry;
+		this.oris = oris;
+		this.systemName = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
+	}
+
 	public int getDaysUntilExpiry() {
 		return daysUntilExpiry;
 	}
