@@ -22,14 +22,18 @@
   	
     	var reStyleButtonsBasedOnSelection = function() {
     			// Make the selected search button blue, and the others gray
-    	        $(this).siblings().addClass('grayButton').removeClass('blueButton');
+    	        $(this).siblings('.blueButton').addClass('grayButton').removeClass('blueButton');
 				$(this).removeClass('grayButton').addClass('blueButton');
     	};
 	
-		$('#adminButtons a:not(.ui-state-disabled)').click (reStyleButtonsBasedOnSelection);
+		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#advancedAdminSearch').click (function() { 
 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/searchForm')")
+	    });
+	    
+    	$('#expiringSubscriptions').click (function() { 
+ 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
 	    $("#searchResultsTable").DataTable({
@@ -162,8 +166,67 @@
 		}
 	}
 	
+	function myFunction() {
+    	document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(event) {
+	  if (!event.target.matches('.dropbtn')) {
+	
+	    var dropdowns = document.getElementsByClassName("dropdown-content");
+	    var i;
+	    for (i = 0; i < dropdowns.length; i++) {
+	      var openDropdown = dropdowns[i];
+	      if (openDropdown.classList.contains('show')) {
+	        openDropdown.classList.remove('show');
+	      }
+	    }
+	  }
+	}
 </script>
 
+<style>
+.dropbtn {
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding:0; margin:0; 
+}
+
+.dropdown-content {
+	padding-top: 6px;
+	padding-left:6px;
+    display: none;
+    font-size:small !important;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 180px;
+    overflow: auto;
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a:first-child{
+	padding-top: 18px; 
+}
+ 
+.dropdown-content a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.show {display:block;}
+</style>
 <div id="searchResultsContainer" class="contentBox">
 
     <div id="searchResultsHeader"> 
@@ -172,11 +235,15 @@
             <a id="advancedAdminSearch" class="grayButton" >
                 ADVANCED SEARCH
             </a>
+         	<div class="dropdown">
+				<a onclick="myFunction()" class="dropbtn grayButton">Reports</a>
+				<div id="myDropdown" class="dropdown-content">
+				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
+				    <a id="expiredSubscriptions">Expired Subscriptions</a>
+				</div>
+			</div>
             <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
                 MODIFY OWNER INFO
-            </a>
-            <a id="runSubsReports" class="grayButton ui-state-disabled" >
-                Reports
             </a>
         </div>
         
