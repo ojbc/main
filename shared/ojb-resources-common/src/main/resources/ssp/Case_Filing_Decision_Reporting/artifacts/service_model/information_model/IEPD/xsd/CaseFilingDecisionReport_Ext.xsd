@@ -258,6 +258,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="AddOnChargeIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if charge is an add on charge; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="GeneralJuvenileNoteText" type="nc:TextType" substitutionGroup="cyfs:JuvenileAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>General notes regarding a juvenile.
@@ -334,7 +340,6 @@
 			<xsd:documentation>An identification associated with a location.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	<xsd:element name="PrimaryContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if contact information is primary; false otherwise.</xsd:documentation>
