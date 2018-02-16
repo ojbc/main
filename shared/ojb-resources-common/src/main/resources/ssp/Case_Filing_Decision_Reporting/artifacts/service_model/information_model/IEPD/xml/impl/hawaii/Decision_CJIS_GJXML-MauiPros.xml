@@ -76,6 +76,7 @@
 						<nc:IdentificationID>708-0822</nc:IdentificationID>
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
+				<cfd-ext:AddOnChargeIndicator>false</cfd-ext:AddOnChargeIndicator>
 			</j:CaseAmendedCharge>
 			<j:CaseAmendedCharge structures:ref="Chg2">
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
@@ -96,6 +97,7 @@
 						<nc:IdentificationID>708-0833.5</nc:IdentificationID>
 					</j:StatuteCodeSectionIdentification>
 				</j:ChargeStatute>
+				<cfd-ext:AddOnChargeIndicator>false</cfd-ext:AddOnChargeIndicator>
 			</j:CaseAmendedCharge>
 			<j:CaseCharge structures:id="Chg1">
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
@@ -126,6 +128,7 @@
 				<j:ChargeVictim>
 					<nc:RoleOfPerson structures:ref="Vic01" />
 				</j:ChargeVictim>
+				<cfd-ext:AddOnChargeIndicator>false</cfd-ext:AddOnChargeIndicator>
 			</j:CaseCharge>
 			<j:CaseCharge structures:id="Chg2">
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
@@ -156,6 +159,7 @@
 				<j:ChargeVictim>
 					<nc:RoleOfPerson structures:ref="Vic01" />
 				</j:ChargeVictim>
+				<cfd-ext:AddOnChargeIndicator>false</cfd-ext:AddOnChargeIndicator>
 			</j:CaseCharge>
 			<j:CaseCharge>
 				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
@@ -186,6 +190,7 @@
 				<j:ChargeVictim>
 					<nc:RoleOfPerson structures:ref="Vic01" />
 				</j:ChargeVictim>
+				<cfd-ext:AddOnChargeIndicator>false</cfd-ext:AddOnChargeIndicator>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
