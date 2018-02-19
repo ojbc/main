@@ -16,10 +16,15 @@
  */
 package org.ojbc.util.model.rapback;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ExpiringSubscriptionRequest {
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
+public class ExpiringSubscriptionRequest implements Serializable {
+
+	private static final long serialVersionUID = 166983679005661552L;
 	private int daysUntilExpiry;
 	private List<String> oris;
 	private String systemName;
@@ -54,4 +59,7 @@ public class ExpiringSubscriptionRequest {
 		this.systemName = systemName;
 	}
 	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
