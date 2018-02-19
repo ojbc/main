@@ -26,13 +26,14 @@
 				$(this).removeClass('grayButton').addClass('blueButton');
     	};
 	
-		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn)').click (reStyleButtonsBasedOnSelection);
+		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn):not(.dropdown-content a)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#advancedAdminSearch').click (function() { 
 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/searchForm')")
 	    });
 	    
     	$('#expiringSubscriptions').click (function() { 
+    		$('.dropdown-content').removeClass("show");
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    

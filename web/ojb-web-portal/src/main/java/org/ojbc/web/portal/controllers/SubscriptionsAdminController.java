@@ -20,9 +20,12 @@ import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -31,16 +34,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.model.rapback.AgencyProfile;
+import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
+import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -48,20 +53,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/admin/*")
-@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"
+	, "expiringSubscriptionRequest", "agencyMap"})
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
-	@Value("${defaultPersonSearchSubscriptionTopic:}")
-	String defaultPersonSearchSubscriptionTopic;
+	@Value("${validationThreshold: 1000}")
+	Integer validationThreshold;
+	
+	@Resource
+	SubscriptionsRestClient subscriptionsRestClient;
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
@@ -103,6 +110,28 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, false);
 		
 		return "subscriptions/admin/_subscriptionResults";
+	}
+	
+	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
+	public String getExpiringSubscriptions(HttpServletRequest request,	
+			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
+			BindingResult errors,
+			Map<String, Object> model) {
+		finalize(expiringSubscriptionRequest, model);
+		List<org.ojbc.util.model.rapback.Subscription> subscriptions = subscriptionsRestClient.getExpiringSubscriptions(expiringSubscriptionRequest);
+		log.info("Expiring subscriptions: " + subscriptions );
+		
+		return "subscriptions/admin/_subscriptionResults";
+	}
+
+	private void finalize(
+			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
+		@SuppressWarnings("unchecked")
+		Map<String,String> agencyMap = (Map<String, String>) model.get("agencyMap"); 
+		List<String> oris = expiringSubscriptionRequest.getOris().stream().map(agencyMap::get).collect(Collectors.toList());
+		expiringSubscriptionRequest.setOris(oris);
+		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
+		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
 	
 	@RequestMapping(value="filter", method = RequestMethod.POST)
@@ -227,6 +256,19 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/_subscriptionResults";
 	}
 	
+	@RequestMapping(value = "expiringSubscriptionsForm", method = RequestMethod.GET)
+	public String expiringSubscriptionsForm(
+			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	        Map<String, Object> model) {
+		log.info("Presenting the expiringSubscriptionsForm");
+		if (resetForm) {
+			ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest();
+			model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
+		} 
+		
+		return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+	}
+    
 	
 	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
@@ -240,38 +282,28 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		binder.addValidators(subscriptionSearchRequestValidator);
 	}
 	
-	// note system id is used by the broker intermediary to recognize that this is 
-	// an edit.  The system id is not set for the add operation
-	@RequestMapping(value="updateSubscription", method=RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public @ResponseBody String updateSubscription(HttpServletRequest request,
-			@ModelAttribute("subscription") @Valid Subscription subscription,
-			BindingResult errors,
-			Map<String, Object> model) throws Exception{					
+    @ModelAttribute
+    public void addModelAttributes(Model model) {
+    	
+		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest());
+		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
+		Map<String, String> agencyMap = new LinkedHashMap<>();
+		agencies.forEach(entry -> agencyMap.put(entry.getAgencyName(),entry.getAgencyOri() ));
+		log.info("Agencies: " + agencies);
+
+		List<String> agencyNames = agencies.stream()
+				.map(AgencyProfile::getAgencyName)
+				.collect(Collectors.toList());
+		model.addAttribute("agencyMap", agencyMap);
+		model.addAttribute("agencyNames", StringUtils.join(agencyNames, ","));
 		
-		logger.info("\n* * * * inside updateSubscription() * * * *\n\n: " + subscription + "\n");
-		Element samlElement = samlService.getSamlAssertion(request);		
-						
-		// get potential spring mvc controller validation errors from validating UI values
-//		validateSubscriptionUpdate(subscription, errors);		
-						
-		List<String> errorsList = getValidationBindingErrorsList(errors);
-		
-		if(errorsList == null || errorsList.isEmpty()){											
-			// get potential errors from processing subscribe operation
-			
-			errorsList = processSubscribeOperation(subscription, samlElement);			
+		Map<Integer, Integer> dayThresholdMap = new LinkedHashMap<>();
+		for (int i=0; i<= validationThreshold; i++){
+			dayThresholdMap.put(i, i);
 		}
-						
-		List<String> warningsList = getSubscriptionWarnings(subscription);
-		
-		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
-		
-		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
-		
-		return errorsWarningsJson;
+		model.addAttribute("dayThresholdMap", dayThresholdMap);
 	}
-	
-	
+    
+
 }
 
