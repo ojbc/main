@@ -16,6 +16,9 @@
  */
 package org.ojbc.util.model.rapback;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class AgencyProfile {
 
 	private String agencyOri;
@@ -46,5 +49,9 @@ public class AgencyProfile {
 	}
 	public void setCivilAgencyIndicator(Boolean civilAgencyIndicator) {
 		this.civilAgencyIndicator = civilAgencyIndicator;
+	}
+	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }
