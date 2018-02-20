@@ -41,6 +41,7 @@ import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
+import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -68,6 +69,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@Resource
 	SubscriptionsRestClient subscriptionsRestClient;
+	
+	@Resource
+	ExpiringSubscriptionRequestValidator expiringSubscriptionRequestValidator;
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
@@ -116,6 +120,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+		}
+					
 		finalize(expiringSubscriptionRequest, model);
 		List<org.ojbc.util.model.rapback.Subscription> subscriptions = subscriptionsRestClient.getExpiringSubscriptions(expiringSubscriptionRequest);
 		log.info("Expiring subscriptions: " + subscriptions );
@@ -275,6 +284,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	@InitBinder("subscriptionSearchRequest")
 	public void initSubscriptionSearchRequestBinder(WebDataBinder binder) {
 		binder.addValidators(subscriptionSearchRequestValidator);
+	}
+	
+	@InitBinder("expiringSubscriptionRequest")
+	public void initExpiringSubscriptionRequestBinder(WebDataBinder binder) {
+		binder.addValidators(expiringSubscriptionRequestValidator);
 	}
 	
     @ModelAttribute

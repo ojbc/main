@@ -72,11 +72,11 @@
 
 <div id="searchTabs" class="contentBox">
     <form id='expiringSubscriptionsForm' >
-    #if($errors.hasGlobalErrors())
-        #foreach( $globalError in $errors.globalErrors )
-            <div class="error"> $globalError.defaultMessage </div>
-        #end
-    #end
+	    #if($errors.hasGlobalErrors())
+	        #foreach( $globalError in $errors.globalErrors )
+	            <div class="error" style="padding:1em;"> $globalError.defaultMessage </div>
+	        #end
+	    #end
 		<table>
 			<tr>
 				<td style="padding-left: 1em;">
@@ -85,7 +85,8 @@
   						<div id="custom-handle" class="ui-slider-handle"></div>
 					</div>
 			        <p class="searchSubHeader"> AGENCIES</p>
-			        <div>#springFormMultiSelect("expiringSubscriptionRequest.oris" $agencyMap "") </div> 
+			        
+			        <div>#springFormMultiSelect("expiringSubscriptionRequest.oris" $agencyMap "")</div> 
 	        	</td>
 	    	<tr>
 	    </table>
