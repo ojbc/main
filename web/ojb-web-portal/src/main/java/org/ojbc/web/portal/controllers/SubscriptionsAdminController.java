@@ -54,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Element;
 
 @Controller
@@ -116,20 +117,20 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
 	
 	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
-	public String getExpiringSubscriptions(HttpServletRequest request,	
+	public ModelAndView getExpiringSubscriptions(HttpServletRequest request,	
 			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+			return new ModelAndView("subscriptions/admin/reports/_expiringSubscriptionsForm", model);
 		}
 					
 		finalize(expiringSubscriptionRequest, model);
 		List<org.ojbc.util.model.rapback.Subscription> subscriptions = subscriptionsRestClient.getExpiringSubscriptions(expiringSubscriptionRequest);
 		log.info("Expiring subscriptions: " + subscriptions );
 		
-		return "subscriptions/admin/_subscriptionResults";
+		return new ModelAndView("subscriptions/admin/_subscriptionResults", model);
 	}
 
 	private void finalize(
