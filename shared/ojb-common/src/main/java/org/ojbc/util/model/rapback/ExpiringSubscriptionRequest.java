@@ -40,6 +40,11 @@ public class ExpiringSubscriptionRequest implements Serializable {
 		this.systemName = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	}
 
+	public ExpiringSubscriptionRequest(int daysUntilExpiry) {
+		this();
+		this.daysUntilExpiry = daysUntilExpiry;
+	}
+	
 	public int getDaysUntilExpiry() {
 		return daysUntilExpiry;
 	}
