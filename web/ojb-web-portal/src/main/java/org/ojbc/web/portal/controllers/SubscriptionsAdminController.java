@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +63,7 @@ import org.w3c.dom.Element;
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
-	@Value("${validationThreshold: 1000}")
+	@Value("${validationThreshold: 400}")
 	Integer validationThreshold;
 	
 	@Resource
@@ -126,10 +125,6 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	private void finalize(
 			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
-//		@SuppressWarnings("unchecked")
-//		Map<String,String> agencyMap = (Map<String, String>) model.get("agencyMap"); 
-//		List<String> oris = expiringSubscriptionRequest.getOris().stream().map(agencyMap::get).collect(Collectors.toList());
-//		expiringSubscriptionRequest.setOris(oris);
 		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
@@ -286,22 +281,13 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     public void addModelAttributes(Model model) {
     	
 		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest());
+		
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
 		Map<String, String> agencyMap = new LinkedHashMap<>();
 		agencies.forEach(entry -> agencyMap.put(entry.getAgencyOri(),entry.getAgencyName() ));
-		log.info("Agencies: " + agencies);
-
-		List<String> agencyNames = agencies.stream()
-				.map(AgencyProfile::getAgencyName)
-				.collect(Collectors.toList());
 		model.addAttribute("agencyMap", agencyMap);
-		model.addAttribute("agencyNames", StringUtils.join(agencyNames, ","));
 		
-		Map<Integer, Integer> dayThresholdMap = new LinkedHashMap<>();
-		for (int i=0; i<= validationThreshold; i++){
-			dayThresholdMap.put(i, i);
-		}
-		model.addAttribute("dayThresholdMap", dayThresholdMap);
+		model.addAttribute("validationThreshold", validationThreshold);
 	}
     
 

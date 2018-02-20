@@ -22,11 +22,24 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handleEsc();
-    	  
+ 		  
+    	  var handle = $( "#custom-handle" );
+	      $( "#slider" ).slider({
+		      range: "max",
+		      min: 1,
+		      max: "$validationThreshold",
+		      value: "$validationThreshold",
+		      create: function() {
+		        handle.text( $( this ).slider( "value" ) );
+		      },
+  		      slide: function( event, ui ) {
+		        handle.text( ui.value );
+		      }
+		  });
 		    
 			$('#submitButton').click (function(){
 	        	ojbc.clearPlaceholders();
-	        	var formData = $('#expiringSubscriptionsForm').serialize();
+	        	var formData = $('#expiringSubscriptionsForm').serialize() + "&daysUntilExpiry=" + handle.text();
 	        	console.log(formData);
 	  	       	xhr = $.post("#springUrl('/subscriptions/admin/expiringSubscriptions')",formData,function(data) {
 			       $("#subsAdminContent").html(data);
@@ -67,8 +80,10 @@
 		<table>
 			<tr>
 				<td style="padding-left: 1em;">
-			        <p class="searchSubHeader"> NUMBER OF DAYS BEFORE EXPIRATION</p>
-			        <div>#springFormSingleSelect("expiringSubscriptionRequest.daysUntilExpiry" $dayThresholdMap "") </div>
+		        	<p class="searchSubHeader"> NUMBER OF DAYS BEFORE EXPIRATION</p>
+		        	<div id="slider">
+  						<div id="custom-handle" class="ui-slider-handle"></div>
+					</div>
 			        <p class="searchSubHeader"> AGENCIES</p>
 			        <div>#springFormMultiSelect("expiringSubscriptionRequest.oris" $agencyMap "") </div> 
 	        	</td>
