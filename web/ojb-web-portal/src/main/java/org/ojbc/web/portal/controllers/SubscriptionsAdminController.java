@@ -126,10 +126,10 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	private void finalize(
 			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
-		@SuppressWarnings("unchecked")
-		Map<String,String> agencyMap = (Map<String, String>) model.get("agencyMap"); 
-		List<String> oris = expiringSubscriptionRequest.getOris().stream().map(agencyMap::get).collect(Collectors.toList());
-		expiringSubscriptionRequest.setOris(oris);
+//		@SuppressWarnings("unchecked")
+//		Map<String,String> agencyMap = (Map<String, String>) model.get("agencyMap"); 
+//		List<String> oris = expiringSubscriptionRequest.getOris().stream().map(agencyMap::get).collect(Collectors.toList());
+//		expiringSubscriptionRequest.setOris(oris);
 		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
@@ -288,7 +288,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest());
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
 		Map<String, String> agencyMap = new LinkedHashMap<>();
-		agencies.forEach(entry -> agencyMap.put(entry.getAgencyName(),entry.getAgencyOri() ));
+		agencies.forEach(entry -> agencyMap.put(entry.getAgencyOri(),entry.getAgencyName() ));
 		log.info("Agencies: " + agencies);
 
 		List<String> agencyNames = agencies.stream()
