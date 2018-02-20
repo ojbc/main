@@ -28,7 +28,7 @@
 		      range: "max",
 		      min: 1,
 		      max: "$validationThreshold",
-		      value: "$validationThreshold",
+		      value: "$expiringSubscriptionRequest.daysUntilExpiry",
 		      create: function() {
 		        handle.text( $( this ).slider( "value" ) );
 		      },

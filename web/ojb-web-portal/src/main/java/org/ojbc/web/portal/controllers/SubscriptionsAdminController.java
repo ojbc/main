@@ -130,6 +130,12 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		List<org.ojbc.util.model.rapback.Subscription> subscriptions = subscriptionsRestClient.getExpiringSubscriptions(expiringSubscriptionRequest);
 		log.info("Expiring subscriptions: " + subscriptions );
 		
+		if (subscriptions.size() == 0){
+			errors.reject(null, "No subscriptions found");
+			model.put("errors", errors);
+			return new ModelAndView("subscriptions/admin/reports/_expiringSubscriptionsForm", model);
+		}
+		
 		return new ModelAndView("subscriptions/admin/_subscriptionResults", model);
 	}
 
@@ -295,7 +301,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
-		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest());
+		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
 		
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
 		Map<String, String> agencyMap = new LinkedHashMap<>();
