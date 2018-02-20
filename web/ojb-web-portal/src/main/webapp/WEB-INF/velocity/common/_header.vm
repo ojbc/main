@@ -32,7 +32,10 @@
         <link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
         <!--<link rel="stylesheet" type="text/css" href="#springUrl('/static/css/font-awesome-4.3.0/css/font-awesome.min.css')">-->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/bala.DualSelectList.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery.lwMultiSelect.css')">
+	  	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+		
 		
         <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
@@ -43,7 +46,7 @@
         
         <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
-        <script src="#springUrl('/static/js/bala.DualSelectList.jquery.js')"></script>
+        <script src="#springUrl('/static/js/jquery.lwMultiSelect.js')"></script>
         
         #if( $secondaryOptionsDisplay)
 			<script src="#springUrl('/static/js/secondaryOptionsDisplay.js')"></script>
