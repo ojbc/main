@@ -1418,3 +1418,13 @@ text-shadow: 0 1px #fff; */
 #advancedSearchForm input{
 	text-transform: uppercase;
 }
+
+/************************Slider custom-handle*****************************/
+ #custom-handle {
+   width: 3em;
+   height: 1.6em;
+   top: 50%;
+   margin-top: -.8em;
+   text-align: center;
+   line-height: 1.6em;
+ }
