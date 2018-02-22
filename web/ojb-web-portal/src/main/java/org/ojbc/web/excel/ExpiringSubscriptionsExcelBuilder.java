@@ -130,10 +130,10 @@ public class ExpiringSubscriptionsExcelBuilder extends AbstractExcelView {
             aRow.createCell(2).setCellValue(subscription.getSubscriptionOwnerName());
             aRow.createCell(3).setCellValue(subscription.getPersonFullName());
             aRow.createCell(4).setCellValue(subscription.getAgencyCaseNumber());
-            aRow.createCell(5).setCellValue(subscription.getStartDate().toString("MM/dd/yyyy"));
-            aRow.createCell(6).setCellValue(subscription.getLastValidationDate().toString("MM/dd/yyyy"));
-            aRow.createCell(7).setCellValue(subscription.getEndDate().toString("MM/dd/yyyy"));
-            aRow.createCell(8).setCellValue(subscription.getValidationDueDate().toString("MM/dd/yyyy"));
+            aRow.createCell(5).setCellValue(subscription.getStartDateString());
+            aRow.createCell(6).setCellValue(subscription.getLastValidationDateString());
+            aRow.createCell(7).setCellValue(subscription.getEndDateString());
+            aRow.createCell(8).setCellValue(subscription.getValidationDueDateString());
 
             for (int i = 0; i <= 8; i++){
             	aRow.getCell(i).setCellStyle(borderedStyle);

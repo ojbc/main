@@ -35,6 +35,8 @@ import org.ojbc.util.rest.jackson.JodaDateTimeSerializer;
  */
 public class Subscription {
 
+	private static final String MM_DD_YYYY = "MM/dd/yyyy";
+
 	private long id;
 	
 	@JsonSerialize(using = JodaDateTimeSerializer.class)
@@ -101,6 +103,10 @@ public class Subscription {
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
 	}
+    
+	public String getValidationDueDateString() {
+		return validationDueDate != null? validationDueDate.toString(MM_DD_YYYY):"";
+	}
 	
 	public Interval getGracePeriod() {
 	    return gracePeriod;
@@ -117,6 +123,9 @@ public class Subscription {
     public DateTime getLastValidationDate() {
         return lastValidationDate;
     }
+	public String getLastValidationDateString() {
+		return lastValidationDate != null? lastValidationDate.toString(MM_DD_YYYY):"";
+	}
     public void setLastValidationDate(DateTime lastValidationDate) {
         this.lastValidationDate = lastValidationDate;
     }
@@ -124,11 +133,19 @@ public class Subscription {
 	public DateTime getStartDate() {
 		return startDate;
 	}
+	
+	public String getStartDateString() {
+		return startDate != null? startDate.toString(MM_DD_YYYY):"";
+	}
 	public void setStartDate(DateTime startDate) {
 		this.startDate = startDate;
 	}
 	public DateTime getEndDate() {
 		return endDate;
+	}
+	
+	public String getEndDateString() {
+		return endDate != null? endDate.toString(MM_DD_YYYY):"";
 	}
 	public void setEndDate(DateTime endDate) {
 		this.endDate = endDate;
