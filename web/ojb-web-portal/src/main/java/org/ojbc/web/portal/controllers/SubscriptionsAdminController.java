@@ -54,14 +54,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Element;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/admin/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"
-	, "expiringSubscriptionRequest", "agencyMap"})
+	, "expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions"})
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -117,13 +116,13 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
 	
 	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
-	public ModelAndView getExpiringSubscriptions(HttpServletRequest request,	
+	public String getExpiringSubscriptions(HttpServletRequest request,	
 			@ModelAttribute("expiringSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiringSubscriptionRequest,
 			BindingResult errors,
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return new ModelAndView("subscriptions/admin/reports/_expiringSubscriptionsForm", model);
+			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
 		}
 					
 		finalize(expiringSubscriptionRequest, model);
@@ -133,15 +132,24 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		if (subscriptions.size() == 0){
 			errors.reject(null, "No subscriptions found");
 			model.put("errors", errors);
-			return new ModelAndView("subscriptions/admin/reports/_expiringSubscriptionsForm", model);
+			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
 		}
 		
-		return new ModelAndView("subscriptions/admin/_subscriptionResults", model);
+		model.put("expiringSubscriptions", subscriptions);
+		return "subscriptions/admin/reports/_expiringSubscriptions";
 	}
 
+	@RequestMapping(value = "exportExpiringSubscriptions")
+	public String exportExpiringSubscriptions(HttpServletRequest request,	
+			Map<String, Object> model) {
+		
+		return "expiringSubscriptionsExcelView";
+	}
+	
 	private void finalize(
 			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
 		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
+		model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
 	
@@ -272,10 +280,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the expiringSubscriptionsForm");
+		
 		if (resetForm) {
-			ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest();
+			ExpiringSubscriptionRequest expiringSubscriptionRequest = new ExpiringSubscriptionRequest(validationThreshold);
 			model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
-		} 
+		}
 		
 		return "subscriptions/admin/reports/_expiringSubscriptionsForm";
 	}
@@ -301,7 +310,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
-		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
+    	if (! model.containsAttribute("expiringSubscriptionRequest")){
+    		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
+    	}
 		
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
 		Map<String, String> agencyMap = new LinkedHashMap<>();
