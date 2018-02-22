@@ -47,7 +47,13 @@
 		<property name="resourceLoaderPath" value="/WEB-INF/velocity/,${additionalResourcePath:}" />
 	</bean>
 
-	<bean id="viewResolver" class="org.ojb.web.portal.velocity.VelocityViewResolver">
+   	<bean id="viewResolver1" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="order" value="1"/>
+        <property name="basename" value="views"/>
+    </bean>
+    
+	<bean id="viewResolver2" class="org.ojb.web.portal.velocity.VelocityViewResolver">
+        <property name="order" value="2"/>
 		<property name="prefix" value="" />
 		<property name="cache" value="false" />
 		<property name="suffix" value=".vm" />
@@ -61,6 +67,7 @@
 		</property>
 	</bean>
 
+    
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames" value="classpath:config/messages,classpath:messages" />

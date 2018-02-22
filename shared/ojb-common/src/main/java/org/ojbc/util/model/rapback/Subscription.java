@@ -300,6 +300,9 @@ public class Subscription {
 		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
 	}
 
+	public String getSubscriptionOwnerName(){
+		return subscriptionOwnerFirstName + " " + subscriptionOwnerLastName;
+	}
 	public String getAgencyName() {
 		return agencyName;
 	}

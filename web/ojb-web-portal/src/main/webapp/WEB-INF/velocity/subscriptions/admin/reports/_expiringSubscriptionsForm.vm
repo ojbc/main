@@ -41,7 +41,7 @@
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#expiringSubscriptionsForm').serialize() + "&daysUntilExpiry=" + handle.text();
 	        	console.log(formData);
-	  	       	xhr = $.post("#springUrl('/subscriptions/admin/expiringSubscriptions')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/subscriptions/admin/expiringSubscriptions')",formData, function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
