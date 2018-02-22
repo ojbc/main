@@ -42,7 +42,7 @@
 		<a id="exportToExcel" href="#springUrl('/subscriptions/admin/exportExpiringSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
 		<a id="returnToSearchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>RETURN</a>
 	</span>    				
-	
+	<h4>Expiring Subscriptions</h4>
 	<table class="searchResultsTable display" id="searchResultsTable">
 		<thead>
 			<tr>
@@ -50,7 +50,7 @@
 				<th>ORI</th>
 				<th>SUBSCRIPTION OWNER</th>
 				<th>SUBJECT</th>
-				<th>CASE NUMBER/th>
+				<th>CASE NUMBER</th>
 				<th>START DATE</th>
 				<th>LAST VALIDATED</th>
 				<th>END DATE</th>
@@ -60,14 +60,14 @@
 		<tbody>
 	        #foreach($subscription in $expiringSubscriptions)
 	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
-	        	<td>$subscription.agencyName</td>
+	        	<td>$subscription.ori</td>
+	        	<td>$subscription.subscriptionOwnerName</td>
+	        	<td>$subscription.personFullName</td>
+	        	<td>$subscription.agencyCaseNumber</td>
+	        	<td>$subscription.startDateString</td>
+	        	<td>$subscription.lastValidationDateString</td>
+	        	<td>$subscription.endDateString</td>
+	        	<td>$subscription.validationDueDateString</td>
 	        #end
 		</tbody>
 	</table> 								

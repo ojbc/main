@@ -22,7 +22,7 @@
   	
     	var reStyleButtonsBasedOnSelection = function() {
     			// Make the selected search button blue, and the others gray
-    	        $(this).siblings('.blueButton').addClass('grayButton').removeClass('blueButton');
+    	        $('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
 				$(this).removeClass('grayButton').addClass('blueButton');
     	};
 	
@@ -34,6 +34,9 @@
 	    
     	$('#expiringSubscriptions').click (function() { 
     		$('.dropdown-content').removeClass("show");
+    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
+			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
+    		
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
@@ -237,7 +240,7 @@
                 ADVANCED SEARCH
             </a>
          	<div class="dropdown">
-				<a onclick="myFunction()" class="dropbtn grayButton">Reports</a>
+				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
 				<div id="myDropdown" class="dropdown-content">
 				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
 				    <a id="expiredSubscriptions">Expired Subscriptions</a>
