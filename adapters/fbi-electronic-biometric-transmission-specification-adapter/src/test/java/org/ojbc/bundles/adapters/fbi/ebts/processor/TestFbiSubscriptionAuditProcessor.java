@@ -86,7 +86,8 @@ public class TestFbiSubscriptionAuditProcessor {
 	    
 	    assertEquals("/some/path/request", federalRapbackSubscription.getPathToRequestFile());
 	    assertEquals("/some/path/response", federalRapbackSubscription.getPathToResponseFile());
-	    assertEquals("ERRA", federalRapbackSubscription.getTransactionCategoryCode());
+	    assertEquals("ERRA", federalRapbackSubscription.getTransactionCategoryCodeResponse());
+	    assertEquals("RBSCRM", federalRapbackSubscription.getTransactionCategoryCodeRequest());
 	    assertEquals("123456789", federalRapbackSubscription.getTransactionControlReferenceIdentification());
 	    assertEquals("A398118900", federalRapbackSubscription.getSid());
 	    assertEquals("S128483", federalRapbackSubscription.getStateSubscriptionId());

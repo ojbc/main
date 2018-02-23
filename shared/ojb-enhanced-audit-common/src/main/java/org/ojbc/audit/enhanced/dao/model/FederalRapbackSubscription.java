@@ -31,8 +31,10 @@ public class FederalRapbackSubscription {
 	
 	private String transactionControlReferenceIdentification;
 	
-	private String transactionCategoryCode;
-
+	private String transactionCategoryCodeRequest;
+	
+	private String transactionCategoryCodeResponse;
+	
 	private String pathToResponseFile;
 	
 	private String pathToRequestFile;
@@ -66,14 +68,6 @@ public class FederalRapbackSubscription {
 	public void setTransactionControlReferenceIdentification(
 			String transactionControlReferenceIdentification) {
 		this.transactionControlReferenceIdentification = transactionControlReferenceIdentification;
-	}
-
-	public String getTransactionCategoryCode() {
-		return transactionCategoryCode;
-	}
-
-	public void setTransactionCategoryCode(String transactionCategoryCode) {
-		this.transactionCategoryCode = transactionCategoryCode;
 	}
 
 	public String getPathToResponseFile() {
@@ -154,6 +148,24 @@ public class FederalRapbackSubscription {
 
 	public void setFbiSubscriptionId(String fbiSubscriptionId) {
 		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
+	public String getTransactionCategoryCodeRequest() {
+		return transactionCategoryCodeRequest;
+	}
+
+	public void setTransactionCategoryCodeRequest(
+			String transactionCategoryCodeRequest) {
+		this.transactionCategoryCodeRequest = transactionCategoryCodeRequest;
+	}
+
+	public String getTransactionCategoryCodeResponse() {
+		return transactionCategoryCodeResponse;
+	}
+
+	public void setTransactionCategoryCodeResponse(
+			String transactionCategoryCodeResponse) {
+		this.transactionCategoryCodeResponse = transactionCategoryCodeResponse;
 	}
 	
 }
