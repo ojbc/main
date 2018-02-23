@@ -190,8 +190,7 @@
 							<nc:Date>2013-03-29</nc:Date>
 						</ebts:RapBackEventDate>
 						<!-- RBT 2.2069B -->
-						<ebts:RapBackTriggeringEventCode>12 
-						</ebts:RapBackTriggeringEventCode>
+						<ebts:RapBackTriggeringEventCode>12</ebts:RapBackTriggeringEventCode>
 						<!-- RBEI 2.2069C -->
 						<ebts:RapBackEventText>Second Event that triggered the rap back</ebts:RapBackEventText>
 					</ebts:TransactionRapBackTriggeringEvent>
