@@ -78,31 +78,6 @@
 			}	  		
 		}
 	
-		$('#subscriptionButtons').on('click', '#validateLink',function() {
-			var checkedValues = getCheckedValues();	
-																																		
-			if( !checkedValues ){
-				alert('No subscriptions selected');
-				return false;
-			}
-			    
-			var confirmValidate = confirm('Are you sure you want to validate?');				
-			
-			if(!confirmValidate){
-				return false;
-			}				    				    
-			    				    
-			var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
-			
-			//call spring controller and refresh the current page with the subscription search results returned				 
-			$.post(urlRequest, function(data) {										
-			      $('#portalContent').html(data);					      
-				}
-			).fail(ojbc.displayFailMessage);
-				
-			return false;
-		});	  
-		
 		$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
 			var checkedValues = getCheckedValues();	
 			
@@ -121,9 +96,8 @@
 				
 				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
 				$.get(urlRequest, function(data) {										
-				      $('#portalContent').html(data);					      
-					}
-				).fail(ojbc.displayFailMessage);
+				      $("#subsAdminContent").html(data);					      
+				}).fail(ojbc.displayFailMessage);
 					
 				return false;
 														 																		 

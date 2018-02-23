@@ -234,13 +234,13 @@ public class SubscriptionsController {
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, true);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 		return "subscriptions/_subscriptionResults";
 	}
 
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
-			SubscriptionSearchRequest subscriptionSearchRequest, Boolean validateSubscriptionButton) {
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
@@ -263,7 +263,7 @@ public class SubscriptionsController {
 		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
 		subResultsHtmlXsltParamMap.put("messageIfNoResults", "You do not have any subscriptions.");
-		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(validateSubscriptionButton));
+		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 
@@ -1057,7 +1057,7 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String getSubscriptionEditModal(HttpServletRequest request,			
+	public String editSubscription(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
 			@RequestParam(required=false, defaultValue="false") Boolean admin,
@@ -1352,10 +1352,17 @@ public class SubscriptionsController {
 		}
 		
 		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList);
-								
+
 		refreshSubscriptionsContent(request, model, operationStatusResultMsg);
-		
-		return "subscriptions/_subscriptionResults";
+
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
+
+		if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())){
+			return "subscriptions/_subscriptionResults";
+		}
+		else {
+			return "subscriptions/admin/_subscriptionResults";
+		}
 	}
 	
 	
@@ -1380,6 +1387,8 @@ public class SubscriptionsController {
 		}
 								
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
+		converterParamsMap.put("messageIfNoResults", "You do not have any subscriptions.");
+		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 
 		//note must default to empty string instead of null for ui to display nothing when desired instead
 		// of having ui display "$subscriptionsContent"
