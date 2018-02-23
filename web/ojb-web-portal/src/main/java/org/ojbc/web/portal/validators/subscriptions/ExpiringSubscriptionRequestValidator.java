@@ -28,7 +28,6 @@ import org.springframework.validation.Validator;
 @Service
 public class ExpiringSubscriptionRequestValidator implements Validator{
 	
-	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());	
 	
 	@Override
@@ -39,7 +38,7 @@ public class ExpiringSubscriptionRequestValidator implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		ExpiringSubscriptionRequest expiringSubscriptionRequest = (ExpiringSubscriptionRequest) target; 
-//		log.info("Validating subscription " + expiringSubscriptionRequest);
+		log.info("Validating expiringSubscriptionRequest/expiredSubscriptionRequest " + expiringSubscriptionRequest);
 		
 		if (Objects.isNull(expiringSubscriptionRequest.getOris()) 
 				|| expiringSubscriptionRequest.getOris().isEmpty()) {

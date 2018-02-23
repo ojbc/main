@@ -30,24 +30,24 @@ import org.ojbc.util.model.rapback.Subscription;
  * This class builds an Excel spreadsheet document with the .
  *
  */
-public class ExpiringSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder {
+public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder {
  
     @SuppressWarnings("unchecked")
 	@Override
     protected void buildExcelDocument(Map<String, Object> model,
             HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-		List<Subscription> subscriptions = (List<Subscription>) model.get("expiringSubscriptions");
-        ExpiringSubscriptionRequest expiringSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiringSubscriptionRequest");
+		List<Subscription> subscriptions = (List<Subscription>) model.get("expiredSubscriptions");
+        ExpiringSubscriptionRequest expiredSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiredSubscriptionRequest");
          
         // create a new Excel sheet
-        HSSFSheet sheet = workbook.createSheet("Expiring Subscriptions");
+        HSSFSheet sheet = workbook.createSheet("Expired Subscriptions");
         setupSheet(sheet);
         
-        setupHeader(subscriptions, expiringSubscriptionRequest, sheet, "Subscriptions Expiring or Requiring Validation");
+        setupHeader(subscriptions, expiredSubscriptionRequest, sheet, "Expired Subscriptions");
         
-        createTheTitleRow(sheet, "Subscriptions Expiring or Requiring Validation");
-        createTheInfoRows(subscriptions, expiringSubscriptionRequest, sheet);
+        createTheTitleRow(sheet, "Expired Subscriptions");
+        createTheInfoRows(subscriptions, expiredSubscriptionRequest, sheet);
         
         // create style for header cells
         createTheTable(workbook, subscriptions, sheet);

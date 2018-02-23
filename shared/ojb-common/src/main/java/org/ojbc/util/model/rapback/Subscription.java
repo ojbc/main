@@ -19,6 +19,7 @@ package org.ojbc.util.model.rapback;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -237,7 +238,7 @@ public class Subscription {
 	}
 
 	public String getAgencyCaseNumber() {
-		return agencyCaseNumber;
+		return StringUtils.trimToEmpty(agencyCaseNumber);
 	}
 
 	public void setAgencyCaseNumber(String agencyCaseNumber) {
