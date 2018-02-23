@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -130,7 +132,7 @@ public class SubscriptionSearchQueryDAO {
     
     //Subscriptions that are within X days of expiration/validation due
     public List<Subscription> searchForExpiringAndInvalidSubscriptions(List<String> oris, int dayThreshold, String systemName) {
-
+    	//TODO check logic.  --hw
     	DateTime now = new DateTime();
     	String nowAsString = now.toString("yyyy-MM-dd");
     	
@@ -160,7 +162,7 @@ public class SubscriptionSearchQueryDAO {
 
     //Subscriptions that have passed their end date/validation due date by X days
     public List<Subscription> searchForExpiredAndInvalidSubscriptions(List<String> oris, int dayThreshold, String systemName) {
-
+    	//TODO check the logic.  -hw
     	DateTime now = new DateTime();
     	String nowAsString = now.toString("yyyy-MM-dd");
     	
@@ -229,6 +231,7 @@ public class SubscriptionSearchQueryDAO {
     public Subscription queryForSubscription(@Header("saml_FederationID") String subscriptionOwner, 
     		@Header("subscriptionQueryId") String id,
     		@Header("adminQuery") String adminQuery) {
+    	log.info("adminQuery: " + Optional.ofNullable(adminQuery).map(Objects::toString).orElse(""));
     	
         String sqlQuery = BASE_QUERY_STRING + " and s.id=? and s.active = 1";
         
@@ -1067,7 +1070,7 @@ public class SubscriptionSearchQueryDAO {
         Map<String, String> subjectIdentifiers = subscriptionSearchRequest.getSubjectIdentifiers();
         criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
 
-        String queryString = BASE_QUERY_STRING + staticCriteria.toString() ; 
+        String queryString = BASE_QUERY_STRING + " and s.active =1 " + staticCriteria.toString() ; 
         
         if (subjectIdentifiers.size() > 0 ){
             queryString += " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
