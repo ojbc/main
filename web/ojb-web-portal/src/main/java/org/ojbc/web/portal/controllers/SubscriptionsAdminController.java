@@ -60,7 +60,7 @@ import org.w3c.dom.Element;
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/admin/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"
-	, "expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions"})
+	, "expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions", "expiredSubscriptions", "expiredSubscriptionRequest"})
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -139,6 +139,30 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/reports/_expiringSubscriptions";
 	}
 
+	@RequestMapping(value = "expiredSubscriptions", method = RequestMethod.POST)
+	public String getExpiredSubscriptions(HttpServletRequest request,	
+			@ModelAttribute("expiredSubscriptionRequest") @Valid ExpiringSubscriptionRequest expiredSubscriptionRequest,
+			BindingResult errors,
+			Map<String, Object> model) {
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+		}
+		
+		finalize(expiredSubscriptionRequest, model);
+		List<org.ojbc.util.model.rapback.Subscription> subscriptions = subscriptionsRestClient.getExpiredSubscriptions(expiredSubscriptionRequest);
+		log.info("Expired subscriptions: " + subscriptions );
+		
+		if (subscriptions.size() == 0){
+			errors.reject(null, "No subscriptions found");
+			model.put("errors", errors);
+			return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+		}
+		
+		model.put("expiredSubscriptions", subscriptions);
+		return "subscriptions/admin/reports/_expiredSubscriptions";
+	}
+	
 	@RequestMapping(value = "exportExpiringSubscriptions")
 	public String exportExpiringSubscriptions(HttpServletRequest request,	
 			Map<String, Object> model) {
@@ -146,9 +170,17 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "expiringSubscriptionsExcelView";
 	}
 	
+	@RequestMapping(value = "exportExpiredSubscriptions")
+	public String exportExpiredSubscriptions(HttpServletRequest request,	
+			Map<String, Object> model) {
+		
+		return "expiredSubscriptionsExcelView";
+	}
+	
 	private void finalize(
 			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
-		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
+		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
+//		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
@@ -289,6 +321,20 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/reports/_expiringSubscriptionsForm";
 	}
     
+	@RequestMapping(value = "expiredSubscriptionsForm", method = RequestMethod.GET)
+	public String expiredSubscriptionsForm(
+			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			Map<String, Object> model) {
+		log.info("Presenting the expiredSubscriptionsForm");
+		
+		if (resetForm) {
+			ExpiringSubscriptionRequest expiredSubscriptionRequest = new ExpiringSubscriptionRequest(validationThreshold);
+			model.put("expiredSubscriptionRequest", expiredSubscriptionRequest);
+		}
+		
+		return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+	}
+	
 	
 	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
@@ -307,6 +353,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		binder.addValidators(expiringSubscriptionRequestValidator);
 	}
 	
+	@InitBinder("expiredSubscriptionRequest")
+	public void initExpiredSubscriptionRequestBinder(WebDataBinder binder) {
+		binder.addValidators(expiringSubscriptionRequestValidator);
+	}
+	
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
@@ -314,6 +365,10 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     		model.addAttribute("expiringSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
     	}
 		
+    	if (! model.containsAttribute("expiredSubscriptionRequest")){
+    		model.addAttribute("expiredSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
+    	}
+    	
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();
 		Map<String, String> agencyMap = new LinkedHashMap<>();
 		agencies.forEach(entry -> agencyMap.put(entry.getAgencyOri(),entry.getAgencyName() ));

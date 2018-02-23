@@ -29,7 +29,7 @@
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  
 	
 	$('#returnToSearchForm').click (function() { 
-		return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
+		return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
     });
 			
     
@@ -39,10 +39,10 @@
 	
 <div style="padding:10px">
 	<span id="subscriptionButtons">
-		<a id="exportToExcel" href="#springUrl('/subscriptions/admin/exportExpiringSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
+		<a id="exportToExcel" href="#springUrl('/subscriptions/admin/exportExpiredSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
 		<a id="returnToSearchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>RETURN</a>
 	</span>    				
-	<h4>Expiring Subscriptions</h4>
+	<h4>Expired Subscriptions</h4>
 	<table class="searchResultsTable display" id="searchResultsTable">
 		<thead>
 			<tr>
@@ -58,7 +58,7 @@
 			</tr>
 		</thead>
 		<tbody>
-	        #foreach($subscription in $expiringSubscriptions)
+	        #foreach($subscription in $expiredSubscriptions)
 	        <tr>
 	        	<td>$subscription.agencyName</td>
 	        	<td>$subscription.ori</td>

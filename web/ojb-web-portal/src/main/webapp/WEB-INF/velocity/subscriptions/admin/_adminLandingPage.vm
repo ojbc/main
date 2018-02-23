@@ -40,6 +40,14 @@
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
+    	$('#expiredSubscriptions').click (function() { 
+    		$('.dropdown-content').removeClass("show");
+    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
+			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
+    		
+ 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
+	    });
+	    
 	    $("#searchResultsTable").DataTable({
 			 "order": [[ 3, "asc" ]],
 			 "pagingType": "full_numbers",
