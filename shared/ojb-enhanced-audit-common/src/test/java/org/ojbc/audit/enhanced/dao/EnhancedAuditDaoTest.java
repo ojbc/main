@@ -188,12 +188,13 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setFbiSubscriptionId("789");
 		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
 		federalRapbackSubscription.setTransactionStatusText("text");
+		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
 		
 		enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
 
 		FederalRapbackSubscription federalRapbackSubscriptionFromDatabase = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromTCN("9999999");
 		
-		federalRapbackSubscription.setTransactionCategoryCode("ERRA");
+		federalRapbackSubscription.setTransactionCategoryCodeResponse("ERRA");
 		federalRapbackSubscription.setPathToResponseFile("/some/path/to/responseFile");
 		federalRapbackSubscription.setResponseRecievedTimestamp(LocalDateTime.now());
 		federalRapbackSubscription.setFederalRapbackSubscriptionId(federalRapbackSubscriptionFromDatabase.getFederalRapbackSubscriptionId());
@@ -205,7 +206,8 @@ public class EnhancedAuditDaoTest {
 		assertEquals("9999999", federalRapbackSubscriptionFromDatabase.getTransactionControlReferenceIdentification());
 		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
 		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
-		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCode());
+		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeResponse());
+		assertEquals("RBSCRM", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeRequest());
 		
 		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
@@ -222,7 +224,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("9999999", federalRapbackSubscriptionFromDatabase.getTransactionControlReferenceIdentification());
 		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
 		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
-		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCode());
+		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeResponse());
 		
 		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());

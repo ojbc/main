@@ -198,8 +198,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         log.debug("Inserting row into FEDERAL_RAPBACK_SUBSCRIPTION table : " + federalRapbackSubscription);
         
         final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into FEDERAL_RAPBACK_SUBSCRIPTION "
-        		+ "(REQUEST_SENT_TIMESTAMP, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE,SUBSCRIPTION_CATEGORY_CODE, SID, TRANSACTION_STATUS_TEXT, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ "(REQUEST_SENT_TIMESTAMP, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE,SUBSCRIPTION_CATEGORY_CODE, SID, TRANSACTION_STATUS_TEXT, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, TRANSACTION_CATEGORY_CODE_REQUEST) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -216,6 +216,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getTransactionStatusText(), ps, 6);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getStateSubscriptionId(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getFbiSubscriptionId(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackSubscription.getTransactionCategoryCodeRequest(), ps, 9);
         	            
         	            return ps;
         	        }
@@ -652,13 +653,13 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		
 		final String FEDERAL_SUBSCRIPTION_UPDATE="UPDATE FEDERAL_RAPBACK_SUBSCRIPTION SET "
-				+ "TRANSACTION_CATEGORY_CODE = :transactionCategoryCode, "
+				+ "TRANSACTION_CATEGORY_CODE_RESPONSE = :transactionCategoryCodeResponse, "
 				+ "RESPONSE_RECIEVED_TIMESTAMP = :responseRecievedTimestamp, "
 				+ "PATH_TO_RESPONSE_FILE = :pathToResponseFile, "
 				+ "TRANSACTION_STATUS_TEXT = :transactionStatusText "
 				+ "WHERE FEDERAL_RAPBACK_SUBSCRIPTION_ID = :federalRapbackSubscriptionId";
 
-		paramMap.put("transactionCategoryCode", federalRapbackSubscription.getTransactionCategoryCode()); 
+		paramMap.put("transactionCategoryCodeResponse", federalRapbackSubscription.getTransactionCategoryCodeResponse()); 
 		paramMap.put("responseRecievedTimestamp", convertToDatabaseColumn(federalRapbackSubscription.getResponseRecievedTimestamp())); 
 		paramMap.put("pathToResponseFile", federalRapbackSubscription.getPathToResponseFile()); 
 		paramMap.put("federalRapbackSubscriptionId", federalRapbackSubscription.getFederalRapbackSubscriptionId()); 
@@ -807,7 +808,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			federalRapbackSubscription.setPathToResponseFile(rs.getString("PATH_TO_RESPONSE_FILE"));
 			federalRapbackSubscription.setRequestSentTimestamp(toLocalDateTime(rs.getTimestamp("REQUEST_SENT_TIMESTAMP")));
 			federalRapbackSubscription.setResponseRecievedTimestamp(toLocalDateTime(rs.getTimestamp("RESPONSE_RECIEVED_TIMESTAMP")));
-			federalRapbackSubscription.setTransactionCategoryCode(rs.getString("TRANSACTION_CATEGORY_CODE"));
+			federalRapbackSubscription.setTransactionCategoryCodeRequest(rs.getString("TRANSACTION_CATEGORY_CODE_REQUEST"));
+			federalRapbackSubscription.setTransactionCategoryCodeResponse(rs.getString("TRANSACTION_CATEGORY_CODE_RESPONSE"));
 			federalRapbackSubscription.setTransactionControlReferenceIdentification(rs.getString("TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION"));
 			federalRapbackSubscription.setFederalRapbackSubscriptionId(rs.getInt("FEDERAL_RAPBACK_SUBSCRIPTION_ID"));
 			
