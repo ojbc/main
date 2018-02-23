@@ -179,8 +179,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	private void finalize(
 			ExpiringSubscriptionRequest expiringSubscriptionRequest, Map<String, Object> model) {
-		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
-//		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
+//		expiringSubscriptionRequest.setSystemName("{http://demostate.gov/SystemNames/1.0}SystemC");
+		expiringSubscriptionRequest.setSystemName("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
