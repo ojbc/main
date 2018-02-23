@@ -58,6 +58,7 @@ public class FbiSubscriptionAuditProcessor {
 			federalRapbackSubscription.setSubscriptonCategoryCode(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackCategoryCode"));
 			federalRapbackSubscription.setStateSubscriptionId(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText"));
 			federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Fingerprint ID']/ebts:UserDefinedElementText"));
+			federalRapbackSubscription.setTransactionCategoryCodeRequest(XmlUtils.xPathStringSearch(recordRapBackData, "//ebts:TransactionCategoryCode"));
 			
 			logger.info("Federal rapback subscription request audit entry to save: " + federalRapbackSubscription.toString());
 			
@@ -94,7 +95,7 @@ public class FbiSubscriptionAuditProcessor {
 			
 			federalRapbackSubscription.setResponseRecievedTimestamp(responseTimestamp);
 			federalRapbackSubscription.setPathToResponseFile(pathToResponseFile);
-			federalRapbackSubscription.setTransactionCategoryCode(transactionCategoryCode);
+			federalRapbackSubscription.setTransactionCategoryCodeResponse(transactionCategoryCode);
 			federalRapbackSubscription.setTransactionStatusText(XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText"));
 			federalRapbackSubscription.setFbiSubscriptionId(XmlUtils.xPathStringSearch(input, "//ebts:RecordRapBackSubscriptionID"));
 			
