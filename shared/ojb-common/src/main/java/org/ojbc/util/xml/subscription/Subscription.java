@@ -316,6 +316,12 @@ public class Subscription implements Serializable {
 		return lastValidationDate;
 	}
 
+	public String getLastValidationDateString() {
+		return Optional.ofNullable(lastValidationDate)
+				.map(date-> date.format(formatter))
+				.orElse("");
+	}
+	
 	public void setLastValidationDate(LocalDate lastValidationDate) {
 		this.lastValidationDate = lastValidationDate;
 	}
@@ -374,6 +380,10 @@ public class Subscription implements Serializable {
 		return validationDueDate;
 	}
 
+	public String getValidationDueDateString() {
+		return Optional.ofNullable(validationDueDate).map(date-> date.format(formatter)).orElse("");
+	}
+	
 	public void setValidationDueDate(LocalDate validationDueDate) {
 		this.validationDueDate = validationDueDate;
 	}
