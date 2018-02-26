@@ -19,21 +19,15 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
-		ojbc.clearSearchResultsFilterFields();
-		
-  		$.post("#springUrl('/subscriptions/clearFilter')",function(data) {
-		      $('#portalContent').html(data);
-	    }).fail(ojbc.displayFailMessage);
-	
-	});  
-    
 	$("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
 		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No subscriptions found"
+    	 }, 
 	     "aoColumns": [
 		      { "bSortable": false, "bSearchable":false },
 		      { "bSortable": false, "bSearchable":false },
