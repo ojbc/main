@@ -53,7 +53,7 @@
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- - - - - - - - - - - - - Case information - - - - - - - - - - - - -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<nc:Case structures:id="JJIS_Def_01">
+	<nc:Case>
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>JJIS Case Number</nc:IdentificationID>
 			<nc:IdentificationCategoryDescriptionText>MASTER REPORT</nc:IdentificationCategoryDescriptionText>
@@ -88,7 +88,7 @@
 					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
 					<nc:DispositionText>D2</nc:DispositionText>
 				</j:ChargeDisposition>
-				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeHighestIndicator>false</j:ChargeHighestIndicator>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>00010</nc:IdentificationID>
 					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
@@ -119,7 +119,7 @@
 					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
 					<nc:DispositionText>D2</nc:DispositionText>
 				</j:ChargeDisposition>
-				<j:ChargeHighestIndicator>1</j:ChargeHighestIndicator>
+				<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>00020</nc:IdentificationID>
 					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
@@ -150,13 +150,13 @@
 					<nc:DispositionDescriptionText>Disposition Code Description</nc:DispositionDescriptionText>
 					<nc:DispositionText>D2</nc:DispositionText>
 				</j:ChargeDisposition>
-				<j:ChargeHighestIndicator>0</j:ChargeHighestIndicator>
+				<j:ChargeHighestIndicator>false</j:ChargeHighestIndicator>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>00030</nc:IdentificationID>
 					<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
 				</j:ChargeIdentification>
 				<j:ChargeQualifierText>ADDITIONAL INFO</j:ChargeQualifierText>
-				<j:ChargeSequenceID>1</j:ChargeSequenceID>
+				<j:ChargeSequenceID>2</j:ChargeSequenceID>
 				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -242,8 +242,8 @@
 		<nc:PersonDescriptionText>JUVENILE</nc:PersonDescriptionText>
 		<nc:PersonDigitalImage />
 		<nc:PersonEducationLevelText>HIGH SCHOOL</nc:PersonEducationLevelText>
+		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 		<nc:PersonEthnicityText>PART HAWAIIAN</nc:PersonEthnicityText>
-		<nc:PersonEthnicityText>CHINESE</nc:PersonEthnicityText>
 		<j:PersonEyeColorCode>BRO</j:PersonEyeColorCode>
 		<nc:PersonEyeColorText>BROWN</nc:PersonEyeColorText>
 		<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
@@ -281,7 +281,8 @@
 		</nc:PersonOtherIdentification>
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureGeneralCategoryText>TATTOO</nc:PhysicalFeatureGeneralCategoryText>
-			<j:PhysicalFeatureCategoryCode>TAT L HND</j:PhysicalFeatureCategoryCode>
+			<j:PhysicalFeatureCategoryCode>TAT HAND</j:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureCategoryText />
 			<nc:PhysicalFeatureDescriptionText>PURPLE SUNBURST</nc:PhysicalFeatureDescriptionText>
 			<nc:PhysicalFeatureLocationText>ABOVE MIDDLE FINGER</nc:PhysicalFeatureLocationText>
 			<pd-ext:PhysicalFeatureIdentification>
@@ -298,7 +299,7 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>152</nc:MeasureValueText>
 			<nc:MeasureUnitText>LBS</nc:MeasureUnitText>
@@ -366,7 +367,7 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure />
 	</nc:Person>
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -406,7 +407,7 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>0876456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>1</nc:PersonUSCitizenIndicator>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure />
 	</nc:Person>
 	<nc:Identity structures:id="idALTNAME001">
@@ -469,15 +470,14 @@
 		<nc:OrganizationName>KAUAI HIGH SCHOOL</nc:OrganizationName>
 	</nc:Organization>
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<!-- - - - - Offense location, with ident (all fields) - - - - - - - - -->
+	<!-- - - - - Residential address with ident (all fields) - - - - - - - -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<nc:Location structures:id="idLOC003">
+	<nc:Location structures:id="idLOC001">
 		<nc:Address>
 			<!-- Structured Address can use either the full text or the individual components -->
-			<nc:AddressFullText />
-			<nc:AddressSecondaryUnitText>STE 300A</nc:AddressSecondaryUnitText>
+			<nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
 			<nc:LocationStreet>
-				<nc:StreetFullText>123 RICE ST</nc:StreetFullText>
+				<nc:StreetFullText>123 TEST DR</nc:StreetFullText>
 				<nc:StreetNumberText />
 				<nc:StreetPredirectionalText />
 				<nc:StreetName />
@@ -490,14 +490,14 @@
 			<nc:LocationPostalCode>96768</nc:LocationPostalCode>
 			<nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
 		</nc:Address>
-		<nc:LocationCategoryText>BUSINESS</nc:LocationCategoryText>
-		<nc:LocationContactInformation />
+		<nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
+		<nc:LocationContactInformation structures:ref="idCONT005" />
 		<nc:LocationDescriptionText />
 		<nc:LocationMapLocation>
 			<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
 			<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
 		</nc:LocationMapLocation>
-		<nc:LocationName>LIHUE MC DONALDs</nc:LocationName>
+		<nc:LocationName xsi:nil="true" />
 		<pd-ext:LocationIdentification>
 			<nc:IdentificationID>12345</nc:IdentificationID>
 			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
@@ -541,14 +541,15 @@
 		</pd-ext:LocationIdentification>
 	</nc:Location>
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<!-- - - - - Residential address with ident (all fields) - - - - - - - -->
+	<!-- - - - - Offense location, with ident (all fields) - - - - - - - - -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<nc:Location structures:id="idLOC001">
+	<nc:Location structures:id="idLOC003">
 		<nc:Address>
 			<!-- Structured Address can use either the full text or the individual components -->
-			<nc:AddressSecondaryUnitText>APT 3A</nc:AddressSecondaryUnitText>
+			<nc:AddressFullText />
+			<nc:AddressSecondaryUnitText>STE 300A</nc:AddressSecondaryUnitText>
 			<nc:LocationStreet>
-				<nc:StreetFullText>123 TEST DR</nc:StreetFullText>
+				<nc:StreetFullText>123 RICE ST</nc:StreetFullText>
 				<nc:StreetNumberText />
 				<nc:StreetPredirectionalText />
 				<nc:StreetName />
@@ -561,14 +562,14 @@
 			<nc:LocationPostalCode>96768</nc:LocationPostalCode>
 			<nc:LocationPostalExtensionCode>1234</nc:LocationPostalExtensionCode>
 		</nc:Address>
-		<nc:LocationCategoryText>RESIDENCE</nc:LocationCategoryText>
-		<nc:LocationContactInformation structures:ref="idCONT005" />
+		<nc:LocationCategoryText>BUSINESS</nc:LocationCategoryText>
+		<nc:LocationContactInformation />
 		<nc:LocationDescriptionText />
 		<nc:LocationMapLocation>
 			<nc:MapHorizontalCoordinateText>911527.672814</nc:MapHorizontalCoordinateText>
 			<nc:MapVerticalCoordinateText>2183249.704147</nc:MapVerticalCoordinateText>
 		</nc:LocationMapLocation>
-		<nc:LocationName xsi:nil="true" />
+		<nc:LocationName>LIHUE MC DONALDs</nc:LocationName>
 		<pd-ext:LocationIdentification>
 			<nc:IdentificationID>12345</nc:IdentificationID>
 			<nc:IdentificationCategoryDescriptionText>INTERNAL</nc:IdentificationCategoryDescriptionText>
@@ -602,24 +603,19 @@
 				<nc:TelephoneNumberFullID>8085550123</nc:TelephoneNumberFullID>
 				<nc:TelephoneSuffixID>101</nc:TelephoneSuffixID>
 			</nc:FullTelephoneNumber>
-			<nc:TelephoneNumberCategoryText>Mobile</nc:TelephoneNumberCategoryText>
+			<nc:TelephoneNumberCategoryText />
 		</nc:ContactTelephoneNumber>
 		<nc:ContactEntityDescriptionText>Prosecuting Attorney</nc:ContactEntityDescriptionText>
 	</nc:ContactInformation>
-	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<!-- - - - - Residential address with ident (all fields) - - - - - - - -->
-	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<nc:ContactInformation structures:id="idCONT009">
 		<nc:ContactWebsiteURI>http://www.kauaihigh.edu/</nc:ContactWebsiteURI>
-		<nc:ContactEmailID>juvenile@yahoo.com</nc:ContactEmailID>
 		<nc:ContactTelephoneNumber structures:id="idPHN005">
 			<nc:FullTelephoneNumber>
 				<nc:TelephoneNumberFullID>808 873-3000</nc:TelephoneNumberFullID>
 				<nc:TelephoneSuffixID xsi:nil="true" />
 			</nc:FullTelephoneNumber>
-			<nc:TelephoneNumberCategoryText></nc:TelephoneNumberCategoryText>
+			<nc:TelephoneNumberCategoryText>Location</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
-		<nc:ContactEntityDescriptionText>JUVENILE CONTACT INFO</nc:ContactEntityDescriptionText>
 	</nc:ContactInformation>
 	<nc:ContactInformation structures:id="idCONT005">
 		<nc:ContactEmailID>CONTACT@RESIDENCE.COM</nc:ContactEmailID>
@@ -628,7 +624,7 @@
 				<nc:TelephoneNumberFullID>555-1212</nc:TelephoneNumberFullID>
 				<nc:TelephoneSuffixID xsi:nil="true" />
 			</nc:FullTelephoneNumber>
-			<nc:TelephoneNumberCategoryText></nc:TelephoneNumberCategoryText>
+			<nc:TelephoneNumberCategoryText>Location</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
 		<nc:ContactEntityDescriptionText>PARENT'S HOME</nc:ContactEntityDescriptionText>
 	</nc:ContactInformation>
@@ -779,13 +775,13 @@
 	<j:OffenseSubjectAssociation>
 		<j:Offense structures:ref="idOFF001" />
 		<j:Subject structures:ref="idPER001" />
-		<j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+		<j:OffenseJuvenileIndicator>true</j:OffenseJuvenileIndicator>
 		<j:OffenseUnderInfluenceIndicator xsi:nil="true" />
 	</j:OffenseSubjectAssociation>
 	<j:OffenseSubjectAssociation>
 		<j:Offense structures:ref="idOFF002" />
 		<j:Subject structures:ref="idPER001" />
-		<j:OffenseJuvenileIndicator>1</j:OffenseJuvenileIndicator>
+		<j:OffenseJuvenileIndicator>true</j:OffenseJuvenileIndicator>
 		<j:OffenseUnderInfluenceIndicator xsi:nil="true" />
 	</j:OffenseSubjectAssociation>
 </pd-doc:ProsecutionDecisionReport>

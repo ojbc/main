@@ -125,6 +125,7 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEmploymentAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonEthnicity" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
