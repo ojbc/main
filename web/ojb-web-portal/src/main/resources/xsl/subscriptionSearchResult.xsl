@@ -83,6 +83,7 @@
 						<th>NAME</th>
 						<th>START DATE</th>
 						<th>END DATE</th>
+						<th>VALIDATION DUE</th>
 						<th>FBI SUBSCRIPTION</th>
 						<th>EMAIL ADDRESS</th>
 					</tr>
@@ -169,6 +170,9 @@
 			<xsl:element name="td">
 				<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
 			</xsl:element>
+			<xsl:element name="td">
+				<xsl:apply-templates select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date[normalize-space()]" mode="validationDueDate"/>
+			</xsl:element>
 
 			<td>
 				<xsl:apply-templates select="." mode="fbiSubscription"/>
@@ -237,19 +241,21 @@
 		<xsl:variable name="expirationAlertStartDate">
 			<xsl:value-of select="$endDate - xsd:dayTimeDuration(string-join(('P', $subscriptionExpirationAlertPeriod, 'D'),''))"></xsl:value-of>
 		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="$expirationAlertStartDate &lt;= current-date()">
-				<xsl:attribute name="style">color:red</xsl:attribute>
-				<xsl:call-template name="formatDate">
-					<xsl:with-param name="date" select="."/> 
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>					
-				<xsl:call-template name="formatDate">
-					<xsl:with-param name="date" select="."/>
-				</xsl:call-template>
-			</xsl:otherwise>					
-		</xsl:choose>					
+		<xsl:if test="$expirationAlertStartDate &lt;= current-date()">
+			<xsl:attribute name="style">color:red</xsl:attribute>
+		</xsl:if>
+		<xsl:call-template name="formatDate">
+			<xsl:with-param name="date" select="."/> 
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="nc:Date" mode="validationDueDate">
+		<xsl:if test=". &lt; current-date()">
+			<xsl:attribute name="style">color:red</xsl:attribute>
+		</xsl:if>
+		<xsl:call-template name="formatDate">
+			<xsl:with-param name="date" select="."/>
+		</xsl:call-template>
 	</xsl:template>
 	
 </xsl:stylesheet>
