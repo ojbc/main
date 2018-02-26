@@ -34,6 +34,9 @@
 		 "pageLength": 25,
 		 stateSave: true,
 		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No subscriptions found"
+    	 }, 
 	     "aoColumns": [
 		      { "bSortable": false, "bSearchable":false },
 		      { "bSortable": false, "bSearchable":false },

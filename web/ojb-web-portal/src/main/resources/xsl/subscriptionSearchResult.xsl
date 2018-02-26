@@ -35,7 +35,7 @@
 	<xsl:output method="html" encoding="UTF-8" />
 	<xsl:param name="hrefBase"/>
 	<xsl:param name="validateSubscriptionButton"/>	
-	<xsl:param name="messageIfNoResults">You do not have any subscriptions.</xsl:param>
+	<xsl:param name="validationThreshold">60</xsl:param>	
 	<xsl:param name="subscriptionExpirationAlertPeriod">0</xsl:param>
 	
 	<!-- TODO:Pass these in from the controller class -->
@@ -55,22 +55,15 @@
 		<xsl:apply-templates select="$requestErrors" />
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
-		<xsl:choose>
-			<xsl:when test="($totalCount &gt; 0)">
-				<xsl:call-template name="Subscriptions"/>
-				<span id="subscriptionButtons">
-					<xsl:if test="$validateSubscriptionButton='true'">
-						<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
-					</xsl:if>
-					<a id="unsubscribeLink" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>UNSUBSCRIBE</a>
-				</span>    				
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="(($totalCount = 0) and not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
-					<xsl:value-of select="$messageIfNoResults" />  
+		<xsl:if test="not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors)">
+			<xsl:call-template name="Subscriptions"/>
+			<span id="subscriptionButtons">
+				<xsl:if test="$validateSubscriptionButton='true'">
+					<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
 				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
+				<a id="unsubscribeLink" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>UNSUBSCRIBE</a>
+			</span>    				
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="Subscriptions">
@@ -250,7 +243,11 @@
 	</xsl:template>
 	
 	<xsl:template match="nc:Date" mode="validationDueDate">
-		<xsl:if test=". &lt; current-date()">
+		<xsl:variable name="validationDueDate" select="." as="xsd:date"/>
+		<xsl:variable name="validationAlertStartDate">
+			<xsl:value-of select="$validationDueDate - xsd:dayTimeDuration(string-join(('P', $validationThreshold, 'D'),''))"></xsl:value-of>
+		</xsl:variable>
+		<xsl:if test="$validationAlertStartDate &lt; current-date()">
 			<xsl:attribute name="style">color:red</xsl:attribute>
 		</xsl:if>
 		<xsl:call-template name="formatDate">

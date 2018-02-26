@@ -592,7 +592,6 @@ public class XslTemplateTest {
         params.put("rows", 10);
         params.put("hrefBase", "pagination");
         params.put("validateSubscriptionButton", "true");
-        params.put("messageIfNoResults", "You do not have any subscriptions.");
         params.put("chDisplaySupervisionTroCustodyHeaders", "true");
         return params;
     }

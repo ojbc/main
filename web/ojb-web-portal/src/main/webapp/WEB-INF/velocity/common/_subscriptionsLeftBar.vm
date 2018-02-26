@@ -46,7 +46,17 @@
 					}
 				).fail(ojbc.displayFailMessage);
 			});
-								         		         		        
+			
+			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
+				ojbc.clearSearchResultsFilterFields();
+				validateLinkExists = $("#validateLink").length > 0;
+				
+		  		$.post("#springUrl('/subscriptions/clearFilter/')" + validateLinkExists ,
+		  			  function(data) {
+				      $('#portalContent').html(data);
+			    }).fail(ojbc.displayFailMessage);
+	
+			});  
 		});
 	            
 	</script>   

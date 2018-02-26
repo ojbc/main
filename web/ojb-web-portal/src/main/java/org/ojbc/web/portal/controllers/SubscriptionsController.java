@@ -130,6 +130,9 @@ public class SubscriptionsController {
 	private static DocumentBuilder docBuilder;
 	
 	private SimpleDateFormat dateFormDOB = new SimpleDateFormat("yyyy-MM-dd");
+	
+	@Value("${validationThreshold: 400}")
+	Integer validationThreshold;
 
 	@Value("${defaultPersonSearchSubscriptionTopic:}")
 	String defaultPersonSearchSubscriptionTopic;
@@ -262,7 +265,6 @@ public class SubscriptionsController {
 		logger.info("Subscription results raw xml:\n" + rawResults);
 		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
-		subResultsHtmlXsltParamMap.put("messageIfNoResults", "You do not have any subscriptions.");
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
@@ -321,7 +323,6 @@ public class SubscriptionsController {
 				
 		//transform the filtered xml results into html		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
-		subResultsHtmlXsltParamMap.put("messageIfNoResults", "No " + subscriptionStatus +" subscriptions");
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
 		
 		String htmlResult = "";
@@ -340,8 +341,8 @@ public class SubscriptionsController {
 		return "subscriptions/_subscriptionResults";
 	}
 	
-    @RequestMapping(value="clearFilter", method = RequestMethod.POST)
-    public String clearFilter( Map<String, Object> model ) {
+    @RequestMapping(value="clearFilter/{showValidationButton}", method = RequestMethod.POST)
+    public String clearFilter( Map<String, Object> model, @PathVariable("showValidationButton") Boolean showValidationButton ) {
         
         //reset the mostRecentSearchResult. 
         if (userSession.getSavedMostRecentSubscriptionSearchResult() != null) {
@@ -349,7 +350,8 @@ public class SubscriptionsController {
         } 
                 
         Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);       
-        
+		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
+
         String htmlResult = searchResultConverter.convertSubscriptionSearchResult(
                 userSession.getMostRecentSubscriptionSearchResult(), 
                 subResultsHtmlXsltParamMap);
@@ -1387,7 +1389,6 @@ public class SubscriptionsController {
 		}
 								
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
-		converterParamsMap.put("messageIfNoResults", "You do not have any subscriptions.");
 		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 
 		//note must default to empty string instead of null for ui to display nothing when desired instead
@@ -1445,6 +1446,7 @@ public class SubscriptionsController {
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
 		params.put("subscriptionExpirationAlertPeriod", subscriptionExpirationAlertPeriod);
+		params.put("validationThreshold", validationThreshold.toString());
 		return params;
 	}
 

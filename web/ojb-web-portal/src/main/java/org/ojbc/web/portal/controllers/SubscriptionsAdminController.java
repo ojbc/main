@@ -42,7 +42,6 @@ import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,9 +63,6 @@ import org.w3c.dom.Element;
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
-	@Value("${validationThreshold: 400}")
-	Integer validationThreshold;
-	
 	@Resource
 	SubscriptionsRestClient subscriptionsRestClient;
 	
@@ -185,84 +181,6 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
 	
-	@RequestMapping(value="filter", method = RequestMethod.POST)
-	public String filter(@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
-			BindingResult errors, Map<String, Object> model) {
-		
-		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
-		
-		logger.info("inside filter() for status: " + subscriptionStatus);
-		
-		String filterInput;
-
-		//we do not wish to re-filter on filtered results - we always filter on results from a non-filtered search
-		if(userSession.getSavedMostRecentSubscriptionSearchResult() == null){
-			userSession.setSavedMostRecentSubscriptionSearchResult(userSession.getMostRecentSubscriptionSearchResult());
-			filterInput = userSession.getMostRecentSubscriptionSearchResult();
-		}else{
-			filterInput = userSession.getSavedMostRecentSubscriptionSearchResult();
-		}
-						
-		// filter xml with parameters passed in
-		subscriptionFilterCommand.setCurrentDate(new Date());
-		
-		String sValidationDueWarningDays = subscriptionFilterProperties.get("validationDueWarningDays");
-		int iValidationDueWarningDays = Integer.parseInt(sValidationDueWarningDays);
-		
-		subscriptionFilterCommand.setValidationDueWarningDays(iValidationDueWarningDays);
-		
-		logger.info("Using subscriptionFilterCommand: " + subscriptionFilterCommand);
-		
-		logger.info("\n * filterInput = \n" + filterInput);
-		
-		String sFilteredSubResults = searchResultConverter.filterXml(filterInput, subscriptionFilterCommand);
-		
-		//saving filtered results allows pagination to function:
-		userSession.setMostRecentSearchResult(sFilteredSubResults);	
-
-		logger.info("Filtered Result: \n" + sFilteredSubResults);
-				
-		//transform the filtered xml results into html		
-		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
-		subResultsHtmlXsltParamMap.put("messageIfNoResults", "No " + subscriptionStatus +" subscriptions");
-		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", "false");
-		
-		String htmlResult = "";
-		
-		if(StringUtils.isNotBlank(sFilteredSubResults)){
-			htmlResult = searchResultConverter.convertSubscriptionSearchResult(sFilteredSubResults, subResultsHtmlXsltParamMap);	
-		}				
-		
-		logger.info("Subscriptions Transformed Html:\n" + htmlResult);
-				 	
-		//put it in the model
-		model.put("subscriptionsContent", htmlResult);	
-		//empty string(not null) prevents variable being displayed in ui html
-		model.put("informationMessages", "");
-		
-		return "subscriptions/_subscriptionResults";
-	}
-	
-    @RequestMapping(value="clearFilter", method = RequestMethod.POST)
-    public String clearFilter( Map<String, Object> model ) {
-        
-        //reset the mostRecentSearchResult. 
-        if (userSession.getSavedMostRecentSubscriptionSearchResult() != null) {
-            userSession.setMostRecentSubscriptionSearchResult(userSession.getSavedMostRecentSubscriptionSearchResult()); 
-        } 
-                
-        Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);       
-        
-        String htmlResult = searchResultConverter.convertSubscriptionSearchResult(
-                userSession.getMostRecentSubscriptionSearchResult(), 
-                subResultsHtmlXsltParamMap);
-        
-        //put it in the model
-        model.put("subscriptionsContent", htmlResult);  
-        return "subscriptions/_subscriptionResults";
-    }
-	
-				
 	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
 	public String unsubscribe(HttpServletRequest request, @RequestParam String subIdToSubDataJson, 
 			Map<String, Object> model) {
