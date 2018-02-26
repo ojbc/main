@@ -105,6 +105,10 @@
 		<label>End Date:</label>
 		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
 </div>
+<div style="padding-left:12px;">
+		<label>Validation Due:</label>
+		<span class="subscriptionHint">$subscription.validationDueDateString</span>
+</div>
 #if($showCaseIdInput)
 	<div>
 		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
