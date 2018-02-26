@@ -68,7 +68,6 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>05-00001</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>N</j:ChargeQualifierText>
 				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -89,7 +88,6 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>ADD-ON</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>Y</j:ChargeQualifierText>
 				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -110,7 +108,6 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>05-00001</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>N</j:ChargeQualifierText>
 				<j:ChargeSeverityText>FC</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -141,7 +138,6 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>ADD-ON</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>Y</j:ChargeQualifierText>
 				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
@@ -172,7 +168,6 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>05-00005</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeQualifierText>N</j:ChargeQualifierText>
 				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeSectionIdentification>
