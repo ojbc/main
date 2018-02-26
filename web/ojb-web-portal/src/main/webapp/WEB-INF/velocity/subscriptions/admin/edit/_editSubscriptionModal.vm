@@ -27,8 +27,8 @@
 	  	  		
 	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
 	  	  		$(".ui-dialog").width("800");
-	  	  		$(".ui-dialog").height("670");
-	  	  		$("#subFormDiv").height("580");
+	  	  		$(".ui-dialog").height("700");
+	  	  		$("#subFormDiv").height("610");
 				$(".ui-dialog-title").append( '<br/><span class="subscriptionTitleHint" style="padding:0">OWNER: $subscription.ownerFirstName $subscription.ownerLastName/$subscription.ownerEmailAddress</span>');
 	  	  	}	  	  		
 

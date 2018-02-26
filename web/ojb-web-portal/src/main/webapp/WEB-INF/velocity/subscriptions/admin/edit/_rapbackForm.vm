@@ -196,6 +196,12 @@
 		    <td>$subscription.lastUpdatedDateString</td>
 		</tr>
 	    <tr>
+			<td class="detailsLabel">Last Validated</td>
+			<td>$subscription.lastValidationDateString</td>
+		    <td class="detailsLabel">Validation Due</td>
+		    <td>$subscription.validationDueDateString</td>
+		</tr>
+	    <tr>
 		    <td class="detailsLabel">E-mail</td>
 		    <td colspan=3>
 				#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1' style='width:190px'")

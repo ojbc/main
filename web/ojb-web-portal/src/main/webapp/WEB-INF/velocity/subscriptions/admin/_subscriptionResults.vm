@@ -41,7 +41,85 @@
 		    ] 
 	});
 	
-	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+	$("#subscriptionButtons").appendTo("#searchResultsTable_length");
+	
+	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
+		var checkedValues = getCheckedValues();	
+		
+		if(!checkedValues){
+			alert('No subscriptions selected');
+			return false;
+		}
+		
+		console.log("checkedValues: " + checkedValues);
+								
+		var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
+		
+		if(confirmUnsubscribe == true){
+																		
+			var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
+			
+			//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+			$.get(urlRequest, function(data) {										
+			      $("#subsAdminContent").html(data);					      
+			}).fail(ojbc.displayFailMessage);
+				
+			return false;
+													 																		 
+		}else{
+		  return false;
+		}
+		
+    });
+		
+	function getCheckedValues() {
+	
+		var checkedValues = $('input:checkbox:checked').map(function() {
+			var id = JSON.parse(this.value).id;
+		    return '"' + id +'":' + this.value;
+		}).get();
+		
+		if (!String(checkedValues)) {
+			return null; 
+		}
+		else {
+			return	'{' + checkedValues + '}';
+		}	  		
+	}
+		  		
+	// listener for click on any editSubscriptionLink button
+	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
+		var editMvcUrl = encodeURI(this + "&admin=true");
+			 	    		    			
+  		$.get(editMvcUrl, 
+  			function(data){			  			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+    			 vSubDialog.dialog({                    
+		                position: {
+                           my: "left top",
+                           at: "left top",
+                           of: $("#stateBanner")
+		                },
+		                modal:true,
+				        maxWidth:800,
+				        maxHeight:800,
+				        resizable:false,
+				        open:function(event,ui){
+				        	$('#editSubscriptionDialog').html(data);
+				        },
+				        close: function(event, ui){
+				        	$(this).dialog("close");
+				        	$('#editSubscriptionDialog').remove();
+				        }    	                                  
+                    }); 			  						  				  				
+  			}
+  		).fail(ojbc.displayFailMessage);	
+  		
+  		//prevent default browser navigation to link<a> href url, because we're using the url 
+  		// as a spring mvc call
+  		return false;		  					  					  		                                                     
+ 	});   		 
+	    
     
   });
     
