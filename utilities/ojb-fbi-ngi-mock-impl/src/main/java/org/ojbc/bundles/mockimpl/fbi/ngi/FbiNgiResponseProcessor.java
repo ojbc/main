@@ -50,13 +50,18 @@ public class FbiNgiResponseProcessor {
 				
 		String trxCatCode = exchange.getIn().getHeader("transactionCategoryCode", String.class);
 		logger.info("\n\n\n trxCatCode: " + trxCatCode + "\n\n\n");
+
+		String stateSubscriptionId = exchange.getIn().getHeader("stateSubscriptionId", String.class);
+		logger.info("\n\n\n stateSubscriptionId: " + stateSubscriptionId + "\n\n\n");
 		
+		String stateFingerprintId = exchange.getIn().getHeader("stateFingerprintId", String.class);
+		logger.info("\n\n\n stateFingerprintId: " + stateFingerprintId + "\n\n\n");
 		
 		if (StringUtils.isBlank(transactionCategoryCode)){
 			throw new IllegalArgumentException("The transactionCategoryCode is missing."); 
 		}
 		
-		String subAckResponse = getSubAckResponse(transactionCategoryCode);
+		String subAckResponse = getSubAckResponse(transactionCategoryCode, stateSubscriptionId, stateFingerprintId);
 		
 		logger.info("\n\n Processor returning subsription aknowledgement response:... \n\n");
 				
@@ -64,7 +69,7 @@ public class FbiNgiResponseProcessor {
 	}
 	
 	
-	String getSubAckResponse(String transactionCategoryCode) throws Exception{
+	String getSubAckResponse(String transactionCategoryCode, String stateSubscriptionId, String stateFingerprintId) throws Exception{
 				
 		String sResponseDoc = null;
 		
@@ -83,7 +88,12 @@ public class FbiNgiResponseProcessor {
 			
 			Document responseDoc = docBuilder.parse(inStreamSubResp);	
 			
-			sResponseDoc = OJBUtils.getStringFromDocument(responseDoc);					
+			sResponseDoc = OJBUtils.getStringFromDocument(responseDoc);
+			
+			sResponseDoc = sResponseDoc.replace("STATE_FINGERPRINT_ID_PLACEHOLDER", stateFingerprintId);
+			
+			sResponseDoc = sResponseDoc.replace("STATE_SUBSCRIPTION_ID_PLACEHOLDER", stateSubscriptionId);
+			
 		}		
 		return sResponseDoc;
 	}
