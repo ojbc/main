@@ -17,7 +17,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0 ../xsd/impl/vermont/disposition_codes.xsd http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0 ../xsd/impl/OJBC/ojbc_disposition_codes.xsd" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0" xmlns:ojbc_disp_codes="http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<disp-doc:DispositionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0 ../../../xsd/impl/vermont/disposition_codes.xsd http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0 ../../../xsd/impl/OJBC/ojbc_disposition_codes.xsd"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0"
+	xmlns:ojbc_disp_codes="http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Subject structures:id="DEFENDANT_01">
 		<nc:RoleOfPerson>
 			<nc:PersonAgeMeasure>
@@ -101,8 +107,8 @@
 							</nc:DispositionDate>
 							<disp-ext:ChargeDispositionAugmentation>
 								<vt_codes:NonConvCatCode>6</vt_codes:NonConvCatCode>
-								<ojbc_disp_codes:CourtDispositionCode>Not Guilty by Reason of Insanity</ojbc_disp_codes:CourtDispositionCode>
 								<vt_codes:ProsDispCode>1</vt_codes:ProsDispCode>
+								<ojbc_disp_codes:CourtDispositionCode>Not Guilty by Reason of Insanity</ojbc_disp_codes:CourtDispositionCode>
 								<disp-ext:DispositionYear>1999</disp-ext:DispositionYear>
 								<disp-ext:DispositionDuration>P23D</disp-ext:DispositionDuration>
 							</disp-ext:ChargeDispositionAugmentation>
@@ -283,19 +289,19 @@
 		</nc:Address>
 	</nc:Location>
 	<j:OffenseChargeAssociation>
-		<j:Offense structures:ref="OFFENSE_01"/>
-		<j:Charge structures:ref="CHARGE_01"/>
+		<j:Offense structures:ref="OFFENSE_01" />
+		<j:Charge structures:ref="CHARGE_01" />
 	</j:OffenseChargeAssociation>
 	<nc:ActivityPersonAssociation>
-		<nc:Activity structures:ref="CASE_01"/>
-		<nc:Person structures:ref="DEFENDANT_01"/>
+		<nc:Activity structures:ref="CASE_01" />
+		<nc:Person structures:ref="DEFENDANT_01" />
 	</nc:ActivityPersonAssociation>
 	<j:OffenseArrestAssociation>
-		<j:Offense structures:ref="OFFENSE_01"/>
-		<j:Arrest structures:ref="ARREST_01"/>
+		<j:Offense structures:ref="OFFENSE_01" />
+		<j:Arrest structures:ref="ARREST_01" />
 	</j:OffenseArrestAssociation>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="DEFENDANT_01"/>
-		<nc:Location structures:ref="LOC_01"/>
+		<nc:Person structures:ref="DEFENDANT_01" />
+		<nc:Location structures:ref="LOC_01" />
 	</nc:PersonResidenceAssociation>
 </disp-doc:DispositionReport>
