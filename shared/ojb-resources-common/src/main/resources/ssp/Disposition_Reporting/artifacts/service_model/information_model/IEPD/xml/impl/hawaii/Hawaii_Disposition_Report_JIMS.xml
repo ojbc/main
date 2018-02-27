@@ -17,7 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<disp-doc:DispositionReport xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0 ../xsd/impl/hawaii/jims_disposition_codes.xsd">
+<disp-doc:DispositionReport xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:hi_codes_jims="http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/JIMS/DispositionCodes/1.0 ../../../xsd/impl/hawaii/jims_disposition_codes.xsd">
 	<cyfs:SubmittedDateTime>
 		<nc:DateTime>2015-06-12T17:44:22</nc:DateTime>
 	</cyfs:SubmittedDateTime>
@@ -25,7 +29,7 @@
 		<nc:SystemName>{http://ojbc.org/hawaii/judicial/1.0}JIMS</nc:SystemName>
 	</disp-ext:DispositionReportOriginatingSystem>
 	<j:Subject>
-		<nc:RoleOfPerson structures:ref="d1e9"/>
+		<nc:RoleOfPerson structures:ref="d1e9" />
 		<disp-ext:SubjectAugmentation>
 			<j:RegisteredOffender>
 				<j:RegisteredOffenderIdentification>
@@ -44,10 +48,13 @@
 					</nc:DispositionDate>
 					<disp-ext:ChargeDispositionAugmentation>
 						<hi_codes_jims:DispositionCode>NCP</hi_codes_jims:DispositionCode>
+						<disp-ext:DeferralReturnDate>
+							<nc:Date>2015-05-26</nc:Date>
+						</disp-ext:DeferralReturnDate>
 					</disp-ext:ChargeDispositionAugmentation>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
-					<nc:IdentificationID/>
+					<nc:IdentificationID />
 				</j:ChargeIdentification>
 				<j:ChargeSequenceID>1</j:ChargeSequenceID>
 				<disp-ext:ChargeAugmentation>
@@ -68,7 +75,7 @@
 								<nc:IdentificationID>HRS 291E-61(a)(1)(3)(b)(1)</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<disp-ext:ChargeAugmentation/>
+						<disp-ext:ChargeAugmentation />
 					</disp-ext:InitialCharge>
 					<disp-ext:FinalCharge>
 						<j:ChargePlea>
@@ -87,7 +94,7 @@
 								<nc:IdentificationID>HRS 291E-61(a)(1)(3)(b)(1)</nc:IdentificationID>
 							</j:StatuteCodeIdentification>
 						</j:ChargeStatute>
-						<disp-ext:ChargeAugmentation/>
+						<disp-ext:ChargeAugmentation />
 					</disp-ext:FinalCharge>
 					<disp-ext:ChargeFee>
 						<nc:ObligationDueAmount>
@@ -98,8 +105,8 @@
 						<nc:Date>2015-02-28</nc:Date>
 					</scr:ChargeDate>
 					<j:PersonChargeAssociation>
-						<nc:Person structures:ref="d1e9"/>
-						<j:Charge structures:ref="d1e68"/>
+						<nc:Person structures:ref="d1e9" />
+						<j:Charge structures:ref="d1e68" />
 					</j:PersonChargeAssociation>
 				</disp-ext:ChargeAugmentation>
 			</j:CaseCharge>
@@ -120,9 +127,17 @@
 				</nc:ActivityDate>
 				<disp-ext:CourtEventAugmentation>
 					<hi_codes_jims:CourtEventCode>SEN</hi_codes_jims:CourtEventCode>
+					<disp-ext:PreviousCourtEventCodeText></disp-ext:PreviousCourtEventCodeText>
+					<disp-ext:PreviousCourtEventDate>
+						<nc:Date>2015-06-16</nc:Date>
+					</disp-ext:PreviousCourtEventDate>
 				</disp-ext:CourtEventAugmentation>
 			</j:CaseCourtEvent>
-			<j:CaseDefenseAttorney/>
+			<j:CaseDefendantParty>
+				<disp-ext:StatusCodeText>CodeText</disp-ext:StatusCodeText>
+				<disp-ext:ReasonInactiveCodeText>CodeText</disp-ext:ReasonInactiveCodeText>
+			</j:CaseDefendantParty>
+			<j:CaseDefenseAttorney />
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
@@ -138,6 +153,15 @@
 			<disp-ext:CaseFee>
 				<nc:Amount>138</nc:Amount>
 			</disp-ext:CaseFee>
+			<disp-ext:Docket>
+				<disp-ext:DocketCodeText></disp-ext:DocketCodeText>
+				<disp-ext:DocketDate>
+					<nc:Date>2016-09-04</nc:Date>
+				</disp-ext:DocketDate>
+				<disp-ext:DocketCategoryText></disp-ext:DocketCategoryText>
+				<disp-ext:DocketMinutesText></disp-ext:DocketMinutesText>
+			</disp-ext:Docket>
+			<disp-ext:CaseInitiationCategoryCodeText>NEW</disp-ext:CaseInitiationCategoryCodeText>
 		</disp-ext:CaseAugmentation>
 	</nc:Case>
 	<nc:Person structures:id="d1e9">
@@ -182,6 +206,7 @@
 			</j:SentenceTerm>
 			<disp-ext:SentenceAugmentation>
 				<hi_codes_jims:SentenceCode>150</hi_codes_jims:SentenceCode>
+				<disp-ext:MethodOfServingText></disp-ext:MethodOfServingText>
 			</disp-ext:SentenceAugmentation>
 		</j:ChargeSentence>
 	</j:Charge>
@@ -421,13 +446,21 @@
 		</nc:IdentityPersonRepresentation>
 		<disp-ext:IdentityAugmentation>
 			<nc:PersonAliasIdentityAssociation>
-				<nc:Person structures:ref="d1e9"/>
-				<nc:Identity structures:ref="d1e56"/>
+				<nc:Person structures:ref="d1e9" />
+				<nc:Identity structures:ref="d1e56" />
 			</nc:PersonAliasIdentityAssociation>
 		</disp-ext:IdentityAugmentation>
 	</nc:Identity>
+	<j:Warrant>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>W12345</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:Date>2015-05-26</nc:Date>
+		</nc:ActivityDate>
+	</j:Warrant>
 	<nc:ActivityPersonAssociation>
-		<nc:Activity structures:ref="d1e1"/>
-		<nc:Person structures:ref="d1e9"/>
+		<nc:Activity structures:ref="d1e1" />
+		<nc:Person structures:ref="d1e9" />
 	</nc:ActivityPersonAssociation>
 </disp-doc:DispositionReport>

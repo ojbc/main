@@ -17,7 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<disp-doc:DispositionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../../../xsd/impl/maine/disposition_codes.xsd"
+	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person structures:id="Person_1">
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
@@ -33,10 +38,9 @@
 		</nc:PersonSSNIdentification>
 	</nc:Person>
 	<j:Charge structures:id="Charge_1">
-		<j:ChargeDescriptionText>Intentionally issue or negotiate a negotiable instrument knowing that it
-                will not be honored by the maker or drawee and the face value of the written
-                instrument or the aggregate value of the instruments is more than $500 but not more
-                than $1,000.</j:ChargeDescriptionText>
+		<j:ChargeDescriptionText>Intentionally issue or negotiate a negotiable instrument knowing that it will not be honored by the maker or drawee
+			and the face value of the written instrument or the aggregate value of the instruments is more than $500 but not more than $1,000.
+		</j:ChargeDescriptionText>
 		<j:ChargeDisposition>
 			<me_codes:CourtActionCode>ADMINISTRATIVE RELEASE NOT VIOLATED</me_codes:CourtActionCode>
 			<nc:DispositionEntity>
@@ -116,7 +120,7 @@
 					<disp-ext:SentenceTermAugmentation>
 						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
 						<me_codes:SentenceServedCode>CONCURRENT</me_codes:SentenceServedCode>
-						<disp-ext:SentenceSuspendedTimeRemainder/>
+						<disp-ext:SentenceSuspendedTimeRemainder />
 					</disp-ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
 			</disp-ext:SentenceAugmentation>
@@ -126,7 +130,7 @@
 					<j:TermLifeIndicator>false</j:TermLifeIndicator>
 					<disp-ext:SentenceTermAugmentation>
 						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
-						<disp-ext:SentenceSuspendedTimeRemainder/>
+						<disp-ext:SentenceSuspendedTimeRemainder />
 					</disp-ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
 			</disp-ext:SentenceAugmentation>
@@ -166,7 +170,7 @@
 		<j:ChargeSequenceID>2</j:ChargeSequenceID>
 	</j:CourtCharge>
 	<j:PersonChargeAssociation>
-		<nc:Person structures:ref="Person_1"/>
-		<j:Charge structures:ref="Charge_1"/>
+		<nc:Person structures:ref="Person_1" />
+		<j:Charge structures:ref="Charge_1" />
 	</j:PersonChargeAssociation>
 </disp-doc:DispositionReport>

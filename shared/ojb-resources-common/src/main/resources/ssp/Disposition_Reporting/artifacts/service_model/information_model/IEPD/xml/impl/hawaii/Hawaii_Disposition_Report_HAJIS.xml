@@ -17,7 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0 ../xsd/impl/hawaii/hajis_disposition_codes.xsd" xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<disp-doc:DispositionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0 ../../../xsd/impl/hawaii/hajis_disposition_codes.xsd"
+	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:hi_codes_hajis="http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>HAJS</nc:IdentificationID>
 	</nc:DocumentIdentification>
@@ -182,13 +187,13 @@
 		<j:CaseAugmentation>
 			<j:CaseCharge>
 				<j:ChargeDisposition>
-					<nc:DispositionDate/>
-					<disp-ext:ChargeDispositionAugmentation/>
+					<nc:DispositionDate />
+					<disp-ext:ChargeDispositionAugmentation />
 				</j:ChargeDisposition>
 				<j:ChargeSentence>
 					<j:SentenceCharge>
 						<j:ChargeDisposition>
-							<disp-ext:ChargeDispositionAugmentation/>
+							<disp-ext:ChargeDispositionAugmentation />
 						</j:ChargeDisposition>
 					</j:SentenceCharge>
 				</j:ChargeSentence>
@@ -231,12 +236,12 @@
 		</j:PersonAugmentation>
 	</nc:Person>
 	<nc:ActivityPersonAssociation>
-		<nc:Activity structures:ref="CASEidOBTSLOGICALTRANSACTION147921704"/>
-		<nc:Activity structures:ref="DEFCASEidOBTSLOGICALTRANSACTION147921704"/>
-		<nc:Person structures:ref="PERSONidPERSON147922768"/>
+		<nc:Activity structures:ref="CASEidOBTSLOGICALTRANSACTION147921704" />
+		<nc:Activity structures:ref="DEFCASEidOBTSLOGICALTRANSACTION147921704" />
+		<nc:Person structures:ref="PERSONidPERSON147922768" />
 	</nc:ActivityPersonAssociation>
 	<j:ActivityArrestAssociation>
-		<nc:Activity structures:ref="CASEidOBTSLOGICALTRANSACTION147921704"/>
-		<j:Arrest structures:ref="ARRESTidCHARGE147923440"/>
+		<nc:Activity structures:ref="CASEidOBTSLOGICALTRANSACTION147921704" />
+		<j:Arrest structures:ref="ARRESTidCHARGE147923440" />
 	</j:ActivityArrestAssociation>
 </disp-doc:DispositionReport>
