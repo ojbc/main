@@ -72,6 +72,14 @@
 			<camel:setHeader headerName="transactionCategoryCode">
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
 			</camel:setHeader>
+
+			<camel:setHeader headerName="stateSubscriptionId">
+				<xpath>//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="stateFingerprintId">
+				<xpath>//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='STATE FINGERPRINT ID']/ebts:UserDefinedElementText</xpath>
+			</camel:setHeader>
 			
 			<log message="\n\n\n transactionCategoryCode = ${header.transactionCategoryCode} \n\n\n" loggingLevel="WARN"/>
 			

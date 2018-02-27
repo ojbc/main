@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,14 +16,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<itl:NISTBiometricInformationExchangePackage 
-    xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
-    xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
-    xmlns:itl="http://biometrics.nist.gov/standard/2011" 
-    xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-    xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+<itl:NISTBiometricInformationExchangePackage xmlns:itl="http://biometrics.nist.gov/standard/2011"
+                                             xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+                                             xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+                                             xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                             xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+                                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                             xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
     <!--******************************************************************-->
     <!--Type-1 Record (Header Record) -->
     <!--******************************************************************-->
@@ -174,9 +172,15 @@
                     <!-- RBUD 2.2064 (0..10) -->
                     <ebts:RecordRapBackUserDefinedElement>
                         <!-- 2.2064A -->
-                        <ebts:UserDefinedElementName>Element Name</ebts:UserDefinedElementName>
+                        <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
                         <!-- 2.2064B -->
-                        <ebts:UserDefinedElementText>Element information</ebts:UserDefinedElementText>
+                        <ebts:UserDefinedElementText>fingerprintId</ebts:UserDefinedElementText>
+                    </ebts:RecordRapBackUserDefinedElement>
+                    <ebts:RecordRapBackUserDefinedElement>
+                        <!-- 2.2064A -->
+                        <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
+                        <!-- 2.2064B -->
+                        <ebts:UserDefinedElementText>stateSubId</ebts:UserDefinedElementText>
                     </ebts:RecordRapBackUserDefinedElement>
                 </ebts:RecordRapBackData>
                 <ebts:RecordTransactionData>
