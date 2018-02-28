@@ -1212,6 +1212,7 @@ public class SubscriptionsController {
 		// used to generated status message
 		List<String> validatedIdList = new ArrayList<String>();		
 		List<String> failedIdList = new ArrayList<String>();
+		List<String> failedDueToValidationDateList = new ArrayList<String>();
 		
 		// call the validate operation for each id/topic parameter
 		for(String iSubId : idJsonNames){
@@ -1219,7 +1220,20 @@ public class SubscriptionsController {
 			JSONObject subIdToSubDataJsonObj = subIdToSubDataJsonObjMap.getJSONObject(iSubId);
 			
 			String iTopic = subIdToSubDataJsonObj.getString("topic");
-			String reasonCode = subIdToSubDataJsonObj.getString("");
+			String reasonCode = subIdToSubDataJsonObj.getString("reasonCode");
+			
+			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic)){
+				
+				String vaidationDueDateString = subIdToSubDataJsonObj.getString("validationDueDate");
+				LocalDate validationDueDate = OJBCDateUtils.parseLocalDate(vaidationDueDateString); 
+				
+				if (validationDueDate != null && 
+						LocalDate.now().isBefore(validationDueDate.minusDays(validationThreshold))){
+					failedDueToValidationDateList.add(iSubId);
+					continue; 
+				}
+			}
+
 						
 			try{
 				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
@@ -1249,7 +1263,7 @@ public class SubscriptionsController {
 			}														
 		}
 				
-		String operationResultMessage = getOperationResultStatusMessage(validatedIdList, failedIdList);				
+		String operationResultMessage = getOperationResultStatusMessage(validatedIdList, failedIdList, failedDueToValidationDateList);				
 		
 		refreshSubscriptionsContent(request, model, operationResultMessage);						
 	}
@@ -1291,9 +1305,9 @@ public class SubscriptionsController {
 	}
 
 
-	String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList){
+	String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList, List<String> failedDueToValidationDateList){
 				
-		String resultMessage = null;
+		String resultMessage = "";
 		
 		boolean hasSuccessfulIds = !succeededIdList.isEmpty();
 		boolean hasFailedIds = !failedIdList.isEmpty();
@@ -1316,8 +1330,15 @@ public class SubscriptionsController {
 			sFailedIds = Arrays.toString(aFailedIds);									
 		}
 				
-		if(hasFailedIds){			
-			resultMessage = "Ids Failed: " + sFailedIds;			
+		if(hasFailedIds || (failedDueToValidationDateList != null && !failedDueToValidationDateList.isEmpty())){	
+			if (hasFailedIds){
+				resultMessage = "Ids Failed: " + sFailedIds;
+			}
+			
+			if (failedDueToValidationDateList != null && !failedDueToValidationDateList.isEmpty()){
+				resultMessage += 
+						"\n one or more selected subscriptions are not eligible for validation because the validation due date is too far in the future. "; 
+			}
 		}else{			
 			resultMessage = "Operation Successful";			
 		}
@@ -1363,7 +1384,7 @@ public class SubscriptionsController {
 			}														
 		}
 		
-		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList);
+		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList, null);
 
 		refreshSubscriptionsContent(request, model, operationStatusResultMsg);
 

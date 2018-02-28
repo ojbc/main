@@ -105,6 +105,7 @@
 		<xsl:variable name="subjectPerson" select="../ext:Person[@s:id=$subjectID]"/>
 		<xsl:variable name="subscribedEntity" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
 		<xsl:variable name="subscriptionID" select="intel:SystemIdentifier/nc:IdentificationID"/>
+		<xsl:variable name="validationDueDate" select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date[normalize-space()]"/>
 		<xsl:variable name="reasonCode" select="ext:Subscription/ext:CriminalSubscriptionReasonCode"/>
 		<xsl:variable name="subjectName">
 			<xsl:choose>
@@ -119,7 +120,8 @@
 		<tr>
 			<td valign="middle">
 				<!-- note value in json format, so ui can parse it -->
-				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
+				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}", "validationDueDate":"{$validationDueDate}"}}'/>
+				
 			</td>				
 			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
 			<td>
