@@ -338,7 +338,12 @@ public class SubscriptionsController {
 		//empty string(not null) prevents variable being displayed in ui html
 		model.put("informationMessages", "");
 		
-		return "subscriptions/_subscriptionResults";
+		if (showValidationButton){
+			return "subscriptions/_subscriptionResults";
+		}
+		else{
+			return "subscriptions/admin/_subscriptionResults";
+		}
 	}
 	
     @RequestMapping(value="clearFilter/{showValidationButton}", method = RequestMethod.POST)
@@ -358,7 +363,12 @@ public class SubscriptionsController {
         
         //put it in the model
         model.put("subscriptionsContent", htmlResult);  
-        return "subscriptions/_subscriptionResults";
+		if (showValidationButton){
+			return "subscriptions/_subscriptionResults";
+		}
+		else{
+			return "subscriptions/admin/_subscriptionResults";
+		}
     }
 	
 	/**

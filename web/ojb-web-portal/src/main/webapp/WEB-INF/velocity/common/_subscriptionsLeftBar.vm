@@ -27,8 +27,13 @@
 								             	
 		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
 		  			formData,	  		
-		  			function(data) {		  			
-    					$('#portalContent').html(data);	        									         					        				      
+		  			function(data) {	
+		  				if (validateLinkExists){	  			
+    						$('#portalContent').html(data);
+    					}
+    					else{
+    						$("#subsAdminContent").html(data);	
+    					}	        									         					        				      
 					}
 				).fail(ojbc.displayFailMessage);				
 			});
@@ -42,7 +47,12 @@
 		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
 		  			formData,	  		
 		  			function(data) {		  			
-    					$('#portalContent').html(data);	        									         					        				      
+		  				if (validateLinkExists){	  			
+    						$('#portalContent').html(data);
+    					}
+    					else{
+    						$("#subsAdminContent").html(data);	
+    					}	        									         					        				      
 					}
 				).fail(ojbc.displayFailMessage);
 			});
@@ -53,7 +63,12 @@
 				
 		  		$.post("#springUrl('/subscriptions/clearFilter/')" + validateLinkExists ,
 		  			  function(data) {
-				      $('#portalContent').html(data);
+		  				if (validateLinkExists){	  			
+    						$('#portalContent').html(data);
+    					}
+    					else{
+    						$("#subsAdminContent").html(data);	
+    					}	        									         					        				      
 			    }).fail(ojbc.displayFailMessage);
 	
 			});  
