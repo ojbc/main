@@ -19,7 +19,7 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-	$("#searchResultsTable").DataTable({
+	var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
@@ -34,12 +34,13 @@
 			      null, null,null, null, null, null, null
 		    ] 
 	});
-	
+		
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
 	
 	function getCheckedValues() {
 	
 		var checkedValues = $('input:checkbox:checked').map(function() {
+			//console.log("value:" + this.value);
 			var id = JSON.parse(this.value).id;
 		    return '"' + id +'":' + this.value;
 		}).get();

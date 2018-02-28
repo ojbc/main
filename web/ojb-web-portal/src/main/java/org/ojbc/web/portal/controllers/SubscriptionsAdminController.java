@@ -216,7 +216,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			}														
 		}
 		
-		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList);
+		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList, null);
 								
 		refreshSubscriptionsContent(request, model, operationStatusResultMsg);
 		
