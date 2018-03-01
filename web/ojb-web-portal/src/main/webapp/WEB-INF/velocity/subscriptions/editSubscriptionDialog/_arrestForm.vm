@@ -83,14 +83,6 @@
 			#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
 		</td>
 	</tr>
-	<tr>
-		<td style="text-align:right;vertical-align:middle;">
-			<label>Validation Due:</label>
-		</td>
-		<td>
-			<span class="subscriptionHint">$subscription.validationDueDateString</span>
-		</td>
-	</tr>
 </table>
 
 
