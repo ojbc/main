@@ -745,9 +745,12 @@ public class SubscriptionsController {
 				errorsList = Arrays.asList("An error occurred while processing subscription");				
 				logger.error("Failed processing subscription: " + e);
 			}									
-		}					
+		}	
 		
-		List<String> subWarningsList = getSubscriptionWarnings(subscription);
+		List<String> subWarningsList = new ArrayList<>(); 
+		if (errorsList.isEmpty()){
+			subWarningsList = getSubscriptionWarnings(subscription);
+		}
 		
 		String errorMsgsWarnMsgsJson = getErrorsWarningsJson(errorsList, subWarningsList);
 		
@@ -786,8 +789,11 @@ public class SubscriptionsController {
 			if (fbiIdWarning){
 			
 				if(StringUtils.isEmpty(subscription.getFbiId())){
-					warningList.add("FBI UCN does no exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.");
-				}				
+					warningList.add("FBI UCN does not exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.");
+				}
+				else{
+					warningList.add("State subscription created, FBI subscription request processing.");
+				}
 			}
 		}			
 		
@@ -1503,9 +1509,11 @@ public class SubscriptionsController {
 			
 			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
-						
-		List<String> warningsList = getSubscriptionWarnings(subscription);
-		
+			
+		List<String> warningsList  = new ArrayList<>();
+		if (errorsList.isEmpty()){
+			warningsList = getSubscriptionWarnings(subscription);
+		}
 		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
 		
 		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
