@@ -116,20 +116,19 @@ public class CamelContextTest {
 		prosecutionDecisionReportingServiceMockEndpoint.reset();
 		prosecutionDecisionReportingServiceMockEndpoint.expectedMessageCount(1);
 		
-		//TODO: Fix this when an update instance example is available.
-//        inputFile = new File("src/test/resources/xmlInstances/caseFilingDecisionReporting/caseFilingDecisionReportUpdate.xml");
-//		assertNotNull(inputFile);
-//		
-//		//Kick off the process by copying the case file decision update report file to the input directory 
-//		FileUtils.copyFileToDirectory(inputFile, inputDirectory);
-//
-//		Thread.sleep(3000);
-//		
-//		prosecutionDecisionReportingServiceMockEndpoint.assertIsSatisfied();
-//		
-//		ex = prosecutionDecisionReportingServiceMockEndpoint.getExchanges().get(0);
-//		assertEquals(CXF_OPERATION_NAME_UPDATE, ex.getIn().getHeader("operationName"));
-//		assertEquals(CXF_OPERATION_NAMESPACE, ex.getIn().getHeader("operationNamespace"));
+        inputFile = new File("src/test/resources/xmlInstances/prosecutionDecisionReporting/ProsecutionDecision-UPDATE.xml");
+		assertNotNull(inputFile);
+		
+		//Kick off the process by copying the case file decision update report file to the input directory 
+		FileUtils.copyFileToDirectory(inputFile, inputDirectory);
+
+		Thread.sleep(3000);
+		
+		prosecutionDecisionReportingServiceMockEndpoint.assertIsSatisfied();
+		
+		ex = prosecutionDecisionReportingServiceMockEndpoint.getExchanges().get(0);
+		assertEquals(CXF_OPERATION_NAME_UPDATE, ex.getIn().getHeader("operationName"));
+		assertEquals(CXF_OPERATION_NAMESPACE, ex.getIn().getHeader("operationNamespace"));
 
 	}
 
