@@ -196,6 +196,7 @@
 				<constructor-arg name="map">
 					<util:map id="gracePeriodTopicMap">
 						<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="defaultGracePeriodStrategy" />
+						<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash" value-ref="defaultGracePeriodStrategy" />
 						<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticGracePeriodStrategy" />
 						<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticGracePeriodStrategy" />
 						<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value-ref="defaultGracePeriodStrategy" />
@@ -209,7 +210,7 @@
 		<constructor-arg name="beanName" value="validationDueDateStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy" />
+			<bean class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy" />
 		</constructor-arg>
 	</bean>
 	
