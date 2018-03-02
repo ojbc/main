@@ -36,7 +36,6 @@ import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 
-@Ignore("When XSLT is updated, this test should be fixed as well")
 public class ProsecutionDecisionTransformTest {
 			
 	private XsltTransformer xsltTransformer;
@@ -55,11 +54,11 @@ public class ProsecutionDecisionTransformTest {
 	}	
 
 	 @Test
-	public void courtCaseFilingDecisionToCourtCaseFilingPerson() throws Exception{		
+	public void courtCaseFilingDecisionToCourtCaseFiling() throws Exception{		
 		
-		DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/input/HI-ProsecutionCaseFilingDecision-Person.xml",
+		DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/prosecutionDecisionReporting/ProsecutionDecision-Person.xml",
 				"src/main/resources/xslt/caseFilingDecisionToCourtCaseFiling.xslt",
-				"src/test/resources/xmlInstances/output/HI-ProsecutionCaseFilingDecision-Person.out.xml");
+				"src/test/resources/xmlInstances/prosecutionDecisionReporting/ProsecutionDecision-Person.out.xml");
         
 		List<Difference> differenceList = detailedDiff.getAllDifferences();
         
@@ -67,11 +66,11 @@ public class ProsecutionDecisionTransformTest {
 	}
 	 
 	 @Test
-		public void courtCaseFilingDecisionToCourtCaseFilingOrganization() throws Exception{		
+		public void courtCaseFilingDecisionToCourtCaseFilingUpdate() throws Exception{		
 			
-			DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/input/HI-ProsecutionCaseFilingDecision-Organization.xml",
+			DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/prosecutionDecisionReporting/ProsecutionDecision-Person-UPDATE.xml",
 					"src/main/resources/xslt/caseFilingDecisionToCourtCaseFiling.xslt",
-					"src/test/resources/xmlInstances/output/HI-ProsecutionCaseFilingDecision-Organization.out.xml");
+					"src/test/resources/xmlInstances/prosecutionDecisionReporting/ProsecutionDecision-Person-UPDATE.out.xml");
 	        
 			List<Difference> differenceList = detailedDiff.getAllDifferences();
 	        
