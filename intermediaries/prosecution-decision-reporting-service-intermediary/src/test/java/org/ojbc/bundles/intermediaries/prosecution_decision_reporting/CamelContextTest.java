@@ -175,15 +175,15 @@ public class CamelContextTest {
 
 		//Get the first exchange (the only one) to the logger
 		//This is what would be sent to the derived bundle
-//		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
-//
-//		Document returnDocumentDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
-//				
-//		//Make sure the root node here is the message to the original exchange
-//		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/cfd-doc:CaseFilingDecisionReport");
-//		assertNotNull(rootNode);
+		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
+
+		Document returnDocumentDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
 		
-		//courtCaseFilingServiceAdapterEndpoint.assertIsSatisfied();
+		XmlUtils.printNode(returnDocumentDerivedBundle);
+				
+		//Make sure the root node here is the message to the original exchange
+		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "//pdu-ext:ProsecutionDecisionDescriptionText");
+		assertNotNull(rootNode);
 		
 	}
 	
