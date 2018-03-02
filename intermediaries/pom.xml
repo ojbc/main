@@ -34,7 +34,6 @@
     <module>arrest-reporting-service-intermediary</module>
     <module>behavioral-health-evaluation-reporting-service-intermediary</module>
     <module>booking-reporting-service-intermediary</module>
-    <module>case-filing-decision-reporting-service-intermediary</module>
     <module>charge-referral-reporting-service-intermediary</module>
     <module>court-case-search-service-intermediary</module>
     <module>court-case-query-service-intermediary</module>
@@ -64,6 +63,7 @@
     <module>policy-acknowledgement-service-intermediary</module>
     <module>pretrial-service-enrollment-intermediary</module>
     <module>probation-event-handler-service-intermediary</module>
+    <module>prosecution-decision-reporting-service-intermediary</module>
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
