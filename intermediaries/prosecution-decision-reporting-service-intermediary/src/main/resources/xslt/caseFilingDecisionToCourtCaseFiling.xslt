@@ -17,16 +17,16 @@
 
 -->
 <xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
-	xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
-	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	exclude-result-prefixes="cfd-doc cfd-ext j51 nc30 niem-xs structures">
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pdu-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReportUpdate/1.0" xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0" xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" exclude-result-prefixes="pd-doc pdu-doc pd-ext j51 nc30 niem-xs structures">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport">
+	<xsl:template match="pd-doc:ProsecutionDecisionReport | pdu-doc:ProsecutionDecisionReportUpdate">
 		<ojb-crim-doc:CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0">
 			<!-- SendingMDELocationID and SendingMDEProfileCode elements required by ECF -->
 			<ecf:SendingMDELocationID>
@@ -42,7 +42,7 @@
 					mode="charge" />
 				<xsl:apply-templates select="." mode="citation" />
 			</ojb-crim-ext:CriminalCase>
-			<xsl:apply-templates select="nc30:Case/cfd-ext:CaseConfidentialIndicator" />
+			<xsl:apply-templates select="nc30:Case/pd-ext:CaseConfidentialIndicator" />
 			<xsl:apply-templates select="nc30:PrimaryDocument" />
 			<xsl:apply-templates select="nc30:SecondaryDocument" />
 		</ojb-crim-doc:CoreFilingMessage>
@@ -64,10 +64,13 @@
 			<xsl:apply-templates select="../j51:CaseDomesticViolenceIndicator" />
 		</j:CaseAugmentation>
 	</xsl:template>
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="ecfAugmentation">
+	<xsl:template match="pd-doc:ProsecutionDecisionReport | pdu-doc:ProsecutionDecisionReportUpdate" mode="ecfAugmentation">
 		<ojb-crim-ext:CaseAugmentation>
 			<xsl:apply-templates
-				select="/cfd-doc:CaseFilingDecisionReport/nc30:Identity[@structures:id=../nc30:PersonIdentityAssociation[nc30:Person/@structures:ref=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]/nc30:Identity/@structures:ref]"
+				select="/pd-doc:ProsecutionDecisionReport/nc30:Identity[@structures:id=../nc30:PersonIdentityAssociation[nc30:Person/@structures:ref=/pd-doc:ProsecutionDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]/nc30:Identity/@structures:ref]"
+				mode="alias" />
+			<xsl:apply-templates
+				select="/pdu-doc:ProsecutionDecisionReportUpdate/nc30:Identity[@structures:id=../nc30:PersonIdentityAssociation[nc30:Person/@structures:ref=/pdu-doc:ProsecutionDecisionReportUpdate/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]/nc30:Identity/@structures:ref]"
 				mode="alias" />
 			<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson">
 				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="defendantPerson" />
@@ -85,7 +88,7 @@
 				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="partyOrganization" />
 			</xsl:if>
 			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty" mode="party" />
-			<xsl:apply-templates select="nc30:Case/cfd-ext:CaseInitiationMethodText" />
+			<xsl:apply-templates select="nc30:Case/pd-ext:CaseInitiationMethodText" />
 		</ojb-crim-ext:CaseAugmentation>
 	</xsl:template>
 	<xsl:template match="j51:CaseDefendantParty" mode="defendantPerson">
@@ -121,10 +124,10 @@
 			<nc:EntityPersonReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(./nc30:EntityPerson)" /></xsl:attribute>
 			</nc:EntityPersonReference>
-			<xsl:apply-templates select="cfd-ext:PartyIdentification" />
-			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
-			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
-			<xsl:apply-templates select="cfd-ext:PartyConfidentialIndicator" />
+			<xsl:apply-templates select="pd-ext:PartyIdentification" />
+			<xsl:apply-templates select="pd-ext:PartyRoleText" />
+			<xsl:apply-templates select="pd-ext:PartyCategoryText" />
+			<xsl:apply-templates select="pd-ext:PartyConfidentialIndicator" />
 		</ojb-crim-ext:CaseDefendantParty>
 	</xsl:template>
 	<xsl:template match="j51:CaseDefendantParty" mode="partyOrganization">
@@ -132,10 +135,10 @@
 			<nc:EntityOrganizationReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(./nc30:EntityOrganization)" /></xsl:attribute>
 			</nc:EntityOrganizationReference>
-			<xsl:apply-templates select="cfd-ext:PartyIdentification" />
-			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
-			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
-			<xsl:apply-templates select="cfd-ext:PartyConfidentialIndicator" />
+			<xsl:apply-templates select="pd-ext:PartyIdentification" />
+			<xsl:apply-templates select="pd-ext:PartyRoleText" />
+			<xsl:apply-templates select="pd-ext:PartyCategoryText" />
+			<xsl:apply-templates select="pd-ext:PartyConfidentialIndicator" />
 		</ojb-crim-ext:CaseDefendantParty>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="defendant">
@@ -165,14 +168,14 @@
 			<xsl:apply-templates select="j51:PersonStateFingerprintIdentification" />
 			<xsl:apply-templates select="j51:DriverLicense" />
 			<ojb-crim-ext:PersonConfidentialIndicator>
-				<xsl:value-of select="normalize-space(../cfd-ext:PersonConfidentialIndicator)" />
+				<xsl:value-of select="normalize-space(../pd-ext:PersonConfidentialIndicator)" />
 			</ojb-crim-ext:PersonConfidentialIndicator>
 			<ojb-crim-ext:PersonJuvenileIndicator>
-				<xsl:value-of select="normalize-space(../cfd-ext:PersonJuvenileIndicator)" />
+				<xsl:value-of select="normalize-space(../pd-ext:PersonJuvenileIndicator)" />
 			</ojb-crim-ext:PersonJuvenileIndicator>
 			<ojb-crim-ext:IdentifiedPersonTrackingIdentification>
 				<nc:IdentificationID>
-					<xsl:value-of select="normalize-space(../cfd-ext:IdentifiedPersonTrackingIdentification)" />
+					<xsl:value-of select="normalize-space(../pd-ext:IdentifiedPersonTrackingIdentification)" />
 				</nc:IdentificationID>
 			</ojb-crim-ext:IdentifiedPersonTrackingIdentification>
 		</ojb-crim-ext:PersonAugmentation>
@@ -188,7 +191,7 @@
 				</j:DrivingJurisdictionAuthorityNCICLSTACode>
 			</nc:DriverLicenseIdentification>
 			<ojb-crim-ext:DriverLicenseCDLIndicator>
-				<xsl:value-of select="normalize-space(cfd-ext:DriverLicenseCDLIndicator)" />
+				<xsl:value-of select="normalize-space(pd-ext:DriverLicenseCDLIndicator)" />
 			</ojb-crim-ext:DriverLicenseCDLIndicator>
 		</ojb-crim-ext:PersonDriverLicense>
 	</xsl:template>
@@ -244,8 +247,8 @@
 				</nc:LocationPostalCode>
 			</nc:StructuredAddress>
 			<xsl:apply-templates select="../nc30:LocationCategoryText" />
-			<xsl:apply-templates select="../cfd-ext:DefaultLocationIndicator" />
-			<xsl:apply-templates select="../cfd-ext:PreferredLocationIndicator" />
+			<xsl:apply-templates select="../pd-ext:DefaultLocationIndicator" />
+			<xsl:apply-templates select="../pd-ext:PreferredLocationIndicator" />
 		</ojb-crim-ext:ContactMailingAddress>
 	</xsl:template>
 	<xsl:template match="nc30:ContactEmailID">
@@ -258,12 +261,12 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:ContactMailingAddressCategoryText>
 	</xsl:template>
-	<xsl:template match="cfd-ext:DefaultLocationIndicator">
+	<xsl:template match="pd-ext:DefaultLocationIndicator">
 		<ojb-crim-ext:DefaultLocationIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:DefaultLocationIndicator>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PreferredLocationIndicator">
+	<xsl:template match="pd-ext:PreferredLocationIndicator">
 		<ojb-crim-ext:PreferredLocationIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:PreferredLocationIndicator>
@@ -291,33 +294,33 @@
 			<nc:EntityPersonReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(nc30:EntityPerson)" /></xsl:attribute>
 			</nc:EntityPersonReference>
-			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
-			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
+			<xsl:apply-templates select="pd-ext:PartyRoleText" />
+			<xsl:apply-templates select="pd-ext:PartyCategoryText" />
 		</ojb-crim-ext:CaseInitiatingParty>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PartyIdentification">
+	<xsl:template match="pd-ext:PartyIdentification">
 		<ojb-crim-ext:PartyIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="normalize-space(nc30:IdentificationID)" />
 			</nc:IdentificationID>
 		</ojb-crim-ext:PartyIdentification>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PartyRoleText">
+	<xsl:template match="pd-ext:PartyRoleText">
 		<ojb-crim-ext:PartyRoleText>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:PartyRoleText>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PartyCategoryText">
+	<xsl:template match="pd-ext:PartyCategoryText">
 		<ojb-crim-ext:PartyCategoryText>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:PartyCategoryText>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PartyConfidentialIndicator">
+	<xsl:template match="pd-ext:PartyConfidentialIndicator">
 		<ojb-crim-ext:PartyConfidentialIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:PartyConfidentialIndicator>
 	</xsl:template>
-	<xsl:template match="cfd-ext:CaseInitiationMethodText">
+	<xsl:template match="pd-ext:CaseInitiationMethodText">
 		<ojb-crim-ext:CaseInitiationMethodText>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:CaseInitiationMethodText>
@@ -603,7 +606,7 @@
 			</j:BookingAgency>
 		</j:Booking>
 	</xsl:template>
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="citation">
+	<xsl:template match="pd-doc:ProsecutionDecisionReport | pdu-doc:ProsecutionDecisionReportUpdate" mode="citation">
 		<xsl:if test="../nc30:Vehicle">
 			<ojb-crim-ext:CitationCaseAugmentation>
 				<xsl:apply-templates select="nc30:Vehicle" />
@@ -616,7 +619,7 @@
 				<xsl:value-of select="normalize-space(nc30:VehicleCMVIndicator)" />
 			</nc:VehicleCMVIndicator>
 			<ojb-crim-ext:VehicleHazmatIndicator>
-				<xsl:value-of select="normalize-space(cfd-ext:VehicleHazmatIndicator)" />
+				<xsl:value-of select="normalize-space(pd-ext:VehicleHazmatIndicator)" />
 			</ojb-crim-ext:VehicleHazmatIndicator>
 		</ojb-crim-ext:Vehicle>
 	</xsl:template>
@@ -630,7 +633,7 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</nc:DateTime>
 	</xsl:template>
-	<xsl:template match="cfd-ext:CaseConfidentialIndicator">
+	<xsl:template match="pd-ext:CaseConfidentialIndicator">
 		<core:FilingConfidentialityIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</core:FilingConfidentialityIndicator>
@@ -652,7 +655,7 @@
 				<ecf:DocumentRenditionMetadata>
 					<nc:DocumentBinary>
 						<nc:BinaryBase64Object>
-							<xsl:value-of select="nc30:DocumentBinary/cfd-ext:Base64BinaryObject" />
+							<xsl:value-of select="nc30:DocumentBinary/pd-ext:Base64BinaryObject" />
 						</nc:BinaryBase64Object>
 					</nc:DocumentBinary>
 					<ecf:DocumentAttachment>
@@ -661,9 +664,9 @@
 					</ecf:DocumentAttachment>
 				</ecf:DocumentRenditionMetadata>
 			</ecf:DocumentRendition>
-			<xsl:apply-templates select="cfd-ext:PreviouslyFiledDocketText" />
-			<xsl:apply-templates select="cfd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
-			<xsl:apply-templates select="cfd-ext:DocumentPublicViewingRestrictedIndicator" />
+			<xsl:apply-templates select="pd-ext:PreviouslyFiledDocketText" />
+			<xsl:apply-templates select="pd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
+			<xsl:apply-templates select="pd-ext:DocumentPublicViewingRestrictedIndicator" />
 		</ojb-crim-ext:FilingLeadDocument>
 	</xsl:template>
 	<xsl:template match="nc30:SecondaryDocument">
@@ -682,7 +685,7 @@
 				<ecf:DocumentRenditionMetadata>
 					<nc:DocumentBinary>
 						<nc:BinaryBase64Object>
-							<xsl:value-of select="nc30:DocumentBinary/cfd-ext:Base64BinaryObject" />
+							<xsl:value-of select="nc30:DocumentBinary/pd-ext:Base64BinaryObject" />
 						</nc:BinaryBase64Object>
 					</nc:DocumentBinary>
 					<ecf:DocumentAttachment>
@@ -691,9 +694,9 @@
 					</ecf:DocumentAttachment>
 				</ecf:DocumentRenditionMetadata>
 			</ecf:DocumentRendition>
-			<xsl:apply-templates select="cfd-ext:PreviouslyFiledDocketText" />
-			<xsl:apply-templates select="cfd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
-			<xsl:apply-templates select="cfd-ext:DocumentPublicViewingRestrictedIndicator" />
+			<xsl:apply-templates select="pd-ext:PreviouslyFiledDocketText" />
+			<xsl:apply-templates select="pd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
+			<xsl:apply-templates select="pd-ext:DocumentPublicViewingRestrictedIndicator" />
 		</ojb-crim-ext:FilingConnectedDocument>
 	</xsl:template>
 	<xsl:template match="nc30:DocumentCategoryName">
@@ -716,17 +719,17 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</nc:DocumentRelatedResourceText>
 	</xsl:template>
-	<xsl:template match="cfd-ext:PreviouslyFiledDocketText">
+	<xsl:template match="pd-ext:PreviouslyFiledDocketText">
 		<ojb-crim-ext:PreviouslyFiledDocketText>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:PreviouslyFiledDocketText>
 	</xsl:template>
-	<xsl:template match="cfd-ext:DocumentPublicPartyViewingRestrictedIndicator">
+	<xsl:template match="pd-ext:DocumentPublicPartyViewingRestrictedIndicator">
 		<ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
 	</xsl:template>
-	<xsl:template match="cfd-ext:DocumentPublicViewingRestrictedIndicator">
+	<xsl:template match="pd-ext:DocumentPublicViewingRestrictedIndicator">
 		<ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>
 			<xsl:value-of select="normalize-space(.)" />
 		</ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>
