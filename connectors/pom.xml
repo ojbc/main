@@ -33,7 +33,6 @@
 
   <modules>
     <module>booking-reporting-service-connector</module>
-    <module>case-filing-decision-reporting-service-connector</module>
     <module>criminal-history-consolidation-reporting-service-connector</module>
     <module>custody-release-reporting-service-connector</module>    
     <module>custody-status-change-reporting-service-connector</module>
@@ -41,6 +40,7 @@
     <module>incident-reporting-service-connector</module>
     <module>ojb-web-application-connector-extension</module>
     <module>ojb-web-application-connector</module>
+    <module>prosecution-decision-reporting-service-connector</module>
     <module>warrant-issue-reporting-service-connector</module>
   </modules>
 </project>
