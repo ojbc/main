@@ -27,6 +27,7 @@ import java.util.Optional;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 
 public class Subscription implements Serializable {
@@ -316,6 +317,7 @@ public class Subscription implements Serializable {
 		return lastValidationDate;
 	}
 
+	@JsonIgnore
 	public String getLastValidationDateString() {
 		return Optional.ofNullable(lastValidationDate)
 				.map(date-> date.format(formatter))
@@ -330,6 +332,7 @@ public class Subscription implements Serializable {
 		return creationDate;
 	}
 
+	@JsonIgnore
 	public String getCreationDateString() {
 		return Optional.ofNullable(creationDate)
 					.map(date-> date.format(formatter))
@@ -380,6 +383,7 @@ public class Subscription implements Serializable {
 		return validationDueDate;
 	}
 
+	@JsonIgnore
 	public String getValidationDueDateString() {
 		return Optional.ofNullable(validationDueDate).map(date-> date.format(formatter)).orElse("");
 	}
