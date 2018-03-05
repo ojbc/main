@@ -105,6 +105,7 @@ public class Subscription {
 	    return validationDueDate;
 	}
     
+	@JsonIgnore
 	public String getValidationDueDateString() {
 		return validationDueDate != null? validationDueDate.toString(MM_DD_YYYY):"";
 	}
@@ -124,6 +125,8 @@ public class Subscription {
     public DateTime getLastValidationDate() {
         return lastValidationDate;
     }
+    
+	@JsonIgnore
 	public String getLastValidationDateString() {
 		return lastValidationDate != null? lastValidationDate.toString(MM_DD_YYYY):"";
 	}
@@ -135,6 +138,7 @@ public class Subscription {
 		return startDate;
 	}
 	
+	@JsonIgnore
 	public String getStartDateString() {
 		return startDate != null? startDate.toString(MM_DD_YYYY):"";
 	}
@@ -145,6 +149,7 @@ public class Subscription {
 		return endDate;
 	}
 	
+	@JsonIgnore
 	public String getEndDateString() {
 		return endDate != null? endDate.toString(MM_DD_YYYY):"";
 	}
@@ -318,6 +323,7 @@ public class Subscription {
 		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
 	}
 
+	@JsonIgnore
 	public String getSubscriptionOwnerName(){
 		return subscriptionOwnerFirstName + " " + subscriptionOwnerLastName;
 	}
