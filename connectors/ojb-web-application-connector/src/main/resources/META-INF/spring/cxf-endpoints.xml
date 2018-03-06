@@ -176,7 +176,7 @@
 	    --> 
 	    <cxf:cxfEndpoint 
 	        id="personQueryWildlifeLicenseResultsService"
-	        address="${webapplication.personQuery.personQueryResultsHandlerWildlifeLicenseEndpoint}"
+	        address="${webapplication.personQuery.personQueryResultsHandlerWildlifeLicenseEndpoint:}"
 	        wsdlURL="classpath:ssp/Wildlife_License_Query_Results/schema/SIP_WS_1.2/Wildlife_License_Query_Results_Service.wsdl"
 	        serviceName="ojbc:Wildlife-License-Query-Results-ServiceService"
 			endpointName="ojbc:Wildlife-License-Query-Results-Secure-Service"
