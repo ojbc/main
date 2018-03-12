@@ -829,6 +829,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_TRAFFIC_STOP_CODES ="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0";
 	public static final String NS_PREFIX_TRAFFIC_STOP_CODES ="ojb-ts-codes";	
+	
+	public static final String NS_PROSECUTION_DECISION_REPORT_DOC ="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0";
+	public static final String NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC ="pd-doc";	
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -838,6 +841,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC, NS_PROSECUTION_DECISION_REPORT_DOC);
+		uriToPrefixMap.put(NS_PROSECUTION_DECISION_REPORT_DOC, NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC);
 		
 		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_EXT, NS_VEHICLE_CRASH_EXT);
 		uriToPrefixMap.put(NS_VEHICLE_CRASH_EXT, NS_PREFIX_VEHICLE_CRASH_EXT);

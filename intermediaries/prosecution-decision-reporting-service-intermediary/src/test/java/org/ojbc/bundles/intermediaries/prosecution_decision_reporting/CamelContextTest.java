@@ -182,7 +182,7 @@ public class CamelContextTest {
 		XmlUtils.printNode(returnDocumentDerivedBundle);
 				
 		//Make sure the root node here is the message to the original exchange
-		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "//pdu-ext:ProsecutionDecisionDescriptionText");
+		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/pd-doc:ProsecutionDecisionReport");
 		assertNotNull(rootNode);
 		
 	}
