@@ -52,6 +52,9 @@ public class GlobalControllerAdvice {
     @Value("${showSignOutButton:false}")
     Boolean showSignOutButton;
     
+    @Value("${showPrintButton:false}")
+    Boolean showPrintButton;
+    
     @Value("${inactivityTimeoutInSeconds:1800}")
     String inactivityTimeoutInSeconds;
     
@@ -64,6 +67,7 @@ public class GlobalControllerAdvice {
         model.addAttribute("customStyleCssPath", customStyleCssPath);
         model.addAttribute("inactivityTimeout", inactivityTimeout);
         model.addAttribute("showSignOutButton", showSignOutButton);
+        model.addAttribute("showPrintButton", showPrintButton);
         model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
     }
     

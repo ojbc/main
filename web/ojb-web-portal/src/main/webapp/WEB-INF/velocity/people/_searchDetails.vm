@@ -17,6 +17,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
 		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
@@ -34,9 +35,19 @@
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
   			});
+			$("#printButton").on("click", function(){
+				window.print();
+			}); 
+  			
 		});
     </script>
     <body id="searchDetailsFrame">
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        	<div class="ui-dialog-buttonset">
+        		<button id="printButton" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+        			<span class="ui-button-text">Print</span></button>
+			</div>
+		</div>
         $searchContent
     </body>
 </html>
