@@ -16,8 +16,10 @@
  */
 package org.ojbc.audit.enhanced.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -29,6 +31,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
 
@@ -41,6 +44,10 @@ public interface EnhancedAuditDAO {
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
 	
 	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(String stateSubscriptionId);
+	
+	public List<FederalRapbackNotification> retrieveFederalNotifications(LocalDate startDate, LocalDate endDate);
+	
+	public Integer saveFederalRapbackNotification(FederalRapbackNotification federalRapbackNotification);
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	
@@ -87,5 +94,9 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
 	
 	public PrintResults retrievePrintResultsfromMessageID(String messageId);
+	
+	public List<TriggeringEvents> retrieveAllTriggeringEvents();
+	
+	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId, Integer triggeringEventId);
 	
 }

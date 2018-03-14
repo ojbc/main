@@ -47,6 +47,7 @@ public class FederalRapbackSubscription {
 	
 	private String subscriptonCategoryCode;
 	
+	//In case of error, the error message will be in this field
 	private String transactionStatusText;
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)

@@ -26,10 +26,12 @@
 	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- needed cxf imports -->
@@ -72,6 +74,8 @@
 		<endpoint id="fbiSubscriptionRequestDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/requests"/>
 		
 		<endpoint id="fbiSubscriptionResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses"/>	
+
+		<endpoint id="fbiNotificationsDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications"/>	
 		
 		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>				
 		
@@ -185,7 +189,20 @@
 					
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Notification_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToNotificationFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiNotificationsDir"/>
+					
 					<camel:to uri="bean:rapbackEventTextProcessor?method=processRapbackEventText"/>
+					
+					<!-- Audit message here, PK is saved as header for updates downstream -->
+					<camel:to uri="bean:fbiNotificationAuditProcessor?method=auditFBIRapbackNotification"/>
 					
 					<camel:choice>
 						<camel:when>
@@ -200,8 +217,12 @@
 							<camel:simple>${in.headers.RBN_Action} == 'UCN_RESTORATION'</camel:simple>
 							<to uri="direct:processFederalRapbackRestoration"/>	
 						</camel:when>
-						<camel:otherwise>
+						<camel:when>
+							<camel:xpath>//ebts:RapBackTriggeringEventCode</camel:xpath>
 							<to uri="direct:processFederalRapbackNotification"/>	
+						</camel:when>
+						<camel:otherwise>
+							<camel:log message="Unknown notification from FBI"/>
 						</camel:otherwise>
 					</camel:choice>
 					
@@ -457,9 +478,27 @@
 		</camel:route>				
 
 	</camel:camelContext>
+	
+	<util:map id="triggeringEventCodeLookup">
+		<entry key="1" value="ARREST" />
+		<entry key="2" value="DISPOSITION" />
+		<entry key="3" value="ARREST" />
+		<entry key="5" value="NCIC-WARRANT-ENTRY’" />
+		<entry key="6" value="NCIC-WARRANT-DELETION" />
+		<entry key="7" value="NCIC-WARRANT-MODIFICATION" />
+		<entry key="8" value="NCIC-SOR-ENTRY" />
+		<entry key="9" value="NCIC-SOR-DELETION" />
+		<entry key="10" value="NCIC-SOR-MODIFICATION" />
+		<entry key="12" value="DEATH" />
+	</util:map>
 
 	<bean id="fbiSubscriptionAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiSubscriptionAuditProcessor">
 		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiNotificationAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiNotificationAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+		<property name="triggeringEventCodeLookup" ref="triggeringEventCodeLookup"/>
 	</bean>	
 	
 	<bean id="fbiEmailErrorProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEmailErrorProcessor">

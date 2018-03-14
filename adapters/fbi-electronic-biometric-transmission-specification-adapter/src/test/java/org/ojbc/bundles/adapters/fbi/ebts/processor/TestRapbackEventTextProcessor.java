@@ -45,7 +45,7 @@ public class TestRapbackEventTextProcessor {
 	    CamelContext ctx = new DefaultCamelContext(); 
 	    Exchange ex = new DefaultExchange(ctx);
 		
-		ex = rapbackEventTextProcessor.processRapbackEventText(fbiRBNucnConsolidation, ex);
+		rapbackEventTextProcessor.processRapbackEventText(ex, fbiRBNucnConsolidation);
 		
 		assertEquals("YYYYYYYYYY",(String) ex.getIn().getHeader("retainedIdentity"));
 		assertEquals("XXXXXXXXX", (String)ex.getIn().getHeader("deletedIdentity"));
@@ -66,7 +66,7 @@ public class TestRapbackEventTextProcessor {
 	    CamelContext ctx = new DefaultCamelContext(); 
 	    Exchange ex = new DefaultExchange(ctx);
 		
-		ex = rapbackEventTextProcessor.processRapbackEventText(fbiRBNucnConsolidation, ex);
+		rapbackEventTextProcessor.processRapbackEventText(ex, fbiRBNucnConsolidation);
 		
 		assertEquals("XXXXXXXXX",(String) ex.getIn().getHeader("restoredIdentity"));
 		assertEquals("yyyyyyy", (String)ex.getIn().getHeader("deletedSubscription"));
@@ -87,7 +87,7 @@ public class TestRapbackEventTextProcessor {
 	    CamelContext ctx = new DefaultCamelContext(); 
 	    Exchange ex = new DefaultExchange(ctx);
 		
-		ex = rapbackEventTextProcessor.processRapbackEventText(fbiRBNucnConsolidation, ex);
+		rapbackEventTextProcessor.processRapbackEventText(ex, fbiRBNucnConsolidation);
 
 		assertEquals("9999999", (String)ex.getIn().getHeader("deletedIdentity"));
 		assertEquals("8888888",(String) ex.getIn().getHeader("deletedSubscription"));

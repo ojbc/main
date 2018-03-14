@@ -31,7 +31,7 @@ public class RapbackEventTextProcessor {
 	private static final String UCN_DELETION = "RB010";
 	private static final String UCN_RESTORATION = "RB017";
 	
-	public Exchange processRapbackEventText(@Body Document rapbackNotification, Exchange ex) throws Exception
+	public void processRapbackEventText(Exchange ex, @Body Document rapbackNotification) throws Exception
 	{
 		String rapbackEventText = XmlUtils.xPathStringSearch(rapbackNotification, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventText");
 		
@@ -79,7 +79,6 @@ public class RapbackEventTextProcessor {
 		ex.getIn().setHeader("restoredIdentity",restoredIdentity);
 		ex.getIn().setHeader("deletedSubscription",deletedSubscription);
 		
-		return ex;
 	}
 	
 }

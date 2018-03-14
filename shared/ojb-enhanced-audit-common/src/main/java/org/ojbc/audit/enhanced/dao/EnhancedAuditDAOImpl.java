@@ -21,13 +21,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -36,12 +39,13 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
-import org.ojbc.audit.enhanced.dao.model.PrintResults;
-import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
+import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -765,6 +769,109 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		List<UserInfo> userInfo = jdbcTemplate.query(USER_INFO_SELECT, new UserInfoRowMapper(), userInfoPk);
 		return DataAccessUtils.singleResult(userInfo);	
 	}	
+
+	@Override
+	public List<FederalRapbackNotification> retrieveFederalNotifications(
+			LocalDate startDate, LocalDate endDate) {
+		
+		//The query is set up to be a less than query so we add a day
+		//So we are getting everything before midnight tomorrow
+		if (endDate != null)
+		{
+			endDate = endDate.plusDays(1);
+		}	
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		String startDateString = startDate.format(formatter) + " 00:00:00";
+		String endDateString = endDate.format(formatter) + " 00:00:00";
+		
+		String notificationSelectStatement ="SELECT * FROM FEDERAL_RAPBACK_NOTIFICATION WHERE NOTIFICATION_RECIEVED_TIMESTAMP > '" + startDateString + "' AND NOTIFICATION_RECIEVED_TIMESTAMP < '" + endDateString +  "' order by NOTIFICATION_RECIEVED_TIMESTAMP desc";
+		
+		log.info("Retrieve Federal Notifications SQL: " + notificationSelectStatement);
+		
+		List<FederalRapbackNotification> federalRapbackNotifications = jdbcTemplate.query(notificationSelectStatement, new FederalRapbackNotificationRowMapper());
+		
+		return federalRapbackNotifications;	
+		
+	}
+
+	@Override
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(
+			String stateSubscriptionId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM FEDERAL_RAPBACK_SUBSCRIPTION WHERE STATE_SUBSCRIPTION_ID = ? order by REQUEST_SENT_TIMESTAMP desc";
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = jdbcTemplate.query(SUBSCRIPTION_SELECT, new FederalRapbackSubscriptionRowMapper(), stateSubscriptionId);
+		
+		return federalRapbackSubscriptions;
+	}
+	
+	@Override
+	public List<TriggeringEvents> retrieveAllTriggeringEvents() {
+		final String SELECT="SELECT * FROM TRIGGERING_EVENTS order by TRIGGERING_EVENT asc";
+		
+		List<TriggeringEvents> federalRapbackSubscriptions = jdbcTemplate.query(SELECT, new TriggeringEventRowMapper());
+		
+		return federalRapbackSubscriptions;
+	}	
+
+	@Override
+	public Integer saveFederalRapbackNotification(
+			FederalRapbackNotification federalRapbackNotification) {
+
+		log.debug("Inserting row into FEDERAL_RAPBACK_NOTIFICATION table : " + federalRapbackNotification.toString());
+		
+        final String FEDERAL_RAPBACK_NOTIFICATION_INSERT="INSERT into FEDERAL_RAPBACK_NOTIFICATION "
+        		+ "(PATH_TO_NOTIFICATION_FILE, STATE_SUBSCRIPTION_ID, RAPBACK_EVENT_TEXT, ORIGINAL_IDENTIFIER, UPDATED_IDENTIFIER, TRANSACTION_TYPE, NOTIFICATION_RECIEVED_TIMESTAMP) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FEDERAL_RAPBACK_NOTIFICATION_INSERT, new String[] {"FEDERAL_RAPBACK_NOTIFICATION_ID"});
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getPathToNotificationFile(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getStateSubscriptionId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRapBackEventText(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getOriginalIdentifier(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getUpdatedIdentifier(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getTransactionType(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getNotificationRecievedTimestamp(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}	
+	
+	@Override
+	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId,
+			Integer triggeringEventId) {
+		log.debug("Inserting row into TRIGGERING_EVENTS_JOINER table, triggering event id: " + triggeringEventId + ", federal rapback notification id: " + federalRapbackNotificationId);
+		
+        final String TRIGGERING_EVENT_INSERT="INSERT into TRIGGERING_EVENTS_JOINER "
+        		+ "(FEDERAL_RAPBACK_NOTIFICATION_ID, TRIGGERING_EVENTS_ID) "
+        		+ "values (?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(TRIGGERING_EVENT_INSERT, new String[] {"TRIGGERING_EVENTS_JOINER_ID"});
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotificationId, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(triggeringEventId, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
 	
 	private final class UserInfoRowMapper implements RowMapper<UserInfo> {
 		public UserInfo mapRow(ResultSet rs, int rowNum)
@@ -959,6 +1066,52 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class FederalRapbackNotificationRowMapper implements RowMapper<FederalRapbackNotification> {
+		public FederalRapbackNotification mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			FederalRapbackNotification federalRapbackNotification = buildFederalRapbackNotification(rs);
+			return federalRapbackNotification;
+		}
+
+		private FederalRapbackNotification buildFederalRapbackNotification(
+				ResultSet rs) throws SQLException{
+
+			FederalRapbackNotification federalRapbackNotification = new FederalRapbackNotification();
+			
+			federalRapbackNotification.setFederalRapbackNotificationId(rs.getInt("FEDERAL_RAPBACK_NOTIFICATION_ID"));
+			federalRapbackNotification.setNotificationRecievedTimestamp(toLocalDateTime(rs.getTimestamp("NOTIFICATION_RECIEVED_TIMESTAMP")));
+			federalRapbackNotification.setOriginalIdentifier(rs.getString("ORIGINAL_IDENTIFIER"));
+			federalRapbackNotification.setUpdatedIdentifier(rs.getString("UPDATED_IDENTIFIER"));
+			federalRapbackNotification.setTransactionType(rs.getString("TRANSACTION_TYPE"));
+			federalRapbackNotification.setPathToNotificationFile(rs.getString("PATH_TO_NOTIFICATION_FILE"));
+			federalRapbackNotification.setRapBackEventText(rs.getString("RAPBACK_EVENT_TEXT"));
+			federalRapbackNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
+			
+			return federalRapbackNotification;
+		}
+	}	
+	
+	private final class TriggeringEventRowMapper implements RowMapper<TriggeringEvents> {
+		public TriggeringEvents mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			TriggeringEvents TriggeringEvent = buildTriggeringEvents(rs);
+			return TriggeringEvent;
+		}
+
+		private TriggeringEvents buildTriggeringEvents(
+				ResultSet rs) throws SQLException{
+
+			TriggeringEvents triggeringEvent = new TriggeringEvents();
+			
+			triggeringEvent.setTriggeringEvent(rs.getString("TRIGGERING_EVENT"));
+			triggeringEvent.setTriggeringEventsId(rs.getInt("TRIGGERING_EVENTS_ID"));
+			
+			return triggeringEvent;
+		}
+	}		
+	
+	
+	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();
 	}
@@ -982,16 +1135,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	public void setNamedParameterJdbcTemplate(
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-	}
-
-	@Override
-	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(
-			String stateSubscriptionId) {
-		final String SUBSCRIPTION_SELECT="SELECT * FROM FEDERAL_RAPBACK_SUBSCRIPTION WHERE STATE_SUBSCRIPTION_ID = ?";
-		
-		List<FederalRapbackSubscription> federalRapbackSubscriptions = jdbcTemplate.query(SUBSCRIPTION_SELECT, new FederalRapbackSubscriptionRowMapper(), stateSubscriptionId);
-		
-		return federalRapbackSubscriptions;
 	}
 
 }
