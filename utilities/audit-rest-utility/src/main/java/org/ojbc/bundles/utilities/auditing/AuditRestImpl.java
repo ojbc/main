@@ -128,4 +128,11 @@ public class AuditRestImpl implements AuditInterface {
 		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotifications(queryRequestByDateRange.getStartDate(), queryRequestByDateRange.getEndDate());
 		return federalRapbackNotifications;
 	}
+
+	@Override
+	public List<FederalRapbackNotification> searchForFederalRapbackNotifications(
+			String subscriptionId) {
+		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId(subscriptionId);
+		return federalRapbackNotifications;
+	}
 }

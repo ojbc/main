@@ -793,6 +793,28 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<FederalRapbackNotification> federalRapbackNotifications = jdbcTemplate.query(notificationSelectStatement, new FederalRapbackNotificationRowMapper());
 		
+		addTriggeringEvents(federalRapbackNotifications);	
+		
+		return federalRapbackNotifications;	
+		
+	}
+	
+	@Override
+	public List<FederalRapbackNotification> retrieveFederalNotificationsBySubscriptionId(
+			String subscriptionId) {
+		String notificationSelectStatement ="SELECT * FROM FEDERAL_RAPBACK_NOTIFICATION WHERE STATE_SUBSCRIPTION_ID = ? order by NOTIFICATION_RECIEVED_TIMESTAMP desc";
+		
+		log.info("Retrieve Federal Notifications SQL by state subscription ID: " + subscriptionId);
+		
+		List<FederalRapbackNotification> federalRapbackNotifications = jdbcTemplate.query(notificationSelectStatement, new FederalRapbackNotificationRowMapper(), subscriptionId);
+		
+		addTriggeringEvents(federalRapbackNotifications);	
+		
+		return federalRapbackNotifications;
+	}
+	
+	private void addTriggeringEvents(
+			List<FederalRapbackNotification> federalRapbackNotifications) {
 		for (FederalRapbackNotification federalRapbackNotification : federalRapbackNotifications)
 		{
 			String transactionType = federalRapbackNotification.getTransactionType();
@@ -806,11 +828,10 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 				}	
 				
 			}	
-		}	
-		
-		return federalRapbackNotifications;	
-		
+		}
 	}
+	
+
 
 	@Override
 	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(

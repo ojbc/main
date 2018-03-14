@@ -388,4 +388,45 @@ public class TestAuditRestImpl {
 		
 	}		
 	
+	@Test
+	public void testSearchForFederalRapbackNotificationsByStateSubscriptionId() throws Exception
+	{
+		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackNotificationsByStateSubscriptionId";
+		
+		FederalRapbackNotification federalRapbackNotification = new FederalRapbackNotification();
+
+		federalRapbackNotification.setNotificationRecievedTimestamp(LocalDateTime.now());
+		federalRapbackNotification.setOriginalIdentifier("123");
+		federalRapbackNotification.setUpdatedIdentifier("456");
+		federalRapbackNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
+		federalRapbackNotification.setRapBackEventText("Rapback event text");
+		federalRapbackNotification.setStateSubscriptionId("State123456789");
+		federalRapbackNotification.setTransactionType("NOTIFICATION_MATCHING_SUBSCRIPTION");
+		
+		Integer pk = enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
+		
+		enhancedAuditDao.saveTriggeringEvent(pk, 1);
+		enhancedAuditDao.saveTriggeringEvent(pk, 2);
+
+		ResponseEntity<List<FederalRapbackNotification>> fedNotificationsResponseResponse =
+		        restTemplate.exchange(uri + "/State123456789",
+		                    HttpMethod.GET, null, new ParameterizedTypeReference<List<FederalRapbackNotification>>() {
+		            });
+		
+		List<FederalRapbackNotification> fedNotification = fedNotificationsResponseResponse.getBody();
+		
+		assertNotNull(fedNotification);
+		assertEquals(1, fedNotification.size());
+		
+		FederalRapbackNotification federalRapbackNotificationFromRestService =  fedNotification.get(0);
+		
+		assertEquals("123",federalRapbackNotificationFromRestService.getOriginalIdentifier());
+		assertEquals("456",federalRapbackNotificationFromRestService.getUpdatedIdentifier());
+		assertEquals("/tmp/path/toNotificationFile",federalRapbackNotificationFromRestService.getPathToNotificationFile());
+		assertEquals("Rapback event text",federalRapbackNotificationFromRestService.getRapBackEventText());
+		assertEquals("State123456789",federalRapbackNotificationFromRestService.getStateSubscriptionId());
+		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION",federalRapbackNotificationFromRestService.getTransactionType());
+		assertEquals(2, federalRapbackNotificationFromRestService.getTriggeringEvents().size());
+		
+	}
 }

@@ -79,8 +79,22 @@
 					<to uri="direct:retrieveRapbackNotifications" />
 				</when>				
 				
+				<when>
+					<simple>${header.operationName} == 'searchForFederalRapbackNotifications'</simple>
+					<to uri="direct:searchForFederalRapbackNotificationsByStateSubscriptionId" />
+				</when>
+				
+				
 			</choice>
 		</route>
+
+		<route id="directSearchForFederalRapbackNotificationsByStateSubscriptionId">
+			<from uri="direct:searchForFederalRapbackNotificationsByStateSubscriptionId" />
+			
+			<camel:log message="Retrieve Federal Rapback Notifications by State Subscription ID"/>
+			
+			<bean ref="auditRestImpl" method="searchForFederalRapbackNotifications" />
+		</route>	
 
 		<route id="directRetrieveRapbackNotifications">
 			<from uri="direct:retrieveRapbackNotifications" />

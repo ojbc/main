@@ -263,6 +263,18 @@ public class EnhancedAuditDaoTest {
 		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
 		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
 		
+		
+		federalNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId("State12345");
+
+		assertEquals(1, federalNotifications.size());
+		
+		assertEquals("123",federalNotifications.get(0).getOriginalIdentifier());
+		assertEquals("456",federalNotifications.get(0).getUpdatedIdentifier());
+		assertEquals("/tmp/path/toNotificationFile",federalNotifications.get(0).getPathToNotificationFile());
+		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
+		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
+		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
+
 	}
 		
 	@Test
