@@ -177,6 +177,9 @@ public class PortalAuthenticationDetailsSource implements
         	/*
         	 * Check whether to grant admin role.  
         	 */
+        	log.info("fedIdsWithAdminAccess:" + StringUtils.join(fedIdsWithAdminAccess, ","));
+        	log.info("principal:" + principal);
+        	log.info("fedIdsWithAdminAccess.contains(principal):" + fedIdsWithAdminAccess.contains(principal));
         	if (fedIdsWithAdminAccess.contains(principal)){
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_ADMIN.name()));
         	}

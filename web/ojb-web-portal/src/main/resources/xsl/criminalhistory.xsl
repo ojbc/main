@@ -526,6 +526,9 @@
 		<xsl:if test="normalize-space(j:ChargeText) != ''">
 			<p><span class="smallLabel">Arrest Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
 		</xsl:if>	
+		<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
+			<p><span class="smallLabel">Arrest Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
+		</xsl:if>	
 		<xsl:if test="normalize-space(j:ChargeDescriptionText) = '' and normalize-space(j:ChargeText) =''">
 			<p><span class="smallLabel">Arrest Charge Description: </span></p>
 		</xsl:if>		
@@ -585,6 +588,7 @@
 			<p><span class="detailsLabel">Probation Charge</span></p>
 		</xsl:if>
 		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
+		<p><span class="smallLabel">Prosecution Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
 		<p><span class="smallLabel">Prosecution Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
 		<p><span class="smallLabel">Prosecution Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
 		<p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
@@ -613,6 +617,10 @@
 			<xsl:if test="normalize-space(j:ChargeText) != ''">
 				<p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
 			</xsl:if>	
+			<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
+				<p><span class="smallLabel">Charge Severity Text: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
+			</xsl:if>	
+			
 			<xsl:if test="normalize-space(j:ChargeDescriptionText) = '' and normalize-space(j:ChargeText) =''">
 				<p><span class="smallLabel">Charge Description: </span></p>
 			</xsl:if>

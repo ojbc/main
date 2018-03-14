@@ -732,7 +732,7 @@
 		<entry key="low" value="Low/Cosmetic" />
 	</util:map>
 
-   <!-- uncomment this to support enhanced auditing 
+   <!-- uncomment this to support enhanced auditing -->
    	<bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClientRequestFactory">
         <constructor-arg value="${webapplication.connector.truststoreLocation}"/>
         <constructor-arg value="${webapplication.connector.truststorePassword}"/>
@@ -746,6 +746,5 @@
 	        </list>
 		</property>
     </bean>	 
-   -->
 
 </beans>
