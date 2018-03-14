@@ -94,4 +94,22 @@ public class TestRapbackEventTextProcessor {
 		
 	}
 
+	@Test
+	public void processNotificationMatchingSubscription() throws Exception
+	{
+	    //Read the criminal history update file from the file system
+	    File inputFile = new File("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+		Document fbiRBNucnConsolidation = OJBUtils.loadXMLFromString(inputStr);
+		
+		RapbackEventTextProcessor rapbackEventTextProcessor = new RapbackEventTextProcessor();
+		
+	    CamelContext ctx = new DefaultCamelContext(); 
+	    Exchange ex = new DefaultExchange(ctx);
+		
+		rapbackEventTextProcessor.processRapbackEventText(ex, fbiRBNucnConsolidation);
+		
+		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION", (String)ex.getIn().getHeader("RBN_Action"));
+	}
 }

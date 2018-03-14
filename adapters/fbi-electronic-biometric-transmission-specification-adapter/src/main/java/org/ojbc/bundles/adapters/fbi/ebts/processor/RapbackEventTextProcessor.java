@@ -35,6 +35,13 @@ public class RapbackEventTextProcessor {
 	{
 		String rapbackEventText = XmlUtils.xPathStringSearch(rapbackNotification, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventText");
 		
+		String notifyingEventCode = XmlUtils.xPathStringSearch(rapbackNotification, "//ebts:RapBackTriggeringEventCode[1]");
+		
+		if (StringUtils.isNotBlank(notifyingEventCode))
+		{
+			ex.getIn().setHeader("RBN_Action", "NOTIFICATION_MATCHING_SUBSCRIPTION");
+		}	
+		
 		//RB009 - A Consolidation of NGI Identities has resulted in the information for deleted identity (ies) (UCN(s) XXXXXXXXX being consolidated with the retained Identity UCN XXXXXXXXX.
 		//RB010 - The Identity associated with UCN:%1 has been deleted from NGI, resulting in the deletion of your Rap Back Subscription ID#:%2
 		//RB017 – The Deletion action has been reversed in NGI for UCN XXXXXXXXX.  Rap Back ID# xxxxxx has been restored to its previous state
