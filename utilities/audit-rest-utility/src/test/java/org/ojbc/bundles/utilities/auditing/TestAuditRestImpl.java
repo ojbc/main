@@ -19,6 +19,7 @@ package org.ojbc.bundles.utilities.auditing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -338,5 +341,47 @@ public class TestAuditRestImpl {
 		assertEquals(true,agency1.getFbiSubscriptionQualification());
 
 	}
+	
+	@Test
+	public void testRetrieveRapbackNotifications() throws Exception
+	{
+		FederalRapbackNotification federalRapbackNotification = new FederalRapbackNotification();
+
+		federalRapbackNotification.setNotificationRecievedTimestamp(LocalDateTime.now());
+		federalRapbackNotification.setOriginalIdentifier("123");
+		federalRapbackNotification.setUpdatedIdentifier("456");
+		federalRapbackNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
+		federalRapbackNotification.setRapBackEventText("Rapback event text");
+		federalRapbackNotification.setStateSubscriptionId("State12345");
+		federalRapbackNotification.setTransactionType("UCN_Consolidation");
+		
+		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
+		
+		final String uri = "http://localhost:9898/auditServer/audit/retrieveRapbackNotifications";
+		
+		QueryRequestByDateRange queryRequestByDateRange = new QueryRequestByDateRange();
+		
+		queryRequestByDateRange.setStartDate(LocalDate.now().minusDays(7));
+		queryRequestByDateRange.setEndDate(LocalDate.now());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
+		
+		ResponseEntity<List<FederalRapbackNotification>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FederalRapbackNotification>>() {});
+		
+		List<FederalRapbackNotification> federalRapbackNotificationFromService = response.getBody();
+		
+		assertEquals(1, federalRapbackNotificationFromService.size());
+		
+		assertEquals("123",federalRapbackNotificationFromService.get(0).getOriginalIdentifier());
+		assertEquals("456",federalRapbackNotificationFromService.get(0).getUpdatedIdentifier());
+		assertEquals("/tmp/path/toNotificationFile",federalRapbackNotificationFromService.get(0).getPathToNotificationFile());
+		assertEquals("Rapback event text",federalRapbackNotificationFromService.get(0).getRapBackEventText());
+		assertEquals("State12345",federalRapbackNotificationFromService.get(0).getStateSubscriptionId());
+		assertEquals("UCN_Consolidation",federalRapbackNotificationFromService.get(0).getTransactionType());
+		
+	}		
 	
 }
