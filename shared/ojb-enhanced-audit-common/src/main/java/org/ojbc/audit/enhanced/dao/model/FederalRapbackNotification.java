@@ -17,6 +17,7 @@
 package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -38,6 +39,8 @@ public class FederalRapbackNotification {
 	private String rapBackEventText;
 
 	private String transactionType;
+	
+	private List<String> triggeringEvents;
 	
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -106,6 +109,14 @@ public class FederalRapbackNotification {
 
 	public void setPathToNotificationFile(String pathToNotificationFile) {
 		this.pathToNotificationFile = pathToNotificationFile;
+	}
+
+	public List<String> getTriggeringEvents() {
+		return triggeringEvents;
+	}
+
+	public void setTriggeringEvents(List<String> triggeringEvents) {
+		this.triggeringEvents = triggeringEvents;
 	}
 
 	

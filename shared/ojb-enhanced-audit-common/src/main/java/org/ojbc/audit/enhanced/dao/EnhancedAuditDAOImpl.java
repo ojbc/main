@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -792,6 +793,21 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<FederalRapbackNotification> federalRapbackNotifications = jdbcTemplate.query(notificationSelectStatement, new FederalRapbackNotificationRowMapper());
 		
+		for (FederalRapbackNotification federalRapbackNotification : federalRapbackNotifications)
+		{
+			String transactionType = federalRapbackNotification.getTransactionType();
+			
+			if (StringUtils.isNotBlank(transactionType))
+			{
+				if (transactionType.equals("NOTIFICATION_MATCHING_SUBSCRIPTION"))
+				{
+					List<String> triggeringEvents = retrieveTriggeringEventsForNotification(federalRapbackNotification.getFederalRapbackNotificationId());
+					federalRapbackNotification.setTriggeringEvents(triggeringEvents);
+				}	
+				
+			}	
+		}	
+		
 		return federalRapbackNotifications;	
 		
 	}
@@ -871,6 +887,19 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    keyHolder);
 
          return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
+	public List<String> retrieveTriggeringEventsForNotification(
+			Integer federalRapbackNotificationId) {
+		
+		final String SUBSCRIPTION_SELECT="SELECT te.TRIGGERING_EVENT FROM TRIGGERING_EVENTS te, TRIGGERING_EVENTS_JOINER tej "
+				+ " WHERE te.TRIGGERING_EVENTS_ID=tej.TRIGGERING_EVENTS_ID and tej.FEDERAL_RAPBACK_NOTIFICATION_ID=?";
+		
+		List<String> triggeringEvents = jdbcTemplate.queryForList(SUBSCRIPTION_SELECT, String.class, federalRapbackNotificationId);
+		
+		return triggeringEvents;
+				
 	}
 	
 	private final class UserInfoRowMapper implements RowMapper<UserInfo> {
