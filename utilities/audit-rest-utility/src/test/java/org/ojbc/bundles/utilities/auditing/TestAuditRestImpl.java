@@ -353,9 +353,12 @@ public class TestAuditRestImpl {
 		federalRapbackNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State12345");
-		federalRapbackNotification.setTransactionType("UCN_Consolidation");
+		federalRapbackNotification.setTransactionType("NOTIFICATION_MATCHING_SUBSCRIPTION");
 		
-		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
+		Integer pk = enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
+		
+		enhancedAuditDao.saveTriggeringEvent(pk, 1);
+		enhancedAuditDao.saveTriggeringEvent(pk, 2);
 		
 		final String uri = "http://localhost:9898/auditServer/audit/retrieveRapbackNotifications";
 		
@@ -380,7 +383,8 @@ public class TestAuditRestImpl {
 		assertEquals("/tmp/path/toNotificationFile",federalRapbackNotificationFromService.get(0).getPathToNotificationFile());
 		assertEquals("Rapback event text",federalRapbackNotificationFromService.get(0).getRapBackEventText());
 		assertEquals("State12345",federalRapbackNotificationFromService.get(0).getStateSubscriptionId());
-		assertEquals("UCN_Consolidation",federalRapbackNotificationFromService.get(0).getTransactionType());
+		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION",federalRapbackNotificationFromService.get(0).getTransactionType());
+		assertEquals(2, federalRapbackNotificationFromService.get(0).getTriggeringEvents().size());
 		
 	}		
 	

@@ -99,4 +99,6 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId, Integer triggeringEventId);
 	
+	public List<String> retrieveTriggeringEventsForNotification(Integer federalRapbackNotificationId);
+	
 }
