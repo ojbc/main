@@ -18,9 +18,11 @@ package org.ojbc.util.helper;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
@@ -68,11 +70,32 @@ public class ZipUtilsTest {
 		
 	}
 
+	@Test
+	public void testUnzip() throws IOException, DataFormatException {
+		
+		String zippedFingerPrintsFile = FileUtils.readFileToString(new File("/Users/haiqiwei/Downloads/deleteme/zippedFingerPrints.txt"));
+		printUnCompressedString(zippedFingerPrintsFile);
+//		printCompressedHexString(fbiCriminalHistory);
+//		
+//		String fbiSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/fbi_initial_result_match-no-match-bart.html"));
+//		printCompressedHexString(fbiSearchResultFile);
+//
+//		String stateSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/state_initial_result_match-no-match-bart.html"));
+//		printCompressedHexString(stateSearchResultFile);
+		
+		
+	}
+	
 	private void printCompressedHexString(String originalData) throws IOException {
 		byte[] compressedData = ZipUtils.zip(originalData.getBytes());
 		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
 	}
 
+	private void printUnCompressedString(String compressedData) throws IOException {
+		byte[] uncompressedData = ZipUtils.unzip(compressedData.getBytes());
+		System.out.println(compressedData + " uncompressed as "+ StringUtils.trimAllWhitespace(uncompressedData.toString()));
+	}
+	
 	private String bytesToHexString(byte[] compressedData) {
 		StringBuilder sb = new StringBuilder();
 		for (byte b: compressedData){

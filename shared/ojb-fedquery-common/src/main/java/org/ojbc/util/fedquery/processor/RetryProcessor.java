@@ -87,9 +87,12 @@ public class RetryProcessor {
 			Exchange orignalBookingExchange = exchangeList.get(0);
 			
 			String federatedQueryGUID = (String) orignalBookingExchange.getIn().getHeader("federatedQueryRequestGUID");
-
+			String bookingNumber = (String) orignalBookingExchange.getIn().getHeader("bookingNumber");
+			
 			groupedExchange.getIn().setBody(orignalBookingExchange.getIn().getHeader("requestMessageBody"));
 			groupedExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryGUID);
+			groupedExchange.getIn().setHeader("bookingNumber", bookingNumber);
+			
 		}	
 
 	}

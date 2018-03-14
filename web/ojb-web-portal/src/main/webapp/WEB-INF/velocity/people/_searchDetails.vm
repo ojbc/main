@@ -34,9 +34,17 @@
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
   			});
+  			
+  			$("#printButton").button();
+				
+			$("#printButton").on("click", function(){
+				window.print();
+			}); 
+  			
 		});
     </script>
     <body id="searchDetailsFrame">
+    	<div class="printable">Information provided by the Open Justice Broker and is retrieved from multiple systems and should be validated with submitting agencies before taking action</div>
         $searchContent
     </body>
 </html>

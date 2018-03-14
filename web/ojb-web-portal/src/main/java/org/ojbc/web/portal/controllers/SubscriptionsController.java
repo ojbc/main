@@ -131,7 +131,7 @@ public class SubscriptionsController {
 	
 	private SimpleDateFormat dateFormDOB = new SimpleDateFormat("yyyy-MM-dd");
 	
-	@Value("${validationThreshold: 400}")
+	@Value("${validationThreshold: 60}")
 	Integer validationThreshold;
 
 	@Value("${defaultPersonSearchSubscriptionTopic:}")

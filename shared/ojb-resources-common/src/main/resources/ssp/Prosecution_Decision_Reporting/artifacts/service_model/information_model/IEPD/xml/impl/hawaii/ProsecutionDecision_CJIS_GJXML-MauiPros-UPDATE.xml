@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pdu-doc:ProsecutionDecisionReportUpdate xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReportUpdate/1.0 ../../../xsd/ProsecutionDecisionReportUpdate.xsd"
+	xmlns:pdu-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReportUpdate/1.0" xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>60046G5</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<j:ActivityAugmentation>
+			<j:CaseLinkage>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>005013A</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:CaseLinkage>
+		</j:ActivityAugmentation>
+		<nc:CaseCategoryText>A</nc:CaseCategoryText>
+		<nc:CaseTrackingID>CR05-12345</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseAmendedCharge structures:ref="Chg1">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+					<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+					<!-- Types Of Dispositions: In (parenthesis) is the narrative
+						description of the disposition in CJIS-Hawaii to help give better understanding
+						of the difference between similar dispositions. -->
+					<!--
+						Complaint – Circuit Court (A complaint was filed by the Prosecutors office in Circuit Court)
+						Complaint – GJ Waived (A complaint was filed by the Prosecutors office waiving grand jury)
+						Complaint – Prelim (A complaint was filed by the Prosecutors office)
+						Complaint – Super-Ind (A complaint superseding the indictment was filed by the Prosecutors office
+						Complaint (A complaint was filed by the Prosecutors office)
+						Decline to Prosecute (Prosecution was declined)
+						Extradition Charge (This charge is an extradition charge)
+						Indictment – No Bill (There was no bill by the grand jury)
+						Indictment – True Bill (Subject was indicted by the grand jury)
+						Info Charge
+						Informational No Charge
+						Merged Charge (The charge was merged into another charge)
+						MP-Charge Added (The prosecutors added the actual charge)
+						No Action Charge (No action charge closed by prosecutor)
+						Not Addressed (This charge will not be addressed – refer to case-in-chief)
+						Penal Summons Complaint (A penal summons complaint was filed)
+						Petition (A petition was filed) -->
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>05-00001</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>708-0822</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<pd-ext:AddOnChargeIndicator>false</pd-ext:AddOnChargeIndicator>
+			</j:CaseAmendedCharge>
+			<j:CaseAmendedCharge structures:ref="Chg2">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>ADD-ON</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>708-0833.5</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<pd-ext:AddOnChargeIndicator>false</pd-ext:AddOnChargeIndicator>
+			</j:CaseAmendedCharge>
+			<j:CaseCharge structures:id="Chg1">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>05-00001</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSeverityText>FC</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>708-0821</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<j:ChargeSubject>
+					<nc:RoleOfPerson structures:ref="Def01" />
+					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
+					<pd-ext:SubjectCareerCriminalIndicator>true</pd-ext:SubjectCareerCriminalIndicator>
+					<pd-ext:SubjectFirearmsIndicator>false</pd-ext:SubjectFirearmsIndicator>
+					<pd-ext:SubjectMentalHealthConditionIndicator>false</pd-ext:SubjectMentalHealthConditionIndicator>
+				</j:ChargeSubject>
+				<j:ChargeVictim>
+					<nc:RoleOfPerson structures:ref="Vic01" />
+				</j:ChargeVictim>
+				<pd-ext:AddOnChargeIndicator>false</pd-ext:AddOnChargeIndicator>
+			</j:CaseCharge>
+			<j:CaseCharge structures:id="Chg2">
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>ADD-ON</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>708-0833.5</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<j:ChargeSubject>
+					<nc:RoleOfPerson structures:ref="Def01" />
+					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
+					<pd-ext:SubjectCareerCriminalIndicator>true</pd-ext:SubjectCareerCriminalIndicator>
+					<pd-ext:SubjectFirearmsIndicator>false</pd-ext:SubjectFirearmsIndicator>
+					<pd-ext:SubjectMentalHealthConditionIndicator>false</pd-ext:SubjectMentalHealthConditionIndicator>
+				</j:ChargeSubject>
+				<j:ChargeVictim>
+					<nc:RoleOfPerson structures:ref="Vic01" />
+				</j:ChargeVictim>
+				<pd-ext:AddOnChargeIndicator>false</pd-ext:AddOnChargeIndicator>
+			</j:CaseCharge>
+			<j:CaseCharge>
+				<j:ChargeApplicabilityText>Attempted</j:ChargeApplicabilityText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>05-00005</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeSeverityText>PM</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>710-1077</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+				<j:ChargeSubject>
+					<nc:RoleOfPerson structures:ref="Def01" />
+					<j:SubjectCautionInformationCode>00</j:SubjectCautionInformationCode>
+					<pd-ext:SubjectCareerCriminalIndicator>true</pd-ext:SubjectCareerCriminalIndicator>
+					<pd-ext:SubjectFirearmsIndicator>false</pd-ext:SubjectFirearmsIndicator>
+					<pd-ext:SubjectMentalHealthConditionIndicator>false</pd-ext:SubjectMentalHealthConditionIndicator>
+				</j:ChargeSubject>
+				<j:ChargeVictim>
+					<nc:RoleOfPerson structures:ref="Vic01" />
+				</j:ChargeVictim>
+				<pd-ext:AddOnChargeIndicator>false</pd-ext:AddOnChargeIndicator>
+			</j:CaseCharge>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person structures:id="Def01">
+		<nc:PersonBirthDate>
+			<nc:Date>1981-02-23</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Wayne</nc:PersonGivenName>
+			<nc:PersonMiddleName>K</nc:PersonMiddleName>
+			<nc:PersonSurName>Campbell</nc:PersonSurName>
+			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
+		</nc:PersonName>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>575156679</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A1234567</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</nc:Person>
+	<nc:Person structures:id="Vic01">
+		<nc:PersonBirthDate>
+			<nc:Date>1951-01-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonDescriptionText>ST</nc:PersonDescriptionText>
+		<nc:PersonRaceText>H</nc:PersonRaceText>
+		<nc:PersonResidentText>R</nc:PersonResidentText>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
+	</nc:Person>
+</pdu-doc:ProsecutionDecisionReportUpdate>

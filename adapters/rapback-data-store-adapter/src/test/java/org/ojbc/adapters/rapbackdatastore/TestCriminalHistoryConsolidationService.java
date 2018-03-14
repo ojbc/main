@@ -52,6 +52,7 @@ import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -132,6 +133,7 @@ public class TestCriminalHistoryConsolidationService {
 	}	
 
 	@Test
+	@Ignore
 	public void testCriminalConsolidationService() throws Exception
 	{
 		notificationBrokerServiceEndpointMock.reset();

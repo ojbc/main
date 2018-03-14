@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<disp-doc:DispositionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../../../xsd/impl/maine/disposition_codes.xsd"
+	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Person structures:id="Person_1">
+		<nc:PersonBirthDate>
+			<nc:Date>1967-08-13</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Daisy</nc:PersonGivenName>
+			<nc:PersonMiddleName>X</nc:PersonMiddleName>
+			<nc:PersonSurName>Flowers</nc:PersonSurName>
+			<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
+		</nc:PersonName>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+	</nc:Person>
+	<j:Charge structures:id="Charge_1">
+		<j:ChargeDescriptionText>Intentionally issue or negotiate a negotiable instrument knowing that it will not be honored by the maker or drawee
+			and the face value of the written instrument or the aggregate value of the instruments is more than $500 but not more than $1,000.
+		</j:ChargeDescriptionText>
+		<j:ChargeDisposition>
+			<me_codes:CourtActionCode>ADMINISTRATIVE RELEASE NOT VIOLATED</me_codes:CourtActionCode>
+			<nc:DispositionEntity>
+				<nc:EntityOrganization>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Court ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</nc:EntityOrganization>
+			</nc:DispositionEntity>
+			<nc:DispositionDate>
+				<nc:Date>1967-08-13</nc:Date>
+			</nc:DispositionDate>
+			<disp-ext:ChargeDispositionAugmentation>
+				<nc:CaseDocketID>String</nc:CaseDocketID>
+			</disp-ext:ChargeDispositionAugmentation>
+		</j:ChargeDisposition>
+		<j:ChargeEnhancingFactor>
+			<me_codes:EnhancementCode>FIREARM OR DANGEROUS WEAPON</me_codes:EnhancementCode>
+		</j:ChargeEnhancingFactor>
+		<j:ChargeSentence>
+			<nc:ActivityDate>
+				<nc:Date>1967-08-13</nc:Date>
+			</nc:ActivityDate>
+			<j:SentenceCondition>
+				<nc:ActivityDescriptionText>Placeholder for non-monetary 'value' associated with condition.</nc:ActivityDescriptionText>
+				<nc:ConditionDisciplinaryAction>
+					<nc:DisciplinaryActionFee>
+						<nc:ObligationDueAmount>
+							<nc:Amount>200.00</nc:Amount>
+						</nc:ObligationDueAmount>
+					</nc:DisciplinaryActionFee>
+				</nc:ConditionDisciplinaryAction>
+				<disp-ext:ConditionAugmentation>
+					<me_codes:SentenceConditionLiteralCode>ABIDE BY PRETRIAL SERVICE CONTRACT</me_codes:SentenceConditionLiteralCode>
+				</disp-ext:ConditionAugmentation>
+			</j:SentenceCondition>
+			<j:SentenceCondition>
+				<disp-ext:ConditionAugmentation>
+					<me_codes:SentenceConditionLiteralCode>DNA TESTING</me_codes:SentenceConditionLiteralCode>
+				</disp-ext:ConditionAugmentation>
+			</j:SentenceCondition>
+			<j:SentenceCondition>
+				<disp-ext:ConditionAugmentation>
+					<disp-ext:NoContactPerson>
+						<nc:PersonBirthDate>
+							<nc:Date>1950-10-10</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonDescriptionText>TESTING NOCONTACT NOTE</nc:PersonDescriptionText>
+						<nc:PersonName>
+							<nc:PersonGivenName>NOCONTACT_FIRST</nc:PersonGivenName>
+							<nc:PersonMiddleName>T</nc:PersonMiddleName>
+							<nc:PersonSurName>NOCONTACT_LAST</nc:PersonSurName>
+						</nc:PersonName>
+					</disp-ext:NoContactPerson>
+				</disp-ext:ConditionAugmentation>
+			</j:SentenceCondition>
+			<j:SentenceIssuerEntity>
+				<nc:EntityOrganization>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Court ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</nc:EntityOrganization>
+			</j:SentenceIssuerEntity>
+			<j:SupervisionFineAmount>
+				<nc:Amount>100</nc:Amount>
+			</j:SupervisionFineAmount>
+			<disp-ext:SentenceAugmentation>
+				<nc:CaseDocketID>WATDCCR201101677</nc:CaseDocketID>
+				<me_codes:SentenceOriginCode>ORIGINAL</me_codes:SentenceOriginCode>
+				<j:SentenceTerm>
+					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
+					<j:TermLifeIndicator>false</j:TermLifeIndicator>
+					<disp-ext:SentenceTermAugmentation>
+						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
+						<me_codes:SentenceServedCode>CONCURRENT</me_codes:SentenceServedCode>
+						<disp-ext:SentenceSuspendedTimeRemainder />
+					</disp-ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+			</disp-ext:SentenceAugmentation>
+			<disp-ext:SentenceAugmentation>
+				<j:SentenceTerm>
+					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
+					<j:TermLifeIndicator>false</j:TermLifeIndicator>
+					<disp-ext:SentenceTermAugmentation>
+						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
+						<disp-ext:SentenceSuspendedTimeRemainder />
+					</disp-ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+			</disp-ext:SentenceAugmentation>
+			<disp-ext:SentenceAugmentation>
+				<disp-ext:SentenceRestitution>
+					<nc:DisciplinaryActionRestitution>
+						<nc:ObligationDueAmount>
+							<nc:Amount>20.00</nc:Amount>
+						</nc:ObligationDueAmount>
+					</nc:DisciplinaryActionRestitution>
+				</disp-ext:SentenceRestitution>
+			</disp-ext:SentenceAugmentation>
+		</j:ChargeSentence>
+		<j:ChargeSequenceID>String</j:ChargeSequenceID>
+		<j:ChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>String</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+			<j:StatuteOffenseIdentification>
+				<nc:IdentificationID>17-A - 708 - 1 - B - 3 - - - 1 - 1</nc:IdentificationID>
+			</j:StatuteOffenseIdentification>
+		</j:ChargeStatute>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>001</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+		<me_codes:ChargeClassCode>A</me_codes:ChargeClassCode>
+		<disp-ext:ChargeAugmentation>
+			<disp-ext:ChargeUniversalTrackingNumber>String</disp-ext:ChargeUniversalTrackingNumber>
+			<disp-ext:ArrestTrackingNumber>String</disp-ext:ArrestTrackingNumber>
+			<me_codes:ChargeOriginCategoryCode>ORIGINAL</me_codes:ChargeOriginCategoryCode>
+			<disp-ext:ChargeOffenseDate>
+				<nc:Date>2011-06-23</nc:Date>
+			</disp-ext:ChargeOffenseDate>
+		</disp-ext:ChargeAugmentation>
+	</j:Charge>
+	<j:CourtCharge>
+		<j:ChargeSequenceID>2</j:ChargeSequenceID>
+	</j:CourtCharge>
+	<j:PersonChargeAssociation>
+		<nc:Person structures:ref="Person_1" />
+		<j:Charge structures:ref="Charge_1" />
+	</j:PersonChargeAssociation>
+</disp-doc:DispositionReport>
