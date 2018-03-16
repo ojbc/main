@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.util.xml.XmlUtils;
@@ -96,13 +97,27 @@ public class FbiSubscriptionAuditProcessor {
 			federalRapbackSubscription.setResponseRecievedTimestamp(responseTimestamp);
 			federalRapbackSubscription.setPathToResponseFile(pathToResponseFile);
 			federalRapbackSubscription.setTransactionCategoryCodeResponse(transactionCategoryCode);
-			federalRapbackSubscription.setTransactionStatusText(XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText"));
+			
+			String transactionStatusText = XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText");
+			
+			boolean errorIndicator = false;
+			
+			if (StringUtils.isNotBlank(transactionStatusText))
+			{
+				federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
+				errorIndicator = true;
+			}	
+			
 			federalRapbackSubscription.setFbiSubscriptionId(XmlUtils.xPathStringSearch(input, "//ebts:RecordRapBackSubscriptionID"));
 			
 			logger.info("Federal rapback subscription response audit entry to save: " + federalRapbackSubscription.toString());
 			
+			Integer federalRapbackSubscriptionPk = null;
+			
 			if (federalRapbackSubscriptionFromDatabase != null)
 			{
+				federalRapbackSubscriptionPk =  federalRapbackSubscriptionFromDatabase.getFederalRapbackSubscriptionId();
+				
 				federalRapbackSubscription.setFederalRapbackSubscriptionId(federalRapbackSubscriptionFromDatabase.getFederalRapbackSubscriptionId());
 				logger.info("Audit record exists, update it: " + federalRapbackSubscription.getFederalRapbackSubscriptionId());
 				enhancedAuditDAO.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
@@ -110,8 +125,32 @@ public class FbiSubscriptionAuditProcessor {
 			else
 			{
 				logger.info("Audit record doesn't exist, save new one");
-				enhancedAuditDAO.saveFederalRapbackSubscription(federalRapbackSubscription);	
+				federalRapbackSubscriptionPk = enhancedAuditDAO.saveFederalRapbackSubscription(federalRapbackSubscription);	
 			}
+			
+			if (errorIndicator)
+			{
+				//FBI reported error, check first to see if there is an existing error this state subscription
+				//If there is, delete it and this will supercede it
+				//If not, insert this new error
+				
+				enhancedAuditDAO.deleteFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				
+				enhancedAuditDAO.saveFederalRapbackSubscriptionError(federalRapbackSubscriptionPk, federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				
+			}	
+			else
+			{
+				//No error reported by, check error table to see if state subscription ID is in error state and resolve it
+				Integer existingErrorEntryPK = enhancedAuditDAO.retrieveFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				
+				if (existingErrorEntryPK != null)
+				{
+					enhancedAuditDAO.resolveFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				}	
+				
+			}	
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.severe("Unable to audit federal subscription response.");

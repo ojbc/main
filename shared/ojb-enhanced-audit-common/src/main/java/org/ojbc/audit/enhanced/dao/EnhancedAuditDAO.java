@@ -43,6 +43,8 @@ public interface EnhancedAuditDAO {
 	
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
 	
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors();
+	
 	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(String stateSubscriptionId);
 	
 	public List<FederalRapbackNotification> retrieveFederalNotifications(LocalDate startDate, LocalDate endDate);
@@ -94,6 +96,14 @@ public interface EnhancedAuditDAO {
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
 	
 	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
+	
+	public Integer retrieveFederalRapbackSubscriptionError(String stateSubscriptionId);
+	
+	public Integer deleteFederalRapbackSubscriptionError(String stateSubscriptionId);
+	
+	public Integer saveFederalRapbackSubscriptionError(Integer federalSubcriptionId, String stateSubscriptionId);
+	
+	public Integer resolveFederalRapbackSubscriptionError(String stateSubscriptionId);
 	
 	public PrintResults retrievePrintResultsfromMessageID(String messageId);
 	

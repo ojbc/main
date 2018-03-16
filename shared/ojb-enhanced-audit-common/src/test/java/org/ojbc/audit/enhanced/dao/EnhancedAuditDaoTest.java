@@ -18,12 +18,12 @@ package org.ojbc.audit.enhanced.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -188,7 +188,6 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setStateSubscriptionId("456");
 		federalRapbackSubscription.setFbiSubscriptionId("789");
 		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
-		federalRapbackSubscription.setTransactionStatusText("text");
 		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
 		
 		enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
@@ -214,7 +213,6 @@ public class EnhancedAuditDaoTest {
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("789", federalRapbackSubscriptionFromDatabase.getFbiSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
-		assertEquals("text", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
 		
 		List<FederalRapbackSubscription> federalSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId("456");
 		
@@ -230,7 +228,6 @@ public class EnhancedAuditDaoTest {
 		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
-		assertEquals("text", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
 		
 	}
 	
@@ -404,6 +401,41 @@ public class EnhancedAuditDaoTest {
 		assertNotNull(userLoginPk);
 		
 	}	
+	
+	@Test
+	public void testAuditResolveSubscriptionErrors() throws Exception
+	{
+		String stateSubscriptionId = "State1112233";
+		
+		FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
+		
+		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
+		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
+		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
+		federalRapbackSubscription.setFbiSubscriptionId("789");
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
+		federalRapbackSubscription.setTransactionStatusText("This is an FBI error");
+		
+		//Save subscription with error
+		Integer federalSubcriptionId = enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
+		
+		//Now save error
+		enhancedAuditDao.saveFederalRapbackSubscriptionError(federalSubcriptionId, stateSubscriptionId);
+		
+		//Ensure we get a single error back from subscription
+		Integer federalSubscriptionId = enhancedAuditDao.retrieveFederalRapbackSubscriptionError(stateSubscriptionId);
+		assertNotNull(federalSubscriptionId);
+		
+		//Resolve error
+		enhancedAuditDao.resolveFederalRapbackSubscriptionError(stateSubscriptionId);
+		
+		federalSubscriptionId = enhancedAuditDao.retrieveFederalRapbackSubscriptionError(stateSubscriptionId);
+		assertNull(federalSubscriptionId);
+
+	}
 
 }
 

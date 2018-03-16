@@ -84,6 +84,9 @@ public class TestFbiSubscriptionAuditProcessor {
 	    
 	    FederalRapbackSubscription federalRapbackSubscription = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionFromTCN("123456789");
 	    
+	    Integer errorEntry = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionError("S128483");
+	    assertNotNull(errorEntry);
+	    
 	    assertEquals("/some/path/request", federalRapbackSubscription.getPathToRequestFile());
 	    assertEquals("/some/path/response", federalRapbackSubscription.getPathToResponseFile());
 	    assertEquals("ERRA", federalRapbackSubscription.getTransactionCategoryCodeResponse());
@@ -93,6 +96,17 @@ public class TestFbiSubscriptionAuditProcessor {
 	    assertEquals("S128483", federalRapbackSubscription.getStateSubscriptionId());
 	    assertEquals("CI", federalRapbackSubscription.getSubscriptonCategoryCode());
 	    assertEquals("This is the transaction text", federalRapbackSubscription.getTransactionStatusText());
+	    
+	    //This response will 'resolve' errors by sending back a good response
+	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_Subscription_Response_C99999999.xml"));
+	    assertNotNull(input);
+	    ex.getIn().setBody(input);
+
+	    fbiSubscriptionAuditProcessor.auditFBISubscriptionResponse(ex);
+
+	    errorEntry = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionError("S128483");
+	    assertNull(errorEntry);
+
 	    
 	}
 	

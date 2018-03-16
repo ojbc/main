@@ -50,6 +50,7 @@ import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -813,6 +814,80 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return federalRapbackNotifications;
 	}
 	
+	@Override
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors() {
+
+		
+
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public Integer retrieveFederalRapbackSubscriptionError(
+			String stateSubscriptionId) {
+		String federalRapbackSubscriptionErrorStatement ="SELECT FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS_ID FROM FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS WHERE STATE_SUBSCRIPTION_ID = ? AND ERROR_RESOLVED = false  AND ERROR_REPORTED = true";
+		
+		log.info("Retrieve Federal Notifications SQL by state subscription ID: " + stateSubscriptionId);
+		
+		Integer federalRapbackSubscriptionErrorId = null;
+		try {
+			federalRapbackSubscriptionErrorId = jdbcTemplate.queryForObject(federalRapbackSubscriptionErrorStatement, Integer.class, stateSubscriptionId);
+		} catch (DataAccessException e) {
+			log.error("No federal rapback subscription association with this state subscription id: "  + stateSubscriptionId);
+		}
+		
+		return federalRapbackSubscriptionErrorId;	
+	}
+
+	@Override
+	public Integer saveFederalRapbackSubscriptionError(
+			Integer federalSubcriptionId, String stateSubscriptionId) {
+		log.debug("Inserting row into FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS table for state subscription: " + stateSubscriptionId);
+		
+        final String RAPBACK_SUBSCRIPTION_ERROR="INSERT into FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS "
+        		+ "(FEDERAL_RAPBACK_SUBSCRIPTION_ID, ERROR_REPORTED, STATE_SUBSCRIPTION_ID, ERROR_RESOLVED) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(RAPBACK_SUBSCRIPTION_ERROR, new String[] {"FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(federalSubcriptionId, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(true, ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(stateSubscriptionId, ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(false, ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
+
+	@Override
+	public Integer resolveFederalRapbackSubscriptionError(String stateSubscriptionId) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		
+		final String FEDERAL_SUBSCRIPTION_UPDATE="UPDATE FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS SET "
+				+ "ERROR_RESOLVED = :errorResolved "
+				+ "WHERE STATE_SUBSCRIPTION_ID = :stateSubscriptionId "
+				+ " AND ERROR_RESOLVED = false";
+
+		paramMap.put("errorResolved", true); 
+		paramMap.put("stateSubscriptionId", stateSubscriptionId); 
+		
+		Integer updatedRecordFk = namedParameterJdbcTemplate.update(FEDERAL_SUBSCRIPTION_UPDATE, paramMap);		
+		
+		return updatedRecordFk;
+	}	
+	
 	private void addTriggeringEvents(
 			List<FederalRapbackNotification> federalRapbackNotifications) {
 		for (FederalRapbackNotification federalRapbackNotification : federalRapbackNotifications)
@@ -921,6 +996,22 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return triggeringEvents;
 				
+	}
+	
+
+	@Override
+	public Integer deleteFederalRapbackSubscriptionError(
+			String stateSubscriptionId){
+		
+		final String DELETE_QUERY = "DELETE from FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS where STATE_SUBSCRIPTION_ID = ?";
+		
+		int resultSize = this.jdbcTemplate.update(DELETE_QUERY, new Object[] { stateSubscriptionId });
+		if (resultSize == 0)
+		{
+			log.error("No federal rapback subscription error found with subscription of: " + stateSubscriptionId);
+		}		
+		
+		return resultSize;
 	}
 	
 	private final class UserInfoRowMapper implements RowMapper<UserInfo> {

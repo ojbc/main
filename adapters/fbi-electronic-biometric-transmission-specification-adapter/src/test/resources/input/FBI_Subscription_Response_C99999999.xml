@@ -1,0 +1,152 @@
+<itl:NISTBiometricInformationExchangePackage xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+  <!--Type-1 Record (Header Record)-->
+  <itl:PackageInformationRecord>
+    <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+    <ansi-nist:Transaction>
+      <!--DAT 1.005-->
+      <ansi-nist:TransactionDate>
+        <nc:Date>2018-02-09</nc:Date>
+      </ansi-nist:TransactionDate>
+      <ansi-nist:TransactionDestinationOrganization>
+        <nc:OrganizationIdentification>
+          <!--DAI 1.007-->
+          <nc:IdentificationID>FF12356</nc:IdentificationID>
+        </nc:OrganizationIdentification>
+      </ansi-nist:TransactionDestinationOrganization>
+      <ansi-nist:TransactionOriginatingOrganization>
+        <!--ORI 1.008-->
+        <nc:OrganizationIdentification>
+          <nc:IdentificationID>FF2222</nc:IdentificationID>
+        </nc:OrganizationIdentification>
+      </ansi-nist:TransactionOriginatingOrganization>
+      <!--TCN 1.009-->
+      <ansi-nist:TransactionControlIdentification>
+        <nc:IdentificationID>E999999</nc:IdentificationID>
+      </ansi-nist:TransactionControlIdentification>
+      <!--TCR 1.010-->
+      <ansi-nist:TransactionControlReferenceIdentification>
+        <nc:IdentificationID>C99999999</nc:IdentificationID>
+      </ansi-nist:TransactionControlReferenceIdentification>
+      <!--DOM 1.013-->
+      <ansi-nist:TransactionDomain>
+        <ansi-nist:DomainVersionNumberIdentification>
+          <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+        </ansi-nist:DomainVersionNumberIdentification>
+        <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+      </ansi-nist:TransactionDomain>
+      <ansi-nist:TransactionImageResolutionDetails>
+        <!--NSR 1.011-->
+        <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+        <!--NTR 1.012-->
+        <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+      </ansi-nist:TransactionImageResolutionDetails>
+      <!--VER 1.002-->
+      <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+      <ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+      <!--TOT 1.004-->
+      <ebts:TransactionCategoryCode>RBMNTR</ebts:TransactionCategoryCode>
+      <!--CNT 1.003-->
+      <ansi-nist:TransactionContentSummary>
+        <ansi-nist:ContentFirstRecordCategoryCode>01</ansi-nist:ContentFirstRecordCategoryCode>
+        <ansi-nist:ContentRecordQuantity>1</ansi-nist:ContentRecordQuantity>
+        <ansi-nist:ContentRecordSummary>
+          <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>00</nc:IdentificationID>
+          </ansi-nist:ImageReferenceIdentification>
+          <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+        </ansi-nist:ContentRecordSummary>
+      </ansi-nist:TransactionContentSummary>
+    </ansi-nist:Transaction>
+  </itl:PackageInformationRecord>
+  <!--******************************************************************-->
+	<!--Type-2 Record (User Defined Descriptive Text Record)-->
+	<!--******************************************************************-->
+  <itl:PackageDescriptiveTextRecord>
+    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+    <!-- IDC 2.002-->
+    <ansi-nist:ImageReferenceIdentification>
+      <nc:IdentificationID>00</nc:IdentificationID>
+    </ansi-nist:ImageReferenceIdentification>
+    <itl:UserDefinedDescriptiveDetail>
+      <ebts:DomainDefinedDescriptiveFields>
+        <ebts:RecordRapBackData>
+          <!--RBNF 2.2062-->
+          <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+          <!-- RBDI 2.2067-->
+          <ebts:RecordRapBackDisclosureIndicator>true</ebts:RecordRapBackDisclosureIndicator>
+          <!-- RBXD 2.2015 -->
+          <ebts:RecordRapBackExpirationDate>
+            <nc:Date>2020-12-11</nc:Date>
+          </ebts:RecordRapBackExpirationDate>
+          <!-- RBOO 2.2063-->
+          <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+          <!-- RBSD 2.2054 -->
+          <ebts:RecordRapBackSubscriptionDate>
+            <nc:Date>2017-12-11</nc:Date>
+          </ebts:RecordRapBackSubscriptionDate>
+          <!-- RBSI 2.2048 -->
+          <ebts:RecordRapBackSubscriptionID>98989898</ebts:RecordRapBackSubscriptionID>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>10</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>9</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>8</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>7</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>12</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>5</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>6</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBT 2.2040 -->
+          <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
+          <!-- RBUD 2.2064 -->
+          <ebts:RecordRapBackUserDefinedElement>
+            <!-- 2.2064A -->
+            <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
+            <!-- 2.2064B -->
+            <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+          </ebts:RecordRapBackUserDefinedElement>
+          <!-- RBUD 2.2064 -->
+          <ebts:RecordRapBackUserDefinedElement>
+            <!-- 2.2064A -->
+            <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
+            <!-- 2.2064B -->
+            <ebts:UserDefinedElementText>A99999</ebts:UserDefinedElementText>
+          </ebts:RecordRapBackUserDefinedElement>
+        </ebts:RecordRapBackData>
+        <ebts:RecordTransactionActivity>
+          <!--CRI 2.073-->
+          <ebts:RecordControllingAgency>
+            <nc:OrganizationIdentification>
+              <nc:IdentificationID>AA9999999</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+          </ebts:RecordControllingAgency>
+        </ebts:RecordTransactionActivity>
+        <ebts:RecordSubject>
+          <!--DOB 2.022-->
+          <nc:PersonBirthDate>
+            <nc:Date>1974-03-16</nc:Date>
+          </nc:PersonBirthDate>
+          <!--NAM 2.018/ NAM1-5 2.2001 - 2.2005-->
+          <ebts:PersonName>
+            <!--NAM2 2.2002 -->
+            <nc:PersonGivenName>JOHN</nc:PersonGivenName>
+            <!--NAM3 2.2003 -->
+            <nc:PersonMiddleName>J</nc:PersonMiddleName>
+            <!--NAM1 2.2001 -->
+            <nc:PersonSurName>DOE</nc:PersonSurName>
+          </ebts:PersonName>
+          <!-- FBI 2.014-->
+          <j:PersonFBIIdentification>
+            <nc:IdentificationID>FF99988899</nc:IdentificationID>
+          </j:PersonFBIIdentification>
+        </ebts:RecordSubject>
+      </ebts:DomainDefinedDescriptiveFields>
+    </itl:UserDefinedDescriptiveDetail>
+  </itl:PackageDescriptiveTextRecord>
+</itl:NISTBiometricInformationExchangePackage>
