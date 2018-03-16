@@ -135,4 +135,13 @@ public class AuditRestImpl implements AuditInterface {
 		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId(subscriptionId);
 		return federalRapbackNotifications;
 	}
+
+	@Override
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors() {
+		log.info("Retrieve Federal Subscription Errors.");
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionErrors();
+		
+		return federalRapbackSubscriptions;	
+	}
 }

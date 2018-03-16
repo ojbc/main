@@ -816,13 +816,12 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	
 	@Override
 	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors() {
-
+		final String SUBSCRIPTION_SELECT="select frs.* from FEDERAL_RAPBACK_SUBSCRIPTION frs, FEDERAL_RAPBACK_SUBSCRIPTION_ERRORS frse where "
+				+ " frs.FEDERAL_RAPBACK_SUBSCRIPTION_ID = frse.FEDERAL_RAPBACK_SUBSCRIPTION_ID and frse.ERROR_REPORTED = true and frse.ERROR_RESOLVED= false";
 		
-
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = jdbcTemplate.query(SUBSCRIPTION_SELECT, new FederalRapbackSubscriptionRowMapper());
 		
-		
-		
-		return null;
+		return federalRapbackSubscriptions;
 	}
 
 	@Override

@@ -429,4 +429,49 @@ public class TestAuditRestImpl {
 		assertEquals(2, federalRapbackNotificationFromRestService.getTriggeringEvents().size());
 		
 	}
+	
+	@Test
+	public void testRetrieveFederalRapbackSubscriptionErrors() throws Exception
+	{
+		String uri = "http://localhost:9898/auditServer/audit/retrieveFederalRapbackSubscriptionErrors";
+		
+		String stateSubscriptionId = "State1112233";
+		
+		FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
+		
+		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
+		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
+		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
+		federalRapbackSubscription.setFbiSubscriptionId("789");
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
+		federalRapbackSubscription.setTransactionStatusText("This is an FBI error");
+		
+		//Save subscription with error
+		Integer federalSubcriptionId = enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
+		
+		//Now save error
+		enhancedAuditDao.saveFederalRapbackSubscriptionError(federalSubcriptionId, stateSubscriptionId);
+	
+		ResponseEntity<List<FederalRapbackSubscription>> fedSubscriptionsResponse =
+		        restTemplate.exchange(uri,
+		                    HttpMethod.GET, null, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {
+		            });
+		List<FederalRapbackSubscription> fedSubscriptions = fedSubscriptionsResponse.getBody();
+		
+		assertNotNull(fedSubscriptions);
+		assertEquals(1, fedSubscriptions.size());
+		
+		FederalRapbackSubscription federalRapbackSubscriptionFromDatabase =  fedSubscriptions.get(0);
+		
+		assertEquals("9999999", federalRapbackSubscriptionFromDatabase.getTransactionControlReferenceIdentification());
+		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
+		
+		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
+		assertEquals("State1112233", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
+		assertEquals("This is an FBI error", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
+	}
 }
