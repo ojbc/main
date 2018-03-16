@@ -95,5 +95,10 @@ public interface AuditInterface {
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FederalRapbackNotification> searchForFederalRapbackNotifications(@PathParam("subscriptionId") String subscriptionId);
 
-   
+   @GET
+   @Path("/retrieveFederalRapbackSubscriptionErrors")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors();
+
 }

@@ -429,6 +429,10 @@ public class EnhancedAuditDaoTest {
 		Integer federalSubscriptionId = enhancedAuditDao.retrieveFederalRapbackSubscriptionError(stateSubscriptionId);
 		assertNotNull(federalSubscriptionId);
 		
+		//Now test the DAO method that returns all errors, we should get one there too
+		List<FederalRapbackSubscription> frs = enhancedAuditDao.retrieveFederalRapbackSubscriptionErrors();
+		assertEquals(1, frs.size());
+		
 		//Resolve error
 		enhancedAuditDao.resolveFederalRapbackSubscriptionError(stateSubscriptionId);
 		
