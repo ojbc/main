@@ -1429,10 +1429,7 @@ text-shadow: 0 1px #fff; */
    line-height: 1.6em;
  }
  
-.printable { display: none; }
 
-@media print
-{
-    .non-printable { display: none; }
-    .printable { display: block; }
+.print-only {
+	display: none;
 }

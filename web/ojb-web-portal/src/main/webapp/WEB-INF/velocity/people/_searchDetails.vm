@@ -17,6 +17,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
 		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
@@ -31,12 +32,24 @@
     </head>
  	<script type="text/javascript">
 	  	$(function() {
+	  	
+	  		if ($.trim(window.parent.$("#personInformationInModal").html())!=''){
+				if ($("#buttonPane").length){
+					$("#buttonPane").after(window.parent.$("#personInformationInModal"));
+				}
+				else{
+					$("#searchDetailsFrame").prepend(window.parent.$("#personInformationInModal"));
+				}
+				$("#personInformationInModal").show();
+			}
+			else if ($("#errorTable").length && $("#buttonPane").length){
+				$("#buttonPane").hide();
+			}
+			
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
   			});
-  			
-  			$("#printButton").button();
-				
+  			  			
 			$("#printButton").on("click", function(){
 				window.print();
 			}); 
@@ -44,7 +57,34 @@
 		});
     </script>
     <body id="searchDetailsFrame">
-    	<div class="printable">Information provided by the Open Justice Broker and is retrieved from multiple systems and should be validated with submitting agencies before taking action</div>
-        $searchContent
+    	#if ($showPrintButton)
+    		<div class="print-only">
+    			<p style="font-weight: bold;">Information provided by the Open Justice Broker and is retrieved from multiple systems.  Please validate information with submitting agencies before taking action.</p>
+    			<p style="font-weight: bold;"> 
+    				Printed by: $userLogonInfo.userName  <br/>
+    				Agency: $userLogonInfo.employer<br/>
+    				Printed Date and Time: $date.get('yyyy-M-d H:m:s')<br/>
+    			</p> 
+    		</div>   
+	        <div id="buttonPane" id="buttonPane" class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix no-print">
+	        	<div class="ui-dialog-buttonset">
+	        		<button id="printButton" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+	        			<span class="ui-button-text">Print</span></button>
+				</div>
+			</div>
+		#end
+		
+		#if ($searchContent != "error")
+        	$searchContent
+        #else 
+	    	<table class="detailsTable screenOnly" id="errorTable">
+	    		<tr>
+					<td class="detailsTitle">UNABLE TO VIEW DETAILS</td>
+	 			</tr>
+	 			<tr>
+	        		<td><span class="error">A server-side error occurred. Please close this dialog and try again. If problem persists, contact your IT department.</span></td>
+	 			</tr>
+ 			</table>
+        #end	
     </body>
 </html>

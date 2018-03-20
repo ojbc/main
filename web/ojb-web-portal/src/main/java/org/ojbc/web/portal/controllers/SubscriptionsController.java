@@ -69,7 +69,7 @@ import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
-import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
+import org.ojbc.web.portal.controllers.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.CriminalHistoryRapsheetData;
@@ -514,6 +514,7 @@ public class SubscriptionsController {
 		// pre-populate an email field on the form w/email from saml token
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		String sEmail = userLogonInfo.getEmailAddress();
+		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -645,7 +646,7 @@ public class SubscriptionsController {
 		
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		String sEmail = userLogonInfo.getEmailAddress();
-		
+
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}

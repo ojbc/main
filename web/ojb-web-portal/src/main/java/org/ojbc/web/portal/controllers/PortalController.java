@@ -18,9 +18,9 @@ package org.ojbc.web.portal.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -229,7 +229,7 @@ public class PortalController implements ApplicationContextAware {
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
 
-		UserLogonInfo userLogonInfo = new UserLogonInfo();
+		org.ojbc.web.portal.controllers.UserLogonInfo userLogonInfo = new org.ojbc.web.portal.controllers.UserLogonInfo();
 
 		try {
 			Element assertionElement = samlService.getSamlAssertion(request);
@@ -500,7 +500,9 @@ public class PortalController implements ApplicationContextAware {
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
-			userLogonInfo.setUserNameString((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency));
+			userLogonInfo.setUserName((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName));
+			userLogonInfo.setEmployer(userAgency);
+			userLogonInfo.setUserNameString(StringUtils.join(Arrays.asList(userLogonInfo.getUserName(), userLogonInfo.getEmployer()), " / "));
 			userLogonInfo.setEmailAddress(sEmail);
 			
 		} catch (Exception e) {
@@ -616,73 +618,6 @@ public class PortalController implements ApplicationContextAware {
 		log.debug(xmlString);
 	}
 	
-	public static final class UserLogonInfo implements Serializable{
-		
-		private static final long serialVersionUID = 1L;
-		
-		private String userNameString;
-		private String timeOnlineString;
-		private String emailAddress;
-		private String employerOri; 
-		private Boolean criminalJusticeEmployerIndicator; 
-		private Boolean lawEnforcementEmployerIndicator;
-
-		private UserLogonInfo() {
-			setUserNameString(DEFAULT_USER_LOGON_MESSAGE);
-			setTimeOnlineString(DEFAULT_USER_TIME_ONLINE);
-		}
-
-		public String getUserNameString() {
-			return userNameString;
-		}
-
-		public void setUserNameString(String userNameString) {
-			this.userNameString = userNameString;
-		}
-
-		public String getEmployerOri() {
-			return employerOri;
-		}
-
-		public void setEmployerOri(String employerOri) {
-			this.employerOri = employerOri;
-		}
-
-		public String getEmailAddress() {
-			return emailAddress;
-		}
-
-		public void setEmailAddress(String emailAddress) {
-			this.emailAddress = emailAddress;
-		}
-
-		public String getTimeOnlineString() {
-			return timeOnlineString;
-		}
-
-		public void setTimeOnlineString(String timeOnlineString) {
-			this.timeOnlineString = timeOnlineString;
-		}
-
-		public Boolean getCriminalJusticeEmployerIndicator() {
-			return criminalJusticeEmployerIndicator;
-		}
-
-		public void setCriminalJusticeEmployerIndicator(
-				Boolean criminalJusticeEmployerIndicator) {
-			this.criminalJusticeEmployerIndicator = criminalJusticeEmployerIndicator;
-		}
-
-		public Boolean getLawEnforcementEmployerIndicator() {
-			return lawEnforcementEmployerIndicator;
-		}
-
-		public void setLawEnforcementEmployerIndicator(
-				Boolean lawEnforcementEmployerIndicator) {
-			this.lawEnforcementEmployerIndicator = lawEnforcementEmployerIndicator;
-		}
-	}
-
 	private static final class Saml2NamespaceContext implements NamespaceContext {
 
 		private Map<String, String> prefixToURIMap = new HashMap<String, String>();
