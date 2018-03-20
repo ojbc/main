@@ -25,8 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
+@SessionAttributes({"showPrintButton"})
 public class GlobalControllerAdvice {
 	
 	private final Log log = LogFactory.getLog(this.getClass());

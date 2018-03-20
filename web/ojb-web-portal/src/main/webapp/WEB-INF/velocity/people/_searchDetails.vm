@@ -32,22 +32,53 @@
     </head>
  	<script type="text/javascript">
 	  	$(function() {
+	  	
+	  		if ($.trim(window.parent.$("#personInformationInModal").html())!=''){
+				if ($("#buttonPane").length){
+					$("#buttonPane").after(window.parent.$("#personInformationInModal"));
+				}
+				else{
+					$("#searchDetailsFrame").prepend(window.parent.$("#personInformationInModal"));
+				}
+				$("#personInformationInModal").show();
+			}
+			else if ($("#errorTable").length && $("#buttonPane").length){
+				$("#buttonPane").hide();
+			}
+			
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
   			});
+  			
+  			
 			$("#printButton").on("click", function(){
 				window.print();
 			}); 
+			
   			
 		});
     </script>
     <body id="searchDetailsFrame">
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-        	<div class="ui-dialog-buttonset">
-        		<button id="printButton" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
-        			<span class="ui-button-text">Print</span></button>
+    	#if ($showPrintButton)  
+	        <div id="buttonPane" id="buttonPane" class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix screenOnly">
+	        	<div class="ui-dialog-buttonset">
+	        		<button id="printButton" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+	        			<span class="ui-button-text">Print</span></button>
+				</div>
 			</div>
-		</div>
-        $searchContent
+		#end
+		
+		#if ($searchContent != "error")
+        	$searchContent
+        #else 
+	    	<table class="detailsTable screenOnly" id="errorTable">
+	    		<tr>
+					<td class="detailsTitle">UNABLE TO VIEW DETAILS</td>
+	 			</tr>
+	 			<tr>
+	        		<td><span class="error">A server-side error occurred. Please close this dialog and try again. If problem persists, contact your IT department.</span></td>
+	 			</tr>
+ 			</table>
+        #end	
     </body>
 </html>

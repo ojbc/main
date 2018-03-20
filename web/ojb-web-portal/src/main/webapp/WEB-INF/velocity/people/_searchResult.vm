@@ -133,12 +133,7 @@
 			     			//alert("Load event fired");
 							$("#modalIframeSpinner").hide();				
 													
-							var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-							if (incidentsSummary.val() != null) {
-								$(this).css('height', incidentsSummary.height() + 200);
-							} else {
-								$(this).css('height', $(this).contents().find("body").height() + 16);
-							}
+							$(this).css('height', $(this).contents().find("body").height() + 16);
 						});
 						
 	                 	$('#modalIframe').attr('src', url);		
@@ -155,10 +150,10 @@
 
             //if there are personal information to display then display in in the modal
             var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var persionDataDiv = $('div#'+appendPersonDataDivId);
-            if(persionDataDiv.text().length > 0){
+            var personDataDiv = $('div#'+appendPersonDataDivId);
+            if(personDataDiv.text().length > 0){
                 $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                $("#personInformationInModal").show();
+                //$("#personInformationInModal").show();
             }
             return false;
         });
