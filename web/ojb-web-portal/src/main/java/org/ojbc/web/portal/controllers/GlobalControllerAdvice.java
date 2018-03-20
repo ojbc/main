@@ -25,8 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
+@SessionAttributes({"showPrintButton"})
 public class GlobalControllerAdvice {
 	
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -52,6 +54,9 @@ public class GlobalControllerAdvice {
     @Value("${showSignOutButton:false}")
     Boolean showSignOutButton;
     
+    @Value("${showPrintButton:false}")
+    Boolean showPrintButton;
+    
     @Value("${inactivityTimeoutInSeconds:1800}")
     String inactivityTimeoutInSeconds;
     
@@ -64,6 +69,7 @@ public class GlobalControllerAdvice {
         model.addAttribute("customStyleCssPath", customStyleCssPath);
         model.addAttribute("inactivityTimeout", inactivityTimeout);
         model.addAttribute("showSignOutButton", showSignOutButton);
+        model.addAttribute("showPrintButton", showPrintButton);
         model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
     }
     

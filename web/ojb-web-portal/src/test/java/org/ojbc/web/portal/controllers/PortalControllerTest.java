@@ -112,7 +112,7 @@ public class PortalControllerTest {
 	@Test
 	public void testBasicUserString() throws Exception
 	{
-		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "Mouse", "Olympia PD", "2013-03-16T18:04:19.526Z"));
+		UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "Mouse", "Olympia PD", "2013-03-16T18:04:19.526Z"));
 		assertEquals("Mickey Mouse / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
@@ -120,7 +120,7 @@ public class PortalControllerTest {
 	@Test
 	public void testUserStringWithMissingSurname() throws Exception
 	{
-		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "", "Olympia PD", "2013-03-16T18:04:19.526Z"));
+		UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "", "Olympia PD", "2013-03-16T18:04:19.526Z"));
 		assertEquals("Mickey  / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
@@ -128,7 +128,7 @@ public class PortalControllerTest {
 	@Test
 	public void testUserStringWithMissingFirstName() throws Exception
 	{
-		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("", "Duck", "Olympia PD", "2013-03-16T18:04:19.526Z"));
+		UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("", "Duck", "Olympia PD", "2013-03-16T18:04:19.526Z"));
 		assertEquals(" Duck / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
@@ -138,7 +138,7 @@ public class PortalControllerTest {
 	{
 		DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
 		DateTime authnInstantDate = fmt.parseDateTime("2013-03-16T18:04:19.526Z");
-		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "Mouse", "Olympia PD", fmt.print(authnInstantDate)));
+		UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "Mouse", "Olympia PD", fmt.print(authnInstantDate)));
 		// this might fail on a really slow machine (if the test takes more than a minute!)
 		int minutes = Minutes.minutesBetween(authnInstantDate, new DateTime()).getMinutes();
 		int minute =minutes % 60;

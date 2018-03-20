@@ -276,7 +276,7 @@ public class PeopleControllerTest {
 	}
 	
 	@Test
-	public void searchDetailsExceptionReturnsErrorView() throws Exception {
+	public void searchDetailsExceptionReturnsError() throws Exception {
 		DetailsRequest detailsRequest = new DetailsRequest();
 
 		when(detailsQueryInterface.invokeRequest(detailsRequest, federatedQueryId, null))
@@ -284,7 +284,8 @@ public class PeopleControllerTest {
 		
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", "",detailsRequest, model);
 		
-		assertThat(expectedView, is("common/_searchDetailsError"));
+		assertThat(expectedView, is("people/_searchDetails"));
+		assertThat((String) model.get("searchContent"), is("error"));
 	}
 
 	@Test
