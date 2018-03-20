@@ -57,7 +57,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/people/*")
-@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses"})
+@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo"})
 public class PeopleController {
 	private final Log log = LogFactory.getLog(this.getClass());
 	public static final String PAGINATE_URL = "../people/paginate";

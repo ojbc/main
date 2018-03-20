@@ -526,7 +526,7 @@ public class SubscriptionsController {
 		initDatesForAddArrestForm(subscription, model);
 				
 		// pre-populate an email field on the form w/email from saml token
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -705,7 +705,7 @@ public class SubscriptionsController {
 		
 		initDatesForAddIncidentForm(subscription, model);
 		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -733,7 +733,7 @@ public class SubscriptionsController {
 				
 		initDatesForAddChCycleForm(subscription, model);
 		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -761,7 +761,7 @@ public class SubscriptionsController {
 				
 		initDatesForAddVehicleCrashForm(subscription, model);
 		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);

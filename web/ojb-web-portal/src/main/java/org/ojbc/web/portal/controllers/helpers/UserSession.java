@@ -18,7 +18,7 @@ package org.ojbc.web.portal.controllers.helpers;
 
 import java.io.Serializable;
 
-import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
+import org.ojbc.web.portal.controllers.UserLogonInfo;
 import org.ojbc.web.portal.controllers.dto.FirearmSearchCommand;
 import org.ojbc.web.portal.controllers.dto.IncidentSearchCommand;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
