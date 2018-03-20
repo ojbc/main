@@ -59,8 +59,16 @@
 		});
     </script>
     <body id="searchDetailsFrame">
-    	#if ($showPrintButton)  
-	        <div id="buttonPane" id="buttonPane" class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix screenOnly">
+    	#if ($showPrintButton)
+    		<div class="print-only">
+    			<p style="font-weight: bold;">Information provided by the Open Justice Broker and is retrieved from multiple systems.  Please validate information with submitting agencies before taking action.</p>
+    			<p style="font-weight: bold;"> 
+    				Printed by: $userLogonInfo.userName  <br/>
+    				Agency: $userLogonInfo.employer<br/>
+    				Printed Date and Time: $date.get('yyyy-M-d H:m:s')<br/>
+    			</p> 
+    		</div>   
+	        <div id="buttonPane" id="buttonPane" class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix no-print">
 	        	<div class="ui-dialog-buttonset">
 	        		<button id="printButton" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
 	        			<span class="ui-button-text">Print</span></button>

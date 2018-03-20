@@ -1390,3 +1390,7 @@ text-shadow: 0 1px #fff; */
      line-height: 130%;
      font-size: 13px;
 }
+
+.print-only {
+	display: none;
+}

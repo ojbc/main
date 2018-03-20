@@ -18,9 +18,9 @@ package org.ojbc.web.portal.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -74,7 +74,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl", "samlAssertion"})
+@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl", "samlAssertion", "userLogonInfo"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
@@ -238,8 +238,9 @@ public class PortalController implements ApplicationContextAware {
 		}
 		
 		model.put("personFilterCommand", new PersonFilterCommand());
-		model.put("currentUserName", userLogonInfo.userNameString);
-		model.put("timeOnline", userLogonInfo.timeOnlineString);
+		model.put("currentUserName", userLogonInfo.getUserNameString());
+		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
+		model.put("userLogonInfo", userLogonInfo);
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
 		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
@@ -476,7 +477,7 @@ public class PortalController implements ApplicationContextAware {
 			int minutesOnline = Minutes.minutesBetween(authnInstant, new DateTime()).getMinutes();
 			int hoursOnline = (int) minutesOnline / 60;
 			minutesOnline = minutesOnline % 60;
-			userLogonInfo.timeOnlineString = String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline);
+			userLogonInfo.setTimeOnlineString(String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline));
 
 			String userLastName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
@@ -488,8 +489,10 @@ public class PortalController implements ApplicationContextAware {
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
-			userLogonInfo.userNameString = (userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency);
-			userLogonInfo.emailAddress = sEmail;			
+			userLogonInfo.setUserName((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName));
+			userLogonInfo.setEmployer(userAgency);
+			userLogonInfo.setUserNameString(StringUtils.join(Arrays.asList(userLogonInfo.getUserName(), userLogonInfo.getEmployer()), " / "));
+			userLogonInfo.setEmailAddress(sEmail);			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -603,20 +606,6 @@ public class PortalController implements ApplicationContextAware {
 		log.debug(xmlString);
 	}
 	
-	public static final class UserLogonInfo implements Serializable{
-		
-		private static final long serialVersionUID = 1L;
-		
-		public String userNameString;
-		public String timeOnlineString;
-		public String emailAddress;
-
-		private UserLogonInfo() {
-			userNameString = DEFAULT_USER_LOGON_MESSAGE;
-			timeOnlineString = DEFAULT_USER_TIME_ONLINE;
-		}
-	}
-
 	private static final class Saml2NamespaceContext implements NamespaceContext {
 
 		private Map<String, String> prefixToURIMap = new HashMap<String, String>();
