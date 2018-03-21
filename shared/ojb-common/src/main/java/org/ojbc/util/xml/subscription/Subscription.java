@@ -249,7 +249,7 @@ public class Subscription implements Serializable {
 	}
 	
 	public String getFormattedFbiId() {
-		return fbiId == null? "N/A" : fbiId;
+		return fbiId == null? "No FBI UCN found" : fbiId;
 	}
 
 	@Override

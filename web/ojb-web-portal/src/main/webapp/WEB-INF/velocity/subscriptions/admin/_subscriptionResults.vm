@@ -96,7 +96,8 @@
 			 	    		    			
   		$.get(editMvcUrl, 
   			function(data){			  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
+    			 var dlgHeight = $(window).height() * .95;			    			
     			 vSubDialog.dialog({                    
 		                position: {
                            my: "left top",
@@ -105,7 +106,7 @@
 		                },
 		                modal:true,
 				        maxWidth:800,
-				        maxHeight:800,
+				        height:dlgHeight,
 				        resizable:false,
 				        open:function(event,ui){
 				        	$('#editSubscriptionDialog').html(data);
