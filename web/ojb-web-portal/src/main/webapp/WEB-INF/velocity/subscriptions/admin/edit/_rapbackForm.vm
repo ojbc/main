@@ -233,6 +233,12 @@
 		    <td class="detailsLabel">RAP BACK CATEGORY</td>
 		    <td>$!subscription.fbiRapbackSubscription.rapbackCategory</td>
 		</tr>
+	    <tr>
+		    <td class="detailsLabel">FBI SUBSCRIPTION ID</td>
+		    <td>$!subscription.fbiRapbackSubscription.fbiSubscriptionId</td>
+		    <td class="detailsLabel"></td>
+		    <td></td>
+		</tr>
 	</table>
   </div>
 </div>
