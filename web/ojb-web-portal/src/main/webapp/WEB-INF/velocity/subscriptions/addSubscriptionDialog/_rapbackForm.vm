@@ -71,7 +71,7 @@
 					}else{
 						alert('Requested SID not found');
 						$("#fbiId").val("");
-						$("#fbiIdString").html("N/A")
+						$("#fbiIdString").html("No FBI UCN found")
 					}
 					
 					$('#fullName').html(nameHtml);
@@ -83,7 +83,7 @@
 			$('#fullName').html(nameHtml);
 			$('#dateOfBirth').html(dateOfBirthDropdownHtml)
 			$("#fbiId").val("");
-			$("#fbiIdString").html("N/A")
+			$("#fbiIdString").html("No FBI UCN found")
 			  	  							  										  													  							  					  						  				  				
 		}	
 	});    		

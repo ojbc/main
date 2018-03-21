@@ -64,7 +64,7 @@
 					}else{
 						alert('Requested SID not found');
 						$("#fbiId").val("");
-						$("#formattedFbiId").val("N/A");
+						$("#formattedFbiId").val("No FBI UCN found");
 					}
 					
 	  			}
@@ -72,7 +72,7 @@
 		}else{
 			alert('$sidRegexValidationErrorMessage');
 			$("#fbiId").val("");
-			$("#formattedFbiId").val("N/A");
+			$("#formattedFbiId").val("No FBI UCN found");
 		}	
 	});    		
   	
