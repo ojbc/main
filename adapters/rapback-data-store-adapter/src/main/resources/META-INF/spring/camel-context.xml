@@ -75,6 +75,9 @@
 			
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
+
+		<endpoint id="resendDatabaseFailedFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendDatabaseFailedCronExpression}}" />
 			
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
@@ -127,6 +130,12 @@
 			
 		</route>	
 		
+		<!-- When the database is down -->
+		<route id="resend_database_failed_endpoint_route">
+			<from uri="resendDatabaseFailedFileEndpoint"/>	
+			<to uri="identificationRecordingFileEndpoint"/>
+		</route>
+		
 		<route id="identification_recording_service_filedrop">
 		
 			<from uri="identificationRecordingFileEndpoint" />
@@ -156,6 +165,11 @@
 					</setHeader>
 				</when>
 			</choice>
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			
+			<camel:log message="Generated message ID for resend: ${in.headers.federatedQueryRequestGUID}"/>
+			
 			<log message="\n The in operation name '${in.header.operationName}' \n" loggingLevel="WARN"/>
 			<to uri="direct:processIdentificationReport" />
 		</route>
@@ -220,6 +234,19 @@
 				<log message="\n\n\n * * *  Calling  direct:successfulIdentificationRecordingInvocation  * * * \n\n\n"/>
 				
 				<to uri="direct:successfulIdentificationRecordingInvocation"/>
+
+				<doCatch >
+					<exception>java.net.ConnectException</exception>
+
+					<log message="\n\n\n Unable to connect to database: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
+					
+					<setHeader headerName="CamelFileName">
+						<simple>FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>	
+					
+					<to uri="resendDatabaseFailedFileEndpoint"/>
+									
+				</doCatch>
 				
 				<doCatch >
 					<exception>java.lang.Exception</exception>
@@ -295,7 +322,7 @@
 					<exception>java.lang.Throwable</exception>
 					<camel:log message="get exception"></camel:log>
 					<camel:log 
-						message="Failed to send the identification Response message: ${exception.cause.message}"
+						message="Failed to send the identification Response message: ${exception.stacktrace}"
 						loggingLevel="WARN" />
 					<setHeader headerName="CamelFileName">
 						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
@@ -494,6 +521,8 @@
 	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
 	   <constructor-arg index="0" value="Operation Name is not supported."/>
 	</bean>
+	
+	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
