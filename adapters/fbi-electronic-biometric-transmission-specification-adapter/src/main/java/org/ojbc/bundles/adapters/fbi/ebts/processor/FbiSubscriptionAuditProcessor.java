@@ -90,7 +90,7 @@ public class FbiSubscriptionAuditProcessor {
 			
 			logger.info("Audit entry returned from database:" + federalRapbackSubscriptionFromDatabase);
 			
-			Document input = (Document) ex.getIn().getBody();
+			Document input = (Document) ex.getIn().getBody(Document.class);
 			
 			FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
 			

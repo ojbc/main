@@ -73,10 +73,6 @@ public class ZipUtilsTest {
 	@Test
 	public void testUnzip() throws IOException, DataFormatException {
 		
-		String zippedFingerPrintsFile = FileUtils.readFileToString(new File("/Users/haiqiwei/Downloads/deleteme/zippedFingerPrints.txt"));
-		printUnCompressedString(zippedFingerPrintsFile);
-//		printCompressedHexString(fbiCriminalHistory);
-//		
 //		String fbiSearchResultFile = FileUtils.readFileToString(new File("src/test/resources/fbi_initial_result_match-no-match-bart.html"));
 //		printCompressedHexString(fbiSearchResultFile);
 //

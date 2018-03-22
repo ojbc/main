@@ -186,7 +186,6 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
 		federalRapbackSubscription.setSid("123");
 		federalRapbackSubscription.setStateSubscriptionId("456");
-		federalRapbackSubscription.setFbiSubscriptionId("789");
 		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
 		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
 		
@@ -198,6 +197,7 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setPathToResponseFile("/some/path/to/responseFile");
 		federalRapbackSubscription.setResponseRecievedTimestamp(LocalDateTime.now());
 		federalRapbackSubscription.setFederalRapbackSubscriptionId(federalRapbackSubscriptionFromDatabase.getFederalRapbackSubscriptionId());
+		federalRapbackSubscription.setFbiSubscriptionId("FBISUBID");
 		
 		enhancedAuditDao.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
 		
@@ -208,10 +208,10 @@ public class EnhancedAuditDaoTest {
 		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
 		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeResponse());
 		assertEquals("RBSCRM", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeRequest());
+		assertEquals("FBISUBID", federalRapbackSubscriptionFromDatabase.getFbiSubscriptionId());
 		
 		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
-		assertEquals("789", federalRapbackSubscriptionFromDatabase.getFbiSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		
 		List<FederalRapbackSubscription> federalSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId("456");

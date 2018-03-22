@@ -171,6 +171,8 @@
 		
 			<camel:from uri="direct:processFbiNgiResponse"/>
 			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
 			<camel:log message="\n\n ngiResponseService... \n\n"/>
 
 			<camel:setHeader headerName="trxCatCode">
