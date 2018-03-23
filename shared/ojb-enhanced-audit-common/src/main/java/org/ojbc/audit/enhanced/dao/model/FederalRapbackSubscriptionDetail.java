@@ -14,7 +14,9 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.util.model.rapback;
+package org.ojbc.audit.enhanced.dao.model;
+
+import java.util.List;
 
 /**
  * This class will return these details on a state subscription: 
@@ -35,6 +37,8 @@ public class FederalRapbackSubscriptionDetail {
 	private boolean fbiRapbackMaintenanceSent;
 	private boolean fbiRapbackMaintenanceConfirmed;
 	private String fbiRapbackMaintenanceErrorText;
+	
+	private List<FederalRapbackSubscription> federalRapbackSubscriptions;
 	
 	public boolean isFbiSubscriptionSent() {
 		return fbiSubscriptionSent;
@@ -75,5 +79,13 @@ public class FederalRapbackSubscriptionDetail {
 	public void setFbiSubscriptionCreated(boolean fbiSubscriptionCreated) {
 		this.fbiSubscriptionCreated = fbiSubscriptionCreated;
 	}
+	public List<FederalRapbackSubscription> getFederalRapbackSubscriptions() {
+		return federalRapbackSubscriptions;
+	}
+	public void setFederalRapbackSubscriptions(
+			List<FederalRapbackSubscription> federalRapbackSubscriptions) {
+		this.federalRapbackSubscriptions = federalRapbackSubscriptions;
+	}
+
 	
 }
