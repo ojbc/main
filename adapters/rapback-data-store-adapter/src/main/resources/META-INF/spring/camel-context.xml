@@ -268,6 +268,9 @@
 				<to uri="direct:deadLetterChannel"/>
 				<camel:pipeline>
 					<to uri="bean:identificationReportingResponseProcessor?method=createErrorResponse"/>
+					
+					<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+					
 					<to uri="direct:sendIdentificationReportingResponseMessage"/>
 				</camel:pipeline>
 			</camel:multicast>
