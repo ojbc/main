@@ -43,6 +43,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.FederalRapbackSubscriptionDetail;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -178,17 +179,7 @@ public class TestAuditRestImpl {
 	{
 		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackSubscriptionsByStateSubscriptionId";
 		
-		FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
-		
-		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
-		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
-		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
-		federalRapbackSubscription.setSid("123");
-		federalRapbackSubscription.setStateSubscriptionId("456");
-		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
-		federalRapbackSubscription.setTransactionStatusText("text");
-		
-		enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
+		saveFederalRapbackSubscription("456", "text", "");
 
 		ResponseEntity<List<FederalRapbackSubscription>> fedSubscriptionsResponse =
 		        restTemplate.exchange(uri + "/456",
@@ -209,6 +200,25 @@ public class TestAuditRestImpl {
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		assertEquals("text", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
 		
+	}
+
+	private FederalRapbackSubscription saveFederalRapbackSubscription(String stateSubscriptionID, String transactionStatusText, String transactionCategoryCodeRequest) {
+		FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
+		
+		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
+		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
+		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionID);
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
+		federalRapbackSubscription.setTransactionCategoryCodeRequest(transactionCategoryCodeRequest);
+		
+		Integer federalRapbackSubscriptionPk = enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
+		
+		federalRapbackSubscription.setFederalRapbackSubscriptionId(federalRapbackSubscriptionPk);
+		
+		return federalRapbackSubscription;
 	}
 	
 	@Test
@@ -473,5 +483,96 @@ public class TestAuditRestImpl {
 		assertEquals("State1112233", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		assertEquals("This is an FBI error", federalRapbackSubscriptionFromDatabase.getTransactionStatusText());
+	}
+	
+	@Test
+	public void testReturnFederalRapbackSubscriptionDetail() throws Exception
+	{
+		String uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSub123/federalRapbackSubscriptions/detail";
+		
+		//Save a federal subscription creation request
+		FederalRapbackSubscription federalRapbackSubscription = saveFederalRapbackSubscription("stateSub123", "", "RBSCRM");
+		
+		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		
+		logger.info(federalRapbackSubscriptionDetail.toString());
+		
+		//Confirm FBI subscription was sent but not yet created
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(false, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		
+		//Set the FBI subscription ID and response code
+		federalRapbackSubscription.setFbiSubscriptionId("12345");
+		federalRapbackSubscription.setTransactionCategoryCodeResponse("RBSR");
+		
+		//Update database
+		enhancedAuditDao.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
+		
+		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		
+		//Confirm subscription was sent and created
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		
+		
+		//Now send a maintenance message
+		federalRapbackSubscription = saveFederalRapbackSubscription("stateSub123", "", "RBMNT");
+		
+		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+
+		//Confirm subscription was sent and created
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		
+		//Confirm maintenance was sent
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiRapbackMaintenanceSent());
+		assertEquals(false, federalRapbackSubscriptionDetail.isFbiRapbackMaintenanceConfirmed());
+
+		//Set the FBI subscription ID and respnose code
+		federalRapbackSubscription.setTransactionCategoryCodeResponse("RBMNTR");
+		federalRapbackSubscription.setTransactionStatusText("there was an error in the RBMTR.");
+		federalRapbackSubscription.setFbiSubscriptionId("12345");
+		
+		//Update database
+		enhancedAuditDao.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
+
+		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+
+		//Confirm subscription was sent and created
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		
+		//Confirm maintenance was sent
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiRapbackMaintenanceSent());
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiRapbackMaintenanceConfirmed());
+		assertEquals("there was an error in the RBMTR.", federalRapbackSubscriptionDetail.getFbiRapbackMaintenanceErrorText());
+		
+	
+		//Save a federal subscription creation request, but this with an error
+		federalRapbackSubscription = saveFederalRapbackSubscription("stateSubError", "", "RBSCRM");
+		
+		uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSubError/federalRapbackSubscriptions/detail";
+		
+		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		
+		logger.info(federalRapbackSubscriptionDetail.toString());
+		
+		//Confirm FBI subscription was sent but not yet created
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(false, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		
+		//Set the FBI subscription ID and response code
+		federalRapbackSubscription.setTransactionStatusText("There was an error creating the subscription.");
+		federalRapbackSubscription.setTransactionCategoryCodeResponse("RBSR");
+		
+		//Update database
+		enhancedAuditDao.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
+		
+		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		
+		//Confirm subscription was sent but an error returned
+		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
+		assertEquals(false, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
+		assertEquals("There was an error creating the subscription.", federalRapbackSubscriptionDetail.getFbiSubscriptionErrorText());
 	}
 }

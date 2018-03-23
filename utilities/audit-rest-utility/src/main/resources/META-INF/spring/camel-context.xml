@@ -89,8 +89,21 @@
 					<to uri="direct:retrieveFederalRapbackSubscriptionErrors" />
 				</when>
 				
+				<when>
+					<simple>${header.operationName} == 'returnFederalRapbackSubscriptionDetail'</simple>
+					<to uri="direct:returnFederalRapbackSubscriptionDetail" />
+				</when>
+				
 			</choice>
 		</route>
+		
+		<route id="directReturnFederalRapbackSubscriptionDetail">
+			<from uri="direct:returnFederalRapbackSubscriptionDetail" />
+			
+			<camel:log message="Return Federal Rapback Subscription Detail"/>
+			
+			<bean ref="auditRestImpl" method="returnFederalRapbackSubscriptionDetail" />
+		</route>		
 		
 		<route id="directRetrieveFederalRapbackSubscriptionErrors">
 			<from uri="direct:retrieveFederalRapbackSubscriptionErrors" />

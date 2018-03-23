@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
@@ -33,6 +34,7 @@ import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.FederalRapbackSubscriptionDetail;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.stereotype.Service;
 
@@ -143,5 +145,59 @@ public class AuditRestImpl implements AuditInterface {
 		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionErrors();
 		
 		return federalRapbackSubscriptions;	
+	}
+
+	@Override
+	public FederalRapbackSubscriptionDetail returnFederalRapbackSubscriptionDetail(
+			String subscriptionId) {
+
+		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = new FederalRapbackSubscriptionDetail();
+		
+		//Return all federal subscription info for the state subscription
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId(subscriptionId);
+		
+		boolean latestMaintenanceRequestFound = false;
+		
+		//Results come back sorted in descending order by timestamp
+		for (FederalRapbackSubscription federalRapbackSubscription : federalRapbackSubscriptions)
+		{
+			if (federalRapbackSubscription.getTransactionCategoryCodeRequest().equals("RBSCRM"))
+			{
+				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBSR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+				{
+					federalRapbackSubscriptionDetail.setFbiSubscriptionCreated(true);
+				}	
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+				{	
+					federalRapbackSubscriptionDetail.setFbiSubscriptionErrorText(federalRapbackSubscription.getTransactionStatusText());
+				}	
+			}	
+			
+			if (!latestMaintenanceRequestFound)
+			{
+				if (federalRapbackSubscription.getTransactionCategoryCodeRequest().equals("RBMNT"))
+				{
+					federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceSent(true);
+					
+					if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBMNTR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+					{
+						federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceConfirmed(true);
+					}	
+					
+					if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+					{	
+						federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceErrorText(federalRapbackSubscription.getTransactionStatusText());
+					}	
+					
+					latestMaintenanceRequestFound = true;
+				}	
+				
+			}	
+		}	
+		
+		return federalRapbackSubscriptionDetail;
 	}
 }

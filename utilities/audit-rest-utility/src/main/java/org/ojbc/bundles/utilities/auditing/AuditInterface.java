@@ -35,6 +35,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.FederalRapbackSubscriptionDetail;
 import org.ojbc.util.model.rapback.Subscription;
 
 @Path("/audit")
@@ -65,6 +66,12 @@ public interface AuditInterface {
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(@PathParam("subscriptionId") String subscriptionId);
 
+   @GET
+   @Path("/subscriptions/{subscriptionId}/federalRapbackSubscriptions/detail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public FederalRapbackSubscriptionDetail returnFederalRapbackSubscriptionDetail(@PathParam("subscriptionId") String subscriptionId);
+   
    @POST
    @Path("/retrieveExpiringSubscriptions")
    @Produces(MediaType.APPLICATION_JSON)
