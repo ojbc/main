@@ -339,7 +339,10 @@
 		
 		<route id="resend_failed_identification_response_route">
 			<from uri="identificationRecordingResposneFileEndpoint" />
-			<log message="resending response file ${in.header.CamelFileName}:  ${body}" loggingLevel="INFO"/>
+			<log message="resending response file ${body}" loggingLevel="INFO"/>
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			
 			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
 		
