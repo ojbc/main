@@ -331,7 +331,7 @@ public class TestAuditRestImpl {
 	@Test
 	public void testReturnAllAgencies() throws Exception
 	{
-		String uri = "http://localhost:9898/auditServer/audit/retrieveAllAgencies";
+		String uri = "http://localhost:9898/auditServer/audit/agencies";
 		
 		ResponseEntity<List<AgencyProfile>> agencyProfileResponse =
 		        restTemplate.exchange(uri,
@@ -401,7 +401,7 @@ public class TestAuditRestImpl {
 	@Test
 	public void testSearchForFederalRapbackNotificationsByStateSubscriptionId() throws Exception
 	{
-		String uri = "http://localhost:9898/auditServer/audit/searchForFederalRapbackNotificationsByStateSubscriptionId";
+		String uri = "http://localhost:9898/auditServer/audit/federalRapbackNotifications";
 		
 		FederalRapbackNotification federalRapbackNotification = new FederalRapbackNotification();
 
@@ -488,7 +488,7 @@ public class TestAuditRestImpl {
 	@Test
 	public void testReturnFederalRapbackSubscriptionDetail() throws Exception
 	{
-		String uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSub123/federalRapbackSubscriptions/detail";
+		String uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSub123/federalRapbackSubscriptionsDetail";
 		
 		//Save a federal subscription creation request
 		FederalRapbackSubscription federalRapbackSubscription = saveFederalRapbackSubscription("stateSub123", "", "RBSCRM");
@@ -551,7 +551,7 @@ public class TestAuditRestImpl {
 		//Save a federal subscription creation request, but this with an error
 		federalRapbackSubscription = saveFederalRapbackSubscription("stateSubError", "", "RBSCRM");
 		
-		uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSubError/federalRapbackSubscriptions/detail";
+		uri = "http://localhost:9898/auditServer/audit/subscriptions/stateSubError/federalRapbackSubscriptionsDetail";
 		
 		federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
 		
