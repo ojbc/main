@@ -16,6 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -25,8 +26,10 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
-public class FederalRapbackSubscription {
+public class FederalRapbackSubscription implements Serializable {
 	
+	private static final long serialVersionUID = 444000465826777573L;
+
 	private Integer federalRapbackSubscriptionId;
 	
 	private String transactionControlReferenceIdentification;

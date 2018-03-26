@@ -48,6 +48,10 @@
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
 	    });
 	    
+    	$('#activeErrorsSearch').click (function() { 
+ 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/federalRapbackSubscriptionErrors')")
+	    });
+	    
 	    $("#searchResultsTable").DataTable({
 			 "order": [[ 3, "asc" ]],
 			 "pagingType": "full_numbers",
@@ -231,6 +235,9 @@
 				    <a id="expiredSubscriptions">Expired Subscriptions</a>
 				</div>
 			</div>
+            <a id="activeErrorsSearch" class="grayButton" >
+                ACTIVE ERRORS
+            </a>
             <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
                 MODIFY OWNER INFO
             </a>
