@@ -67,7 +67,7 @@ public interface AuditInterface {
    public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(@PathParam("subscriptionId") String subscriptionId);
 
    @GET
-   @Path("/subscriptions/{subscriptionId}/federalRapbackSubscriptions/detail")
+   @Path("/subscriptions/{subscriptionId}/federalRapbackSubscriptionsDetail")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public FederalRapbackSubscriptionDetail returnFederalRapbackSubscriptionDetail(@PathParam("subscriptionId") String subscriptionId);
@@ -85,7 +85,7 @@ public interface AuditInterface {
    public List<Subscription> retrieveExpiredSubscriptions(ExpiringSubscriptionRequest request );
 
    @GET
-   @Path("/retrieveAllAgencies")
+   @Path("/agencies")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<AgencyProfile> retrieveAllAgencies();
@@ -97,7 +97,7 @@ public interface AuditInterface {
    public List<FederalRapbackNotification> retrieveRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange);
    
    @GET
-   @Path("/searchForFederalRapbackNotificationsByStateSubscriptionId/{subscriptionId}")
+   @Path("/federalRapbackNotifications/{subscriptionId}")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FederalRapbackNotification> searchForFederalRapbackNotifications(@PathParam("subscriptionId") String subscriptionId);
