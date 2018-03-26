@@ -32,6 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -252,6 +253,15 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
 	
 	
+    @RequestMapping("federalRapbackSubscriptionErrors")
+    public String getFederalRapbackSubscriptionErrors(HttpServletRequest request,	        
+	        Map<String, Object> model){
+    	List<FederalRapbackSubscription> federalRapbackSubscriptionErrors = subscriptionsRestClient.getFederalRapbackSubscriptionErrors();
+		
+    	model.put("federalRapbackSubscriptionErrors", federalRapbackSubscriptionErrors);
+	    return "subscriptions/admin/_federalRapbackSubscriptionErrors";
+	}
+    
 	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());

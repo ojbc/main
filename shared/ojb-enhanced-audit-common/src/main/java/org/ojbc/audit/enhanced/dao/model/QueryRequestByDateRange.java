@@ -16,6 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
@@ -23,7 +24,9 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.rest.jackson.LocalDateDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateSerializer;
 
-public class QueryRequestByDateRange {
+public class QueryRequestByDateRange implements Serializable{
+
+	private static final long serialVersionUID = -201569486981457565L;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -33,6 +36,14 @@ public class QueryRequestByDateRange {
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate endDate;
 	
+	public QueryRequestByDateRange() {
+		super();
+	}
+	public QueryRequestByDateRange(LocalDate startDate, LocalDate endDate) {
+		this();
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 	public LocalDate getStartDate() {
 		return startDate;
 	}

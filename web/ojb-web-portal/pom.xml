@@ -52,6 +52,7 @@
 		<ojb-web-application-connector-version>[2.0.1,)</ojb-web-application-connector-version>
 		<velocity-tools-version>2.0</velocity-tools-version>
 		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.0,)</ojb-enhanced-audit-common-version>
 		<json-version>20140107</json-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<pragmatists.version>1.0.2</pragmatists.version>
@@ -113,6 +114,12 @@
 			<artifactId>ojb-ui-common</artifactId>
 			<version>${ojb-ui-common-version}</version>
 		</dependency>
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-enhanced-audit-common</artifactId>
+	      <version>${ojb-enhanced-audit-common-version}</version>
+	    </dependency>
+
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>

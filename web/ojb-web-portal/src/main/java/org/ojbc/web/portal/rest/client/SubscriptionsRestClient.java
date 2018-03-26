@@ -22,6 +22,9 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
@@ -73,11 +76,39 @@ public class SubscriptionsRestClient {
 	}
 	
 	public List<AgencyProfile> getAllAgencies(){
-		String uri = restServiceBaseUrl + "auditServer/audit/retrieveAllAgencies";
+		String uri = restServiceBaseUrl + "auditServer/audit/agencies";
 		
 		ResponseEntity<List<AgencyProfile>> response = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<AgencyProfile>>() {});
 		
 		return response.getBody();
+	}
+	
+	public List<FederalRapbackSubscription> getFederalRapbackSubscriptionErrors(){
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveFederalRapbackSubscriptionErrors";
+		
+		ResponseEntity<List<FederalRapbackSubscription>> response = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {});
+		
+		return response.getBody();
+	}
+	
+	public List<FederalRapbackSubscription> getRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange){
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveRapbackNotifications";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
+
+		ResponseEntity<List<FederalRapbackSubscription>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {});
+		
+		return response.getBody();
+	}
+	
+	public FederalRapbackSubscriptionDetail getFederalRapbackSubscriptionDetail(String subscriptionId){
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/subscriptions/" + subscriptionId + "federalRapbackSubscriptionsDetail";
+		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		return federalRapbackSubscriptionDetail;
+
 	}
 	
 }
