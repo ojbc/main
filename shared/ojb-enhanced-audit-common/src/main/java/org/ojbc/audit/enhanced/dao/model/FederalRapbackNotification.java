@@ -22,13 +22,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FederalRapbackNotification {
 
 	private Integer federalRapbackNotificationId;
@@ -119,8 +119,7 @@ public class FederalRapbackNotification {
 	public List<String> getTriggeringEvents() {
 		return triggeringEvents;
 	}
-
-	@JsonIgnore
+	
 	public String getTriggeringEventsString() {
 		if (triggeringEvents == null || triggeringEvents.isEmpty()){
 			return StringUtils.EMPTY; 
