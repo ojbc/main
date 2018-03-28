@@ -52,6 +52,10 @@
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/federalRapbackSubscriptionErrors')")
 	    });
 	    
+    	$('#notifications').click (function() { 
+ 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/federalRapbackNotifications')")
+	    });
+	    
 	    $("#searchResultsTable").DataTable({
 			 "order": [[ 3, "asc" ]],
 			 "pagingType": "full_numbers",
@@ -228,6 +232,12 @@
             <a id="advancedAdminSearch" class="grayButton" >
                 ADVANCED SEARCH
             </a>
+            <a id="activeErrorsSearch" class="grayButton" >
+                ERRORS
+            </a>
+            <a id="notifications" class="grayButton" >
+                Notifications
+            </a>
          	<div class="dropdown">
 				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
 				<div id="myDropdown" class="dropdown-content">
@@ -235,9 +245,6 @@
 				    <a id="expiredSubscriptions">Expired Subscriptions</a>
 				</div>
 			</div>
-            <a id="activeErrorsSearch" class="grayButton" >
-                ACTIVE ERRORS
-            </a>
             <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
                 MODIFY OWNER INFO
             </a>

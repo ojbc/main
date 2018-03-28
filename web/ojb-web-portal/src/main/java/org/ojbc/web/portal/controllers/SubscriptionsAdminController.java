@@ -16,10 +16,7 @@
  */
 package org.ojbc.web.portal.controllers;
 
-import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +27,17 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-import org.json.JSONObject;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
-import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
-import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
-import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
+import org.ojbc.web.portal.controllers.helpers.LocalDatePropertyEditor;
 import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
+import org.ojbc.web.portal.validators.subscriptions.RapbackNotificationDateRangeValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,17 +54,25 @@ import org.w3c.dom.Element;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/admin/*")
-@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"
-	, "expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions", "expiredSubscriptions", "expiredSubscriptionRequest"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", 
+	"expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions", "expiredSubscriptions", 
+	"expiredSubscriptionRequest", "rapbackNotificationDateRange"})
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
+
+	@Value("${rapbackNotificationDaysBack: 30}")
+	Integer rapbackNotificationDaysBack;
 
 	@Resource
 	SubscriptionsRestClient subscriptionsRestClient;
 	
 	@Resource
 	ExpiringSubscriptionRequestValidator expiringSubscriptionRequestValidator;
+
+	@Resource
+	RapbackNotificationDateRangeValidator rapbackNotificationDateRangeValidator;
 	
+	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
     @RequestMapping("landingPage")
@@ -180,52 +185,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		log.info("expiringSubscriptionRequest:" + expiringSubscriptionRequest);
 	}
 	
-	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
-	public String unsubscribe(HttpServletRequest request, @RequestParam String subIdToSubDataJson, 
-			Map<String, Object> model) {
-					
-		Element samlAssertion = samlService.getSamlAssertion(request);	
-					
-		logger.info("* Unsubscribe using json param: " + subIdToSubDataJson);
-		
-		JSONObject subIdToSubDataJsonObj = new JSONObject(subIdToSubDataJson);
-		
-		String[] subIdJsonNames = JSONObject.getNames(subIdToSubDataJsonObj);
-		
-		// collections for status message
-		List<String> successfulUnsubIdlist = new ArrayList<String>();		
-		List<String> failedUnsubIdList = new ArrayList<String>();
-		
-		for(String iId : subIdJsonNames){
-								
-			JSONObject iSubDataJson = subIdToSubDataJsonObj.getJSONObject(iId);
-			
-			String iTopic = iSubDataJson.getString("topic");			
-			String reasonCode = iSubDataJson.getString("reasonCode");
-			
-			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode, null, null, null, null);
-			
-			try{
-				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlAssertion);
-				
-				successfulUnsubIdlist.add(iId);				
-				
-			}catch(Exception e){
-				
-				failedUnsubIdList.add(iId);	
-				e.printStackTrace();
-			}														
-		}
-		
-		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList, null);
-								
-		refreshSubscriptionsContent(request, model, operationStatusResultMsg);
-		
-		return "subscriptions/admin/_subscriptionResults";
-	}
-	
 	@RequestMapping(value = "expiringSubscriptionsForm", method = RequestMethod.GET)
-	public String expiringSubscriptionsForm(
+	public String getExpiringSubscriptionsForm(
 			@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the expiringSubscriptionsForm");
@@ -239,7 +200,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
     
 	@RequestMapping(value = "expiredSubscriptionsForm", method = RequestMethod.GET)
-	public String expiredSubscriptionsForm(
+	public String getExpiredSubscriptionsForm(
 			@RequestParam(value = "resetForm", required = false) boolean resetForm,
 			Map<String, Object> model) {
 		log.info("Presenting the expiredSubscriptionsForm");
@@ -252,6 +213,21 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/reports/_expiredSubscriptionsForm";
 	}
 	
+	@RequestMapping(value = "notificationsSearchForm", method = RequestMethod.GET)
+	public String getNotificationsSearchForm(
+			@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			Map<String, Object> model) {
+		log.info("Presenting the notificationsSearchForm");
+		
+		if (resetForm) {
+			QueryRequestByDateRange rapbackNotificationDateRange = 
+					new QueryRequestByDateRange(LocalDate.now().minusDays(rapbackNotificationDaysBack), LocalDate.now());
+			model.put("rapbackNotificationDateRange", rapbackNotificationDateRange);
+		}
+		
+		return "subscriptions/admin/_notificationsSearchForm";
+	}
+	
 	
     @RequestMapping("federalRapbackSubscriptionErrors")
     public String getFederalRapbackSubscriptionErrors(HttpServletRequest request,	        
@@ -262,11 +238,26 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	    return "subscriptions/admin/_federalRapbackSubscriptionErrors";
 	}
     
-	@InitBinder("subscription")
+    @RequestMapping("federalRapbackNotifications")
+    public String getFederalRapbackNotifications(HttpServletRequest request,	        
+    		@ModelAttribute("rapbackNotificationDateRange") @Valid QueryRequestByDateRange rapbackNotificationDateRange,
+    		BindingResult errors,
+    		Map<String, Object> model){
+    	
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "subscriptions/admin/_notificationsSearchForm";
+		}
+		
+		List<FederalRapbackNotification> federalRapbackNotifications = subscriptionsRestClient.getRapbackNotifications(rapbackNotificationDateRange );
+    	model.put("federalRapbackNotifications", federalRapbackNotifications);
+    	return "subscriptions/admin/_federalRapbackNotifications";
+    }
+    
+	@InitBinder("rapbackNotificationDateRange")
 	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
-		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
-		binder.addValidators(subscriptionValidator);
+		binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditor());
+		binder.addValidators(rapbackNotificationDateRangeValidator);
 	}
 	
 	@InitBinder("subscriptionSearchRequest")
@@ -293,6 +284,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		
     	if (! model.containsAttribute("expiredSubscriptionRequest")){
     		model.addAttribute("expiredSubscriptionRequest", new ExpiringSubscriptionRequest(validationThreshold));
+    	}
+    	
+    	if (! model.containsAttribute("rapbackNotificationDateRange")){
+    		model.addAttribute("rapbackNotificationDateRange", 
+    				new QueryRequestByDateRange(LocalDate.now().minusDays(rapbackNotificationDaysBack), LocalDate.now()));
     	}
     	
 		List<AgencyProfile> agencies = subscriptionsRestClient.getAllAgencies();

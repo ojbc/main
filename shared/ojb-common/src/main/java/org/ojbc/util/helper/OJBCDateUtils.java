@@ -115,9 +115,12 @@ public final class OJBCDateUtils {
 		return Optional.ofNullable(date).map(java.sql.Date::toLocalDate).orElse(null);
 	}
 	
+	public static Date toDate(LocalDate localDate){
+		return localDate != null ? 
+				Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+	}
+	
 	public static LocalDate toLocalDate(Date date){
-		return Optional.ofNullable(date)
-				.map(input->input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-				.orElse(null);
+		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;  
 	}
 }
