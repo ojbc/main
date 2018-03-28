@@ -61,8 +61,10 @@
 				<sqr-ext:CriminalSubscriptionReasonCode>CI</sqr-ext:CriminalSubscriptionReasonCode>
 				<sqr-ext:RapBackSubscriptionTermCode>5</sqr-ext:RapBackSubscriptionTermCode>
 				<sqr-ext:RapBackActivityNotificationFormatCode>1</sqr-ext:RapBackActivityNotificationFormatCode>
-				<sqr-ext:RapBackInStateOptOutIndicator>false
-				</sqr-ext:RapBackInStateOptOutIndicator>
+				<sqr-ext:RapBackInStateOptOutIndicator>false</sqr-ext:RapBackInStateOptOutIndicator>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI123454</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 			</sqr-ext:FBISubscription>
 			<sqr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
