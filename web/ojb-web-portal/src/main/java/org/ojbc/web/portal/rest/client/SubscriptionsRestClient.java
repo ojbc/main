@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
@@ -91,14 +92,14 @@ public class SubscriptionsRestClient {
 		return response.getBody();
 	}
 	
-	public List<FederalRapbackSubscription> getRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange){
+	public List<FederalRapbackNotification> getRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange){
 		String uri = restServiceBaseUrl + "auditServer/audit/retrieveRapbackNotifications";
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
 
-		ResponseEntity<List<FederalRapbackSubscription>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FederalRapbackSubscription>>() {});
+		ResponseEntity<List<FederalRapbackNotification>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FederalRapbackNotification>>() {});
 		
 		return response.getBody();
 	}

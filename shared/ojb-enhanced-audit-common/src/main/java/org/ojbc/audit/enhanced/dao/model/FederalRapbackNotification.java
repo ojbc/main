@@ -18,11 +18,16 @@ package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class FederalRapbackNotification {
 
@@ -115,6 +120,18 @@ public class FederalRapbackNotification {
 		return triggeringEvents;
 	}
 
+	@JsonIgnore
+	public String getTriggeringEventsString() {
+		if (triggeringEvents == null || triggeringEvents.isEmpty()){
+			return StringUtils.EMPTY; 
+		}
+		else{
+			return StringUtils.join(
+					triggeringEvents.stream().filter(Objects::nonNull).collect(Collectors.toList()), 
+					"<br/>");
+		}
+	}
+	
 	public void setTriggeringEvents(List<String> triggeringEvents) {
 		this.triggeringEvents = triggeringEvents;
 	}
