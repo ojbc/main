@@ -49,20 +49,20 @@
 			<tr>
 				<th>STATE SUBSCRIPTION ID</th>
 				<th>TRANSACTION TYPE</th>
-				<th>Event TEXT</th>
+				<th>EVENT TEXT</th>
 				<th>TRIGGERING EVENTS</th>
 				<th>DATETIME RECEIVED</th>
 			</tr>
 		</thead>
 		<tbody>
 	        #foreach($federalRapbackNotification in $federalRapbackNotifications)
-	        <tr>
-	        	<td>$federalRapbackNotification.stateSubscriptionId</td>
-	        	<td>$federalRapbackNotification.transactionCategoryCodeResponse</td>
-	        	<td>$federalRapbackNotification.rapBackEventText</td>
-	        	<td>$federalRapbackNotification.triggeringEventsString</td>
-	        	<td>$federalRapbackNotification.notificationRecievedTimestamp</td>
-        	</tr>
+		        <tr>
+		        	<td>$federalRapbackNotification.stateSubscriptionId</td>
+		        	<td>$federalRapbackNotification.transactionType</td>
+		        	<td>$federalRapbackNotification.rapBackEventText</td>
+		        	<td>$federalRapbackNotification.triggeringEventsString</td>
+		        	<td>$federalRapbackNotification.notificationRecievedTimestamp</td>
+	        	</tr>
 	        #end
 		</tbody>
 	</table> 								
