@@ -38,6 +38,7 @@
     <jdbc:initialize-database data-source="enhancedAuditLogDataSource" ignore-failures="ALL">
 		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-schema.sql"/>
 		<jdbc:script location="classpath:sql-enhanced-auditlog/load-code-tables.sql"/>
+		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-test-data.sql"/>
 	</jdbc:initialize-database>
 	
 </beans>
