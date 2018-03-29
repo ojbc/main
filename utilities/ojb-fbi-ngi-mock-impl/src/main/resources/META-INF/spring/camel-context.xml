@@ -24,6 +24,7 @@
 	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
 	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -71,6 +72,10 @@
 												
 			<camel:setHeader headerName="transactionCategoryCode">
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="transactionControlIdentification">
+				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlIdentification/nc:IdentificationID/text()</xpath>
 			</camel:setHeader>
 
 			<camel:setHeader headerName="stateSubscriptionId">
