@@ -74,11 +74,11 @@
 			</camel:setHeader>
 
 			<camel:setHeader headerName="stateSubscriptionId">
-				<xpath>//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText</xpath>
+				<xpath>//ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText</xpath>
 			</camel:setHeader>
 
 			<camel:setHeader headerName="stateFingerprintId">
-				<xpath>//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='STATE FINGERPRINT ID']/ebts:UserDefinedElementText</xpath>
+				<xpath>//ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText</xpath>
 			</camel:setHeader>
 			
 			<log message="\n\n\n transactionCategoryCode = ${header.transactionCategoryCode} \n\n\n" loggingLevel="WARN"/>

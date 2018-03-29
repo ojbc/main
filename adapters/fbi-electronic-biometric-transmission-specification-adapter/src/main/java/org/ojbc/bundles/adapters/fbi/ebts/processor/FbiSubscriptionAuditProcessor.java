@@ -91,6 +91,7 @@ public class FbiSubscriptionAuditProcessor {
 			logger.info("Audit entry returned from database:" + federalRapbackSubscriptionFromDatabase);
 			
 			Document input = (Document) ex.getIn().getBody(Document.class);
+			XmlUtils.printNode(input.getDocumentElement());
 			
 			FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
 			
@@ -99,6 +100,13 @@ public class FbiSubscriptionAuditProcessor {
 			federalRapbackSubscription.setTransactionCategoryCodeResponse(transactionCategoryCode);
 			
 			String transactionStatusText = XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText");
+			
+			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
+			String stateSubscriptionId = XmlUtils.xPathStringSearch(recordRapBackData, 
+					"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText");
+			federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
+			federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, 
+					"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
 			
 			boolean errorIndicator = false;
 			
@@ -134,9 +142,11 @@ public class FbiSubscriptionAuditProcessor {
 				//If there is, delete it and this will supercede it
 				//If not, insert this new error
 				
-				enhancedAuditDAO.deleteFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				if ( federalRapbackSubscriptionFromDatabase != null ){
+					enhancedAuditDAO.deleteFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				}
 				
-				enhancedAuditDAO.saveFederalRapbackSubscriptionError(federalRapbackSubscriptionPk, federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+				enhancedAuditDAO.saveFederalRapbackSubscriptionError(federalRapbackSubscriptionPk, federalRapbackSubscription.getStateSubscriptionId());
 				
 			}	
 			else

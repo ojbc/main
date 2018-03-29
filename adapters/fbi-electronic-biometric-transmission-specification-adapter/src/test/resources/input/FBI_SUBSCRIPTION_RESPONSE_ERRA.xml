@@ -99,6 +99,16 @@
                         <ebts:TransactionStatusText>This is the transaction text</ebts:TransactionStatusText>
                     </ebts:TransactionResponseData>
                 </ebts:RecordTransactionData>
+                <ebts:RecordRapBackData>
+                	<ebts:RecordRapBackUserDefinedElement>
+	                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
+	                  <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+	            	</ebts:RecordRapBackUserDefinedElement>      	
+                	<ebts:RecordRapBackUserDefinedElement>
+	                  	<ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
+	                  	<ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+               		</ebts:RecordRapBackUserDefinedElement>
+    	        </ebts:RecordRapBackData>
                 <ebts:RecordTransactionActivity>
                     <!--CRI 2.073-->
                     <ebts:RecordControllingAgency>
