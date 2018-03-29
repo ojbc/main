@@ -353,6 +353,12 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 			        		BooleanUtils.toStringTrueFalse(fbiRapbackSubscription.getRapbackOptOutInState()));
 		        }
 		        
+		        Element personFBIIdentification = XmlUtils.appendElement(fbiSubscriptionElement, 
+		        		OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+		        Element ucnIdentificationId = XmlUtils.appendElement(personFBIIdentification, 
+		        		OjbcNamespaceContext.NS_NC, "IdentificationID");
+		        ucnIdentificationId.setTextContent(fbiRapbackSubscription.getUcn());
+		        
 			}
 		}
 		

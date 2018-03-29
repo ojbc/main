@@ -1076,7 +1076,7 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String editSubscription(HttpServletRequest request,			
+	public String getSubscriptionDetail(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam String topic,
 			@RequestParam(required=false, defaultValue="false") Boolean admin,
