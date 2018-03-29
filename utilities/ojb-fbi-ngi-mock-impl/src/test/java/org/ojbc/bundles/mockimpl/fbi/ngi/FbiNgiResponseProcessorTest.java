@@ -36,7 +36,7 @@ public class FbiNgiResponseProcessorTest {
 		
 		FbiNgiResponseProcessor responseProcessor = new FbiNgiResponseProcessor();
 		
-		String subAckResponse = responseProcessor.getSubAckResponse(FbiNgiResponseProcessor.RAP_BACK_MAITENANCE_RESPONSE,"stateSubId", "fingerprintId");
+		String subAckResponse = responseProcessor.getSubAckResponse("1234567890", FbiNgiResponseProcessor.RAP_BACK_MAITENANCE_RESPONSE,"stateSubId", "fingerprintId");
 		
 		log.info("Subscription Ack:" + subAckResponse);
 		
@@ -51,7 +51,7 @@ public class FbiNgiResponseProcessorTest {
 		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
 		
 		
-		subAckResponse = responseProcessor.getSubAckResponse(FbiNgiResponseProcessor.RAP_BACK_SCRIPTION_RESPONSE,"stateSubId", "fingerprintId");
+		subAckResponse = responseProcessor.getSubAckResponse("1234567890", FbiNgiResponseProcessor.RAP_BACK_SCRIPTION_RESPONSE,"stateSubId", "fingerprintId");
 		
 		log.info("Subscription Ack:" + subAckResponse);
 		

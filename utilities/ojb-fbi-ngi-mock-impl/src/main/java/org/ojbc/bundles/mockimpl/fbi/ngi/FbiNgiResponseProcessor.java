@@ -51,6 +51,9 @@ public class FbiNgiResponseProcessor {
 		String trxCatCode = exchange.getIn().getHeader("transactionCategoryCode", String.class);
 		logger.info("\n\n\n trxCatCode: " + trxCatCode + "\n\n\n");
 
+		String transactionControlIdentification = exchange.getIn().getHeader("transactionControlIdentification", String.class);
+		logger.info("\n\n\n transactionControlIdentification: " + transactionControlIdentification + "\n\n\n");
+		
 		String stateSubscriptionId = exchange.getIn().getHeader("stateSubscriptionId", String.class);
 		logger.info("\n\n\n stateSubscriptionId: " + stateSubscriptionId + "\n\n\n");
 		
@@ -61,7 +64,7 @@ public class FbiNgiResponseProcessor {
 			throw new IllegalArgumentException("The transactionCategoryCode is missing."); 
 		}
 		
-		String subAckResponse = getSubAckResponse(transactionCategoryCode, stateSubscriptionId, stateFingerprintId);
+		String subAckResponse = getSubAckResponse(transactionControlIdentification, transactionCategoryCode, stateSubscriptionId, stateFingerprintId);
 		
 		logger.info("\n\n Processor returning subsription aknowledgement response:... \n\n");
 				
@@ -69,7 +72,7 @@ public class FbiNgiResponseProcessor {
 	}
 	
 	
-	String getSubAckResponse(String transactionCategoryCode, String stateSubscriptionId, String stateFingerprintId) throws Exception{
+	String getSubAckResponse(String transactionControlIdentification, String transactionCategoryCode, String stateSubscriptionId, String stateFingerprintId) throws Exception{
 				
 		String sResponseDoc = null;
 		
@@ -93,6 +96,7 @@ public class FbiNgiResponseProcessor {
 			sResponseDoc = sResponseDoc.replace("STATE_FINGERPRINT_ID_PLACEHOLDER", stateFingerprintId);
 			
 			sResponseDoc = sResponseDoc.replace("STATE_SUBSCRIPTION_ID_PLACEHOLDER", stateSubscriptionId);
+			sResponseDoc = sResponseDoc.replace("TransactionControlReferenceIdentification_HOLDER", transactionControlIdentification);
 			
 		}		
 		return sResponseDoc;
