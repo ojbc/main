@@ -79,7 +79,7 @@ public class SubscriptionQueryResultsProcessor {
 			String endDateString = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:EndDate/nc:Date");
 			fbiRapbackSubscription.setRapbackExpirationDate(Optional.ofNullable(endDateString).map(LocalDate::parse).orElse(null));
 			
-			String ucn = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+			String ucn = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "jxdm41:PersonFBIIdentification/nc:IdentificationID");
 			fbiRapbackSubscription.setUcn(ucn);
 			
 			String subscriptionReasonCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "sqr-ext:CriminalSubscriptionReasonCode|sqr-ext:CivilSubscriptionReasonCode");
