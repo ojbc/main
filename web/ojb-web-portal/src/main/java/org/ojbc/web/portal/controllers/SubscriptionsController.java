@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -70,7 +71,6 @@ import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
-import org.ojbc.web.portal.controllers.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.CriminalHistoryRapsheetData;
@@ -132,6 +132,8 @@ public class SubscriptionsController {
 	private static DocumentBuilder docBuilder;
 	
 	private SimpleDateFormat dateFormDOB = new SimpleDateFormat("yyyy-MM-dd");
+	private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	private DateTimeFormatter localDateformatterMmDdYyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
 	@Value("${validationThreshold: 60}")
 	Integer validationThreshold;
@@ -231,6 +233,9 @@ public class SubscriptionsController {
 		model.addAttribute("subscriptionStatusMap", subscriptionStatusMap);
         model.addAttribute("subscriptionFilterProperties", subscriptionFilterProperties);
         model.addAttribute("vmDateTool", new DateTool());
+        model.addAttribute("dateTimeformatter", dateTimeformatter);
+        model.addAttribute("localDateformatterMmDdYyyyy", localDateformatterMmDdYyyyy);
+        model.addAttribute("booleanUtils", BooleanUtils.class);
         model.addAttribute("sidRegexForAddSubscription", sidRegexForAddSubscription);
         model.addAttribute("sidRegexValidationErrorMessage", sidRegexValidationErrorMessage);
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
