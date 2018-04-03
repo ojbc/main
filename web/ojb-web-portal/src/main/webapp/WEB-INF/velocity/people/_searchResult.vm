@@ -124,7 +124,7 @@
                 open: function(event,ui){
                 
                 	if(searchCategory != 'Incident' || $sec.allGranted("AUTHZ_INCIDENT_DETAIL")){ 
-						console.log("spinning");
+						//console.log("spinning");
 						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
 						$("#modalIframeSpinner").width($("#modalIframe").width());
 						$("#modalIframeSpinner").show();
