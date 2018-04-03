@@ -213,7 +213,13 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:auto;height:auto;" id="subFormDiv">
+<div style="width:auto;height:800px;" id="subFormDiv">
+	<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
+	 	<div id="subModalButtonDiv">
+	        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
+	        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
+	    </div>            
+	</div>	  
 	<form id="subscriptionForm">  	
 		<div>
 			<span class="subscriptionHint">Topic:</span>
@@ -232,13 +238,6 @@
 		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/vehicleCrash')	
 			#parse("subscriptions/editSubscriptionDialog/_vehicleCrashForm.vm")					
 		#end
-					    	        
 	</form>
 </div>
   
-<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
- 	<div id="subModalButtonDiv">
-        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-    </div>            
-</div>	  
