@@ -121,10 +121,11 @@
 		// listener for click on any editSubscriptionLink button
 		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
 			var editMvcUrl = encodeURI(this + "&admin=true");
+			var dlgHeight = $(window).height() * .9;
 				 	    		    			
 	  		$.get(editMvcUrl, 
 	  			function(data){			  			
-	    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+	    			 var vSubDialog = $('<div style="display:none;" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
 	    			 vSubDialog.dialog({                    
 			                position: {
 	                           my: "left top",
@@ -133,8 +134,7 @@
 			                },
 			                modal:true,
 					        maxWidth:800,
-					        maxHeight:800,
-					        resizable:false,
+					        height:dlgHeight,
 					        open:function(event,ui){
 					        	$('#editSubscriptionDialog').html(data);
 					        },
@@ -142,7 +142,7 @@
 					        	$(this).dialog("close");
 					        	$('#editSubscriptionDialog').remove();
 					        }    	                                  
-	                    }); 			  						  				  				
+	                    }).css({height:dlgHeight, overflow:"auto"}); 			  						  				  				
 	  			}
 	  		).fail(ojbc.displayFailMessage);	
 	  		

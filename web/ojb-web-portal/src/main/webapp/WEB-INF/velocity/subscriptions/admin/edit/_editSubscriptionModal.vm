@@ -210,16 +210,8 @@
 	  
 </script>
 
-
-
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:auto;height:800px;" id="subFormDiv">
-	<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
-	 	<div id="subModalButtonDiv">
-	        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-	        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-	    </div>            
-	</div>	  
+<div style="width:auto;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 		<div>
 			<span class="subscriptionHint">Topic:</span>
@@ -239,5 +231,11 @@
 			#parse("subscriptions/editSubscriptionDialog/_vehicleCrashForm.vm")					
 		#end
 	</form>
+	<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
+	 	<div id="subModalButtonDiv">
+	        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
+	        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
+	    </div>            
+	</div>	  
 </div>
   

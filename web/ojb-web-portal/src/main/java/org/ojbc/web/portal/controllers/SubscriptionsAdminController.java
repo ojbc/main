@@ -35,7 +35,6 @@ import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.controllers.helpers.LocalDatePropertyEditor;
-import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
 import org.ojbc.web.portal.validators.subscriptions.RapbackNotificationDateRangeValidator;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +49,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
