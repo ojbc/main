@@ -18,9 +18,6 @@ package org.ojbc.audit.enhanced.dao.model;
 
 import java.util.List;
 
-import org.apache.commons.lang.BooleanUtils;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 /**
  * This class will return these details on a state subscription: 
  * 
@@ -31,7 +28,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * 5. RBMNT confirmed by FBI (yes/no)
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class FederalRapbackSubscriptionDetail {
 
 	private boolean fbiSubscriptionSent;
@@ -47,9 +43,6 @@ public class FederalRapbackSubscriptionDetail {
 	public boolean isFbiSubscriptionSent() {
 		return fbiSubscriptionSent;
 	}
-	public String getFbiSubscriptionSentYesNo() {
-		return BooleanUtils.toStringYesNo(fbiSubscriptionSent);
-	}
 	public void setFbiSubscriptionSent(boolean fbiSubscriptionSent) {
 		this.fbiSubscriptionSent = fbiSubscriptionSent;
 	}
@@ -63,9 +56,6 @@ public class FederalRapbackSubscriptionDetail {
 	public boolean isFbiRapbackMaintenanceSent() {
 		return fbiRapbackMaintenanceSent;
 	}
-	public String getFbiRapbackMaintenanceSentYesNo() {
-		return BooleanUtils.toStringYesNo(fbiRapbackMaintenanceSent);
-	}
 	public void setFbiRapbackMaintenanceSent(boolean fbiRapbackMaintenanceSent) {
 		this.fbiRapbackMaintenanceSent = fbiRapbackMaintenanceSent;
 	}
@@ -76,9 +66,6 @@ public class FederalRapbackSubscriptionDetail {
 			boolean fbiRapbackMaintenanceConfirmed) {
 		this.fbiRapbackMaintenanceConfirmed = fbiRapbackMaintenanceConfirmed;
 	}
-	public String getFbiRapbackMaintenanceConfirmedYesNo() {
-		return BooleanUtils.toStringYesNo(fbiRapbackMaintenanceConfirmed);
-	}
 	public String getFbiRapbackMaintenanceErrorText() {
 		return fbiRapbackMaintenanceErrorText;
 	}
@@ -88,9 +75,6 @@ public class FederalRapbackSubscriptionDetail {
 	}
 	public boolean isFbiSubscriptionCreated() {
 		return fbiSubscriptionCreated;
-	}
-	public String getFbiSubscriptionCreatedYesNo() {
-		return BooleanUtils.toStringYesNo(fbiSubscriptionCreated);
 	}
 	public void setFbiSubscriptionCreated(boolean fbiSubscriptionCreated) {
 		this.fbiSubscriptionCreated = fbiSubscriptionCreated;
