@@ -45,6 +45,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
@@ -79,6 +80,7 @@ import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.subscriptions.SubscriptionSearchRequestValidator;
@@ -207,6 +209,10 @@ public class SubscriptionsController {
 		
 	@Autowired
 	SubscriptionQueryResultsProcessor subQueryResultProcessor;
+	
+	@Resource
+	SubscriptionsRestClient subscriptionsRestClient;
+	
 	
 	private Map<String, String> subscriptionStatusMap = new HashMap<String, String>();
 	private Map<String, String> subscriptionPurposeMap = new HashMap<String, String>();
@@ -1117,6 +1123,10 @@ public class SubscriptionsController {
 					model.put("csDefaultEndDate", csDefaultEndDate);
 				}
 				 
+				FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = 
+						subscriptionsRestClient.getFederalRapbackSubscriptionDetail(subscription.getSystemId());
+				model.put("federalRapbackSubscriptionDetail", federalRapbackSubscriptionDetail);
+				
 				model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 				
 				model.put("showCaseIdInput", showCaseIdInput);

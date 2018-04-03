@@ -96,8 +96,8 @@
 			 	    		    			
   		$.get(editMvcUrl, 
   			function(data){			  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
-    			 var dlgHeight = $(window).height() * .95;			    			
+    			 var vSubDialog = $('<div style="display:none;overflow:auto" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
+    			 var dlgHeight = $(window).height() * .95;	
     			 vSubDialog.dialog({                    
 		                position: {
                            my: "left top",
@@ -106,6 +106,7 @@
 		                },
 		                modal:true,
 				        maxWidth:800,
+		    			maxHeight:90%,		    			
 				        height:dlgHeight,
 				        resizable:false,
 				        open:function(event,ui){
@@ -115,7 +116,7 @@
 				        	$(this).dialog("close");
 				        	$('#editSubscriptionDialog').remove();
 				        }    	                                  
-                    }); 			  						  				  				
+                    }).css({overflow:"auto"}); 			  						  				  				
   			}
   		).fail(ojbc.displayFailMessage);	
   		

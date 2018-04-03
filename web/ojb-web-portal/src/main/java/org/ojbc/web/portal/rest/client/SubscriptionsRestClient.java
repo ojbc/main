@@ -106,8 +106,9 @@ public class SubscriptionsRestClient {
 	
 	public FederalRapbackSubscriptionDetail getFederalRapbackSubscriptionDetail(String subscriptionId){
 		
-		String uri = restServiceBaseUrl + "auditServer/audit/subscriptions/" + subscriptionId + "federalRapbackSubscriptionsDetail";
+		String uri = restServiceBaseUrl + "auditServer/audit/subscriptions/" + subscriptionId + "/federalRapbackSubscriptionsDetail";
 		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = restTemplate.getForObject(uri, FederalRapbackSubscriptionDetail.class);
+		log.info("federalRapbackSubscriptionDetail:" + federalRapbackSubscriptionDetail);
 		return federalRapbackSubscriptionDetail;
 
 	}

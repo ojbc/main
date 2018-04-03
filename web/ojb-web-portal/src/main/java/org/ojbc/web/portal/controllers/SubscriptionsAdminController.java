@@ -29,6 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -45,9 +46,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
@@ -63,9 +66,6 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	@Value("${rapbackNotificationDaysBack: 30}")
 	Integer rapbackNotificationDaysBack;
 
-	@Resource
-	SubscriptionsRestClient subscriptionsRestClient;
-	
 	@Resource
 	ExpiringSubscriptionRequestValidator expiringSubscriptionRequestValidator;
 
@@ -226,6 +226,17 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		}
 		
 		return "subscriptions/admin/_notificationsSearchForm";
+	}
+	
+	@RequestMapping(value = "federalRapbackSubscriptionDetail/{subscriptionId}", method = RequestMethod.GET)
+	public String getFederalRapbackSubscriptionDetail(
+			@PathVariable("subscriptionId") String subscriptionId,
+			Map<String, Object> model) {
+		log.info("getting FederalRapbackSubscriptionDetail for " + subscriptionId);
+		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = 
+				subscriptionsRestClient.getFederalRapbackSubscriptionDetail(subscriptionId);
+		model.put("federalRapbackSubscriptionDetail", federalRapbackSubscriptionDetail);
+		return "subscriptions/admin/edit/_federalRapbackSubscriptionDetail";
 	}
 	
 	
