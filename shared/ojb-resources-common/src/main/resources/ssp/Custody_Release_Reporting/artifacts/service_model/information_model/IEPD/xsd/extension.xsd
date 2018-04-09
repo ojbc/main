@@ -230,11 +230,6 @@
 			<xsd:documentation>A code for the status of a specific treatment.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="BookingStatusIndicator" type="niem-xs:boolean" substitutionGroup="j:BookingAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if the booking is a result of mistaken data entry; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:simpleType name="TreatmentStatusCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Treatment Status</xsd:documentation>
@@ -264,6 +259,38 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="crr-ext:TreatmentStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="BookingStatusCode" type="crr-ext:BookingStatusCodeType" substitutionGroup="j:BookingAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the status of a booking.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="BookingStatusCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Booking Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="mistaken">
+				<xsd:annotation>
+					<xsd:documentation>Mistaken</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="correct">
+				<xsd:annotation>
+					<xsd:documentation>Correct</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BookingStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Booking Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="crr-ext:BookingStatusCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
