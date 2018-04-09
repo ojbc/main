@@ -19,6 +19,8 @@
 -->
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="http://reference.niem.gov/niem/specification/code-lists/4.0/code-lists-instance/" uri="utility/code-lists-spec/4.0/code-lists-instance.xsd"/>
+  <uri name="http://reference.niem.gov/niem/specification/code-lists/4.0/code-lists-schema-appinfo/" uri="utility/code-lists-spec/4.0/code-lists-schema-appinfo.xsd"/>
   <uri name="http://release.niem.gov/niem/appinfo/3.0/" uri="appinfo/3.0/appinfo.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" uri="codes/fbi_ncic/3.1/fbi_ncic.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" uri="codes/fbi_ucr/3.0/fbi_ucr.xsd"/>
