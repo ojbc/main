@@ -57,7 +57,7 @@
 					<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
-			<crr-ext:BookingStatusIndicator>false</crr-ext:BookingStatusIndicator>
+			<crr-ext:BookingStatusCode>correct</crr-ext:BookingStatusCode>
 		</j:Booking>
 		<j:Detention>
 			<j:SupervisionAugmentation>
