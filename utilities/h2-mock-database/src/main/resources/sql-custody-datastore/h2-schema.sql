@@ -87,6 +87,8 @@ CREATE TABLE booking (
                 inmate_worker_indicator BOOLEAN,
                 probationer_indicator BOOLEAN,
                 incarcerated_indicator BOOLEAN,
+                in_process_indicator BOOLEAN,
+                mistaken_booking_indicator BOOLEAN,
                 last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
