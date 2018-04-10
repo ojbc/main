@@ -136,6 +136,7 @@
 					<xsd:element ref="sqr-ext:RapBackSubscriptionTermCode" minOccurs="0" />
 					<xsd:element ref="sqr-ext:RapBackActivityNotificationRepresentation" minOccurs="0" />
 					<xsd:element ref="sqr-ext:RapBackInStateOptOutIndicator" minOccurs="0" />
+					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
