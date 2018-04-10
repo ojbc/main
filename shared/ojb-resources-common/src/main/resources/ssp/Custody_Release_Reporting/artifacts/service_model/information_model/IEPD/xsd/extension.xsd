@@ -273,14 +273,19 @@
 			<xsd:documentation>Booking Status</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="mistaken">
+			<xsd:enumeration value="Mistaken">
 				<xsd:annotation>
 					<xsd:documentation>Mistaken</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="correct">
+			<xsd:enumeration value="Correct">
 				<xsd:annotation>
 					<xsd:documentation>Correct</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="InProcess">
+				<xsd:annotation>
+					<xsd:documentation>InProcess</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
