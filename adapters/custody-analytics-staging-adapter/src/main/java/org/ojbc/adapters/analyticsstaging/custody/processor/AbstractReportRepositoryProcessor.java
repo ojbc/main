@@ -163,7 +163,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				String medicaidIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, "hs:MedicaidIndicator");
 				Boolean medicaidIndicatorBoolean = BooleanUtils.toBooleanObject(medicaidIndicator);
-				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", null);
+				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", "unknown");
 				assessment.setMedicaidStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.MedicaidStatusType, medicaidStatusType));
 				
 				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
@@ -323,7 +323,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				treatment.setTreatmentProviderName(treatmentProvider);
 				
 				Boolean treatmentCourtOrdered = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator"));
-				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", null); 
+				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", "Unknown"); 
 				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
 				String treatmentStatus = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentStatusCode");
