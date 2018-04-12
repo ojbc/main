@@ -114,15 +114,15 @@ public abstract class AbstractReportRepositoryProcessor {
  		person.setOccupation(occupation);
 	 	
  		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
- 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", null);
+ 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "unknown");
  		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
 
  		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
- 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", null); 
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", "unknown"); 
  		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
  		
  		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
- 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", null);
+ 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", "unknown");
  		person.setWorkReleaseStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.WorkReleaseStatusType, workReleaseStatusType));;
  		
 	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
