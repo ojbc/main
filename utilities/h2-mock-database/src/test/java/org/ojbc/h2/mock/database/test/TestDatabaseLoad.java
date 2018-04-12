@@ -16,7 +16,9 @@
  */
 package org.ojbc.h2.mock.database.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -51,6 +53,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext
 public class TestDatabaseLoad {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestDatabaseLoad.class);
 
     @Resource
@@ -138,7 +141,7 @@ public class TestDatabaseLoad {
 		
 		rs = conn.createStatement().executeQuery("select count(*) as count from fbi_rap_back_subscription");
 		assertTrue(rs.next());
-		assertEquals(4,rs.getInt("count"));
+		assertEquals(5,rs.getInt("count"));
 
 	}
 
