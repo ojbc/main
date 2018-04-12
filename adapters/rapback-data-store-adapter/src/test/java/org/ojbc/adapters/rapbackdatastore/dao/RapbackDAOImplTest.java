@@ -102,7 +102,7 @@ public class RapbackDAOImplTest {
 		
     	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
     	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate()");
-    	assertEquals(9, rowsUpdated);
+    	assertEquals(11, rowsUpdated);
 	}
 	
 	@Test
