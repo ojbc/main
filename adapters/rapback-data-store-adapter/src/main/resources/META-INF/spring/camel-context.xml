@@ -73,7 +73,7 @@
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
 
 		<endpoint id="resendDatabaseFailedFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendDatabaseFailedCronExpression}}&amp;sortBy=file:modified" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;sortBy=file:modified" />
 			
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
@@ -104,6 +104,9 @@
 			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
 		<endpoint id="automaticArchivingCriminalTimerEndpoint"
 			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
+
+		<endpoint id="checkDatabaseConnectionTimerEndpoint"
+			uri="quartz2://rapbackDataStore/checkDBConnectionTimer?cron={{rapbackDatastoreAdapter.checkDatabaseConnectionCronExpression}}" />
 
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
@@ -232,7 +235,10 @@
 						<simple>FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>	
 					
-					<to uri="resendDatabaseFailedFileEndpoint"/>
+					<camel:multicast>
+						<to uri="bean:controlBusProcessor?method=checkDatabaseConnection" />
+						<to uri="resendDatabaseFailedFileEndpoint"/>
+					</camel:multicast>
 									
 				</doCatch>
 				
@@ -506,6 +512,13 @@
 			<from uri="automaticArchivingCriminalTimerEndpoint" />
 			<to uri="bean:rapbackDAO?method=archiveCriminalIdentifications" />
 			<log message="Automatic archiving completed"/>
+		</route>
+		
+		<!-- Check DB connection periodically when the route resend_database_failed_endpoint_route is stopped -->
+		<!-- And resume the route if the DB is back up -->
+		<route id="checkDBConnectionRoute">
+			<from uri="checkDatabaseConnectionTimerEndpoint" />
+			<to uri="bean:controlBusProcessor?method=checkDatabaseConnection" />
 		</route>
 		
 		<!-- Identification Modification Results Query Request flow -->
