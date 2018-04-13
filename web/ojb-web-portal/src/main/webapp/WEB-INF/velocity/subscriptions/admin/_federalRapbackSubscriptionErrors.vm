@@ -50,7 +50,7 @@
 	        	<td>$federalRapbackSubscriptionError.stateSubscriptionId</td>
 	        	<td>$federalRapbackSubscriptionError.transactionCategoryCodeResponse</td>
 	        	<td>$federalRapbackSubscriptionError.transactionStatusText</td>
-	        	<td>$federalRapbackSubscriptionError.responseRecievedTimestamp</td>
+	        	<td>$federalRapbackSubscriptionError.responseRecievedTimestamp.format($dateTimeformatter)</td>
         	</tr>
 	        #end
 		</tbody>

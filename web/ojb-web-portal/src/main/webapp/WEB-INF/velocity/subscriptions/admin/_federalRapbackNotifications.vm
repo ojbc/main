@@ -61,7 +61,7 @@
 		        	<td>$federalRapbackNotification.transactionType</td>
 		        	<td>$federalRapbackNotification.rapBackEventText</td>
 		        	<td>$federalRapbackNotification.triggeringEventsString</td>
-		        	<td>$federalRapbackNotification.notificationRecievedTimestamp</td>
+		        	<td>$federalRapbackNotification.notificationRecievedTimestamp.format($dateTimeformatter)</td>
 	        	</tr>
 	        #end
 		</tbody>
