@@ -272,7 +272,7 @@
 			<tr>
 			    <td class="detailsLabel" style="width:40%">UCN exists in CJIS HI</td>
 			    <td style="width:10%">
-			    	#if( $subscription.systemId )
+			    	#if( $subscription.fbiId )
 						yes
 					#else
 						no
