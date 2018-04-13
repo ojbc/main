@@ -87,6 +87,8 @@ CREATE TABLE booking (
                 inmate_worker_indicator BOOLEAN,
                 probationer_indicator BOOLEAN,
                 incarcerated_indicator BOOLEAN,
+                in_process_indicator BOOLEAN,
+                mistaken_booking_indicator BOOLEAN,
                 last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
@@ -120,12 +122,12 @@ CREATE TABLE charge (
 CREATE TABLE location (
                 id IDENTITY NOT NULL,
                 arrest_id INTEGER NOT NULL,
-                address_secondary_unit VARCHAR(200) NOT NULL,
-                street_number VARCHAR(100) NOT NULL,
-                street_name VARCHAR(200) NOT NULL,
-                city VARCHAR(200) NOT NULL,
-                state_code VARCHAR(10) NOT NULL,
-                postal_code VARCHAR(20) NOT NULL,
+                address_secondary_unit VARCHAR(200),
+                street_number VARCHAR(100),
+                street_name VARCHAR(200),
+                city VARCHAR(200),
+                state_code VARCHAR(10),
+                postal_code VARCHAR(20),
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
