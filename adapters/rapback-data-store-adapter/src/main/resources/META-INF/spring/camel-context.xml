@@ -77,7 +77,7 @@
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
 
 		<endpoint id="resendDatabaseFailedFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendDatabaseFailedCronExpression}}" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendDatabaseFailedCronExpression}}&amp;sortBy=file:modified" />
 			
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
