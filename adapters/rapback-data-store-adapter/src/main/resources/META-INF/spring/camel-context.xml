@@ -235,10 +235,8 @@
 						<simple>FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>	
 					
-					<camel:multicast>
-						<to uri="bean:controlBusProcessor?method=checkDatabaseConnection" />
-						<to uri="resendDatabaseFailedFileEndpoint"/>
-					</camel:multicast>
+					<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
+					<to uri="resendDatabaseFailedFileEndpoint"/>
 									
 				</doCatch>
 				
@@ -516,9 +514,9 @@
 		
 		<!-- Check DB connection periodically when the route resend_database_failed_endpoint_route is stopped -->
 		<!-- And resume the route if the DB is back up -->
-		<route id="checkDBConnectionRoute">
+		<route id="databaseConnectionMonitorRoute">
 			<from uri="checkDatabaseConnectionTimerEndpoint" />
-			<to uri="bean:controlBusProcessor?method=checkDatabaseConnection" />
+			<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
 		</route>
 		
 		<!-- Identification Modification Results Query Request flow -->
