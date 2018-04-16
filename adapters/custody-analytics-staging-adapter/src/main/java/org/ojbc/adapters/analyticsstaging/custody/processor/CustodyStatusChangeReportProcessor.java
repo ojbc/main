@@ -200,6 +200,13 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
  		custodyStatusChange.setInmateCurrentLocation(inmateCurrentLocation);
  		
         processCustodyReleaseInfo(custodyNode, bookingId, bookingNumber);
+        
+ 		String bookingStatusCode = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/cscr-ext:BookingStatusCode");
+ 		
+ 		if (StringUtils.isNotBlank(bookingStatusCode))
+ 		{	
+ 			custodyStatusChange.setBookingStatus(bookingStatusCode);
+ 		}	
 
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
         
