@@ -277,6 +277,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
+                BookingStatus VARCHAR(20) NOT NULL,
                 BookingTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingID)
 );
@@ -289,7 +290,8 @@ CREATE TABLE CustodyRelease (
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                CustodyReleaseTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                BookingStatus VARCHAR(20) NOT NULL,
+				CustodyReleaseTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
@@ -306,7 +308,8 @@ CREATE TABLE CustodyStatusChange (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                CustodyStatusChangeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                BookingStatus VARCHAR(20) NOT NULL,
+				CustodyStatusChangeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
