@@ -114,6 +114,8 @@
 			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
 		<endpoint id="automaticArchivingCriminalTimerEndpoint"
 			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
+		<endpoint id="checkDatabaseConnectionTimerEndpoint"
+			uri="quartz2://rapbackDataStore/checkDBConnectionTimer?cron={{rapbackDatastoreAdapter.checkDatabaseConnectionCronExpression}}" />
 
 		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>
 		
@@ -479,6 +481,13 @@
 			</doTry>
 		</route>	
 			
+		<!-- Check DB connection periodically when the route resend_database_failed_endpoint_route is stopped -->
+		<!-- And resume the route if the DB is back up -->
+		<route id="databaseConnectionMonitorRoute">
+			<from uri="checkDatabaseConnectionTimerEndpoint" />
+			<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
+		</route>
+		
 		<!-- Identification Modification Results Query Request flow -->
 		<route id="identificationResultsModificationRequestServiceRoute">
 			<from uri="identificationResultsModificationRequestServiceEndpoint" />
