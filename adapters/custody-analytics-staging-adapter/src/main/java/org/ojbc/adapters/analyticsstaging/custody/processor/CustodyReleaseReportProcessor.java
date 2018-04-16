@@ -18,6 +18,7 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.time.LocalDateTime;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
@@ -58,6 +59,13 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 			String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:Date");
 			custodyRelease.setReleaseDate(OJBCDateUtils.parseLocalDate(releaseDateString));
 		}
+		
+ 		String bookingStatusCode = XmlUtils.xPathStringSearch(bookingNode, "crr-ext:BookingStatusCode");
+ 		
+ 		if (StringUtils.isNotBlank(bookingStatusCode))
+ 		{	
+ 			custodyRelease.setBookingStatus(bookingStatusCode);
+ 		}			
 		
 		custodyRelease.setBookingNumber(bookingNumber);
 		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);

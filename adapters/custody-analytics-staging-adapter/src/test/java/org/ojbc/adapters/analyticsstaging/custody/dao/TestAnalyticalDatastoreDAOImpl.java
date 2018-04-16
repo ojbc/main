@@ -81,6 +81,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setSupervisionUnitTypeId(2);
 		booking.setBookingNumber("bookingNumber");
 		booking.setInmateJailResidentIndicator(true);
+		booking.setBookingStatus("InProcess");
 
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);

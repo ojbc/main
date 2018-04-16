@@ -263,6 +263,7 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
 		assertThat(custodyStatusChange.getInmateCurrentLocation(), nullValue());
+		assertThat(custodyStatusChange.getBookingStatus(), is("InProcess"));
 		
 		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAO.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
@@ -387,6 +388,7 @@ public class CamelContextAdamsTest {
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
 		assertThat(booking.getInmateCurrentLocation(), nullValue()); 
+		assertEquals("Correct", booking.getBookingStatus());
 		
 		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
@@ -601,6 +603,7 @@ public class CamelContextAdamsTest {
 		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
 		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
+		assertEquals("Correct", custodyRelease.getBookingStatus());
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertThat(behavioralHealthAssessments.size(), is(2));
