@@ -25,8 +25,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.ProducerTemplate;
-import org.apache.commons.lang.StringUtils;
+import org.apache.camel.ServiceStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -36,34 +35,29 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class ControlBusProcessor{
+public class DatabaseConnectionMonitor{
     private final Log log = LogFactory.getLog(this.getClass());
 
 	@Resource
     private DataSource dataSource;
 	
-	private ProducerTemplate producerTemplate;
-	
-	public ControlBusProcessor(){
+	public DatabaseConnectionMonitor(){
     }
 
 
-	public void checkDatabaseConnection(Exchange exchange){
+	public void checkDatabaseConnection(Exchange exchange) throws Exception{
 		
-		if (producerTemplate == null ){
-			producerTemplate = exchange.getContext().createProducerTemplate();
+		ServiceStatus status = exchange.getContext().getRouteStatus("resend_database_failed_endpoint_route");
+		log.info("route resend_database_failed_endpoint_route status: " + status.toString());
+		
+		
+		if ( ServiceStatus.Started != status && isDatabaseConnected()){
+			exchange.getContext().startRoute("resend_database_failed_endpoint_route");
+			log.info("route resend_database_failed_endpoint_route is started");
 		}
-		
-		log.info("producerTemplate is null?  " + String.valueOf(producerTemplate == null));
-		String status = producerTemplate.requestBody("controlbus:route?routeId=resend_database_failed_endpoint_route&action=status", null, String.class);
-		log.info("route status: " + StringUtils.trimToEmpty(status));
-		
-		
-		if (!"Started".equalsIgnoreCase(status) && isDatabaseConnected()){
-			producerTemplate.sendBody("controlbus:route?routeId=resend_database_failed_endpoint_route&action=start", null);
-		}
-		else if ("Started".equalsIgnoreCase(status) && !isDatabaseConnected()){
-			producerTemplate.sendBody("controlbus:route?routeId=resend_database_failed_endpoint_route&action=stop", null);
+		else if ( ServiceStatus.Started == status && !isDatabaseConnected()){
+			exchange.getContext().stopRoute("resend_database_failed_endpoint_route");
+			log.info("route resend_database_failed_endpoint_route is stopped");
 		}
 	}
 
