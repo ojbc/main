@@ -61,6 +61,7 @@
 				</j:SubjectIdentification>
 			</j:BookingSubject>
 			<j:Arrest structures:ref="Arrest_01" />
+			<cscr-ext:BookingStatusCode>InProcess</cscr-ext:BookingStatusCode>
 		</j:Booking>
 		<j:Detention structures:id="Detention_01">
 			<nc:ActivityDate>

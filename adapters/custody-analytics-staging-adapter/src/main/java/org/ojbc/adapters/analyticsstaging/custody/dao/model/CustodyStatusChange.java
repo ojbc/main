@@ -41,6 +41,7 @@ public class CustodyStatusChange implements Serializable{
     private Boolean inmateJailResidentIndicator;
     private String inmateCurrentLocation; 
     private Timestamp custodyStatusChangeTimestamp; 
+    private String bookingStatus;
 
     private CustodyRelease custodyRelease;
 	
@@ -161,6 +162,14 @@ public class CustodyStatusChange implements Serializable{
 	public void setCustodyStatusChangeTimestamp(
 			Timestamp custodyStatusChangeTimestamp) {
 		this.custodyStatusChangeTimestamp = custodyStatusChangeTimestamp;
+	}
+
+	public String getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(String bookingStatus) {
+		this.bookingStatus = bookingStatus;
 	}
 
 

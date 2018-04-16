@@ -35,6 +35,7 @@ public class CustodyRelease implements Serializable{
 	private String bookingNumber; 
 	private String ReleaseCondition;
 	private Timestamp custodyReleaseTimestamp;
+	private String bookingStatus;
 	
 	@Override
 	public String toString() {
@@ -95,6 +96,14 @@ public class CustodyRelease implements Serializable{
 
 	public void setCustodyReleaseTimestamp(Timestamp custodyReleaseTimestamp) {
 		this.custodyReleaseTimestamp = custodyReleaseTimestamp;
+	}
+
+	public String getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(String bookingStatus) {
+		this.bookingStatus = bookingStatus;
 	}
 
 }
