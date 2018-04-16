@@ -77,7 +77,7 @@
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
 
 		<endpoint id="resendDatabaseFailedFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendDatabaseFailedCronExpression}}&amp;sortBy=file:modified" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/databaseResends/failed&amp;move=processed/&amp;sortBy=file:modified" />
 			
 		<!-- Rapback Search Request Endpoints -->
 		<endpoint id="rapbackSearchRequestServiceEndpoint"
@@ -244,8 +244,9 @@
 					
 					<setHeader headerName="CamelFileName">
 						<simple>FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-					</setHeader>	
-					
+					</setHeader>
+						
+					<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
 					<to uri="resendDatabaseFailedFileEndpoint"/>
 									
 				</doCatch>
