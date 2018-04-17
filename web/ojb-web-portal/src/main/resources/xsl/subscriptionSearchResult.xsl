@@ -121,9 +121,8 @@
 			<td valign="middle">
 				<!-- note value in json format, so ui can parse it -->
 				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}", "validationDueDate":"{$validationDueDate}"}}'/>
-				
 			</td>				
-			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
+			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
 			<td>
 				<xsl:choose>
 					<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">

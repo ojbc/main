@@ -16,31 +16,18 @@
  *#
 <script type="text/javascript">
   $(function() {	
-  //	$( "#accordion" ).accordion({
-  	//    activate: function (e, ui) {
-    //    	$url = $(ui.newHeader[0]).children('a').attr('href');
-    //    	
-    //    	if ($url){
-	//	  		$.get($url, function (data) {
-	//	     		$(ui.newHeader[0]).next().html(data);
-	//          	});
-    //      	}
-    //    }
-  	//});
-  	
   	$( "#accordion" ).accordion({
-  		heightStyle: "content"
+  		heightStyle: "content",
+  	    activate: function (e, ui) {
+        	$url = $(ui.newHeader[0]).children('a').attr('href');
+        	
+        	if ($url){
+		  		$.get($url, function (data) {
+		     		$(ui.newHeader[0]).next().html(data);
+	          	});
+          	}
+        }
   	});
-  	
-    $("#fbiSubscriptionActivitiesTable").DataTable({
-		 "dom": 'rt<"clear">', 
-		 "pageLength": 25,
-		 stateSave: true,
-		 colReorder: true,
-		 "language": {
-      		"emptyTable": "No Federal Rapback Activities found"
-    	 } 
-	});
   	
 	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
 
@@ -268,52 +255,5 @@
 	  
 	  <h3><a href="#springUrl('/subscriptions/admin/federalRapbackSubscriptionDetail')/$subscription.systemId">FBI Subscription Activities</a></h3> 
 	  <div>
-		<table class="detailsTable">
-			<tr>
-			    <td class="detailsLabel" style="width:40%">UCN exists in CJIS HI</td>
-			    <td style="width:10%">
-			    	#if( $subscription.fbiId )
-						yes
-					#else
-						no
-					#end
-			    </td>
-			    <td class="detailsLabel" style="width:40%">FBI Subscription Request Sent</td>
-			    <td style="width:10%">$!booleanUtils.toStringYesNo($federalRapbackSubscriptionDetail.fbiSubscriptionSent)</td>
-			</tr>
-			<tr>
-			    <td class="detailsLabel">FBI Subscription Created</td>
-			    <td>$booleanUtils.toStringYesNo($federalRapbackSubscriptionDetail.fbiSubscriptionCreated)</td>
-			    <td class="detailsLabel">RBMNT sent to FBI</td>
-			    <td>$!booleanUtils.toStringYesNo($federalRapbackSubscriptionDetail.fbiRapbackMaintenanceSent)</td>
-		    </tr>
-		    <tr>
-			    <td class="detailsLabel">RBMNT confirmed by FBI</td>
-			    <td>$!booleanUtils.toStringYesNo($federalRapbackSubscriptionDetail.fbiRapbackMaintenanceConfirmed)</td>
-			    <td class="detailsLabel"></td>
-			    <td></td>
-			</tr>
-		</table>
-	  
-		<table class="searchResultsTable display" id="fbiSubscriptionActivitiesTable">
-			<thead>
-				<tr>
-					<th style="width:25%">REQUEST SENT</th>
-					<th style="width:25%">RESPONSE RECEIVED</th>
-					<th style="width:20%">TRANSACTION TYPE</th>
-					<th style="width:30%">TRANSACTION STATUS</th>
-				</tr>
-			</thead>
-			<tbody>
-		        #foreach($federalRapbackSubscription in $federalRapbackSubscriptionDetail.federalRapbackSubscriptions)
-			        <tr>
-			        	<td>$federalRapbackSubscription.requestSentTimestamp.format($dateTimeformatter)</td>
-			        	<td>$federalRapbackSubscription.responseRecievedTimestamp.format($dateTimeformatter)</td>
-			        	<td>$federalRapbackSubscription.transactionCategoryCodeResponse</td>
-			        	<td>$federalRapbackSubscription.transactionStatusText</td>
-		        	</tr>
-		        #end
-			</tbody>
-		</table> 								
 	  </div> 
 	</div>
