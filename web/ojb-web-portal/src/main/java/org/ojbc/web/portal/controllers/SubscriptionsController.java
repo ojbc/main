@@ -46,7 +46,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
@@ -115,7 +114,6 @@ import org.xml.sax.InputSource;
 @RequestMapping("/subscriptions/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
 public class SubscriptionsController {
-	@SuppressWarnings("unused")
 	private Log log = LogFactory.getLog(this.getClass());
 
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -1089,13 +1087,14 @@ public class SubscriptionsController {
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
 	public String getSubscriptionDetail(HttpServletRequest request,			
 			@RequestParam String identificationID,
-			@RequestParam String topic,
 			@RequestParam(required=false, defaultValue="false") Boolean admin,
 			Map<String, Object> model) {
 		
 		try{			
 			//init success flag to true - allow processing below to set it to false if things go wrong
 			model.put("initializationSucceeded", true);
+			log.info("identificationID: " + identificationID);
+			log.info("admin: " + BooleanUtils.toString(admin, "true", "false", "false"));
 						
 			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request, admin);
 			
@@ -1128,10 +1127,6 @@ public class SubscriptionsController {
 					model.put("csDefaultEndDate", csDefaultEndDate);
 				}
 				 
-				FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = 
-						subscriptionsRestClient.getFederalRapbackSubscriptionDetail(subscription.getSystemId());
-				model.put("federalRapbackSubscriptionDetail", federalRapbackSubscriptionDetail);
-				
 				model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 				
 				model.put("showCaseIdInput", showCaseIdInput);
