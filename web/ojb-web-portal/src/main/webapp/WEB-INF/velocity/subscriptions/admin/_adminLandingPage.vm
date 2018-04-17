@@ -120,7 +120,7 @@
 		
 		// listener for click on any editSubscriptionLink button
 		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-			var editMvcUrl = encodeURI(this + "&admin=true");
+			var editMvcUrl = encodeURI(this + "&admin=true&editSourcePage=adminLanding");
 			var dlgHeight = $(window).height() * .9;
 				 	    		    			
 	  		$.get(editMvcUrl, 

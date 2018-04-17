@@ -112,7 +112,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage"})
 public class SubscriptionsController {
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -1088,8 +1088,10 @@ public class SubscriptionsController {
 	public String getSubscriptionDetail(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam(required=false, defaultValue="false") Boolean admin,
+			@RequestParam(required=false, defaultValue="adminLanding") String editSourcePage,
 			Map<String, Object> model) {
 		
+		model.put("editSourcePage", editSourcePage);
 		try{			
 			//init success flag to true - allow processing below to set it to false if things go wrong
 			model.put("initializationSucceeded", true);

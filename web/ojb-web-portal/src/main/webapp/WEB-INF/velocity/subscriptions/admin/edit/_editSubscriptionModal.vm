@@ -201,11 +201,25 @@
 		$("#editSubscriptionDialog").dialog('close');
 		
 		// redisplay subscription results having the new subscription 
-		$.post("#springUrl('/subscriptions/admin/landingPage')", 
-			function(data) {										
-		      $('#portalContent').html(data);					      
-			}
-		).fail(ojbc.displayFailMessage);  
+		if ('$editSourcePage' === 'RBN'){
+			$.get("#springUrl('/subscriptions/admin/federalRapbackNotifications')", function(data) {	
+				$("#subsAdminContent").html(data);
+			}).fail(ojbc.displayFailMessage);
+		}
+		else if ('$editSourcePage' === 'errors'){
+			$.get("#springUrl('/subscriptions/admin/federalRapbackSubscriptionErrors')", function(data) {	
+				$("#subsAdminContent").html(data);
+			}).fail(ojbc.displayFailMessage);
+		}
+		else if ('$editSourcePage' === 'adminAdvancedSearch'){
+  	       	xhr = $.post("#springUrl('/subscriptions/admin/search')", function(data) {
+		       $("#subsAdminContent").html(data);
+	        }).fail(ojbc.displayFailMessage);		}
+		else {
+			$.post("#springUrl('/subscriptions/admin/landingPage')", function(data) {										
+			      $('#portalContent').html(data);					      
+			}).fail(ojbc.displayFailMessage);
+		}  
 	  }
 	  
 </script>
