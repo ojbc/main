@@ -29,6 +29,34 @@
     	 } 
 	});
 	
+ 	$('#searchResultsTable').on('click', 'tbody tr', function(){
+ 		var subscriptionId = $(this).find("td").first().text();
+ 		var editMvcUrl = "#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors";
+ 		
+		var dlgHeight = $(window).height() * .9;
+  		$.get(editMvcUrl, function(data){			  			
+			 var vSubDialog = $('<div style="display:none;" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"></div>').appendTo('body');
+			 var dlgWidth = $(document).width() * .95;	
+			 vSubDialog.dialog({                    
+				maxWidth: 800,		
+        		height:dlgHeight,
+                position: {
+                   my: "left top",
+                   at: "left top",
+                   of: $("#stateBanner")
+                },
+                modal:true,
+		        open:function(event,ui){
+					$('#editSubscriptionDialog').html(data);
+		        },
+		        close: function(event, ui){
+		        	$(this).dialog("close");
+		        	$('#editSubscriptionDialog').remove();
+		        }    	                                  
+            }).css({height:dlgHeight, overflow:"auto"}); 			  						  				  				
+		}).fail(ojbc.displayFailMessage);	
+ 	});
+	
   });
     
 </script>
@@ -48,9 +76,9 @@
 	        #foreach($federalRapbackSubscriptionError in $federalRapbackSubscriptionErrors)
 	        <tr>
 	        	<td>$federalRapbackSubscriptionError.stateSubscriptionId</td>
-	        	<td>$federalRapbackSubscriptionError.transactionCategoryCodeResponse</td>
+	        	<td>$!federalRapbackSubscriptionError.transactionCategoryCodeResponse</td>
 	        	<td>$federalRapbackSubscriptionError.transactionStatusText</td>
-	        	<td>$federalRapbackSubscriptionError.responseRecievedTimestamp.format($dateTimeformatter)</td>
+	        	<td>$!federalRapbackSubscriptionError.responseRecievedTimestamp.format($dateTimeformatter)</td>
         	</tr>
 	        #end
 		</tbody>
