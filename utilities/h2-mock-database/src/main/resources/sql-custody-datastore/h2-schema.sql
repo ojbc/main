@@ -73,7 +73,7 @@ CREATE TABLE booking (
                 id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
                 booking_number VARCHAR(50) NOT NULL,
-                booking_date DATE,
+                booking_datetime TIMESTAMP NOT NULL,
                 facility VARCHAR(50),
                 booking_photo BINARY,
                 actual_release_datetime TIMESTAMP,
