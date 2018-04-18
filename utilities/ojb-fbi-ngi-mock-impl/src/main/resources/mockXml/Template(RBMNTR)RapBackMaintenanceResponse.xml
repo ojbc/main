@@ -58,7 +58,7 @@
             </ansi-nist:TransactionControlIdentification>
             <!--TCR 1.010, Optional-->
             <ansi-nist:TransactionControlReferenceIdentification>
-                <nc:IdentificationID>1234567890</nc:IdentificationID>
+                <nc:IdentificationID>TransactionControlReferenceIdentification_HOLDER</nc:IdentificationID>
             </ansi-nist:TransactionControlReferenceIdentification>
             <!--DOM 1.013-->
             <ansi-nist:TransactionDomain>
