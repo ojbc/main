@@ -70,10 +70,10 @@
 		<tbody>
 	        #foreach($federalRapbackSubscription in $federalRapbackSubscriptionDetail.federalRapbackSubscriptions)
 		        <tr>
-		        	<td>$federalRapbackSubscription.requestSentTimestamp.format($dateTimeformatter)</td>
-		        	<td>$federalRapbackSubscription.responseRecievedTimestamp.format($dateTimeformatter)</td>
-		        	<td>$federalRapbackSubscription.transactionCategoryCodeResponse</td>
-		        	<td>$federalRapbackSubscription.transactionStatusText</td>
+		        	<td>$!federalRapbackSubscription.requestSentTimestamp.format($dateTimeformatter)</td>
+		        	<td>$!federalRapbackSubscription.responseRecievedTimestamp.format($dateTimeformatter)</td>
+		        	<td>$!federalRapbackSubscription.transactionCategoryCodeResponse</td>
+		        	<td>$!federalRapbackSubscription.transactionStatusText</td>
 	        	</tr>
 	        #end
 		</tbody>
