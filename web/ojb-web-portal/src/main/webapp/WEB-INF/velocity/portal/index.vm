@@ -39,6 +39,11 @@
 				$("#modalIframeSpinner").show();
 	
 	 		}
+	 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){
+	 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())
+	 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())
+				$("#modalIframeSpinner").show();
+	 		}
 	 		else{
 	     		var loadingDiv =  $("#loadingAjaxPane");
 	     		var portalContentDiv = $("#portalContent");
