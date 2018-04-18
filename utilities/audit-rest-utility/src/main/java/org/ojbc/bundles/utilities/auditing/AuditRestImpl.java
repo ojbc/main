@@ -163,7 +163,7 @@ public class AuditRestImpl implements AuditInterface {
 		//Results come back sorted in descending order by timestamp
 		for (FederalRapbackSubscription federalRapbackSubscription : federalRapbackSubscriptions)
 		{
-			if (federalRapbackSubscription.getTransactionCategoryCodeRequest().equals("RBSCRM"))
+			if ("RBSCRM".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
 			{
 				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
 				
@@ -180,7 +180,7 @@ public class AuditRestImpl implements AuditInterface {
 			
 			if (!latestMaintenanceRequestFound)
 			{
-				if (federalRapbackSubscription.getTransactionCategoryCodeRequest().equals("RBMNT"))
+				if ("RBMNT".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
 				{
 					federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceSent(true);
 					
