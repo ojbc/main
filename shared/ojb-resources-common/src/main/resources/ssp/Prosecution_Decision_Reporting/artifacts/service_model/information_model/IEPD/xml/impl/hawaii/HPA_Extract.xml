@@ -17,9 +17,9 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pdu-doc:ProsecutionDecisionReport
+<pd-doc:ProsecutionDecisionReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0 ../../../xsd/impl/hawaii/hawaii_codes.xsd"
-	xmlns:pdu-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
 	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
 	xmlns:pd-hi-codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
@@ -179,4 +179,4 @@
 		<nc:Activity structures:ref="Offense01" />
 		<nc:Organization structures:ref="EU01" />
 	</nc:ActivityInvolvedOrganizationAssociation>
-</pdu-doc:ProsecutionDecisionReport>
+</pd-doc:ProsecutionDecisionReport>
