@@ -27,19 +27,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case>
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>Case ID 234567</nc:IdentificationID>
+			<nc:IdentificationID>Case123456</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
-			<pd-hi-codes:CaseStatusCode>REVIEW</pd-hi-codes:CaseStatusCode>
+			<pd-hi-codes:CaseStatusCode>REFUSED</pd-hi-codes:CaseStatusCode>
 		</nc:ActivityStatus>
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
-				<nc:Date>2005-05-01</nc:Date>
+				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 			</nc:DispositionDate>
-			<nc:DispositionText></nc:DispositionText>
+			<nc:DispositionText>Disposition</nc:DispositionText>
 		</nc:ActivityDisposition>
 		<nc:CaseDisposition>
-			<nc:DispositionText>Disposition</nc:DispositionText>
+			<nc:DispositionText>Final Disposition</nc:DispositionText>
 			<nc:CaseDispositionFinalDate>
 				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 			</nc:CaseDispositionFinalDate>
@@ -48,25 +48,24 @@
 		</j:ActivityAugmentation>
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="Charge01">
-				<j:ChargeCategoryDescriptionText>Lead Charge</j:ChargeCategoryDescriptionText>
+				<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
 						<nc:Date>2005-05-01</nc:Date>
 					</nc:DispositionDate>
 				</j:ChargeDisposition>
-				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>708-0822</nc:IdentificationID>
+						<nc:IdentificationID>711-1106</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 				<pd-hi-codes:ChargeSeverityCode>F</pd-hi-codes:ChargeSeverityCode>
 			</j:CaseCharge>
 			<j:CaseCourt>
-				<pd-ext:CourtCaseNumber>Cause Number</pd-ext:CourtCaseNumber>
+				<pd-ext:CourtCaseNumber>Cause567890</pd-ext:CourtCaseNumber>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
-				<nc:ActivityDescriptionText>Text</nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
 				<j:CourtEventAppearance>
 					<j:CourtAppearanceDate>
 						<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
@@ -107,13 +106,12 @@
 			</j:CaseWitness>
 		</j:CaseAugmentation>
 		<pd-ext:CaseAdditionalCharge structures:id="Charge02">
-			<j:ChargeCategoryDescriptionText>Lead Charge</j:ChargeCategoryDescriptionText>
+			<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
 			<j:ChargeDisposition>
 				<nc:DispositionDate>
 					<nc:Date>2005-05-01</nc:Date>
 				</nc:DispositionDate>
-				<nc:DispositionText>
-				</nc:DispositionText>
+				<nc:DispositionText>COD</nc:DispositionText>
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -124,7 +122,7 @@
 		<pd-ext:CaseProsecutorStaff>
 			<nc:RoleOfPerson>
 				<nc:PersonName>
-					<nc:PersonFullName>Wayne</nc:PersonFullName>
+					<nc:PersonFullName>Jack E. Smith</nc:PersonFullName>
 				</nc:PersonName>
 			</nc:RoleOfPerson>
 		</pd-ext:CaseProsecutorStaff>
@@ -144,9 +142,11 @@
 		</nc:ActivityDateRange>
 	</j:Offense>
 	<j:Offense structures:id="Offense02">
-		<nc:ActivityDate>
-			<nc:Date>2016-09-12</nc:Date>
-		</nc:ActivityDate>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2016-09-12</nc:Date>
+			</nc:StartDate>
+		</nc:ActivityDateRange>
 	</j:Offense>
 	<j:EnforcementUnit structures:id="EU01">
 		<j:EnforcementUnitBeatIdentification>
