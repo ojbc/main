@@ -17,16 +17,23 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
-	elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+<xsd:schema xmlns:i="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0" xmlns:pd_hi_codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0" elementFormDefault="qualified"
+	attributeFormDefault="qualified" version="1">
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/"
+		schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
 	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
@@ -36,7 +43,7 @@
 			<xsd:documentation>A data type for charge filing document.
 			</xsd:documentation>
 			<xsd:appinfo>
-				<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+				<i:ConformantIndicator>true</i:ConformantIndicator>
 				<xsd:documentation>A data type for a charge filing
 				</xsd:documentation>
 			</xsd:appinfo>
@@ -55,6 +62,7 @@
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:EnforcementUnit" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded" />
@@ -78,11 +86,13 @@
 					<xsd:element ref="cyfs:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityInvolvedOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An Alaska APSIN Identifier for a person.
 			</xsd:documentation>
@@ -99,19 +109,22 @@
 			<xsd:documentation>Victim Rights Assertion text.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType" substitutionGroup="j:ArrestAugmentationPoint">
+	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A tracking number associated with an arrest.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OperatorLicenseIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="OperatorLicenseIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A license to operate a device (e.g., snowmobile, ATC).
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge involves domestic violence; false otherwise.
 			</xsd:documentation>
@@ -153,7 +166,8 @@
 			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an OTN.
 			</xsd:documentation>
@@ -174,7 +188,8 @@
 			<xsd:documentation>True if a location is the preferred location; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xs:boolean" substitutionGroup="j:DriverLicenseAugmentationPoint">
+	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a driver license is for a commercial vehicle; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -194,13 +209,15 @@
 			<xsd:documentation>Previously filed docket entries.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:DocumentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the public and other parties are restricted from viewing the document; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:DocumentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the public is restricted from viewing the document; false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -210,13 +227,15 @@
 			<xsd:documentation>True if the document is the lead document; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionDecisionAttachment" type="nc:DocumentType" substitutionGroup="pd-ext:ProsecutionDecisionRepresentation">
+	<xsd:element name="ProsecutionDecisionAttachment" type="nc:DocumentType"
+		substitutionGroup="pd-ext:ProsecutionDecisionRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A prosecution decision document.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionDecisionDescriptionText" type="nc:TextType" substitutionGroup="pd-ext:ProsecutionDecisionRepresentation">
+	<xsd:element name="ProsecutionDecisionDescriptionText" type="nc:TextType"
+		substitutionGroup="pd-ext:ProsecutionDecisionRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A description of a decision to file a case.
 			</xsd:documentation>
@@ -234,7 +253,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PoliceReportCount" type="niem-xs:nonNegativeInteger" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+	<xsd:element name="PoliceReportCount" type="niem-xs:nonNegativeInteger"
+		substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Police report count.
 			</xsd:documentation>
@@ -246,7 +266,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ReferringPoliceAgency" type="nc:OrganizationType" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+	<xsd:element name="ReferringPoliceAgency" type="nc:OrganizationType"
+		substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The police agency referring the case.
 			</xsd:documentation>
@@ -270,7 +291,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SpecialJuvenileDescriptionText" type="nc:TextType" substitutionGroup="cyfs:JuvenileAugmentationPoint">
+	<xsd:element name="SpecialJuvenileDescriptionText" type="nc:TextType"
+		substitutionGroup="cyfs:JuvenileAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A description of special juvenile information.
 			</xsd:documentation>
@@ -282,25 +304,29 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseworkerStaffIdentification" type="nc:IdentificationType" substitutionGroup="cyfs:CaseworkerAugmentationPoint">
+	<xsd:element name="CaseworkerStaffIdentification" type="nc:IdentificationType"
+		substitutionGroup="cyfs:CaseworkerAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unique identification assigned to a caseworker staff member.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseworkerAssignmentDateRange" type="nc:DateRangeType" substitutionGroup="cyfs:CaseworkerAugmentationPoint">
+	<xsd:element name="CaseworkerAssignmentDateRange" type="nc:DateRangeType"
+		substitutionGroup="cyfs:CaseworkerAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An assignment date range for a caseworker.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AssociatedPerson" type="nc:PersonType" substitutionGroup="cyfs:AssociatedPersonChildAssociationAugmentationPoint">
+	<xsd:element name="AssociatedPerson" type="nc:PersonType"
+		substitutionGroup="cyfs:AssociatedPersonChildAssociationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A person associated with another person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubjectCareerCriminalIndicator" type="niem-xs:boolean" substitutionGroup="j:SubjectAugmentationPoint">
+	<xsd:element name="SubjectCareerCriminalIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:SubjectAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if subject is a career criminal; false otherwise.
 			</xsd:documentation>
@@ -312,7 +338,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubjectMentalHealthConditionIndicator" type="niem-xs:boolean" substitutionGroup="j:SubjectAugmentationPoint">
+	<xsd:element name="SubjectMentalHealthConditionIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:SubjectAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if subject has a mental health condition; false otherwise.
 			</xsd:documentation>
@@ -325,35 +352,69 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PhysicalFeatureIdentification" type="nc:IdentificationType" substitutionGroup="nc:PhysicalFeatureAugmentationPoint">
+	<xsd:element name="PhysicalFeatureIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PhysicalFeatureAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An identification associated with a physical feature.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IdentityPersonIdentification" type="nc:IdentificationType" substitutionGroup="nc:IdentityAugmentationPoint">
+	<xsd:element name="IdentityPersonIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:IdentityAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An identification associated with a person identity.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="LocationIdentification" type="nc:IdentificationType" substitutionGroup="nc:LocationAugmentationPoint">
+	<xsd:element name="LocationIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:LocationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An identification associated with a location.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PrimaryContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+	<xsd:element name="PrimaryContactInformationIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if contact information is primary; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="HomeContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+	<xsd:element name="HomeContactInformationIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if contact information is home; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WorkContactInformationIndicator" type="niem-xs:boolean" substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
+	<xsd:element name="WorkContactInformationIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:ContactInformationAssociationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if contact information is home; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
+	<xsd:element name="CourtCaseNumber" type="niem-xs:string" substitutionGroup="j:CourtAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A case number assigned by a court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseAdditionalCharge" type="j:ChargeType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional charges in a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="CaseProsecutorStaff" type="j:CaseOfficialType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional prosecutor staff assigned to a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+			<xsd:element name="WitnessCategoryText" type="nc:TextType" substitutionGroup="j:WitnessAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A type of witness.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+				<xsd:element name="CaseReferralDate" type="nc:DateType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date a case was referred to a prosecutor.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
+		xmime:expectedContentType="text/plain" />
 </xsd:schema>

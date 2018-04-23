@@ -48,6 +48,7 @@
   <w:Element w:name="j:CaseOfficial" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CourtCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:DriverLicense" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:EnforcementUnit" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:EntityTelephoneNumberAssociation"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:JudicialOfficial" w:isReference="false" w:nillable="true"/>
@@ -76,11 +77,15 @@
   <w:Element w:name="j:VictimPerson" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ActivityDisposition" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDocumentAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ActivityInvolvedOrganizationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:CaseDisposition" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactEmailID" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactEntity" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
@@ -272,7 +277,7 @@
     <w:Facet w:facet="enumeration" w:value="9"/>
   </w:Type>
   <w:Type w:name="j:CDLHolderCodeType" w:isRequested="true"/>
-  <w:Type w:name="j:CaseAugmentationType" w:isRequested="false">
+  <w:Type w:name="j:CaseAugmentationType" w:isRequested="true">
     <w:ElementInType w:name="j:CaseAmendedCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseCharge" w:isReference="false"
@@ -283,6 +288,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDefendantParty" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseDefenseAttorney"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDomesticViolenceIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseInitiatingParty"
@@ -297,6 +304,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseTerminationCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseWitness" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseSeverityText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -351,12 +360,20 @@
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:CourtActivityType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtActivityAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:CourtAppearanceType" w:isRequested="false">
     <w:ElementInType w:name="j:CourtAppearanceDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtEventType" w:isRequested="false">
+    <w:ElementInType w:name="j:CourtEventAction" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtEventAppearance"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtEventAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtType" w:isRequested="true">
@@ -364,6 +381,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="true">
     <w:ElementInType w:name="j:DriverLicenseIdentification"
@@ -377,6 +396,10 @@
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:EnforcementOfficialBadgeIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:EnforcementUnitType" w:isRequested="false">
+    <w:ElementInType w:name="j:EnforcementUnitBeatIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:EntityTelephoneNumberAssociationType" w:isRequested="true">
@@ -481,10 +504,22 @@
     <w:ElementInType w:name="j:VictimEntity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:WitnessType" w:isRequested="true">
+    <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:WitnessAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ActivityDocumentAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:Document" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:ActivityOrganizationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Organization" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
@@ -496,6 +531,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ActivityStatus" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityDisposition"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityAugmentationPoint"
@@ -526,6 +563,10 @@
   <w:Type w:name="nc:BinaryType" w:isRequested="true">
     <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:CaseDispositionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:CaseDispositionFinalDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:CaseType" w:isRequested="true">
     <w:ElementInType w:name="nc:CaseTitleText" w:isReference="false"
@@ -820,6 +861,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:StatusIssuerText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StatusAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:StreetType" w:isRequested="false">
     <w:ElementInType w:name="nc:StreetFullText" w:isReference="false"
