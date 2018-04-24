@@ -109,7 +109,7 @@
 			<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
 			<j:ChargeDisposition>
 				<nc:DispositionDate>
-					<nc:Date>2005-05-01</nc:Date>
+					<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 				</nc:DispositionDate>
 				<nc:DispositionText>COD</nc:DispositionText>
 			</j:ChargeDisposition>
