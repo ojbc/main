@@ -125,6 +125,7 @@
           <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseDefenseAttorney" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
@@ -132,6 +133,7 @@
           <xs:element ref="j:CaseOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseTerminationCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseWitness" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseSeverityText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -200,6 +202,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="CourtActivityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court-related action associated with a court case event.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:CourtActivityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="CourtAppearanceType">
     <xs:annotation>
       <xs:documentation>A data type for an appearance required of a party in a court of law on a certain date.</xs:documentation>
@@ -219,7 +233,9 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
+          <xs:element ref="j:CourtEventAction" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtEventAppearance" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtEventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -233,6 +249,7 @@
         <xs:sequence>
           <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -270,6 +287,18 @@
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:EnforcementOfficialBadgeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EnforcementUnitType">
+    <xs:annotation>
+      <xs:documentation>A data type for a unit of an agency responsible for enforcing the law and maintaining peace.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:EnforcementUnitBeatIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -465,6 +494,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="WitnessType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person who has observed an incident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:WitnessAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="ActivityAugmentation" type="j:ActivityAugmentationType" substitutionGroup="nc:ActivityAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about an activity.</xs:documentation>
@@ -560,6 +602,11 @@
       <xs:documentation>An entity being charged or sued in a court of law.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseDefenseAttorney" type="j:CaseOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An attorney who defends a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseDomesticViolenceIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if the case involves domestic violence; false otherwise.</xs:documentation>
@@ -618,6 +665,11 @@
   <xs:element name="CaseTerminationCategoryText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A kind of termination for a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseWitness" type="j:WitnessType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person/entity who has information relating to the activity or who testifies in court.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Charge" type="j:ChargeType" nillable="true">
@@ -720,9 +772,19 @@
       <xs:documentation>A person or entity who is the victim of an offense designated by the charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CourtActivityAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtActivityType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which a party must appear in court.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtCategory" abstract="true">
@@ -735,9 +797,19 @@
       <xs:documentation>A kind of court.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CourtEventAction" type="j:CourtActivityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court-related action associated with a court case event.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CourtEventAppearance" type="j:CourtAppearanceType" nillable="true">
     <xs:annotation>
       <xs:documentation>An appearance in court required of a party</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtEventAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtEventType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtName" type="nc:TextType" nillable="true">
@@ -763,6 +835,16 @@
   <xs:element name="EnforcementOfficialBadgeIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification used to refer to an enforcement official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EnforcementUnit" type="j:EnforcementUnitType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unit of an agency responsible for enforcing the law and maintaining peace.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EnforcementUnitBeatIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification of a local area for which an enforcement unit is responsible.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EntityTelephoneNumberAssociation" type="j:EntityTelephoneNumberAssociationType">
@@ -993,6 +1075,11 @@
   <xs:element name="VictimPerson" type="nc:PersonType" substitutionGroup="j:VictimEntity" nillable="true">
     <xs:annotation>
       <xs:documentation>An entity who suffers injury, loss, or death as a result of an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WitnessAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for WitnessType.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

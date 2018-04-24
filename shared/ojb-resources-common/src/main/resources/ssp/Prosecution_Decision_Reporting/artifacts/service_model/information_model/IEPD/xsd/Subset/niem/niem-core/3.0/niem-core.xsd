@@ -38,6 +38,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ActivityOrganizationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityType">
     <xs:annotation>
       <xs:documentation>A data type for a single or set of related actions, events, or process steps.</xs:documentation>
@@ -49,6 +62,7 @@
           <xs:element ref="nc:ActivityCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ActivityStatus" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -94,6 +108,18 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:BinaryObject" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for an outcome or processing of a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType">
+        <xs:sequence>
+          <xs:element ref="nc:CaseDispositionFinalDate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -545,6 +571,7 @@
         <xs:sequence>
           <xs:element ref="nc:StatusDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:StatusIssuerText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:StatusAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -650,6 +677,16 @@
       <xs:documentation>An identification that references an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ActivityInvolvedOrganizationAssociation" type="nc:ActivityOrganizationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and an organization somehow involved in that activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityStatus" type="nc:StatusType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Address" type="nc:AddressType" substitutionGroup="nc:LocationAddressAbstract" nillable="true">
     <xs:annotation>
       <xs:documentation>A postal location to which paper mail can be directed.</xs:documentation>
@@ -698,6 +735,16 @@
   <xs:element name="CaseCategoryText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A kind of case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseDisposition" type="nc:CaseDispositionType" substitutionGroup="nc:ActivityDisposition">
+    <xs:annotation>
+      <xs:documentation>An outcome or processing of a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseDispositionFinalDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date that all charges in a case were disposed.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseDocketID" type="niem-xs:string" nillable="true">
@@ -1503,6 +1550,11 @@
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which something begins.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatusAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for StatusType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StatusDate" type="nc:DateType" substitutionGroup="nc:StatusDateRepresentation">
