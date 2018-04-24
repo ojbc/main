@@ -239,6 +239,16 @@
 					<to uri="resendDatabaseFailedFileEndpoint"/>
 									
 				</doCatch>
+				<doCatch >
+					<exception>org.ojbc.adapters.rapbackdatastore.RapbackIllegalStateException</exception>
+					<log message="\n Queue results report to be processed later: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
+					
+					<setHeader headerName="CamelFileName">
+						<simple>CivilResultsReport${header.transactionNumber}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>
+					
+					<to uri="resendDatabaseFailedFileEndpoint"/>
+				</doCatch>
 				
 				<doCatch >
 					<exception>java.lang.Exception</exception>
