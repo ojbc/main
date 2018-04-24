@@ -173,8 +173,8 @@ public class CamelContextAdamsTest {
 	{
 		testBookingReportServiceRoute();	
 		testCustodyStatusChangeReportService();
+		testBookingReportServiceRouteDup();
 		testCustodyReleaseReportServiceRoute();
-		testBookingReportServiceRouteDup();	
 	}
 	
 	public void testCustodyStatusChangeReportService() throws Exception
@@ -584,14 +584,26 @@ public class CamelContextAdamsTest {
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1); 
-		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
-		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		failedInvocationEndpoint.reset();
+		failedInvocationEndpoint.expectedMessageCount(1);
 		
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport-Adams.xml");
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams-norelease.xml");
+		
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:bookingReportServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		assertThat(jdbcTemplate.queryForObject("select count(*) from Booking", Integer.class), is(1));
+		
+		senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport-Adams-new-release.xml");
 		
 		//Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:custodyReleaseServiceEndpoint", senderExchange);
+		returnExchange = template.send("direct:custodyReleaseServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
@@ -599,46 +611,53 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingNumber("123456789");
 		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
-		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
+		assertThat(custodyRelease.getBookingNumber(), is("123456789"));
 		assertEquals("Correct", custodyRelease.getBookingStatus());
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(4);
 		assertThat(behavioralHealthAssessments.size(), is(2));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(1);
 		
 		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
 		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
-		assertThat(behavioralHealthAssessment.getPersonId(), is(1));
-		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(3));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(4));
+		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(5));
 		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
 
-		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(3);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(5);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
-		assertThat(treatment.getBehavioralHealthAssessmentID(), is(3));
+		assertThat(treatment.getBehavioralHealthAssessmentID(), is(5));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
 		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(3);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(5);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
-		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(3));
+		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(5));
 		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
+		
+		senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport-Adams-new-release.xml");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		returnExchange = template.send("direct:custodyReleaseServiceEndpoint", senderExchange);
+		
+		failedInvocationEndpoint.assertIsSatisfied();
 
 	}
 	

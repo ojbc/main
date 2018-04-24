@@ -42,6 +42,14 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		Node bookingNode = XmlUtils.xPathNodeSearch(report, "/crr-exc:CustodyReleaseReport/crr-ext:Custody/jxdm51:Booking");
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		
+		CustodyRelease custodyReleaseFromDatabase = analyticalDatastoreDAO.getCustodyReleaseByBookingNumber(bookingNumber);
+		
+		if (custodyReleaseFromDatabase != null)
+		{
+			throw new IllegalStateException("Unable to perform a custody release. The booking number already has a release associated with it: " + bookingNumber);
+		}	
+		
+		
 		Integer bookingId = getBookingIdByBookingNumber(bookingNumber);
 		custodyRelease.setBookingId(bookingId);
 		

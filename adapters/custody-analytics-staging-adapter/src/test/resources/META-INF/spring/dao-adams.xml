@@ -29,6 +29,8 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
+	<!-- JDBC URL in h2: jdbc:h2:mem:dataSource -->
+
 	<!-- Spring Embeded DB -->
 	<jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>

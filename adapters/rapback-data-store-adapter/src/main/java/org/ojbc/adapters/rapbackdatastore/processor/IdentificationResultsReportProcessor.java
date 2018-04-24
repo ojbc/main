@@ -16,17 +16,20 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.rapbackdatastore.RapbackIllegalStateException;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
@@ -36,7 +39,16 @@ import org.w3c.dom.Node;
 public class IdentificationResultsReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
-	
+    
+	@Value("${rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}")
+    private String identificationRecordingInputDirectory;
+
+    private String databaseResendFolder; 
+    
+	public IdentificationResultsReportProcessor() {
+		super();
+		databaseResendFolder = identificationRecordingInputDirectory + "/databaseResends";
+	}	
 	@Transactional
 	public void processReport(@Body Document report, Exchange exchange) throws Exception
 	{
@@ -86,6 +98,16 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private void processCivilInitialResultsReport(Node rootNode, Exchange exchange) throws Exception {
 		String transactionNumber = getTransactionNumber(rootNode);
+		exchange.getIn().setHeader("transactionNumber", transactionNumber);
+		
+		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+			if (isDirectoryEmpty( databaseResendFolder )){
+				throw new Exception("Invalid Result report: no transction number found");
+			}
+			else{
+				throw new RapbackIllegalStateException("Inappropriate time to process the result"); 
+			}
+		}
 		
 		updateSubject(rootNode, transactionNumber);
 		processCivilInitialResults(rootNode, exchange, transactionNumber);  
@@ -132,5 +154,15 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID");
 		return transactionNumber;
 	}
-
+	
+	private boolean isDirectoryEmpty(String filePath) {
+		boolean isDirectoryEmpty = true;
+		File file = new File(filePath);
+		
+		if(file.isDirectory() && file.list().length>0){
+			isDirectoryEmpty = false;
+		}
+		
+		return isDirectoryEmpty;
+	}
 }
