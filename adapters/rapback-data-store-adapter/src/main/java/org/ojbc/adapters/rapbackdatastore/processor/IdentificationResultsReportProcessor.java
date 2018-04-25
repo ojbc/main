@@ -18,9 +18,12 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.RapbackIllegalStateException;
@@ -29,6 +32,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,15 +44,24 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
-	@Value("${rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}")
-    private String identificationRecordingInputDirectory;
-
     private String databaseResendFolder; 
+    private String inputFolder; 
     
-	public IdentificationResultsReportProcessor() {
-		super();
-		databaseResendFolder = identificationRecordingInputDirectory + "/databaseResends";
+    public IdentificationResultsReportProcessor() {
+    	super();
+    }
+    
+    @Autowired
+	public IdentificationResultsReportProcessor(
+			@Value("${rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}") String identificationRecordingInputDirectory) {
+		this();
+		databaseResendFolder = identificationRecordingInputDirectory + File.separator + "databaseResends";
+		inputFolder = identificationRecordingInputDirectory + File.separator + "input";
+//		log.info("databaseResendFolder: " + StringUtils.trimToEmpty(databaseResendFolder)); 
+//		log.info("inputFolder: " + StringUtils.trimToEmpty(inputFolder)); 
+
 	}	
+	
 	@Transactional
 	public void processReport(@Body Document report, Exchange exchange) throws Exception
 	{
@@ -101,7 +114,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		exchange.getIn().setHeader("transactionNumber", transactionNumber);
 		
 		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
-			if (isDirectoryEmpty( databaseResendFolder )){
+			if (isDirectoryEmpty( databaseResendFolder ) && isDirectoryEmpty(inputFolder)){
 				throw new Exception("Invalid Result report: no transction number found");
 			}
 			else{
@@ -157,12 +170,23 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	
 	private boolean isDirectoryEmpty(String filePath) {
 		boolean isDirectoryEmpty = true;
-		File file = new File(filePath);
 		
-		if(file.isDirectory() && file.list().length>0){
-			isDirectoryEmpty = false;
+		log.info("check if directory is emepty: " + StringUtils.trimToEmpty(filePath)); 
+		try {
+			long xmlFileCount = Files.list(Paths.get(filePath)).filter(path -> path.toString().endsWith(".xml")).count();
+			long camelLockFileCount = Files.list(Paths.get(filePath)).filter(path -> path.toString().endsWith(".camelLock")).count();
+			if ((xmlFileCount - camelLockFileCount) > 0){
+				isDirectoryEmpty = false; 
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
+ 
 		return isDirectoryEmpty;
 	}
+	
+//	public static void main(String[] args) {
+//		boolean isEmpty = isDirectoryEmpty("/tmp/ojb/adapter/rapback/identificationRecording/input");
+//		System.out.println("The directory is empty? " + BooleanUtils.toStringYesNo(isEmpty));
+//	}
 }
