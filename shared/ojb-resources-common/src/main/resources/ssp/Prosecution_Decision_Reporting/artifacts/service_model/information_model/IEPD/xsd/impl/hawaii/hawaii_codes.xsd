@@ -47,74 +47,234 @@
 			</xsd:appinfo>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="CLOSED">
+			<xsd:enumeration value="ABREF">
 				<xsd:annotation>
-					<xsd:documentation>Closed.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="DECLINED">
-				<xsd:annotation>
-					<xsd:documentation>Declined.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="PENDSENT">
-				<xsd:annotation>
-					<xsd:documentation>Pendsent.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="TRIAL">
-				<xsd:annotation>
-					<xsd:documentation>Trial.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="DISMISSED">
-				<xsd:annotation>
-					<xsd:documentation>Dismissed.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="SCREEN">
-				<xsd:annotation>
-					<xsd:documentation>Screen.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="ADJUDICATE">
-				<xsd:annotation>
-					<xsd:documentation>Adjudicate.</xsd:documentation>
+					<xsd:documentation>Awaiting Briefing</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="ACHRG">
 				<xsd:annotation>
-					<xsd:documentation>Achrg.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="SENT">
-				<xsd:annotation>
-					<xsd:documentation>Sent.</xsd:documentation>
+					<xsd:documentation>Awaiting Formal Charging</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="ACQUITTAL">
 				<xsd:annotation>
-					<xsd:documentation>Acquittal</xsd:documentation>
+					<xsd:documentation>Judgment of Acquittal</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="BWS">
+			<xsd:enumeration value="ADJUDICATE">
 				<xsd:annotation>
-					<xsd:documentation>Bws.</xsd:documentation>
+					<xsd:documentation>ADJUDICATED</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="DANCP">
+			<xsd:enumeration value="AFAGPS">
 				<xsd:annotation>
-					<xsd:documentation>Dancp.</xsd:documentation>
+					<xsd:documentation>AG Proceedings Suspended - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFCOS">
+				<xsd:annotation>
+					<xsd:documentation>Confirmation of Service - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFDISM">
+				<xsd:annotation>
+					<xsd:documentation>Dismissed - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFFINAL">
+				<xsd:annotation>
+					<xsd:documentation>Final Order Filed - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFNA">
+				<xsd:annotation>
+					<xsd:documentation>No Action - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFPAGA">
+				<xsd:annotation>
+					<xsd:documentation>Pending AG Approval - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AFPENDOD">
+				<xsd:annotation>
+					<xsd:documentation>Pending Final Order - AF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AG">
+				<xsd:annotation>
+					<xsd:documentation>Transfer To AG Office</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="APCOMP">
+				<xsd:annotation>
+					<xsd:documentation>Appeal Completed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="APPEAL">
+				<xsd:annotation>
+					<xsd:documentation>On Appeal</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="ARR">
 				<xsd:annotation>
-					<xsd:documentation>Arr.</xsd:documentation>
+					<xsd:documentation>Arraignment And Plea</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BW">
+				<xsd:annotation>
+					<xsd:documentation>Pending Service of Warrant</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BWR">
+				<xsd:annotation>
+					<xsd:documentation>BW Recalled</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BWS">
+				<xsd:annotation>
+					<xsd:documentation>BW Served</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CIVIL">
+				<xsd:annotation>
+					<xsd:documentation>Civil Commit &amp; Trans to AG</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLOSED">
+				<xsd:annotation>
+					<xsd:documentation>Case Closed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CONDISCH">
+				<xsd:annotation>
+					<xsd:documentation>Conditional Discharge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CONDREL">
+				<xsd:annotation>
+					<xsd:documentation>Conditional Release</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="CTOA">
 				<xsd:annotation>
-					<xsd:documentation>Ctoa.</xsd:documentation>
+					<xsd:documentation>Case Transferred Other Agency</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DAGP">
+				<xsd:annotation>
+					<xsd:documentation>Deferred Acceptance of Guilty</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DANCP">
+				<xsd:annotation>
+					<xsd:documentation>Deferred Acceptance of Nolo Co</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DECLINED">
+				<xsd:annotation>
+					<xsd:documentation>Case Declined</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISCDISM">
+				<xsd:annotation>
+					<xsd:documentation>Discharged &amp; Dismissed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISCHARGED">
+				<xsd:annotation>
+					<xsd:documentation>Discharged from Probation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISMISSCRT">
+				<xsd:annotation>
+					<xsd:documentation>Court Dismissed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISMISSED">
+				<xsd:annotation>
+					<xsd:documentation>Charges Dismissed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRUG">
+				<xsd:annotation>
+					<xsd:documentation>Drug Court</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRUGCRTGRD">
+				<xsd:annotation>
+					<xsd:documentation>Drug Court Graduate</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GJ">
+				<xsd:annotation>
+					<xsd:documentation>Grand Jury</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HSH">
+				<xsd:annotation>
+					<xsd:documentation>Hawaii State Hospital</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MENTAL">
+				<xsd:annotation>
+					<xsd:documentation>Mental Health Court</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MHCGRAD">
+				<xsd:annotation>
+					<xsd:documentation>Mental Health Court Graduate</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PCDPA">
+				<xsd:annotation>
+					<xsd:documentation>Pending Conferral by DPA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PENALSERV">
+				<xsd:annotation>
+					<xsd:documentation>Awaiting Serv of Penal Summons</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PENDSENT">
+				<xsd:annotation>
+					<xsd:documentation>Pending Sentencing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PRC">
+				<xsd:annotation>
+					<xsd:documentation>Pending Reconferral</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PROBTERM">
+				<xsd:annotation>
+					<xsd:documentation>Probation Terminated</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RESENT">
+				<xsd:annotation>
+					<xsd:documentation>Resentenced</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SCREEN">
+				<xsd:annotation>
+					<xsd:documentation>Screening</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SENT">
+				<xsd:annotation>
+					<xsd:documentation>Sentenced</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUMMONS">
+				<xsd:annotation>
+					<xsd:documentation>Penal Summons</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TRIAL">
+				<xsd:annotation>
+					<xsd:documentation>TRIAL</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
