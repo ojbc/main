@@ -144,7 +144,14 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 			
 			String bondAmount = XmlUtils.xPathStringSearch(bondNode, "jxdm51:BailBondAmount/nc30:Amount");
 			if (StringUtils.isNotBlank(bondAmount)){
-				custodyStatusChangeCharge.setBondAmount(new BigDecimal(bondAmount));
+				if (!bondAmount.equals("null"))
+				{	
+					try {
+						custodyStatusChangeCharge.setBondAmount(new BigDecimal(bondAmount));
+					} catch (Exception e) {
+						log.error("Unable to process bond amount: " + bondAmount);
+					}
+				}	
 			}
 			
 			String bondStatusType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityStatus/nc30:StatusDescriptionText");
@@ -199,8 +206,6 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
  		String inmateCurrentLocation = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/cscr-ext:SubjectLocationStatus/nc30:StatusDescriptionText");
  		custodyStatusChange.setInmateCurrentLocation(inmateCurrentLocation);
  		
-        processCustodyReleaseInfo(custodyNode, bookingId, bookingNumber);
-        
  		String bookingStatusCode = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/cscr-ext:BookingStatusCode");
  		
  		if (StringUtils.isNotBlank(bookingStatusCode))
@@ -208,6 +213,8 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
  			custodyStatusChange.setBookingStatus(bookingStatusCode);
  		}	
 
+ 		processCustodyReleaseInfo(custodyNode, bookingId, bookingNumber, bookingStatusCode);
+ 		
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
         
 		return custodyStatusChangeId;
