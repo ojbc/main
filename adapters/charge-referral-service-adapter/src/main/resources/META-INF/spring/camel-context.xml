@@ -30,8 +30,6 @@
        ">
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	<import resource="classpath:WEB-INF/cxf-endpoints.xml" />
-	<import resource="classpath:WEB-INF/properties-context.xml" />	
 					
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
