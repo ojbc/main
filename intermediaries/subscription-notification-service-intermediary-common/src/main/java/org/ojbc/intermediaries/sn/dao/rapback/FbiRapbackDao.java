@@ -153,10 +153,16 @@ public class FbiRapbackDao {
 		}
 		
 		final String sql = "SELECT * FROM fbi_rap_back_subscription "
-				+ "WHERE subscription_id = ?;";
+				+ "WHERE subscription_id = ? "
+				+ "ORDER BY report_timestamp DESC;";
+		
 		
 		List<FbiRapbackSubscription> fbiSubscriptions = 
 				jdbcTemplate.query(sql, new FbiSubscriptionRowMapper(), subscriptionId);
+		
+		if (fbiSubscriptions != null && fbiSubscriptions.size() > 1){
+			return fbiSubscriptions.get(0);
+		}
 		
 		return DataAccessUtils.singleResult(fbiSubscriptions);
 	}
