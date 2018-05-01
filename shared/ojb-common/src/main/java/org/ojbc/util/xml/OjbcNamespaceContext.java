@@ -833,6 +833,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PROSECUTION_DECISION_REPORT_DOC ="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0";
 	public static final String NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC ="pd-doc";
 
+	public static final String NS_PROSECUTION_DECISION_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0";
+	public static final String NS_PREFIX_PROSECUTION_DECISION_REPORT_EXT ="pd-ext";
+
 	public static final String NS_PROSECUTION_DECISION_HAWAII_CODES_DOC ="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0";
 	public static final String NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC ="pd-hi-codes";
 
@@ -856,7 +859,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC, NS_PROSECUTION_DECISION_REPORT_DOC);
 		uriToPrefixMap.put(NS_PROSECUTION_DECISION_REPORT_DOC, NS_PREFIX_PROSECUTION_DECISION_REPORT_DOC);
-		
+
+		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_REPORT_EXT, NS_PROSECUTION_DECISION_REPORT_EXT);
+		uriToPrefixMap.put(NS_PROSECUTION_DECISION_REPORT_EXT, NS_PREFIX_PROSECUTION_DECISION_REPORT_EXT);
+
 		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_EXT, NS_VEHICLE_CRASH_EXT);
 		uriToPrefixMap.put(NS_VEHICLE_CRASH_EXT, NS_PREFIX_VEHICLE_CRASH_EXT);
 		

@@ -17,30 +17,23 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
- 
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
- 
-	<!-- CXF servlet -->
-	<servlet>
-		<servlet-name>CXFServlet</servlet-name>
-		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-		<!-- If you want to leverage the Servlet3's async feature in Tomcat, 
-		 please enable this feature 
-		<async-supported>true</async-supported>
-		-->
-	</servlet>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<!-- all our webservices are mapped under this URI pattern -->
-	<servlet-mapping>
-		<servlet-name>CXFServlet</servlet-name>
-		<url-pattern>/webservices/*</url-pattern>
-	</servlet-mapping> 
- 
-</web-app>
+	<bean id="bridgePropertyPlaceholder"
+		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="propertiesArray">
+			<array>
+				<util:properties
+					location="classpath:charge_referral_service_adapter.cfg" />
+			</array>
+		</property>
+	</bean>
+	
+</beans>

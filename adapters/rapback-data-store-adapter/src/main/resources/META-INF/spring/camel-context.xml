@@ -243,7 +243,7 @@
 					<log message="\n\n\n Unable to connect to database: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
 					
 					<setHeader headerName="CamelFileName">
-						<simple>FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+						<simple>${header.transactionCategoryText}_${header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>
 						
 					<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
@@ -255,7 +255,7 @@
 					<log message="\n Queue results report to be processed later: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
 					
 					<setHeader headerName="CamelFileName">
-						<simple>CivilResultsReport${header.transactionNumber}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+						<simple>${header.transactionCategoryText}_${header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>
 					
 					<to uri="resendDatabaseFailedFileEndpoint"/>
