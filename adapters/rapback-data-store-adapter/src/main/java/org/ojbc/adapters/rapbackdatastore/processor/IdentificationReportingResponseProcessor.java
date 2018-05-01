@@ -59,9 +59,9 @@ public class IdentificationReportingResponseProcessor{
     
 	@Transactional
 	public Document createErrorResponse(@Header("identificationID") String identificationID, 
-			@Header("transactionCategoryText") String transactionCategoryText) 
+			@Header("transactionCategoryReplyText") String transactionCategoryReplyText) 
 	{
-		return createResponse(identificationID, transactionCategoryText, IdentificationReportStatus.failure);
+		return createResponse(identificationID, transactionCategoryReplyText, IdentificationReportStatus.failure);
 	}
 
 	private Element createRootElement(Document document) {
@@ -77,16 +77,16 @@ public class IdentificationReportingResponseProcessor{
 
 	@Transactional
 	public Document createSuccessResponse(@Header("identificationID") String identificationID, 
-			@Header("transactionCategoryText") String transactionCategoryText) 
+			@Header("transactionCategoryReplyText") String transactionCategoryReplyText) 
 	{
-		return createResponse(identificationID, transactionCategoryText, IdentificationReportStatus.success);
+		return createResponse(identificationID, transactionCategoryReplyText, IdentificationReportStatus.success);
 	}
 
 	private Document createResponse(String identificationID,
-			String transactionCategoryText, IdentificationReportStatus identificationReportStatus) {
+			String transactionCategoryReplyText, IdentificationReportStatus identificationReportStatus) {
 		
 		log.info("Creating identification report response with ID '" + StringUtils.trimToEmpty(identificationID)
-				+ "', TransactionCategoryText '" + StringUtils.trimToEmpty(transactionCategoryText)
+				+ "', TransactionCategoryText '" + StringUtils.trimToEmpty(transactionCategoryReplyText)
 				+ "' and status " + identificationReportStatus.name());
 		
 		Document document = documentBuilder.newDocument();
@@ -99,7 +99,7 @@ public class IdentificationReportingResponseProcessor{
         
         Element transactionCategoryTextElement = 
         		XmlUtils.appendElement(rootElement, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, "TransactionCategoryText");
-        transactionCategoryTextElement.setTextContent(transactionCategoryText);
+        transactionCategoryTextElement.setTextContent(transactionCategoryReplyText);
         
         Element identificationReportStatusElement = 
         		XmlUtils.appendElement(rootElement, NS_PERSON_IDENTIFICATION_REPORT_RESPONSE_EXT, "IdentificationReportStatus");

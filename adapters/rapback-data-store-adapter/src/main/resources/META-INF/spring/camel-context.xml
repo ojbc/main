@@ -194,7 +194,7 @@
 				<camel:stop/>
 			</camel:filter>
 
-			<setHeader headerName="transactionCategoryText">
+			<setHeader headerName="transactionCategoryReplyText">
 				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
 			</setHeader>
 				
