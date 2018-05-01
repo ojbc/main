@@ -166,6 +166,7 @@
 				<nc:IdentificationID>A1234567</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
+		<pd-ext:PersonJuvenileIndicator>false</pd-ext:PersonJuvenileIndicator>
 	</nc:Person>
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense01" />
