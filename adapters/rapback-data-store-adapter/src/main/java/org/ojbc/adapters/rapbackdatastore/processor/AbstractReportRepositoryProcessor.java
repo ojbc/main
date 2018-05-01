@@ -18,14 +18,14 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.xml.security.utils.Base64;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -57,7 +57,7 @@ public abstract class AbstractReportRepositoryProcessor {
     private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
     	
     @Transactional
-	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
+	public abstract void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception;
 
 	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
 			throws Exception {
