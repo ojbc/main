@@ -19,7 +19,7 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import java.io.IOException;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -42,19 +42,18 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	
 	@Override
 	@Transactional
-	public void processReport(@Body Document report, Exchange exchange) throws Exception {
+	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception {
 		
 		log.info("Processing Identification Request report");
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
-		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID"); 
 
 		processIdentificationTransaction(rootNode, transactionNumber);
 		
-		processCivilFingerPrints(exchange, rootNode, transactionNumber);
+		processCivilFingerPrints(rootNode, transactionNumber);
 	}
 
-	private void processCivilFingerPrints(Exchange exchange, Node rootNode,
+	private void processCivilFingerPrints(Node rootNode,
 			String transactionNumber) throws Exception, IOException {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints();
 		

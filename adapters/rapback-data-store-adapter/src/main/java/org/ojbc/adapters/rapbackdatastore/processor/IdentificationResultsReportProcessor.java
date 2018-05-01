@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,7 +63,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	}	
 	
 	@Transactional
-	public void processReport(@Body Document report, Exchange exchange) throws Exception
+	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception
 	{
 		log.info("Processing Identification Results Report.");
 		
@@ -72,24 +72,23 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 				+ "/pidresults:PersonStateIdentificationResults[ident-ext:CivilIdentificationReasonCode]");
 		
 		if (rootNode != null){
-			processCivilInitialResultsReport(rootNode, exchange);
+			processCivilInitialResultsReport(rootNode, transactionNumber);
 		}
 		else{
 			rootNode = XmlUtils.xPathNodeSearch(report, 
 					"/pidresults:PersonFederalIdentificationResults[ident-ext:CriminalIdentificationReasonCode]|"
 							+ "/pidresults:PersonStateIdentificationResults[ident-ext:CriminalIdentificationReasonCode]");
-			processCriminalInitialResultsReport(rootNode, exchange); 		
+			processCriminalInitialResultsReport(rootNode, transactionNumber); 		
 		}
 	}
 
-	private void processCriminalInitialResultsReport(Node rootNode, Exchange exchange) throws Exception {
-		String transactionNumber = getTransactionNumber(rootNode);
+	private void processCriminalInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
 		processIdentificationTransaction(rootNode, transactionNumber);
-		processCriminalInitialResults(rootNode, exchange, transactionNumber); 
+		processCriminalInitialResults(rootNode, transactionNumber); 
 		
 	}
 
-	private void processCriminalInitialResults(Node rootNode, Exchange exchange, String transactionNumber) 
+	private void processCriminalInitialResults(Node rootNode, String transactionNumber) 
 			throws Exception {
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(transactionNumber);
@@ -109,12 +108,10 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	}
 
-	private void processCivilInitialResultsReport(Node rootNode, Exchange exchange) throws Exception {
-		String transactionNumber = getTransactionNumber(rootNode);
-		exchange.getIn().setHeader("transactionNumber", transactionNumber);
+	private void processCivilInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
 		
 		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
-			if (isDirectoryEmpty( databaseResendFolder ) && isDirectoryEmpty(inputFolder)){
+			if (!isOrigNistQueued( databaseResendFolder, transactionNumber ) && !isOrigNistQueued(inputFolder, transactionNumber)){
 				throw new Exception("Invalid Result report: no transction number found");
 			}
 			else{
@@ -123,11 +120,10 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		
 		updateSubject(rootNode, transactionNumber);
-		processCivilInitialResults(rootNode, exchange, transactionNumber);  
+		processCivilInitialResults(rootNode, transactionNumber);  
 	}
 
-	private void processCivilInitialResults(Node rootNode, Exchange exchange,
-			String transactionNumber) throws Exception, IOException {
+	private void processCivilInitialResults(Node rootNode, String transactionNumber) throws Exception, IOException {
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(transactionNumber);
 		
@@ -147,12 +143,12 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		else{
 		
-			saveCivilRapSheet(exchange, transactionNumber, rootNode,
+			saveCivilRapSheet(transactionNumber, rootNode,
 					initialResultsPkId);
 		}
 	}
 
-	private void saveCivilRapSheet(Exchange exchange, String transactionNumber,
+	private void saveCivilRapSheet(String transactionNumber,
 			Node rootNode, Integer initialResultsPkId) throws IOException {
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
@@ -163,26 +159,19 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
 	}
 
-	private String getTransactionNumber(Node rootNode) throws Exception {
-		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID");
-		return transactionNumber;
-	}
-	
-	private boolean isDirectoryEmpty(String filePath) {
-		boolean isDirectoryEmpty = true;
+	private boolean isOrigNistQueued(String filePath, String transactionNumber) {
+		boolean isOrigNistQueued = false;
 		
-		log.info("check if directory is emepty: " + StringUtils.trimToEmpty(filePath)); 
+		log.info("check if ORIG_NIST of the transaction number, " + transactionNumber +" is in the folder " + StringUtils.trimToEmpty(filePath)); 
+		
 		try {
-			long xmlFileCount = Files.list(Paths.get(filePath)).filter(path -> path.toString().endsWith(".xml")).count();
-			long camelLockFileCount = Files.list(Paths.get(filePath)).filter(path -> path.toString().endsWith(".camelLock")).count();
-			if ((xmlFileCount - camelLockFileCount) > 0){
-				isDirectoryEmpty = false; 
-			}
+			isOrigNistQueued = Files.list(Paths.get(filePath))
+					.anyMatch(path -> path.toString().startsWith("ORIG-NIST-SEND_" + transactionNumber));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
  
-		return isDirectoryEmpty;
+		return isOrigNistQueued;
 	}
 	
 //	public static void main(String[] args) {
