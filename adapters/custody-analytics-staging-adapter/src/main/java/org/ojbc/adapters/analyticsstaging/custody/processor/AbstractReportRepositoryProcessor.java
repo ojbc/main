@@ -412,7 +412,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
-			Integer bookingId, String bookingNumber) throws Exception {
+			Integer bookingId, String bookingNumber, String bookingStatusCode) throws Exception {
 		
         String supervisionReleaseDateTimeString = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
@@ -428,6 +428,8 @@ public abstract class AbstractReportRepositoryProcessor {
             		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:Date");
         	custodyRelease.setReleaseDate(OJBCDateUtils.parseLocalDate(releaseDateString));
         }
+        
+        custodyRelease.setBookingStatus(bookingStatusCode);
         
         if (custodyRelease.getReleaseDate() != null){
 	        custodyRelease.setBookingId(bookingId);

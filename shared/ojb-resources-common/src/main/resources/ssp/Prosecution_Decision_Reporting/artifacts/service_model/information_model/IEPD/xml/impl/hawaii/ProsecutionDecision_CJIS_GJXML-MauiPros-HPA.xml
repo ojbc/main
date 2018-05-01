@@ -27,48 +27,49 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case>
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>Case123456</nc:IdentificationID>
+			<nc:IdentificationID>35159</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
-			<pd-hi-codes:CaseStatusCode>REFUSED</pd-hi-codes:CaseStatusCode>
+			<pd-hi-codes:CaseStatusCode>CLOSED</pd-hi-codes:CaseStatusCode>
 		</nc:ActivityStatus>
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
-				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+				<nc:DateTime>2018-03-21T15:40:00</nc:DateTime>
 			</nc:DispositionDate>
-			<nc:DispositionText>Disposition</nc:DispositionText>
+			<nc:DispositionText>NULL</nc:DispositionText>
 		</nc:ActivityDisposition>
 		<nc:CaseDisposition>
-			<nc:DispositionText>Final Disposition</nc:DispositionText>
+			<nc:DispositionText>DPNPGEN</nc:DispositionText>
 			<nc:CaseDispositionFinalDate>
-				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+				<nc:DateTime>2018-03-21T15:40:00</nc:DateTime>
 			</nc:CaseDispositionFinalDate>
 		</nc:CaseDisposition>
 		<j:ActivityAugmentation>
 		</j:ActivityAugmentation>
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="Charge01">
-				<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
+				<j:ChargeCategoryDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:ChargeCategoryDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
-						<nc:Date>2005-05-01</nc:Date>
+						<nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
 					</nc:DispositionDate>
+					<nc:DispositionText>DPNPGEN</nc:DispositionText>
 				</j:ChargeDisposition>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>711-1106</nc:IdentificationID>
+						<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
-				<pd-hi-codes:ChargeSeverityCode>F</pd-hi-codes:ChargeSeverityCode>
+				<pd-hi-codes:ChargeSeverityCode>M</pd-hi-codes:ChargeSeverityCode>
 			</j:CaseCharge>
 			<j:CaseCourt>
-				<pd-ext:CourtCaseNumber>Cause567890</pd-ext:CourtCaseNumber>
+				<pd-ext:CourtCaseNumber>1FC161002</pd-ext:CourtCaseNumber>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
 				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
 				<j:CourtEventAppearance>
 					<j:CourtAppearanceDate>
-						<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+						<nc:DateTime>2018-05-30T08:30:00</nc:DateTime>
 					</j:CourtAppearanceDate>
 				</j:CourtEventAppearance>
 			</j:CaseCourtEvent>
@@ -78,95 +79,91 @@
 			<j:CaseDefenseAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Joseph T Williams</nc:PersonFullName>
+						<nc:PersonFullName>Public Defender (DVM)</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseDefenseAttorney>
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Wayne A Smith</nc:PersonFullName>
+						<nc:PersonFullName>Rowena Somerville</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseJudge>
 			<j:CaseProsecutionAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Jerry Donovan</nc:PersonFullName>
+						<nc:PersonFullName>Unassigned Deputy</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseProsecutionAttorney>
 			<j:CaseWitness>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Edward G. Allan</nc:PersonFullName>
+						<nc:PersonFullName>NULL</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
-				<pd-ext:WitnessCategoryText>EMS</pd-ext:WitnessCategoryText>
+				<pd-ext:WitnessCategoryText>NULL</pd-ext:WitnessCategoryText>
 			</j:CaseWitness>
 		</j:CaseAugmentation>
 		<pd-ext:CaseAdditionalCharge structures:id="Charge02">
-			<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
+			<j:ChargeCategoryDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:ChargeCategoryDescriptionText>
 			<j:ChargeDisposition>
 				<nc:DispositionDate>
-					<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+					<nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
 				</nc:DispositionDate>
-				<nc:DispositionText>COD</nc:DispositionText>
+				<nc:DispositionText>DPNPGEN</nc:DispositionText>
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>708-0822</nc:IdentificationID>
+					<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
 			</j:ChargeStatute>
 		</pd-ext:CaseAdditionalCharge>
 		<pd-ext:CaseProsecutorStaff>
 			<nc:RoleOfPerson>
 				<nc:PersonName>
-					<nc:PersonFullName>Jack E. Smith</nc:PersonFullName>
+					<nc:PersonFullName>NULL</nc:PersonFullName>
 				</nc:PersonName>
 			</nc:RoleOfPerson>
 		</pd-ext:CaseProsecutorStaff>
 		<pd-ext:CaseReferralDate>
-			<nc:Date>2016-09-12</nc:Date>
+			<nc:Date>2016-11-23</nc:Date>
 		</pd-ext:CaseReferralDate>
-		<pd-hi-codes:CaseStageCode>CLOSED</pd-hi-codes:CaseStageCode>
+		<pd-hi-codes:CaseStageCode>TRIAL</pd-hi-codes:CaseStageCode>
 	</nc:Case>
 	<j:Offense structures:id="Offense01">
 		<nc:ActivityDateRange>
 			<nc:StartDate>
-				<nc:Date>2016-09-12</nc:Date>
+				<nc:Date>2011-07-16</nc:Date>
 			</nc:StartDate>
-			<nc:EndDate>
-				<nc:Date>2016-09-12</nc:Date>
-			</nc:EndDate>
 		</nc:ActivityDateRange>
 	</j:Offense>
 	<j:Offense structures:id="Offense02">
 		<nc:ActivityDateRange>
 			<nc:StartDate>
-				<nc:Date>2016-09-12</nc:Date>
+				<nc:Date>2011-07-16</nc:Date>
 			</nc:StartDate>
 		</nc:ActivityDateRange>
 	</j:Offense>
 	<j:EnforcementUnit structures:id="EU01">
 		<j:EnforcementUnitBeatIdentification>
-			<nc:IdentificationID>457586</nc:IdentificationID>
+			<nc:IdentificationID>NULL</nc:IdentificationID>
 		</j:EnforcementUnitBeatIdentification>
 	</j:EnforcementUnit>
 	<nc:Person structures:id="Def01">
 		<nc:PersonBirthDate>
-			<nc:Date>1981-02-23</nc:Date>
+			<nc:Date>1986-05-25</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonFullName>Wayne K. Jones</nc:PersonFullName>
+			<nc:PersonFullName>Smith, Allan E.</nc:PersonFullName>
 		</nc:PersonName>
 		<j:PersonSexCode>M</j:PersonSexCode>
 		<j:PersonAugmentation>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>A1234567</nc:IdentificationID>
+				<nc:IdentificationID>A107</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-		<pd-ext:PersonJuvenileIndicator>false</pd-ext:PersonJuvenileIndicator>
 	</nc:Person>
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense01" />

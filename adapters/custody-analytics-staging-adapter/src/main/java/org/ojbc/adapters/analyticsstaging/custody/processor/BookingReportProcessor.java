@@ -200,6 +200,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
  		String bookingStatusCode = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/br-ext:BookingStatusCode");
  		
+ 		log.debug("Booking Status Code: " + bookingStatusCode);
+ 		
  		if (StringUtils.isNotBlank(bookingStatusCode))
  		{	
  			booking.setBookingStatus(bookingStatusCode);
@@ -208,7 +210,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
         booking.setBookingId(bookingId);
         
-        processCustodyReleaseInfo(bookingReportNode, bookingId, bookingNumber);
+        processCustodyReleaseInfo(bookingReportNode, bookingId, bookingNumber, bookingStatusCode);
         
 		return booking;
 	}
