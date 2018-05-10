@@ -49,7 +49,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing booking report." );
-		XmlUtils.printNode(report);
+		//XmlUtils.printNode(report);
 		
 		Booking booking = processBookingReport(report);
 		processBookingArrests(report, booking.getBookingId());

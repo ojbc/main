@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.connectors</groupId>
 	<artifactId>custody-status-change-reporting-service-connector</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>OJB :: custody-status-change-reporting-service-connector :: connector</name>
 
 	<parent>
