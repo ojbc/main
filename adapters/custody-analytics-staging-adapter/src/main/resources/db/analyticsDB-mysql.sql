@@ -14,13 +14,13 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-drop database if exists `ojbc_booking_staging`;
-CREATE DATABASE `ojbc_booking_staging`; 
+drop database if exists ojbc_booking_staging;
+CREATE DATABASE ojbc_booking_staging; 
 use ojbc_booking_staging;
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
-*                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+*                Timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
 CREATE TABLE MedicaidStatusType (
@@ -117,7 +117,7 @@ CREATE TABLE Location (
                 PostalCode VARCHAR(10),
                 LocationLatitude NUMERIC(14,10),
                 LocationLongitude NUMERIC(14,10),
-                LocationTimestamp `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                LocationTimestamp Timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (LocationID)
 );
 
@@ -690,12 +690,12 @@ REFERENCES BookingArrest (BookingArrestID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-CREATE INDEX 'idx_Booking_BookingNumber'  ON 'ojbc_booking_staging'.'Booking' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+CREATE INDEX idx_Booking_BookingNumber  ON Booking (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
 
-CREATE INDEX 'idx_CustodyRelease_BookingNumber'  ON 'ojbc_booking_staging'.'CustodyRelease' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+CREATE INDEX idx_CustodyRelease_BookingNumber  ON CustodyRelease (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
 
-CREATE INDEX 'idx_CustodyStatusChange_BookingNumber'  ON 'ojbc_booking_staging'.'CustodyStatusChange' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+CREATE INDEX idx_CustodyStatusChange_BookingNumber  ON CustodyStatusChange (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
 
-CREATE INDEX 'idx_Person_PersonUniqueIdentifier'  ON 'ojbc_booking_staging'.'Person' (PersonUniqueIdentifier) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+CREATE INDEX idx_Person_PersonUniqueIdentifier  ON Person (PersonUniqueIdentifier)  ALGORITHM DEFAULT LOCK DEFAULT;
 
-CREATE INDEX 'idx_Person_PersonUniqueIdentifier2'  ON 'ojbc_booking_staging'.'Person' (PersonUniqueIdentifier2) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+CREATE INDEX idx_Person_PersonUniqueIdentifier2  ON Person (PersonUniqueIdentifier2)  ALGORITHM DEFAULT LOCK DEFAULT;
