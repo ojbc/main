@@ -171,7 +171,7 @@ CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
                 PersonUniqueIdentifier VARCHAR(100) NOT NULL,
                 PersonUniqueIdentifier2 VARCHAR(100),
-                PersonAgeAtBooking INT,
+                PersonAgeAtEvent INT,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
                 Occupation VARCHAR(50),
@@ -186,6 +186,41 @@ CREATE TABLE Person (
                 SexOffenderStatusTypeID INT,
                 PersonTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (PersonID)
+);
+
+
+CREATE TABLE Incident (
+                IncidentID INT NOT NULL,
+                IncidentNumber VARCHAR(40) NOT NULL,
+                ReportingAgency VARCHAR(80),
+                PersonID INT NOT NULL,
+                IncidentReportedDate DATE,
+                IncidentReportedTime TIME,
+                IncidentTimeSpanText VARCHAR(20),
+                OfficerCount INT,
+                TotalOfficerTimeSeconds INT,
+                DispositionLocation VARCHAR(120),
+                CallNature VARCHAR(120),
+                PendingCriminalCharges VARCHAR(100),
+                LocationID INT,
+                SubstanceAbuseInvolvementIndicator BOOLEAN,
+                CrisisInterventionTeamInvolvementIndicator BOOLEAN,
+                OffenseSeverityText VARCHAR(20),
+                IncidentTimestamp DATETIME DEFAULT now() NOT NULL,
+                PRIMARY KEY (IncidentID)
+);
+
+
+CREATE TABLE IncidentResponseUnit (
+                IncidentResponseUnitID INT NOT NULL,
+                IncidentID INT NOT NULL,
+                UnitIdentifier VARCHAR(20) NOT NULL,
+                UnitArrivalDate DATE,
+                UnitArrivalTime TIME,
+                UnitClearDate DATE,
+                UnitClearTime TIME,
+                IncidentResponseUnitTimestamp DATETIME DEFAULT now() NOT NULL,
+                PRIMARY KEY (IncidentResponseUnitID)
 );
 
 
@@ -277,7 +312,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingStatus VARCHAR(20),
+                BookingStatus VARCHAR(20) NOT NULL,
                 BookingTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingID)
 );
@@ -463,6 +498,12 @@ REFERENCES Location (LocationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE Incident ADD CONSTRAINT location_incident_fk
+FOREIGN KEY (LocationID)
+REFERENCES Location (LocationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
 FOREIGN KEY (LanguageTypeID)
 REFERENCES LanguageType (LanguageTypeID)
@@ -532,6 +573,18 @@ ON UPDATE NO ACTION;
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT person_custodystatuschange_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE Incident ADD CONSTRAINT person_incident_fk
+FOREIGN KEY (PersonID)
+REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentResponseUnit ADD CONSTRAINT incident_incidentresponseunit_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -636,3 +689,13 @@ FOREIGN KEY (BookingArrestID)
 REFERENCES BookingArrest (BookingArrestID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+CREATE INDEX 'idx_Booking_BookingNumber'  ON 'ojbc_booking_staging'.'Booking' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX 'idx_CustodyRelease_BookingNumber'  ON 'ojbc_booking_staging'.'CustodyRelease' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX 'idx_CustodyStatusChange_BookingNumber'  ON 'ojbc_booking_staging'.'CustodyStatusChange' (BookingNumber) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX 'idx_Person_PersonUniqueIdentifier'  ON 'ojbc_booking_staging'.'Person' (PersonUniqueIdentifier) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX 'idx_Person_PersonUniqueIdentifier2'  ON 'ojbc_booking_staging'.'Person' (PersonUniqueIdentifier2) COMMENT '' ALGORITHM DEFAULT LOCK DEFAULT;
