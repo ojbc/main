@@ -46,7 +46,7 @@ public class Person {
     private Integer languageId; //primary language 
     
     private Integer sexOffenderStatusTypeId;
-	private Integer personAgeAtBooking; 
+	private Integer personAgeAtEvent; 
 	private String educationLevel; 
 	private String occupation; 
 	private Integer domicileStatusTypeId; 
@@ -119,14 +119,6 @@ public class Person {
 		this.personRaceId = personRaceId;
 	}
 	
-	public Integer getPersonAgeAtBooking() {
-		return personAgeAtBooking;
-	}
-
-	public void setPersonAgeAtBooking(Integer personAgeAtBooking) {
-		this.personAgeAtBooking = personAgeAtBooking;
-	}
-
 	public Integer getPersonId() {
 		return personId;
 	}
@@ -196,6 +188,12 @@ public class Person {
 	}
 	public void setPersonUniqueIdentifier2(String personUniqueIdentifier2) {
 		this.personUniqueIdentifier2 = personUniqueIdentifier2;
+	}
+	public Integer getPersonAgeAtEvent() {
+		return personAgeAtEvent;
+	}
+	public void setPersonAgeAtEvent(Integer personAgeAtEvent) {
+		this.personAgeAtEvent = personAgeAtEvent;
 	}
 	
 }

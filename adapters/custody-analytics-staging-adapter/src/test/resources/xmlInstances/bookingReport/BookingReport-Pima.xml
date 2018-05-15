@@ -53,6 +53,7 @@
 			</br-ext:SubjectLocationStatus>
          </j:BookingSubject>
          <j:Arrest structures:ref="d1e996"/>
+         <br-ext:BookingStatusCode>completed</br-ext:BookingStatusCode>
       </j:Booking>
       <j:Detention>
          <j:SupervisionAugmentation>
