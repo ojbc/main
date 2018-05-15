@@ -14,13 +14,13 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-drop database if exists `ojbc_booking_staging`;
-CREATE DATABASE `ojbc_booking_staging`; 
+drop database if exists ojbc_booking_staging;
+CREATE DATABASE ojbc_booking_staging; 
 use ojbc_booking_staging;
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
-*                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+*                Timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
 CREATE TABLE MedicaidStatusType (
@@ -117,7 +117,7 @@ CREATE TABLE Location (
                 PostalCode VARCHAR(10),
                 LocationLatitude NUMERIC(14,10),
                 LocationLongitude NUMERIC(14,10),
-                LocationTimestamp `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                LocationTimestamp Timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (LocationID)
 );
 
@@ -171,7 +171,7 @@ CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
                 PersonUniqueIdentifier VARCHAR(100) NOT NULL,
                 PersonUniqueIdentifier2 VARCHAR(100),
-                PersonAgeAtBooking INT,
+                PersonAgeAtEvent INT,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
                 Occupation VARCHAR(50),
@@ -186,6 +186,41 @@ CREATE TABLE Person (
                 SexOffenderStatusTypeID INT,
                 PersonTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (PersonID)
+);
+
+
+CREATE TABLE Incident (
+                IncidentID INT NOT NULL,
+                IncidentNumber VARCHAR(40) NOT NULL,
+                ReportingAgency VARCHAR(80),
+                PersonID INT NOT NULL,
+                IncidentReportedDate DATE,
+                IncidentReportedTime TIME,
+                IncidentTimeSpanText VARCHAR(20),
+                OfficerCount INT,
+                TotalOfficerTimeSeconds INT,
+                DispositionLocation VARCHAR(120),
+                CallNature VARCHAR(120),
+                PendingCriminalCharges VARCHAR(100),
+                LocationID INT,
+                SubstanceAbuseInvolvementIndicator BOOLEAN,
+                CrisisInterventionTeamInvolvementIndicator BOOLEAN,
+                OffenseSeverityText VARCHAR(20),
+                IncidentTimestamp DATETIME DEFAULT now() NOT NULL,
+                PRIMARY KEY (IncidentID)
+);
+
+
+CREATE TABLE IncidentResponseUnit (
+                IncidentResponseUnitID INT NOT NULL,
+                IncidentID INT NOT NULL,
+                UnitIdentifier VARCHAR(20) NOT NULL,
+                UnitArrivalDate DATE,
+                UnitArrivalTime TIME,
+                UnitClearDate DATE,
+                UnitClearTime TIME,
+                IncidentResponseUnitTimestamp DATETIME DEFAULT now() NOT NULL,
+                PRIMARY KEY (IncidentResponseUnitID)
 );
 
 
@@ -277,7 +312,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingStatus VARCHAR(20),
+                BookingStatus VARCHAR(20) NOT NULL,
                 BookingTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingID)
 );
@@ -290,8 +325,8 @@ CREATE TABLE CustodyRelease (
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                BookingStatus VARCHAR(20),
-				CustodyReleaseTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                BookingStatus VARCHAR(20) NOT NULL,
+                CustodyReleaseTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
@@ -308,8 +343,8 @@ CREATE TABLE CustodyStatusChange (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingStatus VARCHAR(20),
-				CustodyStatusChangeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                BookingStatus VARCHAR(20) NOT NULL,
+                CustodyStatusChangeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
@@ -463,6 +498,12 @@ REFERENCES Location (LocationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE Incident ADD CONSTRAINT location_incident_fk
+FOREIGN KEY (LocationID)
+REFERENCES Location (LocationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
 FOREIGN KEY (LanguageTypeID)
 REFERENCES LanguageType (LanguageTypeID)
@@ -532,6 +573,18 @@ ON UPDATE NO ACTION;
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT person_custodystatuschange_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE Incident ADD CONSTRAINT person_incident_fk
+FOREIGN KEY (PersonID)
+REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentResponseUnit ADD CONSTRAINT incident_incidentresponseunit_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -636,3 +689,13 @@ FOREIGN KEY (BookingArrestID)
 REFERENCES BookingArrest (BookingArrestID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+CREATE INDEX idx_Booking_BookingNumber  ON Booking (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX idx_CustodyRelease_BookingNumber  ON CustodyRelease (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX idx_CustodyStatusChange_BookingNumber  ON CustodyStatusChange (BookingNumber)  ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX idx_Person_PersonUniqueIdentifier  ON Person (PersonUniqueIdentifier)  ALGORITHM DEFAULT LOCK DEFAULT;
+
+CREATE INDEX idx_Person_PersonUniqueIdentifier2  ON Person (PersonUniqueIdentifier2)  ALGORITHM DEFAULT LOCK DEFAULT;

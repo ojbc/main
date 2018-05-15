@@ -72,14 +72,16 @@ public class DescriptionCodeLookupFromExcelService
         	Sheet sheet = workbook.getSheetAt(i); 
         	
         	Map<String, Integer> codePkMap = new HashMap<String, Integer>();
+        	
+        	int descriptionColumnIndex = getDescriptionColumnIndex(sheet);
             for (int j = 1; j<=sheet.getLastRowNum(); j++) {
                 Row row = sheet.getRow(j);
                 
-                if ( row.getCell(row.getLastCellNum() -1).getCellType() == Cell.CELL_TYPE_NUMERIC){
-                	row.getCell(row.getLastCellNum() -1).setCellType(Cell.CELL_TYPE_STRING);
+                if ( row.getCell(descriptionColumnIndex).getCellType() == Cell.CELL_TYPE_NUMERIC){
+                	row.getCell(descriptionColumnIndex).setCellType(Cell.CELL_TYPE_STRING);
                 }
               
-                String codeOrDescription = StringUtils.upperCase(row.getCell(row.getLastCellNum() -1).getStringCellValue()); 
+                String codeOrDescription = StringUtils.upperCase(row.getCell(descriptionColumnIndex).getStringCellValue()); 
                 Integer pkId = Double.valueOf(row.getCell(0).getNumericCellValue()).intValue();
                 codePkMap.put(codeOrDescription, pkId);
             }
@@ -90,6 +92,19 @@ public class DescriptionCodeLookupFromExcelService
          
         workbook.close();
         inputStream.close();
+	}
+
+	private int getDescriptionColumnIndex(Sheet sheet) {
+    	int descriptionColumnIndex = 1; 
+
+		Row firstRow = sheet.getRow(0);
+		for (int k = 1; k < firstRow.getLastCellNum(); k++){
+			if ("NIEM_Booking_Message_Code".equalsIgnoreCase(firstRow.getCell(k).getStringCellValue())){
+				descriptionColumnIndex = k; 
+				break; 
+			}
+		}
+		return descriptionColumnIndex;
 	}
 
 	/**

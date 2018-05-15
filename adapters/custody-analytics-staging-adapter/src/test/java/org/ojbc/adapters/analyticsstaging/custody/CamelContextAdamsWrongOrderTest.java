@@ -206,6 +206,8 @@ public class CamelContextAdamsWrongOrderTest {
 		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 
+		log.info("Person: " + person.toString());
+		
 		assertThat(person.getPersonId(), is(1));
 		assertThat(person.getDomicileStatusTypeId(), nullValue());
 		assertThat(person.getPersonUniqueIdentifier2(), is("Booking Subject Number"));

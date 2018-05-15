@@ -83,7 +83,7 @@
 					<nc:Date>2014-12-17</nc:Date>
 				</j:SupervisionReleaseEligibilityDate>
 				<j:SupervisionAreaIdentification>
-					<nc:IdentificationID>F1-F</nc:IdentificationID>
+					<nc:IdentificationID>F1</nc:IdentificationID>
 				</j:SupervisionAreaIdentification>
 				<j:SupervisionBedIdentification>
 					<nc:IdentificationID>Bed 2</nc:IdentificationID>
