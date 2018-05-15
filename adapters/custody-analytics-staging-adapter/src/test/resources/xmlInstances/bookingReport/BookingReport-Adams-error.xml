@@ -59,6 +59,7 @@
 		</j:BookingSubject>
 		<j:Arrest structures:ref="Arrest_01" />
 		<j:Arrest structures:ref="Arrest_02" />
+		<br-ext:BookingStatusCode>Correct</br-ext:BookingStatusCode>
 	</j:Booking>
 	<j:Detention structures:id="Detention_01">
 		<nc:ActivityDate>
