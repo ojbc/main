@@ -86,6 +86,7 @@ public class TestLastUpdateVerificationProcessor {
 		booking.setSupervisionUnitTypeId(2);
 		booking.setBookingNumber("bookingNumber");
 		booking.setInmateJailResidentIndicator(true);
+		booking.setBookingStatus("completed");
 
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);

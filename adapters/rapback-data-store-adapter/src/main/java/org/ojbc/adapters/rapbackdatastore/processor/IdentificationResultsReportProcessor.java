@@ -111,11 +111,11 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	private void processCivilInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
 		
 		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
-			if (!isOrigNistQueued( databaseResendFolder, transactionNumber ) && !isOrigNistQueued(inputFolder, transactionNumber)){
-				throw new Exception("Invalid Result report: no transction number found");
+			if (isOrigNistQueued( inputFolder, transactionNumber ) || isOrigNistQueued(databaseResendFolder, transactionNumber)){
+				throw new RapbackIllegalStateException("Inappropriate time to process the result"); 
 			}
 			else{
-				throw new RapbackIllegalStateException("Inappropriate time to process the result"); 
+				throw new Exception("Invalid Result report: no transction number found");
 			}
 		}
 		
@@ -166,7 +166,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		try {
 			isOrigNistQueued = Files.list(Paths.get(filePath))
-					.anyMatch(path -> path.toString().startsWith("ORIG-NIST-SEND_" + transactionNumber));
+					.anyMatch(path -> path.getFileName().toString().startsWith("ORIG-NIST-SEND_" + transactionNumber));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -175,7 +175,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	}
 	
 //	public static void main(String[] args) {
-//		boolean isEmpty = isDirectoryEmpty("/tmp/ojb/adapter/rapback/identificationRecording/input");
-//		System.out.println("The directory is empty? " + BooleanUtils.toStringYesNo(isEmpty));
+//		boolean isQuequed = isOrigNistQueued("/tmp/ojb/adapter/rapback/identificationRecording/databaseResends", "1A0412420180411133030808868");
+//		System.out.println("Is the ORIG-NIST-SEND queued? " + BooleanUtils.toStringYesNo(isQuequed));
 //	}
 }

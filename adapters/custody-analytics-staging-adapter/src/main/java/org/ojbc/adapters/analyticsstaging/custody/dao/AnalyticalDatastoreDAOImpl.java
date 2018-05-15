@@ -127,7 +127,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         final String personStatement="INSERT into Person (PersonSexTypeID, PersonRaceTypeID, PersonBirthDate, "
         		+ "PersonUniqueIdentifier, LanguageTypeID, "
-        		+ "SexOffenderStatusTypeID, PersonAgeAtBooking, EducationLevel, Occupation, "
+        		+ "SexOffenderStatusTypeID, PersonAgeAtEvent, EducationLevel, Occupation, "
         		+ "DomicileStatusTypeID, militaryServiceStatusTypeID, "
         		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID, PersonUniqueIdentifier2) "
         		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -149,7 +149,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(person.getLanguageId(), ps, 5);
         	            setPreparedStatementVariable(person.getSexOffenderStatusTypeId(), ps, 6);
             
-			        	setPreparedStatementVariable(person.getPersonAgeAtBooking(), ps, 7);
+			        	setPreparedStatementVariable(person.getPersonAgeAtEvent(), ps, 7);
 			        	setPreparedStatementVariable(person.getEducationLevel(), ps, 8);
 			        	setPreparedStatementVariable(person.getOccupation(), ps, 9);
 			        	setPreparedStatementVariable(person.getDomicileStatusTypeId(), ps, 10);
@@ -206,7 +206,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setSexOffenderStatusTypeId(DaoUtils.getInteger(rs,"SexOffenderStatusTypeID"));
 			person.setProgramEligibilityTypeId(DaoUtils.getInteger(rs,"ProgramEligibilityTypeId"));
 			person.setWorkReleaseStatusTypeId(DaoUtils.getInteger(rs,"WorkReleaseStatusTypeId"));
-			person.setPersonAgeAtBooking(DaoUtils.getInteger(rs,"PersonAgeAtBooking"));
+			person.setPersonAgeAtEvent(DaoUtils.getInteger(rs,"PersonAgeAtEvent"));
 			person.setDomicileStatusTypeId(DaoUtils.getInteger(rs,"DomicileStatusTypeID"));
 			person.setEducationLevel(rs.getString("EducationLevel"));
 			person.setOccupation(rs.getString("Occupation"));

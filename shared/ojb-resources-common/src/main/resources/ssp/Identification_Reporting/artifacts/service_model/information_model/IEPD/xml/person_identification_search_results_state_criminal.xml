@@ -21,7 +21,7 @@
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
-	<ident-ext:TransactionCategoryText>Task ID</ident-ext:TransactionCategoryText>
+	<ident-ext:TransactionCategoryText>CIVIL-SID-TO-HIJIS</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -63,6 +63,6 @@
 			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</ident-ext:StateIdentificationSearchResultDocument>
-	<ident-ext:CriminalIdentificationReasonCode>SOR</ident-ext:CriminalIdentificationReasonCode>
-<!-- 	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode> -->
+<!--	<ident-ext:CriminalIdentificationReasonCode>SOR</ident-ext:CriminalIdentificationReasonCode> -->
+	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode> 
 </pidres-doc:PersonStateIdentificationResults>

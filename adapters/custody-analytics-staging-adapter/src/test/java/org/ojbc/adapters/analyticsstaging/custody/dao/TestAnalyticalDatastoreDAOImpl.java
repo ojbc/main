@@ -115,7 +115,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
-		person.setPersonAgeAtBooking(50);
+		person.setPersonAgeAtEvent(50);
 		person.setEducationLevel("College");
 		person.setOccupation("Lawyer");
 		person.setDomicileStatusTypeId(1);

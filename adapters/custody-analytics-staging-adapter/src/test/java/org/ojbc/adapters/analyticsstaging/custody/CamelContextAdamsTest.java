@@ -325,6 +325,8 @@ public class CamelContextAdamsTest {
 		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
+		log.info("Person: " + person);
+		
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
 		assertThat(person.getPersonSexId(), is(2));
 		assertThat(person.getPersonRaceId(), is(4));
