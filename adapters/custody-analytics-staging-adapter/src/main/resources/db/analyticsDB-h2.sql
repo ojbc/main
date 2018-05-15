@@ -165,7 +165,7 @@ CREATE TABLE Person (
                 PersonID IDENTITY NOT NULL,
                 PersonUniqueIdentifier VARCHAR(100) NOT NULL,
                 PersonUniqueIdentifier2 VARCHAR(100),
-                PersonAgeAtBooking INTEGER,
+                PersonAgeAtEvent INTEGER,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
                 Occupation VARCHAR(50),
@@ -180,6 +180,41 @@ CREATE TABLE Person (
                 SexOffenderStatusTypeID INTEGER,
                 PersonTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 CONSTRAINT PersonID PRIMARY KEY (PersonID)
+);
+
+
+CREATE TABLE Incident (
+                IncidentID INTEGER NOT NULL,
+                IncidentNumber VARCHAR(40) NOT NULL,
+                ReportingAgency VARCHAR(80),
+                PersonID INTEGER NOT NULL,
+                IncidentReportedDate DATE,
+                IncidentReportedTime TIME,
+                IncidentTimeSpanText VARCHAR(20),
+                OfficerCount INTEGER,
+                TotalOfficerTimeSeconds INTEGER,
+                DispositionLocation VARCHAR(120),
+                CallNature VARCHAR(120),
+                PendingCriminalCharges VARCHAR(100),
+                LocationID INTEGER,
+                SubstanceAbuseInvolvementIndicator BOOLEAN,
+                CrisisInterventionTeamInvolvementIndicator BOOLEAN,
+                OffenseSeverityText VARCHAR(20),
+                IncidentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CONSTRAINT IncidentID PRIMARY KEY (IncidentID)
+);
+
+
+CREATE TABLE IncidentResponseUnit (
+                IncidentResponseUnitID INTEGER NOT NULL,
+                IncidentID INTEGER NOT NULL,
+                UnitIdentifier VARCHAR(20) NOT NULL,
+                UnitArrivalDate DATE,
+                UnitArrivalTime TIME,
+                UnitClearDate DATE,
+                UnitClearTime TIME,
+                IncidentResponseUnitTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CONSTRAINT IncidentResponseUnitID PRIMARY KEY (IncidentResponseUnitID)
 );
 
 
@@ -271,7 +306,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INTEGER,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingStatus VARCHAR(20),
+                BookingStatus VARCHAR(20) NOT NULL,
                 BookingTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 CONSTRAINT BookingID PRIMARY KEY (BookingID)
 );
@@ -284,7 +319,7 @@ CREATE TABLE CustodyRelease (
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                BookingStatus VARCHAR(20),
+                BookingStatus VARCHAR(20) NOT NULL,
                 CustodyReleaseTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 CONSTRAINT CustodyReleaseID PRIMARY KEY (CustodyReleaseID)
 );
@@ -302,7 +337,7 @@ CREATE TABLE CustodyStatusChange (
                 SupervisionUnitTypeID INTEGER,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingStatus VARCHAR(20),
+                BookingStatus VARCHAR(20) NOT NULL,
                 CustodyStatusChangeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 CONSTRAINT CustodyStatusChangeID PRIMARY KEY (CustodyStatusChangeID)
 );
@@ -457,6 +492,12 @@ REFERENCES Location (LocationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE Incident ADD CONSTRAINT Location_Incident_fk
+FOREIGN KEY (LocationID)
+REFERENCES Location (LocationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Person ADD CONSTRAINT Language_Person_fk
 FOREIGN KEY (LanguageTypeID)
 REFERENCES LanguageType (LanguageTypeID)
@@ -526,6 +567,18 @@ ON UPDATE NO ACTION;
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT Person_CustodyStatusChange_fk
 FOREIGN KEY (PersonID)
 REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE Incident ADD CONSTRAINT Person_Incident_fk
+FOREIGN KEY (PersonID)
+REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentResponseUnit ADD CONSTRAINT Incident_IncidentResponseUnit_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
