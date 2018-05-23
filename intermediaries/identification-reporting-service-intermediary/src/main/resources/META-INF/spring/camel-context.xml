@@ -88,6 +88,7 @@
         <camel:route errorHandlerRef="identifcationReportErrorHandler" id="stateIdentificationReportServiceRoute">
             <camel:from uri="direct:processStateIdentificationResults" />
             
+            <!-- This already comes from Greenbox, do we need this?  Replace with a civil call -->
             <camel:choice>
                 <camel:when>
                     <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' 

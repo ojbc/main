@@ -1,0 +1,80 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ */
+package org.ojbc.bundles.adapters.fbi.ebts.processor;
+
+import java.util.Base64;
+import java.util.List;
+
+import org.apache.camel.Body;
+import org.apache.camel.Exchange;
+import org.apache.camel.Header;
+import org.jnbis.api.Jnbis;
+import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class NistImageProcessor {
+
+	public Document insertPackageHighResolutionGrayscaleImageRecord(@Body Document civilRapbackRequest, @Header("civilFingerPrints") List<HighResolutionGrayscaleFingerprint> civilFingerPrints) throws Exception
+	{
+		
+		for (HighResolutionGrayscaleFingerprint fingerPrint : civilFingerPrints) {
+		
+			Element imageRecord = XmlUtils.appendElement(civilRapbackRequest.getDocumentElement(), OjbcNamespaceContext.NS_NIST_BIO, "nistbio:PackageHighResolutionGrayscaleImageRecord");
+		
+			XmlUtils.appendTextElement(imageRecord, OjbcNamespaceContext.NS_ANSI_NIST, "nistbio:RecordCategoryCode", "04");
+			
+			Element imageReferenceIdentification = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:ImageReferenceIdentification");
+			XmlUtils.appendTextElement(imageReferenceIdentification, OjbcNamespaceContext.NS_NC, "nc20:IdentificationID", fingerPrint.getImageDesignationCharacter());
+			
+			Element fingerprintImage = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:FingerprintImage");
+			
+			String fingerprintBase64 = Base64.getEncoder().encodeToString(fingerPrint.getImageData());
+			
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nc20:BinaryBase64Object", fingerprintBase64);
+			
+			Element imageCaptureDetail = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:ImageCaptureDetail");
+			XmlUtils.appendTextElement(imageCaptureDetail, OjbcNamespaceContext.NS_NC, "nistbio:CaptureResolutionCode", fingerPrint.getImageScanningResolution());
+
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageCompressionAlgorithmCode", fingerPrint.getCompressionAlgorithm());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageHorizontalLineLengthPixelQuantity", fingerPrint.getHorizontalLineLength());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
+			
+			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:FingerprintImagePosition");
+			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NC, "nistbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
+			
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
+
+		}
+		
+		return civilRapbackRequest;
+	}
+	
+	public void extractCivilFingerprints(@Body Document doc, Exchange ex)
+	{
+		byte[] binaryData = XmlUtils.getBinaryData(doc, "//submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
+		
+        Nist nist = Jnbis.nist().decode(binaryData);
+        List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
+        
+        ex.getIn().setHeader("civilFingerPrints", hiResGrayscaleFingerprints);
+        
+	}
+}

@@ -70,14 +70,6 @@
 	<xsl:param name="transactionContentSummaryContentRecordCountCriminal" />
 	<xsl:param name="transactionContentSummaryContentRecordCountCivil" />
 	<xsl:param name="civilRapBackSubscriptionTerm" />
-	<!-- TODO: These are pending feedback from HCJDC and FBI -->
-	<xsl:param name="fingerprintImage">XXX</xsl:param>
-	<xsl:param name="captureResolutionCode">1</xsl:param>
-	<xsl:param name="imageCompressionAlgorithmCode">2</xsl:param>
-	<xsl:param name="imageHorizontalLineLengthPixelQuantity">80</xsl:param>
-	<xsl:param name="imageVertialLineLengthPixelQuantity">65</xsl:param>
-	<xsl:param name="fingerPositionCode">2</xsl:param>
-	<xsl:param name="fingerprintImageImpressionCaptureCategoryCode">3</xsl:param>
 	<xsl:template match="/">
 		<xsl:apply-templates select="b-2:Subscribe" />
 		<xsl:apply-templates select="b-2:Unsubscribe" />
@@ -123,11 +115,7 @@
 				<xsl:with-param name="action" select="$action" />
 				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
 			</xsl:call-template>
-			<!-- EBTS Record Type 4 -->
-			<xsl:call-template name="buildType4Record">
-				<xsl:with-param name="action" select="$action" />
-				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
-			</xsl:call-template>
+
 		</itl:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="unsubmsg-doc:UnsubscriptionMessage">
@@ -362,52 +350,6 @@
 				</ebts:DomainDefinedDescriptiveFields>
 			</itl:UserDefinedDescriptiveDetail>
 		</itl:PackageDescriptiveTextRecord>
-	</xsl:template>
-	<xsl:template name="buildType4Record">
-		<xsl:param name="action" />
-		<xsl:param name="subscriptionCategory" />
-		<xsl:if test="$subscriptionCategory = 'civil'">
-			<itl:PackageHighResolutionGrayscaleImageRecord>
-				<!-- RCC -->
-				<ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-				<ansi-nist:ImageReferenceIdentification>
-					<nc20:IdentificationID>01</nc20:IdentificationID>
-				</ansi-nist:ImageReferenceIdentification>
-				<ansi-nist:FingerprintImage>
-					<!--IMG -->
-					<nc20:BinaryBase64Object>
-						<xsl:value-of select="$fingerprintImage" />
-					</nc20:BinaryBase64Object>
-					<ansi-nist:ImageCaptureDetail>
-						<!--ISR -->
-						<ansi-nist:CaptureResolutionCode>
-							<xsl:value-of select="$captureResolutionCode" />
-						</ansi-nist:CaptureResolutionCode>
-					</ansi-nist:ImageCaptureDetail>
-					<!--GCA -->
-					<ansi-nist:ImageCompressionAlgorithmCode>
-						<xsl:value-of select="$imageCompressionAlgorithmCode" />
-					</ansi-nist:ImageCompressionAlgorithmCode>
-					<!--HLL -->
-					<ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-						<xsl:value-of select="$imageHorizontalLineLengthPixelQuantity" />
-					</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-					<!--VLL -->
-					<ansi-nist:ImageVerticalLineLengthPixelQuantity>
-						<xsl:value-of select="$imageVertialLineLengthPixelQuantity" />
-					</ansi-nist:ImageVerticalLineLengthPixelQuantity>
-					<!--FGP -->
-					<ansi-nist:FingerprintImagePosition>
-						<ansi-nist:FingerPositionCode>
-							<xsl:value-of select="$fingerPositionCode" />
-						</ansi-nist:FingerPositionCode>
-					</ansi-nist:FingerprintImagePosition>
-					<!--IMP -->
-					<ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3
-					</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
-				</ansi-nist:FingerprintImage>
-			</itl:PackageHighResolutionGrayscaleImageRecord>
-		</xsl:if>
 	</xsl:template>
 	<xsl:template name="buildTransactionContentSummary">
 		<xsl:param name="subscriptionCategory" />
