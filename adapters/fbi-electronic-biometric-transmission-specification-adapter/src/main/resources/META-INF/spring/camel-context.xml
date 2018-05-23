@@ -27,6 +27,9 @@
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -115,12 +118,40 @@
 
 		<camel:route id="fbiEbtsProcessingRoute">
 		
-			<camel:from uri="direct:processFbiEbtsRequest"/>			
-						
+			<camel:from uri="direct:processFbiEbtsRequest"/>	
+			
 			<camel:choice>
 			  <camel:when>
 			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
-			  	<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />			  	
+			  	<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />	
+			  	
+			  	<!-- Received criminal or civil subscription -->
+				<camel:choice>
+					<camel:when>
+					 	<camel:xpath>/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode</camel:xpath>
+					 	
+					 	<camel:log message="Criminal Subscription Received"/>
+					 	
+					</camel:when>
+					<camel:when>
+						<camel:xpath>/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode</camel:xpath>
+						
+						<camel:log message="Civil Subscription Received"/>
+						
+						<camel:setHeader headerName="civilSubscription">
+							<camel:constant>true</camel:constant>
+						</camel:setHeader>
+						
+						<!-- retrieve fingerprints as NIST attachment here -->
+						<camel:to uri="bean:nistImageProcessor?method=extractCivilFingerprints"/>
+						
+					</camel:when>
+					<camel:otherwise>
+						<camel:log message="Unrecognized subscription type"/>
+						<camel:stop/>
+					</camel:otherwise>			
+				</camel:choice>
+				
 			  	<to uri="direct:processOperation"/>
 			  </camel:when>
 			  <otherwise>
@@ -459,8 +490,17 @@
 			<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCivil}}</simple></setHeader>
 			<setHeader headerName="rapBackDisclosureIndicator"><simple>{{fbiEbtsAdapter.rapBackDisclosureIndicator}}</simple></setHeader>
 						
-						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
+			
+			<!-- call processor to insert civil images here -->
+			<camel:filter>
+				<camel:simple>${in.headers.civilSubscription} == 'true'</camel:simple>
+				
+				<camel:log message="Adding civil fingerprints"/>
+				
+				<camel:to uri="bean:nistImageProcessor?method=insertPackageHighResolutionGrayscaleImageRecord"/>
+				
+			</camel:filter>
 			
 			<camel:convertBodyTo type="java.lang.String"/>							
 			
@@ -518,4 +558,7 @@
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
 	<bean id="rapbackEventTextProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapbackEventTextProcessor"/>
+	
+	<bean id="nistImageProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NistImageProcessor"/>
+	
 </beans>

@@ -123,24 +123,4 @@
          </ebts:DomainDefinedDescriptiveFields>
       </itl:UserDefinedDescriptiveDetail>
    </itl:PackageDescriptiveTextRecord>
-   <itl:PackageHighResolutionGrayscaleImageRecord>
-      <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-      <ansi-nist:ImageReferenceIdentification>
-         <nc20:IdentificationID>01</nc20:IdentificationID>
-      </ansi-nist:ImageReferenceIdentification>
-      <ansi-nist:FingerprintImage>
-         <nc20:BinaryBase64Object>XXX</nc20:BinaryBase64Object>
-         <ansi-nist:ImageCaptureDetail>
-            <ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
-         </ansi-nist:ImageCaptureDetail>
-         <ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
-         <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
-         <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
-         <ansi-nist:FingerprintImagePosition>
-            <ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
-         </ansi-nist:FingerprintImagePosition>
-         <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3
-					</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
-      </ansi-nist:FingerprintImage>
-   </itl:PackageHighResolutionGrayscaleImageRecord>
 </itl:NISTBiometricInformationExchangePackage>
