@@ -128,7 +128,7 @@
         <xs:sequence>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

@@ -154,12 +154,18 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 		<srm:TotalAuthorizedSearchResultsQuantity>46</srm:TotalAuthorizedSearchResultsQuantity>
 	</srm:SearchResultsMetadata>
 	<nc:EntityOrganization structures:id="ORG1">
-		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
+		<nc:OrganizationName>Agency ABC</nc:OrganizationName>		
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
 				<nc:IdentificationID>ORI1234</nc:IdentificationID>
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
+		<oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>
+		<oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>
+		<oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
+			<oirs-res-ext:FederalTriggeringEventCode>DISPOSITION</oirs-res-ext:FederalTriggeringEventCode>
+			<oirs-res-ext:FederalTriggeringEventCode>ARREST</oirs-res-ext:FederalTriggeringEventCode>
+		</oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
 	</nc:EntityOrganization>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity structures:ref="ORG1"/>

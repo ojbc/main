@@ -17,7 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
+xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
+xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
+targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
@@ -338,5 +347,78 @@
 			<xsd:documentation>The organization that requested identification of an individual.  </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="OrganizationAuthorizedForStateSubscriptionsIndicator" type="niem-xs:boolean" nillable="true" substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if organization is authorized to create state subscriptions.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrganizationAuthorizedForFederalSubscriptionsIndicator" type="niem-xs:boolean" nillable="true" substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if organization is authorized to create federal subscriptions.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrganizationAuthorizedTriggeringEvents" type="oirs-res-ext:TriggeringEventsType" nillable="true" substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The triggering events for which an organization is authorized to subscribe .</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="TriggeringEventsType">
+		<xsd:annotation>
+			<xsd:documentation>One or more events that would trigger
+				notifications related to a subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirs-res-ext:TriggeringEventRepresentation" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
+	<xsd:element name="FederalTriggeringEventCode"
+		substitutionGroup="oirs-res-ext:TriggeringEventRepresentation" type="oirs-res-ext:FederalTriggeringEventCodeType" />
+	<xsd:complexType name="FederalTriggeringEventCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirs-res-ext:FederalTriggeringEventCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ARREST">
+				<xsd:annotation>
+					<xsd:documentation>Arrests</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISPOSITION">
+				<xsd:annotation>
+					<xsd:documentation>Dispositions</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
+						Entry, Modification, Deletion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEATH">
+				<xsd:annotation>
+					<xsd:documentation>Death Notice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 	
 </xsd:schema>
