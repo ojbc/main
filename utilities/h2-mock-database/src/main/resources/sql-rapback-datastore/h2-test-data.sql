@@ -31,10 +31,26 @@ insert into identification_category(identification_category_id, identification_c
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('5', 'SOR', 'Sex Offender Registry', 'CRIMINAL'); 
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('6', 'S', 'Security Clearance Information Act', 'CIVIL'); 
 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('1', '1234567890', 'Demo Agency', true, false); 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('2', '68796860', 'Test Agency', true, true); 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('3', 'HCJDC', 'IT Agency', true, false); 
+insert into triggering_event values('1','ARREST','ARREST');
+insert into triggering_event values('2','DISPOSITION','DISPOSITION');
+insert into triggering_event values('3','NCIC-WARRANT','NCIC-WARRANT');
+insert into triggering_event values('4','NCIC-SOR','NCIC-SOR');
+insert into triggering_event values('5','DEATH','DEATH');
 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) 
+	values ('1', '1234567890', 'Demo Agency', true, true, false); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) 
+	values ('2', '68796860', 'Test Agency', true, true, true); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) 
+	values ('3', 'HCJDC', 'IT Agency', true, true, false); 
+
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(1, 1, 1);
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(2, 1, 2);
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(3, 1, 3);
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(4, 1, 4);
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(5, 2, 1);
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values(6, 2, 5);
+	
 insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(1, 'HIJIS:IDP:HCJDC:USER:hpotter', 2, false); 
 insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(2, 'HIJIS:IDP:HCJDC:USER:demouser', 1, false); 
 insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(3, 'HIJIS:IDP:HCJDC:USER:superuser', 3, true);

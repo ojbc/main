@@ -63,4 +63,17 @@ insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('3', '2', 'test.agency@localhost'); 
-insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost'); 	
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost');
+
+insert into triggering_event values('1','ARREST','ARREST');
+insert into triggering_event values('2','DISPOSITION','DISPOSITION');
+insert into triggering_event values('3','NCIC-WARRANT','NCIC-WARRANT');
+insert into triggering_event values('4','NCIC-SOR','NCIC-SOR');
+insert into triggering_event values('5','DEATH','DEATH');
+
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '1', '1')
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '1', '2')
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '1', '3')
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '1', '4')
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '2', '1')
+insert into agency_triggering_event(agency_triggering_event_id, agency_id, triggering_event_id) values('1', '2', '5')
