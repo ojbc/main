@@ -92,7 +92,7 @@
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:OrganizationAugmentationPoint"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
