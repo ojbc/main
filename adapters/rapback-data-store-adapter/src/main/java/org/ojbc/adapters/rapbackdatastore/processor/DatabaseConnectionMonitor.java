@@ -48,7 +48,7 @@ public class DatabaseConnectionMonitor{
 	public void checkDatabaseConnection(Exchange exchange) throws Exception{
 		
 		ServiceStatus status = exchange.getContext().getRouteStatus("resend_database_failed_endpoint_route");
-		log.info("route resend_database_failed_endpoint_route status: " + status.toString());
+		log.debug("route resend_database_failed_endpoint_route status: " + status.toString());
 		
 		
 		if ( ServiceStatus.Started != status && isDatabaseConnected()){
@@ -70,9 +70,9 @@ public class DatabaseConnectionMonitor{
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT 1 FROM DUAL");
 			while(rs.next()) {
-				log.info("verification query result: " + String.valueOf(rs.getObject(1)));
+				log.debug("verification query result: " + String.valueOf(rs.getObject(1)));
 			}
-			log.info("connection is good");
+			log.debug("connection is good");
 			conn.close();
 			isDatabaseConnected = true;
 		} catch (SQLException e) {
