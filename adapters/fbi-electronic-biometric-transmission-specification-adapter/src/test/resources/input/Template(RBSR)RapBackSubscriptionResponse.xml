@@ -192,7 +192,7 @@
                         <!--MSG 2.060 (0..10)-->
                         <ebts:TransactionStatusText>MATCH MADE AGAINST SUBJECTS FINGERPRINTS ON 05/01/94. PLEASE NOTIFY SUBMITTING STATE IF MATCH RESULTS</ebts:TransactionStatusText>
                         <!--ERS 2.075, Optional-->
-                        <ebts:TransactionElectronicRapSheetText>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ebts:TransactionElectronicRapSheetText>				
+                        <ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes here</ebts:TransactionElectronicRapSheetText>				
                     </ebts:TransactionResponseData>
                 </ebts:RecordTransactionData>
                 <ebts:RecordTransactionActivity>

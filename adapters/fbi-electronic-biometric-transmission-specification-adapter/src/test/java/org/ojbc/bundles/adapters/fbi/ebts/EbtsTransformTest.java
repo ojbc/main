@@ -142,14 +142,15 @@ public class EbtsTransformTest {
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/Template(RBSR)RapBackSubscriptionResponse.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
-								
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("transactionElectronicRapSheetAsBase64", Base64.encode(rapsheetString.getBytes()));
+		
 		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
 		
-		Map<String, Object> xsltParamMap = getXsltParamMap();
-			
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
-				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/RapBackSubscriptionCreationReport.xml"));
 							
