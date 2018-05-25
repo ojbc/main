@@ -51,6 +51,7 @@ import org.apache.camel.Body;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -294,6 +295,26 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
 			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
 			identificationID.setTextContent(agencyProfile.getAgencyOri());
+
+			Element stateSubscriptionsIndicator = XmlUtils.appendElement(
+					entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedForStateSubscriptionsIndicator");
+			stateSubscriptionsIndicator.setTextContent(BooleanUtils.toStringTrueFalse(agencyProfile.getStateSubscriptionQualified()));
+			
+			Element federalSubscriptionsIndicator = XmlUtils.appendElement(
+					entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedForFederalSubscriptionsIndicator");
+			federalSubscriptionsIndicator.setTextContent(BooleanUtils.toStringTrueFalse(agencyProfile.getFbiSubscriptionQualified()));
+			
+			if (agencyProfile.getTriggeringEventCodes().size()>0){
+				Element organizationAuthorizedTriggeringEvents = XmlUtils.appendElement(
+						entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedTriggeringEvents");
+				for (String triggeringEventCode : agencyProfile.getTriggeringEventCodes()){
+					Element federalTriggeringEventCode = XmlUtils.appendElement(
+							organizationAuthorizedTriggeringEvents, 
+							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+							"FederalTriggeringEventCode");
+					federalTriggeringEventCode.setTextContent(triggeringEventCode);
+				}
+			}
 		}
 		
 		for (int i = 0; i < agencyProfiles.size(); i++){

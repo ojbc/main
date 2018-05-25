@@ -149,6 +149,14 @@
             <nc30:IdentificationID>1234567890</nc30:IdentificationID>
          </jxdm50:OrganizationORIIdentification>
       </jxdm50:OrganizationAugmentation>
+	  <oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>
+	  <oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>
+	  <oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
+		  <oirs-res-ext:FederalTriggeringEventCode>ARREST</oirs-res-ext:FederalTriggeringEventCode>
+		  <oirs-res-ext:FederalTriggeringEventCode>DISPOSITION</oirs-res-ext:FederalTriggeringEventCode>
+		  <oirs-res-ext:FederalTriggeringEventCode>NCIC-WARRANT</oirs-res-ext:FederalTriggeringEventCode>
+		  <oirs-res-ext:FederalTriggeringEventCode>NCIC-SOR</oirs-res-ext:FederalTriggeringEventCode>
+	  </oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
    </nc30:EntityOrganization>
    <nc30:ContactInformationAssociation>
       <nc30:ContactEntity s30:ref="ORG_01"/>
