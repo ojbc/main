@@ -413,6 +413,8 @@
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
 			
+			<camel:to uri="bean:fbiEbtsResponseProcessor?method=convertRapsheetToBase64" />
+			
 			<convertBodyTo type="java.lang.String"/>
 			
 			<to uri="xslt:xsl/RapBackSubscriptionResponseToSubscriptionCreationReport.xsl"/>	

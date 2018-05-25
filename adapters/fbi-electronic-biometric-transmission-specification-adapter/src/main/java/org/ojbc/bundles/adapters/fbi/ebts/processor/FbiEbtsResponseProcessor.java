@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
+import java.util.Base64;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
@@ -80,6 +81,17 @@ public class FbiEbtsResponseProcessor {
 		subModIndElement.setTextContent("true");		
 		
 		return doc;
+	}
+	
+	public void convertRapsheetToBase64(Exchange ex, Document rapbackSubscriptionResponse) throws Exception
+	{
+		String transactionElectronicRapSheet = XmlUtils.xPathStringSearch(rapbackSubscriptionResponse, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText");
+		
+		String mugShotBase64 = Base64.getEncoder().encodeToString(transactionElectronicRapSheet.getBytes());
+		
+		ex.getIn().setHeader("transactionElectronicRapSheetAsBase64", mugShotBase64);
+		
+		
 	}
 	
 }
