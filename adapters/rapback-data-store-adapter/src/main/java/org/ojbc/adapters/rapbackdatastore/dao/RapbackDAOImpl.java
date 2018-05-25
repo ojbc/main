@@ -823,6 +823,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public AgencyProfile getAgencyProfile(String ori) {
 		final String AGENCY_PROFILE_SELECT_BY_ORI = "SELECT * FROM agency_profile a "
 				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+				+ "LEFT JOIN agency_triggering_event at ON at.agency_id = a.agency_id "
+				+ "LEFT JOIN triggering_event t ON t.triggering_event_id = at.triggering_event_id "
 				+ "WHERE agency_ori = ?";
 		
 		List<AgencyProfile> agencyProfiles = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
@@ -845,6 +847,7 @@ public class RapbackDAOImpl implements RapbackDAO {
                 	agencyProfile.setAgencyName(rs.getString("agency_name"));
                 	agencyProfile.setAgencyOri(rs.getString("agency_ori"));
                 	agencyProfile.setFbiSubscriptionQualified(rs.getBoolean("fbi_subscription_qualification"));
+                	agencyProfile.setStateSubscriptionQualified(rs.getBoolean("state_subscription_qualification"));
 
                 	List<String> emails = new ArrayList<String>();
                 	String email = rs.getString("agency_email");
@@ -852,6 +855,13 @@ public class RapbackDAOImpl implements RapbackDAO {
                 		emails.add(email);
                 	}
                 	agencyProfile.setEmails(emails);
+                	
+                	List<String> triggeringEventCodes = new ArrayList<String>();
+                	String triggeringEventCode = rs.getString("triggering_event_code");
+                	if (StringUtils.isNotBlank(triggeringEventCode)){
+                		triggeringEventCodes.add(triggeringEventCode);
+                	}
+                	agencyProfile.setTriggeringEventCodes(triggeringEventCodes);
                 	map.put(agencyProfileId, agencyProfile);
                 }
                 else{
@@ -859,6 +869,13 @@ public class RapbackDAOImpl implements RapbackDAO {
                 	if (StringUtils.isNotBlank(email) && !agencyProfile.getEmails().contains(email)){
                 		agencyProfile.getEmails().add(email);
                 	}
+                	
+                	String triggeringEventCode = rs.getString("triggering_event_code");
+                	if (StringUtils.isNotBlank(triggeringEventCode) 
+                			&& !agencyProfile.getTriggeringEventCodes().contains(triggeringEventCode)){
+                		agencyProfile.getTriggeringEventCodes().add(triggeringEventCode);
+                	}
+                	
                 }
 	              
             }
@@ -1018,12 +1035,15 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<AgencyProfile> getAgencyProfiles(List<String> oris) {
 		final String AGENCY_PROFILE_SELECT_BY_ORIS = "SELECT * FROM agency_profile a "
 				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+				+ "LEFT JOIN agency_triggering_event at ON at.agency_id = a.agency_id "
+				+ "LEFT JOIN triggering_event t ON t.triggering_event_id = at.triggering_event_id "
 				+ "WHERE agency_ori in (:oris)";
 		
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("oris", oris);
 		
-		List<AgencyProfile> agencyProfiles = namedParameterJdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORIS, parameters, new AgencyProfileResultSetExtractor());
+		List<AgencyProfile> agencyProfiles = namedParameterJdbcTemplate.query
+				(AGENCY_PROFILE_SELECT_BY_ORIS, parameters, new AgencyProfileResultSetExtractor());
 		return agencyProfiles;
 	}
 

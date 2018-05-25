@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -357,8 +358,13 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals("1234567890", agencyProfile.getAgencyOri());
 		assertEquals("Demo Agency", agencyProfile.getAgencyName());
 		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
+		assertEquals(Boolean.TRUE, agencyProfile.getStateSubscriptionQualified());
 		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
 		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
+		
+		assertThat(agencyProfile.getTriggeringEventCodes().size(), equalTo(4));
+		assertTrue(agencyProfile.getTriggeringEventCodes()
+				.containsAll(Arrays.asList("ARREST", "DISPOSITION", "NCIC-WARRANT", "NCIC-SOR")));
 		
 		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
 		assertNull(agencyProfileNull);

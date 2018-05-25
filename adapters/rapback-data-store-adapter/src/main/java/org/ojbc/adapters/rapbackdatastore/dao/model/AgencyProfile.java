@@ -29,8 +29,10 @@ public class AgencyProfile implements Serializable{
 	private String agencyOri;
 	private String agencyName;
 	private Boolean fbiSubscriptionQualified;
+	private Boolean stateSubscriptionQualified;
 	
 	private List<String> emails; 
+	private List<String> triggeringEventCodes; 
 	
 	public AgencyProfile(){
 		super();
@@ -78,6 +80,22 @@ public class AgencyProfile implements Serializable{
 
 	public void setEmails(List<String> emails) {
 		this.emails = emails;
+	}
+
+	public Boolean getStateSubscriptionQualified() {
+		return stateSubscriptionQualified;
+	}
+
+	public void setStateSubscriptionQualified(Boolean stateSubscriptionQualified) {
+		this.stateSubscriptionQualified = stateSubscriptionQualified;
+	}
+
+	public List<String> getTriggeringEventCodes() {
+		return triggeringEventCodes;
+	}
+
+	public void setTriggeringEventCodes(List<String> triggeringEventCodes) {
+		this.triggeringEventCodes = triggeringEventCodes;
 	}
 
 }
