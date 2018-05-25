@@ -47,6 +47,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -342,6 +343,35 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	        
 	}	
 	
+
+	@Override
+	public Integer saveuserAcknowledgement(
+			UserAcknowledgement userAcknowledgement) {
+		
+        log.debug("Inserting row into USER_ACKNOWLEDGEMENT table : " + userAcknowledgement);
+        
+        final String USER_ACKNOWLEDGEMENT_INSERT="INSERT into USER_ACKNOWLEDGEMENT "  
+        		+ "(DECISION, USER_INFO_ID, SID, DECISION_TIMESTAMP) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(USER_ACKNOWLEDGEMENT_INSERT, new String[] {"USER_ACKNOWLEDGEMENT_ID"});
+        	            DaoUtils.setPreparedStatementVariable(userAcknowledgement.isDecision(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(userAcknowledgement.getUserInfo().getUserInfoId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(userAcknowledgement.getSid(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(userAcknowledgement.getDecisionDateTime(), ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
 
 	@Override
 	public Integer saveFirearmsQueryResponse(
@@ -842,6 +872,18 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return federalRapbackSubscriptionErrorId;	
 	}
+	
+	@Override
+	public List<UserAcknowledgement> retrieveUserAcknowledgement(
+			String federationId) {
+		final String USER_ACK_SELECT="SELECT * FROM USER_ACKNOWLEDGEMENT ua, USER_INFO ui where ui.USER_INFO_ID = ua.USER_INFO_ID" +
+									 " and ui.FEDERATION_ID=?";
+		
+		List<UserAcknowledgement> userAcknowledgements = jdbcTemplate.query(USER_ACK_SELECT, new UserAcknowledgementsRowMapper(), federationId);
+		
+		return userAcknowledgements;	
+	}
+	
 
 	@Override
 	public Integer saveFederalRapbackSubscriptionError(
@@ -1031,7 +1073,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
 			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
 			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
-			//userInfo.setu(rs.getString("USER_INFO_ID"));
 			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
 			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
 			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
@@ -1251,6 +1292,41 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			return triggeringEvent;
 		}
 	}		
+	
+	private final class UserAcknowledgementsRowMapper implements RowMapper<UserAcknowledgement> {
+		public UserAcknowledgement mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			UserAcknowledgement userAcknowledgement = buildUserAcknowledgement(rs);
+			return userAcknowledgement;
+		}
+
+		private UserAcknowledgement buildUserAcknowledgement(
+				ResultSet rs) throws SQLException{
+
+			UserAcknowledgement userAcknowledgement = new UserAcknowledgement();
+			
+			userAcknowledgement.setSid(rs.getString("SID"));
+			userAcknowledgement.setDecisionDateTime(toLocalDateTime(rs.getTimestamp("DECISION_TIMESTAMP")));
+			userAcknowledgement.setLastUpdatedTime(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+			userAcknowledgement.setUserAcknowledgementId(rs.getInt("USER_ACKNOWLEDGEMENT_ID"));
+			userAcknowledgement.setDecision(rs.getBoolean("DECISION"));
+			
+			UserInfo userInfo = new UserInfo();
+			
+			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
+			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
+			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
+			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
+			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
+			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
+			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
+			userInfo.setFederationId(rs.getString("FEDERATION_ID"));
+
+			userAcknowledgement.setUserInfo(userInfo);
+			
+			return userAcknowledgement;
+		}
+	}
 	
 	
 	

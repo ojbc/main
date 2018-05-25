@@ -31,6 +31,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.AgencyProfile;
@@ -85,6 +86,21 @@ public class AuditRestImpl implements AuditInterface {
 		return Response.status(Status.OK).entity(userInfo).build();
 	}
 
+	@Override
+	public Response auditUserAcknowledgement(
+			UserAcknowledgement userAcknowledgement) {
+		log.info("Audit user acknowledgement: " + userAcknowledgement.toString());
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userAcknowledgement.getUserInfo());
+	
+		userAcknowledgement.getUserInfo().setUserInfoId(userInfoPk);
+		
+		enhancedAuditDao.saveuserAcknowledgement(userAcknowledgement);
+		
+		return Response.status(Status.OK).entity(userAcknowledgement).build();	
+		
+	}	
+	
 	@Override
 	public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(String subscriptionId) {
 		log.info("Subscription ID: " + subscriptionId);

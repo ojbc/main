@@ -32,6 +32,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
 
@@ -72,6 +73,10 @@ public interface EnhancedAuditDAO {
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
 	
 	public Integer saveUserInfo(UserInfo userInfo);
+	
+	public Integer saveuserAcknowledgement(UserAcknowledgement userAcknowledgement);
+	
+	public List<UserAcknowledgement> retrieveUserAcknowledgement(String federationId);
 	
 	public Integer saveUserAuthentication(Integer userInfoPk, String action);
 	
