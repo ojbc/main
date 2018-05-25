@@ -41,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -90,6 +91,54 @@ public class TestAuditRestImpl {
     	this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
     
+	@Test
+	public void testSaveUserAcknowledgement() throws Exception
+	{
+		String uri = "http://localhost:9898/auditServer/audit/userAcknowledgement";
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("employer");
+		userInfo.setEmployerSubunitName("sub");
+		userInfo.setFederationId("fed");
+		userInfo.setIdentityProviderId("idpID");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		
+		UserAcknowledgement userAcknowledgement = new UserAcknowledgement();
+		
+		userAcknowledgement.setUserInfo(userInfo);
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		userAcknowledgement.setDecision(true);
+		userAcknowledgement.setDecisionDateTime(now);
+		userAcknowledgement.setSid("A123456789");		
+		
+		UserAcknowledgement userAcknowledgementResponse = restTemplate.postForObject(uri, userAcknowledgement, UserAcknowledgement.class);
+		
+		logger.info(userAcknowledgementResponse.toString());
+		
+		List<UserAcknowledgement> userAcknowledgements = enhancedAuditDao.retrieveUserAcknowledgement("fed");
+		
+		assertEquals(1, userAcknowledgements.size());
+		
+		UserAcknowledgement userAcknowledgementFromDatabase = userAcknowledgements.get(0);
+		
+		assertEquals("A123456789", userAcknowledgementFromDatabase.getSid());
+		assertEquals(true, userAcknowledgementFromDatabase.isDecision());
+		
+		
+		assertEquals("employer", userAcknowledgementFromDatabase.getUserInfo().getEmployerName());
+		assertEquals("sub", userAcknowledgementFromDatabase.getUserInfo().getEmployerSubunitName());
+		assertEquals("fed", userAcknowledgementFromDatabase.getUserInfo().getFederationId());
+		assertEquals("idpID", userAcknowledgementFromDatabase.getUserInfo().getIdentityProviderId());
+		assertEquals("email", userAcknowledgementFromDatabase.getUserInfo().getUserEmailAddress());
+		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
+		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
+	}
+	
 	@Test
 	public void testAuditRestImplSend() throws Exception
 	{

@@ -43,6 +43,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -441,5 +442,47 @@ public class EnhancedAuditDaoTest {
 
 	}
 
+	@Test
+	public void testSaveuserAcknowledgement() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		UserAcknowledgement userAcknowledgement = new UserAcknowledgement();
+		
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserInfoId(userInfoPk);
+		
+		userAcknowledgement.setUserInfo(userInfo);
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		userAcknowledgement.setDecision(true);
+		userAcknowledgement.setDecisionDateTime(now);
+		userAcknowledgement.setSid("A123456789");
+		
+		Integer userAckPk = enhancedAuditDao.saveuserAcknowledgement(userAcknowledgement);
+		assertNotNull(userAckPk);
+		
+		List<UserAcknowledgement> userAcknowledgements = enhancedAuditDao.retrieveUserAcknowledgement("Fed ID");
+		
+		assertEquals(1, userAcknowledgements.size());
+		
+		UserAcknowledgement userAcknowledgementFromDatabase = userAcknowledgements.get(0);
+		
+		assertEquals("A123456789", userAcknowledgementFromDatabase.getSid());
+		assertEquals(true, userAcknowledgementFromDatabase.isDecision());
+		
+		
+		assertEquals("Employer Name", userAcknowledgementFromDatabase.getUserInfo().getEmployerName());
+		assertEquals("Sub Unit", userAcknowledgementFromDatabase.getUserInfo().getEmployerSubunitName());
+		assertEquals("Fed ID", userAcknowledgementFromDatabase.getUserInfo().getFederationId());
+		assertEquals("IDP", userAcknowledgementFromDatabase.getUserInfo().getIdentityProviderId());
+		assertEquals("email", userAcknowledgementFromDatabase.getUserInfo().getUserEmailAddress());
+		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
+		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
+		
+	}
 }
 

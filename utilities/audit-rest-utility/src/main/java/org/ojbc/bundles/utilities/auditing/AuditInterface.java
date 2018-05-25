@@ -33,6 +33,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -42,6 +43,13 @@ import org.ojbc.util.model.rapback.Subscription;
 @WebService
 public interface AuditInterface {
  
+   @POST
+   @Path("/userAcknowledgement")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response auditUserAcknowledgement(UserAcknowledgement userAcknowledgement);
+
+	
    @POST
    @Path("/printResults")
    @Produces(MediaType.APPLICATION_JSON)
