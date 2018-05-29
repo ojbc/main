@@ -26,7 +26,7 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
@@ -130,15 +130,16 @@
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
-<!-- Hide the Subscribe button for phase 1 -->	
-<!-- 		
-		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
-			<xsl:attribute name="id">
-				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-			</xsl:attribute>
-			<i class="fa fa-rss fa-lg"/>
-		</a>
- -->	<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-rss fa-lg"/>
+			</a>
+		</xsl:if>
+		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
