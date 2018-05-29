@@ -22,6 +22,7 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:s30="http://release.niem.gov/niem/structures/3.0/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="no" />
+	<xsl:param name="transactionElectronicRapSheetAsBase64" />
 	<xsl:template match="/">
 		<xsl:apply-templates
 			select="itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields" />
@@ -31,10 +32,9 @@
 		<fed_subcr-doc:FederalSubscriptionCreationReport>
 			<xsl:apply-templates select="ebts:RecordRapBackData" />
 			<xsl:apply-templates select="ebts:RecordSubject" />
-			<!-- ignoring the rap sheet as we work on CJ rap back. will need to handle this when we start on civil -->
-			<!-- <xsl:apply-templates -->
-			<!-- select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" -->
-			<!-- mode="rapsheet" /> -->
+			<xsl:apply-templates
+			select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
+			mode="rapsheet" />
 		</fed_subcr-doc:FederalSubscriptionCreationReport>
 	</xsl:template>
 	<xsl:template match="ebts:RecordSubject/jxdm50:PersonFBIIdentification/nc:IdentificationID">
@@ -199,7 +199,7 @@
 			<xsl:attribute name="s30:id"><xsl:value-of select="generate-id(.)" /></xsl:attribute>
 			<nc30:DocumentBinary>
 				<fed_subcr-ext:Base64BinaryObject>
-					<xsl:value-of select="." />
+					<xsl:value-of select="$transactionElectronicRapSheetAsBase64" />
 				</fed_subcr-ext:Base64BinaryObject>
 			</nc30:DocumentBinary>
 		</fed_subcr-ext:CriminalHistoryDocument>
