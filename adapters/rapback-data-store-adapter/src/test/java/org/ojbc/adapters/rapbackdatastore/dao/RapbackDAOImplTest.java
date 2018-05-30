@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -188,10 +189,15 @@ public class RapbackDAOImplTest {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints(); 
 		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER + "2");
 		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
-		civilFingerPrints.setFingerPrintsType(FingerPrintsType.FBI);
+		civilFingerPrints.setFingerPrintsType(FingerPrintsType.State);
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
+		
+		byte[] fingerPrints = rapbackDAO.getCivilFingerPrints(TRANSACTION_NUMBER + "2");
+		
+		assertEquals("FingerPrints", new String(fingerPrints, StandardCharsets.UTF_8));
+
 	}
 	
 //	@Test
@@ -442,5 +448,8 @@ public class RapbackDAOImplTest {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
-
+	@Test
+	public void testGetCivilFingerprint() throws Exception {
+		
+	}	
 }
