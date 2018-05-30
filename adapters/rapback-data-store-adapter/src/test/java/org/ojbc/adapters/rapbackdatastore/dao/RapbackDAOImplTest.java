@@ -194,10 +194,6 @@ public class RapbackDAOImplTest {
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
 		
-		byte[] fingerPrints = rapbackDAO.getCivilFingerPrints(TRANSACTION_NUMBER + "2");
-		
-		assertEquals("FingerPrints", new String(fingerPrints, StandardCharsets.UTF_8));
-
 	}
 	
 //	@Test

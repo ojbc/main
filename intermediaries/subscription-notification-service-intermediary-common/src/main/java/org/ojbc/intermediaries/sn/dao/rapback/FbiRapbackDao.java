@@ -36,6 +36,7 @@ import org.ojbc.util.helper.ZipUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -85,7 +86,28 @@ public class FbiRapbackDao {
     
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-        
+    
+	public byte[] getCivilFingerPrints(String transactionNumber) {
+		final String CIVIL_FINGERPRINT_SELECT="SELECT FINGER_PRINTS_FILE FROM CIVIL_FINGER_PRINTS WHERE TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID=2";
+		
+		byte[] fingerPrintsFileZipped = null;
+		
+		try {
+			fingerPrintsFileZipped = jdbcTemplate.queryForObject(CIVIL_FINGERPRINT_SELECT, byte[].class, transactionNumber);
+		} catch (DataAccessException e) {
+			log.error("Query returned no results");
+		}
+		
+		byte[] fingerPrintsFileUnzipped = null;
+				
+		if (fingerPrintsFileZipped != null)
+		{	
+			fingerPrintsFileUnzipped = ZipUtils.unzip(fingerPrintsFileZipped);
+		}	
+		
+		return fingerPrintsFileUnzipped;
+	}    
+    
     
     public List<Subscription> getStateSubscriptions(String fbiUcnId, String reasonCode){
     	
