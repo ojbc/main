@@ -124,23 +124,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
 		return DataAccessUtils.singleResult(subjects);
 	} 
-	
-	@Override
-	public byte[] getCivilFingerPrints(String transactionNumber) {
-		final String CIVIL_FINGERPRINT_SELECT="SELECT FINGER_PRINTS_FILE FROM CIVIL_FINGER_PRINTS WHERE TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID=2";
-		
-		byte[] fingerPrintsFileZipped = jdbcTemplate.queryForObject(CIVIL_FINGERPRINT_SELECT, byte[].class, transactionNumber);
-		
-		byte[] fingerPrintsFileUnzipped = null;
-				
-		if (fingerPrintsFileZipped != null)
-		{	
-			fingerPrintsFileUnzipped = ZipUtils.unzip(fingerPrintsFileZipped);
-		}	
-		
-		return fingerPrintsFileUnzipped;
-	}	
-	
+
 	private final class SubjectRowMapper implements RowMapper<Subject> {
 		public Subject mapRow(ResultSet rs, int rowNum)
 				throws SQLException {

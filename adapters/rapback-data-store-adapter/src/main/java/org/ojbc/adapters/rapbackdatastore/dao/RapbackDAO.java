@@ -37,7 +37,6 @@ public interface RapbackDAO {
 	public Integer saveSubject(final Subject subject);
 	public void saveIdentificationTransaction(IdentificationTransaction identificationTransaction);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
-	public byte[] getCivilFingerPrints(String transactionNumber);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
