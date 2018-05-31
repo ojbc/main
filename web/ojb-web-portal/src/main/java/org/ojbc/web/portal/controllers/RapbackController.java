@@ -19,6 +19,7 @@ package org.ojbc.web.portal.controllers;
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
+import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -454,7 +455,7 @@ public class RapbackController {
 		Document rapbackSearchResultsDoc = DocumentUtils.getDocumentFromXmlString(rapbackSearchResults); 
 		Node organizationIdentificationResultsSearchResult = 
 				XmlUtils.xPathNodeSearch(rapbackSearchResultsDoc, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults"
-						+ "/oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel:SystemIdentification"
+						+ "/oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel30:SystemIdentification"
 						+ "/nc30:IdentificationID='" + transactionNumber + "']");
 		Node identifiedPerson = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentifiedPerson");
 		Subscription subscription = new Subscription(); 
@@ -468,17 +469,17 @@ public class RapbackController {
 		subscription.setFullName(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonName/nc30:PersonFullName"));
 		
 		subscription.setFbiId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID"));
-		subscription.setStateId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation"
-				+ "/jxdm50:PersonStateFingerprintIdentification[oirs-res-ext:FingerpringIdentificationIssuedForCivilPurposeIndicator='true']"
-				+ "/nc30:IdentificationID"));
+		subscription.setStateId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
+				+ "[oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID"));
 		
 		setStartDateAndEndDate(subscription);
 		
 		String orgnizationRefId = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationRequestingOrganization/@s30:ref");
 		
 		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription, orgnizationRefId);
+		setSubscripitonTriggeringEvents(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
-		subscription.setTopic(TOPIC_PERSON_ARREST);
+		subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
 		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
 		
 		return subscription;
@@ -502,6 +503,25 @@ public class RapbackController {
 		}
 	}
 
+	private void setSubscripitonTriggeringEvents(Document rapbackSearchResultsDoc, 
+			Subscription subscription, String organizationId) throws Exception {
+		NodeList triggeringEventCodeNodeList = XmlUtils.xPathNodeListSearch(rapbackSearchResultsDoc, 
+				"/oirs-res-doc:OrganizationIdentificationResultsSearchResults/nc30:EntityOrganization[@s30:id = '" + organizationId + "']"
+						+ "/oirs-res-ext:OrganizationAuthorizedTriggeringEvents/oirs-res-ext:FederalTriggeringEventCode");
+		
+		if (triggeringEventCodeNodeList != null && triggeringEventCodeNodeList.getLength() > 0){
+			List<String> triggeringEventCodeList = new ArrayList<String>();
+			for (int i = 0; i < triggeringEventCodeNodeList.getLength(); i++) {
+				if (triggeringEventCodeNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					Element triggeringEventCode = (Element) triggeringEventCodeNodeList.item(i);
+					triggeringEventCodeList.add(triggeringEventCode.getTextContent());
+				}
+			}
+			
+			subscription.setFederalTriggeringEventCode(triggeringEventCodeList);;;
+		}
+	}
+	
 	private void setStartDateAndEndDate(Subscription subscription) {
 		Calendar cal = Calendar.getInstance(); 
 		subscription.setSubscriptionStartDate(cal.getTime());

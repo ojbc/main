@@ -34,6 +34,10 @@ package org.ojbc.web;
  */
 public class OjbcWebConstants {
 	public static final String TOPIC_PERSON_ARREST = "{http://ojbc.org/wsn/topics}:person/arrest";
+	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/rapback";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/rapback/ci";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/rapback/cs";
+
 	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
 	
     public static final String SID_REGEX = "([a-zA-Z]\\d+)?";
