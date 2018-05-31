@@ -29,6 +29,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultMessage;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -364,6 +365,24 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 				String transactionNumber = XmlUtils.xPathStringSearch(document, 
 						"//submsg-exch:SubscriptionMessage/submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
 				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
+				
+				//Add civil fingerprints here
+	 			byte[] civilFingerPrint = rapbackDao.getCivilFingerPrints(transactionNumber);
+				
+				if (civilFingerPrint != null)
+				{
+					Element subscriptionMessage = (Element) XmlUtils.xPathNodeSearch(document, "//submsg-exch:SubscriptionMessage");
+					
+					Element fingerPrintDocument = XmlUtils.appendElement(subscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FingerprintDocument");
+					
+					Element documentBinary = XmlUtils.appendElement(fingerPrintDocument, OjbcNamespaceContext.NS_NC, "nc:DocumentBinary");
+					
+					Element base64BinaryObject = XmlUtils.appendElement(documentBinary, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:Base64BinaryObject");
+					
+					base64BinaryObject.setTextContent(Base64.encodeBase64String(civilFingerPrint));
+					
+				}	
+				
 				
 				return BooleanUtils.isTrue(fbiSubscriptionQualification);
 			}

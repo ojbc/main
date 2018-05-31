@@ -24,17 +24,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import junit.framework.Assert;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -50,8 +46,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Before;
@@ -208,7 +202,7 @@ public class CamelContextTest {
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
 	    //Read the Identification report file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal_with_civil_sid.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
 	    assertNotNull(inputStr);
