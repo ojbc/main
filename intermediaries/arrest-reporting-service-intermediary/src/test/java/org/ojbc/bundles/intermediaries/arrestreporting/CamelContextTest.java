@@ -180,6 +180,9 @@ public class CamelContextTest {
 		
 		Node messageNode = XmlUtils.xPathNodeSearch(notifyMesssageNode, "b-2:Message");
 		assertNotNull(messageNode);
+		
+		assertEquals("http://www.ojbc.org/arrestNotificationProducer", XmlUtils.xPathStringSearch(messageNode, "//b-2:ProducerReference/add:Address"));
+
 
 		//Get the first exchange (the only one) to the logger
 		//This is what would be sent to the derived bundle
@@ -190,10 +193,6 @@ public class CamelContextTest {
 		//Make sure the root node here is the message to the orignal exchange
 		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/arrest-exch:ArrestReport");
 		assertNotNull(rootNode);
-
-		//XmlUtils.printNode(returnDocumentDerivedBundle);
-
-		
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
