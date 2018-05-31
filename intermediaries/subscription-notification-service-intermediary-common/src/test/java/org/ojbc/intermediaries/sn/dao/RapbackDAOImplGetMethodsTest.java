@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -124,6 +125,14 @@ public class RapbackDAOImplGetMethodsTest {
 		String ucn = fbiSubscription.getUcn();
 		Assert.assertEquals("123456789", ucn);				
 	}	
+	
+	@Test
+	public void testGetCivilFingerprints()
+	{
+		byte[] fingerPrints = rapbackDao.getCivilFingerPrints("000001820140729014008339990");
+		
+		assertEquals("StateCivilFingerPrints", new String(fingerPrints, StandardCharsets.UTF_8));
+	}
 	
 	@Test
 	public void testGetFbiIds() throws Exception {

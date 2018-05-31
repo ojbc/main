@@ -124,7 +124,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		List<Subject> subjects = jdbcTemplate.query(SUBJECT_SELECT, new SubjectRowMapper(), id);
 		return DataAccessUtils.singleResult(subjects);
 	} 
-	
+
 	private final class SubjectRowMapper implements RowMapper<Subject> {
 		public Subject mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
