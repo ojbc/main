@@ -28,7 +28,7 @@
 		<j:CaseAugmentation>
 			<j:CaseCourt>
 				<nc:OrganizationIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					<nc:IdentificationID>72F1800656</nc:IdentificationID>
 				</nc:OrganizationIdentification>
 			</j:CaseCourt>
 		</j:CaseAugmentation>
@@ -36,32 +36,32 @@
 	<j:Subject structures:id="Subject">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
-				<nc:Date>2001-12-31</nc:Date>
+				<nc:Date>1989-12-31</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
-				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
-				<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
-				<nc:PersonNameCategoryText>Category</nc:PersonNameCategoryText>
+				<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+				<nc:PersonNameCategoryText>null</nc:PersonNameCategoryText>
 			</nc:PersonName>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
-			<j:PersonSexCode>F</j:PersonSexCode>
+			<j:PersonRaceCode>B</j:PersonRaceCode>
+			<j:PersonSexCode>M</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 		</nc:RoleOfPerson>
 		<j:SubjectIdentification>
-			<nc:IdentificationID>OTN</nc:IdentificationID>
+			<nc:IdentificationID>0013545677G</nc:IdentificationID>
 		</j:SubjectIdentification>
 	</j:Subject>
 	<nc:Disposition>
 		<nc:DispositionDate>
-			<nc:Date>2001-12-31</nc:Date>
+			<nc:Date>2016-06-15</nc:Date>
 		</nc:DispositionDate>
-		<nc:DispositionReasonText>MAYBE</nc:DispositionReasonText>
+		<nc:DispositionReasonText>null</nc:DispositionReasonText>
 		<chsres-ext:ConvictionCategory>
-			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
-			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
-			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:CategoryShortName>M</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>MISDEMEANOR</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>Misdemeanor</chsres-ext:CategoryDescriptionText>
 			<chsres-ext:RecordDateCreated>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</chsres-ext:RecordDateCreated>
@@ -69,16 +69,16 @@
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</chsres-ext:RecordDateUpdated>
 			<chsres-ext:PersonCreatedIdentification>
-				<nc:IdentificationID>561</nc:IdentificationID>
+				<nc:IdentificationID>null</nc:IdentificationID>
 			</chsres-ext:PersonCreatedIdentification>
 			<chsres-ext:PersonUpdatedIdentification>
 				<nc:IdentificationID>561</nc:IdentificationID>
 			</chsres-ext:PersonUpdatedIdentification>
 		</chsres-ext:ConvictionCategory>
 		<chsres-ext:DispositionCategory>
-			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
-			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
-			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:CategoryShortName>398</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>CHARGES FILED</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>CHARGES FILED</chsres-ext:CategoryDescriptionText>
 			<chsres-ext:RecordDateCreated>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</chsres-ext:RecordDateCreated>
@@ -92,10 +92,11 @@
 				<nc:IdentificationID>561</nc:IdentificationID>
 			</chsres-ext:PersonUpdatedIdentification>
 		</chsres-ext:DispositionCategory>
+		<!-- OSBI is "null" in DISPOSITION_REASON -->
 		<chsres-ext:DispositionReasonCategory>
-			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
-			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
-			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:CategoryShortName>47</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>TO BE REFILED</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>TO BE REFILED</chsres-ext:CategoryDescriptionText>
 			<chsres-ext:RecordDateCreated>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</chsres-ext:RecordDateCreated>
@@ -109,6 +110,19 @@
 				<nc:IdentificationID>561</nc:IdentificationID>
 			</chsres-ext:PersonUpdatedIdentification>
 		</chsres-ext:DispositionReasonCategory>
+		<chsres-ext:DispositionChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>21.1787</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+		</chsres-ext:DispositionChargeStatute>
+		<chsres-ext:DispositionChargeCountQuantity>2</chsres-ext:DispositionChargeCountQuantity>
+		<chsres-ext:DispositionFiledDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chsres-ext:DispositionFiledDate>
+		<chsres-ext:DispositionProvisionCodeText>372</chsres-ext:DispositionProvisionCodeText>
+		<chsres-ext:DispositionProvisionDescriptionText>null</chsres-ext:DispositionProvisionDescriptionText>
+		<chsres-ext:OriginalChargeStatute structures:ref="Original_Charge_Statute" />
+		<chsres-ext:ChargeSeverityCodeText>null</chsres-ext:ChargeSeverityCodeText>
 	</nc:Disposition>
 	<j:Sentence>
 		<j:SentenceDeferredTerm>
@@ -134,11 +148,11 @@
 	</j:Sentence>
 	<j:Restitution>
 		<nc:ObligationDueAmount>
-			<nc:Amount>0.0</nc:Amount>
+			<nc:Amount>500.00</nc:Amount>
 		</nc:ObligationDueAmount>
 		<j:ObligationAugmentation>
 			<j:ObligationSuspendedAmount>
-				<nc:Amount>0.0</nc:Amount>
+				<nc:Amount>100.00</nc:Amount>
 			</j:ObligationSuspendedAmount>
 		</j:ObligationAugmentation>
 	</j:Restitution>
@@ -186,9 +200,9 @@
 			</chsres-ext:PersonUpdatedIdentification>
 		</chsres-ext:OffenseCategory>
 		<chsres-ext:FelonyMisdemeanorCategory>
-			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
-			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
-			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:CategoryShortName>F</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>FELONY</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>FELONY</chsres-ext:CategoryDescriptionText>
 			<chsres-ext:RecordDateCreated>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 			</chsres-ext:RecordDateCreated>
@@ -202,10 +216,16 @@
 				<nc:IdentificationID>561</nc:IdentificationID>
 			</chsres-ext:PersonUpdatedIdentification>
 		</chsres-ext:FelonyMisdemeanorCategory>
+		<chsres-ext:ChargeClassIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chsres-ext:ChargeClassIdentification>
+		<chsres-ext:CrimeAgainstIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chsres-ext:CrimeAgainstIdentification>
 	</j:Charge>
 	<j:Arrest>
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>Arrest ID</nc:IdentificationID>
+			<nc:IdentificationID>null</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityDate>
 			<nc:Date>2001-12-31</nc:Date>
@@ -218,24 +238,41 @@
 		<j:ArrestAgency>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>ORI</nc:IdentificationID>
+					<nc:IdentificationID>OK07212345</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:ArrestAgency>
 		<j:ArrestSubject>
 			<nc:RoleOfPerson structures:ref="Subject" />
 		</j:ArrestSubject>
+		<chsres-ext:ActionCodeText>A</chsres-ext:ActionCodeText>
 	</j:Arrest>
-	<j:Statute>
+	<j:Statute structures:id="Original_Charge_Statute">
 		<j:StatuteCodeIdentification>
-			<nc:IdentificationID>Statute</nc:IdentificationID>
+			<!-- CITATION in OSBI appears to be the Statute ID -->
+			<nc:IdentificationID>21.1279</nc:IdentificationID>
 		</j:StatuteCodeIdentification>
 		<j:StatuteCodeSectionIdentification>
-			<nc:IdentificationID>Section</nc:IdentificationID>
+			<nc:IdentificationID>589</nc:IdentificationID>
 		</j:StatuteCodeSectionIdentification>
-		<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
+		<j:StatuteDescriptionText>CARRYING WEAPONS</j:StatuteDescriptionText>
 		<j:StatuteEnactmentDate>
-			<nc:Date>2001-12-31</nc:Date>
+			<nc:Date>1999-07-01</nc:Date>
 		</j:StatuteEnactmentDate>
+		<!-- OSBI has a value of "0" for DELETE -->
+		<j:StatuteRepealDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</j:StatuteRepealDate>
+		<!-- null in OSBI -->
+		<chsres-ext:StatuteOriginalDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chsres-ext:StatuteOriginalDate>
+		<chsres-ext:StatutePunishmentDescriptionText>Fine of $50 to $100</chsres-ext:StatutePunishmentDescriptionText>
+		<chsres-ext:StatuteParentSectionIdentification>
+			<nc:IdentificationID>1647</nc:IdentificationID>
+		</chsres-ext:StatuteParentSectionIdentification>
+		<chsres-ext:StatuteCategoryIdentification>
+			<nc:IdentificationID>3</nc:IdentificationID>
+		</chsres-ext:StatuteCategoryIdentification>
 	</j:Statute>
 </chsres-doc:CriminalHistorySearchResults>
