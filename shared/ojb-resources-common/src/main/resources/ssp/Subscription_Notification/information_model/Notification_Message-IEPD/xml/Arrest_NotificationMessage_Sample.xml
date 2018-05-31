@@ -34,6 +34,8 @@
   		</hawaii-ext:AttorneyGeneralCaseDetails>
   	</notfm-ext:NotifyingActivityExtensions>
   	<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
+  	<notfm-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</notfm-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+  	<notfm-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false</notfm-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
   	<j:Arrest>
   		<nc:ActivityDate>
   			<nc:Date>2013-09-06</nc:Date>
