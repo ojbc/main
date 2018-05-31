@@ -30,6 +30,7 @@
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" exclude-result-prefixes="xs ar lexs lexspd lexsdigest j40 oar" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:strip-space elements="*"/>
+	<xsl:param name="notifyingSystemName">http://www.ojbc.org/arrestNotificationProducer</xsl:param>
 	<xsl:variable name="lexsDataItemPackage" select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage"/>
 	<xsl:variable name="lexsDigest" select="$lexsDataItemPackage/lexs:Digest"/>
 	<xsl:variable name="lexsAssociations" select="$lexsDigest/lexsdigest:Associations"/>
@@ -84,7 +85,7 @@
 				</b:Topic>
 				<!--Optional:-->
 				<b:ProducerReference>
-					<add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+					<add:Address><xsl:value-of select="$notifyingSystemName"/></add:Address>
 					<!--Optional:-->
 					<add:ReferenceParameters>
 						<!--You may enter ANY elements at this point-->
