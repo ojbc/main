@@ -71,10 +71,6 @@
 						minOccurs="0" />
 					<xsd:element ref="notfm-ext:RelatedFBISubscription"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator"
-						minOccurs="0" />
-					<xsd:element ref="notfm-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator"
-						minOccurs="0" />
 					<xsd:element ref="notfm-ext:CriminalHistoryDocumentRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -300,18 +296,6 @@
 	<xsd:element name="RelatedFBISubscription" type="notfm-ext:RelatedFBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>Additional details regarding an FBI subscription.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if fingerprint identification was issued for criminal purpose; false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
