@@ -18,14 +18,14 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
-	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0" schemaLocation="criminal_history_search_results_ext.xsd" />
-	<!-- Root data element for the Criminal History Search Results -->
-	<xsd:element name="CriminalHistorySearchResults" type="chsres-ext:CriminalHistorySearchResultsType">
+	xmlns:chmr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:chmr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
+	<!-- Root data element for the Criminal History Modification Request -->
+	<xsd:element name="CriminalHistoryModificationRequest" type="chmr-ext:CriminalHistoryModificationRequestType">
 		<xsd:annotation>
-			<xsd:documentation>The search results for a criminal history.</xsd:documentation>
+			<xsd:documentation>A criminal history modification request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
