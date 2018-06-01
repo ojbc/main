@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<chmr-doc:CriminalHistoryModificationRequest
+	xmlns:chmr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:chmr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0 ../xsd/criminal_history_modification_request.xsd ">
+	<nc:Case>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>72F1800656</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:Subject structures:id="Subject">
+		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1989-12-31</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+				<nc:PersonNameCategoryText>null</nc:PersonNameCategoryText>
+			</nc:PersonName>
+			<j:PersonRaceCode>B</j:PersonRaceCode>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+		</nc:RoleOfPerson>
+		<j:SubjectIdentification>
+			<nc:IdentificationID>0013545677G</nc:IdentificationID>
+		</j:SubjectIdentification>
+	</j:Subject>
+	<nc:Disposition>
+		<nc:DispositionDate>
+			<nc:Date>2016-06-15</nc:Date>
+		</nc:DispositionDate>
+		<nc:DispositionReasonText>null</nc:DispositionReasonText>
+		<chmr-ext:ConvictionCategory>
+			<chmr-ext:CategoryShortName>M</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>MISDEMEANOR</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>Misdemeanor</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>null</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:ConvictionCategory>
+		<chmr-ext:DispositionCategory>
+			<chmr-ext:CategoryShortName>398</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>CHARGES FILED</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>CHARGES FILED</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:DispositionCategory>
+		<!-- OSBI is "null" in DISPOSITION_REASON -->
+		<chmr-ext:DispositionReasonCategory>
+			<chmr-ext:CategoryShortName>47</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>TO BE REFILED</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>TO BE REFILED</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:DispositionReasonCategory>
+		<chmr-ext:DispositionChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>21.1787</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+		</chmr-ext:DispositionChargeStatute>
+		<chmr-ext:DispositionChargeCountQuantity>2</chmr-ext:DispositionChargeCountQuantity>
+		<chmr-ext:DispositionFiledDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chmr-ext:DispositionFiledDate>
+		<chmr-ext:DispositionProvisionCodeText>372</chmr-ext:DispositionProvisionCodeText>
+		<chmr-ext:DispositionProvisionDescriptionText>null</chmr-ext:DispositionProvisionDescriptionText>
+		<chmr-ext:OriginalChargeStatute structures:ref="Original_Charge_Statute" />
+		<chmr-ext:ChargeSeverityCodeText>null</chmr-ext:ChargeSeverityCodeText>
+	</nc:Disposition>
+	<j:Sentence>
+		<j:SentenceDeferredTerm>
+			<nc:ActivityDate>
+				<nc:Date>2001-12-31</nc:Date>
+			</nc:ActivityDate>
+			<j:TermDuration>P2Y1D</j:TermDuration>
+		</j:SentenceDeferredTerm>
+		<j:SentenceSuspendedTerm>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceSuspendedTerm>
+		<j:SentenceTerm>
+			<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceTerm>
+		<j:SentenceTerm>
+			<nc:ActivityCategoryText>PRISON</nc:ActivityCategoryText>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceTerm>
+		<j:CourtCostAmount>
+			<nc:Amount>100.00</nc:Amount>
+		</j:CourtCostAmount>
+	</j:Sentence>
+	<j:Restitution>
+		<nc:ObligationDueAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</nc:ObligationDueAmount>
+		<j:ObligationAugmentation>
+			<j:ObligationSuspendedAmount>
+				<nc:Amount>100.00</nc:Amount>
+			</j:ObligationSuspendedAmount>
+		</j:ObligationAugmentation>
+	</j:Restitution>
+	<j:Charge>
+		<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+		<j:ChargeDescriptionText>Literal Offense</j:ChargeDescriptionText>
+		<j:ChargeIdentification>
+			<nc:IdentificationID>GENERAL_OFFENSE_TYPE_ID</nc:IdentificationID>
+		</j:ChargeIdentification>
+		<j:ChargeNarrative>
+			<nc:DocumentDescriptionText>NOTES</nc:DocumentDescriptionText>
+		</j:ChargeNarrative>
+		<chmr-ext:ChargeCategory>
+			<chmr-ext:CategoryShortName>Short Name</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>LongName</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>DescriptionText</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:ChargeCategory>
+		<chmr-ext:OffenseCategory>
+			<chmr-ext:CategoryShortName>Short Name</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>LongName</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>DescriptionText</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:OffenseCategory>
+		<chmr-ext:FelonyMisdemeanorCategory>
+			<chmr-ext:CategoryShortName>F</chmr-ext:CategoryShortName>
+			<chmr-ext:CategoryLongName>FELONY</chmr-ext:CategoryLongName>
+			<chmr-ext:CategoryDescriptionText>FELONY</chmr-ext:CategoryDescriptionText>
+			<chmr-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateCreated>
+			<chmr-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chmr-ext:RecordDateUpdated>
+			<chmr-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonCreatedIdentification>
+			<chmr-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chmr-ext:PersonUpdatedIdentification>
+		</chmr-ext:FelonyMisdemeanorCategory>
+		<chmr-ext:ChargeClassIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chmr-ext:ChargeClassIdentification>
+		<chmr-ext:CrimeAgainstIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chmr-ext:CrimeAgainstIdentification>
+	</j:Charge>
+	<j:Arrest>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>null</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</nc:ActivityDate>
+		<j:ActivityAugmentation>
+			<j:ActivityComment>
+				<nc:CommentText>NOTES</nc:CommentText>
+			</j:ActivityComment>
+		</j:ActivityAugmentation>
+		<j:ArrestAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>OK07212345</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+		<j:ArrestSubject>
+			<nc:RoleOfPerson structures:ref="Subject" />
+		</j:ArrestSubject>
+		<chmr-ext:ActionCodeText>A</chmr-ext:ActionCodeText>
+	</j:Arrest>
+	<j:Statute structures:id="Original_Charge_Statute">
+		<j:StatuteCodeIdentification>
+			<!-- CITATION in OSBI appears to be the Statute ID -->
+			<nc:IdentificationID>21.1279</nc:IdentificationID>
+		</j:StatuteCodeIdentification>
+		<j:StatuteCodeSectionIdentification>
+			<nc:IdentificationID>589</nc:IdentificationID>
+		</j:StatuteCodeSectionIdentification>
+		<j:StatuteDescriptionText>CARRYING WEAPONS</j:StatuteDescriptionText>
+		<j:StatuteEnactmentDate>
+			<nc:Date>1999-07-01</nc:Date>
+		</j:StatuteEnactmentDate>
+		<!-- OSBI has a value of "0" for DELETE -->
+		<j:StatuteRepealDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</j:StatuteRepealDate>
+		<!-- null in OSBI -->
+		<chmr-ext:StatuteOriginalDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chmr-ext:StatuteOriginalDate>
+		<chmr-ext:StatutePunishmentDescriptionText>Fine of $50 to $100</chmr-ext:StatutePunishmentDescriptionText>
+		<chmr-ext:StatuteParentSectionIdentification>
+			<nc:IdentificationID>1647</nc:IdentificationID>
+		</chmr-ext:StatuteParentSectionIdentification>
+		<chmr-ext:StatuteCategoryIdentification>
+			<nc:IdentificationID>3</nc:IdentificationID>
+		</chmr-ext:StatuteCategoryIdentification>
+	</j:Statute>
+</chmr-doc:CriminalHistoryModificationRequest>
