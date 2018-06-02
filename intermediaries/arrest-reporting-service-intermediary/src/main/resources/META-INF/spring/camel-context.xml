@@ -120,10 +120,20 @@
 			<camel:log message="Processing Arrest Report Notifications"/>
 
 			<convertBodyTo type="java.lang.String"/>
+			
+			<camel:filter>
+				<camel:simple>${properties:prop:arrestReportingService.notifyingSystemName} == ''</camel:simple>
+				<!-- Add header here to indicate system name -->
+				<camel:setHeader headerName="notifyingSystemName">
+					<camel:simple>{{arrestReportingService.notifyingSystemName}}</camel:simple>				
+				</camel:setHeader>
+			</camel:filter>			
 						
 			<camel:to uri="xslt:xslt/arrestReportToNotifications.xsl?transformerFactory=sFactory"/>	
 			
-			<log message="\n\n\n Called:  arrestReportToNotifications.xsl  \n\n\n"/>							
+			<log message="\n\n\n Called:  arrestReportToNotifications.xsl  \n\n\n"/>			
+			
+			<camel:log message="Transformed message: ${body}" loggingLevel="INFO"/>				
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
