@@ -36,7 +36,7 @@
       <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
                Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:Topic>
       <b:ProducerReference>
-         <add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+         <add:Address>notifiying system name</add:Address>
          <add:ReferenceParameters/>
          <add:Metadata/>
       </b:ProducerReference>

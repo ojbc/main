@@ -17,7 +17,9 @@
 package org.ojbc.xslt;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.sax.SAXSource;
@@ -101,7 +103,10 @@ public class ArrestReportingTransformerServiceTest {
 		File xsltFile = new File(xsltClasspath);
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
-		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("notifyingSystemName","notifiying system name");
+		
+		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, params);
 		
 		log.debug("Transformed Result: " + actualTransformedResultXml);
 				
