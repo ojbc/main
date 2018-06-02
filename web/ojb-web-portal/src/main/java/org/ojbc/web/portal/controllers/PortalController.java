@@ -504,6 +504,18 @@ public class PortalController implements ApplicationContextAware {
 			userLogonInfo.setEmployer(userAgency);
 			userLogonInfo.setUserNameString(StringUtils.join(Arrays.asList(userLogonInfo.getUserName(), userLogonInfo.getEmployer()), " / "));
 			userLogonInfo.setEmailAddress(sEmail);
+			userLogonInfo.setUserFirstName(userFirstName);
+			userLogonInfo.setUserLastName(userLastName);
+			
+			String employerSubunitName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerSubUnitName']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setEmployerSubunitName(employerSubunitName);
+			String federationId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setFederationId(federationId);
+			String identityProviderId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:IdentityProviderId']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setIdentityProviderId(identityProviderId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
