@@ -20,6 +20,7 @@ package org.ojbc.web.portal.rest.client;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,10 +47,13 @@ public class RestEnhancedAuditClient {
 		printResults.systemName = systemName;
 		
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/printResults", printResults, PrintResults.class);
-		
-		
 	}
 
+	public void auditUserAcknowledgement(UserAcknowledgement userAcknowledgement) {
+		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userAcknowledgement", 
+				userAcknowledgement, UserAcknowledgement.class);
+	}
+	
 	public void auditUserLogin(String federationId, String employerName, String employerSubunitName, String firstName, String lastName, String emailAddress, String identityProviderId) {
 		
 		UserInfo userInfo = new UserInfo();

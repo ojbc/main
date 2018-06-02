@@ -18,10 +18,11 @@ package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
-import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
+import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -31,10 +32,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
@@ -61,6 +65,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,7 +81,7 @@ import org.w3c.dom.NodeList;
 @Profile({"rapback-search","initial-results-query","standalone"})
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
 	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
-	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap"})
+	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -229,6 +234,51 @@ public class RapbackController {
 		
 	}
 
+	@RequestMapping(value = "userAcknowledgement/{decision}/{subscriptionId}", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void auditUserAcknowledgement(HttpServletRequest request,
+			@PathVariable("decision") Boolean decision,
+			@PathVariable("subscriptionId") String subscriptionId,
+			Map<String, Object> model) throws Exception {
+		
+		logger.info("decision: " + BooleanUtils.toStringYesNo(decision));
+		logger.info("subscriptionId: " + subscriptionId);
+		
+		UserAcknowledgement userAcknowledgement = new UserAcknowledgement();
+		userAcknowledgement.setDecision(decision);
+		
+		String rapbackSearchResults = (String) model.get("rapbackSearchResults");
+		Document rapbackSearchResultsDoc = DocumentUtils.getDocumentFromXmlString(rapbackSearchResults); 
+		Node organizationIdentificationResultsSearchResult = 
+				XmlUtils.xPathNodeSearch(rapbackSearchResultsDoc, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults"
+						+ "/oirs-res-ext:OrganizationIdentificationResultsSearchResult[oirs-res-ext:Subscription"
+						+ "/oirs-res-ext:SubscriptionIdentification/nc30:IdentificationID='" + subscriptionId + "']");
+		Node identifiedPerson = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentifiedPerson");
+		String stateId = XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
+				+ "[oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
+		userAcknowledgement.setSid(stateId);
+		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		UserInfo userInfo = new UserInfo(); 
+		userInfo.setUserFirstName(userLogonInfo.getUserFirstName());
+		userInfo.setUserLastName(userLogonInfo.getUserLastName());
+		userInfo.setIdentityProviderId(userLogonInfo.getIdentityProviderId());
+		userInfo.setEmployerName(userLogonInfo.getEmployer());
+		userInfo.setUserEmailAddress(userLogonInfo.getEmailAddress());
+		userInfo.setEmployerSubunitName(userLogonInfo.getEmployerSubunitName());
+		userInfo.setFederationId(userLogonInfo.getFederationId());
+		
+		userAcknowledgement.setUserInfo(userInfo);
+		userAcknowledgement.setDecisionDateTime(LocalDateTime.now());
+		userAcknowledgement.setLastUpdatedTime(userAcknowledgement.getDecisionDateTime());
+
+		if (enableEnhancedAudit)
+		{	
+			restEnhancedAuditClient.auditUserAcknowledgement(userAcknowledgement);
+		}	
+		
+	}
+	
 	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.POST)
 	public String criminalIdentificationAdvancedSearch(HttpServletRequest request,
 			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest searchRequest,

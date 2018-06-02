@@ -206,10 +206,14 @@
 			      modal: true,
 			      buttons: {
 			        "Yes": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        	
 			        	subsequentResultButton.click();
 				        $( this ).dialog( "close" );
 			        },
 			        "No": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+
 		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
 		            		 $( this ).dialog( "close" );
 		            	}
