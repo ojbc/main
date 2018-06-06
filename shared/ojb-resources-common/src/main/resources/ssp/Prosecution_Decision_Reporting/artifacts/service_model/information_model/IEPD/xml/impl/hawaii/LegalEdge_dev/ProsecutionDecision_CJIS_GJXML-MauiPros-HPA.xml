@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0 ../../../xsd/impl/hawaii/hawaii_codes.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:pd-hi-codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>35159</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityStatus>
+			<pd-hi-codes:CaseStatusCode>CLOSED</pd-hi-codes:CaseStatusCode>
+		</nc:ActivityStatus>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<nc:DateTime>2018-03-21T15:40:00</nc:DateTime>
+			</nc:DispositionDate>
+			<nc:DispositionText>NULL</nc:DispositionText>
+		</nc:ActivityDisposition>
+		<nc:CaseDisposition>
+			<nc:DispositionText>DPNPGEN</nc:DispositionText>
+			<nc:CaseDispositionFinalDate>
+				<nc:DateTime>2018-03-21T15:40:00</nc:DateTime>
+			</nc:CaseDispositionFinalDate>
+		</nc:CaseDisposition>
+		<j:ActivityAugmentation>
+		</j:ActivityAugmentation>
+		<j:CaseAugmentation>
+			<j:CaseCharge structures:id="Charge01">
+				<j:ChargeCategoryDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:ChargeCategoryDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
+					</nc:DispositionDate>
+					<nc:DispositionText>DPNPGEN</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+				<pd-hi-codes:ChargeSeverityCode>M</pd-hi-codes:ChargeSeverityCode>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<pd-ext:CourtCaseNumber>1FC161002</pd-ext:CourtCaseNumber>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
+				<j:CourtEventAppearance>
+					<j:CourtAppearanceDate>
+						<nc:DateTime>2018-05-30T08:30:00</nc:DateTime>
+					</j:CourtAppearanceDate>
+				</j:CourtEventAppearance>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<nc:EntityPerson structures:ref="Def01" />
+			</j:CaseDefendantParty>
+			<j:CaseDefenseAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>Public Defender (DVM)</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseDefenseAttorney>
+			<j:CaseJudge>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>Rowena Somerville</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseJudge>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>Unassigned Deputy</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseProsecutionAttorney>
+			<j:CaseWitness>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>NULL</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+				<pd-ext:WitnessCategoryText>NULL</pd-ext:WitnessCategoryText>
+			</j:CaseWitness>
+		</j:CaseAugmentation>
+		<pd-ext:CaseAdditionalCharge structures:id="Charge02">
+			<j:ChargeCategoryDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:ChargeCategoryDescriptionText>
+			<j:ChargeDisposition>
+				<nc:DispositionDate>
+					<nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
+				</nc:DispositionDate>
+				<nc:DispositionText>DPNPGEN</nc:DispositionText>
+			</j:ChargeDisposition>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</pd-ext:CaseAdditionalCharge>
+		<pd-ext:CaseProsecutorStaff>
+			<nc:RoleOfPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>NULL</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:RoleOfPerson>
+		</pd-ext:CaseProsecutorStaff>
+		<pd-ext:CaseReferralDate>
+			<nc:Date>2016-11-23</nc:Date>
+		</pd-ext:CaseReferralDate>
+		<pd-hi-codes:CaseStageCode>TRIAL</pd-hi-codes:CaseStageCode>
+	</nc:Case>
+	<j:Offense structures:id="Offense01">
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2011-07-16</nc:Date>
+			</nc:StartDate>
+		</nc:ActivityDateRange>
+	</j:Offense>
+	<j:Offense structures:id="Offense02">
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2011-07-16</nc:Date>
+			</nc:StartDate>
+		</nc:ActivityDateRange>
+	</j:Offense>
+	<j:EnforcementUnit structures:id="EU01">
+		<j:EnforcementUnitBeatIdentification>
+			<nc:IdentificationID>NULL</nc:IdentificationID>
+		</j:EnforcementUnitBeatIdentification>
+	</j:EnforcementUnit>
+	<nc:Person structures:id="Def01">
+		<nc:PersonBirthDate>
+			<nc:Date>1986-05-25</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonFullName>Smith, Allan E.</nc:PersonFullName>
+		</nc:PersonName>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A107</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</nc:Person>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense01" />
+		<j:Charge structures:ref="Charge01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense02" />
+		<j:Charge structures:ref="Charge02" />
+	</j:OffenseChargeAssociation>
+	<nc:ActivityInvolvedOrganizationAssociation>
+		<nc:Activity structures:ref="Offense01" />
+		<nc:Organization structures:ref="EU01" />
+	</nc:ActivityInvolvedOrganizationAssociation>
+</pd-doc:ProsecutionDecisionReport>
