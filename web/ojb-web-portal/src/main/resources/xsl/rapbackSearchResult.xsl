@@ -71,6 +71,7 @@
 						<th>START DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>
+						<th>SUBSEQUENT RESULT</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -91,23 +92,24 @@
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
-			<td>
+			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>	
-			<td>
+			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
-			<td>
+			<td width="60px">
 				<xsl:if test="$validationDueDate &lt; current-date()">
 					<xsl:attribute name="style">color:red</xsl:attribute>
 				</xsl:if>
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) != 'Available for Subscription'">
-					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
-				</xsl:if>
+				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+			</td>
+			<td width="60px">
+				<xsl:apply-templates select="oirsr-ext:LatestSubsequentResultDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
