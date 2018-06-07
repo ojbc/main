@@ -73,6 +73,9 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+	  <oirs-res-ext:LatestSubsequentResultDate>
+		 <nc30:Date>2018-05-19</nc30:Date>
+      </oirs-res-ext:LatestSubsequentResultDate>
       <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2016-10-20</nc30:Date>

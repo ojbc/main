@@ -40,7 +40,7 @@ public class IdentificationTransaction implements Serializable{
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
 	private Subscription subscription;
-	private Boolean havingSubsequentResults; 
+	private DateTime latestSubsequentResultDate; 
 
 	public IdentificationTransaction(){
 		super();
@@ -135,11 +135,7 @@ public class IdentificationTransaction implements Serializable{
 	}
 
 	public Boolean getHavingSubsequentResults() {
-		return havingSubsequentResults;
-	}
-
-	public void setHavingSubsequentResults(Boolean havingSubsequentResults) {
-		this.havingSubsequentResults = havingSubsequentResults;
+		return this.latestSubsequentResultDate != null;
 	}
 
 	public DateTime getAvailableForSubscriptionStartDate() {
@@ -157,6 +153,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setOwnerAgencyName(String ownerAgencyName) {
 		this.ownerAgencyName = ownerAgencyName;
+	}
+
+	public DateTime getLatestSubsequentResultDate() {
+		return latestSubsequentResultDate;
+	}
+
+	public void setLatestSubsequentResultDate(DateTime latestSubsequentResultDate) {
+		this.latestSubsequentResultDate = latestSubsequentResultDate;
 	}
 
 }

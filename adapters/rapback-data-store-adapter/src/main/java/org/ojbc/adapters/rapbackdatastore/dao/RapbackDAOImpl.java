@@ -373,7 +373,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 		
 		if (includeSubscription){
-			identificationTransaction.setHavingSubsequentResults(rs.getBoolean("having_subsequent_result"));
+			identificationTransaction.setLatestSubsequentResultDate(toDateTime(rs.getTimestamp("latestSubsequentResultDate")));
 			Integer subscriptionId = rs.getInt("id"); 
 			
 			if (subscriptionId != null && subscriptionId > 0){
@@ -505,7 +505,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		sb.append( "SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, "
-				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
+				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
@@ -708,7 +708,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(
 			String transactionNumber) {
 		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.*, a.AGENCY_NAME, sub.*, "
-				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
+				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = c.transaction_number "
 				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
