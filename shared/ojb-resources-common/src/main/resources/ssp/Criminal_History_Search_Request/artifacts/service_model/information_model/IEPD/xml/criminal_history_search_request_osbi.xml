@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<chsreq-doc:CriminalHistorySearchRequest
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0 ../xsd/criminal_history_search_request.xsd"
+	structures:metadata="SM003" xmlns:chsreq-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
+	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<j:Arrest>
+		<nc:ActivityDate>
+			<nc:Date>2012-01-01</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestSubject structures:ref="Subject_01">
+		</j:ArrestSubject>
+	</j:Arrest>
+	<j:Subject structures:id="Subject_01">
+		<nc:RoleOfPerson structures:ref="Person_01" />
+		<j:SubjectIdentification>
+			<nc:IdentificationID>1234567890</nc:IdentificationID>
+		</j:SubjectIdentification>
+	</j:Subject>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonBirthDate>
+			<nc:Date>2001-01-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName structures:metadata="SM001">JOHN</nc:PersonGivenName>
+			<nc:PersonSurName structures:metadata="SM002">STEVENSON</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+	</nc:Person>
+	<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
+	<chsreq-ext:SourceSystemNameText>CHS2</chsreq-ext:SourceSystemNameText>
+	<chsreq-ext:SearchMetadata structures:id="SM001">
+		<chsreq-ext:SearchQualifierCode>exact
+		</chsreq-ext:SearchQualifierCode>
+	</chsreq-ext:SearchMetadata>
+	<chsreq-ext:SearchMetadata structures:id="SM002">
+		<chsreq-ext:SearchQualifierCode>startsWith
+		</chsreq-ext:SearchQualifierCode>
+	</chsreq-ext:SearchMetadata>
+	<chsreq-ext:SearchMetadata structures:id="SM003">
+		<chsreq-ext:SearchRequestOnBehalfOfText>John Doe</chsreq-ext:SearchRequestOnBehalfOfText>
+		<chsreq-ext:SearchPurposeText>Criminal Justice</chsreq-ext:SearchPurposeText>
+	</chsreq-ext:SearchMetadata>
+</chsreq-doc:CriminalHistorySearchRequest>

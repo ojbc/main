@@ -410,4 +410,9 @@
       <xs:documentation>A person of whom the role object is a function.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="SystemName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of the kind or the source of a system identifier.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
 </xs:schema>
