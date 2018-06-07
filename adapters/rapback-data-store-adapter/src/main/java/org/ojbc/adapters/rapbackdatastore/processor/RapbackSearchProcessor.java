@@ -426,6 +426,14 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendSubsequentResultsAvailableIndicator(
 				organizationIdentificationResultsSearchResultElement,
 				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		
+		if (identificationTransaction.getHavingSubsequentResults()){
+			appendDateElement(identificationTransaction.getLatestSubsequentResultDate(), 
+					organizationIdentificationResultsSearchResultElement, 
+					"LatestSubsequentResultDate", 
+					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		}
+
 	}
 
 	private void appendIdentificationRequestingOrganization(
