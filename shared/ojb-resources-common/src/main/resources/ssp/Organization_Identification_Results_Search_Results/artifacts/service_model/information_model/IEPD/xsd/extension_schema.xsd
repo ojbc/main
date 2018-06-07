@@ -68,6 +68,7 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 					<xsd:element ref="oirs-res-ext:IdentificationRequestingOrganization" />
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:LatestSubsequentResultDate" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReportedDate" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0"/>
@@ -269,9 +270,12 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			<xsd:documentation>True if a given identification result has one or more subsequent results related to it, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
+	<xsd:element name="LatestSubsequentResultDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of latest subsequent result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CivilIdentificationReasonCode" type="oirs-res-ext:CivilIdentificationReasonCodeType" substitutionGroup="oirs-res-ext:IdentificationReasonRepresentation"/>
-	
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="oirs-res-ext:CivilIdentificationReasonCodeSimpleType">
@@ -279,7 +283,6 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	
 	<xsd:simpleType name="CivilIdentificationReasonCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="F">
