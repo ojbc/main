@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/4.0/" schemaLocation="Subset/niem/utility/appinfo/4.0/appinfo.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="Subset/niem/utility/structures/4.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="Subset/niem/proxy/xsd/4.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/" schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/" schemaLocation="Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
+	<xsd:complexType name="CriminalHistorySearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for criminal history search results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="chsres-ext:CriminalHistorySearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+				</xsd:complexType>
+		<xsd:complexType name="CriminalHistorySearchResultType">
+			<xsd:annotation>
+				<xsd:documentation>A data type for a summary of criminal history information.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:complexContent>
+				<xsd:extension base="structures:ObjectType">
+					<xsd:sequence>
+						<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:Statute" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="j:ArrestSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:complexType name="RecordCategoryType">
+			<xsd:annotation>
+				<xsd:documentation>A data type for a record category.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:complexContent>
+				<xsd:extension base="structures:ObjectType">
+					<xsd:sequence>
+						<xsd:element ref="chsres-ext:CategoryShortName" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:CategoryLongName" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:CategoryDescriptionText" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:RecordDateCreated" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:RecordDateUpdated" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:PersonCreatedIdentification" minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="chsres-ext:PersonUpdatedIdentification" minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:element name="CriminalHistorySearchResult" type="chsres-ext:CriminalHistorySearchResultType">
+			<xsd:annotation>
+				<xsd:documentation>A summary of criminal history information.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="RecordCategory" type="chsres-ext:RecordCategoryType">
+			<xsd:annotation>
+				<xsd:documentation>A record category.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="CategoryShortName" type="nc:TextType">
+			<xsd:annotation>
+				<xsd:documentation>The short name of a category.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="CategoryLongName" type="nc:TextType">
+			<xsd:annotation>
+				<xsd:documentation>The long name of a category.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="CategoryDescriptionText" type="nc:TextType">
+			<xsd:annotation>
+				<xsd:documentation>The description of a category.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="RecordDateCreated" type="nc:DateType">
+			<xsd:annotation>
+				<xsd:documentation>The date a record was created.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="RecordDateUpdated" type="nc:DateType">
+			<xsd:annotation>
+				<xsd:documentation>The date a record was updated.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="PersonCreatedIdentification" type="nc:IdentificationType">
+			<xsd:annotation>
+				<xsd:documentation>The identification of a person who created a record.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="PersonUpdatedIdentification" type="nc:IdentificationType">
+			<xsd:annotation>
+				<xsd:documentation>The identification of a person who updated a record.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="ChargeCategory" type="chsres-ext:RecordCategoryType" substitutionGroup="j:ChargeAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a type of charge.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="ConvictionCategory" type="chsres-ext:RecordCategoryType"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a type of conviction.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionReasonCategory" type="chsres-ext:RecordCategoryType"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a disposition reason.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionCategory" type="chsres-ext:RecordCategoryType"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a type of disposition.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="FelonyMisdemeanorCategory" type="chsres-ext:RecordCategoryType"
+			substitutionGroup="j:ChargeAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a level of charge.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="OffenseCategory" type="chsres-ext:RecordCategoryType" substitutionGroup="j:ChargeAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Information regarding a type of offense.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:nonNegativeInteger"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A number of times a person is charged with committing the same crime.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionChargeStatute" type="j:StatuteType" substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionFiledDate" type="nc:DateType" substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A date a disposition was officially filed with an organization or agency.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionProvisionCodeText" type="nc:TextType"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A disposition condition code text.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="DispositionProvisionDescriptionText" type="nc:TextType"
+			substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A description of a disposition condition.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="OriginalChargeStatute" type="j:StatuteType" substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier of the original law, rule, or ordinance within a jurisdiction that a person is accused of
+					violating.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="ChargeSeverityCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A level of severity of a charge code text.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="ActionCodeText" type="nc:TextType" substitutionGroup="j:ArrestAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>An action associated with a report (e.g., "A" - add "R" - replace).</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="ChargeClassIdentification" type="nc:IdentificationType"
+			substitutionGroup="j:ChargeAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>An identification of a charge class.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="CrimeAgainstIdentification" type="nc:IdentificationType"
+			substitutionGroup="j:ChargeAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>An identification of a crime against.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="StatuteOriginalDate" type="nc:DateType" substitutionGroup="j:StatuteAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>The original date of a statute.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="StatutePunishmentDescriptionText" type="nc:TextType" substitutionGroup="j:StatuteAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>The punishment associated with a statute.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="StatuteParentSectionIdentification" type="nc:IdentificationType"
+			substitutionGroup="j:StatuteAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>Identification of the parent section of a statute.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="StatuteCategoryIdentification" type="nc:IdentificationType"
+			substitutionGroup="j:StatuteAugmentationPoint">
+			<xsd:annotation>
+				<xsd:documentation>A type of statute identification.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+</xsd:schema>

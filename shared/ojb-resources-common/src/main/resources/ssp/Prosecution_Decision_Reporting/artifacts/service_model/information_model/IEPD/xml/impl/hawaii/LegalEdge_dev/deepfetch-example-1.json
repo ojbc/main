@@ -1,0 +1,591 @@
+{
+	"PersonIdentifierlist": [
+		{
+			"id": "10535081",
+			"value": "121",
+			"type": "BADGE"
+		}
+	],
+	"CaseToCaseIdentifierlist": [
+		{
+			"id": "15110693",
+			"target/CriminalCase": "6068608",
+			"source/CaseIdentifier": "2991557",
+			"name": "CaseToCaseIdentifier"
+		},
+		{
+			"id": "15164234",
+			"target/CriminalCase": "6068608",
+			"source/CaseIdentifier": "3045098",
+			"name": "CaseToCaseIdentifier"
+		}
+	],
+	"CriminalDefendantlist": [
+		{
+			"notPdDefendant": false,
+			"id": "17076405",
+			"target/CriminalCase": "6068608",
+			"primary": false,
+			"name": "CRIMINALDEFENDANT",
+			"source/Person": "9551056",
+			"interpreterNeeded": false,
+			"prop36Eligible": false,
+			"defenderAppointed": false
+		},
+		{
+			"notPdDefendant": false,
+			"id": "17076432",
+			"target/CriminalCase": "6068608",
+			"name": "CRIMINALDEFENDANT",
+			"primary": false,
+			"source/Person": "10167100",
+			"interpreterNeeded": false,
+			"defenderAppointed": false,
+			"prop36Eligible": false
+		},
+		{
+			"notPdDefendant": false,
+			"id": "17076459",
+			"target/CriminalCase": "6068608",
+			"name": "CRIMINALDEFENDANT",
+			"primary": true,
+			"source/Person": "10481804",
+			"interpreterNeeded": false,
+			"defenderAppointed": false,
+			"prop36Eligible": false
+		}
+	],
+	"CriminalCaselist": [
+		{
+			"gangCase": false,
+			"caseType": "MVDVIOL",
+			"startDate": "2005-06-06 00:00:00.0",
+			"superiorCourt": false,
+			"filingCategory": "Criminal",
+			"criminalStatus": "OPEN",
+			"upgradeCase": false,
+			"filingCause": "MISDEM",
+			"id": "6068608",
+			"open": true,
+			"fileNumber": "05-42946",
+			"description": "7-25-05 MELODIE FRANKLIN GUILTY FILE DESTROYED",
+			"filingType": "Misdemeanor",
+			"byrne": false,
+			"name": "Franklin, Lance Dusty; Spencer, Raphael Lee; Franklin, Melodie",
+			"sealed": false,
+			"verticalCase": false
+		}
+	],
+	"PersonToPersonIdentifierlist": [
+		{
+			"id": "20069539",
+			"name": "PersonToPersonIdentifier",
+			"source/PersonIdentifier": "10535081",
+			"target/Person": "9597076"
+		}
+	],
+	"IncidentToAddresslist": [
+		{
+			"id": "18553684",
+			"name": "IncidentToAddress",
+			"primary": true,
+			"target/Incident": "8944545",
+			"source/Address": "121777"
+		}
+	],
+	"PersonToContactInformationlist": [
+		{
+			"id": "19873539",
+			"name": "PersonToContactInformation",
+			"primary": true,
+			"source/ContactInformation": "5343342",
+			"target/Person": "9597076"
+		},
+		{
+			"id": "19988443",
+			"name": "PersonToContactInformation",
+			"primary": true,
+			"source/ContactInformation": "5397326",
+			"target/Person": "9597076"
+		},
+		{
+			"id": "20011427",
+			"primary": true,
+			"name": "PersonToContactInformation",
+			"source/ContactInformation": "5404193",
+			"target/Person": "10167100"
+		}
+	],
+	"CaseIdentifierlist": [
+		{
+			"id": "2991557",
+			"value": "05-697",
+			"type": "ALT_ID"
+		},
+		{
+			"id": "3045098",
+			"value": "05-697",
+			"type": "POLNO"
+		}
+	],
+	"CaseToIncidentlist": [
+		{
+			"id": "15255286",
+			"target/CriminalCase": "6068608",
+			"source/Incident": "8944545",
+			"name": "CaseToIncident",
+			"primary": false
+		}
+	],
+	"Chargelist": [
+		{
+			"id": "3251845",
+			"paragraph": "1",
+			"dateFiled": "2005-06-07 00:00:00.0",
+			"section": "LIQ-OPCAN",
+			"comments": "LIQ-OPCAN-1M   (4-251 (A)(2))  Open alcohol container in vehicle."
+		}
+	],
+	"CaseDefendantToChargelist": [
+		{
+			"id": "20537529",
+			"name": "CaseDefendantToCharge",
+			"source/Charge": "3251845",
+			"target/CriminalDefendant": "17076459"
+		}
+	],
+	"CaseOfficerlist": [
+		{
+			"id": "14865701",
+			"target/CriminalCase": "6068608",
+			"primary": true,
+			"name": "CaseOfficer",
+			"source/Person": "9597076",
+			"arresting": true,
+			"atScene": false
+		}
+	],
+	"Sentencelist": [
+		{
+			"id": "31840041",
+			"startDate": "2017-09-13 00:00:00.0",
+			"description": "",
+			"consecutive": false,
+			"endDateType": "Unsupported",
+			"suspended": false,
+			"startDateType": "Unsupported"
+		}
+	],
+	"PersonToAddresslist": [
+		{
+			"id": "19234657",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": true,
+			"active": true,
+			"type": "Work",
+			"source/Address": "184078",
+			"target/Person": "9597076"
+		},
+		{
+			"id": "19116007",
+			"correspondence": false,
+			"primary": false,
+			"name": "PersonToAddress",
+			"active": true,
+			"type": "Home",
+			"source/Address": "165160",
+			"target/Person": "9551056"
+		},
+		{
+			"id": "19220706",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": true,
+			"active": true,
+			"type": "MAIL",
+			"source/Address": "181856",
+			"target/Person": "9551056"
+		},
+		{
+			"id": "19115993",
+			"correspondence": false,
+			"primary": false,
+			"name": "PersonToAddress",
+			"active": true,
+			"type": "Home",
+			"source/Address": "165158",
+			"target/Person": "10167100"
+		},
+		{
+			"id": "19532010",
+			"correspondence": false,
+			"primary": true,
+			"name": "PersonToAddress",
+			"active": true,
+			"type": "Home",
+			"source/Address": "231526",
+			"target/Person": "10167100"
+		},
+		{
+			"id": "19682629",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": false,
+			"active": true,
+			"type": "PREV",
+			"source/Address": "255611",
+			"target/Person": "10481804"
+		},
+		{
+			"id": "19772873",
+			"correspondence": false,
+			"primary": true,
+			"name": "PersonToAddress",
+			"active": true,
+			"type": "MAIL",
+			"source/Address": "270050",
+			"target/Person": "10481804"
+		},
+		{
+			"id": "19842628",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": false,
+			"active": true,
+			"type": "Home",
+			"source/Address": "271594",
+			"target/Person": "10481804"
+		}
+	],
+	"Addresslist": [
+		{
+			"streetAddress": "Holbrook Police Department\r\nPO Box 656",
+			"id": "184078",
+			"postalCode": "86025",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Holbrook"
+		},
+		{
+			"streetAddress": "E California",
+			"id": "121777",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"city": "Holbrook"
+		},
+		{
+			"streetAddress": "4607 Coopertown Rd, #37",
+			"id": "165160",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Winslow"
+		},
+		{
+			"streetAddress": "P O Box 7064",
+			"id": "181856",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Winslow"
+		},
+		{
+			"streetAddress": "4607 W Coopertown Rd, #37",
+			"id": "165158",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"city": "Winslow",
+			"country": "USA"
+		},
+		{
+			"streetAddress": "PO Box 1338",
+			"id": "231526",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"city": "Winslow",
+			"country": "USA"
+		},
+		{
+			"streetAddress": "PO Box 1338",
+			"id": "255611",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"city": "Winslow",
+			"country": "USA"
+		},
+		{
+			"streetAddress": "PO Box 564",
+			"id": "270050",
+			"postalCode": "86032",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Joseph City"
+		},
+		{
+			"streetAddress": "PO Box 1338",
+			"id": "271594",
+			"postalCode": "86047",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Winslow"
+		}
+	],
+	"CaseCourtlist": [
+		{
+			"id": "14087536",
+			"amended": false,
+			"courtNumber": "cr200500443",
+			"target/CriminalCase": "6068608",
+			"packageCase": false,
+			"name": "CaseCourt",
+			"currentCourt": false,
+			"source/Court": "5416612"
+		},
+		{
+			"id": "14087551",
+			"amended": false,
+			"courtNumber": "cr200500427",
+			"target/CriminalCase": "6068608",
+			"packageCase": false,
+			"name": "CaseCourt",
+			"currentCourt": false,
+			"source/Court": "5416612"
+		},
+		{
+			"dateIn": "Wed May 04 00:00:00 EDT 2005",
+			"id": "28413358",
+			"amended": false,
+			"courtNumber": "CR2005-0428",
+			"target/CriminalCase": "6068608",
+			"name": "CaseCourt",
+			"currentCourt": true,
+			"comment": "MELODIE FRANKLIN",
+			"source/Court": "5416612"
+		}
+	],
+	"CaseToOrganizationlist": [
+		{
+			"id": "15321160",
+			"target/CriminalCase": "6068608",
+			"source/Organization": "9401751",
+			"name": "Case To Organization",
+			"primary": true,
+			"role": "AGENCY",
+			"arresting": true
+		}
+	],
+	"Organizationlist": [
+		{
+			"id": "9401751",
+			"status": "STATE",
+			"description": "",
+			"name": "Holbrook Police Department",
+			"primaryReferenceId": "3857",
+			"type": "Law Enforcement",
+			"salutation": "Dear Sirs:"
+		}
+	],
+	"Personlist": [
+		{
+			"sexOffender": false,
+			"handicapped": false,
+			"id": "9597076",
+			"physicalFeatures": [],
+			"client": false,
+			"interpreter": false,
+			"description": "OK",
+			"deceased": false,
+			"primaryName": "Mario;;Parra;Officer;",
+			"type": "Law Enforcement"
+		},
+		{
+			"handicapped": false,
+			"sexOffender": false,
+			"client": false,
+			"socialSecurityNumber": "526-83-9689",
+			"primaryName": "Raphael;Lee;Spencer;Mr.;",
+			"type": "Individual",
+			"race": "NATAM",
+			"id": "9551056",
+			"physicalFeatures": [
+				"PersonPhysicalFeature{type=Generic,description=5'7\" 135 blk blk}"
+			],
+			"interpreter": false,
+			"description": "UNKNOWN",
+			"gender": "Male",
+			"birthDate": "1978-01-12 00:00:00.0",
+			"deceased": false
+		},
+		{
+			"handicapped": false,
+			"sexOffender": false,
+			"id": "10507752",
+			"physicalFeatures": [],
+			"client": false,
+			"interpreter": false,
+			"textNotification": false,
+			"emailNotification": false,
+			"primaryName": " 3; ;Misdemeanor Desk;;",
+			"type": "Staff"
+		},
+		{
+			"handicapped": false,
+			"sexOffender": false,
+			"client": false,
+			"socialSecurityNumber": "527-97-5536",
+			"type": "Individual",
+			"primaryName": "'Melodie;;Franklin;Ms.;",
+			"race": "NATAM",
+			"id": "10167100",
+			"physicalFeatures": [],
+			"interpreter": false,
+			"description": "UNKNOWN",
+			"gender": "Female",
+			"deceased": false,
+			"birthDate": "1979-01-13 00:00:00.0"
+		},
+		{
+			"handicapped": false,
+			"sexOffender": false,
+			"client": false,
+			"socialSecurityNumber": "526-97-6983",
+			"primaryName": "Lance;Dusty;Franklin;Mr.;",
+			"type": "Individual",
+			"race": "NATAM",
+			"id": "10481804",
+			"physicalFeatures": [
+				"PersonPhysicalFeature{type=Generic,description=195 5'8\" blk blk}"
+			],
+			"interpreter": false,
+			"description": "UNKNOWN",
+			"gender": "Male",
+			"birthDate": "1980-06-30 00:00:00.0",
+			"deceased": false
+		}
+	],
+	"Courtlist": [
+		{
+			"id": "5416612",
+			"description": "Holbrook Justice Court",
+			"name": "Holbrook Justice Court",
+			"type": "JP"
+		}
+	],
+	"ContactInformationlist": [
+		{
+			"id": "5343342",
+			"value": "520/524/3991",
+			"active": true,
+			"type": "Direct"
+		},
+		{
+			"id": "5397326",
+			"value": " ",
+			"active": true,
+			"type": "Fax"
+		},
+		{
+			"id": "5404193",
+			"value": " ",
+			"active": true,
+			"type": "Fax"
+		}
+	],
+	"Incidentlist": [
+		{
+			"id": "8944545",
+			"startDate": "2005-04-14 00:00:00.0",
+			"reportNumber": "05-697",
+			"description": "misdemeanor",
+			"dateReported": "Thu Apr 14 00:00:00 EDT 2005",
+			"endDateType": "Unsupported",
+			"weaponUsed": true,
+			"startDateType": "Unsupported"
+		}
+	],
+	"PersonNamelist": [
+		{
+			"id": "15359",
+			"lastName": "Parra",
+			"prefix": "Officer",
+			"active": true,
+			"firstName": "Mario"
+		},
+		{
+			"middleName": "Lee",
+			"id": "11561",
+			"lastName": "Spencer",
+			"prefix": "Mr.",
+			"active": true,
+			"firstName": "Raphael"
+		},
+		{
+			"middleName": " ",
+			"id": "89898",
+			"lastName": "Misdemeanor Desk",
+			"active": true,
+			"firstName": " 3"
+		},
+		{
+			"id": "62391",
+			"lastName": "Franklin",
+			"prefix": "Ms.",
+			"active": true,
+			"firstName": "'Melodie"
+		},
+		{
+			"middleName": "Dusty",
+			"id": "87801",
+			"lastName": "Franklin",
+			"prefix": "Mr.",
+			"active": true,
+			"firstName": "Lance"
+		}
+	],
+	"CaseDefendantToSentencelist": [
+		{
+			"id": "31840070",
+			"name": "CaseDefendantToSentence",
+			"target/Sentence": "31840041",
+			"source/CriminalDefendant": "17076432"
+		}
+	],
+	"DefenderAssignmentlist": [
+		{
+			"assignmentStartDate": "Tue Jun 07 00:00:00 EDT 2005",
+			"id": "20926770",
+			"name": "AssignedAttorney",
+			"primary": true,
+			"source/Person": "10507752",
+			"conflict": false,
+			"target/CriminalDefendant": "17076405"
+		},
+		{
+			"assignmentStartDate": "Tue Jun 07 00:00:00 EDT 2005",
+			"id": "20926779",
+			"primary": true,
+			"name": "AssignedAttorney",
+			"source/Person": "10507752",
+			"conflict": false,
+			"target/CriminalDefendant": "17076432"
+		},
+		{
+			"assignmentStartDate": "Tue Jun 07 00:00:00 EDT 2005",
+			"id": "20926788",
+			"primary": true,
+			"name": "AssignedAttorney",
+			"source/Person": "10507752",
+			"conflict": false,
+			"target/CriminalDefendant": "17076459"
+		}
+	]
+}

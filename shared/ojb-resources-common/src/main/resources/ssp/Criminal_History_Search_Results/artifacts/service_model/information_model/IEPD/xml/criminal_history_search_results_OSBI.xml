@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<chsres-doc:CriminalHistorySearchResults
+	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
+	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
+	<nc:Case structures:id="Case_01">
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>72F1800656</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:Subject structures:id="Subject_01">
+		<nc:RoleOfPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1989-12-31</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+				<nc:PersonNameCategoryText>null</nc:PersonNameCategoryText>
+			</nc:PersonName>
+			<j:PersonRaceCode>B</j:PersonRaceCode>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+		</nc:RoleOfPerson>
+		<j:SubjectIdentification>
+			<nc:IdentificationID>0013545677G</nc:IdentificationID>
+		</j:SubjectIdentification>
+	</j:Subject>
+	<nc:Disposition structures:id="Disposition_01">
+		<nc:DispositionDate>
+			<nc:Date>2016-06-15</nc:Date>
+		</nc:DispositionDate>
+		<nc:DispositionReasonText>null</nc:DispositionReasonText>
+		<chsres-ext:ConvictionCategory>
+			<chsres-ext:CategoryShortName>M</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>MISDEMEANOR</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>Misdemeanor</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>null</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:ConvictionCategory>
+		<chsres-ext:DispositionCategory>
+			<chsres-ext:CategoryShortName>398</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>CHARGES FILED</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>CHARGES FILED</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:DispositionCategory>
+		<chsres-ext:DispositionReasonCategory>
+			<chsres-ext:CategoryShortName>47</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>TO BE REFILED</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>TO BE REFILED</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:DispositionReasonCategory>
+		<chsres-ext:DispositionChargeStatute structures:ref="Statute_01" />
+		<chsres-ext:DispositionChargeCountQuantity>2</chsres-ext:DispositionChargeCountQuantity>
+		<chsres-ext:DispositionFiledDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chsres-ext:DispositionFiledDate>
+		<chsres-ext:DispositionProvisionCodeText>372</chsres-ext:DispositionProvisionCodeText>
+		<chsres-ext:DispositionProvisionDescriptionText>null</chsres-ext:DispositionProvisionDescriptionText>
+		<chsres-ext:OriginalChargeStatute structures:ref="Statute_02" />
+		<chsres-ext:ChargeSeverityCodeText>null</chsres-ext:ChargeSeverityCodeText>
+	</nc:Disposition>
+	<j:Sentence structures:id="Sentence_01">
+		<j:SentenceDeferredTerm>
+			<nc:ActivityDate>
+				<nc:Date>2001-12-31</nc:Date>
+			</nc:ActivityDate>
+			<j:TermDuration>P2Y1D</j:TermDuration>
+		</j:SentenceDeferredTerm>
+		<j:SentenceSuspendedTerm>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceSuspendedTerm>
+		<j:SentenceTerm>
+			<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceTerm>
+		<j:SentenceTerm>
+			<nc:ActivityCategoryText>PRISON</nc:ActivityCategoryText>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceTerm>
+		<j:CourtCostAmount>
+			<nc:Amount>100.00</nc:Amount>
+		</j:CourtCostAmount>
+	</j:Sentence>
+	<j:Restitution structures:id="Restitution_01">
+		<nc:ObligationDueAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</nc:ObligationDueAmount>
+		<j:ObligationAugmentation>
+			<j:ObligationSuspendedAmount>
+				<nc:Amount>100.00</nc:Amount>
+			</j:ObligationSuspendedAmount>
+		</j:ObligationAugmentation>
+	</j:Restitution>
+	<j:Charge structures:id="Charge_01">
+		<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+		<j:ChargeDescriptionText>Literal Offense</j:ChargeDescriptionText>
+		<j:ChargeIdentification>
+			<nc:IdentificationID>GENERAL_OFFENSE_TYPE_ID</nc:IdentificationID>
+		</j:ChargeIdentification>
+		<j:ChargeNarrative>
+			<nc:DocumentDescriptionText>NOTES</nc:DocumentDescriptionText>
+		</j:ChargeNarrative>
+		<chsres-ext:ChargeCategory>
+			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:ChargeCategory>
+		<chsres-ext:OffenseCategory>
+			<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>DescriptionText</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:OffenseCategory>
+		<chsres-ext:FelonyMisdemeanorCategory>
+			<chsres-ext:CategoryShortName>F</chsres-ext:CategoryShortName>
+			<chsres-ext:CategoryLongName>FELONY</chsres-ext:CategoryLongName>
+			<chsres-ext:CategoryDescriptionText>FELONY</chsres-ext:CategoryDescriptionText>
+			<chsres-ext:RecordDateCreated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateCreated>
+			<chsres-ext:RecordDateUpdated>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</chsres-ext:RecordDateUpdated>
+			<chsres-ext:PersonCreatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonCreatedIdentification>
+			<chsres-ext:PersonUpdatedIdentification>
+				<nc:IdentificationID>561</nc:IdentificationID>
+			</chsres-ext:PersonUpdatedIdentification>
+		</chsres-ext:FelonyMisdemeanorCategory>
+		<chsres-ext:ChargeClassIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chsres-ext:ChargeClassIdentification>
+		<chsres-ext:CrimeAgainstIdentification>
+			<nc:IdentificationID>561</nc:IdentificationID>
+		</chsres-ext:CrimeAgainstIdentification>
+	</j:Charge>
+	<j:Arrest structures:id="Arrest_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>null</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</nc:ActivityDate>
+		<j:ActivityAugmentation>
+			<j:ActivityComment>
+				<nc:CommentText>NOTES</nc:CommentText>
+			</j:ActivityComment>
+		</j:ActivityAugmentation>
+		<j:ArrestAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>OK07212345</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+		<j:ArrestSubject>
+			<nc:RoleOfPerson structures:ref="Subject_01" />
+		</j:ArrestSubject>
+		<chsres-ext:ActionCodeText>A</chsres-ext:ActionCodeText>
+	</j:Arrest>
+	<j:Statute structures:id="Statute_01">
+		<j:StatuteCodeIdentification>
+			<nc:IdentificationID>21.1787</nc:IdentificationID>
+		</j:StatuteCodeIdentification>
+	</j:Statute>
+	<j:Statute structures:id="Statute_02">
+		<j:StatuteCodeIdentification>
+			<!-- CITATION in OSBI appears to be the Statute ID -->
+			<nc:IdentificationID>21.1279</nc:IdentificationID>
+		</j:StatuteCodeIdentification>
+		<j:StatuteCodeSectionIdentification>
+			<nc:IdentificationID>589</nc:IdentificationID>
+		</j:StatuteCodeSectionIdentification>
+		<j:StatuteDescriptionText>CARRYING WEAPONS</j:StatuteDescriptionText>
+		<j:StatuteEnactmentDate>
+			<nc:Date>1999-07-01</nc:Date>
+		</j:StatuteEnactmentDate>
+		<!-- OSBI has a value of "0" for DELETE -->
+		<j:StatuteRepealDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</j:StatuteRepealDate>
+		<!-- null in OSBI -->
+		<chsres-ext:StatuteOriginalDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</chsres-ext:StatuteOriginalDate>
+		<chsres-ext:StatutePunishmentDescriptionText>Fine of $50 to $100</chsres-ext:StatutePunishmentDescriptionText>
+		<chsres-ext:StatuteParentSectionIdentification>
+			<nc:IdentificationID>1647</nc:IdentificationID>
+		</chsres-ext:StatuteParentSectionIdentification>
+		<chsres-ext:StatuteCategoryIdentification>
+			<nc:IdentificationID>3</nc:IdentificationID>
+		</chsres-ext:StatuteCategoryIdentification>
+	</j:Statute>
+	<j:ActivityCaseAssociation>
+		<nc:Activity structures:ref="Disposition_01" />
+		<nc:Activity structures:ref="Arrest_01" />
+		<nc:Case structures:ref="Case_01" />
+	</j:ActivityCaseAssociation>
+	<j:ActivityArrestAssociation>
+		<nc:Activity structures:ref="Charge_01" />
+		<j:Arrest structures:ref="Arrest_01" />
+	</j:ActivityArrestAssociation>
+	<j:ArrestSubjectAssociation>
+		<nc:Activity structures:ref="Arrest_01" />
+		<j:Subject structures:ref="Subject_01" />
+	</j:ArrestSubjectAssociation>
+</chsres-doc:CriminalHistorySearchResults>

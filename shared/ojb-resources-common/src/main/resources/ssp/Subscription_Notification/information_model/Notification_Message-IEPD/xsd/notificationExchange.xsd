@@ -17,11 +17,20 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Notification/1.0" schemaLocation="notificationExtension.xsd"/>
+<xsd:schema xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" elementFormDefault="qualified"
+	attributeFormDefault="qualified" version="1">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
+		schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Notification/1.0" schemaLocation="notificationExtension.xsd" />
 	<xsd:complexType name="NotificationType" abstract="false" mixed="false">
 		<xsd:annotation>
 			<xsd:documentation>A data type for the information exchanged about notification</xsd:documentation>
@@ -29,15 +38,16 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="notfm-ext:NotifyingActivity" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0"/>
-					<xsd:element ref="j:Person" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:ContactInformation" minOccurs="0"/>
-					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="notfm-doc:ChargeDispositionAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="notfm-ext:NotifyingActivity" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" />
+					<xsd:element ref="notfm-doc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" />
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="notfm-doc:ChargeDispositionAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -49,13 +59,43 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="j:ChargeReference" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:DispositionReference" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeReference" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:DispositionReference" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="ChargeDispositionAssociation" type="notfm-doc:ChargeDispositionAssociationType" abstract="false" nillable="false">
+	<xsd:complexType name="PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="notfm-doc:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonStateFingerprintIdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an identifier assigned to a person by a state identification bureau, generally based on
+				submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:IdentificationType">
+				<xsd:sequence>
+					<xsd:element ref="notfm-doc:FingerprintIdentificationIssuedForCriminalPurposeIndicator" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="notfm-doc:FingerprintIdentificationIssuedForCivilPurposeIndicator" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ChargeDispositionAssociation" type="notfm-doc:ChargeDispositionAssociationType" abstract="false"
+		nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A data type for an association between a charge and a disposition</xsd:documentation>
 		</xsd:annotation>
@@ -63,6 +103,30 @@
 	<xsd:element name="NotificationMessage" type="notfm-doc:NotificationType" abstract="false" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A message to notify of an activity</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Person" type="notfm-doc:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A human being.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonStateFingerprintIdentification" type="notfm-doc:PersonStateFingerprintIdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the
+				person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for criminal purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

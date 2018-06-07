@@ -1,0 +1,255 @@
+{
+	"PersonIdentifierlist": [
+		{
+			"id": "10533429",
+			"value": "526-62-2411",
+			"type": "SSN"
+		}
+	],
+	"CriminalDefendantlist": [
+		{
+			"id": "24198489",
+			"defendantNumber": "1",
+			"target/CriminalCase": "24198465",
+			"name": "CriminalDefendant",
+			"source/Person": "9624103"
+		}
+	],
+	"Personlist": [
+		{
+			"handicapped": false,
+			"sexOffender": false,
+			"client": false,
+			"socialSecurityNumber": "526-65-2411",
+			"type": "Individual",
+			"primaryName": "Arnold;;Franklin;;",
+			"race": "NATAM",
+			"id": "9624103",
+			"physicalFeatures": [],
+			"interpreter": false,
+			"description": "UNKNOWN",
+			"gender": "Male",
+			"birthDate": "1976-06-28 00:00:00.0",
+			"deceased": false
+		},
+		{
+			"sexOffender": false,
+			"handicapped": false,
+			"id": "10507739",
+			"physicalFeatures": [],
+			"client": false,
+			"interpreter": false,
+			"textNotification": false,
+			"emailNotification": false,
+			"type": "Staff",
+			"primaryName": "2 ; ;Misdemeanor Desk;;"
+		},
+		{
+			"sexOffender": false,
+			"handicapped": false,
+			"id": "10479243",
+			"physicalFeatures": [],
+			"client": false,
+			"interpreter": false,
+			"description": "ACTIVE",
+			"deceased": false,
+			"type": "Law Enforcement",
+			"primaryName": "Dustin;;Matkin;;"
+		}
+	],
+	"CriminalCaselist": [
+		{
+			"id": "24198465",
+			"caseType": "MVDVIOL",
+			"startDate": "2012-01-09 00:00:00.0",
+			"open": true,
+			"fileNumber": "12-01716",
+			"filingType": "Misdemeanor",
+			"name": "Franklin, Arnold",
+			"filingCategory": "Criminal",
+			"filingDate": "2011-12-17 00:00:00.0",
+			"filingCause": "MISDEM",
+			"verticalCase": false
+		}
+	],
+	"Courtlist": [
+		{
+			"id": "5416618",
+			"description": "Pinetop Lakeside Justice Court",
+			"name": "Pinetop Lakeside Justice Court",
+			"type": "JP"
+		}
+	],
+	"PersonToPersonIdentifierlist": [
+		{
+			"id": "20068713",
+			"name": "PersonToPersonIdentifier",
+			"source/PersonIdentifier": "10533429",
+			"target/Person": "9624103"
+		}
+	],
+	"ContactInformationlist": [
+		{
+			"id": "29877068",
+			"description": "",
+			"value": "928-242-5357",
+			"active": true,
+			"type": "CELL PHONE"
+		}
+	],
+	"Incidentlist": [
+		{
+			"id": "24198550",
+			"startDate": "2011-12-17 00:00:00.0",
+			"time": "Mon Jan 09 09:41:35 EST 2012",
+			"reportNumber": "11-017796",
+			"dateReported": "Sat Dec 17 00:00:00 EST 2011",
+			"endDateType": "Unsupported",
+			"startDateType": "Unsupported"
+		}
+	],
+	"PersonNamelist": [
+		{
+			"id": "17576",
+			"lastName": "Franklin",
+			"active": true,
+			"firstName": "Arnold"
+		},
+		{
+			"middleName": " ",
+			"id": "89897",
+			"lastName": "Misdemeanor Desk",
+			"active": true,
+			"firstName": "2 "
+		},
+		{
+			"middleName": "",
+			"id": "87591",
+			"lastName": "Matkin",
+			"active": true,
+			"firstName": "Dustin"
+		}
+	],
+	"PersonToContactInformationlist": [
+		{
+			"id": "29877069",
+			"primary": true,
+			"name": "PersonToContactInformation",
+			"source/ContactInformation": "29877068",
+			"target/Person": "10479243"
+		}
+	],
+	"IncidentToAddresslist": [
+		{
+			"id": "24198559",
+			"name": "IncidentToAddress",
+			"target/Incident": "24198550",
+			"source/Address": "24198558"
+		}
+	],
+	"CaseToIncidentlist": [
+		{
+			"id": "24198560",
+			"target/CriminalCase": "24198465",
+			"source/Incident": "24198550",
+			"name": "CaseToIncident"
+		}
+	],
+	"Chargelist": [
+		{
+			"law": "1M",
+			"id": "24198525",
+			"violationStartDate": "Sat Dec 17 00:00:00 EST 2011",
+			"paragraph": "1",
+			"dateFiled": "2011-12-17 00:00:00.0",
+			"section": "28-3473(A)"
+		}
+	],
+	"CaseDefendantToChargelist": [
+		{
+			"id": "24198549",
+			"name": "CaseDefendantToCharge",
+			"source/Charge": "24198525",
+			"target/CriminalDefendant": "24198489"
+		}
+	],
+	"CaseOfficerlist": [
+		{
+			"id": "24198576",
+			"target/CriminalCase": "24198465",
+			"name": "CaseOfficer",
+			"source/Person": "10479243",
+			"arresting": true
+		}
+	],
+	"PersonToAddresslist": [
+		{
+			"id": "19265562",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": true,
+			"active": true,
+			"type": "MAIL",
+			"source/Address": "189106",
+			"target/Person": "9624103"
+		},
+		{
+			"id": "19169207",
+			"correspondence": false,
+			"name": "PersonToAddress",
+			"primary": true,
+			"active": true,
+			"type": "PRINPBZ",
+			"source/Address": "173575",
+			"target/Person": "10479243"
+		}
+	],
+	"Addresslist": [
+		{
+			"streetAddress": "Box 5364",
+			"id": "189106",
+			"postalCode": "86035",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"country": "USA",
+			"city": "Leupp"
+		},
+		{
+			"streetAddress": "260/Rim Road",
+			"id": "24198558",
+			"postalCode": "85935",
+			"county": "Navajo",
+			"state": "AZ",
+			"city": "Pinetop",
+			"country": "US"
+		},
+		{
+			"streetAddress": "Navajo County Sheriff's Office\r\nP.O. Box 668\r\n",
+			"id": "173575",
+			"postalCode": "86025",
+			"county": "NAVAJO",
+			"state": "AZ",
+			"city": "Holbrook"
+		}
+	],
+	"CaseCourtlist": [
+		{
+			"dateIn": "Sat Dec 17 00:00:00 EST 2011",
+			"id": "24198561",
+			"target/CriminalCase": "24198465",
+			"name": "CaseCourt",
+			"currentCourt": true,
+			"source/Court": "5416618"
+		}
+	],
+	"DefenderAssignmentlist": [
+		{
+			"assignmentStartDate": "Mon Jan 09 00:00:00 EST 2012",
+			"id": "24198516",
+			"primary": true,
+			"name": "DefenderAssignment",
+			"source/Person": "10507739",
+			"target/CriminalDefendant": "24198489"
+		}
+	]
+}
