@@ -110,14 +110,6 @@
 			</j:ObligationAugmentation>
 		</j:Restitution>
 		<j:Charge structures:id="Charge_01">
-			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
-			<j:ChargeDescriptionText>Literal Offense</j:ChargeDescriptionText>
-			<j:ChargeIdentification>
-				<nc:IdentificationID>GENERAL_OFFENSE_TYPE_ID</nc:IdentificationID>
-			</j:ChargeIdentification>
-			<j:ChargeNarrative>
-				<nc:DocumentDescriptionText>NOTES</nc:DocumentDescriptionText>
-			</j:ChargeNarrative>
 			<chsres-ext:ChargeCategory>
 				<chsres-ext:CategoryShortName>Short Name</chsres-ext:CategoryShortName>
 				<chsres-ext:CategoryLongName>LongName</chsres-ext:CategoryLongName>
@@ -126,9 +118,6 @@
 				<chsres-ext:CategoryShortName>F</chsres-ext:CategoryShortName>
 				<chsres-ext:CategoryLongName>FELONY</chsres-ext:CategoryLongName>
 			</chsres-ext:FelonyMisdemeanorCategory>
-			<chsres-ext:GeneralOffenseCategoryIdentification>
-				<nc:IdentificationID>561</nc:IdentificationID>
-			</chsres-ext:GeneralOffenseCategoryIdentification>
 			<chsres-ext:GeneralOffenseCategoryIdentification>
 				<nc:IdentificationID>561</nc:IdentificationID>
 			</chsres-ext:GeneralOffenseCategoryIdentification>

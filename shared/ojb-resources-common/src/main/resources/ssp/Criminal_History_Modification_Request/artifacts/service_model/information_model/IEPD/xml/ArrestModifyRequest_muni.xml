@@ -47,10 +47,5 @@
 				</j:SubjectIdentification>
 			</j:ArrestSubject>
 		</j:Arrest>
-		<j:Charge>
-			<j:ChargeIdentification>
-				<nc:IdentificationID>GENERAL_OFFENSE_TYPE_ID</nc:IdentificationID>
-			</j:ChargeIdentification>
-		</j:Charge>
 	</chsres-ext:ArrestModifyRequest>
 </chsres-doc:CriminalHistoryModificationRequest>
