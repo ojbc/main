@@ -43,9 +43,9 @@
 					<xsd:choice>
 						<xsd:element ref="chmr-ext:ArrestAddRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chmr-ext:ArrestModifyRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:ArrestDeleteRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chmr-ext:ArrestHideRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chmr-ext:DispositionAddRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:DispositionDeleteRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chmr-ext:DispositionHideRequest" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
@@ -78,7 +78,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="ArrestDeleteRequestType">
+	<xsd:complexType name="ArrestHideRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a delete arrest request.</xsd:documentation>
 		</xsd:annotation>
@@ -116,7 +116,7 @@
 			<xsd:documentation>A request to modify (edit) an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestDeleteRequest" type="chmr-ext:ArrestDeleteRequestType">
+	<xsd:element name="ArrestHideRequest" type="chmr-ext:ArrestHideRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to delete an arrest record.</xsd:documentation>
 		</xsd:annotation>
@@ -126,7 +126,7 @@
 			<xsd:documentation>A request to add a disposition record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionDeleteRequest" type="chmr-ext:DispositionRequestType">
+	<xsd:element name="DispositionHideRequest" type="chmr-ext:DispositionRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to delete a disposition record.</xsd:documentation>
 		</xsd:annotation>
