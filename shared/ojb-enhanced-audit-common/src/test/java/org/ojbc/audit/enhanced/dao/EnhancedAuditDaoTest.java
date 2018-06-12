@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
@@ -174,8 +175,29 @@ public class EnhancedAuditDaoTest {
 		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
 		return userInfoPk;
 	}	
-	
-	
+
+	@Test
+	public void testSaveFederalRapbackRenewalNotification() throws Exception
+	{
+		FederalRapbackRenewalNotification federalRapbackRenewalNotification = new FederalRapbackRenewalNotification();
+		
+		federalRapbackRenewalNotification.setNotificationRecievedTimestamp(LocalDateTime.now());
+		federalRapbackRenewalNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
+		federalRapbackRenewalNotification.setPersonDob(LocalDate.now().minusYears(18));
+		federalRapbackRenewalNotification.setPersonFirstName("John");
+		federalRapbackRenewalNotification.setPersonMiddleName("q");
+		federalRapbackRenewalNotification.setPersonLastName("Public");
+		federalRapbackRenewalNotification.setRapbackExpirationDate(LocalDate.now());
+		federalRapbackRenewalNotification.setRecordControllingAgency("ORI123456");
+		federalRapbackRenewalNotification.setSid("A123456789");
+		federalRapbackRenewalNotification.setStateSubscriptionId("S123456");
+		federalRapbackRenewalNotification.setTransactionStatusText("Transaction Status Text");
+		federalRapbackRenewalNotification.setUcn("UCN123456");
+		
+		Integer frrPk = enhancedAuditDao.saveFederalRapbackRenewalNotification(federalRapbackRenewalNotification);
+		assertNotNull(frrPk);
+	}
+		
 	@Test
 	public void testFederalSubscriptionMethods() throws Exception
 	{

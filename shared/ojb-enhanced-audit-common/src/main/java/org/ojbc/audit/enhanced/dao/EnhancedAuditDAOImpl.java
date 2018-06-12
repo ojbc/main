@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -231,6 +232,43 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
     }
+	
+	@Override
+	public Integer saveFederalRapbackRenewalNotification(
+			FederalRapbackRenewalNotification federalRapbackRenewalNotification) {
+		log.debug("Inserting row into FEDERAL_RAPBACK_RENEWAL_NOTIFICATION table : " + federalRapbackRenewalNotification);
+		
+        final String FEDERAL_RAPBACK_RENEWAL_INSERT="INSERT into FEDERAL_RAPBACK_RENEWAL_NOTIFICATION "
+        		+ "(UCN, PERSON_FIRST_NAME, PERSON_MIDDLE_NAME, PERSON_LAST_NAME, PERSON_DOB, RECORD_CONTROLLING_AGENCY, RAPBACK_EXPIRATION_DATE, STATE_SUBSCRIPTION_ID, TRANSACTION_STATUS_TEXT, SID, PATH_TO_NOTIFICATION_FILE, NOTIFICATION_RECIEVED_TIMESTAMP) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FEDERAL_RAPBACK_RENEWAL_INSERT, new String[] {"FEDERAL_RAPBACK_RENEWAL_NOTIFICATION_ID"});
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getUcn(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getPersonFirstName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getPersonMiddleName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getPersonLastName(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getPersonDob(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getRecordControllingAgency(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getRapbackExpirationDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getStateSubscriptionId(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getTransactionStatusText(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getSid(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getPathToNotificationFile(), ps, 11);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackRenewalNotification.getNotificationRecievedTimestamp(), ps, 12);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+
+	}	
 	
 	@Override
 	public Integer savePrintResults(PrintResults printResults) {

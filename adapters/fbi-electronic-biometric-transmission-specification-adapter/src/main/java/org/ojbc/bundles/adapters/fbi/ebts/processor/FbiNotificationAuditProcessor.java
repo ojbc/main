@@ -149,8 +149,6 @@ public class FbiNotificationAuditProcessor {
 			
 			Integer federalRapbackNotificationPk = enhancedAuditDAO.saveFederalRapbackNotification(federalRapbackNotification);
 			
-			ex.getIn().setHeader("rapbackNotificationAuditRecordPk", federalRapbackNotificationPk);
-			
 			saveTriggeringEvents(input, federalRapbackNotificationPk);
 			
 		} catch (Exception e) {

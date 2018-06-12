@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -38,6 +39,8 @@ import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
 public interface EnhancedAuditDAO {
 
+	public Integer saveFederalRapbackRenewalNotification(FederalRapbackRenewalNotification federalRapbackRenewalNotification);
+	
 	public Integer saveFederalRapbackSubscription(FederalRapbackSubscription federalRapbackSubscription);
 	
 	public void updateFederalRapbackSubscriptionWithResponse(FederalRapbackSubscription federalRapbackSubscription) throws Exception;
