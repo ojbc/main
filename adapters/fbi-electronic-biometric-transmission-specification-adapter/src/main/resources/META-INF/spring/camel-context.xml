@@ -218,6 +218,11 @@
 
 			<choice>
 				<when>
+					<simple>${header.trxCatCode} == 'RBRN'</simple>
+					
+					<camel:to uri="direct:processRBRN"/>
+				</when>
+				<when>
 					<simple>${header.trxCatCode} == 'RBN'</simple>
 					
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
@@ -322,6 +327,29 @@
 			</choice>
 											
 		</camel:route>		
+		
+		<route id="processRBRNRoute">
+			<camel:from uri="direct:processRBRN"/>
+			
+			<camel:log message="Processing RBRN messaage"/>
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Rapback_Renewal_Notification_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="pathToNotificationFile">
+				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications/$simple{in.headers.CamelFileName}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiNotificationsDir"/>
+
+			<camel:to uri="bean:fbiRapbackRenewalAuditProcessor?method=auditFBIRapbackRenewalNotification"/>
+			
+			<camel:log message="RBRN auditing complete."/>
+			
+			<camel:stop/>
+			
+		</route>
 		
 		<route id="processSubscriptionErrorResponseRoute">
 		
@@ -537,6 +565,10 @@
 	</util:map>
 
 	<bean id="fbiSubscriptionAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiSubscriptionAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiRapbackRenewalAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiRapbackRenewalAuditProcessor">
 		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
 	</bean>	
 
