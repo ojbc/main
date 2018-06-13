@@ -53,6 +53,8 @@ public interface EnhancedAuditDAO {
 	
 	public List<FederalRapbackNotification> retrieveFederalNotifications(LocalDate startDate, LocalDate endDate);
 	
+	public List<FederalRapbackRenewalNotification> retrieveFederalRapbackRenewalNotifications(LocalDate startDate, LocalDate endDate);
+	
 	public List<FederalRapbackNotification> retrieveFederalNotificationsBySubscriptionId(String subscriptionId);
 	
 	public Integer saveFederalRapbackNotification(FederalRapbackNotification federalRapbackNotification);
