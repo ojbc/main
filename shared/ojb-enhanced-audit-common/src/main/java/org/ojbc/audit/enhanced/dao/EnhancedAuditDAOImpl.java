@@ -17,6 +17,7 @@
 package org.ojbc.audit.enhanced.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -871,6 +872,30 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 	
 	@Override
+	public List<FederalRapbackRenewalNotification> retrieveFederalRapbackRenewalNotifications(
+			LocalDate startDate, LocalDate endDate) {
+		//The query is set up to be a less than query so we add a day
+		//So we are getting everything before midnight tomorrow
+		if (endDate != null)
+		{
+			endDate = endDate.plusDays(1);
+		}	
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		String startDateString = startDate.format(formatter) + " 00:00:00";
+		String endDateString = endDate.format(formatter) + " 00:00:00";
+		
+		String notificationSelectStatement ="SELECT * FROM FEDERAL_RAPBACK_RENEWAL_NOTIFICATION WHERE NOTIFICATION_RECIEVED_TIMESTAMP > '" + startDateString + "' AND NOTIFICATION_RECIEVED_TIMESTAMP < '" + endDateString +  "' order by NOTIFICATION_RECIEVED_TIMESTAMP desc";
+		
+		log.info("Retrieve Federal Rapback Renewal Notifications SQL: " + notificationSelectStatement);
+		
+		List<FederalRapbackRenewalNotification> federalRapbackRenewalNotifications = jdbcTemplate.query(notificationSelectStatement, new FederalRapbackRenewalNotificationRowMapper());
+		
+		return federalRapbackRenewalNotifications;		
+	}	
+	
+	@Override
 	public List<FederalRapbackNotification> retrieveFederalNotificationsBySubscriptionId(
 			String subscriptionId) {
 		String notificationSelectStatement ="SELECT * FROM FEDERAL_RAPBACK_NOTIFICATION WHERE STATE_SUBSCRIPTION_ID = ? order by NOTIFICATION_RECIEVED_TIMESTAMP desc";
@@ -1366,7 +1391,40 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class FederalRapbackRenewalNotificationRowMapper implements RowMapper<FederalRapbackRenewalNotification> {
+		public FederalRapbackRenewalNotification mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			FederalRapbackRenewalNotification federalRapbackRenewalNotification = buildFederalRapbackRenewalNotification(rs);
+			return federalRapbackRenewalNotification;
+		}
+
+		private FederalRapbackRenewalNotification buildFederalRapbackRenewalNotification(
+				ResultSet rs) throws SQLException{
+
+			FederalRapbackRenewalNotification federalRapbackRenewalNotification = new FederalRapbackRenewalNotification();
+			
+			federalRapbackRenewalNotification.setPersonDob(toLocalDate(rs.getDate("PERSON_DOB")));
+			federalRapbackRenewalNotification.setRapbackExpirationDate(toLocalDate(rs.getDate("RAPBACK_EXPIRATION_DATE")));
+			federalRapbackRenewalNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
+			federalRapbackRenewalNotification.setUcn(rs.getString("UCN"));
+			federalRapbackRenewalNotification.setPersonFirstName(rs.getString("PERSON_FIRST_NAME"));
+			federalRapbackRenewalNotification.setPersonMiddleName(rs.getString("PERSON_MIDDLE_NAME"));
+			federalRapbackRenewalNotification.setPersonLastName(rs.getString("PERSON_LAST_NAME"));
+			federalRapbackRenewalNotification.setRecordControllingAgency(rs.getString("RECORD_CONTROLLING_AGENCY"));
+			federalRapbackRenewalNotification.setTransactionStatusText(rs.getString("TRANSACTION_STATUS_TEXT"));
+			federalRapbackRenewalNotification.setSid(rs.getString("SID"));
+			federalRapbackRenewalNotification.setNotificationRecievedTimestamp(toLocalDateTime(rs.getTimestamp("NOTIFICATION_RECIEVED_TIMESTAMP")));
+			federalRapbackRenewalNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
+			federalRapbackRenewalNotification.setPathToNotificationFile(rs.getString("PATH_TO_NOTIFICATION_FILE"));
+			
+			return federalRapbackRenewalNotification;
+		}
+	}		
 	
+	
+	private LocalDate toLocalDate(Date date){
+		return date == null? null : date.toLocalDate();
+	}
 	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();
@@ -1392,5 +1450,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
+
 
 }

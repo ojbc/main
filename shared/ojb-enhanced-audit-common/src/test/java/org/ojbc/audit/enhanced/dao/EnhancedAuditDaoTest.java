@@ -196,6 +196,30 @@ public class EnhancedAuditDaoTest {
 		
 		Integer frrPk = enhancedAuditDao.saveFederalRapbackRenewalNotification(federalRapbackRenewalNotification);
 		assertNotNull(frrPk);
+		
+		LocalDate endDate = LocalDate.now().plusDays(1);
+		LocalDate startDate = endDate.minusDays(7);
+		
+		List<FederalRapbackRenewalNotification> federalRapbackRenewalNotifications = enhancedAuditDao.retrieveFederalRapbackRenewalNotifications(startDate, endDate);
+	
+		assertEquals(1, federalRapbackRenewalNotifications.size());
+		
+		FederalRapbackRenewalNotification federalRapbackRenewalNotificationFromDatabase = federalRapbackRenewalNotifications.get(0);
+		
+		assertNotNull(federalRapbackRenewalNotificationFromDatabase.getNotificationRecievedTimestamp());
+		assertEquals("/tmp/path/toNotificationFile", federalRapbackRenewalNotificationFromDatabase.getPathToNotificationFile());
+		assertEquals(LocalDate.now().minusYears(18), federalRapbackRenewalNotificationFromDatabase.getPersonDob());
+		assertEquals("John", federalRapbackRenewalNotificationFromDatabase.getPersonFirstName());
+		assertEquals("q", federalRapbackRenewalNotificationFromDatabase.getPersonMiddleName());
+		assertEquals("Public", federalRapbackRenewalNotificationFromDatabase.getPersonLastName());
+		assertEquals(LocalDate.now(), federalRapbackRenewalNotification.getRapbackExpirationDate());
+		assertEquals("ORI123456", federalRapbackRenewalNotificationFromDatabase.getRecordControllingAgency());
+		assertEquals("A123456789", federalRapbackRenewalNotificationFromDatabase.getSid());
+		assertEquals("S123456", federalRapbackRenewalNotificationFromDatabase.getStateSubscriptionId());
+		assertEquals("Transaction Status Text", federalRapbackRenewalNotificationFromDatabase.getTransactionStatusText());
+		assertEquals("UCN123456", federalRapbackRenewalNotificationFromDatabase.getUcn());
+		
+		
 	}
 		
 	@Test
