@@ -26,11 +26,16 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
 	<chsres-ext:CriminalHistorySearchResult>
 		<nc:Case structures:id="Case_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>72M1506088</nc:IdentificationID>
+			</nc:ActivityIdentification>
 			<j:CaseAugmentation>
 				<j:CaseCourt>
-					<nc:OrganizationIdentification>
-						<nc:IdentificationID>72F1800656</nc:IdentificationID>
-					</nc:OrganizationIdentification>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>OK072015A</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
 				</j:CaseCourt>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -42,6 +47,7 @@
 				<nc:PersonName>
 					<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
 					<nc:PersonSurName>SMITH</nc:PersonSurName>
+					<nc:PersonFullName>SMITH, PATRICK JOHN</nc:PersonFullName>
 				</nc:PersonName>
 				<j:PersonRaceCode>B</j:PersonRaceCode>
 				<j:PersonSexCode>M</j:PersonSexCode>
@@ -126,16 +132,14 @@
 			<nc:ActivityDate>
 				<nc:Date>2001-12-31</nc:Date>
 			</nc:ActivityDate>
-			<j:ArrestAgency>
-				<j:OrganizationAugmentation>
-					<j:OrganizationORIIdentification>
-						<nc:IdentificationID>OK07212345</nc:IdentificationID>
-					</j:OrganizationORIIdentification>
-				</j:OrganizationAugmentation>
-			</j:ArrestAgency>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
 			</j:ArrestSubject>
+			<j:Booking>
+				<j:BookingAgency>
+					<nc:OrganizationName>DPS TROOP B, TULSA OK</nc:OrganizationName>
+				</j:BookingAgency>
+			</j:Booking>
 			<chsres-ext:ActionCodeText>A</chsres-ext:ActionCodeText>
 			<chsres-ext:RecordCategoryIdentification>
 				<nc:IdentificationID>2</nc:IdentificationID>
