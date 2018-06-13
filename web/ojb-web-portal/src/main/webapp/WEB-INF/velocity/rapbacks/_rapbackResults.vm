@@ -342,9 +342,9 @@
 <div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you still authorized to view criminal history details for this individual?</p>
 </div>
-<div id="dialog-confirm-unsubscribe" title="Unsubsribe?" class="hidden">
+<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-  You have indicated that you are no longer authorized to view criminal history for this individual, your subscription will now be cancelled.</p>
+  You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
 </div>
 
 
