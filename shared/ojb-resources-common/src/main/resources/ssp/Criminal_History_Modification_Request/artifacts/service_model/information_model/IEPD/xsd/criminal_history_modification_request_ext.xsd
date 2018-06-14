@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
-	xmlns:chmr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/appinfo/4.0/"
@@ -41,11 +41,11 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:choice>
-						<xsd:element ref="chmr-ext:ArrestAddRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:ArrestModifyRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:ArrestHideRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:DispositionAddRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chmr-ext:DispositionHideRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:ArrestAddRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:ArrestModifyRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:ArrestHideRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:DispositionAddRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:DispositionHideRequest" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
@@ -106,27 +106,27 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="ArrestAddRequest" type="chmr-ext:ArrestAddRequestType">
+	<xsd:element name="ArrestAddRequest" type="chm-req-ext:ArrestAddRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to add an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestModifyRequest" type="chmr-ext:ArrestModifyRequestType">
+	<xsd:element name="ArrestModifyRequest" type="chm-req-ext:ArrestModifyRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to modify (edit) an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestHideRequest" type="chmr-ext:ArrestHideRequestType">
+	<xsd:element name="ArrestHideRequest" type="chm-req-ext:ArrestHideRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to delete an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionAddRequest" type="chmr-ext:DispositionRequestType">
+	<xsd:element name="DispositionAddRequest" type="chm-req-ext:DispositionRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to add a disposition record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionHideRequest" type="chmr-ext:DispositionRequestType">
+	<xsd:element name="DispositionHideRequest" type="chm-req-ext:DispositionRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to delete a disposition record.</xsd:documentation>
 		</xsd:annotation>
