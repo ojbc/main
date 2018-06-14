@@ -17,25 +17,25 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chsres-doc:CriminalHistoryModificationRequest
-	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
-	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+<chm-req-doc:CriminalHistoryModificationRequest
+	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0 ../xsd/criminal_history_modification_request.xsd ">
-	<chsres-ext:DispositionDeleteRequest>
+	<chm-req-ext:DispositionHideRequest>
 		<nc:Disposition>
 			<nc:DispositionDate>
 				<nc:Date>2016-06-15</nc:Date>
 			</nc:DispositionDate>
-			<chsres-ext:DispositionChargeStatute>
+			<chm-req-ext:DispositionChargeStatute>
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>21.1787</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
-			</chsres-ext:DispositionChargeStatute>
-			<chsres-ext:DispositionProvisionCodeText>372</chsres-ext:DispositionProvisionCodeText>
-			<chsres-ext:DispositionProvisionDescriptionText>null</chsres-ext:DispositionProvisionDescriptionText>
+			</chm-req-ext:DispositionChargeStatute>
+			<chm-req-ext:DispositionProvisionCodeText>372</chm-req-ext:DispositionProvisionCodeText>
+			<chm-req-ext:DispositionProvisionDescriptionText>null</chm-req-ext:DispositionProvisionDescriptionText>
 		</nc:Disposition>
 		<j:Sentence>
 			<j:SentenceDeferredTerm>
@@ -69,5 +69,5 @@
 				</j:ObligationSuspendedAmount>
 			</j:ObligationAugmentation>
 		</j:Restitution>
-	</chsres-ext:DispositionDeleteRequest>
-</chsres-doc:CriminalHistoryModificationRequest>
+	</chm-req-ext:DispositionHideRequest>
+</chm-req-doc:CriminalHistoryModificationRequest>

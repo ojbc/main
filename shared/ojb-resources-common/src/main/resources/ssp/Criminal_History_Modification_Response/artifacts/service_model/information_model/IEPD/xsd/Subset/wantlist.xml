@@ -17,15 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
-	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
-	<!-- Root data element for the Criminal History Modification Request -->
-	<xsd:element name="CriminalHistoryModificationRequest" type="chm-req-ext:CriminalHistoryModificationRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A criminal history modification request.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-</xsd:schema>
+<w:WantList w:release="4.0" w:product="NIEM" w:nillableDefault="true"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/">
+  <w:Element w:name="nc:SystemName" w:isReference="false" w:nillable="true"/>
+</w:WantList>

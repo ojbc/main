@@ -17,15 +17,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
-	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
-	<!-- Root data element for the Criminal History Modification Request -->
-	<xsd:element name="CriminalHistoryModificationRequest" type="chm-req-ext:CriminalHistoryModificationRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A criminal history modification request.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-</xsd:schema>
+<chm-resp-doc:CriminalHistoryModificationResponse
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../xsd/criminal_history_modification_response.xsd"
+	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
+	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:irm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<chm-resp-ext:ModificationResponseMessage>
+		<chm-resp-ext:ArrestAddResponseText>ARREST ADDED SUCCESSFULLY</chm-resp-ext:ArrestAddResponseText>
+	</chm-resp-ext:ModificationResponseMessage>
+	<nc:SystemName>System_Name</nc:SystemName>
+</chm-resp-doc:CriminalHistoryModificationResponse>
