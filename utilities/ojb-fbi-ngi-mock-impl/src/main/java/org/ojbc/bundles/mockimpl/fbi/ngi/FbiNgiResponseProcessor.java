@@ -33,6 +33,7 @@ public class FbiNgiResponseProcessor {
 	
 	public static final String RAP_BACK_MAITENANCE_RESPONSE = "RBMNT";
 	public static final String RAP_BACK_SCRIPTION_RESPONSE = "RBSCRM";
+	public static final String RAP_BACK_CIVIL_SCRIPTION_RESPONSE = "RBSCVL";
 	
 	private Logger logger = Logger.getLogger(FbiNgiResponseProcessor.class);
 	
@@ -78,7 +79,7 @@ public class FbiNgiResponseProcessor {
 		
 		InputStream inStreamSubResp = null;
 		
-		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE)){
+		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE) || transactionCategoryCode.equals(RAP_BACK_CIVIL_SCRIPTION_RESPONSE) ){
 						
 			inStreamSubResp = getClass().getClassLoader().getResourceAsStream("mockXml/Template(RBSR)RapBackSubscriptionResponse.xml");														    	
 		
