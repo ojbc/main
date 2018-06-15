@@ -1,392 +1,231 @@
-<itl:NISTBiometricInformationExchangePackage xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../xsd/fbi_ebts/10.0/fbi_ebts.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0">
-  <!--Type-1 Record (Header Record)-->
-  <itl:PackageInformationRecord>
-    <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
-    <ansi-nist:Transaction>
-      <!--DAT 1.005-->
-      <ansi-nist:TransactionDate>
-        <nc:Date>2018-06-14</nc:Date>
-      </ansi-nist:TransactionDate>
-      <ansi-nist:TransactionDestinationOrganization>
-        <nc:OrganizationIdentification>
-          <!--DAI 1.007-->
-          <nc:IdentificationID>HI002595Y</nc:IdentificationID>
-        </nc:OrganizationIdentification>
-      </ansi-nist:TransactionDestinationOrganization>
-      <ansi-nist:TransactionOriginatingOrganization>
-        <!--ORI 1.008-->
-        <nc:OrganizationIdentification>
-          <nc:IdentificationID>WVIAFIS0Z</nc:IdentificationID>
-        </nc:OrganizationIdentification>
-      </ansi-nist:TransactionOriginatingOrganization>
-      <!--TCN 1.009-->
-      <ansi-nist:TransactionControlIdentification>
-        <nc:IdentificationID>C2018165800000005694</nc:IdentificationID>
-      </ansi-nist:TransactionControlIdentification>
-      <ansi-nist:TransactionImageResolutionDetails>
-        <!--NSR 1.011-->
-        <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
-        <!--NTR 1.012-->
-        <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
-      </ansi-nist:TransactionImageResolutionDetails>
-      <!--VER 1.002-->
-      <ansi-nist:TransactionMajorVersionValue>02</ansi-nist:TransactionMajorVersionValue>
-      <ansi-nist:TransactionMinorVersionValue>01</ansi-nist:TransactionMinorVersionValue>
-      <!--TOT 1.004-->
-      <ebts:TransactionCategoryCode>RBN</ebts:TransactionCategoryCode>
-      <!--CNT 1.003-->
-      <ansi-nist:TransactionContentSummary>
-        <ansi-nist:ContentFirstRecordCategoryCode>01</ansi-nist:ContentFirstRecordCategoryCode>
-        <ansi-nist:ContentRecordQuantity>1</ansi-nist:ContentRecordQuantity>
-        <ansi-nist:ContentRecordSummary>
-          <ansi-nist:ImageReferenceIdentification>
-            <nc:IdentificationID>00</nc:IdentificationID>
-          </ansi-nist:ImageReferenceIdentification>
-          <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-        </ansi-nist:ContentRecordSummary>
-      </ansi-nist:TransactionContentSummary>
-    </ansi-nist:Transaction>
-  </itl:PackageInformationRecord>
-  <!--******************************************************************-->
-	<!--Type-2 Record (User Defined Descriptive Text Record)-->
-	<!--******************************************************************-->
-  <itl:PackageDescriptiveTextRecord>
-    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-    <!-- IDC 2.002-->
-    <ansi-nist:ImageReferenceIdentification>
-      <nc:IdentificationID>00</nc:IdentificationID>
-    </ansi-nist:ImageReferenceIdentification>
-    <itl:UserDefinedDescriptiveDetail>
-      <ebts:DomainDefinedDescriptiveFields>
-        <ebts:RecordRapBackData>
-          <!-- RBNI 2.2041 -->
-          <ebts:RecordRapBackActivityNotificationID>30001</ebts:RecordRapBackActivityNotificationID>
-          <!-- RBXD 2.2015 -->
-          <ebts:RecordRapBackExpirationDate>
-            <nc:Date>2023-04-25</nc:Date>
-          </ebts:RecordRapBackExpirationDate>
-          <!-- RBSD 2.2054 -->
-          <ebts:RecordRapBackSubscriptionDate>
-            <nc:Date>2018-04-25</nc:Date>
-          </ebts:RecordRapBackSubscriptionDate>
-          <!-- RBSI 2.2048 -->
-          <ebts:RecordRapBackSubscriptionID>85005</ebts:RecordRapBackSubscriptionID>
-          <!-- RBUD 2.2064 -->
-          <ebts:RecordRapBackUserDefinedElement>
-            <!-- 2.2064A -->
-            <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
-            <!-- 2.2064B -->
-            <ebts:UserDefinedElementText>A6083839</ebts:UserDefinedElementText>
-          </ebts:RecordRapBackUserDefinedElement>
-          <!-- RBUD 2.2064 -->
-          <ebts:RecordRapBackUserDefinedElement>
-            <!-- 2.2064A -->
-            <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
-            <!-- 2.2064B -->
-            <ebts:UserDefinedElementText>16</ebts:UserDefinedElementText>
-          </ebts:RecordRapBackUserDefinedElement>
-          <!-- RBTED 2.2069 -->
-          <ebts:TransactionRapBackTriggeringEvent>
-            <!-- DORBE 2.2069A -->
-            <ebts:RapBackEventDate>
-              <nc:Date>2018-06-14</nc:Date>
-            </ebts:RapBackEventDate>
-            <!-- RBT 2.2069B -->
-            <ebts:RapBackTriggeringEventCode>5</ebts:RapBackTriggeringEventCode>
-            <!-- RBEI 2.2069C -->
-            <ebts:RapBackEventText>RB022 - NCIC Wanted Person entry from ORI - HI0020000: NIC/W140008169,  Date of Warrant 2018-06-13</ebts:RapBackEventText>
-          </ebts:TransactionRapBackTriggeringEvent>
-        </ebts:RecordRapBackData>
-        <ebts:RecordTransactionData>
-          <ebts:TransactionResponseData>
-            <!--ERS 2.075-->
-            <ebts:TransactionElectronicRapSheetText>
-
-
-                   UNITED STATES DEPARTMENT OF JUSTICE
-                     FEDERAL BUREAU OF INVESTIGATION
-              CRIMINAL JUSTICE INFORMATION SERVICES DIVISION
-                           CLARKSBURG, WV  26306
-
-
-HI002595Y                                       ICN C2018165800000005694
-
-THE FOLLOWING FBI IDENTIFICATION RECORD FOR WXCCDMEF6 IS FURNISHED FOR
-OFFICIAL USE ONLY.
-
-THE FBI NGI RAP BACK SERVICE SHOWS AN ACTIVE RAP BACK SUBSCRIPTION
-UNDER THE JURISDICTION OF YOUR AGENCY.
-
-THIS MESSAGE SERVES TO PROVIDE NEW INFORMATION RECENTLY REPORTED TO THE
-FBI CJIS DIVISION REGARDING THIS INDIVIDUAL.
-
-THE IDENTITY HISTORY SUMMARY MAY HAVE BEEN MODIFIED BY THE REPORTED
-EVENT.
-
-IF FOR SOME REASON YOU ARE NO LONGER AUTHORIZED TO RECEIVE RAP BACK
-ACTIVITY NOTIFICATIONS FOR THIS INDIVIDUAL, YOU MUST DELETE YOUR RAP BACK
-SUBSCRIPTION USING THE PROCESSES ESTABLISHED WITH YOUR SUBMITTING ENTITY.
-
-NOTE THAT THIS NOTIFICATION MAY RELATE TO ACTIVITY OTHER THAN CRIMINAL
-HISTORY ACTIVITY.
-
-                   DESCRIPTORS ON FILE ARE AS FOLLOWS:
-
-NAME PERREIRA,JORDAN
-
-SEX      RACE      BIRTH DATE    HEIGHT   WEIGHT   EYES      HAIR
-M        A         1987/09/12    601      170      BROWN     BLACK  
-
-BIRTH CITY     BIRTH PLACE
-UNREPORTED     HAWAII                                  
-
-
-PATTERN CLASS
-WU WU WU WU WU WU WU WU WU WU 
-                              
-                              
-                              
-
-OTHER BIRTH                                 SOCIAL
-DATES            SCARS-MARKS-TATTOOS        SECURITY    MISC NUMBERS
-
-NONE                 NONE                   575-39-0488 NONE           
-
-ALIAS NAME(S)
-PERREIRA,JORDAN KALEI                             
-
-
-
-END OF PART 1 - PART 2 TO FOLLOW
-
-
-
-
-
-                   UNITED STATES DEPARTMENT OF JUSTICE
-                     FEDERAL BUREAU OF INVESTIGATION
-              CRIMINAL JUSTICE INFORMATION SERVICES DIVISION
-                           CLARKSBURG, WV  26306
-
-
-HI002595Y                                       ICN C2018165800000005694
-PART 2
-                  - FBI IDENTIFICATION RECORD - FBI NO.-WXCCDMEF6
-
-ALIAS NAME(S)
-
-RAP BACK TRIGGERING EVENT
-DATE OF EVENT - 2018/06/14     TRIGGER - WANT ADD            
-EVENT INFORMATION
-RB022 - NCIC WANTED PERSON ENTRY FROM ORI - HI0020000: NIC/W140008169,  
-DATE OF WARRANT 2018-06-13
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-END OF COVER SHEET
-
-
-
-
-
-                   UNITED STATES DEPARTMENT OF JUSTICE
-                     FEDERAL BUREAU OF INVESTIGATION
-              CRIMINAL JUSTICE INFORMATION SERVICES DIVISION
-                           CLARKSBURG, WV  26306
-
-
-HI002595Y                                       ICN C2018165800000005694
-
-BECAUSE ADDITIONS OR DELETIONS MAY BE MADE AT ANY TIME, A NEW COPY
-SHOULD BE REQUESTED WHEN NEEDED FOR SUBSEQUENT USE.
-                     - FBI IDENTIFICATION RECORD -
-
-WHEN EXPLANATION OF A CHARGE OR DISPOSITION IS NEEDED, COMMUNICATE
-DIRECTLY WITH THE AGENCY THAT FURNISHED THE DATA TO THE FBI.
-
-                            ****NOTICE****
-           SUBJECT OF RECORD IS A REGISTERED SEXUAL OFFENDER
-                SEE END OF RECORD FOR MORE INFORMATION
-
-                            ****NOTICE****
-                     SUBJECT OF RECORD IS WANTED
-                SEE END OF RECORD FOR MORE INFORMATION
-
-NAME                                  FBI NO.        DATE REQUESTED
-PERREIRA,JORDAN                       WXCCDMEF6      2018/06/14
-
-SEX  RACE  BIRTH DATE  HEIGHT  WEIGHT  EYES  HAIR
-M    A     1987/09/12  601     170     BRO   BLK   
-
-BIRTH PLACE
-HAWAII                                  
-
-PATTERN CLASS                    CITIZENSHIP
-WU WU WU WU WU WU WU WU WU WU    UNITED STATES
-                              
-                              
-                              
-*********RAP BACK TO HI002595Y
-                  HI CRIM JUST DATA CT
-                  HONOLULU
-*********RAP BACK SUBSCRIPTION EXPIRATION DATE - 2023/04/25
-
-
-
-
-
-
-
-
-
-
-
-
-
-END OF PART 1 - PART 2 TO FOLLOW
-
-
-
-
-
-                   UNITED STATES DEPARTMENT OF JUSTICE
-                     FEDERAL BUREAU OF INVESTIGATION
-              CRIMINAL JUSTICE INFORMATION SERVICES DIVISION
-                           CLARKSBURG, WV  26306
-
-
-HI002595Y                                       ICN C2018165800000005694
-PART 2
-                  - FBI IDENTIFICATION RECORD - FBI NO.-WXCCDMEF6
-1-RAP BACK SUBSCRIPTION - CRIMINAL JUSTICE - SUPERVISED RELEASE
-   INDIVIDUAL IS ON SUPERVISED RELEASE WITH THE FOLLOWING AGENCY 
-   AGENCY-HI CRIM JUST DATA CT (HI002595Y)
-   ESTABLISHED DATE - 2018/04/25
-   EXPIRATION DATE  - 2023/04/25
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-*           WANTED                                                    *
-*                                                                     *
-*  CONFIRM THAT WARRANT IS STILL OUTSTANDING                          *
-*                                                                     *
-*  AGENCY-CITY-COUNTY PD HONOLULU (HI0020000)                         *
-*  WANTED-NCIC #W140008169                                            *
-*  PERREIRA,JORDAN KALEI                                              *
-*  CRUELTY TOWARD ELDERLY                                             *
-*  CASE #HI RAP BACK TEST                                             *
-*  DATE OF WARRANT 06/13/2018                                         *
-*  NOTIFY HI0020000 CITY-COUNTY PD HONOLULU HI                        *
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-*                SEXUAL OFFENDER REGISTRY INFORMATION                 *
-*                                                                     *
-*  THE SUBJECT OF THIS RECORD HAS REGISTERED AS A SEXUAL OFFENDER     *
-*  WITH THE FOLLOWING AGENCY:                                         *
-*                                                                     *
-*        AGENCY-CRIM JUST DATA CTR HONOLULU (HI002015Y)               *
-*        AGENCY CASE - THISISATEST                                    *
-*        NCIC NUMBER - NIC/X890456494                                 *
-*        REGISTERED AS - PERREIRA,JORDEN                              *
-*                                                                     *
-*        DATE REGISTERED - 2018/05/22                                 *
-*        REGISTRY EXPIRATION - NONEXP                                 *
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-RECORD UPDATED 2018/06/14
-
-
-
-
-
-ALL ARREST ENTRIES CONTAINED IN THIS FBI RECORD ARE BASED ON
-FINGERPRINT COMPARISONS AND PERTAIN TO THE SAME INDIVIDUAL.
-
-THE USE OF THIS RECORD IS REGULATED BY LAW.  IT IS PROVIDED FOR OFFICIAL
-USE ONLY AND MAY BE USED ONLY FOR THE PURPOSE REQUESTED.
-
-
-
-
-
-                   UNITED STATES DEPARTMENT OF JUSTICE
-                     FEDERAL BUREAU OF INVESTIGATION
-              CRIMINAL JUSTICE INFORMATION SERVICES DIVISION
-                           CLARKSBURG, WV  26306
-
-
-HI002595Y                                       ICN C2018165800000005694
-
-
-***SPECIAL INFORMATION***
-
- PLEASE DELETE YOUR RAP BACK SUBSCRIPTION WHEN IT IS NO LONGER 
- AUTHORIZED
-</ebts:TransactionElectronicRapSheetText>
-          </ebts:TransactionResponseData>
-        </ebts:RecordTransactionData>
-        <ebts:RecordTransactionActivity>
-          <!--CRI 2.073-->
-          <ebts:RecordControllingAgency>
-            <nc:OrganizationIdentification>
-              <nc:IdentificationID>HI002595Y</nc:IdentificationID>
-            </nc:OrganizationIdentification>
-          </ebts:RecordControllingAgency>
-        </ebts:RecordTransactionActivity>
-        <ebts:RecordSubject>
-          <!--DOB 2.022-->
-          <nc:PersonBirthDate>
-            <nc:Date>1987-09-12</nc:Date>
-          </nc:PersonBirthDate>
-          <!--NAM 2.018/ NAM1-5 2.2001 - 2.2005-->
-          <ebts:PersonName>
-            <!--NAM2 2.2002 -->
-            <nc:PersonGivenName>JORDAN</nc:PersonGivenName>
-            <!--NAM3 2.2003 -->
-            <nc:PersonMiddleName>KALEI</nc:PersonMiddleName>
-            <!--NAM1 2.2001 -->
-            <nc:PersonSurName>PERREIRA</nc:PersonSurName>
-          </ebts:PersonName>
-          <!-- FBI 2.014-->
-          <j:PersonFBIIdentification>
-            <nc:IdentificationID>WXCCDMEF6</nc:IdentificationID>
-          </j:PersonFBIIdentification>
-        </ebts:RecordSubject>
-      </ebts:DomainDefinedDescriptiveFields>
-    </itl:UserDefinedDescriptiveDetail>
-  </itl:PackageDescriptiveTextRecord>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<itl:NISTBiometricInformationExchangePackage
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+	<!--****************************************************************** -->
+	<!--Type-1 Record (Header Record) -->
+	<!--****************************************************************** -->
+	<itl:PackageInformationRecord>
+		<!--RCC 1.001 -->
+		<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+		<ansi-nist:Transaction>
+			<!--DAT 1.005 -->
+			<ansi-nist:TransactionDate>
+				<nc:Date>2007-01-01</nc:Date>
+			</ansi-nist:TransactionDate>
+			<ansi-nist:TransactionDestinationOrganization>
+				<!--DAI 1.007 -->
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>WI013415Y</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionDestinationOrganization>
+			<ansi-nist:TransactionOriginatingOrganization>
+				<nc:OrganizationIdentification>
+					<!--ORI 1.008 -->
+					<nc:IdentificationID>DCFBIWAA4</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</ansi-nist:TransactionOriginatingOrganization>
+			<!--GMT 1.014, Optional -->
+			<ansi-nist:TransactionUTCDate>
+				<nc:DateTime>2007-01-01T00:00:01Z</nc:DateTime>
+			</ansi-nist:TransactionUTCDate>
+			<!--TCN 1.009 -->
+			<ansi-nist:TransactionControlIdentification>
+				<nc:IdentificationID>5683956839</nc:IdentificationID>
+			</ansi-nist:TransactionControlIdentification>
+			<!--TCR 1.010, Optional -->
+			<ansi-nist:TransactionControlReferenceIdentification>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
+			</ansi-nist:TransactionControlReferenceIdentification>
+			<!--DOM 1.013 -->
+			<ansi-nist:TransactionDomain>
+				<ansi-nist:DomainVersionNumberIdentification>
+					<nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+				</ansi-nist:DomainVersionNumberIdentification>
+				<ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+			</ansi-nist:TransactionDomain>
+			<!--APS 1.016, Optional -->
+			<ansi-nist:TransactionApplicationProfile>
+				<!--APO -->
+				<ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
+				<!--APN -->
+				<ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
+				<!--APV -->
+				<ansi-nist:ApplicationProfileVersionIdentification>
+					<nc:IdentificationID>3.0</nc:IdentificationID>
+				</ansi-nist:ApplicationProfileVersionIdentification>
+			</ansi-nist:TransactionApplicationProfile>
+			<ansi-nist:TransactionImageResolutionDetails>
+				<!--NSR 1.011 Non-zero values apply to Type-4 and Type-7 fingerprint 
+					records only. -->
+				<ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+				<!--NTR 1.012 Non-zero values apply to Type-4 and Type-7 fingerprint 
+					records only. -->
+				<ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+			</ansi-nist:TransactionImageResolutionDetails>
+			<!--VER 1.002 -->
+			<ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+			<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+			<!--PRY 1.006, Optional -->
+			<ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
+			<!--TOT 1.004 -->
+			<ebts:TransactionCategoryCode>RBN</ebts:TransactionCategoryCode>
+			<!--CNT 1.003 -->
+			<ansi-nist:TransactionContentSummary>
+				<ansi-nist:ContentFirstRecordCategoryCode>1
+				</ansi-nist:ContentFirstRecordCategoryCode>
+				<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+				<ansi-nist:ContentRecordSummary>
+					<ansi-nist:ImageReferenceIdentification>
+						<nc:IdentificationID>00</nc:IdentificationID>
+					</ansi-nist:ImageReferenceIdentification>
+					<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+				</ansi-nist:ContentRecordSummary>
+			</ansi-nist:TransactionContentSummary>
+			<!--DCS 1.015, Optional -->
+			<ansi-nist:TransactionCharacterSetDirectory>
+				<ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
+				<ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
+				<ansi-nist:CharacterSetVersionIdentification>
+					<nc:IdentificationID>000</nc:IdentificationID>
+				</ansi-nist:CharacterSetVersionIdentification>
+			</ansi-nist:TransactionCharacterSetDirectory>
+		</ansi-nist:Transaction>
+	</itl:PackageInformationRecord>
+	<!--****************************************************************** -->
+	<!--Type-2 Record (User Defined Descriptive Text Record) -->
+	<!--****************************************************************** -->
+	<itl:PackageDescriptiveTextRecord>
+		<!--RCC 2.001 -->
+		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+		<!-- IDC 2.002 -->
+		<ansi-nist:ImageReferenceIdentification>
+			<nc:IdentificationID>00</nc:IdentificationID>
+		</ansi-nist:ImageReferenceIdentification>
+		<itl:UserDefinedDescriptiveDetail>
+			<ebts:DomainDefinedDescriptiveFields>
+				<!-- SCO 2.007 (0..9) -->
+				<ansi-nist:RecordForwardOrganizations>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>WV1000000</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>NY030025P</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</ansi-nist:RecordForwardOrganizations>
+				<ebts:RecordRapBackData>
+					<!-- RBNI 2.2041 -->
+					<ebts:RecordRapBackActivityNotificationID>123456</ebts:RecordRapBackActivityNotificationID>
+					<!-- RBATN 2.2070, Optional -->
+					<ebts:RecordRapBackAttentionText>DET J Q PUBLIC</ebts:RecordRapBackAttentionText>
+					<!-- RBXD 2.2015 -->
+					<ebts:RecordRapBackExpirationDate>
+						<nc:Date>2010-02-24</nc:Date>
+					</ebts:RecordRapBackExpirationDate>
+					<!-- RBSD 2.2054 -->
+					<ebts:RecordRapBackSubscriptionDate>
+						<nc:Date>2011-01-25</nc:Date>
+					</ebts:RecordRapBackSubscriptionDate>
+					<!-- RBSI 2.2048 -->
+					<ebts:RecordRapBackSubscriptionID>123456</ebts:RecordRapBackSubscriptionID>
+					<!-- RBST 2.2071, Optional -->
+					<ebts:RecordRapBackSubscriptionTerm>5</ebts:RecordRapBackSubscriptionTerm>
+					<!-- RBTD 2.2049, Optional -->
+					<ebts:RecordRapBackTermDate>
+						<nc:Date>2015-01-01</nc:Date>
+					</ebts:RecordRapBackTermDate>
+					<!-- RBUD 2.2064 (0..10) -->
+					<ebts:RecordRapBackUserDefinedElement>
+						<!-- 2.2064A -->
+						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
+						<!-- 2.2064B -->
+						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<!-- 2.2064A -->
+						<ebts:UserDefinedElementName>Subscription Qualifier ID</ebts:UserDefinedElementName>
+						<!-- 2.2064B -->
+						<ebts:UserDefinedElementText>fbiSubscriptionId_3</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+                        <!-- 2.2064A -->
+                        <ebts:UserDefinedElementName>State Subscription ID</ebts:UserDefinedElementName>
+                        <!-- 2.2064B -->
+                        <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+                    </ebts:RecordRapBackUserDefinedElement>
+					<!-- RBTED 2.2069, Optional -->
+					<ebts:TransactionRapBackTriggeringEvent>
+						<!-- DORBE 2.2069A -->
+						<ebts:RapBackEventDate>
+							<nc:Date>2013-03-29</nc:Date>
+						</ebts:RapBackEventDate>
+						<!-- RBT 2.2069B -->
+						<ebts:RapBackTriggeringEventCode>10</ebts:RapBackTriggeringEventCode>
+						<!-- RBEI 2.2069C -->
+						<ebts:RapBackEventText>Event that triggered the rap back</ebts:RapBackEventText>
+					</ebts:TransactionRapBackTriggeringEvent>
+					<ebts:TransactionRapBackTriggeringEvent>
+						<!-- DORBE 2.2069A -->
+						<ebts:RapBackEventDate>
+							<nc:Date>2013-03-29</nc:Date>
+						</ebts:RapBackEventDate>
+						<!-- RBT 2.2069B -->
+						<ebts:RapBackTriggeringEventCode>12</ebts:RapBackTriggeringEventCode>
+						<!-- RBEI 2.2069C -->
+						<ebts:RapBackEventText>Second Event that triggered the rap back</ebts:RapBackEventText>
+					</ebts:TransactionRapBackTriggeringEvent>
+				</ebts:RecordRapBackData>
+				<ebts:RecordTransactionData>
+					<ebts:TransactionResponseData>
+						<!--ERS 2.075, Optional -->
+						<ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes here</ebts:TransactionElectronicRapSheetText>
+					</ebts:TransactionResponseData>
+				</ebts:RecordTransactionData>
+				<ebts:RecordTransactionActivity>
+					<!--CRI 2.073 (1..3) -->
+					<ebts:RecordControllingAgency>
+						<nc:OrganizationIdentification>
+							<nc:IdentificationID>NY0303000</nc:IdentificationID>
+						</nc:OrganizationIdentification>
+					</ebts:RecordControllingAgency>
+				</ebts:RecordTransactionActivity>
+				<ebts:RecordSubject>
+					<!-- DOB 2.022 -->
+					<nc:PersonBirthDate>
+						<nc:Date>1977-08-25</nc:Date>
+					</nc:PersonBirthDate>
+					<!--NAM 2.018 -->
+					<ebts:PersonName>
+						<nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+						<nc:PersonMiddleName>JOHN</nc:PersonMiddleName>
+						<nc:PersonSurName>SMITH</nc:PersonSurName>
+					</ebts:PersonName>
+					<!-- FBI 2.014 -->
+					<j:PersonFBIIdentification>
+						<nc:IdentificationID>12345678</nc:IdentificationID>
+					</j:PersonFBIIdentification>
+				</ebts:RecordSubject>
+			</ebts:DomainDefinedDescriptiveFields>
+		</itl:UserDefinedDescriptiveDetail>
+	</itl:PackageDescriptiveTextRecord>
 </itl:NISTBiometricInformationExchangePackage>
