@@ -419,7 +419,7 @@
 	<xsl:template match="j:PersonStateFingerprintIdentification"
 		mode="userDefinedElement">
 		<ebts:RecordRapBackUserDefinedElement>
-			<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
+			<ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
 			<ebts:UserDefinedElementText>
 				<xsl:value-of select="normalize-space(.)" />
 			</ebts:UserDefinedElementText>
@@ -428,7 +428,7 @@
 	<xsl:template match="submsg-ext:SubscriptionIdentification/nc20:IdentificationID"
 		mode="userDefinedElement">
 		<ebts:RecordRapBackUserDefinedElement>
-			<ebts:UserDefinedElementName>State Subscription ID</ebts:UserDefinedElementName>
+			<ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
 			<ebts:UserDefinedElementText>
 				<xsl:value-of select="normalize-space(.)" />
 			</ebts:UserDefinedElementText>

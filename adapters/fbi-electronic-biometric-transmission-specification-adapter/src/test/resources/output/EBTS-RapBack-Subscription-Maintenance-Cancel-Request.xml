@@ -80,7 +80,7 @@
                <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
                  <ebts:RecordRapBackSubscriptionID>987654321</ebts:RecordRapBackSubscriptionID>
                <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>State Fingerprint ID
+                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
