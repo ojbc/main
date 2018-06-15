@@ -99,6 +99,7 @@
 			</camel:setHeader>
 			
 			<camel:log message="\n\nNGI-MOCK: Sending Sub. Ack. Response... \n\n"/>			
+			<camel:log message="\n\nNGI-MOCK: ${body} \n\n"/>			
 			
 			<camel:to uri="ngiResponseServiceEndpoint"/>			
 			
