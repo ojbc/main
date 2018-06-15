@@ -429,6 +429,8 @@
 			
 			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
 			<camel:setHeader headerName="operationName"><constant>ReportNewCriminalHistoryEvent</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
 			
