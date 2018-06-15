@@ -22,16 +22,23 @@
 	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<chr-report-ext:CriminalHistoryReportJurisdictionCode>State</chr-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
 		<chr-report-ext:RestorationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<chr-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chr-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chr-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chr-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<chr-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chr-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chr-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chr-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</chr-report-ext:RestorationIdentifiers>
 	</nc:Person>

@@ -22,24 +22,39 @@
 	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
 	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<chiu-report-ext:CriminalHistoryReportJurisdictionCode>State</chiu-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
 		<chiu-report-ext:PreIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</chiu-report-ext:PreIdentifierUpdateIdentifiers>
 		<chiu-report-ext:PostIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123222</nc:IdentificationID>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234222</nc:IdentificationID>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</chiu-report-ext:PostIdentifierUpdateIdentifiers>
 	</nc:Person>
