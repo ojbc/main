@@ -72,7 +72,7 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 		
 		Document notificationMessage = exchange.getIn().getBody(Document.class);
 		
-		String fbiRelatedSubscriptionID = XmlUtils.xPathStringSearch(notificationMessage, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
+		String fbiRelatedSubscriptionID = XmlUtils.xPathStringSearch(notificationMessage, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
 		log.debug("FBI related subscription ID");
 		
 		List<Subscription> subscriptions = new ArrayList<Subscription>();
