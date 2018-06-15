@@ -85,12 +85,12 @@
                <ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>State Fingerprint ID
+                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
                <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>State Subscription ID
+                  <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>

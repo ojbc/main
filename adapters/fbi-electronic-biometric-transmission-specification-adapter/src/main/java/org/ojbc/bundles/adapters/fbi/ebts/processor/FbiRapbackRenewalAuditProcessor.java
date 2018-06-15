@@ -68,8 +68,8 @@ public class FbiRapbackRenewalAuditProcessor {
 		
 		Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
 		
-		federalRapbackRenewalNotification.setStateSubscriptionId(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText"));
-		federalRapbackRenewalNotification.setSid(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Fingerprint ID']/ebts:UserDefinedElementText"));
+		federalRapbackRenewalNotification.setStateSubscriptionId(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText"));
+		federalRapbackRenewalNotification.setSid(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
 
 		Node recordSubject = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject");
 		

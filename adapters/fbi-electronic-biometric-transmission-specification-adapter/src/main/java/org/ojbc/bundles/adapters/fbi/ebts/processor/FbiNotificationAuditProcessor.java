@@ -136,11 +136,11 @@ public class FbiNotificationAuditProcessor {
 				federalRapbackNotification.setTransactionType(transactionType);
 			}	
 			
-			//XmlUtils.printNode(input);
-			
 			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
 			
-			federalRapbackNotification.setStateSubscriptionId(XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='State Subscription ID']/ebts:UserDefinedElementText"));
+			String stateSubscriptionId= XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName/text()='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText");
+			logger.info("State subscription ID: " + stateSubscriptionId);
+			federalRapbackNotification.setStateSubscriptionId(stateSubscriptionId);
 			
 			String rapbackEventText = XmlUtils.xPathStringSearch(input, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventText");
 			federalRapbackNotification.setRapBackEventText(rapbackEventText);

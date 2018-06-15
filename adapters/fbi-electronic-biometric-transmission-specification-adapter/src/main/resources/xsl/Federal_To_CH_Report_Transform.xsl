@@ -250,7 +250,7 @@
 		<j:PersonAugmentation>
 			<xsl:apply-templates select="./j41:PersonFBIIdentification" />
 			<xsl:apply-templates
-				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='State Fingerprint ID']"
+				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='STATE FINGERPRINT ID']"
 				mode="sid" />
 		</j:PersonAugmentation>
 	</xsl:template>

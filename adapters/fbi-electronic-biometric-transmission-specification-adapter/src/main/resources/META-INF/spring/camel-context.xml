@@ -214,7 +214,11 @@
 				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlReferenceIdentification/nc:IdentificationID</xpath>
 			</camel:setHeader>
 
-			<log message="\nTransaction Category Code: ${header.trxCatCode},  Transaction Control Reference ID:  ${header.transactionControlReferenceIdentification}" loggingLevel="INFO"/>
+			<camel:setHeader headerName="transactionControlIdentification">
+				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlIdentification/nc:IdentificationID</xpath>
+			</camel:setHeader>
+
+			<log message="\nTransaction Category Code: ${header.trxCatCode},  Transaction Control Reference ID:  ${header.transactionControlReferenceIdentification}, Transaction Control Identification: ${header.transactionControlIdentification}" loggingLevel="INFO"/>
 
 			<choice>
 				<when>
@@ -228,7 +232,7 @@
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>FBI_Notification_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+						<camel:simple>FBI_Notification_${in.headers.transactionControlIdentification}.xml</camel:simple>
 					</camel:setHeader>
 					
 					<camel:setHeader headerName="pathToNotificationFile">
