@@ -40,6 +40,7 @@
 		<spring-version>5.0.7.RELEASE</spring-version>
 		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
+		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
 		<commons-logging-version>1.1.1</commons-logging-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<log4j-version>1.2.16</log4j-version>
@@ -69,6 +70,13 @@
 		    <groupId>org.junit.vintage</groupId>
 		    <artifactId>junit-vintage-engine</artifactId>
 		    <version>${junit-vintage-engine-version}</version>
+		    <scope>test</scope>
+		</dependency>
+ 		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-launcher</artifactId>
+		    <version>${junit-platform-launcher-version}</version>
 		    <scope>test</scope>
 		</dependency>
 		<dependency>

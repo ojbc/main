@@ -51,6 +51,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @DirtiesContext
 public class TestDatabaseLoad {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestDatabaseLoad.class);
 
     @Resource
