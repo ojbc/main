@@ -9,14 +9,14 @@
 	"CaseToCaseIdentifierlist": [
 		{
 			"id": "15110693",
-			"target/CriminalCase": "6068608",
-			"source/CaseIdentifier": "2991557",
+			"target-CriminalCase": "6068608",
+			"source-CaseIdentifier": "2991557",
 			"name": "CaseToCaseIdentifier"
 		},
 		{
 			"id": "15164234",
-			"target/CriminalCase": "6068608",
-			"source/CaseIdentifier": "3045098",
+			"target-CriminalCase": "6068608",
+			"source-CaseIdentifier": "3045098",
 			"name": "CaseToCaseIdentifier"
 		}
 	],
@@ -24,10 +24,10 @@
 		{
 			"notPdDefendant": false,
 			"id": "17076405",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"primary": false,
 			"name": "CRIMINALDEFENDANT",
-			"source/Person": "9551056",
+			"source-Person": "9551056",
 			"interpreterNeeded": false,
 			"prop36Eligible": false,
 			"defenderAppointed": false
@@ -35,10 +35,10 @@
 		{
 			"notPdDefendant": false,
 			"id": "17076432",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"name": "CRIMINALDEFENDANT",
 			"primary": false,
-			"source/Person": "10167100",
+			"source-Person": "10167100",
 			"interpreterNeeded": false,
 			"defenderAppointed": false,
 			"prop36Eligible": false
@@ -46,10 +46,10 @@
 		{
 			"notPdDefendant": false,
 			"id": "17076459",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"name": "CRIMINALDEFENDANT",
 			"primary": true,
-			"source/Person": "10481804",
+			"source-Person": "10481804",
 			"interpreterNeeded": false,
 			"defenderAppointed": false,
 			"prop36Eligible": false
@@ -80,8 +80,8 @@
 		{
 			"id": "20069539",
 			"name": "PersonToPersonIdentifier",
-			"source/PersonIdentifier": "10535081",
-			"target/Person": "9597076"
+			"source-PersonIdentifier": "10535081",
+			"target-Person": "9597076"
 		}
 	],
 	"IncidentToAddresslist": [
@@ -89,8 +89,8 @@
 			"id": "18553684",
 			"name": "IncidentToAddress",
 			"primary": true,
-			"target/Incident": "8944545",
-			"source/Address": "121777"
+			"target-Incident": "8944545",
+			"source-Address": "121777"
 		}
 	],
 	"PersonToContactInformationlist": [
@@ -98,22 +98,22 @@
 			"id": "19873539",
 			"name": "PersonToContactInformation",
 			"primary": true,
-			"source/ContactInformation": "5343342",
-			"target/Person": "9597076"
+			"source-ContactInformation": "5343342",
+			"target-Person": "9597076"
 		},
 		{
 			"id": "19988443",
 			"name": "PersonToContactInformation",
 			"primary": true,
-			"source/ContactInformation": "5397326",
-			"target/Person": "9597076"
+			"source-ContactInformation": "5397326",
+			"target-Person": "9597076"
 		},
 		{
 			"id": "20011427",
 			"primary": true,
 			"name": "PersonToContactInformation",
-			"source/ContactInformation": "5404193",
-			"target/Person": "10167100"
+			"source-ContactInformation": "5404193",
+			"target-Person": "10167100"
 		}
 	],
 	"CaseIdentifierlist": [
@@ -131,8 +131,8 @@
 	"CaseToIncidentlist": [
 		{
 			"id": "15255286",
-			"target/CriminalCase": "6068608",
-			"source/Incident": "8944545",
+			"target-CriminalCase": "6068608",
+			"source-Incident": "8944545",
 			"name": "CaseToIncident",
 			"primary": false
 		}
@@ -150,17 +150,17 @@
 		{
 			"id": "20537529",
 			"name": "CaseDefendantToCharge",
-			"source/Charge": "3251845",
-			"target/CriminalDefendant": "17076459"
+			"source-Charge": "3251845",
+			"target-CriminalDefendant": "17076459"
 		}
 	],
 	"CaseOfficerlist": [
 		{
 			"id": "14865701",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"primary": true,
 			"name": "CaseOfficer",
-			"source/Person": "9597076",
+			"source-Person": "9597076",
 			"arresting": true,
 			"atScene": false
 		}
@@ -184,8 +184,8 @@
 			"primary": true,
 			"active": true,
 			"type": "Work",
-			"source/Address": "184078",
-			"target/Person": "9597076"
+			"source-Address": "184078",
+			"target-Person": "9597076"
 		},
 		{
 			"id": "19116007",
@@ -194,8 +194,8 @@
 			"name": "PersonToAddress",
 			"active": true,
 			"type": "Home",
-			"source/Address": "165160",
-			"target/Person": "9551056"
+			"source-Address": "165160",
+			"target-Person": "9551056"
 		},
 		{
 			"id": "19220706",
@@ -204,8 +204,8 @@
 			"primary": true,
 			"active": true,
 			"type": "MAIL",
-			"source/Address": "181856",
-			"target/Person": "9551056"
+			"source-Address": "181856",
+			"target-Person": "9551056"
 		},
 		{
 			"id": "19115993",
@@ -214,8 +214,8 @@
 			"name": "PersonToAddress",
 			"active": true,
 			"type": "Home",
-			"source/Address": "165158",
-			"target/Person": "10167100"
+			"source-Address": "165158",
+			"target-Person": "10167100"
 		},
 		{
 			"id": "19532010",
@@ -224,8 +224,8 @@
 			"name": "PersonToAddress",
 			"active": true,
 			"type": "Home",
-			"source/Address": "231526",
-			"target/Person": "10167100"
+			"source-Address": "231526",
+			"target-Person": "10167100"
 		},
 		{
 			"id": "19682629",
@@ -234,8 +234,8 @@
 			"primary": false,
 			"active": true,
 			"type": "PREV",
-			"source/Address": "255611",
-			"target/Person": "10481804"
+			"source-Address": "255611",
+			"target-Person": "10481804"
 		},
 		{
 			"id": "19772873",
@@ -244,8 +244,8 @@
 			"name": "PersonToAddress",
 			"active": true,
 			"type": "MAIL",
-			"source/Address": "270050",
-			"target/Person": "10481804"
+			"source-Address": "270050",
+			"target-Person": "10481804"
 		},
 		{
 			"id": "19842628",
@@ -254,8 +254,8 @@
 			"primary": false,
 			"active": true,
 			"type": "Home",
-			"source/Address": "271594",
-			"target/Person": "10481804"
+			"source-Address": "271594",
+			"target-Person": "10481804"
 		}
 	],
 	"Addresslist": [
@@ -344,39 +344,39 @@
 			"id": "14087536",
 			"amended": false,
 			"courtNumber": "cr200500443",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"packageCase": false,
 			"name": "CaseCourt",
 			"currentCourt": false,
-			"source/Court": "5416612"
+			"source-Court": "5416612"
 		},
 		{
 			"id": "14087551",
 			"amended": false,
 			"courtNumber": "cr200500427",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"packageCase": false,
 			"name": "CaseCourt",
 			"currentCourt": false,
-			"source/Court": "5416612"
+			"source-Court": "5416612"
 		},
 		{
 			"dateIn": "Wed May 04 00:00:00 EDT 2005",
 			"id": "28413358",
 			"amended": false,
 			"courtNumber": "CR2005-0428",
-			"target/CriminalCase": "6068608",
+			"target-CriminalCase": "6068608",
 			"name": "CaseCourt",
 			"currentCourt": true,
 			"comment": "MELODIE FRANKLIN",
-			"source/Court": "5416612"
+			"source-Court": "5416612"
 		}
 	],
 	"CaseToOrganizationlist": [
 		{
 			"id": "15321160",
-			"target/CriminalCase": "6068608",
-			"source/Organization": "9401751",
+			"target-CriminalCase": "6068608",
+			"source-Organization": "9401751",
 			"name": "Case To Organization",
 			"primary": true,
 			"role": "AGENCY",
@@ -483,7 +483,7 @@
 	"ContactInformationlist": [
 		{
 			"id": "5343342",
-			"value": "520/524/3991",
+			"value": "520-524-3991",
 			"active": true,
 			"type": "Direct"
 		},
@@ -555,8 +555,8 @@
 		{
 			"id": "31840070",
 			"name": "CaseDefendantToSentence",
-			"target/Sentence": "31840041",
-			"source/CriminalDefendant": "17076432"
+			"target-Sentence": "31840041",
+			"source-CriminalDefendant": "17076432"
 		}
 	],
 	"DefenderAssignmentlist": [
@@ -565,27 +565,27 @@
 			"id": "20926770",
 			"name": "AssignedAttorney",
 			"primary": true,
-			"source/Person": "10507752",
+			"source-Person": "10507752",
 			"conflict": false,
-			"target/CriminalDefendant": "17076405"
+			"target-CriminalDefendant": "17076405"
 		},
 		{
 			"assignmentStartDate": "Tue Jun 07 00:00:00 EDT 2005",
 			"id": "20926779",
 			"primary": true,
 			"name": "AssignedAttorney",
-			"source/Person": "10507752",
+			"source-Person": "10507752",
 			"conflict": false,
-			"target/CriminalDefendant": "17076432"
+			"target-CriminalDefendant": "17076432"
 		},
 		{
 			"assignmentStartDate": "Tue Jun 07 00:00:00 EDT 2005",
 			"id": "20926788",
 			"primary": true,
 			"name": "AssignedAttorney",
-			"source/Person": "10507752",
+			"source-Person": "10507752",
 			"conflict": false,
-			"target/CriminalDefendant": "17076459"
+			"target-CriminalDefendant": "17076459"
 		}
 	]
 }

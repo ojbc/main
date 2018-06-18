@@ -18,8 +18,10 @@
 
 -->
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chmr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	name="Criminal_History_Modification_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -31,12 +33,36 @@
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_modification_request.xsd" />
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="Criminal-History-Modification-Request">
-		<wsdl:part element="chmr-doc:CriminalHistoryModificationRequest" name="Criminal-History-Modification-Request" />
+	<wsdl:message name="Arrest-Add-Request">
+		<wsdl:part element="chm-req-ext:ArrestAddRequest" name="Arrest-Add-Request" />
+	</wsdl:message>
+	<wsdl:message name="Arrest-Modify-Request">
+		<wsdl:part element="chm-req-ext:ArrestModifyRequest" name="Arrest-Modify-Request" />
+	</wsdl:message>
+	<wsdl:message name="Arrest-Hide-Request">
+		<wsdl:part element="chm-req-ext:ArrestHideRequest" name="Arrest-Hide-Request" />
+	</wsdl:message>
+	<wsdl:message name="Disposition-Add-Request">
+		<wsdl:part element="chm-req-ext:DispositionAddRequest" name="Disposition-Add-Request" />
+	</wsdl:message>
+	<wsdl:message name="Disposition-Hide-Request">
+		<wsdl:part element="chm-req-ext:DispositionHideRequest" name="Disposition-Hide-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Request_Service">
-		<wsdl:operation name="SubmitCriminalHistoryModificationRequest">
-			<wsdl:input message="tns:Criminal-History-Modification-Request" name="Criminal-History-Modification-Request" />
+		<wsdl:operation name="AddArrestRequest">
+			<wsdl:input message="tns:Arrest-Add-Request" name="Arrest-Add-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="ModifyArrestRequest">
+			<wsdl:input message="tns:Arrest-Modify-Request" name="Arrest-Modify-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="HideArrestRequest">
+			<wsdl:input message="tns:Arrest-Hide-Request" name="Arrest-Hide-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="AddDispositionRequest">
+			<wsdl:input message="tns:Disposition-Add-Request" name="Disposition-Add-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="HideDispositionRequest">
+			<wsdl:input message="tns:Disposition-Hide-Request" name="Disposition-Hide-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -44,10 +70,38 @@
 		type="tns:Criminal_History_Modification_Request_Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsaw:UsingAddressing wsdl:required="true" />
-		<wsdl:operation name="SubmitCriminalHistoryModificationRequest">
+		<wsdl:operation name="AddArrestRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/SubmitCriminalHistoryModificationRequest" />
-			<wsdl:input name="Criminal-History-Modification-Request">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddArrestRequest" />
+			<wsdl:input name="Arrest-Add-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ModifyArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ModifyArrestRequest" />
+			<wsdl:input name="Arrest-Modify-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="HideArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideArrestRequest" />
+			<wsdl:input name="Arrest-Hide-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="AddDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddDispositionRequest" />
+			<wsdl:input name="Disposition-Add-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="HideDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideDispositionRequest" />
+			<wsdl:input name="Disposition-Hide-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -57,10 +111,38 @@
 		type="tns:Criminal_History_Modification_Request_Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
-		<wsdl:operation name="SubmitCriminalHistoryModificationRequest">
+		<wsdl:operation name="AddArrestRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/SubmitCriminalHistoryModificationRequest" />
-			<wsdl:input name="Criminal-History-Modification-Request">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddArrestRequest" />
+			<wsdl:input name="Arrest-Add-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ModifyArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ModifyArrestRequest" />
+			<wsdl:input name="Arrest-Modify-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="HideArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideArrestRequest" />
+			<wsdl:input name="Arrest-Hide-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="AddDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddDispositionRequest" />
+			<wsdl:input name="Disposition-Add-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="HideDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideDispositionRequest" />
+			<wsdl:input name="Disposition-Hide-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>

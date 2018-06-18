@@ -17,33 +17,28 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-	elementFormDefault="qualified">
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
-		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:complexType name="CriminalHistoryConsolidationReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details associated with
-				the consolidation of multiple criminal histories for a person.
+			<xsd:documentation>A data type for a set of details associated with the consolidation of multiple criminal histories for a
+				person.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element
-						ref="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation"
-						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -51,41 +46,35 @@
 	</xsd:complexType>
 	<xsd:complexType name="ConsolidationIdentifierType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of person identifiers
-				associated with consolidation of multiple criminal histories.
+			<xsd:documentation>A data type for a set of person identifiers associated with consolidation of multiple criminal histories.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="j:PersonStateFingerprintIdentification"
-						minOccurs="0" />
+					<xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" />
 					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="PreConsolidationIdentifiers"
-		type="chc-report-ext:ConsolidationIdentifierType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PreConsolidationIdentifiers" type="chc-report-ext:ConsolidationIdentifierType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Person identifiers for a criminal history prior to
-				consolidation of criminal histories.
+			<xsd:documentation>Person identifiers for a criminal history prior to consolidation of criminal histories.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PostConsolidationIdentifiers"
-		type="chc-report-ext:ConsolidationIdentifierType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PostConsolidationIdentifiers" type="chc-report-ext:ConsolidationIdentifierType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Person identifiers for a criminal history after
-				consolidation of criminal histories.
+			<xsd:documentation>Person identifiers for a criminal history after consolidation of criminal histories.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
-		abstract="true">
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A data concept representing a report's
-				jurisdiction.
+			<xsd:documentation>A data concept representing a report's jurisdiction.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -103,8 +92,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension
-				base="chc-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+			<xsd:extension base="chc-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -129,4 +117,18 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for criminal purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
