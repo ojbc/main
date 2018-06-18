@@ -16,7 +16,9 @@
  */
 package org.ojbc.h2.mock.database.test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -57,25 +60,25 @@ public class TestDatabaseLoad {
     @Resource
     private DataSource auditLogTestDataSource;
 
-    @Resource
+    @Autowired
     private DataSource subscriptionDataSource;
 
-    @Resource
+    @Autowired
     private DataSource rapbackDataSource;
 
-    @Resource
+    @Autowired
     private DataSource policyAcknowledgementDataSource;
 
-    @Resource
+    @Autowired
     private DataSource incidentReportingStateCacheDataSource;
 
-    @Resource
+    @Autowired
     private DataSource custodyDataSource;
 
-    @Resource
+    @Autowired
     private DataSource warrantRepositorySource;
 
-    @Resource
+    @Autowired
     private DataSource consentManagementDataSource;
 
 	@Test
