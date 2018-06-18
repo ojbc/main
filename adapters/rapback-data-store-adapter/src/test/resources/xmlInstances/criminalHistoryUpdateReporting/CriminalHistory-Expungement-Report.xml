@@ -29,9 +29,11 @@
 		<che-report-ext:ExpungementIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>XX123123</nc:IdentificationID>
+				<che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>				
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI123123</nc:IdentificationID>
+				<che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</che-report-ext:ExpungementIdentifiers>
 	</nc:Person>

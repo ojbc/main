@@ -58,6 +58,10 @@ public class CriminalHistoryConsolidationProcessor {
     @Value("${rapbackDatastoreAdapter.consolidateEmailAddresses:false}")
     private boolean consolidateEmailAddresses;
     
+    private final static String STATE_USER_EXPUNGEMENT_CIVIL_EMAIL_TEMPLATE ="You are receiving this message because a identity deletion event has occurred related to one or more of your Rap Back subscriptions.  Your subscriptions have been cancelled.";  
+    private final static String STATE_IDENTIFIER_UPDATE_CIVIL_EMAIL_TEMPLATE ="<Old SID> has been updated to <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription and for updated criminal history record information.";
+    private final static String STATE_CONSOLIDATION_CIVIL_EMAIL_TEMPLATE ="You are receiving this message because a identity consolidation event has occurred related to one or more of your Rap Back subscriptions.  Log on to the Applicant Rap Back Application in the HIJIS Portal to confirm you are authorized to view the updated record(s).";
+    
     private final static String STATE_USER_EXPUNGEMENT_EMAIL_TEMPLATE ="<Old SID> has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.";
     private final static String STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE="<Old SID> EMAIL TEMPLATE PENDING";
     		
@@ -92,7 +96,8 @@ public class CriminalHistoryConsolidationProcessor {
     		@Header("newSid") String newSid, 
     		@Header("currentUcn") String currentUcn, 
     		@Header("newUcn") String newUcn,
-    		@Header("consolidationType") String consolidationType
+    		@Header("consolidationType") String consolidationType,
+    		@Header("fingerprintPurpose") String fingerprintPurpose
     		) throws Exception {
     	
     	log.info("Current SID: "  + currentSid + ", new SID: " + newSid);
@@ -181,7 +186,7 @@ public class CriminalHistoryConsolidationProcessor {
     	
     	//These notifications are based on SID consolidation
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnStateCriminalHistoryConsolidations(
-				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID);
+				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID, fingerprintPurpose);
     	
     	//Create subscriptions for user for subscriptions where UCN is added
     	exch.getIn().setHeader("subscriptionsMissingUCNtoAdd", subscriptionsWithUCNAdded);
@@ -408,26 +413,46 @@ public class CriminalHistoryConsolidationProcessor {
      */
     public List<CriminalHistoryConsolidationNotification> expungeCriminalHistoryState(@Header("currentSid") String currentSid, 
     		@Header("currentUcn") String currentUcn, 
-    		@Header("consolidationType") String consolidationType) throws Exception {
+    		@Header("consolidationType") String consolidationType,
+    		@Header("fingerprintPurpose") String fingerprintPurpose
+    		) throws Exception {
     	
     	log.info("Current SID: "  + currentSid + ", current UCN: " + currentUcn);
     	
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnStateCriminalHistoryConsolidations(
-				currentSid, "", currentUcn, "", consolidationType, null);
+				currentSid, "", currentUcn, "", consolidationType, null, fingerprintPurpose);
 
     	criminalHistoryConsolidationNotifications =  returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
     	
-    	//In addition to notifying the user, also notify the agency with a different email template
-    	if (!criminalHistoryConsolidationNotifications.isEmpty())
+    	boolean sendAgencyNotification = false;
+    	
+    	//Set to true unless purpose is explicitly civil
+    	if (StringUtils.isNotBlank(fingerprintPurpose))
     	{
-			CriminalHistoryConsolidationNotification consolidationNotificationForAgency = new CriminalHistoryConsolidationNotification();
-			
-   			consolidationNotificationForAgency.setConsolidationType("reportSIDExpungementToAgency");
-			consolidationNotificationForAgency.setEmailTo(agencyNotificationEmailAddress);
-			consolidationNotificationForAgency.setEmailBody(returnStateNotificationEmailBody(consolidationNotificationForAgency, currentSid, ""));
-			consolidationNotificationForAgency.setEmailSubject(returnStateEmailSubject(consolidationNotificationForAgency, currentSid));    		
-    		
-			criminalHistoryConsolidationNotifications.add(consolidationNotificationForAgency);
+    		if (fingerprintPurpose.equals("criminal"))
+    		{
+    			sendAgencyNotification = true;
+    		}	
+    	}	
+    	else
+    	{
+    		sendAgencyNotification=true;
+    	}	
+    	
+    	if (sendAgencyNotification)
+    	{	
+	    	//In addition to notifying the user, also notify the agency with a different email template
+	    	if (!criminalHistoryConsolidationNotifications.isEmpty())
+	    	{
+				CriminalHistoryConsolidationNotification consolidationNotificationForAgency = new CriminalHistoryConsolidationNotification();
+				
+	   			consolidationNotificationForAgency.setConsolidationType("reportSIDExpungementToAgency");
+				consolidationNotificationForAgency.setEmailTo(agencyNotificationEmailAddress);
+				consolidationNotificationForAgency.setEmailBody(returnStateNotificationEmailBody(consolidationNotificationForAgency, currentSid, "", fingerprintPurpose));
+				consolidationNotificationForAgency.setEmailSubject(returnStateEmailSubject(consolidationNotificationForAgency, currentSid));    		
+	    		
+				criminalHistoryConsolidationNotifications.add(consolidationNotificationForAgency);
+	    	}
     	}	
     	
     	return criminalHistoryConsolidationNotifications;
@@ -457,7 +482,7 @@ public class CriminalHistoryConsolidationProcessor {
     }    
     
 	List<CriminalHistoryConsolidationNotification> returnStateCriminalHistoryConsolidations(
-			String currentSid, String newSid, String currentUcn, String newUcn, String consolidationType, List<Subscription> subscriptionsMatchingSID) {
+			String currentSid, String newSid, String currentUcn, String newUcn, String consolidationType, List<Subscription> subscriptionsMatchingSID, String fingerprintPurpose) {
 		//Consolidate SID but not UCN for members who use simple subscription database setup
     	//Query based on SID only
     	
@@ -486,7 +511,7 @@ public class CriminalHistoryConsolidationProcessor {
     		
     		chcNotification.setSubscription(subscription);
     		chcNotification.setConsolidationType(consolidationType);
-    		chcNotification.setEmailBody(returnStateNotificationEmailBody(chcNotification, currentSid, newSid));
+    		chcNotification.setEmailBody(returnStateNotificationEmailBody(chcNotification, currentSid, newSid, fingerprintPurpose));
     		chcNotification.setEmailSubject(returnStateEmailSubject(chcNotification, currentSid));
 
     		addCriminalHistoryNotificationEmails(criminalHistoryConsolidationNotifications, chcNotification, subscription);
@@ -560,30 +585,62 @@ public class CriminalHistoryConsolidationProcessor {
     }
 
 	String returnStateNotificationEmailBody(
-			CriminalHistoryConsolidationNotification chcNotification, String currentSid, String newSid) {
+			CriminalHistoryConsolidationNotification chcNotification, String currentSid, String newSid, String fingerprintPurpose) {
 		
 		String emailBody = "";
 		
 		if (chcNotification.getConsolidationType().equals("criminalHistoryExpungementReport"))
 		{
-			emailBody = StringUtils.replace(STATE_USER_EXPUNGEMENT_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+			if (fingerprintPurpose.equals("criminal")|| StringUtils.isBlank(fingerprintPurpose))
+			{	
+				emailBody = StringUtils.replace(STATE_USER_EXPUNGEMENT_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+			}
+			
+			if (fingerprintPurpose.equals("civil"))
+			{	
+				emailBody = StringUtils.replace(STATE_USER_EXPUNGEMENT_CIVIL_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+			}	
+			
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryConsolidationReport"))
 		{
-			emailBody = StringUtils.replace(STATE_CONSOLIDATION_EMAIL_TEMPLATE, "<Old SID>", currentSid);
-			emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			if (fingerprintPurpose.equals("criminal") || StringUtils.isBlank(fingerprintPurpose))
+			{	
+				emailBody = StringUtils.replace(STATE_CONSOLIDATION_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+				emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			}
+			
+			if (fingerprintPurpose.equals("civil"))
+			{	
+				emailBody = StringUtils.replace(STATE_CONSOLIDATION_CIVIL_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+				emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			}				
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryIdentifierUpdateReport"))
 		{
-			emailBody = StringUtils.replace(STATE_IDENTIFIER_UPDATE_EMAIL_TEMPLATE, "<Old SID>", currentSid);
-			emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			if (fingerprintPurpose.equals("criminal") || StringUtils.isBlank(fingerprintPurpose))
+			{	
+				emailBody = StringUtils.replace(STATE_IDENTIFIER_UPDATE_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+				emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			}
+			
+			if (fingerprintPurpose.equals("civil"))
+			{	
+				emailBody = StringUtils.replace(STATE_IDENTIFIER_UPDATE_CIVIL_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+				emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
+			}				
 		}	
 		
 		if (chcNotification.getConsolidationType().equals("reportSIDExpungementToAgency"))
 		{
-			emailBody = StringUtils.replace(STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+			
+			if (fingerprintPurpose.equals("criminal") || StringUtils.isBlank(fingerprintPurpose))
+			{	
+				emailBody = StringUtils.replace(STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+			}
+			
 		}	
 
 		return emailBody;
