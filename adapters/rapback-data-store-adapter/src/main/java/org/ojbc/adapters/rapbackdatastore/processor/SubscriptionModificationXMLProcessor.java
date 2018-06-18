@@ -63,9 +63,7 @@ public class SubscriptionModificationXMLProcessor {
 					.createSubscriptionRequest(subscriptionXMLPojo,null);
 
 		} catch (Exception ex) {
-			log.error("An error occurred.");
-
-			ex.printStackTrace();
+			log.error("An error occurred.", ex);
 		}
 
 		return doc;

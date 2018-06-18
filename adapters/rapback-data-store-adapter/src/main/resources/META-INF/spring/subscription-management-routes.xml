@@ -79,6 +79,21 @@
 				<camel:setHeader headerName="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
+				
+				<camel:filter>
+					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>criminal</constant>
+					</camel:setHeader>				
+				</camel:filter>
+
+				<camel:filter>
+					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>civil</constant>
+					</camel:setHeader>				
+				</camel:filter>
+				
 			</camel:filter>
 
 			<camel:filter>
@@ -96,6 +111,20 @@
 				<camel:setHeader headerName="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/che-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
+				
+				<camel:filter>
+					<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>criminal</constant>
+					</camel:setHeader>				
+				</camel:filter>
+
+				<camel:filter>
+					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>civil</constant>
+					</camel:setHeader>				
+				</camel:filter>				
 			</camel:filter>
 			
 			<camel:filter>
@@ -138,6 +167,20 @@
 				<camel:setHeader headerName="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
+				
+				<camel:filter>
+					<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>criminal</constant>
+					</camel:setHeader>				
+				</camel:filter>
+
+				<camel:filter>
+					<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
+					<camel:setHeader headerName="fingerprintPurpose">
+						<constant>civil</constant>
+					</camel:setHeader>				
+				</camel:filter>					
 			</camel:filter>
 			
 			<camel:filter>
@@ -159,7 +202,7 @@
 			
 			<camel:log message="Current SID: ${in.headers.currentSid}, New SID:  ${in.headers.newSid}"/>
 			<camel:log message="Current UCN ${in.headers.currentUcn}, New UCN:  ${in.headers.newUcn}"/>
-			<camel:log message="Consolidation Type ${in.headers.consolidationType}, Consolidation Jurisdiction:  ${in.headers.consolidationJurisdiction}"/>
+			<camel:log message="Consolidation Type ${in.headers.consolidationType}, Consolidation Jurisdiction:  ${in.headers.consolidationJurisdiction}, fingerprint purpose: ${in.headers.fingerprintPurpose}"/>
 			
 			<camel:filter>
 				<camel:simple>${in.headers.consolidationJurisdiction} == 'State'</camel:simple>
@@ -267,12 +310,13 @@
 		        <camel:setHeader headerName="operationNamespace">
 		            <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
 		        </camel:setHeader>
-							
-				<camel:to uri="notificationBrokerServiceEndpoint"/>
-				
+
 				<camel:delay>
 					<constant>1000</constant>
 				</camel:delay>
+							
+				<camel:to uri="notificationBrokerServiceEndpoint"/>
+				
 			</camel:split>			
 
 		</route>
