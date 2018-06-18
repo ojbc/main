@@ -106,7 +106,7 @@ public class TestCriminalHistoryConsolidationServiceState {
 
     	assertEquals("agencyemail@local.gov", notifications.get(6).getEmailTo());
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(6).getEmailSubject());
-    	assertEquals("Agency: SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.", notifications.get(6).getEmailBody());
+    	assertEquals("Agency: SID: A9999999 \n UCN: 9222201\n\nThe active subscription for this SID did not have a corresponding federal subscription.  This subscription was updated to include the UCN stated above.  A Federal Rap Back subscription request was automatically sent.", notifications.get(6).getEmailBody());
 
     	
     	//See processor camel context test for the database method tests
