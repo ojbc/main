@@ -16,8 +16,8 @@
  */
 package org.ojbc.util.xml.subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -26,7 +26,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -171,21 +172,23 @@ public class SubscriptionDocumentBuilderTest {
 		return subMsgDoc;		
 	}
 	
-	@Test(expected=Exception.class)
+	@Test
 	public void testCreateUnubscriptionRequestFailed() throws Exception
 	{
-		Unsubscription unsubscription = new Unsubscription();
-		
-		unsubscription.setDateOfBirth(LocalDate.now());
-		unsubscription.setFirstName("John");
-		unsubscription.setLastName("Doe");
-		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
-		unsubscription.setSid("9999");
-		unsubscription.setSubscriptionId("I123");
-		unsubscription.setSystemName("System Name");
-		unsubscription.setTopic("topic");
-		
-		SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
+		Assertions.assertThrows(Exception.class, ()->{
+			Unsubscription unsubscription = new Unsubscription();
+			
+			unsubscription.setDateOfBirth(LocalDate.now());
+			unsubscription.setFirstName("John");
+			unsubscription.setLastName("Doe");
+			unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
+			unsubscription.setSid("9999");
+			unsubscription.setSubscriptionId("I123");
+			unsubscription.setSystemName("System Name");
+			unsubscription.setTopic("topic");
+			
+			SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
+		});
 	}
 	
 	@Test

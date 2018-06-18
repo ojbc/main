@@ -16,9 +16,9 @@
  */
 package org.ojbc.util;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.Hash;
 
 public class TestHash {

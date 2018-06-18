@@ -16,7 +16,8 @@
  */
 package org.ojbc.util;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.localserver.LocalTestServer;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpRequestHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.HttpUtils;
 
 public class TestHttpUtils {

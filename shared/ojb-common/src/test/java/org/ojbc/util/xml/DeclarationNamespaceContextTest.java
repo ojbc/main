@@ -16,19 +16,20 @@
  */
 package org.ojbc.util.xml;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 
 import javax.xml.namespace.NamespaceContext;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DeclarationNamespaceContextTest {
     
-    @Test
+    @SuppressWarnings("rawtypes")
+	@Test
     public void test() throws Exception {
         
         String declaration = "xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:ir=\"http://ojbc.org/IEPD/Exchange/IncidentReport/1.0\"" +

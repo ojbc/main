@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.error.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.PersonSearchResponseErrorBuilderUtils;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.ojbc.util.xml.XmlUtils;

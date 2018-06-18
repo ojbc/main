@@ -16,21 +16,16 @@
  */
 package org.ojbc.util.helper;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
 public class ZipUtilsTest {
 //	private static final Log log = LogFactory.getLog( ZipUtilsTest.class );
-
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	@Test
 	public void test() throws IOException, DataFormatException {

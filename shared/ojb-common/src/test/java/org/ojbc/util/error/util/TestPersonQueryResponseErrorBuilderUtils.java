@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.error.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.PersonQueryResponseErrorBuilderUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;

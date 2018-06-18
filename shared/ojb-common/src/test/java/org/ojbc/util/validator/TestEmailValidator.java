@@ -16,8 +16,10 @@
  */
 package org.ojbc.util.validator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 public class TestEmailValidator {
 
@@ -25,15 +27,15 @@ public class TestEmailValidator {
 	public void testAreEmailAddressesValidNoPatternSpecified()
 	{
 		
-		Assert.assertTrue(EmailValidator.validateEmailAddress("1@1.com"));
-		Assert.assertTrue(EmailValidator.validateEmailAddress("test@localhost.local"));
-		Assert.assertTrue(EmailValidator.validateEmailAddress("test@localhost"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress("1@1@.com"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress("1.com"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress(".com"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress("().com"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress("@.com"));
-		Assert.assertFalse(EmailValidator.validateEmailAddress("1..@.com"));
+		assertTrue(EmailValidator.validateEmailAddress("1@1.com"));
+		assertTrue(EmailValidator.validateEmailAddress("test@localhost.local"));
+		assertTrue(EmailValidator.validateEmailAddress("test@localhost"));
+		assertFalse(EmailValidator.validateEmailAddress("1@1@.com"));
+		assertFalse(EmailValidator.validateEmailAddress("1.com"));
+		assertFalse(EmailValidator.validateEmailAddress(".com"));
+		assertFalse(EmailValidator.validateEmailAddress("().com"));
+		assertFalse(EmailValidator.validateEmailAddress("@.com"));
+		assertFalse(EmailValidator.validateEmailAddress("1..@.com"));
 		
 		
 	}
@@ -41,8 +43,8 @@ public class TestEmailValidator {
 	@Test
 	public void testAreEmailAddressesValidSuccess()
 	{		
-		Assert.assertTrue(EmailValidator.testEmailAddressAgainstRegularExpression("1@1.com", "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(1.com|2.com)"));
-		Assert.assertFalse(EmailValidator.testEmailAddressAgainstRegularExpression("1@3.com", "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(1.com|2.com)"));
+		assertTrue(EmailValidator.testEmailAddressAgainstRegularExpression("1@1.com", "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(1.com|2.com)"));
+		assertFalse(EmailValidator.testEmailAddressAgainstRegularExpression("1@3.com", "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(1.com|2.com)"));
 	}
 
 	
