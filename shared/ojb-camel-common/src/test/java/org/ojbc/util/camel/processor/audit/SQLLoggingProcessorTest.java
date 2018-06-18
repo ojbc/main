@@ -16,11 +16,6 @@
  */
 package org.ojbc.util.camel.processor.audit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.InetAddress;
@@ -36,7 +31,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.component.cxf.CxfConstants;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
@@ -49,26 +44,28 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.signature.SignatureConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {
-		"/META-INF/spring/SQLLoggingProcessorTest-spring-context.xml",
+		"classpath:META-INF/spring/SQLLoggingProcessorTest-spring-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-auditlog.xml",
 		})
@@ -77,7 +74,7 @@ public class SQLLoggingProcessorTest {
     
     private static final Log log = LogFactory.getLog(SQLLoggingProcessorTest.class);
     
-    @Resource
+    @Autowired
     private SQLLoggingProcessor sqlLoggingProcessor;
     
     @Resource
@@ -88,11 +85,11 @@ public class SQLLoggingProcessorTest {
     
     private DefaultCamelContext camelContext;
     
-    @Before
+    @BeforeAll
     public void setup() throws Exception {
-        assertNotNull(sqlLoggingProcessor);
+        Assertions.assertNotNull(sqlLoggingProcessor);
         JdbcTemplate t = sqlLoggingProcessor.getJdbcTemplate();
-        assertNotNull(t);
+        Assertions.assertNotNull(t);
         t.execute("delete from AuditLog");
         camelContext = new DefaultCamelContext();
         camelContext.setName(getClass().getName() + " CamelContext");
@@ -120,10 +117,10 @@ public class SQLLoggingProcessorTest {
         Exchange e = setupExchange(doc);
         sqlLoggingProcessorWithRedactionAndNullValue.logExchange(e);
         List<Map<String, Object>> rows = sqlLoggingProcessor.getJdbcTemplate().queryForList("select * from AuditLog");
-        assertEquals(1, rows.size());
+        Assertions.assertEquals(1, rows.size());
         Map<String, Object> row = rows.get(0);
-        assertNull(row.get("userLastName"));
-        assertEquals(row.get("userFirstName"), "andrew");
+        Assertions.assertNull(row.get("userLastName"));
+        Assertions.assertEquals(row.get("userFirstName"), "andrew");
     }
     
     @Test
@@ -132,10 +129,10 @@ public class SQLLoggingProcessorTest {
         Exchange e = setupExchange(doc);
         sqlLoggingProcessorWithRedaction.logExchange(e);
         List<Map<String, Object>> rows = sqlLoggingProcessor.getJdbcTemplate().queryForList("select * from AuditLog");
-        assertEquals(1, rows.size());
+        Assertions.assertEquals(1, rows.size());
         Map<String, Object> row = rows.get(0);
-        assertEquals(row.get("userLastName"), "redacted");
-        assertEquals(row.get("userFirstName"), "andrew");
+        Assertions.assertEquals(row.get("userLastName"), "redacted");
+        Assertions.assertEquals(row.get("userFirstName"), "andrew");
     }
     
     private String getXmlString() {
@@ -160,39 +157,39 @@ public class SQLLoggingProcessorTest {
         
         List<Map<String, Object>> rows = sqlLoggingProcessor.getJdbcTemplate().queryForList("select * from AuditLog");
         
-        assertEquals(1, rows.size());
+        Assertions.assertEquals(1, rows.size());
         
         Map<String, Object> row = rows.get(0);
         
-        assertEquals(row.get("origin"), "http://www.ojbc.org/from");
-        assertEquals(row.get("destination"), "http://www.ojbc.org/to");
-        assertEquals(row.get("messageID"), "12345");
-        assertEquals(row.get("federationID"), "HIJIS:IDP:HCJDC:USER:admin");
-        assertEquals(row.get("employerName"), "Department of Attorney General");
-        assertEquals(row.get("employerSubUnitName"), "HCJDC ISDI");
-        assertEquals(row.get("userLastName"), "owen");
-        assertEquals(row.get("userFirstName"), "andrew");
-        assertEquals(row.get("identityProviderID"), "https://idp.ojbc-local.org:9443/idp/shibboleth");
-        assertEquals(row.get("camelContextID"), "org.ojbc.util.camel.processor.audit.SQLLoggingProcessorTest CamelContext");
+        Assertions.assertEquals(row.get("origin"), "http://www.ojbc.org/from");
+        Assertions.assertEquals(row.get("destination"), "http://www.ojbc.org/to");
+        Assertions.assertEquals(row.get("messageID"), "12345");
+        Assertions.assertEquals(row.get("federationID"), "HIJIS:IDP:HCJDC:USER:admin");
+        Assertions.assertEquals(row.get("employerName"), "Department of Attorney General");
+        Assertions.assertEquals(row.get("employerSubUnitName"), "HCJDC ISDI");
+        Assertions.assertEquals(row.get("userLastName"), "owen");
+        Assertions.assertEquals(row.get("userFirstName"), "andrew");
+        Assertions.assertEquals(row.get("identityProviderID"), "https://idp.ojbc-local.org:9443/idp/shibboleth");
+        Assertions.assertEquals(row.get("camelContextID"), "org.ojbc.util.camel.processor.audit.SQLLoggingProcessorTest CamelContext");
 
         String hostAddress = (String) row.get("hostAddress");
         InetAddress ia = InetAddress.getByName(hostAddress);
-        assertTrue(ia.isReachable(1000));
+        Assertions.assertTrue(ia.isReachable(1000));
         
         String messageDocS = (String) row.get("soapMessage");
         
         Document messageDoc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(messageDocS)));
         
         Element ee = messageDoc.getDocumentElement();
-        assertEquals("root", ee.getLocalName());
-        assertEquals("http://ojbc.org", ee.getNamespaceURI());
+        Assertions.assertEquals("root", ee.getLocalName());
+        Assertions.assertEquals("http://ojbc.org", ee.getNamespaceURI());
         NodeList nl = ee.getElementsByTagNameNS("http://ojbc.org", "child");
         ee = (Element) nl.item(0);
-        assertEquals("Child contents", ee.getTextContent());
+        Assertions.assertEquals("Child contents", ee.getTextContent());
         
         Date d = (Date) row.get("timestamp");
         DateTime dt = new DateTime(d);
-        assertEquals(0, Minutes.minutesBetween(new DateTime(), dt).getMinutes());
+        Assertions.assertEquals(0, Minutes.minutesBetween(new DateTime(), dt).getMinutes());
     }
 
     private Exchange setupExchange(Object messageDocument) throws ParserConfigurationException, ConfigurationException, Exception {
