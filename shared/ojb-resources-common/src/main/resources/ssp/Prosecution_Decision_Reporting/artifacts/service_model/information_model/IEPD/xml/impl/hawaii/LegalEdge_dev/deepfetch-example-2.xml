@@ -17,217 +17,218 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<PersonIdentifierlist>
-	<id>10533429</id>
-	<value>526-62-2411</value>
-	<type>SSN</type>
-</PersonIdentifierlist>
-<CriminalDefendantlist>
-	<id>24198489</id>
-	<defendantNumber>1</defendantNumber>
-	<target/CriminalCase>24198465</target/CriminalCase>
-	<name>CriminalDefendant</name>
-	<source/Person>9624103</source/Person>
-</CriminalDefendantlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<sexOffender>false</sexOffender>
-	<client>false</client>
-	<socialSecurityNumber>526-65-2411</socialSecurityNumber>
-	<type>Individual</type>
-	<primaryName>Arnold;;Franklin;;</primaryName>
-	<race>NATAM</race>
-	<id>9624103</id>
-	<interpreter>false</interpreter>
-	<description>UNKNOWN</description>
-	<gender>Male</gender>
-	<birthDate>1976-06-28 00:00:00.0</birthDate>
-	<deceased>false</deceased>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>10507739</id>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<textNotification>false</textNotification>
-	<emailNotification>false</emailNotification>
-	<type>Staff</type>
-	<primaryName>2 ; ;Misdemeanor Desk;;</primaryName>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>10479243</id>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<description>ACTIVE</description>
-	<deceased>false</deceased>
-	<type>Law Enforcement</type>
-	<primaryName>Dustin;;Matkin;;</primaryName>
-</Personlist>
-<CriminalCaselist>
-	<id>24198465</id>
-	<caseType>MVDVIOL</caseType>
-	<startDate>2012-01-09 00:00:00.0</startDate>
-	<open>true</open>
-	<fileNumber>12-01716</fileNumber>
-	<filingType>Misdemeanor</filingType>
-	<name>Franklin, Arnold</name>
-	<filingCategory>Criminal</filingCategory>
-	<filingDate>2011-12-17 00:00:00.0</filingDate>
-	<filingCause>MISDEM</filingCause>
-	<verticalCase>false</verticalCase>
-</CriminalCaselist>
-<Courtlist>
-	<id>5416618</id>
-	<description>Pinetop Lakeside Justice Court</description>
-	<name>Pinetop Lakeside Justice Court</name>
-	<type>JP</type>
-</Courtlist>
-<PersonToPersonIdentifierlist>
-	<id>20068713</id>
-	<name>PersonToPersonIdentifier</name>
-	<source/PersonIdentifier>10533429</source/PersonIdentifier>
-	<target/Person>9624103</target/Person>
-</PersonToPersonIdentifierlist>
-<ContactInformationlist>
-	<id>29877068</id>
-	<description></description>
-	<value>928-242-5357</value>
-	<active>true</active>
-	<type>CELL PHONE</type>
-</ContactInformationlist>
-<Incidentlist>
-	<id>24198550</id>
-	<startDate>2011-12-17 00:00:00.0</startDate>
-	<time>Mon Jan 09 09:41:35 EST 2012</time>
-	<reportNumber>11-017796</reportNumber>
-	<dateReported>Sat Dec 17 00:00:00 EST 2011</dateReported>
-	<endDateType>Unsupported</endDateType>
-	<startDateType>Unsupported</startDateType>
-</Incidentlist>
-<PersonNamelist>
-	<id>17576</id>
-	<lastName>Franklin</lastName>
-	<active>true</active>
-	<firstName>Arnold</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName></middleName>
-	<id>89897</id>
-	<lastName>Misdemeanor Desk</lastName>
-	<active>true</active>
-	<firstName>2 </firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName></middleName>
-	<id>87591</id>
-	<lastName>Matkin</lastName>
-	<active>true</active>
-	<firstName>Dustin</firstName>
-</PersonNamelist>
-<PersonToContactInformationlist>
-	<id>29877069</id>
-	<primary>true</primary>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>29877068</source/ContactInformation>
-	<target/Person>10479243</target/Person>
-</PersonToContactInformationlist>
-<IncidentToAddresslist>
-	<id>24198559</id>
-	<name>IncidentToAddress</name>
-	<target/Incident>24198550</target/Incident>
-	<source/Address>24198558</source/Address>
-</IncidentToAddresslist>
-<CaseToIncidentlist>
-	<id>24198560</id>
-	<target/CriminalCase>24198465</target/CriminalCase>
-	<source/Incident>24198550</source/Incident>
-	<name>CaseToIncident</name>
-</CaseToIncidentlist>
-<Chargelist>
-	<law>1M</law>
-	<id>24198525</id>
-	<violationStartDate>Sat Dec 17 00:00:00 EST 2011</violationStartDate>
-	<paragraph>1</paragraph>
-	<dateFiled>2011-12-17 00:00:00.0</dateFiled>
-	<section>28-3473(A)</section>
-</Chargelist>
-<CaseDefendantToChargelist>
-	<id>24198549</id>
-	<name>CaseDefendantToCharge</name>
-	<source/Charge>24198525</source/Charge>
-	<target/CriminalDefendant>24198489</target/CriminalDefendant>
-</CaseDefendantToChargelist>
-<CaseOfficerlist>
-	<id>24198576</id>
-	<target/CriminalCase>24198465</target/CriminalCase>
-	<name>CaseOfficer</name>
-	<source/Person>10479243</source/Person>
-	<arresting>true</arresting>
-</CaseOfficerlist>
-<PersonToAddresslist>
-	<id>19265562</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>MAIL</type>
-	<source/Address>189106</source/Address>
-	<target/Person>9624103</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19169207</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>PRINPBZ</type>
-	<source/Address>173575</source/Address>
-	<target/Person>10479243</target/Person>
-</PersonToAddresslist>
-<Addresslist>
-	<streetAddress>Box 5364</streetAddress>
-	<id>189106</id>
-	<postalCode>86035</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Leupp</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>260/Rim Road</streetAddress>
-	<id>24198558</id>
-	<postalCode>85935</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Pinetop</city>
-	<country>US</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>Navajo County Sheriff's Office
-P.O. Box 668
-</streetAddress>
-	<id>173575</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-</Addresslist>
-<CaseCourtlist>
-	<dateIn>Sat Dec 17 00:00:00 EST 2011</dateIn>
-	<id>24198561</id>
-	<target/CriminalCase>24198465</target/CriminalCase>
-	<name>CaseCourt</name>
-	<currentCourt>true</currentCourt>
-	<source/Court>5416618</source/Court>
-</CaseCourtlist>
-<DefenderAssignmentlist>
-	<assignmentStartDate>Mon Jan 09 00:00:00 EST 2012</assignmentStartDate>
-	<id>24198516</id>
-	<primary>true</primary>
-	<name>DefenderAssignment</name>
-	<source/Person>10507739</source/Person>
-	<target/CriminalDefendant>24198489</target/CriminalDefendant>
-</DefenderAssignmentlist>
+<ROOT>
+	<PersonIdentifierlist>
+		<id>10533429</id>
+		<value>526-62-2411</value>
+		<type>SSN</type>
+	</PersonIdentifierlist>
+	<CriminalDefendantlist>
+		<id>24198489</id>
+		<defendantNumber>1</defendantNumber>
+		<target-CriminalCase>24198465</target-CriminalCase>
+		<name>CriminalDefendant</name>
+		<source-Person>9624103</source-Person>
+	</CriminalDefendantlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<socialSecurityNumber>526-65-2411</socialSecurityNumber>
+		<type>Individual</type>
+		<primaryName>Arnold;;Franklin;;</primaryName>
+		<race>NATAM</race>
+		<id>9624103</id>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Male</gender>
+		<birthDate>1976-06-28 00:00:00.0</birthDate>
+		<deceased>false</deceased>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>10507739</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<textNotification>false</textNotification>
+		<emailNotification>false</emailNotification>
+		<type>Staff</type>
+		<primaryName>2 ; ;Misdemeanor Desk;;</primaryName>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>10479243</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<description>ACTIVE</description>
+		<deceased>false</deceased>
+		<type>Law Enforcement</type>
+		<primaryName>Dustin;;Matkin;;</primaryName>
+	</Personlist>
+	<CriminalCaselist>
+		<id>24198465</id>
+		<caseType>MVDVIOL</caseType>
+		<startDate>2012-01-09 00:00:00.0</startDate>
+		<open>true</open>
+		<fileNumber>12-01716</fileNumber>
+		<filingType>Misdemeanor</filingType>
+		<name>Franklin, Arnold</name>
+		<filingCategory>Criminal</filingCategory>
+		<filingDate>2011-12-17 00:00:00.0</filingDate>
+		<filingCause>MISDEM</filingCause>
+		<verticalCase>false</verticalCase>
+	</CriminalCaselist>
+	<Courtlist>
+		<id>5416618</id>
+		<description>Pinetop Lakeside Justice Court</description>
+		<name>Pinetop Lakeside Justice Court</name>
+		<type>JP</type>
+	</Courtlist>
+	<PersonToPersonIdentifierlist>
+		<id>20068713</id>
+		<name>PersonToPersonIdentifier</name>
+		<source-PersonIdentifier>10533429</source-PersonIdentifier>
+		<target-Person>9624103</target-Person>
+	</PersonToPersonIdentifierlist>
+	<ContactInformationlist>
+		<id>29877068</id>
+		<description></description>
+		<value>928-242-5357</value>
+		<active>true</active>
+		<type>CELL PHONE</type>
+	</ContactInformationlist>
+	<Incidentlist>
+		<id>24198550</id>
+		<startDate>2011-12-17 00:00:00.0</startDate>
+		<time>Mon Jan 09 09:41:35 EST 2012</time>
+		<reportNumber>11-017796</reportNumber>
+		<dateReported>Sat Dec 17 00:00:00 EST 2011</dateReported>
+		<endDateType>Unsupported</endDateType>
+		<startDateType>Unsupported</startDateType>
+	</Incidentlist>
+	<PersonNamelist>
+		<id>17576</id>
+		<lastName>Franklin</lastName>
+		<active>true</active>
+		<firstName>Arnold</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName></middleName>
+		<id>89897</id>
+		<lastName>Misdemeanor Desk</lastName>
+		<active>true</active>
+		<firstName>2</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName></middleName>
+		<id>87591</id>
+		<lastName>Matkin</lastName>
+		<active>true</active>
+		<firstName>Dustin</firstName>
+	</PersonNamelist>
+	<PersonToContactInformationlist>
+		<id>29877069</id>
+		<primary>true</primary>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>29877068</source-ContactInformation>
+		<target-Person>10479243</target-Person>
+	</PersonToContactInformationlist>
+	<IncidentToAddresslist>
+		<id>24198559</id>
+		<name>IncidentToAddress</name>
+		<target-Incident>24198550</target-Incident>
+		<source-Address>24198558</source-Address>
+	</IncidentToAddresslist>
+	<CaseToIncidentlist>
+		<id>24198560</id>
+		<target-CriminalCase>24198465</target-CriminalCase>
+		<source-Incident>24198550</source-Incident>
+		<name>CaseToIncident</name>
+	</CaseToIncidentlist>
+	<Chargelist>
+		<law>1M</law>
+		<id>24198525</id>
+		<violationStartDate>Sat Dec 17 00:00:00 EST 2011</violationStartDate>
+		<paragraph>1</paragraph>
+		<dateFiled>2011-12-17 00:00:00.0</dateFiled>
+		<section>28-3473(A)</section>
+	</Chargelist>
+	<CaseDefendantToChargelist>
+		<id>24198549</id>
+		<name>CaseDefendantToCharge</name>
+		<source-Charge>24198525</source-Charge>
+		<target-CriminalDefendant>24198489</target-CriminalDefendant>
+	</CaseDefendantToChargelist>
+	<CaseOfficerlist>
+		<id>24198576</id>
+		<target-CriminalCase>24198465</target-CriminalCase>
+		<name>CaseOfficer</name>
+		<source-Person>10479243</source-Person>
+		<arresting>true</arresting>
+	</CaseOfficerlist>
+	<PersonToAddresslist>
+		<id>19265562</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>MAIL</type>
+		<source-Address>189106</source-Address>
+		<target-Person>9624103</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19169207</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>PRINPBZ</type>
+		<source-Address>173575</source-Address>
+		<target-Person>10479243</target-Person>
+	</PersonToAddresslist>
+	<Addresslist>
+		<streetAddress>Box 5364</streetAddress>
+		<id>189106</id>
+		<postalCode>86035</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Leupp</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>260-Rim Road</streetAddress>
+		<id>24198558</id>
+		<postalCode>85935</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Pinetop</city>
+		<country>US</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>Navajo County Sheriff's Office P.O. Box 668
+		</streetAddress>
+		<id>173575</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+	</Addresslist>
+	<CaseCourtlist>
+		<dateIn>Sat Dec 17 00:00:00 EST 2011</dateIn>
+		<id>24198561</id>
+		<target-CriminalCase>24198465</target-CriminalCase>
+		<name>CaseCourt</name>
+		<currentCourt>true</currentCourt>
+		<source-Court>5416618</source-Court>
+	</CaseCourtlist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Mon Jan 09 00:00:00 EST 2012</assignmentStartDate>
+		<id>24198516</id>
+		<primary>true</primary>
+		<name>DefenderAssignment</name>
+		<source-Person>10507739</source-Person>
+		<target-CriminalDefendant>24198489</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+</ROOT>

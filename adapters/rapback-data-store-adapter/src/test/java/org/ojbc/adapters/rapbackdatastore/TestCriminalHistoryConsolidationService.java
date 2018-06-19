@@ -52,19 +52,16 @@ import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.rapback.Subscription;
-import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -133,7 +130,6 @@ public class TestCriminalHistoryConsolidationService {
 	}	
 
 	@Test
-	@Ignore
 	public void testCriminalConsolidationService() throws Exception
 	{
 		notificationBrokerServiceEndpointMock.reset();
@@ -144,6 +140,7 @@ public class TestCriminalHistoryConsolidationService {
 		ResultSet rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
+		
 		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123457"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
@@ -320,13 +317,6 @@ public class TestCriminalHistoryConsolidationService {
 		
 		notificationBrokerServiceEndpointMock.assertIsSatisfied();
 
-		for (Exchange ex : notificationBrokerServiceEndpointMock.getExchanges())
-		{
-			Document doc = (Document)ex.getIn().getBody();
-			XmlUtils.printNode(doc);
-			Node subMsgNode = XmlUtils.xPathNodeSearch(doc, "//b-2:Subscribe");
-			assertNotNull(subMsgNode);
-		}	
 	}
 	
 	private Exchange createSenderExchangeNotification() throws Exception {

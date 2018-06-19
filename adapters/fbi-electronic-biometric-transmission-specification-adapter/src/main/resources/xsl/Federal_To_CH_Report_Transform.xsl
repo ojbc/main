@@ -103,7 +103,7 @@
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionTerm" />
 			<xsl:apply-templates select="ebts:RecordRapBackTermDate" />
 			<xsl:apply-templates
-				select="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='Subscription Qualifier ID']"
+				select="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='STATE SUBSCRIPTION ID']"
 				mode="subqid" />
 		</chr-ext:RapBackSubscription>
 	</xsl:template>

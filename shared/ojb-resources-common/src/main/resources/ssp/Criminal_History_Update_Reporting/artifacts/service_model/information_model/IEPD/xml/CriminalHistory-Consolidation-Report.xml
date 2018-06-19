@@ -22,24 +22,44 @@
 	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<chc-report-ext:CriminalHistoryReportJurisdictionCode>State</chc-report-ext:CriminalHistoryReportJurisdictionCode>
+	<chc-report-ext:FederalCriminalHistoryRecordDocument>
+		<nc:DocumentBinary>
+			<chc-report-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</chc-report-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</chc-report-ext:FederalCriminalHistoryRecordDocument>
 	<nc:Person>
 		<chc-report-ext:PreConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</chc-report-ext:PreConsolidationIdentifiers>
 		<chc-report-ext:PostConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID12333</nc:IdentificationID>
+				<chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI2095607</nc:IdentificationID>
+				<chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</chc-report-ext:PostConsolidationIdentifiers>
 	</nc:Person>

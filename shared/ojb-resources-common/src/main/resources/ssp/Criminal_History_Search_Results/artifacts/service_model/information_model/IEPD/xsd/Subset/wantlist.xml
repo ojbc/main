@@ -28,6 +28,7 @@
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CaseCourt" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ChargeNarrative" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ObligationAugmentation" w:isReference="false" w:nillable="true"/>
@@ -76,8 +77,14 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestSubject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Booking" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:BookingType" w:isRequested="false">
+    <w:ElementInType w:name="j:BookingAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CaseAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
@@ -192,6 +199,8 @@
   <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -199,6 +208,8 @@
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonFullName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonNameCategoryAbstract"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
