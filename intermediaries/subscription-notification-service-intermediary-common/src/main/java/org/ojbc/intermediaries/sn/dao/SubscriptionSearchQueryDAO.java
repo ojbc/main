@@ -282,7 +282,7 @@ public class SubscriptionSearchQueryDAO {
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 				+ "so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, s.timestamp as lastUpdatedDate,"
-                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub  "
                 + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
