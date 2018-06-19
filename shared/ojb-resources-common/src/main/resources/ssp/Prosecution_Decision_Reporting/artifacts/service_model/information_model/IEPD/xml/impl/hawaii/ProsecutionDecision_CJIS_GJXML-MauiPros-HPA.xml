@@ -57,7 +57,17 @@
 				</j:ChargeDisposition>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+						<nc:IdentificationID>709-906(1)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>709-906(4)</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>709-906(5)(a) HRS</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 				<pd-hi-codes:ChargeSeverityCode>M</pd-hi-codes:ChargeSeverityCode>
@@ -116,7 +126,17 @@
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+					<nc:IdentificationID>709-906(1)</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>709-906(4)</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>709-906(5)(a) HRS</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
 			</j:ChargeStatute>
 		</pd-ext:CaseAdditionalCharge>

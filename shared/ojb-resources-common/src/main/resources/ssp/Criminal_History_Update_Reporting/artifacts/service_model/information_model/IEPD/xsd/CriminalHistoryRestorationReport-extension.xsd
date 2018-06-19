@@ -17,33 +17,31 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
-	elementFormDefault="qualified">
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
-		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="CriminalHistoryRestorationReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details associated with
-				the restoration of a criminal history for a person.
+			<xsd:documentation>A data type for a set of details associated with the restoration of a criminal history for a person.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element
-						ref="chr-report-ext:CriminalHistoryReportJurisdictionRepresentation"
-						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chc-report-ext:CriminalHistoryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -51,38 +49,34 @@
 	</xsd:complexType>
 	<xsd:complexType name="RestorationIdentifierType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of person identifiers
-				associated with the restoration of a criminal history.
+			<xsd:documentation>A data type for a set of person identifiers associated with the restoration of a criminal history.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="j:PersonStateFingerprintIdentification"
-						minOccurs="0" />
+					<xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" />
 					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="RestorationIdentifiers"
-		type="chr-report-ext:RestorationIdentifierType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="RestorationIdentifiers" type="chc-report-ext:RestorationIdentifierType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Person identifiers for a criminal history.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
-		abstract="true">
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A data concept representing a report's
-				jurisdiction.
+			<xsd:documentation>A data concept representing a report's jurisdiction.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalHistoryReportJurisdictionCode"
-		type="chr-report-ext:CriminalHistoryReportJurisdictionCodeType"
-		substitutionGroup="chr-report-ext:CriminalHistoryReportJurisdictionRepresentation">
+		type="chc-report-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A code for a report jurisdiction.
 			</xsd:documentation>
@@ -94,8 +88,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension
-				base="chr-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+			<xsd:extension base="chc-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -120,4 +113,35 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for criminal purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalCriminalHistoryRecordDocument" type="nc:DocumentType"
+		substitutionGroup="chc-report-ext:CriminalHistoryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a
+				federal rap sheet.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary"
+		xmime:expectedContentType="text/plain">
+	</xsd:element>
 </xsd:schema>

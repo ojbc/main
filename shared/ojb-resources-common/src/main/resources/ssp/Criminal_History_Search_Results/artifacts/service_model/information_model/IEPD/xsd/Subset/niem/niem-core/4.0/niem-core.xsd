@@ -161,6 +161,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -183,6 +184,7 @@
         <xs:sequence>
           <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonNameCategoryAbstract" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -350,6 +352,11 @@
       <xs:documentation>An identification that references an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Person" type="nc:PersonType" nillable="true">
     <xs:annotation>
       <xs:documentation>A human being.</xs:documentation>
@@ -358,6 +365,11 @@
   <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a person was born.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete name of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">

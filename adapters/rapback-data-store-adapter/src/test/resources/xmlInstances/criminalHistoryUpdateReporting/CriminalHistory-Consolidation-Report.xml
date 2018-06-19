@@ -29,6 +29,8 @@
 		<chc-report-ext:PreConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>A123457</nc:IdentificationID>
+				<chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false</chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>				
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>9222201</nc:IdentificationID>

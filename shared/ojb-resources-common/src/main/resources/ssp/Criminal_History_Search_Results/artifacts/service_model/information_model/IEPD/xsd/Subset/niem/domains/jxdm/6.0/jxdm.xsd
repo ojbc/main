@@ -85,7 +85,20 @@
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BookingType">
+    <xs:annotation>
+      <xs:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:BookingAgency" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -251,6 +264,16 @@
   <xs:element name="ArrestSubjectAssociation" type="j:ActivitySubjectAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A relationship between an arrest activity and a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Booking" type="j:BookingType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police blotter, and which may also include photographing,</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BookingAgency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An organization which processes a booking.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">

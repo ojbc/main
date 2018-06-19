@@ -74,7 +74,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	CamelContext ctx = new DefaultCamelContext(); 
     	Exchange ex = new DefaultExchange(ctx);
     	    
-    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A123458", "A9999999", "9222201", "9222201", "criminalHistoryConsolidationReport");
+    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A123458", "A9999999", "9222201", "9222201", "criminalHistoryConsolidationReport", "criminal");
     	
     	assertEquals(7, notifications.size());
     	
@@ -106,7 +106,7 @@ public class TestCriminalHistoryConsolidationServiceState {
 
     	assertEquals("agencyemail@local.gov", notifications.get(6).getEmailTo());
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(6).getEmailSubject());
-    	assertEquals("Agency: SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.", notifications.get(6).getEmailBody());
+    	assertEquals("Agency: SID: A9999999 \n UCN: 9222201\n\nThe active subscription for this SID did not have a corresponding federal subscription.  This subscription was updated to include the UCN stated above.  A Federal Rap Back subscription request was automatically sent.", notifications.get(6).getEmailBody());
 
     	
     	//See processor camel context test for the database method tests
@@ -117,7 +117,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	
     	assertEquals(1, subscriptions.size());
     	
-    	notifications = criminalHistoryConsolidationProcessor.expungeCriminalHistoryState("A9999999", "", "criminalHistoryExpungementReport");
+    	notifications = criminalHistoryConsolidationProcessor.expungeCriminalHistoryState("A9999999", "", "criminalHistoryExpungementReport", "criminal");
     	
     	assertEquals(4, notifications.size());
 
@@ -140,7 +140,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	notifications.clear();
     	
     	//We should get four notifications.  3 for the SID consolidation and one for the UCN match notification
-    	notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A9999999", "A8888888", "9222200", "9222201", "criminalHistoryConsolidationReport");
+    	notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A9999999", "A8888888", "9222200", "9222201", "criminalHistoryConsolidationReport", "criminal");
 
     	log.info(notifications);
     	
@@ -201,7 +201,6 @@ public class TestCriminalHistoryConsolidationServiceState {
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
 		assertEquals("Rap Back: SID Update by HCJDC", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 
-		
 		chcNotification.setConsolidationType("reportSIDExpungementToAgency");
 		assertEquals("Agency Notification: SID Expungement for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
@@ -226,15 +225,27 @@ public class TestCriminalHistoryConsolidationServiceState {
     	
 		chcNotification.setConsolidationType("criminalHistoryExpungementReport");
 		expectedEmailBody="123456 has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "criminal"));
 		
 		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
 		expectedEmailBody="123456 has been consolidated into 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on 99999.  A new arrest may or may not have occurred.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "criminal"));
 
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
 		expectedEmailBody="123456 has been updated to 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on 99999.  A new arrest may or may not have occurred.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "criminal"));
+		
+		chcNotification.setConsolidationType("criminalHistoryExpungementReport");
+		expectedEmailBody="You are receiving this message because a identity deletion event has occurred related to one or more of your Rap Back subscriptions.  Your subscriptions have been cancelled.";
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "civil"));
+		
+		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
+		expectedEmailBody="You are receiving this message because a identity consolidation event has occurred related to one or more of your Rap Back subscriptions.  Log on to the Applicant Rap Back Application in the HIJIS Portal to confirm you are authorized to view the updated record(s).";
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "civil"));
+
+		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
+		expectedEmailBody="123456 has been updated to 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription and for updated criminal history record information.";
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "civil"));		
 
 	}	
 	

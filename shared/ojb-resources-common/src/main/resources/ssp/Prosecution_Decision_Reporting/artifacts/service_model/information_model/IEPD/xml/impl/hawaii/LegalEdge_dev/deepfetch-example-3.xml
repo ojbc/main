@@ -17,1035 +17,1037 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<Organizationlist>
-	<id>9401795</id>
-	<name>Navajo County Sheriff</name>
-	<primaryReferenceId>3899</primaryReferenceId>
-	<type>AGENCY</type>
-	<salutation>Dear Sirs:</salutation>
-</Organizationlist>
-<CriminalDefendantlist>
-	<id>24741350</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CriminalDefendant</name>
-	<source/Person>9426659</source/Person>
-</CriminalDefendantlist>
-<CriminalDefendantlist>
-	<id>24741386</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CriminalDefendant</name>
-	<source/Person>9426672</source/Person>
-</CriminalDefendantlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<sexOffender>false</sexOffender>
-	<client>false</client>
-	<type>Individual</type>
-	<primaryName>Garrison;;Franklin;Mr.;</primaryName>
-	<race>NATAM</race>
-	<id>9426659</id>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-5'3"-110}</physicalFeatures>
-	<interpreter>false</interpreter>
-	<description>UNKNOWN</description>
-	<gender>Male</gender>
-	<birthDate>1994-10-03 00:00:00.0</birthDate>
-	<deceased>false</deceased>
-</Personlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<sexOffender>false</sexOffender>
-	<id>10507752</id>
-	<interpreter>false</interpreter>
-	<client>false</client>
-	<textNotification>false</textNotification>
-	<emailNotification>false</emailNotification>
-	<type>Staff</type>
-	<primaryName> 3; ;Misdemeanor Desk;;</primaryName>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>9426672</id>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-4'9"-65}</physicalFeatures>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-4'9"-65}</physicalFeatures>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<description>OK</description>
-	<deceased>false</deceased>
-	<birthDate>1993-10-03 00:00:00.0</birthDate>
-	<primaryName>Jason;D;Franklin;Mr.;</primaryName>
-	<type>Individual</type>
-	<race>NATAM</race>
-</Personlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<id>23392502</id>
-	<description></description>
-	<socialSecurityNumber>527419826</socialSecurityNumber>
-	<birthDate>1973-12-11 00:00:00.0</birthDate>
-	<deceased>false</deceased>
-	<primaryName>Joyce;Lyn;Belin;;</primaryName>
-	<type>Individual</type>
-</Personlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<sexOffender>false</sexOffender>
-	<client>false</client>
-	<type>Individual</type>
-	<primaryName>Alvin;James;Franklin;Mr.;</primaryName>
-	<race>NATAM</race>
-	<id>9426698</id>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=HT: 5'10"; WT: 130; HR: BLK; EYES: BRN}</physicalFeatures>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=HT: 5'10"; WT: 130; HR: BLK; EYES: BRN}</physicalFeatures>
-	<interpreter>false</interpreter>
-	<description>UNKNOWN</description>
-	<gender>Male</gender>
-	<deceased>false</deceased>
-	<birthDate>1990-07-14 00:00:00.0</birthDate>
-</Personlist>
-<Personlist>
-	<handicapped>false</handicapped>
-	<sexOffender>false</sexOffender>
-	<client>false</client>
-	<type>Individual</type>
-	<primaryName>Pilar;Trisha;Duran;Ms.;</primaryName>
-	<race>NATAM</race>
-	<id>9694485</id>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair brn-eyes brn-}</physicalFeatures>
-	<interpreter>false</interpreter>
-	<description>UNKNOWN</description>
-	<gender>Female</gender>
-	<deceased>false</deceased>
-	<birthDate>1992-07-20 00:00:00.0</birthDate>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>9994343</id>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<description>OK</description>
-	<deceased>false</deceased>
-	<type>Law Enforcement</type>
-	<primaryName>Eric;# 623;Zimmerman;Officer;</primaryName>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>10342249</id>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<description>UNKNOWN</description>
-	<deceased>false</deceased>
-	<primaryName>Ray;;Patterson;;</primaryName>
-	<type>Law Enforcement</type>
-</Personlist>
-<Personlist>
-	<sexOffender>false</sexOffender>
-	<handicapped>false</handicapped>
-	<id>9712113</id>
-	<physicalFeatures>PersonPhysicalFeature{type=Generic,description=Ht:  Wt:  Hair:  Eyes:}</physicalFeatures>
-	<client>false</client>
-	<interpreter>false</interpreter>
-	<deceased>false</deceased>
-	<type>Individual</type>
-	<primaryName>STATE;OF;STATE OF ARIZONA;;</primaryName>
-</Personlist>
-<CriminalCaselist>
-	<gangCase>false</gangCase>
-	<id>24741326</id>
-	<open>true</open>
-	<startDate>2012-03-05 00:00:00.0</startDate>
-	<caseType>DV</caseType>
-	<fileNumber>12-02491</fileNumber>
-	<filingType>Misdemeanor</filingType>
-	<description>3-14-12 JASON FRANKLIN PLED TO DC/DV, 50.00 DV ASSESSMENT, TOTAL FINE 130.00, ENROLL IN PHENIX SCHOOL ASAP, ALL REMAINING CHARGES DISMISSED</description>
-	<name>Franklin, Garrison; Franklin, Jason D</name>
-	<filingCategory>Criminal</filingCategory>
-	<filingCause>DV</filingCause>
-	<verticalCase>false</verticalCase>
-</CriminalCaselist>
-<Courtlist>
-	<id>5416612</id>
-	<description>Holbrook Justice Court</description>
-	<name>Holbrook Justice Court</name>
-	<type>JP</type>
-</Courtlist>
-<ContactInformationlist>
-	<id>23058302</id>
-	<value>401-8876</value>
-	<active>true</active>
-	<type>CELL PHONE</type>
-</ContactInformationlist>
-<ContactInformationlist>
-	<id>23392516</id>
-	<value>928 401-8876</value>
-	<type>Home</type>
-</ContactInformationlist>
-<ContactInformationlist>
-	<id>26914402</id>
-	<description></description>
-	<value>928-313-6064</value>
-	<active>true</active>
-	<type>CELL PHONE</type>
-</ContactInformationlist>
-<ContactInformationlist>
-	<id>26914415</id>
-	<description></description>
-	<value>928-524-3948</value>
-	<active>false</active>
-	<type>Business</type>
-</ContactInformationlist>
-<ContactInformationlist>
-	<id>5359078</id>
-	<value>928 524-3991</value>
-	<active>true</active>
-	<type>Direct</type>
-</ContactInformationlist>
-<ContactInformationlist>
-	<id>5367627</id>
-	<value>928-524-3991</value>
-	<active>true</active>
-	<type>Direct</type>
-</ContactInformationlist>
-<AppearanceToAppearanceReasonlist>
-	<id>24756294</id>
-	<source/Appearance>24756280</source/Appearance>
-	<name>AppearanceToAppearanceReason</name>
-	<target/AppearanceReason>24756292</target/AppearanceReason>
-</AppearanceToAppearanceReasonlist>
-<AppearanceCourtlist>
-	<id>24756291</id>
-	<source/Appearance>24756280</source/Appearance>
-	<target/Court>5416612</target/Court>
-	<name>AppearanceCourt</name>
-</AppearanceCourtlist>
-<CaseWitnesslist>
-	<id>24741447</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseWitness</name>
-	<source/Person>9694485</source/Person>
-</CaseWitnesslist>
-<Incidentlist>
-	<id>24741422</id>
-	<startDate>2012-02-06 00:00:00.0</startDate>
-	<time>Mon Mar 05 12:19:08 EST 2012</time>
-	<reportNumber>H12-00647</reportNumber>
-	<dateReported>Mon Feb 06 00:00:00 EST 2012</dateReported>
-	<endDateType>Unsupported</endDateType>
-	<startDateType>Unsupported</startDateType>
-</Incidentlist>
-<AppearanceReasonlist>
-	<id>24756292</id>
-	<primary>false</primary>
-	<type>PRETRL</type>
-	<typeComment>CR2012-0185</typeComment>
-</AppearanceReasonlist>
-<PersonNamelist>
-	<id>1526</id>
-	<lastName>Franklin</lastName>
-	<prefix>Mr.</prefix>
-	<active>true</active>
-	<firstName>Garrison</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName></middleName>
-	<id>89898</id>
-	<lastName>Misdemeanor Desk</lastName>
-	<active>true</active>
-	<firstName> 3</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName>D</middleName>
-	<id>1527</id>
-	<lastName>Franklin</lastName>
-	<prefix>Mr.</prefix>
-	<active>true</active>
-	<firstName>Jason</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName>Lyn</middleName>
-	<id>23392503</id>
-	<lastName>Belin</lastName>
-	<active>true</active>
-	<firstName>Joyce</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName>James</middleName>
-	<id>1529</id>
-	<lastName>Franklin</lastName>
-	<prefix>Mr.</prefix>
-	<active>true</active>
-	<firstName>Alvin</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName>Trisha</middleName>
-	<id>23443</id>
-	<lastName>Duran</lastName>
-	<prefix>Ms.</prefix>
-	<active>true</active>
-	<firstName>Pilar</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName># 623</middleName>
-	<id>48228</id>
-	<lastName>Zimmerman</lastName>
-	<prefix>Officer</prefix>
-	<active>true</active>
-	<firstName>Eric</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<id>76648</id>
-	<lastName>Patterson</lastName>
-	<active>true</active>
-	<firstName>Ray</firstName>
-</PersonNamelist>
-<PersonNamelist>
-	<middleName>OF</middleName>
-	<id>24895</id>
-	<lastName>STATE OF ARIZONA</lastName>
-	<active>true</active>
-	<firstName>STATE</firstName>
-</PersonNamelist>
-<PersonToContactInformationlist>
-	<id>31875193</id>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>23058302</source/ContactInformation>
-	<target/Person>9426672</target/Person>
-</PersonToContactInformationlist>
-<PersonToContactInformationlist>
-	<id>23392517</id>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>23392516</source/ContactInformation>
-	<target/Person>23392502</target/Person>
-</PersonToContactInformationlist>
-<PersonToContactInformationlist>
-	<id>26914403</id>
-	<primary>true</primary>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>26914402</source/ContactInformation>
-	<target/Person>23392502</target/Person>
-</PersonToContactInformationlist>
-<PersonToContactInformationlist>
-	<id>26914416</id>
-	<primary>false</primary>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>26914415</source/ContactInformation>
-	<target/Person>23392502</target/Person>
-</PersonToContactInformationlist>
-<PersonToContactInformationlist>
-	<id>19928599</id>
-	<primary>true</primary>
-	<name>PersonToContactInformation</name>
-	<source/ContactInformation>5359078</source/ContactInformation>
-	<target/Person>9994343</target/Person>
-</PersonToContactInformationlist>
-<PersonToContactInformationlist>
-	<id>19957915</id>
-	<name>PersonToContactInformation</name>
-	<primary>true</primary>
-	<source/ContactInformation>5367627</source/ContactInformation>
-	<target/Person>10342249</target/Person>
-</PersonToContactInformationlist>
-<IncidentToAddresslist>
-	<id>24741431</id>
-	<name>IncidentToAddress</name>
-	<target/Incident>24741422</target/Incident>
-	<source/Address>24741430</source/Address>
-</IncidentToAddresslist>
-<CaseToIncidentlist>
-	<id>24741432</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<source/Incident>24741422</source/Incident>
-	<name>CaseToIncident</name>
-</CaseToIncidentlist>
-<CaseToIncidentlist>
-	<target/DelinquencyCase>25777744</target/DelinquencyCase>
-	<id>25777779</id>
-	<source/Incident>24741422</source/Incident>
-	<name>CaseToIncident</name>
-</CaseToIncidentlist>
-<Appearancelist>
-	<startTime>1970-01-01 09:00:00.0</startTime>
-	<id>24756280</id>
-	<startDate>2012-03-14 00:00:00.0</startDate>
-	<location>HJC</location>
-	<description></description>
-	<clientMustAppear>false</clientMustAppear>
-	<endDateType>Unsupported</endDateType>
-	<startDateType>Unsupported</startDateType>
-</Appearancelist>
-<CaseVictimlist>
-	<id>24741433</id>
-	<inactiveVictim>false</inactiveVictim>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseVictim</name>
-	<source/Person>23392502</source/Person>
-</CaseVictimlist>
-<CaseVictimlist>
-	<id>24741440</id>
-	<inactiveVictim>false</inactiveVictim>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseVictim</name>
-	<source/Person>9426698</source/Person>
-</CaseVictimlist>
-<CaseVictimlist>
-	<id>24741528</id>
-	<inactiveVictim>false</inactiveVictim>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseVictim</name>
-	<source/Person>9712113</source/Person>
-</CaseVictimlist>
-<CaseOfficerlist>
-	<id>24741457</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseOfficer</name>
-	<source/Person>9994343</source/Person>
-	<arresting>true</arresting>
-</CaseOfficerlist>
-<CaseOfficerlist>
-	<id>24741462</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseOfficer</name>
-	<source/Person>10342249</source/Person>
-	<arresting>true</arresting>
-</CaseOfficerlist>
-<PersonToAddresslist>
-	<id>19784332</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<correspondence>false</correspondence>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>false</active>
-	<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
-	<type>PREV</type>
-	<source/Address>273772</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19815454</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>false</active>
-	<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
-	<type>PREV</type>
-	<source/Address>278218</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19822384</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<correspondence>false</correspondence>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>false</active>
-	<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
-	<type>PREV</type>
-	<source/Address>279208</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19828880</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>false</active>
-	<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
-	<type>Home</type>
-	<source/Address>280136</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19833325</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<correspondence>false</correspondence>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>false</active>
-	<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
-	<type>Home</type>
-	<source/Address>280771</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>23492192</id>
-	<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>23492191</source/Address>
-	<target/Person>9426659</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19784339</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>273773</source/Address>
-	<target/Person>9426672</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19820963</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>279005</source/Address>
-	<target/Person>9426672</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875190</id>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>184601</source/Address>
-	<target/Person>9426672</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875191</id>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>253906</source/Address>
-	<target/Person>9426672</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875192</id>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>23058308</source/Address>
-	<target/Person>9426672</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>23392522</id>
-	<startDate>Tue Oct 02 00:00:00 EDT 2012</startDate>
-	<primary>true</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>23392521</source/Address>
-	<target/Person>23392502</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19773398</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>272210</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19775526</id>
-	<correspondence>false</correspondence>
-	<primary>true</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>272514</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19784353</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>273775</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19810246</id>
-	<correspondence>false</correspondence>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>277474</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19831519</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>280513</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19832632</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>280672</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875198</id>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>165097</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875199</id>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>169354</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875200</id>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>184603</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875201</id>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>236036</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875202</id>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>Home</type>
-	<source/Address>270511</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>31875203</id>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>true</active>
-	<type>PREV</type>
-	<source/Address>271203</source/Address>
-	<target/Person>9426698</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19313498</id>
-	<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
-	<correspondence>false</correspondence>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>false</active>
-	<type>PREV</type>
-	<source/Address>196810</source/Address>
-	<target/Person>9694485</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19607694</id>
-	<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>false</primary>
-	<active>false</active>
-	<type>Home</type>
-	<source/Address>243571</source/Address>
-	<target/Person>9694485</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>22983488</id>
-	<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
-	<primary>false</primary>
-	<name>PersonToAddress</name>
-	<active>false</active>
-	<type>Home</type>
-	<source/Address>22983487</source/Address>
-	<target/Person>9694485</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>30098790</id>
-	<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>MAIL</type>
-	<source/Address>30098789</source/Address>
-	<target/Person>9694485</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19506362</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<type>Work</type>
-	<source/Address>227471</source/Address>
-	<target/Person>9994343</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19766818</id>
-	<correspondence>false</correspondence>
-	<primary>true</primary>
-	<name>PersonToAddress</name>
-	<active>true</active>
-	<type>Work</type>
-	<source/Address>269077</source/Address>
-	<target/Person>10342249</target/Person>
-</PersonToAddresslist>
-<PersonToAddresslist>
-	<id>19325426</id>
-	<correspondence>false</correspondence>
-	<name>PersonToAddress</name>
-	<primary>true</primary>
-	<active>true</active>
-	<source/Address>198705</source/Address>
-	<target/Person>9712113</target/Person>
-</PersonToAddresslist>
-<CaseDefendantToAppearancelist>
-	<id>24756290</id>
-	<source/Appearance>24756280</source/Appearance>
-	<name>CaseDefendantToAppearance</name>
-	<target/CriminalDefendant>24741386</target/CriminalDefendant>
-</CaseDefendantToAppearancelist>
-<CaseToOrganizationlist>
-	<id>24741467</id>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<source/Organization>9401795</source/Organization>
-	<name>CaseToOrganization</name>
-	<arresting>true</arresting>
-</CaseToOrganizationlist>
-<CaseCourtlist>
-	<dateIn>Mon Feb 06 00:00:00 EST 2012</dateIn>
-	<id>24756231</id>
-	<amended>false</amended>
-	<courtNumber>CR2012-0185</courtNumber>
-	<target/CriminalCase>24741326</target/CriminalCase>
-	<name>CaseCourt</name>
-	<currentCourt>true</currentCourt>
-	<comment>JASON FRANKLIN</comment>
-	<source/Court>5416612</source/Court>
-</CaseCourtlist>
-<Addresslist>
-	<streetAddress>502 1/2 West Arizona</streetAddress>
-	<id>273772</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 Mission Lane # 19</streetAddress>
-	<id>278218</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 E. Iowa, #11</streetAddress>
-	<id>279208</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country></country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
-	<id>280136</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 E. Iowa, #11</streetAddress>
-	<id>280771</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country></country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>902 N. Thrd Ave. #2</streetAddress>
-	<id>23492191</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>US</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>502 1/2 West Arizona</streetAddress>
-	<id>273773</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 West Iowa</streetAddress>
-	<id>279005</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>502 1/2 West Arizona</streetAddress>
-	<id>184601</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 West Iowa</streetAddress>
-	<id>253906</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>902 3rd Ave</streetAddress>
-	<id>23058308</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>902 N. Third Ave. 2</streetAddress>
-	<id>24741430</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>US</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>902 N Third Ave #2</streetAddress>
-	<id>23392521</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>US</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
-	<id>272210</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>710 E Hampshire, #9
-</streetAddress>
-	<id>272514</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>502 1/2 West Arizona</streetAddress>
-	<id>273775</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 Mission Ln, #19</streetAddress>
-	<id>277474</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
-	<id>280513</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 Mission Ln, #19</streetAddress>
-	<id>280672</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
-	<id>165097</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>710 E Hampshire, #9
-</streetAddress>
-	<id>169354</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>502 1/2 West Arizona</streetAddress>
-	<id>184603</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 Mission Ln, #19</streetAddress>
-	<id>236036</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
-	<id>270511</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>201 Mission Ln, #19</streetAddress>
-	<id>271203</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>711 W. Georgia Street</streetAddress>
-	<id>196810</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>1410 W Buffalo Street</streetAddress>
-	<id>243571</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<country>USA</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>162 W Buffalo</streetAddress>
-	<id>22983487</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country></country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>204 MISSION LN. APT.#A2</streetAddress>
-	<id>30098789</id>
-	<postalCode>86025</postalCode>
-	<county>Navajo</county>
-	<state>AZ</state>
-	<country>US</country>
-	<city>Holbrook</city>
-</Addresslist>
-<Addresslist>
-	<streetAddress>Holbrook Police Department
-120 East Buffalo Street
-PO Box 656</streetAddress>
-	<id>227471</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>PO Box 656</streetAddress>
-	<id>269077</id>
-	<postalCode>86025</postalCode>
-	<county>NAVAJO</county>
-	<state>AZ</state>
-	<city>Holbrook</city>
-	<country>USA</country>
-</Addresslist>
-<Addresslist>
-	<streetAddress>120 E BUFFALO ST</streetAddress>
-	<id>198705</id>
-	<postalCode>86025</postalCode>
-	<state>AZ</state>
-	<city>HOLBROOK</city>
-</Addresslist>
-<DefenderAssignmentlist>
-	<assignmentStartDate>Mon Mar 05 00:00:00 EST 2012</assignmentStartDate>
-	<id>24741377</id>
-	<name>DefenderAssignment</name>
-	<primary>true</primary>
-	<source/Person>10507752</source/Person>
-	<target/CriminalDefendant>24741350</target/CriminalDefendant>
-</DefenderAssignmentlist>
-<DefenderAssignmentlist>
-	<assignmentStartDate>Mon Mar 05 00:00:00 EST 2012</assignmentStartDate>
-	<id>24741413</id>
-	<name>DefenderAssignment</name>
-	<primary>true</primary>
-	<source/Person>10507752</source/Person>
-	<target/CriminalDefendant>24741386</target/CriminalDefendant>
-</DefenderAssignmentlist>
+<ROOT>
+	<Organizationlist>
+		<id>9401795</id>
+		<name>Navajo County Sheriff</name>
+		<primaryReferenceId>3899</primaryReferenceId>
+		<type>AGENCY</type>
+		<salutation>Dear Sirs:</salutation>
+	</Organizationlist>
+	<CriminalDefendantlist>
+		<id>24741350</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CriminalDefendant</name>
+		<source-Person>9426659</source-Person>
+	</CriminalDefendantlist>
+	<CriminalDefendantlist>
+		<id>24741386</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CriminalDefendant</name>
+		<source-Person>9426672</source-Person>
+	</CriminalDefendantlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<type>Individual</type>
+		<primaryName>Garrison;;Franklin;Mr.;</primaryName>
+		<race>NATAM</race>
+		<id>9426659</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-5'3"-110}</physicalFeatures>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Male</gender>
+		<birthDate>1994-10-03 00:00:00.0</birthDate>
+		<deceased>false</deceased>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<id>10507752</id>
+		<interpreter>false</interpreter>
+		<client>false</client>
+		<textNotification>false</textNotification>
+		<emailNotification>false</emailNotification>
+		<type>Staff</type>
+		<primaryName> 3; ;Misdemeanor Desk;;</primaryName>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>9426672</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-4'9"-65}</physicalFeatures>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair blk-eyes brn-4'9"-65}</physicalFeatures>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<description>OK</description>
+		<deceased>false</deceased>
+		<birthDate>1993-10-03 00:00:00.0</birthDate>
+		<primaryName>Jason;D;Franklin;Mr.;</primaryName>
+		<type>Individual</type>
+		<race>NATAM</race>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<id>23392502</id>
+		<description></description>
+		<socialSecurityNumber>527419826</socialSecurityNumber>
+		<birthDate>1973-12-11 00:00:00.0</birthDate>
+		<deceased>false</deceased>
+		<primaryName>Joyce;Lyn;Belin;;</primaryName>
+		<type>Individual</type>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<type>Individual</type>
+		<primaryName>Alvin;James;Franklin;Mr.;</primaryName>
+		<race>NATAM</race>
+		<id>9426698</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=HT: 5'10"; WT: 130; HR: BLK; EYES: BRN}</physicalFeatures>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=HT: 5'10"; WT: 130; HR: BLK; EYES: BRN}</physicalFeatures>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Male</gender>
+		<deceased>false</deceased>
+		<birthDate>1990-07-14 00:00:00.0</birthDate>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<type>Individual</type>
+		<primaryName>Pilar;Trisha;Duran;Ms.;</primaryName>
+		<race>NATAM</race>
+		<id>9694485</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=hair brn-eyes brn-}</physicalFeatures>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Female</gender>
+		<deceased>false</deceased>
+		<birthDate>1992-07-20 00:00:00.0</birthDate>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>9994343</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<description>OK</description>
+		<deceased>false</deceased>
+		<type>Law Enforcement</type>
+		<primaryName>Eric;# 623;Zimmerman;Officer;</primaryName>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>10342249</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<deceased>false</deceased>
+		<primaryName>Ray;;Patterson;;</primaryName>
+		<type>Law Enforcement</type>
+	</Personlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>9712113</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=Ht: Wt: Hair: Eyes:}</physicalFeatures>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<deceased>false</deceased>
+		<type>Individual</type>
+		<primaryName>STATE;OF;STATE OF ARIZONA;;</primaryName>
+	</Personlist>
+	<CriminalCaselist>
+		<gangCase>false</gangCase>
+		<id>24741326</id>
+		<open>true</open>
+		<startDate>2012-03-05 00:00:00.0</startDate>
+		<caseType>DV</caseType>
+		<fileNumber>12-02491</fileNumber>
+		<filingType>Misdemeanor</filingType>
+		<description>3-14-12 JASON FRANKLIN PLED TO DC-DV, 50.00 DV ASSESSMENT, TOTAL FINE 130.00, ENROLL IN PHENIX SCHOOL ASAP, ALL
+			REMAINING CHARGES DISMISSED</description>
+		<name>Franklin, Garrison; Franklin, Jason D</name>
+		<filingCategory>Criminal</filingCategory>
+		<filingCause>DV</filingCause>
+		<verticalCase>false</verticalCase>
+	</CriminalCaselist>
+	<Courtlist>
+		<id>5416612</id>
+		<description>Holbrook Justice Court</description>
+		<name>Holbrook Justice Court</name>
+		<type>JP</type>
+	</Courtlist>
+	<ContactInformationlist>
+		<id>23058302</id>
+		<value>401-8876</value>
+		<active>true</active>
+		<type>CELL PHONE</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>23392516</id>
+		<value>928 401-8876</value>
+		<type>Home</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>26914402</id>
+		<description></description>
+		<value>928-313-6064</value>
+		<active>true</active>
+		<type>CELL PHONE</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>26914415</id>
+		<description></description>
+		<value>928-524-3948</value>
+		<active>false</active>
+		<type>Business</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>5359078</id>
+		<value>928 524-3991</value>
+		<active>true</active>
+		<type>Direct</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>5367627</id>
+		<value>928-524-3991</value>
+		<active>true</active>
+		<type>Direct</type>
+	</ContactInformationlist>
+	<AppearanceToAppearanceReasonlist>
+		<id>24756294</id>
+		<source-Appearance>24756280</source-Appearance>
+		<name>AppearanceToAppearanceReason</name>
+		<target-AppearanceReason>24756292</target-AppearanceReason>
+	</AppearanceToAppearanceReasonlist>
+	<AppearanceCourtlist>
+		<id>24756291</id>
+		<source-Appearance>24756280</source-Appearance>
+		<target-Court>5416612</target-Court>
+		<name>AppearanceCourt</name>
+	</AppearanceCourtlist>
+	<CaseWitnesslist>
+		<id>24741447</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseWitness</name>
+		<source-Person>9694485</source-Person>
+	</CaseWitnesslist>
+	<Incidentlist>
+		<id>24741422</id>
+		<startDate>2012-02-06 00:00:00.0</startDate>
+		<time>Mon Mar 05 12:19:08 EST 2012</time>
+		<reportNumber>H12-00647</reportNumber>
+		<dateReported>Mon Feb 06 00:00:00 EST 2012</dateReported>
+		<endDateType>Unsupported</endDateType>
+		<startDateType>Unsupported</startDateType>
+	</Incidentlist>
+	<AppearanceReasonlist>
+		<id>24756292</id>
+		<primary>false</primary>
+		<type>PRETRL</type>
+		<typeComment>CR2012-0185</typeComment>
+	</AppearanceReasonlist>
+	<PersonNamelist>
+		<id>1526</id>
+		<lastName>Franklin</lastName>
+		<prefix>Mr.</prefix>
+		<active>true</active>
+		<firstName>Garrison</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName></middleName>
+		<id>89898</id>
+		<lastName>Misdemeanor Desk</lastName>
+		<active>true</active>
+		<firstName> 3</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>D</middleName>
+		<id>1527</id>
+		<lastName>Franklin</lastName>
+		<prefix>Mr.</prefix>
+		<active>true</active>
+		<firstName>Jason</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>Lyn</middleName>
+		<id>23392503</id>
+		<lastName>Belin</lastName>
+		<active>true</active>
+		<firstName>Joyce</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>James</middleName>
+		<id>1529</id>
+		<lastName>Franklin</lastName>
+		<prefix>Mr.</prefix>
+		<active>true</active>
+		<firstName>Alvin</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>Trisha</middleName>
+		<id>23443</id>
+		<lastName>Duran</lastName>
+		<prefix>Ms.</prefix>
+		<active>true</active>
+		<firstName>Pilar</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName># 623</middleName>
+		<id>48228</id>
+		<lastName>Zimmerman</lastName>
+		<prefix>Officer</prefix>
+		<active>true</active>
+		<firstName>Eric</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<id>76648</id>
+		<lastName>Patterson</lastName>
+		<active>true</active>
+		<firstName>Ray</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>OF</middleName>
+		<id>24895</id>
+		<lastName>STATE OF ARIZONA</lastName>
+		<active>true</active>
+		<firstName>STATE</firstName>
+	</PersonNamelist>
+	<PersonToContactInformationlist>
+		<id>31875193</id>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>23058302</source-ContactInformation>
+		<target-Person>9426672</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>23392517</id>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>23392516</source-ContactInformation>
+		<target-Person>23392502</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>26914403</id>
+		<primary>true</primary>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>26914402</source-ContactInformation>
+		<target-Person>23392502</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>26914416</id>
+		<primary>false</primary>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>26914415</source-ContactInformation>
+		<target-Person>23392502</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>19928599</id>
+		<primary>true</primary>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>5359078</source-ContactInformation>
+		<target-Person>9994343</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>19957915</id>
+		<name>PersonToContactInformation</name>
+		<primary>true</primary>
+		<source-ContactInformation>5367627</source-ContactInformation>
+		<target-Person>10342249</target-Person>
+	</PersonToContactInformationlist>
+	<IncidentToAddresslist>
+		<id>24741431</id>
+		<name>IncidentToAddress</name>
+		<target-Incident>24741422</target-Incident>
+		<source-Address>24741430</source-Address>
+	</IncidentToAddresslist>
+	<CaseToIncidentlist>
+		<id>24741432</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<source-Incident>24741422</source-Incident>
+		<name>CaseToIncident</name>
+	</CaseToIncidentlist>
+	<CaseToIncidentlist>
+		<target-DelinquencyCase>25777744</target-DelinquencyCase>
+		<id>25777779</id>
+		<source-Incident>24741422</source-Incident>
+		<name>CaseToIncident</name>
+	</CaseToIncidentlist>
+	<Appearancelist>
+		<startTime>1970-01-01 09:00:00.0</startTime>
+		<id>24756280</id>
+		<startDate>2012-03-14 00:00:00.0</startDate>
+		<location>HJC</location>
+		<description></description>
+		<clientMustAppear>false</clientMustAppear>
+		<endDateType>Unsupported</endDateType>
+		<startDateType>Unsupported</startDateType>
+	</Appearancelist>
+	<CaseVictimlist>
+		<id>24741433</id>
+		<inactiveVictim>false</inactiveVictim>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseVictim</name>
+		<source-Person>23392502</source-Person>
+	</CaseVictimlist>
+	<CaseVictimlist>
+		<id>24741440</id>
+		<inactiveVictim>false</inactiveVictim>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseVictim</name>
+		<source-Person>9426698</source-Person>
+	</CaseVictimlist>
+	<CaseVictimlist>
+		<id>24741528</id>
+		<inactiveVictim>false</inactiveVictim>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseVictim</name>
+		<source-Person>9712113</source-Person>
+	</CaseVictimlist>
+	<CaseOfficerlist>
+		<id>24741457</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseOfficer</name>
+		<source-Person>9994343</source-Person>
+		<arresting>true</arresting>
+	</CaseOfficerlist>
+	<CaseOfficerlist>
+		<id>24741462</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseOfficer</name>
+		<source-Person>10342249</source-Person>
+		<arresting>true</arresting>
+	</CaseOfficerlist>
+	<PersonToAddresslist>
+		<id>19784332</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>false</active>
+		<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
+		<type>PREV</type>
+		<source-Address>273772</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19815454</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>false</active>
+		<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
+		<type>PREV</type>
+		<source-Address>278218</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19822384</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>false</active>
+		<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
+		<type>PREV</type>
+		<source-Address>279208</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19828880</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>false</active>
+		<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
+		<type>Home</type>
+		<source-Address>280136</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19833325</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>false</active>
+		<endDate>Mon Oct 17 00:00:00 EDT 2011</endDate>
+		<type>Home</type>
+		<source-Address>280771</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>23492192</id>
+		<startDate>Mon Oct 17 00:00:00 EDT 2011</startDate>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>23492191</source-Address>
+		<target-Person>9426659</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19784339</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>273773</source-Address>
+		<target-Person>9426672</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19820963</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>279005</source-Address>
+		<target-Person>9426672</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875190</id>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>184601</source-Address>
+		<target-Person>9426672</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875191</id>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>253906</source-Address>
+		<target-Person>9426672</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875192</id>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>23058308</source-Address>
+		<target-Person>9426672</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>23392522</id>
+		<startDate>Tue Oct 02 00:00:00 EDT 2012</startDate>
+		<primary>true</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>23392521</source-Address>
+		<target-Person>23392502</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19773398</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>272210</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19775526</id>
+		<correspondence>false</correspondence>
+		<primary>true</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>272514</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19784353</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>273775</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19810246</id>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>277474</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19831519</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>280513</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19832632</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>280672</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875198</id>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>165097</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875199</id>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>169354</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875200</id>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>184603</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875201</id>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>236036</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875202</id>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>270511</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>31875203</id>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>271203</source-Address>
+		<target-Person>9426698</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19313498</id>
+		<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>false</active>
+		<type>PREV</type>
+		<source-Address>196810</source-Address>
+		<target-Person>9694485</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19607694</id>
+		<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>false</active>
+		<type>Home</type>
+		<source-Address>243571</source-Address>
+		<target-Person>9694485</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>22983488</id>
+		<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>false</active>
+		<type>Home</type>
+		<source-Address>22983487</source-Address>
+		<target-Person>9694485</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>30098790</id>
+		<startDate>Fri Jul 19 00:00:00 EDT 2013</startDate>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>MAIL</type>
+		<source-Address>30098789</source-Address>
+		<target-Person>9694485</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19506362</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>Work</type>
+		<source-Address>227471</source-Address>
+		<target-Person>9994343</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19766818</id>
+		<correspondence>false</correspondence>
+		<primary>true</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Work</type>
+		<source-Address>269077</source-Address>
+		<target-Person>10342249</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19325426</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<source-Address>198705</source-Address>
+		<target-Person>9712113</target-Person>
+	</PersonToAddresslist>
+	<CaseDefendantToAppearancelist>
+		<id>24756290</id>
+		<source-Appearance>24756280</source-Appearance>
+		<name>CaseDefendantToAppearance</name>
+		<target-CriminalDefendant>24741386</target-CriminalDefendant>
+	</CaseDefendantToAppearancelist>
+	<CaseToOrganizationlist>
+		<id>24741467</id>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<source-Organization>9401795</source-Organization>
+		<name>CaseToOrganization</name>
+		<arresting>true</arresting>
+	</CaseToOrganizationlist>
+	<CaseCourtlist>
+		<dateIn>Mon Feb 06 00:00:00 EST 2012</dateIn>
+		<id>24756231</id>
+		<amended>false</amended>
+		<courtNumber>CR2012-0185</courtNumber>
+		<target-CriminalCase>24741326</target-CriminalCase>
+		<name>CaseCourt</name>
+		<currentCourt>true</currentCourt>
+		<comment>JASON FRANKLIN</comment>
+		<source-Court>5416612</source-Court>
+	</CaseCourtlist>
+	<Addresslist>
+		<streetAddress>502 1-2 West Arizona</streetAddress>
+		<id>273772</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 Mission Lane # 19</streetAddress>
+		<id>278218</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 E. Iowa, #11</streetAddress>
+		<id>279208</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country></country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
+		<id>280136</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 E. Iowa, #11</streetAddress>
+		<id>280771</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country></country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>902 N. Thrd Ave. #2</streetAddress>
+		<id>23492191</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>US</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>502 1-2 West Arizona</streetAddress>
+		<id>273773</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 West Iowa</streetAddress>
+		<id>279005</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>502 1-2 West Arizona</streetAddress>
+		<id>184601</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 West Iowa</streetAddress>
+		<id>253906</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>902 3rd Ave</streetAddress>
+		<id>23058308</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>902 N. Third Ave. 2</streetAddress>
+		<id>24741430</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>US</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>902 N Third Ave #2</streetAddress>
+		<id>23392521</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>US</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
+		<id>272210</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>710 E Hampshire, #9
+		</streetAddress>
+		<id>272514</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>502 1-2 West Arizona</streetAddress>
+		<id>273775</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 Mission Ln, #19</streetAddress>
+		<id>277474</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
+		<id>280513</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 Mission Ln, #19</streetAddress>
+		<id>280672</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
+		<id>165097</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>710 E Hampshire, #9
+		</streetAddress>
+		<id>169354</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>502 1-2 West Arizona</streetAddress>
+		<id>184603</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 Mission Ln, #19</streetAddress>
+		<id>236036</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1205 N Navajo Blvd, #12</streetAddress>
+		<id>270511</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>201 Mission Ln, #19</streetAddress>
+		<id>271203</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>711 W. Georgia Street</streetAddress>
+		<id>196810</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>1410 W Buffalo Street</streetAddress>
+		<id>243571</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>162 W Buffalo</streetAddress>
+		<id>22983487</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country></country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>204 MISSION LN. APT.#A2</streetAddress>
+		<id>30098789</id>
+		<postalCode>86025</postalCode>
+		<county>Navajo</county>
+		<state>AZ</state>
+		<country>US</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>Holbrook Police Department 120 East Buffalo Street PO Box 656
+		</streetAddress>
+		<id>227471</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>PO Box 656</streetAddress>
+		<id>269077</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>120 E BUFFALO ST</streetAddress>
+		<id>198705</id>
+		<postalCode>86025</postalCode>
+		<state>AZ</state>
+		<city>HOLBROOK</city>
+	</Addresslist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Mon Mar 05 00:00:00 EST 2012</assignmentStartDate>
+		<id>24741377</id>
+		<name>DefenderAssignment</name>
+		<primary>true</primary>
+		<source-Person>10507752</source-Person>
+		<target-CriminalDefendant>24741350</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Mon Mar 05 00:00:00 EST 2012</assignmentStartDate>
+		<id>24741413</id>
+		<name>DefenderAssignment</name>
+		<primary>true</primary>
+		<source-Person>10507752</source-Person>
+		<target-CriminalDefendant>24741386</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+</ROOT>

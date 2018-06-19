@@ -10,9 +10,9 @@
 		{
 			"id": "24198489",
 			"defendantNumber": "1",
-			"target/CriminalCase": "24198465",
+			"target-CriminalCase": "24198465",
 			"name": "CriminalDefendant",
-			"source/Person": "9624103"
+			"source-Person": "9624103"
 		}
 	],
 	"Personlist": [
@@ -84,8 +84,8 @@
 		{
 			"id": "20068713",
 			"name": "PersonToPersonIdentifier",
-			"source/PersonIdentifier": "10533429",
-			"target/Person": "9624103"
+			"source-PersonIdentifier": "10533429",
+			"target-Person": "9624103"
 		}
 	],
 	"ContactInformationlist": [
@@ -135,23 +135,23 @@
 			"id": "29877069",
 			"primary": true,
 			"name": "PersonToContactInformation",
-			"source/ContactInformation": "29877068",
-			"target/Person": "10479243"
+			"source-ContactInformation": "29877068",
+			"target-Person": "10479243"
 		}
 	],
 	"IncidentToAddresslist": [
 		{
 			"id": "24198559",
 			"name": "IncidentToAddress",
-			"target/Incident": "24198550",
-			"source/Address": "24198558"
+			"target-Incident": "24198550",
+			"source-Address": "24198558"
 		}
 	],
 	"CaseToIncidentlist": [
 		{
 			"id": "24198560",
-			"target/CriminalCase": "24198465",
-			"source/Incident": "24198550",
+			"target-CriminalCase": "24198465",
+			"source-Incident": "24198550",
 			"name": "CaseToIncident"
 		}
 	],
@@ -169,16 +169,16 @@
 		{
 			"id": "24198549",
 			"name": "CaseDefendantToCharge",
-			"source/Charge": "24198525",
-			"target/CriminalDefendant": "24198489"
+			"source-Charge": "24198525",
+			"target-CriminalDefendant": "24198489"
 		}
 	],
 	"CaseOfficerlist": [
 		{
 			"id": "24198576",
-			"target/CriminalCase": "24198465",
+			"target-CriminalCase": "24198465",
 			"name": "CaseOfficer",
-			"source/Person": "10479243",
+			"source-Person": "10479243",
 			"arresting": true
 		}
 	],
@@ -190,8 +190,8 @@
 			"primary": true,
 			"active": true,
 			"type": "MAIL",
-			"source/Address": "189106",
-			"target/Person": "9624103"
+			"source-Address": "189106",
+			"target-Person": "9624103"
 		},
 		{
 			"id": "19169207",
@@ -200,8 +200,8 @@
 			"primary": true,
 			"active": true,
 			"type": "PRINPBZ",
-			"source/Address": "173575",
-			"target/Person": "10479243"
+			"source-Address": "173575",
+			"target-Person": "10479243"
 		}
 	],
 	"Addresslist": [
@@ -215,7 +215,7 @@
 			"city": "Leupp"
 		},
 		{
-			"streetAddress": "260/Rim Road",
+			"streetAddress": "260-Rim Road",
 			"id": "24198558",
 			"postalCode": "85935",
 			"county": "Navajo",
@@ -236,10 +236,10 @@
 		{
 			"dateIn": "Sat Dec 17 00:00:00 EST 2011",
 			"id": "24198561",
-			"target/CriminalCase": "24198465",
+			"target-CriminalCase": "24198465",
 			"name": "CaseCourt",
 			"currentCourt": true,
-			"source/Court": "5416618"
+			"source-Court": "5416618"
 		}
 	],
 	"DefenderAssignmentlist": [
@@ -248,8 +248,8 @@
 			"id": "24198516",
 			"primary": true,
 			"name": "DefenderAssignment",
-			"source/Person": "10507739",
-			"target/CriminalDefendant": "24198489"
+			"source-Person": "10507739",
+			"target-CriminalDefendant": "24198489"
 		}
 	]
 }

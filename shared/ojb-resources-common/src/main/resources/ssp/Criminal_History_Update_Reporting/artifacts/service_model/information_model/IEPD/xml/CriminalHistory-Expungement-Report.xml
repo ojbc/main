@@ -22,16 +22,28 @@
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
 	xmlns:che-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryExpungementReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<che-report-ext:CriminalHistoryReportJurisdictionCode>State</che-report-ext:CriminalHistoryReportJurisdictionCode>
+	<che-report-ext:FederalCriminalHistoryRecordDocument>
+		<nc:DocumentBinary>
+			<che-report-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</che-report-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</che-report-ext:FederalCriminalHistoryRecordDocument>
 	<nc:Person>
 		<che-report-ext:ExpungementIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+				</che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				<che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+				</che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 			</j:PersonFBIIdentification>
 		</che-report-ext:ExpungementIdentifiers>
 	</nc:Person>
