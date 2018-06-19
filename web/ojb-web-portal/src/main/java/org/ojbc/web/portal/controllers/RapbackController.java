@@ -19,7 +19,6 @@ package org.ojbc.web.portal.controllers;
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
-import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -448,7 +447,7 @@ public class RapbackController {
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
-			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE, null, null, null, null);
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, RAPBACK_TOPIC_SUB_TYPE, CIVIL_SUBSCRIPTION_REASON_CODE, null, null, null, null);
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
 				return "success";
@@ -467,7 +466,7 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try{
 			FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
-					subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE, 
+					subscriptionId, RAPBACK_TOPIC_SUB_TYPE, CIVIL_SUBSCRIPTION_REASON_CODE, 
 					getFederatedQueryId(), samlService.getSamlAssertion(request));
 			if (faultableSoapResponse.isSuccess()){
 				return "success";
