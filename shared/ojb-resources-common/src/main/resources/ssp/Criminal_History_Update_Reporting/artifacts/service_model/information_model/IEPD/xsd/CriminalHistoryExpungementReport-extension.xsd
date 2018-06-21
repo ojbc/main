@@ -127,11 +127,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederalCriminalHistoryRecordDocument" type="nc:DocumentType"
+	<xsd:element name="CriminalHistoryRecordDocument" type="nc:DocumentType"
 		substitutionGroup="che-report-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a
-				federal rap sheet.
+			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a
+				rap sheet.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
