@@ -102,12 +102,16 @@ public class FbiSubscriptionAuditProcessor {
 			String transactionStatusText = XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText");
 			
 			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
-			String stateSubscriptionId = XmlUtils.xPathStringSearch(recordRapBackData, 
-					"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText");
-			federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
-			federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, 
-					"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
 			
+			if (recordRapBackData != null)
+			{	
+				String stateSubscriptionId = XmlUtils.xPathStringSearch(recordRapBackData, 
+						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText");
+				federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
+				federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, 
+						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
+			}	
+				
 			boolean errorIndicator = false;
 			
 			if (StringUtils.isNotBlank(transactionStatusText))
