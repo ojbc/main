@@ -260,10 +260,12 @@
 							</xsl:when>
 						</xsl:choose>
 						<!-- RBDI 2.2067, Optional -->
+						<xsl:if test="/*/*/submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator[. != '']">
 						<ebts:RecordRapBackDisclosureIndicator>
 							<xsl:value-of
 								select="/*/*/submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator" />
 						</ebts:RecordRapBackDisclosureIndicator>
+						</xsl:if>
 						<!-- RBXD 2.2015 -->
 						<xsl:choose>
 							<xsl:when test="$action ='newSubscription'">

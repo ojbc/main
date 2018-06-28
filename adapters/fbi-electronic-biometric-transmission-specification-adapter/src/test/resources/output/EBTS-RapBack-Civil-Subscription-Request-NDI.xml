@@ -54,15 +54,21 @@
             </ansi-nist:TransactionImageResolutionDetails>
             <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
            	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
-         <ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
-                  <ansi-nist:TransactionContentSummary>
+         <ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+         <ansi-nist:TransactionContentSummary>
          <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
-         <ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+         <ansi-nist:ContentRecordQuantity>03</ansi-nist:ContentRecordQuantity>
             <ansi-nist:ContentRecordSummary>
                <ansi-nist:ImageReferenceIdentification>
                   <nc20:IdentificationID>00</nc20:IdentificationID>
                </ansi-nist:ImageReferenceIdentification>
                <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+            </ansi-nist:ContentRecordSummary>
+            <ansi-nist:ContentRecordSummary>
+               <ansi-nist:ImageReferenceIdentification>
+                  <nc20:IdentificationID>01</nc20:IdentificationID>
+               </ansi-nist:ImageReferenceIdentification>
+               <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
             </ansi-nist:ContentRecordSummary>
          </ansi-nist:TransactionContentSummary>
       </ansi-nist:Transaction>
@@ -74,18 +80,26 @@
       </ansi-nist:ImageReferenceIdentification>
       <itl:UserDefinedDescriptiveDetail>
          <ebts:DomainDefinedDescriptiveFields>
+            <ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
             <ebts:RecordRapBackData>
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackCategoryCode>I</ebts:RecordRapBackCategoryCode>
                <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
-                 <ebts:RecordRapBackSubscriptionID>987654321</ebts:RecordRapBackSubscriptionID>
+               <ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
+               <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>STATE FINGERPRINT ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
-               <ebts:TransactionRapBackMaintenanceCode>C</ebts:TransactionRapBackMaintenanceCode>
+               <ebts:RecordRapBackUserDefinedElement>
+                  <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID
+			</ebts:UserDefinedElementName>
+                  <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+               </ebts:RecordRapBackUserDefinedElement>
             </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
+               <nc20:CaseTrackingID>0123ABC</nc20:CaseTrackingID>
                <ebts:RecordControllingAgency>
                   <nc20:OrganizationIdentification>
                      <nc20:IdentificationID>2345576</nc20:IdentificationID>
