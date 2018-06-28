@@ -52,25 +52,25 @@ public class TestNistFingerprintProcessor {
         
 		nistImageProcessor.insertPackageHighResolutionGrayscaleImageRecord(civilRapbackRequest, hiResGrayscaleFingerprints);
 		
-		NodeList imageNodes = XmlUtils.xPathNodeListSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageHighResolutionGrayscaleImageRecord");
+		NodeList imageNodes = XmlUtils.xPathNodeListSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nbio:PackageHighResolutionGrayscaleImageRecord");
 		
 		Assert.assertEquals(14, imageNodes.getLength());
 		
 		Element firstImage =  (Element) imageNodes.item(0);
 		
-		Assert.assertEquals("04",XmlUtils.xPathStringSearch(firstImage, "ansi-nist:RecordCategoryCode"));
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nistbio:ImageReferenceIdentification/nc:IdentificationID"));
+		Assert.assertEquals("04",XmlUtils.xPathStringSearch(firstImage, "nbio:RecordCategoryCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:ImageReferenceIdentification/nc:IdentificationID"));
 		
-		Assert.assertNotNull(XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nc:BinaryBase64Object"));
+		Assert.assertNotNull(XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:BinaryBase64Object"));
 	
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nistbio:ImageCaptureDetail/nc:CaptureResolutionCode"));
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nc:ImageCompressionAlgorithmCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCaptureDetail/nc:CaptureResolutionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageCompressionAlgorithmCode"));
 		
-		Assert.assertEquals("800",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nc:ImageHorizontalLineLengthPixelQuantity"));
-		Assert.assertEquals("750",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nc:ImageVerticalLineLengthPixelQuantity"));
+		Assert.assertEquals("800",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageHorizontalLineLengthPixelQuantity"));
+		Assert.assertEquals("750",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageVerticalLineLengthPixelQuantity"));
 		
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nistbio:FingerprintImagePosition/nc:FingerPositionCode"));
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nistbio:FingerprintImage/nc:FingerprintImageImpressionCaptureCategoryCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImagePosition/nc:FingerPositionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:FingerprintImageImpressionCaptureCategoryCode"));
 		
 	}
 	

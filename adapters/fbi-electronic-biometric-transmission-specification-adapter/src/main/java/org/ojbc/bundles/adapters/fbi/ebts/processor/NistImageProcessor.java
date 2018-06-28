@@ -37,30 +37,30 @@ public class NistImageProcessor {
 		
 		for (HighResolutionGrayscaleFingerprint fingerPrint : civilFingerPrints) {
 		
-			Element imageRecord = XmlUtils.appendElement(civilRapbackRequest.getDocumentElement(), OjbcNamespaceContext.NS_NIST_BIO, "nistbio:PackageHighResolutionGrayscaleImageRecord");
+			Element imageRecord = XmlUtils.appendElement(civilRapbackRequest.getDocumentElement(), OjbcNamespaceContext.NS_NIEM_BIO, "nbio:PackageHighResolutionGrayscaleImageRecord");
 		
-			XmlUtils.appendTextElement(imageRecord, OjbcNamespaceContext.NS_ANSI_NIST, "nistbio:RecordCategoryCode", "04");
+			XmlUtils.appendTextElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:RecordCategoryCode", "04");
 			
-			Element imageReferenceIdentification = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:ImageReferenceIdentification");
+			Element imageReferenceIdentification = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageReferenceIdentification");
 			XmlUtils.appendTextElement(imageReferenceIdentification, OjbcNamespaceContext.NS_NC, "nc20:IdentificationID", fingerPrint.getImageDesignationCharacter());
 			
-			Element fingerprintImage = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:FingerprintImage");
+			Element fingerprintImage = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImage");
 			
 			String fingerprintBase64 = Base64.getEncoder().encodeToString(fingerPrint.getImageData());
 			
 			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nc20:BinaryBase64Object", fingerprintBase64);
 			
-			Element imageCaptureDetail = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:ImageCaptureDetail");
-			XmlUtils.appendTextElement(imageCaptureDetail, OjbcNamespaceContext.NS_NC, "nistbio:CaptureResolutionCode", fingerPrint.getImageScanningResolution());
+			Element imageCaptureDetail = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageCaptureDetail");
+			XmlUtils.appendTextElement(imageCaptureDetail, OjbcNamespaceContext.NS_NC, "nbio:CaptureResolutionCode", fingerPrint.getImageScanningResolution());
 
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageCompressionAlgorithmCode", fingerPrint.getCompressionAlgorithm());
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageHorizontalLineLengthPixelQuantity", fingerPrint.getHorizontalLineLength());
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageCompressionAlgorithmCode", fingerPrint.getCompressionAlgorithm());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageHorizontalLineLengthPixelQuantity", fingerPrint.getHorizontalLineLength());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
 			
-			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIST_BIO, "nistbio:FingerprintImagePosition");
-			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NC, "nistbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
+			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImagePosition");
+			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NC, "nbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
 			
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nistbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
 
 		}
 		
