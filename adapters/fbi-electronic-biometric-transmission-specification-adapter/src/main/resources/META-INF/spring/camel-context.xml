@@ -527,6 +527,13 @@
 			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCivil}}</simple></setHeader>
 			<setHeader headerName="rapBackDisclosureIndicator"><simple>{{fbiEbtsAdapter.rapBackDisclosureIndicator}}</simple></setHeader>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.civilSubscription} == 'true'</camel:simple>
+			
+				<setHeader headerName="civilRapBackSubscriptionTerm"><simple>{{fbiEbtsAdapter.civilRapBackSubscriptionTerm}}</simple></setHeader>
+			</camel:filter>
+			
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			
