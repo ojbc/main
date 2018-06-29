@@ -25,6 +25,11 @@
  xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
  xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
 	<chiu-report-ext:CriminalHistoryReportJurisdictionCode>State</chiu-report-ext:CriminalHistoryReportJurisdictionCode>
+	<chiu-report-ext:CriminalHistoryRecordDocument>
+		<nc:DocumentBinary>
+			<chiu-report-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</chiu-report-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</chiu-report-ext:CriminalHistoryRecordDocument>
 	<nc:Person>
 		<chiu-report-ext:PreIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>
