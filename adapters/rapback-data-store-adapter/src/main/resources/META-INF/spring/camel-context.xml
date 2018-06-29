@@ -478,7 +478,7 @@
 
 			<doTry>
 				<log message="Inbound subscription reporting message: ${body}" loggingLevel="DEBUG"/>
-				<to uri="bean:subscriptionReportingProcessor?method=processFbiSubscriptionReport"/>
+				<to uri="bean:subscriptionNotificationReportingProcessor?method=processFbiSubscriptionReport"/>
 				<log message="FBI subscription reporting succeeded." loggingLevel="INFO"/>
 				
 				<doCatch >

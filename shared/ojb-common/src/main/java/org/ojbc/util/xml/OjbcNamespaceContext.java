@@ -841,7 +841,25 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_EBTS ="http://cjis.fbi.gov/fbi_ebts/10.0";
 	public static final String NS_PREFIX_EBTS ="ebts";	
+	
+	public static final String NS_CH_RESTORATION_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0";
+	public static final String NS_PREFIX_CH_RESTORATION_DOC ="chr-report-doc";
 
+	public static final String NS_CH_RESTORATION_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_RESTORATION_EXT ="chr-report-ext";
+
+	public static final String NS_CH_CONSOLIDATION_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0";
+	public static final String NS_PREFIX_CONSOLIDATION_DOC ="chc-report-doc";
+
+	public static final String NS_CH_CONSOLIDATION_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_CONSOLIDATION_EXT ="chc-report-ext";
+	
+	public static final String NS_CH_IDENTIFIER_UPDATE_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0";
+	public static final String NS_PREFIX_IDENTIFIER_UPDATE_DOC ="chiu-report-doc";
+
+	public static final String NS_CH_IDENTIFIER_UPDATE_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT ="chiu-report-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1662,6 +1680,24 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 				
 		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
 		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CH_RESTORATION_DOC, NS_CH_RESTORATION_DOC);
+		uriToPrefixMap.put(NS_CH_RESTORATION_DOC, NS_PREFIX_CH_RESTORATION_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_RESTORATION_EXT, NS_CH_RESTORATION_EXT);
+		uriToPrefixMap.put(NS_CH_RESTORATION_EXT, NS_PREFIX_CH_RESTORATION_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CONSOLIDATION_DOC, NS_CH_CONSOLIDATION_DOC);
+		uriToPrefixMap.put(NS_CH_CONSOLIDATION_DOC, NS_PREFIX_CONSOLIDATION_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_CONSOLIDATION_EXT, NS_CH_CONSOLIDATION_EXT);
+		uriToPrefixMap.put(NS_CH_CONSOLIDATION_EXT, NS_PREFIX_CH_CONSOLIDATION_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_IDENTIFIER_UPDATE_DOC, NS_CH_IDENTIFIER_UPDATE_DOC);
+		uriToPrefixMap.put(NS_CH_IDENTIFIER_UPDATE_DOC, NS_PREFIX_IDENTIFIER_UPDATE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT, NS_CH_IDENTIFIER_UPDATE_EXT);
+		uriToPrefixMap.put(NS_CH_IDENTIFIER_UPDATE_EXT, NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT);
 		
 	}
 

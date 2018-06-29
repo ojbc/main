@@ -32,4 +32,14 @@ public class RapbackDataStoreAdapterConstants {
     public static final String REPORT_FEDERAL_SUBSCRIPTION_UPDATE = "ReportFederalSubscriptionUpdate";
 
     public static final String REPORT_FEDERAL_SUBSCRIPTION_CREATION = "ReportFederalSubscriptionCreation";
+    
+    public static final String REPORT_CRIMINAL_HISTORY_CONSOLIDATION = "ReportCriminalHistoryConsolidation";
+    
+    public static final String REPORT_CRIMINAL_HISTORY_RESTORATION = "ReportCriminalHistoryRestoration";
+    
+    public static final String REPORT_CRIMINAL_HISTORY_EXPUNGEMENT = "ReportCriminalHistoryExpungement";
+    
+    public static final String REPORT_CRIMINAL_HISTORY_IDENTIFIER_UPDATE = "ReportCriminalHistoryIdentifierUpdate";
+    
+    
 }

@@ -16,15 +16,13 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_CREATION;
-import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_UPDATE;
-
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xml.security.utils.Base64;
+import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
@@ -39,9 +37,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 @Service
-public class SubscriptionReportingProcessor {
+public class SubscriptionNotificationReportingProcessor {
 
-	private static final Log log = LogFactory.getLog( SubscriptionReportingProcessor.class );
+	private static final Log log = LogFactory.getLog( SubscriptionNotificationReportingProcessor.class );
 	
 	@Autowired
 	protected RapbackDAO rapbackDAO;
@@ -50,14 +48,46 @@ public class SubscriptionReportingProcessor {
 	private FbiRapbackDao fbiRapbackDao;
 
 	@Transactional
+	public void processFbiNotificationReport(@Body Document report, @Header("operationName") String operationName, @Header("currentUcn") String currentUcn, @Header("newUcn") String newUcn) throws Exception
+	{
+		String ucn="";
+		String xpathToRapsheet = "";
+		
+		if (RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_CONSOLIDATION.equals(operationName)){
+			
+			ucn=newUcn;
+			xpathToRapsheet="/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chc-report-ext:Base64BinaryObject";
+			
+			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+		}
+
+		if (RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_RESTORATION.equals(operationName)){
+			
+			ucn=currentUcn;
+			xpathToRapsheet="/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chr-report-ext:Base64BinaryObject";
+			
+			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+		}
+
+		if (RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_IDENTIFIER_UPDATE.equals(operationName)){
+			
+			ucn=newUcn;
+			xpathToRapsheet="/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chiu-report-ext:Base64BinaryObject";
+			
+			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+		}
+
+	}
+	
+	@Transactional
 	public void processFbiSubscriptionReport(@Body Document report, @Header("operationName") String operationName) throws Exception
 	{
 		log.info("Processing FBI Subscription Report.");
 		
-		if (REPORT_FEDERAL_SUBSCRIPTION_CREATION.equals(operationName)){
+		if (RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_CREATION.equals(operationName)){
 			processFbiSubscriptionCreationReport(report);
 		}
-		else if (REPORT_FEDERAL_SUBSCRIPTION_UPDATE.equals(operationName)){
+		else if (RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_UPDATE.equals(operationName)){
 			processFbiSubscriptionUpdateReport(report);
 		}
 		
@@ -68,19 +98,19 @@ public class SubscriptionReportingProcessor {
 		FbiRapbackSubscription fbiRapbackSubscription = buildFbiSubscriptionFromUpdate(report);
 		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
 		
-		retrieveAndSaveRapsheet(report, fbiRapbackSubscription);
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
 	}
 
-	private void retrieveAndSaveRapsheet(Document report,
-			FbiRapbackSubscription fbiRapbackSubscription) {
-		byte[] binaryData = getBinaryData(report);
+	private void retrieveAndSaveRapsheet(Document report, String ucn, String xpathToRapsheet) {
+		byte[] binaryData = getBinaryData(report, xpathToRapsheet);
 		
 		if (binaryData == null || binaryData.length == 0) 
 			return; 
 		
 		SubsequentResults subsequentResults = new SubsequentResults(); 
 		subsequentResults.setRapSheet(binaryData);
-		subsequentResults.setUcn(fbiRapbackSubscription.getUcn());
+		subsequentResults.setUcn(ucn);
 		subsequentResults.setResultsSender(ResultSender.FBI);
 		fbiRapbackDao.saveSubsequentResults(subsequentResults);
 	}
@@ -89,7 +119,8 @@ public class SubscriptionReportingProcessor {
 	private void processFbiSubscriptionCreationReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildNewFbiSubscription(report);
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
-		retrieveAndSaveRapsheet(report, fbiRapbackSubscription);
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
 	}
 
 	private FbiRapbackSubscription buildFbiSubscriptionFromUpdate(
@@ -165,12 +196,10 @@ public class SubscriptionReportingProcessor {
 		return fbiRapbackSubscription;
 	}
 
-	protected byte[] getBinaryData(Node rootNode) {
+	protected byte[] getBinaryData(Node rootNode, String pathToReport) {
 		String base64BinaryData;
 		try {
-			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, 
-					"fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
-					+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
+			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, pathToReport);
 			return Base64.decode(base64BinaryData);
 			
 		} catch (Exception e) {			
