@@ -135,7 +135,7 @@ public class TestCriminalHistoryConsolidationServiceState {
 
     	assertEquals("agencyemail@local.gov", notifications.get(3).getEmailTo());
     	assertEquals("Agency Notification: SID Expungement for: A9999999", notifications.get(3).getEmailSubject());
-    	assertEquals("A9999999 EMAIL TEMPLATE PENDING", notifications.get(3).getEmailBody());
+    	assertEquals("A9999999 has been deleted from CJIS-Hawaii and the State AFIS; Rap Back notifications will no longer be sent for this offender.", notifications.get(3).getEmailBody());
     	
     	notifications.clear();
     	
