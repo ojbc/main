@@ -253,6 +253,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
+	public static final String NS_JXDM_60 = "http://release.niem.gov/niem/domains/jxdm/6.0/";
 	
 	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
 	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
@@ -262,20 +263,25 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_WARRANT_EXT = "http://ojbc.org/IEPD/Extensions/Warrants/1.0";
 	public static final String NS_NC = "http://niem.gov/niem/niem-core/2.0";
 	public static final String NS_NC_30 = "http://release.niem.gov/niem/niem-core/3.0/";
+	public static final String NS_NC_40 = "http://release.niem.gov/niem/niem-core/4.0/";
 	public static final String NS_WARRANT = "http://ojbc.org/IEPD/Exchange/Warrants/1.0";
 	public static final String NS_STRUCTURES = "http://niem.gov/niem/structures/2.0";
 	public static final String NS_STRUCTURES_30 = "http://release.niem.gov/niem/structures/3.0/";
+	public static final String NS_STRUCTURES_40 = "http://release.niem.gov/niem/structures/4.0/";
 
 	public static final String NS_PREFIX_JXDM_40 = "jxdm40";
 	public static final String NS_PREFIX_JXDM_50 = "jxdm50";
+	public static final String NS_PREFIX_JXDM_60 = "jxdm60";
 	public static final String NS_PREFIX_USPS_STATES = "usps-states";
 	public static final String NS_PREFIX_ERROR = "error";
 	public static final String NS_PREFIX_WARRANT_EXT = "warrant-ext";
 	public static final String NS_PREFIX_NC = "nc";
 	public static final String NS_PREFIX_NC_30 = "nc30";
+	public static final String NS_PREFIX_NC_40 = "nc40";
 	public static final String NS_PREFIX_WARRANT = "warrant";
 	public static final String NS_PREFIX_STRUCTURES = "s";
 	public static final String NS_PREFIX_STRUCTURES_30 = "s30";
+	public static final String NS_PREFIX_STRUCTURES_40 = "s40";
 
 	public static final String NS_PREFIX_CH = "ch";
 	public static final String NS_CH = "http://ojbc.org/IEPD/Extensions/RapSheet/1.0";
@@ -839,6 +845,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PROSECUTION_DECISION_HAWAII_CODES_DOC ="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0";
 	public static final String NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC ="pd-hi-codes";
 
+	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC ="chm-resp-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT ="chm-resp-ext";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC ="chsreq-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="chsreq-ext";
+
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -847,6 +866,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC, NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC, NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT, NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT, NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC, NS_PROSECUTION_DECISION_HAWAII_CODES_DOC);
 		uriToPrefixMap.put(NS_PROSECUTION_DECISION_HAWAII_CODES_DOC, NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC);
@@ -1066,6 +1097,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_JXDM_40, NS_PREFIX_JXDM_40);
 		prefixToUriMap.put(NS_PREFIX_JXDM_50, NS_JXDM_50);
 		uriToPrefixMap.put(NS_JXDM_50, NS_PREFIX_JXDM_50);
+		prefixToUriMap.put(NS_PREFIX_JXDM_60, NS_JXDM_60);
+		uriToPrefixMap.put(NS_JXDM_60, NS_PREFIX_JXDM_60);
 		prefixToUriMap.put(NS_PREFIX_JXDM_41, NS_JXDM_41);
 		uriToPrefixMap.put(NS_JXDM_41, NS_PREFIX_JXDM_41);
 		prefixToUriMap.put(NS_PREFIX_USPS_STATES, NS_USPS_STATES);
@@ -1078,12 +1111,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_NC, NS_PREFIX_NC);
 		prefixToUriMap.put(NS_PREFIX_NC_30, NS_NC_30);
 		uriToPrefixMap.put(NS_NC_30, NS_PREFIX_NC_30);
+		prefixToUriMap.put(NS_PREFIX_NC_40, NS_NC_40);
+		uriToPrefixMap.put(NS_NC_40, NS_PREFIX_NC_40);
 		prefixToUriMap.put(NS_PREFIX_WARRANT, NS_WARRANT);
 		uriToPrefixMap.put(NS_WARRANT, NS_PREFIX_WARRANT);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES, NS_STRUCTURES);
 		uriToPrefixMap.put(NS_STRUCTURES, NS_PREFIX_STRUCTURES);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
 		uriToPrefixMap.put(NS_STRUCTURES_30, NS_PREFIX_STRUCTURES_30);
+		prefixToUriMap.put(NS_PREFIX_STRUCTURES_40, NS_STRUCTURES_40);
+		uriToPrefixMap.put(NS_STRUCTURES_40, NS_PREFIX_STRUCTURES_40);
 		prefixToUriMap.put(NS_PREFIX_CH, NS_CH);
 		uriToPrefixMap.put(NS_CH, NS_PREFIX_CH);
 		prefixToUriMap.put(NS_PREFIX_RAPSHEET_41, NS_RAPSHEET_41);
