@@ -17,9 +17,6 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<!-- ADDED "ROOT" ELEMENT -->
-
-<!-- REPLACE ALL OCCURRENCES OF " " with " " -->
 <ROOT>
 	<PersonIdentifierlist>
 		<id>10535081</id>

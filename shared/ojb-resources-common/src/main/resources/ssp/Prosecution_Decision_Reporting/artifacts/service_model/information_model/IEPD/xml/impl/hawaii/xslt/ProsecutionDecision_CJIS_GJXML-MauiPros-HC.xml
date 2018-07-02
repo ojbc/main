@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>60046G5</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<j:CaseAugmentation>
+			<j:CaseAmendedCharge>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2005-05-01</nc:Date>
+					</nc:DispositionDate>
+					<nc:DispositionDescriptionText>COM</nc:DispositionDescriptionText>
+				</j:ChargeDisposition>
+				<j:ChargeSeverityText>MD</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeSectionIdentification>
+						<!-- SHOULD THIS BE CODE RATHER THAN CODE SECTION ? -->
+						<nc:IdentificationID>708-0833.5</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+				</j:ChargeStatute>
+			</j:CaseAmendedCharge>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person structures:id="Def01">
+		<nc:PersonBirthDate>
+			<nc:Date>1981-02-23</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Wayne</nc:PersonGivenName>
+			<nc:PersonMiddleName>K</nc:PersonMiddleName>
+			<nc:PersonSurName>Campbell</nc:PersonSurName>
+			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
+		</nc:PersonName>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>575156679</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+	</nc:Person>
+</pd-doc:ProsecutionDecisionReport>
