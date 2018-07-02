@@ -30,7 +30,7 @@
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_modification_request.xsd" />
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_modification_response.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Arrest-Add-Response">
