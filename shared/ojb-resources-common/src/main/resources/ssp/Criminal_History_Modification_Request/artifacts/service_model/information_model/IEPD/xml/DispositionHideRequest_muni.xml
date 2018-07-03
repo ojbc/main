@@ -38,6 +38,7 @@
 			<chm-req-ext:DispositionProvisionDescriptionText>null</chm-req-ext:DispositionProvisionDescriptionText>
 		</nc:Disposition>
 		<j:Sentence>
+		<!--  One of the following Sentence Terms for muni -->
 			<j:SentenceDeferredTerm>
 				<nc:ActivityDate>
 					<nc:Date>2001-12-31</nc:Date>
@@ -49,10 +50,6 @@
 			</j:SentenceSuspendedTerm>
 			<j:SentenceTerm>
 				<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
-				<j:TermDuration>P4Y6D</j:TermDuration>
-			</j:SentenceTerm>
-			<j:SentenceTerm>
-				<nc:ActivityCategoryText>PRISON</nc:ActivityCategoryText>
 				<j:TermDuration>P4Y6D</j:TermDuration>
 			</j:SentenceTerm>
 			<j:CourtCostAmount>
