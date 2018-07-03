@@ -46,6 +46,7 @@
 						<xsd:element ref="chm-req-ext:ArrestHideRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-req-ext:DispositionAddRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-req-ext:DispositionHideRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:DispositionModifyRequest" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
@@ -129,6 +130,11 @@
 	<xsd:element name="DispositionHideRequest" type="chm-req-ext:DispositionRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request to delete a disposition record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionModifyRequest" type="chm-req-ext:DispositionRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A request to modify a disposition record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionChargeStatute" type="j:StatuteType" substitutionGroup="nc:DispositionAugmentationPoint">

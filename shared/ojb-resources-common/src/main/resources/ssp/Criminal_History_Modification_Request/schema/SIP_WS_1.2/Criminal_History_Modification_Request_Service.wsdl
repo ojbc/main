@@ -48,6 +48,9 @@
 	<wsdl:message name="Disposition-Hide-Request">
 		<wsdl:part element="chm-req-ext:DispositionHideRequest" name="Disposition-Hide-Request" />
 	</wsdl:message>
+	<wsdl:message name="Disposition-Modify-Request">
+		<wsdl:part element="chm-req-ext:DispositionModifyRequest" name="Disposition-Modify-Request" />
+	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Request_Service">
 		<wsdl:operation name="AddArrestRequest">
 			<wsdl:input message="tns:Arrest-Add-Request" name="Arrest-Add-Request" />
@@ -63,6 +66,9 @@
 		</wsdl:operation>
 		<wsdl:operation name="HideDispositionRequest">
 			<wsdl:input message="tns:Disposition-Hide-Request" name="Disposition-Hide-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="ModifyDispositionRequest">
+			<wsdl:input message="tns:Disposition-Modify-Request" name="Disposition-Modify-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -105,6 +111,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="ModifyDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ModifyDispositionRequest" />
+			<wsdl:input name="Disposition-Modify-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
 	</wsdl:binding>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Criminal_History_Modification_Request_Secure_ServiceSOAPBinding"
@@ -143,6 +156,13 @@
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideDispositionRequest" />
 			<wsdl:input name="Disposition-Hide-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ModifyDispositionRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ModifyDispositionRequest" />
+			<wsdl:input name="Disposition-Modify-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
