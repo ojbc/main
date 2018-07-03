@@ -20,8 +20,8 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chmr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
-	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
+	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
+	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
 	name="Criminal_History_Modification_Response_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -34,19 +34,19 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Arrest-Add-Response">
-		<wsdl:part element="chsres-ext:ArrestAddResponse" name="Arrest-Add-Response" />
+		<wsdl:part element="chm-resp-ext:ArrestAddResponseText" name="Arrest-Add-Response" />
 	</wsdl:message>
 	<wsdl:message name="Arrest-Modify-Response">
-		<wsdl:part element="chsres-ext:ArrestModifyResponse" name="Arrest-Modify-Response" />
+		<wsdl:part element="chm-resp-ext:ArrestModifyResponseText" name="Arrest-Modify-Response" />
 	</wsdl:message>
-	<wsdl:message name="Arrest-Delete-Response">
-		<wsdl:part element="chsres-ext:ArrestDeleteResponse" name="Arrest-Delete-Response" />
+	<wsdl:message name="Arrest-Hide-Response">
+		<wsdl:part element="chm-resp-ext:ArrestHideResponseText" name="Arrest-Hide-Response" />
 	</wsdl:message>
 	<wsdl:message name="Disposition-Add-Response">
-		<wsdl:part element="chsres-ext:DispositionAddResponse" name="Disposition-Add-Response" />
+		<wsdl:part element="chm-resp-ext:DispositionAddResponseText" name="Disposition-Add-Response" />
 	</wsdl:message>
-	<wsdl:message name="Disposition-Delete-Response">
-		<wsdl:part element="chsres-ext:DispositionDeleteResponse" name="Disposition-Delete-Response" />
+	<wsdl:message name="Disposition-Hide-Response">
+		<wsdl:part element="chm-resp-ext:DispositionHideResponseText" name="Disposition-Hide-Response" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Response_Service">
 		<wsdl:operation name="AddArrestResponse">
@@ -55,14 +55,14 @@
 		<wsdl:operation name="ModifyArrestResponse">
 			<wsdl:input message="tns:Arrest-Modify-Response" name="Arrest-Modify-Response" />
 		</wsdl:operation>
-		<wsdl:operation name="DeleteArrestResponse">
-			<wsdl:input message="tns:Arrest-Delete-Response" name="Arrest-Delete-Response" />
+		<wsdl:operation name="HideArrestResponse">
+			<wsdl:input message="tns:Arrest-Hide-Response" name="Arrest-Hide-Response" />
 		</wsdl:operation>
 		<wsdl:operation name="AddDispositionResponse">
 			<wsdl:input message="tns:Disposition-Add-Response" name="Disposition-Add-Response" />
 		</wsdl:operation>
-		<wsdl:operation name="DeleteDispositionResponse">
-			<wsdl:input message="tns:Disposition-Delete-Response" name="Disposition-Delete-Response" />
+		<wsdl:operation name="HideDispositionResponse">
+			<wsdl:input message="tns:Disposition-Hide-Response" name="Disposition-Hide-Response" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -84,10 +84,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DeleteArrestResponse">
+		<wsdl:operation name="HideArrestResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeleteArrestResponse" />
-			<wsdl:input name="Arrest-Delete-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/HideArrestResponse" />
+			<wsdl:input name="Arrest-Hide-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -98,10 +98,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DeleteDispositionResponse">
+		<wsdl:operation name="HideDispositionResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeleteDispositionResponse" />
-			<wsdl:input name="Disposition-Delete-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/HideDispositionResponse" />
+			<wsdl:input name="Disposition-Hide-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -125,10 +125,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DeleteArrestResponse">
+		<wsdl:operation name="HideArrestResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeleteArrestResponse" />
-			<wsdl:input name="Arrest-Delete-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/HideArrestResponse" />
+			<wsdl:input name="Arrest-Hide-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -139,10 +139,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DeleteDispositionResponse">
+		<wsdl:operation name="HideDispositionResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeleteDispositionResponse" />
-			<wsdl:input name="Disposition-Delete-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/HideDispositionResponse" />
+			<wsdl:input name="Disposition-Hide-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
