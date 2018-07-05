@@ -863,7 +863,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0";
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="chsreq-ext";
 
-	
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC ="chsres-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT ="chsres-ext";
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -872,6 +877,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC, NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT, NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT);
 
 		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_DOC);
