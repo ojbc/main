@@ -22,11 +22,13 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 
 public class SubscriptionCategoryValidationDueDateStrategy implements ValidationDueDateStrategy {
 
 	private int criminalSupervisionLengthInYears =5;
 	private int criminalInvestigationLengthInYears =1;
+	private int civilLengthInYears = 5;
     
     /**
      * List of exempt subscription owners who don't need validation due dates
@@ -81,18 +83,22 @@ public class SubscriptionCategoryValidationDueDateStrategy implements Validation
         if (validationDate != null) {
         	if (StringUtils.isNotBlank(subscriptionCategoryCode))
         	{	
-        		if (subscriptionCategoryCode.equals("CS"))
+        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION))
         		{	
         			ret = validationDate.plusYears(criminalSupervisionLengthInYears).toDateTimeAtCurrentTime();
         		}
         		
-        		if (subscriptionCategoryCode.equals("CI"))
+        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE))
         		{	
         			ret = validationDate.plusYears(criminalInvestigationLengthInYears).toDateTimeAtCurrentTime();
         		}	
 
+        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
+        		{	
+        			ret = validationDate.plusYears(civilLengthInYears).toDateTimeAtCurrentTime();
+        		}	
+
         	}
-        	
         	
         }
         

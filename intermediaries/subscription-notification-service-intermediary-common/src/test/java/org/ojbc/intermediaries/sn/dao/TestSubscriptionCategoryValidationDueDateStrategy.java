@@ -25,6 +25,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
 import org.w3c.dom.Document;
@@ -56,9 +57,17 @@ public class TestSubscriptionCategoryValidationDueDateStrategy {
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
 		
-		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "CI",new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE,new LocalDate())));
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "CS",new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION,new LocalDate())));
+		
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.FIREARMS,new LocalDate())));
+		
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT,new LocalDate())));
+		
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT,new LocalDate())));
+		
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT,new LocalDate())));
 	}
 	
 }

@@ -33,4 +33,14 @@ public class SubscriptionNotificationConstants {
 	public static final String FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT = "federalRapSheetDisclosureAttentionDesignationText";
 	
 	public static final String AGENCY_CASE_NUMBER = "agencyCaseNumber";
+	
+	//Subscription Category Constants
+	public static final String CRIMINAL_JUSTICE_INVESTIGATIVE = "CI";
+	public static final String CRIMINAL_JUSTICE_SUPERVISION = "CS";
+	public static final String FIREARMS = "F";
+	public static final String NON_CRIMINAL_JUSTICE_EMPLOYMENT = "I";
+	public static final String CRIMINAL_JUSTICE_EMPLOYMENT = "J";
+	public static final String SECURITY_CLEARANCE_INFORMATION_ACT = "S";
+	
+	
 }
