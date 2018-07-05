@@ -545,11 +545,12 @@ public class RequestMessageBuilderUtilities {
 		identificationIDElement.setTextContent(subscriptionId);
 		
 		if (StringUtils.isNotBlank(reasonCode)){
-			if (OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
+			if (OjbcWebConstants.CRIMINAL_JUSTICE_EMPLOYMENT.equals(reasonCode) || OjbcWebConstants.FIREARMS.equals(reasonCode) || OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT.equals(reasonCode) || OjbcWebConstants.SECURITY_CLEARANCE_INFORMATION_ACT.equals(reasonCode) ){
 				Element civilSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
 				civilSubscriptionReasonCode.setTextContent(reasonCode);
 			}
-			else{
+			
+			if (OjbcWebConstants.CRIMINAL_JUSTICE_INVESTIGATIVE.equals(reasonCode) || OjbcWebConstants.CRIMINAL_JUSTICE_SUPERVISION.equals(reasonCode)){
 				Element criminalSubscriptionReasonCode = XmlUtils.appendElement(subValidMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 				criminalSubscriptionReasonCode.setTextContent(reasonCode);
 			}

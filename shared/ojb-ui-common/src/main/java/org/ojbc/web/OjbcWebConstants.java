@@ -38,7 +38,13 @@ public class OjbcWebConstants {
 	public static final String RAPBACK_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/rapback/ci";
 	public static final String RAPBACK_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/rapback/cs";
 
-	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
+	//Subscription Category Constants
+	public static final String CRIMINAL_JUSTICE_INVESTIGATIVE = "CI";
+	public static final String CRIMINAL_JUSTICE_SUPERVISION = "CS";
+	public static final String FIREARMS = "F";
+	public static final String NON_CRIMINAL_JUSTICE_EMPLOYMENT = "I";
+	public static final String CRIMINAL_JUSTICE_EMPLOYMENT = "J";
+	public static final String SECURITY_CLEARANCE_INFORMATION_ACT = "S";
 	
     public static final String SID_REGEX = "([a-zA-Z]\\d+)?";
     public static final String SSN_REGEX = "(\\d{3}-\\d{2}-\\d{4})?";
