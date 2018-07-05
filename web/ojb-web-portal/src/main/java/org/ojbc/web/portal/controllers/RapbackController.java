@@ -17,7 +17,6 @@
 package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
 
 import java.time.LocalDate;
@@ -44,6 +43,7 @@ import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.SimpleServiceResponse;
 import org.ojbc.web.model.identificationresult.search.CivilIdentificationReasonCode;
@@ -447,7 +447,7 @@ public class RapbackController {
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
-			Unsubscription unsubscription = new Unsubscription(subscriptionId, RAPBACK_TOPIC_SUB_TYPE, CIVIL_SUBSCRIPTION_REASON_CODE, null, null, null, null);
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, RAPBACK_TOPIC_SUB_TYPE, OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT, null, null, null, null);
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
 				return "success";
@@ -466,7 +466,7 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try{
 			FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
-					subscriptionId, RAPBACK_TOPIC_SUB_TYPE, CIVIL_SUBSCRIPTION_REASON_CODE, 
+					subscriptionId, RAPBACK_TOPIC_SUB_TYPE, OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT, 
 					getFederatedQueryId(), samlService.getSamlAssertion(request));
 			if (faultableSoapResponse.isSuccess()){
 				return "success";
@@ -529,7 +529,7 @@ public class RapbackController {
 		setSubscripitonTriggeringEvents(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
 		subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
-		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
+		subscription.setSubscriptionPurpose(OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
 		
 		return subscription;
 	}
