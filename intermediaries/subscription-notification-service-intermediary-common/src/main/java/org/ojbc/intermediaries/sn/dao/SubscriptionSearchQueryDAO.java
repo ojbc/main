@@ -44,6 +44,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -68,8 +69,6 @@ import org.springframework.jdbc.support.KeyHolder;
  *
  */
 public class SubscriptionSearchQueryDAO {
-
-    private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
@@ -558,8 +557,14 @@ public class SubscriptionSearchQueryDAO {
     		
     	}
     	
-    	if (ret != null && CIVIL_SUBSCRIPTION_REASON_CODE.equals(request.getReasonCategoryCode())){
-    		subscribeIdentificationTransaction(ret, request.getAgencyCaseNumber(), request.getEndDateString());
+    	String subscriptionCategoryCode = request.getReasonCategoryCode();
+    	
+    	if (ret != null & subscriptionCategoryCode != null)
+    	{	
+    		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
+    		{	
+    			subscribeIdentificationTransaction(ret, request.getAgencyCaseNumber(), request.getEndDateString());
+    		}	
     	}
     	
     	return ret;

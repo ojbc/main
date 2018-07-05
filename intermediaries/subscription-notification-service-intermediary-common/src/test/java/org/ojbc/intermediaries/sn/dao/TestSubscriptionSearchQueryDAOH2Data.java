@@ -326,7 +326,7 @@ public class TestSubscriptionSearchQueryDAOH2Data {
 		request.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");
 		request.setStartDateString("2015-11-03");
 		request.setEndDateString("2016-11-02");
-		request.setReasonCategoryCode("I");
+		request.setReasonCategoryCode(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
 		request.setAgencyCaseNumber("000001820140729014008339997");
 		
 		subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
