@@ -40,13 +40,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:choice>
 						<xsd:element ref="chm-req-ext:ArrestAddRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-req-ext:ArrestModifyRequest" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-req-ext:ArrestHideRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-req-ext:DispositionAddRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-req-ext:DispositionHideRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-req-ext:DispositionModifyRequest" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-req-ext:ExpungeRequest" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
@@ -61,6 +60,9 @@
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -72,37 +74,34 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ExpungeRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a expunge request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DispositionDate" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ArrestHideRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a delete arrest request.</xsd:documentation>
+			<xsd:documentation>A data type for a hide arrest request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="DispositionRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a add disposition request.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
+					<!-- WE NEED TO ADD A "HIDE" FLAG ELEMENT TO THE DB -->
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -119,39 +118,27 @@
 	</xsd:element>
 	<xsd:element name="ArrestHideRequest" type="chm-req-ext:ArrestHideRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A request to delete an arrest record.</xsd:documentation>
+			<xsd:documentation>A request to hide an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionAddRequest" type="chm-req-ext:DispositionRequestType">
+	<xsd:element name="ExpungeRequest" type="chm-req-ext:ExpungeRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A request to add a disposition record.</xsd:documentation>
+			<xsd:documentation>A request to expunge a record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionHideRequest" type="chm-req-ext:DispositionRequestType">
+	<xsd:element name="ArrestRecordRequestIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A request to delete a disposition record.</xsd:documentation>
+			<xsd:documentation>The identification of an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionModifyRequest" type="chm-req-ext:DispositionRequestType">
+	<xsd:element name="DispositionChargeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A request to modify a disposition record.</xsd:documentation>
+			<xsd:documentation>A disposition charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionChargeStatute" type="j:StatuteType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="AlternateSentenceText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DispositionProvisionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A disposition condition code text.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DispositionProvisionDescriptionText" type="nc:TextType"
-		substitutionGroup="nc:DispositionAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A description of a disposition condition.</xsd:documentation>
+			<xsd:documentation>An alternate sentence.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

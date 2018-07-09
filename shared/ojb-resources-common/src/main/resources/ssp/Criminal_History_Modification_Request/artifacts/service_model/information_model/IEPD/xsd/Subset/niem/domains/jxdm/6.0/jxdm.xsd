@@ -84,6 +84,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -162,6 +163,7 @@
           <xs:element ref="j:SentenceSuspendedTerm" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtCostAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -241,6 +243,11 @@
   <xs:element name="ArrestAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ArrestType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestSubject" type="j:SubjectType" nillable="true">
@@ -341,6 +348,11 @@
   <xs:element name="Sentence" type="j:SentenceType" nillable="true">
     <xs:annotation>
       <xs:documentation>A punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SentenceType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SentenceDeferredTerm" type="j:TermType" nillable="true">
