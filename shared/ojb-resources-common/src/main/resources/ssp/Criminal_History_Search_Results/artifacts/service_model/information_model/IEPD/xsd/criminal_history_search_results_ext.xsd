@@ -20,6 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -33,6 +34,8 @@
 		schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/"
 		schemaLocation="Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/4.0/"
+		schemaLocation="Subset/niem/domains/intelligence/4.0/intelligence.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 		schemaLocation="search-results-metadata.xsd" />
 	<xsd:complexType name="CriminalHistorySearchResultsType">
@@ -66,6 +69,9 @@
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ArrestSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsres-ext:SourceSystemNameText" minOccurs="0" />
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="chsres-ext:SearchResultCategoryText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -262,6 +268,18 @@
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A type of record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information
+				about the person in the search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

@@ -20,9 +20,10 @@
 <chsres-doc:CriminalHistorySearchResults
 	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
 	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
 	<chsres-ext:CriminalHistorySearchResult>
 		<nc:Case structures:id="Case_01">
@@ -88,10 +89,7 @@
 			<j:SentenceSuspendedTerm>
 				<j:TermDuration>P4Y6D</j:TermDuration>
 			</j:SentenceSuspendedTerm>
-			<!--  j:SentenceTerm>
-				<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
-				<j:TermDuration>P4Y6D</j:TermDuration>
-			</j:SentenceTerm -->
+			<!-- j:SentenceTerm> <nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText> <j:TermDuration>P4Y6D</j:TermDuration> </j:SentenceTerm -->
 			<j:CourtCostAmount>
 				<nc:Amount>100.00</nc:Amount>
 			</j:CourtCostAmount>
@@ -126,7 +124,7 @@
 			</j:ArrestSubject>
 			<j:Booking>
 				<j:BookingAgency>
-					<!--  nc:OrganizationName>DPS TROOP B, TULSA OK</nc:OrganizationName-->
+					<!-- nc:OrganizationName>DPS TROOP B, TULSA OK</nc:OrganizationName -->
 					<j:OrganizationAugmentation>
 						<j:OrganizationORIIdentification>
 							<nc:IdentificationID>OK072015A</nc:IdentificationID>
@@ -148,5 +146,11 @@
 			<nc:Activity structures:ref="Charge_01" />
 			<j:Arrest structures:ref="Arrest_01" />
 		</j:ActivityArrestAssociation>
+		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
 </chsres-doc:CriminalHistorySearchResults>
