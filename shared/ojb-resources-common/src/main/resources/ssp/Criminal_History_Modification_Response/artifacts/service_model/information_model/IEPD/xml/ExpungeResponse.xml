@@ -25,7 +25,7 @@
 	xmlns:irm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<chm-resp-ext:ModificationResponseMessage>
-		<chm-resp-ext:DispositionHideResponseText>DISPOSITION HIDDEN SUCCESSFULLY</chm-resp-ext:DispositionHideResponseText>
+		<chm-resp-ext:ExpungeResponseText>RECORD EXPUNGED SUCCESSFULLY</chm-resp-ext:ExpungeResponseText>
 	</chm-resp-ext:ModificationResponseMessage>
 	<nc:SystemName>System_Name</nc:SystemName>
 </chm-resp-doc:CriminalHistoryModificationResponse>
