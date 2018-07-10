@@ -17,15 +17,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ahr-req-doc:ArrestHideRequest xmlns:ahr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0 ../xsd/arrest_hide_request.xsd ">
-	<chm-req-ext:ArrestRecordRequestIdentification>
-		<nc:IdentificationID>1004233</nc:IdentificationID>
-		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-	</chm-req-ext:ArrestRecordRequestIdentification>
-	<!-- NEED TO ADD "HIDE" FLAG -->
-</ahr-req-doc:ArrestHideRequest>
+	targetNamespace="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
+	<!-- Root data element for the Expunge Request -->
+	<xsd:element name="ExpungeRequest" type="chm-req-ext:ExpungeRequestType">
+		<xsd:annotation>
+			<xsd:documentation>An expunge request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

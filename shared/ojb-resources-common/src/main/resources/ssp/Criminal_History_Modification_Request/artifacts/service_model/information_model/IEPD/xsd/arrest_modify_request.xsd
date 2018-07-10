@@ -18,14 +18,14 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+	xmlns:amr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0" elementFormDefault="qualified">
+	targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
-	<!-- Root data element for the Criminal History Modification Request -->
-	<xsd:element name="CriminalHistoryModificationRequest" type="chm-req-ext:CriminalHistoryModificationRequestType">
+	<!-- Root data element for the Arrest Modify Request -->
+	<xsd:element name="ArrestModifyRequest" type="chm-req-ext:ArrestModifyRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A criminal history modification request.</xsd:documentation>
+			<xsd:documentation>An arrest modify request modification request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
