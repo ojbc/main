@@ -17,53 +17,51 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chm-req-doc:CriminalHistoryModificationRequest
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+<amr-req-doc:ArrestModifyRequest
+	xmlns:amr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0 ../xsd/criminal_history_modification_request.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0 ../xsd/arrest_modify_request.xsd ">
 	<chm-req-ext:ArrestRecordRequestIdentification>
 		<nc:IdentificationID>1004233</nc:IdentificationID>
 		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 	</chm-req-ext:ArrestRecordRequestIdentification>
-	<chm-req-ext:ArrestModifyRequest>
-		<nc:Disposition>
-			<nc:DispositionDate>
-				<nc:Date>2016-06-15</nc:Date>
-			</nc:DispositionDate>
-			<chm-req-ext:DispositionChargeText>POSSESSION OF PARAPHERNALIA</chm-req-ext:DispositionChargeText>
-		</nc:Disposition>
-		<j:Sentence>
-			<!-- One of the following Sentence Terms for muni -->
-			<j:SentenceDeferredTerm>
-				<nc:ActivityDate>
-					<nc:Date>2001-12-31</nc:Date>
-				</nc:ActivityDate>
-				<j:TermDuration>P2Y1D</j:TermDuration>
-			</j:SentenceDeferredTerm>
-			<j:SentenceSuspendedTerm>
-				<j:TermDuration>P4Y6D</j:TermDuration>
-			</j:SentenceSuspendedTerm>
-			<j:SentenceTerm>
-				<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
-				<j:TermDuration>P4Y6D</j:TermDuration>
-			</j:SentenceTerm>
-			<j:CourtCostAmount>
+	<nc:Disposition>
+		<nc:DispositionDate>
+			<nc:Date>2016-06-15</nc:Date>
+		</nc:DispositionDate>
+		<chm-req-ext:DispositionChargeText>POSSESSION OF PARAPHERNALIA</chm-req-ext:DispositionChargeText>
+	</nc:Disposition>
+	<j:Sentence>
+		<!-- One of the following Sentence Terms for muni -->
+		<j:SentenceDeferredTerm>
+			<nc:ActivityDate>
+				<nc:Date>2001-12-31</nc:Date>
+			</nc:ActivityDate>
+			<j:TermDuration>P2Y1D</j:TermDuration>
+		</j:SentenceDeferredTerm>
+		<j:SentenceSuspendedTerm>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceSuspendedTerm>
+		<j:SentenceTerm>
+			<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+			<j:TermDuration>P4Y6D</j:TermDuration>
+		</j:SentenceTerm>
+		<j:CourtCostAmount>
+			<nc:Amount>100.00</nc:Amount>
+		</j:CourtCostAmount>
+		<chm-req-ext:AlternateSentenceText>Alternate Sentence</chm-req-ext:AlternateSentenceText>
+	</j:Sentence>
+	<j:Restitution>
+		<nc:ObligationDueAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</nc:ObligationDueAmount>
+		<j:ObligationAugmentation>
+			<j:ObligationSuspendedAmount>
 				<nc:Amount>100.00</nc:Amount>
-			</j:CourtCostAmount>
-			<chm-req-ext:AlternateSentenceText>Alternate Sentence</chm-req-ext:AlternateSentenceText>
-		</j:Sentence>
-		<j:Restitution>
-			<nc:ObligationDueAmount>
-				<nc:Amount>500.00</nc:Amount>
-			</nc:ObligationDueAmount>
-			<j:ObligationAugmentation>
-				<j:ObligationSuspendedAmount>
-					<nc:Amount>100.00</nc:Amount>
-				</j:ObligationSuspendedAmount>
-			</j:ObligationAugmentation>
-		</j:Restitution>
-	</chm-req-ext:ArrestModifyRequest>
-</chm-req-doc:CriminalHistoryModificationRequest>
+			</j:ObligationSuspendedAmount>
+		</j:ObligationAugmentation>
+	</j:Restitution>
+</amr-req-doc:ArrestModifyRequest>
