@@ -94,14 +94,25 @@
 			<xsd:documentation>The identification of an arrest record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionChargeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A disposition charge.</xsd:documentation>
+			<xsd:documentation>A code text for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlternateSentenceText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="DispositionCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An alternate sentence.</xsd:documentation>
+			<xsd:documentation>The charge associated with a disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FineSuspendedAmount" type="nc:AmountType" substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An alternate sentence code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
