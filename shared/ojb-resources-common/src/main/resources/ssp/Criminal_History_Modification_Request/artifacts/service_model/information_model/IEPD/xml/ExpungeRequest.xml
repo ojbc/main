@@ -27,7 +27,9 @@
 		<nc:IdentificationID>1004233</nc:IdentificationID>
 		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 	</chm-req-ext:ArrestRecordRequestIdentification>
-	<nc:DispositionDate>
-		<nc:Date>2016-06-15</nc:Date>
-	</nc:DispositionDate>
+	<nc:Disposition>
+		<nc:DispositionDate>
+			<nc:Date>2016-06-15</nc:Date>
+		</nc:DispositionDate>
+	</nc:Disposition>
 </er-req-doc:ExpungeRequest>
