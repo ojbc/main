@@ -96,16 +96,13 @@
 				<nc:Amount>500.00</nc:Amount>
 			</nc:ObligationDueAmount>
 		</j:Restitution>
-		<j:Charge structures:id="Charge_01">
-			<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-			<chsres-ext:GeneralOffenseCategoryIdentification>
-				<nc:IdentificationID>566</nc:IdentificationID>
-			</chsres-ext:GeneralOffenseCategoryIdentification>
-		</j:Charge>
 		<j:Arrest structures:id="Arrest_01">
 			<nc:ActivityDate>
 				<nc:Date>2001-12-31</nc:Date>
 			</nc:ActivityDate>
+			<j:ArrestCharge>
+				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
 			</j:ArrestSubject>
@@ -129,10 +126,6 @@
 			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Case structures:ref="Case_01" />
 		</j:ActivityCaseAssociation>
-		<j:ActivityArrestAssociation>
-			<nc:Activity structures:ref="Charge_01" />
-			<j:Arrest structures:ref="Arrest_01" />
-		</j:ActivityArrestAssociation>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
