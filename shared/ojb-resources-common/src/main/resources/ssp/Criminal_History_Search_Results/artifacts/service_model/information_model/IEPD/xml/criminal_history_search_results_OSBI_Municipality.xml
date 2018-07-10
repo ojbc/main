@@ -124,11 +124,17 @@
 		<j:ActivityCaseAssociation>
 			<nc:Activity structures:ref="Disposition_01" />
 			<nc:Activity structures:ref="Arrest_01" />
-			<nc:Activity structures:ref="Charge_01" />
-			<nc:Activity structures:ref="Restitution_01" />
 			<nc:Activity structures:ref="Sentence_01" />
 			<nc:Case structures:ref="Case_01" />
 		</j:ActivityCaseAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Sentence_01" />
+			<j:Charge structures:ref="Charge_01" />
+		</j:ActivityChargeAssociation>
+		<j:ActivityObligationAssociation>
+			<nc:Activity structures:ref="Sentence_01" />
+			<nc:Obligation structures:ref="Restitution_01" />
+		</j:ActivityObligationAssociation>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>

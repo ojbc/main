@@ -68,7 +68,8 @@
 					<xsd:element ref="j:Statute" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ArrestSubjectAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsres-ext:SourceSystemNameText" minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
 					<xsd:element ref="chsres-ext:SearchResultCategoryText" minOccurs="0" />
