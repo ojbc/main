@@ -21,29 +21,28 @@
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
-	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
 	name="Criminal_History_Modification_Response_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
-		<xsd:schema targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0">
+		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_modification_response.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Arrest-Add-Response">
-		<wsdl:part element="chm-resp-ext:ArrestAddResponseText" name="Arrest-Add-Response" />
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Add-Response" />
 	</wsdl:message>
 	<wsdl:message name="Arrest-Modify-Response">
-		<wsdl:part element="chm-resp-ext:ArrestModifyResponseText" name="Arrest-Modify-Response" />
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Modify-Response" />
 	</wsdl:message>
 	<wsdl:message name="Arrest-Hide-Response">
-		<wsdl:part element="chm-resp-ext:ArrestHideResponseText" name="Arrest-Hide-Response" />
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Hide-Response" />
 	</wsdl:message>
 	<wsdl:message name="Expunge-Response">
-		<wsdl:part element="chm-resp-ext:ExpungeResponseText" name="Expunge-Response" />
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Expunge-Response" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Response_Service">
 		<wsdl:operation name="AddArrestResponse">
