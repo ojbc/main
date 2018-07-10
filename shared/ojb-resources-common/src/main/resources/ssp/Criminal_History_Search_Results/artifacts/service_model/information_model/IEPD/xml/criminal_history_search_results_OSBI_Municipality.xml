@@ -100,7 +100,7 @@
 			<nc:ActivityDate>
 				<nc:Date>2001-12-31</nc:Date>
 			</nc:ActivityDate>
-			<j:ArrestCharge>
+			<j:ArrestCharge structures:id="Charge_01">
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
@@ -124,6 +124,9 @@
 		<j:ActivityCaseAssociation>
 			<nc:Activity structures:ref="Disposition_01" />
 			<nc:Activity structures:ref="Arrest_01" />
+			<nc:Activity structures:ref="Charge_01" />
+			<nc:Activity structures:ref="Restitution_01" />
+			<nc:Activity structures:ref="Sentence_01" />
 			<nc:Case structures:ref="Case_01" />
 		</j:ActivityCaseAssociation>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
