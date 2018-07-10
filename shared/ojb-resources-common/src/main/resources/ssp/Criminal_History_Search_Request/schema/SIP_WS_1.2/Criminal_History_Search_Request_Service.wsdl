@@ -19,8 +19,10 @@
 -->
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chsreq-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
-	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dacreq-doc="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
+	xmlns:mcreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0"
+	xmlns:daddreq-doc="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
+	xmlns:mddreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
 	name="Criminal_History_Search_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -29,22 +31,28 @@
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
-		<xsd:schema targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0">
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_search_request.xsd"></xsd:import>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DA_Charges_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Municipal_Charges_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DA_DeferredDisposition_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Municipal_DeferredDisposition_search_request.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="DA-Charges-Search-Request">
-		<wsdl:part element="chsreq-ext:DAChargesSearchRequest" name="DA-Charges-Search-Request" />
+		<wsdl:part element="dacreq-doc:DAChargesSearchRequest" name="DA-Charges-Search-Request" />
 	</wsdl:message>
 	<wsdl:message name="DA-Deferred-Disposition-Search-Request">
-		<wsdl:part element="chsreq-ext:DADeferredDispositionSearchRequest" name="DA-Deferred-Disposition-Search-Request" />
+		<wsdl:part element="daddreq-doc:DADeferredDispositionSearchRequest" name="DA-Deferred-Disposition-Search-Request" />
 	</wsdl:message>
 	<wsdl:message name="Municipal-Charges-Search-Request">
-		<wsdl:part element="chsreq-ext:MunicipalChargesSearchRequest" name="Municipal-Charges-Search-Request" />
+		<wsdl:part element="mcreq-doc:MunicipalChargesSearchRequest" name="Municipal-Charges-Search-Request" />
 	</wsdl:message>
 	<wsdl:message name="Municipal-Deferred-Disposition-Search-Request">
-		<wsdl:part element="chsreq-ext:MunicipalDeferredDispositionSearchRequest"
+		<wsdl:part element="mddreq-doc:MunicipalDeferredDispositionSearchRequest"
 			name="Municipal-Deferred-Disposition-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Search_Request_Service">
