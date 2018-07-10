@@ -30,24 +30,6 @@
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/"
 		schemaLocation="./Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="./Subset/niem/proxy/xsd/4.0/xs.xsd" />
-	<xsd:complexType name="CriminalHistorySearchRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a criminal history search request.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:choice>
-						<xsd:element ref="chsreq-ext:DAChargesSearchRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chsreq-ext:DADeferredDispositionSearchRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chsreq-ext:MunicipalChargesSearchRequest" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chsreq-ext:MunicipalDeferredDispositionSearchRequest" minOccurs="0" maxOccurs="unbounded" />
-					</xsd:choice>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:complexType name="SearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a search request.
@@ -65,26 +47,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="DAChargesSearchRequest" type="chsreq-ext:SearchRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A search request for District Attorney charges.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DADeferredDispositionSearchRequest" type="chsreq-ext:SearchRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A search request for District Attorney deferred dispositions.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="MunicipalChargesSearchRequest" type="chsreq-ext:SearchRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A search request for Municipal charges.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="MunicipalDeferredDispositionSearchRequest" type="chsreq-ext:SearchRequestType">
-		<xsd:annotation>
-			<xsd:documentation>A search request for Municipal deferred dispositions.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be

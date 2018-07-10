@@ -18,19 +18,19 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:chsreq-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
+	xmlns:daddreq-doc="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/" schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
 	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0" schemaLocation="criminal_history_search_request_ext.xsd" />
-	<!-- Root data element for the Criminal History Search Request -->
-	<xsd:element name="CriminalHistorySearchRequest" type="chsreq-ext:CriminalHistorySearchRequestType">
+	<!-- Root data element for the DA Deferred Disposition Search Request -->
+	<xsd:element name="DADeferredDispositionSearchRequest" type="chsreq-ext:SearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit a criminal history search request.</xsd:documentation>
+			<xsd:documentation>A message to submit a DA Deferred Disposition search request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
