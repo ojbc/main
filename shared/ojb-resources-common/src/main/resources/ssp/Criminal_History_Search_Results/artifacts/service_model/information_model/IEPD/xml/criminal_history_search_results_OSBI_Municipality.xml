@@ -67,7 +67,7 @@
 			<chsres-ext:DispositionCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 			</chsres-ext:DispositionCharge>
-			<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
+			<chsres-ext:DispositionCodeText>310</chsres-ext:DispositionCodeText>
 		</nc:Disposition>
 		<j:Sentence structures:id="Sentence_01">
 			<j:SentenceDeferredTerm>
@@ -89,7 +89,7 @@
 			<chsres-ext:FineSuspendedAmount>
 				<nc:Amount>100.00</nc:Amount>
 			</chsres-ext:FineSuspendedAmount>
-			<chsres-ext:AlternateSentenceText>Alternate Sentence</chsres-ext:AlternateSentenceText>
+			<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 		</j:Sentence>
 		<j:Restitution structures:id="Restitution_01">
 			<nc:ObligationDueAmount>
