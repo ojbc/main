@@ -27,6 +27,9 @@
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityObligationAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
@@ -66,6 +69,18 @@
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:Case" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityObligationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Obligation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ActivitySubjectAssociationType" w:isRequested="false">
