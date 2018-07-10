@@ -97,9 +97,9 @@
 			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlternateSentenceText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An alternate sentence.</xsd:documentation>
+			<xsd:documentation>An alternate sentence code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ActionCodeText" type="nc:TextType" substitutionGroup="j:ArrestAugmentationPoint">
