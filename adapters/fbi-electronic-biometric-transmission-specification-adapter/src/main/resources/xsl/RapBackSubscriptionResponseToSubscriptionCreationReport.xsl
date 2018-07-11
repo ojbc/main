@@ -50,6 +50,7 @@
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionID" />
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionTerm" />
 			<xsl:apply-templates select="ebts:RecordRapBackTermDate" />
+			<xsl:apply-templates select="../ebts:RecordTransactionActivity/ebts:EnrollmentEventID" />
 			<xsl:apply-templates select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
 			<xsl:apply-templates
 				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('STATE SUBSCRIPTION ID')]/ebts:UserDefinedElementText"
@@ -110,6 +111,13 @@
 		<fed_subcr-ext:RapBackTermDate>
 			<xsl:apply-templates select="nc:Date" />
 		</fed_subcr-ext:RapBackTermDate>
+	</xsl:template>
+	<xsl:template match="ebts:EnrollmentEventID">
+		<fed_subcr-ext:RapBackEnrollmentEventID>
+			<nc30:IdentificationID>
+				<xsl:value-of select="." />
+			</nc30:IdentificationID>
+		</fed_subcr-ext:RapBackEnrollmentEventID>
 	</xsl:template>
 	<xsl:template match="nc:CaseTrackingID">
 		<fed_subcr-ext:SubscriptionRelatedCaseIdentification>
