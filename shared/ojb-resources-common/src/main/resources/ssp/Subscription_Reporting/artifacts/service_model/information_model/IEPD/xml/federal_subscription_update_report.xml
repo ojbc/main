@@ -41,6 +41,9 @@
 		<fed_subcr_upd-ext:RapBackTermDate>
 			<nc30:Date>2015-01-01</nc30:Date>
 		</fed_subcr_upd-ext:RapBackTermDate>
+		<fed_subcr_upd-ext:RapBackEnrollmentEventID>
+			<nc30:IdentificationID>34567</nc30:IdentificationID>
+		</fed_subcr_upd-ext:RapBackEnrollmentEventID>
 		<fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification>
 			<nc30:IdentificationID>Q880312465</nc30:IdentificationID>
 		</fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification>
