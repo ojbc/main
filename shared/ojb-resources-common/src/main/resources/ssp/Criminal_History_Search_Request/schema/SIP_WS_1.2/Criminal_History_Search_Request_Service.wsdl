@@ -23,7 +23,7 @@
 	xmlns:mcreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0"
 	xmlns:daddreq-doc="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
 	xmlns:mddreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
-	xmlns:asreq-doc="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0"
+	xmlns:adsreq-doc="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
 	name="Criminal_History_Search_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
@@ -41,8 +41,8 @@
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DA_DeferredDisposition_search_request.xsd"></xsd:import>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Municipal_DeferredDisposition_search_request.xsd"></xsd:import>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ArrestSummary_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ArrestDetail_search_request.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="DA-Charges-Search-Request">
@@ -58,8 +58,8 @@
 		<wsdl:part element="mddreq-doc:MunicipalDeferredDispositionSearchRequest"
 			name="Municipal-Deferred-Disposition-Search-Request" />
 	</wsdl:message>
-	<wsdl:message name="Arrest-Summary-Search-Request">
-		<wsdl:part element="asreq-doc:ArrestSummarySearchRequest" name="Arrest-Summary-Search-Request" />
+	<wsdl:message name="Arrest-Detail-Search-Request">
+		<wsdl:part element="adsreq-doc:ArrestDetailSearchRequest" name="Arrest-Detail-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Search_Request_Service">
 		<wsdl:operation name="SubmitDAChargesSearchRequest">
@@ -74,8 +74,8 @@
 		<wsdl:operation name="SubmitMunicipalDeferredDispositionSearchRequest">
 			<wsdl:input message="tns:Municipal-Deferred-Disposition-Search-Request" />
 		</wsdl:operation>
-		<wsdl:operation name="SubmitArrestSummarySearchRequest">
-			<wsdl:input message="tns:Arrest-Summary-Search-Request" />
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
+			<wsdl:input message="tns:Arrest-Detail-Search-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Criminal_History_Search_Request_ServiceSOAPBinding"
@@ -110,9 +110,9 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="SubmitArrestSummarySearchRequest">
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestSummarySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -151,9 +151,9 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="SubmitArrestSummarySearchRequest">
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestSummarySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -192,9 +192,9 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="SubmitArrestSummarySearchRequest">
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestSummarySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

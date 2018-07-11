@@ -17,9 +17,9 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<asreq-doc:ArrestSummarySearchRequest
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0 ../xsd/ArrestSummary_search_request.xsd"
-	xmlns:asreq-doc="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0"
+<adsreq-doc:ArrestDetailSearchRequest
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0 ../xsd/ArrestDetail_search_request.xsd"
+	xmlns:adsreq-doc="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -28,4 +28,4 @@
 			<nc:IdentificationID>A34567890</nc:IdentificationID>
 		</nc:ActivityIdentification>
 	</j:Arrest>
-</asreq-doc:ArrestSummarySearchRequest>
+</adsreq-doc:ArrestDetailSearchRequest>

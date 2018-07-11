@@ -18,19 +18,19 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:asreq-doc="http://ojbc.org/IEPD/Exchange/ArrestSummarySearchRequest/1.0"
+	xmlns:adsreq-doc="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/" schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
 	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0" schemaLocation="criminal_history_search_request_ext.xsd" />
-	<!-- Root data element for the Arrest Summary Search Request -->
-	<xsd:element name="ArrestSummarySearchRequest" type="chsreq-ext:SearchRequestType">
+	<!-- Root data element for the Arrest Detail Search Request -->
+	<xsd:element name="ArrestDetailSearchRequest" type="chsreq-ext:SearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit an Arrest summary search request.</xsd:documentation>
+			<xsd:documentation>A message to submit an Arrest detail search request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
