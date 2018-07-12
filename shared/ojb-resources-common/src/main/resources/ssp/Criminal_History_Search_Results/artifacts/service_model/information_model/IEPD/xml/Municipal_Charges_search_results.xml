@@ -26,8 +26,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
 	<chsres-ext:CriminalHistorySearchResult>
-		<j:Subject>
-			<nc:RoleOfPerson structures:id="Subject_01">
+		<j:Subject structures:id="Subject_01">
+			<nc:RoleOfPerson>
 				<nc:PersonBirthDate>
 					<nc:Date>1980-01-02</nc:Date>
 				</nc:PersonBirthDate>
