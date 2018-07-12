@@ -36,6 +36,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DateRangeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a range of dates.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:EndDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DateType">
     <xs:annotation>
       <xs:documentation>A data type for a calendar date.</xs:documentation>
@@ -134,9 +147,19 @@
       <xs:documentation>A full date.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DateRange" type="nc:DateRangeType" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A time period measured by a starting and ending point.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DateRepresentation" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a representation of a date.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EndDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An end date.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
@@ -187,6 +210,11 @@
   <xs:element name="RoleOfPerson" type="nc:PersonType" substitutionGroup="nc:RoleOfAbstract" nillable="true">
     <xs:annotation>
       <xs:documentation>A person of whom the role object is a function.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StartDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date on which something begins.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

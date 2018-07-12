@@ -25,7 +25,14 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Arrest>
 		<nc:ActivityDate>
-			<nc:Date>2012-01-01</nc:Date>
+			<nc:DateRange>
+				<nc:StartDate>
+					<nc:Date>2018-04-10</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2018-07-10</nc:Date>
+				</nc:EndDate>
+			</nc:DateRange>
 		</nc:ActivityDate>
 		<j:ArrestSubject structures:ref="Subject_01">
 		</j:ArrestSubject>
