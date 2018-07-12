@@ -28,7 +28,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
 	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0" schemaLocation="criminal_history_search_request_ext.xsd" />
 	<!-- Root data element for the Municipal Charges Search Request -->
-	<xsd:element name="MunicipalChargesSearchRequest" type="chsreq-ext:SearchRequestType">
+	<xsd:element name="MunicipalChargesSearchRequest" type="chsreq-ext:MunicipalChargesSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A message to submit a Municipal charges search request.</xsd:documentation>
 		</xsd:annotation>

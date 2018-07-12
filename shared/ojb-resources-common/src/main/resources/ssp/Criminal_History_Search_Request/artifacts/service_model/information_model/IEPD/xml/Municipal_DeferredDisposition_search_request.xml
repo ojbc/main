@@ -19,7 +19,7 @@
 -->
 <mddreq-doc:MunicipalDeferredDispositionSearchRequest
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0 ../xsd/Municipal_DeferredDisposition_search_request.xsd"
-	structures:metadata="SM003" xmlns:mddreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
+	xmlns:mddreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -55,6 +55,11 @@
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
 	</nc:Person>
+	<nc:Disposition>
+		<nc:DispositionDate>
+			<nc:Date>2018-07-10</nc:Date>
+		</nc:DispositionDate>
+	</nc:Disposition>
 	<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
 	<chsreq-ext:SourceSystemNameText>CHS2</chsreq-ext:SourceSystemNameText>
 	<chsreq-ext:SearchMetadata structures:id="SM001">
@@ -64,9 +69,5 @@
 	<chsreq-ext:SearchMetadata structures:id="SM002">
 		<chsreq-ext:SearchQualifierCode>startsWith
 		</chsreq-ext:SearchQualifierCode>
-	</chsreq-ext:SearchMetadata>
-	<chsreq-ext:SearchMetadata structures:id="SM003">
-		<chsreq-ext:SearchRequestOnBehalfOfText>John Doe</chsreq-ext:SearchRequestOnBehalfOfText>
-		<chsreq-ext:SearchPurposeText>Criminal Justice</chsreq-ext:SearchPurposeText>
 	</chsreq-ext:SearchMetadata>
 </mddreq-doc:MunicipalDeferredDispositionSearchRequest>
