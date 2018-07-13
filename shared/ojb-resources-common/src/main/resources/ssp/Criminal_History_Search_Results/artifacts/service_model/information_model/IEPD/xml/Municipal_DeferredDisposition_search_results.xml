@@ -131,14 +131,14 @@
 			</j:ArrestSubject>
 		</j:Arrest>
 		<j:ActivityArrestAssociation>
-			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Activity structures:ref="Disposition_01" />
 			<nc:Activity structures:ref="Sentence_01" />
+			<j:Arrest structures:ref="Arrest_01" />
 		</j:ActivityArrestAssociation>
 		<j:ActivityArrestAssociation>
-			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Activity structures:ref="Disposition_02" />
 			<nc:Activity structures:ref="Sentence_02" />
+			<j:Arrest structures:ref="Arrest_01" />
 		</j:ActivityArrestAssociation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Sentence_01" />
