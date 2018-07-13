@@ -57,7 +57,14 @@
 	</nc:Person>
 	<nc:Disposition>
 		<nc:DispositionDate>
-			<nc:Date>2018-07-10</nc:Date>
+			<nc:DateRange>
+				<nc:StartDate>
+					<nc:Date>2018-04-10</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2018-07-10</nc:Date>
+				</nc:EndDate>
+			</nc:DateRange>
 		</nc:DispositionDate>
 	</nc:Disposition>
 	<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
