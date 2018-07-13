@@ -166,6 +166,7 @@
 						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>Charge Alert</j:ChargeQualifierText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
 					</j:ChargeTrackingIdentification>
@@ -187,6 +188,7 @@
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>Charge Alert</j:ChargeQualifierText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
 					</j:ChargeTrackingIdentification>
