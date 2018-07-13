@@ -36,7 +36,7 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	
-	<xsl:param name="rapbackValidationButtonShowingPeriod" select="30"/>
+	<xsl:param name="rapbackValidationButtonShowingPeriod" select="60"/>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />

@@ -84,7 +84,7 @@ public class SearchResultConverter implements ApplicationContextAware {
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
 
-	@Value("${rapbackValidationButtonShowingPeriod:30}")
+	@Value("${rapbackValidationButtonShowingPeriod:60}")
 	Integer rapbackValidationButtonShowingPeriod;
 
 	@Value("${chDisplaySupervisionTroCustodyHeaders:true}")
