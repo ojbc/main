@@ -999,7 +999,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		
 		//XmlUtils.printNode(returnDocument);
 
-		assertEquals("62720", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
+		assertEquals("62723", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
 
     }    
 

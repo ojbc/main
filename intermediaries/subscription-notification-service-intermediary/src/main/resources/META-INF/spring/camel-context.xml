@@ -434,6 +434,8 @@
 
 	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
 		<property name="dataSource" ref="dataSource" />
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="faultMessageProcessor" ref="faultMessageProcessor" />
 	</bean>
   

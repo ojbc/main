@@ -429,15 +429,12 @@ public class SubscriptionSearchQueryDAO {
 
         List<Subscription> ret = new ArrayList<Subscription>();
 
-        if (StringUtils.isNotEmpty(id)) {
-            Object[] criteriaArray = new Object[] {
-                id.trim()
-            };
+        if (StringUtils.isNotBlank(id)) {
             String queryString = BASE_QUERY_STRING + " and s.id=?";
-            ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
-
+        	ret = this.jdbcTemplate.query(queryString, resultSetExtractor, id);
         }
 
+        log.debug("Found subsriptions: "  + ret);
         return ret;
 
     }

@@ -27,7 +27,7 @@
 		xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
 	<sv:SubscriptionValidationMessage>
 		<smext:SubscriptionIdentification>
-			<nc20:IdentificationID>62720</nc20:IdentificationID>
+			<nc20:IdentificationID>62723</nc20:IdentificationID>
 		</smext:SubscriptionIdentification>
 	</sv:SubscriptionValidationMessage>
 	<b:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:TopicExpression>
