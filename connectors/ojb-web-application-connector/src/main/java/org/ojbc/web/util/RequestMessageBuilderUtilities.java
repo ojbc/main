@@ -916,19 +916,22 @@ public class RequestMessageBuilderUtilities {
         String docNamespace = null; 
         String docPrefix = null; 
         String systemName = null;
+        Element rootElement = null;
         if (archive){
         	docNamespace = NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;  
         	docPrefix =	NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
         	systemName = IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME; 
+            rootElement = document.createElementNS(docNamespace, 
+            		docPrefix + ":IdentificationResultsArchiveRequest");
         }
         else{
         	docNamespace = NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;  
         	docPrefix =	NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST; 
         	systemName = IDENTIFICATION_RESULTS_UNARCHIVE_REQUEST_SYSTEM_NAME;
+            rootElement = document.createElementNS(docNamespace, 
+            		docPrefix + ":IdentificationResultsUnarchiveRequest");
         }
         
-        Element rootElement = document.createElementNS(docNamespace, 
-        		docPrefix + ":IdentificationResultsArchiveRequest");
     	rootElement.setAttribute("xmlns:" + docPrefix, docNamespace);
         
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
