@@ -17,12 +17,14 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
@@ -68,6 +70,8 @@ public class RequestMessageBuilderUtilities {
 
 	private static final String IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME = 
 			"{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest";
+	private static final String IDENTIFICATION_RESULTS_UNARCHIVE_REQUEST_SYSTEM_NAME = 
+			"{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsUnarchiveRequest";
 
 	private static final Log log = LogFactory.getLog( RequestMessageBuilderUtilities.class );
 	
@@ -906,23 +910,38 @@ public class RequestMessageBuilderUtilities {
 	}
 
 	public static Document createIdentificationResultsModificationRequest(
-			String transactionNumber) throws Exception {
-        Document document = OJBCXMLUtils.createDocument();  
-        Element rootElement = document.createElementNS(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, 
-        		NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST 
-                +":IdentificationResultsArchiveRequest");
-        rootElement.setAttribute("xmlns:" + NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, 
-        		NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
+			String transactionNumber, boolean archive) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();
+        
+        String docNamespace = null; 
+        String docPrefix = null; 
+        String systemName = null;
+        if (archive){
+        	docNamespace = NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;  
+        	docPrefix =	NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+        	systemName = IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME; 
+        }
+        else{
+        	docNamespace = NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;  
+        	docPrefix =	NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST; 
+        	systemName = IDENTIFICATION_RESULTS_UNARCHIVE_REQUEST_SYSTEM_NAME;
+        }
+        
+        Element rootElement = document.createElementNS(docNamespace, 
+        		docPrefix + ":IdentificationResultsArchiveRequest");
+    	rootElement.setAttribute("xmlns:" + docPrefix, docNamespace);
+        
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
         document.appendChild(rootElement);
 
         Element identificationResultsIdentification = 
-        		XmlUtils.appendElement(rootElement, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, "IdentificationResultsIdentification");
+        		XmlUtils.appendElement(rootElement, docNamespace, "IdentificationResultsIdentification");
+        
         Element identificationId = XmlUtils.appendElement(identificationResultsIdentification, NS_NC_30, "IdentificationID");
         identificationId.setTextContent(transactionNumber);
         
-        Element systemName = XmlUtils.appendElement(rootElement, NS_NC_30, "SystemName"); 
-        systemName.setTextContent(IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME);
+        Element systemNameElement = XmlUtils.appendElement(rootElement, NS_NC_30, "SystemName"); 
+        systemNameElement.setTextContent(systemName);
         
 		return document;
 	}

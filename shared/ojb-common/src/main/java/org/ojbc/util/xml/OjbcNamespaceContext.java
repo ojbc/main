@@ -680,6 +680,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST = "ira-req-doc";
     public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0";
     
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST = "irua-req-doc";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0";
+    
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST = "oirs-req-doc";
     public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0";
     
@@ -1657,6 +1660,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    	    
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST);
+	    
 	    prefixToUriMap.put(NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_CASE_FILE_DECISION_REPORT_DOC_EXCH);
 	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	
 	    

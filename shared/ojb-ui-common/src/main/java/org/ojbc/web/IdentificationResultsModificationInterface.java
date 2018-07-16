@@ -22,6 +22,6 @@ import org.w3c.dom.Element;
 public interface IdentificationResultsModificationInterface {
 
 	public SimpleServiceResponse handleIdentificationResultsModificationRequest(
-			String transactionNumber, Element samlToken) throws Exception;
+			String transactionNumber, boolean archive, Element samlToken) throws Exception;
 
 }
