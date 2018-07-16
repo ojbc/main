@@ -31,8 +31,7 @@
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/colReorder.dataTables.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
-        <!--<link rel="stylesheet" type="text/css" href="#springUrl('/static/css/font-awesome-4.3.0/css/font-awesome.min.css')">-->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery.lwMultiSelect.css')">
 	  	<link href="#springUrl('/static/css/jquerysctipttop.css')" rel="stylesheet" type="text/css">
 

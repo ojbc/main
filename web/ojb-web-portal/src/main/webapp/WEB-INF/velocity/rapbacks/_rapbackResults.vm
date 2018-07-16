@@ -122,6 +122,18 @@
 			}).fail(ojbc.displayFailMessage);
     	});
     	
+    	$('#searchResultsTable').on('click', 'a.unarchive',function() {
+    		$.get("#springUrl('/rapbacks/unarchive')", {transactionNumber: $(this).attr("id")}, function(data) {
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
     	function showErrorMessage(data){
 			if ( $( "#informationMessages" ).length ) {
 			    $( "#informationMessages" ).html(data);

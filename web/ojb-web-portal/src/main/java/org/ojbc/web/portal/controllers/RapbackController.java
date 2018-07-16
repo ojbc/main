@@ -428,7 +428,28 @@ public class RapbackController {
 		try {
 			SimpleServiceResponse simpleServiceResponse = 
 					config.getIdentificationResultsModificationBean().handleIdentificationResultsModificationRequest(
-							transactionNumber, samlService.getSamlAssertion(request));
+							transactionNumber, true, samlService.getSamlAssertion(request));
+			
+			if (simpleServiceResponse.getSuccess()){
+				return "success";
+			}
+			else{
+				model.put("informationMessages", simpleServiceResponse.getErrorMessage());
+				return simpleServiceResponse.getErrorMessage() + ", please report the error try again later.";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Got error:  " + ex.getMessage() + ", please report the error and try again later.";
+		}
+	}
+	
+	@RequestMapping(value = "unarchive", method = RequestMethod.GET)
+	public @ResponseBody String unarchive(HttpServletRequest request, @RequestParam String transactionNumber,
+			Map<String, Object> model) {
+		try {
+			SimpleServiceResponse simpleServiceResponse = 
+					config.getIdentificationResultsModificationBean().handleIdentificationResultsModificationRequest(
+							transactionNumber, false, samlService.getSamlAssertion(request));
 			
 			if (simpleServiceResponse.getSuccess()){
 				return "success";

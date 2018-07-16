@@ -114,6 +114,7 @@
 			<td align="right" width="115px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
 				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 					<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
 						<xsl:attribute name="id">
@@ -126,7 +127,7 @@
 					</a>
 				</xsl:if>
 				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
+					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
@@ -146,6 +147,16 @@
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-archive fa-lg"></i>
+		</a>
+	</xsl:template>
+	
+	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="archived">
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		<a href="#" class="blueIcon unarchive" style="margin-right:3px" title="Unarchive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-folder-open fa-lg"></i>
 		</a>
 	</xsl:template>
 	

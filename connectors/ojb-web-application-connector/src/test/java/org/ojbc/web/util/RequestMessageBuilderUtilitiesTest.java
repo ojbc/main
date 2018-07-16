@@ -120,7 +120,7 @@ public class RequestMessageBuilderUtilitiesTest {
     
     @Test
     public void testCreateIdentificationResultsModificationRequest() throws Exception {
-    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993");
+    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993", true);
     	
     	String documentInString = OJBUtils.getStringFromDocument(document);
     	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(documentInString));
@@ -134,7 +134,12 @@ public class RequestMessageBuilderUtilitiesTest {
     	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
     	Assert.assertTrue("XML identical " + myDiff.toString(),
     			myDiff.identical());     
+
+    	Document unarchiveRequestDocument = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993", false);
     	
+    	String unarchiveRequestDocumentInString = OJBUtils.getStringFromDocument(unarchiveRequestDocument);
+    	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(unarchiveRequestDocumentInString));
+
     }
     
     @Test
