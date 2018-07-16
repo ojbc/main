@@ -40,11 +40,11 @@
 		<cxf-version>3.0.5</cxf-version>
 		<servlet-api-version>2.5</servlet-api-version>
 		<bouncycastle-version>140</bouncycastle-version>
-		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
+		<ojb-fedquery-common-version>2.0.0</ojb-fedquery-common-version>
 		<ojb-camel-common>[2.0.0,)</ojb-camel-common>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-common-version>[3.0.0, 3.0.1]</ojb-common-version>
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
-		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
+		<ojb-ui-common-version>[2.0.0, 2.0.1]</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[2.0.0,)</ojb-web-application-connector-extension-version>
 		<commons-lang-version>2.4</commons-lang-version>
 		<spring-version>3.2.13.RELEASE</spring-version>

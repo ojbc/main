@@ -136,6 +136,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -318,6 +319,11 @@
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentificationSourceText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person, organization, or locale which issues an identification.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Obligation" type="nc:ObligationType" nillable="true">

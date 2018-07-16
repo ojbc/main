@@ -70,8 +70,10 @@
     <w:ElementInType w:name="j:Subject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:ArrestType" w:isRequested="false">
+  <w:Type w:name="j:ArrestType" w:isRequested="true">
     <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestSubject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -82,7 +84,7 @@
     <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:ChargeType" w:isRequested="false">
+  <w:Type w:name="j:ChargeType" w:isRequested="true">
     <w:ElementInType w:name="j:ChargeCountQuantity"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
@@ -114,6 +116,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtCostAmount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SupervisionFineAmount"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:StatuteType" w:isRequested="false">
     <w:ElementInType w:name="j:StatuteCodeIdentification"
@@ -181,6 +187,8 @@
   <w:Type w:name="nc:IdentificationType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationSourceText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ObligationType" w:isRequested="true">
     <w:ElementInType w:name="nc:ObligationDueAbstract"

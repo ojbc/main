@@ -22,6 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
+	xmlns:irua-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0"
 	name="Identification_Results_Modification_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -34,15 +35,23 @@
 			targetNamespace="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/IdentificationResultsArchiveRequest.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/IdentificationResultsUnarchiveRequest.xsd"></xsd:import>				
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Identification-Results-Archive-Request">
 		<wsdl:part element="ira-req-doc:IdentificationResultsArchiveRequest" name="Identification-Results-Archive-Request" />
 	</wsdl:message>
+	<wsdl:message name="Identification-Results-Unarchive-Request">
+		<wsdl:part element="irua-req-doc:IdentificationResultsUnarchiveRequest" name="Identification-Results-Unarchive-Request" />
+	</wsdl:message>	
 	<wsdl:portType name="Identification_Results_Modification_Request_Service">
 		<wsdl:operation name="SubmitIdentificationResultsArchiveRequest">
 			<wsdl:input message="tns:Identification-Results-Archive-Request" />
 		</wsdl:operation>
+		<wsdl:operation name="SubmitIdentificationResultsUnarchiveRequest">
+			<wsdl:input message="tns:Identification-Results-Unarchive-Request" />
+		</wsdl:operation>		
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Identification_Results_Modification_Request_Secure_ServiceSOAPBinding"
@@ -57,6 +66,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="SubmitIdentificationResultsUnarchiveRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0/SubmitIdentificationResultsUnarchiveRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 	</wsdl:binding>
 	<wsdl:service name="Identification_Results_Modification_Request_Service_Service">
 		<wsdl:port binding="tns:Identification_Results_Modification_Request_Secure_ServiceSOAPBinding"

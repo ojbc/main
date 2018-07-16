@@ -21,10 +21,15 @@
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
+  xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/">
+  <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityObligationAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
@@ -66,6 +71,18 @@
     <w:ElementInType w:name="nc:Case" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityObligationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Obligation" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ActivitySubjectAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -74,6 +91,8 @@
   </w:Type>
   <w:Type w:name="j:ArrestType" w:isRequested="false">
     <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestSubject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -122,6 +141,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtCostAmount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SupervisionFineAmount"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:StatuteType" w:isRequested="false">
     <w:ElementInType w:name="j:StatuteCodeIdentification"
@@ -186,7 +209,7 @@
     <w:ElementInType w:name="nc:DocumentDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:IdentificationType" w:isRequested="false">
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -225,6 +248,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSSNIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:SystemIdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="ncic:RACECodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="A"/>

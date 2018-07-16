@@ -18,43 +18,101 @@
 
 -->
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chsreq-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dacreq-doc="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
+	xmlns:mcreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0"
+	xmlns:daddreq-doc="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
+	xmlns:mddreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
+	xmlns:adsreq-doc="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
 	name="Criminal_History_Search_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0"
-	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
-	<wsdl:import
-		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
-		<wsdl:import
-		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
-		<xsd:schema
-			targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0">
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_search_request.xsd"></xsd:import>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DA_Charges_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Municipal_Charges_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/DA_DeferredDisposition_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Municipal_DeferredDisposition_search_request.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ArrestDetail_search_request.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="Criminal-History-Search-Request">
-		<wsdl:part element="chsreq-doc:CriminalHistorySearchRequest" name="Criminal-History-Search-Request" />
+	<wsdl:message name="DA-Charges-Search-Request">
+		<wsdl:part element="dacreq-doc:DAChargesSearchRequest" name="DA-Charges-Search-Request" />
+	</wsdl:message>
+	<wsdl:message name="DA-Deferred-Disposition-Search-Request">
+		<wsdl:part element="daddreq-doc:DADeferredDispositionSearchRequest" name="DA-Deferred-Disposition-Search-Request" />
+	</wsdl:message>
+	<wsdl:message name="Municipal-Charges-Search-Request">
+		<wsdl:part element="mcreq-doc:MunicipalChargesSearchRequest" name="Municipal-Charges-Search-Request" />
+	</wsdl:message>
+	<wsdl:message name="Municipal-Deferred-Disposition-Search-Request">
+		<wsdl:part element="mddreq-doc:MunicipalDeferredDispositionSearchRequest"
+			name="Municipal-Deferred-Disposition-Search-Request" />
+	</wsdl:message>
+	<wsdl:message name="Arrest-Detail-Search-Request">
+		<wsdl:part element="adsreq-doc:ArrestDetailSearchRequest" name="Arrest-Detail-Search-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Search_Request_Service">
-		<wsdl:operation name="SubmitCriminalHistorySearchRequest">
-			<wsdl:input message="tns:Criminal-History-Search-Request" />
+		<wsdl:operation name="SubmitDAChargesSearchRequest">
+			<wsdl:input message="tns:DA-Charges-Search-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitDADeferredDispositionSearchRequest">
+			<wsdl:input message="tns:DA-Deferred-Disposition-Search-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalChargesSearchRequest">
+			<wsdl:input message="tns:Municipal-Charges-Search-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalDeferredDispositionSearchRequest">
+			<wsdl:input message="tns:Municipal-Deferred-Disposition-Search-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
+			<wsdl:input message="tns:Arrest-Detail-Search-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Criminal_History_Search_Request_ServiceSOAPBinding"
 		type="tns:Criminal_History_Search_Request_Service">
-		<soap:binding style="document"
-			transport="http://schemas.xmlsoap.org/soap/http" />
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsaw:UsingAddressing wsdl:required="true" />
-		<wsdl:operation name="SubmitCriminalHistorySearchRequest">
+		<wsdl:operation name="SubmitDAChargesSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitCriminalHistorySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDAChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitDADeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDADeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalChargesSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalDeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalDeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -63,12 +121,39 @@
 	<!-- Secure, GFIPM-conformant binding requiring SAML -->
 	<wsdl:binding name="Criminal_History_Search_Request_Secure_ServiceSOAPBinding"
 		type="tns:Criminal_History_Search_Request_Service">
-		<soap:binding style="document"
-			transport="http://schemas.xmlsoap.org/soap/http" />
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
-		<wsdl:operation name="SubmitCriminalHistorySearchRequest">
+		<wsdl:operation name="SubmitDAChargesSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitCriminalHistorySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDAChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitDADeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDADeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalChargesSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalDeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalDeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -77,12 +162,39 @@
 	<!-- Secure, GFIPM-conformant binding not using SAML -->
 	<wsdl:binding name="Criminal_History_Search_Request_ServiceSOAPBinding_SystemToSystem"
 		type="tns:Criminal_History_Search_Request_Service">
-		<soap:binding style="document"
-			transport="http://schemas.xmlsoap.org/soap/http" />
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
-		<wsdl:operation name="SubmitCriminalHistorySearchRequest">
+		<wsdl:operation name="SubmitDAChargesSearchRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitCriminalHistorySearchRequest" />
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDAChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitDADeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitDADeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalChargesSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalChargesSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitMunicipalDeferredDispositionSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitMunicipalDeferredDispositionSearchRequest" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitArrestDetailSearchRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0/SubmitArrestDetailSearchRequest" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

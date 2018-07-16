@@ -22,13 +22,12 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
-	xmlns:tns="http://www.example.org/search-result-metadata"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
 		schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="./Subset/niem/proxy/xsd/4.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
-		schemaLocation="./Subset/niem/structures/4.0/structures.xsd" />
+		schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 		schemaLocation="search-request-error-reporting.xsd" />
