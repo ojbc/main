@@ -61,6 +61,7 @@
 					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionTermCode" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:RapBackTermDate" minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackEnrollmentEventID" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:StateSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:SubscribtionTransactionStatusText" minOccurs="0" />
@@ -247,6 +248,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="RapBackEnrollmentEventID" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Identification of a specific biometric enrollment event for an identity.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="SubscriptionRelatedCaseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>An identification of a case related to the subscription.

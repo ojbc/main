@@ -20,33 +20,37 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
-	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	name="Criminal_History_Modification_Request_Service"
+	xmlns:aar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0"
+	xmlns:ahr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
+	xmlns:amr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
+	xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0" name="Criminal_History_Modification_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
-		<xsd:schema targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0">
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/criminal_history_modification_request.xsd" />
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_add_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_hide_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_modify_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/expunge_request.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Arrest-Add-Request">
-		<wsdl:part element="chm-req-ext:ArrestAddRequest" name="Arrest-Add-Request" />
+		<wsdl:part element="aar-req-doc:ArrestAddRequest" name="Arrest-Add-Request" />
 	</wsdl:message>
 	<wsdl:message name="Arrest-Modify-Request">
-		<wsdl:part element="chm-req-ext:ArrestModifyRequest" name="Arrest-Modify-Request" />
+		<wsdl:part element="amr-req-doc:ArrestModifyRequest" name="Arrest-Modify-Request" />
 	</wsdl:message>
 	<wsdl:message name="Arrest-Hide-Request">
-		<wsdl:part element="chm-req-ext:ArrestHideRequest" name="Arrest-Hide-Request" />
+		<wsdl:part element="ahr-req-doc:ArrestHideRequest" name="Arrest-Hide-Request" />
 	</wsdl:message>
-	<wsdl:message name="Disposition-Add-Request">
-		<wsdl:part element="chm-req-ext:DispositionAddRequest" name="Disposition-Add-Request" />
-	</wsdl:message>
-	<wsdl:message name="Disposition-Hide-Request">
-		<wsdl:part element="chm-req-ext:DispositionHideRequest" name="Disposition-Hide-Request" />
+	<wsdl:message name="Expunge-Request">
+		<wsdl:part element="er-req-doc:ExpungeRequest" name="Expunge-Request" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Request_Service">
 		<wsdl:operation name="AddArrestRequest">
@@ -58,11 +62,8 @@
 		<wsdl:operation name="HideArrestRequest">
 			<wsdl:input message="tns:Arrest-Hide-Request" name="Arrest-Hide-Request" />
 		</wsdl:operation>
-		<wsdl:operation name="AddDispositionRequest">
-			<wsdl:input message="tns:Disposition-Add-Request" name="Disposition-Add-Request" />
-		</wsdl:operation>
-		<wsdl:operation name="HideDispositionRequest">
-			<wsdl:input message="tns:Disposition-Hide-Request" name="Disposition-Hide-Request" />
+		<wsdl:operation name="ExpungeRequest">
+			<wsdl:input message="tns:Expunge-Request" name="Expunge-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -91,17 +92,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="AddDispositionRequest">
+		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddDispositionRequest" />
-			<wsdl:input name="Disposition-Add-Request">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="HideDispositionRequest">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideDispositionRequest" />
-			<wsdl:input name="Disposition-Hide-Request">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />
+			<wsdl:input name="Expunge-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -132,17 +126,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="AddDispositionRequest">
+		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/AddDispositionRequest" />
-			<wsdl:input name="Disposition-Add-Request">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="HideDispositionRequest">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/HideDispositionRequest" />
-			<wsdl:input name="Disposition-Hide-Request">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />
+			<wsdl:input name="Expunge-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>

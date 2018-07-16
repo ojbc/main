@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<ROOT>
+	<PersonIdentifierlist>
+		<id>10535081</id>
+		<value>121</value>
+		<type>BADGE</type>
+	</PersonIdentifierlist>
+	<CaseToCaseIdentifierlist>
+		<id>15110693</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<source-CaseIdentifier>2991557</source-CaseIdentifier>
+		<name>CaseToCaseIdentifier</name>
+	</CaseToCaseIdentifierlist>
+	<CaseToCaseIdentifierlist>
+		<id>15164234</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<source-CaseIdentifier>3045098</source-CaseIdentifier>
+		<name>CaseToCaseIdentifier</name>
+	</CaseToCaseIdentifierlist>
+	<CriminalDefendantlist>
+		<notPdDefendant>false</notPdDefendant>
+		<id>17076405</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<primary>false</primary>
+		<name>CRIMINALDEFENDANT</name>
+		<source-Person>9551056</source-Person>
+		<interpreterNeeded>false</interpreterNeeded>
+		<prop36Eligible>false</prop36Eligible>
+		<defenderAppointed>false</defenderAppointed>
+	</CriminalDefendantlist>
+	<CriminalDefendantlist>
+		<notPdDefendant>false</notPdDefendant>
+		<id>17076432</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<name>CRIMINALDEFENDANT</name>
+		<primary>false</primary>
+		<source-Person>10167100</source-Person>
+		<interpreterNeeded>false</interpreterNeeded>
+		<defenderAppointed>false</defenderAppointed>
+		<prop36Eligible>false</prop36Eligible>
+	</CriminalDefendantlist>
+	<CriminalDefendantlist>
+		<notPdDefendant>false</notPdDefendant>
+		<id>17076459</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<name>CRIMINALDEFENDANT</name>
+		<primary>true</primary>
+		<source-Person>10481804</source-Person>
+		<interpreterNeeded>false</interpreterNeeded>
+		<defenderAppointed>false</defenderAppointed>
+		<prop36Eligible>false</prop36Eligible>
+	</CriminalDefendantlist>
+	<CriminalCaselist>
+		<gangCase>false</gangCase>
+		<caseType>MVDVIOL</caseType>
+		<startDate>2005-06-06 00:00:00.0</startDate>
+		<superiorCourt>false</superiorCourt>
+		<filingCategory>Criminal</filingCategory>
+		<criminalStatus>OPEN</criminalStatus>
+		<upgradeCase>false</upgradeCase>
+		<filingCause>MISDEM</filingCause>
+		<id>6068608</id>
+		<open>true</open>
+		<fileNumber>05-42946</fileNumber>
+		<description>7-25-05 MELODIE FRANKLIN GUILTY FILE DESTROYED</description>
+		<filingType>Misdemeanor</filingType>
+		<byrne>false</byrne>
+		<name>Franklin, Lance Dusty; Spencer, Raphael Lee; Franklin, Melodie</name>
+		<sealed>false</sealed>
+		<verticalCase>false</verticalCase>
+	</CriminalCaselist>
+	<PersonToPersonIdentifierlist>
+		<id>20069539</id>
+		<name>PersonToPersonIdentifier</name>
+		<source-PersonIdentifier>10535081</source-PersonIdentifier>
+		<target-Person>9597076</target-Person>
+	</PersonToPersonIdentifierlist>
+	<IncidentToAddresslist>
+		<id>18553684</id>
+		<name>IncidentToAddress</name>
+		<primary>true</primary>
+		<target-Incident>8944545</target-Incident>
+		<source-Address>121777</source-Address>
+	</IncidentToAddresslist>
+	<PersonToContactInformationlist>
+		<id>19873539</id>
+		<name>PersonToContactInformation</name>
+		<primary>true</primary>
+		<source-ContactInformation>5343342</source-ContactInformation>
+		<target-Person>9597076</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>19988443</id>
+		<name>PersonToContactInformation</name>
+		<primary>true</primary>
+		<source-ContactInformation>5397326</source-ContactInformation>
+		<target-Person>9597076</target-Person>
+	</PersonToContactInformationlist>
+	<PersonToContactInformationlist>
+		<id>20011427</id>
+		<primary>true</primary>
+		<name>PersonToContactInformation</name>
+		<source-ContactInformation>5404193</source-ContactInformation>
+		<target-Person>10167100</target-Person>
+	</PersonToContactInformationlist>
+	<CaseIdentifierlist>
+		<id>2991557</id>
+		<value>05-697</value>
+		<type>ALT_ID</type>
+	</CaseIdentifierlist>
+	<CaseIdentifierlist>
+		<id>3045098</id>
+		<value>05-697</value>
+		<type>POLNO</type>
+	</CaseIdentifierlist>
+	<CaseToIncidentlist>
+		<id>15255286</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<source-Incident>8944545</source-Incident>
+		<name>CaseToIncident</name>
+		<primary>false</primary>
+	</CaseToIncidentlist>
+	<Chargelist>
+		<id>3251845</id>
+		<paragraph>1</paragraph>
+		<dateFiled>2005-06-07 00:00:00.0</dateFiled>
+		<section>LIQ-OPCAN</section>
+		<comments>LIQ-OPCAN-1M (4-251 (A)(2)) Open alcohol container in vehicle.</comments>
+	</Chargelist>
+	<CaseDefendantToChargelist>
+		<id>20537529</id>
+		<name>CaseDefendantToCharge</name>
+		<source-Charge>3251845</source-Charge>
+		<target-CriminalDefendant>17076459</target-CriminalDefendant>
+	</CaseDefendantToChargelist>
+	<CaseOfficerlist>
+		<id>14865701</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<primary>true</primary>
+		<name>CaseOfficer</name>
+		<source-Person>9597076</source-Person>
+		<arresting>true</arresting>
+		<atScene>false</atScene>
+	</CaseOfficerlist>
+	<Sentencelist>
+		<id>31840041</id>
+		<startDate>2017-09-13 00:00:00.0</startDate>
+		<description></description>
+		<consecutive>false</consecutive>
+		<endDateType>Unsupported</endDateType>
+		<suspended>false</suspended>
+		<startDateType>Unsupported</startDateType>
+	</Sentencelist>
+	<PersonToAddresslist>
+		<id>19234657</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>Work</type>
+		<source-Address>184078</source-Address>
+		<target-Person>9597076</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19116007</id>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>165160</source-Address>
+		<target-Person>9551056</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19220706</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>true</primary>
+		<active>true</active>
+		<type>MAIL</type>
+		<source-Address>181856</source-Address>
+		<target-Person>9551056</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19115993</id>
+		<correspondence>false</correspondence>
+		<primary>false</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>165158</source-Address>
+		<target-Person>10167100</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19532010</id>
+		<correspondence>false</correspondence>
+		<primary>true</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>231526</source-Address>
+		<target-Person>10167100</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19682629</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>PREV</type>
+		<source-Address>255611</source-Address>
+		<target-Person>10481804</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19772873</id>
+		<correspondence>false</correspondence>
+		<primary>true</primary>
+		<name>PersonToAddress</name>
+		<active>true</active>
+		<type>MAIL</type>
+		<source-Address>270050</source-Address>
+		<target-Person>10481804</target-Person>
+	</PersonToAddresslist>
+	<PersonToAddresslist>
+		<id>19842628</id>
+		<correspondence>false</correspondence>
+		<name>PersonToAddress</name>
+		<primary>false</primary>
+		<active>true</active>
+		<type>Home</type>
+		<source-Address>271594</source-Address>
+		<target-Person>10481804</target-Person>
+	</PersonToAddresslist>
+	<Addresslist>
+		<streetAddress>Holbrook Police Department PO Box 656
+		</streetAddress>
+		<id>184078</id>
+		<postalCode>86025</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>E California</streetAddress>
+		<id>121777</id>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Holbrook</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>4607 Coopertown Rd, #37</streetAddress>
+		<id>165160</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Winslow</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>P O Box 7064</streetAddress>
+		<id>181856</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Winslow</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>4607 W Coopertown Rd, #37</streetAddress>
+		<id>165158</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Winslow</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>PO Box 1338</streetAddress>
+		<id>231526</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Winslow</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>PO Box 1338</streetAddress>
+		<id>255611</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<city>Winslow</city>
+		<country>USA</country>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>PO Box 564</streetAddress>
+		<id>270050</id>
+		<postalCode>86032</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Joseph City</city>
+	</Addresslist>
+	<Addresslist>
+		<streetAddress>PO Box 1338</streetAddress>
+		<id>271594</id>
+		<postalCode>86047</postalCode>
+		<county>NAVAJO</county>
+		<state>AZ</state>
+		<country>USA</country>
+		<city>Winslow</city>
+	</Addresslist>
+	<CaseCourtlist>
+		<id>14087536</id>
+		<amended>false</amended>
+		<courtNumber>cr200500443</courtNumber>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<packageCase>false</packageCase>
+		<name>CaseCourt</name>
+		<currentCourt>false</currentCourt>
+		<source-Court>5416612</source-Court>
+	</CaseCourtlist>
+	<CaseCourtlist>
+		<id>14087551</id>
+		<amended>false</amended>
+		<courtNumber>cr200500427</courtNumber>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<packageCase>false</packageCase>
+		<name>CaseCourt</name>
+		<currentCourt>false</currentCourt>
+		<source-Court>5416612</source-Court>
+	</CaseCourtlist>
+	<CaseCourtlist>
+		<dateIn>Wed May 04 00:00:00 EDT 2005</dateIn>
+		<id>28413358</id>
+		<amended>false</amended>
+		<courtNumber>CR2005-0428</courtNumber>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<name>CaseCourt</name>
+		<currentCourt>true</currentCourt>
+		<comment>MELODIE FRANKLIN</comment>
+		<source-Court>5416612</source-Court>
+	</CaseCourtlist>
+	<CaseToOrganizationlist>
+		<id>15321160</id>
+		<target-CriminalCase>6068608</target-CriminalCase>
+		<source-Organization>9401751</source-Organization>
+		<name>Case To Organization</name>
+		<primary>true</primary>
+		<role>AGENCY</role>
+		<arresting>true</arresting>
+	</CaseToOrganizationlist>
+	<Organizationlist>
+		<id>9401751</id>
+		<status>STATE</status>
+		<description></description>
+		<name>Holbrook Police Department</name>
+		<primaryReferenceId>3857</primaryReferenceId>
+		<type>Law Enforcement</type>
+		<salutation>Dear Sirs:</salutation>
+	</Organizationlist>
+	<Personlist>
+		<sexOffender>false</sexOffender>
+		<handicapped>false</handicapped>
+		<id>9597076</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<description>OK</description>
+		<deceased>false</deceased>
+		<primaryName>Mario;;Parra;Officer;</primaryName>
+		<type>Law Enforcement</type>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<socialSecurityNumber>526-83-9689</socialSecurityNumber>
+		<primaryName>Raphael;Lee;Spencer;Mr.;</primaryName>
+		<type>Individual</type>
+		<race>NATAM</race>
+		<id>9551056</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=5'7" 135 blk blk}</physicalFeatures>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Male</gender>
+		<birthDate>1978-01-12 00:00:00.0</birthDate>
+		<deceased>false</deceased>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<id>10507752</id>
+		<client>false</client>
+		<interpreter>false</interpreter>
+		<textNotification>false</textNotification>
+		<emailNotification>false</emailNotification>
+		<primaryName> 3; ;Misdemeanor Desk;;</primaryName>
+		<type>Staff</type>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<socialSecurityNumber>527-97-5536</socialSecurityNumber>
+		<type>Individual</type>
+		<primaryName>'Melodie;;Franklin;Ms.;</primaryName>
+		<race>NATAM</race>
+		<id>10167100</id>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Female</gender>
+		<deceased>false</deceased>
+		<birthDate>1979-01-13 00:00:00.0</birthDate>
+	</Personlist>
+	<Personlist>
+		<handicapped>false</handicapped>
+		<sexOffender>false</sexOffender>
+		<client>false</client>
+		<socialSecurityNumber>526-97-6983</socialSecurityNumber>
+		<primaryName>Lance;Dusty;Franklin;Mr.;</primaryName>
+		<type>Individual</type>
+		<race>NATAM</race>
+		<id>10481804</id>
+		<physicalFeatures>PersonPhysicalFeature{type=Generic,description=195 5'8" blk blk}</physicalFeatures>
+		<interpreter>false</interpreter>
+		<description>UNKNOWN</description>
+		<gender>Male</gender>
+		<birthDate>1980-06-30 00:00:00.0</birthDate>
+		<deceased>false</deceased>
+	</Personlist>
+	<Courtlist>
+		<id>5416612</id>
+		<description>Holbrook Justice Court</description>
+		<name>Holbrook Justice Court</name>
+		<type>JP</type>
+	</Courtlist>
+	<ContactInformationlist>
+		<id>5343342</id>
+		<value>520-524-3991</value>
+		<active>true</active>
+		<type>Direct</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>5397326</id>
+		<value></value>
+		<active>true</active>
+		<type>Fax</type>
+	</ContactInformationlist>
+	<ContactInformationlist>
+		<id>5404193</id>
+		<value></value>
+		<active>true</active>
+		<type>Fax</type>
+	</ContactInformationlist>
+	<Incidentlist>
+		<id>8944545</id>
+		<startDate>2005-04-14 00:00:00.0</startDate>
+		<reportNumber>05-697</reportNumber>
+		<description>misdemeanor</description>
+		<dateReported>Thu Apr 14 00:00:00 EDT 2005</dateReported>
+		<endDateType>Unsupported</endDateType>
+		<weaponUsed>true</weaponUsed>
+		<startDateType>Unsupported</startDateType>
+	</Incidentlist>
+	<PersonNamelist>
+		<id>15359</id>
+		<lastName>Parra</lastName>
+		<prefix>Officer</prefix>
+		<active>true</active>
+		<firstName>Mario</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>Lee</middleName>
+		<id>11561</id>
+		<lastName>Spencer</lastName>
+		<prefix>Mr.</prefix>
+		<active>true</active>
+		<firstName>Raphael</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName></middleName>
+		<id>89898</id>
+		<lastName>Misdemeanor Desk</lastName>
+		<active>true</active>
+		<firstName> 3</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<id>62391</id>
+		<lastName>Franklin</lastName>
+		<prefix>Ms.</prefix>
+		<active>true</active>
+		<firstName>'Melodie</firstName>
+	</PersonNamelist>
+	<PersonNamelist>
+		<middleName>Dusty</middleName>
+		<id>87801</id>
+		<lastName>Franklin</lastName>
+		<prefix>Mr.</prefix>
+		<active>true</active>
+		<firstName>Lance</firstName>
+	</PersonNamelist>
+	<CaseDefendantToSentencelist>
+		<id>31840070</id>
+		<name>CaseDefendantToSentence</name>
+		<target-Sentence>31840041</target-Sentence>
+		<source-CriminalDefendant>17076432</source-CriminalDefendant>
+	</CaseDefendantToSentencelist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Tue Jun 07 00:00:00 EDT 2005</assignmentStartDate>
+		<id>20926770</id>
+		<name>AssignedAttorney</name>
+		<primary>true</primary>
+		<source-Person>10507752</source-Person>
+		<conflict>false</conflict>
+		<target-CriminalDefendant>17076405</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Tue Jun 07 00:00:00 EDT 2005</assignmentStartDate>
+		<id>20926779</id>
+		<primary>true</primary>
+		<name>AssignedAttorney</name>
+		<source-Person>10507752</source-Person>
+		<conflict>false</conflict>
+		<target-CriminalDefendant>17076432</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+	<DefenderAssignmentlist>
+		<assignmentStartDate>Tue Jun 07 00:00:00 EDT 2005</assignmentStartDate>
+		<id>20926788</id>
+		<primary>true</primary>
+		<name>AssignedAttorney</name>
+		<source-Person>10507752</source-Person>
+		<conflict>false</conflict>
+		<target-CriminalDefendant>17076459</target-CriminalDefendant>
+	</DefenderAssignmentlist>
+</ROOT>

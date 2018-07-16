@@ -61,6 +61,7 @@
 					<xsd:element ref="fed_subcr-ext:RapBackSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:RapBackSubscriptionTermCode" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:RapBackTermDate" minOccurs="0" />
+					<xsd:element ref="fed_subcr-ext:RapBackEnrollmentEventID" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:SubscriptionRelatedCaseIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:StateSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:SubscribtionTransactionStatusText" minOccurs="0" />
@@ -244,6 +245,12 @@
 	<xsd:element name="RapBackTermDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date identifying the end of the fee paid by the Subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackEnrollmentEventID" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Identification of a specific biometric enrollment event for an identity.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

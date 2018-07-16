@@ -25,7 +25,7 @@
 		schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="./Subset/niem/proxy/xsd/4.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
-		schemaLocation="./Subset/niem/structures/4.0/structures.xsd" />
+		schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
 	<xsd:element name="InformationAccessDenial" type="iad:InformationAccessDenialType">
 		<xsd:annotation>
 			<xsd:documentation>An explanation of a persons inability to access requested information
