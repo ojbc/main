@@ -80,7 +80,7 @@ public class TestSubscriptionValidationMessageProcessor {
 
 		ex.getIn().setBody(document);
 
-		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62720'");
+		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62723'");
 		assertEquals(1,rowsUpdated);
 		
 		subscriptionValidationMessageProcessor.validateSubscription(ex);
@@ -129,7 +129,7 @@ public class TestSubscriptionValidationMessageProcessor {
 		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
 		Document document = docBuilder.parse(inputFile);
 
-		assertEquals("62720", processor.returnSubscriptionIDFromSubscriptionValidationRequestMessage(document));
+		assertEquals("62723", processor.returnSubscriptionIDFromSubscriptionValidationRequestMessage(document));
 
 	}
 

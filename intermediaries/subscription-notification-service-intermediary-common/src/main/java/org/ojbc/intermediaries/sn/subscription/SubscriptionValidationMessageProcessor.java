@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.subscription;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
@@ -72,16 +73,16 @@ public class SubscriptionValidationMessageProcessor {
 		
 		String subscriptionID="";
 		
-		List<Subscription> subscriptions = null;
 		Subscription subscription = null;
 		
 		//Try to get the subscription ID.  If not found or not set, create a fault
 		try {
 			subscriptionID = returnSubscriptionIDFromSubscriptionValidationRequestMessage(subscriptionValidationRequestMessage);
-			subscriptions = subscriptionSearchQueryDAO.queryForSubscription(subscriptionID);
+			List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription(subscriptionID);
 			subscription = subscriptions.get(0);
 		} catch (Exception e) {
-			
+			log.error(e);
+			e.printStackTrace();
 			exchange.getIn().setHeader("subscriptionID", subscriptionID);
 			
 			faultMessageProcessor.createFault(exchange);
@@ -90,7 +91,7 @@ public class SubscriptionValidationMessageProcessor {
 
 		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription.getSubscriptionOwner(), subscription.getTopic(), subscription.getSubscriptionCategoryCode(), subscription.getLastValidationDate().toLocalDate());
 		
-		String validationDueDateString = validationDueDate.toString("yyyy-MM-dd");
+		String validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
 		
 		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {validationDueDateString, validationDueDateString, subscriptionID.trim()});
 		
