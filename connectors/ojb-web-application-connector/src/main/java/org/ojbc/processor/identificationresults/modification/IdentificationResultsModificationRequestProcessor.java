@@ -92,6 +92,12 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 
 		OJBSamlMap.putToken(tokenID, samlToken);
 
+		if (archive){
+			messageProcessor.setOperationName("SubmitIdentificationResultsArchiveRequest");
+		}
+		else{
+			messageProcessor.setOperationName("SubmitIdentificationResultsUnarchiveRequest");
+		}
 		messageProcessor.sendResponseMessage(camelContext, senderExchange);
 		
 		//Put message ID and "noResponse" place holder.  
