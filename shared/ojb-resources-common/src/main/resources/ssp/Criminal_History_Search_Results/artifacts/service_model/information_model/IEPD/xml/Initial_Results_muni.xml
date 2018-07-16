@@ -45,6 +45,9 @@
 			</j:SubjectIdentification>
 		</j:Subject>
 		<j:Arrest>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>A123456</nc:IdentificationID>
+			</nc:ActivityIdentification>
 			<nc:ActivityDate>
 				<nc:Date>2018-05-29</nc:Date>
 			</nc:ActivityDate>

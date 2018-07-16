@@ -50,9 +50,19 @@
 			</nc:ActivityDate>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
