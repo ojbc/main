@@ -878,7 +878,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_EXPUNGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0";
 	public static final String NS_PREFIX_EXPUNGE_REQUEST_DOC ="er-req-doc";
 
-	public static final String NS_ARREST_DETAIL_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exxchange/ArrestDetailSearchRequest/1.0";
+	public static final String NS_ARREST_DETAIL_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0";
 	public static final String NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC ="adsreq-doc";
 
 	public static final String NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0";
