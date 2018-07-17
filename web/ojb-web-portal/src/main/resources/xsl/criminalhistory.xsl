@@ -588,7 +588,7 @@
 	<xsl:template match="rap:ProsecutionCharge">
 		<xsl:param name="chargeCount"/>
 		<xsl:if test="$chargeCount &gt; 1">
-			<p><span class="detailsLabel">Probation Charge</span></p>
+			<p><span class="detailsLabel">Prosecution Charge</span></p>
 		</xsl:if>
 		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
 		<xsl:if test="normalize-space(j:ChargeQualifierText) != ''">
