@@ -34,9 +34,12 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
-				<chm-req-ext:DispositionCharge>
+				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-				</chm-req-ext:DispositionCharge>
+				</chm-req-ext:AmendedCharge>
+				<chm-req-ext:FiledCharge>
+					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+				</chm-req-ext:FiledCharge>				
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
