@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -58,6 +59,7 @@ public class ArchiveProcessor {
 	{
 		int result = 0; 
 		
+		log.info("Operation Name in the adapter: " + StringUtils.trimToEmpty(operationName));
 		switch (operationName){
 		case "SubmitIdentificationResultsArchiveRequest": 
 			result = rapbackDAO.archiveIdentificationResult(transactionNumber);
