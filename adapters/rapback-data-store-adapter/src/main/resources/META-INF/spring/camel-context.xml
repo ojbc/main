@@ -41,6 +41,7 @@
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
+		xmlns:irua-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0"
 		id="rapback-data-store-adapter">
 		
 		<camel:routeContextRef ref="subscription-management-routes" />
@@ -513,11 +514,13 @@
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
 			<camel:setHeader headerName="archiveTransactionNumber">
-				<camel:xpath resultType="java.lang.String">/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID</camel:xpath>
+				<camel:xpath resultType="java.lang.String">/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID
+					|/irua-req-doc:IdentificationResultsUnarchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID</camel:xpath>
 			</camel:setHeader>
 
 			<camel:setHeader headerName="systemName">
-				<camel:xpath>/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:SystemName</camel:xpath>
+				<camel:xpath>/ira-req-doc:IdentificationResultsArchiveRequest/nc:SystemName
+					|/irua-req-doc:IdentificationResultsUnarchiveRequest/nc:SystemName</camel:xpath>
 			</camel:setHeader>
 			
 			<!-- call process to archive and create a response -->

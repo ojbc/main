@@ -70,6 +70,7 @@ public interface RapbackDAO {
 	public int archiveCivilIdentifications();
 	public int archiveCriminalIdentifications();
 	public int archiveIdentificationResult(String transactionNumber);
+	public int unarchiveIdentificationResult(String transactionNumber);
 	
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
 	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn);

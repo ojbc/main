@@ -934,6 +934,17 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
+	public int unarchiveIdentificationResult(String transactionNumber) {
+		log.info("Unarchiving record with transaction number " + transactionNumber);
+		
+		final String sql = "UPDATE identification_transaction t "
+				+ "SET t.archived = false "
+				+ "WHERE t.transaction_number = ?";
+		int result = jdbcTemplate.update(sql, transactionNumber);
+		return result;
+	}
+	
+	@Override
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber) {
 		log.info("Retreiving subsequent results by transaction number " + transactionNumber);
 		

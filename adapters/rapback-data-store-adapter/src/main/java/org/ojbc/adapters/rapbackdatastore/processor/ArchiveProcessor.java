@@ -51,9 +51,22 @@ public class ArchiveProcessor {
         documentBuilder = documentBuilderFactory.newDocumentBuilder();
     }
 
-	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber, @Header(value="systemName") String systemName) throws Exception
+	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber, 
+			@Header(value="systemName") String systemName, 
+			@Header(value="operationName") String operationName
+			) throws Exception
 	{
-		int result = rapbackDAO.archiveIdentificationResult(transactionNumber);
+		int result = 0; 
+		
+		switch (operationName){
+		case "SubmitIdentificationResultsArchiveRequest": 
+			result = rapbackDAO.archiveIdentificationResult(transactionNumber);
+			break; 
+		case "SubmitIdentificationResultsUnarchiveRequest": 
+			result = rapbackDAO.unarchiveIdentificationResult(transactionNumber);
+			break; 
+		default: 
+		}
 		log.info("archive result: " + result);
 		
         Document document = documentBuilder.newDocument();
