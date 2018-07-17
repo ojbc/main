@@ -189,7 +189,7 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		List<IdentificationTransaction> transactionsForSuperUserWithStatusCriteria = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(4, transactionsForSuperUserWithStatusCriteria.size());
+		assertEquals(3, transactionsForSuperUserWithStatusCriteria.size());
 		
 		
 		List<String> reasonCodes = new ArrayList<String>();
@@ -197,21 +197,21 @@ public class RapbackDAOImplGetMethodsTest {
 		searchRequest.setCivilIdentificationReasonCodes(reasonCodes);
 		List<IdentificationTransaction> transactionsForSuperUserWithReasonCode = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(2, transactionsForSuperUserWithReasonCode.size());
+		assertEquals(1, transactionsForSuperUserWithReasonCode.size());
 		
 		reasonCodes.clear();
 		status.clear();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
 		List<IdentificationTransaction> transactionsForSuperUserWithOnlyAvailableForSubscription = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(1, transactionsForSuperUserWithOnlyAvailableForSubscription.size());
+		assertEquals(0, transactionsForSuperUserWithOnlyAvailableForSubscription.size());
 		
 		status.clear();
 		status.add(IdentificationTransactionState.Subscribed.toString());
 		status.add(IdentificationTransactionState.Archived.toString());
 		List<IdentificationTransaction> transactionsForSuperUserWithSubscribedOrArchived = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(3, transactionsForSuperUserWithSubscribedOrArchived.size());
+		assertEquals(4, transactionsForSuperUserWithSubscribedOrArchived.size());
 		
 		searchRequest.setFirstName("Lisa");
 		List<IdentificationTransaction> transactionsForSuperUserWithSubscribedOrArchivedLisa = 
