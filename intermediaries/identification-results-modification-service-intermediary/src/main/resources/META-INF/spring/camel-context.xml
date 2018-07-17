@@ -68,7 +68,7 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>SubmitIdentificationResultsArchiveRequest</constant></camel:setHeader>
+			<camel:log message="This is the operationName: ${in.header.operationName}." loggingLevel="INFO"/>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
@@ -240,12 +240,14 @@
 		<property name="federatedQueryEndpointMap">
 			<util:map map-class="java.util.HashMap">
 				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest" value="identificationResultsModificationRequestServiceAdapterEndpoint" />
+				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsUnarchiveRequest" value="identificationResultsModificationRequestServiceAdapterEndpoint" />
 			</util:map>	
 		</property>
 
 		<property name="adapterURItoAddressMap">
 			<util:map>
 				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest" value="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}" />
+				<entry key="{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsUnarchiveRequest" value="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}" />
 			</util:map>
 		</property>
   	</bean>	
