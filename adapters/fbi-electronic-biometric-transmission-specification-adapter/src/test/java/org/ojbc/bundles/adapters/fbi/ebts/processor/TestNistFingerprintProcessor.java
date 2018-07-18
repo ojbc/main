@@ -52,7 +52,7 @@ public class TestNistFingerprintProcessor {
         
 		nistImageProcessor.insertPackageHighResolutionGrayscaleImageRecord(civilRapbackRequest, hiResGrayscaleFingerprints);
 		
-		NodeList imageNodes = XmlUtils.xPathNodeListSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nbio:PackageHighResolutionGrayscaleImageRecord");
+		NodeList imageNodes = XmlUtils.xPathNodeListSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageHighResolutionGrayscaleImageRecord");
 		
 		Assert.assertEquals(14, imageNodes.getLength());
 		
@@ -63,15 +63,16 @@ public class TestNistFingerprintProcessor {
 		
 		Assert.assertNotNull(XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:BinaryBase64Object"));
 	
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCaptureDetail/nc:CaptureResolutionCode"));
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageCompressionAlgorithmCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCaptureDetail/nbio:CaptureResolutionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCompressionAlgorithmCode"));
 		
-		Assert.assertEquals("800",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageHorizontalLineLengthPixelQuantity"));
-		Assert.assertEquals("750",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:ImageVerticalLineLengthPixelQuantity"));
+		Assert.assertEquals("800",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageHorizontalLineLengthPixelQuantity"));
+		Assert.assertEquals("750",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageVerticalLineLengthPixelQuantity"));
 		
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImagePosition/nc:FingerPositionCode"));
-		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:FingerprintImageImpressionCaptureCategoryCode"));
-		
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImagePosition/nbio:FingerPositionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImageImpressionCaptureCategoryCode"));
+	
+		XmlUtils.printNode(civilRapbackRequest);
 	}
 	
 	
@@ -117,6 +118,7 @@ public class TestNistFingerprintProcessor {
 	        
 	        String sBase64Rapsheet = Base64.getEncoder().encodeToString(pngArray);
 	        Assert.assertNotNull(sBase64Rapsheet);
+	        //System.out.println(sBase64Rapsheet);
 	        
 		}  
         
