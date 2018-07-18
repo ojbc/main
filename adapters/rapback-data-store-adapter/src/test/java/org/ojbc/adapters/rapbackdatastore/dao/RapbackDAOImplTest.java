@@ -276,6 +276,7 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
 		fbiRapbackSubscription.setStateSubscriptionId("62725");
+		fbiRapbackSubscription.setEventIdentifier("eventID");
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
