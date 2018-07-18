@@ -22,7 +22,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.SubscriptionCategoryCode;
 
 public class SubscriptionCategoryValidationDueDateStrategy implements ValidationDueDateStrategy {
 
@@ -83,17 +83,17 @@ public class SubscriptionCategoryValidationDueDateStrategy implements Validation
         if (validationDate != null) {
         	if (StringUtils.isNotBlank(subscriptionCategoryCode))
         	{	
-        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION))
+        		if (subscriptionCategoryCode.equals(SubscriptionCategoryCode.CS.name()))
         		{	
         			ret = validationDate.plusYears(criminalSupervisionLengthInYears).toDateTimeAtCurrentTime();
         		}
         		
-        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE))
+        		if (subscriptionCategoryCode.equals(SubscriptionCategoryCode.CI.name()))
         		{	
         			ret = validationDate.plusYears(criminalInvestigationLengthInYears).toDateTimeAtCurrentTime();
         		}	
 
-        		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
+        		if (SubscriptionCategoryCode.getCivilCodes().contains(subscriptionCategoryCode))
         		{	
         			ret = validationDate.plusYears(civilLengthInYears).toDateTimeAtCurrentTime();
         		}	

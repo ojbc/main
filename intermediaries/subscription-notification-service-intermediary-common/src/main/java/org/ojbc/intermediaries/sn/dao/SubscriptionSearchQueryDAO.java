@@ -44,6 +44,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.intermediaries.sn.SubscriptionCategoryCode;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
@@ -197,11 +198,14 @@ public class SubscriptionSearchQueryDAO {
      */
     public List<Subscription> searchForSubscriptionsBySubscriptionOwner(@Header("saml_FederationID") String subscriptionOwner) {
 
-        String sqlQuery = BASE_QUERY_STRING + " and so.FEDERATION_ID=? and s.active =1";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("subscriptionOwner", subscriptionOwner);
+        parameters.addValue("civilSubscriptionCategoryCodes", SubscriptionCategoryCode.getCivilCodes());
 
-        List<Subscription> subscriptions = this.jdbcTemplate.query(sqlQuery, new Object[] {
-            subscriptionOwner
-        }, resultSetExtractor);
+        String sqlQuery = BASE_QUERY_STRING + " and so.FEDERATION_ID=:subscriptionOwner and s.active =1 "
+        		+ "and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
+
+        List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
 
         return subscriptions;
     }
@@ -212,10 +216,14 @@ public class SubscriptionSearchQueryDAO {
      * @return the count of subscriptions that person owns
      */
     public int countSubscriptionsInSearch(@Header("saml_FederationID") String subscriptionOwner) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("subscriptionOwner", subscriptionOwner);
+        parameters.addValue("civilSubscriptionCategoryCodes", SubscriptionCategoryCode.getCivilCodes());
 
-        String sqlQuery = "select count(*) from subscription s, subscription_owner so where so.federation_id=? and active =1";
+        String sqlQuery = "select count(*) from subscription s, subscription_owner so where so.federation_id= :subscriptionOwner and active =1 "
+        		+ "and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
 
-        int subscriptionCountForOwner = this.jdbcTemplate.queryForObject(sqlQuery, Integer.class, subscriptionOwner);
+        int subscriptionCountForOwner = this.jdbcTemplateNamedParameter.queryForObject(sqlQuery, parameters, Integer.class);
 
         return subscriptionCountForOwner;
     }
