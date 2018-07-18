@@ -37,7 +37,7 @@ public class NistImageProcessor {
 		
 		for (HighResolutionGrayscaleFingerprint fingerPrint : civilFingerPrints) {
 		
-			Element imageRecord = XmlUtils.appendElement(civilRapbackRequest.getDocumentElement(), OjbcNamespaceContext.NS_NIEM_BIO, "nbio:PackageHighResolutionGrayscaleImageRecord");
+			Element imageRecord = XmlUtils.appendElement(civilRapbackRequest.getDocumentElement(), OjbcNamespaceContext.NS_NIST_BIO, "nistbio:PackageHighResolutionGrayscaleImageRecord");
 		
 			XmlUtils.appendTextElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:RecordCategoryCode", "04");
 			
@@ -45,22 +45,27 @@ public class NistImageProcessor {
 			XmlUtils.appendTextElement(imageReferenceIdentification, OjbcNamespaceContext.NS_NC, "nc20:IdentificationID", fingerPrint.getImageDesignationCharacter());
 			
 			Element fingerprintImage = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImage");
-			
-			String fingerprintBase64 = Base64.getEncoder().encodeToString(fingerPrint.getImageData());
-			
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nc20:BinaryBase64Object", fingerprintBase64);
+
+			byte[] pngArray = Jnbis.wsq()
+	                .decode(fingerPrint.getImageData())
+	                .toJpg()
+	                .asByteArray();
+	
+	        String fingerprintAsJpeg = Base64.getEncoder().encodeToString(pngArray);
+			Element base64BinaryObject = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nc20:BinaryBase64Object");
+			base64BinaryObject.setTextContent(fingerprintAsJpeg);
 			
 			Element imageCaptureDetail = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageCaptureDetail");
-			XmlUtils.appendTextElement(imageCaptureDetail, OjbcNamespaceContext.NS_NC, "nbio:CaptureResolutionCode", fingerPrint.getImageScanningResolution());
+			XmlUtils.appendTextElement(imageCaptureDetail, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:CaptureResolutionCode", fingerPrint.getImageScanningResolution());
 
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageCompressionAlgorithmCode", fingerPrint.getCompressionAlgorithm());
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageHorizontalLineLengthPixelQuantity", fingerPrint.getHorizontalLineLength());
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageCompressionAlgorithmCode", fingerPrint.getCompressionAlgorithm());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageHorizontalLineLengthPixelQuantity", fingerPrint.getHorizontalLineLength());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
 			
 			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImagePosition");
-			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NC, "nbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
+			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
 			
-			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
+			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
 
 		}
 		
