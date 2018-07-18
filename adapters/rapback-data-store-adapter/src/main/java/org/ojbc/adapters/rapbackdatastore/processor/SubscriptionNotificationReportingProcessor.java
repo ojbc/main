@@ -162,6 +162,9 @@ public class SubscriptionNotificationReportingProcessor {
 		Node rapbackSubscriptionData = XmlUtils.xPathNodeSearch(rootNode, "fed_subcr-ext:RapBackSubscriptionData"); 
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		
+		String eventIdentifier = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackEnrollmentEventID/nc30:IdentificationID");
+		fbiRapbackSubscription.setEventIdentifier(eventIdentifier);
+		
 		String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackActivityNotificationFormatCode");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat(rapBackActivityNotificationFormatCode);
 		
