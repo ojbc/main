@@ -360,6 +360,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
 		identificationTransaction.setOtn(rs.getString("otn"));
 		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
+		identificationTransaction.setCreationTimestamp(toDateTime(rs.getTimestamp("creation_timestamp")));
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
@@ -442,7 +443,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -503,7 +504,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append( "SELECT t.transaction_number, t.identification_category, "
+		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, "
 				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
@@ -643,7 +644,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
-		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
+		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.* "
 				+ "FROM identification_transaction t "
@@ -1073,7 +1074,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(
 			String transactionNumber, ResultSender resultSender) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "

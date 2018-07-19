@@ -376,7 +376,7 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendReasonCodeElement(isCivilResponse, identificationTransaction,
 				organizationIdentificationResultsSearchResultElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		
-		appendDateElement(identificationTransaction.getTimestamp(), 
+		appendDateElement(identificationTransaction.getCreationTimestamp(), 
 				organizationIdentificationResultsSearchResultElement, 
 				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);

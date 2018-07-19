@@ -141,7 +141,7 @@ public class TestDatabaseLoad {
 		
 		rs = conn.createStatement().executeQuery("select count(*) as count from fbi_rap_back_subscription");
 		assertTrue(rs.next());
-		assertEquals(5,rs.getInt("count"));
+		assertEquals(5, rs.getInt("count"));
 
 	}
 
