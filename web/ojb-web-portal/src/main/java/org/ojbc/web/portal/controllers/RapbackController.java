@@ -144,14 +144,19 @@ public class RapbackController {
         model.addAttribute("criminalIdentificationStatusCodeMap", criminalIdentificationStatusCodeMap);
         model.addAttribute("criminalIdentificationReasonCodeMap", criminalIdentificationReasonCodeMap);
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
-		model.addAttribute("rapbackSearchRequest", getDefaultCivilIdentificationSearchRequest());
-		model.addAttribute("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
 	}
     
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
 	public String rapbackResults(HttpServletRequest request, 
-			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,        
-	        Map<String, Object> model) {		
+	        Map<String, Object> model) {
+		
+		
+		IdentificationResultSearchRequest rapbackSearchRequest = (IdentificationResultSearchRequest) model.get("rapbackSearchRequest");
+		
+		if (rapbackSearchRequest == null){
+			rapbackSearchRequest = getDefaultCivilIdentificationSearchRequest();
+			model.put("rapbackSearchRequest", rapbackSearchRequest);
+		}
 		
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
@@ -196,6 +201,7 @@ public class RapbackController {
 			return "rapbacks/_searchForm";
 		}
 
+		model.put("rapbackSearchRequest", rapbackSearchRequest);
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 	
@@ -614,9 +620,16 @@ public class RapbackController {
 	
 	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
 	public String criminalIdentificationResults(HttpServletRequest request, 
-			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest criminalIdentificationSearchRequest, 
-			Map<String, Object> model) {		
+			Map<String, Object> model) {
 		
+		IdentificationResultSearchRequest criminalIdentificationSearchRequest = 
+				(IdentificationResultSearchRequest) model.get("criminalIdentificationSearchRequest");
+		
+		if (criminalIdentificationSearchRequest == null){
+			criminalIdentificationSearchRequest = getDefaultCriminallIdentificationSearchRequest();
+			model.put("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
+		}
+
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
