@@ -30,6 +30,7 @@ public class IdentificationTransaction implements Serializable{
 	private String transactionNumber;
 	private String otn; //PersonTrackingIdentidication
 	private DateTime timestamp;
+	private DateTime creationTimestamp;
 	private DateTime availableForSubscriptionStartDate;
 	private String ownerOri; 
 	private String ownerAgencyName; 
@@ -161,6 +162,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setLatestSubsequentResultDate(DateTime latestSubsequentResultDate) {
 		this.latestSubsequentResultDate = latestSubsequentResultDate;
+	}
+
+	public DateTime getCreationTimestamp() {
+		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(DateTime creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
 	}
 
 }
