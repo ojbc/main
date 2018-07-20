@@ -556,7 +556,8 @@ public class RapbackController {
 		setSubscripitonTriggeringEvents(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
 		subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
-		subscription.setSubscriptionPurpose(OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
+		String reasonCode = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:CivilIdentificationReasonCode");
+		subscription.setSubscriptionPurpose(reasonCode);
 		
 		return subscription;
 	}
