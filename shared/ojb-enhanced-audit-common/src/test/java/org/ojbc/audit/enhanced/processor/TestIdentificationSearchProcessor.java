@@ -35,22 +35,21 @@ import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.w3c.dom.Document;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml"})
+	"classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
 public class TestIdentificationSearchProcessor {
 
@@ -58,7 +57,7 @@ public class TestIdentificationSearchProcessor {
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
-	
+
 	@Test
 	public void testProcessIdentificationSearchRequest() throws Exception
 	{

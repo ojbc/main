@@ -16,7 +16,7 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 
@@ -29,6 +29,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.cxf.message.MessageImpl;
+import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
@@ -68,7 +69,7 @@ public class AuditTestUtils {
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(ctx);
 		
-		org.apache.cxf.message.Message message = new MessageImpl();
+		Message message = new MessageImpl();
 
 		//Add SAML token to request call
 		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);

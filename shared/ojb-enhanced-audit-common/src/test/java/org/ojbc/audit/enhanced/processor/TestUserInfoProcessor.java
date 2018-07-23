@@ -24,7 +24,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -33,6 +33,7 @@ import org.opensaml.xml.signature.SignatureConstants;
 
 public class TestUserInfoProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestUserInfoProcessor.class);
 	
 	@Test
