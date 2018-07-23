@@ -33,6 +33,7 @@ import org.junit.Test;
 
 public class IncidentErrorProcessorTest {
 			
+	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(IncidentErrorProcessorTest.class.getName());
 		
 	@Before
@@ -55,6 +56,7 @@ public class IncidentErrorProcessorTest {
 														
 		Diff diff = XMLUnit.compareXML(sExpectedVehicleXmlMessage, sActualVehicleXmlMessage);								
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		@SuppressWarnings("unchecked")
 		List<Difference> differenceList = detailedDiff.getAllDifferences();		
 		
 		Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
@@ -71,6 +73,7 @@ public class IncidentErrorProcessorTest {
 														
 		Diff diff = XMLUnit.compareXML(sExpectedPersonMessage, sActualPersonMessage);								
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		@SuppressWarnings("unchecked")
 		List<Difference> differenceList = detailedDiff.getAllDifferences();		
 		
 		Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						

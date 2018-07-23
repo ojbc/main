@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.fedquery.processor;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;

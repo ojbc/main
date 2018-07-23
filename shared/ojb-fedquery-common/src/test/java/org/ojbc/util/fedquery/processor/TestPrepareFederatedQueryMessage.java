@@ -16,13 +16,11 @@
  */
 package org.ojbc.util.fedquery.processor;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import junit.framework.Assert;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -53,7 +51,7 @@ public class TestPrepareFederatedQueryMessage {
 	    NodeList sourceSystems = XmlUtils.xPathNodeListSearch(searchDocument, "//psr:SourceSystemNameText");
 	    assertNotNull(sourceSystems);
 
-	    Assert.assertEquals(2, sourceSystems.getLength());
+	    assertEquals(2, sourceSystems.getLength());
 	    
 	    Element sourceSystemNameElement = (Element)sourceSystems.item(0);
 	    assertNotNull(sourceSystemNameElement);
@@ -95,24 +93,24 @@ public class TestPrepareFederatedQueryMessage {
 	    //Test prepare federated query processor - exchange properties
 		prepareFederatedQueryMessage.process(exchange);
 		
-		Assert.assertEquals("12345", exchange.getIn().getHeader("federatedQueryRequestGUID"));
-		Assert.assertEquals("http://rmsAdapter", exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
-		Assert.assertEquals("personSearchRequestServiceAdapterEndpoint", exchange.getIn().getHeader("webServiceEndpointToCall"));
+		assertEquals("12345", exchange.getIn().getHeader("federatedQueryRequestGUID"));
+		assertEquals("http://rmsAdapter", exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+		assertEquals("personSearchRequestServiceAdapterEndpoint", exchange.getIn().getHeader("webServiceEndpointToCall"));
 		
 		HashMap<String, Object> requestContextMap = (HashMap<String, Object>)exchange.getIn().getHeader(Client.REQUEST_CONTEXT);
 
 		AddressingProperties clientAddressingpProps = (AddressingProperties)requestContextMap.get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
 		
-		Assert.assertEquals("12345", clientAddressingpProps.getMessageID().getValue());
-		Assert.assertEquals("http://myReplyToAddress", clientAddressingpProps.getReplyTo().getAddress().getValue());
+		assertEquals("12345", clientAddressingpProps.getMessageID().getValue());
+		assertEquals("http://myReplyToAddress", clientAddressingpProps.getReplyTo().getAddress().getValue());
 
 		//Confirm we only have source system name of adapter we are calling
 		Document updatedRequestBody = exchange.getIn().getBody(Document.class);
 		XmlUtils.printNode(updatedRequestBody);
 		NodeList sourceSystemsUpdated = XmlUtils.xPathNodeListSearch(updatedRequestBody, "//psr:SourceSystemNameText");
 		
-		Assert.assertEquals(1, sourceSystemsUpdated.getLength());
-		Assert.assertEquals("{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS", sourceSystemsUpdated.item(0).getTextContent());
+		assertEquals(1, sourceSystemsUpdated.getLength());
+		assertEquals("{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS", sourceSystemsUpdated.item(0).getTextContent());
 		
 		
 	}	

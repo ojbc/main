@@ -17,8 +17,7 @@
 package org.ojbc.util.fedquery.processor;
 
 import java.util.HashMap;
-
-import junit.framework.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -53,7 +52,7 @@ public class TestWSAddressingReplyToManager {
 	    Exchange exchange = new DefaultExchange(ctx);
 	    
 		wsAddressingReplyToManager.getReplyToAddress(exchange, "12345");
-		Assert.assertEquals("http://replyToAddress.com", exchange.getIn().getHeader("WSAddressingReplyTo"));
+		assertEquals("http://replyToAddress.com", exchange.getIn().getHeader("WSAddressingReplyTo"));
 		
 		wsAddressingReplyToManager.removeReplyToAddress("12345");
 		
