@@ -64,10 +64,13 @@
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
-					<chsres-ext:DispositionCharge>
-						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-					</chsres-ext:DispositionCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:FiledCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:FiledCharge>
+					<chsres-ext:AmendedCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
@@ -96,6 +99,7 @@
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
+				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -103,9 +107,12 @@
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
-					<chsres-ext:DispositionCharge>
-						<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-					</chsres-ext:DispositionCharge>
+					<chsres-ext:FiledCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:FiledCharge>
+					<chsres-ext:AmendedCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:AmendedCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -135,6 +142,7 @@
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
+				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />

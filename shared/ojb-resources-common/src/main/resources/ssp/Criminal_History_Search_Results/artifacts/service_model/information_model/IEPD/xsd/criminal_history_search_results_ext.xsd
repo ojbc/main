@@ -82,9 +82,21 @@
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="FiledCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The charge associated with a disposition.
+			<xsd:documentation>The charge filed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AmendedCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The amended charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDismissalReasonText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The reason a charge was dismissed.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

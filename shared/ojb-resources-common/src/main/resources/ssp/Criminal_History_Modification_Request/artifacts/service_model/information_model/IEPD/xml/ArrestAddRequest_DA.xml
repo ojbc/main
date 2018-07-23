@@ -39,11 +39,20 @@
 				</nc:DispositionDate>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+					<j:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>45-6955</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</j:ChargeStatute>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
+					<j:ChargeStatute>
+						<j:StatuteCodeIdentification>
+							<nc:IdentificationID>45-6955</nc:IdentificationID>
+						</j:StatuteCodeIdentification>
+					</j:ChargeStatute>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
@@ -59,7 +68,7 @@
 					<j:TermDuration>P4Y6D</j:TermDuration>
 				</j:SentenceSuspendedTerm>
 				<j:SentenceTerm>
-					<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+					<nc:ActivityCategoryText>PRISON</nc:ActivityCategoryText>
 					<j:TermDuration>P4Y6D</j:TermDuration>
 				</j:SentenceTerm>
 				<j:SupervisionFineAmount>

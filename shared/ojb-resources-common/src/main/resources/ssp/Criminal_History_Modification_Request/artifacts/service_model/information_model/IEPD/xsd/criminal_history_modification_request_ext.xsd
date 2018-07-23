@@ -107,7 +107,7 @@
 			<xsd:documentation>The charge filed in disposition.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="FineSuspendedAmount" type="nc:AmountType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
@@ -116,6 +116,24 @@
 	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDismissalReasonText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The reason a charge was dismissed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionProvisionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A disposition provision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="ChargeMunicipalCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for a municipal charge.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
