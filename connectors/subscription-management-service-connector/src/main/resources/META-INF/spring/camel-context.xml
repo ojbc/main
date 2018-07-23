@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="subscription-management-service-connector">
+	
+		<endpoint id="inputDirectory"
+			uri="file:///${connectorFileDirectory}/input?moveFailed=${connectorFileDirectory}/error&amp;move=processed/&amp;doneFileName=$simple{file:name}.done" />
+
+		<camel:route id="Subscription_Management_Service_Connector_File_Drop_Route">
+		
+			<camel:from uri="inputDirectory" />
+						
+			<camel:log message="Subscription Managment Connector received input file: ${file:name}" />
+				
+			<camel:convertBodyTo type="java.lang.String" />
+						
+			<camel:log message="Subscription Managment Connector Message Body: ${body}" loggingLevel="DEBUG"/>			
+									
+			<camel:split streaming="true">
+				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
+
+				<camel:log message="Splitting input file, Index: ${in.headers.CamelSplitIndex}" loggingLevel="DEBUG"/>
+			
+				<camel:to uri="bean:subscriptionCSVProcessor?method=processCsvEntry"/>
+												
+			</camel:split>										
+									
+			<camel:to uri="bean:subscriptionCSVProcessor?method=getSubscriptions"/>						
+			
+			<camel:to uri="bean:subscriptionXmlProcessor?method=createSubscriptionsXML"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<!-- uncomment below for additional debugging info -->
+			<camel:setHeader headerName="subscriptionCount">
+				<xpath resultType="java.lang.String">count(//b-2:Subscribe)</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="unsubscriptionCount">
+				<xpath resultType="java.lang.String">count(//b-2:Unsubscribe)</xpath>
+			</camel:setHeader>
+			
+			<camel:log message="Subscriptions: ${in.headers.subscriptionCount}, Unsubscriptions: ${in.headers.unsubscriptionCount}"/>
+			
+			<!-- Process request files and call appropriate service -->
+			<camel:split streaming="true">
+				<tokenize token="Wrapper" xml="true" inheritNamespaceTagName="SubscriptionRecords" includeTokens="false"/>
+				<camel:to uri="direct:processSubscriptionInvocations" />
+			</camel:split>
+			
+			<camel:log message="File processing complete for: ${file:name}"/>
+		
+		</camel:route>						
+
+		<camel:route id="subscriptionInvocationRoute">
+			<camel:from uri="direct:processSubscriptionInvocations" />
+			
+			<camel:log message="This is the split element: ${body}" loggingLevel="INFO"/>
+
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			
+			<camel:filter>
+				<camel:xpath>//b-2:Subscribe</camel:xpath>
+				<camel:setBody>
+					<camel:xpath>//b-2:Subscribe</camel:xpath>
+				</camel:setBody>
+
+				<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
+				
+				<camel:log message="About to call subscription endpoint, position ${property.CamelSplitIndex}" />
+				
+				<camel:throttle timePeriodMillis="500">
+					<constant>1</constant>
+					<camel:to uri="notificationBrokerServiceEndpoint" />
+				</camel:throttle>
+
+				<camel:log message="Called Subscription Endpoint, position ${property.CamelSplitIndex}" />
+			
+			</camel:filter>
+
+		</camel:route>
+		
+	</camel:camelContext>
+			
+</beans>
+
