@@ -36,14 +36,16 @@
 				</nc:DispositionDate>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-				</chm-req-ext:FiledCharge>				
+					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
+				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
-				<!-- One of the following Sentence Terms for muni -->
 				<j:SentenceDeferredTerm>
 					<nc:ActivityDate>
 						<nc:Date>2001-12-31</nc:Date>
@@ -65,6 +67,7 @@
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
 			</j:ChargeSentence>
+			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
 		</j:ArrestCharge>
 	</j:Arrest>
 	<j:Restitution>

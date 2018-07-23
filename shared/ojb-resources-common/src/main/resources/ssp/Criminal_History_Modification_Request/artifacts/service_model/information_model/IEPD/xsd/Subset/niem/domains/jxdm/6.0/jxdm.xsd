@@ -124,6 +124,7 @@
           <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeNarrative" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -319,6 +320,11 @@
   <xs:element name="ChargeSentence" type="j:SentenceType" nillable="true">
     <xs:annotation>
       <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of severity of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
