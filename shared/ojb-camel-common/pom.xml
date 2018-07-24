@@ -34,13 +34,14 @@
 	</parent>
 
 	<properties>
-		<camel.version>2.21.1</camel.version>
+		<camel.version>2.22.0</camel.version>
 		<slf4j-version>1.7.12</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<spring-version>5.0.7.RELEASE</spring-version>	
 		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
+		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 		<ojb-common-version>[4.0.0,)</ojb-common-version>
 		<java-version>1.8</java-version>
@@ -81,6 +82,14 @@
 		    <groupId>org.junit.vintage</groupId>
 		    <artifactId>junit-vintage-engine</artifactId>
 		    <version>${junit-vintage-engine-version}</version>
+		    <scope>test</scope>
+		</dependency>
+
+ 		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-launcher</artifactId>
+		    <version>${junit-platform-launcher-version}</version>
 		    <scope>test</scope>
 		</dependency>
 

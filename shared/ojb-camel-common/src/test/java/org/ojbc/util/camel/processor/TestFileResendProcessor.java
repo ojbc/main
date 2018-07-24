@@ -16,8 +16,8 @@
  */
 package org.ojbc.util.camel.processor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.text.ParseException;
@@ -27,7 +27,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestFileResendProcessor {
 
@@ -87,12 +88,14 @@ public class TestFileResendProcessor {
 		assertEquals("booking_9999999_20170324_110011192.xml", fileToResend.getAbsoluteFile().getName());
 	}	
 
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void testFileToReturnException() throws Exception
 	{
-		List<File> files = null;
-		
-		File fileToResend = FileResendProcessor.returnFileToSend(files);
+		Assertions.assertThrows(Exception.class, () -> {
+			List<File> files = null;
+			
+			FileResendProcessor.returnFileToSend(files);
+	    });
 	}	
 
 }

@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,7 +44,7 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
@@ -65,34 +64,33 @@ import org.xml.sax.SAXException;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {
-		"classpath:META-INF/spring/SQLLoggingProcessorTest-spring-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-auditlog.xml",
+		"classpath:META-INF/spring/SQLLoggingProcessorTest-spring-context.xml"
 		})
 @DirtiesContext
 public class SQLLoggingProcessorTest {
     
-    private static final Log log = LogFactory.getLog(SQLLoggingProcessorTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SQLLoggingProcessorTest.class);
     
     @Autowired
     private SQLLoggingProcessor sqlLoggingProcessor;
     
-    @Resource
+    @Autowired
     private SQLLoggingProcessor sqlLoggingProcessorWithRedaction;
     
-    @Resource
+    @Autowired
     private SQLLoggingProcessor sqlLoggingProcessorWithRedactionAndNullValue;
     
     private DefaultCamelContext camelContext;
     
-    @BeforeAll
+    @BeforeEach
     public void setup() throws Exception {
         Assertions.assertNotNull(sqlLoggingProcessor);
         JdbcTemplate t = sqlLoggingProcessor.getJdbcTemplate();
         Assertions.assertNotNull(t);
         t.execute("delete from AuditLog");
         camelContext = new DefaultCamelContext();
-        camelContext.setName(getClass().getName() + " CamelContext");
+        camelContext.setName("SQLLoggingProcessorTest" + " CamelContext");
     }
     
     @Test
@@ -170,7 +168,7 @@ public class SQLLoggingProcessorTest {
         Assertions.assertEquals(row.get("userLastName"), "owen");
         Assertions.assertEquals(row.get("userFirstName"), "andrew");
         Assertions.assertEquals(row.get("identityProviderID"), "https://idp.ojbc-local.org:9443/idp/shibboleth");
-        Assertions.assertEquals(row.get("camelContextID"), "org.ojbc.util.camel.processor.audit.SQLLoggingProcessorTest CamelContext");
+        Assertions.assertEquals(row.get("camelContextID"), "SQLLoggingProcessorTest CamelContext");
 
         String hostAddress = (String) row.get("hostAddress");
         InetAddress ia = InetAddress.getByName(hostAddress);

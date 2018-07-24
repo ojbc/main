@@ -16,30 +16,27 @@
  */
 package org.ojbc.util.camel.helper;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.ojbc.util.ndex.util.UniqueIDGenerator;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class TestNDexUtils {
 
 	private NDexUtils ndexUtils;
 	private UniqueIDGenerator uniqueIDGenerator;
 	
-	@Before
-	public void setUp() throws Exception {
+	public TestNDexUtils() throws Exception {
 		ndexUtils = new NDexUtils();
 		uniqueIDGenerator = new UniqueIDGenerator();
 		
 		ndexUtils.setUniqueIDGenerator(uniqueIDGenerator);
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test

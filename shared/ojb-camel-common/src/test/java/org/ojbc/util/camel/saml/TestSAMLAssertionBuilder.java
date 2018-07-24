@@ -16,14 +16,15 @@
  */
 package org.ojbc.util.camel.saml;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;

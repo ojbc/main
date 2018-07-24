@@ -16,14 +16,14 @@
  */
 package org.ojbc.util.camel.processor.accesscontrol;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AccessControlProcessorTest {
 
