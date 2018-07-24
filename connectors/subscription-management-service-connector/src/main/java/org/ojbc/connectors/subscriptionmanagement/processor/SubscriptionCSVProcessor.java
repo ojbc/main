@@ -48,7 +48,7 @@ public class SubscriptionCSVProcessor {
 	
 	private List<Subscription> subscriptions = new ArrayList<Subscription>();
 
-	@Value("${topic:topics:person/incident}")
+	@Value("${topic:{http://ojbc.org/wsn/topics}:person/incident}")
 	private String topic;
 	
 	public void clearSubscriptions()
