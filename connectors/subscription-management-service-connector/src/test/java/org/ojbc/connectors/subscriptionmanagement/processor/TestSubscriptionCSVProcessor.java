@@ -31,7 +31,7 @@ public class TestSubscriptionCSVProcessor {
 	public void testProcessSubscriptionEntries() throws Exception
 	{
 		SubscriptionCSVProcessor subscriptionCSVProcessor = new SubscriptionCSVProcessor();
-		subscriptionCSVProcessor.setTopic("topics:person/incident");
+		subscriptionCSVProcessor.setTopic("{http://ojbc.org/wsn/topics}:person/incident");
 		
 		String csvExtractLine="John,Doe,1961-01-02,email@domain.com";
 		
@@ -47,7 +47,7 @@ public class TestSubscriptionCSVProcessor {
 		assertEquals("Doe", subscription.getLastName());
 		assertEquals("email@domain.com", subscription.getEmailList().get(0));
 		assertEquals("Mon Jan 02 00:00:00 CST 1961", subscription.getDateOfBirth().toString());
-		assertEquals("topics:person/incident", subscription.getTopic());
+		assertEquals("{http://ojbc.org/wsn/topics}:person/incident", subscription.getTopic());
 		assertEquals("CS", subscription.getSubscriptionPurpose());
 		
 		csvExtractLine="First,Last,DOB,E-mail to";
