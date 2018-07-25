@@ -41,7 +41,8 @@ public class IdentificationTransaction implements Serializable{
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
 	private Subscription subscription;
-	private DateTime latestSubsequentResultDate; 
+	private DateTime latestSubsequentResultDate;
+	private String fbiSubscriptionId; 
 
 	public IdentificationTransaction(){
 		super();
@@ -170,6 +171,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setCreationTimestamp(DateTime creationTimestamp) {
 		this.creationTimestamp = creationTimestamp;
+	}
+
+	public String getFbiSubscriptionId() {
+		return fbiSubscriptionId;
+	}
+
+	public void setFbiSubscriptionId(String fbiSubscriptionId) {
+		this.fbiSubscriptionId = fbiSubscriptionId;
 	}
 
 }

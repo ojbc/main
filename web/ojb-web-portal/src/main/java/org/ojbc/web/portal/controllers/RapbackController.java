@@ -377,7 +377,8 @@ public class RapbackController {
 			IdentificationResultSearchRequest searchRequest) {
 		List<String> identificationTransactionStatus = new ArrayList<String>();
 		identificationTransactionStatus.add(IdentificationTransactionState.Available_for_Subscription.toString());
-		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed.toString());
+		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State.toString());
+		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		
 		searchRequest.setReportedDateEndLocalDate(LocalDate.now());
 		searchRequest.setReportedDateStartLocalDate(LocalDate.now().minusDays(rapbackSearchDateRange -1));

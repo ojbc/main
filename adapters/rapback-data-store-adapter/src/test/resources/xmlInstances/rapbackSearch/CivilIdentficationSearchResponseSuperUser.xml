@@ -51,7 +51,7 @@
             <nc30:IdentificationID>0400025</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed(State)</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
@@ -114,7 +114,7 @@
             <nc30:IdentificationID>12344</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed(State/FBI)</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
@@ -215,7 +215,7 @@
             <nc30:IdentificationID>0400024</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed(State)</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_02"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
@@ -275,7 +275,7 @@
             <nc30:IdentificationID>0400024</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed(State)</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
