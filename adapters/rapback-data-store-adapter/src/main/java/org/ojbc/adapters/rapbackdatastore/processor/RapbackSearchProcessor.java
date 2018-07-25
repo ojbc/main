@@ -419,7 +419,8 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendIdentificationRequestingOrganization(organizationIdentificationResultsSearchResultElement,
 				identificationTransaction, oriOrgnizationIdMap);
 		
-		if (currentState == IdentificationTransactionState.Subscribed){
+		if (currentState == IdentificationTransactionState.Subscribed_State || 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI){
 			appendSubscriptionElement(
 					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
 		}

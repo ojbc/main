@@ -381,6 +381,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 			if (subscriptionId != null && subscriptionId > 0){
 				Subscription subscription = buildSubscription(rs); 
 				identificationTransaction.setSubscription(subscription);
+				
+				String fbiSubscriptionId = rs.getString("fbi_subscription_id");
+				identificationTransaction.setFbiSubscriptionId(fbiSubscriptionId);
 			}
 		}
 		return identificationTransaction;
@@ -506,11 +509,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		StringBuilder sb = new StringBuilder();
 		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
-				+ "s.*, sub.*, "
+				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
+				+ "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id "
 				+ "WHERE (select count(*)>0 from "
 				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
 				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
@@ -519,7 +523,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
 				+ "	AND (:excludeArchived = false OR t.archived != true ) "
-				+ "	AND (:excludeSubscribed = false OR (t.archived = true OR sub.id is null OR sub.id <= 0 OR sub.active = false )) "
+				+ "	AND (:excludeSubscribedState = false OR (t.archived = true OR (sub.id is null OR sub.id <= 0 OR sub.active = false ) OR "
+				+ " (sub.id is not null and sub.id > 0 and sub.active != false and fbi_sub.fbi_subscription_id is not null))) "
+				+ "	AND (:excludeSubscribedStateFBI = false OR (t.archived = true OR fbi_sub.fbi_subscription_id is null )) "
 				+ "	AND (:excludeAvailableForSubscription  = false OR (t.archived = true OR (sub.id > 0 AND sub.active = true))) "
 				+ "	AND ( ( :identificationReasonCodeJoined ) is null OR t.identification_category in ( :identificationReasonCode )) ");
 		
@@ -530,7 +536,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
 		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
-		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
+		paramMap.put("excludeSubscribedState", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed_State)); 
+		paramMap.put("excludeSubscribedStateFBI", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed_State_FBI)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
 		paramMap.put("identificationReasonCodeJoined", searchRequest.getCivilIdentificationReasonCodes().isEmpty() ? null : StringUtils.join(searchRequest.getCivilIdentificationReasonCodes(), "")); 
 		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty() ? null : new HashSet<String>(searchRequest.getCivilIdentificationReasonCodes())); 
@@ -709,13 +716,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(
 			String transactionNumber) {
-		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.*, a.AGENCY_NAME, sub.*, "
+		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.*, a.AGENCY_NAME, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = c.transaction_number "
 				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
 				+ "LEFT OUTER JOIN AGENCY_PROFILE a ON a.AGENCY_ORI = i.OWNER_ORI "
 				+ "LEFT OUTER JOIN SUBSCRIPTION sub ON sub.id = i.subscription_id "
+				+ "LEFT OUTER JOIN fbi_rap_back_subscription fbi_sub ON fbi_sub.subscription_id = sub.id "
 				+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
 				+ "WHERE c.transaction_number = ?";
 		
