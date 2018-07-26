@@ -58,8 +58,7 @@
 						<xsd:element ref="chm-resp-ext:ArrestAddResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestModifyResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:DispositionAddResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:DispositionHideResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
@@ -85,14 +84,9 @@
 			<xsd:documentation>An arrest hide response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionAddResponseText" type="nc:TextType">
+	<xsd:element name="ExpungeResponseText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>An disposition add response message.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DispositionHideResponseText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>An disposition hide response message.</xsd:documentation>
+			<xsd:documentation>An expunge response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

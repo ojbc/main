@@ -525,6 +525,9 @@
 		</xsl:if>	
 		<xsl:if test="normalize-space(j:ChargeText) != ''">
 			<p><span class="smallLabel">Arrest Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
+		</xsl:if>
+		<xsl:if test="normalize-space(j:ChargeQualifierText) != ''">
+			<p><span class="smallLabel">Arrest Charge Alert: </span> <xsl:value-of select="j:ChargeQualifierText" /></p>
 		</xsl:if>	
 		<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
 			<p><span class="smallLabel">Arrest Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
@@ -585,9 +588,12 @@
 	<xsl:template match="rap:ProsecutionCharge">
 		<xsl:param name="chargeCount"/>
 		<xsl:if test="$chargeCount &gt; 1">
-			<p><span class="detailsLabel">Probation Charge</span></p>
+			<p><span class="detailsLabel">Prosecution Charge</span></p>
 		</xsl:if>
 		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
+		<xsl:if test="normalize-space(j:ChargeQualifierText) != ''">
+			<p><span class="smallLabel">Prosecution Charge Alert: </span> <xsl:value-of select="j:ChargeQualifierText" /></p>
+		</xsl:if>
 		<p><span class="smallLabel">Prosecution Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
 		<p><span class="smallLabel">Prosecution Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
 		<p><span class="smallLabel">Prosecution Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
@@ -617,6 +623,9 @@
 			<xsl:if test="normalize-space(j:ChargeText) != ''">
 				<p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
 			</xsl:if>	
+			<xsl:if test="normalize-space(j:ChargeQualifierText) != ''">
+				<p><span class="smallLabel">Charge Alert: </span> <xsl:value-of select="j:ChargeQualifierText" /></p>
+			</xsl:if>							
 			<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
 				<p><span class="smallLabel">Charge Severity Text: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
 			</xsl:if>	

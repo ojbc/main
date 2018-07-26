@@ -24,6 +24,7 @@
   <uri name="http://release.niem.gov/niem/appinfo/4.0/" uri="utility/appinfo/4.0/appinfo.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" uri="codes/fbi_ncic/4.0/fbi_ncic.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="utility/conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/intelligence/4.0/" uri="domains/intelligence/4.0/intelligence.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/jxdm/6.0/" uri="domains/jxdm/6.0/jxdm.xsd"/>
   <uri name="http://release.niem.gov/niem/niem-core/4.0/" uri="niem-core/4.0/niem-core.xsd"/>
   <uri name="http://release.niem.gov/niem/proxy/xsd/4.0/" uri="proxy/xsd/4.0/xs.xsd"/>

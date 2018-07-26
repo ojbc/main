@@ -170,6 +170,7 @@
 						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
@@ -186,6 +187,7 @@
 					<j:ChargeDisposition>
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35155W7</nc:IdentificationID>
@@ -218,6 +220,7 @@
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>1221E4</nc:IdentificationID>
@@ -240,6 +243,7 @@
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>1221E4</nc:IdentificationID>
@@ -271,6 +275,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35854W7</nc:IdentificationID>
@@ -290,6 +295,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>NOT GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35155W7</nc:IdentificationID>
@@ -322,6 +328,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35854W7</nc:IdentificationID>
@@ -354,6 +361,7 @@
 							</nc:DispositionDate>
 							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 						</j:ChargeDisposition>
+						<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 						<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 						<j:ChargeTrackingIdentification>
 							<nc:IdentificationID>35154W7</nc:IdentificationID>
@@ -387,6 +395,7 @@
 							</nc:DispositionDate>
 							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 						</j:ChargeDisposition>
+						<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 						<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 						<j:ChargeTrackingIdentification>
 							<nc:IdentificationID>35854W7</nc:IdentificationID>
@@ -413,6 +422,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
@@ -446,6 +456,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35854W7</nc:IdentificationID>
@@ -496,6 +507,7 @@
 						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>AC1111</nc:IdentificationID>
@@ -518,6 +530,7 @@
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>AC1111</nc:IdentificationID>
@@ -549,6 +562,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>AC1111</nc:IdentificationID>
@@ -585,6 +599,7 @@
 							</nc:DispositionDate>
 							<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 						</j:ChargeDisposition>
+						<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 						<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 						<j:ChargeTrackingIdentification>
 							<nc:IdentificationID>AC1111</nc:IdentificationID>
@@ -611,6 +626,7 @@
 						</nc:DispositionDate>
 						<nc:DispositionDescriptionText>GUILTY</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
+					<j:ChargeQualifierText>** Charge Alert **</j:ChargeQualifierText>
 					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>AC1111</nc:IdentificationID>

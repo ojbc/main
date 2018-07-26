@@ -20,6 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
@@ -29,6 +30,8 @@
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="CriminalHistoryConsolidationReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a set of details associated with the consolidation of multiple criminal histories for a
@@ -39,6 +42,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chc-report-ext:CriminalHistoryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -130,5 +134,22 @@
 			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryRecordDocument" type="nc:DocumentType"
+		substitutionGroup="chc-report-ext:CriminalHistoryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a
+				rap sheet.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary"
+		xmime:expectedContentType="text/plain">
 	</xsd:element>
 </xsd:schema>

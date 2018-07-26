@@ -100,6 +100,7 @@
 					<xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeNCICCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeReducingFactorText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
@@ -249,6 +250,7 @@
 	<xsd:element name="ChargeDispositionOtherText" type="nc:TextType" nillable="true"/>
 	<xsd:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true"/>
 	<xsd:element name="ChargeNCICCode" type="fbi:OFFCodeType" nillable="true"/>
+	<xsd:element name="ChargeQualifierText" type="nc:TextType" nillable="true"/>
 	<xsd:element name="ChargeReducingFactorText" type="nc:TextType" nillable="true"/>
 	<xsd:element name="ChargeSequenceID" type="nc:IdentificationType" nillable="true"/>
 	<xsd:element name="ChargeSeverityText" type="nc:TextType" nillable="true"/>

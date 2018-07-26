@@ -17,35 +17,82 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chm-req-doc:CriminalHistoryModificationRequest
-	xmlns:chm-req-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0"
+<aar-req-doc:ArrestAddRequest xmlns:aar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationRequest/1.0 ../xsd/criminal_history_modification_request.xsd ">
-	<chm-req-ext:ArrestAddRequest>
-		<j:Arrest>
-			<nc:ActivityDate>
-				<nc:Date>2001-12-31</nc:Date>
-			</nc:ActivityDate>
-			<j:ArrestSubject>
-				<nc:RoleOfPerson>
-					<nc:PersonBirthDate>
-						<nc:Date>1989-12-31</nc:Date>
-					</nc:PersonBirthDate>
-					<nc:PersonName>
-						<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
-						<nc:PersonSurName>SMITH</nc:PersonSurName>
-					</nc:PersonName>
-					<nc:PersonSSNIdentification>
-						<nc:IdentificationID>1234567890</nc:IdentificationID>
-					</nc:PersonSSNIdentification>
-				</nc:RoleOfPerson>
-				<j:SubjectIdentification>
-					<nc:IdentificationID>0013545677G</nc:IdentificationID>
-				</j:SubjectIdentification>
-			</j:ArrestSubject>
-		</j:Arrest>
-	</chm-req-ext:ArrestAddRequest>
-</chm-req-doc:CriminalHistoryModificationRequest>
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0 ../xsd/arrest_add_request.xsd">
+	<chm-req-ext:ArrestRecordRequestIdentification>
+		<nc:IdentificationID>1004233</nc:IdentificationID>
+		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+	</chm-req-ext:ArrestRecordRequestIdentification>
+	<j:Arrest>
+		<nc:ActivityDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestCharge>
+			<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+			<j:ChargeDisposition>
+				<nc:DispositionDate>
+					<nc:Date>2016-06-15</nc:Date>
+				</nc:DispositionDate>
+				<chm-req-ext:AmendedCharge>
+					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
+				</chm-req-ext:AmendedCharge>
+				<chm-req-ext:FiledCharge>
+					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
+				</chm-req-ext:FiledCharge>
+				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
+			</j:ChargeDisposition>
+			<j:ChargeSentence>
+				<j:SentenceDeferredTerm>
+					<nc:ActivityDate>
+						<nc:Date>2001-12-31</nc:Date>
+					</nc:ActivityDate>
+					<j:TermDuration>P2Y1D</j:TermDuration>
+				</j:SentenceDeferredTerm>
+				<j:SentenceSuspendedTerm>
+					<j:TermDuration>P4Y6D</j:TermDuration>
+				</j:SentenceSuspendedTerm>
+				<j:SentenceTerm>
+					<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+					<j:TermDuration>P4Y6D</j:TermDuration>
+				</j:SentenceTerm>
+				<j:SupervisionFineAmount>
+					<nc:Amount>200.00</nc:Amount>
+				</j:SupervisionFineAmount>
+				<chm-req-ext:FineSuspendedAmount>
+					<nc:Amount>100.00</nc:Amount>
+				</chm-req-ext:FineSuspendedAmount>
+				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+			</j:ChargeSentence>
+			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
+		</j:ArrestCharge>
+		<j:ArrestSubject>
+			<nc:RoleOfPerson>
+				<nc:PersonBirthDate>
+					<nc:Date>1989-12-31</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonName>
+					<nc:PersonGivenName>PATRICK JOHN</nc:PersonGivenName>
+					<nc:PersonSurName>SMITH</nc:PersonSurName>
+				</nc:PersonName>
+				<nc:PersonSSNIdentification>
+					<nc:IdentificationID>1234567890</nc:IdentificationID>
+				</nc:PersonSSNIdentification>
+			</nc:RoleOfPerson>
+			<j:SubjectIdentification>
+				<nc:IdentificationID>0013545677G</nc:IdentificationID>
+			</j:SubjectIdentification>
+		</j:ArrestSubject>
+	</j:Arrest>
+	<j:Restitution>
+		<nc:ObligationDueAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</nc:ObligationDueAmount>
+	</j:Restitution>
+</aar-req-doc:ArrestAddRequest>

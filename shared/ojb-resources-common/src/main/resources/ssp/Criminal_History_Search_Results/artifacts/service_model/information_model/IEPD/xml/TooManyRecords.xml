@@ -17,11 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chsres-ext:CriminalHistorySearchResults
-	xmlns:chsres-ext="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
+<chsres-doc:CriminalHistorySearchResults
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd"
+	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0">
 	<srm:SearchResultsMetadata>
 		<srer:SearchErrors>
 			<nc:SystemName>System Name</nc:SystemName>
@@ -30,4 +31,4 @@
 			</srer:SearchResultsExceedThresholdError>
 		</srer:SearchErrors>
 	</srm:SearchResultsMetadata>
-</chsres-ext:CriminalHistorySearchResults>
+</chsres-doc:CriminalHistorySearchResults>

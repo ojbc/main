@@ -253,6 +253,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
+	public static final String NS_JXDM_60 = "http://release.niem.gov/niem/domains/jxdm/6.0/";
 	
 	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
 	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
@@ -262,20 +263,25 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_WARRANT_EXT = "http://ojbc.org/IEPD/Extensions/Warrants/1.0";
 	public static final String NS_NC = "http://niem.gov/niem/niem-core/2.0";
 	public static final String NS_NC_30 = "http://release.niem.gov/niem/niem-core/3.0/";
+	public static final String NS_NC_40 = "http://release.niem.gov/niem/niem-core/4.0/";
 	public static final String NS_WARRANT = "http://ojbc.org/IEPD/Exchange/Warrants/1.0";
 	public static final String NS_STRUCTURES = "http://niem.gov/niem/structures/2.0";
 	public static final String NS_STRUCTURES_30 = "http://release.niem.gov/niem/structures/3.0/";
+	public static final String NS_STRUCTURES_40 = "http://release.niem.gov/niem/structures/4.0/";
 
 	public static final String NS_PREFIX_JXDM_40 = "jxdm40";
 	public static final String NS_PREFIX_JXDM_50 = "jxdm50";
+	public static final String NS_PREFIX_JXDM_60 = "jxdm60";
 	public static final String NS_PREFIX_USPS_STATES = "usps-states";
 	public static final String NS_PREFIX_ERROR = "error";
 	public static final String NS_PREFIX_WARRANT_EXT = "warrant-ext";
 	public static final String NS_PREFIX_NC = "nc";
 	public static final String NS_PREFIX_NC_30 = "nc30";
+	public static final String NS_PREFIX_NC_40 = "nc40";
 	public static final String NS_PREFIX_WARRANT = "warrant";
 	public static final String NS_PREFIX_STRUCTURES = "s";
 	public static final String NS_PREFIX_STRUCTURES_30 = "s30";
+	public static final String NS_PREFIX_STRUCTURES_40 = "s40";
 
 	public static final String NS_PREFIX_CH = "ch";
 	public static final String NS_CH = "http://ojbc.org/IEPD/Extensions/RapSheet/1.0";
@@ -408,7 +414,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_INTEL_31 = "http://release.niem.gov/niem/domains/intelligence/3.1/";
 	public static final String NS_PREFIX_INTEL_31 = "intel31";		
-	
+
+	public static final String NS_INTEL_40 = "http://release.niem.gov/niem/domains/intelligence/4.0/";
+	public static final String NS_PREFIX_INTEL_40 = "intel40";		
+
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
 	public static final String NS_SEARCH_REQUEST_ERROR_REPORTING = "http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0";
@@ -839,14 +848,94 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PROSECUTION_DECISION_HAWAII_CODES_DOC ="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0";
 	public static final String NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC ="pd-hi-codes";
 
+	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT ="chm-req-ext";
+	
+	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC ="chm-resp-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT ="chm-resp-ext";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT ="chsreq-ext";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC ="chsres-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT ="chsres-ext";
+
+	public static final String NS_ARREST_ADD_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0";
+	public static final String NS_PREFIX_ARREST_ADD_REQUEST_DOC ="aar-req-doc";
+
+	public static final String NS_ARREST_HIDE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0";
+	public static final String NS_PREFIX_ARREST_HIDE_REQUEST_DOC ="ahr-req-doc";
+
+	public static final String NS_ARREST_MODIFY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0";
+	public static final String NS_PREFIX_MODIFY_HIDE_REQUEST_DOC ="amr-req-doc";
+
+	public static final String NS_EXPUNGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0";
+	public static final String NS_PREFIX_EXPUNGE_REQUEST_DOC ="er-req-doc";
+
+	public static final String NS_ARREST_DETAIL_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0";
+	public static final String NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC ="adsreq-doc";
+
+	public static final String NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0";
+	public static final String NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC ="mcreq-doc";
+
+	public static final String NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0";
+	public static final String NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="mddreq-doc";
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
-	
 	
 	public OjbcNamespaceContext() {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+
+		prefixToUriMap.put(NS_PREFIX_INTEL_40, NS_INTEL_40);
+		uriToPrefixMap.put(NS_INTEL_40, NS_PREFIX_INTEL_40);
+		
+		prefixToUriMap.put(NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC, NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC, NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC, NS_ARREST_DETAIL_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_DETAIL_SEARCH_REQUEST_DOC, NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_ARREST_ADD_REQUEST_DOC, NS_ARREST_ADD_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_ADD_REQUEST_DOC, NS_PREFIX_ARREST_ADD_REQUEST_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_ARREST_HIDE_REQUEST_DOC, NS_ARREST_HIDE_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_HIDE_REQUEST_DOC, NS_PREFIX_ARREST_HIDE_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_MODIFY_HIDE_REQUEST_DOC, NS_ARREST_MODIFY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_MODIFY_REQUEST_DOC, NS_PREFIX_MODIFY_HIDE_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_EXPUNGE_REQUEST_DOC, NS_EXPUNGE_REQUEST_DOC);
+		uriToPrefixMap.put(NS_EXPUNGE_REQUEST_DOC, NS_PREFIX_EXPUNGE_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC, NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT, NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_RESULTS_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC, NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC, NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT, NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT, NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_RESPONSE_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC, NS_PROSECUTION_DECISION_HAWAII_CODES_DOC);
 		uriToPrefixMap.put(NS_PROSECUTION_DECISION_HAWAII_CODES_DOC, NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC);
@@ -1066,6 +1155,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_JXDM_40, NS_PREFIX_JXDM_40);
 		prefixToUriMap.put(NS_PREFIX_JXDM_50, NS_JXDM_50);
 		uriToPrefixMap.put(NS_JXDM_50, NS_PREFIX_JXDM_50);
+		prefixToUriMap.put(NS_PREFIX_JXDM_60, NS_JXDM_60);
+		uriToPrefixMap.put(NS_JXDM_60, NS_PREFIX_JXDM_60);
 		prefixToUriMap.put(NS_PREFIX_JXDM_41, NS_JXDM_41);
 		uriToPrefixMap.put(NS_JXDM_41, NS_PREFIX_JXDM_41);
 		prefixToUriMap.put(NS_PREFIX_USPS_STATES, NS_USPS_STATES);
@@ -1078,12 +1169,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_NC, NS_PREFIX_NC);
 		prefixToUriMap.put(NS_PREFIX_NC_30, NS_NC_30);
 		uriToPrefixMap.put(NS_NC_30, NS_PREFIX_NC_30);
+		prefixToUriMap.put(NS_PREFIX_NC_40, NS_NC_40);
+		uriToPrefixMap.put(NS_NC_40, NS_PREFIX_NC_40);
 		prefixToUriMap.put(NS_PREFIX_WARRANT, NS_WARRANT);
 		uriToPrefixMap.put(NS_WARRANT, NS_PREFIX_WARRANT);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES, NS_STRUCTURES);
 		uriToPrefixMap.put(NS_STRUCTURES, NS_PREFIX_STRUCTURES);
 		prefixToUriMap.put(NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
 		uriToPrefixMap.put(NS_STRUCTURES_30, NS_PREFIX_STRUCTURES_30);
+		prefixToUriMap.put(NS_PREFIX_STRUCTURES_40, NS_STRUCTURES_40);
+		uriToPrefixMap.put(NS_STRUCTURES_40, NS_PREFIX_STRUCTURES_40);
 		prefixToUriMap.put(NS_PREFIX_CH, NS_CH);
 		uriToPrefixMap.put(NS_CH, NS_PREFIX_CH);
 		prefixToUriMap.put(NS_PREFIX_RAPSHEET_41, NS_RAPSHEET_41);

@@ -84,6 +84,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -102,6 +103,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ChargeType">
     <xs:annotation>
       <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -111,8 +120,11 @@
         <xs:sequence>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeNarrative" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -162,6 +174,8 @@
           <xs:element ref="j:SentenceSuspendedTerm" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtCostAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SupervisionFineAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -243,6 +257,11 @@
       <xs:documentation>An augmentation point for ArrestType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ArrestSubject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is arrested.</xs:documentation>
@@ -283,6 +302,11 @@
       <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identification number assigned to a particular charge by an arresting agency, prosecuting attorney, or a court for case management purposes.</xs:documentation>
@@ -291,6 +315,16 @@
   <xs:element name="ChargeNarrative" type="nc:DocumentType" nillable="true">
     <xs:annotation>
       <xs:documentation>A document associated with a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSentence" type="j:SentenceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of severity of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
@@ -341,6 +375,11 @@
   <xs:element name="Sentence" type="j:SentenceType" nillable="true">
     <xs:annotation>
       <xs:documentation>A punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SentenceType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SentenceDeferredTerm" type="j:TermType" nillable="true">
@@ -401,6 +440,11 @@
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An assigned identification that identifies a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionFineAmount" type="nc:AmountType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A pecuniary criminal punishment or penalty payable to the public treasury</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="TermDuration" type="niem-xs:duration" nillable="true">
