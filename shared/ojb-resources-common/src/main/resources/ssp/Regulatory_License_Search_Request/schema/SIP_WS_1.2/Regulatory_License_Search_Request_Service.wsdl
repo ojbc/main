@@ -65,6 +65,10 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="Regulatory_License_Search_Request_Service_Service">
+		<wsdl:port binding="tns:Regulatory_License_Search_Request_ServiceSOAPBinding"
+			name="Regulatory_License_Search_Request_Service">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
 		<wsdl:port binding="tns:Regulatory_License_Search_Request_Secure_ServiceSOAPBinding"
 			name="Regulatory_License_Search_Request_Secure_Service">
 			<soap:address location="http://localhost/secure" />

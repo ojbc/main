@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:rls-res-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchResults/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/4.0/"
+		schemaLocation="Subset/niem/utility/appinfo/4.0/appinfo.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
+		schemaLocation="Subset/niem/utility/structures/4.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="Subset/niem/proxy/xsd/4.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
+		schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/"
+		schemaLocation="Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/4.0/"
+		schemaLocation="Subset/niem/domains/intelligence/4.0/intelligence.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+		schemaLocation="search-results-metadata.xsd" />
+	<xsd:complexType name="RegulatoryLicenseSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for regulatory license search results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RegulatoryLicenseSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of regulatory license information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:RegulatoryLicense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:SourceSystemNameText" minOccurs="0" />
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:SearchResultCategoryText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RegulatoryLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a regulated license issued to a person granting privilege.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseIdentification" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseCategoryText" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseAgency" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseDepartmentName" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseRegulatorName" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseIssueDate" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseExpirationDate" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicensePerson" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:PersonLicenseeID" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseStatus" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:CurrentlyAuthorizedToPracticeIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseAllegationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an allegation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:AllegationDescriptionText" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:AllegationResolution" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:AllegationAction" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AllegationActionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an allegation action.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:ActionValueText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="RegulatoryLicense" type="rls-res-ext:RegulatoryLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A regulated license issued to a person granting privilege.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A regulatory license identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseAgency" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>A regulatory license agency.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseDepartmentName" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A regulatory license department.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseRegulatorName" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A regulatory license regulator.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseIssueDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date when a regulatory license is issued.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseExpirationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date after which a regulatory license is no longer valid.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicensePerson" type="nc:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A person to which a regulatory license is assigned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseStatus" type="nc:StatusType">
+		<xsd:annotation>
+			<xsd:documentation>A state of a regulatory license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A kind of regulatory license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseAllegation" type="rls-res-ext:CaseAllegationType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An allegation associated with a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllegationDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A plain language description of an allegation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllegationResolution" type="nc:ActivityType">
+		<xsd:annotation>
+			<xsd:documentation>A resolution associated with an allegation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllegationAction" type="rls-res-ext:AllegationActionType">
+		<xsd:annotation>
+			<xsd:documentation>An action taken regarding an allegation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseSearchResult" type="rls-res-ext:RegulatoryLicenseSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of criminal history information.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SecondaryStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:StatusAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A secondary status description.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonLicenseeID" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An arbitrary identifier assigned to an individual to group the licenses held by a specific individual.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CurrentlyAuthorizedToPracticeIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is currently authorized to practice; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ActionValueText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Value associated with the action taken. May be a string, number, date, date-range or monetary value.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information
+				about the person in the search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
