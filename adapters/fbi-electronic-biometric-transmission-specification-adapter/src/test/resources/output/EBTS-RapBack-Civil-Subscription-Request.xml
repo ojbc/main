@@ -111,6 +111,12 @@
                <j:PersonFBIIdentification>
 					             <nc:IdentificationID>123456789</nc:IdentificationID>
 				           </j:PersonFBIIdentification>
+	            <ebts:PersonFingerprintSet>
+	                <!--DPR 2.038, Optional (Mandatory if submitting fingerprints)-->
+	                <nc:BiometricCaptureDate>
+	                    <nc:Date>1995-03-24</nc:Date>
+	                </nc:BiometricCaptureDate>
+	            </ebts:PersonFingerprintSet>			
             </ebts:RecordSubject>
          </ebts:DomainDefinedDescriptiveFields>
       </nistbio:UserDefinedDescriptiveDetail>

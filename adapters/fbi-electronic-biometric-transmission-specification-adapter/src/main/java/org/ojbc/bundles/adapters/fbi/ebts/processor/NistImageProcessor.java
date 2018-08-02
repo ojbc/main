@@ -17,8 +17,6 @@
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.util.Base64;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -54,12 +52,7 @@ public class NistImageProcessor {
 			
 			Element fingerprintImage = XmlUtils.appendElement(imageRecord, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImage");
 
-			byte[] pngArray = Jnbis.wsq()
-	                .decode(fingerPrint.getImageData())
-	                .toJpg()
-	                .asByteArray();
-	
-	        String fingerprintAsJpeg = Base64.getEncoder().encodeToString(pngArray);
+	        String fingerprintAsJpeg = Base64.getEncoder().encodeToString(fingerPrint.getImageData());
 			Element base64BinaryObject = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NC, "nc20:BinaryBase64Object");
 			base64BinaryObject.setTextContent(fingerprintAsJpeg);
 			
