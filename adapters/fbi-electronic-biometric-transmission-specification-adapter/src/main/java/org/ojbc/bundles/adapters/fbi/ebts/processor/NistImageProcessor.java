@@ -17,11 +17,15 @@
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.util.Base64;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
@@ -32,8 +36,12 @@ import org.w3c.dom.Element;
 
 public class NistImageProcessor {
 
+	private static final Logger logger = Logger.getLogger(FbiEbtsResponseProcessor.class.getName());
+	
 	public Document insertPackageHighResolutionGrayscaleImageRecord(@Body Document civilRapbackRequest, @Header("civilFingerPrints") List<HighResolutionGrayscaleFingerprint> civilFingerPrints) throws Exception
 	{
+		
+		Element transactionContentSummaryElement = (Element) XmlUtils.xPathNodeSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageInformationRecord/nbio:Transaction/nbio:TransactionContentSummary");
 		
 		for (HighResolutionGrayscaleFingerprint fingerPrint : civilFingerPrints) {
 		
@@ -63,10 +71,27 @@ public class NistImageProcessor {
 			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
 			
 			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImagePosition");
-			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
+			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerPositionCode", fingerPrint.getFingerPosition());
 			
 			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
 
+//			<nbio:ContentRecordSummary>
+//				<nbio:ImageReferenceIdentification>
+//					<nc20:IdentificationID>01</nc20:IdentificationID>
+//				</nbio:ImageReferenceIdentification>
+//				<nbio:RecordCategoryCode>04</nbio:RecordCategoryCode>
+//			</nbio:ContentRecordSummary>
+			
+			if (transactionContentSummaryElement != null)
+			{
+				Element contentRecordSummary = XmlUtils.appendElement(transactionContentSummaryElement, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ContentRecordSummary");
+				
+				Element imageReferenceIdentificationContentSummary = XmlUtils.appendElement(contentRecordSummary, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageReferenceIdentification");
+				XmlUtils.appendTextElement(imageReferenceIdentificationContentSummary, OjbcNamespaceContext.NS_NC, "nc20:IdentificationID", fingerPrint.getImageDesignationCharacter());
+				
+				XmlUtils.appendTextElement(contentRecordSummary, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:RecordCategoryCode", "04");
+				
+			}	
 		}
 		
 		return civilRapbackRequest;
@@ -78,8 +103,32 @@ public class NistImageProcessor {
 		
         Nist nist = Jnbis.nist().decode(binaryData);
         List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
-        
+      
         ex.getIn().setHeader("civilFingerPrints", hiResGrayscaleFingerprints);
+
+        String nativeScanningResolution  = nist.getTransactionInfo().getNativeScanningResolution();
+        String nominalTransmittingResolution  = nist.getTransactionInfo().getNominalTransmittingResolution();
         
+        //We add one here because we also have a type 2 record which is the itl:PackageDescriptiveTextRecord. This field is the type 2 to type 99 recordsest
+        Integer transactionContentSummaryContentRecordCountCivil = hiResGrayscaleFingerprints.size() + 1;
+
+        logger.info("Native scanning resolution: " + nativeScanningResolution + ", nominal transmitting resolution: " + nominalTransmittingResolution + ", transaction content count: " + transactionContentSummaryContentRecordCountCivil);
+        
+        if (transactionContentSummaryContentRecordCountCivil != null)
+        {
+        	ex.getIn().setHeader("transactionContentSummaryContentRecordCountCivil", String.valueOf(transactionContentSummaryContentRecordCountCivil));
+        }	
+        
+    	if (StringUtils.isNotBlank(nativeScanningResolution))
+    	{
+    		ex.getIn().setHeader("nativeScanningResolution", nativeScanningResolution);
+    	}	
+        
+    	if (StringUtils.isNotBlank(nominalTransmittingResolution))
+    	{
+    		ex.getIn().setHeader("nominalTransmittingResolution", nominalTransmittingResolution);
+    	}	
+
 	}
+
 }

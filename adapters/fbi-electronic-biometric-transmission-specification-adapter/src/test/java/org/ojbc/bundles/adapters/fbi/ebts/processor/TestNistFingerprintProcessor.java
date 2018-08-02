@@ -73,6 +73,10 @@ public class TestNistFingerprintProcessor {
 		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImageImpressionCaptureCategoryCode"));
 	
 		XmlUtils.printNode(civilRapbackRequest);
+		
+		NodeList contentRecordSummaryNodes = XmlUtils.xPathNodeListSearch(civilRapbackRequest, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageInformationRecord/nbio:Transaction/nbio:TransactionContentSummary/nbio:ContentRecordSummary");
+		
+		Assert.assertEquals(15, contentRecordSummaryNodes.getLength());
 	}
 	
 	
@@ -87,6 +91,9 @@ public class TestNistFingerprintProcessor {
         
         List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
 
+        Assert.assertEquals("19.68", nist.getTransactionInfo().getNominalTransmittingResolution());
+        Assert.assertEquals("19.68", nist.getTransactionInfo().getNativeScanningResolution());
+        
         Assert.assertEquals(14, hiResGrayscaleFingerprints.size());
         
         HighResolutionGrayscaleFingerprint fingerPrint1 = hiResGrayscaleFingerprints.get(0);

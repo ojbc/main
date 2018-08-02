@@ -380,14 +380,6 @@
 				</ansi-nist:ImageReferenceIdentification>
 				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
 			</ansi-nist:ContentRecordSummary>
-			<xsl:if test="$subscriptionCategory = 'civil'">
-				<ansi-nist:ContentRecordSummary>
-					<ansi-nist:ImageReferenceIdentification>
-						<nc20:IdentificationID>01</nc20:IdentificationID>
-					</ansi-nist:ImageReferenceIdentification>
-					<ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-				</ansi-nist:ContentRecordSummary>
-			</xsl:if>
 		</ansi-nist:TransactionContentSummary>
 	</xsl:template>
 	<xsl:template match="submsg-ext:Subject">
