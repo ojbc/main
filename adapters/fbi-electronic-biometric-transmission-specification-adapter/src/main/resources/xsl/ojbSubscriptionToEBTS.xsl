@@ -389,6 +389,13 @@
 			<xsl:apply-templates select="nc:PersonBirthDate" />
 			<xsl:apply-templates select="nc:PersonName" />
 			<xsl:apply-templates select="j:PersonAugmentation" />
+			<!--TODO: capture this info from the request file, need the actual capture date -->
+            <ebts:PersonFingerprintSet>
+                <!--DPR 2.038, Optional (Mandatory if submitting fingerprints)-->
+                <nc:BiometricCaptureDate>
+                    <nc:Date>1995-03-24</nc:Date>
+                </nc:BiometricCaptureDate>
+            </ebts:PersonFingerprintSet>			
 		</ebts:RecordSubject>
 	</xsl:template>
 	<xsl:template match="nc:PersonBirthDate">
