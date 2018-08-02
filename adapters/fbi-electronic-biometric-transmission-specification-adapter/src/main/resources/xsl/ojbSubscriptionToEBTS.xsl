@@ -18,8 +18,10 @@
 -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
-	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xmlns:nbio="http://niem.gov/niem/biometrics/1.0"
+	xmlns:nistbio="http://biometrics.nist.gov/standard/2011" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
@@ -58,7 +60,7 @@
 	<!-- xsl:param name="rapBackRecipient"/ -->
 	<!-- CRI 2.073 -->
 	<xsl:param name="controllingAgencyID"
-		select="/*/*/submsg-ext:SubscribingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID" />
+		select="/*/*/submsg-ext:SubscribingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID" />
 	<!-- OCA 2.009 -->
 	<!-- xsl:param name="originatingAgencyCaseNumber"/ -->
 	<!-- Native Scanning Resolution (NSR 1.011) -->
@@ -104,7 +106,7 @@
 	<xsl:template match="submsg-doc:SubscriptionMessage">
 		<xsl:param name="action" />
 		<xsl:param name="subscriptionCategory" />
-		<itl:NISTBiometricInformationExchangePackage>
+		<nistbio:NISTBiometricInformationExchangePackage>
 			<!-- EBTS Record Type 1 -->
 			<xsl:call-template name="buildType1Record">
 				<xsl:with-param name="action" select="$action" />
@@ -116,12 +118,12 @@
 				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
 			</xsl:call-template>
 
-		</itl:NISTBiometricInformationExchangePackage>
+		</nistbio:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="unsubmsg-doc:UnsubscriptionMessage">
 		<xsl:param name="action" />
 		<xsl:param name="subscriptionCategory" />
-		<itl:NISTBiometricInformationExchangePackage>
+		<nistbio:NISTBiometricInformationExchangePackage>
 			<!-- EBTS Record Type 1 -->
 			<xsl:call-template name="buildType1Record">
 				<xsl:with-param name="action" select="$action" />
@@ -132,12 +134,12 @@
 				<xsl:with-param name="action" select="$action" />
 				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
 			</xsl:call-template>
-		</itl:NISTBiometricInformationExchangePackage>
+		</nistbio:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template match="smm:SubscriptionModificationMessage">
 		<xsl:param name="action" />
 		<xsl:param name="subscriptionCategory" />
-		<itl:NISTBiometricInformationExchangePackage>
+		<nistbio:NISTBiometricInformationExchangePackage>
 			<!-- EBTS Record Type 1 -->
 			<xsl:call-template name="buildType1Record">
 				<xsl:with-param name="action" select="$action" />
@@ -148,64 +150,64 @@
 				<xsl:with-param name="action" select="$action" />
 				<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
 			</xsl:call-template>
-		</itl:NISTBiometricInformationExchangePackage>
+		</nistbio:NISTBiometricInformationExchangePackage>
 	</xsl:template>
 	<xsl:template name="buildType1Record">
 		<xsl:param name="action" />
 		<xsl:param name="subscriptionCategory" />
-		<itl:PackageInformationRecord>
-			<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
-			<ansi-nist:Transaction>
-				<ansi-nist:TransactionDate>
-					<nc20:Date>
+		<nistbio:PackageInformationRecord>
+			<nbio:RecordCategoryCode>01</nbio:RecordCategoryCode>
+			<nbio:Transaction>
+				<nbio:TransactionDate>
+					<nc:Date>
 						<xsl:value-of select="$rapBackTransactionDate" />
-					</nc20:Date>
-				</ansi-nist:TransactionDate>
-				<ansi-nist:TransactionDestinationOrganization>
-					<nc20:OrganizationIdentification>
-						<nc20:IdentificationID>
+					</nc:Date>
+				</nbio:TransactionDate>
+				<nbio:TransactionDestinationOrganization>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>
 							<xsl:value-of select="$destinationOrganizationORI" />
-						</nc20:IdentificationID>
-					</nc20:OrganizationIdentification>
-				</ansi-nist:TransactionDestinationOrganization>
-				<ansi-nist:TransactionOriginatingOrganization>
-					<nc20:OrganizationIdentification>
+						</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</nbio:TransactionDestinationOrganization>
+				<nbio:TransactionOriginatingOrganization>
+					<nc:OrganizationIdentification>
 						<!--ORI 1.008 -->
-						<nc20:IdentificationID>
+						<nc:IdentificationID>
 							<xsl:value-of select="$originatorOrganizationORI" />
-						</nc20:IdentificationID>
-					</nc20:OrganizationIdentification>
-				</ansi-nist:TransactionOriginatingOrganization>
-				<ansi-nist:TransactionControlIdentification>
-					<nc20:IdentificationID>
+						</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</nbio:TransactionOriginatingOrganization>
+				<nbio:TransactionControlIdentification>
+					<nc:IdentificationID>
 						<xsl:value-of select="$controlID" />
-					</nc20:IdentificationID>
-				</ansi-nist:TransactionControlIdentification>
-				<ansi-nist:TransactionDomain>
-					<ansi-nist:DomainVersionNumberIdentification>
-						<nc20:IdentificationID>
+					</nc:IdentificationID>
+				</nbio:TransactionControlIdentification>
+				<nbio:TransactionDomain>
+					<nbio:DomainVersionNumberIdentification>
+						<nc:IdentificationID>
 							<xsl:value-of select="$domainVersion" />
-						</nc20:IdentificationID>
-					</ansi-nist:DomainVersionNumberIdentification>
-					<ansi-nist:TransactionDomainName>
+						</nc:IdentificationID>
+					</nbio:DomainVersionNumberIdentification>
+					<nbio:TransactionDomainName>
 						<xsl:value-of select="$domainName" />
-					</ansi-nist:TransactionDomainName>
-				</ansi-nist:TransactionDomain>
+					</nbio:TransactionDomainName>
+				</nbio:TransactionDomain>
 				<!-- TODO: need to determine these values for civil submissions -->
-				<ansi-nist:TransactionImageResolutionDetails>
-					<ansi-nist:NativeScanningResolutionValue>
+				<nbio:TransactionImageResolutionDetails>
+					<nbio:NativeScanningResolutionValue>
 						<xsl:value-of select="$nativeScanningResolution" />
-					</ansi-nist:NativeScanningResolutionValue>
-					<ansi-nist:NominalTransmittingResolutionValue>
+					</nbio:NativeScanningResolutionValue>
+					<nbio:NominalTransmittingResolutionValue>
 						<xsl:value-of select="$nominalTransmittingResolution" />
-					</ansi-nist:NominalTransmittingResolutionValue>
-				</ansi-nist:TransactionImageResolutionDetails>
-				<ansi-nist:TransactionMajorVersionValue>
+					</nbio:NominalTransmittingResolutionValue>
+				</nbio:TransactionImageResolutionDetails>
+				<nbio:TransactionMajorVersionValue>
 					<xsl:value-of select="$transactionMajorVersion" />
-				</ansi-nist:TransactionMajorVersionValue>
-				<ansi-nist:TransactionMinorVersionValue>
+				</nbio:TransactionMajorVersionValue>
+				<nbio:TransactionMinorVersionValue>
 					<xsl:value-of select="$transactionMinorVersion" />
-				</ansi-nist:TransactionMinorVersionValue>
+				</nbio:TransactionMinorVersionValue>
 				<!-- This determines whether we are requesting a new subscription or 
 					modifying an existing one and whether it is civil or criminal -->
 				<xsl:choose>
@@ -223,24 +225,24 @@
 				<xsl:call-template name="buildTransactionContentSummary">
 					<xsl:with-param name="subscriptionCategory" select="$subscriptionCategory" />
 				</xsl:call-template>
-			</ansi-nist:Transaction>
-		</itl:PackageInformationRecord>
+			</nbio:Transaction>
+		</nistbio:PackageInformationRecord>
 	</xsl:template>
 	<xsl:template name="buildType2Record">
 		<xsl:param name="action" />
 		<xsl:param name="subscriptionCategory" />
-		<itl:PackageDescriptiveTextRecord>
-			<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-			<ansi-nist:ImageReferenceIdentification>
-				<nc20:IdentificationID>00</nc20:IdentificationID>
-			</ansi-nist:ImageReferenceIdentification>
-			<itl:UserDefinedDescriptiveDetail>
+		<nistbio:PackageDescriptiveTextRecord>
+			<nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+			<nbio:ImageReferenceIdentification>
+				<nc:IdentificationID>00</nc:IdentificationID>
+			</nbio:ImageReferenceIdentification>
+			<nistbio:UserDefinedDescriptiveDetail>
 				<ebts:DomainDefinedDescriptiveFields>
 					<xsl:choose>
 						<xsl:when test="$action = 'newSubscription'">
-							<ansi-nist:RecordRapSheetRequestIndicator>
+							<nbio:RecordRapSheetRequestIndicator>
 								<xsl:value-of select="$rapSheetRequestIndicator" />
-							</ansi-nist:RecordRapSheetRequestIndicator>
+							</nbio:RecordRapSheetRequestIndicator>
 						</xsl:when>
 					</xsl:choose>
 					<ebts:RecordRapBackData>
@@ -270,21 +272,21 @@
 						<xsl:choose>
 							<xsl:when test="$action ='newSubscription'">
 								<xsl:apply-templates
-									select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc20:DateRange/nc20:EndDate/nc20:Date"
+									select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/nc:DateRange/nc:EndDate/nc:Date"
 									mode="expirationDate" />
 							</xsl:when>
 							<xsl:when test="$action = 'modifySubscription'">
 								<xsl:apply-templates
-									select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:SubscriptionModification/nc20:DateRange/nc20:EndDate/nc20:Date"
+									select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:SubscriptionModification/nc:DateRange/nc:EndDate/nc:Date"
 									mode="expirationDate" />
 							</xsl:when>
 						</xsl:choose>
 						<ebts:RecordRapBackInStateOptOutIndicator>
 							<xsl:value-of select="$rapBackInStateOptOutIndicator" />
 						</ebts:RecordRapBackInStateOptOutIndicator>
-						<!-- ansi-nist:RecordForwardOrganizations> <nc20:OrganizationIdentification> 
-							<nc20:IdentificationID> <xsl:value-of select="$rapBackRecipient"/> </nc20:IdentificationID> 
-							</nc20:OrganizationIdentification> </ansi-nist:RecordForwardOrganizations -->
+						<!-- nbio:RecordForwardOrganizations> <nc:OrganizationIdentification> 
+							<nc:IdentificationID> <xsl:value-of select="$rapBackRecipient"/> </nc:IdentificationID> 
+							</nc:OrganizationIdentification> </nbio:RecordForwardOrganizations -->
 						<xsl:if
 							test="$action = 'newSubscription' and $subscriptionCategory='civil'">
 							<ebts:RecordRapBackSubscriptionTerm>
@@ -300,7 +302,7 @@
 							</xsl:when>
 							<xsl:when test="$action = 'modifySubscription'">
 								<xsl:apply-templates
-									select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:FBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID"
+									select="/b-2:Modify/smm:SubscriptionModificationMessage/submsg-ext:FBISubscription/submsg-ext:SubscriptionFBIIdentification/nc:IdentificationID"
 									mode="fbiSubscriptionID" />
 							</xsl:when>
 						</xsl:choose>
@@ -309,10 +311,10 @@
 							mode="triggerCriminal" />
 					
 						<xsl:apply-templates
-							select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc20:IdentificationID !='']"
+							select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc:IdentificationID !='']"
 							mode="userDefinedElement" />
 						<xsl:apply-templates
-							select="submsg-ext:SubscriptionIdentification[nc20:IdentificationID !='']"
+							select="submsg-ext:SubscriptionIdentification[nc:IdentificationID !='']"
 							mode="userDefinedElement" />
 						
 
@@ -334,33 +336,33 @@
 							<xsl:when test="$action = 'cancelSubscription'" />
 							<xsl:when test="$action = 'modifySubscription'" />
 							<xsl:when test="$action = 'newSubscription'">
-								<nc20:CaseTrackingID>
+								<nc:CaseTrackingID>
 									<xsl:value-of
-										select="/*/*/submsg-ext:SubscriptionRelatedCaseIdentification/nc20:IdentificationID" />
-								</nc20:CaseTrackingID>
+										select="/*/*/submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID" />
+								</nc:CaseTrackingID>
 							</xsl:when>
 						</xsl:choose>
 						<ebts:RecordControllingAgency>
-							<nc20:OrganizationIdentification>
-								<nc20:IdentificationID>
+							<nc:OrganizationIdentification>
+								<nc:IdentificationID>
 									<xsl:value-of select="$controllingAgencyID" />
-								</nc20:IdentificationID>
-							</nc20:OrganizationIdentification>
+								</nc:IdentificationID>
+							</nc:OrganizationIdentification>
 						</ebts:RecordControllingAgency>
 					</ebts:RecordTransactionActivity>
 					<xsl:apply-templates select="submsg-ext:Subject" />
 				</ebts:DomainDefinedDescriptiveFields>
-			</itl:UserDefinedDescriptiveDetail>
-		</itl:PackageDescriptiveTextRecord>
+			</nistbio:UserDefinedDescriptiveDetail>
+		</nistbio:PackageDescriptiveTextRecord>
 	</xsl:template>
 	<xsl:template name="buildTransactionContentSummary">
 		<xsl:param name="subscriptionCategory" />
-		<ansi-nist:TransactionContentSummary>
-			<ansi-nist:ContentFirstRecordCategoryCode>
+		<nbio:TransactionContentSummary>
+			<nbio:ContentFirstRecordCategoryCode>
 				<xsl:value-of
 					select="$transactionContentSummaryContentFirstRecordCategoryCode" />
-			</ansi-nist:ContentFirstRecordCategoryCode>
-			<ansi-nist:ContentRecordQuantity>
+			</nbio:ContentFirstRecordCategoryCode>
+			<nbio:ContentRecordQuantity>
 				<xsl:choose>
 					<xsl:when test="$subscriptionCategory = 'civil'">
 						<xsl:value-of select="$transactionContentSummaryContentRecordCountCivil" />
@@ -373,42 +375,46 @@
 						01
 					</xsl:otherwise>
 				</xsl:choose>
-			</ansi-nist:ContentRecordQuantity>
-			<ansi-nist:ContentRecordSummary>
-				<ansi-nist:ImageReferenceIdentification>
-					<nc20:IdentificationID>00</nc20:IdentificationID>
-				</ansi-nist:ImageReferenceIdentification>
-				<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-			</ansi-nist:ContentRecordSummary>
-		</ansi-nist:TransactionContentSummary>
+			</nbio:ContentRecordQuantity>
+			<nbio:ContentRecordSummary>
+				<nbio:ImageReferenceIdentification>
+					<nc:IdentificationID>00</nc:IdentificationID>
+				</nbio:ImageReferenceIdentification>
+				<nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+			</nbio:ContentRecordSummary>
+		</nbio:TransactionContentSummary>
 	</xsl:template>
 	<xsl:template match="submsg-ext:Subject">
 		<ebts:RecordSubject>
-			<xsl:apply-templates select="nc20:PersonBirthDate" />
-			<xsl:apply-templates select="nc20:PersonName" />
+			<xsl:apply-templates select="nc:PersonBirthDate" />
+			<xsl:apply-templates select="nc:PersonName" />
 			<xsl:apply-templates select="j:PersonAugmentation" />
 		</ebts:RecordSubject>
 	</xsl:template>
-	<xsl:template match="nc20:PersonBirthDate">
-		<xsl:copy-of select="." copy-namespaces="no" />
+	<xsl:template match="nc:PersonBirthDate">
+	    <nc:PersonBirthDate>
+	       <nc:Date><xsl:value-of select="normalize-space(.)" /></nc:Date>
+	    </nc:PersonBirthDate>	
 	</xsl:template>
-	<xsl:template match="nc20:PersonName">
+	<xsl:template match="nc:PersonName">
 		<ebts:PersonName>
-			<xsl:apply-templates select="nc20:PersonGivenName" />
-			<xsl:apply-templates select="nc20:PersonSurName" />
+			<xsl:apply-templates select="nc:PersonGivenName" />
+			<xsl:apply-templates select="nc:PersonSurName" />
 		</ebts:PersonName>
 	</xsl:template>
-	<xsl:template match="nc20:PersonGivenName">
-		<xsl:copy-of select="." copy-namespaces="no" />
+	<xsl:template match="nc:PersonGivenName">
+		<nc:PersonGivenName><xsl:value-of select="normalize-space(.)" /></nc:PersonGivenName>
 	</xsl:template>
-	<xsl:template match="nc20:PersonSurName">
-		<xsl:copy-of select="." copy-namespaces="no" />
+	<xsl:template match="nc:PersonSurName">
+		<nc:PersonSurName><xsl:value-of select="normalize-space(.)" /></nc:PersonSurName>
 	</xsl:template>
 	<xsl:template match="j:PersonAugmentation">
 		<xsl:apply-templates select="j:PersonFBIIdentification" />
 	</xsl:template>
 	<xsl:template match="j:PersonFBIIdentification">
-		<xsl:copy-of select="." copy-namespaces="no" />
+		<j:PersonFBIIdentification>
+		   <nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
+		</j:PersonFBIIdentification>
 	</xsl:template>
 	<xsl:template match="j:PersonStateFingerprintIdentification"
 		mode="userDefinedElement">
@@ -419,7 +425,7 @@
 			</ebts:UserDefinedElementText>
 		</ebts:RecordRapBackUserDefinedElement>
 	</xsl:template>
-	<xsl:template match="submsg-ext:SubscriptionIdentification/nc20:IdentificationID"
+	<xsl:template match="submsg-ext:SubscriptionIdentification/nc:IdentificationID"
 		mode="userDefinedElement">
 		<ebts:RecordRapBackUserDefinedElement>
 			<ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
@@ -440,14 +446,14 @@
 			<xsl:value-of select="." />
 		</ebts:RecordRapBackCategoryCode>
 	</xsl:template>
-	<xsl:template match="nc20:Date" mode="expirationDate">
+	<xsl:template match="nc:Date" mode="expirationDate">
 		<ebts:RecordRapBackExpirationDate>
-			<nc20:Date>
+			<nc:Date>
 				<xsl:value-of select="." />
-			</nc20:Date>
+			</nc:Date>
 		</ebts:RecordRapBackExpirationDate>
 	</xsl:template>
-	<xsl:template match="nc20:IdentificationID" mode="fbiSubscriptionID">
+	<xsl:template match="nc:IdentificationID" mode="fbiSubscriptionID">
 		<ebts:RecordRapBackSubscriptionID>
 			<xsl:value-of select="." />
 		</ebts:RecordRapBackSubscriptionID>
