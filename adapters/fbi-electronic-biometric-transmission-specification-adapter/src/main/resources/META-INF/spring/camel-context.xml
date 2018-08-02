@@ -521,19 +521,37 @@
 			<setHeader headerName="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
 			<setHeader headerName="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
 			<setHeader headerName="originatingAgencyCaseNumber"><simple>{{fbiEbtsAdapter.originatingAgencyCaseNumber}}</simple></setHeader>
-			<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
-			<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
-			<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCivil}}</simple></setHeader>
 			<setHeader headerName="rapBackDisclosureIndicator"><simple>{{fbiEbtsAdapter.rapBackDisclosureIndicator}}</simple></setHeader>
 			
+			<camel:log message="\n\n Native scanning resolution: ${in.headers.nativeScanningResolution}, ${in.headers.nominalTransmittingResolution}, transaction count: ${in.headers.transactionContentSummaryContentRecordCountCivil} \n\n"/>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.nativeScanningResolution} == ''</camel:simple>
+			
+				<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.nominalTransmittingResolution} == ''</camel:simple>
+			
+				<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.transactionContentSummaryContentRecordCountCivil} == ''</camel:simple>
+			
+				<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+			</camel:filter>
+	
+			<camel:log message="\n\n Native scanning resolution: ${in.headers.nativeScanningResolution}, ${in.headers.nominalTransmittingResolution}, transaction count: ${in.headers.transactionContentSummaryContentRecordCountCivil} \n\n"/>
+	
 			<camel:filter>
 				<camel:simple>${in.headers.civilSubscription} == 'true'</camel:simple>
 			
 				<setHeader headerName="civilRapBackSubscriptionTerm"><simple>{{fbiEbtsAdapter.civilRapBackSubscriptionTerm}}</simple></setHeader>
-			</camel:filter>
-			
+			</camel:filter>						
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
 			

@@ -101,18 +101,6 @@
                     </ansi-nist:ImageReferenceIdentification>
                     <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
                 </ansi-nist:ContentRecordSummary>
-                <ansi-nist:ContentRecordSummary>
-                    <ansi-nist:ImageReferenceIdentification>
-                        <nc:IdentificationID>01</nc:IdentificationID>
-                    </ansi-nist:ImageReferenceIdentification>
-                    <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
-                </ansi-nist:ContentRecordSummary>
-                <ansi-nist:ContentRecordSummary>
-                    <ansi-nist:ImageReferenceIdentification>
-                        <nc:IdentificationID>02</nc:IdentificationID>
-                    </ansi-nist:ImageReferenceIdentification>
-                    <ansi-nist:RecordCategoryCode>14</ansi-nist:RecordCategoryCode>
-                </ansi-nist:ContentRecordSummary>
             </ansi-nist:TransactionContentSummary>
             <!--DCS 1.015, Optional -->
             <ansi-nist:TransactionCharacterSetDirectory>

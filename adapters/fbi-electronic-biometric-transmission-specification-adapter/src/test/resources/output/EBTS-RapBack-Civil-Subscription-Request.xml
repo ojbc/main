@@ -26,49 +26,43 @@
    <itl:PackageInformationRecord>
       <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
       <ansi-nist:Transaction>
-			<ansi-nist:TransactionDate>
-				<nc20:Date>2015-07-14</nc20:Date>
-			</ansi-nist:TransactionDate>
-			<ansi-nist:TransactionDestinationOrganization>
-            	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
-            	</nc20:OrganizationIdentification>
-          	</ansi-nist:TransactionDestinationOrganization>
-          	<ansi-nist:TransactionOriginatingOrganization>
-               	<nc20:OrganizationIdentification>
-                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
-                </nc20:OrganizationIdentification>
-            </ansi-nist:TransactionOriginatingOrganization>
-            <ansi-nist:TransactionControlIdentification>
-             	<nc20:IdentificationID>9876500000</nc20:IdentificationID>
-            </ansi-nist:TransactionControlIdentification>
-            <ansi-nist:TransactionDomain>
-                <ansi-nist:DomainVersionNumberIdentification>
-                    <nc20:IdentificationID>EBTS 10.0</nc20:IdentificationID>
-                </ansi-nist:DomainVersionNumberIdentification>
-                <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
-            </ansi-nist:TransactionDomain>
-             <ansi-nist:TransactionImageResolutionDetails>
-                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
-                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
-            </ansi-nist:TransactionImageResolutionDetails>
-            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
-           	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+         <ansi-nist:TransactionDate>
+            <nc20:Date>2015-07-14</nc20:Date>
+         </ansi-nist:TransactionDate>
+         <ansi-nist:TransactionDestinationOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionDestinationOrganization>
+         <ansi-nist:TransactionOriginatingOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionOriginatingOrganization>
+         <ansi-nist:TransactionControlIdentification>
+            <nc20:IdentificationID>9876500000</nc20:IdentificationID>
+         </ansi-nist:TransactionControlIdentification>
+         <ansi-nist:TransactionDomain>
+            <ansi-nist:DomainVersionNumberIdentification>
+               <nc20:IdentificationID>EBTS 10.0</nc20:IdentificationID>
+            </ansi-nist:DomainVersionNumberIdentification>
+            <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+         </ansi-nist:TransactionDomain>
+         <ansi-nist:TransactionImageResolutionDetails>
+            <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+            <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+         </ansi-nist:TransactionImageResolutionDetails>
+         <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+         <ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
          <ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
          <ansi-nist:TransactionContentSummary>
-         <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
-         <ansi-nist:ContentRecordQuantity>03</ansi-nist:ContentRecordQuantity>
+            <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+            <ansi-nist:ContentRecordQuantity>03</ansi-nist:ContentRecordQuantity>
             <ansi-nist:ContentRecordSummary>
                <ansi-nist:ImageReferenceIdentification>
                   <nc20:IdentificationID>00</nc20:IdentificationID>
                </ansi-nist:ImageReferenceIdentification>
                <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-            </ansi-nist:ContentRecordSummary>
-            <ansi-nist:ContentRecordSummary>
-               <ansi-nist:ImageReferenceIdentification>
-                  <nc20:IdentificationID>01</nc20:IdentificationID>
-               </ansi-nist:ImageReferenceIdentification>
-               <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
             </ansi-nist:ContentRecordSummary>
          </ansi-nist:TransactionContentSummary>
       </ansi-nist:Transaction>
@@ -90,16 +84,14 @@
                <ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID
-			</ebts:UserDefinedElementName>
+                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
-               <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID
-			</ebts:UserDefinedElementName>
+			            <ebts:RecordRapBackUserDefinedElement>
+                  <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
-            </ebts:RecordRapBackData>
+		          </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
                <nc20:CaseTrackingID>0123ABC</nc20:CaseTrackingID>
                <ebts:RecordControllingAgency>
@@ -124,3 +116,4 @@
       </itl:UserDefinedDescriptiveDetail>
    </itl:PackageDescriptiveTextRecord>
 </itl:NISTBiometricInformationExchangePackage>
+
