@@ -88,7 +88,9 @@
             <camel:from uri="direct:processStateIdentificationResults" />
             
             <camel:filter>
-				<camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR'</camel:xpath>
+				<camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' and 
+					normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText) !='CRIMINAL-SID-TO-HIJIS'
+				</camel:xpath>
             
 	            <camel:choice>
 	                <camel:when>
