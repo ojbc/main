@@ -81,7 +81,8 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
-					<!-- WE NEED TO ADD A "HIDE" FLAG ELEMENT TO THE DB -->
+					<xsd:element ref="chm-req-ext:ArrestHideDate" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:ArrestHideIndicator" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -130,9 +131,21 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-		<xsd:element name="ChargeMunicipalCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeMunicipalCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code for a municipal charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is hidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if an arrest record is hidden; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

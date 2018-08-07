@@ -27,5 +27,8 @@
 		<nc:IdentificationID>1004233</nc:IdentificationID>
 		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 	</chm-req-ext:ArrestRecordRequestIdentification>
-	<!-- NEED TO ADD "HIDE" FLAG -->
+	<chm-req-ext:ArrestHideDate>
+		<nc:Date>2018-07-12</nc:Date>
+	</chm-req-ext:ArrestHideDate>
+	<chm-req-ext:ArrestHideIndicator>true</chm-req-ext:ArrestHideIndicator>
 </ahr-req-doc:ArrestHideRequest>
