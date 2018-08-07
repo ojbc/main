@@ -130,6 +130,16 @@
 			<xsd:documentation>A document returned by the State, after doing a fingerprint search, that indicates whether the person has a criminal history in the state. Sometimes this is referred to as a "match/no-match".</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+		<xsd:element name="NationalSexOffenderRegistryDemographicsDocument" type="nc:DocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains demographic information used to search the national sex offender registry.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NationalSexOffenderRegistrySearchResultDocument" type="nc:DocumentType" substitutionGroup="ident-ext:IdentificationResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document that contains results of searching the national sex offender registry.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="LinkedSystems" type="ident-ext:LinkedSystemType">
 		<xsd:annotation>
 			<xsd:documentation>Systems with information about the offender.</xsd:documentation>
