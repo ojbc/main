@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>OJBC Web Portal</title>
+		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+	</head>
+	<body>
+		<header th:replace="fragments/general.html :: header"> </header>
+	    <!-- Begin page content -->
+	    <main role="main" class="container">
+	      <h3 class="mt-5">Disposition Search Results</h1>
+	      <p th:utext="${dispositionSearchContent}"></p>
+	    </main>
+	
+		<footer th:replace="fragments/general.html :: footer"></footer>	
+		<!-- /.container -->
+		<th:block th:include="fragments/general.html :: javascripts"></th:block>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script>
+			$(document).ready(function() {
+			    $('#searchResultsTable').DataTable();
+			} );
+		</script>
+	</body>
+</html>
