@@ -7,24 +7,34 @@ import javax.annotation.Resource;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"dispositionSearchResults", "dispositionSearchRequest"})
-public class DispostionController {
+@RequestMapping("/dispositions")
+public class DispositionController {
 	@Autowired
 	DispositionService dispostionService;
 	
 	@Resource
 	SearchResultConverter searchResultConverter;
 
-	@GetMapping("/dispositions")
-	public String welcome(Map<String, Object> model) throws Throwable {
+    @ModelAttribute
+    public void addModelAttributes(Model model) {
+    	
 		DispositionSearchRequest dispositionSearchRequest = new DispositionSearchRequest();
-		dispositionSearchRequest.setDispositionStartDate(LocalDate.now().minusDays(90));
-		dispositionSearchRequest.setDispositionEndDate(LocalDate.now());
-		
+		dispositionSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(90));
+		dispositionSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
+		model.addAttribute("dispositionSearchRequest", dispositionSearchRequest);
+    }
+    
+	@GetMapping("")
+	public String defaultSearch(Map<String, Object> model) throws Throwable {
+		DispositionSearchRequest dispositionSearchRequest = (DispositionSearchRequest) model.get("dispositionSearchRequest");
 		String searchContent = dispostionService.findDispositions(dispositionSearchRequest);
 		String transformedResults = searchResultConverter.convertDispositionSearchResult(searchContent);
 		model.put("dispositionSearchResults", searchContent); 

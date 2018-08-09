@@ -79,11 +79,11 @@
 					<xsl:value-of select="."/>
 				</xsl:for-each>
 			</td>
-			<td align="right" width="115px">
-				<i class="fas fa-eraser fa-lg" title="expunge"></i> &#160;
-				<i class="fas fa-edit fa-lg" title="edit"></i>&#160;
-				<i class="fas fa-eye-slash fa-lg" title="hide"></i>&#160;
-				<i class="fas fa-times-circle fa-lg" title="delete"></i>
+			<td align="right" width="150px">
+				<i class="fas fa-eraser fa-2x" title="expunge" data-toggle="tooltip"></i> &#160;
+				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>&#160;
+				<i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i>&#160;
+				<i class="fas fa-times-circle fa-2x" title="delete" data-toggle="tooltip"></i>
 			</td>
 		</tr>
 	</xsl:template>
