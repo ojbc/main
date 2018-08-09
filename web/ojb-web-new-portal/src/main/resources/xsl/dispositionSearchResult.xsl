@@ -80,6 +80,10 @@
 				</xsl:for-each>
 			</td>
 			<td align="right" width="115px">
+				<i class="fas fa-eraser fa-lg" title="expunge"></i> &#160;
+				<i class="fas fa-edit fa-lg" title="edit"></i>&#160;
+				<i class="fas fa-eye-slash fa-lg" title="hide"></i>&#160;
+				<i class="fas fa-times-circle fa-lg" title="delete"></i>
 			</td>
 		</tr>
 	</xsl:template>

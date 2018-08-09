@@ -3,7 +3,9 @@
 	<head>
 		<title>OJBC Web Portal</title>
 		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+		<link rel="stylesheet" type="text/css" href="webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css" />
+		<link rel="stylesheet" type="text/css" href="webjars/font-awesome/5.2.0/css/all.css" />
+		
 	</head>
 	<body>
 		<header th:replace="fragments/general.html :: header"> </header>
@@ -16,11 +18,17 @@
 		<footer th:replace="fragments/general.html :: footer"></footer>	
 		<!-- /.container -->
 		<th:block th:include="fragments/general.html :: javascripts"></th:block>
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script type="text/javascript" src="webjars/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+		<script type="text/javascript" src="webjars/font-awesome/5.2.0/js/all.js"></script>
+		
 		<script>
 			$(document).ready(function() {
-			    $('#searchResultsTable').DataTable();
+			    $('#searchResultsTable').DataTable({
+			    	"columnDefs": [
+			    	    { "orderable": false, "targets": 6 }
+			    	  ]
+			    });
 			} );
 		</script>
 	</body>
