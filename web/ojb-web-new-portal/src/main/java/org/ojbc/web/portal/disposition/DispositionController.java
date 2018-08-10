@@ -1,9 +1,11 @@
 package org.ojbc.web.portal.disposition;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.ojbc.web.portal.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class DispositionController {
 		dispositionSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(90));
 		dispositionSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
 		model.addAttribute("dispositionSearchRequest", dispositionSearchRequest);
+		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
     }
     
 	@GetMapping("")

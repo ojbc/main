@@ -11,52 +11,69 @@
 		<header th:replace="fragments/general.html :: header"> </header>
 	    <!-- Begin page content -->
 	    <main role="main" class="container">
-	      <h3 class="mt-5">Disposition Search Results</h1>
+        <h3 class="mt-5">Disposition Search Results</h3>
         <form action="#" th:action="@{/dispositions/advancedSearch}" th:object="${dispositionSearchRequest}" method="post">
-          <table>
-			      <tr>
-			        <td>Disposition Date </td>
-			        <td><input type="text" th:field="*{dispositionDateRangeStartDate}" width="250" placeholder="From"/></td>
-			        <td><input type="text" th:field="*{dispositionDateRangeEndDate}" width="250" placeholder="To"/></td>
-			        <td th:errors="*{dispositionDateRangeStartDate}">Disposition Date error message</td>
-			      </tr>
-			      <tr>
-			        <td>Arrest Date </td>
-			        <td><input type="text" th:field="*{arrestDateRangeStartDate}" width="250" placeholder="From"/></td>
-			        <td><input type="text" th:field="*{arrestDateRangeEndDate}" width="250" placeholder="To"/></td>
-			        <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
-			      </tr>
-			      <tr>
-			        <td>First Name </td>
-			        <td><input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/></td>
-			        <td><input type="text" th:field="*{firstNameSearchMetadata}" width="250" placeholder="firstNameSearchMetadata"/></td>
-			        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name error message</td>
-			      </tr>
-			      <tr>
-			        <td>Last Name </td>
-			        <td><input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/></td>
-			        <td><input type="text" th:field="*{lastNameSearchMetadata}" width="250" placeholder="lastNameSearchMetadata"/></td>
-			        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error message</td>
-			      </tr>
-            <tr>
-              <td><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></td>
-              <td th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN error message</td>
-              <td><input type="text" th:field="*{dob}" width="250" placeholder="Date of Birth"/></td>
-              <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">DOB error message</td>
-            </tr>
-            <tr>
-              <td><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></td>
-              <td th:if="${#fields.hasErrors('otn')}" th:errors="*{otn}">OTN error message</td>
-              <td><input type="text" th:field="*{arrestIdentification}" width="250" placeholder="Arrest ID"/></td>
-              <td th:if="${#fields.hasErrors('arrestIdentification')}" th:errors="*{arrestIdentification}">Arrest ID error message</td>
-            </tr>
-            <tr>
-	              <td colspan="3" align="right"><input type="submit" value="Refresh Search"/> <input type="reset" value="Reset" /></td>
-	           </tr>
-		      </table>
+	        <div class="row">
+	            <div class="col-9">
+			          <table>
+			            <tr>
+			              <td>Disposition Date </td>
+			              <td><input type="text" th:field="*{dispositionDateRangeStartDate}" width="250" placeholder="From"/></td>
+			              <td><input type="text" th:field="*{dispositionDateRangeEndDate}" width="250" placeholder="To"/></td>
+			              <td th:errors="*{dispositionDateRangeStartDate}">Disposition Date error message</td>
+			            </tr>
+			            <tr>
+			              <td>Arrest Date </td>
+			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" width="250" placeholder="From"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" width="250" placeholder="To"/></td>
+			              <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
+			            </tr>
+			            <tr>
+			              <td>First Name </td>
+			              <td><input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/></td>
+			              <td>
+			                 <span th:each="metaData : ${searchFieldMetaData}">
+			                   <input type="radio" th:field="*{firstNameSearchMetadata}" th:value="${metaData}" />
+			                   <label th:for="${#ids.prev('firstNameSearchMetadata')}" th:text="${metaData}">Wireframe</label>
+			                 </span>
+			              </td>
+			              <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name error message</td>
+			            </tr>
+			            <tr>
+			              <td>Last Name </td>
+			              <td><input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/></td>
+			              <td>
+			                  <span th:each="metaData : ${searchFieldMetaData}">
+			                    <input type="radio" th:field="*{lastNameSearchMetadata}" th:value="${metaData}" />
+			                    <label th:for="${#ids.prev('lastNameSearchMetadata')}" th:text="${metaData}">Wireframe</label>
+			                  </span>
+			              </td>
+			              <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error message</td>
+			            </tr>
+			            <tr>
+			              <td/>
+			              <td><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></td>
+			              <td th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN error message</td>
+			              <td><input type="text" th:field="*{dob}" width="250" placeholder="Date of Birth"/></td>
+			              <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">DOB error message</td>
+			            </tr>
+			            <tr>
+			              <td/>
+			              <td><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></td>
+			              <td th:if="${#fields.hasErrors('otn')}" th:errors="*{otn}">OTN error message</td>
+			              <td><input type="text" th:field="*{arrestIdentification}" width="250" placeholder="Arrest ID"/></td>
+			              <td th:if="${#fields.hasErrors('arrestIdentification')}" th:errors="*{arrestIdentification}">Arrest ID error message</td>
+			            </tr>
+			          </table>
+	            </div>
+	            <div class="col-3" style="text-align:right;">
+                   <input type="submit" value="Refresh Search" class="btn-primary"/> <input type="reset" value="Reset" class="btn-basic"/>
+	            </div>
+	        </div>
         </form>
-       	      
+        <hr/>       	      
 	      <p th:utext="${dispositionSearchContent}"></p>
+	      
 	    </main>
 	
 		<footer th:replace="fragments/general.html :: footer"></footer>	
