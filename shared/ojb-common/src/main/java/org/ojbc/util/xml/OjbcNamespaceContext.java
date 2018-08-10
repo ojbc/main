@@ -887,6 +887,27 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0";
 	public static final String NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="mddreq-doc";
 
+	public static final String NS_CBRN_40 = "http://release.niem.gov/niem/domains/cbrn/4.0/";
+	public static final String NS_PREFIX_CBRN_40 = "cbrn40";
+	
+	public static final String NS_CA_SUB_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/SubsequentChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC ="ca-scdd-doc";
+
+	public static final String NS_CA_INIT_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/InitialChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC ="ca-icdd-doc";
+
+	public static final String NS_CA_CORRECTED_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/CorrectedChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC ="ca-ccdd-doc";
+
+	public static final String NS_CA_CHARGE_DISPO_EXT ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionDocumentExtension";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_EXT ="ca-cdd-ext";
+
+	public static final String NS_CA_CHARGE_DISPO_ERR_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionErrorDocument";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC ="ca-cderr-doc";
+
+	public static final String NS_CA_CHARGE_DISPO_ERR_EXT ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionErrorDocumentExtension";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT ="ca-cderr-ext";
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1750,6 +1771,27 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 				
 		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
 		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CBRN_40, NS_CBRN_40);
+		uriToPrefixMap.put(NS_CBRN_40, NS_PREFIX_CBRN_40);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC, NS_CA_SUB_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_SUB_CHARGE_DISPO_DOC, NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC, NS_CA_INIT_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_INIT_CHARGE_DISPO_DOC, NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC, NS_CA_CORRECTED_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_CORRECTED_CHARGE_DISPO_DOC, NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_EXT, NS_CA_CHARGE_DISPO_EXT);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_EXT, NS_PREFIX_CA_CHARGE_DISPO_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC, NS_CA_CHARGE_DISPO_ERR_DOC);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_ERR_DOC,NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT, NS_CA_CHARGE_DISPO_ERR_EXT);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_ERR_EXT,NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT );
 		
 	}
 

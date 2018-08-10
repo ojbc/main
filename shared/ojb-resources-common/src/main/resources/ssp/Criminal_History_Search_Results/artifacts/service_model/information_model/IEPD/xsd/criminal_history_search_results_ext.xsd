@@ -59,10 +59,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsres-ext:SourceSystemNameText" minOccurs="0" />
@@ -142,6 +139,12 @@
 	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is hidden.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
