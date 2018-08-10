@@ -22,6 +22,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		
+		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
+		
 		<saxonHe.version>9.5.1-5</saxonHe.version>
 		<commonsIo.version>2.4</commonsIo.version>
 		<guava.version>23.5-jre</guava.version>
@@ -64,6 +67,14 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- OJBC dependencies  -->
+		<dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-ui-common</artifactId>
+      <version>${ojb-ui-common-version}</version>
+    </dependency>
+		
 		<!-- Optional, for bootstrap -->
 		<dependency>
 			<groupId>org.webjars</groupId>

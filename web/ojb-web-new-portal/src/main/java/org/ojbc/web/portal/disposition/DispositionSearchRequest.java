@@ -2,7 +2,7 @@ package org.ojbc.web.portal.disposition;
 
 import java.time.LocalDate;
 
-import org.ojbc.web.portal.SearchFieldMetadata;
+import org.ojbc.web.SearchFieldMetadata;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class DispositionSearchRequest {

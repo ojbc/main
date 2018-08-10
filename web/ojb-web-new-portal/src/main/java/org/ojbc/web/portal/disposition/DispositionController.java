@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import org.ojbc.web.portal.SearchFieldMetadata;
+import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
