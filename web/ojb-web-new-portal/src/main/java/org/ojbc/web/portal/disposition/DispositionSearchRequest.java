@@ -2,6 +2,7 @@ package org.ojbc.web.portal.disposition;
 
 import java.time.LocalDate;
 
+import org.ojbc.web.portal.SearchFieldMetadata;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class DispositionSearchRequest {
@@ -17,10 +18,10 @@ public class DispositionSearchRequest {
 	private LocalDate arrestDateRangeEndDate;
 	
 	private String firstName;
-    private String firstNameSearchMetadata;
+    private SearchFieldMetadata firstNameSearchMetadata;
     
     private String lastName;
-    private String lastNameSearchMetadata;
+    private SearchFieldMetadata lastNameSearchMetadata;
     
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate dob;
@@ -61,10 +62,10 @@ public class DispositionSearchRequest {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getFirstNameSearchMetadata() {
+	public SearchFieldMetadata getFirstNameSearchMetadata() {
 		return firstNameSearchMetadata;
 	}
-	public void setFirstNameSearchMetadata(String firstNameSearchMetadata) {
+	public void setFirstNameSearchMetadata(SearchFieldMetadata firstNameSearchMetadata) {
 		this.firstNameSearchMetadata = firstNameSearchMetadata;
 	}
 	public String getLastName() {
@@ -73,10 +74,10 @@ public class DispositionSearchRequest {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getLastNameSearchMetadata() {
+	public SearchFieldMetadata getLastNameSearchMetadata() {
 		return lastNameSearchMetadata;
 	}
-	public void setLastNameSearchMetadata(String lastNameSearchMetadata) {
+	public void setLastNameSearchMetadata(SearchFieldMetadata lastNameSearchMetadata) {
 		this.lastNameSearchMetadata = lastNameSearchMetadata;
 	}
 	public String getSsn() {
@@ -108,5 +109,15 @@ public class DispositionSearchRequest {
 	}
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
-	} 
+	}
+	
+	@Override
+	public String toString() {
+		return "DispositionSearchRequest [dispositionDateRangeStartDate=" + dispositionDateRangeStartDate
+				+ ", dispositionDateRangeEndDate=" + dispositionDateRangeEndDate + ", arrestDateRangeStartDate="
+				+ arrestDateRangeStartDate + ", arrestDateRangeEndDate=" + arrestDateRangeEndDate + ", firstName="
+				+ firstName + ", firstNameSearchMetadata=" + firstNameSearchMetadata + ", lastName=" + lastName
+				+ ", lastNameSearchMetadata=" + lastNameSearchMetadata + ", dob=" + dob + ", ssn=" + ssn + ", otn="
+				+ otn + ", arrestIdentification=" + arrestIdentification + ", ori=" + ori + "]";
+	}
 }
