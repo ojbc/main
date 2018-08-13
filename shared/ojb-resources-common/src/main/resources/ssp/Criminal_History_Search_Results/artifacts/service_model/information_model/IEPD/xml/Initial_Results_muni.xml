@@ -53,9 +53,15 @@
 			</nc:ActivityDate>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C123456</nc:IdentificationID>
+				</j:ChargeIdentification>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C12345678</nc:IdentificationID>
+				</j:ChargeIdentification>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />

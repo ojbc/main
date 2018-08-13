@@ -77,6 +77,9 @@
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
 				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C123456</nc:IdentificationID>
+				</j:ChargeIdentification>
 				<j:ChargeSentence structures:id="Sentence_01">
 					<j:SentenceDeferredTerm>
 						<nc:ActivityDate>
@@ -120,6 +123,9 @@
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
 				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C12345678</nc:IdentificationID>
+				</j:ChargeIdentification>
 				<j:ChargeSentence structures:id="Sentence_02">
 					<j:SentenceDeferredTerm>
 						<nc:ActivityDate>
