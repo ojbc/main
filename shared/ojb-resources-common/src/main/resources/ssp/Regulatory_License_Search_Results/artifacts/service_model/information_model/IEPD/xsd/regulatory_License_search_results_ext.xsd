@@ -92,32 +92,104 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="CaseAllegationType">
+	<xsd:complexType name="CaseComplaintType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an allegation.</xsd:documentation>
+			<xsd:documentation>A data type for a complaint associated with a case.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="rls-res-ext:AllegationDescriptionText" minOccurs="0" />
-					<xsd:element ref="rls-res-ext:AllegationResolution" minOccurs="0" />
-					<xsd:element ref="rls-res-ext:AllegationAction" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:ComplaintResolution" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="rls-res-ext:ComplaintAllegation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="rls-res-ext:ComplaintAction" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="AllegationActionType">
+	<xsd:complexType name="ComplaintResolutionType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an allegation action.</xsd:documentation>
+			<xsd:documentation>A data type for a resolution associated with a complaint.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:ActivityType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:ResolutionDate" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:ResolutionDescriptionText" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ComplaintAllegationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an allegation associated with a complaint.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:AllegationDescriptionText" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ComplaintActionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an action taken with regard to a complaint.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="rls-res-ext:ActionDescriptionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="rls-res-ext:ActionValueText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="ComplaintAllegation" type="rls-res-ext:ComplaintAllegationType">
+		<xsd:annotation>
+			<xsd:documentation>An allegation associated with a complaint.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ResolutionDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date in which a resolution was determined.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ActionDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of an action taken.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ResolutionDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of a resolution.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseComplaint" type="rls-res-ext:CaseComplaintType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A complaint associated with a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllegationDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A plain language description of an allegation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ComplaintResolution" type="rls-res-ext:ComplaintResolutionType">
+		<xsd:annotation>
+			<xsd:documentation>A resolution associated with a complaint.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ComplaintAction" type="rls-res-ext:ComplaintActionType">
+		<xsd:annotation>
+			<xsd:documentation>An action taken with regard to a complaint.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ActionValueText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A value associated with the action taken. May be a string, number, date, date-range or monetary value.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="RegulatoryLicense" type="rls-res-ext:RegulatoryLicenseType">
 		<xsd:annotation>
 			<xsd:documentation>A regulated license issued to a person granting privilege.</xsd:documentation>
@@ -168,26 +240,6 @@
 			<xsd:documentation>A kind of regulatory license.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CaseAllegation" type="rls-res-ext:CaseAllegationType" substitutionGroup="nc:CaseAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>An allegation associated with a case.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="AllegationDescriptionText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A plain language description of an allegation.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="AllegationResolution" type="nc:ActivityType">
-		<xsd:annotation>
-			<xsd:documentation>A resolution associated with an allegation.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="AllegationAction" type="rls-res-ext:AllegationActionType">
-		<xsd:annotation>
-			<xsd:documentation>An action taken regarding an allegation.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="RegulatoryLicenseSearchResult" type="rls-res-ext:RegulatoryLicenseSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A summary of criminal history information.</xsd:documentation>
@@ -207,12 +259,6 @@
 	<xsd:element name="CurrentlyAuthorizedToPracticeIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a person is currently authorized to practice; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ActionValueText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Value associated with the action taken. May be a string, number, date, date-range or monetary value.
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">

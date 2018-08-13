@@ -55,6 +55,17 @@
 							<PostalCode>string</PostalCode>
 							<Country>string</Country>
 						</MailingAddress>
+						<!-- WE NEED TO CHECK WITH MAINE ON PHYSICAL ADDRESS WHICH IS MISSING FROM SAMPLE SCHEMA IN WORD DUCUMENT -->
+						<PhysicalAddress>
+							<AddressLine1>string</AddressLine1>
+							<AddressLine2>string</AddressLine2>
+							<AddressLine3>string</AddressLine3>
+							<AddressLine4>string</AddressLine4>
+							<City>string</City>
+							<StateCode>string</StateCode>
+							<PostalCode>string</PostalCode>
+							<Country>string</Country>
+						</PhysicalAddress>
 						<CaseInfos>
 							<CaseInfo>
 								<CaseID>string</CaseID>
