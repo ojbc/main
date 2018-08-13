@@ -73,20 +73,17 @@
         </form>
         <hr/>
         
-        <div id="searchResultsList">
-          <div th:fragment="resultsList" >
-		        <p th:utext="${dispositionSearchContent}" ></p>
-		        <script th:inline="javascript">
-		          $(function(){
-		              $('#searchResultsTable').DataTable({
-		                  "columnDefs": [
-		                      { "orderable": false, "targets": 6 }
-		                    ]
-		                });
-		          });
-		          
-	          </script>
-	        </div>
+        <div id="searchResultsList" th:fragment="resultsList" >
+	        <p th:utext="${dispositionSearchContent}" ></p>
+	        <script th:inline="javascript">
+              $(function(){
+                  $('#searchResultsTable').DataTable({
+                      "columnDefs": [
+                          { "orderable": false, "targets": 6 }
+                        ]
+                    });
+              });
+          </script>
         </div>
  		    <script th:inline="javascript">
 	        /*<![CDATA[*/
@@ -116,7 +113,7 @@
                     var formData = $('#searchForm').serialize();
                   
                   xhr = $.post(context + "dispositions/advancedSearch",formData,function(data) {
-                	  $('#searchResultsList').html(data);
+                	  $('#searchResultsList').replaceWith(data);
                	  }).fail();
                 });
              }); 
