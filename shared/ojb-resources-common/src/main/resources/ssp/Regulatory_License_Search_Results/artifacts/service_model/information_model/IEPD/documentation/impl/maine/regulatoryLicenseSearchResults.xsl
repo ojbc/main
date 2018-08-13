@@ -45,6 +45,8 @@
 	<xsl:template match="mbsc:LicenseInfos">
 		<xsl:apply-templates select="mbsc:LicenseInfo" mode="license" />
 		<xsl:apply-templates select="mbsc:LicenseInfo" mode="person" />
+		<xsl:apply-templates select="./mbsc:LicenseInfo/mbsc:PhysicalAddress[.!='']" />
+		<xsl:apply-templates select="./mbsc:LicenseInfo/mbsc:CaseInfos[.!='']" />
 	</xsl:template>
 	<xsl:template match="mbsc:LicenseInfo" mode="license">
 		<rls-res-ext:RegulatoryLicense>
@@ -69,6 +71,56 @@
 			<xsl:apply-templates select="mbsc:MailingAddress[.!='']" />
 		</nc:Person>
 	</xsl:template>
+	<xsl:template match="mbsc:CaseInfos">
+		<xsl:apply-templates select="mbsc:CaseInfo[.!='']" />
+	</xsl:template>
+	<xsl:template match="mbsc:CaseInfo">
+		<nc:Case>
+			<xsl:attribute name="structures:id" select="generate-id(.)" />
+			<xsl:apply-templates select="mbsc:CaseID[.!='']" />
+			<xsl:apply-templates select="." mode="dates" />
+			<xsl:apply-templates select="mbsc:ResolutionInfos" />
+		</nc:Case>
+	</xsl:template>
+	<xsl:template match="mbsc:ResolutionInfos">
+		<rls-res-ext:CaseComplaint>
+			<xsl:apply-templates select="mbsc:ResolutionInfo[.!='']" />
+		</rls-res-ext:CaseComplaint>
+	</xsl:template>
+	<xsl:template match="mbsc:ResolutionInfo">
+		<rls-res-ext:ComplaintResolution>
+			<xsl:apply-templates select="mbsc:ResolutionDate[.!='']" />
+			<xsl:apply-templates select="mbsc:ResolutionDescription[.!='']" />
+		</rls-res-ext:ComplaintResolution>
+		<xsl:apply-templates select="mbsc:AllegationInfos[.!='']" />
+		<xsl:apply-templates select="mbsc:ActionInfos[.!='']" />
+	</xsl:template>
+	<xsl:template match="mbsc:AllegationInfos">
+
+			<xsl:apply-templates select="mbsc:AllegationInfo[.!='']" />
+
+	</xsl:template>
+		<xsl:template match="mbsc:ActionInfos">
+
+			<xsl:apply-templates select="mbsc:ActionInfo[.!='']" />
+
+	</xsl:template>
+	
+	
+	<xsl:template match="mbsc:AllegationInfo">
+		<rls-res-ext:ComplaintAllegation>
+			<xsl:apply-templates select="mbsc:AllegationDescription[.!='']" />
+		</rls-res-ext:ComplaintAllegation>
+	</xsl:template>
+	
+		<xsl:template match="mbsc:ActionInfo">
+		<rls-res-ext:ComplaintAction>
+			<xsl:apply-templates select="mbsc:ActionDescription[.!='']" />
+		</rls-res-ext:ComplaintAction>
+	</xsl:template>
+	
+	
+	
 	<!-- ELEMENTS -->
 	<xsl:template match="mbsc:LicenseNumber">
 		<rls-res-ext:RegulatoryLicenseIdentification>
@@ -196,12 +248,111 @@
 		</nc:PersonHomeContactInformation>
 	</xsl:template>
 	<xsl:template match="mbsc:MailingAddress" mode="address">
+		<xsl:apply-templates select="." mode="street" />
+		<xsl:apply-templates select="mbsc:City[.!='']" />
+		<xsl:apply-templates select="mbsc:StateCode[.!='']" />
+		<xsl:apply-templates select="mbsc:Country[.!='']" />
+		<xsl:apply-templates select="mbsc:PostalCode[.!='']" />
+	</xsl:template>
+	<xsl:template match="mbsc:PhysicalAddress">
+		<nc:Location>
+			<xsl:attribute name="structures:id" select="generate-id(.)" />
+			<nc:Address>
+				<xsl:apply-templates select="." mode="street" />
+				<xsl:apply-templates select="mbsc:City[.!='']" />
+				<xsl:apply-templates select="mbsc:StateCode[.!='']" />
+				<xsl:apply-templates select="mbsc:Country[.!='']" />
+				<xsl:apply-templates select="mbsc:PostalCode[.!='']" />
+			</nc:Address>
+		</nc:Location>
+	</xsl:template>
+	<xsl:template match="mbsc:MailingAddress | mbsc:PhysicalAddress" mode="street">
 		<nc:LocationStreet>
-			<xsl:for-each select="starts-with('./.', 'AddressLine')">
-				<JIMMY></JIMMY>
+			<xsl:for-each select="node()[starts-with(name(), 'AddressLine')]">
+				<nc:StreetFullText>
+					<xsl:value-of select="normalize-space(.)" />
+				</nc:StreetFullText>
 			</xsl:for-each>
 		</nc:LocationStreet>
 	</xsl:template>
+	<xsl:template match="mbsc:City">
+		<nc:LocationCityName>
+			<xsl:value-of select="normalize-space(.)" />
+		</nc:LocationCityName>
+	</xsl:template>
+	<xsl:template match="mbsc:StateCode">
+		<nc:LocationState>
+			<nc:LocationStateUSPostalServiceCode>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:LocationStateUSPostalServiceCode>
+		</nc:LocationState>
+	</xsl:template>
+	<xsl:template match="mbsc:Country">
+		<nc:LocationCountry>
+			<nc:LocationCountryName>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:LocationCountryName>
+		</nc:LocationCountry>
+	</xsl:template>
+	<xsl:template match="mbsc:PostalCode">
+		<nc:LocationPostalCode>
+			<xsl:value-of select="normalize-space(.)" />
+		</nc:LocationPostalCode>
+	</xsl:template>
+	<xsl:template match="mbsc:CaseID">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
+		</nc:ActivityIdentification>
+	</xsl:template>
+	<xsl:template match="mbsc:CaseInfo" mode="dates">
+		<nc:ActivityDate>
+			<nc:DateRange>
+				<xsl:apply-templates select="mbsc:DateOpened[.!='']" />
+				<xsl:apply-templates select="mbsc:DateClosed[.!='']" />
+			</nc:DateRange>
+		</nc:ActivityDate>
+	</xsl:template>
+	<xsl:template match="mbsc:DateOpened">
+		<nc:StartDate>
+			<nc:Date>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:Date>
+		</nc:StartDate>
+	</xsl:template>
+	<xsl:template match="mbsc:DateClosed">
+		<nc:EndDate>
+			<nc:Date>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:Date>
+		</nc:EndDate>
+	</xsl:template>
+	<xsl:template match="mbsc:ResolutionDate">
+		<rls-res-ext:ResolutionDate>
+			<nc:Date>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:Date>
+		</rls-res-ext:ResolutionDate>
+	</xsl:template>
+	<xsl:template match="mbsc:ResolutionDescription">
+		<rls-res-ext:ResolutionDescriptionText>
+			<xsl:value-of select="normalize-space(.)" />
+		</rls-res-ext:ResolutionDescriptionText>
+	</xsl:template>
+	<xsl:template match="mbsc:AllegationDescription">
+		<rls-res-ext:AllegationDescriptionText>
+			<xsl:value-of select="normalize-space(.)" />
+		</rls-res-ext:AllegationDescriptionText>
+	</xsl:template>
+	
+		<xsl:template match="mbsc:ActionDescription">
+	<rls-res-ext:ActionDescriptionText>
+	<xsl:value-of select="normalize-space(.)" />
+	t</rls-res-ext:ActionDescriptionText>
+	</xsl:template>
+	
+	
 	<!-- ERROR -->
 	<xsl:template match="mbsc:Messages">
 		<qrm:SearchResultsMetadata>
