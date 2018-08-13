@@ -23,14 +23,14 @@
 	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0 ../xsd/arrest_add_request.xsd">
-	<chm-req-ext:ArrestRecordRequestIdentification>
-		<nc:IdentificationID>1004233</nc:IdentificationID>
-		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-	</chm-req-ext:ArrestRecordRequestIdentification>
 	<j:Arrest>
 		<nc:ActivityDate>
 			<nc:Date>2001-12-31</nc:Date>
 		</nc:ActivityDate>
+		<j:ArrestAgencyRecordIdentification>
+			<nc:IdentificationID>1004233</nc:IdentificationID>
+			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+		</j:ArrestAgencyRecordIdentification>
 		<j:ArrestCharge>
 			<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 			<j:ChargeDisposition>
