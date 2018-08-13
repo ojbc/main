@@ -71,7 +71,9 @@
 	          var context = [[@{/}]];
 	      /*]]>*/
 	      $(function(){
-	          $('#disposition').click(function() {    
+	          $('#disposition').click(function() {   
+                $(this).parent().toggleClass('show');
+
 	              xhr = $.get(context + 'dispositions', function(data) {
 	                 $('main').html(data); 
 	               }).fail();

@@ -110,12 +110,12 @@
               });
 
               $('#submit').click (function(){
-                    var formData = $('#searchForm').serialize();
-                  
-                  xhr = $.post(context + "dispositions/advancedSearch",formData,function(data) {
-                	  $('#searchResultsList').replaceWith(data);
-               	  }).fail();
-                });
+                var formData = $('#searchForm').serialize();
+                 
+                xhr = $.post(context + "dispositions/advancedSearch",formData,function(data) {
+              	  $('#searchResultsList').replaceWith(data);
+             	  }).fail();
+              });
              }); 
 	
 	        </script>
