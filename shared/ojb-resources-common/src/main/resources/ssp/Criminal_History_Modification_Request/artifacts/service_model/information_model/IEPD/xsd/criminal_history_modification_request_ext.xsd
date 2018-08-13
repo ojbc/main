@@ -39,7 +39,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -54,7 +53,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="1" />
@@ -69,7 +67,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
@@ -83,18 +80,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="chm-req-ext:ArrestHideDate" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="chm-req-ext:ArrestHideIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="ArrestRecordRequestIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>The identification of an arrest record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
@@ -146,13 +136,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestHideDate" type="nc:DateType">
+	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The date an arrest record is hidden.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean">
+	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an arrest record is hidden; false otherwise.
 			</xsd:documentation>
