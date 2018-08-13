@@ -23,11 +23,11 @@
 	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0 ../xsd/expunge_request.xsd ">
-	<chm-req-ext:ArrestRecordRequestIdentification>
-		<nc:IdentificationID>1004233</nc:IdentificationID>
-		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-	</chm-req-ext:ArrestRecordRequestIdentification>
 	<j:Arrest>
+		<j:ArrestAgencyRecordIdentification>
+			<nc:IdentificationID>1004233</nc:IdentificationID>
+			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+		</j:ArrestAgencyRecordIdentification>
 		<j:ArrestCharge>
 			<j:ChargeIdentification>
 				<nc:IdentificationID>C123456</nc:IdentificationID>
