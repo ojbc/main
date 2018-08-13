@@ -89,6 +89,7 @@
 					<xsd:element ref="rap:Prosecution" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:CourtAction" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ch-ext:Sentencing" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ch-ext:ChargeAlertDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:Supervision" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="rap:PostSentenceAction" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -140,6 +141,7 @@
 	<xsd:element name="CourtCase" type="nc:CaseType"/>
 	<xsd:element name="Sentence" type="ch-ext:SentenceType"/>
 	<xsd:element name="Sentencing" type="ch-ext:SentencingType"/>
+	<xsd:element name="ChargeAlertDescriptionText" type="nc:TextType"/>
 	<xsd:element name="RapSheet" type="ch-ext:RapSheetType"/>
 	<xsd:element name="RapSheetCycle" type="ch-ext:RapSheetCycleType"/>
 	<xsd:element name="Order" type="ch-ext:OrderType"/>

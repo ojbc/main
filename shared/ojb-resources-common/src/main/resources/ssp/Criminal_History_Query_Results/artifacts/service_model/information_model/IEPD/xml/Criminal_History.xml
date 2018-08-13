@@ -166,7 +166,6 @@
 						<nc:DispositionDescriptionText>disposition</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
-					<j:ChargeQualifierText>Charge Alert</j:ChargeQualifierText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
 					</j:ChargeTrackingIdentification>
@@ -188,7 +187,6 @@
 						<nc:DispositionDescriptionText>charges dropped</nc:DispositionDescriptionText>
 					</j:ChargeDisposition>
 					<j:ChargeNCICCode>3564</j:ChargeNCICCode>
-					<j:ChargeQualifierText>Charge Alert</j:ChargeQualifierText>
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>35154W7</nc:IdentificationID>
 					</j:ChargeTrackingIdentification>
@@ -265,6 +263,7 @@
 					</rap:SentenceCharge>
 				</ch-ext:Sentence>
 			</ch-ext:Sentencing>
+			<ch-ext:ChargeAlertDescriptionText>Charge Alert</ch-ext:ChargeAlertDescriptionText>
 			<rap:Supervision s:id="SUP1">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-01</nc:Date>
