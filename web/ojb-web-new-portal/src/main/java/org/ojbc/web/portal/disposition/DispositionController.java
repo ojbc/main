@@ -49,7 +49,7 @@ public class DispositionController {
 		model.put("dispositionSearchResults", searchContent); 
 		model.put("dispositionSearchContent", transformedResults); 
 		model.put("dispositionSearchRequest", dispositionSearchRequest);
-		return "disposition/dispositions";
+		return "disposition/dispositions::resultsPage";
 	}
 
 	@PostMapping("/advancedSearch")
@@ -62,7 +62,7 @@ public class DispositionController {
 		model.put("dispositionSearchResults", searchContent); 
 		model.put("dispositionSearchContent", transformedResults); 
 		model.put("dispositionSearchRequest", dispositionSearchRequest);
-		return "disposition/dispositions";
+		return "disposition/dispositions::resultsList";
 	}
 	
 }

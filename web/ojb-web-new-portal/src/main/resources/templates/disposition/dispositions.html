@@ -8,11 +8,10 @@
 		<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<header th:replace="fragments/general.html :: header"> </header>
 	    <!-- Begin page content -->
-	    <main role="main" class="container">
+	    <div th:fragment="resultsPage">
         <h3 class="mt-5">Disposition Search Results</h3>
-        <form action="#" th:action="@{/dispositions/advancedSearch}" th:object="${dispositionSearchRequest}" method="post">
+        <form action="#" th:action="@{/dispositions/advancedSearch}" th:object="${dispositionSearchRequest}" id="searchForm" method="post">
 	        <div class="row">
 	            <div class="col-9">
 			          <table>
@@ -67,47 +66,63 @@
 			          </table>
 	            </div>
 	            <div class="col-3" style="text-align:right;">
-                   <input type="submit" value="Refresh Search" class="btn-primary"/> <input type="reset" value="Reset" class="btn-basic"/>
+                   <button type="button" class="btn-primary" id="submit">Refresh Search</button>
+                   <button type="reset" class="btn-secondary">Reset</button>
 	            </div>
 	        </div>
         </form>
-        <hr/>       	      
-	      <p th:utext="${dispositionSearchContent}"></p>
-	      
-	    </main>
+        <hr/>
+        
+        <div id="searchResultsList">
+          <div th:fragment="resultsList" >
+		        <p th:utext="${dispositionSearchContent}" ></p>
+		        <script th:inline="javascript">
+		          $(function(){
+		              $('#searchResultsTable').DataTable({
+		                  "columnDefs": [
+		                      { "orderable": false, "targets": 6 }
+		                    ]
+		                });
+		          });
+		          
+	          </script>
+	        </div>
+        </div>
+ 		    <script th:inline="javascript">
+	        /*<![CDATA[*/
+            var context = [[@{/}]];
+ 	        /*]]>*/
+
+	        $(function(){
+	              
+              $('[data-toggle="tooltip"]').tooltip();   
+              $('#dispositionDateRangeStartDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+              });
+              $('#dispositionDateRangeEndDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+              });
+              $('#arrestDateRangeStartDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+              });
+              $('#arrestDateRangeEndDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+              });
+              $('#dob').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+              });
+
+              $('#submit').click (function(){
+                    var formData = $('#searchForm').serialize();
+                  
+                  xhr = $.post(context + "dispositions/advancedSearch",formData,function(data) {
+                	  $('#searchResultsList').html(data);
+               	  }).fail();
+                });
+             }); 
 	
-		<footer th:replace="fragments/general.html :: footer"></footer>	
-		<!-- /.container -->
-		<th:block th:include="fragments/general.html :: javascripts"></th:block>
-		<script type="text/javascript" th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
-		<script type="text/javascript" th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
-		<script type="text/javascript" th:src="@{/webjars/font-awesome/5.2.0/js/all.js}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
-		<script>
-			$(document).ready(function() {
-			    $('#searchResultsTable').DataTable({
-			    	"columnDefs": [
-			    	    { "orderable": false, "targets": 6 }
-			    	  ]
-			    });
-			    
-			    $('[data-toggle="tooltip"]').tooltip();   
-			    $('#dispositionDateRangeStartDate').datepicker({
-		            uiLibrary: 'bootstrap4', size: 'small'
-	        });
-			    $('#dispositionDateRangeEndDate').datepicker({
-		            uiLibrary: 'bootstrap4', size: 'small'
-	        });
-			    $('#arrestDateRangeStartDate').datepicker({
-		            uiLibrary: 'bootstrap4', size: 'small'
-	        });
-			    $('#arrestDateRangeEndDate').datepicker({
-		            uiLibrary: 'bootstrap4', size: 'small'
-	        });
-			    $('#dob').datepicker({
-		            uiLibrary: 'bootstrap4', size: 'small'
-	        });
-			} );
-		</script>
+	        </script>
+	    </div>
+	
 	</body>
 </html>

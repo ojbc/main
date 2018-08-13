@@ -1,12 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 	<link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css" />
 </head>
@@ -26,7 +29,7 @@
 	            <li class="nav-item dropdown">
 	              <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Query</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a class="dropdown-item" th:href="@{/dispositions}">Disposition</a>
+	                <a class="dropdown-item" href="#" id="disposition">Disposition</a>
 	                <a class="dropdown-item" href="#">Arrest</a>
 	              </div>
 	            </li>
@@ -55,10 +58,29 @@
     <div th:fragment="javascripts">
    	    <!-- Optional JavaScript -->
 	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+			<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 		  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
-	</div>		
+		  <script type="text/javascript" th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/webjars/font-awesome/5.2.0/js/all.js}"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
+		  
+		  <script th:inline="javascript">
+	      /*<![CDATA[*/
+	          var context = [[@{/}]];
+	      /*]]>*/
+	      $(function(){
+	          $('#disposition').click(function() {    
+	              xhr = $.get(context + 'dispositions', function(data) {
+	                 $('main').html(data); 
+	               }).fail();
+	              return false; 
+	          });
+	      });    
+      </script>
+		  
+	  </div>		
     
 </body>
 </html>
