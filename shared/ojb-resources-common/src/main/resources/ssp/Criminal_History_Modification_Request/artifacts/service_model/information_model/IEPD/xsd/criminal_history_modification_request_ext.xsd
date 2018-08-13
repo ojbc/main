@@ -70,6 +70,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
