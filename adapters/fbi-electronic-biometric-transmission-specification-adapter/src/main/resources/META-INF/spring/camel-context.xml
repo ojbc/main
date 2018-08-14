@@ -528,19 +528,19 @@
 			<camel:log message="\n\n Native scanning resolution: ${in.headers.nativeScanningResolution}, ${in.headers.nominalTransmittingResolution}, transaction count: ${in.headers.transactionContentSummaryContentRecordCountCivil} \n\n"/>
 			
 			<camel:filter>
-				<camel:simple>${in.headers.nativeScanningResolution} == ''</camel:simple>
+				<camel:simple>${in.headers.nativeScanningResolution} == null</camel:simple>
 			
 				<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
 			</camel:filter>
 
 			<camel:filter>
-				<camel:simple>${in.headers.nominalTransmittingResolution} == ''</camel:simple>
+				<camel:simple>${in.headers.nominalTransmittingResolution} == null</camel:simple>
 			
 				<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 			</camel:filter>
 
 			<camel:filter>
-				<camel:simple>${in.headers.transactionContentSummaryContentRecordCountCivil} == ''</camel:simple>
+				<camel:simple>${in.headers.transactionContentSummaryContentRecordCountCivil} == null</camel:simple>
 			
 				<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 			</camel:filter>
