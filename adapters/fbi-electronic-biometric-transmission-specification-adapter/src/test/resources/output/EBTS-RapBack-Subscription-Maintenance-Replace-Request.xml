@@ -78,6 +78,9 @@
          <ebts:DomainDefinedDescriptiveFields>
             <ebts:RecordRapBackData>
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+<ebts:RecordRapBackAttentionText>Attention
+				Text
+			</ebts:RecordRapBackAttentionText>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
                <ebts:RecordRapBackExpirationDate>
