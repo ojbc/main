@@ -17,11 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pidres-doc:PersonStateIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<pidres-doc:PersonFederalIdentificationResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0 ../xsd/person_identification_results_schema.xsd" xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
-	<ident-ext:TransactionCategoryText>CRIMINAL-SID-TO-HIJIS</ident-ext:TransactionCategoryText>
+	<ident-ext:TransactionCategoryText>NSOR-RESULT-TO-HIJIS</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -32,11 +32,11 @@
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
 			<j:PersonAugmentation>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-				</j:PersonStateFingerprintIdentification>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>B1234567</nc:IdentificationID>
+				</j:PersonFBIIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
@@ -54,10 +54,10 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</ident-ext:IdentificationApplicantOrganization>
-	<ident-ext:StateIdentificationSearchResultDocument structures:id="Doc_01">
+	<ident-ext:NationalSexOffenderRegistrySearchResultDocument structures:id="Doc_01">
 		<nc:DocumentBinary>
 			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
-	</ident-ext:StateIdentificationSearchResultDocument>
-	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode> 
-</pidres-doc:PersonStateIdentificationResults>
+	</ident-ext:NationalSexOffenderRegistrySearchResultDocument>
+	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
+</pidres-doc:PersonFederalIdentificationResults>
