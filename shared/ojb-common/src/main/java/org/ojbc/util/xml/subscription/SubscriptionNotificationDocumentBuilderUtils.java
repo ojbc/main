@@ -256,15 +256,17 @@ public class SubscriptionNotificationDocumentBuilderUtils {
     	Boolean federalRapSheetDisclosureIndicator = subscription.getFederalRapSheetDisclosureIndicator();
     	String federalRapSheetDisclosureAttentionDesignationText = subscription.getFederalRapSheetDisclosureAttentionDesignationText();
 
-	    if (BooleanUtils.isTrue(federalRapSheetDisclosureIndicator) && StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText))
+	    if (BooleanUtils.isTrue(federalRapSheetDisclosureIndicator))
 	    {
 	    	Element federalRapSheetDisclosureElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosure");
 	    
     		Element federalRapSheetDisclosureIndicatorElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureIndicator");
     		federalRapSheetDisclosureIndicatorElement.setTextContent(BooleanUtils.toStringTrueFalse(federalRapSheetDisclosureIndicator));
 
-    		Element federalRapSheetDisclosureAttentionDesignationTextElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureAttentionDesignationText");
-    		federalRapSheetDisclosureAttentionDesignationTextElement.setTextContent(federalRapSheetDisclosureAttentionDesignationText);
+    		if (StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText)){
+	    		Element federalRapSheetDisclosureAttentionDesignationTextElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureAttentionDesignationText");
+	    		federalRapSheetDisclosureAttentionDesignationTextElement.setTextContent(federalRapSheetDisclosureAttentionDesignationText);
+    		}
 
 	    }	
 		
