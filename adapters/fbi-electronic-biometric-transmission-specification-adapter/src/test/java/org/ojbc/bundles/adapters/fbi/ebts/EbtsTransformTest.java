@@ -57,7 +57,7 @@ public class EbtsTransformTest {
 		xsltTransformer = new XsltTransformer();
 	}	
 
-/*
+
 	@Test
 	public void newCriminalSubscriptionTestEbtsTransform() throws Exception{
 								
@@ -77,7 +77,7 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
 	
-	*/
+
 
 	@Test
 	public void newCivilSubscriptionTestEbtsTransform() throws Exception{
