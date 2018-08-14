@@ -249,6 +249,13 @@
 						<ebts:RecordRapBackActivityNotificationFormatCode>
 							<xsl:value-of select="$rapBackNotificatonFormat" />
 						</ebts:RecordRapBackActivityNotificationFormatCode>
+						<!-- RBATN 2.2070, Optional -->
+						<xsl:if test="submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureAttentionDesignationText">
+							<ebts:RecordRapBackAttentionText>
+								<xsl:value-of
+									select="submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureAttentionDesignationText" />
+							</ebts:RecordRapBackAttentionText>
+						</xsl:if>				
 						<!--Rap Back Category RBC 2.2065 -->
 						<!-- This is not allowed in RBMNT messages -->
 						<xsl:choose>

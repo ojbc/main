@@ -77,6 +77,7 @@
             <nbio:RecordRapSheetRequestIndicator>true</nbio:RecordRapSheetRequestIndicator>
             <ebts:RecordRapBackData>
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackAttentionText>Attention Text</ebts:RecordRapBackAttentionText>
                <ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
