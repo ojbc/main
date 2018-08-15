@@ -61,6 +61,8 @@
 			</camel:setHeader>		
 		
 			<camel:to uri="direct:processFbiEbtsRequest"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
 		
 			<!-- Save the fbi synchronous response(control number) to a file -->
 			<camel:setHeader headerName="CamelFileName">
@@ -68,7 +70,7 @@
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="fbiResponseControlNumber">
-				<camel:xpath>/ngi-core:NGIControlNumber/text()</camel:xpath>												
+				<camel:xpath resultType="java.lang.String">/ngi-core:NGIControlNumber</camel:xpath>												
 			</camel:setHeader>
 			
 			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
