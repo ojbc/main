@@ -32,10 +32,10 @@
 	<xsl:output method="html" encoding="UTF-8" />
 	
 	<xsl:template match="/chsres-doc:CriminalHistorySearchResults">
-		<xsl:call-template name="dispositions"/>
+		<xsl:call-template name="arrests"/>
 	</xsl:template>
 
-	<xsl:template name="dispositions">
+	<xsl:template name="arrests">
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
 				<thead>
 					<tr>
@@ -43,42 +43,46 @@
 						<th>NAME</th>
 						<th>DOB</th>
 						<th>SSN</th>
-						<th>DATE OF DISPOSITION</th>
+						<th>DATE OF Arrest</th>
 						<th>CHARGE</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<xsl:apply-templates select="chsres-ext:CriminalHistorySearchResult/j:Arrest/j:ArrestCharge" mode="row"/>
+					<xsl:apply-templates select="chsres-ext:CriminalHistorySearchResult"/>
 				</tbody>
 			</table>
 	</xsl:template>
 	
-	<xsl:template match="j:ArrestCharge" mode="row">
-	  
-		<xsl:variable name="systemID" select="ancestor::chsres-ext:CriminalHistorySearchResult/intel:SystemIdentifier"/>
-		<xsl:variable name="rapbackId" select="ancestor::chsres-ext:CriminalHistorySearchResult/intel:SystemIdentifier/nc:IdentificationID"/>
+	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
+		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
+		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<tr>
 			<td>
-				<xsl:value-of select="ancestor::chsres-ext:CriminalHistorySearchResult/j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
+				<xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
-			<td><xsl:apply-templates select="ancestor::chsres-ext:CriminalHistorySearchResult/j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
+			<td><xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
-				<xsl:apply-templates select="ancestor::chsres-ext:CriminalHistorySearchResult/j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>	
 			<td>
-				<xsl:apply-templates select="ancestor::chsres-ext:CriminalHistorySearchResult/j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonSSNIdentification/nc:IdentificationID"/>
+				<xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonSSNIdentification/nc:IdentificationID"/>
 			</td>
 			<td>
-				<xsl:apply-templates select="j:ChargeDisposition/nc:DispositionDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:value-of select="j:ChargeDescriptionText"/>
+				<xsl:for-each select="j:Arrest/j:ArrestCharge/j:ChargeDescriptionText">
+					<xsl:if test="position() != 1">
+						<br/>
+					</xsl:if>
+					<xsl:value-of select="."/>
+				</xsl:for-each>
 			</td>
 			<td align="right" width="120px">
 				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>&#160;
 				<i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i>&#160;
-				<i class="fas fa-times-circle fa-2x" title="delete" data-toggle="tooltip"></i>
+				<i class="fas fa-share-square fa-2x" title="delete" data-toggle="tooltip"></i>
 			</td>
 		</tr>
 	</xsl:template>

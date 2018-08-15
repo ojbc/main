@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.disposition;
+package org.ojbc.web.portal.arrest;
 
 import org.ojbc.web.portal.util.WebUtils;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +22,11 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("standalone")
-public class DispositionServiceStandalone implements DispositionService {
+public class ArrestServiceStandalone implements ArrestService {
 
 	@Override
-	public String findDispositions(DispositionSearchRequest dispositionSearchRequest) throws Throwable {
+	public String findArrests(ArrestSearchRequest arrestSearchRequest) throws Throwable {
 		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-				"/xmlInstances/Municipal_DeferredDisposition_search_results.xml"));
+				"/xmlInstances/Initial_Results_muni.xml"));
 	}
 }

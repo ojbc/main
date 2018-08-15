@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<chsres-doc:CriminalHistorySearchResults
+	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
+	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
+	<chsres-ext:CriminalHistorySearchResult>
+		<j:Subject structures:id="Subject_01">
+			<nc:RoleOfPerson>
+				<nc:PersonBirthDate>
+					<nc:Date>1980-01-02</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonName>
+					<nc:PersonGivenName>THOR</nc:PersonGivenName>
+					<nc:PersonSurName>ASGARD</nc:PersonSurName>
+					<nc:PersonFullName>ASGARD, THOR</nc:PersonFullName>
+				</nc:PersonName>
+				<nc:PersonSSNIdentification>
+					<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+				</nc:PersonSSNIdentification>
+			</nc:RoleOfPerson>
+			<j:SubjectIdentification>
+				<nc:IdentificationID>1234567890</nc:IdentificationID>
+			</j:SubjectIdentification>
+		</j:Subject>
+		<j:Arrest>
+			<nc:ActivityDate>
+				<nc:Date>2018-05-29</nc:Date>
+			</nc:ActivityDate>
+			<j:ArrestCharge>
+				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
+			</j:ArrestCharge>
+			<j:ArrestCharge>
+				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
+			</j:ArrestCharge>
+			<j:ArrestSubject>
+				<nc:RoleOfPerson structures:ref="Subject_01" />
+			</j:ArrestSubject>
+			<chsres-ext:ArrestHideDate>
+				<nc:Date>2018-06-02</nc:Date>
+			</chsres-ext:ArrestHideDate>
+		</j:Arrest>
+		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
+	</chsres-ext:CriminalHistorySearchResult>
+</chsres-doc:CriminalHistorySearchResults>
