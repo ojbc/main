@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes({"dispositionSearchResults", "dispositionSearchRequest"})
 @RequestMapping("/dispositions")
 public class DispositionController {
-	
+	private static final Log log = LogFactory.getLog(DispositionController.class);
+
 	@Autowired
 	DispositionService dispostionService;
 	
@@ -56,7 +59,7 @@ public class DispositionController {
 	public String advancedSearch(@Valid @ModelAttribute DispositionSearchRequest dispositionSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		
-		System.out.println("dispositionSearchRequest:" + dispositionSearchRequest );
+		log.info("dispositionSearchRequest:" + dispositionSearchRequest );
 		String searchContent = dispostionService.findDispositions(dispositionSearchRequest);
 		String transformedResults = searchResultConverter.convertDispositionSearchResult(searchContent);
 		model.put("dispositionSearchResults", searchContent); 

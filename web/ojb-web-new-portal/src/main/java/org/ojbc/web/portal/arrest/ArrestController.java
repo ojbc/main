@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest"})
 @RequestMapping("/arrests")
 public class ArrestController {
-	
+	private static final Log log = LogFactory.getLog(ArrestController.class);
+
 	@Autowired
 	ArrestService arrestService;
 	
@@ -56,7 +59,7 @@ public class ArrestController {
 	public String advancedSearch(@Valid @ModelAttribute ArrestSearchRequest arrestSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		
-		System.out.println("arrestSearchRequest:" + arrestSearchRequest );
+		log.info("arrestSearchRequest:" + arrestSearchRequest );
 		String searchContent = arrestService.findArrests(arrestSearchRequest);
 		String transformedResults = searchResultConverter.convertArrestSearchResult(searchContent);
 		model.put("arrestSearchResults", searchContent); 
