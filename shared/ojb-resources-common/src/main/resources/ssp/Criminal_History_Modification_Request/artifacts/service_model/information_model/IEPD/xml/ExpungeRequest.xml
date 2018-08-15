@@ -27,6 +27,13 @@
 		<nc:IdentificationID>1004233</nc:IdentificationID>
 		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 	</chm-req-ext:ArrestRecordRequestIdentification>
+	<j:Arrest>
+		<j:ArrestCharge>
+			<j:ChargeIdentification>
+				<nc:IdentificationID>C123456</nc:IdentificationID>
+			</j:ChargeIdentification>
+		</j:ArrestCharge>
+	</j:Arrest>
 	<nc:Disposition>
 		<nc:DispositionDate>
 			<nc:Date>2016-06-15</nc:Date>
