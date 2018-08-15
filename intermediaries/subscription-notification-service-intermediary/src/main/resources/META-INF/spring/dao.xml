@@ -174,7 +174,7 @@
 	</bean>	
 	
 	<bean id="expiringSubscriptionsManager" class="org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager">
-		<property name="warningDaysBeforeExpiration" value="45"/>
+		<property name="warningDaysBeforeExpiration" value="${publishSubscribe.warningDaysBeforeExpiration}"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 	</bean>		
 			
