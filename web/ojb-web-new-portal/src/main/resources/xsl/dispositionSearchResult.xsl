@@ -24,6 +24,9 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+  xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+  xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+  xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd"
 	exclude-result-prefixes="#all">
@@ -32,7 +35,17 @@
 	<xsl:output method="html" encoding="UTF-8" />
 	
 	<xsl:template match="/chsres-doc:CriminalHistorySearchResults">
-		<xsl:call-template name="dispositions"/>
+    <xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
+    <xsl:variable name="requestErrors" select="srm:SearchResultsMetadata/srer:SearchRequestError" />
+    <xsl:variable name="tooManyResultsErrors" select="srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError" />
+
+    <xsl:apply-templates select="$accessDenialReasons" />
+    <xsl:apply-templates select="$requestErrors" />
+    <xsl:apply-templates select="$tooManyResultsErrors" />
+    
+    <xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
+		  <xsl:call-template name="dispositions"/>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="dispositions">
@@ -83,4 +96,26 @@
 		</tr>
 	</xsl:template>
 	
+   <xsl:template match="iad:InformationAccessDenial">
+    <span class="error">
+      User does not meet privilege requirements to access
+      <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />. To request access, contact your IT department.
+    </span>
+    <br />
+  </xsl:template>
+
+  <xsl:template match="srer:SearchRequestError">
+    <span class="error">
+      System Name: <xsl:value-of select="nc:SystemName" />, 
+      Error: <xsl:value-of select="srer:ErrorText" />
+    </span>
+    <br />
+  </xsl:template>
+
+  <xsl:template match="srer:SearchResultsExceedThresholdError">
+    <span class="error">
+      System <xsl:value-of select="../nc:SystemName" /> returned too many records, please refine your criteria.
+    </span>
+    <br />
+  </xsl:template>
  </xsl:stylesheet>
