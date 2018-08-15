@@ -110,16 +110,19 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_multiple_sentence_charge.xml", "criminalHistory_multiple_sentence_charge.html");
     }
 
+    
     @Test
     public void chNoCourtCharge() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_no_court_charge.xml", "criminalHistory_no_court_charge.html");
     }
 
+
+    
     @Test
     public void criminalHistorySearchDetail() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
     }
-
+    
     @Test
     public void criminalHistorySearchDetailNoTroCustodySupervisionHeaders() throws Exception {
         Map<String, Object> params = new HashMap<String, Object>();
@@ -129,10 +132,12 @@ public class XslTemplateTest {
 
     }
 
+
     @Test
     public void criminalHistoryWithMultipleAddresses() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory-multiple-addresses.xml", "criminalHistory-multiple-addresses.html");
     }
+    
     
     @Test
     public void reOrderedFirearmSearchResult() throws Exception {
