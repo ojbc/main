@@ -95,7 +95,7 @@ public class TestFbiSubscriptionAuditProcessor {
 	    assertEquals("A398118900", federalRapbackSubscription.getSid());
 	    assertEquals("S128483", federalRapbackSubscription.getStateSubscriptionId());
 	    assertEquals("CI", federalRapbackSubscription.getSubscriptonCategoryCode());
-	    assertEquals("This is the transaction text", federalRapbackSubscription.getTransactionStatusText());
+	    assertEquals("This is the transaction text | This is the second transaction text", federalRapbackSubscription.getTransactionStatusText());
 	    
 	    //This response will 'resolve' errors by sending back a good response
 	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_Subscription_Response_C99999999.xml"));

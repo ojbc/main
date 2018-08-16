@@ -19,8 +19,13 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
+import org.ojbc.bundles.adapters.fbi.ebts.util.FBIEbtsUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class FbiEmailErrorProcessor {
 
@@ -28,7 +33,7 @@ public class FbiEmailErrorProcessor {
 	
 	public static final String EMAIL_SUBJECT_LINE="Rap Back: Subscription Failed";
 	
-	public static final String SUBSCRIPTION_ERROR_EMAIL_TEMPLATE="Error Code:<Error Code>\nError Text:<Error Text>\n\nThis subscription request that was sent to the FBI has failed.”";
+	public static final String SUBSCRIPTION_ERROR_EMAIL_TEMPLATE="Error Code:<Error Code>\nError Text:<Error Text>\n\nThis subscription request that was sent to the FBI has failed.";
 	
 	private String toEmailAddress;
 	
@@ -37,9 +42,10 @@ public class FbiEmailErrorProcessor {
 		Document doc = in.getIn().getBody(Document.class);
 		
 		String errorCode = (String)in.getIn().getHeader("trxCatCode");
-		String errorText = XmlUtils.xPathStringSearch(doc, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionStatusText");
 		
-		logger.info("Error Text:" + errorText);
+		String transactionStatusText = FBIEbtsUtils.processTransactionStatusText(doc);
+		
+		logger.info("Error Text:" + transactionStatusText);
 		
 		in.getIn().setHeader("subject", EMAIL_SUBJECT_LINE);
 		in.getIn().setHeader("to", toEmailAddress);
@@ -47,7 +53,7 @@ public class FbiEmailErrorProcessor {
 		String messageBody = SUBSCRIPTION_ERROR_EMAIL_TEMPLATE;
 		
 		messageBody = messageBody.replace("<Error Code>", errorCode);
-		messageBody = messageBody.replace("<Error Text>", errorText);
+		messageBody = messageBody.replace("<Error Text>", transactionStatusText);
 		
 		in.getIn().setBody(messageBody);
 		
