@@ -23,9 +23,12 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.bundles.adapters.fbi.ebts.util.FBIEbtsUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class FbiSubscriptionAuditProcessor {
 
@@ -99,7 +102,7 @@ public class FbiSubscriptionAuditProcessor {
 			federalRapbackSubscription.setPathToResponseFile(pathToResponseFile);
 			federalRapbackSubscription.setTransactionCategoryCodeResponse(transactionCategoryCode);
 			
-			String transactionStatusText = XmlUtils.xPathStringSearch(input, "//ebts:TransactionStatusText");
+			String transactionStatusText = FBIEbtsUtils.processTransactionStatusText(input);
 			
 			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
 			
@@ -111,7 +114,9 @@ public class FbiSubscriptionAuditProcessor {
 				federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, 
 						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
 			}	
-				
+			
+			
+			
 			boolean errorIndicator = false;
 			
 			if (StringUtils.isNotBlank(transactionStatusText))
