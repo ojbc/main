@@ -62,9 +62,23 @@
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsres-ext:DispositionSentenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsres-ext:SourceSystemNameText" minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
 					<xsd:element ref="chsres-ext:SearchResultCategoryText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DispositionSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a disposition and a sentence.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -144,6 +158,12 @@
 	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The date an arrest record is hidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionSentenceAssociation" type="chsres-ext:DispositionSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a disposition and a sentence.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
