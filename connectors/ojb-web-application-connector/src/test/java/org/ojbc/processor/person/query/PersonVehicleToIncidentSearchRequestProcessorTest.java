@@ -39,7 +39,6 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-  //TODO fix this
 public class PersonVehicleToIncidentSearchRequestProcessorTest {
 
 	private PersonVehicleToIncidentSearchRequestProcessor unit;
