@@ -17,83 +17,70 @@
 package org.ojbc.test.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.ojbc.util.camel.helper.OJBUtils;
+import org.junit.jupiter.api.Assertions;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
+/**
+ * A class of utilities to support assertions/comparisons of XML documents.
+ *
+ */
 public class XmlTestUtils {
 	
-	static{		
+	static {		
 		XMLUnit.setIgnoreAttributeOrder(true);
 		XMLUnit.setIgnoreComments(true);
 		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
 		XMLUnit.setIgnoreWhitespace(true);
 	}
 	
-	public static void compareDocs(String expectedXmlDocFileClasspath, String actualXmlDocContents) throws Exception{
-		
-		File xmlFile = new File(expectedXmlDocFileClasspath);
-		
-		Document expectedXmlDoc = XmlUtils.parseFileToDocument(xmlFile);
-		
-		Document actualXmlDoc = OJBUtils.loadXMLFromString(actualXmlDocContents);
-		
-		compareDocs(expectedXmlDoc, actualXmlDoc);		
+	/**
+	 * Test whether an XML document matches an expected document
+	 * @param expectedXML the "gold standard" expected XML
+	 * @param testXML the XML to compare against the expected document
+	 * @throws Exception
+	 */
+	public static final void compareDocuments(String expectedXML, String testXML) throws Exception {
+		File xmlFile = new File(expectedXML);
+		Document expectedXmlDoc = XmlUtils.toDocument(xmlFile);
+		Document actualXmlDoc = XmlUtils.toDocument(testXML);
+		compareDocuments(expectedXmlDoc, actualXmlDoc);		
 	}	
 	
-	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
-		
-		File xmlFile = new File(expectedXmlDocFileClasspath);
-		
-		Document expectedXmlDoc = XmlUtils.parseFileToDocument(xmlFile);
-		
-		compareDocs(expectedXmlDoc, actualXmlDocument);		
+	/**
+	 * Test whether an XML document matches an expected document
+	 * @param expectedXML the "gold standard" expected XML
+	 * @param testXML the XML to compare against the expected document
+	 * @throws Exception
+	 */
+	public static final void compareDocuments(String expectedXML, Document testXML) throws Exception {
+		File xmlFile = new File(expectedXML);
+		Document expectedXmlDoc = XmlUtils.toDocument(xmlFile);
+		compareDocuments(expectedXmlDoc, testXML);		
 	}
 	
-	public static void compareDocs(Document expectedXmlDoc, Document actualXmlDocument){
-		
-		Diff diff = new Diff(expectedXmlDoc, actualXmlDocument);						
+	/**
+	 * Compare two documents and assert that the number of differences is zero.
+	 * @param expectedDocument the "gold standard" expected XML
+	 * @param testDocument the XML to compare against the expected document
+	 */
+	public static final void compareDocuments(Document expectedDocument, Document testDocument) {
+
+		Diff diff = new Diff(expectedDocument, testDocument);						
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
 		@SuppressWarnings("all")
 		List<Difference> diffList = detailedDiff.getAllDifferences();		
 		int diffCount = diffList == null ? 0 : diffList.size();
 		
-		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
+		Assertions.assertEquals(0, diffCount, detailedDiff.toString());
+		
 	}
 	
-	/**
-	 * Compare two XML docs with the elements in the elementNamesToIgnore array ignored. 
-	 * 
-	 * @param expectedXmlString
-	 * @param actualTransformedXml
-	 * @param elementNamesToIgnore
-	 * @throws SAXException
-	 * @throws IOException
-	 */
-	public static void compareDocs(String expectedXmlString,
-			String actualTransformedXml, String... elementNamesToIgnore)
-			throws SAXException, IOException {
-
-		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		detailedDiff
-				.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-						elementNamesToIgnore));
-
-		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff
-				.getAllDifferences().size());
-	}
 }

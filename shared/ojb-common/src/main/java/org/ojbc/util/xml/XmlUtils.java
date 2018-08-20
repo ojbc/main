@@ -59,6 +59,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -148,6 +149,29 @@ public class XmlUtils {
         printNode(n, System.out);
     }
 
+    /**
+     * Read the contents of the specified file into a DOM document
+     * @param f the input XML file
+     * @return the document
+     * @throws Exception
+     */
+    public static final Document toDocument(File f) throws Exception {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        return dbf.newDocumentBuilder().parse(f);
+    }    
+    
+    /**
+     * Read the contents of the specified String into a DOM document
+     * @param xml the String containing the XML
+     * @return the document
+     * @throws Exception
+     */
+    public static final Document toDocument(String xml) throws Exception {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        return dbf.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+    }	
     
     /**
      * Original intent was to represent root node as a string without 
