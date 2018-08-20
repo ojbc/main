@@ -23,10 +23,12 @@ import static org.mockito.Mockito.when;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultHeadersMapFactory;
+import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.UuidGenerator;
+import org.apache.camel.util.CaseInsensitiveMap;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -37,7 +39,7 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@Disabled  //TODO fix this
+  //TODO fix this
 public class PersonVehicleToIncidentSearchRequestProcessorTest {
 
 	private PersonVehicleToIncidentSearchRequestProcessor unit;
@@ -47,7 +49,6 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 	
 	@Mock
 	private MessageProcessor mockPersonToIncidentMessageProcessor;
-	
 	@Mock
 	private CamelContext mockCamelContext;
 	
@@ -76,6 +77,10 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 		when(mockUuidGenerator.generateUuid()).thenReturn("uuid");
 		when(mockCamelContext.getUuidGenerator()).thenReturn(mockUuidGenerator);
 		
+		HeadersMapFactory mockHeadersMapFactory = mock(DefaultHeadersMapFactory.class);
+		when(mockHeadersMapFactory.newMap()).thenReturn(new CaseInsensitiveMap());
+		when(mockCamelContext.getHeadersMapFactory()).thenReturn(mockHeadersMapFactory);
+
 		DetailsRequest detailRequest = new DetailsRequest();
 		
 		detailRequest.setIdentificationID("id");
@@ -95,6 +100,10 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 		UuidGenerator mockUuidGenerator = mock(UuidGenerator.class);
 		when(mockUuidGenerator.generateUuid()).thenReturn("uuid");
 		when(mockCamelContext.getUuidGenerator()).thenReturn(mockUuidGenerator);
+		
+		HeadersMapFactory mockHeadersMapFactory = mock(DefaultHeadersMapFactory.class);
+		when(mockHeadersMapFactory.newMap()).thenReturn(new CaseInsensitiveMap());
+		when(mockCamelContext.getHeadersMapFactory()).thenReturn(mockHeadersMapFactory);
 		
 		DetailsRequest detailRequest = new DetailsRequest();
 		
