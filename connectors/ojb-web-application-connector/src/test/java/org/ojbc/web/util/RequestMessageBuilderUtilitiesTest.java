@@ -31,7 +31,8 @@ import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceConstants;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -192,9 +193,10 @@ public class RequestMessageBuilderUtilitiesTest {
     	
     }
     
-    @Test(expected = Exception.class)
+    @Test
     public void testGetOutstandingPoliciesForUserWithEmptyFedId() throws Exception {
-        RequestMessageBuilderUtilities.createPolicyBasedAccessControlRequest(null, VALID_REQUESTED_RESOURCE);
+    	Assertions.assertThrows(Exception.class, 
+    			()->{RequestMessageBuilderUtilities.createPolicyBasedAccessControlRequest(null, VALID_REQUESTED_RESOURCE);});
     }
 
     public class IgnoreNamedElementsDifferenceListener implements DifferenceListener {

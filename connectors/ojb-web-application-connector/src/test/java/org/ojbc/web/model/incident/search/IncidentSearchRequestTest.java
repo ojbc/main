@@ -26,8 +26,10 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;
 
@@ -87,14 +89,11 @@ public class IncidentSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/incidentSearchRequest/incidentSearchRequestSameDateRange.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
 		
 		//System.out.println(OJBUtils.getStringFromDocument(doc));
 		
 		//Use XML Unit to compare these files
-		Diff myDiff = new Diff(expectedResponseAsString, OJBUtils.getStringFromDocument(doc));
-		Assert.assertTrue("XML identical " + myDiff.toString(),
-		               myDiff.identical());
+		XmlTestUtils.compareDocuments(doc, XmlUtils.toDocument(expectedReponseFile));
 	}
 
 	@Test

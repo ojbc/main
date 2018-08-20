@@ -35,7 +35,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -48,7 +48,7 @@
 		<!-- Juvenile Case Plan History Request Service, hosted by Broker -->
 		<cxf:cxfEndpoint id="juvenileCasePlanHistoryRequestService"
 			address="${webapplication.casePlanHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenileCasePlanHistoryRequestService"
 			endpointName="ojbc:JuvenileCasePlanHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -63,7 +63,7 @@
 		<!-- Juvenile Hearing History Request Service, hosted by broker -->
 		<cxf:cxfEndpoint id="juvenileHearingHistoryRequestService"
 			address="${webapplication.hearingHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenileHearingHistoryRequestService"
 			endpointName="ojbc:JuvenileHearingHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -79,7 +79,7 @@
 		<!-- Juvenile Intake History Request Service, hosted by broker -->
 		<cxf:cxfEndpoint id="juvenileIntakeHistoryRequestService"
 			address="${webapplication.intakeHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenileIntakeHistoryRequestService"
 			endpointName="ojbc:JuvenileIntakeHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -94,7 +94,7 @@
 		<!-- Juvenile Offense History Request Service, hosted by broker -->
 		<cxf:cxfEndpoint id="juvenileOffenseHistoryRequestService"
 			address="${webapplication.offenseHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenileOffenseHistoryRequestService"
 			endpointName="ojbc:JuvenileOffenseHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -109,7 +109,7 @@
 		<!-- Juvenile Placement History Request Service, hosted by broker -->
 		<cxf:cxfEndpoint id="juvenilePlacementHistoryRequestService"
 			address="${webapplication.placementHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenilePlacementHistoryRequestService"
 			endpointName="ojbc:JuvenilePlacementHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">
@@ -125,7 +125,7 @@
 		<!-- Juvenile Referral History Request Service, hosted by broker -->
 		<cxf:cxfEndpoint id="juvenileReferralHistoryRequestService"
 			address="${webapplication.referralHistoryRequestService.endpoint}"
-			wsdlURL="classpath:ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
+			wsdlURL="ssp/Juvenile_History/schema/SIP_WS_1.2/Juvenile_History_Request_ServiceCore.wsdl"
 			serviceName="ojbc:JuvenileReferralHistoryRequestService"
 			endpointName="ojbc:JuvenileReferralHistoryRequest_Secure_SOAPPort"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0">

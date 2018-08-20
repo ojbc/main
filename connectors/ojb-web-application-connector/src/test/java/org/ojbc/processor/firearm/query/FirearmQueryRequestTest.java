@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;

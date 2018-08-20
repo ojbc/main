@@ -19,7 +19,7 @@ package org.ojbc.processor.subscription.query;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;

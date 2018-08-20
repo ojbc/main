@@ -36,7 +36,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -50,7 +50,7 @@
 	<cxf:cxfEndpoint 
 	        id="personQueryRequestWarrantsService"
 	        address="${webapplication.personQuery.personQueryWarrantsEndpoint}"
-	        wsdlURL="classpath:ssp/Person_Query_Service_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
+	        wsdlURL="ssp/Person_Query_Service_Warrants/schema/SIP_WS_1.2/Person_Query_Service_-_Warrants.wsdl"
 	        serviceName="ojbc:Person-Query-Service---WarrantsService"
 			endpointName="ojbc:Person-Query-Secure-Service---Warrants"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0"

@@ -34,29 +34,32 @@
 	</parent>
 
 	<properties>
-		<camel-version>2.14.4</camel-version>
-		<slf4j-version>1.7.10</slf4j-version>
+		<camel-version>2.22.0</camel-version>
+		<slf4j-version>1.7.12</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		<cxf-version>3.0.5</cxf-version>
-		<servlet-api-version>2.5</servlet-api-version>
+		<cxf-version>3.2.5</cxf-version>
+		<servlet-api-version>4.0.1</servlet-api-version>
 		<bouncycastle-version>140</bouncycastle-version>
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
-		<ojb-camel-common>[2.0.0,)</ojb-camel-common>
+		<ojb-camel-common>[3.0.0,)</ojb-camel-common>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
+		<ojb-resources-common-version>2.0.0</ojb-resources-common-version>
 		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[2.0.0,)</ojb-web-application-connector-extension-version>
-		<commons-lang-version>2.4</commons-lang-version>
-		<spring-version>3.2.13.RELEASE</spring-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<spring-version>5.0.8.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
-		<xmlunit-version>1.3</xmlunit-version>
+		<xmlunit-version>1.6</xmlunit-version>
+		<xmlunitcore-version>2.6.1</xmlunitcore-version>
 		<jodatime-version>2.2</jodatime-version>
 		<mockito.version>1.9.0</mockito.version>
 		<nij-er-resources-version>1.0.2</nij-er-resources-version>
 		<java-version>1.8</java-version>
+    <junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
+    <ojb-test-common-version>[2.0.0,)</ojb-test-common-version>
 
 		<!-- Plugin versions -->
-		<surefire.version>2.7.2</surefire.version>
+		<surefire.version>2.21.0</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
@@ -77,11 +80,55 @@
 	      <groupId>org.apache.camel</groupId>
 	      <artifactId>camel-spring</artifactId>
 	      <version>${camel-version}</version>
+	      <exclusions>
+	       <exclusion>
+	         <groupId>org.springframework</groupId>
+           <artifactId>spring-beans</artifactId>
+	       </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-context</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-aop</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-expression</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-tx</artifactId>
+         </exclusion>
+	      </exclusions>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.apache.camel</groupId>
 	      <artifactId>camel-cxf</artifactId>
 	      <version>${camel-version}</version>
+        <exclusions>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-beans</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-context</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-aop</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-expression</artifactId>
+         </exclusion>
+         <exclusion>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-tx</artifactId>
+         </exclusion>
+        </exclusions>
 	    </dependency>
 
 		<!-- CXF libs -->
@@ -104,13 +151,23 @@
 			<groupId>org.apache.cxf.services.sts</groupId>
 			<artifactId>cxf-services-sts-core</artifactId>
 			<version>${cxf-version}</version>
+      <exclusions>
+       <exclusion>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+       </exclusion>
+      </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-
+		<dependency>
+		 <groupId>org.apache.cxf</groupId>
+		 <artifactId>cxf-tools-common</artifactId>
+		 <version>${cxf-version}</version>
+  	</dependency>
 		<!-- ws-security -->
 		<dependency>
 			<groupId>bouncycastle</groupId>
@@ -118,11 +175,11 @@
 			<version>${bouncycastle-version}</version>
 		</dependency>
 
-        <dependency>
-           <groupId>org.apache.cxf</groupId>
-           <artifactId>cxf-rt-ws-security</artifactId>
-           <version>${cxf-version}</version>
-       </dependency>
+     <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-security</artifactId>
+        <version>${cxf-version}</version>
+    </dependency>
 
 	 	<dependency>
 		    <groupId>commons-lang</groupId>
@@ -203,6 +260,12 @@
 			<artifactId>camel-test</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
+			<exclusions>
+			   <exclusion>
+			     <groupId>junit</groupId>
+			     <artifactId>junit</artifactId>
+			   </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -218,7 +281,7 @@
 		</dependency>	
 		<dependency>
         	<groupId>org.apache.camel</groupId>
-        	<artifactId>camel-test-spring3</artifactId>
+        	<artifactId>camel-test-spring</artifactId>
         	<version>${camel-version}</version>
 			<scope>test</scope>
     	</dependency>
@@ -228,6 +291,11 @@
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+        <groupId>org.xmlunit</groupId>
+        <artifactId>xmlunit-core</artifactId>
+        <version>${xmlunitcore-version}</version>
+    </dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -246,7 +314,24 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-test-common</artifactId>
+      <version>${ojb-test-common-version}</version>
+      <scope>test</scope>
+    </dependency>
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-launcher</artifactId>
+		    <version>${junit-platform-launcher-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-runner</artifactId>
+		    <version>1.1.0</version>
+		    <scope>${junit-platform-launcher-version}</scope>
+		</dependency>
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -288,7 +373,18 @@
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-surefire-plugin</artifactId>
 			<version>${surefire.version}</version>
-			<configuration>
+	    <dependencies>
+	        <dependency>
+	            <groupId>org.junit.platform</groupId>
+	            <artifactId>junit-platform-surefire-provider</artifactId>
+	            <version>${junit-platform-launcher-version}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.junit.jupiter</groupId>
+	            <artifactId>junit-jupiter-engine</artifactId>
+	            <version>5.2.0</version>
+	        </dependency>
+	    </dependencies>			<configuration>
 			  <argLine>-Xmx1024m</argLine>
 			</configuration>
 			<executions>

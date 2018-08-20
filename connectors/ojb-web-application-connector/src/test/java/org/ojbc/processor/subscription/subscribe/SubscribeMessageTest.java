@@ -20,15 +20,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
@@ -57,17 +53,10 @@ public class SubscribeMessageTest {
 		
 		String subQualId = XmlUtils.xPathStringSearch(generatedSubscriptinDoc, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		
-		String sGeneratedSubscriptionDoc = XmlUtils.getStringFromNode(generatedSubscriptinDoc);
-						
 		String sExpectedXmlSubDoc = XmlUtils.getRootNodeAsString("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml");				
 		sExpectedXmlSubDoc = sExpectedXmlSubDoc.replace("@SUB_QUAL_ID@", subQualId);
-						
-		Diff diff = new Diff(sExpectedXmlSubDoc, sGeneratedSubscriptionDoc);		
-		DetailedDiff detailDiff = new DetailedDiff(diff);		
-		List<Difference> diffList = detailDiff.getAllDifferences();
-		int diffCount = diffList.size();
-						
-		Assert.assertEquals(detailDiff.toString(), 0, diffCount);
+
+		XmlTestUtils.compareDocuments(generatedSubscriptinDoc, XmlUtils.toDocument(sExpectedXmlSubDoc));
 	}
 	
 	

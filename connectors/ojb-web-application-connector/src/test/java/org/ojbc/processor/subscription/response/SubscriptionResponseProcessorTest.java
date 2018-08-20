@@ -24,7 +24,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.web.model.subscription.response.SubscriptionAccessDenialResponse;
 import org.ojbc.web.model.subscription.response.SubscriptionInvalidEmailResponse;

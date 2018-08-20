@@ -25,8 +25,10 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;
@@ -56,12 +58,9 @@ public class FirearmSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/firearmSearchRequest/firearmSearchRequest.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
 		
 		//Use XML Unit to compare these files
-		Diff myDiff = new Diff(OJBUtils.getStringFromDocument(doc), expectedResponseAsString);
-		Assert.assertTrue("XML identical " + myDiff.toString(),
-		               myDiff.identical());		
+		XmlTestUtils.compareDocuments(doc, XmlUtils.toDocument(expectedReponseFile));
 	}
 	
 	@Test

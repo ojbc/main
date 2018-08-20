@@ -18,7 +18,7 @@ package org.ojbc.processor.subscription.validate;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;

@@ -98,6 +98,8 @@ public class PersonVehicleToIncidentSearchRequestProcessor extends RequestRespon
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 		
+		log.info("senderExchange.getIn() is null ? " + senderExchange.getIn() == null );
+		
 		//Set exchange body to XML Request message
 		senderExchange.getIn().setBody(requestPayload);
 		

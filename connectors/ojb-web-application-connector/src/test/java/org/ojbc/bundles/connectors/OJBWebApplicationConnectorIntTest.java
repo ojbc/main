@@ -24,10 +24,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
 import org.ojbc.processor.person.search.PersonSearchRequestProcessor;
 import org.ojbc.processor.policy.acknowledge.PolicyAcknowledgmentRecordingRequestProcessor;
@@ -49,10 +50,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.w3c.dom.Element;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations={"/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
 @ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
 		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
@@ -109,7 +110,7 @@ public class OJBWebApplicationConnectorIntTest{
     @Autowired
     private ModelCamelContext camelContext;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 		camelContext.start();
 		
@@ -135,8 +136,10 @@ public class OJBWebApplicationConnectorIntTest{
     }
     
 	@Test
+	@Disabled
 	public void testJuvenileQueryServices() throws Exception
 	{
+		
 		//Case Plan
 		Assert.assertNotNull(juvenileCasePlanHistoryRequestProcessor);
 		

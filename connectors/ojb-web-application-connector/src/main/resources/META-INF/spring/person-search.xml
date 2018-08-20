@@ -36,7 +36,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -49,7 +49,7 @@
 	   	<!-- Person Search Request Service, hosted by OJB  -->
 		<cxf:cxfEndpoint id="personSearchRequestService"
 			address="${webapplication.personSearch.personSearchEndpoint}"
-			wsdlURL="classpath:ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
+			wsdlURL="ssp/Person_Search_Request/schema/SIP_WS_1.2/Person_Search_Request_Service.wsdl"
 			serviceName="ojbc:Person_Search_Request_Service_Service" endpointName="ojbc:Person_Search_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0">
 			<cxf:properties>

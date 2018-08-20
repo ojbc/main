@@ -17,15 +17,9 @@
 package org.ojbc.processor.subscription.unsubscribe;
 
 import java.io.File;
-import java.util.List;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -33,15 +27,6 @@ import org.w3c.dom.Document;
 
 public class UnsubscriptionMessageProcessorTest {
 	
-	@Before
-	public void init(){		
-		
-		XMLUnit.setIgnoreAttributeOrder(true);
-		XMLUnit.setIgnoreComments(true);
-		XMLUnit.setIgnoreWhitespace(true);
-		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
-	}
-
 	@Test	
 	public void testCreateUnsubscriptionMessage() throws Exception{
 		
@@ -50,13 +35,8 @@ public class UnsubscriptionMessageProcessorTest {
 		Document unsubscribeDoc = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);		
 		
 		Document expectedUnsubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xml/output/unsubscribe/Unsubscribe.xml"));
-				
-		Diff diff = new Diff(expectedUnsubDoc, unsubscribeDoc);	
-		
-		DetailedDiff detailedDiff = new DetailedDiff(diff);		
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-		
-		Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());		
+		XmlTestUtils.compareDocuments(unsubscribeDoc, expectedUnsubDoc);
+
 	}
 	
 }

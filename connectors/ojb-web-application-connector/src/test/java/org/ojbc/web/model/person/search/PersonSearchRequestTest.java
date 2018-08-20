@@ -19,16 +19,16 @@ package org.ojbc.web.model.person.search;
 
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.w3c.dom.Document;
 
@@ -64,12 +64,9 @@ public class PersonSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/personSearchRequest/personSearchRequest.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
 		
 		//Use XML Unit to compare these files
-		Diff myDiff = new Diff(OJBUtils.getStringFromDocument(doc), expectedResponseAsString);
-		Assert.assertTrue("XML identical " + myDiff.toString(),
-		               myDiff.identical());		
+		XmlTestUtils.compareDocuments(doc, XmlUtils.toDocument(expectedReponseFile));
 	}
 	
 	@Test
@@ -89,12 +86,9 @@ public class PersonSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/personSearchRequest/personSearchRequestHeightWeight.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
 		
 		//Use XML Unit to compare these files
-		Diff myDiff = new Diff(OJBUtils.getStringFromDocument(doc), expectedResponseAsString);
-		Assert.assertTrue("XML identical " + myDiff.toString(),
-		               myDiff.identical());		
+		XmlTestUtils.compareDocuments(doc, XmlUtils.toDocument(expectedReponseFile));
 	}
 	
 	
