@@ -17,9 +17,8 @@
 package org.ojbc.web.impl;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -58,7 +57,7 @@ public class TestDetailQueryDispatcher {
 	@Spy
 	private JuvenileQueryRequestProcessor juvenileIntakeHistoryRequestProcessor;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		Assert.assertNotNull(unit);
 		
@@ -80,7 +79,6 @@ public class TestDetailQueryDispatcher {
 	}
 
 	@Test
-	@Disabled // TODO fix the Mockito
 	public void testDetailQueryDispatcherJuvenileQueryWithQueryType() throws Exception
 	{
 		//Create Detail Request with Case Plan Query Type

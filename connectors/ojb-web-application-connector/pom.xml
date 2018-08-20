@@ -52,7 +52,7 @@
 		<xmlunit-version>1.6</xmlunit-version>
 		<xmlunitcore-version>2.6.1</xmlunitcore-version>
 		<jodatime-version>2.2</jodatime-version>
-		<mockito.version>1.9.0</mockito.version>
+		<mockito.version>2.21.0</mockito.version>
 		<nij-er-resources-version>1.0.2</nij-er-resources-version>
 		<java-version>1.8</java-version>
     <junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
