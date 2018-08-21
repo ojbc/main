@@ -47,6 +47,8 @@ public class FederalRapbackNotification {
 
 	private String transactionType;
 	
+	private String recordRapBackActivityNotificationID;
+	
 	private List<String> triggeringEvents;
 	
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -139,6 +141,15 @@ public class FederalRapbackNotification {
 
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	public String getRecordRapBackActivityNotificationID() {
+		return recordRapBackActivityNotificationID;
+	}
+
+	public void setRecordRapBackActivityNotificationID(
+			String recordRapBackActivityNotificationID) {
+		this.recordRapBackActivityNotificationID = recordRapBackActivityNotificationID;
 	}
 	
 }

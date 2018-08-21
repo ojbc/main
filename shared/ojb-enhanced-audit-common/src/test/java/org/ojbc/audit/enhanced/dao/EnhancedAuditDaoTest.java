@@ -290,6 +290,7 @@ public class EnhancedAuditDaoTest {
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State12345");
 		federalRapbackNotification.setTransactionType("UCN_Consolidation");
+		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
 		
 		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
 		
@@ -306,7 +307,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
 		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
 		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
-		
+		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationID());
 		
 		federalNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId("State12345");
 

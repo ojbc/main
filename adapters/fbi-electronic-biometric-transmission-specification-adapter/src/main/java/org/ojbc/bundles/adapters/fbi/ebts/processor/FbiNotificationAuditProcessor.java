@@ -145,6 +145,11 @@ public class FbiNotificationAuditProcessor {
 			String rapbackEventText = XmlUtils.xPathStringSearch(input, "/nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageDescriptiveTextRecord/nistbio:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventText");
 			federalRapbackNotification.setRapBackEventText(rapbackEventText);
 			
+//          <!-- RBNI 2.2041 -->
+//          <ebts:RecordRapBackActivityNotificationID>123456</ebts:RecordRapBackActivityNotificationID>
+			String recordRapBackActivityNotificationID = XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackActivityNotificationID");
+			federalRapbackNotification.setRecordRapBackActivityNotificationID(recordRapBackActivityNotificationID);
+			
 			logger.info("Federal rapback subscription request audit entry to save: " + federalRapbackNotification.toString());
 			
 			Integer federalRapbackNotificationPk = enhancedAuditDAO.saveFederalRapbackNotification(federalRapbackNotification);
