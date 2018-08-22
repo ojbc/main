@@ -43,6 +43,11 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<java-version>1.8</java-version>
+		
+		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
+    <!-- Plugin versions -->
+    <surefire.version>2.21.0</surefire.version>
+    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
 	<dependencies>
@@ -79,6 +84,26 @@
 	</dependencies>
 	<build>
 		<plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-surefire-plugin</artifactId>
+	      <version>${surefire.version}</version>
+	      <dependencies>
+	          <dependency>
+	              <groupId>org.junit.platform</groupId>
+	              <artifactId>junit-platform-surefire-provider</artifactId>
+	              <version>${junit-platform-launcher-version}</version>
+	          </dependency>
+	          <dependency>
+	              <groupId>org.junit.jupiter</groupId>
+	              <artifactId>junit-jupiter-engine</artifactId>
+	              <version>${junit-jupiter-engine-version}</version>
+	          </dependency>
+	      </dependencies>
+	      <configuration>
+	        <argLine>-Xmx1024m</argLine>
+	      </configuration>
+	    </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

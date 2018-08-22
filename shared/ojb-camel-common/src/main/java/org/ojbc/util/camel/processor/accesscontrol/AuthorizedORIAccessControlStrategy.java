@@ -27,10 +27,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
 
 /**
  * In this strategy, we compare the ORI in the SAML token against a list of authorized ORIs.

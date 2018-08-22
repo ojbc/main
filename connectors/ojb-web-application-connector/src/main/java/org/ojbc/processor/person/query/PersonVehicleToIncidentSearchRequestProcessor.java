@@ -32,7 +32,7 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 

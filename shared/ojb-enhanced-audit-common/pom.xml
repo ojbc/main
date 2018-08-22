@@ -56,6 +56,8 @@
 		<java-version>1.8</java-version>
 		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
+    <!-- Plugin versions -->
+    <surefire.version>2.21.0</surefire.version>
 	</properties>
 
 	<dependencies>
@@ -192,6 +194,26 @@
 		<defaultGoal>install</defaultGoal>
 
 		<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-surefire-provider</artifactId>
+                <version>${junit-platform-launcher-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter-engine-version}</version>
+            </dependency>
+        </dependencies>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

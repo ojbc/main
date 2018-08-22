@@ -25,9 +25,9 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
 public class TestSAMLTokenUtils {
 

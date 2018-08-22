@@ -24,7 +24,7 @@ import org.apache.wss4j.dom.handler.RequestData;
 import org.apache.wss4j.dom.validate.Credential;
 import org.apache.wss4j.dom.validate.SamlAssertionValidator;
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.saml.common.SAMLVersion;
 
 /**
  * This sample validator only assures that there is an assertion that is signed.  It does not test against the CTF.

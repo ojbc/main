@@ -46,6 +46,10 @@
 		<ojb-common-version>[4.0.0,)</ojb-common-version>
 		<java-version>1.8</java-version>
 		<joda-time.version>2.2</joda-time.version>
+		
+		<!-- Plugin versions -->
+    <surefire.version>2.21.0</surefire.version>
+		
 	</properties>
 
 	<dependencies>
@@ -156,6 +160,26 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-surefire-provider</artifactId>
+                <version>${junit-platform-launcher-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter-engine-version}</version>
+            </dependency>
+        </dependencies>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

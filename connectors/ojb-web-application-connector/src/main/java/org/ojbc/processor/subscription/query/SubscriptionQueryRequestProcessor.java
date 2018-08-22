@@ -30,7 +30,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.web.SubscriptionQueryInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

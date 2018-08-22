@@ -23,16 +23,16 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor;
 import org.ojbc.web.IncidentSearchInterface;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

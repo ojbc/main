@@ -30,7 +30,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.UnsubscriptionInterface;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

@@ -27,9 +27,9 @@ import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
 public class TestSAMLAssertionBuilder {
 

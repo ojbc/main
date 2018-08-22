@@ -32,7 +32,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.web.RapbackSearchInterface;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

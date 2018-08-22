@@ -29,18 +29,18 @@ import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
-import org.opensaml.Configuration;
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml2.core.AudienceRestriction;
-import org.opensaml.saml2.core.Condition;
-import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.core.SubjectConfirmation;
-import org.opensaml.saml2.core.SubjectConfirmationData;
-import org.opensaml.samlext.saml2delrestrict.Delegate;
-import org.opensaml.samlext.saml2delrestrict.DelegationRestrictionType;
-import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
+import org.opensaml.saml.common.SAMLObjectBuilder;
+import org.opensaml.saml.ext.saml2delrestrict.Delegate;
+import org.opensaml.saml.ext.saml2delrestrict.DelegationRestrictionType;
+import org.opensaml.saml.saml2.core.AudienceRestriction;
+import org.opensaml.saml.saml2.core.Condition;
+import org.opensaml.saml.saml2.core.Conditions;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml.saml2.core.SubjectConfirmationData;
 
 public class GFIPM_SAML2ComponentBuilder {
 
@@ -49,7 +49,7 @@ public class GFIPM_SAML2ComponentBuilder {
     private static SAMLObjectBuilder<DelegationRestrictionType> delegationRestrictionBuilder;
     private static SAMLObjectBuilder<Delegate> delegateBuilder;
 	private static SAMLObjectBuilder<Conditions> conditionsBuilder;
-	private static XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
+	private static XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
 	private static SAMLObjectBuilder<Subject> subjectBuilder;
 	
     /**
@@ -79,7 +79,7 @@ public class GFIPM_SAML2ComponentBuilder {
      */
     @SuppressWarnings("unchecked")
     public static Subject createSaml2Subject(String inResponseTo, String recipient, DateTime notOnOrAfter, String confirmationMethodStr) 
-        throws org.opensaml.xml.security.SecurityException, WSSecurityException {
+        throws org.opensaml.security.SecurityException, WSSecurityException {
         if (subjectBuilder == null) {
             subjectBuilder = (SAMLObjectBuilder<Subject>) 
                 builderFactory.getBuilder(Subject.DEFAULT_ELEMENT_NAME);
@@ -94,8 +94,7 @@ public class GFIPM_SAML2ComponentBuilder {
         subjectConfirmationDataBean.setRecipient(recipient);
         subjectConfirmationDataBean.setNotAfter(notOnOrAfter);
         
-        SubjectConfirmationData subjectConfData = null;
-            subjectConfData = 
+        SubjectConfirmationData subjectConfData = 
                 SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, null);
         
         if (confirmationMethodStr == null) {
@@ -103,7 +102,7 @@ public class GFIPM_SAML2ComponentBuilder {
         }
         SubjectConfirmation subjectConfirmation = 
             SAML2ComponentBuilder.createSubjectConfirmation(
-                confirmationMethodStr, subjectConfData
+                confirmationMethodStr, subjectConfData, subject.getNameID()
             );
         
         subject.getSubjectConfirmations().add(subjectConfirmation);
@@ -118,9 +117,9 @@ public class GFIPM_SAML2ComponentBuilder {
      */
     public static SubjectConfirmation createSubjectConfirmation(
         String method,
-        SubjectConfirmationData subjectConfirmationData
+        SubjectConfirmationData subjectConfirmationData, NameID nameId
     ) {
-    	return SAML2ComponentBuilder.createSubjectConfirmation(method, subjectConfirmationData);
+    	return SAML2ComponentBuilder.createSubjectConfirmation(method, subjectConfirmationData, nameId);
     }
     
     @SuppressWarnings("unchecked")

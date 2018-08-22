@@ -30,7 +30,7 @@ import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

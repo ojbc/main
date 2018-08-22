@@ -18,15 +18,15 @@ package org.ojbc.test.util;
 
 import java.util.Map;
 
+import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
-import org.apache.cxf.message.Message; 
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants; 
 
 public class SAMLTokenTestUtils {
 	

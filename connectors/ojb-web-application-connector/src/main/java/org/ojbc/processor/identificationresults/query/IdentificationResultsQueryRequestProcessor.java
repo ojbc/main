@@ -40,7 +40,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.IdentificationResultsQueryInterface;
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

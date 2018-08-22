@@ -31,7 +31,7 @@ import org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor;
 import org.ojbc.web.PersonSearchInterface;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

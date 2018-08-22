@@ -39,7 +39,6 @@
 		<log4j-version>1.2.17</log4j-version>
 		<cxf-version>3.2.5</cxf-version>
 		<servlet-api-version>4.0.1</servlet-api-version>
-		<bouncycastle-version>140</bouncycastle-version>
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-camel-common>[3.0.0,)</ojb-camel-common>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
@@ -169,12 +168,6 @@
 		 <version>${cxf-version}</version>
   	</dependency>
 		<!-- ws-security -->
-		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk16</artifactId>
-			<version>${bouncycastle-version}</version>
-		</dependency>
-
      <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-security</artifactId>

@@ -35,12 +35,12 @@ import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.AuthnStatement;
+import org.opensaml.saml.saml2.core.Conditions;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.saml.saml2.core.Subject;
 import org.w3c.dom.Element;
 
 /**
@@ -135,7 +135,7 @@ public class SAMLAssertionBuilder {
 		Assertion assertion = SAML2ComponentBuilder.createAssertion();
 		
 		//create issuer
-		Issuer issuer = SAML2ComponentBuilder.createIssuer(issuerString);
+		Issuer issuer = SAML2ComponentBuilder.createIssuer(issuerString, "", "");
 		assertion.setIssuer(issuer);
 		
 		//create subject

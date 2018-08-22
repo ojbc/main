@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Assertion;
 
 public class UserInfoNullObjectProcessor extends AbstractUserInfoProcessor {
 

@@ -48,9 +48,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
@@ -190,7 +189,7 @@ public class SQLLoggingProcessorTest {
         Assertions.assertEquals(0, Minutes.minutesBetween(new DateTime(), dt).getMinutes());
     }
 
-    private Exchange setupExchange(Object messageDocument) throws ParserConfigurationException, ConfigurationException, Exception {
+    private Exchange setupExchange(Object messageDocument) throws ParserConfigurationException, Exception {
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);

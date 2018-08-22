@@ -45,7 +45,7 @@ import org.ojbc.web.impl.DetailQueryDispatcher;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestTestUtils;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ActiveProfiles;
@@ -136,7 +136,6 @@ public class OJBWebApplicationConnectorIntTest{
     }
     
 	@Test
-	@Disabled
 	public void testJuvenileQueryServices() throws Exception
 	{
 		
@@ -271,7 +270,6 @@ public class OJBWebApplicationConnectorIntTest{
     }	
 
     @Test
-    @Ignore
     public void testPersonSearchRequest() throws Exception {
     	
     	
