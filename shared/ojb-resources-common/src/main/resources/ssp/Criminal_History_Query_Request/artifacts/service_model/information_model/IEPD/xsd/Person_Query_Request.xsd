@@ -17,17 +17,37 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" 
-	xmlns:Q2="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0">
-  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd"/>
-  <xsd:complexType name="PersonRecordRequestType">
-    <xsd:sequence>
-      <xsd:element maxOccurs="1" minOccurs="1" ref="pqr-doc:PersonRecordRequestIdentification"/>
-    </xsd:sequence>
-  </xsd:complexType>
-  <xsd:element name="PersonRecordRequestIdentification" type="Q2:IdentificationType"/>
-  <xsd:element name="PersonRecordRequest" type="pqr-doc:PersonRecordRequestType"/>
+<xsd:schema xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+	xmlns:Q2="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.1/proxy/2.0/xsd.xsd" />
+	<xsd:complexType name="PersonRecordRequestType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="pqr-doc:PersonRecordRequestIdentification" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="pqr-doc:CivilPurposeRequestIndicator" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="pqr-doc:TextRapSheetRequestIndicator" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PersonRecordRequest" type="pqr-doc:PersonRecordRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A request for a person record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonRecordRequestIdentification" type="Q2:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification of a person record request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CivilPurposeRequestIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the request is being made for civil purposes; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TextRapSheetRequestIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the requestor would like to receive a text-based rap sheet rather than a structured rap sheet.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
