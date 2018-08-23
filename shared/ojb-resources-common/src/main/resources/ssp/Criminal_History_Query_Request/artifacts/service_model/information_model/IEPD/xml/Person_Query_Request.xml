@@ -17,15 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pqr-doc:PersonRecordRequest 
-	xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" 
-	xmlns:Q3="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:p="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<pqr-doc:PersonRecordRequest xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:p="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0 ../xsd/Person_Query_Request.xsd">
-  <pqr-doc:PersonRecordRequestIdentification>
-    <Q3:IdentificationID>1234</Q3:IdentificationID>
-    <Q3:IdentificationSourceText>CJIS-Hawaii</Q3:IdentificationSourceText>
-  </pqr-doc:PersonRecordRequestIdentification>
+	<pqr-doc:PersonRecordRequestIdentification>
+		<nc:IdentificationID>1234</nc:IdentificationID>
+		<nc:IdentificationSourceText>CJIS-Hawaii</nc:IdentificationSourceText>
+	</pqr-doc:PersonRecordRequestIdentification>
 </pqr-doc:PersonRecordRequest>
