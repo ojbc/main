@@ -122,42 +122,52 @@
                <nc:Date>date</nc:Date>
             </rls-res-ext:ResolutionDate>
             <rls-res-ext:ResolutionDescriptionText>string</rls-res-ext:ResolutionDescriptionText>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
          </rls-res-ext:ComplaintResolution>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
          <rls-res-ext:ComplaintResolution>
             <rls-res-ext:ResolutionDate>
                <nc:Date>date</nc:Date>
             </rls-res-ext:ResolutionDate>
             <rls-res-ext:ResolutionDescriptionText>string</rls-res-ext:ResolutionDescriptionText>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
          </rls-res-ext:ComplaintResolution>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
       </rls-res-ext:CaseComplaint>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d1e20"/>
+         <nc:Location structures:ref="d1e108"/>
+      </nc:PersonResidenceAssociation>
+      <rls-res-ext:SourceSystemNameText>Alpha Court System </rls-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc:IdentificationID>A0188904</nc:IdentificationID>
+         <nc:SystemName>Court</nc:SystemName>
+      </intel:SystemIdentification>
+      <rls-res-ext:SearchResultCategoryText>Regulatory License</rls-res-ext:SearchResultCategoryText>
    </nc:Case>
    <nc:Case structures:id="d1e243">
       <nc:ActivityIdentification>
@@ -179,42 +189,52 @@
                <nc:Date>date</nc:Date>
             </rls-res-ext:ResolutionDate>
             <rls-res-ext:ResolutionDescriptionText>string</rls-res-ext:ResolutionDescriptionText>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
          </rls-res-ext:ComplaintResolution>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
          <rls-res-ext:ComplaintResolution>
             <rls-res-ext:ResolutionDate>
                <nc:Date>date</nc:Date>
             </rls-res-ext:ResolutionDate>
             <rls-res-ext:ResolutionDescriptionText>string</rls-res-ext:ResolutionDescriptionText>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAllegation>
+               <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
+            </rls-res-ext:ComplaintAllegation>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
+            <rls-res-ext:ComplaintAction>
+               <rls-res-ext:ActionDescriptionText>string</rls-res-ext:ActionDescriptionText>
+               <rls-res-ext:ActionValueText>string</rls-res-ext:ActionValueText>
+            </rls-res-ext:ComplaintAction>
          </rls-res-ext:ComplaintResolution>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAllegation>
-            <rls-res-ext:AllegationDescriptionText>string</rls-res-ext:AllegationDescriptionText>
-         </rls-res-ext:ComplaintAllegation>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
-         <rls-res-ext:ComplaintAction>
-            <rls-res-ext:ActionDescriptionText>string
-	t</rls-res-ext:ActionDescriptionText>
-         </rls-res-ext:ComplaintAction>
       </rls-res-ext:CaseComplaint>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d1e20"/>
+         <nc:Location structures:ref="d1e108"/>
+      </nc:PersonResidenceAssociation>
+      <rls-res-ext:SourceSystemNameText>Alpha Court System </rls-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc:IdentificationID>A0188904</nc:IdentificationID>
+         <nc:SystemName>Court</nc:SystemName>
+      </intel:SystemIdentification>
+      <rls-res-ext:SearchResultCategoryText>Regulatory License</rls-res-ext:SearchResultCategoryText>
    </nc:Case>
 </rls-res-doc:RegulatoryLicenseSearchResults>
 	

@@ -80,6 +80,8 @@
 			<xsl:apply-templates select="mbsc:CaseID[.!='']" />
 			<xsl:apply-templates select="." mode="dates" />
 			<xsl:apply-templates select="mbsc:ResolutionInfos" />
+			<xsl:apply-templates select="//mbsc:LicenseInfo" mode="residence" />
+			<xsl:call-template name="System" />
 		</nc:Case>
 	</xsl:template>
 	<xsl:template match="mbsc:ResolutionInfos">
@@ -91,36 +93,27 @@
 		<rls-res-ext:ComplaintResolution>
 			<xsl:apply-templates select="mbsc:ResolutionDate[.!='']" />
 			<xsl:apply-templates select="mbsc:ResolutionDescription[.!='']" />
+			<xsl:apply-templates select="mbsc:AllegationInfos[.!='']" />
+			<xsl:apply-templates select="mbsc:ActionInfos[.!='']" />
 		</rls-res-ext:ComplaintResolution>
-		<xsl:apply-templates select="mbsc:AllegationInfos[.!='']" />
-		<xsl:apply-templates select="mbsc:ActionInfos[.!='']" />
 	</xsl:template>
 	<xsl:template match="mbsc:AllegationInfos">
-
-			<xsl:apply-templates select="mbsc:AllegationInfo[.!='']" />
-
+		<xsl:apply-templates select="mbsc:AllegationInfo[.!='']" />
 	</xsl:template>
-		<xsl:template match="mbsc:ActionInfos">
-
-			<xsl:apply-templates select="mbsc:ActionInfo[.!='']" />
-
+	<xsl:template match="mbsc:ActionInfos">
+		<xsl:apply-templates select="mbsc:ActionInfo[.!='']" />
 	</xsl:template>
-	
-	
 	<xsl:template match="mbsc:AllegationInfo">
 		<rls-res-ext:ComplaintAllegation>
 			<xsl:apply-templates select="mbsc:AllegationDescription[.!='']" />
 		</rls-res-ext:ComplaintAllegation>
 	</xsl:template>
-	
-		<xsl:template match="mbsc:ActionInfo">
+	<xsl:template match="mbsc:ActionInfo">
 		<rls-res-ext:ComplaintAction>
 			<xsl:apply-templates select="mbsc:ActionDescription[.!='']" />
+			<xsl:apply-templates select="mbsc:ActionValue[.!='']" />
 		</rls-res-ext:ComplaintAction>
 	</xsl:template>
-	
-	
-	
 	<!-- ELEMENTS -->
 	<xsl:template match="mbsc:LicenseNumber">
 		<rls-res-ext:RegulatoryLicenseIdentification>
@@ -345,14 +338,40 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</rls-res-ext:AllegationDescriptionText>
 	</xsl:template>
-	
-		<xsl:template match="mbsc:ActionDescription">
-	<rls-res-ext:ActionDescriptionText>
-	<xsl:value-of select="normalize-space(.)" />
-	t</rls-res-ext:ActionDescriptionText>
+	<xsl:template match="mbsc:ActionDescription">
+		<rls-res-ext:ActionDescriptionText>
+			<xsl:value-of select="normalize-space(.)" />
+		</rls-res-ext:ActionDescriptionText>
 	</xsl:template>
-	
-	
+	<xsl:template match="mbsc:ActionValue">
+		<rls-res-ext:ActionValueText>
+			<xsl:value-of select="normalize-space(.)" />
+		</rls-res-ext:ActionValueText>
+	</xsl:template>
+	<xsl:template match="mbsc:LicenseInfo" mode="residence">
+		<nc:PersonResidenceAssociation>
+			<nc:Person>
+				<xsl:attribute name="structures:ref" select="generate-id(..)" />
+			</nc:Person>
+			<nc:Location>
+				<xsl:attribute name="structures:ref" select="generate-id(./mbsc:PhysicalAddress)" />
+			</nc:Location>
+		</nc:PersonResidenceAssociation>
+	</xsl:template>
+	<xsl:template name="System">
+		<rls-res-ext:SourceSystemNameText>Alpha Court System</rls-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="$systemID" />
+			</nc:IdentificationID>
+			<nc:SystemName>
+				<xsl:value-of select="$systemID" />
+			</nc:SystemName>
+		</intel:SystemIdentification>
+		<rls-res-ext:SearchResultCategoryText>
+			<xsl:value-of select="$searchResultCategory" />
+		</rls-res-ext:SearchResultCategoryText>
+	</xsl:template>
 	<!-- ERROR -->
 	<xsl:template match="mbsc:Messages">
 		<qrm:SearchResultsMetadata>
