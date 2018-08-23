@@ -38,9 +38,20 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
-          <xsd:element ref="nc:IdentificationSourceText" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PersonType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a human being.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType"/>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="TextType">
@@ -62,6 +73,11 @@
   <xsd:element name="IdentificationSourceText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A person, organization, or locale which issues an identification.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Person" type="nc:PersonType">
+    <xsd:annotation>
+      <xsd:documentation>A human being.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>
