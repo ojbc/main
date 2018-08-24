@@ -29,12 +29,10 @@
 			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 	</j:Person>
-	<fqr-doc:CivilPurposeRequestIndicator>true</fqr-doc:CivilPurposeRequestIndicator>
-	<fqr-doc:TextRapSheetRequestIndicator>true</fqr-doc:TextRapSheetRequestIndicator>
 	<fqr-doc:RapBackSubscriptionIdentification>
 		<nc:IdentificationID>RS12345</nc:IdentificationID>
 	</fqr-doc:RapBackSubscriptionIdentification>
-	<fqr-doc:RapBackActivityNotificationID>
+	<fqr-doc:RapBackActivityNotificationIdentification>
 		<nc:IdentificationID>RA1234567</nc:IdentificationID>
-	</fqr-doc:RapBackActivityNotificationID>
+	</fqr-doc:RapBackActivityNotificationIdentification>
 </fqr-doc:FBIRecordRequest>
