@@ -1040,8 +1040,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Inserting row into FEDERAL_RAPBACK_NOTIFICATION table : " + federalRapbackNotification.toString());
 		
         final String FEDERAL_RAPBACK_NOTIFICATION_INSERT="INSERT into FEDERAL_RAPBACK_NOTIFICATION "
-        		+ "(PATH_TO_NOTIFICATION_FILE, STATE_SUBSCRIPTION_ID, RAPBACK_EVENT_TEXT, ORIGINAL_IDENTIFIER, UPDATED_IDENTIFIER, TRANSACTION_TYPE, NOTIFICATION_RECIEVED_TIMESTAMP) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        		+ "(PATH_TO_NOTIFICATION_FILE, STATE_SUBSCRIPTION_ID, RAPBACK_EVENT_TEXT, ORIGINAL_IDENTIFIER, UPDATED_IDENTIFIER, TRANSACTION_TYPE, RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID, NOTIFICATION_RECIEVED_TIMESTAMP) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -1055,7 +1055,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getOriginalIdentifier(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getUpdatedIdentifier(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getTransactionType(), ps, 6);
-        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getNotificationRecievedTimestamp(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRecordRapBackActivityNotificationID(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getNotificationRecievedTimestamp(), ps, 8);
         	            
         	            return ps;
         	        }
@@ -1332,6 +1333,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			federalRapbackNotification.setPathToNotificationFile(rs.getString("PATH_TO_NOTIFICATION_FILE"));
 			federalRapbackNotification.setRapBackEventText(rs.getString("RAPBACK_EVENT_TEXT"));
 			federalRapbackNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
+			federalRapbackNotification.setRecordRapBackActivityNotificationID(rs.getString("RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID"));
 			
 			return federalRapbackNotification;
 		}
