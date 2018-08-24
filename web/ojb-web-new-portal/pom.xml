@@ -24,6 +24,7 @@
 		<java.version>1.8</java.version>
 		
 		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
+		<ojb-web-application-connector-version>[3.0.0,)</ojb-web-application-connector-version>
 		
 		<saxonHe.version>9.5.1-5</saxonHe.version>
 		<commonsIo.version>2.4</commonsIo.version>
@@ -34,7 +35,11 @@
 		<jquery.version>3.3.1</jquery.version>
 		<popper.version>1.14.3</popper.version>
 		<commonslogging.version>1.2</commonslogging.version>
+		<ojb-test-common-version>[2.0.0,)</ojb-test-common-version>
+    <junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
 		
+    <!-- Plugin versions -->
+    <surefire.version>2.21.0</surefire.version>
 	</properties>
 
 	<dependencies>
@@ -76,6 +81,11 @@
       <groupId>org.ojbc.bundles.shared</groupId>
       <artifactId>ojb-ui-common</artifactId>
       <version>${ojb-ui-common-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.connectors</groupId>
+      <artifactId>ojb-web-application-connector</artifactId>
+      <version>${ojb-web-application-connector-version}</version>
     </dependency>
 		
 		<!-- Optional, for bootstrap -->
@@ -144,6 +154,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+      <groupId>org.ojbc.bundles.shared</groupId>
+      <artifactId>ojb-test-common</artifactId>
+      <version>${ojb-test-common-version}</version>
+      <scope>test</scope>
+    </dependency>
 
  	</dependencies>
 
@@ -153,6 +169,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <dependencies>
+          <dependency>
+              <groupId>org.junit.platform</groupId>
+              <artifactId>junit-platform-surefire-provider</artifactId>
+              <version>${junit-platform-launcher-version}</version>
+          </dependency>
+          <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-engine</artifactId>
+              <version>5.2.0</version>
+          </dependency>
+      </dependencies>     <configuration>
+        <argLine>-Xmx1024m</argLine>
+      </configuration>
+    </plugin>
 		</plugins>
 	</build>
 
