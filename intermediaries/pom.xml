@@ -37,6 +37,8 @@
     <module>charge-referral-reporting-service-intermediary</module>
     <module>court-case-search-service-intermediary</module>
     <module>court-case-query-service-intermediary</module>
+    <module>criminal-history-modification-request-service-intermediary</module>
+    <module>criminal-history-search-request-service-intermediary</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
     <module>custody-query-service-intermediary</module>
     <module>custody-search-request-service-intermediary</module>
