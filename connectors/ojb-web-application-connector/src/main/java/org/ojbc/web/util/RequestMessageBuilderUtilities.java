@@ -17,8 +17,21 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_60;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_60;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XSI;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
@@ -53,6 +66,7 @@ import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
+import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -190,13 +204,13 @@ public class RequestMessageBuilderUtilities {
 		
 		if (psr.getPersonSurNameMetaData() == SearchFieldMetadata.ExactMatch || psr.getPersonGivenNameMetaData() == SearchFieldMetadata.ExactMatch )
 		{
-			Element exactMatchMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.ExactMatch);
+			Element exactMatchMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, NS_STRUCTURES, SearchFieldMetadata.ExactMatch);
 			personSearchRequestElement.appendChild(exactMatchMetaData);
 		}	
 
 		if (psr.getPersonSurNameMetaData() == SearchFieldMetadata.StartsWith || psr.getPersonGivenNameMetaData() == SearchFieldMetadata.StartsWith )
 		{
-			Element startsWithMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, SearchFieldMetadata.StartsWith);
+			Element startsWithMetaData = NIEMXMLUtils.createSearchMetaData(doc, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, NS_STRUCTURES, SearchFieldMetadata.StartsWith);
 			personSearchRequestElement.appendChild(startsWithMetaData);
 		}	
 		
@@ -905,6 +919,99 @@ public class RequestMessageBuilderUtilities {
         identificationSourceText.setTextContent(OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION_QUERY);
 
         return doc;
+	}
+	
+	public static Document createArrestSearchRequest(ArrestSearchRequest arrestSearchRequest) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, 
+        		NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC + ":MunicipalChargesSearchRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_STRUCTURES_40, NS_STRUCTURES_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
+        document.appendChild(rootElement);
+
+        if (arrestSearchRequest.isNotEmpty()) {
+        	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
+        	
+        	if (StringUtils.isNotBlank(arrestSearchRequest.getArrestIdentification())) {
+        		Element activityIdentification = XmlUtils.appendElement(arrest, NS_NC_40, "ActivityIdentification"); 
+        		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", arrestSearchRequest.getArrestIdentification());
+        	}
+        	
+        	if (arrestSearchRequest.getArrestDateRangeStartDate() != null || arrestSearchRequest.getArrestDateRangeEndDate() != null) {
+        		Element activityDate = XmlUtils.appendElement(arrest, NS_NC_40, "ActivityDate");
+        		Element dateRange = XmlUtils.appendElement(activityDate, NS_NC_40, "DateRange");
+        		
+        		if (arrestSearchRequest.getArrestDateRangeStartDate() != null) {
+        			Element startDate = XmlUtils.appendElement(dateRange, NS_NC_40, "StartDate");
+        			XmlUtils.appendTextElement(startDate, NS_NC_40, "Date", arrestSearchRequest.getArrestDateRangeStartDate().toString());
+        		}
+        		if (arrestSearchRequest.getArrestDateRangeEndDate() != null) {
+        			Element endDate = XmlUtils.appendElement(dateRange, NS_NC_40, "EndDate");
+        			XmlUtils.appendTextElement(endDate, NS_NC_40, "Date", arrestSearchRequest.getArrestDateRangeEndDate().toString());
+        		}
+        	}
+        	
+        	if (arrestSearchRequest.isSubjectInfoNotEmpty()) {
+        		Element arrestSubject = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestSubject"); 
+        		XmlUtils.addAttribute(arrestSubject, NS_STRUCTURES_40, "ref", "Subject_01");
+        		Element subject = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Subject");
+        		XmlUtils.addAttribute(subject, NS_STRUCTURES_40, "id", "Subject_01");
+        		
+        		if (arrestSearchRequest.isPersonInfoNotEmpty()) {
+        			Element roleOfPerson = XmlUtils.appendElement(subject, NS_NC_40, "RoleOfPerson");
+        			XmlUtils.addAttribute(roleOfPerson, NS_STRUCTURES_40, "ref", "Person_01");
+        			
+        			Element person = XmlUtils.appendElement(rootElement, NS_NC_40, "Person"); 
+        			XmlUtils.addAttribute(person, NS_STRUCTURES_40, "id", "Person_01");
+        			
+        			if (arrestSearchRequest.getDob() != null) {
+        				Element personBirthDate = XmlUtils.appendElement(person, NS_NC_40, "PersonBirthDate");
+        				XmlUtils.appendTextElement(personBirthDate, NS_NC_40, "Date", arrestSearchRequest.getDob().toString());
+        			}
+        			
+        			if (StringUtils.isNotBlank(arrestSearchRequest.getFirstName()) ||
+        					StringUtils.isNotBlank(arrestSearchRequest.getLastName())) {
+        				Element personName = XmlUtils.appendElement(person, NS_NC_40, "PersonName");
+        				if (StringUtils.isNotBlank(arrestSearchRequest.getFirstName())) {
+        					Element personGivenName = XmlUtils.appendElement(personName, NS_NC_40, "PersonGivenName");
+        					personGivenName.setTextContent(arrestSearchRequest.getFirstName());
+        					XmlUtils.addAttribute(personGivenName, NS_STRUCTURES_40, "metadata", 
+        							NIEMXMLUtils.getMetaDataId(arrestSearchRequest.getFirstNameSearchMetadata()));
+        				}
+        				if (StringUtils.isNotBlank(arrestSearchRequest.getLastName())) {
+        					Element personSurName = XmlUtils.appendElement(personName, NS_NC_40, "PersonSurName");
+        					personSurName.setTextContent(arrestSearchRequest.getLastName());
+        					XmlUtils.addAttribute(personSurName, NS_STRUCTURES_40, "metadata", 
+        							NIEMXMLUtils.getMetaDataId(arrestSearchRequest.getLastNameSearchMetadata()));
+        				}
+        			}
+        			
+        			if (StringUtils.isNotBlank(arrestSearchRequest.getSsn())){
+        				Element personSSNIdentification = XmlUtils.appendElement(person, NS_NC_40, "PersonSSNIdentification");
+        				XmlUtils.appendTextElement(personSSNIdentification, NS_NC_40, "IdentificationID", arrestSearchRequest.getSsn());
+        			}
+        		}
+        		
+        		if (StringUtils.isNotBlank(arrestSearchRequest.getOtn())) {
+        			Element subjectIdentification = XmlUtils.appendElement(subject, NS_JXDM_60, "SubjectIdentification"); 
+        			XmlUtils.appendTextElement(subjectIdentification, NS_NC_40, "IdentificationID", arrestSearchRequest.getOtn());
+        		}
+        		
+    			Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+    			XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
+    			XmlUtils.appendTextElement(exactMatchMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
+    			
+    			Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+    			XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
+    			XmlUtils.appendTextElement(startsWithMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
+
+        	}
+        }
+		return document;
 	}	
     
 }

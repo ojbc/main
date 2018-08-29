@@ -17,6 +17,7 @@
 package org.ojbc.web.util;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,11 +34,14 @@ import org.custommonkey.xmlunit.DifferenceListener;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -191,6 +195,30 @@ public class RequestMessageBuilderUtilitiesTest {
     	Assert.assertTrue("XML identical " + myDiff.toString(),
     			myDiff.identical());     
     	
+    }
+    
+    @Test
+    public void testCreateArrestSearchRequest() throws Exception {
+    	
+    	ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
+    	
+    	arrestSearchRequest.setArrestIdentification("A123456");
+    	arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 4, 10));
+    	arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.of(2018, 7, 10));
+    	arrestSearchRequest.setOtn("1234567890");
+    	arrestSearchRequest.setDob(LocalDate.of(2001, 1, 1));
+    	arrestSearchRequest.setFirstName("JOHN");
+    	arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.ExactMatch);
+    	arrestSearchRequest.setLastName("STEVENSON");
+    	arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+    	arrestSearchRequest.setSsn("123456789");
+    	
+    	Document document = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
+    	Assert.assertNotNull(document);
+    	XmlUtils.printNode(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/arrestSearchRequest/Municipal_Charges_search_request.xml");
+    	XmlTestUtils.compareDocuments(XmlUtils.toDocument(expectedReponseFile), document);
     }
     
     @Test

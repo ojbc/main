@@ -19,13 +19,14 @@ package org.ojbc.web.portal.arrest;
 import org.ojbc.web.portal.util.WebUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.w3c.dom.Element;
 
 @Configuration
 @Profile("standalone")
 public class ArrestServiceStandalone implements ArrestService {
 
 	@Override
-	public String findArrests(ArrestSearchRequest arrestSearchRequest) throws Throwable {
+	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element SamlToken) throws Throwable {
 		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 				"/xmlInstances/Initial_Results_muni.xml"));
 	}

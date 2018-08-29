@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class DispositionController {
 	
 	@Resource
 	SearchResultConverter searchResultConverter;
+	
+	@Resource
+	SamlService samlService;
 
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -45,9 +50,9 @@ public class DispositionController {
     }
     
 	@GetMapping("")
-	public String defaultSearch(Map<String, Object> model) throws Throwable {
+	public String defaultSearch(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		DispositionSearchRequest dispositionSearchRequest = (DispositionSearchRequest) model.get("dispositionSearchRequest");
-		String searchContent = dispostionService.findDispositions(dispositionSearchRequest);
+		String searchContent = dispostionService.findDispositions(dispositionSearchRequest, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertDispositionSearchResult(searchContent);
 		model.put("dispositionSearchResults", searchContent); 
 		model.put("dispositionSearchContent", transformedResults); 
@@ -56,11 +61,11 @@ public class DispositionController {
 	}
 
 	@PostMapping("/advancedSearch")
-	public String advancedSearch(@Valid @ModelAttribute DispositionSearchRequest dispositionSearchRequest, BindingResult bindingResult, 
+	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute DispositionSearchRequest dispositionSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		
 		log.info("dispositionSearchRequest:" + dispositionSearchRequest );
-		String searchContent = dispostionService.findDispositions(dispositionSearchRequest);
+		String searchContent = dispostionService.findDispositions(dispositionSearchRequest, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertDispositionSearchResult(searchContent);
 		model.put("dispositionSearchResults", searchContent); 
 		model.put("dispositionSearchContent", transformedResults); 

@@ -49,7 +49,7 @@ public class SamlServiceImpl implements SamlService{
 	
 	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);
 
-    @Value("${webapplication.allowQueriesWithoutSAMLToken:false}")
+    @Value("${webapplication.allowQueriesWithoutSAMLToken:true}")
     private Boolean allowQueriesWithoutSAMLToken;
 
     @Value("${webapplication.demoLawEnforcementEmployerIndicator:true}")

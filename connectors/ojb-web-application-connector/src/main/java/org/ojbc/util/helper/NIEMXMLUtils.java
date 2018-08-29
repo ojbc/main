@@ -310,17 +310,15 @@ public class NIEMXMLUtils {
 	//	<ext:SearchQualifierCode>startsWith</ext:SearchQualifierCode>
 	//</ext:SearchMetadata>
 
-	public static Element createSearchMetaData(Document doc, String searchFieldMetaDataNamespace, SearchFieldMetadata searchFieldMetadata)
+	public static Element createSearchMetaData(Document doc, String searchFieldMetaDataNamespace, String structNamespace, SearchFieldMetadata searchFieldMetadata)
 	{
 		Element searchFieldMetadataElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchMetadata");
 		
 		if (searchFieldMetadata != null) {
 		    switch(searchFieldMetadata) {
 		    case ExactMatch:
-		        searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM001");
-		        break; 
 		    case StartsWith:
-		        searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM002");
+		        searchFieldMetadataElement.setAttributeNS(structNamespace, "id", getMetaDataId(searchFieldMetadata));
 		        break;
             default:
                 break; 
@@ -338,6 +336,22 @@ public class NIEMXMLUtils {
 		return searchFieldMetadataElement;
 	}
 	
+	public static String getMetaDataId(SearchFieldMetadata searchFieldMetadata) {
+		String idString = "";
+		if (searchFieldMetadata != null) {
+		    switch(searchFieldMetadata) {
+		    case ExactMatch:
+		        idString = "SM001";
+		        break; 
+		    case StartsWith:
+		    	idString = "SM002";
+		        break;
+            default:
+            	break; 
+		    }
+		}
+		return idString;
+	}
 	//<ext:SearchMetadata s:id="SM003">
 	//	<ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
 	//	<ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>

@@ -19,13 +19,14 @@ package org.ojbc.web.portal.disposition;
 import org.ojbc.web.portal.util.WebUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.w3c.dom.Element;
 
 @Configuration
 @Profile("standalone")
 public class DispositionServiceStandalone implements DispositionService {
 
 	@Override
-	public String findDispositions(DispositionSearchRequest dispositionSearchRequest) throws Throwable {
+	public String findDispositions(DispositionSearchRequest dispositionSearchRequest, Element SamlToken) throws Throwable {
 		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 				"/xmlInstances/Municipal_DeferredDisposition_search_results.xml"));
 	}
