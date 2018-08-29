@@ -341,9 +341,9 @@ public class XmlUtils {
     public static final void appendTextElement(Element parent, String namespace,
 			String elementName, String textValue) {
 		if (StringUtils.isNotBlank(textValue)){
-			Element personEthnicityText = 
+			Element element = 
 					XmlUtils.appendElement(parent, namespace, elementName);
-			personEthnicityText.setTextContent(textValue);
+			element.setTextContent(textValue);
 		}
 	}
 
