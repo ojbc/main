@@ -39,11 +39,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -55,10 +53,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -70,7 +67,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -83,25 +80,25 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="chm-req-ext:ArrestRecordRequestIdentification" minOccurs="0" maxOccurs="1" />
-					<!-- WE NEED TO ADD A "HIDE" FLAG ELEMENT TO THE DB -->
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="ArrestRecordRequestIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>The identification of an arrest record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="AmendedCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The charge associated with a disposition.
+			<xsd:documentation>The charge amended in a disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FiledCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The charge filed in disposition.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -113,6 +110,42 @@
 	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDismissalReasonText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The reason a charge was dismissed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionProvisionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A disposition provision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeMunicipalCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for a municipal charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeMunicipalCodeDescriptionText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code descriptionfor a municipal charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is hidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an arrest record is hidden; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

@@ -50,13 +50,32 @@
 			</nc:ActivityDate>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C123456</nc:IdentificationID>
+				</j:ChargeIdentification>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C12345678</nc:IdentificationID>
+				</j:ChargeIdentification>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
 			</j:ArrestSubject>
+			<chsres-ext:ArrestHideDate>
+				<nc:Date>2018-06-02</nc:Date>
+			</chsres-ext:ArrestHideDate>
 		</j:Arrest>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

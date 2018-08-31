@@ -263,6 +263,7 @@
 					</rap:SentenceCharge>
 				</ch-ext:Sentence>
 			</ch-ext:Sentencing>
+			<ch-ext:ChargeAlertDescriptionText>Charge Alert</ch-ext:ChargeAlertDescriptionText>
 			<rap:Supervision s:id="SUP1">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-01</nc:Date>

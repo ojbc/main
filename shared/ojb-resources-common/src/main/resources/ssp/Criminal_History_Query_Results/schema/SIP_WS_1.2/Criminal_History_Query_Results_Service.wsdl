@@ -17,43 +17,58 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions 
-	xmlns="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" 
-	xmlns:tns="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0" 
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
-	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
-    <wsdl:types>
-        <xsd:schema>
-            <xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Criminal_History.xsd"/>
-        </xsd:schema>
-    </wsdl:types>
-    <wsdl:message name="Criminal-History">
-        <wsdl:part name="Criminal-History" element="ch-doc:CriminalHistory"/>
-    </wsdl:message>
-    <wsdl:portType name="Criminal-History-Query-Results-Service">
-        <wsdl:operation name="SubmitCriminalHistoryQueryResults">
-            <wsdl:input name="Criminal-History" message="tns:Criminal-History"/>
-        </wsdl:operation>
-    </wsdl:portType>
-    <wsdl:binding name="Criminal-History-Query-Results-ServiceSOAPBinding" type="tns:Criminal-History-Query-Results-Service">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#GFIPMSystemToSystem" />
-        <wsdl:operation name="SubmitCriminalHistoryQueryResults">
-            <soap:operation soapAction="SubmitCriminalHistoryQueryResults" style="document"/>
-            <wsdl:input name="Criminal-History">
-                <soap:body use="literal"/>
-            </wsdl:input>
-        </wsdl:operation>
-    </wsdl:binding>
-    <wsdl:service name="Criminal-History-Query-Results-ServiceService">
-        <wsdl:port name="Criminal-History-Query-Results-Service" binding="tns:Criminal-History-Query-Results-ServiceSOAPBinding">
-            <soap:address location="localhost"/>
-        </wsdl:port>
-    </wsdl:service>
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Criminal_History.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Criminal_History_Text_Document.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="Criminal-History">
+		<wsdl:part name="Criminal-History" element="ch-doc:CriminalHistory" />
+	</wsdl:message>
+	<wsdl:message name="Criminal-History-Text-Document">
+		<wsdl:part name="Criminal-History-Text-Document" element="cht-doc:CriminalHistoryTextDocument" />
+	</wsdl:message>
+	<wsdl:portType name="Criminal-History-Query-Results-Service">
+		<wsdl:operation name="SubmitCriminalHistoryQueryResults">
+			<wsdl:input name="Criminal-History" message="tns:Criminal-History" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitCriminalHistoryTextDocument">
+			<wsdl:input name="Criminal-History-Text-Document" message="tns:Criminal-History-Text-Document" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Criminal-History-Query-Results-ServiceSOAPBinding"
+		type="tns:Criminal-History-Query-Results-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="SubmitCriminalHistoryQueryResults">
+			<soap:operation soapAction="SubmitCriminalHistoryQueryResults" style="document" />
+			<wsdl:input name="Criminal-History">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitCriminalHistoryTextDocument">
+			<soap:operation soapAction="SubmitCriminalHistoryTextDocument" style="document" />
+			<wsdl:input name="Criminal-History-Text-Document">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Criminal-History-Query-Results-ServiceService">
+		<wsdl:port name="Criminal-History-Query-Results-Service" binding="tns:Criminal-History-Query-Results-ServiceSOAPBinding">
+			<soap:address location="localhost" />
+		</wsdl:port>
+	</wsdl:service>
 </wsdl:definitions>

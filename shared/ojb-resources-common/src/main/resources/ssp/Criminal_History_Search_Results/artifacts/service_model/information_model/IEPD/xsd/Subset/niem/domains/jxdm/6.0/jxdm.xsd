@@ -142,6 +142,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ChargeType">
     <xs:annotation>
       <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -151,8 +159,10 @@
         <xs:sequence>
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeNarrative" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -350,6 +360,11 @@
       <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identification number assigned to a particular charge by an arresting agency, prosecuting attorney, or a court for case management purposes.</xs:documentation>
@@ -358,6 +373,11 @@
   <xs:element name="ChargeNarrative" type="nc:DocumentType" nillable="true">
     <xs:annotation>
       <xs:documentation>A document associated with a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSentence" type="j:SentenceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">

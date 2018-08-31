@@ -146,7 +146,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		if (initialResultsPkId == null){
 			civilInitialResults.setSearchResultFile(
-					getBinaryData(rootNode, "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
+					getBinaryData(rootNode, "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"
+							+ "|ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 			rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		}
 		else{
@@ -161,7 +162,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		
-		civilInitialRapSheet.setRapSheet(getBinaryData(rootNode, "StateCriminalHistoryRecordDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+		civilInitialRapSheet.setRapSheet(getBinaryData(rootNode, "ident-ext:StateCriminalHistoryRecordDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
 				+ "ident-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 		
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
