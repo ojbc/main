@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,59 +17,67 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:Q1="http://niem.gov/niem/structures/2.0" xmlns:Q2="http://niem.gov/niem/proxy/xsd/2.0" xmlns:Q3="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://niem.gov/niem/niem-core/2.0">
-  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../proxy/xsd/2.0/xsd.xsd"/>
-  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../structures/2.0/structures.xsd"/>
-  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../appinfo/2.0/appinfo.xsd"/>
+<xsd:schema targetNamespace="http://niem.gov/niem/niem-core/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
   <xsd:annotation>
     <xsd:documentation>NIEM Core includes both Universal (U) and Common (C) components.  The identities for U and C components in Core are maintained with metadata.</xsd:documentation>
     <xsd:appinfo>
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:complexType name="IdentificationType">
     <xsd:annotation>
       <xsd:documentation>A data type for a representation of an identity.</xsd:documentation>
       <xsd:appinfo>
-        <i:Base i:name="Object" i:namespace="http://niem.gov/niem/structures/2.0"/>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="Q1:ComplexObjectType">
+      <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
-          <xsd:element maxOccurs="1" minOccurs="1" ref="Q3:IdentificationID">
-            <xsd:annotation>
-              <xsd:documentation>A value that identifies something.</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-          <xsd:element maxOccurs="1" minOccurs="1" ref="Q3:IdentificationSourceText">
-            <xsd:annotation>
-              <xsd:documentation>A person, organization, or locale which issues an identification.</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
+          <xsd:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:element name="IdentificationID" type="Q2:string">
+  <xsd:complexType name="PersonType">
     <xsd:annotation>
-      <xsd:documentation>A value that identifies something.</xsd:documentation>
+      <xsd:documentation>A data type for a human being.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
     </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="IdentificationSourceText" type="Q3:TextType">
-    <xsd:annotation>
-      <xsd:documentation>A person, organization, or locale which issues an identification.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="TextType">
     <xsd:annotation>
       <xsd:documentation>A data type for a character string.</xsd:documentation>
       <xsd:appinfo>
-        <i:Base i:name="string" i:namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+        <i:Base i:namespace="http://niem.gov/niem/proxy/xsd/2.0" i:name="string"/>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:simpleContent>
-      <xsd:extension base="Q2:string"/>
+      <xsd:extension base="niem-xsd:string"/>
     </xsd:simpleContent>
   </xsd:complexType>
+  <xsd:element name="IdentificationID" type="niem-xsd:string" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A value that identifies something.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IdentificationSourceText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A person, organization, or locale which issues an identification.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Person" type="nc:PersonType">
+    <xsd:annotation>
+      <xsd:documentation>A human being.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
 </xsd:schema>

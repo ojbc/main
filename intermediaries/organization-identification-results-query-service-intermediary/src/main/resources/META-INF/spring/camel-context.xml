@@ -140,22 +140,6 @@
 
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
 			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${properties:identificationResultsQueryIntermediary.dbEnancedAuditLog} == 'true'</camel:simple>
-					
-					<camel:doTry>
-						<camel:to uri="bean:queryResponseSQLLoggingProcessor?method=auditIdentificationQueryResponse"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
-					</camel:doTry>
-				</camel:when>
-			</camel:choice>
-			
-			
 			<camel:log message="Calling Aggregator" />
 			<camel:to uri="direct:aggregateFederatedQuery" />
  		</route>
@@ -190,6 +174,25 @@
 				
 			<!-- This line removes the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
 			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:identificationResultsQueryIntermediary.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:convertBodyTo type="java.lang.String"/>
+					
+						<camel:log message="Message body: ${body}"/>
+					
+						<camel:to uri="bean:queryResponseSQLLoggingProcessor?method=auditIdentificationQueryResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
 			
 			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
 

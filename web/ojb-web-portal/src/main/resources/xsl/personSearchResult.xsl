@@ -129,7 +129,7 @@
 
         <xsl:for-each select="/exc:EntityMergeResultMessage/exc:EntityContainer/ext:Entity[@s:id = $personId]/ext1:PersonSearchResult">
             <xsl:variable name="person" select="ext1:Person"/>    
-            <xsl:variable name="personName" select="$person/nc:PersonName"/>
+            <xsl:variable name="personName" select="$person/nc:PersonName[1]"/>
             <tr>
             	<td style="width:5%;"><xsl:value-of select="$entityCount"/></td>
                 <td style="width:15%;">
@@ -155,7 +155,7 @@
                 <td ><xsl:value-of select="$person/nc:PersonSexCode" /></td>
                 <td><xsl:value-of select="$person/nc:PersonRaceCode" /></td>
                 <td>
-                	<xsl:apply-templates select="$person/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+                	<xsl:apply-templates select="$person/nc:PersonBirthDate[1]/nc:Date" mode="formatDateAsMMDDYYYY"/>
                 </td>
                 <td ><xsl:value-of select="ext1:SearchResultCategoryText" /></td>
                 <td style="width:15%;"><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>

@@ -901,7 +901,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_EXPUNGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0";
 	public static final String NS_PREFIX_EXPUNGE_REQUEST_DOC ="er-req-doc";
 
-	public static final String NS_ARREST_DETAIL_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exxchange/ArrestDetailSearchRequest/1.0";
+	public static final String NS_ARREST_DETAIL_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0";
 	public static final String NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC ="adsreq-doc";
 
 	public static final String NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0";
@@ -909,6 +909,33 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0";
 	public static final String NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="mddreq-doc";
+	
+	public static final String NS_CBRN_40 = "http://release.niem.gov/niem/domains/cbrn/4.0/";
+	public static final String NS_PREFIX_CBRN_40 = "cbrn40";
+	
+	public static final String NS_CA_SUB_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/SubsequentChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC ="ca-scdd-doc";
+
+	public static final String NS_CA_INIT_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/InitialChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC ="ca-icdd-doc";
+
+	public static final String NS_CA_CORRECTED_CHARGE_DISPO_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/CorrectedChargeDispositionDocument";
+	public static final String NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC ="ca-ccdd-doc";
+
+	public static final String NS_CA_CHARGE_DISPO_EXT ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionDocumentExtension";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_EXT ="ca-cdd-ext";
+
+	public static final String NS_CA_CHARGE_DISPO_ERR_DOC ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionErrorDocument";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC ="ca-cderr-doc";
+
+	public static final String NS_CA_CHARGE_DISPO_ERR_EXT ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionErrorDocumentExtension";
+	public static final String NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT ="ca-cderr-ext";
+	
+	public static final String NS_DA_CHARGE_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0";
+	public static final String NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC ="da-chsearch-req-doc";
+
+	public static final String NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0";
+	public static final String NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="da-defdisposearch-req-doc";
 	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1797,6 +1824,33 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT, NS_CH_IDENTIFIER_UPDATE_EXT);
 		uriToPrefixMap.put(NS_CH_IDENTIFIER_UPDATE_EXT, NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT);
+		
+				prefixToUriMap.put(NS_PREFIX_CBRN_40, NS_CBRN_40);
+		uriToPrefixMap.put(NS_CBRN_40, NS_PREFIX_CBRN_40);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC, NS_CA_SUB_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_SUB_CHARGE_DISPO_DOC, NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC, NS_CA_INIT_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_INIT_CHARGE_DISPO_DOC, NS_PREFIX_CA_INIT_CHARGE_DISPO_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC, NS_CA_CORRECTED_CHARGE_DISPO_DOC);
+		uriToPrefixMap.put(NS_CA_CORRECTED_CHARGE_DISPO_DOC, NS_PREFIX_CA_CORRECTED_CHARGE_DISPO_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_EXT, NS_CA_CHARGE_DISPO_EXT);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_EXT, NS_PREFIX_CA_CHARGE_DISPO_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC, NS_CA_CHARGE_DISPO_ERR_DOC);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_ERR_DOC,NS_PREFIX_CA_CHARGE_DISPO_ERR_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT, NS_CA_CHARGE_DISPO_ERR_EXT);
+		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_ERR_EXT,NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT );
+		
+		prefixToUriMap.put(NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC, NS_DA_CHARGE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DA_CHARGE_SEARCH_REQUEST_DOC,NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC,NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC );
 		
 	}
 

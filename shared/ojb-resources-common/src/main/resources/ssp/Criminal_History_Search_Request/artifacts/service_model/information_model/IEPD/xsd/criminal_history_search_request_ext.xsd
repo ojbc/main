@@ -62,9 +62,44 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="DAChargesSearchRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit a DA Charges search request.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsreq-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsreq-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>	
 	<xsd:complexType name="MunicipalDeferredDispositionSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a Municiapl Charges search request.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsreq-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsreq-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+		<xsd:complexType name="DADeferredDispositionSearchRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit a DA Charges search request.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>

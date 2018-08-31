@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<rls-res-doc:RegulatoryLicenseSearchResults
+	xmlns:rls-res-doc="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchResults/1.0"
+	xmlns:rls-res-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchResults/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchResults/1.0 ../xsd/regulatory_license_search_results.xsd ">
+	<rls-res-ext:RegulatoryLicenseSearchResult>
+		<rls-res-ext:RegulatoryLicense>
+			<rls-res-ext:RegulatoryLicenseIdentification>
+				<nc:IdentificationID>MD1234</nc:IdentificationID>
+			</rls-res-ext:RegulatoryLicenseIdentification>
+			<rls-res-ext:RegulatoryLicenseCategoryText>Medical Doctor</rls-res-ext:RegulatoryLicenseCategoryText>
+			<rls-res-ext:RegulatoryLicenseAgency>
+				<nc:OrganizationName>Agency</nc:OrganizationName>
+			</rls-res-ext:RegulatoryLicenseAgency>
+			<rls-res-ext:RegulatoryLicenseDepartmentName>Department</rls-res-ext:RegulatoryLicenseDepartmentName>
+			<rls-res-ext:RegulatoryLicenseRegulatorName>Regulator</rls-res-ext:RegulatoryLicenseRegulatorName>
+			<rls-res-ext:RegulatoryLicenseIssueDate>
+				<nc:Date>2001-01-01</nc:Date>
+			</rls-res-ext:RegulatoryLicenseIssueDate>
+			<rls-res-ext:RegulatoryLicenseExpirationDate>
+				<nc:Date>2001-01-01</nc:Date>
+			</rls-res-ext:RegulatoryLicenseExpirationDate>
+			<rls-res-ext:RegulatoryLicensePerson structures:ref="Person_01" />
+			<rls-res-ext:PersonLicenseeID>
+				<nc:IdentificationID>1234567</nc:IdentificationID>
+			</rls-res-ext:PersonLicenseeID>
+			<rls-res-ext:RegulatoryLicenseStatus>
+				<nc:StatusDescriptionText>nc:StatusDescriptionText</nc:StatusDescriptionText>
+				<rls-res-ext:SecondaryStatusDescriptionText>Secondary Status Description</rls-res-ext:SecondaryStatusDescriptionText>
+			</rls-res-ext:RegulatoryLicenseStatus>
+			<rls-res-ext:CurrentlyAuthorizedToPracticeIndicator>true</rls-res-ext:CurrentlyAuthorizedToPracticeIndicator>
+		</rls-res-ext:RegulatoryLicense>
+		<nc:Person structures:id="Person_01">
+			<nc:PersonBirthDate>
+				<nc:Date>2001-01-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
+				<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
+				<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+				<nc:PersonNameSuffixText>nc:PersonNameSuffixText</nc:PersonNameSuffixText>
+			</nc:PersonName>
+			<nc:PersonHomeContactInformation>
+				<nc:ContactMailingAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>110 Main Street</nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Syracuse</nc:LocationCityName>
+					<nc:LocationState>
+						<nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+					</nc:LocationState>
+					<nc:LocationCountry>
+						<nc:LocationCountryName>United States</nc:LocationCountryName>
+					</nc:LocationCountry>
+					<nc:LocationPostalCode>13221</nc:LocationPostalCode>
+				</nc:ContactMailingAddress>
+			</nc:PersonHomeContactInformation>
+		</nc:Person>
+		<nc:Location structures:id="Residence_01">
+			<nc:Address>
+				<nc:LocationStreet>
+					<nc:StreetFullText>110 Main Street</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Syracuse</nc:LocationCityName>
+				<nc:LocationState>
+					<nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+				</nc:LocationState>
+				<nc:LocationCountry>
+					<nc:LocationCountryName>United States</nc:LocationCountryName>
+				</nc:LocationCountry>
+				<nc:LocationPostalCode>13221</nc:LocationPostalCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Case>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+			<nc:ActivityDate>
+				<nc:Date>2001-01-01</nc:Date>
+			</nc:ActivityDate>
+			<rls-res-ext:CaseComplaint>
+				<rls-res-ext:ComplaintResolution>
+					<rls-res-ext:ResolutionDate>
+						<nc:Date>2001-01-01</nc:Date>
+					</rls-res-ext:ResolutionDate>
+					<rls-res-ext:ResolutionDescriptionText>ResolutionDescriptionText</rls-res-ext:ResolutionDescriptionText>
+					<rls-res-ext:ResolutionDescriptionText>ResolutionDescriptionText</rls-res-ext:ResolutionDescriptionText>
+				</rls-res-ext:ComplaintResolution>
+				<rls-res-ext:ComplaintAllegation>
+					<rls-res-ext:AllegationDescriptionText>AllegationDescriptionText</rls-res-ext:AllegationDescriptionText>
+					<rls-res-ext:AllegationDescriptionText>AllegationDescriptionText</rls-res-ext:AllegationDescriptionText>
+				</rls-res-ext:ComplaintAllegation>
+				<rls-res-ext:ComplaintAction>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionValueText>ActionValueText</rls-res-ext:ActionValueText>
+				</rls-res-ext:ComplaintAction>
+				<rls-res-ext:ComplaintAction>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionValueText>ActionValueText</rls-res-ext:ActionValueText>
+				</rls-res-ext:ComplaintAction>
+			</rls-res-ext:CaseComplaint>
+			<rls-res-ext:CaseComplaint>
+				<rls-res-ext:ComplaintResolution>
+					<rls-res-ext:ResolutionDate>
+						<nc:Date>2001-01-01</nc:Date>
+					</rls-res-ext:ResolutionDate>
+					<rls-res-ext:ResolutionDescriptionText>ResolutionDescriptionText</rls-res-ext:ResolutionDescriptionText>
+					<rls-res-ext:ResolutionDescriptionText>ResolutionDescriptionText</rls-res-ext:ResolutionDescriptionText>
+				</rls-res-ext:ComplaintResolution>
+				<rls-res-ext:ComplaintAllegation>
+					<rls-res-ext:AllegationDescriptionText>AllegationDescriptionText</rls-res-ext:AllegationDescriptionText>
+					<rls-res-ext:AllegationDescriptionText>AllegationDescriptionText</rls-res-ext:AllegationDescriptionText>
+				</rls-res-ext:ComplaintAllegation>
+				<rls-res-ext:ComplaintAction>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionValueText>ActionValueText</rls-res-ext:ActionValueText>
+				</rls-res-ext:ComplaintAction>
+				<rls-res-ext:ComplaintAction>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionDescriptionText>ActionDescriptionText</rls-res-ext:ActionDescriptionText>
+					<rls-res-ext:ActionValueText>ActionValueText</rls-res-ext:ActionValueText>
+				</rls-res-ext:ComplaintAction>
+			</rls-res-ext:CaseComplaint>
+		</nc:Case>
+		<nc:PersonResidenceAssociation>
+			<nc:Person structures:ref="Person_01" />
+			<nc:Location structures:ref="Residence_01" />
+		</nc:PersonResidenceAssociation>
+		<rls-res-ext:SourceSystemNameText>Alpha Court System </rls-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<rls-res-ext:SearchResultCategoryText>Regulatory License</rls-res-ext:SearchResultCategoryText>
+	</rls-res-ext:RegulatoryLicenseSearchResult>
+</rls-res-doc:RegulatoryLicenseSearchResults>

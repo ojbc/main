@@ -525,7 +525,7 @@
 		</xsl:if>	
 		<xsl:if test="normalize-space(j:ChargeText) != ''">
 			<p><span class="smallLabel">Arrest Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
-		</xsl:if>	
+		</xsl:if>
 		<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
 			<p><span class="smallLabel">Arrest Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
 		</xsl:if>	
@@ -571,7 +571,20 @@
 				No sentencing information available.
 				<p/>
 			</xsl:otherwise>
-		</xsl:choose>	
+		</xsl:choose>		
+		
+		<p class="sectionTitle">CHARGE ALERT</p>
+			
+		<xsl:choose>
+			<xsl:when test="../../ch-ext:ChargeAlertDescriptionText">
+				<xsl:apply-templates select="../../ch-ext:ChargeAlertDescriptionText" mode="alert"/>
+			</xsl:when>
+			<xsl:otherwise>
+				No charge alert.
+				<p/>
+			</xsl:otherwise>
+		</xsl:choose>		
+			
 	</xsl:template>
 	
 	<xsl:template match="rap:Prosecution">
@@ -585,7 +598,7 @@
 	<xsl:template match="rap:ProsecutionCharge">
 		<xsl:param name="chargeCount"/>
 		<xsl:if test="$chargeCount &gt; 1">
-			<p><span class="detailsLabel">Probation Charge</span></p>
+			<p><span class="detailsLabel">Prosecution Charge</span></p>
 		</xsl:if>
 		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
 		<p><span class="smallLabel">Prosecution Charge Severity: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
@@ -616,7 +629,7 @@
 			</xsl:if>	
 			<xsl:if test="normalize-space(j:ChargeText) != ''">
 				<p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
-			</xsl:if>	
+			</xsl:if>							
 			<xsl:if test="normalize-space(j:ChargeSeverityText) != ''">
 				<p><span class="smallLabel">Charge Severity Text: </span> <xsl:value-of select="j:ChargeSeverityText" /></p>
 			</xsl:if>	
@@ -639,5 +652,11 @@
 		</xsl:if>
 		<br/>
 	</xsl:template>
- 
+	
+	<xsl:template match="ch-ext:ChargeAlertDescriptionText" mode="alert">
+				<p>
+					<xsl:value-of select="." />
+				</p>
+		<br />
+	</xsl:template>
 </xsl:stylesheet>

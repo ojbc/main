@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,7 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" targetNamespace="http://niem.gov/niem/appinfo/2.0" version="1">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://niem.gov/niem/appinfo/2.0" attributeFormDefault="qualified" version="1">
   <xsd:annotation>
     <xsd:documentation>The appinfo schema provides support for high level
     data model concepts and additional syntax to support the NIEM

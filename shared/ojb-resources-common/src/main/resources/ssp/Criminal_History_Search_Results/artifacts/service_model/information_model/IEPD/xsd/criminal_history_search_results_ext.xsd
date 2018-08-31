@@ -58,21 +58,27 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Restitution" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Statute" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityObligationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chsres-ext:DispositionSentenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsres-ext:SourceSystemNameText" minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
 					<xsd:element ref="chsres-ext:SearchResultCategoryText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DispositionSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a disposition and a sentence.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Sentence" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -87,9 +93,21 @@
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="FiledCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The charge associated with a disposition.
+			<xsd:documentation>The charge filed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AmendedCharge" type="j:ChargeType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The amended charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeDismissalReasonText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The reason a charge was dismissed.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -120,6 +138,11 @@
 			<xsd:documentation>A type of record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CourtCase" type="nc:CaseType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A disposition case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information
@@ -130,6 +153,18 @@
 	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is hidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionSentenceAssociation" type="chsres-ext:DispositionSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a disposition and a sentence.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
