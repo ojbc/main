@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="US-ASCII"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,12 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pqr-doc:PersonRecordRequest xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:p="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0 ../xsd/Person_Query_Request.xsd">
-	<pqr-doc:PersonRecordRequestIdentification>
-		<nc:IdentificationID>1234</nc:IdentificationID>
-		<nc:IdentificationSourceText>CJIS-Hawaii</nc:IdentificationSourceText>
-	</pqr-doc:PersonRecordRequestIdentification>
-</pqr-doc:PersonRecordRequest>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="http://niem.gov/niem/appinfo/2.0" uri="appinfo/2.0/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/appinfo/2.1" uri="appinfo/2.1/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/domains/jxdm/4.1" uri="domains/jxdm/4.1/jxdm.xsd"/>
+  <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem-core/2.0/niem-core.xsd"/>
+  <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="proxy/xsd/2.0/xsd.xsd"/>
+  <uri name="http://niem.gov/niem/structures/2.0" uri="structures/2.0/structures.xsd"/>
+</catalog>

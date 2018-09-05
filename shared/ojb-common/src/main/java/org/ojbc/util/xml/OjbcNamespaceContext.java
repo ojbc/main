@@ -907,7 +907,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_CA_CHARGE_DISPO_ERR_EXT ="https://isb.srv.courts-tc.ca.gov/CADRIP/ChargeDispositionErrorDocumentExtension";
 	public static final String NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT ="ca-cderr-ext";
+	
+	public static final String NS_DA_CHARGE_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0";
+	public static final String NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC ="da-chsearch-req-doc";
 
+	public static final String NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0";
+	public static final String NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="da-defdisposearch-req-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1793,6 +1799,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT, NS_CA_CHARGE_DISPO_ERR_EXT);
 		uriToPrefixMap.put(NS_CA_CHARGE_DISPO_ERR_EXT,NS_PREFIX_CA_CHARGE_DISPO_ERR_EXT );
 		
+		prefixToUriMap.put(NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC, NS_DA_CHARGE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DA_CHARGE_SEARCH_REQUEST_DOC,NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC,NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC );
+
 	}
 
 	@Override

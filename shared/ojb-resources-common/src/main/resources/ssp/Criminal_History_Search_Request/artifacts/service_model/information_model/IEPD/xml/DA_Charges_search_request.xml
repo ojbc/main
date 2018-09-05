@@ -17,9 +17,9 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<mcreq-doc:DAChargesSearchRequest
+<da-chsearch-req-doc:DAChargesSearchRequest
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0 ../xsd/DA_Charges_search_request.xsd"
-	structures:metadata="SM003" xmlns:mcreq-doc="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
+	structures:metadata="SM003" xmlns:da-chsearch-req-doc="http://ojbc.org/IEPD/Exchange/DAChargesSearchRequest/1.0"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -72,4 +72,4 @@
 		<chsreq-ext:SearchRequestOnBehalfOfText>John Doe</chsreq-ext:SearchRequestOnBehalfOfText>
 		<chsreq-ext:SearchPurposeText>Criminal Justice</chsreq-ext:SearchPurposeText>
 	</chsreq-ext:SearchMetadata>
-</mcreq-doc:DAChargesSearchRequest>
+</da-chsearch-req-doc:DAChargesSearchRequest>

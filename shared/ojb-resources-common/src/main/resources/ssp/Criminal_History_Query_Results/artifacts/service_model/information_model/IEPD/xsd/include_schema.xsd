@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -17,12 +16,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pqr-doc:PersonRecordRequest xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:p="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0 ../xsd/Person_Query_Request.xsd">
-	<pqr-doc:PersonRecordRequestIdentification>
-		<nc:IdentificationID>1234</nc:IdentificationID>
-		<nc:IdentificationSourceText>CJIS-Hawaii</nc:IdentificationSourceText>
-	</pqr-doc:PersonRecordRequestIdentification>
-</pqr-doc:PersonRecordRequest>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' 
+           xmlns:tns='http://www.w3.org/2004/08/xop/include' 
+           targetNamespace='http://www.w3.org/2004/08/xop/include' >
+  <xs:element name='Include' type='tns:Include' />
+  <xs:complexType name='Include' >
+	<xs:sequence>
+	  <xs:any namespace='##other' minOccurs='0' maxOccurs='unbounded' />
+	</xs:sequence>
+	<xs:attribute name='href' type='xs:anyURI' use='required' />
+	<xs:anyAttribute namespace='##other' />
+  </xs:complexType>
+</xs:schema>

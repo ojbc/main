@@ -25,4 +25,6 @@
 		<nc:IdentificationID>1234</nc:IdentificationID>
 		<nc:IdentificationSourceText>CJIS-Hawaii</nc:IdentificationSourceText>
 	</pqr-doc:PersonRecordRequestIdentification>
+	<pqr-doc:CivilPurposeRequestIndicator>true</pqr-doc:CivilPurposeRequestIndicator>
+	<pqr-doc:TextRapSheetRequestIndicator>true</pqr-doc:TextRapSheetRequestIndicator>
 </pqr-doc:PersonRecordRequest>
