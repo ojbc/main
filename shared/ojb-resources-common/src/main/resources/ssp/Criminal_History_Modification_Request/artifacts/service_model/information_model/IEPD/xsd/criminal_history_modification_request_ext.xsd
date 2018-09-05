@@ -148,4 +148,49 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeStatusCode" type="chm-req-ext:ChargeStatusCodeType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the Charge Status.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the Charge Status.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ChargeStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="chm-req-ext:StatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="DispositionStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="chm-req-ext:StatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="StatusCodeSimpleType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="New">
+				<xsd:annotation>
+					<xsd:documentation>New</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Modified">
+				<xsd:annotation>
+					<xsd:documentation>Modified</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Unchanged">
+				<xsd:annotation>
+					<xsd:documentation>Unchanged</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
