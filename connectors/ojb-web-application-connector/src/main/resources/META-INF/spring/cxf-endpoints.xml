@@ -168,6 +168,10 @@
 		<camel:endpoint id="personQueryWildlifeLicenseResultsServiceEndpoint"
 			uri="cxf:bean:personQueryWildlifeLicenseResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
+	    <!-- Arrest Search Results Handler-->
+    <camel:endpoint id="arrestSearchResultsHandlerServiceEndpoint"
+      uri="cxf:bean:arrestSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
 	
@@ -741,6 +745,25 @@
  			</policy:policies> 
  		</cxf:features>	 
 	</cxf:cxfEndpoint>	
+
+  <!-- Arrest Search Result handler, hosted by Web Application -->
+  <cxf:cxfEndpoint id="arrestSearchResultsHandlerService"
+    address="${webapplication.arrestSearch.arrestSearchResultsHandlerEndpoint}"
+    wsdlURL="ssp/Criminal_History_Search_Results/schema/SIP_WS_1.2/Criminal_History_Search_Results_Service.wsdl"
+    serviceName="ojbc:Criminal_History_Search_Results_Service_Service"
+    endpointName="ojbc:Criminal_History_Search_Results_Secure_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistorySearchResultsService/1.0">
+    <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy />
+          </wsam:Addressing>
+        </wsp:Policy>
+      </policy:policies>
+    </cxf:features>
+  </cxf:cxfEndpoint>      
+       
        	
 	<util:properties id="portalKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>

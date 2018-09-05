@@ -14,9 +14,10 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.processor.arrest;
+package org.ojbc.processor.arrest.search;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -29,7 +30,6 @@ import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
-import org.ojbc.web.portal.arrest.ArrestService;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -110,7 +110,7 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 	}
 
 
-	public void setRapbackSearchMessageProcessor(
+	public void setArrestSearchMessageProcessor(
 			MessageProcessor arrestSearchMessageProcessor) {
 		this.arrestSearchMessageProcessor = arrestSearchMessageProcessor;
 	}

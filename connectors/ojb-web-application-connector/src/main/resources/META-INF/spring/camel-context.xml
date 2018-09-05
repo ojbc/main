@@ -304,11 +304,24 @@
 	    	<camel:log message="Received response message - Rap Back Search Response: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
-			<camel:to uri="bean:rapbackSearchMessageProcessor?method=processRequestPayload" />
+			  <camel:to uri="bean:rapbackSearchMessageProcessor?method=processRequestPayload" />
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	
-			<camel:to uri="bean:rapbackSearchRequestProcessor?method=updateMapWithResponse"/>
+			  <camel:to uri="bean:rapbackSearchRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>	    
+	    
+	    <!--Arrest Search Result Listener -->
+	    <camel:route id="arrestSearchResultsHandlerRoute" autoStartup="false">
+	    	<from uri="arrestSearchResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Arrest Search Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			  <camel:to uri="bean:arrestSearchMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			  <camel:to uri="bean:arrestSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
 	    <!--Identification Results Query Result Listener -->
