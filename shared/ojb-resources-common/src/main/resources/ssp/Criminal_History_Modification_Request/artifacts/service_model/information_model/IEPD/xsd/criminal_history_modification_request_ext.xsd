@@ -154,6 +154,20 @@
 			<xsd:documentation>A code for the Charge Status.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargePrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestPrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for an arrest.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>

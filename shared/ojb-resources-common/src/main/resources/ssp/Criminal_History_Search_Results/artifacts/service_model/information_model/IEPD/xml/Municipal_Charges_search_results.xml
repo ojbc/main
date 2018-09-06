@@ -58,6 +58,9 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargePrimarySystemIdentification>
+					<nc:IdentificationID>C4567893</nc:IdentificationID>
+				</chsres-ext:ChargePrimarySystemIdentification>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -69,6 +72,9 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargePrimarySystemIdentification>
+					<nc:IdentificationID>C13245</nc:IdentificationID>
+				</chsres-ext:ChargePrimarySystemIdentification>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
@@ -76,6 +82,9 @@
 			<chsres-ext:ArrestHideDate>
 				<nc:Date>2018-06-02</nc:Date>
 			</chsres-ext:ArrestHideDate>
+			<chsres-ext:ArrestPrimarySystemIdentification>
+				<nc:IdentificationID>A3245667</nc:IdentificationID>
+			</chsres-ext:ArrestPrimarySystemIdentification>
 		</j:Arrest>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

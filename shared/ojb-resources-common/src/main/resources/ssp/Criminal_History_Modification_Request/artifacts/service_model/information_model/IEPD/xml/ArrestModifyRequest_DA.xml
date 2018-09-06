@@ -79,6 +79,9 @@
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
+			<chm-req-ext:ChargePrimarySystemIdentification>
+				<nc:IdentificationID>C4567893</nc:IdentificationID>
+			</chm-req-ext:ChargePrimarySystemIdentification>
 		</j:ArrestCharge>
 		<j:ArrestCharge>
 			<j:ChargeDisposition>
@@ -130,7 +133,13 @@
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
+	<chm-req-ext:ChargePrimarySystemIdentification>
+		<nc:IdentificationID>C13245</nc:IdentificationID>
+	</chm-req-ext:ChargePrimarySystemIdentification>
 		</j:ArrestCharge>
+		<chm-req-ext:ArrestPrimarySystemIdentification>
+			<nc:IdentificationID>A3245667</nc:IdentificationID>
+		</chm-req-ext:ArrestPrimarySystemIdentification>
 	</j:Arrest>
 	<j:Restitution structures:id="restitution_01">
 		<nc:ObligationDueAmount>
