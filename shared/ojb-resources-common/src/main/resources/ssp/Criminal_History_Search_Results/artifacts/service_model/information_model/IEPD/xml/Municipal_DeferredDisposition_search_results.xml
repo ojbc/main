@@ -103,6 +103,9 @@
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
 				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
+				<chsres-ext:ChargePrimarySystemIdentification>
+					<nc:IdentificationID>C4567893</nc:IdentificationID>
+				</chsres-ext:ChargePrimarySystemIdentification>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -149,6 +152,9 @@
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
 				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
+				<chsres-ext:ChargePrimarySystemIdentification>
+					<nc:IdentificationID>C13245</nc:IdentificationID>
+				</chsres-ext:ChargePrimarySystemIdentification>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
@@ -156,6 +162,9 @@
 			<chsres-ext:ArrestHideDate>
 				<nc:Date>2018-06-02</nc:Date>
 			</chsres-ext:ArrestHideDate>
+			<chsres-ext:ArrestPrimarySystemIdentification>
+				<nc:IdentificationID>A3245667</nc:IdentificationID>
+			</chsres-ext:ArrestPrimarySystemIdentification>
 		</j:Arrest>
 		<j:ActivityObligationAssociation>
 			<nc:Activity structures:ref="Sentence_01" />
