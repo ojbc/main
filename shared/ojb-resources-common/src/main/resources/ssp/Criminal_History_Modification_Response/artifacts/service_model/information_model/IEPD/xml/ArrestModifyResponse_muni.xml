@@ -18,14 +18,38 @@
 
 -->
 <chm-resp-doc:CriminalHistoryModificationResponse
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../xsd/criminal_history_modification_response.xsd"
+	xmlns:chm-rep="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequestErrorReporting/1.0"
 	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
 	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:irm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:chm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../xsd/criminal_history_modification_response.xsd">
 	<chm-resp-ext:ModificationResponseMessage>
-		<chm-resp-ext:ArrestModifyResponseText>ARREST MODIFIED SUCCESSFULLY</chm-resp-ext:ArrestModifyResponseText>
+		<chm-resp-ext:ArrestModifyResponseText>ARREST MODIFICATION SUCCESSFULLY</chm-resp-ext:ArrestModifyResponseText>
+		<j:Arrest>
+			<j:ArrestCharge>
+				<j:ChargeDisposition>
+					<chm-resp-ext:DispositionIdentification>
+						<nc:IdentificationID>D3456</nc:IdentificationID>
+					</chm-resp-ext:DispositionIdentification>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C5678</nc:IdentificationID>
+				</j:ChargeIdentification>
+			</j:ArrestCharge>
+			<j:ArrestCharge>
+				<j:ChargeDisposition>
+					<chm-resp-ext:DispositionIdentification>
+						<nc:IdentificationID>D96487</nc:IdentificationID>
+					</chm-resp-ext:DispositionIdentification>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C4786</nc:IdentificationID>
+				</j:ChargeIdentification>
+			</j:ArrestCharge>
+		</j:Arrest>
 	</chm-resp-ext:ModificationResponseMessage>
-	<nc:SystemName>System_Name</nc:SystemName>
+	<nc:SystemName>nc:SystemName</nc:SystemName>
 </chm-resp-doc:CriminalHistoryModificationResponse>

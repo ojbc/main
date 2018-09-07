@@ -21,24 +21,29 @@
 	xmlns:rls-res-doc="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchResults/1.0"
 	xmlns:rls-res-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchResults/1.0"
 	xmlns:qrer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
-	xmlns:qrm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:mbsc="http://www.sauper.com/MBCSOnlineServices"
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:mbsc="http://www.sauper.com/MSBIOnlineServices"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" exclude-result-prefixes="soap mbsc">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
-	<xsl:template match="/soap:Envelope/soap:Body/mbsc:FindLicenseInformationResponse">
+	<xsl:variable name="systemID" select="'S12345'" />
+	<xsl:variable name="searchResultCategory" select="'category'" />
+	<xsl:template match="/mbsc:FindLicenseInformationResponse">
 		<rls-res-doc:RegulatoryLicenseSearchResults>
 			<xsl:apply-templates select="mbsc:LicenseInfoResult" />
 		</rls-res-doc:RegulatoryLicenseSearchResults>
 	</xsl:template>
 	<xsl:template match="mbsc:LicenseInfoResult">
+
 		<xsl:choose>
 			<xsl:when test="./mbsc:Messages/mbsc:string !=''">
 				<xsl:apply-templates select="mbsc:Messages" />
 			</xsl:when>
 			<xsl:otherwise>
+			<rls-res-ext:RegulatoryLicenseSearchResult>
 				<xsl:apply-templates select="mbsc:LicenseInfos" />
+				</rls-res-ext:RegulatoryLicenseSearchResult>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -80,6 +85,7 @@
 			<xsl:apply-templates select="mbsc:CaseID[.!='']" />
 			<xsl:apply-templates select="." mode="dates" />
 			<xsl:apply-templates select="mbsc:ResolutionInfos" />
+					</nc:Case>
 			<xsl:apply-templates select="//mbsc:LicenseInfo" mode="residence" />
 			<xsl:call-template name="System" />
 		</nc:Case>
