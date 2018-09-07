@@ -167,4 +167,18 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargePrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestPrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for an arrest.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
