@@ -28,7 +28,7 @@
                                             xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
                                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                             xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchResults/1.0 ../xsd/regulatory_license_search_results.xsd">
-   <rls-res-doc:RegulatoryLicenseSearchResult>
+   <rls-res-ext:RegulatoryLicenseSearchResult>
       <rls-res-ext:RegulatoryLicense>
          <rls-res-ext:RegulatoryLicenseIdentification>
             <nc:IdentificationID>string</nc:IdentificationID>
@@ -45,7 +45,7 @@
          <rls-res-ext:RegulatoryLicenseExpirationDate>
             <nc:Date>2001-01-01</nc:Date>
          </rls-res-ext:RegulatoryLicenseExpirationDate>
-         <rls-res-ext:RegulatoryLicensePerson structures:id="d1e18"/>
+         <rls-res-ext:RegulatoryLicensePerson structures:id="Person_01"/>
          <rls-res-ext:PersonLicenseeID>
             <nc:IdentificationID>string</nc:IdentificationID>
          </rls-res-ext:PersonLicenseeID>
@@ -55,7 +55,7 @@
          </rls-res-ext:RegulatoryLicenseStatus>
          <rls-res-ext:CurrentlyAuthorizedToPracticeIndicator>false</rls-res-ext:CurrentlyAuthorizedToPracticeIndicator>
       </rls-res-ext:RegulatoryLicense>
-      <nc:Person structures:id="d1e18">
+      <nc:Person structures:id="Person_01">
          <nc:PersonBirthDate>
             <nc:Date>2001-01-01</nc:Date>
          </nc:PersonBirthDate>
@@ -75,7 +75,7 @@
                </nc:LocationStreet>
                <nc:LocationCityName>string</nc:LocationCityName>
                <nc:LocationState>
-                  <nc:LocationStateUSPostalServiceCode>string</nc:LocationStateUSPostalServiceCode>
+                  <nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
                </nc:LocationState>
                <nc:LocationCountry>
                   <nc:LocationCountryName>string</nc:LocationCountryName>
@@ -94,7 +94,7 @@
             </nc:LocationStreet>
             <nc:LocationCityName>string</nc:LocationCityName>
             <nc:LocationState>
-               <nc:LocationStateUSPostalServiceCode>string</nc:LocationStateUSPostalServiceCode>
+               <nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
             </nc:LocationState>
             <nc:LocationCountry>
                <nc:LocationCountryName>string</nc:LocationCountryName>
@@ -236,5 +236,5 @@
          </intel:SystemIdentification>
          <rls-res-ext:SearchResultCategoryText>category</rls-res-ext:SearchResultCategoryText>
       </nc:Case>
-   </rls-res-doc:RegulatoryLicenseSearchResult>
+   </rls-res-ext:RegulatoryLicenseSearchResult>
 </rls-res-doc:RegulatoryLicenseSearchResults>
