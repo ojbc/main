@@ -418,7 +418,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		jdbcTemplate.update("DELETE FROM CustodyStatusChangeCharge  "
 				+ "WHERE CustodyStatusChangeArrestID IN "
 				+ "	(SELECT csca.CustodyStatusChangeArrestID from CustodyStatusChangeArrest csca "
-				+ " 	RIGHT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
+				+ " 	LEFT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
 				+ "		WHERE csc.bookingID = ? )", bookingId); 
 				
 		jdbcTemplate.update("DELETE FROM CustodyStatusChangeArrest "
@@ -429,14 +429,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
 				+ "WHERE BehavioralHealthAssessmentID IN "
 				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
-				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
 				+ "WHERE BehavioralHealthAssessmentID IN "
 				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
-				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
