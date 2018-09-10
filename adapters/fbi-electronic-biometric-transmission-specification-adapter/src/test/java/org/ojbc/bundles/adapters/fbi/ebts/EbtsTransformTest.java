@@ -77,6 +77,24 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
 	
+	@Test
+	public void newIdentityHistorySummaryRequestTestEbtsTransform() throws Exception{
+								
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Identity_History_Summary_Request.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/FBI_Identity_History_Summary_Request.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();	
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-FBI_Identity_History_Summary_Request.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);					
+	}
 
 
 	@Test
