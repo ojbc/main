@@ -119,12 +119,13 @@
 		<camel:route id="fbiEbtsProcessingRoute">
 		
 			<camel:from uri="direct:processFbiEbtsRequest"/>	
-			
+
+			<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />	
+
 			<camel:choice>
 			  <camel:when>
-			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
-			  	<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />	
-			  	
+			    <simple>${header.operationName} == 'Subscribe'</simple>			  	
+
 			  	<!-- Received criminal or civil subscription -->
 				<camel:choice>
 					<camel:when>
@@ -151,6 +152,12 @@
 						<camel:stop/>
 					</camel:otherwise>			
 				</camel:choice>
+			  </camel:when>
+			</camel:choice>  
+			
+			<camel:choice>
+			  <camel:when>
+			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
 				
 			  	<to uri="direct:processOperation"/>
 			  </camel:when>
