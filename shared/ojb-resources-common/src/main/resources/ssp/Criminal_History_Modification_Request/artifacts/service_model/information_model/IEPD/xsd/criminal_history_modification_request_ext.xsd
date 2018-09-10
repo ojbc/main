@@ -132,7 +132,7 @@
 	</xsd:element>
 	<xsd:element name="ChargeMunicipalCodeDescriptionText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A code descriptionfor a municipal charge.
+			<xsd:documentation>A code description for a municipal charge.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

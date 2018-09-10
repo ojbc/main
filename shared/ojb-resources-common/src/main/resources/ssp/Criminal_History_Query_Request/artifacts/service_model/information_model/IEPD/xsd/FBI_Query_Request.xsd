@@ -24,11 +24,17 @@
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="NIEM_2.1/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:complexType name="FBIRecordRequestType">
 		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" ref="fqr-doc:PersonRecordRequestIdentification" />
 			<xsd:element maxOccurs="1" minOccurs="1" ref="j:Person" />
 			<xsd:element maxOccurs="1" minOccurs="1" ref="fqr-doc:RapBackSubscriptionIdentification" />
 			<xsd:element maxOccurs="1" minOccurs="1" ref="fqr-doc:RapBackActivityNotificationIdentification" />
 		</xsd:sequence>
 	</xsd:complexType>
+	<xsd:element name="PersonRecordRequestIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification of a person record request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="FBIRecordRequest" type="fqr-doc:FBIRecordRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A request for a person record from the FBI.</xsd:documentation>
