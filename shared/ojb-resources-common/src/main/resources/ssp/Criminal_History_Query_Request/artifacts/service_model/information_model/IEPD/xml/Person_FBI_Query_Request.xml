@@ -22,6 +22,10 @@
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0 ../xsd/FBI_Query_Request.xsd">
+	<fqr-doc:PersonRecordRequestIdentification>
+		<nc:IdentificationID>1234</nc:IdentificationID>
+		<nc:IdentificationSourceText>CJIS-Hawaii</nc:IdentificationSourceText>
+	</fqr-doc:PersonRecordRequestIdentification>
 	<j:Person>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
