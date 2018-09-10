@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<nistbio:NISTBiometricInformationExchangePackage
+	xmlns:nistbio="http://biometrics.nist.gov/standard/2011" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nbio="http://niem.gov/niem/biometrics/1.0"
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+	<nistbio:PackageInformationRecord>
+		<nbio:RecordCategoryCode>01</nbio:RecordCategoryCode>
+      <nbio:Transaction>
+         <nbio:TransactionDate>
+            <nc:Date>2015-07-14</nc:Date>
+         </nbio:TransactionDate>
+         <nbio:TransactionDestinationOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>WVIAFIS0Z</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nbio:TransactionDestinationOrganization>
+         <nbio:TransactionOriginatingOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>HI002595Y</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nbio:TransactionOriginatingOrganization>
+         <nbio:TransactionControlIdentification>
+            <nc:IdentificationID>9876500000</nc:IdentificationID>
+         </nbio:TransactionControlIdentification>
+         <nbio:TransactionDomain>
+            <nbio:DomainVersionNumberIdentification>
+               <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+            </nbio:DomainVersionNumberIdentification>
+            <nbio:TransactionDomainName>NORAM</nbio:TransactionDomainName>
+         </nbio:TransactionDomain>
+         <nbio:TransactionImageResolutionDetails>
+            <nbio:NativeScanningResolutionValue>00.00</nbio:NativeScanningResolutionValue>
+            <nbio:NominalTransmittingResolutionValue>00.00</nbio:NominalTransmittingResolutionValue>
+         </nbio:TransactionImageResolutionDetails>
+         <nbio:TransactionMajorVersionValue>05</nbio:TransactionMajorVersionValue>
+         <nbio:TransactionMinorVersionValue>00</nbio:TransactionMinorVersionValue>
+			<ebts:TransactionCategoryCode>RBIHS</ebts:TransactionCategoryCode>
+         <nbio:TransactionContentSummary>
+            <nbio:ContentFirstRecordCategoryCode>1</nbio:ContentFirstRecordCategoryCode>
+            <nbio:ContentRecordQuantity></nbio:ContentRecordQuantity>
+            <nbio:ContentRecordSummary>
+					<nbio:ImageReferenceIdentification>
+						<nc:IdentificationID>00</nc:IdentificationID>
+					</nbio:ImageReferenceIdentification>
+					<nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+				</nbio:ContentRecordSummary>
+			</nbio:TransactionContentSummary>
+		</nbio:Transaction>
+	</nistbio:PackageInformationRecord>
+	<nistbio:PackageDescriptiveTextRecord>
+		<nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+		<nbio:ImageReferenceIdentification>
+			<nc:IdentificationID>00</nc:IdentificationID>
+		</nbio:ImageReferenceIdentification>
+		<nistbio:UserDefinedDescriptiveDetail>
+			<ebts:DomainDefinedDescriptiveFields>
+				<nbio:RecordForwardOrganizations>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>HI002595Y</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</nbio:RecordForwardOrganizations>
+				<ebts:RecordRapBackData>
+					<ebts:RecordRapBackActivityNotificationID>RA1234567</ebts:RecordRapBackActivityNotificationID>
+					<ebts:RecordRapBackSubscriptionID>RS12345</ebts:RecordRapBackSubscriptionID>
+				</ebts:RecordRapBackData>
+				<ebts:RecordTransactionActivity>
+					<ebts:RecordControllingAgency>
+						<nc:OrganizationIdentification>
+							<nc:IdentificationID />
+						</nc:OrganizationIdentification>
+					</ebts:RecordControllingAgency>
+				</ebts:RecordTransactionActivity>
+				<ebts:RecordSubject>
+					<j:PersonFBIIdentification>
+						<nc:IdentificationID>FBI1234567</nc:IdentificationID>
+					</j:PersonFBIIdentification>
+				</ebts:RecordSubject>
+			</ebts:DomainDefinedDescriptiveFields>
+		</nistbio:UserDefinedDescriptiveDetail>
+	</nistbio:PackageDescriptiveTextRecord>
+</nistbio:NISTBiometricInformationExchangePackage>
