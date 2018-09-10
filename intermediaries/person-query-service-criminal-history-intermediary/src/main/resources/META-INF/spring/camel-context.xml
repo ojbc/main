@@ -26,6 +26,10 @@
        xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0"
+       xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+       xmlns:pqr-doc="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
+       xmlns:fqr-doc="http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0"
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -109,6 +113,23 @@
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
 			<camel:setHeader headerName="operationName"><constant>SubmitCriminalHistoryQueryRequest</constant></camel:setHeader>
+			
+			<camel:filter>
+				<camel:xpath>/pqr-doc:PersonRecordRequest</camel:xpath>
+				
+           		<camel:setHeader headerName="operationName">
+           			<constant>SubmitCriminalHistoryQueryRequest</constant>
+           		</camel:setHeader>
+       		</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
+				
+           		<camel:setHeader headerName="operationName">
+           			<constant>SubmitFBICriminalHistoryQueryRequest</constant>
+           		</camel:setHeader>
+       		</camel:filter>			
+			
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
@@ -242,9 +263,23 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-            		<camel:setHeader headerName="operationName">
-            			<constant>SubmitCriminalHistoryQueryResults</constant>
-            		</camel:setHeader>
+					<camel:filter>
+						<camel:xpath>/ch-doc:CriminalHistory</camel:xpath>
+						
+	            		<camel:setHeader headerName="operationName">
+	            			<constant>SubmitCriminalHistoryQueryResults</constant>
+	            		</camel:setHeader>
+	        		</camel:filter>
+
+					<camel:filter>
+						<camel:xpath>/cht-doc:CriminalHistoryTextDocument</camel:xpath>
+						
+	            		<camel:setHeader headerName="operationName">
+	            			<constant>SubmitCriminalHistoryTextDocument</constant>
+	            		</camel:setHeader>
+	        		</camel:filter>
+
+	        		
 	        		<camel:setHeader headerName="operationNamespace">
 	        			<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
 	        		</camel:setHeader>
