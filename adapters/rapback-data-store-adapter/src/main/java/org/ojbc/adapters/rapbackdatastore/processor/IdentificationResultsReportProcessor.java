@@ -43,6 +43,7 @@ import org.w3c.dom.Node;
 public class IdentificationResultsReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
+	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
 
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
@@ -71,7 +72,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		String transactionCategoryText = XmlUtils.xPathStringSearch(report, "/pidresults:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText|"
 				+ "/pidresults:PersonStateIdentificationResults/ident-ext:TransactionCategoryText");
-		if (CRIMINAL_SID_TO_HIJIS.equals(transactionCategoryText)){
+		if (CRIMINAL_SID_TO_HIJIS.equals(transactionCategoryText) || CIVIL_SID_TO_HIJIS.equals(transactionCategoryText)){
 			return; 
 		}
 		
