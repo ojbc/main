@@ -111,10 +111,10 @@
 	// listener for click on any editSubscriptionLink button
 	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
 		var editMvcUrl = encodeURI(this);
-			 	    		    			
+		var dlgHeight = $(window).height() * .9;	 	    		    			
   		$.get(editMvcUrl, 
   			function(data){			  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
     			 vSubDialog.dialog({                    
 		                position: {
                            my: "left top",
@@ -123,8 +123,8 @@
 		                },
 		                modal:true,
 				        maxWidth:480,
-				        maxHeight:580,
-				        resizable:false,
+				        maxHeight:dlgHeight,
+						resizable:false,
 				        open:function(event,ui){
 				        	$('#editSubscriptionDialog').html(data);
 				        },
@@ -132,7 +132,7 @@
 				        	$(this).dialog("close");
 				        	$('#editSubscriptionDialog').remove();
 				        }    	                                  
-                    }); 			  						  				  				
+                    }).css({height:"auto", overflow:"auto"}); 			  						  				  				
   			}
   		).fail(ojbc.displayFailMessage);	
   		
@@ -145,6 +145,7 @@
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
 		// are used by the html in the modal velocity template file
+		var dlgHeight = $(window).height() * .9;
   		$.post("#springUrl('/subscriptions/addSubscription')", 
   			function(data){			  			
   							  			
@@ -158,8 +159,8 @@
 		                },
 		                modal:true,
 				        maxWidth:480,
-				        maxHeight:550,
-				        resizable:true,
+				        maxHeight:dlgHeight,
+				        resizable:false,
 				        open:function(event,ui){							        							        	
 				        	$('#addSubscriptionDialog').html(data);
 				        	$('#modalIframeSpinner').hide();
@@ -168,7 +169,7 @@
 				        	$(this).dialog("close");
 				        	$('#addSubscriptionDialog').remove();
 				        }    	                                  
-                    }); 			  						  				  				
+                    }).css({height:"auto", overflow:"auto"});; 			  						  				  				
   			}
   		).fail(ojbc.displayFailMessage);
   		return false;			  					  		                                                      

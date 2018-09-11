@@ -225,6 +225,9 @@
 	  		).fail(ojbc.displayFailMessage);				
 		}else if(subTypeTxt === 'Rapback'){						
 			$(".ui-dialog").width("480");
+			$("#subFormDiv").height("auto");
+			$(".ui-dialog").height("auto");
+
 			$("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
 	  		$.post("#springUrl('/subscriptions/rapbackForm')", 
 	  			function(data){		  			
