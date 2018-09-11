@@ -619,6 +619,37 @@ public class TestIdentficationRecordingAndResponse {
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("100A00720180726080727295739");
 		assertThat(identificationTransaction, nullValue());
 	}
+	
+	@Test
+	public void civilSidToHijisResultServiceSuccess() throws Exception
+	{
+		identificationReportingResponseService.reset();
+		
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_civil_sid_to_hijis.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResponseService.expectedMessageCount(1);
+		
+		identificationReportingResponseService.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/civil_sid_to_hijis_report_success_response.xml");
+		
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("100A00720180726080727295739");
+		assertThat(identificationTransaction, nullValue());
+	}
 	@Test
 	@DirtiesContext
 	public void testIgnoreCriminalRecordingRequest() throws Exception
