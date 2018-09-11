@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
@@ -276,6 +277,38 @@ public class EnhancedAuditDaoTest {
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		
+	}
+	
+	
+
+	@Test
+	public void testFederalRapbackIdentityHistoryMethods() throws Exception
+	{
+
+		FederalRapbackIdentityHistory federalRapbackIdentityHistory = new FederalRapbackIdentityHistory();
+		
+		federalRapbackIdentityHistory.setFbiNotificationId("notificationid1");
+		federalRapbackIdentityHistory.setFbiSubscriptionId("subscription1");
+		federalRapbackIdentityHistory.setPathToRequestile("c:/pathToRequestFile");
+		federalRapbackIdentityHistory.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackIdentityHistory.setTransactionCategoryCodeRequest("transcodetext");
+		federalRapbackIdentityHistory.setTransactionStatusText("transstatustext");
+		federalRapbackIdentityHistory.setTransactionType("RBIH");
+		federalRapbackIdentityHistory.setUcn("UCN1");
+		federalRapbackIdentityHistory.setTransactionControlReferenceIdentification("tcri");
+		
+		Integer federalRapbackIdentityHistoryPk = enhancedAuditDao.saveFederalRapbackIdentityHistory(federalRapbackIdentityHistory);
+		assertNotNull(federalRapbackIdentityHistoryPk);
+		
+		FederalRapbackIdentityHistory frihUpdate = new FederalRapbackIdentityHistory();
+		
+		frihUpdate.setTransactionControlReferenceIdentification("tcri");
+		frihUpdate.setResponseReceivedTimestamp(LocalDateTime.now());
+		frihUpdate.setTransactionCategoryCodeResponse("RBIHS");
+		
+		enhancedAuditDao.updateFederalRapbackIdentityHistoryWithResponse(frihUpdate);
+		
+		log.info("update complete");
 	}
 	
 	@Test
