@@ -112,9 +112,9 @@
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeDismissalReasonText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The reason a charge was dismissed.
+			<xsd:documentation>The reason a disposition was dismissed.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
