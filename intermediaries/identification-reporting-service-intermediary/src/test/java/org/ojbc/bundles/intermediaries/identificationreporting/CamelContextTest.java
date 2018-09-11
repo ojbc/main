@@ -284,6 +284,51 @@ public class CamelContextTest {
 	
 	@Test
 	@DirtiesContext
+	public void testArrestReportingContextRoutesWithCivilSidToHijisMessage() throws Exception
+	{
+		identificationRecordingServiceMock.reset(); 
+		identificationRecordingServiceMock.expectedMessageCount(1);
+		arrestReportingServiceMock.reset(); 
+		arrestReportingServiceMock.expectedMessageCount(1);
+		
+		//Create a new exchange
+		Exchange senderExchange = new DefaultExchange(context);
+		
+		//Test the entire web service route by sending through an Identification Report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+		
+		//Read the Identification report file from the file system
+		File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_civil_sid_to_hijis.xml");
+		String inputStr = FileUtils.readFileToString(inputFile);
+		
+		assertNotNull(inputStr);
+		
+		senderExchange.getIn().setHeader("operationName", "ReportPersonStateIdentificationResults");
+		//Set it as the message message body
+		senderExchange.getIn().setBody(inputStr);
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:IdentificationReportingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationRecordingServiceMock.assertIsSatisfied();
+		Exchange receivedExchange = identificationRecordingServiceMock.getExchanges().get(0);
+		String body = receivedExchange.getIn().getBody(String.class);
+		assertEquals(inputStr, body);
+		
+		arrestReportingServiceMock.assertIsSatisfied();
+	}
+	
+	@Test
+	@DirtiesContext
 	public void testReportingResponseRoute() throws Exception
 	{
 		identificationRecordingResponseRecipientMock.expectedMessageCount(1);
