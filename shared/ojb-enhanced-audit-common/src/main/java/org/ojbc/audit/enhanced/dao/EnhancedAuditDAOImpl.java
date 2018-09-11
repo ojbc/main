@@ -32,6 +32,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
@@ -745,6 +746,26 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		namedParameterJdbcTemplate.update(FEDERAL_SUBSCRIPTION_UPDATE, paramMap);
 
 	}
+	
+	@Override
+	public void updateFederalRapbackIdentityHistoryWithResponse(
+			FederalRapbackIdentityHistory federalRapbackIdentityHistory)
+			throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		
+		final String FEDERAL_RAPBACK_IDENTITY_HISTORY_UPDATE="UPDATE FEDERAL_RAPBACK_IDENTITY_HISTORY SET "
+				+ "TRANSACTION_CATEGORY_CODE_RESPONSE = :transactionCategoryCodeResponse, "
+				+ "RESPONSE_RECIEVED_TIMESTAMP = :responseRecievedTimestamp "
+				+ "WHERE TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION = :transactionControlReferenceIdentification";
+
+		paramMap.put("transactionCategoryCodeResponse", federalRapbackIdentityHistory.getTransactionCategoryCodeResponse()); 
+		paramMap.put("responseRecievedTimestamp", convertToDatabaseColumn(federalRapbackIdentityHistory.getResponseReceivedTimestamp())); 
+		paramMap.put("transactionControlReferenceIdentification", federalRapbackIdentityHistory.getTransactionControlReferenceIdentification());
+		
+		namedParameterJdbcTemplate.update(FEDERAL_RAPBACK_IDENTITY_HISTORY_UPDATE, paramMap);
+		
+	}	
 
 	@Override
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(
@@ -1065,6 +1086,40 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}	
+	
+
+	@Override
+	public Integer saveFederalRapbackIdentityHistory(
+			FederalRapbackIdentityHistory federalRapbackIdentityHistory) {
+		log.debug("Inserting row into FEDERAL_RAPBACK_NOTIFICATION table : " + federalRapbackIdentityHistory.toString());
+		
+        final String FEDERAL_RAPBACK_IDENTITY_HISTORY_INSERT="INSERT into FEDERAL_RAPBACK_IDENTITY_HISTORY "
+        		+ "(TRANSACTION_CATEGORY_CODE_REQUEST, REQUEST_SENT_TIMESTAMP, TRANSACTION_STATUS_TEXT, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE, "
+        		+ "RAPBACK_NOTIFICATION_ID, FBI_SUBSCRIPTION_ID, UCN) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FEDERAL_RAPBACK_IDENTITY_HISTORY_INSERT, new String[] {"FEDERAL_RAPBACK_IDENTITY_HISTORY_ID"});
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionCategoryCodeRequest(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getRequestSentTimestamp(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionStatusText(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionControlReferenceIdentification(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getPathToRequestile(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getFbiNotificationId(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getFbiSubscriptionId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getUcn(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
 	
 	@Override
 	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId,
@@ -1452,6 +1507,5 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
-
 
 }
