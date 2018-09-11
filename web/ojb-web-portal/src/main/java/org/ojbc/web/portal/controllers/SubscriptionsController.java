@@ -1472,6 +1472,9 @@ public class SubscriptionsController {
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
 	public Map<String, String> getTopicValueToLabelMap() {
+		if (subscriptionTypeValueToLabelMap != null && subscriptionTypeValueToLabelMap.size() == 2){
+			subscriptionTypeValueToLabelMap.remove("");
+		}
 		return subscriptionTypeValueToLabelMap;
 	}
 	

@@ -686,10 +686,10 @@
 
 	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
 		<entry key="ARREST" value="Arrest" />
-		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="DISPOSITION" value="FBI Disposition" />
 		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
 		<entry key="NCIC-SOR" value="NCIC NSOR" />
-		<entry key="DEATH" value="Death Notice" />
+		<entry key="DEATH" value="FBI Death Notice" />
 	</util:map>
 
 	<util:map id="triggeringEventCodeTranslationInverseMap" map-class="java.util.HashMap">
