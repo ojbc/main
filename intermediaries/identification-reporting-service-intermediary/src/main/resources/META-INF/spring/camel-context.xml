@@ -91,7 +91,6 @@
 				<camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:CriminalIdentificationReasonCode) ='CAR' and 
 					normalize-space(/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText) !='CRIMINAL-SID-TO-HIJIS'
 				</camel:xpath>
-            
 	            <camel:choice>
 	                <camel:when>
 	                    <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
