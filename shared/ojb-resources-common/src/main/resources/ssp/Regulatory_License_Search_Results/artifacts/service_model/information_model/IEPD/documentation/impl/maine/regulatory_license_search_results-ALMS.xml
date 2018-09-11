@@ -16,10 +16,8 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-	<soap:Body>
-		<FindLicenseInformationResponse xmlns="http://www.sauper.com/MBCSOnlineServices">
+<FindLicenseInformationResponse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.sauper.com/MSBIOnlineServices">
 			<LicenseInfoResult>
 				<Accepted>True</Accepted>
 				<Messages>
@@ -38,10 +36,10 @@
 						<MiddleName>string</MiddleName>
 						<LastName>string</LastName>
 						<NameSuffix>string</NameSuffix>
-						<BirthDate>date</BirthDate>
-						<FirstIssueDate>date</FirstIssueDate>
-						<IssueDate>date</IssueDate>
-						<ExpirationDate>date</ExpirationDate>
+						<BirthDate>2001-01-01</BirthDate>
+						<FirstIssueDate>2001-01-01</FirstIssueDate>
+						<IssueDate>2001-01-01</IssueDate>
+						<ExpirationDate>2001-01-01</ExpirationDate>
 						<CurrentlyAuthorizedToPractice>false</CurrentlyAuthorizedToPractice>
 						<LicenseStatusDescription>string</LicenseStatusDescription>
 						<SecondaryStatusDescription>string</SecondaryStatusDescription>
@@ -51,7 +49,7 @@
 							<AddressLine3>string</AddressLine3>
 							<AddressLine4>string</AddressLine4>
 							<City>string</City>
-							<StateCode>string</StateCode>
+							<StateCode>NY</StateCode>
 							<PostalCode>string</PostalCode>
 							<Country>string</Country>
 						</MailingAddress>
@@ -62,18 +60,18 @@
 							<AddressLine3>string</AddressLine3>
 							<AddressLine4>string</AddressLine4>
 							<City>string</City>
-							<StateCode>string</StateCode>
+							<StateCode>NY</StateCode>
 							<PostalCode>string</PostalCode>
 							<Country>string</Country>
 						</PhysicalAddress>
 						<CaseInfos>
 							<CaseInfo>
 								<CaseID>string</CaseID>
-								<DateOpened>date</DateOpened>
-								<DateClosed>date</DateClosed>
+								<DateOpened>2001-01-01</DateOpened>
+								<DateClosed>2001-01-01</DateClosed>
 								<ResolutionInfos>
 									<ResolutionInfo>
-										<ResolutionDate>date</ResolutionDate>
+										<ResolutionDate>2001-01-01</ResolutionDate>
 										<ResolutionDescription>string</ResolutionDescription>
 										<AllegationInfos>
 											<AllegationInfo>
@@ -95,7 +93,7 @@
 										</ActionInfos>
 									</ResolutionInfo>
 									<ResolutionInfo>
-										<ResolutionDate>date</ResolutionDate>
+										<ResolutionDate>2001-01-01</ResolutionDate>
 										<ResolutionDescription>string</ResolutionDescription>
 										<AllegationInfos>
 											<AllegationInfo>
@@ -120,11 +118,11 @@
 							</CaseInfo>
 							<CaseInfo>
 								<CaseID>string</CaseID>
-								<DateOpened>date</DateOpened>
-								<DateClosed>date</DateClosed>
+								<DateOpened>2001-01-01</DateOpened>
+								<DateClosed>2001-01-01</DateClosed>
 								<ResolutionInfos>
 									<ResolutionInfo>
-										<ResolutionDate>date</ResolutionDate>
+										<ResolutionDate>2001-01-01</ResolutionDate>
 										<ResolutionDescription>string</ResolutionDescription>
 										<AllegationInfos>
 											<AllegationInfo>
@@ -146,7 +144,7 @@
 										</ActionInfos>
 									</ResolutionInfo>
 									<ResolutionInfo>
-										<ResolutionDate>date</ResolutionDate>
+										<ResolutionDate>2001-01-01</ResolutionDate>
 										<ResolutionDescription>string</ResolutionDescription>
 										<AllegationInfos>
 											<AllegationInfo>
@@ -174,5 +172,3 @@
 				</LicenseInfos>
 			</LicenseInfoResult>
 		</FindLicenseInformationResponse>
-	</soap:Body>
-</soap:Envelope>
