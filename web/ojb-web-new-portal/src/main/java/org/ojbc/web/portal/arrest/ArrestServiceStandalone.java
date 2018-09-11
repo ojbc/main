@@ -30,4 +30,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 				"/xmlInstances/Initial_Results_muni.xml"));
 	}
+
+	@Override
+	public String getArrest(String id, Element samlToken) throws Throwable {
+		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+				"/xmlInstances/Municipal_DeferredDisposition_search_results_multiple.xml"));
+	}
 }

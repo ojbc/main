@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -73,4 +74,13 @@ public class ArrestController {
 		return "arrest/arrests::resultsList";
 	}
 	
+	@GetMapping("/{id}")
+	public String getArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
+		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
+		model.put("arrestDetail", searchContent); 
+		model.put("arrestDetailTransformed", transformedResults); 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+
 }

@@ -51,9 +51,12 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${dispositionSearchResultXslLocation:classpath:xsl/dispositionSearchResult.xsl}")
 	org.springframework.core.io.Resource dispositionSearchResultXsl;
 	
-	@Value("${dispositionSearchResultXslLocation:classpath:xsl/arrestSearchResult.xsl}")
+	@Value("${arrestSearchResultXslLocation:classpath:xsl/arrestSearchResult.xsl}")
 	org.springframework.core.io.Resource arrestSearchResultXsl;
 
+	@Value("${arrestDetailXslLocation:classpath:xsl/arrestDetail.xsl}")
+	org.springframework.core.io.Resource arrestDetailXsl;
+	
 	@Autowired(required=false)
 	Map<String,String> searchDetailToXsl;
 	
@@ -73,6 +76,13 @@ public class SearchResultConverter implements ApplicationContextAware {
     		return "";
     	}
     	return convertXml(searchContent, arrestSearchResultXsl, null);
+    }
+    
+    public String convertArrestDetail(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+    	return convertXml(searchContent, arrestDetailXsl, null);
     }
     
 	org.springframework.core.io.Resource getResource(String systemName) throws UnsupportedEncodingException{

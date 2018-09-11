@@ -75,8 +75,13 @@
                       "columnDefs": [
                           { "orderable": false, "targets": 6 }
                         ]
-                    });
-              });
+                  });
+                  $('#searchResultsTable').on('click', 'a.editArrest',function() {
+                      xhr = $.get( context +"arrests/" + $(this).attr("id"), function(data) {
+                        $('main').html(data);
+                      }).fail();
+                  });
+             });
           </script>
         </div>
  		    <script th:inline="javascript">
@@ -104,7 +109,8 @@
               	  $('#searchResultsList').replaceWith(data);
              	  }).fail();
               });
-             }); 
+              
+            }); 
 	
 	        </script>
 	    </div>

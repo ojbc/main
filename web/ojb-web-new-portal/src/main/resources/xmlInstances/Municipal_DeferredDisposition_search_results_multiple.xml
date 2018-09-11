@@ -60,7 +60,24 @@
 			</nc:ActivityDate>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-				<j:ChargeDisposition>
+				<j:ChargeDisposition structures:id="Dispo_01">
+					<nc:DispositionDate>
+						<nc:Date>2017-12-29</nc:Date>
+					</nc:DispositionDate>
+					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:FiledCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:FiledCharge>
+					<chsres-ext:AmendedCharge>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					</chsres-ext:AmendedCharge>
+					<chsres-ext:CourtCase>
+						<nc:ActivityIdentification>
+							<nc:IdentificationID>CC456576</nc:IdentificationID>
+						</nc:ActivityIdentification>
+					</chsres-ext:CourtCase>
+				</j:ChargeDisposition>
+				<j:ChargeDisposition structures:id="Dispo_02">
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -102,6 +119,28 @@
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
+				<j:ChargeSentence structures:id="Sentence_02">
+					<j:SentenceDeferredTerm>
+						<nc:ActivityDate>
+							<nc:Date>2001-12-31</nc:Date>
+						</nc:ActivityDate>
+						<j:TermDuration>P2Y1D</j:TermDuration>
+					</j:SentenceDeferredTerm>
+					<j:SentenceSuspendedTerm>
+						<j:TermDuration>P4Y6D</j:TermDuration>
+					</j:SentenceSuspendedTerm>
+					<j:SentenceTerm>
+						<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
+						<j:TermDuration>P4Y6D</j:TermDuration>
+					</j:SentenceTerm>
+					<j:SupervisionFineAmount>
+						<nc:Amount>300.00</nc:Amount>
+					</j:SupervisionFineAmount>
+					<chsres-ext:FineSuspendedAmount>
+						<nc:Amount>50.00</nc:Amount>
+					</chsres-ext:FineSuspendedAmount>
+					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+				</j:ChargeSentence>
 				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
@@ -129,7 +168,7 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
 				</j:ChargeIdentification>
-				<j:ChargeSentence structures:id="Sentence_02">
+				<j:ChargeSentence structures:id="Sentence_03">
 					<j:SentenceDeferredTerm>
 						<nc:ActivityDate>
 							<nc:Date>2001-12-31</nc:Date>
@@ -174,6 +213,14 @@
 			<nc:Activity structures:ref="Sentence_02" />
 			<nc:Obligation structures:ref="Restitution_02" />
 		</j:ActivityObligationAssociation>
+		<chsres-ext:DispositionSentenceAssociation>
+			<nc:Disposition structures:ref="Dispo_01" />
+			<j:Sentence structures:ref="Sentence_01" />
+		</chsres-ext:DispositionSentenceAssociation>
+		<chsres-ext:DispositionSentenceAssociation>
+			<nc:Disposition structures:ref="Dispo_02" />
+			<j:Sentence structures:ref="Sentence_02" />
+		</chsres-ext:DispositionSentenceAssociation>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>

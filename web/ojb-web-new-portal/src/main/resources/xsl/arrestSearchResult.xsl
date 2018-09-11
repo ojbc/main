@@ -69,8 +69,6 @@
 	</xsl:template>
 	
 	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
-		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
-		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<tr>
 			<td>
 				<xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
@@ -94,7 +92,12 @@
 				</xsl:for-each>
 			</td>
 			<td align="right" width="120px">
-				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>&#160;
+			  <a href="#" class="editArrest" style="margin-right:3px">
+		      <xsl:attribute name="id">
+		        <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+		      </xsl:attribute>
+  				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
+ 				</a>
 				<i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i>&#160;
 				<i class="fas fa-share-square fa-2x" title="delete" data-toggle="tooltip"></i>
 			</td>

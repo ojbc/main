@@ -126,4 +126,10 @@ public class ArrestServiceImpl extends RequestResponseProcessor implements Camel
 		OJBSamlMap = oJBSamlMap;
 	}
 
+	@Override
+	public String getArrest(String id, Element samlToken) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Arrest Detail</title>
+		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+		<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+	    <!-- Begin page content -->
+	    <div th:fragment="arrestDetail">
+	       <div class="card card-primary">
+					  <div class="card-header"><H5>ARREST DETAIL</H5></div>
+					  <div class="card-body">
+						     <p th:utext="${arrestDetailTransformed}" ></p>
+			      </div>
+   			 </div>
+      </div>
+	</body>
+</html>

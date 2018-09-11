@@ -12,8 +12,8 @@ public class OjbcWebPortalApplication {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(OjbcWebPortalApplication.class, args);
 		
-		for (String name : applicationContext.getBeanDefinitionNames()) {
-			System.out.println(name);
-		}
+//		for (String name : applicationContext.getBeanDefinitionNames()) {
+//			System.out.println(name);
+//		}
 	}
 }
