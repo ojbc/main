@@ -144,7 +144,7 @@ public class TestCriminalHistoryConsolidationServiceState {
 
     	log.info(notifications);
     	
-    	assertEquals(7, notifications.size());
+    	assertEquals(6, notifications.size());
 
     	assertEquals("criminalHistoryConsolidationReport",notifications.get(0).getConsolidationType());
     	assertEquals("Rap Back: SID Consolidation by HCJDC",notifications.get(0).getEmailSubject());
