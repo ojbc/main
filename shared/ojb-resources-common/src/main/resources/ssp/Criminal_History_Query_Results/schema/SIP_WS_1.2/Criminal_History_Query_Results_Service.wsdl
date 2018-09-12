@@ -24,7 +24,7 @@
 	xmlns:tns="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
-	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
 		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
@@ -49,7 +49,7 @@
 			<wsdl:input name="Criminal-History-Text-Document" message="tns:Criminal-History-Text-Document" />
 		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="Criminal-History-Query-Results-ServiceSOAPBinding"
+	<wsdl:binding name="Criminal-History-Query-Results-Service_SecureSOAPBinding"
 		type="tns:Criminal-History-Query-Results-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
@@ -66,8 +66,30 @@
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
+	<wsdl:binding name="Criminal-History-Query-Results-Service_SOAPBinding"
+		type="tns:Criminal-History-Query-Results-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="SubmitCriminalHistoryQueryResults">
+			<soap:operation soapAction="SubmitCriminalHistoryQueryResults" style="document" />
+			<wsdl:input name="Criminal-History">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitCriminalHistoryTextDocument">
+			<soap:operation soapAction="SubmitCriminalHistoryTextDocument" style="document" />
+			<wsdl:input name="Criminal-History-Text-Document">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
 	<wsdl:service name="Criminal-History-Query-Results-ServiceService">
-		<wsdl:port name="Criminal-History-Query-Results-Service" binding="tns:Criminal-History-Query-Results-ServiceSOAPBinding">
+		<wsdl:port name="Criminal-History-Query-Results-Secure-Service"
+			binding="tns:Criminal-History-Query-Results-Service_SecureSOAPBinding">
+			<soap:address location="localhost" />
+		</wsdl:port>
+		<wsdl:port name="Criminal-History-Query-Results-Service"
+			binding="tns:Criminal-History-Query-Results-Service_SOAPBinding">
 			<soap:address location="localhost" />
 		</wsdl:port>
 	</wsdl:service>
