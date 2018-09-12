@@ -34,7 +34,7 @@ public class FederalRapbackIdentityHistory {
 
 	private String transactionControlReferenceIdentification;
 	
-	private String pathToRequestile;
+	private String pathToRequestFile;
 	
 	private String fbiNotificationId;
 	
@@ -93,14 +93,6 @@ public class FederalRapbackIdentityHistory {
 		this.transactionControlReferenceIdentification = transactionControlReferenceIdentification;
 	}
 
-	public String getPathToRequestile() {
-		return pathToRequestile;
-	}
-
-	public void setPathToRequestile(String pathToRequestile) {
-		this.pathToRequestile = pathToRequestile;
-	}
-
 	public String getFbiNotificationId() {
 		return fbiNotificationId;
 	}
@@ -131,20 +123,15 @@ public class FederalRapbackIdentityHistory {
 
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
+	}
+
+	public String getPathToRequestFile() {
+		return pathToRequestFile;
+	}
+
+	public void setPathToRequestFile(String pathToRequestFile) {
+		this.pathToRequestFile = pathToRequestFile;
 	} 
 	
-	
-	
-//	FEDERAL_RAPBACK_SUBSCRIPTION.TRANSACTION_CATEGORY_CODE_REQUEST
-//	FEDERAL_RAPBACK_SUBSCRIPTION.TRANSACTION_CATEGORY_CODE_RESPONSE
-//	FEDERAL_RAPBACK_SUBSCRIPTION.REQUEST_SENT_TIMESTAMP
-//	FEDERAL_RAPBACK_SUBSCRIPTION.RESPONSE_RECIEVED_TIMESTAMP
-//  FEDERAL_RAPBACK_SUBSCRIPTION.TRANSACTION_STATUS_TEXT	
-//	FEDERAL_RAPBACK_SUBSCRIPTION.TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION
-//	FEDERAL_RAPBACK_SUBSCRIPTION.PATH_TO_REQUEST_FILE	
-//	FEDERAL_RAPBACK_SUBSCRIPTION.RAPBACK_NOTIFICATION_ID
-//	FEDERAL_RAPBACK_SUBSCRIPTION.FBI_SUBSCRIPTION_ID	
-//	FEDERAL_RAPBACK_SUBSCRIPTION.UCN
 
-		
 }

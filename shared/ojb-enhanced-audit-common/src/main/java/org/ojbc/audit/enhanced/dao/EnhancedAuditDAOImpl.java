@@ -1108,7 +1108,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getRequestSentTimestamp(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionStatusText(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionControlReferenceIdentification(), ps, 4);
-        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getPathToRequestile(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getPathToRequestFile(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getFbiNotificationId(), ps, 6);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getFbiSubscriptionId(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getUcn(), ps, 8);
