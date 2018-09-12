@@ -16,7 +16,8 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
@@ -30,7 +31,7 @@ import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
-import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -48,10 +49,10 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
         
         })
-public class TestFbiSubscriptionAuditProcessor {
+public class TestFbiRapbackIdentityHistoryAuditProcessor {
 
 	@Resource
-	private FbiSubscriptionAuditProcessor fbiSubscriptionAuditProcessor;
+	private FbiRapbackIdentityHistoryAuditProcessor fbiRapbackIdentityHistoryAuditProcessor;
 	
 	@Resource
 	private EnhancedAuditDAOImpl enhancedAuditDAOImpl;
@@ -63,51 +64,28 @@ public class TestFbiSubscriptionAuditProcessor {
 	    Exchange ex = new DefaultExchange(ctx);
 	    
 	    ex.getIn().setHeader("pathToRequestFile", "/some/path/request");
-	    ex.getIn().setHeader("controlID", "123456789");
-	    
-	    Document input = XmlUtils.parseFileToDocument(new File("src/test/resources/output/EBTS-RapBack-Criminal-Subscription-Request.xml"));
-	    assertNotNull(input);
-	    ex.getIn().setBody(input);
-	    
-	    fbiSubscriptionAuditProcessor.auditFBISubscriptionRequest(ex);
 
-	    ex = new DefaultExchange(ctx);
-
-	    ex.getIn().setHeader("pathToResponseFile", "/some/path/response");
-	    ex.getIn().setHeader("trxCatCode", "ERRA");
-	    ex.getIn().setHeader("transactionControlReferenceIdentification", "123456789");
-	    
-	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_SUBSCRIPTION_RESPONSE_ERRA.xml"));
+	    Document input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/Template(RBIHS)RapBackIdentityHistorySummaryRequest.xml"));
 	    assertNotNull(input);
 	    ex.getIn().setBody(input);
 
-	    fbiSubscriptionAuditProcessor.auditFBISubscriptionResponse(ex);
+	    fbiRapbackIdentityHistoryAuditProcessor.auditFbiRapbackIdentityHistoryRequest(ex);
 	    
-	    FederalRapbackSubscription federalRapbackSubscription = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionFromTCN("123456789");
+	    FederalRapbackIdentityHistory federalRapbackIdentityHistory = fbiRapbackIdentityHistoryAuditProcessor.returnFederalRapbackIdentityHistory(ex, input);
 	    
-	    Integer errorEntry = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionError("S128483");
-	    assertNotNull(errorEntry);
+	    assertNotNull(federalRapbackIdentityHistory.getRequestSentTimestamp());
 	    
-	    assertEquals("/some/path/request", federalRapbackSubscription.getPathToRequestFile());
-	    assertEquals("/some/path/response", federalRapbackSubscription.getPathToResponseFile());
-	    assertEquals("ERRA", federalRapbackSubscription.getTransactionCategoryCodeResponse());
-	    assertEquals("RBSCRM", federalRapbackSubscription.getTransactionCategoryCodeRequest());
-	    assertEquals("123456789", federalRapbackSubscription.getTransactionControlReferenceIdentification());
-	    assertEquals("A398118900", federalRapbackSubscription.getSid());
-	    assertEquals("S128483", federalRapbackSubscription.getStateSubscriptionId());
-	    assertEquals("CI", federalRapbackSubscription.getSubscriptonCategoryCode());
-	    assertEquals("This is the transaction text | This is the second transaction text", federalRapbackSubscription.getTransactionStatusText());
+	    assertEquals("/some/path/request", federalRapbackIdentityHistory.getPathToRequestFile());
+	    assertEquals("62760NY12", federalRapbackIdentityHistory.getUcn());
+	    assertEquals("123456", federalRapbackIdentityHistory.getFbiNotificationId());
+	    assertEquals("123456", federalRapbackIdentityHistory.getFbiSubscriptionId());
+	    assertNotNull(federalRapbackIdentityHistory.getRequestSentTimestamp());
+	    assertEquals("RBIHS", federalRapbackIdentityHistory.getTransactionCategoryCodeRequest());
+	    assertEquals("5683956839", federalRapbackIdentityHistory.getTransactionControlReferenceIdentification());
 	    
-	    //This response will 'resolve' errors by sending back a good response
-	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_Subscription_Response_C99999999.xml"));
-	    assertNotNull(input);
-	    ex.getIn().setBody(input);
+	    fbiRapbackIdentityHistoryAuditProcessor.auditFbiRapbackIdentityHistoryRequest(ex);
 
-	    fbiSubscriptionAuditProcessor.auditFBISubscriptionResponse(ex);
-
-	    errorEntry = enhancedAuditDAOImpl.retrieveFederalRapbackSubscriptionError("S128483");
-	    assertNull(errorEntry);
-
+	    //TODO: Add DAO to retrieve entry
 	    
 	}
 	

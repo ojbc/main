@@ -25,6 +25,7 @@
 	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
 	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xmlns:fqr-doc="http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -49,7 +50,7 @@
 
 	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
 
-		<!--  for testing SUBSCRIBE by dropping message into adapter input directory -->
+		<!--  for testing Subscribe, Criminal History Request by dropping message into adapter input directory -->
 		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
 		
 			<camel:from uri="inputMessageDirEndpoint"/>
@@ -60,9 +61,29 @@
 				<constant>Subscribe</constant>
 			</camel:setHeader>		
 		
-			<camel:to uri="direct:processFbiEbtsRequest"/>
+			<camel:choice>
+				<camel:when>
+					<camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
+				
+					<camel:setHeader headerName="operationName">
+						<constant>SubmitFBICriminalHistoryQueryRequest</constant>
+					</camel:setHeader>		
+					
+					<setHeader headerName="federatedQueryRequestGUID">
+						<simple>bean:uuidGenerator?method=generateUUID</simple>
+					</setHeader>
+				
+					<camel:to uri="direct:processPersonQueryRequestCriminalHistory"/>
+				</camel:when>
+				
+				<camel:otherwise>
+					<camel:to uri="direct:processFbiEbtsRequest"/>
+				</camel:otherwise>
+			</camel:choice>
 			
 			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:log message="FBI Response message in file drop: ${body}"/>
 		
 			<!-- Save the fbi synchronous response(control number) to a file -->
 			<camel:setHeader headerName="CamelFileName">
