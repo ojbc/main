@@ -133,7 +133,7 @@ public class TestCriminalHistoryConsolidationService {
 	public void testCriminalConsolidationService() throws Exception
 	{
 		notificationBrokerServiceEndpointMock.reset();
-		notificationBrokerServiceEndpointMock.expectedMessageCount(3);
+		notificationBrokerServiceEndpointMock.expectedMessageCount(2);
 		
 		//Initial database setup
 		Connection conn = dataSource.getConnection();

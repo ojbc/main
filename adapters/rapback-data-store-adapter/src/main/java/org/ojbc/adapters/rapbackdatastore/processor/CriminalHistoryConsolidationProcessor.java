@@ -27,6 +27,7 @@ import javax.annotation.Resource;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,19 +117,15 @@ public class CriminalHistoryConsolidationProcessor {
     	}	
     	
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
-    	
     	//Search for active subscriptions with matching SIDs
-    	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
-    	
-    	//If no subscription with current SID, look for subscriptions with new SID
-    	if (subscriptionsMatchingSID == null || subscriptionsMatchingSID.size() == 0)
-    	{    	
-    		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, newSid);
-    	
-	    	//Search for active subscriptions with matching SIDs
-	    	subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
-    		
-    	}	
+    	List<Subscription> subscriptionsMatchingCurrentSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+
+    	subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, newSid);
+    	//Search for active subscriptions with matching SIDs
+   		List<Subscription> subscriptionsMatchingNewSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+   		
+   		@SuppressWarnings("unchecked")
+		List<Subscription> subscriptionsMatchingSID = ListUtils.union(subscriptionsMatchingCurrentSID, subscriptionsMatchingNewSID);
 
     	//When handling a SID consolidation or update message, from in state, check that the new UCN received from matches what is on the active subscription.
     	//If the new UCN does not match, notify the RB administrator
@@ -243,7 +240,7 @@ public class CriminalHistoryConsolidationProcessor {
 			
     	}
 		
-		return criminalHistoryConsolidationNotifications;
+		return returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
 	}
 
 	private List<CriminalHistoryConsolidationNotification> addFederalSubscriptionNotifications(String currentSid,
@@ -688,7 +685,14 @@ public class CriminalHistoryConsolidationProcessor {
 
 		if (chcNotification.getConsolidationType().equals("reportUCNMmatchToUser"))
 		{
-			emailSubject = "UCN update occurred for: " + currentIdentifier;
+			if (StringUtils.isNotBlank(currentIdentifier))
+			{	
+				emailSubject = "UCN update occurred for: " + currentIdentifier;
+			}
+			else
+			{
+				emailSubject = "UCN update occurred";
+			}	
 		}	
 		
 		return emailSubject;
