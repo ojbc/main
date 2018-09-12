@@ -28,13 +28,13 @@ public class FederalRapbackIdentityHistory {
 	
 	private LocalDateTime responseReceivedTimestamp;
 	
-	private String transactionStatusText;
-	
 	private String transactionType;
 
 	private String transactionControlReferenceIdentification;
 	
 	private String pathToRequestFile;
+	
+	private String pathToResponseFile;
 	
 	private String fbiNotificationId;
 	
@@ -76,13 +76,6 @@ public class FederalRapbackIdentityHistory {
 		this.responseReceivedTimestamp = responseReceivedTimestamp;
 	}
 
-	public String getTransactionStatusText() {
-		return transactionStatusText;
-	}
-
-	public void setTransactionStatusText(String transactionStatusText) {
-		this.transactionStatusText = transactionStatusText;
-	}
 
 	public String getTransactionControlReferenceIdentification() {
 		return transactionControlReferenceIdentification;
@@ -131,6 +124,14 @@ public class FederalRapbackIdentityHistory {
 
 	public void setPathToRequestFile(String pathToRequestFile) {
 		this.pathToRequestFile = pathToRequestFile;
+	}
+
+	public String getPathToResponseFile() {
+		return pathToResponseFile;
+	}
+
+	public void setPathToResponseFile(String pathToResponseFile) {
+		this.pathToResponseFile = pathToResponseFile;
 	} 
 	
 

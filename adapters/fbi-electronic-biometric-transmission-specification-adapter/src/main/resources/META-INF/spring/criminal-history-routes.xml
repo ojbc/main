@@ -1,0 +1,114 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 
+		#########################################################################################
+				File system Directories		
+		#########################################################################################
+	-->
+	<!-- alternative endpoint for testing: file system message input directory -->
+
+	<routeContext id="ebtsCriminalHistoryRoutes" xmlns="http://camel.apache.org/schema/spring">
+		
+		<route id="personQueryRequestCriminalHistoryServiceRoute">
+			<from uri="personQueryRequestCriminalHistoryServiceEndpoint"/>
+			
+			<camel:log message="Received Criminal History Request: ${body}" />
+			
+			<to uri="bean:messageProcessor?method=processRequestPayload" />
+			
+			<to uri="direct:processPersonQueryRequestCriminalHistory"/>
+		</route>		
+
+		<route id="personQueryRequestCriminalHistoryDirectRoute">
+			<from uri="direct:processPersonQueryRequestCriminalHistory"/>
+	
+			<setHeader headerName="controlID"><camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple></setHeader>	
+			<setHeader headerName="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
+			<setHeader headerName="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
+			<setHeader headerName="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
+			<setHeader headerName="domainVersion"><simple>{{fbiEbtsAdapter.domainVersion}}</simple></setHeader>
+			<setHeader headerName="domainName"><simple>{{fbiEbtsAdapter.domainName}}</simple></setHeader>
+			<setHeader headerName="transactionMajorVersion"><simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple></setHeader>
+			<setHeader headerName="transactionMinorVersion"><simple>{{fbiEbtsAdapter.transactionMinorVersion}}</simple></setHeader>
+			<setHeader headerName="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
+			<setHeader headerName="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
+			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
+			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
+			<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
+			<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+	
+			<camel:to uri="xslt:xsl/FBI_Identity_History_Summary_Request.xsl" />
+			
+			<camel:log message="transformed message: ${body}"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>							
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Identity_History_Summary_Request_${in.headers.controlID}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="pathToRequestFile">
+				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/requests/$simple{in.headers.CamelFileName}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiIdentitySummaryRequestsDir"/>
+			
+			<camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryRequest"/>
+			
+			<camel:to uri="direct:processOperation"/>
+			
+		</route>
+			
+		<route>
+			<camel:from uri="direct:processRBIHSR"/>
+		
+			<camel:log message="RBIHSR message from the FBI"/>
+
+			<camel:to uri="bean:fbiRapbackIdentityHistoryAuditProcessor?method=auditFbiRapbackIdentityHistoryResponse"/>
+			
+			<!-- Check for error here and create error response -->
+
+			<camel:setHeader headerName="federatedQueryRequestGUID">
+				<camel:simple>${in.headers.transactionControlReferenceIdentification}</camel:simple>				
+			</camel:setHeader>
+
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
+			
+		</route>	
+
+	</routeContext>
+		
+</beans>

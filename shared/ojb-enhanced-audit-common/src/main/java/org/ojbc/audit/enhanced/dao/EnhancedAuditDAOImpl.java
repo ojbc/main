@@ -756,12 +756,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		final String FEDERAL_RAPBACK_IDENTITY_HISTORY_UPDATE="UPDATE FEDERAL_RAPBACK_IDENTITY_HISTORY SET "
 				+ "TRANSACTION_CATEGORY_CODE_RESPONSE = :transactionCategoryCodeResponse, "
+				+ "PATH_TO_RESPONSE_FILE = :pathToResponseFile, "
 				+ "RESPONSE_RECIEVED_TIMESTAMP = :responseRecievedTimestamp "
 				+ "WHERE TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION = :transactionControlReferenceIdentification";
 
 		paramMap.put("transactionCategoryCodeResponse", federalRapbackIdentityHistory.getTransactionCategoryCodeResponse()); 
 		paramMap.put("responseRecievedTimestamp", convertToDatabaseColumn(federalRapbackIdentityHistory.getResponseReceivedTimestamp())); 
 		paramMap.put("transactionControlReferenceIdentification", federalRapbackIdentityHistory.getTransactionControlReferenceIdentification());
+		paramMap.put("pathToResponseFile", federalRapbackIdentityHistory.getPathToResponseFile());
 		
 		namedParameterJdbcTemplate.update(FEDERAL_RAPBACK_IDENTITY_HISTORY_UPDATE, paramMap);
 		
@@ -1094,7 +1096,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Inserting row into FEDERAL_RAPBACK_NOTIFICATION table : " + federalRapbackIdentityHistory.toString());
 		
         final String FEDERAL_RAPBACK_IDENTITY_HISTORY_INSERT="INSERT into FEDERAL_RAPBACK_IDENTITY_HISTORY "
-        		+ "(TRANSACTION_CATEGORY_CODE_REQUEST, REQUEST_SENT_TIMESTAMP, TRANSACTION_STATUS_TEXT, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE, "
+        		+ "(TRANSACTION_CATEGORY_CODE_REQUEST, REQUEST_SENT_TIMESTAMP, PATH_TO_RESPONSE_FILE, TRANSACTION_CONTROL_REFERENCE_IDENTIFICATION, PATH_TO_REQUEST_FILE, "
         		+ "RAPBACK_NOTIFICATION_ID, FBI_SUBSCRIPTION_ID, UCN) "
         		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -1106,7 +1108,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	                connection.prepareStatement(FEDERAL_RAPBACK_IDENTITY_HISTORY_INSERT, new String[] {"FEDERAL_RAPBACK_IDENTITY_HISTORY_ID"});
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionCategoryCodeRequest(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getRequestSentTimestamp(), ps, 2);
-        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionStatusText(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getPathToResponseFile(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getTransactionControlReferenceIdentification(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getPathToRequestFile(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackIdentityHistory.getFbiNotificationId(), ps, 6);

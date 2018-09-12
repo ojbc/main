@@ -292,7 +292,6 @@ public class EnhancedAuditDaoTest {
 		federalRapbackIdentityHistory.setPathToRequestFile("c:/pathToRequestFile");
 		federalRapbackIdentityHistory.setRequestSentTimestamp(LocalDateTime.now());
 		federalRapbackIdentityHistory.setTransactionCategoryCodeRequest("transcodetext");
-		federalRapbackIdentityHistory.setTransactionStatusText("transstatustext");
 		federalRapbackIdentityHistory.setTransactionType("RBIH");
 		federalRapbackIdentityHistory.setUcn("UCN1");
 		federalRapbackIdentityHistory.setTransactionControlReferenceIdentification("tcri");
@@ -305,6 +304,7 @@ public class EnhancedAuditDaoTest {
 		frihUpdate.setTransactionControlReferenceIdentification("tcri");
 		frihUpdate.setResponseReceivedTimestamp(LocalDateTime.now());
 		frihUpdate.setTransactionCategoryCodeResponse("RBIHS");
+		frihUpdate.setPathToResponseFile("c:/pathToResponseFile");
 		
 		enhancedAuditDao.updateFederalRapbackIdentityHistoryWithResponse(frihUpdate);
 		
