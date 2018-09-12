@@ -289,7 +289,7 @@ public class EnhancedAuditDaoTest {
 		
 		federalRapbackIdentityHistory.setFbiNotificationId("notificationid1");
 		federalRapbackIdentityHistory.setFbiSubscriptionId("subscription1");
-		federalRapbackIdentityHistory.setPathToRequestile("c:/pathToRequestFile");
+		federalRapbackIdentityHistory.setPathToRequestFile("c:/pathToRequestFile");
 		federalRapbackIdentityHistory.setRequestSentTimestamp(LocalDateTime.now());
 		federalRapbackIdentityHistory.setTransactionCategoryCodeRequest("transcodetext");
 		federalRapbackIdentityHistory.setTransactionStatusText("transstatustext");
