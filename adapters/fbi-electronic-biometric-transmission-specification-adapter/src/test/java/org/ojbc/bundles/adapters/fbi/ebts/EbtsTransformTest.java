@@ -219,6 +219,26 @@ public class EbtsTransformTest {
 	
 	
 	@Test
+	public void RapbackErrorReportTransform() throws IOException, SAXException{
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Identity_History_Response_ERRI.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackErrorResponseToOJBQueryResultError.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/CriminalHistory-Error-Report.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}
+	
+	
+	@Test
 	public void CriminalHistoryReportTestEbtsTransform() throws Exception{
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
