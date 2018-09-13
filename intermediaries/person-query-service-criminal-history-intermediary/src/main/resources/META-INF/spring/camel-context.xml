@@ -112,8 +112,6 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>SubmitCriminalHistoryQueryRequest</constant></camel:setHeader>
-			
 			<camel:filter>
 				<camel:xpath>/pqr-doc:PersonRecordRequest</camel:xpath>
 				
