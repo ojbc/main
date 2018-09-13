@@ -20,14 +20,14 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
 	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
+	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0"
 	xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" exclude-result-prefixes="ebts ansi-nist j itl">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="no" />
 	<xsl:template match="/">
-		<ch-doc:CriminalHistory>
+		<cht-doc:CriminalHistoryTextDocument>
 			<xsl:apply-templates
 				select="itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields" />
-		</ch-doc:CriminalHistory>
+		</cht-doc:CriminalHistoryTextDocument>
 	</xsl:template>
 	<xsl:template match="ebts:DomainDefinedDescriptiveFields">
 		<error:PersonQueryResultError>

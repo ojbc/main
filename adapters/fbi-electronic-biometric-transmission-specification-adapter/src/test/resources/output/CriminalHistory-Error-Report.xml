@@ -17,11 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nc="http://niem.gov/niem/niem-core/2.0">
+<cht-doc:CriminalHistoryTextDocument xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
 <error:PersonQueryResultError>
 <error:ErrorText>E0004 EBTS logical record does not comply with message contents or length field values or the record is not parseable.</error:ErrorText>
 <error:PersonRecordRequestIdentification>
 <nc:IdentificationID>gggggg</nc:IdentificationID>
 </error:PersonRecordRequestIdentification>
 </error:PersonQueryResultError>
-</ch-doc:CriminalHistory>
+</cht-doc:CriminalHistoryTextDocument>
