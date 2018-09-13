@@ -39,3 +39,9 @@ code {
 main{
 	font-size:small;
 }
+
+.hscroll {
+  overflow: scroll; 
+  overflow-x: scroll;
+  overflow-y:hidden;	
+}

@@ -89,7 +89,7 @@
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
       </div>
-      <div class="collapse show" data-parent="#accordion">
+      <div class="collapse show hscroll" data-parent="#accordion">
         <xsl:attribute name="id">
            <xsl:value-of select="concat('charge', position())"></xsl:value-of>
         </xsl:attribute>
@@ -111,6 +111,7 @@
                 <col/>
 				        <thead>
 				          <tr>
+                    <th rowspan="2">ACTION</th>
 				            <th rowspan="2">DISPO DATE</th>
 				            <th rowspan="2">DISPO CODE</th>
 				            <th rowspan="2">COURT CASE #</th>
@@ -123,7 +124,6 @@
                     <th rowspan="2">RESTITUTION</th>
                     <th rowspan="2">ALTERNATE SENTENCE</th>
                     <th rowspan="2">REASON FOR DISMISSAL</th>
-                    <th rowspan="2"></th>
                                       
 				          </tr>
 				          <tr>
@@ -139,6 +139,33 @@
 				        </thead>
 				        <tbody>
 				          <xsl:apply-templates select="j:ChargeDisposition"/>
+		              <tr>
+							      <td style="vertical-align:top; white-space: nowrap" >
+							        <a href="#" class="addDisposition" style="margin-right:3px">
+							          <xsl:attribute name="id">
+							            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+							          </xsl:attribute>
+							          <i class="fas fa-plus-square fa-2x" title="add" data-toggle="tooltip"></i>
+							        </a>
+							      </td>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							    </tr>
+				          
 				        </tbody>
 				      </table>
           </xsl:if>
@@ -152,6 +179,15 @@
 	  <xsl:variable name="chargeSentenceId" select="ancestor::chsres-ext:CriminalHistorySearchResult/chsres-ext:DispositionSentenceAssociation[nc:Disposition/@structures:ref = $dispositionId]/j:Sentence/@structures:ref"/>
 	  <xsl:variable name="restitutionId" select="ancestor::chsres-ext:CriminalHistorySearchResult/j:ActivityObligationAssociation[nc:Activity/@structures:ref=$chargeSentenceId]/nc:Obligation/@structures:ref"/>
 		<tr>
+      <td style="vertical-align:top; white-space: nowrap" >
+        <a href="#" class="editDisposition" style="margin-right:3px">
+          <xsl:attribute name="id">
+            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+          </xsl:attribute>
+          <i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
+        </a>
+        <i class="fas fa-trash-alt fa-2x" title="delete" data-toggle="tooltip"></i>
+      </td>
 		  <td>
 		    <xsl:apply-templates select="nc:DispositionDate/nc:Date"  mode="formatDateAsMMDDYYYY"/>
 		  </td>         
@@ -196,16 +232,7 @@
 		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/chsres-ext:AlternateSentenceCodeText"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="../chsres-ext:ChargeDismissalReasonText"/>
-		  </td>
-		  <td align="right" width="120px">
-		    <a href="#" class="editDisposition" style="margin-right:3px">
-		      <xsl:attribute name="id">
-		        <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-		      </xsl:attribute>
-		      <i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
-		    </a>
-		    <i class="fas fa-trash-alt fa-2x" title="delete" data-toggle="tooltip"></i>
+		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonText"/>
 		  </td>
 		</tr>
 	   

@@ -64,6 +64,9 @@
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
+					<chsres-ext:DispositionIdentification>
+						<nc:IdentificationID>D96487</nc:IdentificationID>
+					</chsres-ext:DispositionIdentification>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -76,11 +79,15 @@
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 				</j:ChargeDisposition>
 				<j:ChargeDisposition structures:id="Dispo_02">
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
+					<chsres-ext:DispositionIdentification>
+						<nc:IdentificationID>D1234</nc:IdentificationID>
+					</chsres-ext:DispositionIdentification>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -93,6 +100,7 @@
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -141,7 +149,6 @@
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
-				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
@@ -152,6 +159,9 @@
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
+					<chsres-ext:DispositionIdentification>
+						<nc:IdentificationID>D1222</nc:IdentificationID>
+					</chsres-ext:DispositionIdentification>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 					</chsres-ext:FiledCharge>
@@ -164,6 +174,7 @@
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
@@ -190,7 +201,6 @@
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
 				</j:ChargeSentence>
-				<chsres-ext:ChargeDismissalReasonText>Reason for charge dismissal</chsres-ext:ChargeDismissalReasonText>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>

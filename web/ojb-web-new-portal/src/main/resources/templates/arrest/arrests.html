@@ -76,6 +76,8 @@
                           { "orderable": false, "targets": 6 }
                         ]
                   });
+                  $('[data-toggle="tooltip"]').tooltip(); 
+                  
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
                       xhr = $.get( context +"arrests/" + $(this).attr("id"), function(data) {
                         $('main').html(data);
@@ -91,7 +93,6 @@
 
 	        $(function(){
 	              
-              $('[data-toggle="tooltip"]').tooltip();   
               $('#arrestDateRangeStartDate').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
