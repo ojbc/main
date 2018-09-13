@@ -47,6 +47,7 @@
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
+				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -70,7 +71,6 @@
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
 			</j:ChargeSentence>
-			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
 				<nc:IdentificationID>C4567893</nc:IdentificationID>
@@ -94,6 +94,7 @@
 				<chm-req-ext:DispositionCodeText>390</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
+				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>
@@ -117,7 +118,6 @@
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
 			</j:ChargeSentence>
-			<chm-req-ext:ChargeDismissalReasonText>Reason for charge dismissal</chm-req-ext:ChargeDismissalReasonText>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
 				<nc:IdentificationID>C13245</nc:IdentificationID>

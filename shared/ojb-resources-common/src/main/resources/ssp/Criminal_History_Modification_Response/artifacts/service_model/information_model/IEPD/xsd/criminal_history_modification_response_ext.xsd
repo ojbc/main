@@ -18,8 +18,8 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
-	xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
 	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
 	xmlns:chm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0" elementFormDefault="qualified">
@@ -30,6 +30,8 @@
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="Subset/niem/proxy/xsd/4.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
 		schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/"
+		schemaLocation="Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
 		schemaLocation="criminal-history-modification-response-metadata.xsd" />
 	<xsd:complexType name="CriminalHistoryModificationResponseType">
@@ -60,6 +62,7 @@
 						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -87,6 +90,12 @@
 	<xsd:element name="ExpungeResponseText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>An expunge response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeDispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

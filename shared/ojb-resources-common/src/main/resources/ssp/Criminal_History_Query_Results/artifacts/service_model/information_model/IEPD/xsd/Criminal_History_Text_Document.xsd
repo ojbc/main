@@ -20,17 +20,21 @@
 <xsd:schema xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryTextDocument/1.0"
 	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
+	xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.1/proxy/xsd/2.0/xsd.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+		schemaLocation="ErrorReporting.xsd" />
 	<xsd:complexType name="CriminalHistoryTextDocumentType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="cht-doc:FederalCriminalHistoryRecordDocument" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cht-doc:StateCriminalHistoryRecordDocument" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="error:PersonQueryResultError" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

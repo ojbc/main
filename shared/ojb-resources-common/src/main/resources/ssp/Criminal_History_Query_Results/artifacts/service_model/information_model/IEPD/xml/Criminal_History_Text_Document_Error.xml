@@ -17,14 +17,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ch-doc:CriminalHistory
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0 ../xsd/Criminal_History.xsd"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
-	xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<cht-doc:CriminalHistoryTextDocument xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0 ../xsd/Criminal_History_Text_Document.xsd">
 	<error:PersonQueryResultError>
 		<error:ErrorText>Error text example</error:ErrorText>
 		<error:PersonRecordRequestIdentification>
 			<nc:IdentificationID>PR234567</nc:IdentificationID>
 		</error:PersonRecordRequestIdentification>
 	</error:PersonQueryResultError>
-</ch-doc:CriminalHistory>
+</cht-doc:CriminalHistoryTextDocument>
