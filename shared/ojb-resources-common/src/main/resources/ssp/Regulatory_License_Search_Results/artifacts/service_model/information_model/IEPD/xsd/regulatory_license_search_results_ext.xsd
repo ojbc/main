@@ -82,6 +82,7 @@
 					<xsd:element ref="rls-res-ext:RegulatoryLicenseAgency" minOccurs="0" />
 					<xsd:element ref="rls-res-ext:RegulatoryLicenseDepartmentName" minOccurs="0" />
 					<xsd:element ref="rls-res-ext:RegulatoryLicenseRegulatorName" minOccurs="0" />
+					<xsd:element ref="rls-res-ext:RegulatoryLicenseFirstIssueDate" minOccurs="0" />
 					<xsd:element ref="rls-res-ext:RegulatoryLicenseIssueDate" minOccurs="0" />
 					<xsd:element ref="rls-res-ext:RegulatoryLicenseExpirationDate" minOccurs="0" />
 					<xsd:element ref="rls-res-ext:RegulatoryLicensePerson" minOccurs="0" />
@@ -213,6 +214,11 @@
 	<xsd:element name="RegulatoryLicenseRegulatorName" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A regulatory license regulator.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegulatoryLicenseFirstIssueDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date when a regulatory license was initially issued.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RegulatoryLicenseIssueDate" type="nc:DateType">
