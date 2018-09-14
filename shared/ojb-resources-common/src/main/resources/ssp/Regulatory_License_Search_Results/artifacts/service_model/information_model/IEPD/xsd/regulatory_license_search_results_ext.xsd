@@ -59,7 +59,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="rls-res-ext:RegulatoryLicense" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Person" minOccurs="0" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" />
