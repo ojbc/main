@@ -34,6 +34,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D96487</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
@@ -81,6 +84,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D1234</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>

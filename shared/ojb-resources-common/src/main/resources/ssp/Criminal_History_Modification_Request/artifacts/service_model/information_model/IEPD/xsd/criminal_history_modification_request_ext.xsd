@@ -112,7 +112,8 @@
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The reason a disposition was dismissed.
 			</xsd:documentation>
@@ -166,6 +167,12 @@
 		<xsd:annotation>
 			<xsd:documentation>A system identification for an arrest.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"
