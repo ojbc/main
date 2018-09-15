@@ -111,41 +111,6 @@
  		</cxf:features>	 
 	</cxf:cxfEndpoint>	
 
-	<!-- Entity Resolution CXF endpoints -->
-    <!-- OJB Entity Resolution Request handler -->
-	<cxf:cxfEndpoint id="entityResolutionRequestService"
-		address="${federatedQuery.entityResolutionRequestEndpoint}"
-		wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
-		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
-		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
-		<cxf:features>
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
-
-	<!-- OJB Merge Notification Service handler -->
-	<cxf:cxfEndpoint id="mergeNotificationService"
-		address="${federatedQuery.mergeNotificationServiceEndpoint}"
-		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
-		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
-		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
-		<cxf:features>
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>
-	</cxf:cxfEndpoint>
-
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
 		name="https://.*">
