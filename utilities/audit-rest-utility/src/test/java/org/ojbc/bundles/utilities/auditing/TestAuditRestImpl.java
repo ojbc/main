@@ -149,6 +149,10 @@ public class TestAuditRestImpl {
 		printResults.setDescription("description");
 		printResults.setMessageId("12345");
 		printResults.setSystemName("system name");
+		printResults.setSid("sid");
+		
+		UserInfo userInfo = getExampleUserInfo();
+		printResults.setUserInfo(userInfo);
 		
 		PrintResults printResultsResponse = restTemplate.postForObject(uri, printResults, PrintResults.class);
 		
@@ -163,6 +167,16 @@ public class TestAuditRestImpl {
 		assertEquals("description", printResultsFromDB.getDescription());
 		assertEquals("12345", printResultsFromDB.getMessageId());
 		assertEquals("system name", printResultsFromDB.getSystemName());
+		assertEquals("sid", printResultsFromDB.getSid());
+		
+		assertEquals("employer", printResultsFromDB.getUserInfo().getEmployerName());
+		assertEquals("sub", printResultsFromDB.getUserInfo().getEmployerSubunitName());
+		assertEquals("fed", printResultsFromDB.getUserInfo().getFederationId());
+		assertEquals("idpID", printResultsFromDB.getUserInfo().getIdentityProviderId());
+		assertEquals("email", printResultsFromDB.getUserInfo().getUserEmailAddress());
+		assertEquals("first", printResultsFromDB.getUserInfo().getUserFirstName());
+		assertEquals("last", printResultsFromDB.getUserInfo().getUserLastName());
+		
 	}
 	
 	@Test
@@ -170,15 +184,7 @@ public class TestAuditRestImpl {
 	{
 		final String uri = "http://localhost:9898/auditServer/audit/userLogin";
 		
-		UserInfo userInfo = new UserInfo();
-		
-		userInfo.setEmployerName("employer");
-		userInfo.setEmployerSubunitName("sub");
-		userInfo.setFederationId("fed");
-		userInfo.setIdentityProviderId("idpID");
-		userInfo.setUserEmailAddress("email");
-		userInfo.setUserFirstName("first");
-		userInfo.setUserLastName("last");
+		UserInfo userInfo = getExampleUserInfo();
 		
 		UserInfo userInfoResults = restTemplate.postForObject(uri, userInfo, UserInfo.class);
 		
@@ -192,6 +198,22 @@ public class TestAuditRestImpl {
 		assertEquals("first", userInfoResults.getUserFirstName());
 		assertEquals("last", userInfoResults.getUserLastName());
 		
+	}
+
+	private UserInfo getExampleUserInfo() {
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("employer");
+		userInfo.setEmployerSubunitName("sub");
+		userInfo.setFederationId("fed");
+		userInfo.setIdentityProviderId("idpID");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		userInfo.setEmployerOri("ori");
+		
+		return userInfo;
 	}
 	
 	@Test

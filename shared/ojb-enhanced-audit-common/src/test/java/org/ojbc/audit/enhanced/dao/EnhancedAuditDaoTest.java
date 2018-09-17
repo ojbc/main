@@ -163,6 +163,13 @@ public class EnhancedAuditDaoTest {
 
 	
 	private Integer saveUserInfo() {
+		UserInfo userInfo = getExampleUserInfo();
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		return userInfoPk;
+	}
+
+	private UserInfo getExampleUserInfo() {
 		UserInfo userInfo = new UserInfo();
 		
 		userInfo.setEmployerName("Employer Name");
@@ -172,9 +179,8 @@ public class EnhancedAuditDaoTest {
 		userInfo.setUserEmailAddress("email");
 		userInfo.setUserFirstName("first");
 		userInfo.setUserLastName("last");
-		
-		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
-		return userInfoPk;
+		userInfo.setEmployerOri("employer ori");
+		return userInfo;
 	}	
 
 	@Test
@@ -460,6 +466,11 @@ public class EnhancedAuditDaoTest {
 		printResults.setDescription("description");
 		printResults.setMessageId("123456");
 		printResults.setSystemName("system name");
+		printResults.setSid("sid");
+
+		UserInfo userInfo = getExampleUserInfo();
+		
+		printResults.setUserInfo(userInfo);
 		
 		Integer prPk = enhancedAuditDao.savePrintResults(printResults);
 		
@@ -470,6 +481,17 @@ public class EnhancedAuditDaoTest {
 		assertEquals("description", printResultsResponse.getDescription());
 		assertEquals("123456", printResultsResponse.getMessageId());
 		assertEquals("system name", printResultsResponse.getSystemName());
+		assertEquals("sid", printResultsResponse.getSid());
+	
+		assertEquals("Employer Name", printResultsResponse.getUserInfo().getEmployerName());
+		assertEquals("Sub Unit", printResultsResponse.getUserInfo().getEmployerSubunitName());
+		assertEquals("Fed ID", printResultsResponse.getUserInfo().getFederationId());
+		assertEquals("IDP", printResultsResponse.getUserInfo().getIdentityProviderId());
+		assertEquals("email", printResultsResponse.getUserInfo().getUserEmailAddress());
+		assertEquals("first", printResultsResponse.getUserInfo().getUserFirstName());
+		assertEquals("last", printResultsResponse.getUserInfo().getUserLastName());
+		assertEquals("employer ori", printResultsResponse.getUserInfo().getEmployerOri());		
+		
 	}	
 
 	@Test
@@ -562,6 +584,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("email", userAcknowledgementFromDatabase.getUserInfo().getUserEmailAddress());
 		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
 		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
+		assertEquals("employer ori", userAcknowledgementFromDatabase.getUserInfo().getEmployerOri());
 		
 	}
 }
