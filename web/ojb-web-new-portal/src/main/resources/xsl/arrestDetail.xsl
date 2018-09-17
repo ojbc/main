@@ -40,6 +40,10 @@
 
 	<xsl:template name="arrests">
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
+        <xsl:attribute name="arrestId">
+          <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+        </xsl:attribute>
+			
 				<thead>
 					<tr>
 						<th>OTN</th>
@@ -96,7 +100,10 @@
         
         <div class="card-body">
           <xsl:if test="j:ChargeDisposition">
-				      <table class="table table-striped table-bordered" style="width:100%" id="dispositionsTable">
+				      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="normalize-space(chsres-ext:ChargePrimarySystemIdentification/nc:IdentificationID)"/>
+                </xsl:attribute>
 				        <col/>
 				        <col/>
 				        <col/>
@@ -145,7 +152,7 @@
 							          <xsl:attribute name="id">
 							            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 							          </xsl:attribute>
-							          <i class="fas fa-plus-square fa-2x" title="add" data-toggle="tooltip"></i>
+							          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
 							        </a>
 							      </td>
 							      <td/>
@@ -182,11 +189,11 @@
       <td style="vertical-align:top; white-space: nowrap" >
         <a href="#" class="editDisposition" style="margin-right:3px">
           <xsl:attribute name="id">
-            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+            <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
           </xsl:attribute>
-          <i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
+          <i class="fas fa-edit fa-lg" title="edit" data-toggle="tooltip"></i>
         </a>
-        <i class="fas fa-trash-alt fa-2x" title="delete" data-toggle="tooltip"></i>
+        <a href="#"><i class="fas fa-trash-alt fa-lg" title="delete" data-toggle="tooltip"></i></a>
       </td>
 		  <td>
 		    <xsl:apply-templates select="nc:DispositionDate/nc:Date"  mode="formatDateAsMMDDYYYY"/>

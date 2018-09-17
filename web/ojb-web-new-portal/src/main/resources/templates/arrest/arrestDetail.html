@@ -16,6 +16,182 @@
 						     <p th:utext="${arrestDetailTransformed}" ></p>
 			      </div>
    			 </div>
+   			 <div id="modalDiv">
+						<!-- The Modal -->
+						<div class="modal" id="dispositionModal">
+						  <div class="modal-dialog modal-lg">
+						    <div class="modal-content">
+						
+						      <!-- Modal Header -->
+						      <div class="modal-header">
+						        <h4 class="modal-title">Add/Edit Disposition</h4>
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						      </div>
+						
+						      <!-- Modal body -->
+						      <div class="modal-body">
+							      <div th:fragment="dispositionForm">
+							        <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
+							          <input type="hidden" th:field="*{arrestIdentification}" />
+							          <input type="hidden" th:field="*{arrestChargeIdentification}" />
+							          <input type="hidden" th:field="*{dispositionIdentification}" />
+				                <table>
+				                  <tr>
+				                    <td>Disposition Date *</td>
+				                    <td><input type="text" th:field="*{dispositionDate}" width="250" placeholder="mm/dd/yyyy"/></td>
+				                    <td th:errors="*{dispositionDate}">Disposition Date error message</td>
+				                  </tr>
+				                  <tr>
+				                    <td>Disposition Code *</td>
+				                    <td><input type="text" th:field="*{dispositionCode}" width="250" placeholder="DISPO CODE"/></td>
+				                    <td th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}">Disposition Code error message</td>
+				                  </tr>
+				                  <tr>
+				                    <td>Court Case Number </td>
+				                    <td><input type="text" th:field="*{courtCaseNumber}" width="250" placeholder="COURT CASE #"/></td>
+				                    <td th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}">Court Case Number error message</td>
+				                  </tr>
+                          <tr>
+                            <td>Filed Charge *</td>
+                            <td><input type="text" th:field="*{filedCharge}" width="250" placeholder="FILED CHARGE"/></td>
+                            <td th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}">Filed charge error message</td>
+                          </tr>
+                          <tr>
+                            <td>Amended Charge</td>
+                            <td><input type="text" th:field="*{amendedCharge}" width="250" placeholder="AMENDED CHARGE"/></td>
+                            <td th:if="${#fields.hasErrors('amendedCharge')}" th:errors="*{amendedCharge}">Amended charge error message</td>
+                          </tr>
+                          <tr>
+                            <td>Fine Amount</td>
+                            <td><input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT"/></td>
+                            <td th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}">Fine amount error message</td>
+                          </tr>
+                          <tr>
+                            <td>Fine Suspended</td>
+                            <td><input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED"/></td>
+                            <td th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}">Fine suspended error message</td>
+                          </tr>
+                          <tr>
+                            <td>Jail Years</td>
+                            <td><input type="text" th:field="*{jailYears}" width="1" placeholder="JAIL YEARS"/></td>
+                            <td th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}">Jail years error message</td>
+                          </tr>
+                          <tr>
+                            <td>Jail Days</td>
+                            <td><input type="text" th:field="*{jailDays}" width="3" placeholder="JAIL DAYS"/></td>
+                            <td th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}">Jail days error message</td>
+                          </tr>
+                          <tr>
+                            <td>Suspended Years</td>
+                            <td><input type="text" th:field="*{suspendedYears}" width="1" placeholder="SUSPENDED YEARS"/></td>
+                            <td th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}">Suspended years error message</td>
+                          </tr>
+                          <tr>
+                            <td>Suspended Days</td>
+                            <td><input type="text" th:field="*{suspendedDays}" width="3" placeholder="SUSPENDED DAYS"/></td>
+                            <td th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}">Suspended days error message</td>
+                          </tr>
+                          <tr>
+                            <td>Deferred Years</td>
+                            <td><input type="text" th:field="*{deferredYears}" width="1" placeholder="DEFERRED YEARS"/></td>
+                            <td th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}">Deferred years error message</td>
+                          </tr>
+                          <tr>
+                            <td>Deferred Days</td>
+                            <td><input type="text" th:field="*{deferredDays}" width="3" placeholder="DEFERRED DAYS"/></td>
+                            <td th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}">Deferred days error message</td>
+                          </tr>
+                          <tr>
+                            <td>Restitution</td>
+                            <td><input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION"/></td>
+                            <td th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}">Restitution error message</td>
+                          </tr>					                </table>
+                          <tr>
+                            <td>Alternate Sentence</td>
+                            <td><input type="text" th:field="*{alternateSentence}" width="250" placeholder="ALTERNATE SENTENCE"/></td>
+                            <td th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}">Alternate sentence error message</td>
+                          </tr>					                
+                          <tr>
+                            <td>Reason For Dismissal</td>
+                            <td><input type="text" th:field="*{reasonForDismissal}" width="250" placeholder="REASON FOR DISMISSAL"/></td>
+                            <td th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}">Reason for dismissal error message</td>
+                          </tr>					                
+                       </table>
+					            </form>
+					        </div>
+					      </div>
+					
+					      <!-- Modal footer -->
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
+                   <button type="reset" class="btn btn-secondary">Reset</button>
+					      </div>
+						
+					    </div>
+					  </div>
+				 </div>
+		     <script th:inline="javascript">
+		     
+         	   var dispoTables = [];
+             $(function(){
+            	   $('table.dispositionsTable').each(function(){
+                	 dispoTables[$(this).attr('id')] = $(this).DataTable();
+                 });
+                 
+                 $('.dispositionsTable').on('click', 'a.editDisposition',function() {
+                	 var chargeId = $(this).closest("table").attr("id");
+                	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                	 $("#arrestChargeIdentification").val(chargeId);
+                	 $("#dispositionIdentification").val($(this).attr("id"));
+                	 
+                	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
+                	 console.log(rowData);
+                	 $("#dispositionDate").val(rowData[1]);
+                	 $("#dispositionCode").val(rowData[2]);
+                	 $("#courtCaseNumber").val(rowData[3]);
+                	 $("#filedCharge").val(rowData[4]);
+                	 $("#amendedCharge").val(rowData[5]);
+                	 $("#fineAmount").val(rowData[6]);
+                	 $("#fineSuspended").val(rowData[7]);
+                	 $("#jailYears").val(rowData[8]);
+                	 $("#jailDays").val(rowData[9]);
+                	 $("#suspendedYears").val(rowData[10]);
+                	 $("#suspendedDays").val(rowData[11]);
+                	 $("#deferredYears").val(rowData[12]);
+                	 $("#deferredDays").val(rowData[13]);
+                	 $("#restitution").val(rowData[14]);
+                	 $("#alternateSentence").val(rowData[15]);
+                	 $("#reasonForDismissal").val(rowData[16]);
+                	 
+                	 $('#dispositionModal').modal('show');
+/*                     xhr = $.get( context +"arrests/charges/"+ $(this).closest("table").attr("id")+ "/dispositions/" + $(this).attr("id"), function(data) {
+                      $('main').html(data);
+                    }).fail();
+ */
+                 });
+                 
+                 $('#saveDisposition').on('click', function(){
+                	 var formData = $("#dispositionForm").serialize();
+                   xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
+                	   console.log(formData);
+                	   console.log(data);
+                	   if ($(data).find('div.card').length > 0){
+                		   $("#dispositionModal .close").click();
+                		   $('main').html(data); 
+                	   }
+                	   else{
+                       $('.modal-body').html(data);
+                       $('#dispositionModal').modal('show');
+                	   }
+                   }).fail(function() {
+                	    alert( "error" );
+                   });
+
+                 });
+            });
+	      </script>
+		      
       </div>
+      
 	</body>
 </html>

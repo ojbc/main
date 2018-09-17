@@ -88,7 +88,7 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1234</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
-					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeText>331</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 					</chsres-ext:FiledCharge>
@@ -155,7 +155,7 @@
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-				<j:ChargeDisposition>
+				<j:ChargeDisposition structures:id="Dispo_03">
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -163,10 +163,10 @@
 						<nc:IdentificationID>D1222</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
 					<chsres-ext:FiledCharge>
-						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
-						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:CourtCase>
@@ -228,8 +228,8 @@
 			<j:Sentence structures:ref="Sentence_01" />
 		</chsres-ext:DispositionSentenceAssociation>
 		<chsres-ext:DispositionSentenceAssociation>
-			<nc:Disposition structures:ref="Dispo_02" />
-			<j:Sentence structures:ref="Sentence_02" />
+			<nc:Disposition structures:ref="Dispo_03" />
+			<j:Sentence structures:ref="Sentence_03" />
 		</chsres-ext:DispositionSentenceAssociation>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

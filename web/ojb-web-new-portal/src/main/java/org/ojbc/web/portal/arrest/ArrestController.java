@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -22,9 +23,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.w3c.dom.Document;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "arrestSearchRequest"})
+@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed"})
 @RequestMapping("/arrests")
 public class ArrestController {
 	private static final Log log = LogFactory.getLog(ArrestController.class);
@@ -47,6 +49,7 @@ public class ArrestController {
 		arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		model.addAttribute("arrestSearchRequest", arrestSearchRequest);
+		model.addAttribute("disposition", new Disposition());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
     }
     
@@ -82,5 +85,36 @@ public class ArrestController {
 		model.put("arrestDetailTransformed", transformedResults); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
+
+	@GetMapping("/charges/{chargeId}/dispositions/{dispositionId}")
+	public String getDisposition(HttpServletRequest request, @PathVariable String chargeId, 
+			@PathVariable String dispositionId, Map<String, Object> model) throws Throwable {
+		
+		String arrestDetail = (String) model.get("arrestDetail");
+		Document arrestDetailDocument = XmlUtils.toDocument(arrestDetail);
+		Disposition disposition = parseDisposition(arrestDetailDocument);
+		model.put("disposition", disposition);
+		return "arrest/dispositionForm::dispositionForm";
+	}
+
+	private Disposition parseDisposition(Document arrestDetailDocument) {
+		Disposition disposition = new Disposition();
+		return disposition;
+	}
+
+	@PostMapping("/saveDisposition")
+	public String saveDisposition(HttpServletRequest request, @Valid @ModelAttribute Disposition disposition, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		
+		if (bindingResult.hasErrors()) {
+			log.info("has binding errors");
+			log.info(bindingResult.getAllErrors());
+			return "arrest/arrestDetail::dispositionForm";
+		}
+		
+//		TODO add the web service call to get the arrest detail again. 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+	
 
 }
