@@ -64,7 +64,7 @@
 			<setHeader headerName="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
 			<setHeader headerName="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
-			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
+			<setHeader headerName="transactionContentSummaryContentRecordCount"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
 			<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
 			<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 	
@@ -102,8 +102,31 @@
 			<camel:setHeader headerName="federatedQueryRequestGUID">
 				<camel:simple>${in.headers.transactionControlReferenceIdentification}</camel:simple>				
 			</camel:setHeader>
+			
+			<camel:choice>
+				<when>
+					<simple>${header.trxCatCode} == 'ERRI'</simple>
+				
+					<camel:to uri="xslt:xsl/RapBackErrorResponseToOJBQueryResultError.xsl"/>
+				</when>
+				<when>
+					<simple>${header.trxCatCode} == 'RBIHSR'</simple>
+					
+					<camel:to uri="bean:criminalHistoryTextResponseProcessor?method=createCriminalHistoryTextResponse"/>	
+				</when>
+			</camel:choice>
 
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName">
+				<camel:constant>SubmitCriminalHistoryTextDocument</camel:constant>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="operationNamespace">
+				<camel:constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</camel:constant>
+			</camel:setHeader>
+			
+			<camel:log message="Criminal History Text Response: ${body}"/>
 			
 			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
 			

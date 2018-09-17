@@ -681,4 +681,6 @@
 	
 	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 	
+	<bean id="criminalHistoryTextResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.CriminalHistoryTextResponseProcessor"/>
+	
 </beans>
