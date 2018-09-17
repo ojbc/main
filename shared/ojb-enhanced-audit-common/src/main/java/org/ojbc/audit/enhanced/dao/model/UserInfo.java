@@ -30,6 +30,7 @@ public class UserInfo {
 	private String userLastName;
 	private String employerSubunitName;
 	private String federationId;
+	private String employerOri;
 	
 	public String getUserFirstName() {
 		return userFirstName;
@@ -82,5 +83,11 @@ public class UserInfo {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public String getEmployerOri() {
+		return employerOri;
+	}
+	public void setEmployerOri(String employerOri) {
+		this.employerOri = employerOri;
 	}
 }

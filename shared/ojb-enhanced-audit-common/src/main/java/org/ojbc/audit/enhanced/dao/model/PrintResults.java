@@ -22,8 +22,8 @@ public class PrintResults {
 	private String messageId;
 	private String systemName;
 	private String description;
-//	private UserInfo userInfo;
-//	private String sid;
+	private UserInfo userInfo;
+	private String sid;
 	
 	public Integer getPrintResultsId() {
 		return printResultsId;
@@ -49,17 +49,17 @@ public class PrintResults {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-//	public UserInfo getUserInfo() {
-//		return userInfo;
-//	}
-//	public void setUserInfo(UserInfo userInfo) {
-//		this.userInfo = userInfo;
-//	}
-//	public String getSid() {
-//		return sid;
-//	}
-//	public void setSid(String sid) {
-//		this.sid = sid;
-//	}
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
 	
 }

@@ -196,7 +196,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	@Override
 	public PrintResults retrievePrintResultsfromMessageID(String messageId) {
 		
-		final String PRINT_RESULTS_SELECT="SELECT * FROM PRINT_RESULTS WHERE MESSAGE_ID = ?";
+		final String PRINT_RESULTS_SELECT="SELECT ui.*, pr.* FROM PRINT_RESULTS pr, USER_INFO ui WHERE ui.USER_INFO_ID = pr.USER_INFO_ID and MESSAGE_ID = ?";
 		
 		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), messageId);
 		return DataAccessUtils.singleResult(printResults);		
@@ -276,9 +276,13 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	public Integer savePrintResults(PrintResults printResults) {
         log.debug("Inserting row into PRINT_RESULTS table : " + printResults.toString());
         
+        UserInfo userInfo = printResults.getUserInfo();
+        
+        Integer userInfoPk = saveUserInfo(userInfo);
+        
         final String PRINT_RESULTS_INSERT="INSERT into PRINT_RESULTS "
-        		+ "(SYSTEM_NAME, DESCRIPTION, MESSAGE_ID) "
-        		+ "values (?, ?, ?)";
+        		+ "(SYSTEM_NAME, DESCRIPTION, MESSAGE_ID, SID, USER_INFO_ID) "
+        		+ "values (?, ?, ?, ?, ?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -290,6 +294,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(printResults.getSystemName(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(printResults.getDescription(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(printResults.getMessageId(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(printResults.getSid(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(userInfoPk, ps, 5);
         	            
         	            return ps;
         	        }
@@ -358,8 +364,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         log.debug("Inserting row into USER_INFO table : " + userInfo);
         
         final String USER_INFO_INSERT="INSERT into USER_INFO "  
-        		+ "(USER_FIRST_NAME,IDENTITY_PROVIDER_ID,EMPLOYER_NAME,USER_EMAIL_ADDRESS,USER_LAST_NAME,EMPLOYER_SUBUNIT_NAME,FEDERATION_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        		+ "(USER_FIRST_NAME,IDENTITY_PROVIDER_ID,EMPLOYER_NAME,USER_EMAIL_ADDRESS,USER_LAST_NAME,EMPLOYER_SUBUNIT_NAME,FEDERATION_ID,EMPLOYER_ORI) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -374,6 +380,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(userInfo.getUserLastName(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(userInfo.getEmployerSubunitName(), ps, 6);
         	            DaoUtils.setPreparedStatementVariable(userInfo.getFederationId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getEmployerOri(), ps, 8);
         	            
         	            return ps;
         	        }
@@ -1192,6 +1199,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			
 			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
 			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
+			userInfo.setEmployerOri(rs.getString("EMPLOYER_ORI"));
 			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
 			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
 			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
@@ -1365,6 +1373,15 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setMessageId(rs.getString("MESSAGE_ID"));
 			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
 			printResults.setDescription(rs.getString("DESCRIPTION"));
+			printResults.setSid(rs.getString("SID"));
+			
+			UserInfo userInfo = new UserInfo();
+			
+			UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+			
+			userInfo = userInfoRowMapper.buildUserInfo(rs);
+			
+			printResults.setUserInfo(userInfo);
 			
 			return printResults;
 		}
@@ -1435,14 +1452,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			
 			UserInfo userInfo = new UserInfo();
 			
-			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
-			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
-			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
-			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
-			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
-			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
-			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
-			userInfo.setFederationId(rs.getString("FEDERATION_ID"));
+			UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+			
+			userInfo = userInfoRowMapper.buildUserInfo(rs);
 
 			userAcknowledgement.setUserInfo(userInfo);
 			
