@@ -135,7 +135,20 @@
          	   var dispoTables = [];
              $(function(){
             	   $('table.dispositionsTable').each(function(){
-                	 dispoTables[$(this).attr('id')] = $(this).DataTable();
+                	 dispoTables[$(this).attr('id')] = $(this).DataTable({
+                		 dom: '<"top">rt<"bottom"><"clear">',
+                		 columnDefs: [ 
+                        {
+                            "targets": 0,
+                            "searchable": false,
+                            "orderable": false
+                         }, 
+                			  {
+                		      "targets": [6, 7, 14],
+                		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
+                		    }
+                		  ]
+                	 });
                  });
                  
                  $('.dispositionsTable').on('click', 'a.editDisposition',function() {
@@ -164,10 +177,6 @@
                 	 $("#reasonForDismissal").val(rowData[16]);
                 	 
                 	 $('#dispositionModal').modal('show');
-/*                     xhr = $.get( context +"arrests/charges/"+ $(this).closest("table").attr("id")+ "/dispositions/" + $(this).attr("id"), function(data) {
-                      $('main').html(data);
-                    }).fail();
- */
                  });
                  
                  $('#saveDisposition').on('click', function(){
