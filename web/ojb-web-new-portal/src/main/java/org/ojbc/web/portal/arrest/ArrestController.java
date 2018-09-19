@@ -89,7 +89,7 @@ public class ArrestController {
 			Map<String, Object> model) throws Throwable {
 		
 		model.put("disposition", disposition);
-		return "arrest/arrestDetail::dispositionForm";
+		return "arrest/dispositionForm::dispositionForm";
 	}
 
 	@PostMapping("/saveDisposition")
@@ -99,7 +99,7 @@ public class ArrestController {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");
 			log.info(bindingResult.getAllErrors());
-			return "arrest/arrestDetail::dispositionForm";
+			return "arrest/dispositionForm::dispositionForm";
 		}
 		
 //		TODO add the web service call to get the arrest detail again. 

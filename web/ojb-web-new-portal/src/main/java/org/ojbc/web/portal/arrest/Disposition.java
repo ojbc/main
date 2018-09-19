@@ -19,12 +19,14 @@ package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 public class Disposition {
 	private String arrestIdentification;
@@ -43,7 +45,11 @@ public class Disposition {
     private String filedCharge;
     private String amendedCharge;
     
+    @Min(1)
+    @NumberFormat(pattern = "#,###,###,###,###")
     private Integer fineAmount;
+    @Min(1)
+    @NumberFormat(pattern = "#,###,###,###,###")
     private Integer fineSuspended;
     
     @Max(1)
@@ -61,6 +67,8 @@ public class Disposition {
     @Max(359)
     private Integer deferredDays;
     
+    @Min(1)
+    @NumberFormat(pattern = "#,###,###,###,###")
     private Integer restitution; 
     private String alternateSentence; 
     private String reasonForDismissal;

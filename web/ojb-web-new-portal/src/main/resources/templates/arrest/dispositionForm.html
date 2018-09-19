@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Disposition Form</title>
+		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+		<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+	    <!-- Begin page content -->
+  <div th:fragment="dispositionForm">
+    <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
+      <input type="hidden" th:field="*{arrestIdentification}" />
+      <input type="hidden" th:field="*{arrestChargeIdentification}" />
+      <input type="hidden" th:field="*{dispositionIdentification}" />
+      <div class="form-row">
+            <div class="col-md-3 mb-2">
+             <label>Disposition Date *</label>
+             <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
+             <div th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
+           </div>
+           <div class="col-md-6 mb-4">
+             <label>Disposition Code *</label>
+             <input type="text" th:field="*{dispositionCode}" placeholder="DISPO CODE" class="form-control" th:errorclass="is-invalid"/>
+             <div th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}" class="invalid-feedback">Disposition Code error message</div>
+           </div>
+               <div class="col-md-3 mb-2">
+                 <label>Court Case Number </label>
+                 <input type="text" th:field="*{courtCaseNumber}" placeholder="COURT CASE #" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}" class="invalid-feedback">Court Case Number error message</div>
+               </div>
+          </div>
+             <div class="form-row">
+               <div class="col-md-6 mb-4">
+                 <label>Filed Charge *</label>
+                 <input type="text" th:field="*{filedCharge}" placeholder="FILED CHARGE" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}" class="invalid-feedback">Filed charge error message</div>
+               </div>
+               <div class="col-md-6 mb-4">
+                 <label>Amended Charge</label>
+                 <input type="text" th:field="*{amendedCharge}" placeholder="AMENDED CHARGE" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('amendedCharge')}" th:errors="*{amendedCharge}" class="invalid-feedback">Amended charge error message</div>
+               </div>
+             </div>
+             <div class="form-row">
+               <div class="col-md-6 mb-4">
+                 <label>Fine Amount</label>
+                 <input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT" class="money form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
+               </div>
+               <div class="col-md-6 mb-4">
+                 <label>Fine Suspended</label>
+                 <input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED" class="money form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}" class="invalid-feedback">Fine suspended error message</div>
+               </div>
+             </div>
+             <div class="form-row">
+               <div class="col-md-2 mb-2">
+                 <label>Jail Years</label>
+                 <input type="text" th:field="*{jailYears}" width="1" placeholder="JAIL YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
+               </div>
+               <div class="col-md-2 mb-2">
+                 <label>Jail Days</label>
+                 <input type="text" th:field="*{jailDays}" width="3" placeholder="JAIL DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
+               </div>
+               <div class="col-md-2 mb-2">
+                 <label>Suspended Years</label>
+                 <input type="text" th:field="*{suspendedYears}" width="1" placeholder="SUSPENDED YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
+               </div>
+               <div class="col-md-2 mb-2">
+                 <label>Suspended Days</label>
+                 <input type="text" th:field="*{suspendedDays}" width="3" placeholder="SUSPENDED DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
+               </div>
+               <div class="col-md-2 mb-2">
+                 <label>Deferred Years</label>
+                 <input type="text" th:field="*{deferredYears}" width="1" placeholder="DEFERRED YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
+               </div>
+               <div class="col-md-2 mb-2">
+                 <label>Deferred Days</label>
+                 <input type="text" th:field="*{deferredDays}" width="3" placeholder="DEFERRED DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
+               </div>
+             </div>
+             <div class="form-row">
+               <div class="col-md-6 mb-4">
+                 <label>Restitution</label>
+                 <input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION" class="money form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}" class="invalid-feedback">Restitution error message</div>
+               </div>					                
+               <div class="col-md-6 mb-4">
+                 <label>Alternate Sentence</label>
+                 <input type="text" th:field="*{alternateSentence}" width="250" placeholder="ALTERNATE SENTENCE" class="form-control" th:errorclass="is-invalid"/>
+                 <div th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}" class="invalid-feedback">Alternate sentence error message</div>
+               </div>		
+             </div>			                
+             <div class="form-group">
+               <label>Reason For Dismissal</label>
+               <input type="text" th:field="*{reasonForDismissal}" width="250" placeholder="REASON FOR DISMISSAL" class="form-control" th:errorclass="is-invalid"/>
+               <div th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}" class="invalid-feedback">Reason for dismissal error message</div>
+             </div>					                
+            </table>
+      </form>
+    <script th:inline="javascript">
+	      $(function(){
+	     	   $('.date').mask('99/99/9999');
+	     	   $('.money').mask('0,000,000,000,000', {reverse: true});
+        });
+    </script>
+  </div>
+	</body>
+</html>

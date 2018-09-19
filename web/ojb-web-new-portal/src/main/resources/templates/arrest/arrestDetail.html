@@ -29,107 +29,18 @@
 						      </div>
 						
 						      <!-- Modal body -->
-						      <div class="modal-body">
-							      <div th:fragment="dispositionForm">
-							        <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
-							          <input type="hidden" th:field="*{arrestIdentification}" />
-							          <input type="hidden" th:field="*{arrestChargeIdentification}" />
-							          <input type="hidden" th:field="*{dispositionIdentification}" />
-				                <table>
-				                  <tr>
-				                    <td>Disposition Date *</td>
-				                    <td><input type="text" th:field="*{dispositionDate}" width="250" placeholder="mm/dd/yyyy" class="date"/></td>
-				                    <td th:errors="*{dispositionDate}">Disposition Date error message</td>
-				                  </tr>
-				                  <tr>
-				                    <td>Disposition Code *</td>
-				                    <td><input type="text" th:field="*{dispositionCode}" width="250" placeholder="DISPO CODE"/></td>
-				                    <td th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}">Disposition Code error message</td>
-				                  </tr>
-				                  <tr>
-				                    <td>Court Case Number </td>
-				                    <td><input type="text" th:field="*{courtCaseNumber}" width="250" placeholder="COURT CASE #"/></td>
-				                    <td th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}">Court Case Number error message</td>
-				                  </tr>
-                          <tr>
-                            <td>Filed Charge *</td>
-                            <td><input type="text" th:field="*{filedCharge}" width="250" placeholder="FILED CHARGE"/></td>
-                            <td th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}">Filed charge error message</td>
-                          </tr>
-                          <tr>
-                            <td>Amended Charge</td>
-                            <td><input type="text" th:field="*{amendedCharge}" width="250" placeholder="AMENDED CHARGE"/></td>
-                            <td th:if="${#fields.hasErrors('amendedCharge')}" th:errors="*{amendedCharge}">Amended charge error message</td>
-                          </tr>
-                          <tr>
-                            <td>Fine Amount</td>
-                            <td><input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT" class="money"/></td>
-                            <td th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}">Fine amount error message</td>
-                          </tr>
-                          <tr>
-                            <td>Fine Suspended</td>
-                            <td><input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED" class="money"/></td>
-                            <td th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}">Fine suspended error message</td>
-                          </tr>
-                          <tr>
-                            <td>Jail Years</td>
-                            <td><input type="text" th:field="*{jailYears}" width="1" placeholder="JAIL YEARS"/></td>
-                            <td th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}">Jail years error message</td>
-                          </tr>
-                          <tr>
-                            <td>Jail Days</td>
-                            <td><input type="text" th:field="*{jailDays}" width="3" placeholder="JAIL DAYS"/></td>
-                            <td th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}">Jail days error message</td>
-                          </tr>
-                          <tr>
-                            <td>Suspended Years</td>
-                            <td><input type="text" th:field="*{suspendedYears}" width="1" placeholder="SUSPENDED YEARS"/></td>
-                            <td th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}">Suspended years error message</td>
-                          </tr>
-                          <tr>
-                            <td>Suspended Days</td>
-                            <td><input type="text" th:field="*{suspendedDays}" width="3" placeholder="SUSPENDED DAYS"/></td>
-                            <td th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}">Suspended days error message</td>
-                          </tr>
-                          <tr>
-                            <td>Deferred Years</td>
-                            <td><input type="text" th:field="*{deferredYears}" width="1" placeholder="DEFERRED YEARS"/></td>
-                            <td th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}">Deferred years error message</td>
-                          </tr>
-                          <tr>
-                            <td>Deferred Days</td>
-                            <td><input type="text" th:field="*{deferredDays}" width="3" placeholder="DEFERRED DAYS"/></td>
-                            <td th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}">Deferred days error message</td>
-                          </tr>
-                          <tr>
-                            <td>Restitution</td>
-                            <td><input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION" class="money"/></td>
-                            <td th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}">Restitution error message</td>
-                          </tr>					                
-                          <tr>
-                            <td>Alternate Sentence</td>
-                            <td><input type="text" th:field="*{alternateSentence}" width="250" placeholder="ALTERNATE SENTENCE"/></td>
-                            <td th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}">Alternate sentence error message</td>
-                          </tr>					                
-                          <tr>
-                            <td>Reason For Dismissal</td>
-                            <td><input type="text" th:field="*{reasonForDismissal}" width="250" placeholder="REASON FOR DISMISSAL"/></td>
-                            <td th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}">Reason for dismissal error message</td>
-                          </tr>					                
-                       </table>
-					            </form>
-					        </div>
-					      </div>
+						      <div class="modal-body"/>
 					
-					      <!-- Modal footer -->
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
-                  <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
-					      </div>
+						      <!-- Modal footer -->
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
+	                  <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+						      </div>
 						
-					    </div>
+			          </div>
 					  </div>
-				 </div>
+				  </div>
+			   </div>
 		     <script th:inline="javascript">
 		     
          	   var dispoTables = [];
@@ -179,8 +90,8 @@
                     
                     xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
                     	$('.modal-body').html(data);
+                      $('#dispositionModal').modal('show');
                     }).fail();
-                    $('#dispositionModal').modal('show');
                  }); 
                  
                  $('.dispositionsTable').on('click', 'a.editDisposition',function() {
@@ -209,10 +120,9 @@
                 	 $("#reasonForDismissal").val(rowData[16]);
                 	 
                    xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
-                       $('.modal-body').html(data);
+                      $('.modal-body').html(data);
+                      $('#dispositionModal').modal('show');
                    }).fail();
-
-                	 $('#dispositionModal').modal('show');
                  });
                  
                  $('#saveDisposition').on('click', function(){
@@ -235,7 +145,6 @@
                  });
             });
 	      </script>
-		    <script type="text/javascript" th:src="@{/js/jquery.mask.min.js}"></script> 
       </div>
       
 	</body>
