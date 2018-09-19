@@ -124,7 +124,7 @@
 					      <!-- Modal footer -->
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
-                   <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 					      </div>
 						
 					    </div>
@@ -159,6 +159,27 @@
                     var chargeId = $(this).closest("table").attr("id");
                     $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                     $("#arrestChargeIdentification").val(chargeId);
+                    $("#dispositionIdentification").val('');
+                    $("#dispositionDate").val('');
+                    $("#dispositionCode").val('');
+                    $("#courtCaseNumber").val('');
+                    $("#filedCharge").val('');
+                    $("#amendedCharge").val('');
+                    $("#fineAmount").val('');
+                    $("#fineSuspended").val('');
+                    $("#jailYears").val('');
+                    $("#jailDays").val('');
+                    $("#suspendedYears").val('');
+                    $("#suspendedDays").val('');
+                    $("#deferredYears").val('');
+                    $("#deferredDays").val('');
+                    $("#restitution").val('');
+                    $("#alternateSentence").val('');
+                    $("#reasonForDismissal").val('');
+                    
+                    xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                    	$('.modal-body').html(data);
+                    }).fail();
                     $('#dispositionModal').modal('show');
                  }); 
                  
@@ -187,6 +208,10 @@
                 	 $("#alternateSentence").val(rowData[15]);
                 	 $("#reasonForDismissal").val(rowData[16]);
                 	 
+                   xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                       $('.modal-body').html(data);
+                   }).fail();
+
                 	 $('#dispositionModal').modal('show');
                  });
                  

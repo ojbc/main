@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Document;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed"})
@@ -86,20 +84,12 @@ public class ArrestController {
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
-	@GetMapping("/charges/{chargeId}/dispositions/{dispositionId}")
-	public String getDisposition(HttpServletRequest request, @PathVariable String chargeId, 
-			@PathVariable String dispositionId, Map<String, Object> model) throws Throwable {
+	@GetMapping("/dispositionForm")
+	public String getDispositionForm(HttpServletRequest request, Disposition disposition, 
+			Map<String, Object> model) throws Throwable {
 		
-		String arrestDetail = (String) model.get("arrestDetail");
-		Document arrestDetailDocument = XmlUtils.toDocument(arrestDetail);
-		Disposition disposition = parseDisposition(arrestDetailDocument);
 		model.put("disposition", disposition);
-		return "arrest/dispositionForm::dispositionForm";
-	}
-
-	private Disposition parseDisposition(Document arrestDetailDocument) {
-		Disposition disposition = new Disposition();
-		return disposition;
+		return "arrest/arrestDetail::dispositionForm";
 	}
 
 	@PostMapping("/saveDisposition")

@@ -18,6 +18,8 @@ package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -33,22 +35,30 @@ public class Disposition {
 	@NotNull
 	private LocalDate dispositionDate; 
 	
+	@NotBlank
 	private String dispositionCode;
     private String courtCaseNumber;
     
+    @NotBlank
     private String filedCharge;
     private String amendedCharge;
     
     private Integer fineAmount;
     private Integer fineSuspended;
     
+    @Max(1)
     private Integer jailYears;
+    @Max(359)
     private Integer jailDays;
     
+    @Max(1)
     private Integer suspendedYears;
+    @Max(359)
     private Integer suspendedDays;
     
+    @Max(1)
     private Integer deferredYears;
+    @Max(359)
     private Integer deferredDays;
     
     private Integer restitution; 
