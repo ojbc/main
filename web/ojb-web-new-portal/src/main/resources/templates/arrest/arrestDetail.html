@@ -38,7 +38,7 @@
 				                <table>
 				                  <tr>
 				                    <td>Disposition Date *</td>
-				                    <td><input type="text" th:field="*{dispositionDate}" width="250" placeholder="mm/dd/yyyy"/></td>
+				                    <td><input type="text" th:field="*{dispositionDate}" width="250" placeholder="mm/dd/yyyy" class="date"/></td>
 				                    <td th:errors="*{dispositionDate}">Disposition Date error message</td>
 				                  </tr>
 				                  <tr>
@@ -63,12 +63,12 @@
                           </tr>
                           <tr>
                             <td>Fine Amount</td>
-                            <td><input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT"/></td>
+                            <td><input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT" class="money"/></td>
                             <td th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}">Fine amount error message</td>
                           </tr>
                           <tr>
                             <td>Fine Suspended</td>
-                            <td><input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED"/></td>
+                            <td><input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED" class="money"/></td>
                             <td th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}">Fine suspended error message</td>
                           </tr>
                           <tr>
@@ -103,9 +103,9 @@
                           </tr>
                           <tr>
                             <td>Restitution</td>
-                            <td><input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION"/></td>
+                            <td><input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION" class="money"/></td>
                             <td th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}">Restitution error message</td>
-                          </tr>					                </table>
+                          </tr>					                
                           <tr>
                             <td>Alternate Sentence</td>
                             <td><input type="text" th:field="*{alternateSentence}" width="250" placeholder="ALTERNATE SENTENCE"/></td>
@@ -134,9 +134,13 @@
 		     
          	   var dispoTables = [];
              $(function(){
+            	   $('.date').mask('99/99/9999');
+            	   $('.money').mask('000,000,000,000,000', {reverse: true});
+            	   
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
-                		 dom: '<"top">rt<"bottom"><"clear">',
+                		 dom: 'rt',
+                		 order: [ 1, "desc" ],
                 		 columnDefs: [ 
                         {
                             "targets": 0,
@@ -150,6 +154,13 @@
                 		  ]
                 	 });
                  });
+            	   
+                 $('.dispositionsTable').on('click', 'a.addDisposition',function() {
+                    var chargeId = $(this).closest("table").attr("id");
+                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                    $("#arrestChargeIdentification").val(chargeId);
+                    $('#dispositionModal').modal('show');
+                 }); 
                  
                  $('.dispositionsTable').on('click', 'a.editDisposition',function() {
                 	 var chargeId = $(this).closest("table").attr("id");
@@ -164,15 +175,15 @@
                 	 $("#courtCaseNumber").val(rowData[3]);
                 	 $("#filedCharge").val(rowData[4]);
                 	 $("#amendedCharge").val(rowData[5]);
-                	 $("#fineAmount").val(rowData[6]);
-                	 $("#fineSuspended").val(rowData[7]);
+                	 $("#fineAmount").val(rowData[6].split('.', 1));
+                	 $("#fineSuspended").val(rowData[7].split('.', 1));
                 	 $("#jailYears").val(rowData[8]);
                 	 $("#jailDays").val(rowData[9]);
                 	 $("#suspendedYears").val(rowData[10]);
                 	 $("#suspendedDays").val(rowData[11]);
                 	 $("#deferredYears").val(rowData[12]);
                 	 $("#deferredDays").val(rowData[13]);
-                	 $("#restitution").val(rowData[14]);
+                	 $("#restitution").val(rowData[14].split('.', 1));
                 	 $("#alternateSentence").val(rowData[15]);
                 	 $("#reasonForDismissal").val(rowData[16]);
                 	 
@@ -199,7 +210,7 @@
                  });
             });
 	      </script>
-		      
+		    <script type="text/javascript" th:src="@{/js/jquery.mask.min.js}"></script> 
       </div>
       
 	</body>

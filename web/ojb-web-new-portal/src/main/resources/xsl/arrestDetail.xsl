@@ -146,12 +146,11 @@
 				        </thead>
 				        <tbody>
 				          <xsl:apply-templates select="j:ChargeDisposition"/>
+				        </tbody>
+                <tfoot>				          
 		              <tr>
 							      <td style="vertical-align:top; white-space: nowrap" >
 							        <a href="#" class="addDisposition" style="margin-right:3px">
-							          <xsl:attribute name="id">
-							            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-							          </xsl:attribute>
 							          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
 							        </a>
 							      </td>
@@ -172,8 +171,7 @@
 							      <td/>
 							      <td/>
 							    </tr>
-				          
-				        </tbody>
+				         </tfoot> 
 				      </table>
           </xsl:if>
         </div>
