@@ -22,7 +22,10 @@
            </div>
            <div class="col-md-6 mb-4">
              <label>Disposition Code *</label>
-             <input type="text" th:field="*{dispositionCode}" placeholder="DISPO CODE" class="form-control" th:errorclass="is-invalid"/>
+             <select th:field="*{dispositionCode}" class="form-control" th:errorclass="is-invalid">
+                <option value="" >Please select ...</option>
+						    <option th:each="item: ${dispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+             </select>
              <div th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}" class="invalid-feedback">Disposition Code error message</div>
            </div>
                <div class="col-md-3 mb-2">
@@ -58,32 +61,32 @@
              <div class="form-row">
                <div class="col-md-2 mb-2">
                  <label>Jail Years</label>
-                 <input type="text" th:field="*{jailYears}" width="1" placeholder="JAIL YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Jail Days</label>
-                 <input type="text" th:field="*{jailDays}" width="3" placeholder="JAIL DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Suspended Years</label>
-                 <input type="text" th:field="*{suspendedYears}" width="1" placeholder="SUSPENDED YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Suspended Days</label>
-                 <input type="text" th:field="*{suspendedDays}" width="3" placeholder="SUSPENDED DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Deferred Years</label>
-                 <input type="text" th:field="*{deferredYears}" width="1" placeholder="DEFERRED YEARS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="1" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Deferred Days</label>
-                 <input type="text" th:field="*{deferredDays}" width="3" placeholder="DEFERRED DAYS" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
                </div>
              </div>
