@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed"})
+@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping"})
 @RequestMapping("/arrests")
 public class ArrestController {
 	private static final Log log = LogFactory.getLog(ArrestController.class);
@@ -38,6 +39,9 @@ public class ArrestController {
 	@Resource
 	SamlService samlService;
 	
+	@Resource
+	AppProperties appProperties;
+	
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
@@ -48,6 +52,7 @@ public class ArrestController {
 		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		model.addAttribute("arrestSearchRequest", arrestSearchRequest);
 		model.addAttribute("disposition", new Disposition());
+		model.addAttribute("dispoCodeMapping", appProperties.getDispoCodeMapping());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
     }
     

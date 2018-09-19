@@ -42,7 +42,11 @@
 				  </div>
 			   </div>
 		     <script th:inline="javascript">
-		     
+				     /*<![CDATA[*/
+		
+				     var dispoCodeMapping = [[${dispoCodeMapping}]]; 
+		
+				      /*]]>*/
          	   var dispoTables = [];
              $(function(){
             	   $('.date').mask('99/99/9999');
@@ -57,7 +61,18 @@
                             "targets": 0,
                             "searchable": false,
                             "orderable": false
-                         }, 
+                        }, 
+                        {
+                             "targets": [2, 15],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (dispoCodeMapping.hasOwnProperty(data)){
+                            		   return dispoCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
                 			  {
                 		      "targets": [6, 7, 14],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
