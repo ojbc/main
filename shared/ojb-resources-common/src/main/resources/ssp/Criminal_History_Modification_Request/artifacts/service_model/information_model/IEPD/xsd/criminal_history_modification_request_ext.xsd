@@ -85,6 +85,58 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="DistrictAttorneyChargeReferralRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a district attorney charge referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MunicipalProsecutorChargeReferralRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a municipal prosecutor charge referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteDispositionRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a delete disposition request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FinalizeArrestRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a finalize arrest request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
