@@ -131,6 +131,20 @@
 		</pd-ext:CaseReferralDate>
 		<pd-hi-codes:CaseStageCode>CLOSED</pd-hi-codes:CaseStageCode>
 	</nc:Case>
+	<j:Arrest>
+		<nc:ActivityDate>
+			<nc:Date>2016-09-12</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
+			<pd-ext:AgencyCaseIdentification>
+				<nc:IdentificationID>AC45567</nc:IdentificationID>
+			</pd-ext:AgencyCaseIdentification>
+			<pd-ext:AgencyChargeIdentification>
+				<nc:IdentificationID>ACHG45567</nc:IdentificationID>
+			</pd-ext:AgencyChargeIdentification>
+		</j:ArrestAgency>
+	</j:Arrest>
 	<j:Offense structures:id="Offense01">
 		<nc:ActivityDateRange>
 			<nc:StartDate>
@@ -148,11 +162,6 @@
 			</nc:StartDate>
 		</nc:ActivityDateRange>
 	</j:Offense>
-	<j:EnforcementUnit structures:id="EU01">
-		<j:EnforcementUnitBeatIdentification>
-			<nc:IdentificationID>457586</nc:IdentificationID>
-		</j:EnforcementUnitBeatIdentification>
-	</j:EnforcementUnit>
 	<nc:Person structures:id="Def01">
 		<nc:PersonBirthDate>
 			<nc:Date>1981-02-23</nc:Date>
@@ -176,8 +185,4 @@
 		<j:Offense structures:ref="Offense02" />
 		<j:Charge structures:ref="Charge02" />
 	</j:OffenseChargeAssociation>
-	<nc:ActivityInvolvedOrganizationAssociation>
-		<nc:Activity structures:ref="Offense01" />
-		<nc:Organization structures:ref="EU01" />
-	</nc:ActivityInvolvedOrganizationAssociation>
 </pd-doc:ProsecutionDecisionReport>
