@@ -913,6 +913,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0";
 	public static final String NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="da-defdisposearch-req-doc";
+
+	public static final String NS_DA_CHARGE_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DistrictAttorneyChargeReferralRequest/1.0";
+	public static final String NS_PREFIX_DA_CHARGE_REFERRAL_REQUEST_DOC ="dacr-req-doc";
+	
+	public static final String NS_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorChargeReferralRequest/1.0";
+	public static final String NS_PREFIX_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC ="mpcr-req-doc";
+
+	public static final String NS_FINALIZE_ARREST_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/FinalizeArrestRequest/1.0";
+	public static final String NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC ="fa-req-doc";
+
+	public static final String NS_DELETE_DISPOSITION_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0";
+	public static final String NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC ="dd-req-doc";
 	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1805,6 +1817,17 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC,NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC );
 
+		prefixToUriMap.put(NS_PREFIX_DA_CHARGE_REFERRAL_REQUEST_DOC, NS_DA_CHARGE_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DA_CHARGE_REFERRAL_REQUEST_DOC,NS_PREFIX_DA_CHARGE_REFERRAL_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC, NS_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC,NS_PREFIX_MUNICIPAL_PROSECUTOR_CHARGE_REFERRAL_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC, NS_FINALIZE_ARREST_REQUEST_DOC);
+		uriToPrefixMap.put(NS_FINALIZE_ARREST_REQUEST_DOC,NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC, NS_DELETE_DISPOSITION_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DELETE_DISPOSITION_REQUEST_DOC,NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC );
 	}
 
 	@Override
