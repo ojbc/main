@@ -17,22 +17,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<mpcr-req-doc:MunicipalProsecutorChargeReferralRequest
-	xmlns:mpcr-req-doc="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorChargeReferralRequest/1.0"
+<daar-req-doc:DistrictAttorneyArrestReferralRequest
+	xmlns:daar-req-doc="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorChargeReferralRequest/1.0 ../xsd/municipal_prosecutor_charge_referral_request.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0 ../xsd/district_attorney_arrest_referral_request.xsd">
 	<j:Arrest>
 		<j:ArrestAgencyRecordIdentification>
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
-		<j:ArrestCharge>
-			<chm-req-ext:ChargePrimarySystemIdentification>
-				<nc:IdentificationID>C4567893</nc:IdentificationID>
-			</chm-req-ext:ChargePrimarySystemIdentification>
-		</j:ArrestCharge>
 	</j:Arrest>
-</mpcr-req-doc:MunicipalProsecutorChargeReferralRequest>
+</daar-req-doc:DistrictAttorneyArrestReferralRequest>

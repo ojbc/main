@@ -17,11 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:i="http://release.niem.gov/niem/appinfo/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0" xmlns:pd_hi_codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
+<xsd:schema xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:pd_hi_codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0" elementFormDefault="qualified"
@@ -398,23 +398,33 @@
 			<xsd:documentation>Additional charges in a case.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-		<xsd:element name="CaseProsecutorStaff" type="j:CaseOfficialType" substitutionGroup="nc:CaseAugmentationPoint">
+	<xsd:element name="CaseProsecutorStaff" type="j:CaseOfficialType" substitutionGroup="nc:CaseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional prosecutor staff assigned to a case.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-			<xsd:element name="WitnessCategoryText" type="nc:TextType" substitutionGroup="j:WitnessAugmentationPoint">
+	<xsd:element name="WitnessCategoryText" type="nc:TextType" substitutionGroup="j:WitnessAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A type of witness.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-				<xsd:element name="CaseReferralDate" type="nc:DateType" substitutionGroup="nc:CaseAugmentationPoint">
+	<xsd:element name="CaseReferralDate" type="nc:DateType" substitutionGroup="nc:CaseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The date a case was referred to a prosecutor.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	
+	<xsd:element name="AgencyCaseIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An agency case identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AgencyChargeIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An agency case identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
 		xmime:expectedContentType="text/plain" />
 </xsd:schema>

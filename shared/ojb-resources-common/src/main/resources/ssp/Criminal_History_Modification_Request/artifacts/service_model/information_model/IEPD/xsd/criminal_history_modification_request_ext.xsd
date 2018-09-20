@@ -85,7 +85,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="DistrictAttorneyChargeReferralRequestType">
+	<xsd:complexType name="DistrictAttorneyArrestReferralRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a district attorney charge referral request.</xsd:documentation>
 		</xsd:annotation>
@@ -93,12 +93,11 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="MunicipalProsecutorChargeReferralRequestType">
+	<xsd:complexType name="MunicipalProsecutorArrestReferralRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a municipal prosecutor charge referral request.</xsd:documentation>
 		</xsd:annotation>
@@ -106,7 +105,6 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
