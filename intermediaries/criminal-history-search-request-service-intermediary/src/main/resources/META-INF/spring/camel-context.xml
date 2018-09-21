@@ -22,6 +22,7 @@
        xmlns:camel="http://camel.apache.org/schema/spring"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
        xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
