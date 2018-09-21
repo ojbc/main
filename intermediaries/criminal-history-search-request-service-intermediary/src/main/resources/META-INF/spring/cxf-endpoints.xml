@@ -67,13 +67,12 @@
 		endpointName="ojbc:Criminal_History_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0">
 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
-			<entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>		
+            <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+            <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+            <entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
+            <entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
+        </cxf:properties>
+   	</cxf:cxfEndpoint>		
 		
 	<!-- Criminal History Search Results Service, hosted by broker  -->
 	<cxf:cxfEndpoint id="criminalHistorySearchResultsService"
@@ -120,14 +119,14 @@
 					password="${truststorePassword}"
 					file="${truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
+<!-- 			<sec:cipherSuitesFilter>
+					these filters ensure that a strong ciphersuite will be used 
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 			</sec:cipherSuitesFilter>
-		</http:tlsClientParameters>
+ -->		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
    
