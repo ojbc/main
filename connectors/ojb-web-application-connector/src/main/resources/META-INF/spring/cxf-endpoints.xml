@@ -795,13 +795,6 @@
 					password="${webapplication.connector.truststorePassword}"
 					file="${webapplication.connector.truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
-				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
@@ -814,13 +807,7 @@
 				<sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
 					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.keystoreLocation}" />
 				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-				<sec:clientAuthentication want="false"
+        <sec:clientAuthentication want="false"
 					required="false" />
 			</httpj:tlsServerParameters>
 		</httpj:engine>
