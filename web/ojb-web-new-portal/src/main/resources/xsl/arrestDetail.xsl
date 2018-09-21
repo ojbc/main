@@ -50,7 +50,7 @@
 						<th>NAME</th>
 						<th>DOB</th>
 						<th>SSN</th>
-						<th>DATE OF Arrest</th>
+						<th>DATE OF ARREST</th>
 					</tr>
 				</thead>
 				<tbody>
