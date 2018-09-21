@@ -108,7 +108,7 @@
 
 				<property name="adapterURItoAddressMap">
 					<util:map>
-						<entry key="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" value="${criminalHistorySearchRequestServiceEndpoint}" />
+						<entry key="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" value="${criminalHistorySearchRequestServiceAdapterEndpoint}" />
 					</util:map>				
 				</property>
 		  	</bean>
@@ -130,7 +130,7 @@
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map map-class="java.util.HashMap" >
-				<entry key="${criminalHistorySearchRequestServiceEndpoint}" value="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" />
+				<entry key="${criminalHistorySearchRequestServiceAdapterEndpoint}" value="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" />
 			</util:map>
 		</constructor-arg>
 	</bean>	

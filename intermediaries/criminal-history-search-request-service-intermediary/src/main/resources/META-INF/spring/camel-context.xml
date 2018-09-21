@@ -111,7 +111,7 @@
 			
 			<camel:setHeader headerName="operationName"><camel:simple>${in.headers.operationName}</camel:simple></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0</constant></camel:setHeader>
-			<camel:log message="operationName ${header.federatedQueryEndpointsNodeList}" />
+			<camel:log message="operationName ${in.headers.operationName}" />
 									                                   
 			<!-- Call method to populate federated query map -->
 			<camel:to
@@ -230,6 +230,9 @@
 		<!-- Process aggregated federated responses here -->
 		<camel:route id="processFederatedResponseRoute">
 			<camel:from uri="direct:processFederatedResponse"/>
+			
+			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
 			
 			<camel:setHeader headerName="searchResponseNodeCount">
 				<xpath resultType="java.lang.String">count(//chsres-ext:CriminalHistorySearchResult)</xpath>
