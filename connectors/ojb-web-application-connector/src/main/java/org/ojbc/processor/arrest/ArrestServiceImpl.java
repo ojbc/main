@@ -16,114 +16,22 @@
  */
 package org.ojbc.processor.arrest;
 
-import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
-import org.apache.camel.Exchange;
-import org.apache.camel.ExchangePattern;
-import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
-import org.ojbc.util.camel.processor.MessageProcessor;
-import org.ojbc.util.camel.processor.RequestResponseProcessor;
-import org.ojbc.util.camel.security.saml.OJBSamlMap;
+import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestService;
-import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @Configuration
 @Profile("arrest-search")
-public class ArrestServiceImpl extends RequestResponseProcessor implements CamelContextAware, ArrestService {
-	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
-	/**
-	 * Camel context needed to use producer template to send messages
-	 */
-	protected CamelContext camelContext;
-	
-	private MessageProcessor arrestSearchMessageProcessor;
-	
-	private OJBSamlMap OJBSamlMap;
+public class ArrestServiceImpl implements ArrestService {
+
+	private ArrestSearchRequestProcessor arrestSearchRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
-		if (samlToken == null)
-		{
-			throw new Exception("No SAML token provided. Unable to perform query.");
-		}	
-		
-		//POJO to XML Request
-		Document rapbackSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
-		
-		//Create exchange
-		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
-		
-		//Set exchange body to XML Request message
-		senderExchange.getIn().setBody(rapbackSearchRequestPayload);
-		
-		//Set reply to and WS-Addressing message ID
-		String federatedQueryID = getFederatedQueryId();
-		senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
-		senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
-
-		//Set the token header so that CXF can retrieve this on the outbound call
-		String tokenID = senderExchange.getExchangeId();
-		senderExchange.getIn().setHeader("tokenID", tokenID);
-
-		OJBSamlMap.putToken(tokenID, samlToken);
-
-		arrestSearchMessageProcessor.sendResponseMessage(camelContext, senderExchange);
-		
-		//Put message ID and "noResponse" place holder.  
-		putRequestInMap(federatedQueryID);
-		
-		String response = pollMap(federatedQueryID);
-		
-		if (response.length() > 500)
-		{	
-			log.debug("Here is the response (truncated): " + response.substring(0,500));
-		}
-		else
-		{
-			log.debug("Here is the response: " + response);
-		}
-		
-		//return response here
-		return response;
-	}
-
-	public CamelContext getCamelContext() {
-		return camelContext;
-	}
-
-	public void setCamelContext(CamelContext camelContext) {
-		this.camelContext = camelContext;
-
-	}
-
-
-	public MessageProcessor getArrestSearchMessageProcessor() {
-		return arrestSearchMessageProcessor;
-	}
-
-
-	public void setRapbackSearchMessageProcessor(
-			MessageProcessor arrestSearchMessageProcessor) {
-		this.arrestSearchMessageProcessor = arrestSearchMessageProcessor;
-	}
-
-
-	public OJBSamlMap getOJBSamlMap() {
-		return OJBSamlMap;
-	}
-
-
-	public void setOJBSamlMap(OJBSamlMap oJBSamlMap) {
-		OJBSamlMap = oJBSamlMap;
+		return arrestSearchRequestProcessor.invokeRequest(arrestSearchRequest, samlToken);
 	}
 
 	@Override
@@ -132,4 +40,11 @@ public class ArrestServiceImpl extends RequestResponseProcessor implements Camel
 		return null;
 	}
 
+	public ArrestSearchRequestProcessor getArrestSearchRequestProcessor() {
+		return arrestSearchRequestProcessor;
+	}
+
+	public void setArrestSearchRequestProcessor(ArrestSearchRequestProcessor arrestSearchRequestProcessor) {
+		this.arrestSearchRequestProcessor = arrestSearchRequestProcessor;
+	}
 }

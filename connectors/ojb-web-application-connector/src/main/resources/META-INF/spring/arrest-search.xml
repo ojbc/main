@@ -79,6 +79,13 @@
 		<property name="destinationEndpoint"><value>arrestSearchRequestService</value></property>
 	</bean>
 
+	<bean id="arrestService" class="org.ojbc.processor.arrest.ArrestServiceImpl" >
+   		<property name="arrestSearchRequestProcessor" ref="arrestSearchRequestProcessor"/>
+	</bean>
+
+	<bean id="dispositionService" class="org.ojbc.processor.disposition.DispositionServiceImpl" >
+	</bean>
+
 	<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="arrestSearchRequestResponseMap"/>
 
 </beans>

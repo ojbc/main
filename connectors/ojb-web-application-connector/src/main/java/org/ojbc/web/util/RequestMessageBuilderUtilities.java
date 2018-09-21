@@ -1001,15 +1001,18 @@ public class RequestMessageBuilderUtilities {
         			XmlUtils.appendTextElement(subjectIdentification, NS_NC_40, "IdentificationID", arrestSearchRequest.getOtn());
         		}
         		
-    			Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
-    			XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
-    			XmlUtils.appendTextElement(exactMatchMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
-    			
-    			Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
-    			XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
-    			XmlUtils.appendTextElement(startsWithMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
-
         	}
+//        		<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
+        	XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
+        			"{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest");
+        	Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+        	XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
+        	XmlUtils.appendTextElement(exactMatchMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
+        	
+        	Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+        	XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
+        	XmlUtils.appendTextElement(startsWithMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
+        	
         }
 		return document;
 	}	

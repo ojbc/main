@@ -57,6 +57,7 @@
 			<nc40:IdentificationID>123456789</nc40:IdentificationID>
 		</nc40:PersonSSNIdentification>
 	</nc40:Person>
+	<chsreq-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest</chsreq-ext:SourceSystemNameText>
 	<chsreq-ext:SearchMetadata s40:id="SM001">
 		<chsreq-ext:SearchQualifierCode>exact
 		</chsreq-ext:SearchQualifierCode>
