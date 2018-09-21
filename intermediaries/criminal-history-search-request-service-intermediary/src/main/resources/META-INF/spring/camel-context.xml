@@ -108,9 +108,10 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 			
-			<camel:setHeader headerName="operationName"><constant>${in.headers.operationName}</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationName"><camel:simple>${in.headers.operationName}</camel:simple></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0</constant></camel:setHeader>
-									
+			<camel:log message="operationName ${header.federatedQueryEndpointsNodeList}" />
+									                                   
 			<!-- Call method to populate federated query map -->
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
