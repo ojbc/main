@@ -99,81 +99,79 @@
         </xsl:attribute>
         
         <div class="card-body">
-          <xsl:if test="j:ChargeDisposition">
-				      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="normalize-space(chsres-ext:ChargePrimarySystemIdentification/nc:IdentificationID)"/>
-                </xsl:attribute>
-				        <col/>
-				        <col/>
-				        <col/>
-				        <col/>
-				        <col/>
-				        <colgroup span="2"/>
-				        <colgroup span="2"/>
-				        <colgroup span="2"/>
-                <col/>
-                <col/>
-                <col/>
-                <col/>
-				        <thead>
-				          <tr>
-                    <th rowspan="2">ACTION</th>
-				            <th rowspan="2">DISPO DATE</th>
-				            <th rowspan="2">DISPO CODE</th>
-				            <th rowspan="2">COURT CASE #</th>
-				            <th rowspan="2">FILED CHARGE</th>
-				            <th rowspan="2">AMENDED CHARGE</th>
-				            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
-				            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
-				            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
-				            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
-                    <th rowspan="2">RESTITUTION</th>
-                    <th rowspan="2">ALTERNATE SENTENCE</th>
-                    <th rowspan="2">REASON FOR DISMISSAL</th>
-                                      
-				          </tr>
-				          <tr>
-                    <th scope="col">AMOUNT</th>
-                    <th scope="col">SUSPENDED</th>
-                    <th scope="col">YEARS</th>
-                    <th scope="col">DAYS</th>
-                    <th scope="col">YEARS</th>
-                    <th scope="col">DAYS</th>
-                    <th scope="col">YEARS</th>
-                    <th scope="col">DAYS</th>
-				          </tr>
-				        </thead>
-				        <tbody>
-				          <xsl:apply-templates select="j:ChargeDisposition"/>
-				        </tbody>
-                <tfoot>				          
-		              <tr>
-							      <td style="vertical-align:top; white-space: nowrap" >
-							        <a href="#" class="addDisposition" style="margin-right:3px">
-							          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
-							        </a>
-							      </td>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							      <td/>
-							    </tr>
-				         </tfoot> 
-				      </table>
-          </xsl:if>
+			      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
+               <xsl:attribute name="id">
+                   <xsl:value-of select="normalize-space(chsres-ext:ChargePrimarySystemIdentification/nc:IdentificationID)"/>
+               </xsl:attribute>
+			        <col/>
+			        <col/>
+			        <col/>
+			        <col/>
+			        <col/>
+			        <colgroup span="2"/>
+			        <colgroup span="2"/>
+			        <colgroup span="2"/>
+               <col/>
+               <col/>
+               <col/>
+               <col/>
+			        <thead>
+			          <tr>
+                   <th rowspan="2">ACTION</th>
+			            <th rowspan="2">DISPO DATE</th>
+			            <th rowspan="2">DISPO CODE</th>
+			            <th rowspan="2">COURT CASE #</th>
+			            <th rowspan="2">FILED CHARGE</th>
+			            <th rowspan="2">AMENDED CHARGE</th>
+			            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
+			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
+			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
+			            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
+                   <th rowspan="2">RESTITUTION</th>
+                   <th rowspan="2">ALTERNATE SENTENCE</th>
+                   <th rowspan="2">REASON FOR DISMISSAL</th>
+                                     
+			          </tr>
+			          <tr>
+                   <th scope="col">AMOUNT</th>
+                   <th scope="col">SUSPENDED</th>
+                   <th scope="col">YEARS</th>
+                   <th scope="col">DAYS</th>
+                   <th scope="col">YEARS</th>
+                   <th scope="col">DAYS</th>
+                   <th scope="col">YEARS</th>
+                   <th scope="col">DAYS</th>
+			          </tr>
+			        </thead>
+			        <tbody>
+			          <xsl:apply-templates select="j:ChargeDisposition"/>
+			        </tbody>
+               <tfoot>				          
+	              <tr>
+						      <td style="vertical-align:top; white-space: nowrap" >
+						        <a href="#" class="addDisposition" style="margin-right:3px">
+						          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
+						        </a>
+						      </td>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						    </tr>
+			         </tfoot> 
+			      </table>
         </div>
       </div>
     </div>
