@@ -46,7 +46,7 @@
 		profile="arrest-search"       
        >
        
-   <!-- Rap Back Search Request Service, hosted by OJB -->
+   <!-- Arrest Search Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint 
 	        id="arrestSearchRequestService"
 	        address="${webapplication.arrestSearch.arrestSearchEndpoint}"
@@ -63,7 +63,7 @@
 
     </cxf:cxfEndpoint>
 
-  	<!-- Rapback Search Request and Response Endpoints -->
+  	<!-- Arrest Search Request and Response Endpoints -->
    <bean id="arrestSearchRequestProcessor" class="org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.arrestSearchRequestReplyToEndpoint.endpoint}</value></property>
    		<property name="arrestSearchMessageProcessor" ref="arrestSearchMessageProcessor"/>
@@ -79,8 +79,25 @@
 		<property name="destinationEndpoint"><value>arrestSearchRequestService</value></property>
 	</bean>
 
+  	<!-- Arrest Detail Search Request and Response Endpoints -->
+   <bean id="arrestDetailSearchRequestProcessor" class="org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.arrestSearchRequestReplyToEndpoint.endpoint}</value></property>
+   		<property name="messageProcessor" ref="arrestDetailSearchMessageProcessor"/>
+   		<property name="requestResponseMap" ref="arrestSearchRequestResponseMap"/>
+   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+   </bean>
+  
+	<bean id="arrestDetailSearchMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>SubmitArrestDetailSearchRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>arrestSearchRequestService</value></property>
+	</bean>
+
 	<bean id="arrestService" class="org.ojbc.processor.arrest.ArrestServiceImpl" >
    		<property name="arrestSearchRequestProcessor" ref="arrestSearchRequestProcessor"/>
+   		<property name="arrestDetailSearchRequestProcessor" ref="arrestDetailSearchRequestProcessor"/>
 	</bean>
 
 	<bean id="dispositionService" class="org.ojbc.processor.disposition.DispositionServiceImpl" >

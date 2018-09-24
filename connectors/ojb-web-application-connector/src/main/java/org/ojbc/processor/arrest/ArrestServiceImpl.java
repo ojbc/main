@@ -16,6 +16,7 @@
  */
 package org.ojbc.processor.arrest;
 
+import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestService;
@@ -28,6 +29,7 @@ import org.w3c.dom.Element;
 public class ArrestServiceImpl implements ArrestService {
 
 	private ArrestSearchRequestProcessor arrestSearchRequestProcessor;
+	private ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -36,8 +38,7 @@ public class ArrestServiceImpl implements ArrestService {
 
 	@Override
 	public String getArrest(String id, Element samlToken) throws Throwable {
-		// TODO Auto-generated method stub
-		return null;
+		return getArrestDetailSearchRequestProcessor().invokeRequest(id, samlToken);
 	}
 
 	public ArrestSearchRequestProcessor getArrestSearchRequestProcessor() {
@@ -46,5 +47,13 @@ public class ArrestServiceImpl implements ArrestService {
 
 	public void setArrestSearchRequestProcessor(ArrestSearchRequestProcessor arrestSearchRequestProcessor) {
 		this.arrestSearchRequestProcessor = arrestSearchRequestProcessor;
+	}
+
+	public ArrestDetailSearchRequestProcessor getArrestDetailSearchRequestProcessor() {
+		return arrestDetailSearchRequestProcessor;
+	}
+
+	public void setArrestDetailSearchRequestProcessor(ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor) {
+		this.arrestDetailSearchRequestProcessor = arrestDetailSearchRequestProcessor;
 	}
 }

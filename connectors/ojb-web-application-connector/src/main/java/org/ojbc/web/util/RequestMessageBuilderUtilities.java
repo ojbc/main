@@ -40,6 +40,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -1015,6 +1016,44 @@ public class RequestMessageBuilderUtilities {
         	
         }
 		return document;
+	}
+//<adsreq-doc:ArrestDetailSearchRequest
+//	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0 ../xsd/ArrestDetail_search_request.xsd"
+//	xmlns:adsreq-doc="http://ojbc.org/IEPD/Exchange/ArrestDetailSearchRequest/1.0"
+//	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
+//	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+//	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+//	<j:Arrest>
+//		<nc:ActivityIdentification>
+//			<nc:IdentificationID>A34567890</nc:IdentificationID>
+//		</nc:ActivityIdentification>
+//	</j:Arrest>
+//</adsreq-doc:ArrestDetailSearchRequest>
+	public static Document createArrestDetailSearchRequest(String id) throws Exception {
+		if (StringUtils.isBlank(id)) return null;
+		
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ARREST_DETAIL_SEARCH_REQUEST_DOC, 
+        		NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC + ":ArrestDetailSearchRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC, 
+        		NS_ARREST_DETAIL_SEARCH_REQUEST_DOC);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
+        document.appendChild(rootElement);
+    
+    	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
+    	
+		Element activityIdentification = XmlUtils.appendElement(arrest, NS_NC_40, "ActivityIdentification"); 
+		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", id);
+
+//    		<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
+		XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
+			"{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest");
+		
+        return document;
 	}	
     
 }
