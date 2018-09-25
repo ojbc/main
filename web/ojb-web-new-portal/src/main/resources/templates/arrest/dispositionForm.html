@@ -21,7 +21,7 @@
              <div th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
            </div>
            <div class="col-md-6 mb-4">
-             <label>Disposition Code *</label>
+             <label for="dispositionCode">Disposition Code *</label>
              <select th:field="*{dispositionCode}" class="form-control" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
 						    <option th:each="item: ${dispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -30,7 +30,7 @@
            </div>
                <div class="col-md-3 mb-2">
                  <label>Court Case Number </label>
-                 <input type="text" th:field="*{courtCaseNumber}" placeholder="COURT CASE #" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="text" th:field="*{courtCaseNumber}" class="form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}" class="invalid-feedback">Court Case Number error message</div>
                </div>
           </div>
@@ -55,12 +55,13 @@
              <div class="form-row">
                <div class="col-md-6 mb-4">
                  <label>Fine Amount</label>
-                 <input type="text" th:field="*{fineAmount}" width="250" placeholder="FINE AMOUNT" class="money form-control" th:errorclass="is-invalid"/>
+                 <input type="text" th:field="*{fineAmount}" width="250" class="money form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
                </div>
                <div class="col-md-6 mb-4">
                  <label>Fine Suspended</label>
-                 <input type="text" th:field="*{fineSuspended}" width="250" placeholder="FINE SUSPENDED" class="money form-control" th:errorclass="is-invalid"/>
+                 <input type="text" th:field="*{fineSuspended}" width="250" class="money form-control" th:errorclass="is-invalid"/>
+                 <small id="fineSuspendedHelp" class="form-text text-muted">&le; Fine Amount</small>
                  <div th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}" class="invalid-feedback">Fine suspended error message</div>
                </div>
              </div>
@@ -68,38 +69,44 @@
                <div class="col-md-2 mb-2">
                  <label>Jail Years</label>
                  <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+                 <small id="jailYearsHelp" class="form-text text-muted">blank or 1</small>
                  <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Jail Days</label>
                  <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+                 <small id="jailDaysHelp" class="form-text text-muted">blank or up to 359</small>
                  <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Suspended Years</label>
-                 <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+                 <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid" disabled/>
+                 <small id="suspendedYearsHelp" class="form-text text-muted">blank or 1</small>
                  <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Suspended Days</label>
                  <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+                 <small id="suspendedDaysHelp" class="form-text text-muted">&le; Jail Days</small>
                  <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Deferred Years</label>
                  <input type="number" min="1" max="1" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+                 <small id="deferredYearsHelp" class="form-text text-muted">blank or 1</small>
                  <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
                </div>
                <div class="col-md-2 mb-2">
                  <label>Deferred Days</label>
                  <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+                 <small id="deferredDaysHelp" class="form-text text-muted">blank or up to 359</small>
                  <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
                </div>
              </div>
              <div class="form-row">
                <div class="col-md-6 mb-4">
                  <label>Restitution</label>
-                 <input type="text" th:field="*{restitution}" width="10" placeholder="RESTITUTION" class="money form-control" th:errorclass="is-invalid"/>
+                 <input type="text" th:field="*{restitution}" width="10" class="money form-control" th:errorclass="is-invalid"/>
                  <div th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}" class="invalid-feedback">Restitution error message</div>
                </div>					                
                <div class="col-md-6 mb-4">
@@ -137,6 +144,63 @@
 					 $('#reasonForDismissal').prop('disabled', false);
 					}
 	     	   
+					if ($('#jailYears').val() === '1'){
+					 	$('#suspendedYears').prop('disabled', false); 
+					 	$('#jailDays').prop('disabled', true); 
+					 	$('#suspendedDays').prop('disabled', true); 
+					 	$('#deferredYears').prop('disabled', true); 
+					 	$('#deferredDays').prop('disabled', true); 
+					}
+					
+					if ($('#jailDays').val() > 0){
+            $('#suspendedDays').prop('disabled', false); 
+            $('#deferredYears').prop('disabled', true); 
+            $('#deferredDays').prop('disabled', true); 
+					}
+					
+					if ($('#deferredYears').val() > 0){
+            $('#deferredDays').prop('disabled', true); 
+					}
+					
+          $("#dispositionForm").on("change", "#jailYears", function(){
+              if ($('#jailYears').val() > '0'){
+                  $('#suspendedYears').prop('disabled', false); 
+                  $('#jailDays').prop('disabled', true); 
+                  $('#suspendedDays').prop('disabled', true); 
+                  $('#deferredYears').prop('disabled', true); 
+                  $('#deferredDays').prop('disabled', true); 
+              }
+              else{
+                  $('#suspendedYears').prop('disabled', true); 
+                  $('#jailDays').prop('disabled', false); 
+                  $('#suspendedDays').prop('disabled', false); 
+                  $('#deferredYears').prop('disabled', false); 
+                  $('#deferredDays').prop('disabled', false); 
+              }
+          });
+					
+          $("#dispositionForm").on("change", "#deferredYears", function(){
+              if ($('#deferredYears').val() > 0){
+                  $('#deferredDays').prop('disabled', true); 
+              }
+              else{
+                  $('#deferredDays').prop('disabled', false); 
+              }
+          });
+					
+          $("#dispositionForm").on("change", "#jailDays", function(){
+              if ($('#jailDays').val() > 0){
+                  $('#suspendedDays').prop('disabled', false); 
+                  $('#deferredYears').prop('disabled', true); 
+                  $('#deferredDays').prop('disabled', true); 
+              }
+              else{
+                  $('#suspendedDays').prop('disabled', true); 
+                  $('#deferredYears').prop('disabled', false); 
+                  $('#deferredDays').prop('disabled', false); 
+              }
+          });
+					
 		  	  $("#dispositionForm").on("change", "#dispositionCode", function(){
 		          if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 		            $('#amendedCharge').prop('disabled', false);
