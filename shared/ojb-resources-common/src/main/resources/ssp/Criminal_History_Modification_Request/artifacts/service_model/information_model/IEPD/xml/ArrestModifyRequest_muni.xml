@@ -48,6 +48,7 @@
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
@@ -73,7 +74,9 @@
 				<chm-req-ext:FineSuspendedAmount>
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
-				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence Code</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+				</chm-req-ext:AlternateSentenceCodeDescriptionText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
@@ -99,6 +102,7 @@
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>390</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
@@ -125,6 +129,8 @@
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+				</chm-req-ext:AlternateSentenceCodeDescriptionText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
