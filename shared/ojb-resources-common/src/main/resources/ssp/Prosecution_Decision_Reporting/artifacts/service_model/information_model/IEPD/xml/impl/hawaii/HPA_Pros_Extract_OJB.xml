@@ -26,20 +26,25 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case>
+		<!-- FileNumber -->
 		<nc:ActivityIdentification>
-			<nc:IdentificationID>Case123456</nc:IdentificationID>
+			<nc:IdentificationID>003001455</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
-			<pd-hi-codes:CaseStatusCode>REFUSED</pd-hi-codes:CaseStatusCode>
+			<!-- CaseStatusCode -->
+			<pd-hi-codes:CaseStatusCode>DISPOSED</pd-hi-codes:CaseStatusCode>
 		</nc:ActivityStatus>
 		<nc:ActivityDisposition>
 			<nc:DispositionDate>
-				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+				<!-- CaseDispositionDate -->
+				<nc:DateTime>1900-01-01T00:00:00</nc:DateTime>
 			</nc:DispositionDate>
 			<nc:DispositionText>Disposition</nc:DispositionText>
 		</nc:ActivityDisposition>
 		<nc:CaseDisposition>
+			<!-- DispositionCode -->
 			<nc:DispositionText>Final Disposition</nc:DispositionText>
+			<!-- DispositionDate -->
 			<nc:CaseDispositionFinalDate>
 				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 			</nc:CaseDispositionFinalDate>
@@ -48,26 +53,33 @@
 		</j:ActivityAugmentation>
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="Charge01">
-				<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
 				<j:ChargeDisposition>
 					<nc:DispositionDate>
-						<nc:Date>2005-05-01</nc:Date>
+						<!-- LeadChargeDispositionDate -->
+						<nc:DateTime>2018-06-17T00:00:00</nc:DateTime>
 					</nc:DispositionDate>
 				</j:ChargeDisposition>
 				<j:ChargeStatute>
+					<!-- LeadChargeStatute -->
 					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>711-1106</nc:IdentificationID>
+						<nc:IdentificationID>707-0712</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
+					<!-- LeadCharge -->
+					<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
 				</j:ChargeStatute>
-				<pd-hi-codes:ChargeSeverityCode>F</pd-hi-codes:ChargeSeverityCode>
+				<!-- Severity -->
+				<pd-hi-codes:ChargeSeverityCode>M</pd-hi-codes:ChargeSeverityCode>
 			</j:CaseCharge>
 			<j:CaseCourt>
+				<!-- CauseNumber -->
 				<pd-ext:CourtCaseNumber>Cause567890</pd-ext:CourtCaseNumber>
 			</j:CaseCourt>
 			<j:CaseCourtEvent>
+				<!-- EventDescription -->
 				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
 				<j:CourtEventAppearance>
 					<j:CourtAppearanceDate>
+						<!-- Docket Date -->
 						<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 					</j:CourtAppearanceDate>
 				</j:CourtEventAppearance>
@@ -78,6 +90,7 @@
 			<j:CaseDefenseAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
+						<!-- DefAttorneyName -->
 						<nc:PersonFullName>Joseph T Williams</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
@@ -85,6 +98,7 @@
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
+						<!-- JudgeName -->
 						<nc:PersonFullName>Wayne A Smith</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
@@ -92,90 +106,94 @@
 			<j:CaseProsecutionAttorney>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
+						<!-- ProsAttornetName -->
 						<nc:PersonFullName>Jerry Donovan</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseProsecutionAttorney>
-			<j:CaseWitness>
-				<nc:RoleOfPerson>
-					<nc:PersonName>
-						<nc:PersonFullName>Edward G. Allan</nc:PersonFullName>
-					</nc:PersonName>
-				</nc:RoleOfPerson>
-				<pd-ext:WitnessCategoryText>EMS</pd-ext:WitnessCategoryText>
-			</j:CaseWitness>
 		</j:CaseAugmentation>
 		<pd-ext:CaseAdditionalCharge structures:id="Charge02">
-			<j:ChargeCategoryDescriptionText>Harassment</j:ChargeCategoryDescriptionText>
 			<j:ChargeDisposition>
+				<!-- ChargeDispositionDate -->
 				<nc:DispositionDate>
-					<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+					<nc:DateTime>2018-06-17T00:00:00</nc:DateTime>
 				</nc:DispositionDate>
-				<nc:DispositionText>COD</nc:DispositionText>
+				<!-- ChargeDispositionCode -->
+				<nc:DispositionText>PNP</nc:DispositionText>
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
+				<!-- Charge Code -->
 				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>708-0822</nc:IdentificationID>
+					<nc:IdentificationID>707-0712</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
+				<!-- ChargeDescription -->
+				<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
 			</j:ChargeStatute>
 		</pd-ext:CaseAdditionalCharge>
-		<pd-ext:CaseProsecutorStaff>
-			<nc:RoleOfPerson>
-				<nc:PersonName>
-					<nc:PersonFullName>Jack E. Smith</nc:PersonFullName>
-				</nc:PersonName>
-			</nc:RoleOfPerson>
-		</pd-ext:CaseProsecutorStaff>
 		<pd-ext:CaseReferralDate>
-			<nc:Date>2016-09-12</nc:Date>
+			<!-- CaseReferralDate -->
+			<nc:DateTime>2008-03-31T00:00:00</nc:DateTime>
 		</pd-ext:CaseReferralDate>
+		<!-- Stage -->
 		<pd-hi-codes:CaseStageCode>CLOSED</pd-hi-codes:CaseStageCode>
 	</nc:Case>
 	<j:Arrest>
 		<nc:ActivityDate>
-			<nc:Date>2016-09-12</nc:Date>
+			<!-- CaseArrestDate -->
+			<nc:DateTime>2008-03-31T00:00:00</nc:DateTime>
 		</nc:ActivityDate>
 		<j:ArrestAgency>
-			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
+			<!-- AgencyName -->
+			<nc:OrganizationName>Honolulu Police Department</nc:OrganizationName>
 			<pd-ext:AgencyCaseIdentification>
+				<!-- CaseLEReportNumber -->
 				<nc:IdentificationID>AC45567</nc:IdentificationID>
 			</pd-ext:AgencyCaseIdentification>
 			<pd-ext:AgencyChargeIdentification>
-				<nc:IdentificationID>ACHG45567</nc:IdentificationID>
+				<!-- ChargeLEReportNumber -->
+				<nc:IdentificationID>AC45567-001</nc:IdentificationID>
 			</pd-ext:AgencyChargeIdentification>
 		</j:ArrestAgency>
 	</j:Arrest>
 	<j:Offense structures:id="Offense01">
-		<nc:ActivityDateRange>
-			<nc:StartDate>
-				<nc:Date>2016-09-12</nc:Date>
-			</nc:StartDate>
-			<nc:EndDate>
-				<nc:Date>2016-09-12</nc:Date>
-			</nc:EndDate>
-		</nc:ActivityDateRange>
+		<!-- LeadChargeOffenseDate -->
+		<nc:ActivityDate>
+			<nc:Date>2008-03-23</nc:Date>
+		</nc:ActivityDate>
 	</j:Offense>
 	<j:Offense structures:id="Offense02">
+		<nc:ActivityDate>
+			<!-- ChargeOffenseDate -->
+			<nc:Date>2008-03-23</nc:Date>
+		</nc:ActivityDate>
 		<nc:ActivityDateRange>
 			<nc:StartDate>
-				<nc:Date>2016-09-12</nc:Date>
+				<!-- ChargeOffenseFromDate -->
+				<nc:Date>2008-03-23</nc:Date>
 			</nc:StartDate>
+			<nc:EndDate>
+				<!-- ChargeOffenseFromDate -->
+				<nc:Date>2008-03-23</nc:Date>
+			</nc:EndDate>
 		</nc:ActivityDateRange>
 	</j:Offense>
 	<nc:Person structures:id="Def01">
 		<nc:PersonBirthDate>
+			<!-- DateOfBirth -->
 			<nc:Date>1981-02-23</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonFullName>Wayne K. Jones</nc:PersonFullName>
+			<!-- NAME -->
+			<nc:PersonFullName>Howard A Jones</nc:PersonFullName>
 		</nc:PersonName>
+		<!-- Sex -->
 		<j:PersonSexCode>M</j:PersonSexCode>
 		<j:PersonAugmentation>
 			<j:PersonStateFingerprintIdentification>
+				<!-- Sid -->
 				<nc:IdentificationID>A1234567</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-		<pd-ext:PersonJuvenileIndicator>false</pd-ext:PersonJuvenileIndicator>
 	</nc:Person>
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense01" />
