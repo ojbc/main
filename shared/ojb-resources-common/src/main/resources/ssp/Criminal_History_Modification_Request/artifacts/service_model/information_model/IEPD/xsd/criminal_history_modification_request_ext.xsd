@@ -194,6 +194,20 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DispositionCodeDescriptionText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for a disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for an alternate sentence.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The date an arrest record is hidden.
