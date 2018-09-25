@@ -60,6 +60,7 @@
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -117,6 +118,7 @@
 				<chm-req-ext:DispositionCodeText>378</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>
