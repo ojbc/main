@@ -37,12 +37,18 @@
              <div class="form-row">
                <div class="col-md-6 mb-4">
                  <label>Filed Charge *</label>
-                 <input type="text" th:field="*{filedCharge}" placeholder="FILED CHARGE" class="form-control" th:errorclass="is-invalid"/>
+		             <select th:field="*{filedCharge}" class="form-control" th:errorclass="is-invalid">
+		                <option value="" >Please select ...</option>
+		                <option th:each="item: ${muniFiledChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+		             </select>
                  <div th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}" class="invalid-feedback">Filed charge error message</div>
                </div>
                <div class="col-md-6 mb-4">
                  <label>Amended Charge</label>
-                 <input type="text" th:field="*{amendedCharge}" placeholder="AMENDED CHARGE" class="form-control" th:errorclass="is-invalid"/>
+                 <select th:field="*{amendedCharge}" class="form-control" th:errorclass="is-invalid">
+                    <option value="" >Please select ...</option>
+                    <option th:each="item: ${muniAmendedChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+                 </select>
                  <div th:if="${#fields.hasErrors('amendedCharge')}" th:errors="*{amendedCharge}" class="invalid-feedback">Amended charge error message</div>
                </div>
              </div>
@@ -98,13 +104,19 @@
                </div>					                
                <div class="col-md-6 mb-4">
                  <label>Alternate Sentence</label>
-                 <input type="text" th:field="*{alternateSentence}" width="250" placeholder="ALTERNATE SENTENCE" class="form-control" th:errorclass="is-invalid"/>
+	               <select th:field="*{alternateSentence}" class="form-control" th:errorclass="is-invalid">
+	                  <option value="" >Please select ...</option>
+	                  <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
+	               </select>
                  <div th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}" class="invalid-feedback">Alternate sentence error message</div>
                </div>		
              </div>			                
              <div class="form-group">
                <label>Reason For Dismissal</label>
-               <input type="text" th:field="*{reasonForDismissal}" width="250" placeholder="REASON FOR DISMISSAL" class="form-control" th:errorclass="is-invalid"/>
+	             <select th:field="*{reasonForDismissal}" class="form-control" th:errorclass="is-invalid">
+	                <option value="" >Please select ...</option>
+	                <option th:each="item: ${muniReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
+	             </select>
                <div th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}" class="invalid-feedback">Reason for dismissal error message</div>
              </div>					                
             </table>

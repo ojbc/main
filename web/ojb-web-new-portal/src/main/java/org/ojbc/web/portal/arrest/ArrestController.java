@@ -1,6 +1,7 @@
 package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,6 +12,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.services.CodeTableEntry;
+import org.ojbc.web.portal.services.CodeTableService;
+import org.ojbc.web.portal.services.RestCodeTableService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import reactor.core.publisher.Mono;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping"})
@@ -40,20 +46,31 @@ public class ArrestController {
 	SamlService samlService;
 	
 	@Resource
+	CodeTableService codeTableService;
+	
+	@Resource
 	AppProperties appProperties;
 	
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
 		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
-		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
-		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
+		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
+		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.of(2018, 2, 10));
+//		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+//		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 		arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		
 		model.addAttribute("arrestSearchRequest", arrestSearchRequest);
 		model.addAttribute("disposition", new Disposition());
-		model.addAttribute("dispoCodeMapping", appProperties.getDispoCodeMapping());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
+		
+		model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
+		model.addAttribute("muniAmendedChargeCodeMapping", codeTableService.getMuniAmendedChargeCodeMap());
+		model.addAttribute("muniFiledChargeCodeMapping", codeTableService.getMuniFiledChargeCodeMap());
+		model.addAttribute("muniAlternateSentenceMapping", codeTableService.getMuniAlternateSentenceMap());
+		model.addAttribute("muniReasonsForDismissalMapping", codeTableService.getMuniReasonsForDismissalMap());
     }
     
 	@GetMapping("")

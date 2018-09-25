@@ -26,6 +26,11 @@ import org.springframework.stereotype.Component;
 public class AppProperties {
 
 	private Map<String, String> dispoCodeMapping = new HashMap<>();
+	private Map<String, String> muniFiledChargeCodeMapping = new HashMap<>();
+	private Map<String, String> muniAmendedChargeCodeMapping = new HashMap<>();
+	private Map<String, String> muniAlternateSentenceMapping = new HashMap<>();
+	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
+	private String restServiceBaseUrl = "http://localhost:9898";
 
 	public AppProperties() {
 		super();
@@ -52,5 +57,45 @@ public class AppProperties {
 
 	public void setDispoCodeMapping(Map<String, String> dispoCodeMapping) {
 		this.dispoCodeMapping = dispoCodeMapping;
+	}
+
+	public String getRestServiceBaseUrl() {
+		return restServiceBaseUrl;
+	}
+
+	public void setRestServiceBaseUrl(String restServiceBaseUrl) {
+		this.restServiceBaseUrl = restServiceBaseUrl;
+	}
+
+	public Map<String, String> getMuniFiledChargeCodeMapping() {
+		return muniFiledChargeCodeMapping;
+	}
+
+	public void setMuniFiledChargeCodeMapping(Map<String, String> muniFiledChargeCodeMapping) {
+		this.muniFiledChargeCodeMapping = muniFiledChargeCodeMapping;
+	}
+
+	public Map<String, String> getMuniAmendedChargeCodeMapping() {
+		return muniAmendedChargeCodeMapping;
+	}
+
+	public void setMuniAmendedChargeCodeMapping(Map<String, String> muniAmendedChargeCodeMapping) {
+		this.muniAmendedChargeCodeMapping = muniAmendedChargeCodeMapping;
+	}
+
+	public Map<String, String> getMuniAlternateSentenceMapping() {
+		return muniAlternateSentenceMapping;
+	}
+
+	public void setMuniAlternateSentenceMapping(Map<String, String> muniAlternateSentenceMapping) {
+		this.muniAlternateSentenceMapping = muniAlternateSentenceMapping;
+	}
+
+	public Map<String, String> getMuniReasonForDismissalMapping() {
+		return muniReasonForDismissalMapping;
+	}
+
+	public void setMuniReasonForDismissalMapping(Map<String, String> muniReasonForDismissalMapping) {
+		this.muniReasonForDismissalMapping = muniReasonForDismissalMapping;
 	}
 }

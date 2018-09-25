@@ -75,7 +75,16 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.projectreactor</groupId>
+		    <artifactId>reactor-spring</artifactId>
+		    <version>1.0.1.RELEASE</version>
+		</dependency>		
 		<!-- OJBC dependencies  -->
 		<dependency>
       <groupId>org.ojbc.bundles.shared</groupId>
@@ -93,6 +102,12 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>${bootstrap.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars.bower/bootstrap-select -->
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>bootstrap-select</artifactId>
+		    <version>1.13.1</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.webjars</groupId>
