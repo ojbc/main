@@ -133,8 +133,11 @@
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					
-					var dispoCodesForAmendedCharge = ['348', '376', '520'];
-					var dispoCodesForDismissalReason = ['305'];
+					//348 - Found guilty of different charge
+					//376 - pled guilty of other charge
+					//520 - Nolo contendere to different charge
+					var dispoCodesForAmendedCharge = ['39', '66', '116'];
+					var dispoCodesForDismissalReason = ['5']; //305-charge dismissal
 					
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false);
