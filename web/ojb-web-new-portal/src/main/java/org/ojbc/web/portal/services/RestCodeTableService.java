@@ -68,7 +68,7 @@ public class RestCodeTableService implements CodeTableService{
 	}
 
 	public List<CodeTableEntry> getMuniFiledChargeCodes() {
-		return this.webClient.get().uri("/criminalhistory/municipal-filed-charges")
+		return this.webClient.get().uri("/criminalhistory/municipal-filed-charge-codes")
 				.retrieve()
 				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
 				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
@@ -76,7 +76,7 @@ public class RestCodeTableService implements CodeTableService{
 	}
 	
 	public List<CodeTableEntry> getMuniAmendedChargeCodes() {
-		return this.webClient.get().uri("/criminalhistory/municipal-amended-charges")
+		return this.webClient.get().uri("/criminalhistory/municipal-amended-charge-codes")
 				.retrieve()
 				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
 				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
