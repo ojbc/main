@@ -31,11 +31,16 @@
 			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>John</nc:PersonGivenName>
+				<nc:PersonMiddleName>A</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
+					<chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+					</chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+					</chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<chdu-report-ext:PersonTrackingIdentification>
@@ -50,11 +55,16 @@
 			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>John</nc:PersonGivenName>
+				<nc:PersonMiddleName>A</nc:PersonMiddleName>
 				<nc:PersonSurName>Simpson</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
+					<chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+					</chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+					</chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<chdu-report-ext:PersonTrackingIdentification>

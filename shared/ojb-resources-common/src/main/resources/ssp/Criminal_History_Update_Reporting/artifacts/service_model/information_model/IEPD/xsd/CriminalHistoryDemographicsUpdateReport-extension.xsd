@@ -79,10 +79,24 @@
 	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A data concept representing a unique identifier for a person.
+			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for criminal purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if fingerprint identification was issued for civil purpose; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CriminalHistoryReportJurisdictionCode"
 		type="chdu-report-ext:CriminalHistoryReportJurisdictionCodeType"
 		substitutionGroup="chdu-report-ext:CriminalHistoryReportJurisdictionRepresentation">
