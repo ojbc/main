@@ -324,6 +324,19 @@
 			  <camel:to uri="bean:arrestSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
+	    <!--Arrest Modify Result Listener -->
+	    <camel:route id="arrestModifyResultsHandlerRoute" autoStartup="false">
+	    	<from uri="arrestModifyResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Arrest modify Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			  <camel:to uri="bean:arrestModifyMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			  <camel:to uri="bean:arrestModifyMessageProcessor?method=updateMapWithResponse"/>
+	    </camel:route>	    
+	    
 	    <!--Identification Results Query Result Listener -->
 	    <camel:route id="identificationResultsQueryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="identificationResultsQueryResultsHandlerServiceEndpoint" />

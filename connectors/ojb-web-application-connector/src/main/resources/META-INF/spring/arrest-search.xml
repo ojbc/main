@@ -98,6 +98,7 @@
 	<bean id="arrestService" class="org.ojbc.processor.arrest.ArrestServiceImpl" >
    		<property name="arrestSearchRequestProcessor" ref="arrestSearchRequestProcessor"/>
    		<property name="arrestDetailSearchRequestProcessor" ref="arrestDetailSearchRequestProcessor"/>
+   		<property name="arrestModifyRequestProcessor" ref="arrestModifyRequestProcessor"/>
 	</bean>
 
 	<bean id="dispositionService" class="org.ojbc.processor.disposition.DispositionServiceImpl" >

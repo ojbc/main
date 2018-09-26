@@ -29,7 +29,9 @@
 						      </div>
 						
 						      <!-- Modal body -->
-						      <div class="modal-body"/>
+						      <div class="modal-body">
+						        <th:block th:include="arrest/dispositionForm::dispositionForm"></th:block>
+						      </div>
 					
 						      <!-- Modal footer -->
 						      <div class="modal-footer">
@@ -102,14 +104,15 @@
                     $("#restitution").val('');
                     $("#alternateSentence").val('');
                     $("#reasonForDismissal").val('');
-                    
+
+                    console.log($("#dispositionForm").serialize());
                     xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
                     	$('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
                     }).fail();
                  }); 
                  
-                 $('.dispositionsTable').on('click', 'a.editDisposition',function() {
+                 $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
                 	 var chargeId = $(this).closest("table").attr("id");
                 	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                 	 $("#arrestChargeIdentification").val(chargeId);
@@ -144,7 +147,7 @@
                 	 var formData = $("#dispositionForm").serialize();
                    xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
                 	   console.log(formData);
-                	   console.log(data);
+                	   //console.log(data);
                 	   if ($(data).find('div.card').length > 0){
                 		   $("#dispositionModal .close").click();
                 		   $('main').html(data); 

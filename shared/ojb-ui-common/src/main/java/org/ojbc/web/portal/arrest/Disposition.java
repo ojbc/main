@@ -39,11 +39,14 @@ public class Disposition {
 	
 	@NotBlank
 	private String dispositionCode;
+	private String dispositionDescription;
     private String courtCaseNumber;
     
     @NotBlank
     private String filedCharge;
+    private String filedChargeDescription; 
     private String amendedCharge;
+    private String amendedChargeDescription; 
     
     @Min(1)
     @NumberFormat(pattern = "#,###,###,###,###")
@@ -71,7 +74,9 @@ public class Disposition {
     @NumberFormat(pattern = "#,###,###,###,###")
     private Integer restitution; 
     private String alternateSentence; 
+    private String alternateSentenceDescripiton; 
     private String reasonForDismissal;
+    private String reasonForDismissalDescripiton;
     
 	public String getArrestIdentification() {
 		return arrestIdentification;
@@ -190,5 +195,35 @@ public class Disposition {
 	}
 	public void setDispositionDate(LocalDate dispositionDate) {
 		this.dispositionDate = dispositionDate;
+	}
+	public String getDispositionDescription() {
+		return dispositionDescription;
+	}
+	public void setDispositionDescription(String dispositionDescription) {
+		this.dispositionDescription = dispositionDescription;
+	}
+	public String getFiledChargeDescription() {
+		return filedChargeDescription;
+	}
+	public void setFiledChargeDescription(String filedChargeDescription) {
+		this.filedChargeDescription = filedChargeDescription;
+	}
+	public String getAmendedChargeDescription() {
+		return amendedChargeDescription;
+	}
+	public void setAmendedChargeDescription(String amendedChargeDescription) {
+		this.amendedChargeDescription = amendedChargeDescription;
+	}
+	public String getAlternateSentenceDescripiton() {
+		return alternateSentenceDescripiton;
+	}
+	public void setAlternateSentenceDescripiton(String alternateSentenceDescripiton) {
+		this.alternateSentenceDescripiton = alternateSentenceDescripiton;
+	}
+	public String getReasonForDismissalDescripiton() {
+		return reasonForDismissalDescripiton;
+	}
+	public void setReasonForDismissalDescripiton(String reasonForDismissalDescripiton) {
+		this.reasonForDismissalDescripiton = reasonForDismissalDescripiton;
 	}
 }    

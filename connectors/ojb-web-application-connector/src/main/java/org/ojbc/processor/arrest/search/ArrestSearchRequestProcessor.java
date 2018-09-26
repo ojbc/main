@@ -56,13 +56,13 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 		}	
 		
 		//POJO to XML Request
-		Document rapbackSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
+		Document arrestSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 		
 		//Set exchange body to XML Request message
-		senderExchange.getIn().setBody(rapbackSearchRequestPayload);
+		senderExchange.getIn().setBody(arrestSearchRequestPayload);
 		
 		//Set reply to and WS-Addressing message ID
 		String federatedQueryID = getFederatedQueryId();

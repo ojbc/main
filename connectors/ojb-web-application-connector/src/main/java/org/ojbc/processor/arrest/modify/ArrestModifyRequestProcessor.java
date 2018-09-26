@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.processor.arrest.search;
+package org.ojbc.processor.arrest.modify;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
@@ -29,6 +29,7 @@ import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
+import org.ojbc.web.portal.arrest.Disposition;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -37,7 +38,7 @@ import org.w3c.dom.Element;
 
 @Configuration
 @Profile("arrest-search")
-public class ArrestDetailSearchRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
+public class ArrestModifyRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	/**
 	 * Camel context needed to use producer template to send messages
@@ -48,20 +49,20 @@ public class ArrestDetailSearchRequestProcessor extends RequestResponseProcessor
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken) throws Throwable {
+	public String invokeRequest(Disposition disposition, Element samlToken) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document arrestDetailSearchRequestPayload = RequestMessageBuilderUtilities.createArrestDetailSearchRequest(id);
+		Document arrestModifyRequestPayload = RequestMessageBuilderUtilities.createArrestModifyRequest(disposition);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 		
 		//Set exchange body to XML Request message
-		senderExchange.getIn().setBody(arrestDetailSearchRequestPayload);
+		senderExchange.getIn().setBody(arrestModifyRequestPayload);
 		
 		//Set reply to and WS-Addressing message ID
 		String federatedQueryID = getFederatedQueryId();

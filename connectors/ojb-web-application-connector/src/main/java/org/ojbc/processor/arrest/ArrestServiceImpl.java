@@ -16,10 +16,12 @@
  */
 package org.ojbc.processor.arrest;
 
+import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestService;
+import org.ojbc.web.portal.arrest.Disposition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.w3c.dom.Element;
@@ -30,6 +32,7 @@ public class ArrestServiceImpl implements ArrestService {
 
 	private ArrestSearchRequestProcessor arrestSearchRequestProcessor;
 	private ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor;
+	private ArrestModifyRequestProcessor arrestModifyRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -41,6 +44,10 @@ public class ArrestServiceImpl implements ArrestService {
 		return getArrestDetailSearchRequestProcessor().invokeRequest(id, samlToken);
 	}
 
+	@Override
+	public String saveDisposition(Disposition disposition, Element samlToken) throws Throwable {
+		return arrestModifyRequestProcessor.invokeRequest(disposition, samlToken);
+	}
 	public ArrestSearchRequestProcessor getArrestSearchRequestProcessor() {
 		return arrestSearchRequestProcessor;
 	}
@@ -56,4 +63,13 @@ public class ArrestServiceImpl implements ArrestService {
 	public void setArrestDetailSearchRequestProcessor(ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor) {
 		this.arrestDetailSearchRequestProcessor = arrestDetailSearchRequestProcessor;
 	}
+
+	public ArrestModifyRequestProcessor getArrestModifyRequestProcessor() {
+		return arrestModifyRequestProcessor;
+	}
+
+	public void setArrestModifyRequestProcessor(ArrestModifyRequestProcessor arrestModifyRequestProcessor) {
+		this.arrestModifyRequestProcessor = arrestModifyRequestProcessor;
+	}
+
 }

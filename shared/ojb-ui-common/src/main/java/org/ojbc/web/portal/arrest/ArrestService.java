@@ -16,11 +16,11 @@
  */
 package org.ojbc.web.portal.arrest;
 
-import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.w3c.dom.Element;
 
 public interface ArrestService {
 
 	String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable;
 	String getArrest(String id, Element samlToken) throws Throwable;
+	String saveDisposition(Disposition disposition, Element samlToken) throws Throwable;
 }

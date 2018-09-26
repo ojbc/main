@@ -101,7 +101,7 @@
         <div class="card-body">
 			      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
                <xsl:attribute name="id">
-                   <xsl:value-of select="normalize-space(chsres-ext:ChargePrimarySystemIdentification/nc:IdentificationID)"/>
+                   <xsl:value-of select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
                </xsl:attribute>
 			        <col/>
 			        <col/>

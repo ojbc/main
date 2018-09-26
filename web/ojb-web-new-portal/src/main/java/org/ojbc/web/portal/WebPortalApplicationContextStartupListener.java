@@ -133,6 +133,7 @@ public class WebPortalApplicationContextStartupListener implements
 						break;
 					case "arrest-search":
 						camelContext.startRoute("arrestSearchResultsHandlerRoute");
+						camelContext.startRoute("arrestModifyResultsHandlerRoute");
 						break;
 					default:
 						break;

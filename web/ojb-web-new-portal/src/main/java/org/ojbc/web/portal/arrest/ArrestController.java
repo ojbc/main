@@ -28,7 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping"})
+@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
+	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping"})
 @RequestMapping("/arrests")
 public class ArrestController {
 	private static final Log log = LogFactory.getLog(ArrestController.class);
@@ -129,8 +130,25 @@ public class ArrestController {
 			return "arrest/dispositionForm::dispositionForm";
 		}
 		
-//		TODO add the web service call to get the arrest detail again. 
+		setCodeDescriptions(disposition, model); 
+		log.info(disposition);
+		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 		return "arrest/arrestDetail::arrestDetail";
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setCodeDescriptions(@Valid Disposition disposition, Map<String, Object> model) {
+		Map<String, String> muniReasonsForDismissalMapping = (Map<String, String>) model.get("muniReasonsForDismissalMapping"); 
+		Map<String, String> dispoCodeMapping = (Map<String, String>) model.get("dispoCodeMapping"); 
+		Map<String, String> muniAmendedChargeCodeMapping = (Map<String, String>) model.get("muniAmendedChargeCodeMapping"); 
+		Map<String, String> muniFiledChargeCodeMapping = (Map<String, String>) model.get("muniFiledChargeCodeMapping"); 
+		Map<String, String> muniAlternateSentenceMapping = (Map<String, String>) model.get("muniAlternateSentenceMapping"); 
+		
+		disposition.setAlternateSentenceDescripiton(muniAlternateSentenceMapping.get(disposition.getAlternateSentence()));
+		disposition.setAmendedChargeDescription(muniAmendedChargeCodeMapping.get(disposition.getAmendedCharge()));
+		disposition.setFiledChargeDescription(muniFiledChargeCodeMapping.get(disposition.getFiledCharge()));
+		disposition.setDispositionDescription(dispoCodeMapping.get(disposition.getDispositionCode()));
+		disposition.setReasonForDismissalDescripiton(muniReasonsForDismissalMapping.get(disposition.getReasonForDismissal()));
 	}
 	
 
