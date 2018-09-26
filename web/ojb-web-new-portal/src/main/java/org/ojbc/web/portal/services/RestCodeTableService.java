@@ -26,7 +26,7 @@ public class RestCodeTableService implements CodeTableService{
 	public Map<String, String> getMuniDispositionCodeMap(){
 		return getMuniDispositionCodes()
 				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription, 
+				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
 						(oldValue, newValue) -> oldValue, LinkedHashMap::new))
 				; 
 	}
@@ -48,14 +48,14 @@ public class RestCodeTableService implements CodeTableService{
 	public Map<String, String> getMuniAlternateSentenceMap(){
 		return getMuniAlternateSentences()
 				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription , 
+				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription , 
 						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}
 	
 	public Map<String, String> getMuniReasonsForDismissalMap(){
 		return getMuniReasonsForDismissal()
 				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription, 
+				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
 						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}
 	
