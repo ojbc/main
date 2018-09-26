@@ -85,6 +85,56 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="DistrictAttorneyArrestReferralRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a district attorney charge referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MunicipalProsecutorArrestReferralRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a municipal prosecutor charge referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteDispositionRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a delete disposition request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Disposition" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FinalizeArrestRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a finalize arrest request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
@@ -112,9 +162,17 @@
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The reason a disposition was dismissed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionDismissalReasonCodeText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code representing the the reason a disposition was dismissed.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -133,6 +191,20 @@
 	<xsd:element name="ChargeMunicipalCodeDescriptionText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code description for a municipal charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionCodeDescriptionText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for a disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for an alternate sentence.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -166,6 +238,12 @@
 		<xsd:annotation>
 			<xsd:documentation>A system identification for an arrest.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"

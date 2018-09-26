@@ -18,6 +18,37 @@
 
 -->
 <w:WantList w:release="4.0" w:product="NIEM" w:nillableDefault="true"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/">
+  <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Disposition" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:SystemName" w:isReference="false" w:nillable="true"/>
+  <w:Type w:name="j:ArrestType" w:isRequested="false">
+    <w:ElementInType w:name="j:ArrestAgencyRecordIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ChargeDispositionType" w:isRequested="false">
+    <w:ElementInType w:name="j:ChargeDispositionAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ChargeType" w:isRequested="false">
+    <w:ElementInType w:name="j:ChargeDisposition" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:DispositionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:DispositionAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationSourceText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
 </w:WantList>

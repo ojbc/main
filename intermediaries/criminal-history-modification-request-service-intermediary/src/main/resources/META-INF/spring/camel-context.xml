@@ -110,7 +110,7 @@
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>${in.header.operationName}</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><camel:simple>${in.header.operationName}</camel:simple></camel:setHeader>
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						

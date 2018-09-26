@@ -34,6 +34,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D96487</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -57,6 +60,7 @@
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -89,6 +93,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D1234</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -111,6 +118,7 @@
 				<chm-req-ext:DispositionCodeText>378</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>
