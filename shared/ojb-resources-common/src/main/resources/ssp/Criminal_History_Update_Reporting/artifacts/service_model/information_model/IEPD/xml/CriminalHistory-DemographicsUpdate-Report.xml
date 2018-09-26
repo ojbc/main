@@ -37,9 +37,7 @@
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
-					<chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
-					</chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
 					</chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
@@ -61,9 +59,7 @@
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
-					<chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
-					</chdu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>false
+					<chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
 					</chdu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
