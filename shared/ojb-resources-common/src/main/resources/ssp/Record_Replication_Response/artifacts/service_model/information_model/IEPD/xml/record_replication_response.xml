@@ -17,15 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<rr-req-doc:RecordReplicationRequest xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+<rr-resp-doc:RecordReplicationResponse xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-	xmlns:rr-req-doc="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0"
-	xmlns:rr-req-ext="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0"
+	xmlns:rr-resp-doc="http://ojbc.org/IEPD/Exchange/RecordReplicationResponse/1.0"
+	xmlns:rr-resp-ext="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0 ../xsd/record_replication_request.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RecordReplicationResponse/1.0 ../xsd/record_replication_response.xsd ">
 	<nc:Person>
-		<rr-req-ext:PersonTrackingIdentification>
+		<rr-resp-ext:PersonTrackingIdentification>
 			<nc:IdentificationID>OTN234567</nc:IdentificationID>
-		</rr-req-ext:PersonTrackingIdentification>
+		</rr-resp-ext:PersonTrackingIdentification>
 	</nc:Person>
-</rr-req-doc:RecordReplicationRequest>
+	<rr-resp-ext:RecordFoundIndicator>true</rr-resp-ext:RecordFoundIndicator>
+</rr-resp-doc:RecordReplicationResponse>
