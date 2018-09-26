@@ -18,19 +18,19 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:rls-req-doc="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseSearchRequest/1.0"
-	xmlns:rls-req-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchRequestExtension/1.0"
+	xmlns:rr-req-doc="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0"
+	xmlns:rr-req-ext="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/" schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
-	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseSearchRequestExtension/1.0" schemaLocation="regulatory_license_search_request_ext.xsd" />
-	<!-- Root data element for the Regulatory License Search Request -->
-	<xsd:element name="RegulatoryLicenseSearchRequest" type="rls-req-ext:RegulatoryLicenseSearchRequestType">
+	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0" schemaLocation="record_replication_request_ext.xsd" />
+	<!-- Root data element for the Record Replication Search Request -->
+	<xsd:element name="RecordReplicationRequest" type="rr-req-ext:RecordReplicationRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit a regulatory search request.</xsd:documentation>
+			<xsd:documentation>A message to submit a record replication request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

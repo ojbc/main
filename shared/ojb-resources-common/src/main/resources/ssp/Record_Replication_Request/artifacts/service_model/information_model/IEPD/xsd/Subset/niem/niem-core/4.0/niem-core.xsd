@@ -23,18 +23,6 @@
   </xs:annotation>
   <xs:import schemaLocation="../../proxy/xsd/4.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/4.0/"/>
   <xs:import schemaLocation="../../utility/structures/4.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/4.0/"/>
-  <xs:complexType name="DateType">
-    <xs:annotation>
-      <xs:documentation>A data type for a calendar date.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="IdentificationType">
     <xs:annotation>
       <xs:documentation>A data type for a representation of an identity.</xs:documentation>
@@ -47,35 +35,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="MetadataType">
-    <xs:annotation>
-      <xs:documentation>A data type for information that further qualifies primary data; data about data.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:MetadataType"/>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="PersonNameTextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a name by which a person is known, referred, or addressed.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="nc:ProperNameTextType"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="PersonNameType">
-    <xs:annotation>
-      <xs:documentation>A data type for a combination of names and/or titles by which a person is known.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="PersonType">
     <xs:annotation>
       <xs:documentation>A data type for a human being.</xs:documentation>
@@ -83,39 +42,11 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
-          <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ProperNameTextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a word or phrase by which a person or thing is known, referred, or addressed.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="nc:TextType"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="TextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a character string.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="niem-xs:string"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
-    <xs:annotation>
-      <xs:documentation>A full date.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="DateRepresentation" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a representation of a date.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
@@ -126,29 +57,9 @@
       <xs:documentation>A human being.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
+  <xs:element name="PersonAugmentationPoint" abstract="true">
     <xs:annotation>
-      <xs:documentation>A date a person was born.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A first name of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonLicenseIdentification" type="nc:IdentificationType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>An identification that references a license certification or registration of a person for some purpose.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonName" type="nc:PersonNameType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A last name or family name of a person.</xs:documentation>
+      <xs:documentation>An augmentation point for PersonType.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
