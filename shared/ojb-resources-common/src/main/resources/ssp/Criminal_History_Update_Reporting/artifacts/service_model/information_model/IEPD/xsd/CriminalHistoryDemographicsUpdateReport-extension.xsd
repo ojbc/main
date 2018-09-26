@@ -76,6 +76,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a unique identifier for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="CriminalHistoryReportJurisdictionCode"
 		type="chdu-report-ext:CriminalHistoryReportJurisdictionCodeType"
 		substitutionGroup="chdu-report-ext:CriminalHistoryReportJurisdictionRepresentation">

@@ -38,6 +38,9 @@
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<chdu-report-ext:PersonTrackingIdentification>
+				<nc:IdentificationID>PT2345678</nc:IdentificationID>
+			</chdu-report-ext:PersonTrackingIdentification>
 		</nc:Person>
 	</chdu-report-ext:PreDemographicsUpdateDemographics>
 	<chdu-report-ext:PostDemographicsUpdateDemographics>
@@ -54,6 +57,9 @@
 					<nc:IdentificationID>SID123456</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<chdu-report-ext:PersonTrackingIdentification>
+				<nc:IdentificationID>PT2345678</nc:IdentificationID>
+			</chdu-report-ext:PersonTrackingIdentification>
 		</nc:Person>
 	</chdu-report-ext:PostDemographicsUpdateDemographics>
 </chdu-report-doc:CriminalHistoryDemographicsUpdateReport>
