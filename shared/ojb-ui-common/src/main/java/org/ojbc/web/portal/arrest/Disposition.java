@@ -17,6 +17,7 @@
 package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -25,6 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -78,6 +80,18 @@ public class Disposition {
     private String reasonForDismissal;
     private String reasonForDismissalDescripiton;
     
+    public boolean containsSentenceInfo() {
+    	return (Objects.nonNull(jailYears) && jailYears > 0) 
+    		||  (Objects.nonNull(jailDays) && jailDays > 0) 
+    		||  (Objects.nonNull(deferredDays) && deferredDays > 0) 
+    		||  (Objects.nonNull(deferredYears) && deferredYears > 0) 
+    		||  (Objects.nonNull(suspendedYears) && suspendedYears > 0) 
+    		||  (Objects.nonNull(suspendedDays) && suspendedDays > 0) 
+    		||  (Objects.nonNull(fineAmount) && fineAmount > 0) 
+    		||  (Objects.nonNull(fineSuspended) && fineSuspended > 0) 
+    		|| StringUtils.isNotBlank(alternateSentence)
+    		|| (Objects.nonNull(restitution) && restitution > 0); 
+    }
 	public String getArrestIdentification() {
 		return arrestIdentification;
 	}

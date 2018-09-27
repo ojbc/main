@@ -44,7 +44,9 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -78,6 +80,10 @@ import org.w3c.dom.Element;
  *
  */
 public class RequestMessageBuilderUtilities {
+
+	private static final String RESTITUTION_01 = "RESTITUTION_01";
+
+	private static final String CHARGE_SENTENCE_01 = "CHARGE_SENTENCE_01";
 
 	private static final String CRIMINAL_HISTORY_MODIFICATION_REQUEST = "{http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0}SubmitCriminalHistoryModificationRequest";
 
@@ -1279,13 +1285,74 @@ public class RequestMessageBuilderUtilities {
     				"DispositionDismissalReasonCodeText", disposition.getReasonForDismissal());
     	}
     	
+    	if (disposition.containsSentenceInfo()) {
+    		Element chargeSentence = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeSentence");
+    		XmlUtils.addAttribute(chargeSentence, NS_STRUCTURES_40, "id", CHARGE_SENTENCE_01);
+    		
+    		if (hasValue(disposition.getDeferredDays(), disposition.getDeferredYears())) {
+    			Element sentenceDeferredTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceDeferredTerm");
+    			String termDurationString = getTermDurationString(disposition.getDeferredYears(), disposition.getDeferredDays());
+    			XmlUtils.appendTextElement(sentenceDeferredTerm, NS_JXDM_60, "TermDuration", termDurationString);
+    		}
+    		if (hasValue(disposition.getSuspendedDays(), disposition.getSuspendedYears())) {
+    			Element sentenceSuspendedTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceSuspendedTerm");
+    			String termDurationString = getTermDurationString(disposition.getSuspendedYears(), disposition.getSuspendedDays());
+    			XmlUtils.appendTextElement(sentenceSuspendedTerm, NS_JXDM_60, "TermDuration", termDurationString);
+    		}
+    		if (hasValue(disposition.getJailYears(), disposition.getJailDays())) {
+    			Element sentenceTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceTerm");
+    			XmlUtils.appendTextElement(sentenceTerm, NS_NC_40, "ActivityCategoryText", "JAIL");
+    			String termDurationString = getTermDurationString(disposition.getJailYears(), disposition.getJailDays());
+    			XmlUtils.appendTextElement(sentenceTerm, NS_JXDM_60, "TermDuration", termDurationString);
+    		}
+    		
+    		if (hasValue(disposition.getFineAmount())) {
+    			Element supervisionFineAmount = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SupervisionFineAmount");
+    			XmlUtils.appendTextElement(supervisionFineAmount, NS_NC_40, "Amount", disposition.getFineAmount().toString());
+    		}
+    		if (hasValue(disposition.getFineSuspended())) {
+    			Element fineSuspendedAmount = XmlUtils.appendElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "FineSuspendedAmount");
+    			XmlUtils.appendTextElement(fineSuspendedAmount, NS_NC_40, "Amount", disposition.getFineSuspended().toString());
+    		}
+    		
+    		if (StringUtils.isNotBlank(disposition.getAlternateSentence())) {
+    			XmlUtils.appendTextElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    					"AlternateSentenceCodeText", disposition.getAlternateSentence());
+    			XmlUtils.appendTextElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    					"AlternateSentenceCodeDescriptionText", disposition.getAlternateSentenceDescripiton());
+    		}
+    	}
 
-    	XmlUtils.appendTextElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeStatusCode", "Modified");
+    	XmlUtils.appendTextElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeStatusCode", "Unchanged");
     	Element chargePrimarySystemIdentification = 
     			XmlUtils.appendElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargePrimarySystemIdentification");
     	XmlUtils.appendTextElement(chargePrimarySystemIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
 
+    	if (hasValue(disposition.getRestitution())) {
+    		Element restitution = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Restitution");
+    		XmlUtils.addAttribute(restitution, NS_STRUCTURES_40, "id", RESTITUTION_01);
+    		Element obligationDueAmount = XmlUtils.appendElement(restitution, NS_NC_40, "ObligationDueAmount");
+    		XmlUtils.appendTextElement(obligationDueAmount, NS_NC_40, "Amount", disposition.getRestitution().toString());
+    		
+    		Element activityObligationAssociation = XmlUtils.appendElement(rootElement, 
+    				NS_JXDM_60, "ActivityObligationAssociation");
+    		Element activity = XmlUtils.appendElement(activityObligationAssociation, NS_NC_40, "Activity");
+    		XmlUtils.addAttribute(activity, NS_STRUCTURES_40, "ref", CHARGE_SENTENCE_01);
+    		Element obligation = XmlUtils.appendElement(activityObligationAssociation, NS_NC_40, "Obligation");
+    		XmlUtils.addAttribute(obligation, NS_STRUCTURES_40, "ref", RESTITUTION_01); 
+    	}
+    	
 		return document;
+	}
+
+	private static String getTermDurationString(Integer years, Integer days) {
+		return "P"+ (Objects.isNull(years)? "0":years.toString()) 
+				+ "Y"+ (Objects.isNull(days)?"0":days.toString()) + "D";
+	}
+
+	private static boolean hasValue(Integer... values) {
+		return Arrays.stream(values).filter(Objects::nonNull)
+				.anyMatch(i -> i>0);
 	}	
     
 }
