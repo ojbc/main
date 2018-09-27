@@ -98,8 +98,13 @@
 		      </xsl:attribute>
   				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
  				</a>
- 				<a href="#"><i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i></a> &#160;
-				<a href="#"><i class="fas fa-share-square fa-2x" title="delete" data-toggle="tooltip"></i></a>
+ 				<a href="#" class="hideArrest" style="margin-right:3px">
+          <xsl:attribute name="arrestId">
+            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+          </xsl:attribute>
+ 				  <i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i>
+				</a>
+				<a href="#"><i class="fas fa-share-square fa-2x" title="Refer" data-toggle="tooltip"></i></a>
 			</td>
 		</tr>
 	</xsl:template>

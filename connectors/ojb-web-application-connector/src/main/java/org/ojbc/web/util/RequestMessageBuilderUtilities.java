@@ -1353,6 +1353,33 @@ public class RequestMessageBuilderUtilities {
 	private static boolean hasValue(Integer... values) {
 		return Arrays.stream(values).filter(Objects::nonNull)
 				.anyMatch(i -> i>0);
+	}
+
+	public static Document createArrestHideRequest(String id) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ARREST_HIDE_REQUEST_DOC, 
+        		NS_PREFIX_ARREST_HIDE_REQUEST_DOC + ":ArrestHideRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_HIDE_REQUEST_DOC, 
+        		NS_ARREST_HIDE_REQUEST_DOC);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
+        document.appendChild(rootElement);
+    
+    	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
+    	
+		Element arrestAgencyRecordIdentification = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgencyRecordIdentification"); 
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", id);
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
+
+		Element arrestHideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideDate");
+		XmlUtils.appendTextElement(arrestHideDate, NS_NC_40, "Date", LocalDate.now().toString());
+		
+		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
+		
+        return document;
 	}	
     
 }

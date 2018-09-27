@@ -83,6 +83,11 @@
                         $('main').html(data);
                       }).fail();
                   });
+                  $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
+                      xhr = $.get( context +"arrests/" + $(this).attr("arrestId") + "/hide", function(data) {
+                        $("#searchResultsList").replaceWith(data);
+                      }).fail();
+                  });
              });
           </script>
         </div>

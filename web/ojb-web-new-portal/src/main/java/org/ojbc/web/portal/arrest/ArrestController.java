@@ -82,11 +82,7 @@ public class ArrestController {
 	@GetMapping("")
 	public String defaultSearch(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
-		String searchContent = arrestService.findArrests(arrestSearchRequest, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertArrestSearchResult(searchContent);
-		model.put("arrestSearchResults", searchContent); 
-		model.put("arrestSearchContent", transformedResults); 
-		model.put("arrestSearchRequest", arrestSearchRequest);
+		getArrestSearchResults(request, arrestSearchRequest, model);
 		return "arrest/arrests::resultsPage";
 	}
 
@@ -95,12 +91,17 @@ public class ArrestController {
 			Map<String, Object> model) throws Throwable {
 		
 		log.info("arrestSearchRequest:" + arrestSearchRequest );
+		getArrestSearchResults(request, arrestSearchRequest, model);
+		return "arrest/arrests::resultsList";
+	}
+
+	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest arrestSearchRequest,
+			Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.findArrests(arrestSearchRequest, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertArrestSearchResult(searchContent);
 		model.put("arrestSearchResults", searchContent); 
 		model.put("arrestSearchContent", transformedResults); 
 		model.put("arrestSearchRequest", arrestSearchRequest);
-		return "arrest/arrests::resultsList";
 	}
 	
 	@GetMapping("/{id}")
@@ -109,6 +110,15 @@ public class ArrestController {
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
+	@GetMapping("/{id}/hide")
+	public String hideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		String response = arrestService.hideArrest(id, samlService.getSamlAssertion(request));
+		
+		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchrequest, model);
+		return "arrest/arrests::resultsList";
+	}
+	
 	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);

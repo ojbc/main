@@ -14,14 +14,16 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.processor.arrest;
+package org.ojbc.web.portal.arrest;
 
+import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestService;
 import org.ojbc.web.portal.arrest.Disposition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.w3c.dom.Element;
@@ -30,9 +32,14 @@ import org.w3c.dom.Element;
 @Profile("arrest-search")
 public class ArrestServiceImpl implements ArrestService {
 
+	@Autowired
 	private ArrestSearchRequestProcessor arrestSearchRequestProcessor;
+	@Autowired
 	private ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor;
+	@Autowired
 	private ArrestModifyRequestProcessor arrestModifyRequestProcessor;
+	@Autowired
+	private ArrestHideRequestProcessor arrestHideRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -41,35 +48,16 @@ public class ArrestServiceImpl implements ArrestService {
 
 	@Override
 	public String getArrest(String id, Element samlToken) throws Throwable {
-		return getArrestDetailSearchRequestProcessor().invokeRequest(id, samlToken);
+		return arrestDetailSearchRequestProcessor.invokeRequest(id, samlToken);
 	}
 
 	@Override
 	public String saveDisposition(Disposition disposition, Element samlToken) throws Throwable {
 		return arrestModifyRequestProcessor.invokeRequest(disposition, samlToken);
 	}
-	public ArrestSearchRequestProcessor getArrestSearchRequestProcessor() {
-		return arrestSearchRequestProcessor;
-	}
-
-	public void setArrestSearchRequestProcessor(ArrestSearchRequestProcessor arrestSearchRequestProcessor) {
-		this.arrestSearchRequestProcessor = arrestSearchRequestProcessor;
-	}
-
-	public ArrestDetailSearchRequestProcessor getArrestDetailSearchRequestProcessor() {
-		return arrestDetailSearchRequestProcessor;
-	}
-
-	public void setArrestDetailSearchRequestProcessor(ArrestDetailSearchRequestProcessor arrestDetailSearchRequestProcessor) {
-		this.arrestDetailSearchRequestProcessor = arrestDetailSearchRequestProcessor;
-	}
-
-	public ArrestModifyRequestProcessor getArrestModifyRequestProcessor() {
-		return arrestModifyRequestProcessor;
-	}
-
-	public void setArrestModifyRequestProcessor(ArrestModifyRequestProcessor arrestModifyRequestProcessor) {
-		this.arrestModifyRequestProcessor = arrestModifyRequestProcessor;
+	@Override
+	public String hideArrest(String id, Element samlToken) throws Throwable {
+		return arrestHideRequestProcessor.invokeRequest(id, samlToken);
 	}
 
 }
