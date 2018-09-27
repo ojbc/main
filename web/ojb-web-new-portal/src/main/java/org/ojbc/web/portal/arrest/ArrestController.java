@@ -105,11 +105,15 @@ public class ArrestController {
 	
 	@GetMapping("/{id}")
 	public String getArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		getArrestDetail(request, id, model); 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+
+	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
 		model.put("arrestDetail", searchContent); 
-		model.put("arrestDetailTransformed", transformedResults); 
-		return "arrest/arrestDetail::arrestDetail";
+		model.put("arrestDetailTransformed", transformedResults);
 	}
 
 	@GetMapping("/dispositionForm")
@@ -133,6 +137,7 @@ public class ArrestController {
 		setCodeDescriptions(disposition, model); 
 		log.info(disposition);
 		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
