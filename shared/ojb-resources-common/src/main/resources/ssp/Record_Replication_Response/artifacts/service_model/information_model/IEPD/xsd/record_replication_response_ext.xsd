@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:rr-req-ext="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
+		schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
+		schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="./Subset/niem/proxy/xsd/4.0/xs.xsd" />
+	<xsd:complexType name="RecordReplicationResponseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit a record replication response.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="rr-req-ext:RecordFoundIndicator" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordFoundIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a record is found; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
