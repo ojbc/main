@@ -136,8 +136,8 @@
 					//348 - Found guilty of different charge
 					//376 - pled guilty of other charge
 					//520 - Nolo contendere to different charge
-					var dispoCodesForAmendedCharge = ['39', '66', '116'];
-					var dispoCodesForDismissalReason = ['5']; //305-charge dismissal
+					var dispoCodesForAmendedCharge = ['348', '376', '520'];
+					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
 					
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false);

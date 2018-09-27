@@ -26,7 +26,7 @@ public class RestCodeTableService implements CodeTableService{
 	public Map<String, String> getMuniDispositionCodeMap(){
 		return getMuniDispositionCodes()
 				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
+				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription, 
 						(oldValue, newValue) -> oldValue, LinkedHashMap::new))
 				; 
 	}
