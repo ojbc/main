@@ -334,7 +334,7 @@
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	
-			  <camel:to uri="bean:arrestModifyMessageProcessor?method=updateMapWithResponse"/>
+			  <camel:to uri="bean:arrestModifyRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
 	    <!--Identification Results Query Result Listener -->
