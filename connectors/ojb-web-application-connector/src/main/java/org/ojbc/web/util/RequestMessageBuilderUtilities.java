@@ -79,6 +79,8 @@ import org.w3c.dom.Element;
  */
 public class RequestMessageBuilderUtilities {
 
+	private static final String CRIMINAL_HISTORY_MODIFICATION_REQUEST = "{http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0}SubmitCriminalHistoryModificationRequest";
+
 	private static final String IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME = 
 			"{http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0}SubmitIdentificationResultsArchiveRequest";
 
@@ -1212,19 +1214,6 @@ public class RequestMessageBuilderUtilities {
 //				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 //			</j:ChargeDisposition>
 
-//	<j:Arrest>
-	//	<j:ArrestAgencyRecordIdentification>
-	//		<nc:IdentificationID>1004233</nc:IdentificationID>
-	//		<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-	//	</j:ArrestAgencyRecordIdentification>
-	//	<j:ArrestCharge>
-	//		<j:ChargeDisposition>
-	//			<nc:DispositionDate>
-	//				<nc:Date>2016-06-15</nc:Date>
-	//			</nc:DispositionDate>
-	//			<chm-req-ext:DispositionIdentification>
-	//				<nc:IdentificationID>D96487</nc:IdentificationID>
-	//			</chm-req-ext:DispositionIdentification>
 	public static Document createArrestModifyRequest(Disposition disposition) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_MODIFY_REQUEST_DOC, 
@@ -1242,7 +1231,7 @@ public class RequestMessageBuilderUtilities {
         Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
         Element arrestAgencyRecordIdentification = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgencyRecordIdentification");
         XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", disposition.getArrestIdentification());
-        XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", "OK System");
+        XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
         
         Element arrestCharge = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
         Element chargeDisposition = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeDisposition");
@@ -1289,6 +1278,13 @@ public class RequestMessageBuilderUtilities {
     		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     				"DispositionDismissalReasonCodeText", disposition.getReasonForDismissal());
     	}
+    	
+
+    	XmlUtils.appendTextElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeStatusCode", "Modified");
+    	Element chargePrimarySystemIdentification = 
+    			XmlUtils.appendElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargePrimarySystemIdentification");
+    	XmlUtils.appendTextElement(chargePrimarySystemIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
+
 		return document;
 	}	
     
