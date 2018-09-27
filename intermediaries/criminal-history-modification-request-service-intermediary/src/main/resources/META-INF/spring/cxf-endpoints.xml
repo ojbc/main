@@ -77,7 +77,7 @@
 	</cxf:cxfEndpoint>
 
                         
-	<!-- Criminal History Modification Request Service, hosted by the broker  -->	
+	<!-- Criminal History Modification Request Service, hosted by the adapter  -->	
 	<cxf:cxfEndpoint id="criminalHistoryModificationRequestServiceAdapter"
 		address="${criminalHistoryModificationRequestServiceAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Criminal_History_Modification_Request/schema/SIP_WS_1.2/Criminal_History_Modification_Request_Service.wsdl"
@@ -85,15 +85,14 @@
 		endpointName="ojbc:Criminal_History_Modification_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0">
 		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
-			<entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
+            <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+            <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+            <entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
+            <entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>	
 		
-	<!-- Criminal History Modification Response Service, hosted by broker  -->
+	<!-- Criminal History Modification Response Service, hosted by portal  -->
 	<cxf:cxfEndpoint id="criminalHistoryModificationPresentResponseService"
 		address="${criminalHistoryModificationResponsePresentServiceEndpoint}"
 		wsdlURL="classpath:ssp/Criminal_History_Modification_Response/schema/SIP_WS_1.2/Criminal_History_Modification_Response_Service.wsdl"
@@ -122,14 +121,15 @@
 					password="${truststorePassword}"
 					file="${truststoreLocation}" />
 			</sec:trustManagers>
-			<sec:cipherSuitesFilter>
-					<!-- these filters ensure that a strong ciphersuite will be used --> 
+<!-- 			<sec:cipherSuitesFilter>
+					these filters ensure that a strong ciphersuite will be used 
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 			</sec:cipherSuitesFilter>
-		</http:tlsClientParameters>
+ -->
+ 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
    
