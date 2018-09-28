@@ -10,6 +10,7 @@
 	<body>
 	    <!-- Begin page content -->
   <div th:fragment="dispositionForm">
+    
     <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
       <input type="hidden" th:field="*{arrestIdentification}" />
       <input type="hidden" th:field="*{arrestChargeIdentification}" />
@@ -149,7 +150,11 @@
 	     	   
 					if ($('#jailYears').val() === '1'){
 					 	$('#suspendedYears').prop('disabled', false); 
+					 	$('#jailDays').val(''); 
 					 	$('#jailDays').prop('disabled', true); 
+            $('#suspendedDays').val(''); 
+            $('#deferredYears').val(''); 
+            $('#deferredDays').val(''); 
 					 	$('#suspendedDays').prop('disabled', true); 
 					 	$('#deferredYears').prop('disabled', true); 
 					 	$('#deferredDays').prop('disabled', true); 
@@ -157,23 +162,31 @@
 					
 					if ($('#jailDays').val() > 0){
             $('#suspendedDays').prop('disabled', false); 
+            $('#deferredYears').val(''); 
+            $('#deferredDays').val(''); 
             $('#deferredYears').prop('disabled', true); 
             $('#deferredDays').prop('disabled', true); 
 					}
 					
 					if ($('#deferredYears').val() > 0){
+            $('#deferredDays').val(''); 
             $('#deferredDays').prop('disabled', true); 
 					}
 					
           $("#dispositionForm").on("change", "#jailYears", function(){
               if ($('#jailYears').val() > '0'){
                   $('#suspendedYears').prop('disabled', false); 
+                  $('#jailDays').val(''); 
                   $('#jailDays').prop('disabled', true); 
+                  $('#suspendedDays').val(''); 
+                  $('#deferredYears').val(''); 
+                  $('#deferredDays').val(''); 
                   $('#suspendedDays').prop('disabled', true); 
                   $('#deferredYears').prop('disabled', true); 
                   $('#deferredDays').prop('disabled', true); 
               }
               else{
+                  $('#suspendedYears').val(''); 
                   $('#suspendedYears').prop('disabled', true); 
                   $('#jailDays').prop('disabled', false); 
                   $('#suspendedDays').prop('disabled', false); 
@@ -194,10 +207,13 @@
           $("#dispositionForm").on("change", "#jailDays", function(){
               if ($('#jailDays').val() > 0){
                   $('#suspendedDays').prop('disabled', false); 
+                  $('#deferredYears').val(''); 
                   $('#deferredYears').prop('disabled', true); 
+                  $('#deferredDays').val(''); 
                   $('#deferredDays').prop('disabled', true); 
               }
               else{
+                  $('#suspendedDays').val(''); 
                   $('#suspendedDays').prop('disabled', true); 
                   $('#deferredYears').prop('disabled', false); 
                   $('#deferredDays').prop('disabled', false); 
@@ -209,6 +225,7 @@
 		            $('#amendedCharge').prop('disabled', false);
 	            }
 		          else{
+		        	  $('#amendedCharge').val('');
 		        	  $('#amendedCharge').prop('disabled', true);
 		          }
 		          
@@ -216,6 +233,7 @@
 		        	  $('#reasonForDismissal').prop('disabled', false);
 		          }
 		          else{
+		        	  $('#reasonForDismissal').val('');
 		        	  $('#reasonForDismissal').prop('disabled', true);
 		          }
 		  	  });
