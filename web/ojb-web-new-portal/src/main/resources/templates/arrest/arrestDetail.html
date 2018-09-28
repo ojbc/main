@@ -47,11 +47,13 @@
 				  </div>
 			   </div>
 		     <script th:inline="javascript">
-				     /*<![CDATA[*/
-		
-				     var dispoCodeMapping = [[${dispoCodeMapping}]]; 
-		
-				      /*]]>*/
+		        /*<![CDATA[*/
+				      var dispoCodeMapping = [[${dispoCodeMapping}]]; 
+				      var muniFiledChargeCodeMapping = [[${muniFiledChargeCodeMapping}]]; 
+				      var muniAmendedChargeCodeMapping = [[${muniAmendedChargeCodeMapping}]]; 
+				      var muniAlternateSentenceMapping = [[${muniAlternateSentenceMapping}]]; 
+				      var muniReasonsForDismissalMapping = [[${muniReasonsForDismissalMapping}]]; 
+			      /*]]>*/
          	   var dispoTables = [];
              $(function(){
             	   $('.date').mask('99/99/9999');
@@ -68,10 +70,54 @@
                             "orderable": false
                         }, 
                         {
-                             "targets": [2, 15],
+                             "targets": [2],
                              "render": function ( data, type, row, meta ) {
                             	   if (dispoCodeMapping.hasOwnProperty(data)){
                             		   return dispoCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [4],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniFiledChargeCodeMapping.hasOwnProperty(data)){
+                            		   return muniFiledChargeCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [5],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniAmendedChargeCodeMapping.hasOwnProperty(data)){
+                            		   return muniAmendedChargeCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [15],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniAlternateSentenceMapping.hasOwnProperty(data)){
+                            		   return muniAlternateSentenceMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [16],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniReasonsForDismissalMapping.hasOwnProperty(data)){
+                            		   return muniReasonsForDismissalMapping[data];
                             	   }
                             	   else{
 	                                 return data;
@@ -123,7 +169,7 @@
                 	 var chargeId = $(this).closest("table").attr("id");
                 	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                 	 $("#arrestChargeIdentification").val(chargeId);
-                	 $("#dispositionIdentification").val($(this).attr("id"));
+                	 $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
                 	 
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
                 	 console.log(rowData);
@@ -167,6 +213,19 @@
                 	    alert( "error" );
                    });
 
+                 });
+                 
+                 $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
+                   var chargeId = $(this).closest("table").attr("id");
+                   var arrestId = $('#searchResultsTable').attr('arrestId');
+                   var dispositionId = $(this).closest("tr").attr("id");
+                   
+                   xhr = $.get(context + "arrests/"+arrestId + "/charges/" + chargeId + "/dispositions/" + dispositionId + "/delete", function(data) {
+                       $("#dispositionModal .close").click();
+                       $('#portalContent').html(data); 
+                   }).fail(function() {
+                     alert( "error" );
+                   });
                  });
             });
 	      </script>

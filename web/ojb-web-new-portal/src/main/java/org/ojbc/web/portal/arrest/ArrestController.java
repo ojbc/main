@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.CodeTableService;
@@ -151,6 +152,17 @@ public class ArrestController {
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
+	@GetMapping("/{arrestId}/charges/{chargeId}/dispositions/{dispositionId}/delete")
+	public String deleteDisposition(HttpServletRequest request, @PathVariable String arrestId,
+			@PathVariable String chargeId,
+			@PathVariable String dispositionId,
+			Map<String, Object> model) throws Throwable {
+		log.info("deleting disposition " + StringUtils.join(Arrays.asList(arrestId, chargeId, dispositionId), '/'));
+//		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, arrestId, model); 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void setCodeDescriptions(@Valid Disposition disposition, Map<String, Object> model) {
 		Map<String, String> muniReasonsForDismissalMapping = (Map<String, String>) model.get("muniReasonsForDismissalMapping"); 

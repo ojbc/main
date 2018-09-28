@@ -182,14 +182,16 @@
 	  <xsl:variable name="chargeSentenceId" select="ancestor::chsres-ext:CriminalHistorySearchResult/chsres-ext:DispositionSentenceAssociation[nc:Disposition/@structures:ref = $dispositionId]/j:Sentence/@structures:ref"/>
 	  <xsl:variable name="restitutionId" select="ancestor::chsres-ext:CriminalHistorySearchResult/j:ActivityObligationAssociation[nc:Activity/@structures:ref=$chargeSentenceId]/nc:Obligation/@structures:ref"/>
 		<tr>
+      <xsl:attribute name="id">
+        <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
+      </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
         <a href="#" class="editDisposition" style="margin-right:3px">
-          <xsl:attribute name="id">
-            <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
-          </xsl:attribute>
           <i class="fas fa-edit fa-lg" title="edit" data-toggle="tooltip"></i>
         </a>
-        <a href="#"><i class="fas fa-trash-alt fa-lg" title="delete" data-toggle="tooltip"></i></a>
+        <a href="#" class="deleteDisposition">
+          <i class="fas fa-trash-alt fa-lg" title="delete" data-toggle="tooltip"></i>
+        </a>
       </td>
 		  <td>
 		    <xsl:apply-templates select="nc:DispositionDate/nc:Date"  mode="formatDateAsMMDDYYYY"/>
@@ -199,10 +201,10 @@
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
 		  <td>
-		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
+		    <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText"/>
+		    <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SupervisionFineAmount/nc:Amount"/>
@@ -235,7 +237,7 @@
 		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/chsres-ext:AlternateSentenceCodeText"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonText"/>
+		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>
 		  </td>
 		</tr>
 	   
