@@ -135,6 +135,11 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="CourtCase" type="nc:CaseType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A disposition case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DispositionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text for a disposition.</xsd:documentation>
