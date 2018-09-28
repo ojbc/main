@@ -57,6 +57,11 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D96487</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:CourtCase>
+						<nc:ActivityIdentification>
+							<nc:IdentificationID>1234567890</nc:IdentificationID>
+						</nc:ActivityIdentification>
+					</chsres-ext:CourtCase>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -74,6 +79,11 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1234</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:CourtCase>
+						<nc:ActivityIdentification>
+							<nc:IdentificationID>1234567890</nc:IdentificationID>
+						</nc:ActivityIdentification>
+					</chsres-ext:CourtCase>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>

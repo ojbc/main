@@ -47,6 +47,11 @@
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
+				<chm-req-ext:CourtCase>
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>1234567890</nc:IdentificationID>
+					</nc:ActivityIdentification>
+				</chm-req-ext:CourtCase>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
