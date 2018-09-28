@@ -1244,6 +1244,12 @@ public class RequestMessageBuilderUtilities {
     	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     			"ChargeMunicipalCodeDescriptionText", disposition.getFiledChargeDescription());
     	
+    	if (StringUtils.isNotBlank(disposition.getCourtCaseNumber())) {
+    		Element courtCase = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "CourtCase");
+    		Element activityIdentification = XmlUtils.appendElement(courtCase, NS_NC_40, "ActivityIdentification");
+    		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", disposition.getCourtCaseNumber());
+    	}
+    	
     	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     			"DispositionCodeText", disposition.getDispositionCode());
     	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
