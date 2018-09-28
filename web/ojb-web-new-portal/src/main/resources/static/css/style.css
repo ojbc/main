@@ -45,3 +45,15 @@ main{
   overflow-x: scroll;
   overflow-y:hidden;	
 }
+
+#loadingAjaxPane, #modalIframeSpinner  { 
+  position: absolute;
+  background-color: #7e7e7e;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+  background-image: url('../images/loading.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  display:none;
+  z-index: 10000;
+}

@@ -10,6 +10,8 @@
 	<body>
 	    <!-- Begin page content -->
 	    <div th:fragment="arrestDetail">
+	       <div id="loadingAjaxPane" ></div>
+	       
 	       <div class="card card-primary">
 					  <div class="card-header"><H5>ARREST DETAIL</H5></div>
 					  <div class="card-body">
@@ -19,6 +21,7 @@
    			 <div id="modalDiv">
 						<!-- The Modal -->
 						<div class="modal" id="dispositionModal">
+              <div id="modalIframeSpinner" ></div>
 						  <div class="modal-dialog modal-lg">
 						    <div class="modal-content">
 						
@@ -79,7 +82,11 @@
                 		      "targets": [6, 7, 14],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
-                		  ]
+                		  ]/* , 
+                		  scrollX: true,
+             			    fixedColumns: {
+             			        leftColumns: 3
+             			    } */
                 	 });
                  });
             	   
@@ -150,7 +157,7 @@
                 	   //console.log(data);
                 	   if ($(data).find('div.card').length > 0){
                 		   $("#dispositionModal .close").click();
-                		   $('main').html(data); 
+                		   $('#portalContent').html(data); 
                 	   }
                 	   else{
                        $('.modal-body').html(data);

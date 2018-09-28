@@ -10,6 +10,8 @@
 	<body>
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
+	      <div id="loadingAjaxPane" ></div>
+	      
         <h3 class="mt-5">Arrest Search Results</h3>
         <form action="#" th:action="@{/arrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row">
@@ -80,7 +82,7 @@
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
                       xhr = $.get( context +"arrests/" + $(this).attr("id"), function(data) {
-                        $('main').html(data);
+                        $('#portalContent').html(data);
                       }).fail();
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {

@@ -1200,26 +1200,6 @@ public class RequestMessageBuilderUtilities {
 //</amr-req-doc:ArrestModifyRequest>
 	
 	
-	
-	
-//				<chm-req-ext:AmendedCharge>
-//					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-//					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
-//					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
-//				</chm-req-ext:AmendedCharge>
-//				<chm-req-ext:FiledCharge>
-//					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-//					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
-//					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
-//				</chm-req-ext:FiledCharge>
-//				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
-//				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
-//				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
-//				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
-//				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
-//				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
-//			</j:ChargeDisposition>
-
 	public static Document createArrestModifyRequest(Disposition disposition) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_MODIFY_REQUEST_DOC, 
