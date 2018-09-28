@@ -1366,6 +1366,59 @@ public class RequestMessageBuilderUtilities {
 		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
 		
         return document;
+	}
+//<dd-req-doc:DeleteDispositionRequest
+//	xmlns:dd-req-doc="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0"
+//	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+//	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+//	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+//	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+//	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0 ../xsd/delete_disposition_request.xsd">
+//	<j:Arrest>
+//		<j:ArrestAgencyRecordIdentification>
+//			<nc:IdentificationID>25052</nc:IdentificationID>
+//			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+//		</j:ArrestAgencyRecordIdentification>
+//		<j:ArrestCharge>
+//			<j:ChargeDisposition>
+//				<chm-req-ext:DispositionIdentification>
+//					<nc:IdentificationID>48514</nc:IdentificationID>
+//				</chm-req-ext:DispositionIdentification>
+//			</j:ChargeDisposition>
+//			<chm-req-ext:ChargePrimarySystemIdentification>
+//				<nc:IdentificationID>5866299</nc:IdentificationID>
+//			</chm-req-ext:ChargePrimarySystemIdentification>
+//		</j:ArrestCharge>
+//	</j:Arrest>
+//</dd-req-doc:DeleteDispositionRequest>
+	public static Document createDeleteDispositionRequest(Disposition disposition) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_DELETE_DISPOSITION_REQUEST_DOC, 
+        		NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC + ":DeleteDispositionRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC, 
+        		NS_DELETE_DISPOSITION_REQUEST_DOC);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
+        document.appendChild(rootElement);
+        
+    	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
+    	
+		Element arrestAgencyRecordIdentification = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgencyRecordIdentification"); 
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", disposition.getArrestIdentification());
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
+
+		Element arrestCharge = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+		Element chargeDisposition = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeDisposition");
+		Element dispositionIdentification = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "DispositionIdentification"); 
+		XmlUtils.appendTextElement(dispositionIdentification, NS_NC_40, "IdentificationID", disposition.getDispositionIdentification());
+		
+		Element chargePrimarySystemIdentification = XmlUtils.appendElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargePrimarySystemIdentification"); 
+		XmlUtils.appendTextElement(chargePrimarySystemIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
+		
+		return document;
 	}	
     
 }

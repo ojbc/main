@@ -152,14 +152,12 @@ public class ArrestController {
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
-	@GetMapping("/{arrestId}/charges/{chargeId}/dispositions/{dispositionId}/delete")
-	public String deleteDisposition(HttpServletRequest request, @PathVariable String arrestId,
-			@PathVariable String chargeId,
-			@PathVariable String dispositionId,
+	@PostMapping("/dispositions/delete")
+	public String deleteDisposition(HttpServletRequest request,  Disposition disposition,
 			Map<String, Object> model) throws Throwable {
-		log.info("deleting disposition " + StringUtils.join(Arrays.asList(arrestId, chargeId, dispositionId), '/'));
-//		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
-		getArrestDetail(request, arrestId, model); 
+		log.debug("deleting disposition " + disposition.toString());
+		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
 	

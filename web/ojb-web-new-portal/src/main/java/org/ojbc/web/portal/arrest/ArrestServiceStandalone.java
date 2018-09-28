@@ -48,4 +48,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String deleteDisposition(Disposition disposition, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

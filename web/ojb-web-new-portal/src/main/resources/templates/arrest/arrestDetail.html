@@ -216,12 +216,11 @@
                  });
                  
                  $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
-                   var chargeId = $(this).closest("table").attr("id");
-                   var arrestId = $('#searchResultsTable').attr('arrestId');
-                   var dispositionId = $(this).closest("tr").attr("id");
+                   $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                   $("#arrestChargeIdentification").val($(this).closest("table").attr("id"));
+                   $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
                    
-                   xhr = $.get(context + "arrests/"+arrestId + "/charges/" + chargeId + "/dispositions/" + dispositionId + "/delete", function(data) {
-                       $("#dispositionModal .close").click();
+                   xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
                        $('#portalContent').html(data); 
                    }).fail(function() {
                      alert( "error" );

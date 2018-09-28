@@ -81,6 +81,16 @@
    		<property name="OJBSamlMap" ref="ojbSamlMap"/>
    </bean>
   
+  	<!-- Delete Disposition Request Processor -->
+   <bean id="deleteDispositionRequestProcessor" class="org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.arrestModifyRequestReplyToEndpoint.endpoint}</value></property>
+   		<property name="messageProcessor" ref="deleteDispositionMessageProcessor"/>
+   		<property name="requestResponseMap" ref="arrestModifyRequestResponseMap"/>
+   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+   </bean>
+  
 	<bean id="arrestModifyMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ModifyArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
@@ -89,6 +99,12 @@
 
 	<bean id="arrestHideMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>HideArrestRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+	</bean>
+
+	<bean id="deleteDispositionMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>DeleteDispositionRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
 	</bean>

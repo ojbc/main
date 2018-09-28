@@ -18,11 +18,9 @@ package org.ojbc.web.portal.arrest;
 
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
+import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
-import org.ojbc.web.portal.arrest.ArrestSearchRequest;
-import org.ojbc.web.portal.arrest.ArrestService;
-import org.ojbc.web.portal.arrest.Disposition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -40,6 +38,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ArrestModifyRequestProcessor arrestModifyRequestProcessor;
 	@Autowired
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
+	@Autowired
+	private DeleteDispositionRequestProcessor deleteDispositionRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -58,6 +58,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String hideArrest(String id, Element samlToken) throws Throwable {
 		return arrestHideRequestProcessor.invokeRequest(id, samlToken);
+	}
+
+	@Override
+	public String deleteDisposition(Disposition disposition, Element samlToken) throws Throwable {
+		return deleteDispositionRequestProcessor.invokeRequest(disposition, samlToken);
 	}
 
 }

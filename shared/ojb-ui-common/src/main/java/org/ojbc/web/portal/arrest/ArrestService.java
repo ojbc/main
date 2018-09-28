@@ -24,4 +24,5 @@ public interface ArrestService {
 	String getArrest(String id, Element samlToken) throws Throwable;
 	String hideArrest(String id, Element samlToken) throws Throwable;
 	String saveDisposition(Disposition disposition, Element samlToken) throws Throwable;
+	String deleteDisposition(Disposition disposition, Element samlAssertion) throws Throwable;
 }
