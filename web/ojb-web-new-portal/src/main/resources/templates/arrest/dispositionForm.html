@@ -23,7 +23,7 @@
            </div>
            <div class="col-md-6 mb-4">
              <label for="dispositionCode">Disposition Code *</label>
-             <select th:field="*{dispositionCode}" class="form-control" th:errorclass="is-invalid">
+             <select th:field="*{dispositionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
 						    <option th:each="item: ${dispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
              </select>
@@ -38,7 +38,7 @@
              <div class="form-row">
                <div class="col-md-6 mb-4">
                  <label>Filed Charge *</label>
-		             <select th:field="*{filedCharge}" class="form-control" th:errorclass="is-invalid">
+		             <select th:field="*{filedCharge}" class="form-control chosen-select" th:errorclass="is-invalid">
 		                <option value="" >Please select ...</option>
 		                <option th:each="item: ${muniFiledChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 		             </select>
@@ -46,7 +46,7 @@
                </div>
                <div class="col-md-6 mb-4">
                  <label>Amended Charge</label>
-                 <select th:field="*{amendedCharge}" class="form-control" th:errorclass="is-invalid" disabled>
+                 <select th:field="*{amendedCharge}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
                     <option value="" >Please select ...</option>
                     <option th:each="item: ${muniAmendedChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
                  </select>
@@ -112,7 +112,7 @@
                </div>					                
                <div class="col-md-6 mb-4">
                  <label>Alternate Sentence</label>
-	               <select th:field="*{alternateSentence}" class="form-control" th:errorclass="is-invalid">
+	               <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
 	                  <option value="" >Please select ...</option>
 	                  <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
 	               </select>
@@ -121,7 +121,7 @@
              </div>			                
              <div class="form-group">
                <label>Reason For Dismissal</label>
-	             <select th:field="*{reasonForDismissal}" class="form-control" th:errorclass="is-invalid" disabled>
+	             <select th:field="*{reasonForDismissal}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	                <option value="" >Please select ...</option>
 	                <option th:each="item: ${muniReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
 	             </select>
@@ -131,6 +131,7 @@
       </form>
     <script th:inline="javascript">
 	      $(function(){
+	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					
@@ -141,11 +142,11 @@
 					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
 					
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
-					 $('#amendedCharge').prop('disabled', false);
+					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
 					if (dispoCodesForDismissalReason.includes($('#dispositionCode').val())){
-					 $('#reasonForDismissal').prop('disabled', false);
+					 $('#reasonForDismissal').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
 					if ($('#jailYears').val() === '1'){
@@ -222,19 +223,19 @@
 					
 		  	  $("#dispositionForm").on("change", "#dispositionCode", function(){
 		          if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
-		            $('#amendedCharge').prop('disabled', false);
+		            $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
 	            }
 		          else{
 		        	  $('#amendedCharge').val('');
-		        	  $('#amendedCharge').prop('disabled', true);
+		        	  $('#amendedCharge').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          
 		          if (dispoCodesForDismissalReason.includes($('#dispositionCode').val())){
-		        	  $('#reasonForDismissal').prop('disabled', false);
+		        	  $('#reasonForDismissal').prop('disabled', false).trigger("chosen:updated");
 		          }
 		          else{
 		        	  $('#reasonForDismissal').val('');
-		        	  $('#reasonForDismissal').prop('disabled', true);
+		        	  $('#reasonForDismissal').prop('disabled', true).trigger("chosen:updated");
 		          }
 		  	  });
         });
