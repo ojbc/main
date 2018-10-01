@@ -198,22 +198,41 @@
                  
                  $('#saveDisposition').on('click', function(){
                 	 var formData = $("#dispositionForm").serialize();
-                   xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
-                	   console.log(formData);
-                	   //console.log(data);
-                	   if ($(data).find('div.card').length > 0){
-                		   $("#dispositionModal .close").click();
-                		   $('#portalContent').html(data); 
-                	   }
-                	   else{
-                       $('.modal-body').html(data);
-                       $('#dispositionModal').modal('show');
-                	   }
-                   }).fail(function() {
-                	    alert( "error" );
-                   });
-
+                	 
+                	 var restitution = parseInt($("#restitution").val().replace(',', ''));
+                	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
+               	   if ( restitution > 5000 || fineAmount > 1000){
+               		   var confirmMessage = ""
+               		   if (fineAmount > 1000) {
+               			   confirmMessage += 'The Fine Amount exceeds $1,000.' 
+               		   }
+               		   if (restitution > 1000) {
+               			   confirmMessage += ' The Restitution exceeds $5,000.' 
+               		   }
+               		   bootpopup.confirm(confirmMessage , "Are you sure to proceed?", function(ans) { if(ans){save(formData);} });  
+               	   }
+               	   else{
+               		   save(formData);
+               	   }
                  });
+
+                 function save(formData){
+                     xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
+                         console.log(formData);
+                         
+                         
+                         if ($(data).find('div.card').length > 0){
+                           $("#dispositionModal .close").click();
+                           $('#portalContent').html(data); 
+                         }
+                         else{
+                           $('.modal-body').html(data);
+                           $('#dispositionModal').modal('show');
+                         }
+                       }).fail(function() {
+                          alert( "error" );
+                       });
+                 }
                  
                  $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
