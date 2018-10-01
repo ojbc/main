@@ -123,8 +123,8 @@ public class ArrestController {
 	public String referArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
 		arrestService.referArrest(id, samlService.getSamlAssertion(request));
 		
-//		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
-//		getArrestSearchResults(request, arrestSearchrequest, model);
+		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchrequest, model);
 		return "arrest/arrests::resultsList";
 	}
 	
