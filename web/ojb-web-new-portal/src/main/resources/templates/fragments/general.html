@@ -82,7 +82,7 @@
 
 	              xhr = $.get(context + 'dispositions', function(data) {
 	                 $('#portalContent').html(data); 
-	               }).fail();
+	               }).fail(ojbc.displayFailMessage);
 	              return false; 
 	          });
 	          $('#arrest').click(function() {   
@@ -90,7 +90,7 @@
 
 	              xhr = $.get(context + 'arrests', function(data) {
 	                 $('#portalContent').html(data); 
-	               }).fail();
+	               }).fail(ojbc.displayFailMessage);
 	              return false; 
 	          });
 	          
@@ -119,8 +119,25 @@
                $("#loadingAjaxPane").hide();                
                $("#modalIframeSpinner").hide();
              });
- 
-	      });    
+ 	          
+	      });
+	      
+        ojbc = {
+	          displayFailMessage : function(jqXHR, textStatus, errorThrown) {
+	            if (jqXHR.status == 500) {
+	              var errorHeader = "A server-side error occurred while processing your request. Please contact the IT department or try again later.";
+	              bootpopup.alert(errorHeader, "");   
+	            } else if (jqXHR.status == 0) {
+	              if (jqXHR.textStatus != "aborted"){
+	                window.location.reload();
+	              }
+	            } else {
+	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "");
+	            }
+	         }
+         };
+              
+
       </script>
 		  
 	  </div>		

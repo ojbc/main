@@ -162,7 +162,7 @@
                     xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
                     	$('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
-                    }).fail();
+                    }).fail(ojbc.displayFailMessage);
                  }); 
                  
                  $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
@@ -193,7 +193,7 @@
                    xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
                       $('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
-                   }).fail();
+                   }).fail(ojbc.displayFailMessage);
                  });
                  
                  $('#saveDisposition').on('click', function(){
@@ -229,9 +229,7 @@
                            $('.modal-body').html(data);
                            $('#dispositionModal').modal('show');
                          }
-                       }).fail(function() {
-                          alert( "error" );
-                       });
+                       }).fail(ojbc.displayFailMessage);
                  }
                  
                  $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
@@ -241,9 +239,7 @@
                    
                    xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
                        $('#portalContent').html(data); 
-                   }).fail(function() {
-                     alert( "error" );
-                   });
+                   }).fail(ojbc.displayFailMessage);
                  });
             });
 	      </script>
