@@ -46,7 +46,7 @@
 			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
 
 		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
-			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryRequestCriminalHistoryServiceAdapterEndpoint" 
 	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>
