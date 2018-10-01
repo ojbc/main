@@ -1345,10 +1345,14 @@ public class RequestMessageBuilderUtilities {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_HIDE_REQUEST_DOC, 
         		NS_PREFIX_ARREST_HIDE_REQUEST_DOC + ":ArrestHideRequest");
-        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-        		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_HIDE_REQUEST_DOC, 
         		NS_ARREST_HIDE_REQUEST_DOC);
+        return createArrestModifyRequest(id, document, rootElement);
+	}
+
+	private static Document createArrestModifyRequest(String id, Document document, Element rootElement) {
+		rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
@@ -1419,6 +1423,38 @@ public class RequestMessageBuilderUtilities {
 		XmlUtils.appendTextElement(chargePrimarySystemIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
 		
 		return document;
+	}
+
+//<mpar-req-doc:MunicipalProsecutorArrestReferralRequest
+//	xmlns:mpar-req-doc="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorArrestReferralRequest/1.0"
+//	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+//	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+//	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+//	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+//	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorArrestReferralRequest/1.0 ../xsd/municipal_prosecutor_arrest_referral_request.xsd">
+//	<j:Arrest>
+//		<j:ArrestAgencyRecordIdentification>
+//			<nc:IdentificationID>1004233</nc:IdentificationID>
+//			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+//		</j:ArrestAgencyRecordIdentification>
+//	</j:Arrest>
+//</mpar-req-doc:MunicipalProsecutorArrestReferralRequest>	
+	public static Document createMunicipalProsecutorArrestReferralRequest(String id) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC, 
+        		NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC + ":MunicipalProsecutorArrestReferralRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC, 
+        		NS_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC);
+		return createArrestModifyRequest(id, document, rootElement);
+
+	}	
+	public static Document createDistrictAttorneyArrestReferralRequest(String id) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+		Element rootElement = document.createElementNS(NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC, 
+				NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC + ":DistrictAttorneyArrestReferralRequest");
+		rootElement.setAttribute("xmlns:" + NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC, 
+				NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC);
+		return createArrestModifyRequest(id, document, rootElement);
 	}	
     
 }

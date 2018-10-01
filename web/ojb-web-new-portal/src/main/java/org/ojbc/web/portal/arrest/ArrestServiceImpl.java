@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
+import org.ojbc.processor.arrest.modify.ArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
@@ -40,6 +41,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
 	@Autowired
 	private DeleteDispositionRequestProcessor deleteDispositionRequestProcessor;
+	@Autowired
+	private ArrestReferRequestProcessor arrestReferRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -63,6 +66,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String deleteDisposition(Disposition disposition, Element samlToken) throws Throwable {
 		return deleteDispositionRequestProcessor.invokeRequest(disposition, samlToken);
+	}
+
+	@Override
+	public String referArrest(String id, Element samlAssertion) throws Throwable {
+		return arrestReferRequestProcessor.invokeRequest(id, samlAssertion);
 	}
 
 }

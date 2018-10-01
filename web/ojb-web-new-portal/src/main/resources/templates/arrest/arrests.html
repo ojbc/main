@@ -81,12 +81,17 @@
                   $('[data-toggle="tooltip"]').tooltip(); 
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
-                      xhr = $.get( context +"arrests/" + $(this).attr("id"), function(data) {
+                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id"), function(data) {
                         $('#portalContent').html(data);
                       }).fail();
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
-                      xhr = $.get( context +"arrests/" + $(this).attr("arrestId") + "/hide", function(data) {
+                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id") + "/hide", function(data) {
+                        $("#searchResultsList").replaceWith(data);
+                      }).fail();
+                  });
+                  $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
+                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id") + "/refer", function(data) {
                         $("#searchResultsList").replaceWith(data);
                       }).fail();
                   });

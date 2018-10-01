@@ -70,6 +70,10 @@
 	
 	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
 		<tr>
+		  <xsl:attribute name="id">
+         <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+      </xsl:attribute>
+		  
 			<td>
 				<xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
@@ -93,18 +97,12 @@
 			</td>
 			<td align="right" width="120px">
 			  <a href="#" class="editArrest" style="margin-right:3px">
-		      <xsl:attribute name="id">
-		        <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-		      </xsl:attribute>
-  				<i class="fas fa-edit fa-2x" title="edit" data-toggle="tooltip"></i>
+  				<i class="fas fa-edit fa-2x" title="Edit" data-toggle="tooltip"></i>
  				</a>
  				<a href="#" class="hideArrest" style="margin-right:3px">
-          <xsl:attribute name="arrestId">
-            <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-          </xsl:attribute>
- 				  <i class="fas fa-eye-slash fa-2x" title="hide" data-toggle="tooltip"></i>
+ 				  <i class="fas fa-eye-slash fa-2x" title="Hide" data-toggle="tooltip"></i>
 				</a>
-				<a href="#"><i class="fas fa-share-square fa-2x" title="Refer" data-toggle="tooltip"></i></a>
+				<a href="#" class="referArrest"><i class="fas fa-share-square fa-2x" title="Refer to DA" data-toggle="tooltip"></i></a>
 			</td>
 		</tr>
 	</xsl:template>

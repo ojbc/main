@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.CodeTableService;
@@ -113,10 +112,19 @@ public class ArrestController {
 
 	@GetMapping("/{id}/hide")
 	public String hideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		String response = arrestService.hideArrest(id, samlService.getSamlAssertion(request));
+		arrestService.hideArrest(id, samlService.getSamlAssertion(request));
 		
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
+		return "arrest/arrests::resultsList";
+	}
+	
+	@GetMapping("/{id}/refer")
+	public String referArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		arrestService.referArrest(id, samlService.getSamlAssertion(request));
+		
+//		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+//		getArrestSearchResults(request, arrestSearchrequest, model);
 		return "arrest/arrests::resultsList";
 	}
 	
@@ -147,7 +155,8 @@ public class ArrestController {
 		
 		setCodeDescriptions(disposition, model); 
 		log.info(disposition);
-		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
+		arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
+//		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
@@ -156,7 +165,8 @@ public class ArrestController {
 	public String deleteDisposition(HttpServletRequest request,  Disposition disposition,
 			Map<String, Object> model) throws Throwable {
 		log.debug("deleting disposition " + disposition.toString());
-		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+		arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+//		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
