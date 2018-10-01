@@ -53,7 +53,12 @@ public class WarrantRowMapper implements RowMapper<Warrant> {
 			warrant.setDateOfWarrantRequest(dateOfWarrant.toLocalDate());	
 		}	
 
-		warrant.setExtradite(rs.getBoolean("Extradite"));
+    	boolean extraditionBool = rs.getBoolean("Extradite");
+    	
+    	if (!rs.wasNull())
+    	{
+    		warrant.setExtradite(Boolean.valueOf(extraditionBool));	
+    	}
 		
 		warrant.setExtraditionLimits(rs.getString("ExtraditionLimits"));
 		warrant.setGeneralOffenseCharacter(rs.getString("GeneralOffenseCharacter"));
