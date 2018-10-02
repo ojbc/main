@@ -68,7 +68,7 @@
 	    <script type="text/javascript" th:src="@{/webjars/font-awesome/5.2.0/js/all.js}"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
 		  <script type="text/javascript" th:src="@{/js/plugins/jquery.mask.min.js}"></script> 
-		  <script type="text/javascript" th:src="@{/js/plugins/bootpopup.min.js}"></script> 
+		  <script type="text/javascript" th:src="@{/js/plugins/bootpopup.js}"></script> 
 		  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> 
 <!-- 		  <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script> 
  -->		  
@@ -126,13 +126,13 @@
 	          displayFailMessage : function(jqXHR, textStatus, errorThrown) {
 	            if (jqXHR.status == 500) {
 	              var errorHeader = "A server-side error occurred while processing your request. Please contact the IT department or try again later.";
-	              bootpopup.alert(errorHeader, "");   
+	              bootpopup.alert(errorHeader, "Error");   
 	            } else if (jqXHR.status == 0) {
 	              if (jqXHR.textStatus != "aborted"){
 	                window.location.reload();
 	              }
 	            } else {
-	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "");
+	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "Error");
 	            }
 	         }
          };
