@@ -110,8 +110,8 @@ public class RapbackController {
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
 	
-    @Value("${rapbackSubscriptionPeriod:1}")
-    Integer rapbackSubscriptionPeriod;
+    @Value("${civilRapbackSubscriptionPeriod:5}")
+    Integer civilRapbackSubscriptionPeriod;
     
     @Value("${rapbackSearchDateRange:1095}")
     Integer rapbackSearchDateRange;
@@ -603,7 +603,7 @@ public class RapbackController {
 	private void setStartDateAndEndDate(Subscription subscription) {
 		Calendar cal = Calendar.getInstance(); 
 		subscription.setSubscriptionStartDate(cal.getTime());
-		cal.add(Calendar.YEAR, rapbackSubscriptionPeriod);
+		cal.add(Calendar.YEAR, civilRapbackSubscriptionPeriod);
 		subscription.setSubscriptionEndDate(cal.getTime());
 	}
 
