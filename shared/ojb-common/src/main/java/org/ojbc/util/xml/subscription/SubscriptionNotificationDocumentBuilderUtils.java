@@ -45,6 +45,13 @@ import org.w3c.dom.Element;
 
 public class SubscriptionNotificationDocumentBuilderUtils {				
 
+	public static final String CRIMINAL_JUSTICE_INVESTIGATIVE = "CI";
+	public static final String CRIMINAL_JUSTICE_SUPERVISION = "CS";
+	public static final String FIREARMS = "F";
+	public static final String NON_CRIMINAL_JUSTICE_EMPLOYMENT = "I";
+	public static final String CRIMINAL_JUSTICE_EMPLOYMENT = "J";
+	public static final String SECURITY_CLEARANCE_INFORMATION_ACT = "S";
+	
 	@SuppressWarnings("unused")
 	private static final Log logger = LogFactory.getLog(SubscriptionNotificationDocumentBuilderUtils.class);
 	
@@ -53,8 +60,6 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	private static final String CONSUMER_REF_ADDRESS = "http://www.ojbc.org/OJB/SubscribeNotify";
 	
 	private static final String TOPIC_EXPRESSION_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";	
-	
-	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
 	
 	private static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
 	
@@ -90,7 +95,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 			
 		buildSubscriptionIdNode(subscriptionModificationMessage, subscription);
 		
-		buildSubscriptionReasonCodeElement(subscriptionModificationMessage, subscription);
+		buildSubscriptionReasonCodeElement(subscriptionModificationMessage, subscription.getSubscriptionPurpose());
 		
 		buildTriggeringEvents(subscriptionModificationMessage, subscription, triggeringEventCodeTranslationMap);
 		
@@ -223,7 +228,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildSubscriptionIdNode(subMsgNode, subscription);
 		
-		buildSubscriptionReasonCodeElement(subMsgNode, subscription);
+		buildSubscriptionReasonCodeElement(subMsgNode, subscription.getSubscriptionPurpose());
 		
 		buildTriggeringEvents(subMsgNode, subscription, triggeringEventCodeTranslationMap);
 		
@@ -331,17 +336,17 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		}		
 	}
 		
-	private static void buildSubscriptionReasonCodeElement(Element parentElement, Subscription subscription){
-
-		String subscriptionReasonCode = subscription.getSubscriptionPurpose();
+	private static void buildSubscriptionReasonCodeElement(Element parentElement, String subscriptionReasonCode){
 		
 		if(StringUtils.isNotEmpty(subscriptionReasonCode)){
 		
-			if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(subscriptionReasonCode)){
+			if (CRIMINAL_JUSTICE_EMPLOYMENT.equals(subscriptionReasonCode) || FIREARMS.equals(subscriptionReasonCode) || NON_CRIMINAL_JUSTICE_EMPLOYMENT.equals(subscriptionReasonCode) || SECURITY_CLEARANCE_INFORMATION_ACT.equals(subscriptionReasonCode) )
+			{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
-			else{
+			if (CRIMINAL_JUSTICE_INVESTIGATIVE.equals(subscriptionReasonCode) || CRIMINAL_JUSTICE_SUPERVISION.equals(subscriptionReasonCode))
+			{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
@@ -629,16 +634,10 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	        identificationID.setTextContent(subscriptionIdentificationId);
         }    
 	        
-		String reasonCode = unsubscription.getReasonCode();
-        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        else{
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        
+		String subscriptionReasonCode = unsubscription.getReasonCode();
+		
+		buildSubscriptionReasonCodeElement(unsubscriptionMessage, subscriptionReasonCode);
+		
 		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
 		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
 		topicExpNode.setTextContent(unsubscription.getTopic());
