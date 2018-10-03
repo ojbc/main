@@ -230,7 +230,7 @@ public class SubscriptionDocumentBuilderTest {
 		unsubscription.setDateOfBirth(LocalDate.now());
 		unsubscription.setFirstName("John");
 		unsubscription.setLastName("Doe");
-		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
+		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
 		unsubscription.setSid("9999");
 		unsubscription.setSubscriptionId("I123");
 		unsubscription.setSystemName("System Name");
@@ -249,7 +249,7 @@ public class SubscriptionDocumentBuilderTest {
 		unsubscription.setDateOfBirth(now);
 		unsubscription.setFirstName("John");
 		unsubscription.setLastName("Doe");
-		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
+		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
 		unsubscription.setSid("9999");
 		unsubscription.setFbiNumber("8888");
 		unsubscription.setSystemName("System Name");
@@ -269,7 +269,7 @@ public class SubscriptionDocumentBuilderTest {
 		assertEquals("John",XmlUtils.xPathStringSearch(unsubscriptionDoc, "/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName"));
 		assertEquals("Doe", XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName"));
 		assertEquals(now.toString(), XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date"));
-		assertEquals(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE,XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode"));
+		assertEquals(SubscriptionNotificationDocumentBuilderUtils.NON_CRIMINAL_JUSTICE_EMPLOYMENT,XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode"));
 		assertEquals("9999",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID"));
 		assertEquals("8888",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID"));
 		assertEquals("System Name",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SystemName"));
