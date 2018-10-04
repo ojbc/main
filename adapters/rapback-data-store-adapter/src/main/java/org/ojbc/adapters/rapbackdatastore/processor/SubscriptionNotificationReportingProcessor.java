@@ -77,6 +77,16 @@ public class SubscriptionNotificationReportingProcessor {
 			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
 		}
 
+		if (RapbackDataStoreAdapterConstants.REPORT_NEW_CRIMINAL_HISTORY_EVENT.equals(operationName)){
+			
+			ucn=currentUcn;
+			xpathToRapsheet="//chr-ext:FederalCriminalHistoryRecordDocument/nc30:DocumentBinary/chr-ext:Base64BinaryObject";
+			
+			log.info("Saving and retrieving rap sheet for criminal history record: " + ucn);
+			
+			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+		}
+
 	}
 	
 	@Transactional

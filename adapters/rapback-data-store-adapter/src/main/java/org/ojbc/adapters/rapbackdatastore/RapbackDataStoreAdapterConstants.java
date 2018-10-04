@@ -41,5 +41,7 @@ public class RapbackDataStoreAdapterConstants {
     
     public static final String REPORT_CRIMINAL_HISTORY_IDENTIFIER_UPDATE = "ReportCriminalHistoryIdentifierUpdate";
     
+    public static final String REPORT_NEW_CRIMINAL_HISTORY_EVENT = "ReportNewCriminalHistoryEvent";
+    
     
 }

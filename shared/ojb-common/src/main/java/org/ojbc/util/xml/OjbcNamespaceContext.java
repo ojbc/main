@@ -940,6 +940,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CRIMINAL_HISTORY_TEXT_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0";
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC ="cht-doc";
 
+	public static final String NS_CRIMINAL_HISTORY_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT ="chr-ext";
+	
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1858,6 +1862,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC, NS_CRIMINAL_HISTORY_TEXT_DOC);
 		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_TEXT_DOC,NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC );
 
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT, NS_CRIMINAL_HISTORY_REPORT_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_REPORT_EXT,NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT );
+		
 	}
 
 	@Override
