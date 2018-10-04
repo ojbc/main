@@ -86,6 +86,7 @@ public class FbiNotificationAuditProcessor {
 			
  		} catch (Exception e) {
 			logger.severe("Unable to update rapback notification audit entry.");
+			e.printStackTrace();
 		}
 		
 	}
