@@ -143,6 +143,13 @@ public class TestDatabaseLoad {
 		assertTrue(rs.next());
 		assertEquals(5, rs.getInt("count"));
 
+		rs = conn.createStatement().executeQuery("select count(*) as count from AGENCY_EMAIL_CATEGORY");
+		assertTrue(rs.next());
+		assertEquals(4, rs.getInt("count"));
+
+		rs = conn.createStatement().executeQuery("select count(*) as count from AGENCY_CONTACT_EMAIL_JOINER");
+		assertTrue(rs.next());
+		assertEquals(8, rs.getInt("count"));
 	}
 
 	@Test
