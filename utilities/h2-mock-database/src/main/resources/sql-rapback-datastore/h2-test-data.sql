@@ -64,6 +64,20 @@ insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EM
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('3', '2', 'test.agency@localhost'); 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost'); 	
 
+insert into AGENCY_EMAIL_CATEGORY (AGENCY_EMAIL_CATEGORY_ID, CODE, DESCRIPTION) values ('1', 'I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employee and Licensing');
+insert into AGENCY_EMAIL_CATEGORY (AGENCY_EMAIL_CATEGORY_ID, CODE, DESCRIPTION) values ('2', 'F', 'Non CJ Firearms');
+insert into AGENCY_EMAIL_CATEGORY (AGENCY_EMAIL_CATEGORY_ID, CODE, DESCRIPTION) values ('3', 'J', 'CJ Employment');
+insert into AGENCY_EMAIL_CATEGORY (AGENCY_EMAIL_CATEGORY_ID, CODE, DESCRIPTION) values ('4', 'S', 'S code');
+
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('1','1','1');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('2','1','2');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('3','2','2');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('4','2','3');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('5','3','3');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('6','3','4');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('7','4','4');
+insert into AGENCY_CONTACT_EMAIL_JOINER (AGENCY_CONTACT_EMAIL_JOINER_ID, AGENCY_CONTACT_EMAIL_ID, AGENCY_EMAIL_CATEGORY_ID) values ('8','4','1');
+
 insert into department(department_id, department_name, agency_id) values ('1', 'Kauai PD A&T Records', '2'); 
 insert into department(department_id, department_name, agency_id) values ('2', 'Kauai PD A&T R&D', '2'); 
 insert into department(department_id, department_name, agency_id) values ('3', 'Honolulu PD Records and ID Division', '1'); 
