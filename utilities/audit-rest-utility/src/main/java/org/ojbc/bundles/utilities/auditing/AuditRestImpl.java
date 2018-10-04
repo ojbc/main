@@ -179,7 +179,7 @@ public class AuditRestImpl implements AuditInterface {
 		//Results come back sorted in descending order by timestamp
 		for (FederalRapbackSubscription federalRapbackSubscription : federalRapbackSubscriptions)
 		{
-			if ("RBSCRM".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
+			if ("RBSCVL".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
 			{
 				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
 				
@@ -193,6 +193,21 @@ public class AuditRestImpl implements AuditInterface {
 					federalRapbackSubscriptionDetail.setFbiSubscriptionErrorText(federalRapbackSubscription.getTransactionStatusText());
 				}	
 			}	
+			
+			if ("RBSCRM".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
+			{
+				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBSR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+				{
+					federalRapbackSubscriptionDetail.setFbiSubscriptionCreated(true);
+				}	
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+				{	
+					federalRapbackSubscriptionDetail.setFbiSubscriptionErrorText(federalRapbackSubscription.getTransactionStatusText());
+				}	
+			}				
 			
 			if (!latestMaintenanceRequestFound)
 			{
