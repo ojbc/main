@@ -22,6 +22,7 @@ import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -121,6 +122,9 @@ public class RapbackController {
 
     @Value("${enableEnhancedAudit:false}")
     Boolean enableEnhancedAudit;
+    
+    @Value("${civilSubscriptionPlaceholderEmail:consult@agency.profile}")
+    String civilSubscriptionPlaceholderEmail;
     
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -553,7 +557,7 @@ public class RapbackController {
 		
 		String orgnizationRefId = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationRequestingOrganization/@s30:ref");
 		
-		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription, orgnizationRefId);
+		subscription.setEmailList(Arrays.asList(civilSubscriptionPlaceholderEmail));
 		setSubscripitonTriggeringEvents(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
 		subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
@@ -561,24 +565,6 @@ public class RapbackController {
 		subscription.setSubscriptionPurpose(reasonCode);
 		
 		return subscription;
-	}
-
-	private void setSubscripitonContactEmails(Document rapbackSearchResultsDoc, Subscription subscription, String organizationId) throws Exception {
-		NodeList emailNodeList = XmlUtils.xPathNodeListSearch(rapbackSearchResultsDoc, 
-				"/oirs-res-doc:OrganizationIdentificationResultsSearchResults/nc30:ContactInformationAssociation[nc30:ContactEntity/@s30:ref = '" + organizationId + "']"
-				+ "/nc30:ContactInformation/nc30:ContactEmailID");
-		
-		if (emailNodeList != null && emailNodeList.getLength() > 0){
-			List<String> emailList = new ArrayList<String>();
-			for (int i = 0; i < emailNodeList.getLength(); i++) {
-	            if (emailNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-	                Element emailElement = (Element) emailNodeList.item(i);
-	                emailList.add(emailElement.getTextContent());
-	            }
-	        }
-			
-			subscription.setEmailList(emailList);
-		}
 	}
 
 	private void setSubscripitonTriggeringEvents(Document rapbackSearchResultsDoc, 
