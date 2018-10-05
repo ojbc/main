@@ -33,7 +33,6 @@ import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 
@@ -47,10 +46,6 @@ public class SubscriptionModificationXMLProcessor {
     @Resource
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
     
-    @Value("${rapbackDatastoreAdapter.agencyOri:defaultORI}")
-    private String agencyOri;
-    
-
 	public Document createOJBCsubscriptionDocument(Subscription subscription) {
 		Document doc = null;
 
@@ -110,7 +105,7 @@ public class SubscriptionModificationXMLProcessor {
 		
 		subscriptionXMLPojo.setCaseId(subscription.getAgencyCaseNumber());
 		
-		subscriptionXMLPojo.setOri(agencyOri);
+		subscriptionXMLPojo.setOri(subscription.getOri());
 		
 		subscriptionXMLPojo.setEmailList(new ArrayList<String>(subscription.getEmailAddressesToNotify()));
 		
@@ -120,6 +115,7 @@ public class SubscriptionModificationXMLProcessor {
 		subscriptionXMLPojo.setSubscriptionEndDate(subscription.getEndDate().toDate());
 		
 		subscriptionXMLPojo.setSubscriptionPurpose(subscription.getSubscriptionCategoryCode());
+		subscriptionXMLPojo.setTopic(subscription.getTopic());
 
 		List<String> federalTriggeringEventCode = new ArrayList<String>();
 		

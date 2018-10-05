@@ -117,16 +117,25 @@ public class CriminalHistoryConsolidationProcessor {
     	}	
     	
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
-    	//Search for active subscriptions with matching SIDs
+    	//Search for active subscriptions with matching current SID
     	List<Subscription> subscriptionsMatchingCurrentSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 
-    	subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, newSid);
-    	//Search for active subscriptions with matching SIDs
-   		List<Subscription> subscriptionsMatchingNewSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    	List<Subscription> subscriptionsMatchingNewSID = new ArrayList<Subscription>();
+    	
+    	if (StringUtils.isNotBlank(newSid) && StringUtils.isNotBlank(currentUcn))
+    	{	
+    		//If new and current SID are the same, no need to re-run this query
+    		if (!newSid.equals(currentSid))
+    		{	
+		    	subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, newSid);
+		    	//Search for active subscriptions with matching new SID
+		   		subscriptionsMatchingNewSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    		}
+    	}
    		
    		@SuppressWarnings("unchecked")
 		List<Subscription> subscriptionsMatchingSID = ListUtils.union(subscriptionsMatchingCurrentSID, subscriptionsMatchingNewSID);
-
+   		
     	//When handling a SID consolidation or update message, from in state, check that the new UCN received from matches what is on the active subscription.
     	//If the new UCN does not match, notify the RB administrator
     	//If the new UCN does match, notify the user
@@ -173,7 +182,7 @@ public class CriminalHistoryConsolidationProcessor {
 				}	
 				else
 				{
-					subscriptionMatchingSID.getSubscriptionSubjectIdentifiers().put(SubscriptionNotificationConstants.FBI_ID, "newUcn");
+					subscriptionMatchingSID.getSubscriptionSubjectIdentifiers().put(SubscriptionNotificationConstants.FBI_ID, newUcn);
 					//Update subscription in database here
 					subscriptionSearchQueryDAO.insertSubjectIdentifier(subscriptionMatchingSID.getId(), SubscriptionNotificationConstants.FBI_ID, newUcn);
 					subscriptionsWithUCNAdded.add(subscriptionMatchingSID);
