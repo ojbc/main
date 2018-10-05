@@ -175,6 +175,25 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	public void testAgencyProfileEmailAddresses()
+	{
+		List<Subscription> subs = subscriptionSearchQueryDAO.queryForSubscription("62723");
+		assertEquals(1, subs.size());
+		
+		Subscription sub = subs.get(0);
+		assertEquals("I", sub.getSubscriptionCategoryCode());
+		assertEquals("62723", sub.getSubscriptionIdentifier());
+		
+		List<String> emailAddresses = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(sub.getSubscriptionIdentifier(), sub.getSubscriptionCategoryCode());
+		
+		log.info(emailAddresses.toString());
+		
+		assertEquals(1, emailAddresses.size());
+		assertEquals("demo.agency@localhost", emailAddresses.get(0));
+		
+	}
+	
+	@Test
 	public void testRetrieveSubscriptionOwner() throws Exception
 	{
 		loadManualTestData();

@@ -105,6 +105,11 @@ public final class EmailNotification {
             }
         }
     }
+    
+    public void removeAllToEmailAddresses()
+    {
+    	toAddressees = new HashSet<String>();
+    }
 
     public Set<String> getBccAddresseeSet() {
         return Collections.unmodifiableSet(bccAddressees);
