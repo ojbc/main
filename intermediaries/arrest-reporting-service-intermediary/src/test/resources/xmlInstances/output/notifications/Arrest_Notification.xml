@@ -74,6 +74,11 @@
                   <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
                   <nc:PersonSurName>JONES</nc:PersonSurName>
                </nc:PersonName>
+               <j:PersonAugmentation>
+                  <j:PersonStateFingerprintIdentification>
+                     <nc:IdentificationID>A398118900</nc:IdentificationID>
+                  </j:PersonStateFingerprintIdentification>
+               </j:PersonAugmentation>
             </j:Person>
          </notification:NotificationMessage>
       </b:Message>

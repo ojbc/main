@@ -70,7 +70,7 @@
                         62760NY12
                     </nc:IdentificationID>
                            </j:PersonFBIIdentification>
-                           <j:PersonStateFingerprintIdentification>
+                           <j:PersonStateFingerprintIdentification s:id="d1e22">
                               <nc:IdentificationID>A398118900</nc:IdentificationID>
                            </j:PersonStateFingerprintIdentification>
                         </j:PersonAugmentation>
@@ -87,6 +87,10 @@
                      <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                   </lexs:StructuredPayloadMetadata>
                   <ojbc:ArrestReport>
+                     <ojbc:PersonStateFingerprintIdentification>
+                         <ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+                         <lexslib:SameAsDigestReference lexslib:ref="d1e22"/>
+                     </ojbc:PersonStateFingerprintIdentification>                  
                      <ojbc:RelatedFBISubscription>
                         <ojbc:RecordRapBackSubscriptionIdentification>
                            <nc:IdentificationID>123456</nc:IdentificationID>
