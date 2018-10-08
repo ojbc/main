@@ -182,7 +182,7 @@ public class CamelContextTest {
 		assertNotNull(messageNode);
 		
 		assertEquals("http://www.ojbc.org/arrestNotificationProducer", XmlUtils.xPathStringSearch(messageNode, "//b-2:ProducerReference/add:Address"));
-
+		assertEquals("topics:person/arrest", XmlUtils.xPathStringSearch(messageNode, "//b-2:Topic"));
 
 		//Get the first exchange (the only one) to the logger
 		//This is what would be sent to the derived bundle

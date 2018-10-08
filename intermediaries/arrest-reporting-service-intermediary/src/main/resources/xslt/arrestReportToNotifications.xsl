@@ -57,6 +57,7 @@
 	</xsl:variable>
 	<xsl:variable name="arrestID" select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']/@s:id"/>
 	<xsl:variable name="arresteeID" select="$lexsDigest/lexsdigest:EntityPerson[j40:ArrestSubject][1]/lexsdigest:Person/@s:id"/>
+	<xsl:variable name="civilSidID" select="//ojbc:PersonStateFingerprintIdentification[ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/lexslib:SameAsDigestReference/@lexslib:ref"/>
 	<xsl:variable name="activityID">A001</xsl:variable>
 	<xsl:variable name="contactInfoID">CI001</xsl:variable>
 	<xsl:param name="topic">topics:person/arrest</xsl:param>
@@ -293,6 +294,13 @@
 			<xsl:copy-of select="nc:PersonAlternateName" copy-namespaces="no"/>
 			<xsl:copy-of select="nc:PersonBirthDate" copy-namespaces="no"/>
 			<xsl:copy-of select="nc:PersonName" copy-namespaces="no"/>
+			<xsl:if test="$civilSidID">
+	            <j:PersonAugmentation>
+	                <j:PersonStateFingerprintIdentification>
+	                    <nc:IdentificationID><xsl:value-of select="j40:PersonAugmentation/j40:PersonStateFingerprintIdentification[@s:id=$civilSidID]/nc:IdentificationID"/></nc:IdentificationID>
+	                </j:PersonStateFingerprintIdentification>
+	            </j:PersonAugmentation>
+            </xsl:if>
 		</j:Person>
 	</xsl:template>
 	<xsl:template match="nc:Location" mode="residence">
