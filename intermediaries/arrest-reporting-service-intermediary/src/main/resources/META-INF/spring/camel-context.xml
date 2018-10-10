@@ -122,12 +122,20 @@
 			<convertBodyTo type="java.lang.String"/>
 			
 			<camel:filter>
-				<camel:simple>${properties:prop:arrestReportingService.notifyingSystemName} == ''</camel:simple>
+				<camel:simple>${properties:prop:arrestReportingService.notifyingSystemName} != ''</camel:simple>
 				<!-- Add header here to indicate system name -->
 				<camel:setHeader headerName="notifyingSystemName">
 					<camel:simple>{{arrestReportingService.notifyingSystemName}}</camel:simple>				
 				</camel:setHeader>
 			</camel:filter>			
+						
+			<camel:filter>
+				<camel:simple>${properties:prop:arrestReportingService.defaultTopicName} != ''</camel:simple>
+				<!-- Add header here to indicate system name -->
+				<camel:setHeader headerName="topic">
+					<camel:simple>{{arrestReportingService.defaultTopicName}}</camel:simple>				
+				</camel:setHeader>
+			</camel:filter>								
 						
 			<camel:to uri="xslt:xslt/arrestReportToNotifications.xsl?transformerFactory=sFactory"/>	
 			
