@@ -258,7 +258,14 @@
 	</xsl:template>
 	<xsl:template match="nc:Activity" mode="arrest">
 		<j:Arrest>
-			<xsl:copy-of select="nc:ActivityDate" copy-namespaces="no"/>
+			<xsl:choose>
+			  <xsl:when test="nc:ActivityDate">
+			    <xsl:copy-of select="nc:ActivityDate" copy-namespaces="no"/>
+			  </xsl:when>
+			  <xsl:otherwise>
+			  	<nc:ActivityDate><xsl:value-of select="format-date(current-date(), '[M01]/[D01]/[Y0001]')"/></nc:ActivityDate>
+			  </xsl:otherwise>
+			</xsl:choose>			
 			<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityOrganization/nc:Organization[@s:id = $lexsAssociations/nc:PersonAssignedUnitAssociation[nc:PersonReference/@s:ref=$lexsAssociations/lexsdigest:ArrestOfficerAssociation[nc:ActivityReference/@s:ref=$arrestID]/nc:PersonReference/@s:ref]/nc:OrganizationReference/@s:ref]" mode="arrestAgency"/>
 			<xsl:apply-templates select="$lexsAssociations/lexsdigest:ArrestOfficerAssociation[nc:ActivityReference/@s:ref=$arrestID]" mode="arrestOfficial"/>
 			<xsl:apply-templates select="$lexsAssociations/lexsdigest:ArrestSubjectAssociation[nc:ActivityReference/@s:ref=$arrestID]" mode="arrestSubject"/>
