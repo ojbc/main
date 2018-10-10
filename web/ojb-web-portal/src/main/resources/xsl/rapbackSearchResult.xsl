@@ -162,6 +162,7 @@
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
 		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
+		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
 		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
 			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
 				<xsl:attribute name="id">
@@ -176,12 +177,8 @@
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
-		<a href="#" class="blueIcon viewRapsheet" style="margin-right:3px" title="View Rapsheet">
-			<xsl:attribute name="id">
-				<xsl:value-of select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
-			</xsl:attribute>
-			<i class="fa fa-eye fa-lg"></i>
-		</a>
+		<a href="{concat('../rapbacks/stateRapsheet?sid=', $sid)}" 
+					class="blueIcon viewRapsheet" style="margin-right:3px" title="View Rapsheet"><i class="fa fa-eye fa-lg"></i></a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
