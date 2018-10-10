@@ -111,7 +111,7 @@
 			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:LatestSubsequentResultDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td align="right" width="115px">
+			<td align="right" width="150px">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
@@ -175,6 +175,12 @@
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
+		</a>
+		<a href="#" class="blueIcon viewRapsheet" style="margin-right:3px" title="View Rapsheet">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-eye fa-lg"></i>
 		</a>
 	</xsl:template>
 	
