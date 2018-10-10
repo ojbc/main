@@ -64,8 +64,8 @@ public class IdentificationReportingTransformTest {
 				
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml"));
-				
-		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime");							
+		
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime", "nc:Date");							
 	}
 	
 	
