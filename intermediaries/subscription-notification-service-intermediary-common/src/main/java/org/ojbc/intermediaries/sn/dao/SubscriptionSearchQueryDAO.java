@@ -209,6 +209,22 @@ public class SubscriptionSearchQueryDAO {
 
         return subscriptions;
     }
+    
+    public List<String> returnAgencyProfileEmailForSubscription(String subscriptionId, String subscriptionCategory)
+    {
+		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
+				+ " AGENCY_EMAIL_CATEGORY aec "
+				+ " where s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID"
+				+ " and so.AGENCY_ID = ap.AGENCY_ID"
+				+ " and ap.AGENCY_ID = ace.AGENCY_ID"
+				+ " and ace.AGENCY_CONTACT_EMAIL_ID = acej.AGENCY_CONTACT_EMAIL_ID"
+				+ " and aec.AGENCY_EMAIL_CATEGORY_ID = acej.AGENCY_EMAIL_CATEGORY_ID"
+				+ " and s.id=? and aec.code=?";
+		
+        List<String> emailAddresses = this.jdbcTemplate.queryForList(sql, String.class, new Object[]{subscriptionId, subscriptionCategory});
+    	
+    	return emailAddresses;
+    }
 
     /**
      * Determine the number of subscriptions owned by the specified owner.

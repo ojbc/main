@@ -98,6 +98,13 @@
 	</xsl:template>
 	<xsl:template match="nc30:RoleOfPerson" mode="digestPerson">
 		<lexs:Digest>
+			<lexsdigest:EntityActivity>
+				<nc20:Activity s:id="Arrest_1">
+					<nc20:ActivityDate>
+						<nc20:Date><xsl:value-of select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/></nc20:Date></nc20:ActivityDate>
+					<nc20:ActivityCategoryText>Arrest</nc20:ActivityCategoryText>
+				</nc20:Activity>
+			</lexsdigest:EntityActivity>		
 			<lexsdigest:EntityPerson>
 				<lexsdigest:Person>
 					<xsl:attribute name="s:id">

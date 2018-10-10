@@ -44,6 +44,8 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 	
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
+	private String civilNotificationDefaultEmailAddress="administrator@local.gov";
+	
 	private static final Log log = LogFactory.getLog( ArrestNotificationRequest.class );
 	
 	@Override
@@ -93,6 +95,34 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 		
 		List<EmailNotification> emailNotifications = createUniqueNotifications(subscriptions, request);
 		
+		for (EmailNotification emailNotification : emailNotifications)
+		{
+			String subscriptionCategoryCode = subscription.getSubscriptionCategoryCode();
+			String subscriptionId = subscription.getSubscriptionIdentifier();
+
+			if (subscriptionCategoryCode.equals("F") || subscriptionCategoryCode.equals("J") || subscriptionCategoryCode.equals("I") || subscriptionCategoryCode.equals("S"))
+			{	
+
+				emailNotification.removeAllToEmailAddresses();
+				
+				
+				List<String> emailAddressesToAdd = new ArrayList<String>();
+				
+	            emailAddressesToAdd = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(subscriptionId, subscriptionCategoryCode);
+	
+	            if (emailAddressesToAdd.size() == 0)
+	            {
+	            	log.error("No email addresses for found for subscription ID: " + subscriptionId + ", and category: " + subscriptionCategoryCode +", using default email address: " + civilNotificationDefaultEmailAddress);
+	            	emailAddressesToAdd.add(civilNotificationDefaultEmailAddress);
+	            }	
+	            
+	            for (String emailAddress : emailAddressesToAdd)
+	            {
+	            	emailNotification.addToAddressee(emailAddress);
+	            }	
+			}	
+		}
+		
 		log.info("Email notifications: " + emailNotifications);
 		
 		return emailNotifications;
@@ -123,6 +153,15 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 	public void setSubscriptionSearchQueryDAO(
 			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public String getCivilNotificationDefaultEmailAddress() {
+		return civilNotificationDefaultEmailAddress;
+	}
+
+	public void setCivilNotificationDefaultEmailAddress(
+			String civilNotificationDefaultEmailAddress) {
+		this.civilNotificationDefaultEmailAddress = civilNotificationDefaultEmailAddress;
 	}
 	
 }

@@ -55,6 +55,14 @@
                   </lexs:DataOwnerMetadata>
                </lexs:PackageMetadata>
 		             <lexs:Digest>
+                  <lexsdigest:EntityActivity>
+                     <nc20:Activity s:id="Arrest_1">
+                        <nc20:ActivityDate>
+                        	<nc20:Date>2018-10-10</nc20:Date>
+                        </nc20:ActivityDate>
+                        <nc20:ActivityCategoryText>Arrest</nc20:ActivityCategoryText>
+                     </nc20:Activity>
+                  </lexsdigest:EntityActivity>
                   <lexsdigest:EntityPerson>
                      <lexsdigest:Person s:id="d1e15">
                         <nc20:PersonBirthDate>
