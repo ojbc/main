@@ -178,7 +178,7 @@
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
 		<a href="{concat('../rapbacks/stateRapsheet?sid=', $sid)}" 
-					class="blueIcon viewRapsheet" style="margin-right:3px" title="View Rapsheet"><i class="fa fa-eye fa-lg"></i></a>
+					class="blueIcon getStateRapsheet" style="margin-right:3px" title="View Rapsheet"><i class="fa fa-eye fa-lg"></i></a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

@@ -38,12 +38,14 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
+import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.SimpleServiceResponse;
@@ -52,6 +54,7 @@ import org.ojbc.web.model.identificationresult.search.CriminalIdentificationReas
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
+import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
@@ -105,6 +108,9 @@ public class RapbackController {
 	@Resource
 	RapbackControllerConfigInterface config;
 	
+	@Resource
+	PeopleControllerConfigInterface peopleQueryConfig;
+
 	@Resource
 	RestEnhancedAuditClient restEnhancedAuditClient;
 	
@@ -399,6 +405,55 @@ public class RapbackController {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
 		}
+	}
+	
+	@RequestMapping(value = "stateRapsheet", method = RequestMethod.GET)
+	public String getStateRapsheet(HttpServletRequest request, @RequestParam String sid,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+		try {
+			processGetStateRapsheetRequest(request, sid, model);
+			return "rapbacks/_rapsheets";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "common/_searchDetailsError";
+		}
+	}
+	
+	private void processGetStateRapsheetRequest(HttpServletRequest request, 
+			String sid, Map<String, Object> model) {
+				
+		DetailsRequest detailsRequest = new DetailsRequest();
+		detailsRequest.setQueryType("StateRapsheet");
+		detailsRequest.setIdentificationID(sid);
+		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY);
+		detailsRequest.setTextRapsheetRequest(true);
+		detailsRequest.setCivilPurposeRequest(true);
+				
+		Element samlAssertion = samlService.getSamlAssertion(request);		
+		
+		String stateRapsheetDoc = null;
+		
+		try {
+			stateRapsheetDoc = peopleQueryConfig.getDetailsQueryBean().invokeRequest(detailsRequest, 
+					getFederatedQueryId(), samlAssertion);
+			
+		} catch (Exception e) {
+			logger.error("Exception invoking details request:\n" + e);
+			throw new IllegalStateException("Exception invoking details request:\n" + e);
+		}
+									
+		if("noResponse".equals(stateRapsheetDoc) || StringUtils.isBlank(stateRapsheetDoc)){			
+			logger.error("No response from Criminial History");	
+			throw new IllegalStateException("No response from Criminial History");
+		}
+		
+		try {
+			String stateRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(stateRapsheetDoc), "/cht-doc:CriminalHistoryTextDocument/cht-doc:StateCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+			model.put("stateRapsheet", stateRapsheet);
+		} catch (Exception e){
+			throw new IllegalStateException(e.getMessage());
+		}		
+						
 	}
 	
 	@RequestMapping(value = "subsequentResults", method = RequestMethod.GET)
