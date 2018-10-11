@@ -18,6 +18,7 @@ package org.ojbc.web.model.person.query;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 import org.ojbc.web.OJBCWebServiceURIs;
 
@@ -28,6 +29,8 @@ public class DetailsRequest implements Serializable{
 	private String identificationSourceText;
 	private String queryType;
 	private String activeAccordionId; 
+	private Boolean civilPurposeRequest; 
+	private Boolean textRapsheetRequest; 
 	private Boolean admin; 
 
 	//Logging
@@ -56,35 +59,11 @@ public class DetailsRequest implements Serializable{
 	public void setIdentificationSourceText(String identificationSourceText) {
 		this.identificationSourceText = identificationSourceText;
 	}
+
+	public String toString(){
+		return Objects.toString(this);
+	}
 	
-	public String toString() {
-		  StringBuilder result = new StringBuilder();
-		  String newLine = System.getProperty("line.separator");
-
-		  result.append( this.getClass().getName() );
-		  result.append( " Object {" );
-		  result.append(newLine);
-
-		  //determine fields declared in this class only (no fields of superclass)
-		  Field[] fields = this.getClass().getDeclaredFields();
-
-		  //print field names paired with their values
-		  for ( Field field : fields  ) {
-		    result.append("  ");
-		    try {
-		      result.append( field.getName() );
-		      result.append(": ");
-		      //requires access to private field:
-		      result.append( field.get(this) );
-		    } catch ( IllegalAccessException ex ) {
-		      System.out.println(ex);
-		    }
-		    result.append(newLine);
-		  }
-		  result.append("}");
-
-		  return result.toString();
-		}
 	public String getPurpose() {
 		return purpose;
 	}
@@ -119,6 +98,22 @@ public class DetailsRequest implements Serializable{
 	}
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public Boolean getCivilPurposeRequest() {
+		return civilPurposeRequest;
+	}
+
+	public void setCivilPurposeRequest(Boolean civilPurposeRequest) {
+		this.civilPurposeRequest = civilPurposeRequest;
+	}
+
+	public Boolean getTextRapsheetRequest() {
+		return textRapsheetRequest;
+	}
+
+	public void setTextRapsheetRequest(Boolean textRapsheetRequest) {
+		this.textRapsheetRequest = textRapsheetRequest;
 	}
 
 }

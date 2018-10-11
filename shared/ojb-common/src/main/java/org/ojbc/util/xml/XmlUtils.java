@@ -27,7 +27,9 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import org.apache.xml.security.utils.Base64;
+
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -666,4 +668,23 @@ public class XmlUtils {
 			throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param body
+	 * @param xPath
+	 * @return The decoded binary64BinarayData or "" if the binaryData is null. 
+	 * @throws Exception
+	 * @throws IOException
+	 */
+	public static String getStringFromBinaryDataElement(Document body, String xPath)
+			throws Exception, IOException {
+
+		byte[] binaryData = getBinaryData(body, xPath); 
+		
+		String returnValue = binaryData != null? new String(binaryData): "";
+		return returnValue;
+	}
+
+
 }

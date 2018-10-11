@@ -205,6 +205,43 @@
             return false;
         });
     	
+    	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
+            var url = this.href;
+            var dialog = $('<div style="display:none"  title="Identification Rap Sheets" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .8;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
+
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
+
+            return false;
+        });
+    	
     	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
     		var recordStatus = $(this).parent().prev().text();
     		var subsequentResultButton = $(this).next();

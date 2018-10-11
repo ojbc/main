@@ -88,7 +88,13 @@ public class RequestMessageBuilderUtilities {
 		sb.append("        <nc20:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc20:IdentificationID>");
 		sb.append("        <nc20:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc20:IdentificationSourceText>");
 		sb.append("    </pqr:PersonRecordRequestIdentification>");
-				
+		
+		if (BooleanUtils.isTrue(detailsRequest.getCivilPurposeRequest())){
+			sb.append("    <pqr-doc:CivilPurposeRequestIndicator>true</pqr-doc:CivilPurposeRequestIndicator>");
+		}
+		if (BooleanUtils.isTrue(detailsRequest.getTextRapsheetRequest())){
+			sb.append("    <pqr-doc:TextRapSheetRequestIndicator>true</pqr-doc:TextRapSheetRequestIndicator>");
+		}
 		sb.append("</pqr:PersonRecordRequest>");
 		
 		return sb.toString();
