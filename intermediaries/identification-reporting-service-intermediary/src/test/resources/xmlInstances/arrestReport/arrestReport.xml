@@ -44,6 +44,7 @@
             <lexs:DataSubmitterMetadata>
                <lexs:SystemIdentifier>
                   <nc20:OrganizationName>Submitting Organization Name</nc20:OrganizationName>
+                  <lexs:SystemID>LOTC</lexs:SystemID>
                </lexs:SystemIdentifier>
             </lexs:DataSubmitterMetadata>
             <lexs:DataItemPackage>
