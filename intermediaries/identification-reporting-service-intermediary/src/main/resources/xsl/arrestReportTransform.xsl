@@ -87,6 +87,7 @@
 		<nc20:OrganizationName>
 			<xsl:value-of select="."/>
 		</nc20:OrganizationName>
+		<lexs:SystemID>LOTC</lexs:SystemID>
 	</xsl:template>
 	<xsl:template match="nc30:IdentificationID" mode="ORI">
 		<lexs:ORI>
