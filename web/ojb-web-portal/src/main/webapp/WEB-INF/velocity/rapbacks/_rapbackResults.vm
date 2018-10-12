@@ -95,6 +95,16 @@
 				}
 	        	oTable.draw();
 	    	} );
+	    	
+	    	 $('#searchResultsTable tbody').on( 'click', 'tr', function () {
+		        if ( $(this).hasClass('selected') ) {
+		            $(this).removeClass('selected');
+		        }
+		        else {
+		            table.$('tr.selected').removeClass('selected');
+		            $(this).addClass('selected');
+		        }
+    		 });
 		}
 		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
@@ -209,7 +219,7 @@
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Rap Sheets" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .8;
+			var dlgHeight = $(window).height() * .85;
             dialog.dialog({
                 width: dlgWidth,
                 height: dlgHeight,

@@ -32,6 +32,10 @@ public class DetailsRequest implements Serializable{
 	private Boolean civilPurposeRequest; 
 	private Boolean textRapsheetRequest; 
 	private Boolean admin; 
+	
+	private String fbiId; 
+	private String rapbackSubscriptionId; 
+	private String rapbackActivityNotificationId; 
 
 	//Logging
 	private String purpose;
@@ -114,6 +118,31 @@ public class DetailsRequest implements Serializable{
 
 	public void setTextRapsheetRequest(Boolean textRapsheetRequest) {
 		this.textRapsheetRequest = textRapsheetRequest;
+	}
+
+	public String getFbiId() {
+		return fbiId;
+	}
+
+	public void setFbiId(String fbiId) {
+		this.fbiId = fbiId;
+	}
+
+	public String getRapbackSubscriptionId() {
+		return rapbackSubscriptionId;
+	}
+
+	public void setRapbackSubscriptionId(String rapbackSubscriptionId) {
+		this.rapbackSubscriptionId = rapbackSubscriptionId;
+	}
+
+	public String getRapbackActivityNotificationId() {
+		return rapbackActivityNotificationId;
+	}
+
+	public void setRapbackActivityNotificationId(
+			String rapbackActivityNotificationId) {
+		this.rapbackActivityNotificationId = rapbackActivityNotificationId;
 	}
 
 }

@@ -84,7 +84,7 @@ import org.w3c.dom.NodeList;
 @Profile({"rapback-search","initial-results-query","standalone"})
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
 	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
-	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo"})
+	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo", "rapsheetQueryRequest"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -407,11 +407,17 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "stateRapsheet", method = RequestMethod.GET)
-	public String getStateRapsheet(HttpServletRequest request, @RequestParam String sid,
+	@RequestMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiSubscription}", method = RequestMethod.GET)
+	public String getStateRapsheet(HttpServletRequest request, 
+			@PathVariable("sid") String sid,
+			@PathVariable("transactionNumber") String transactionNumber,
+			@PathVariable("hasFbiSubscription") Boolean hasFbiSubscription,
 			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+		RapSheetQueryRequest rapsheetQueryRequest = new RapSheetQueryRequest(sid, transactionNumber, hasFbiSubscription); 
+		model.put("rapsheetQueryRequest", rapsheetQueryRequest);
+		
 		try {
-			processGetStateRapsheetRequest(request, sid, model);
+			processStateRapsheetRequest(request, sid, model);
 			return "rapbacks/_rapsheets";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -419,7 +425,53 @@ public class RapbackController {
 		}
 	}
 	
-	private void processGetStateRapsheetRequest(HttpServletRequest request, 
+	@RequestMapping(value = "fbiRapsheet/{transactionNumber}", method = RequestMethod.GET)
+	@ResponseBody
+	public String getFbiRapsheet(HttpServletRequest request, 
+			@PathVariable("transactionNumber") String transactionNumber,
+			Map<String, Object> model) {
+		
+		try {
+			String rapsheet = processFbiRapsheetRequest(request, transactionNumber, model);
+			return rapsheet;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "<p>Got error while retrieve the rapsheet, please report to the IT department or try again later</p>";
+		}
+	}
+	
+	private String processFbiRapsheetRequest(HttpServletRequest request,
+			String transactionNumber, Map<String, Object> model) throws Exception {
+		String rapbackSearchResults = (String) model.get("rapbackSearchResults");
+		DetailsRequest detailsRequest = new DetailsRequest();
+		detailsRequest.setQueryType("FBIRapsheet");
+		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY);
+		Document document = OJBUtils.loadXMLFromString(rapbackSearchResults);
+		Node node = XmlUtils.xPathNodeSearch(document, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults/"
+				+ "oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel30:SystemIdentification/nc30:IdentificationID=" + transactionNumber + "]"); 
+		
+		String sid = XmlUtils.xPathStringSearch(node, "oirs-res-ext:IdentifiedPerson/jxdm50:PersonAugmentation/"
+				+ "jxdm50:PersonStateFingerprintIdentification[oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");
+		detailsRequest.setIdentificationID(sid);
+		
+		String fbiId = XmlUtils.xPathStringSearch(node, "oirs-res-ext:IdentifiedPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+		detailsRequest.setFbiId(fbiId);
+		
+		String rapbackSubscriptionId = XmlUtils.xPathStringSearch(node, "oirs-res-ext:Subscription/oirs-res-ext:RapBackSubscriptionIdentification/nc30:IdentificationID");
+		detailsRequest.setRapbackSubscriptionId(rapbackSubscriptionId);
+		
+		String rapbackActivityNotificationId = XmlUtils.xPathStringSearch(node, "oirs-res-ext:Subscription/oirs-res-ext:RapBackActivityNotificationIdentification/nc30:IdentificationID");
+		detailsRequest.setRapbackActivityNotificationId(rapbackActivityNotificationId);
+		
+		String fbiRapsheetDocumentString = peopleQueryConfig.getDetailsQueryBean().invokeRequest(detailsRequest, 
+				getFederatedQueryId(), samlService.getSamlAssertion(request));
+
+		String fbiRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(fbiRapsheetDocumentString), 
+				"/cht-doc:CriminalHistoryTextDocument/cht-doc:FederalCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+		return "<div style='height:480; overflow:scroll;'><pre>" + fbiRapsheet + "</pre></div>";
+	}
+
+	private void processStateRapsheetRequest(HttpServletRequest request, 
 			String sid, Map<String, Object> model) {
 				
 		DetailsRequest detailsRequest = new DetailsRequest();

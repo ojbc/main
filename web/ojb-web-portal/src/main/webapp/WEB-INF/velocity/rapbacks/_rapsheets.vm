@@ -37,7 +37,13 @@
 					activate: function( event, ui ) {
 						var modalIframe = $("#modalIframe", parent.document);
 						modalIframe.height(modalIframe.contents().find("body").height() + 20);
-					}
+					},
+				    beforeLoad: function( event, ui ) {
+				        ui.jqXHR.fail(function() {
+				          ui.panel.html(
+				            "Couldn't load this tab. Please report the error to the IT department or try again later. ");
+				        });
+				    }
 				});
 				
 				$("#printButton").button();
@@ -64,9 +70,13 @@
 				<li id="State Rap Sheet">
 					<a href="#stateRapsheetTab">State Rap Sheet</a>
 				</li>
-				<li id="FBI Rap Sheet">
-					<a href="#fbiRapsheetTab">FBI Rap Sheet</a>
-				</li>
+				
+				#if( "$!rapsheetQueryRequest.hasFbiSubscription" == 'true' ) 
+					#set( $url = "#springUrl('/rapbacks/fbiRapsheet/')" + $!rapsheetQueryRequest.transactionNumber )
+					<li id="FBI Rap Sheet">
+						<a href="$url">FBI Rap Sheet</a>
+					</li>
+				#end
 				<button id="printButton" style="float:right;" messageId="">Print</button>
 			</ul>
 
@@ -75,11 +85,6 @@
 				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
 				#if( "$!stateRapsheet" != "" ) 
    					<div><pre>$stateRapsheet</pre></div> 
-				#end
-			</div>
-			<div id="fbiRapsheetTab">
-				#if( "$!fbiRapsheet" != "" ) 
-					<div><pre>$fbiRapsheet</pre></div>
 				#end
 			</div>
 		</div>
