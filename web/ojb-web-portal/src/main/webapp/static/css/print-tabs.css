@@ -24,7 +24,7 @@
         visibility: hidden;
     }
     
-    #initialResultsDetailTabs{
+    #tabs{
       overflow:visible;
       height: 99%; 
       margin:0;
@@ -32,18 +32,24 @@
 	  page-break-after: avoid !important;
 	  page-break-inside: avoid !important;    
     }
-    #initialResultsDetailTabs *:not(#printButton) {
+    #tabs *:not(#printButton) 
+    {
         visibility: visible;
 		page-break-after: avoid!important;
     }
     
+    div.ui-tabs-panel div{
+    	overflow: visible !important;
+    }
+    
     div#stateInitialResultTab div:not(:first-child), 
-    div#fbiInitialResultTab div:not(:first-child){
+    div#fbiInitialResultTab div:not(:first-child)
+    {
 		page-break-before: always !important;
 	}
     
-    #initialResultsDetailTabs li[aria-selected='false'],
-    #initialResultsDetailTabs li[aria-selected='false'] a,
+    #tabs li[aria-selected='false'],
+    #tabs li[aria-selected='false'] a,
     button#printButton
     {
         display:none;
