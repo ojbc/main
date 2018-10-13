@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0 ../../../xsd/impl/hawaii/hawaii_codes.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:pd-hi-codes="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<!-- FileNumber -->
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>003001455</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityStatus>
+			<!-- CaseStatusCode -->
+			<pd-hi-codes:CaseStatusCode>DISPOSED</pd-hi-codes:CaseStatusCode>
+		</nc:ActivityStatus>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<!-- CaseDispositionDate -->
+				<nc:DateTime>1900-01-01T00:00:00</nc:DateTime>
+			</nc:DispositionDate>
+			<nc:DispositionText>Disposition</nc:DispositionText>
+		</nc:ActivityDisposition>
+		<nc:CaseDisposition>
+			<!-- DispositionCode -->
+			<nc:DispositionText>Final Disposition</nc:DispositionText>
+			<!-- DispositionDate -->
+			<nc:CaseDispositionFinalDate>
+				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+			</nc:CaseDispositionFinalDate>
+		</nc:CaseDisposition>
+		<j:ActivityAugmentation>
+		</j:ActivityAugmentation>
+		<j:CaseAugmentation>
+			<j:CaseCharge structures:id="Charge01">
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<!-- LeadChargeDispositionDate -->
+						<nc:DateTime>2018-06-17T00:00:00</nc:DateTime>
+					</nc:DispositionDate>
+				</j:ChargeDisposition>
+				<j:ChargeStatute>
+					<!-- LeadChargeStatute -->
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>707-0712</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+					<!-- LeadCharge -->
+					<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+				<!-- Severity -->
+				<pd-hi-codes:ChargeSeverityCode>M</pd-hi-codes:ChargeSeverityCode>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<!-- CauseNumber -->
+				<pd-ext:CourtCaseNumber>Cause567890</pd-ext:CourtCaseNumber>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<!-- EventDescription -->
+				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
+				<j:CourtEventAppearance>
+					<j:CourtAppearanceDate>
+						<!-- Docket Date -->
+						<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
+					</j:CourtAppearanceDate>
+				</j:CourtEventAppearance>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<nc:EntityPerson structures:ref="Def01" />
+			</j:CaseDefendantParty>
+			<j:CaseDefenseAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<!-- DefAttorneyName -->
+						<nc:PersonFullName>Joseph T Williams</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseDefenseAttorney>
+			<j:CaseJudge>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<!-- JudgeName -->
+						<nc:PersonFullName>Wayne A Smith</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseJudge>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<!-- ProsAttornetName -->
+						<nc:PersonFullName>Jerry Donovan</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+			</j:CaseProsecutionAttorney>
+		</j:CaseAugmentation>
+		<pd-ext:CaseAdditionalCharge structures:id="Charge02">
+			<j:ChargeDisposition>
+				<!-- ChargeDispositionDate -->
+				<nc:DispositionDate>
+					<nc:DateTime>2018-06-17T00:00:00</nc:DateTime>
+				</nc:DispositionDate>
+				<!-- ChargeDispositionCode -->
+				<nc:DispositionText>PNP</nc:DispositionText>
+			</j:ChargeDisposition>
+			<j:ChargeStatute>
+				<!-- Charge Code -->
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>707-0712</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<!-- ChargeDescription -->
+				<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
+			</j:ChargeStatute>
+		</pd-ext:CaseAdditionalCharge>
+		<pd-ext:CaseReferralDate>
+			<!-- CaseReferralDate -->
+			<nc:DateTime>2008-03-31T00:00:00</nc:DateTime>
+		</pd-ext:CaseReferralDate>
+		<!-- Stage -->
+		<pd-hi-codes:CaseStageCode>CLOSED</pd-hi-codes:CaseStageCode>
+	</nc:Case>
+	<j:Arrest>
+		<nc:ActivityDate>
+			<!-- CaseArrestDate -->
+			<nc:DateTime>2008-03-31T00:00:00</nc:DateTime>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<!-- AgencyName -->
+			<nc:OrganizationName>Honolulu Police Department</nc:OrganizationName>
+			<pd-ext:AgencyCaseIdentification>
+				<!-- CaseLEReportNumber -->
+				<nc:IdentificationID>AC45567</nc:IdentificationID>
+			</pd-ext:AgencyCaseIdentification>
+			<pd-ext:AgencyChargeIdentification>
+				<!-- ChargeLEReportNumber -->
+				<nc:IdentificationID>AC45567-001</nc:IdentificationID>
+			</pd-ext:AgencyChargeIdentification>
+		</j:ArrestAgency>
+	</j:Arrest>
+	<j:Offense structures:id="Offense01">
+		<!-- LeadChargeOffenseDate -->
+		<nc:ActivityDate>
+			<nc:Date>2008-03-23</nc:Date>
+		</nc:ActivityDate>
+	</j:Offense>
+	<j:Offense structures:id="Offense02">
+		<nc:ActivityDate>
+			<!-- ChargeOffenseDate -->
+			<nc:Date>2008-03-23</nc:Date>
+		</nc:ActivityDate>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<!-- ChargeOffenseFromDate -->
+				<nc:Date>2008-03-23</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<!-- ChargeOffenseFromDate -->
+				<nc:Date>2008-03-23</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+	</j:Offense>
+	<nc:Person structures:id="Def01">
+		<nc:PersonBirthDate>
+			<!-- DateOfBirth -->
+			<nc:Date>1981-02-23</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<!-- NAME -->
+			<nc:PersonFullName>Howard A Jones</nc:PersonFullName>
+		</nc:PersonName>
+		<!-- Sex -->
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<!-- Sid -->
+				<nc:IdentificationID>A1234567</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</nc:Person>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense01" />
+		<j:Charge structures:ref="Charge01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense02" />
+		<j:Charge structures:ref="Charge02" />
+	</j:OffenseChargeAssociation>
+</pd-doc:ProsecutionDecisionReport>
