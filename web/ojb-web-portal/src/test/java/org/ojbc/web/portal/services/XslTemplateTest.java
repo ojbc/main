@@ -311,6 +311,11 @@ public class XslTemplateTest {
     public void vehicleCrashResult() throws Exception {
         validatePersonSearchTransformation("xsl/vehicleCrashResult.xsl", "vehicleCrashResult.xml", "vehicleCrashResult.html");
     }
+    
+    @Test
+    public void regulatoryLicenseResult() throws Exception {
+        validatePersonSearchTransformation("xsl/regulatoryLicenseResult.xsl", "regulatoryLicenseResult.xml", "regulatoryLicenseResult.html");
+    }
 
     @Test
     public void custodyList() throws Exception {

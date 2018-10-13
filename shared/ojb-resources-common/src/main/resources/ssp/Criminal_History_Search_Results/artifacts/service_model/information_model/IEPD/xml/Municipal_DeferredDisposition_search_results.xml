@@ -70,16 +70,23 @@
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
+						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
+						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
+					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -105,6 +112,8 @@
 						<nc:Amount>100.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+					<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+					</chsres-ext:AlternateSentenceCodeDescriptionText>
 				</j:ChargeSentence>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
@@ -121,9 +130,13 @@
 					</chsres-ext:DispositionIdentification>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
+						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
+						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:CourtCase>
@@ -131,7 +144,10 @@
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
+					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
@@ -157,6 +173,8 @@
 						<nc:Amount>100.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+					<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+					</chsres-ext:AlternateSentenceCodeDescriptionText>
 				</j:ChargeSentence>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>

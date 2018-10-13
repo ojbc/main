@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.zip.DataFormatException;
 
 import org.apache.commons.io.FileUtils;
@@ -57,6 +58,7 @@ public class ZipUtilsTest {
 		printCompressedHexString("Match");
 		printCompressedHexString("FBI Subsequent results.");
 		printCompressedHexString("State Subsequent results.");
+		
 		
 //		String fbiCriminalHistory = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_criminal_history.txt"));
 //		printCompressedHexString(fbiCriminalHistory);

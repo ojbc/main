@@ -61,6 +61,10 @@
 						<xsd:element ref="chm-resp-ext:ArrestModifyResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:DistrictAttorneyArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:MunicipalProsecutorArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:DeleteDispositionResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:FinalizeArrestResponseText" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -96,6 +100,33 @@
 		substitutionGroup="j:ChargeDispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An identification for a disposition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargePrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DistrictAttorneyArrestReferralResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A district attorney charge referral response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MunicipalProsecutorArrestReferralResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A municipal prosecutor charge referral response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeleteDispositionResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A delete disposition response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FinalizeArrestResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A finalize arrest response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

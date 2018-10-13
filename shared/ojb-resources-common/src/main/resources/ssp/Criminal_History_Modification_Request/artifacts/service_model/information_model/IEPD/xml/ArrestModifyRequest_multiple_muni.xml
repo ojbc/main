@@ -34,6 +34,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D96487</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
@@ -45,9 +48,11 @@
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -70,6 +75,8 @@
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+				</chm-req-ext:AlternateSentenceCodeDescriptionText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
@@ -81,6 +88,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D1234</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
@@ -92,9 +102,11 @@
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>390</chm-req-ext:DispositionCodeText>
+				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
+				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>
@@ -117,6 +129,8 @@
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
 				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+				</chm-req-ext:AlternateSentenceCodeDescriptionText>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
