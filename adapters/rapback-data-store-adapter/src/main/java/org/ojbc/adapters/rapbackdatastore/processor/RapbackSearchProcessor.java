@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
@@ -58,6 +59,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
+import org.ojbc.adapters.rapbackdatastore.dao.EnhancedAuditDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
@@ -83,6 +85,9 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 
     @Value("${system.name}")
     private String systemName;
+    
+    @Resource
+    EnhancedAuditDAO enhancedAuditDAO;
 
     public RapbackSearchProcessor() throws ParserConfigurationException {
     	super();
@@ -465,6 +470,31 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
 		appendSubscriptionId(subscription.getId(), subscriptionElement);
 		
+		if (subscription.getFbiRapbackSubscription() != null){
+			appendRapbackSubscriptionId(subscription, subscriptionElement);
+			appendRapbackActivityNotificationId(subscription, subscriptionElement);
+		}
+	}
+
+	private void appendRapbackActivityNotificationId(Subscription subscription,
+			Element subscriptionElement) {
+		String rapbackActivityNotificationId = 
+				enhancedAuditDAO.getRapbackActivityNotificationId(subscription.getId());
+		if (StringUtils.isNotBlank(rapbackActivityNotificationId)){
+			Element rapBackActivityNotificationIdentification = 
+					XmlUtils.appendElement(subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "RapBackActivityNotificationIdentification");
+			Element identificationId = XmlUtils.appendElement(rapBackActivityNotificationIdentification, NS_NC_30, "IdentificationID");
+			identificationId.setTextContent(rapbackActivityNotificationId);
+		}
+	}
+
+	private Element appendRapbackSubscriptionId(Subscription subscription,
+			Element subscriptionElement) {
+		Element rapBackSubscriptionIdentification = 
+				XmlUtils.appendElement(subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "RapBackSubscriptionIdentification");
+		Element identificationId = XmlUtils.appendElement(rapBackSubscriptionIdentification, NS_NC_30, "IdentificationID");
+		identificationId.setTextContent(subscription.getFbiRapbackSubscription().getFbiSubscriptionId());
+		return rapBackSubscriptionIdentification;
 	}
 
 	private void appendSubscriptionId(long id, Element subscriptionElement) {

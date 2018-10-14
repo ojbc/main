@@ -16,17 +16,17 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -65,7 +65,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class RapbackDAOImplTest {
@@ -104,6 +105,9 @@ public class RapbackDAOImplTest {
     	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
     	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate()");
     	assertEquals(11, rowsUpdated);
+    	
+		List<String> result = jdbcTemplate.queryForList("select table_name from information_schema.tables",String.class); 
+		assertNotNull(result);
 	}
 	
 	@Test
@@ -291,7 +295,7 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
-		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), equalTo(62725)); 
 		
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
 		fbiRapbackSubscription.setSubscriptionTerm("5");
@@ -309,7 +313,7 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
-		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), equalTo(62725)); 
 	}
 	
 	@Test(expected=DuplicateKeyException.class)
