@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/spring-context.xml",
         "classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/properties-context.xml",
 		})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)

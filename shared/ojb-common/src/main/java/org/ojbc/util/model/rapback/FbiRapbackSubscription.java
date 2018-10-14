@@ -43,6 +43,15 @@ public class FbiRapbackSubscription implements Serializable{
 	private String eventIdentifier;
 	private DateTime timestamp;
 	
+	public FbiRapbackSubscription() {
+		super();
+	}
+
+	public FbiRapbackSubscription(String fbiSubscriptionId) {
+		this();
+		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}

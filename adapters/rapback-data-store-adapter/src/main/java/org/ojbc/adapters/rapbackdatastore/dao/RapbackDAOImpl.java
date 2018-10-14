@@ -380,10 +380,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 			
 			if (subscriptionId != null && subscriptionId > 0){
 				Subscription subscription = buildSubscription(rs); 
-				identificationTransaction.setSubscription(subscription);
 				
 				String fbiSubscriptionId = rs.getString("fbi_subscription_id");
 				identificationTransaction.setFbiSubscriptionId(fbiSubscriptionId);
+				
+				if (StringUtils.isNotBlank(fbiSubscriptionId)){
+					subscription.setFbiRapbackSubscription(new FbiRapbackSubscription(fbiSubscriptionId));
+				}
+				identificationTransaction.setSubscription(subscription);
 			}
 		}
 		return identificationTransaction;

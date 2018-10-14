@@ -60,6 +60,9 @@ public class TestDatabaseLoad {
     private DataSource auditLogTestDataSource;
 
     @Resource
+    private DataSource enhancedAuditLogDataSource;
+    
+    @Resource
     private DataSource subscriptionDataSource;
 
     @Resource
@@ -97,6 +100,15 @@ public class TestDatabaseLoad {
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
 
+	}
+	
+	@Test
+	public void testEnhancedAuditLog() throws Exception {
+		
+		Connection conn = enhancedAuditLogDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select count(*) as count from FEDERAL_RAPBACK_NOTIFICATION");
+		assertTrue(rs.next());
+		assertEquals(2, rs.getInt("count"));
 	}
 
 	@Test

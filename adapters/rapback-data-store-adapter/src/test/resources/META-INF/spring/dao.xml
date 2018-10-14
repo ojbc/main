@@ -30,7 +30,7 @@
        ">
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
 			<property name="driverClassName" value="${rapbackDatastoreAdapter.dataSource.driverClass}" />
-			<property name="url" value="${rapbackDatastoreAdapter.dataSource.test.jdbcUrl}" />
+			<property name="url" value="${rapbackDatastoreAdapter.dataSource.jdbcUrl}" />
 			<property name="username" value="${rapbackDatastoreAdapter.dataSource.user}" />
 			<property name="password" value="${rapbackDatastoreAdapter.dataSource.password}" />
 			<property name="initialSize" value="${rapbackDatastoreAdapter.dataSource.minPoolSize}" />
@@ -42,5 +42,15 @@
 	    <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
 	        <property name="dataSource" ref="dataSource"/>
 	    </bean>	
-
+	    
+		<bean id="enhancedAuditDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
+			<property name="driverClassName" value="${enhancedAudit.dataSource.driverClass}" />
+			<property name="url" value="${enhancedAudit.dataSource.jdbcUrl}" />
+			<property name="username" value="${enhancedAudit.dataSource.user}" />
+			<property name="password" value="${enhancedAudit.dataSource.password}" />
+			<property name="initialSize" value="${enhancedAudit.dataSource.minPoolSize}" />
+			<property name="maxActive" value="${enhancedAudit.dataSource.maxPoolSize}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testOnBorrow" value="true" />
+		</bean>
 </beans>
