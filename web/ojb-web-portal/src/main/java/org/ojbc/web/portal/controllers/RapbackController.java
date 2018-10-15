@@ -448,7 +448,7 @@ public class RapbackController {
 		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY);
 		Document document = OJBUtils.loadXMLFromString(rapbackSearchResults);
 		Node node = XmlUtils.xPathNodeSearch(document, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults/"
-				+ "oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel30:SystemIdentification/nc30:IdentificationID=" + transactionNumber + "]"); 
+				+ "oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel30:SystemIdentification/nc30:IdentificationID='" + transactionNumber + "']"); 
 		
 		String sid = XmlUtils.xPathStringSearch(node, "oirs-res-ext:IdentifiedPerson/jxdm50:PersonAugmentation/"
 				+ "jxdm50:PersonStateFingerprintIdentification[oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator = 'true']/nc30:IdentificationID");

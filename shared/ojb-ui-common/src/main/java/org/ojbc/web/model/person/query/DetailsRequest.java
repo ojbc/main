@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.ojbc.web.OJBCWebServiceURIs;
 
 public class DetailsRequest implements Serializable{
@@ -65,7 +66,7 @@ public class DetailsRequest implements Serializable{
 	}
 
 	public String toString(){
-		return Objects.toString(this);
+		return ToStringBuilder.reflectionToString(this);
 	}
 	
 	public String getPurpose() {
