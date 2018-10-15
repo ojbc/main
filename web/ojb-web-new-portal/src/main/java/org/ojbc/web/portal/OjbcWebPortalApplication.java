@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({"classpath:META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
 public class OjbcWebPortalApplication {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(OjbcWebPortalApplication.class, args);
 		

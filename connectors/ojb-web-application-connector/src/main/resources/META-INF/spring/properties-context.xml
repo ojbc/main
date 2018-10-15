@@ -30,49 +30,49 @@
 
 
 		<bean id="bridgePropertyPlaceholder"
-		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-		<property name="propertiesArray">
-			<array>
-				<util:properties>
-					<prop key="webapplication.intakeHistoryResultsService.endpoint"/>
-					<prop key="webapplication.casePlanHistoryResultsService.endpoint"/>
-					<prop key="webapplication.hearingHistoryResultsService.endpoint"/>
-					<prop key="webapplication.offenseHistoryResultsService.endpoint"/>
-					<prop key="webapplication.placementHistoryResultsService.endpoint"/>
-					<prop key="webapplication.referralHistoryResultsService.endpoint"/>
-					<prop key="webapplication.personQuery.personQueryResultsHandlerWarrantsEndpoint"/>
-					<prop key="webapplication.personSearch.personSearchResultsEndpoint"/>
-					<prop key="webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint"/>
-					<prop key="webapplication.personSearch.incidentSearchRequestResultsEndpoint"/>
-					<prop key="webapplication.personQuery.incidentReportRequestResultsEndpoint"/>
-					<prop key="webapplication.vehicleSearch.vehicleSearchResultsEndpoint"/>
-					<prop key="webapplication.firearmSearch.firearmSearchResultsEndpoint"/>
-					<prop key="webapplication.firearmQuery.firearmQueryRequestResultsEndpoint"/>
-					<prop key="webapplication.subscriptionSearch.subscriptionSearchResultsEndpoint"/>
-					<prop key="webapplication.subscriptionQuery.subscriptionQueryResultsEndpoint"/>
-					<prop key="webapplication.accessControl.accessControlResponseEndpoint"/>
-					<prop key="webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint"/>
-					<prop key="webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint"/>
-					<prop key="webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint"/>
-					<prop key="webapplication.identificationResultsQueryResultsHandlerEndpoint"/>
-					<prop key="webapplication.identificationResultsModificationResultsHandlerEndpoint"/>
-					<prop key="webapplication.subscription.notificationBrokerSecureEndpoint"/>
-					<prop key="webapplication.subscription.subscriptionManagerSecureEndpoint"/>
-					<prop key="webapplication.personSearch.courtCaseSearchRequestResultsEndpoint"/>
-					<prop key="webapplication.personQuery.courtCaseQueryRequestResultsEndpoint"/>
-					<prop key="webapplication.personSearch.custodySearchRequestResultsEndpoint"/>
-					<prop key="webapplication.personQuery.custodyQueryRequestResultsEndpoint"/>
-					<prop key="webapplication.personQuery.personQueryVehicleCrashEndpoint"/>
-					<prop key="webapplication.personQuery.personQueryResultsHandlerVehicleCrashEndpoint"/>
-					<prop key="webapplication.firearmQuery.firearmPurchaseProhibitionQueryResultsHandlerEndpoint"/>
-					<prop key="webapplication.personQuery.personQueryResultsHandlerWildlifeLicenseEndpoint"/>
+		    class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+			<property name="propertiesArray">
+				<array>
+					<util:properties>
+						<prop key="webapplication.intakeHistoryResultsService.endpoint"/>
+						<prop key="webapplication.casePlanHistoryResultsService.endpoint"/>
+						<prop key="webapplication.hearingHistoryResultsService.endpoint"/>
+						<prop key="webapplication.offenseHistoryResultsService.endpoint"/>
+						<prop key="webapplication.placementHistoryResultsService.endpoint"/>
+						<prop key="webapplication.referralHistoryResultsService.endpoint"/>
+						<prop key="webapplication.personQuery.personQueryResultsHandlerWarrantsEndpoint"/>
+						<prop key="webapplication.personSearch.personSearchResultsEndpoint"/>
+						<prop key="webapplication.personSearch.personVehicleToIncidentSearchRequestResultsEndpoint"/>
+						<prop key="webapplication.personSearch.incidentSearchRequestResultsEndpoint"/>
+						<prop key="webapplication.personQuery.incidentReportRequestResultsEndpoint"/>
+						<prop key="webapplication.vehicleSearch.vehicleSearchResultsEndpoint"/>
+						<prop key="webapplication.firearmSearch.firearmSearchResultsEndpoint"/>
+						<prop key="webapplication.firearmQuery.firearmQueryRequestResultsEndpoint"/>
+						<prop key="webapplication.subscriptionSearch.subscriptionSearchResultsEndpoint"/>
+						<prop key="webapplication.subscriptionQuery.subscriptionQueryResultsEndpoint"/>
+						<prop key="webapplication.accessControl.accessControlResponseEndpoint"/>
+						<prop key="webapplication.accessControl.policyAcknowledgementRecordingResponseEndpoint"/>
+						<prop key="webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint"/>
+						<prop key="webapplication.rapbackSearch.rapbackSearchResultsHandlerEndpoint"/>
+						<prop key="webapplication.identificationResultsQueryResultsHandlerEndpoint"/>
+						<prop key="webapplication.identificationResultsModificationResultsHandlerEndpoint"/>
+						<prop key="webapplication.subscription.notificationBrokerSecureEndpoint"/>
+						<prop key="webapplication.subscription.subscriptionManagerSecureEndpoint"/>
+						<prop key="webapplication.personSearch.courtCaseSearchRequestResultsEndpoint"/>
+						<prop key="webapplication.personQuery.courtCaseQueryRequestResultsEndpoint"/>
+						<prop key="webapplication.personSearch.custodySearchRequestResultsEndpoint"/>
+						<prop key="webapplication.personQuery.custodyQueryRequestResultsEndpoint"/>
+						<prop key="webapplication.personQuery.personQueryVehicleCrashEndpoint"/>
+						<prop key="webapplication.personQuery.personQueryResultsHandlerVehicleCrashEndpoint"/>
+						<prop key="webapplication.firearmQuery.firearmPurchaseProhibitionQueryResultsHandlerEndpoint"/>
+						<prop key="webapplication.personQuery.personQueryResultsHandlerWildlifeLicenseEndpoint"/>
 				</util:properties>
 				
 				<!-- The config file is located in the ojb-web-external-resource project -->
 				<!-- This file is also under src/test/resources so unit tests can run -->
 							
 				<util:properties
-					location="classpath:config/ojbc-web-application-connector.cfg" />
+					location="file:${web.external.resource.home}/config/ojbc-web-application-connector.cfg" />
 			</array>
 		</property>
 	</bean>
