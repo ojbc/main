@@ -17,9 +17,13 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_FBI_RECORD_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_FBI_RECORD_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
@@ -1066,6 +1070,35 @@ public class RequestMessageBuilderUtilities {
         identificationSourceText.setTextContent(OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION_QUERY);
 
         return doc;
+	}
+
+	public static Document createFbiPersonQueryRequest(
+			DetailsRequest detailsRequest) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();       
+        Element rootElement = document.createElementNS(NS_FBI_RECORD_REQUEST, 
+                NS_PREFIX_FBI_RECORD_REQUEST 
+                +":FBIRecordRequest");
+        document.appendChild(rootElement); 
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_NC, OjbcNamespaceContext.NS_NC);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_JXDM_41, OjbcNamespaceContext.NS_JXDM_41);
+
+        Element personRecordRequestIdentification = 
+        		XmlUtils.appendElement(rootElement, NS_FBI_RECORD_REQUEST, "PersonRecordRequestIdentification");
+        XmlUtils.appendTextElement(personRecordRequestIdentification, NS_NC, "IdentificationID", detailsRequest.getIdentificationID());
+        XmlUtils.appendTextElement(personRecordRequestIdentification, NS_NC, "IdentificationSourceText", detailsRequest.getIdentificationSourceText());
+        
+        Element person = XmlUtils.appendElement(rootElement, NS_JXDM_41, "Person");
+        Element personAugmentation = XmlUtils.appendElement(person, NS_JXDM_41, "PersonAugmentation");
+        Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_41, "PersonFBIIdentification");
+        XmlUtils.appendTextElement(personFBIIdentification, NS_NC, "IdentificationID", detailsRequest.getFbiId());
+        
+        Element rapBackSubscriptionIdentification = XmlUtils.appendElement(rootElement, NS_FBI_RECORD_REQUEST, "RapBackSubscriptionIdentification");
+        XmlUtils.appendTextElement(rapBackSubscriptionIdentification, NS_NC, "IdentificationID", detailsRequest.getRapbackSubscriptionId());
+        
+        Element rapBackActivityNotificationIdentification = XmlUtils.appendElement(rootElement, NS_FBI_RECORD_REQUEST, "RapBackActivityNotificationIdentification");
+        XmlUtils.appendTextElement(rapBackActivityNotificationIdentification, NS_NC, "IdentificationID", detailsRequest.getRapbackActivityNotificationId());
+        
+        return document;
 	}	
     
 }

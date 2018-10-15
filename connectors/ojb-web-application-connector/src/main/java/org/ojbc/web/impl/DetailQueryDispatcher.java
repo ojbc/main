@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
+import org.ojbc.processor.person.query.FBICriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmsPurchaseProhibitionRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
@@ -68,6 +69,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	@Autowired(required=false)
 	private CriminalHistoryRequestProcessor criminalHistoryRequestProcessor;
+	
+	@Autowired(required=false)
+	private FBICriminalHistoryRequestProcessor fbiCriminalHistoryRequestProcessor;
 	
 	@Autowired(required=false)
 	private IncidentReportRequestProcessor incidentReportRequestProcessor;
@@ -160,6 +164,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 						+ "</cht-doc:CriminalHistoryTextDocument>";
 			}
 			else if (Objects.equals(request.getQueryType(), "FBIRapsheet")){
+//				return fbiCriminalHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 				return "<cht-doc:CriminalHistoryTextDocument xmlns:j=\"http://niem.gov/niem/domains/jxdm/4.1\" "
 						+ "xmlns:cht-doc=\"http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0\" "
 						+ "xmlns:nc=\"http://niem.gov/niem/niem-core/2.0\" "
