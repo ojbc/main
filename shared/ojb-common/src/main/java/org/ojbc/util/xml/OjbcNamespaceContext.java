@@ -39,6 +39,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 		
+	public static final String NS_FBI_RECORD_REQUEST = "http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0";
+	public static final String NS_PREFIX_FBI_RECORD_REQUEST = "fqr-doc";
+	
 	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryResults/1.0";
 	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "fppq-res-doc";
 	
@@ -1900,6 +1903,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC);
 		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC,NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_FBI_RECORD_REQUEST, NS_FBI_RECORD_REQUEST);
+		uriToPrefixMap.put(NS_FBI_RECORD_REQUEST,NS_PREFIX_FBI_RECORD_REQUEST);
 		
 	}
 
