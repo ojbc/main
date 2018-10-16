@@ -17,8 +17,6 @@
 package org.ojbc.web.model.person.query;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.Objects;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.ojbc.web.OJBCWebServiceURIs;
@@ -38,6 +36,7 @@ public class DetailsRequest implements Serializable{
 	private String rapbackSubscriptionId; 
 	private String rapbackActivityNotificationId; 
 
+	private String federatedQueryId;
 	//Logging
 	private String purpose;
 	private String onBehalfOf;
@@ -144,6 +143,14 @@ public class DetailsRequest implements Serializable{
 	public void setRapbackActivityNotificationId(
 			String rapbackActivityNotificationId) {
 		this.rapbackActivityNotificationId = rapbackActivityNotificationId;
+	}
+
+	public String getFederatedQueryId() {
+		return federatedQueryId;
+	}
+
+	public void setFederatedQueryId(String federatedQueryId) {
+		this.federatedQueryId = federatedQueryId;
 	}
 
 }
