@@ -51,7 +51,8 @@
         <cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="chargeReferralKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${chargeReferral.keystoreCertificateAlias}" />        	
+			<entry key="ws-security.signature.username" value="${chargeReferral.keystoreCertificateAlias}" />   
+			<entry key="ws-security.timestamp.futureTimeToLive" value="300"/>     	
         </cxf:properties>
 	</cxf:cxfEndpoint>
 	
