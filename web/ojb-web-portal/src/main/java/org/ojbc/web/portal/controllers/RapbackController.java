@@ -36,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -84,7 +85,8 @@ import org.w3c.dom.NodeList;
 @Profile({"rapback-search","initial-results-query","standalone"})
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
 	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
-	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo", "rapsheetQueryRequest"})
+	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo", 
+	"rapsheetQueryRequest", "detailsRequest"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -125,6 +127,9 @@ public class RapbackController {
 
     @Value("${identificationResultsSystemName:Identification Results System}")
     String identificationResultsSystemName;
+    
+    @Value("${criminalHistorySystemName:Criminal History Adapter}")
+    String criminalHistorySystemName;
 
     @Value("${enableEnhancedAudit:false}")
     Boolean enableEnhancedAudit;
@@ -244,11 +249,45 @@ public class RapbackController {
 		
 		if (enableEnhancedAudit)
 		{	
-			restEnhancedAuditClient.auditPrintResults(description, messageId, identificationResultsSystemName);
+//			restEnhancedAuditClient.auditPrintResults(description, messageId, identificationResultsSystemName);
 		}	
 		
 	}
 
+	@RequestMapping(value = "auditRapsheetPrint", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void auditRapsheetPrint(HttpServletRequest request,
+			@RequestParam String messageId,
+			@RequestParam String activeTab,
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			@ModelAttribute("userLogonInfo") UserLogonInfo userLogonInfo,
+			Map<String, Object> model) throws Exception {
+		if (!enableEnhancedAudit) return;
+			
+		logger.info("Message ID: " + messageId);
+		logger.info("activeTab ID: " + activeTab);
+		logger.info("Criminal History system name: " + criminalHistorySystemName);
+		
+		PrintResults printResults = new PrintResults();
+		printResults.setDescription(activeTab);
+		printResults.setMessageId(messageId);
+		printResults.setSystemName(criminalHistorySystemName);
+		
+		printResults.setSid(detailsRequest.getIdentificationID());
+		
+		UserInfo userInfo = new UserInfo(); 
+		userInfo.setEmployerName(userLogonInfo.getEmployer());
+		userInfo.setEmployerOri(userLogonInfo.getEmployerOri());
+		userInfo.setEmployerSubunitName(userLogonInfo.getEmployerSubunitName());
+		userInfo.setFederationId(userLogonInfo.getFederationId());
+		userInfo.setIdentityProviderId(userLogonInfo.getIdentityProviderId());
+		userInfo.setUserEmailAddress(userLogonInfo.getEmailAddress());
+		userInfo.setUserFirstName(userLogonInfo.getUserFirstName());
+		userInfo.setUserLastName(userLogonInfo.getUserLastName());
+		printResults.setUserInfo(userInfo);
+		restEnhancedAuditClient.auditPrintResults(printResults);
+	}
+	
 	@RequestMapping(value = "userAcknowledgement/{decision}/{subscriptionId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void auditUserAcknowledgement(HttpServletRequest request,
@@ -412,7 +451,7 @@ public class RapbackController {
 			@PathVariable("sid") String sid,
 			@PathVariable("transactionNumber") String transactionNumber,
 			@PathVariable("hasFbiSubscription") Boolean hasFbiSubscription,
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+			Map<String, Object> model) {
 		RapSheetQueryRequest rapsheetQueryRequest = new RapSheetQueryRequest(sid, transactionNumber, hasFbiSubscription); 
 		model.put("rapsheetQueryRequest", rapsheetQueryRequest);
 		
@@ -463,11 +502,14 @@ public class RapbackController {
 		String rapbackActivityNotificationId = XmlUtils.xPathStringSearch(node, "oirs-res-ext:Subscription/oirs-res-ext:RapBackActivityNotificationIdentification/nc30:IdentificationID");
 		detailsRequest.setRapbackActivityNotificationId(rapbackActivityNotificationId);
 		
+		detailsRequest.setFederatedQueryId(getFederatedQueryId());
 		String fbiRapsheetDocumentString = peopleQueryConfig.getDetailsQueryBean().invokeRequest(detailsRequest, 
-				getFederatedQueryId(), samlService.getSamlAssertion(request));
+				detailsRequest.getFederatedQueryId(), samlService.getSamlAssertion(request));
 
 		String fbiRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(fbiRapsheetDocumentString), 
 				"/cht-doc:CriminalHistoryTextDocument/cht-doc:FederalCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+		
+		model.put("detailsRequest", detailsRequest);
 		return "<div style='height:480; overflow:scroll;'><pre>" + fbiRapsheet + "</pre></div>";
 	}
 
@@ -480,6 +522,7 @@ public class RapbackController {
 		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY);
 		detailsRequest.setTextRapsheetRequest(true);
 		detailsRequest.setCivilPurposeRequest(true);
+		detailsRequest.setFederatedQueryId(getFederatedQueryId());
 				
 		Element samlAssertion = samlService.getSamlAssertion(request);		
 		
@@ -487,8 +530,8 @@ public class RapbackController {
 		
 		try {
 			stateRapsheetDoc = peopleQueryConfig.getDetailsQueryBean().invokeRequest(detailsRequest, 
-					getFederatedQueryId(), samlAssertion);
-			
+					detailsRequest.getFederatedQueryId(), samlAssertion);
+			model.put("detailsRequest", detailsRequest);
 		} catch (Exception e) {
 			logger.error("Exception invoking details request:\n" + e);
 			throw new IllegalStateException("Exception invoking details request:\n" + e);

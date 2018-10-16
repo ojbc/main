@@ -58,7 +58,7 @@
 					var selector = '#tabs > ul > li';
 					var activeTabID = $(selector).eq(activeTabIdx).attr('id');
 
-					$.post("#springUrl('/rapbacks/auditPrintResults')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+					$.post("#springUrl('/rapbacks/auditRapsheetPrint')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
 
 					window.print();
 				}); 
@@ -78,7 +78,7 @@
 						<a href="$url">FBI Rap Sheet</a>
 					</li>
 				#end
-				<button id="printButton" style="float:right;" messageId="$!rapsheetQueryRequest.sid">Print</button>
+				<button id="printButton" style="float:right;" messageId="$!detailsRequest.federatedQueryId">Print</button>
 			</ul>
 
 			<div id="stateRapsheetTab">
