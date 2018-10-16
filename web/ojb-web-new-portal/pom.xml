@@ -5,7 +5,7 @@
 
 	<groupId>org.ojbc.web</groupId>
 	<artifactId>ojb-web-new-portal</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>The portal using spring 5</name>
@@ -178,6 +178,7 @@
 	</dependencies>
 
 	<build>
+	  <finalName>ojb-web-portal</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
