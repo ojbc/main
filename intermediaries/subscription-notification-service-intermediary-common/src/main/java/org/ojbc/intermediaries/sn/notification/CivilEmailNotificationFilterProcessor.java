@@ -19,13 +19,18 @@ package org.ojbc.intermediaries.sn.notification;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CivilEmailNotificationFilterProcessor implements EmailEnhancementStrategy {
 	
+	@Resource
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
 	private String civilNotificationDefaultEmailAddress="administrator@local.gov";
@@ -37,22 +42,14 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 		Subscription subscription = emailNotification.getSubscription();
 		
 		String subscriptionCategoryCode = subscription.getSubscriptionCategoryCode();
-		String subscriptionId = subscription.getSubscriptionIdentifier();
 
 		if (subscriptionCategoryCode.equals("F") || subscriptionCategoryCode.equals("J") || subscriptionCategoryCode.equals("I") || subscriptionCategoryCode.equals("S"))
 		{	
-
 			emailNotification.removeAllToEmailAddresses();
 			
-			List<String> emailAddressesToAdd = new ArrayList<String>();
-			
-            emailAddressesToAdd = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(subscriptionId, subscriptionCategoryCode);
-
-            if (emailAddressesToAdd.size() == 0)
-            {
-            	log.error("No email addresses for found for subscription ID: " + subscriptionId + ", and category: " + subscriptionCategoryCode +", using default email address: " + civilNotificationDefaultEmailAddress);
-            	emailAddressesToAdd.add(civilNotificationDefaultEmailAddress);
-            }	
+			List<String> emailAddressesToAdd = returnEmailAddresses(subscription);
+            
+            emailNotification.removeAllToEmailAddresses();
             
             for (String emailAddress : emailAddressesToAdd)
             {
@@ -61,6 +58,27 @@ public class CivilEmailNotificationFilterProcessor implements EmailEnhancementSt
 		}
 		
 		return emailNotification;
+	}
+	
+	public List<String> returnEmailAddresses(Subscription subscription)
+	{
+		String subscriptionCategoryCode = subscription.getSubscriptionCategoryCode();
+		String subscriptionId = subscription.getSubscriptionIdentifier();
+
+		List<String> emailAddressesToAdd = new ArrayList<String>();
+		
+		if (subscriptionCategoryCode.equals("F") || subscriptionCategoryCode.equals("J") || subscriptionCategoryCode.equals("I") || subscriptionCategoryCode.equals("S"))
+		{	
+            emailAddressesToAdd = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(subscriptionId, subscriptionCategoryCode);
+            
+            if (emailAddressesToAdd.size() == 0)
+            {
+            	log.error("No email addresses for found for subscription ID: " + subscriptionId + ", and category: " + subscriptionCategoryCode +", using default email address: " + civilNotificationDefaultEmailAddress);
+            	emailAddressesToAdd.add(civilNotificationDefaultEmailAddress);
+            }	
+		}
+
+		return emailAddressesToAdd;
 	}
 	
 	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
