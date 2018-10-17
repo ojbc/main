@@ -86,7 +86,7 @@ import org.w3c.dom.NodeList;
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
 	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
 	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo", 
-	"rapsheetQueryRequest", "detailsRequest"})
+	"rapsheetQueryRequest", "detailsRequest", "identificationResultsQueryResponse"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -222,36 +222,43 @@ public class RapbackController {
 	
 	@RequestMapping(value = "auditPrintResults", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void auditPrintResults(HttpServletRequest request,
+	public void auditInitialResultsPrint(HttpServletRequest request,
 			@RequestParam String messageId,
 			@RequestParam String activeTab,
+			@ModelAttribute("identificationResultsQueryResponse") IdentificationResultsQueryResponse identificationResultsQueryResponse,
+			@ModelAttribute("userLogonInfo") UserLogonInfo userLogonInfo,
 	        Map<String, Object> model) throws Exception {
 
 		logger.info("Message ID: " + messageId);
 		logger.info("activeTab ID: " + activeTab);
 		logger.info("Identification results system name: " + identificationResultsSystemName);
-		
-		String description = "";
-		
-		if (StringUtils.isNotBlank(activeTab))
-		{
-			if (activeTab.equals("State Initial Results"))
-			{
-				description = "State Initial Results";
-			}	
+		logger.info("enableEnhancedAudit: " + BooleanUtils.isTrue(enableEnhancedAudit));
 
-			if (activeTab.equals("FBI Initial Results"))
-			{
-				description = "FBI Initial Results";
-			}	
+		if (!enableEnhancedAudit) return; 
+		
+		PrintResults printResults = new PrintResults();
+		printResults.setSid(identificationResultsQueryResponse.getSid());
+		printResults.setSystemName(identificationResultsSystemName);
+		
+		auditPrintResults(messageId, activeTab, userLogonInfo, printResults);
+	}
 
-		}
+	private void auditPrintResults(String messageId, String activeTab,
+			UserLogonInfo userLogonInfo, PrintResults printResults) {
+		printResults.setMessageId(messageId);
+		printResults.setDescription(activeTab);
 		
-		if (enableEnhancedAudit)
-		{	
-//			restEnhancedAuditClient.auditPrintResults(description, messageId, identificationResultsSystemName);
-		}	
-		
+		UserInfo userInfo = new UserInfo(); 
+		userInfo.setEmployerName(userLogonInfo.getEmployer());
+		userInfo.setEmployerOri(userLogonInfo.getEmployerOri());
+		userInfo.setEmployerSubunitName(userLogonInfo.getEmployerSubunitName());
+		userInfo.setFederationId(userLogonInfo.getFederationId());
+		userInfo.setIdentityProviderId(userLogonInfo.getIdentityProviderId());
+		userInfo.setUserEmailAddress(userLogonInfo.getEmailAddress());
+		userInfo.setUserFirstName(userLogonInfo.getUserFirstName());
+		userInfo.setUserLastName(userLogonInfo.getUserLastName());
+		printResults.setUserInfo(userInfo);
+		restEnhancedAuditClient.auditPrintResults(printResults);
 	}
 
 	@RequestMapping(value = "auditRapsheetPrint", method = RequestMethod.POST)
@@ -269,23 +276,10 @@ public class RapbackController {
 		logger.info("Criminal History system name: " + criminalHistorySystemName);
 		
 		PrintResults printResults = new PrintResults();
-		printResults.setDescription(activeTab);
-		printResults.setMessageId(messageId);
-		printResults.setSystemName(criminalHistorySystemName);
-		
 		printResults.setSid(detailsRequest.getIdentificationID());
-		
-		UserInfo userInfo = new UserInfo(); 
-		userInfo.setEmployerName(userLogonInfo.getEmployer());
-		userInfo.setEmployerOri(userLogonInfo.getEmployerOri());
-		userInfo.setEmployerSubunitName(userLogonInfo.getEmployerSubunitName());
-		userInfo.setFederationId(userLogonInfo.getFederationId());
-		userInfo.setIdentityProviderId(userLogonInfo.getIdentityProviderId());
-		userInfo.setUserEmailAddress(userLogonInfo.getEmailAddress());
-		userInfo.setUserFirstName(userLogonInfo.getUserFirstName());
-		userInfo.setUserLastName(userLogonInfo.getUserLastName());
-		printResults.setUserInfo(userInfo);
-		restEnhancedAuditClient.auditPrintResults(printResults);
+		printResults.setSystemName(criminalHistorySystemName);
+
+		auditPrintResults(messageId, activeTab, userLogonInfo, printResults);
 	}
 	
 	@RequestMapping(value = "userAcknowledgement/{decision}/{subscriptionId}", method = RequestMethod.POST)
@@ -434,11 +428,13 @@ public class RapbackController {
 		return identificationTransactionStatus;
 	}
 
-	@RequestMapping(value = "initialResults", method = RequestMethod.GET)
-	public String initialResults(HttpServletRequest request, @RequestParam String transactionNumber,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+	@RequestMapping(value = "initialResults/{sid}/{transactionNumber}", method = RequestMethod.GET)
+	public String initialResults(HttpServletRequest request, 
+			@PathVariable("sid") String sid,
+			@PathVariable("transactionNumber") String transactionNumber,
+			Map<String, Object> model) {
 		try {
-			processDetailRequest(request, transactionNumber, true, model);
+			processDetailRequest(request, sid, transactionNumber, true, model);
 			return "rapbacks/_initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -555,7 +551,7 @@ public class RapbackController {
 	public String subsequentResults(HttpServletRequest request, @RequestParam String transactionNumber,
 			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
 		try {
-			processDetailRequest(request, transactionNumber, false, model);
+			processDetailRequest(request, null, transactionNumber, false, model);
 			return "rapbacks/_subsequentResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -743,7 +739,7 @@ public class RapbackController {
 		subscription.setSubscriptionEndDate(cal.getTime());
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String transactionNumber,
+	private void processDetailRequest(HttpServletRequest request, String sid, String transactionNumber,
 			boolean initialResultsQuery, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);		
@@ -751,7 +747,8 @@ public class RapbackController {
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				config.getIdentificationResultsQueryBean().invokeIdentificationResultsQueryRequest(
 						transactionNumber, initialResultsQuery, samlAssertion);
-						
+		identificationResultsQueryResponse.setSid(sid);
+		
 		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);
 	}
 
