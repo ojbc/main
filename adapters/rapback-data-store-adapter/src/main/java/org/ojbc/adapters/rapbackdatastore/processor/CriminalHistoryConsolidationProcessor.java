@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.notification.CivilEmailNotificationFilterProcessor;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,9 @@ public class CriminalHistoryConsolidationProcessor {
 
     @Resource
     private RapbackDAO rapbackDAO;
+    
+    @Resource
+    private CivilEmailNotificationFilterProcessor civilEmailNotificationFilterProcessor;
 
     @Resource
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
@@ -772,6 +776,23 @@ public class CriminalHistoryConsolidationProcessor {
 		ex.getIn().removeHeaders("*");
 		
 		ex.getIn().setHeader("to", chcNotification.getEmailTo());
+		
+		Subscription subscription = chcNotification.getSubscription();
+		
+		if (subscription != null)
+		{
+			//Get email address here
+			List<String> emailAddressesToAdd = civilEmailNotificationFilterProcessor.returnEmailAddresses(subscription);
+	        
+			if (emailAddressesToAdd.size() > 0)
+			{
+				String commaSeperatedToAddresses = String.join(",", emailAddressesToAdd);
+				
+				ex.getIn().setHeader("to", commaSeperatedToAddresses);
+			}    
+	
+		}
+		
 		ex.getIn().setHeader("subject", chcNotification.getEmailSubject());
 		
 		ex.getIn().setBody(chcNotification.getEmailBody());
