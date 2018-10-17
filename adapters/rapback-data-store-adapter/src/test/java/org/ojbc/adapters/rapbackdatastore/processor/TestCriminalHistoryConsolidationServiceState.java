@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -64,6 +65,8 @@ public class TestCriminalHistoryConsolidationServiceState {
     @Resource
     private CriminalHistoryConsolidationProcessor criminalHistoryConsolidationProcessor;
     
+    @Resource 
+    private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
     
     @Resource
     private ModelCamelContext context;
@@ -171,7 +174,11 @@ public class TestCriminalHistoryConsolidationServiceState {
 		 Exchange ex = new DefaultExchange(ctx);
 		 
 		 CriminalHistoryConsolidationNotification chcNotification = new CriminalHistoryConsolidationNotification();
+
+		 List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("62723");
+		 Subscription subscription = subscriptions.get(0);
 		 
+		 chcNotification.setSubscription(subscription);
 		 chcNotification.setEmailTo("someone@local.gov");
 		 chcNotification.setEmailSubject("email subject");
 		 chcNotification.setEmailBody("Some email body");
@@ -181,7 +188,9 @@ public class TestCriminalHistoryConsolidationServiceState {
 		 criminalHistoryConsolidationProcessor.returnCamelEmail(ex);
 		 
 		 assertNotNull(ex);
-		 assertEquals("someone@local.gov", ex.getIn().getHeader("To"));
+		 
+		 //This was retrieved from the agency profile
+		 assertEquals("demo.agency@localhost", ex.getIn().getHeader("To"));
 		 assertEquals("email subject", ex.getIn().getHeader("Subject"));
 		 assertEquals("Some email body", ex.getIn().getBody(String.class));
 		 assertEquals(2, ex.getIn().getHeaders().size());

@@ -28,7 +28,7 @@
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
  	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
+	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore, org.ojbc.intermediaries.sn.notification" />
 
 	<!-- Transaction manager and scan for annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager"
