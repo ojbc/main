@@ -94,10 +94,10 @@ public class RequestMessageBuilderUtilities {
 		sb.append("    </pqr:PersonRecordRequestIdentification>");
 		
 		if (BooleanUtils.isTrue(detailsRequest.getCivilPurposeRequest())){
-			sb.append("    <pqr-doc:CivilPurposeRequestIndicator>true</pqr-doc:CivilPurposeRequestIndicator>");
+			sb.append("    <pqr:CivilPurposeRequestIndicator>true</pqr:CivilPurposeRequestIndicator>");
 		}
 		if (BooleanUtils.isTrue(detailsRequest.getTextRapsheetRequest())){
-			sb.append("    <pqr-doc:TextRapSheetRequestIndicator>true</pqr-doc:TextRapSheetRequestIndicator>");
+			sb.append("    <pqr:TextRapSheetRequestIndicator>true</pqr:TextRapSheetRequestIndicator>");
 		}
 		sb.append("</pqr:PersonRecordRequest>");
 		
