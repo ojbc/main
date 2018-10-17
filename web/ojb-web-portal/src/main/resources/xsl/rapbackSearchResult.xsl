@@ -84,6 +84,8 @@
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult">
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
+		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+		
 		<tr>
 			<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 				<xsl:attribute name="class">subsequentResults</xsl:attribute>
@@ -126,7 +128,7 @@
 						class="blueIcon subsequentResults hidden">
 					</a>
 				</xsl:if>
-				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
 		</tr>
