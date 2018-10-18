@@ -33,11 +33,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -47,7 +48,7 @@ import org.w3c.dom.Element;
 @Service("samlService")
 public class SamlServiceImpl implements SamlService{
 	
-	private static final Log LOG = LogFactory.getLog(SamlServiceImpl.class);
+	private final Logger log = LoggerFactory.getLogger(SamlServiceImpl.class);
 
     @Value("${webapplication.allowQueriesWithoutSAMLToken:true}")
     private Boolean allowQueriesWithoutSAMLToken;
@@ -56,7 +57,6 @@ public class SamlServiceImpl implements SamlService{
     private Boolean demoLawEnforcementEmployerIndicator;
     
 	public Element getSamlAssertion(HttpServletRequest request) {
-
 		Element assertion = null;
 		
 		try {
@@ -66,15 +66,26 @@ public class SamlServiceImpl implements SamlService{
 		}
 		
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
-			LOG.info("Creating demo user saml assertion.");
+			log.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
-	}
-		
+		}
+
+		if (assertion != null) {
+			try {
+				log.info(XmlUtils.getStringFromNode(assertion));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			log.info("SAML assertion is null ");
+		}
 		return assertion;
 	}
 	
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
+		log.info("getting SAML assertion from http servlet request: " + request);
 		if (request == null) return null;
 		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
 		
@@ -115,10 +126,10 @@ public class SamlServiceImpl implements SamlService{
 		 */
 		 //Hard coded to pick up a single assertion...could loop through assertion headers if there will  be more than one
 		String assertionHttpHeaderName = request.getHeader("Shib-Assertion-01");
-		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
+		log.info("Loading assertion from: " + assertionHttpHeaderName);
 		
 		if(assertionHttpHeaderName == null){
-			LOG.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
+			log.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
 			return null;
 		}
 		
