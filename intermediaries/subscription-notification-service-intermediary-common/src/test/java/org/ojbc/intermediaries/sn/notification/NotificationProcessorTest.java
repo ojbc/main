@@ -231,7 +231,8 @@ public class NotificationProcessorTest {
     public void testCreateUniqueNotificationsConsolidated() throws Exception {
 
         notificationProcessor.setConsolidateEmailAddresses(true);
-
+        notificationProcessor.setSendNotificationToSubscriptionOwner(false);
+        
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         Subscription subscription = new Subscription();

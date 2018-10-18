@@ -44,6 +44,7 @@ public abstract class NotificationProcessor {
     private NotificationFilterStrategy notificationFilterStrategy = new DefaultNotificationFilterStrategy();
     private EmailEnhancementStrategy emailEnhancementStrategy = new DefaultEmailEnhancementStrategy();
     private boolean consolidateEmailAddresses = false;
+    private boolean sendNotificationToSubscriptionOwner = false;
     private EmailFormatter emailFormatter = new EmailFormatter.DefaultEmailFormatter();
     
     /**
@@ -247,40 +248,18 @@ public abstract class NotificationProcessor {
             
             for (String emailAddress : subscription.getEmailAddressesToNotify()) {
                 
-                boolean add = true;
-                
-                for (EmailNotification emailNotification : emailNotifications) {
-                    
-                    Set<String> emailAddresses = emailNotification.getToAddresseeSet();
-                    if (emailAddresses.contains(emailAddress) && emailNotification.getSubscribingSystemIdentifier().equals(subscriptionSubscribingSystemName)) {
-                        add = false;
-                        break;
-                    }
-                    
-                }
-                
-                if (add) {
-                    if (!consolidateEmailAddresses || (consolidateEmailAddresses && en == null)) {
-                        en = new EmailNotification();
-                        emailNotifications.add(en);
-                    }
-                    
-                    en.setSubscriptionSubjectIdentifiers(subscription.getSubscriptionSubjectIdentifiers());
-                    en.setSubjectName(subscription.getPersonFullName());
-                    en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
-                    
-                    en.setSubscriptionCategoryCode(subscription.getSubscriptionCategoryCode());
-                    en.addToAddressee(emailAddress);
-                    en.setNotificationRequest(request);
-                    en.setSubscription(subscription);
-                    
-                    if (request instanceof RapbackNotificationRequest)
-                    {
-                    	en.setTriggeringEvents(((RapbackNotificationRequest)request).getTriggeringEvents());
-                    }	
-                }
+                en = createEmailNotification(request, emailNotifications,
+						subscription, en, subscriptionSubscribingSystemName,
+						emailAddress);
                 
             }
+            
+            if (sendNotificationToSubscriptionOwner)
+            {
+                en = createEmailNotification(request, emailNotifications,
+						subscription, en, subscriptionSubscribingSystemName,
+						subscription.getSubscriptionOwnerEmailAddress());
+            }	
             
         }
 
@@ -290,6 +269,46 @@ public abstract class NotificationProcessor {
         
     }
 
+	private EmailNotification createEmailNotification(
+			NotificationRequest request,
+			List<EmailNotification> emailNotifications,
+			Subscription subscription, EmailNotification en,
+			String subscriptionSubscribingSystemName, String emailAddress) {
+		boolean add = true;
+		
+		for (EmailNotification emailNotification : emailNotifications) {
+		    
+		    Set<String> emailAddresses = emailNotification.getToAddresseeSet();
+		    if (emailAddresses.contains(emailAddress) && emailNotification.getSubscribingSystemIdentifier().equals(subscriptionSubscribingSystemName)) {
+		        add = false;
+		        break;
+		    }
+		    
+		}
+		
+		if (add) {
+		    if (!consolidateEmailAddresses || (consolidateEmailAddresses && en == null)) {
+		        en = new EmailNotification();
+		        emailNotifications.add(en);
+		    }
+		    
+		    en.setSubscriptionSubjectIdentifiers(subscription.getSubscriptionSubjectIdentifiers());
+		    en.setSubjectName(subscription.getPersonFullName());
+		    en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
+		    
+		    en.setSubscriptionCategoryCode(subscription.getSubscriptionCategoryCode());
+		    en.addToAddressee(emailAddress);
+		    en.setNotificationRequest(request);
+		    en.setSubscription(subscription);
+		    
+		    if (request instanceof RapbackNotificationRequest)
+		    {
+		    	en.setTriggeringEvents(((RapbackNotificationRequest)request).getTriggeringEvents());
+		    }	
+		}
+		return en;
+	}
+
 	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
 		return subscriptionSearchQueryDAO;
 	}
@@ -297,6 +316,15 @@ public abstract class NotificationProcessor {
 	public void setSubscriptionSearchQueryDAO(
 			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public boolean isSendNotificationToSubscriptionOwner() {
+		return sendNotificationToSubscriptionOwner;
+	}
+
+	public void setSendNotificationToSubscriptionOwner(
+			boolean sendNotificationToSubscriptionOwner) {
+		this.sendNotificationToSubscriptionOwner = sendNotificationToSubscriptionOwner;
 	}
 
 }
