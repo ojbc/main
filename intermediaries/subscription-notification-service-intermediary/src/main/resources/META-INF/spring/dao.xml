@@ -93,6 +93,7 @@
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="sendNotificationToSubscriptionOwner" value="${publishSubscribe.sendNotificationToSubscriptionOwner}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 	
@@ -102,6 +103,7 @@
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="sendNotificationToSubscriptionOwner" value="${publishSubscribe.sendNotificationToSubscriptionOwner}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 
