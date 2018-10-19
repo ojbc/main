@@ -86,14 +86,28 @@
                       }).fail(ojbc.displayFailMessage);
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
-                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id") + "/hide", function(data) {
-                        $("#searchResultsList").replaceWith(data);
-                      }).fail(ojbc.displayFailMessage);
+	                	  var arrestId = $(this).closest("tr").attr("id"); 
+	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , 
+	                			  "Are you sure to proceed?", 
+	             					  function(ans) { 
+	                		       if(ans){
+		                             xhr = $.get( context +"arrests/" + arrestId + "/hide", function(data) {
+		                                 $("#searchResultsList").replaceWith(data);
+		                               }).fail(ojbc.displayFailMessage);
+	                		       } 
+	           		      }); 
                   });
                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
-                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id") + "/refer", function(data) {
-                        $("#searchResultsList").replaceWith(data);
-                      }).fail(ojbc.displayFailMessage);
+                      var arrestId = $(this).closest("tr").attr("id"); 
+                      bootpopup.confirm("Please confirm that you want to refer this arrest" , 
+                         "Are you sure to proceed?", 
+                         function(ans) { 
+                            if(ans){
+                                xhr = $.get( context +"arrests/" + arrestId  + "/refer", function(data) {
+                                    $("#searchResultsList").replaceWith(data);
+                                }).fail(ojbc.displayFailMessage);
+                            } 
+                         }); 
                   });
              });
           </script>

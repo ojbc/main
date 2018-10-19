@@ -72,7 +72,7 @@ public class SamlServiceImpl implements SamlService{
 
 		if (assertion != null) {
 			try {
-				log.info(XmlUtils.getStringFromNode(assertion));
+				log.debug(XmlUtils.getStringFromNode(assertion));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

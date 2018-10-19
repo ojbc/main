@@ -55,13 +55,6 @@ public class ArrestController {
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
-		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
-		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
-		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
-		arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
-		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
-		
-		model.addAttribute("arrestSearchRequest", arrestSearchRequest);
 		model.addAttribute("disposition", new Disposition());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
@@ -80,6 +73,16 @@ public class ArrestController {
 	@GetMapping("")
 	public String defaultSearch(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
+		
+		if (arrestSearchRequest == null) {
+			arrestSearchRequest = new ArrestSearchRequest();
+			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
+			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
+			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+			
+			model.put("arrestSearchRequest", arrestSearchRequest);
+		}
 		getArrestSearchResults(request, arrestSearchRequest, model);
 		return "arrest/arrests::resultsPage";
 	}

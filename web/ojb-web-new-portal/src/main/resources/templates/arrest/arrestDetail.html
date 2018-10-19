@@ -236,10 +236,16 @@
                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                    $("#arrestChargeIdentification").val($(this).closest("table").attr("id"));
                    $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
-                   
-                   xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
-                       $('#portalContent').html(data); 
-                   }).fail(ojbc.displayFailMessage);
+                   bootpopup.confirm("Please confirm that you want to delete this disposition" , 
+                      "Are you sure to proceed?", 
+                      function(ans) { 
+                         if(ans){
+                             xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
+                                 $('#portalContent').html(data); 
+                             }).fail(ojbc.displayFailMessage);
+                         } 
+                      }); 
+
                  });
             });
 	      </script>
