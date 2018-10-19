@@ -56,10 +56,8 @@ public class ArrestController {
     public void addModelAttributes(Model model) {
     	
 		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
-		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
-		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.of(2018, 2, 10));
-//		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
-//		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
+		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 		arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
 		

@@ -131,6 +131,9 @@
       </form>
     <script th:inline="javascript">
 	      $(function(){
+	    	  $('#dispositionDate').datepicker({
+                  uiLibrary: 'bootstrap4', size: 'small'
+          });
 	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});

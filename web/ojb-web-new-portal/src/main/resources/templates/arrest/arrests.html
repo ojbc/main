@@ -19,8 +19,8 @@
 			          <table>
 			            <tr>
 			              <td>Arrest Date </td>
-			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" width="250" placeholder="From"/></td>
-			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" width="250" placeholder="To"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/></td>
 			              <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
 			            </tr>
 			            <tr>
@@ -49,7 +49,7 @@
 			              <td/>
 			              <td><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></td>
 			              <td th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN error message</td>
-			              <td><input type="text" th:field="*{dob}" width="250" placeholder="Date of Birth"/></td>
+			              <td><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></td>
 			              <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">DOB error message</td>
 			            </tr>
 			            <tr>
@@ -104,7 +104,7 @@
  	        /*]]>*/
 
 	        $(function(){
-	              
+	            
               $('#arrestDateRangeStartDate').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
@@ -114,7 +114,7 @@
               $('#dob').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
-
+              $('.date').mask('99/99/9999');
               $('#submit').click (function(){
                 var formData = $('#searchForm').serialize();
                  
