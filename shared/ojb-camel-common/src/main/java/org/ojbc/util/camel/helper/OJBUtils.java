@@ -297,6 +297,17 @@ public class OJBUtils {
 		return outDocument;
 	}
 
+	public static Document getDocument(InputStream is) throws Exception
+	{
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		docFactory.setNamespaceAware(true);
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		
+		Document doc = docBuilder.parse(is);
+		
+		return doc;
+	}
+	
 	/**
 	 * This method accepts an XML string and return a namespace aware XML document
 	 * 

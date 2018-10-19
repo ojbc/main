@@ -47,7 +47,8 @@ public abstract class AbstractStaticMockTest {
 		
 		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
 				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase", 
-				"XpathTestSamples/VehicleCrash", "XpathTestSamples/WildlifeLicense", "XpathTestSamples/FirearmProhibition");				
+				"XpathTestSamples/VehicleCrash", "XpathTestSamples/WildlifeLicense", "XpathTestSamples/FirearmProhibition", 
+				"XpathTestSamples/StateRapsheet", "XpathTestSamples/FBIRapsheet");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
