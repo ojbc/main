@@ -155,12 +155,8 @@
 	     	   
 					if ($('#jailYears').val() === '1'){
 					 	$('#suspendedYears').prop('disabled', false); 
-					 	$('#jailDays').val(''); 
-					 	$('#jailDays').prop('disabled', true); 
-            $('#suspendedDays').val(''); 
             $('#deferredYears').val(''); 
             $('#deferredDays').val(''); 
-					 	$('#suspendedDays').prop('disabled', true); 
 					 	$('#deferredYears').prop('disabled', true); 
 					 	$('#deferredDays').prop('disabled', true); 
 					}
@@ -173,38 +169,19 @@
             $('#deferredDays').prop('disabled', true); 
 					}
 					
-					if ($('#deferredYears').val() > 0){
-            $('#deferredDays').val(''); 
-            $('#deferredDays').prop('disabled', true); 
-					}
-					
           $("#dispositionForm").on("change", "#jailYears", function(){
               if ($('#jailYears').val() > '0'){
                   $('#suspendedYears').prop('disabled', false); 
-                  $('#jailDays').val(''); 
-                  $('#jailDays').prop('disabled', true); 
-                  $('#suspendedDays').val(''); 
+                  $('#suspendedDays').prop('disabled', false); 
                   $('#deferredYears').val(''); 
                   $('#deferredDays').val(''); 
-                  $('#suspendedDays').prop('disabled', true); 
                   $('#deferredYears').prop('disabled', true); 
                   $('#deferredDays').prop('disabled', true); 
               }
               else{
                   $('#suspendedYears').val(''); 
                   $('#suspendedYears').prop('disabled', true); 
-                  $('#jailDays').prop('disabled', false); 
-                  $('#suspendedDays').prop('disabled', false); 
                   toggleDefferredYearsDays();              }
-          });
-					
-          $("#dispositionForm").on("change", "#deferredYears", function(){
-              if ($('#deferredYears').val() > 0){
-                  $('#deferredDays').prop('disabled', true); 
-              }
-              else{
-                  $('#deferredDays').prop('disabled', false); 
-              }
           });
 					
           $("#dispositionForm").on("change", "#jailDays", function(){
