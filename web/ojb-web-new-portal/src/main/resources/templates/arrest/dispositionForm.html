@@ -143,6 +143,7 @@
 					//520 - Nolo contendere to different charge
 					var dispoCodesForAmendedCharge = ['348', '376', '520'];
 					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
+					var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
 					
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
@@ -194,9 +195,7 @@
                   $('#suspendedYears').prop('disabled', true); 
                   $('#jailDays').prop('disabled', false); 
                   $('#suspendedDays').prop('disabled', false); 
-                  $('#deferredYears').prop('disabled', false); 
-                  $('#deferredDays').prop('disabled', false); 
-              }
+                  toggleDefferredYearsDays();              }
           });
 					
           $("#dispositionForm").on("change", "#deferredYears", function(){
@@ -219,8 +218,8 @@
               else{
                   $('#suspendedDays').val(''); 
                   $('#suspendedDays').prop('disabled', true); 
-                  $('#deferredYears').prop('disabled', false); 
-                  $('#deferredDays').prop('disabled', false); 
+                  
+                  toggleDefferredYearsDays();
               }
           });
 					
@@ -240,8 +239,59 @@
 		        	  $('#reasonForDismissal').val('');
 		        	  $('#reasonForDismissal').prop('disabled', true).trigger("chosen:updated");
 		          }
+		          
+/*           var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
+	           var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
+ */           
+		          if (dispoCodesWithoutSentence.includes($('#dispositionCode').val())){
+		                $('#fineAmount').val('');
+		                $('#fineAmount').prop('disabled', true);
+		                $('#fineSuspended').val('');
+		                $('#fineSuspended').prop('disabled', true);
+		                $('#jailYears').val('');
+		                $('#jailYears').prop('disabled', true);
+		                $('#jailDays').val('');
+		                $('#jailDays').prop('disabled', true);
+		                $('#suspendedYears').val('');
+		                $('#suspendedYears').prop('disabled', true);
+		                $('#suspendedDays').val('');
+		                $('#suspendedDays').prop('disabled', true);
+		                $('#deferredYears').val('');
+		                $('#deferredYears').prop('disabled', true);
+		                $('#deferredDays').val('');
+		                $('#deferredDays').prop('disabled', true);
+		                $('#restitution').val('');
+		                $('#restitution').prop('disabled', true);
+		                $('#alternateSentence').val('');
+		                $('#alternateSentence').prop('disabled', true).trigger("chosen:updated");
+		          }
+		          else{
+                    $('#fineAmount').prop('disabled', false);
+                    $('#fineSuspended').prop('disabled', false);
+                    $('#jailYears').prop('disabled', false);
+                    $('#jailDays').prop('disabled', false);
+                    $('#suspendedDays').prop('disabled', false);
+                    toggleDefferredYearsDays();
+                    $('#restitution').prop('disabled', false);
+                    $('#alternateSentence').prop('disabled', false).trigger("chosen:updated");
+		          }
 		  	  });
         });
+	      
+	      function toggleDefferredYearsDays(){
+	          var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
+
+            if (dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())){
+                $('#deferredYears').val('');
+                $('#deferredYears').prop('disabled', true);
+                $('#deferredDays').val('');
+                $('#deferredDays').prop('disabled', true);
+            }
+            else{
+                $('#deferredYears').prop('disabled', false);
+                $('#deferredDays').prop('disabled', false);
+            }
+	      }
     </script>
   </div>
 	</body>
