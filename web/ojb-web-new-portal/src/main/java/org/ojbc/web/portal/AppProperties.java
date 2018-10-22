@@ -15,7 +15,9 @@
  */
 package org.ojbc.web.portal;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,6 +33,8 @@ public class AppProperties {
 	private Map<String, String> muniAlternateSentenceMapping = new HashMap<>();
 	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
 	private String restServiceBaseUrl = "http://localhost:9898";
+	private List<String> dispoCodesRequiringSentence;
+	private List<String> dispoCodesRequiringAmendedCharge;
 
 	public AppProperties() {
 		super();
@@ -49,6 +53,9 @@ public class AppProperties {
 		dispoCodeMapping.put("380", "Deferred Judgement accelerated");
 		dispoCodeMapping.put("388", "Sentence Revoked");
 		dispoCodeMapping.put("398", "Charges Filed");
+		
+		setDispoCodesRequiringSentence(Arrays.asList("310", "356", "357"));
+		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -97,5 +104,21 @@ public class AppProperties {
 
 	public void setMuniReasonForDismissalMapping(Map<String, String> muniReasonForDismissalMapping) {
 		this.muniReasonForDismissalMapping = muniReasonForDismissalMapping;
+	}
+
+	public List<String> getDispoCodesRequiringSentence() {
+		return dispoCodesRequiringSentence;
+	}
+
+	public void setDispoCodesRequiringSentence(List<String> dispoCodesRequiringSentence) {
+		this.dispoCodesRequiringSentence = dispoCodesRequiringSentence;
+	}
+
+	public List<String> getDispoCodesRequiringAmendedCharge() {
+		return dispoCodesRequiringAmendedCharge;
+	}
+
+	public void setDispoCodesRequiringAmendedCharge(List<String> dispoCodesRequiringAmendedCharge) {
+		this.dispoCodesRequiringAmendedCharge = dispoCodesRequiringAmendedCharge;
 	}
 }

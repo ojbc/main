@@ -19,7 +19,7 @@
             <div class="col-md-3 mb-2">
              <label>Disposition Date *</label>
              <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
-             <div th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
+             <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
            </div>
            <div class="col-md-6 mb-4">
              <label for="dispositionCode">Disposition Code *</label>
@@ -276,6 +276,15 @@
                     $('#alternateSentence').prop('disabled', false).trigger("chosen:updated");
 		          }
 		  	  });
+		  	  
+          $('#dispositionForm input').keypress(function (e) {
+              if (e.which == 13) {
+                $('#saveDisposition').click();
+                return false;    
+              }
+          });
+
+
         });
 	      
 	      function toggleDefferredYearsDays(){

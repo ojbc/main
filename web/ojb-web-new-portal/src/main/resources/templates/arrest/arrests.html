@@ -129,6 +129,14 @@
                     uiLibrary: 'bootstrap4', size: 'small'
               });
               $('.date').mask('99/99/9999');
+              
+              $('#searchForm input').keypress(function (e) {
+            	  if (e.which == 13) {
+            	    $('#submit').click();
+            	    return false;    
+            	  }
+            	});
+              
               $('#submit').click (function(){
                 var formData = $('#searchForm').serialize();
                  
