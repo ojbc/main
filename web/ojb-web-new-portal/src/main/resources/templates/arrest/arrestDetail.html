@@ -204,12 +204,12 @@
                	   if ( restitution > 5000 || fineAmount > 1000){
                		   var confirmMessage = ""
                		   if (fineAmount > 1000) {
-               			   confirmMessage += 'The Fine Amount exceeds $1,000.' 
+               			   confirmMessage += 'The Fine Amount exceeds $1,000. ' 
                		   }
                		   if (restitution > 1000) {
-               			   confirmMessage += ' The Restitution exceeds $5,000.' 
+               			   confirmMessage += ' The Restitution exceeds $5,000. ' 
                		   }
-               		   bootpopup.confirm(confirmMessage , "Are you sure to proceed?", function(ans) { if(ans){save(formData);} });  
+               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){save(formData);} });  
                	   }
                	   else{
                		   save(formData);
@@ -236,8 +236,7 @@
                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                    $("#arrestChargeIdentification").val($(this).closest("table").attr("id"));
                    $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
-                   bootpopup.confirm("Please confirm that you want to delete this disposition" , 
-                      "Are you sure to proceed?", 
+                   bootpopup.confirm("Please confirm that you want to delete this disposition" , "", 
                       function(ans) { 
                          if(ans){
                              xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {

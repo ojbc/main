@@ -87,8 +87,7 @@
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
 	                	  var arrestId = $(this).closest("tr").attr("id"); 
-	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , 
-	                			  "Are you sure to proceed?", 
+	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , "",
 	             					  function(ans) { 
 	                		       if(ans){
 		                             xhr = $.get( context +"arrests/" + arrestId + "/hide", function(data) {
@@ -99,8 +98,7 @@
                   });
                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
                       var arrestId = $(this).closest("tr").attr("id"); 
-                      bootpopup.confirm("Please confirm that you want to refer this arrest" , 
-                         "Are you sure to proceed?", 
+                      bootpopup.confirm("Please confirm that you want to refer this arrest" , "",
                          function(ans) { 
                             if(ans){
                                 xhr = $.get( context +"arrests/" + arrestId  + "/refer", function(data) {
