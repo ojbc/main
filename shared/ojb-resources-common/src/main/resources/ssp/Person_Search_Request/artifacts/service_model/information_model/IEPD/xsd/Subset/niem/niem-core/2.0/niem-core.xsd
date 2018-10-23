@@ -292,6 +292,7 @@
           <xsd:element ref="nc:PersonEyeColor" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonRace" minOccurs="0" maxOccurs="1"/>
@@ -639,6 +640,11 @@
   <xsd:element name="PersonHeightMeasure" type="nc:LengthMeasureType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A measurement of the height of a person.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonLicenseIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identification that references a license certification or registration of a person for some purpose.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonMiddleName" type="nc:PersonNameTextType" nillable="true">
