@@ -188,6 +188,8 @@
 					<xsd:element ref="disp-ext:SentenceConditionLiteral" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ObligationExemption" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="disp-ext:NoContactPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="disp-ext:NoContactSequenceID" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="disp-ext:NoContactNote" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -209,6 +211,7 @@
 					<xsd:element ref="disp-ext:TermTotalDays" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="disp-ext:SentenceJuvenileAgeTo" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="disp-ext:RecidivismEligibilityDate" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="disp-ext:RegistrationSuspendedIndicator" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -566,7 +569,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtAugmentation" type="disp-ext:CourtAugmentationType" substitutionGroup="j:CourtAugmentationPoint">
+	<xsd:element name="CourtAugmentation" type="disp-ext:CourtAugmentationType"
+		substitutionGroup="j:CourtAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a court.
 			</xsd:documentation>
@@ -907,7 +911,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ObligationRequiredIndicator" type="niem-xs:boolean" substitutionGroup="nc:ObligationAugmentationPoint">
+	<xsd:element name="ObligationRequiredIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:ObligationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an obligation is required, false otherwise.
 			</xsd:documentation>
@@ -994,7 +999,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!-- NEW FOR MAINE CHRI 3.0-->
+	<!-- NEW FOR MAINE CHRI 3.0 -->
 	<xsd:element name="StatuteClassCodeText" type="nc:TextType" substitutionGroup="j:StatuteAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code text that describes the class or level of a statute.
@@ -1119,6 +1124,24 @@
 		substitutionGroup="j:TermAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Juvenile sentence age period.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegistrationSuspendedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a registration has been suspended; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NoContactSequenceID" type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A sequence ID associated with a no contact order.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NoContactNote" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A note associated with a no contact order.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
