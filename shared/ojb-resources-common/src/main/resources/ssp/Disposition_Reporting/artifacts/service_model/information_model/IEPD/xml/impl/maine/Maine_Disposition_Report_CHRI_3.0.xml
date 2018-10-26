@@ -24,9 +24,7 @@
 	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0 ../../../xsd/impl/maine/chri_codes_3.0.xsd">
 	<nc:Case>
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>CARSCCR200200001</nc:IdentificationID>
-		</nc:ActivityIdentification>
+		<!-- nc:ActivityIdentification> <nc:IdentificationID>CARSCCR200200001</nc:IdentificationID> </nc:ActivityIdentification -->
 		<j:CaseAugmentation>
 			<j:CaseCourtEvent s:metadata="DM01">
 				<nc:ActivityCategoryText>DEFERRED DISPOSITION</nc:ActivityCategoryText>
@@ -98,81 +96,9 @@
 		</nc:PersonName>
 	</nc:Person>
 	<j:Charge s:id="d1e3" s:metadata="DM01">
-		<j:ChargeDescriptionText>Intentionally, knowingly or recklessly causing bodily
-				injury to another; victim under age 6 and actor over age 18
-			</j:ChargeDescriptionText>
-		<j:ChargeDisposition s:metadata="DM01">
-			<ext:CourtActionText>GUILTY</ext:CourtActionText>
-			<nc:DispositionEntity>
-				<nc:EntityOrganization>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ME002085J</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:EntityOrganization>
-			</nc:DispositionEntity>
-			<nc:DispositionDate>
-				<nc:Date>2002-08-21</nc:Date>
-			</nc:DispositionDate>
-			<ext:ChargeDispositionAugmentation>
-				<nc:CaseDocketID>CARSCCR200200001</nc:CaseDocketID>
-			</ext:ChargeDispositionAugmentation>
-		</j:ChargeDisposition>
-		<j:ChargeDisposition s:metadata="DM01">
-			<ext:CourtActionText>GUILTY</ext:CourtActionText>
-			<nc:DispositionEntity>
-				<nc:EntityOrganization>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ME002085J</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:EntityOrganization>
-			</nc:DispositionEntity>
-			<nc:DispositionDate>
-				<nc:Date>2002-08-21</nc:Date>
-			</nc:DispositionDate>
-			<ext:ChargeDispositionAugmentation>
-				<nc:CaseDocketID>CARSCCR200200001</nc:CaseDocketID>
-			</ext:ChargeDispositionAugmentation>
-		</j:ChargeDisposition>
-		<j:ChargeDisposition s:metadata="DM01">
-			<ext:CourtActionText>GUILTY</ext:CourtActionText>
-			<nc:DispositionEntity>
-				<nc:EntityOrganization>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ME002085J</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:EntityOrganization>
-			</nc:DispositionEntity>
-			<nc:DispositionDate>
-				<nc:Date>2002-09-04</nc:Date>
-			</nc:DispositionDate>
-			<ext:ChargeDispositionAugmentation>
-				<nc:CaseDocketID>CARSCCR200200001</nc:CaseDocketID>
-			</ext:ChargeDispositionAugmentation>
-		</j:ChargeDisposition>
-		<j:ChargeDisposition s:metadata="DM01">
-			<ext:CourtActionText>GUILTY</ext:CourtActionText>
-			<nc:DispositionEntity>
-				<nc:EntityOrganization>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ME002085J</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:EntityOrganization>
-			</nc:DispositionEntity>
-			<nc:DispositionDate>
-				<nc:Date>2002-09-16</nc:Date>
-			</nc:DispositionDate>
-			<ext:ChargeDispositionAugmentation>
-				<nc:CaseDocketID>CARSCCR200200001</nc:CaseDocketID>
-			</ext:ChargeDispositionAugmentation>
-		</j:ChargeDisposition>
+		<j:ChargeDescriptionText>Intentionally, knowingly or recklessly causing bodily injury to another; victim under age 6 and actor
+			over age 18
+		</j:ChargeDescriptionText>
 		<j:ChargeEnhancingFactor>
 			<codes:ChargeEnhancementCode>ATTEMPT</codes:ChargeEnhancementCode>
 			<codes:ChargeEnhancementCode>CONSPIRACY</codes:ChargeEnhancementCode>
@@ -181,23 +107,6 @@
 			<codes:ChargeEnhancementCode>OTHER</codes:ChargeEnhancementCode>
 		</j:ChargeEnhancingFactor>
 		<j:ChargeSentence s:metadata="DM01">
-			<nc:ActivityDate>
-				<nc:Date>2002-09-16</nc:Date>
-			</nc:ActivityDate>
-			<j:SentenceCondition>
-				<ext:ConditionAugmentation>
-					<codes:SentenceConditionLiteralCode>DNA TESTING</codes:SentenceConditionLiteralCode>
-				</ext:ConditionAugmentation>
-			</j:SentenceCondition>
-			<j:SentenceIssuerEntity>
-				<nc:EntityOrganization>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ME002085J</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:EntityOrganization>
-			</j:SentenceIssuerEntity>
 			<j:SupervisionFineAmount s:metadata="DM01">
 				<nc:Amount>100.00</nc:Amount>
 				<ext:AmountEnteredDate>
@@ -206,8 +115,6 @@
 				<ext:AmountOverride>10.00</ext:AmountOverride>
 			</j:SupervisionFineAmount>
 			<ext:SentenceAugmentation>
-				<nc:CaseDocketID>CARSCCR200200001</nc:CaseDocketID>
-				<ext:SentenceOriginText>ORIGINAL</ext:SentenceOriginText>
 				<j:SentenceTerm s:metadata="DM01">
 					<nc:ActivityName>Probation</nc:ActivityName>
 					<j:TermDuration>P3Y0M0DT0H</j:TermDuration>
@@ -251,6 +158,7 @@
 					</ext:TermEnteredDate>
 					<ext:SentenceTermAugmentation>
 						<codes:SentenceTermCategoryCode>LICENSE SUSPENSION</codes:SentenceTermCategoryCode>
+						<ext:RegistrationSuspendedIndicator>true</ext:RegistrationSuspendedIndicator>
 					</ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
 				<j:SentenceTerm s:metadata="DM01">
@@ -313,9 +221,6 @@
 				</j:SentenceCondition>
 				<j:SentenceCondition>
 					<ext:ConditionAugmentation>
-						<ext:EnteredDate>
-							<nc:Date>1970-01-01</nc:Date>
-						</ext:EnteredDate>
 						<ext:NoContactPerson s:metadata="DM01">
 							<nc:PersonDescriptionText>AND FAMILY OF</nc:PersonDescriptionText>
 							<nc:PersonName>
@@ -328,9 +233,6 @@
 				</j:SentenceCondition>
 				<j:SentenceCondition>
 					<ext:ConditionAugmentation>
-						<ext:EnteredDate>
-							<nc:Date>1970-01-01</nc:Date>
-						</ext:EnteredDate>
 						<ext:NoContactPerson s:metadata="DM01">
 							<nc:PersonBirthDate>
 								<nc:Date>2002-12-25</nc:Date>
@@ -341,6 +243,8 @@
 								<nc:PersonSurName>DOE</nc:PersonSurName>
 							</nc:PersonName>
 						</ext:NoContactPerson>
+						<ext:NoContactSequenceID>1</ext:NoContactSequenceID>
+						<ext:NoContactNote>Note</ext:NoContactNote>
 					</ext:ConditionAugmentation>
 				</j:SentenceCondition>
 			</ext:SentenceAugmentation>
@@ -374,7 +278,6 @@
 		<ext:ChargeAugmentation>
 			<ext:ChargeUniversalTrackingNumber>AOCSsr20021</ext:ChargeUniversalTrackingNumber>
 			<ext:ArrestTrackingNumber>123456A</ext:ArrestTrackingNumber>
-			<ext:ChargeOriginCategoryText>ORIGINAL</ext:ChargeOriginCategoryText>
 			<ext:ChargeOffenseDate>
 				<nc:Date>2002-06-03</nc:Date>
 			</ext:ChargeOffenseDate>
