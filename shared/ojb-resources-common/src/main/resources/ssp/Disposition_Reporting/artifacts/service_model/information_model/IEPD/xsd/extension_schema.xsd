@@ -71,6 +71,7 @@
 					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="disp-ext:CourtEventSentenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="disp-ext:DispositionMetadata" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -375,6 +376,19 @@
 					<xsd:element ref="disp-ext:SentenceOption" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="disp-ext:SentenceInformationOptionText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Amount" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtEventSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a relationship between a court event and a charge sentence.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1142,6 +1156,12 @@
 	<xsd:element name="NoContactNote" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A note associated with a no contact order.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtEventSentenceAssociation" type="disp-ext:CourtEventSentenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A relationship between a court event and a charge sentence..
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

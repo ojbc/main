@@ -26,7 +26,7 @@
 	<nc:Case>
 		<!-- nc:ActivityIdentification> <nc:IdentificationID>CARSCCR200200001</nc:IdentificationID> </nc:ActivityIdentification -->
 		<j:CaseAugmentation>
-			<j:CaseCourtEvent s:metadata="DM01">
+			<j:CaseCourtEvent s:id="EV01" s:metadata="DM01">
 				<nc:ActivityCategoryText>DEFERRED DISPOSITION</nc:ActivityCategoryText>
 				<nc:ActivityDescriptionText>ORDER</nc:ActivityDescriptionText>
 				<nc:ActivityName>PRE-JUDGEMENT</nc:ActivityName>
@@ -106,7 +106,7 @@
 			<codes:ChargeEnhancementCode>FIREARM OR DANGEROUS WEAPON</codes:ChargeEnhancementCode>
 			<codes:ChargeEnhancementCode>OTHER</codes:ChargeEnhancementCode>
 		</j:ChargeEnhancingFactor>
-		<j:ChargeSentence s:metadata="DM01">
+		<j:ChargeSentence s:id="CS01" s:metadata="DM01">
 			<j:SupervisionFineAmount s:metadata="DM01">
 				<nc:Amount>100.00</nc:Amount>
 				<ext:AmountEnteredDate>
@@ -287,6 +287,10 @@
 		<nc:Person s:ref="d1e353" />
 		<j:Charge s:ref="d1e3" />
 	</j:PersonChargeAssociation>
+	<ext:CourtEventSentenceAssociation>
+		<j:CaseCourtEvent s:ref="EV01" />
+		<j:ChargeSentence s:ref="CS01" />
+	</ext:CourtEventSentenceAssociation>
 	<ext:DispositionMetadata s:id="DM01">
 		<ext:SealedIndicator>false</ext:SealedIndicator>
 	</ext:DispositionMetadata>
