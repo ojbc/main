@@ -454,10 +454,16 @@
 			<xsl:value-of select="." />
 		</ebts:RecordRapBackCategoryCode>
 	</xsl:template>
-	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode"
-		mode="rapBackCategory">
+	<xsl:template match="submsg-ext:CivilSubscriptionReasonCode" mode="rapBackCategory">
 		<ebts:RecordRapBackCategoryCode>
-			<xsl:value-of select="." />
+			<xsl:choose>
+				<xsl:when test=". ='F'">
+					<xsl:value-of select="'I'" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="." />
+				</xsl:otherwise>
+			</xsl:choose>
 		</ebts:RecordRapBackCategoryCode>
 	</xsl:template>
 	<xsl:template match="nc:Date" mode="expirationDate">
