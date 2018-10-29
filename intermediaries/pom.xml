@@ -61,6 +61,8 @@
     <module>person-query-service-criminal-history-intermediary</module>
     <module>person-query-service-vehicle-crash-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
+    <module>person-query-service-professional-license-intermediary</module>
+    <module>person-query-service-wildlife-license-intermediary</module>
     <module>person-search-request-service-intermediary</module>
     <module>policy-acknowledgement-service-intermediary</module>
     <module>pretrial-service-enrollment-intermediary</module>
