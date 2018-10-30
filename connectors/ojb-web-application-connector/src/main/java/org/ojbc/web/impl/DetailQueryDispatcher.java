@@ -33,6 +33,7 @@ import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
+import org.ojbc.processor.person.query.ProfessionalLicensingRequestProcessor;
 import org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.processor.person.query.WildlifeLicensingRequestProcessor;
@@ -61,6 +62,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	@Autowired(required=false)
 	private WildlifeLicensingRequestProcessor wildlifeLicensingRequestProcessor;
+	
+	@Autowired(required=false)
+	private ProfessionalLicensingRequestProcessor professionalLicensingRequestProcessor;
 	
 	@Autowired(required=false)
 	private WarrantsRequestProcessor warrantsRequestProcessor;
@@ -199,6 +203,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.WILDLIFE_LICENSING.equals(requestIdSrcTxt)) {
 			
 			return wildlifeLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.PROFESSIONAL_LICENSING.equals(requestIdSrcTxt)) {
+			
+			return professionalLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} 
 		

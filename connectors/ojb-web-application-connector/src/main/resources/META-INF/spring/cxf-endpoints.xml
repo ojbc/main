@@ -167,6 +167,10 @@
 	    <!-- Wildlife License Query Endpoint -->
 		<camel:endpoint id="personQueryWildlifeLicenseResultsServiceEndpoint"
 			uri="cxf:bean:personQueryWildlifeLicenseResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+	    <!-- Professional License Query Endpoint -->
+		<camel:endpoint id="personQueryProfessionalLicenseResultsServiceEndpoint"
+			uri="cxf:bean:personQueryProfessionalLicenseResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
@@ -192,6 +196,27 @@
 	    </cxf:features>
 	   </cxf:cxfEndpoint>      
 	
+	    <!-- 
+	    	Professional License results handler, hosted by Portal  
+	    --> 
+	    <cxf:cxfEndpoint 
+	        id="personQueryProfessionalLicenseResultsService"
+	        address="${webapplication.personQuery.personQueryResultsHandlerProfessionalLicenseEndpoint}"
+			wsdlURL="classpath:ssp/Regulatory_License_Query_Results/schema/SIP_WS_1.2/Regulatory_License_Query_Results_Service.wsdl"
+			serviceName="ojbc:Regulatory_License_Query_Results_Service_Service" 
+			endpointName="ojbc:Regulatory_License_Query_Results_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryResultsService/1.0"
+		>
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>
+	   </cxf:cxfEndpoint>    	
 	
 		<!-- Juvenile Case Plan History Results Service, hosted by Portal -->
 		<cxf:cxfEndpoint id="juvenileCasePlanHistoryResultsHandlerService"
