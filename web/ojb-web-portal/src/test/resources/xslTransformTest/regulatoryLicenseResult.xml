@@ -26,6 +26,10 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<rlq-res-ext:RegulatoryLicenseQueryResult>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>4556789</nc:IdentificationID>
+			<nc:SystemName>SYSTEM NAME</nc:SystemName>
+		</intel:SystemIdentification>
 		<rlq-res-ext:RegulatoryLicense>
 			<rlq-res-ext:RegulatoryLicenseIdentification>
 				<nc:IdentificationID>L1234565</nc:IdentificationID>
@@ -137,7 +141,7 @@
 			<rlq-res-ext:CaseComplaint>
 				<rlq-res-ext:ComplaintResolution>
 					<rlq-res-ext:ResolutionDate>
-						<nc:Date>2017-011-06</nc:Date>
+						<nc:Date>2017-11-06</nc:Date>
 					</rlq-res-ext:ResolutionDate>
 					<rlq-res-ext:ResolutionDescriptionText>Continue to Practice</rlq-res-ext:ResolutionDescriptionText>
 				</rlq-res-ext:ComplaintResolution>
@@ -213,11 +217,5 @@
 			<nc:Person structures:ref="d1e17" />
 			<nc:Location structures:ref="d1e103" />
 		</nc:PersonResidenceAssociation>
-		<rlq-res-ext:SourceSystemNameText>Alpha Court System</rlq-res-ext:SourceSystemNameText>
-		<intel:SystemIdentification>
-			<nc:IdentificationID>S12345</nc:IdentificationID>
-			<nc:SystemName>S12345</nc:SystemName>
-		</intel:SystemIdentification>
-		<rlq-res-ext:QueryResultCategoryText>category</rlq-res-ext:QueryResultCategoryText>
 	</rlq-res-ext:RegulatoryLicenseQueryResult>
 </rlq-res-doc:RegulatoryLicenseQueryResults>
