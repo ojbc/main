@@ -103,6 +103,26 @@ public class RequestMessageBuilderUtilities {
 		return sb.toString();
 	}
 	
+	public static String createPersonQueryProfessionalRequest(DetailsRequest detailsRequest)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<rlq-req-doc:RegulatoryLicenseQueryRequest \n");
+		sb.append("	xmlns:rlq-req-doc=\"http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryRequest/1.0\" \n");
+		sb.append("	xmlns:rlq-req-ext=\"http://ojbc.org/IEPD/Extensions/RegulatoryLicenseQueryRequestExtension/1.0\" \n");
+		sb.append(" xmlns:nc=\"http://release.niem.gov/niem/niem-core/4.0/\" \n");
+		sb.append("	xmlns:structures=\"http://release.niem.gov/niem/structures/4.0/\"> \n");
+		sb.append("		<nc:Person structures:id=\"Person_01\"> \n");
+		sb.append("			<nc:PersonLicenseIdentification> \n");
+		sb.append("				<nc:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc:IdentificationID> \n");
+		sb.append("				<nc:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText> \n");
+		sb.append("			</nc:PersonLicenseIdentification> \n");
+		sb.append("		</nc:Person> \n");
+		sb.append("	</rlq-req-doc:RegulatoryLicenseQueryRequest> ");
+		
+		return sb.toString();
+	}	
+	
 	public static String createPersonToIncidentQueryRequest(String identificationID, String identificationSourceText)
 	{
 		StringBuffer sb = new StringBuffer();
