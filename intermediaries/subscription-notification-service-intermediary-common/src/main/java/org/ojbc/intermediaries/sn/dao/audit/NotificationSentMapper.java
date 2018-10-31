@@ -37,6 +37,7 @@ public class NotificationSentMapper implements RowMapper<NotificationsSent> {
 		subscription.setSubscribingSystemIdentifier(rs.getString("SUBSCRIBING_SYSTEM_IDENTIFIER"));
 		subscription.setId(rs.getLong("SUBSCRIPTION_IDENTIFIER"));
 		subscription.setTopic(rs.getString("TOPIC"));
+		subscription.setPersonFullName(rs.getString("SUBSCRIPTION_SUBJECT"));
 		
 		notificationsSent.setSubscription(subscription);
 		

@@ -79,6 +79,7 @@ public class AuditDaoImplTest {
 		subscription.setSubscriptionOwnerEmailAddress("owner@email.com");
 		subscription.setSubscribingSystemIdentifier("probation");
 		subscription.setTopic("arrest");
+		subscription.setPersonFullName("subscription subject");
 		
 		List<RapbackTriggeringEvent> triggeringEvents = new ArrayList<RapbackTriggeringEvent>();
 		
@@ -110,6 +111,7 @@ public class AuditDaoImplTest {
 		assertEquals("probation", notificationsSent.getSubscription().getSubscribingSystemIdentifier());
 		assertEquals("arrest", notificationsSent.getSubscription().getTopic());
 		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationsSent.getNotifyingSystemName());
+		
 		
 		assertEquals(6, notificationsSent.getNotificationMechanisms().size());
 		

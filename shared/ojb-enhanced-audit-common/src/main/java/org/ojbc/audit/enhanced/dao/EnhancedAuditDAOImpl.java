@@ -41,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -902,6 +903,50 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 	
 	@Override
+	public List<NotificationSent> retrieveNotifications(LocalDate startDate,
+			LocalDate endDate) {
+		//The query is set up to be a less than query so we add a day
+		//So we are getting everything before midnight tomorrow
+		if (endDate != null)
+		{
+			endDate = endDate.plusDays(1);
+		}	
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		String startDateString = startDate.format(formatter) + " 00:00:00";
+		String endDateString = endDate.format(formatter) + " 00:00:00";
+		
+		String notificationSelectStatement ="SELECT * FROM NOTIFICATIONS_SENT WHERE TIMESTAMP > '" + startDateString + "' AND TIMESTAMP < '" + endDateString +  "' order by TIMESTAMP desc";
+		
+		log.info("Retrieve Notifications Sent SQL: " + notificationSelectStatement);
+		
+		List<NotificationSent> notificationsSent = jdbcTemplate.query(notificationSelectStatement, new NotificationSentRowMapper());
+		
+		//add notification properties here
+		addNotificationProperties(notificationsSent);
+		
+		return notificationsSent;	
+	}
+	
+	private void addNotificationProperties(
+			List<NotificationSent> notificationsSent) {
+		
+		for (NotificationSent notificationSent : notificationsSent)
+		{
+			Integer id = notificationSent.getNotificationSentId();
+			
+			String notificationSelectStatement ="select PROPERTY_VALUE from notification_properties where NOTIFICATIONS_SENT_ID=?";
+			
+			List<String> triggeringEvents = jdbcTemplate.queryForList(notificationSelectStatement, String.class, id);
+			
+			notificationSent.setTriggeringEvents(triggeringEvents);
+			
+		}	
+		
+	}
+
+	@Override
 	public List<FederalRapbackRenewalNotification> retrieveFederalRapbackRenewalNotifications(
 			LocalDate startDate, LocalDate endDate) {
 		//The query is set up to be a less than query so we add a day
@@ -1384,6 +1429,35 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setUserInfo(userInfo);
 			
 			return printResults;
+		}
+	}
+	
+	private final class NotificationSentRowMapper implements RowMapper<NotificationSent> {
+		public NotificationSent mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			NotificationSent notificationSent = buildNotificationSent(rs);
+			return notificationSent;
+		}
+
+		private NotificationSent buildNotificationSent(
+				ResultSet rs) throws SQLException{
+
+			NotificationSent notificationSent = new NotificationSent();
+			
+			notificationSent.setNotificationSentId(rs.getInt("NOTIFICATIONS_SENT_ID"));
+			notificationSent.setNotificationSentTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+			notificationSent.setSubscriptionType(rs.getString("SUBSCRIPTION_TYPE"));
+			notificationSent.setTopic(rs.getString("TOPIC"));
+			notificationSent.setSubscriptionIdentifier(rs.getString("SUBSCRIPTION_IDENTIFIER"));
+			notificationSent.setSubscriptionOwner(rs.getString("SUBSCRIPTION_OWNER"));
+			notificationSent.setSubscriptionOwnerAgencyType(rs.getString("SUBSCRIPTION_OWNER_AGENCY_TYPE"));
+			notificationSent.setSubscriptionOwnerEmailAddress(rs.getString("SUBSCRIPTION_OWNER_EMAIL_ADDRESS"));
+			notificationSent.setNotifyingSystemName(rs.getString("NOTIFYING_SYSTEM_NAME"));
+			notificationSent.setSubscribingSystemIdentifier(rs.getString("SUBSCRIBING_SYSTEM_IDENTIFIER"));
+			notificationSent.setSubscriptionSubject(rs.getString("SUBSCRIPTION_SUBJECT"));
+			notificationSent.setSubscriptionOwnerAgency(rs.getString("SUBSCRIPTION_OWNER_AGENCY"));
+			
+			return notificationSent;
 		}
 	}
 	
