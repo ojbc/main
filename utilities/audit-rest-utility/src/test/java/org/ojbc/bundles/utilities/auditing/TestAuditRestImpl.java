@@ -39,6 +39,7 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
@@ -468,6 +469,44 @@ public class TestAuditRestImpl {
 		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION",federalRapbackNotificationFromService.get(0).getTransactionType());
 		assertEquals(2, federalRapbackNotificationFromService.get(0).getTriggeringEvents().size());
 		assertEquals("7654",federalRapbackNotificationFromService.get(0).getRecordRapBackActivityNotificationID());
+	}		
+	
+	@Test
+	public void testRetrieveNotificationsSent() throws Exception
+	{
+		final String uri = "http://localhost:9898/auditServer/audit/retrieveNotificationsSent";
+		
+		QueryRequestByDateRange queryRequestByDateRange = new QueryRequestByDateRange();
+		
+		queryRequestByDateRange.setStartDate(LocalDate.now().minusYears(100));
+		queryRequestByDateRange.setEndDate(LocalDate.now());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
+		
+		ResponseEntity<List<NotificationSent>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<NotificationSent>>() {});
+		
+		List<NotificationSent> notificationsSent = response.getBody();
+		
+		assertEquals(3, notificationsSent.size());
+		
+		NotificationSent notificationSent = notificationsSent.get(0);
+		
+		assertEquals(new Integer(3), notificationSent.getNotificationSentId());
+		assertEquals("{http://ojbc.org/wsn/topics}:person/rapback", notificationSent.getTopic());
+		assertEquals("HI123456", notificationSent.getSubscriptionOwnerAgency());
+		assertEquals("80", notificationSent.getSubscriptionIdentifier());
+		assertEquals("test3@email.com", notificationSent.getSubscriptionOwnerEmailAddress());
+		assertEquals("STATE:IDP:AGENCY:USER:test3email.com", notificationSent.getSubscriptionOwner());
+		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationSent.getNotifyingSystemName());
+		assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", notificationSent.getSubscribingSystemIdentifier());
+		assertEquals("2018-10-22T11:14:46", notificationSent.getNotificationSentTimestamp().toString());
+		
+		NotificationSent notificationSentWithTriggeringEvent = notificationsSent.get(1);
+		
+		assertNotNull(notificationSentWithTriggeringEvent.getTriggeringEvents());
 	}		
 	
 	@Test

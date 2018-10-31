@@ -16,7 +16,9 @@
  */
 package org.ojbc.bundles.utilities.auditing;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
@@ -29,6 +31,7 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
@@ -49,6 +52,9 @@ public class AuditRestImpl implements AuditInterface {
 	
 	@Resource
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+	@Resource
+	Map<String, String> notificationSystemToTriggeringEvent;
 	
 	private static final String LOGIN_ACTION="login";
 	
@@ -146,6 +152,28 @@ public class AuditRestImpl implements AuditInterface {
 		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotifications(queryRequestByDateRange.getStartDate(), queryRequestByDateRange.getEndDate());
 		return federalRapbackNotifications;
 	}
+	
+	@Override
+	public List<NotificationSent> retrieveNotificationsSent(QueryRequestByDateRange queryRequestByDateRange) {
+		List<NotificationSent> notificationSents = enhancedAuditDao.retrieveNotifications(queryRequestByDateRange.getStartDate(), queryRequestByDateRange.getEndDate());
+		
+		for (NotificationSent notificationSent : notificationSents)
+		{
+			if (StringUtils.isNotBlank(notificationSent.getNotifyingSystemName()))
+			{
+				if (notificationSystemToTriggeringEvent.containsKey(notificationSent.getNotifyingSystemName()))
+				{
+					ArrayList<String> triggeringEvents = new ArrayList<String>();
+					triggeringEvents.add(notificationSystemToTriggeringEvent.get(notificationSent.getNotifyingSystemName()));
+					
+					notificationSent.setTriggeringEvents(triggeringEvents);
+				}	
+			}
+		}	
+		
+		
+		return notificationSents;
+	}	
 
 	@Override
 	public List<FederalRapbackNotification> searchForFederalRapbackNotifications(
