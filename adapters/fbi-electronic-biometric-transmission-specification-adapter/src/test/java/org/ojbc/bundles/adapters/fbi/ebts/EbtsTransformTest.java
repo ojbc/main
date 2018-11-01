@@ -136,6 +136,25 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
 	
+	@Test
+	public void newCivilSubscriptionSRCTestEbtsTransform() throws Exception{
+								
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_Civil_Subscription_Request_Document-SRC.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/ojbSubscriptionToEBTS.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();	
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-SRC.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);					
+	}
+	
 	
 	@Test
 	public void modifyCriminalSubscriptionTestEbtsTransform() throws IOException, SAXException{
