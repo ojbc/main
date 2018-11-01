@@ -72,6 +72,7 @@
 	<jdbc:initialize-database data-source="dataSource">
 	    <jdbc:script location="classpath:sql-enhanced-auditlog/h2-schema.sql"/>
 	    <jdbc:script location="classpath:sql-enhanced-auditlog/load-code-tables.sql"/>
+	    <jdbc:script location="classpath:sql-enhanced-auditlog/h2-notifications-sent-test-data.sql"/>
 	 </jdbc:initialize-database>
 
 	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">

@@ -40,6 +40,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -585,6 +586,36 @@ public class EnhancedAuditDaoTest {
 		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
 		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
 		assertEquals("employer ori", userAcknowledgementFromDatabase.getUserInfo().getEmployerOri());
+		
+	}
+	
+	@Test
+	public void testRetrieveNotifications() throws Exception
+	{
+		LocalDate startDate = LocalDate.now().minusYears(100);
+		LocalDate endDate = LocalDate.now();
+		
+		List<NotificationSent> notificationsSent = enhancedAuditDao.retrieveNotifications(startDate, endDate);
+		
+		log.info(notificationsSent);
+		assertEquals(3, notificationsSent.size());
+		
+		NotificationSent notificationSent = notificationsSent.get(0);
+		
+		assertEquals(new Integer(3), notificationSent.getNotificationSentId());
+		assertEquals("{http://ojbc.org/wsn/topics}:person/rapback", notificationSent.getTopic());
+		assertEquals("80", notificationSent.getSubscriptionIdentifier());
+		assertEquals("test3@email.com", notificationSent.getSubscriptionOwnerEmailAddress());
+		assertEquals("STATE:IDP:AGENCY:USER:test3email.com", notificationSent.getSubscriptionOwner());
+		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationSent.getNotifyingSystemName());
+		assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", notificationSent.getSubscribingSystemIdentifier());
+		assertEquals("2018-10-22T11:14:46", notificationSent.getNotificationSentTimestamp().toString());
+		assertEquals("Bill Padmanabhan", notificationSent.getSubscriptionSubject());
+		assertEquals("HI123456", notificationSent.getSubscriptionOwnerAgency());
+		
+		NotificationSent notificationSentWithTriggeringEvent = notificationsSent.get(1);
+		
+		assertNotNull(notificationSentWithTriggeringEvent.getTriggeringEvents());
 		
 	}
 }

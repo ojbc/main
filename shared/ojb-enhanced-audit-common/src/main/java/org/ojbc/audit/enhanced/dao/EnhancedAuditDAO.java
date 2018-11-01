@@ -27,6 +27,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -57,6 +58,8 @@ public interface EnhancedAuditDAO {
 	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(String stateSubscriptionId);
 	
 	public List<FederalRapbackNotification> retrieveFederalNotifications(LocalDate startDate, LocalDate endDate);
+	
+	public List<NotificationSent> retrieveNotifications(LocalDate startDate, LocalDate endDate);
 	
 	public List<FederalRapbackRenewalNotification> retrieveFederalRapbackRenewalNotifications(LocalDate startDate, LocalDate endDate);
 	

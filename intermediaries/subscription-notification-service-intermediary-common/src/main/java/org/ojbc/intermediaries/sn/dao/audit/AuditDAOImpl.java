@@ -50,7 +50,7 @@ public class AuditDAOImpl implements AuditDAO {
 
 		log.debug("Inserting row into Notifications Sent table");
 		
-        final String notificationSentInsertStatement="INSERT into NOTIFICATIONS_SENT (SUBSCRIPTION_TYPE, TOPIC, SUBSCRIPTION_IDENTIFIER, SUBSCRIPTION_OWNER_AGENCY, SUBSCRIPTION_OWNER_AGENCY_TYPE, SUBSCRIPTION_OWNER_EMAIL_ADDRESS, SUBSCRIPTION_OWNER, NOTIFYING_SYSTEM_NAME, SUBSCRIBING_SYSTEM_IDENTIFIER) values (?,?,?,?,?,?,?,?,?)";
+        final String notificationSentInsertStatement="INSERT into NOTIFICATIONS_SENT (SUBSCRIPTION_TYPE, TOPIC, SUBSCRIPTION_IDENTIFIER, SUBSCRIPTION_OWNER_AGENCY, SUBSCRIPTION_OWNER_AGENCY_TYPE, SUBSCRIPTION_OWNER_EMAIL_ADDRESS, SUBSCRIPTION_OWNER, NOTIFYING_SYSTEM_NAME, SUBSCRIBING_SYSTEM_IDENTIFIER, SUBSCRIPTION_SUBJECT) values (?,?,?,?,?,?,?,?,?,?)";
         
         //TODO: determine these values
 		String subscriptionType = "";
@@ -73,6 +73,7 @@ public class AuditDAOImpl implements AuditDAO {
         	            ps.setString(7, subscription.getSubscriptionOwner());
         	            ps.setString(8, emailNotification.getNotificationRequest().getNotifyingSystemName());
         	            ps.setString(9, subscription.getSubscribingSystemIdentifier());
+        	            ps.setString(10, subscription.getPersonFullName());
         	            return ps;
         	        }
         	    },
