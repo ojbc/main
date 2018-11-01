@@ -549,7 +549,7 @@ public class RapbackController {
 	
 	@RequestMapping(value = "subsequentResults", method = RequestMethod.GET)
 	public String subsequentResults(HttpServletRequest request, @RequestParam String transactionNumber,
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, false, model);
 			return "rapbacks/_subsequentResultsDetails";
