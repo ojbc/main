@@ -345,6 +345,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryRequestExtension/1.0";
 	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT = "wlq-req-ext";
+	
+	public static final String NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryRequest/1.0";
+	public static final String NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC = "rlq-req-doc";
+	
+	public static final String NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/RegulatoryLicenseQueryResults/1.0";
+	public static final String NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT = "rlq-res-ext";
+	
+	public static final String NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryResults/1.0";		
+	public static final String NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC = "rlq-res-doc";
+
+	public static final String NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/RegulatoryLicenseQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT = "rlq-req-ext";
 
 	public static final String NS_ADAMS_CO_BOOKING_CODES_EXT = "http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0";
 	public static final String NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT = "ac-bkg-codes";
@@ -1795,6 +1807,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 				
 		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
 		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC, NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC, NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_DOC);		
+		
+		prefixToUriMap.put(NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT, NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT);
+		uriToPrefixMap.put(NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT, NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC, NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC);
+		uriToPrefixMap.put(NS_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC, NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_RESULT_EXCH_DOC);		
+				
+		prefixToUriMap.put(NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT, NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT);
+		uriToPrefixMap.put(NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_CBRN_40, NS_CBRN_40);
 		uriToPrefixMap.put(NS_CBRN_40, NS_PREFIX_CBRN_40);
