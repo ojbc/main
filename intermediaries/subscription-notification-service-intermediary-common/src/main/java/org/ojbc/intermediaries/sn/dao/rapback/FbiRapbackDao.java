@@ -194,18 +194,19 @@ public class FbiRapbackDao {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
 
         final String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-    			+ "(ucn, RAP_SHEET, RESULTS_SENDER_ID) "
-    			+ "values (?, ?, ?)";
+    			+ "(UCN, CIVIL_SID, RAP_SHEET, RESULTS_SENDER_ID) "
+    			+ "values (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
-        	                		new String[] {"ucn", "RAP_SHEET", "RESULTS_SENDER_ID" });
+        	                		new String[] {"SUBSEQUENT_RESULT_ID"});
         	            ps.setString(1, subsequentResults.getUcn());
-						ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
-        	            ps.setInt(3, subsequentResults.getResultsSender().ordinal()+1);
+        	            ps.setString(2, subsequentResults.getCivilSid());
+						ps.setBlob(3, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
+        	            ps.setInt(4, subsequentResults.getResultsSender().ordinal()+1);
         	            return ps;
         	        }
         	    },

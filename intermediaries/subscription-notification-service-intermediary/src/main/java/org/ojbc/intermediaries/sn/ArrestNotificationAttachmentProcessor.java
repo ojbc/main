@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -71,5 +72,27 @@ public class ArrestNotificationAttachmentProcessor {
 		}
 	}
 
+	public void saveInstateRapsheet(@Body List<EmailNotification> emailNotifications, @Header("base64BinaryData") String baseb4BinaryData) throws Exception {
+		
+		log.info("Processing in state rapsheet.");
+		
+		if (emailNotifications != null && emailNotifications.size() > 0)
+		{
+			Document notificationReport = emailNotifications.get(0).getNotificationRequest().getRequestDocument();
+			
+			Node notificationMessageNode = XmlUtils.xPathNodeSearch(notificationReport, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
+			
+			SubsequentResults subsequentResult = new SubsequentResults(); 
+			subsequentResult.setRapSheet(Base64.decodeBase64(baseb4BinaryData));
+			subsequentResult.setResultsSender(ResultSender.State);
+			
+			String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+			
+			subsequentResult.setCivilSid(civilSid);
+			
+			rapbackDao.saveSubsequentResults(subsequentResult);
+		}
+	}
+	
 }
 

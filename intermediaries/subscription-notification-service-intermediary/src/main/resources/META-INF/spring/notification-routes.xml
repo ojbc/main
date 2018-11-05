@@ -60,10 +60,18 @@
 						<!-- This is an in state arrest notification -->
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
+
+							<camel:setHeader headerName="base64BinaryData">
+								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
+							</camel:setHeader>
 							
 							<camel:log message="In state arrest notification received for rapback topic"/>
 							
 							<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
+							
+							<!-- Look for matching notifications here -->
+							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=saveInstateRapsheet"></camel:to>
+							
 						</camel:when>
 						
 						<!-- This is a federal arrest notification -->

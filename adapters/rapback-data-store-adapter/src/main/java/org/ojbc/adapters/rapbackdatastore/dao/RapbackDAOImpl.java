@@ -514,7 +514,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
-				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn) as latestSubsequentResultDate "
+				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn or subsq.civil_sid=s.civil_sid) as latestSubsequentResultDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
@@ -962,14 +962,39 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber) {
 		log.info("Retreiving subsequent results by transaction number " + transactionNumber);
 		
+		List<SubsequentResults> resultsSet = new ArrayList<SubsequentResults>();
+		
 		final String sql ="SELECT subs.* FROM subsequent_results subs "
 				+ "LEFT JOIN identification_subject s ON s.ucn = subs.ucn "
 				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
-				+ "WHERE t.transaction_number = ?";
+				+ "WHERE t.transaction_number = ? "
+				+ " and subs.RESULTS_SENDER_ID=1 "
+				+ " order by REPORT_TIMESTAMP desc";
 		
 		List<SubsequentResults> subsequentResults = 
 				jdbcTemplate.query(sql, new SubsequentResultRowMapper(), transactionNumber);
-		return subsequentResults;
+		
+		if (subsequentResults != null && !subsequentResults.isEmpty())
+		{
+			resultsSet.add(subsequentResults.get(0));
+		}	
+		
+		final String sqlCivilSid ="SELECT subs.* FROM subsequent_results subs "
+				+ "LEFT JOIN identification_subject s ON s.civil_sid = subs.civil_sid "
+				+ "LEFT JOIN identification_transaction t ON t.subject_id = s.subject_id "
+				+ "WHERE t.transaction_number = ? "
+				+ " and subs.RESULTS_SENDER_ID=2 "
+				+ " order by REPORT_TIMESTAMP desc";
+		
+		List<SubsequentResults> subsequentResultsState  = 
+				jdbcTemplate.query(sqlCivilSid, new SubsequentResultRowMapper(), transactionNumber);
+
+		if (subsequentResultsState != null && !subsequentResultsState.isEmpty())
+		{
+			resultsSet.add(subsequentResultsState.get(0));
+		}	
+		
+		return resultsSet;
 	}
 
 	private final class SubsequentResultRowMapper implements RowMapper<SubsequentResults> {
@@ -978,6 +1003,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			SubsequentResults subsequentResult = new SubsequentResults();
 			subsequentResult.setId(rs.getLong("subsequent_result_id"));
 			subsequentResult.setUcn(rs.getString("ucn"));
+			subsequentResult.setCivilSid(rs.getString("civil_sid"));
 			subsequentResult.setRapSheet(ZipUtils.unzip(rs.getBytes("rap_sheet")));
 			subsequentResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
 			return subsequentResult;

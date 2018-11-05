@@ -345,7 +345,8 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		SubsequentResults result2 = subsequentResults.get(1);
 		assertEquals(Long.valueOf(2), result2.getId());
-		assertEquals("9222201", result2.getUcn());
+		assertNull(result2.getUcn());
+		assertEquals("A123459", result2.getCivilSid());
 		assertEquals(ResultSender.State, result2.getResultsSender());
 		assertEquals(25, result2.getRapSheet().length);
 		log.info("result2 result:" + new String(result2.getRapSheet()));
