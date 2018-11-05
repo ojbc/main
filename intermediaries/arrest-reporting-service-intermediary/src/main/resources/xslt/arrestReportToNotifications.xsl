@@ -107,6 +107,7 @@
 							</notificationExt:NotifyingActivityReportingSystemNameText>
 							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport/oar:RelatedFBISubscription/oar:RecordRapBackSubscriptionIdentification[nc:IdentificationID]"/>
 							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]"/>
+							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:StateCriminalHistoryRecordDocument]"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']" mode="arrest"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Incident']" mode="incident"/>
 							<xsl:apply-templates select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Offense']" mode="Offense"/>
@@ -212,13 +213,20 @@
 			</notificationExt:RecordRapBackSubscriptionIdentification>
 		</notificationExt:RelatedFBISubscription>
 	</xsl:template>
-	<xsl:template match="ojbc:ArrestReport">
+	<xsl:template match="ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]">
 		<notificationExt:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
 				<notificationExt:Base64BinaryObject><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/nc:DocumentBinary/ojbc:Base64BinaryObject"/></notificationExt:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</notificationExt:CriminalHistoryRecordDocument>
 	</xsl:template>
+	<xsl:template match="ojbc:ArrestReport[oar:StateCriminalHistoryRecordDocument]">
+		<notificationExt:CriminalHistoryRecordDocument>
+			<nc:DocumentBinary>
+				<notificationExt:Base64BinaryObject><xsl:value-of select="ojbc:StateCriminalHistoryRecordDocument/nc:DocumentBinary/ojbc:Base64BinaryObject"/></notificationExt:Base64BinaryObject>
+			</nc:DocumentBinary>
+		</notificationExt:CriminalHistoryRecordDocument>
+	</xsl:template>	
 	<xsl:template match="j40:EnforcementOfficial" mode="enforcementOfficialUnit">
 		<xsl:variable name="enforcementOfficialID" select="preceding-sibling::lexsdigest:Person/@s:id"/>
 		<xsl:variable name="enforcementOfficialOrganizationID" select="$lexsDigest/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:OrganizationReference/@s:ref"/>
