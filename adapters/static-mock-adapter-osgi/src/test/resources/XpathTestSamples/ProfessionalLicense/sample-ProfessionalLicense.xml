@@ -1,0 +1,234 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<rlq-res-doc:RegulatoryLicenseQueryResults xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+                                           xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
+                                           xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+                                           xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+                                           xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+                                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                           xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+                                           xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+                                           xmlns:rlq-res-doc="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryResults/1.0"
+                                           xmlns:rlq-res-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseQueryResults/1.0"
+                                           xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+                                           xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryResults/1.0 ../xsd/regulatory_license_query_results.xsd">
+   <rlq-res-ext:RegulatoryLicenseQueryResult>
+      <intel:SystemIdentification>
+         <nc:IdentificationID>4556789</nc:IdentificationID>
+         <nc:SystemName>SYSTEM NAME</nc:SystemName>
+      </intel:SystemIdentification>
+      <rlq-res-ext:RegulatoryLicense>
+         <rlq-res-ext:RegulatoryLicenseIdentification>
+            <nc:IdentificationID>4556789</nc:IdentificationID>
+         </rlq-res-ext:RegulatoryLicenseIdentification>
+         <rlq-res-ext:RegulatoryLicenseCategoryText>string</rlq-res-ext:RegulatoryLicenseCategoryText>
+         <rlq-res-ext:RegulatoryLicenseAgency>
+            <nc:OrganizationName>string</nc:OrganizationName>
+         </rlq-res-ext:RegulatoryLicenseAgency>
+         <rlq-res-ext:RegulatoryLicenseDepartmentName>string</rlq-res-ext:RegulatoryLicenseDepartmentName>
+         <rlq-res-ext:RegulatoryLicenseRegulatorName>string</rlq-res-ext:RegulatoryLicenseRegulatorName>
+         <rlq-res-ext:RegulatoryLicenseFirstIssueDate>
+            <nc:Date>2001-01-01</nc:Date>
+         </rlq-res-ext:RegulatoryLicenseFirstIssueDate>
+         <rlq-res-ext:RegulatoryLicenseIssueDate>
+            <nc:Date>2001-01-01</nc:Date>
+         </rlq-res-ext:RegulatoryLicenseIssueDate>
+         <rlq-res-ext:RegulatoryLicenseExpirationDate>
+            <nc:Date>2001-01-01</nc:Date>
+         </rlq-res-ext:RegulatoryLicenseExpirationDate>
+         <rlq-res-ext:RegulatoryLicensePerson structures:ref="d1e17"/>
+         <rlq-res-ext:PersonLicenseeID>
+            <nc:IdentificationID>string</nc:IdentificationID>
+         </rlq-res-ext:PersonLicenseeID>
+         <rlq-res-ext:RegulatoryLicenseStatus>
+            <nc:StatusDescriptionText>string</nc:StatusDescriptionText>
+            <rlq-res-ext:SecondaryStatusDescriptionText>string</rlq-res-ext:SecondaryStatusDescriptionText>
+         </rlq-res-ext:RegulatoryLicenseStatus>
+         <rlq-res-ext:CurrentlyAuthorizedToPracticeIndicator>false</rlq-res-ext:CurrentlyAuthorizedToPracticeIndicator>
+      </rlq-res-ext:RegulatoryLicense>
+      <nc:Person structures:id="d1e17">
+         <nc:PersonBirthDate>
+            <nc:Date>2001-01-01</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>Larry</nc:PersonGivenName>
+            <nc:PersonMiddleName>E.</nc:PersonMiddleName>
+            <nc:PersonSurName>Ivey</nc:PersonSurName>
+         </nc:PersonName>
+         <nc:PersonHomeContactInformation>
+            <nc:ContactMailingAddress>
+               <nc:LocationStreet>
+                  <nc:StreetFullText>string</nc:StreetFullText>
+                  <nc:StreetFullText>string</nc:StreetFullText>
+                  <nc:StreetFullText>string</nc:StreetFullText>
+                  <nc:StreetFullText>string</nc:StreetFullText>
+               </nc:LocationStreet>
+               <nc:LocationCityName>string</nc:LocationCityName>
+               <nc:LocationState>
+                  <nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+               </nc:LocationState>
+               <nc:LocationCountry>
+                  <nc:LocationCountryName>string</nc:LocationCountryName>
+               </nc:LocationCountry>
+               <nc:LocationPostalCode>string</nc:LocationPostalCode>
+            </nc:ContactMailingAddress>
+         </nc:PersonHomeContactInformation>
+      </nc:Person>
+      <nc:Location structures:id="d1e103">
+         <nc:Address>
+            <nc:LocationStreet>
+               <nc:StreetFullText>string</nc:StreetFullText>
+               <nc:StreetFullText>string</nc:StreetFullText>
+               <nc:StreetFullText>string</nc:StreetFullText>
+               <nc:StreetFullText>string</nc:StreetFullText>
+            </nc:LocationStreet>
+            <nc:LocationCityName>string</nc:LocationCityName>
+            <nc:LocationState>
+               <nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+            </nc:LocationState>
+            <nc:LocationCountry>
+               <nc:LocationCountryName>string</nc:LocationCountryName>
+            </nc:LocationCountry>
+            <nc:LocationPostalCode>string</nc:LocationPostalCode>
+         </nc:Address>
+      </nc:Location>
+      <nc:Case structures:id="d1e133">
+         <nc:ActivityIdentification>
+            <nc:IdentificationID>string</nc:IdentificationID>
+         </nc:ActivityIdentification>
+         <nc:ActivityDate>
+            <nc:DateRange>
+               <nc:StartDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </nc:StartDate>
+               <nc:EndDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </nc:EndDate>
+            </nc:DateRange>
+         </nc:ActivityDate>
+         <rlq-res-ext:CaseComplaint>
+            <rlq-res-ext:ComplaintResolution>
+               <rlq-res-ext:ResolutionDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </rlq-res-ext:ResolutionDate>
+               <rlq-res-ext:ResolutionDescriptionText>string</rlq-res-ext:ResolutionDescriptionText>
+            </rlq-res-ext:ComplaintResolution>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+         </rlq-res-ext:CaseComplaint>
+         <rlq-res-ext:CaseComplaint>
+            <rlq-res-ext:ComplaintResolution>
+               <rlq-res-ext:ResolutionDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </rlq-res-ext:ResolutionDate>
+               <rlq-res-ext:ResolutionDescriptionText>string</rlq-res-ext:ResolutionDescriptionText>
+            </rlq-res-ext:ComplaintResolution>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+         </rlq-res-ext:CaseComplaint>
+      </nc:Case>
+      <nc:Case structures:id="d1e238">
+         <nc:ActivityIdentification>
+            <nc:IdentificationID>string</nc:IdentificationID>
+         </nc:ActivityIdentification>
+         <nc:ActivityDate>
+            <nc:DateRange>
+               <nc:StartDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </nc:StartDate>
+               <nc:EndDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </nc:EndDate>
+            </nc:DateRange>
+         </nc:ActivityDate>
+         <rlq-res-ext:CaseComplaint>
+            <rlq-res-ext:ComplaintResolution>
+               <rlq-res-ext:ResolutionDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </rlq-res-ext:ResolutionDate>
+               <rlq-res-ext:ResolutionDescriptionText>string</rlq-res-ext:ResolutionDescriptionText>
+            </rlq-res-ext:ComplaintResolution>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+         </rlq-res-ext:CaseComplaint>
+         <rlq-res-ext:CaseComplaint>
+            <rlq-res-ext:ComplaintResolution>
+               <rlq-res-ext:ResolutionDate>
+                  <nc:Date>2001-01-01</nc:Date>
+               </rlq-res-ext:ResolutionDate>
+               <rlq-res-ext:ResolutionDescriptionText>string</rlq-res-ext:ResolutionDescriptionText>
+            </rlq-res-ext:ComplaintResolution>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAllegation>
+               <rlq-res-ext:AllegationDescriptionText>string</rlq-res-ext:AllegationDescriptionText>
+            </rlq-res-ext:ComplaintAllegation>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+            <rlq-res-ext:ComplaintAction>
+               <rlq-res-ext:ActionDescriptionText>string</rlq-res-ext:ActionDescriptionText>
+               <rlq-res-ext:ActionValueText>string</rlq-res-ext:ActionValueText>
+            </rlq-res-ext:ComplaintAction>
+         </rlq-res-ext:CaseComplaint>
+      </nc:Case>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d1e17"/>
+         <nc:Location structures:ref="d1e103"/>
+      </nc:PersonResidenceAssociation>
+   </rlq-res-ext:RegulatoryLicenseQueryResult>
+</rlq-res-doc:RegulatoryLicenseQueryResults>

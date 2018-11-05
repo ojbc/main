@@ -47,7 +47,7 @@ public abstract class AbstractStaticMockTest {
 		
 		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
 				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase", 
-				"XpathTestSamples/VehicleCrash", "XpathTestSamples/WildlifeLicense", "XpathTestSamples/FirearmProhibition");				
+				"XpathTestSamples/VehicleCrash", "XpathTestSamples/WildlifeLicense", "XpathTestSamples/ProfessionalLicense", "XpathTestSamples/FirearmProhibition");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
@@ -289,6 +289,11 @@ public abstract class AbstractStaticMockTest {
 				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
 		
 		wildlifeLicenseSourceSystemElement.setTextContent(StaticMockQuery.WILDLIFE_LICENSE_SEARCH_SYSTEM_ID);
+		
+		Element professionalLicenseSourceSystemElement = XmlUtils.insertElementBefore(root, courtCaseSourceSystemElement, 
+				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
+		
+		professionalLicenseSourceSystemElement.setTextContent(StaticMockQuery.PROFESSIONAL_LICENSE_SEARCH_SYSTEM_ID);
 				
 		return personSearchRequestMessage;
 	}

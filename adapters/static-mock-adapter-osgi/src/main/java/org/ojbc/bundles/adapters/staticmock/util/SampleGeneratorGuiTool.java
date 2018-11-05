@@ -47,7 +47,7 @@ public class SampleGeneratorGuiTool {
 	
 	
 	private static final String[] A_SAMPLE_TYPES = {"Incident","CriminalHistory","Warrant","Firearm",
-			"JuvenileHistory","Custody", "CustodyMatthews", "CourtCase","VehicleCrash","VehicleCrashMatthews","WildlifeLicense","WildlifeLicenseMatthews","All"};
+			"JuvenileHistory","Custody", "CustodyMatthews", "CourtCase","VehicleCrash","VehicleCrashMatthews","WildlifeLicense","WildlifeLicenseMatthews", "ProfessionalLicense","ProfessionalLicenseMatthews","All"};
 	
 	private Logger logger = Logger.getLogger(SampleGeneratorGuiTool.class.getName()); 
 	
