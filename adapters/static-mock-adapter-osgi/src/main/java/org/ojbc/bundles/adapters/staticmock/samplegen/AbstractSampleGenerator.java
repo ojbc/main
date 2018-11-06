@@ -818,6 +818,10 @@ public abstract class AbstractSampleGenerator {
 		
 		List<Document> wildlifeLicenseMatthewsDocList = new ArrayList<Document>();
 		
+		List<Document> professionalLicenseDocList = new ArrayList<Document>();
+		
+		List<Document> professionalLicenseMatthewsDocList = new ArrayList<Document>();
+		
 		List<Document> firearmPurchaseProhibitionDocList = new ArrayList<Document>();
 
 		List<Document> firearmPurchaseMatthewsProhibitionDocList = new ArrayList<Document>();
@@ -877,6 +881,12 @@ public abstract class AbstractSampleGenerator {
 			wildlifeLicenseDocList = wildlifeLicenseGenerator.generateWildlifeLicenseDetailSamples(sampleCount);
 		}
 
+		if("ALL".equals(type) || "PROFESSIONALLICENSE".equals(type)){
+			ProfessionalLicenseSampleGenerator professionalLicenseGenerator = new ProfessionalLicenseSampleGenerator();			
+			professionalLicenseDocList = professionalLicenseGenerator.generateProfessionalLicenseDetailSamples(sampleCount);
+		}
+		
+		
 		// if("ALL".equals(type) || "WILDLIFELICENSEMATTHEWS".equals(type)){
 		//	WildlifeLicenseSampleGenerator wildlifeLicenseMatthewsGenerator = new WildlifeLicenseMatthewsSampleGenerator();			
 		//	wildlifeLicenseMatthewsDocList = wildlifeLicenseMatthewsGenerator.generateWildlifeLicenseDetailSamples(sampleCount);
@@ -909,6 +919,8 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(vehicleCrashMatthewsDocList);
 		allSamples.addAll(wildlifeLicenseDocList);
 		allSamples.addAll(wildlifeLicenseMatthewsDocList);
+		allSamples.addAll(professionalLicenseDocList);
+		allSamples.addAll(professionalLicenseMatthewsDocList);
 		allSamples.addAll(firearmPurchaseProhibitionDocList);
 		allSamples.addAll(firearmPurchaseMatthewsProhibitionDocList);
 

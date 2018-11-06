@@ -95,6 +95,12 @@ public class QueryTest extends AbstractStaticMockTest {
     }
     
     @Test
+    public void testProfessionalLicensePersonQuery() throws ParserConfigurationException, Exception{    	
+    	doPersonTestQuery("sample-ProfessionalLicense.xml", StaticMockQuery.PROFESSIONAL_LICENSE_QUERY_SYSTEM_ID, "rlq-res-doc:RegulatoryLicenseQueryResults");    	
+    }
+    
+    
+    @Test
     public void testJuvenileHistoryQueries() throws Exception {
     	Document queryRequestMessage = buildPersonQueryRequestMessage(StaticMockQuery.JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "sample-108040379083497483.xml");
     	//XmlUtils.printNode(queryRequestMessage);

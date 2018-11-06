@@ -70,6 +70,8 @@ public class CriminalHistoryRequestProcessor extends RequestResponseProcessor im
 		//POJO to XML Request
 		String criminalHistoryRequestPayload = RequestMessageBuilderUtilities.createPersonQueryRequest(criminalHistoryRequest);
 		
+		log.info("criminalHistoryRequestPayload: " + criminalHistoryRequestPayload);
+		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 		
