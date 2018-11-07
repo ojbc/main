@@ -200,10 +200,15 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 				"submsg-ext:CriminalSubscriptionReasonCode | submsg-ext:CivilSubscriptionReasonCode  ");								
 
 	
-		Element subscriptionIdentification = 
-				XmlUtils.insertElementBefore(parentNode, reasonCodeNode, NS_SUB_MSG_EXT, "SubscriptionIdentification");
+		String subscriptionIdFromMessage = 
+				XmlUtils.xPathStringSearch(parentNode, "submsg-ext:SubscriptionIdentification/nc:IdentificationID");
 		
-		XmlUtils.appendTextElement(subscriptionIdentification, NS_NC, "IdentificationID", subscriptionId.toString());
+		if (StringUtils.isBlank(subscriptionIdFromMessage)){
+			Element subscriptionIdentification = 
+					XmlUtils.insertElementBefore(parentNode, reasonCodeNode, NS_SUB_MSG_EXT, "SubscriptionIdentification");
+			
+			XmlUtils.appendTextElement(subscriptionIdentification, NS_NC, "IdentificationID", subscriptionId.toString());
+		}
 	}
 
 	/**
