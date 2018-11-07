@@ -1165,4 +1165,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="AllButSuspendedTermDuration" type="niem-xs:duration" substitutionGroup="j:TermAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A specific range or duration of a suspended term.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
