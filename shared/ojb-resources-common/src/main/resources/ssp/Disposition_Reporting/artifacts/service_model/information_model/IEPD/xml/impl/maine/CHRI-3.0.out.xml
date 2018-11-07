@@ -231,7 +231,7 @@
                <nc:ActivityName>Imprisonment</nc:ActivityName>
                <j:TermDuration>P0Y9M0DT0H</j:TermDuration>
                <j:TermLifeIndicator>false</j:TermLifeIndicator>
-               <ext:AllButSuspendedTermDuration>P0Y0M0DT0H</ext:AllButSuspendedTermDuration>
+               <ext:SentenceSuspendedTimeRemainder>ALL BUT 0 years 0 months 0 days 0 hours</ext:SentenceSuspendedTimeRemainder>
                <ext:TermEnteredDate>
                   <nc:Date>1970-01-01</nc:Date>
                </ext:TermEnteredDate>
