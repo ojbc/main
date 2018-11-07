@@ -113,7 +113,7 @@
 			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:LatestSubsequentResultDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td align="right" width="150px">
+			<td align="right">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
@@ -165,12 +165,23 @@
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
 		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
 		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
 		<xsl:variable name="hasFbiSubscription">
 			<xsl:choose>
 				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State/FBI)'">true</xsl:when>
 				<xsl:otherwise>false</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		
+		<xsl:if test="$hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-rss fa-lg"/>
+			</a>
+		</xsl:if>
+		
 		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
 			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
 				<xsl:attribute name="id">
