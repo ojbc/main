@@ -852,7 +852,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SentenceSuspendedTimeRemainder" type="nc:TextType">
+	<xsd:element name="SentenceSuspendedTimeRemainder" type="nc:TextType" substitutionGroup="j:TermAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>All but suspended time remaining on sentence.
 			</xsd:documentation>
@@ -1163,11 +1163,6 @@
 		<xsd:annotation>
 			<xsd:documentation>A relationship between a court event and a charge sentence..
 			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="AllButSuspendedTermDuration" type="niem-xs:duration" substitutionGroup="j:TermAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A specific range or duration of a suspended term.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
