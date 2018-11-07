@@ -40,6 +40,7 @@ import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
@@ -80,6 +81,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import com.google.common.base.Objects;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
@@ -699,17 +702,32 @@ public class RapbackController {
 		subscription.setStateId(XmlUtils.xPathStringSearch(identifiedPerson, "jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
 				+ "[oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID"));
 		
-		setStartDateAndEndDate(subscription);
 		
 		String orgnizationRefId = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationRequestingOrganization/@s30:ref");
 		
 		subscription.setEmailList(Arrays.asList(civilSubscriptionPlaceholderEmail));
 		setSubscripitonTriggeringEvents(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
-		subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
 		String reasonCode = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:CivilIdentificationReasonCode");
 		subscription.setSubscriptionPurpose(reasonCode);
-		
+
+		String status = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationResultStatusCode");
+		if (Objects.equal(status, "Subscribed(State)")){
+			Node subscriptionNode = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:Subscription");
+			String subscriptionId = XmlUtils.xPathStringSearch(subscriptionNode, "oirs-res-ext:SubscriptionIdentification/nc30:IdentificationID");
+			subscription.setSystemId(subscriptionId);
+			String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
+			subscription.setTopic(topic);
+			
+			String startDate = XmlUtils.xPathStringSearch(subscriptionNode, "nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
+			subscription.setSubscriptionStartDate(OJBCDateUtils.toDate(LocalDate.parse(startDate)));
+			String endDate = XmlUtils.xPathStringSearch(subscriptionNode, "nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
+			subscription.setSubscriptionEndDate(OJBCDateUtils.toDate(LocalDate.parse(endDate)));
+		}
+		else{
+			setStartDateAndEndDate(subscription);
+			subscription.setTopic(RAPBACK_TOPIC_SUB_TYPE);
+		}
 		return subscription;
 	}
 
