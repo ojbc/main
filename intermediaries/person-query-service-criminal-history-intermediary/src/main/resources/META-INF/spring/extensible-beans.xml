@@ -85,12 +85,16 @@
 				<property name="federatedQueryEndpointMap">
 					<util:map >
 						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History" value="personQueryRequestCriminalHistoryServiceAdapterEndpoint" />
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History" value="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" />
 					</util:map>	
 				</property>
 
 				<property name="adapterURItoAddressMap">
 					<util:map >
 						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History" value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
+						
+						<!-- TODO: update static mock to provide a system to system endpoint -->
+						<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/SystemToSytem/1.0}Person-Query-Service-Criminal-History" value="${federatedQuery.criminalHistory.personQueryCriminalHistoryEndpoint}" />
 					</util:map>	
 				</property>
 		  	</bean>
