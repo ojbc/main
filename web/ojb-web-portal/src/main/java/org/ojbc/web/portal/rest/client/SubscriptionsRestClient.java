@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -43,7 +44,6 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class SubscriptionsRestClient {
 
-	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
 
 	@Autowired(required=false)
@@ -100,6 +100,18 @@ public class SubscriptionsRestClient {
 		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
 
 		ResponseEntity<List<FederalRapbackNotification>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FederalRapbackNotification>>() {});
+		
+		return response.getBody();
+	}
+	
+	public List<NotificationSent> getNotificationsSent(QueryRequestByDateRange queryRequestByDateRange){
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveNotificationsSent";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<QueryRequestByDateRange> entity = new HttpEntity<QueryRequestByDateRange>(queryRequestByDateRange, headers);
+		
+		ResponseEntity<List<NotificationSent>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<NotificationSent>>() {});
 		
 		return response.getBody();
 	}
