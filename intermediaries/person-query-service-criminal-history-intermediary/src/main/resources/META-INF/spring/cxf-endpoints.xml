@@ -59,6 +59,23 @@
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
+    
+    <!-- Criminal History Request Service,  hosted by OJB, No SAML token -->
+    <cxf:cxfEndpoint 
+        id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryService"
+        address="${federatedQuery.criminalHistory.personQuerySystemsToSystemIntermediaryEndpoint}"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
+        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
+    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>  
+    
 	  
     <!-- Criminal History handler, hosted by broker, called by adapter, address is static  --> 
     <cxf:cxfEndpoint 
@@ -79,6 +96,21 @@
        </policy:policies>
     </cxf:features>
    </cxf:cxfEndpoint>      
+    
+    <!-- Criminal History Request Service,  hosted by adapter, called by broker, address set dynamically, No SAML token -->
+    <cxf:cxfEndpoint 
+        id="personQueryRequestCriminalHistorySystemToSystemAdapterService"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
+        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
+    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>    
 
                         
     <!-- Criminal History Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
