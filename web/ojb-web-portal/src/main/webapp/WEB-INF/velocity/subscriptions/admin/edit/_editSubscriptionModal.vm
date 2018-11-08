@@ -202,7 +202,7 @@
 		
 		// redisplay subscription results having the new subscription 
 		if ('$editSourcePage' === 'RBN'){
-			$.get("#springUrl('/subscriptions/admin/federalRapbackNotifications')", function(data) {	
+			$.get("#springUrl('/subscriptions/admin/notifications')", function(data) {	
 				$("#subsAdminContent").html(data);
 			}).fail(ojbc.displayFailMessage);
 		}

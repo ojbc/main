@@ -27,9 +27,9 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -72,6 +72,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
+	
+	@Value("#{propertySplitter.map('${notificationSystemNameMap}', '^')}")
+	Map<String, String> notificationSystemNameMap;
 	
     @RequestMapping("landingPage")
     public String admingDefaultSearch(HttpServletRequest request,	        
@@ -247,8 +250,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	    return "subscriptions/admin/_federalRapbackSubscriptionErrors";
 	}
     
-    @RequestMapping("federalRapbackNotifications")
-    public String getFederalRapbackNotifications(HttpServletRequest request,	        
+    @RequestMapping("notifications")
+    public String getNotifications(HttpServletRequest request,	        
     		@ModelAttribute("rapbackNotificationDateRange") @Valid QueryRequestByDateRange rapbackNotificationDateRange,
     		BindingResult errors,
     		Map<String, Object> model){
@@ -258,9 +261,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			return "subscriptions/admin/_notificationsSearchForm";
 		}
 		
-		List<FederalRapbackNotification> federalRapbackNotifications = subscriptionsRestClient.getRapbackNotifications(rapbackNotificationDateRange );
-    	model.put("federalRapbackNotifications", federalRapbackNotifications);
-    	return "subscriptions/admin/_federalRapbackNotifications";
+		List<NotificationSent> notifications = subscriptionsRestClient.getNotificationsSent(rapbackNotificationDateRange );
+    	model.put("notifications", notifications);
+    	return "subscriptions/admin/_rapbackNotifications";
     }
     
 	@InitBinder("rapbackNotificationDateRange")
@@ -304,6 +307,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		Map<String, String> agencyMap = new LinkedHashMap<>();
 		agencies.forEach(entry -> agencyMap.put(entry.getAgencyOri(),entry.getAgencyName() ));
 		model.addAttribute("agencyMap", agencyMap);
+		model.addAttribute("notificationSystemNameMap", notificationSystemNameMap); 
 		
 		model.addAttribute("validationThreshold", validationThreshold);
 	}

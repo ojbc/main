@@ -53,7 +53,7 @@
 	    });
 	    
     	$('#notifications').click (function() { 
- 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/federalRapbackNotifications')")
+ 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notifications')")
 	    });
 	    
 	    $("#searchResultsTable").DataTable({

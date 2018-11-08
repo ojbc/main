@@ -36,7 +36,7 @@
     });
     
  	$('#searchResultsTable').on('click', 'tbody tr', function(){
- 		var subscriptionId = $(this).find("td").first().text();
+ 		var subscriptionId = $(this).attr("title");
  		var editMvcUrl = "#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=RBN";
  		
 		var dlgHeight = $(window).height() * .9;
@@ -71,25 +71,27 @@
 	<span id="subscriptionButtons">
 		<a id="searchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>SEARCH</a>
 	</span>    				
-	<h4>Federal Rapback Notifications</h4>
+	<h4>Notifications</h4>
 	<table class="searchResultsTable display" id="searchResultsTable">
 		<thead>
 			<tr>
-				<th>STATE SUBSCRIPTION ID</th>
-				<th>TRANSACTION TYPE</th>
-				<th>EVENT TEXT</th>
+				<th>SUBJECT</th>
 				<th>TRIGGERING EVENTS</th>
+				<th>OWNER EMAIL</th>
+				<th>OWNER AGENCY</th>
+				<th>TYPE</th>
 				<th>DATETIME RECEIVED</th>
 			</tr>
 		</thead>
 		<tbody>
-	        #foreach($federalRapbackNotification in $federalRapbackNotifications)
-		        <tr>
-		        	<td>$!federalRapbackNotification.stateSubscriptionId</td>
-		        	<td>$!federalRapbackNotification.transactionType</td>
-		        	<td>$!federalRapbackNotification.rapBackEventText</td>
-		        	<td>$!federalRapbackNotification.triggeringEventsString</td>
-		        	<td>$!federalRapbackNotification.notificationRecievedTimestamp.format($dateTimeformatter)</td>
+	        #foreach($notification in $notifications)
+		        <tr title='$!notification.subscriptionIdentifier'>
+		        	<td>$!notification.subscriptionSubject</td>
+		        	<td>$!notification.triggeringEventsString</td>
+		        	<td>$!notification.subscriptionOwnerEmailAddress</td>
+		        	<td>$!notification.subscriptionOwnerAgency</td>
+		        	<td>$!notificationSystemNameMap.get($!notification.notifyingSystemName)</td>
+		        	<td>$!notification.notificationSentTimestamp.format($dateTimeformatter)</td>
 	        	</tr>
 	        #end
 		</tbody>

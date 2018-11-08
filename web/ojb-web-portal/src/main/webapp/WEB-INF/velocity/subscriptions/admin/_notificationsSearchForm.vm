@@ -33,7 +33,7 @@
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#notificationsSearchForm').serialize();
 	        	console.log(formData);
-	  	       	xhr = $.post("#springUrl('/subscriptions/admin/federalRapbackNotifications')",formData, function(data) {
+	  	       	xhr = $.post("#springUrl('/subscriptions/admin/notifications')",formData, function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
