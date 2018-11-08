@@ -39,6 +39,7 @@
 		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-schema.sql"/>
 		<jdbc:script location="classpath:sql-enhanced-auditlog/load-code-tables.sql"/>
 		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-test-data.sql"/>
+		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-notifications-sent-test-data.sql"/>
 	</jdbc:initialize-database>
 	
 </beans>
