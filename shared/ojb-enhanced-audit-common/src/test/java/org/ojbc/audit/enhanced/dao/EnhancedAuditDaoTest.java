@@ -604,7 +604,7 @@ public class EnhancedAuditDaoTest {
 		
 		assertEquals(new Integer(3), notificationSent.getNotificationSentId());
 		assertEquals("{http://ojbc.org/wsn/topics}:person/rapback", notificationSent.getTopic());
-		assertEquals("80", notificationSent.getSubscriptionIdentifier());
+		assertEquals("62725", notificationSent.getSubscriptionIdentifier());
 		assertEquals("test3@email.com", notificationSent.getSubscriptionOwnerEmailAddress());
 		assertEquals("STATE:IDP:AGENCY:USER:test3email.com", notificationSent.getSubscriptionOwner());
 		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationSent.getNotifyingSystemName());
