@@ -570,7 +570,7 @@
 		<entry key="Vehicle Crash" value="vehicleCrashResult.xsl" />
 		<entry key="Firearm Purchase Prohibition" value="firearm-purchase-prohibition.xsl" />
 		<entry key="Wildlife Licensing" value="wildlifeLicensingResult.xsl" />
-		<entry key="Professional Licensing" value="professionalLicensingResult.xsl" />
+		<entry key="Professional Licensing" value="regulatoryLicenseResult.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
