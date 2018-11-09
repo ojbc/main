@@ -291,6 +291,54 @@
 		    });   		
     	});
     	
+    	$('#searchResultsTable').on('click', 'a.viewRapsheetConfirmation',function() {
+    		var recordStatus = $(this).parent().prev().text();
+    		var viewRapsheetButton = $(this).next();
+    		var subscriptionId = $(this).attr("id");
+    		var row = $(this).parent().parent();
+		    $( "#dialog-confirm-authorization" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      width:400,
+			      height:150,
+			      modal: true,
+			      buttons: {
+			        "Yes": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        	
+			        	viewRapsheetButton.click();
+				        $( this ).dialog( "close" );
+			        },
+			        "No": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
+		            		 $( this ).dialog( "close" );
+		            	}
+		            	else{
+						    $( "#dialog-confirm-unsubscribe" ).dialog({
+						    	 position: { my: "center center", at: "center center", of: row },
+							     resizable: true,
+							     width:500,
+							     height:150,
+							     modal: true,
+							     buttons: {
+							         "Continue": function() {
+							              unsubscribe(subscriptionId);
+								          $( this ).dialog( "close" );
+							         },
+		            				 "Cancel" : function(){
+		            					  $( this ).dialog( "close" );
+		            				 }
+		            			 }
+							});		            		
+	            			$( this ).dialog( "close" );
+		            	}
+			        }
+			     }
+		    });   		
+    	});
+    	
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
             var url = this.href;
