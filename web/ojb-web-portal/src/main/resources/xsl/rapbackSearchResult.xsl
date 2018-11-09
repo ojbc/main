@@ -196,8 +196,14 @@
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
+		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="View Rapsheet">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-eye fa-lg"></i>
+		</a>
 		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiSubscription), '/')}" 
-					class="blueIcon getStateRapsheet" style="margin-right:3px" title="View Rapsheet"><i class="fa fa-eye fa-lg"></i></a>
+					class="blueIcon getStateRapsheet hidden"></a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
