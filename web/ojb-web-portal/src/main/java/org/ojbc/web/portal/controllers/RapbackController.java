@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -41,6 +42,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
@@ -89,7 +91,7 @@ import com.google.common.base.Objects;
 @SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
 	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
 	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap", "userLogonInfo", 
-	"rapsheetQueryRequest", "detailsRequest", "identificationResultsQueryResponse"})
+	"rapsheetQueryRequest", "detailsRequest", "identificationResultsQueryResponse", "fbiRapsheets"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -155,6 +157,10 @@ public class RapbackController {
 			civilIdentificationReasonCodeMap.put(civillReasonCode.name(), civillReasonCode.getDescription());
 		}
 		
+    	if (! model.containsAttribute("fbiRapsheets")){
+    		model.addAttribute("fbiRapsheets", new HashMap<String, String>());
+    	}
+
 		criminalIdentificationStatusCodeMap.put(IdentificationTransactionState.Available_for_Subscription.toString(), "Not archived");
 		criminalIdentificationStatusCodeMap.put(IdentificationTransactionState.Archived.toString(), "Archived");
 		
@@ -470,7 +476,18 @@ public class RapbackController {
 			Map<String, Object> model) {
 		
 		try {
-			String rapsheet = processFbiRapsheetRequest(request, transactionNumber, model);
+			
+			@SuppressWarnings("unchecked")
+			Map<String, String> fbiRapsheets = (Map<String, String>) model.get("fbiRapsheets"); 
+			
+			String rapsheet = fbiRapsheets.get(transactionNumber); 
+			
+			if (StringUtils.isBlank(rapsheet)){
+				rapsheet = processFbiRapsheetRequest(request, transactionNumber, model);
+				fbiRapsheets.put(transactionNumber, rapsheet);
+				model.put("fbiRapsheets", fbiRapsheets);
+			}
+			
 			return rapsheet;
 		} catch (Exception ex) {
 			ex.printStackTrace();
