@@ -45,19 +45,37 @@
 		<endpoint id="searchRequestFederatedServiceEndpoint"
 			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
 
+		<endpoint id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint"
+			uri="cxf:bean:personQueryRequestCriminalHistorySystemsToSystemIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
+
 		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
 			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryRequestCriminalHistoryServiceAdapterEndpoint" 
 	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>
+
+	    <endpoint id="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" 
+	    	uri="cxf:bean:personQueryRequestCriminalHistorySystemToSystemAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>
 	
 		<endpoint id="presentPersonQueryResultsCriminalHistoryServiceEndpoint" 
 			uri="cxf:bean:presentPersonQueryResultsCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>                        
+
+		<camel:route>
+			<camel:from uri="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint" />
+			
+			<camel:to uri="direct:processWsMessage"/>
+		</camel:route>
 
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
+			
+			<camel:to uri="direct:processWsMessage"/>			
+		</camel:route>			
+
+		<camel:route>
+			<camel:from uri="direct:processWsMessage" />
 			
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
