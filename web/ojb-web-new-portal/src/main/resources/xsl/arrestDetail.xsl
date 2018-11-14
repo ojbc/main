@@ -115,6 +115,7 @@
                <col/>
                <col/>
                <col/>
+               <col/>
 			        <thead>
 			          <tr>
                    <th rowspan="2">ACTION</th>
@@ -130,6 +131,7 @@
                    <th rowspan="2">RESTITUTION</th>
                    <th rowspan="2">ALTERNATE SENTENCE</th>
                    <th rowspan="2">REASON FOR DISMISSAL</th>
+                   <th rowspan="2">PROVISION</th>
                                      
 			          </tr>
 			          <tr>
@@ -238,6 +240,9 @@
 		  </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>
+		  </td>
+		  <td>
+		    <!-- TODO Put provision description here -->
 		  </td>
 		</tr>
 	   

@@ -58,11 +58,27 @@ public class ArrestController {
 		model.addAttribute("disposition", new Disposition());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
-		model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
-		model.addAttribute("muniAmendedChargeCodeMapping", codeTableService.getMuniAmendedChargeCodeMap());
-		model.addAttribute("muniFiledChargeCodeMapping", codeTableService.getMuniFiledChargeCodeMap());
-		model.addAttribute("muniAlternateSentenceMapping", codeTableService.getMuniAlternateSentenceMap());
-		model.addAttribute("muniReasonsForDismissalMapping", codeTableService.getMuniReasonsForDismissalMap());
+		if (!model.containsAttribute("dispoCodeMapping")) {
+			model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
+		}
+		
+		if (!model.containsAttribute("muniAmendedChargeCodeMapping")) {
+			model.addAttribute("muniAmendedChargeCodeMapping", codeTableService.getMuniAmendedChargeCodeMap());
+		}
+		
+		if (!model.containsAttribute("muniFiledChargeCodeMapping")) {
+			model.addAttribute("muniFiledChargeCodeMapping", codeTableService.getMuniFiledChargeCodeMap());
+		}
+		
+		if (!model.containsAttribute("muniAlternateSentenceMapping")) {
+			model.addAttribute("muniAlternateSentenceMapping", codeTableService.getMuniAlternateSentenceMap());
+		}
+		
+		if (!model.containsAttribute("muniReasonsForDismissalMapping")) {
+			model.addAttribute("muniReasonsForDismissalMapping", codeTableService.getMuniReasonsForDismissalMap());
+		}
+		
+		model.addAttribute("provisionCodeMapping", appProperties.getProvisionCodeMapping());
     }
     
 	@InitBinder("disposition")

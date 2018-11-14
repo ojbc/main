@@ -32,6 +32,7 @@ public class AppProperties {
 	private Map<String, String> muniAmendedChargeCodeMapping = new HashMap<>();
 	private Map<String, String> muniAlternateSentenceMapping = new HashMap<>();
 	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
+	private Map<String, String> provisionCodeMapping = new HashMap<>();
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
@@ -120,5 +121,13 @@ public class AppProperties {
 
 	public void setDispoCodesRequiringAmendedCharge(List<String> dispoCodesRequiringAmendedCharge) {
 		this.dispoCodesRequiringAmendedCharge = dispoCodesRequiringAmendedCharge;
+	}
+
+	public Map<String, String> getProvisionCodeMapping() {
+		return provisionCodeMapping;
+	}
+
+	public void setProvisionCodeMapping(Map<String, String> provisionCodeMapping) {
+		this.provisionCodeMapping = provisionCodeMapping;
 	}
 }

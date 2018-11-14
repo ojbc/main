@@ -79,6 +79,7 @@ public class Disposition {
     private String alternateSentenceDescripiton; 
     private String reasonForDismissal;
     private String reasonForDismissalDescripiton;
+    private String provisionCode;
     
     public boolean containsSentenceInfo() {
     	return (Objects.nonNull(jailYears) && jailYears > 0) 
@@ -239,5 +240,11 @@ public class Disposition {
 	}
 	public void setReasonForDismissalDescripiton(String reasonForDismissalDescripiton) {
 		this.reasonForDismissalDescripiton = reasonForDismissalDescripiton;
+	}
+	public String getProvisionCode() {
+		return provisionCode;
+	}
+	public void setProvisionCode(String provisionCode) {
+		this.provisionCode = provisionCode;
 	}
 }    

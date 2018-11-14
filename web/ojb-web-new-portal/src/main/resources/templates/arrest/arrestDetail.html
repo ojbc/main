@@ -157,6 +157,7 @@
                     $("#restitution").val('');
                     $("#alternateSentence").val('');
                     $("#reasonForDismissal").val('');
+                    $("#provisionCode").val('');
 
                     console.log($("#dispositionForm").serialize());
                     xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
@@ -189,6 +190,7 @@
                 	 $("#restitution").val(rowData[14].split('.', 1));
                 	 $("#alternateSentence").val(rowData[15]);
                 	 $("#reasonForDismissal").val(rowData[16]);
+                	 $("#provisionCode").val(rowData[16]);
                 	 
                    xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
                       $('.modal-body').html(data);
