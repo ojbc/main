@@ -57,6 +57,7 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D96487</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
@@ -79,6 +80,7 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1234</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
