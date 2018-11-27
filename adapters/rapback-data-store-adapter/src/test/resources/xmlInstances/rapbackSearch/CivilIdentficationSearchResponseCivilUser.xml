@@ -51,27 +51,8 @@
             <nc30:IdentificationID>0400024</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed(State)</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
-      <oirs-res-ext:Subscription>
-         <nc30:ActivityDateRange>
-            <nc30:StartDate>
-               <nc30:Date>2014-10-15</nc30:Date>
-            </nc30:StartDate>
-            <nc30:EndDate>
-               <nc30:Date>2015-10-15</nc30:Date>
-            </nc30:EndDate>
-         </nc30:ActivityDateRange>
-         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/rapback</wsn-br:Topic>
-         <oirs-res-ext:SubscriptionValidation>
-            <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2018-09-13</nc30:Date>
-            </oirs-res-ext:SubscriptionValidationDueDate>
-         </oirs-res-ext:SubscriptionValidation>
-         <oirs-res-ext:SubscriptionIdentification>
-            <nc30:IdentificationID>62724</nc30:IdentificationID>
-         </oirs-res-ext:SubscriptionIdentification>
-      </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
