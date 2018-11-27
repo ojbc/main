@@ -21,7 +21,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cjis.gov/CJISProsDocument CJISProsDocument.xsd">
 	<j:Case>
 		<!-- EventDescription -->
-		<j:ActivityTypeText>M/Reconsideration</j:ActivityTypeText>
+		<j:ActivityTypeText>Sentencing</j:ActivityTypeText>
 		<j:ActivityPrimaryOrganization>
 			<j:OrganizationORIID>
 				<!-- Insert HPA ORI Here ? -->
@@ -29,15 +29,16 @@
 			</j:OrganizationORIID>
 		</j:ActivityPrimaryOrganization>
 		<j:CaseTrackingID>
-			<!-- FileNumber -->
-			<j:ID>003001455</j:ID>
+			<!-- CauseNumber -->
+			<j:ID>567890</j:ID>
 		</j:CaseTrackingID>
 		<j:CaseCharge>
 			<j:ChargeID j:id="Chg1">
-				<!-- LeadCharge -->
-				<j:ID>Assault 3°</j:ID>
+				<!-- CaseLEReportNumber -->
+				<j:ID>AC45567</j:ID>
 			</j:ChargeID>
 			<j:ChargeClassification>
+				<j:ChargeQualifierText>lead</j:ChargeQualifierText>
 				<!-- Severity -->
 				<j:ChargeSeverityText>M</j:ChargeSeverityText>
 			</j:ChargeClassification>
@@ -45,13 +46,15 @@
 				<!-- LeadChargeDispositionDate -->
 				<j:ChargeDispositionDate>2018-06-17</j:ChargeDispositionDate>
 				<!-- DispositionCode -->
-				<j:ChargeDispositionDescriptionText>DPNP</j:ChargeDispositionDescriptionText>
+				<j:ChargeDispositionDescriptionText>CWD</j:ChargeDispositionDescriptionText>
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
 				<j:StatuteCodeSectionID>
 					<!-- LeadChargeStatute -->
 					<j:ID>707-0712</j:ID>
 				</j:StatuteCodeSectionID>
+				<!-- LeadCharge -->
+				<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
 			</j:ChargeStatute>
 			<j:ChargeSubject>
 				<!-- NAME -->
@@ -69,6 +72,25 @@
 					</j:PersonStateID>
 				</j:PersonAssignedIDDetails>
 			</j:ChargeSubject>
+		</j:CaseCharge>
+		<j:CaseCharge>
+			<j:ChargeClassification>
+				<j:ChargeQualifierText>add-on</j:ChargeQualifierText>
+			</j:ChargeClassification>
+			<j:ChargeDisposition>
+				<!-- ChargeDispositionDate -->
+				<j:ChargeDispositionDate>2018-07-09</j:ChargeDispositionDate>
+				<!-- ChargeDispositionCode -->
+				<j:ChargeDispositionDescriptionText>IRM</j:ChargeDispositionDescriptionText>
+			</j:ChargeDisposition>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionID>
+					<!-- ChargeCode -->
+					<j:ID>709-0906</j:ID>
+				</j:StatuteCodeSectionID>
+				<!-- ChargeDescription -->
+				<j:StatuteDescriptionText>Abuse Family/Household Member</j:StatuteDescriptionText>
+			</j:ChargeStatute>
 		</j:CaseCharge>
 	</j:Case>
 </doc:CJISProsDocument>
