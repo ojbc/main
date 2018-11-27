@@ -137,7 +137,8 @@ public class AbstractSearchQueryProcessor {
 		else {
 			
 			Subscription subscription = identificationTransaction.getSubscription(); 
-			if (subscription != null && subscription.getActive() == Boolean.TRUE){
+			if (subscription != null && subscription.getActive() == Boolean.TRUE 
+					&& (subscription.getEndDate() == null || subscription.getEndDate().isAfterNow())){
 				
 				if (StringUtils.isNotBlank(identificationTransaction.getFbiSubscriptionId())){
 					return IdentificationTransactionState.Subscribed_State_FBI;
