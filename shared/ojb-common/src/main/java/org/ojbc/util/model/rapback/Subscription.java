@@ -343,4 +343,12 @@ public class Subscription {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
+	@JsonIgnore
+	public boolean isExpired(){
+		return endDate != null && gracePeriod != null && gracePeriod.isBeforeNow();
+	}
+	@JsonIgnore
+	public boolean isNotExpired(){
+		return !isExpired();
+	}
 }

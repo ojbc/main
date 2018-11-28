@@ -1107,7 +1107,12 @@ public class SubscriptionSearchQueryDAO {
         List<Subscription> ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
         log.info("Found " + ret.size() + " Subscriptions");
-        return ret.stream().limit(maxSubscriptionsCount).collect(Collectors.toList());
+        
+        List<Subscription> resultsWithoutExpired = ret.stream()
+        		.filter(Subscription::isNotExpired)
+        		.collect(Collectors.toList()); 
+        log.info("Found " + resultsWithoutExpired.size() + " Not expired Subscriptions");
+        return resultsWithoutExpired.stream().limit(maxSubscriptionsCount).collect(Collectors.toList());
 
 	}
 
