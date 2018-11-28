@@ -129,7 +129,7 @@
                         <nc:Date>2010-02-24</nc:Date>
                     </ebts:RecordRapBackExpirationDate>
                     <!-- RBOO 2.2063, Optional-->
-                    <ebts:RecordRapBackInStateOptOutIndicator>false</ebts:RecordRapBackInStateOptOutIndicator>
+                    <ebts:RecordRapBackInStateOptOutIndicator>N</ebts:RecordRapBackInStateOptOutIndicator>
                     <!-- RBR 2.2020 (0..9) -->
                     <ansi-nist:RecordForwardOrganizations>
                         <nc:OrganizationIdentification>
