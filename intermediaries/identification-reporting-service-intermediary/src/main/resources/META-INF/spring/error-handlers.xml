@@ -31,18 +31,18 @@
        ">
 
 	<camel:endpoint id="deadLetterDirIdentifcationRecording"
-		uri="file:///${identificationReportingService.intermediaryFailed}/deadLetter/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+		uri="file:///{{identificationReportingService.intermediaryFailed}}/deadLetter/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
 	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
 	<camel:errorHandler id="identifcationReportErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirIdentifcationRecording">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	    <camel:redeliveryPolicy maximumRedeliveries="{{maximumRedeliveries}}" redeliveryDelay="{{redeliveryDelay}}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
 
 	<camel:errorHandler id="identifcationReportResponseErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirIdentifcationRecordingResponse">
-	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	    <camel:redeliveryPolicy maximumRedeliveries="{{maximumRedeliveries}}" redeliveryDelay="{{redeliveryDelay}}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
 	<camel:endpoint id="deadLetterDirIdentifcationRecordingResponse"
-		uri="file:///${identificationReportingService.intermediaryFailed}/deadLetter/identificationResponse?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+		uri="file:///{{identificationReportingService.intermediaryFailed}}/deadLetter/identificationResponse?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
 
 </beans>
