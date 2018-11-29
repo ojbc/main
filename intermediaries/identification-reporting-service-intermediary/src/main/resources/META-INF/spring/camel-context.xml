@@ -45,19 +45,19 @@
     <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-reporting-service-intermediary">
         
         <camel:endpoint id="identificationReportingServiceEndpoint"
-            uri="cxf:bean:IdentificationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
+            uri="cxf:bean:IdentificationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
         
         <camel:endpoint id="identificationRecordingServiceEndpoint"
-            uri="cxf:bean:IdentificationRecordingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
+            uri="cxf:bean:IdentificationRecordingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
         
         <camel:endpoint id="identificationReportingResponseServiceEndpoint"
-            uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
+            uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
         
         <camel:endpoint id="identificationReportingResponseRecipientEndpoint"
-            uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}&amp;synchronous=true" />
+            uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}&amp;synchronous=true" />
         
         <camel:endpoint id="arrestReportingServiceEndpoint" 
-			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
+			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
 		
         
         <!-- Identification Reporting Service Handler -->
