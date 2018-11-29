@@ -45,7 +45,7 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<ojb-enhanced-audit-common-version>1.0.0</ojb-enhanced-audit-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.2,)</ojb-enhanced-audit-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
 		<junit-version>4.8.1</junit-version>

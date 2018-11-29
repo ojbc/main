@@ -355,7 +355,7 @@ public class EbtsTransformTest {
 	
 		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
 		xsltParamMap.put("rapBackNotificatonFormat", 3);
-		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
+		xsltParamMap.put("rapBackInStateOptOutIndicator", "Y");
 		// xsltParamMap.put("rapBackTriggeringEvent", 1);		
 		xsltParamMap.put("destinationOrganizationORI", "WVIAFIS0Z");
 		xsltParamMap.put("originatorOrganizationORI", "HI002595Y");
