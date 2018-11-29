@@ -79,7 +79,7 @@
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
                <ebts:RecordRapBackAttentionText>Attention Text</ebts:RecordRapBackAttentionText>
                <ebts:RecordRapBackCategoryCode>I</ebts:RecordRapBackCategoryCode>
-               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator>Y</ebts:RecordRapBackInStateOptOutIndicator>
                <ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>

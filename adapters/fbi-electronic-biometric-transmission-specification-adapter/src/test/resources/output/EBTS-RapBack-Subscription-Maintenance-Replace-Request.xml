@@ -86,7 +86,7 @@
                <ebts:RecordRapBackExpirationDate>
                   <nc:Date>2015-04-01</nc:Date>
                </ebts:RecordRapBackExpirationDate>
-               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator>Y</ebts:RecordRapBackInStateOptOutIndicator>
                <ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
