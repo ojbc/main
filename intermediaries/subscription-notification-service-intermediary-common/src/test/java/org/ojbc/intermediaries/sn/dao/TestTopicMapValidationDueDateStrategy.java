@@ -29,8 +29,9 @@ import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
-
+@DirtiesContext
 public class TestTopicMapValidationDueDateStrategy {
     
     @Test

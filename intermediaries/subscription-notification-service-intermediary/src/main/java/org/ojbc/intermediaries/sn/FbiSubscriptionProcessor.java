@@ -202,7 +202,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			return validationDoc;
 		}
 		
-		Document subscriptionModifyDoc = fbiSubModDocBuilder.buildModifyMessageWithSubscripiton(subscription, validationDueDateString, validationDoc);
+		Document subscriptionModifyDoc = fbiSubModDocBuilder.buildModifyMessageWithSubscripiton(subscription, validationDueDateString);
 		
 		return subscriptionModifyDoc;
 		

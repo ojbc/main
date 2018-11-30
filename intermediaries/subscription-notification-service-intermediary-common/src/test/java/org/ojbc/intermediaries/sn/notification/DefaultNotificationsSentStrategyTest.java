@@ -21,7 +21,8 @@ import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 
 import org.junit.Test;
-
+import org.springframework.test.annotation.DirtiesContext;
+@DirtiesContext
 public class DefaultNotificationsSentStrategyTest {
 
 	@Test

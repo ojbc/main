@@ -32,7 +32,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationRequest;
-
+import org.springframework.test.annotation.DirtiesContext;
+@DirtiesContext
 public class TestOriBasedNotificationFilterStrategy{
 	
 	private OriBasedNotificationFilterStrategy oriBasedNotificationFilterStrategy;

@@ -29,11 +29,12 @@ import org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter.Em
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-
+@DirtiesContext
 public class VelocityTemplateEmailFormatterTest {
 
     private VelocityTemplateEmailFormatter formatter;

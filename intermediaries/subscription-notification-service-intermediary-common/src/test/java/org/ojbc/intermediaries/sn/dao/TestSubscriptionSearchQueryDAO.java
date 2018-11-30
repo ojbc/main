@@ -97,7 +97,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionSearchQueryDAO {
 
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory
 			.getLog(TestSubscriptionSearchQueryDAO.class);
 
@@ -198,10 +197,10 @@ public class TestSubscriptionSearchQueryDAO {
 	{
 		loadManualTestData();
 		
-		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("123456789");
+		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("1234567890");
 		assertEquals(new Integer(1), agencyPk);
 		
-		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "123456789");
+		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "1234567890");
 		
 		assertNotNull(subNumber);
 		
