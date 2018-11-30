@@ -23,6 +23,11 @@
 	xmlns:ctx="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -92,6 +97,10 @@
 
 					<camel:log message="Entering Unsubscription Secure Route"/>
 					
+					<camel:setHeader headerName="subscriptionId">
+						<camel:xpath resultType="java.lang.String">/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+					</camel:setHeader>
+					
 					<!--  Perform some generic message processing --> 
 					<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 					
@@ -112,7 +121,7 @@
 						</camel:doCatch>
 						<camel:doCatch>
 							<camel:exception>java.lang.Exception</camel:exception>
-							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR"/>
 							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
 						</camel:doCatch>
 					</camel:doTry>	
@@ -126,11 +135,39 @@
 					
 					<camel:log message="Entering validate route"/>	
 					
-					<camel:to uri="direct:logRoute"/>
+					<camel:setHeader headerName="subscriptionId">
+						<camel:xpath resultType="java.lang.String">//svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+					</camel:setHeader>
 					
-					<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>
+					<camel:log message="SubscriptionId is ${in.header.subscriptionId}"/>
+						
+					<camel:doTry>
 					
-					<camel:to uri="direct:logRoute"/>
+						<camel:setHeader headerName="subscription">
+							 <camel:method bean="subscriptionSearchQueryDAO" method="findSubscriptionWithFbiInfoBySubscriptionId" />   
+						</camel:setHeader>
+						<camel:setHeader headerName="validationDueDateString">
+							 <camel:method bean="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />   
+						</camel:setHeader>
+						<camel:log message="validationDueDateString is ${in.header.validationDueDateString}"/>
+						<camel:choice>
+							<camel:when>
+								<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
+							</camel:when>
+						</camel:choice>
+					
+						<camel:to uri="direct:logRoute"/>
+						
+						<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>
+						
+						<camel:to uri="direct:logRoute"/>
+						<camel:doCatch>
+							<camel:exception>java.lang.Exception</camel:exception>
+							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR"/>
+							<camel:to uri="bean:genericFaultProcessor?method=createFault"/>
+						</camel:doCatch>
+					</camel:doTry>
 					
 				</camel:when>
 				

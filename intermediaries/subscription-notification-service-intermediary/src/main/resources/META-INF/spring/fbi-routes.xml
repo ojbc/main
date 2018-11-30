@@ -80,6 +80,19 @@
 			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
 
 		</camel:route>		
+		<camel:route id="processFbiValidationUpdate">
+		
+			<from uri="direct:processFbiValidationUpdate"/>								
+			<to uri="bean:fbiSubscriptionProcessor?method=buildValidationModifyMessage"/>
+			
+			<camel:log message="\nCalling fbi ebts service to modify the FBI subscription from FBI... \n"/>
+			
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>Modify</constant></camel:setHeader>
+			
+			<camel:to uri="direct:sentToFbiEbtsAdapter" />														
+
+		</camel:route>		
 	</routeContext>
 		
 </beans>

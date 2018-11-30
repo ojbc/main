@@ -16,14 +16,13 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +32,6 @@ import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -46,61 +44,29 @@ public class SubscriptionValidationMessageProcessor {
 
 	private static final Log log = LogFactory.getLog( SubscriptionValidationMessageProcessor.class );
 	
-	private JdbcTemplate jdbcTemplate;
-	
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
 	private FaultMessageProcessor faultMessageProcessor = new FaultMessageProcessor();
 	
 	private ValidationDueDateStrategy validationDueDateStrategy;
 	
-	private static final String SUBSCRIPTION_VALIDATION_QUERY = "update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =? where id = ?";
-	
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-    
-
 	/**
 	 * This method accepts the exchange, attempts to validate the message and creates the appropriate response
 	 * 
 	 * @param exchange
 	 * @throws Exception
 	 */
-	public void validateSubscription(Exchange exchange) throws Exception 
+	public void validateSubscription(Exchange exchange, @Header("subscriptionId") Integer subscriptionId, 
+			@Header("validationDueDateString") String validationDueDateString) throws Exception 
 	{
-		Document subscriptionValidationRequestMessage = exchange.getIn().getBody(Document.class);
-		
-		String subscriptionID="";
-		
-		Subscription subscription = null;
-		
-		//Try to get the subscription ID.  If not found or not set, create a fault
-		try {
-			subscriptionID = returnSubscriptionIDFromSubscriptionValidationRequestMessage(subscriptionValidationRequestMessage);
-			List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription(subscriptionID);
-			subscription = subscriptions.get(0);
-		} catch (Exception e) {
-			log.error(e);
-			e.printStackTrace();
-			exchange.getIn().setHeader("subscriptionID", subscriptionID);
-			
-			faultMessageProcessor.createFault(exchange);
-			return;
-		}
-
-		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription.getSubscriptionOwner(), subscription.getTopic(), subscription.getSubscriptionCategoryCode(), subscription.getLastValidationDate().toLocalDate());
-		
-		String validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
-		
-		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {validationDueDateString, validationDueDateString, subscriptionID.trim()});
+		int rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscription(validationDueDateString, subscriptionId);
 		
 		//Send a good response back if a row has been updated
 		if (rowsUpdated == 1)
 		{	
 			Document returnDoc = createSubscriptionValidationResponseMessage(true);
 			
-			log.debug("Updated validation date for subscription id: " + subscriptionID);
+			log.debug("Updated validation date for subscription id: " + subscriptionId);
 			
 			exchange.getIn().setBody(returnDoc);
 		}
@@ -108,10 +74,18 @@ public class SubscriptionValidationMessageProcessor {
 		//Create an exception if no rows are updated
 		if (rowsUpdated == 0)
 		{	
-			exchange.getIn().setHeader("subscriptionID", subscriptionID);
 			faultMessageProcessor.createFault(exchange);
 		}
 
+	}
+
+
+	public String getValidationDueDateString(@Header("subscription") Subscription subscription) {
+		if (subscription == null) throw new IllegalArgumentException("Can't calculate the validation due date when subscription is not found.");
+		
+		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription.getSubscriptionOwner(), subscription.getTopic(), subscription.getSubscriptionCategoryCode(), subscription.getLastValidationDate().toLocalDate());
+		String validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		return validationDueDateString;
 	}
     
 	
@@ -195,8 +169,9 @@ public class SubscriptionValidationMessageProcessor {
 	}
 
 
-	public void setSubscriptionSearchQueryDAO(
-			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+	public void setSubscriptionSearchQueryDAO(SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
+
+
 }

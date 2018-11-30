@@ -135,6 +135,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	    	// The line below allows us to bypass CXF and send a message directly into the route
     	    	replaceFromWith("direct:unsubscriptionSecureEndpoint");
     	    	interceptSendToEndpoint("bean:subscriptionValidationMessageProcessor?method=validateSubscription").to("mock:subscriptionValidationMock");
+    	    	interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
     	    	interceptSendToEndpoint("direct:processUnsubscription").to("mock:direct:processUnsubscription").stop();
     	    }	
     	});
@@ -1011,7 +1012,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
 
-    	subscriptionValidationMock.expectedMessageCount(1);
+    	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
@@ -1062,7 +1063,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		Thread.sleep(3000);
 		
 		//Assert that the mock endpoint expectations are satisfied
-		subscriptionValidationMock.assertIsSatisfied();
+		subscriptionManagerServiceFaultMock.assertIsSatisfied();
 		
 		//TODO: We need to figure out how to intercept an endpoint AFTER it has processed an exchange
 		//In this case we intercept as follows:

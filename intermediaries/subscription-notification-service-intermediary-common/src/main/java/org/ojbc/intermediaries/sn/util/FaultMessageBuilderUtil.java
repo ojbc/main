@@ -187,7 +187,7 @@ public class FaultMessageBuilderUtil {
 		return sb.toString();
 	}
 
-	public static Document createUnableToValidateSubscriptionFault(@Header(value = "subscriptionID") String subscriptionID) throws Exception
+	public static Document createUnableToValidateSubscriptionFault(@Header(value = "subscriptionId") String subscriptionId) throws Exception
 	{
 			DateTime faultTime = new DateTime();
 		
@@ -204,12 +204,12 @@ public class FaultMessageBuilderUtil {
 
 	        Element subscriptionValidationFaultResponseMessageElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_FAULT_RESPONSE_EXCH, "SubscriptionValidationFaultResponseMessage");
 	        
-	        if (StringUtils.isNotBlank(subscriptionID))
+	        if (StringUtils.isNotBlank(subscriptionId))
 	        {	
 		        Element subscriptionIdentificationElement = XmlUtils.appendElement(subscriptionValidationFaultResponseMessageElement, OjbcNamespaceContext.NS_SUBSCRIPTION_FAULT_RESPONSE_EXT, "SubscriptionIdentification");
 		        
 		        Element identificationIDElement = XmlUtils.appendElement(subscriptionIdentificationElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-		        identificationIDElement.setTextContent(subscriptionID);
+		        identificationIDElement.setTextContent(subscriptionId);
 		        
 		        Element identificationSourceTextElement = XmlUtils.appendElement(subscriptionIdentificationElement, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
 		        identificationSourceTextElement.setTextContent("Subscriptions");
