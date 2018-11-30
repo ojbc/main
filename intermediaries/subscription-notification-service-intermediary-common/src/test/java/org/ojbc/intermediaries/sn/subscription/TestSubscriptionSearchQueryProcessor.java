@@ -41,10 +41,12 @@ import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@DirtiesContext
 public class TestSubscriptionSearchQueryProcessor {
 
     private static final String TOPIC = "{http://ojbc.org/wsn/topics}:person/incident";

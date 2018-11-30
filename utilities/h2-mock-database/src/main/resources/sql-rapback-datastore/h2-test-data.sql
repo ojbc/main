@@ -197,6 +197,7 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'dateOfBirth', '1987-10-10');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'firstName', 'Bart');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'lastName', 'Simpson');
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'SID', 'A567890');
 
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62727', 'SID', 'A123457');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62729', 'firstName', 'James');

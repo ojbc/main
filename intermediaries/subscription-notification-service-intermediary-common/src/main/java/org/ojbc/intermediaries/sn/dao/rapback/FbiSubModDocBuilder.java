@@ -20,7 +20,8 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -34,12 +35,22 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class FbiSubModDocBuilder {
-	
-	
 	@SuppressWarnings("unused")
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilder.class);
+	
+	private OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
+	private Map<String, String> reasonCodeTypeMap = new HashMap<>();
+	
+	public FbiSubModDocBuilder(){
+		reasonCodeTypeMap.put("I", "CIVIL");
+		reasonCodeTypeMap.put("F", "CIVIL");
+		reasonCodeTypeMap.put("J", "CIVIL");
+		reasonCodeTypeMap.put("S", "CIVIL");
+		reasonCodeTypeMap.put("CS", "CRIMINAL");
+		reasonCodeTypeMap.put("CI", "CRIMINAL");
+	}
 	
 	public Document buildFbiSubModDoc( FbiRapbackSubscription fbiRapbackSubscription, Document subscripitonDoc ) throws Exception{
 				
@@ -99,6 +110,7 @@ public class FbiSubModDocBuilder {
 		
 		buildSubModEndDateElement(subModMsgElement, subscripitonDoc);				
 		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(doc.getDocumentElement());
 		return doc;
 	}
 
@@ -145,7 +157,7 @@ public class FbiSubModDocBuilder {
 	}
 
 
-	public Document buildModifyMessageWithSubscripiton(Subscription subscription, String validationDueDateString, Document validationDoc) throws Exception {
+	public Document buildModifyMessageWithSubscripiton(Subscription subscription, String validationDueDateString) throws Exception {
 		
 		Document document = OJBCXMLUtils.createDocument();
 		
@@ -176,10 +188,11 @@ public class FbiSubModDocBuilder {
 				
 		buildSubscriptionIdNode(subModMsgElement, subscription);
 
-		buildFBISubscriptionIDNode(subModMsgElement, subscription, validationDoc);
+		buildFBISubscriptionIDNode(subModMsgElement, subscription);
 		
 		buildSubModEndDateElement(subModMsgElement, validationDueDateString);	
 		
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(document.getDocumentElement());
 		return document;
 	}
 	
@@ -198,7 +211,7 @@ public class FbiSubModDocBuilder {
 	}
 
 
-	private static void buildSubjectElement(Element parentNode, Subscription subscription){
+	private void buildSubjectElement(Element parentNode, Subscription subscription){
 		
 		Element subjectNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");		
 
@@ -209,7 +222,7 @@ public class FbiSubModDocBuilder {
 		buildPesonAugmentationElement(subjectNode,subscription);				
 	}
 
-	private static void buildDobNode(Element subjectNode, Subscription subscription) {
+	private void buildDobNode(Element subjectNode, Subscription subscription) {
 
 		if(StringUtils.isNotBlank(subscription.getDateOfBirth())){
 			Element personBirthDateNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonBirthDate");	
@@ -220,7 +233,7 @@ public class FbiSubModDocBuilder {
 		}		
 	}
 	
-	private static void buildPersonNameNode(Element parentNode, Subscription subscription){
+	private void buildPersonNameNode(Element parentNode, Subscription subscription){
 		
 		Element personNameNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "PersonName");		
 				
@@ -243,7 +256,7 @@ public class FbiSubModDocBuilder {
 		}		
 	}
 
-	private static void buildPesonAugmentationElement(Element parentNode, Subscription subscription){
+	private void buildPesonAugmentationElement(Element parentNode, Subscription subscription){
 		
 		String sid = subscription.getSubscriptionSubjectIdentifiers().get("SID");
 		
@@ -277,7 +290,7 @@ public class FbiSubModDocBuilder {
 		}		
 	}
 
-	private static void buildSubscriptionIdNode(Element subMsgNode, Subscription subscription) {
+	private void buildSubscriptionIdNode(Element subMsgNode, Subscription subscription) {
 
 		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
 		
@@ -288,8 +301,8 @@ public class FbiSubModDocBuilder {
 		idSrcTxtNode.setTextContent("Subscriptions");
 	}
 
-	private static void buildFBISubscriptionIDNode(
-			Element subscriptionModificationMessage, Subscription subscription, Document validationDoc) throws Exception {
+	private void buildFBISubscriptionIDNode(
+			Element subscriptionModificationMessage, Subscription subscription) throws Exception {
 		
 		Element fbiSubscription = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FBISubscription");
 		
@@ -299,10 +312,18 @@ public class FbiSubModDocBuilder {
 		
 		idNode.setTextContent(subscription.getFbiRapbackSubscription().getFbiSubscriptionId());
 		
-		Node reasonCodeNode = XmlUtils.xPathNodeSearch(validationDoc, "//submsg-ext:CivilSubscriptionReasonCode|//submsg-ext:CriminalSubscriptionReasonCode");
-
-		if (reasonCodeNode != null){
-			fbiSubscription.appendChild(subscriptionModificationMessage.getOwnerDocument().importNode(reasonCodeNode, true));
+		switch (reasonCodeTypeMap.get(subscription.getSubscriptionCategoryCode())){
+		case "CIVIL":
+			Element subCivilReasonCodeElement = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+			subCivilReasonCodeElement.setTextContent(subscription.getSubscriptionCategoryCode());
+			break; 
+		case "CRIMINAL": 
+			Element subCriminalReasonCodeElement = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+			subCriminalReasonCodeElement.setTextContent(subscription.getSubscriptionCategoryCode());
+			break; 
+		default:
+			logger.warn("No civil or criminal found on the subscription.");
 		}
+
 	}
 }
