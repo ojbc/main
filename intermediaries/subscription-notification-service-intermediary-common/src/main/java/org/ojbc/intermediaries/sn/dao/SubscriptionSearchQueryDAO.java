@@ -299,7 +299,7 @@ public class SubscriptionSearchQueryDAO {
 		return subscription;
 	}
 
-	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(String subscriptionId){
+	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(@Header("subscriptionId") String subscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subjectName,  "
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
@@ -307,9 +307,12 @@ public class SubscriptionSearchQueryDAO {
 				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, s.timestamp as lastUpdatedDate,"
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
-                + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub  "
-                + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
-                + "AND s.id = ?";
+                + " FROM subscription s"
+                + " 	LEFT JOIN notification_mechanism nm ON nm.subscriptionId = s.id "
+                + "		LEFT JOIN subscription_subject_identifier si ON si.subscriptionId = s.id "
+                + "		LEFT JOIN FBI_RAP_BACK_SUBSCRIPTION fbi_sub ON fbi_sub.subscription_id = s.id , "
+                + "		subscription_owner so, agency_profile ap "
+                + "WHERE s.id = ?";
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, subscriptionId);
         
         Subscription subscription = DataAccessUtils.singleResult(subscriptions);
@@ -866,6 +869,13 @@ public class SubscriptionSearchQueryDAO {
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
     }
     
+    private void validateSubscription(Integer subscriptionId){
+    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
+    			+ "SET available_for_subscription_start_date = ? WHERE subscription_id = ? ";
+    	
+    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
+    }
+    
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 
         int returnCount;
@@ -1010,6 +1020,13 @@ public class SubscriptionSearchQueryDAO {
         int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {id});
         		
         return rowsUpdated;
+    }
+    
+	private static final String SUBSCRIPTION_VALIDATION_QUERY = 
+			"update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =? where id = ?";
+
+    public int validateSubscription(String validationDueDateString, Integer subscriptionId){
+    	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY, validationDueDateString, validationDueDateString, subscriptionId);
     }
     
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {

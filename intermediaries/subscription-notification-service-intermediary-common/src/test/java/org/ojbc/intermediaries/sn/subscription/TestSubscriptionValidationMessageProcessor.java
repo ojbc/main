@@ -35,6 +35,8 @@ import org.apache.camel.impl.DefaultExchange;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,12 +59,14 @@ public class TestSubscriptionValidationMessageProcessor {
 	@Autowired
 	private SubscriptionValidationMessageProcessor subscriptionValidationMessageProcessor;
 
+	@Autowired
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;	
+
     //This is used to update database to achieve desired state for test
 	private JdbcTemplate jdbcTemplate;
 	
 	@Before
 	public void setUp() throws Exception {
-		subscriptionValidationMessageProcessor.setDataSource(dataSource);
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
@@ -83,7 +87,10 @@ public class TestSubscriptionValidationMessageProcessor {
 		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62723'");
 		assertEquals(1,rowsUpdated);
 		
-		subscriptionValidationMessageProcessor.validateSubscription(ex);
+		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionWithFbiInfoBySubscriptionId("62723"); 
+		String validationDueDateString = subscriptionValidationMessageProcessor.getValidationDueDateString(subscription);
+		
+		subscriptionValidationMessageProcessor.validateSubscription(ex, 62723, validationDueDateString);
 
 		Document response = (Document) ex.getIn().getBody();
 		validateAgainstWSNSpec(response);

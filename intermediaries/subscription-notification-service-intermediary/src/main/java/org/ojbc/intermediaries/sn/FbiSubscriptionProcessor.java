@@ -190,6 +190,24 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 				
 	}
 	
+	public Document buildValidationModifyMessage(@Header("subscriptionId") Integer subscriptionId, 
+			@Header("subscription") Subscription subscription,
+			@Header("validationDueDateString") String validationDueDateString,
+			@Body Document validationDoc) throws Exception{
+		
+		log.info("\n\n processSubscription...\n\n");	
+		
+		if (subscriptionId == null || subscriptionId <= 0 || subscription == null || subscription.getFbiRapbackSubscription() == null) {
+			log.warn("Can't find subscription with FBI subscripiton for  " + subscriptionId == null? "null": subscriptionId);
+			return validationDoc;
+		}
+		
+		Document subscriptionModifyDoc = fbiSubModDocBuilder.buildModifyMessageWithSubscripiton(subscription, validationDueDateString, validationDoc);
+		
+		return subscriptionModifyDoc;
+		
+	}
+	
 
 	private void appendSubscriptionId(Document subscriptionDoc,
 			Integer subscriptionId) throws Exception {
@@ -320,16 +338,11 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	
 	
 		
-	public Boolean routeToProcessFbiUnsubscribeRoute(@Body Document document) throws Exception{
+	public Boolean hasFbiSubscription( @Header("subscriptionId") Integer subscriptionId) throws Exception{
 		Boolean hasFbiSubscription = false; 
 		
 		if (BooleanUtils.isTrue(fbiSubscriptionMember)){
-			String subscriptionIdString = XmlUtils.xPathStringSearch(document, 
-					"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
-			
-			if (StringUtils.isNotBlank(subscriptionIdString)){
-				hasFbiSubscription = rapbackDao.hasFbiSubscription(new Integer(subscriptionIdString));
-			}
+			hasFbiSubscription = rapbackDao.hasFbiSubscription(subscriptionId);
 		}
 		
 		return hasFbiSubscription;

@@ -388,7 +388,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiUnsubscribeRoute</camel:simple>
+					<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
 					<camel:wireTap uri="direct:processFbiUnsubscription"/>
 				</camel:when>
 			</camel:choice>
@@ -433,7 +433,6 @@
 	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />
 
 	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
-		<property name="dataSource" ref="dataSource" />
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="faultMessageProcessor" ref="faultMessageProcessor" />

@@ -16,13 +16,17 @@
  */
 package org.ojbc.intermediaries.sn.dao.rapback;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
+
+import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -140,4 +144,165 @@ public class FbiSubModDocBuilder {
 		}				
 	}
 
+
+	public Document buildModifyMessageWithSubscripiton(Subscription subscription, String validationDueDateString, Document validationDoc) throws Exception {
+		
+		Document document = OJBCXMLUtils.createDocument();
+		
+		Element modifyElement = document.createElementNS(OjbcNamespaceContext.NS_B2, "Modify");
+
+		document.appendChild(modifyElement);
+				
+		Element subModMsgElement = XmlUtils.appendElement(modifyElement, OjbcNamespaceContext.NS_SUB_MODIFY_MESSAGE, "SubscriptionModificationMessage");
+		
+		if(StringUtils.isNotEmpty(subscription.getAgencyCaseNumber())){
+			
+			Element subRelCaseIdElement = XmlUtils.appendElement(subModMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionRelatedCaseIdentification");
+			
+			Element caseIdValElement = XmlUtils.appendElement(subRelCaseIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");		
+			
+			caseIdValElement.setTextContent(subscription.getAgencyCaseNumber());
+		}		
+
+		if (StringUtils.isNotBlank(subscription.getOri())){
+			Element subscribingOrganization = XmlUtils.appendElement(subModMsgElement, NS_SUB_MSG_EXT, "SubscribingOrganization");
+			Element organizationAugmentation = XmlUtils.appendElement(subscribingOrganization, NS_JXDM_41, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_41, "OrganizationORIIdentification");
+			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC, "IdentificationID");
+			identificationID.setTextContent(subscription.getOri());
+		}
+
+		buildSubjectElement(subModMsgElement, subscription);
+				
+		buildSubscriptionIdNode(subModMsgElement, subscription);
+
+		buildFBISubscriptionIDNode(subModMsgElement, subscription, validationDoc);
+		
+		buildSubModEndDateElement(subModMsgElement, validationDueDateString);	
+		
+		return document;
+	}
+	
+	private void buildSubModEndDateElement(Element subModMsgElement,
+			String validationDueDateString) {
+		Element subscriptionModification = XmlUtils.appendElement(subModMsgElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionModification");
+		Element dateRangeNode = XmlUtils.appendElement(subscriptionModification, OjbcNamespaceContext.NS_NC, "DateRange");
+		
+		Element endDateNode = XmlUtils.appendElement(dateRangeNode, OjbcNamespaceContext.NS_NC, "EndDate");		
+		Element endDateValNode = XmlUtils.appendElement(endDateNode, OjbcNamespaceContext.NS_NC, "Date");
+		if(StringUtils.isNotBlank(validationDueDateString)){
+			endDateValNode.setTextContent(validationDueDateString);			
+		}				
+
+		
+	}
+
+
+	private static void buildSubjectElement(Element parentNode, Subscription subscription){
+		
+		Element subjectNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");		
+
+		buildDobNode(subjectNode, subscription);
+		
+		buildPersonNameNode(subjectNode,subscription);
+		
+		buildPesonAugmentationElement(subjectNode,subscription);				
+	}
+
+	private static void buildDobNode(Element subjectNode, Subscription subscription) {
+
+		if(StringUtils.isNotBlank(subscription.getDateOfBirth())){
+			Element personBirthDateNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "PersonBirthDate");	
+			
+			Element dateNode = XmlUtils.appendElement(personBirthDateNode, OjbcNamespaceContext.NS_NC, "Date");
+			
+			dateNode.setTextContent(subscription.getDateOfBirth());
+		}		
+	}
+	
+	private static void buildPersonNameNode(Element parentNode, Subscription subscription){
+		
+		Element personNameNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "PersonName");		
+				
+		String sFirstName = subscription.getPersonFirstName();
+		if(StringUtils.isNotBlank(sFirstName)){
+			Element firstNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+			firstNameNode.setTextContent(sFirstName);
+		}
+		
+		String sLastName = subscription.getPersonLastName();
+		if(StringUtils.isNotBlank(sLastName)){
+			Element lastNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonSurName");
+			lastNameNode.setTextContent(sLastName);
+		}
+				
+		String fullName = subscription.getPersonFullName();
+		if(StringUtils.isNotBlank(fullName)){
+			Element fullNameNode = XmlUtils.appendElement(personNameNode, OjbcNamespaceContext.NS_NC, "PersonFullName");
+			fullNameNode.setTextContent(fullName);
+		}		
+	}
+
+	private static void buildPesonAugmentationElement(Element parentNode, Subscription subscription){
+		
+		String sid = subscription.getSubscriptionSubjectIdentifiers().get("SID");
+		
+		String fbiId = subscription.getFbiRapbackSubscription().getUcn();
+		
+		boolean hasSid = StringUtils.isNotEmpty(sid);
+		
+		boolean hasFbiId = StringUtils.isNotEmpty(fbiId);
+		
+		if(hasSid || hasFbiId){
+			
+			Element personAugNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
+
+			if(hasFbiId){
+				
+				Element fbiIdElement = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+				
+				Element fbiIdValElement = XmlUtils.appendElement(fbiIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				fbiIdValElement.setTextContent(fbiId);				
+			}						
+						
+			if(hasSid){
+				
+				Element sidNode = XmlUtils.appendElement(personAugNode, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");				
+				
+				Element idNode = XmlUtils.appendElement(sidNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				
+				idNode.setTextContent(sid);			 
+			}			
+		}		
+	}
+
+	private static void buildSubscriptionIdNode(Element subMsgNode, Subscription subscription) {
+
+		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
+		
+		Element subIdValNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
+		subIdValNode.setTextContent(Long.valueOf(subscription.getId()).toString());			
+				
+		Element idSrcTxtNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+		idSrcTxtNode.setTextContent("Subscriptions");
+	}
+
+	private static void buildFBISubscriptionIDNode(
+			Element subscriptionModificationMessage, Subscription subscription, Document validationDoc) throws Exception {
+		
+		Element fbiSubscription = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FBISubscription");
+		
+		Element subscriptionFBIIdentification = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionFBIIdentification");
+		
+		Element idNode = XmlUtils.appendElement(subscriptionFBIIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+		
+		idNode.setTextContent(subscription.getFbiRapbackSubscription().getFbiSubscriptionId());
+		
+		Node reasonCodeNode = XmlUtils.xPathNodeSearch(validationDoc, "//submsg-ext:CivilSubscriptionReasonCode|//submsg-ext:CriminalSubscriptionReasonCode");
+
+		if (reasonCodeNode != null){
+			fbiSubscription.appendChild(subscriptionModificationMessage.getOwnerDocument().importNode(reasonCodeNode, true));
+		}
+	}
 }
