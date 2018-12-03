@@ -100,6 +100,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
+					<xsd:element ref="ojbc:PersonTrackingIdentification" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ojbc:PersonPersistentIdentification" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -347,6 +348,12 @@
 		<xsd:annotation>
 			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for
 				identifying activities and information that belong to a person without always needing to share PII about that individual.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
