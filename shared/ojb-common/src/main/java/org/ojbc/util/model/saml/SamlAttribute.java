@@ -33,7 +33,7 @@ public enum SamlAttribute{
     IdentityProviderId("gfipm:2.0:user:IdentityProviderId"),
     FirearmsRegistrationRecordsPersonnelIndicator("gfipm:ext:user:FirearmsRegistrationRecordsPersonnelIndicator"),
     SupervisoryRoleIndicator("gfipm:ext:user:SupervisoryRoleIndicator"),
-    EmployerOrganizationCategoryText("gfipm:ext:user:EmployerOrganizationCategoryText")
+    EmployerOrganizationCategoryText("gfipm:2.0:user:ext:EmployerOrganizationCategoryText")
     ; 
     
     private String attibuteName; 
