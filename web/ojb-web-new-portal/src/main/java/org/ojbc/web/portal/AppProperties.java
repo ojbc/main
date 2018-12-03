@@ -37,6 +37,8 @@ public class AppProperties {
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
 
+	private Boolean allowQueriesWithoutSAMLToken = true; 
+	
 	public AppProperties() {
 		super();
 		dispoCodeMapping.put("301", "Acquitted");
@@ -129,5 +131,13 @@ public class AppProperties {
 
 	public void setProvisionCodeMapping(Map<String, String> provisionCodeMapping) {
 		this.provisionCodeMapping = provisionCodeMapping;
+	}
+
+	public Boolean getAllowQueriesWithoutSAMLToken() {
+		return allowQueriesWithoutSAMLToken;
+	}
+
+	public void setAllowQueriesWithoutSAMLToken(Boolean allowQueriesWithoutSAMLToken) {
+		this.allowQueriesWithoutSAMLToken = allowQueriesWithoutSAMLToken;
 	}
 }

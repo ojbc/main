@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:fragment="headerfiles">
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -28,11 +28,11 @@
 	            <li class="nav-item active">
 	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
 	            </li>
-	            <li class="nav-item dropdown">
+	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_MUNI', 'AUTHZ_DA') ">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a class="dropdown-item" href="#" id="arrest">Municipal Arrests</a>
-	                <a class="dropdown-item" href="#" id="disposition">Deferred Dispositions</a>
+	                <span sec:authorize="hasAuthority('AUTHZ_MUNI')"><a class="dropdown-item" href="#" id="arrest">Municipal Arrests</a></span>
+	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="disposition">Deferred Dispositions</a>
 	              </div>
 	            </li>
 	          </ul>
@@ -43,6 +43,7 @@
     <footer class="footer" th:fragment="footer">
       <div class="container" align="center">
         <span class="text-muted">OSBI RAPUP tool</span>
+<!--          Roles: <span sec:authentication="principal.authorities"></span> -->
       </div>
     </footer>
     
@@ -120,7 +121,9 @@
 	              if (jqXHR.textStatus != "aborted"){
 	                window.location.reload();
 	              }
-	            } else {
+	            } else if (jqXHR.status == 403) {
+                bootpopup.alert("Access is denied. Please check if you have the access right for the item.", "Error");
+              } else {
 	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "Error");
 	            }
 	         }

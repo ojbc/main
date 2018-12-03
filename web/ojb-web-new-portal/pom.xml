@@ -85,6 +85,10 @@
 		    <artifactId>reactor-spring</artifactId>
 		    <version>1.0.1.RELEASE</version>
 		</dependency>		
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+    </dependency>
 		<!-- OJBC dependencies  -->
 		<dependency>
       <groupId>org.ojbc.bundles.shared</groupId>
