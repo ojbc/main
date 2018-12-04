@@ -186,7 +186,7 @@ public class CamelContextTest {
 		assertEquals(inputStr, body);
 		
 	}
-	
+	/*
 	@Test
 	@DirtiesContext
 	public void testArrestReportingContextRoutes() throws Exception
@@ -237,7 +237,7 @@ public class CamelContextTest {
 		XmlTestUtils.compareDocs(expectedString, arrestReport, "lexs:MessageDateTime", "nc20:Date");		
 		
 	}
-	
+	*/
 	@Test
 	@DirtiesContext
 	public void testArrestReportingContextRoutesWithCriminalSidToHijisMessage() throws Exception
@@ -282,6 +282,7 @@ public class CamelContextTest {
 		
 		arrestReportingServiceMock.assertIsSatisfied();
 	}
+	
 	
 	@Test
 	@DirtiesContext
