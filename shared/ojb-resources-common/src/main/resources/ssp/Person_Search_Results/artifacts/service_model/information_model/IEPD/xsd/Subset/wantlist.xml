@@ -48,6 +48,7 @@
   <w:Element w:name="nc:LocationCountry" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationCountryFIPS10-4Code"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:LocationCountryName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStateCanadianProvinceCode"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationStateFIPS10-4InternationalCode"

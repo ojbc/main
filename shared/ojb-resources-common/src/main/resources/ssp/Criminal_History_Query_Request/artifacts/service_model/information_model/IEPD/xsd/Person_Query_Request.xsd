@@ -27,8 +27,10 @@
 	<xsd:complexType name="PersonRecordRequestType">
 		<xsd:sequence>
 			<xsd:element maxOccurs="1" minOccurs="1" ref="pqr-doc:PersonRecordRequestIdentification" />
+			<xsd:element maxOccurs="1" minOccurs="0" ref="pqr-doc:PersonTrackingIdentification" />
 			<xsd:element maxOccurs="1" minOccurs="0" ref="pqr-doc:CivilPurposeRequestIndicator" />
 			<xsd:element maxOccurs="1" minOccurs="0" ref="pqr-doc:TextRapSheetRequestIndicator" />
+			
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PersonRecordRequest" type="pqr-doc:PersonRecordRequestType">
@@ -50,6 +52,11 @@
 		<xsd:annotation>
 			<xsd:documentation>True if the requestor would like to receive a text-based rap sheet rather than a structured rap sheet.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

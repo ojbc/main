@@ -141,6 +141,36 @@ public class OJBUtils {
 		return wsAddressingMessageProperties;
 	}
 	
+	public static String returnSoapHeaderValue(Exchange exchange, String soapHeaderName) {
+		String ret = "";
+		
+		if (StringUtils.isBlank(soapHeaderName))
+		{
+			return ret;
+		}
+				
+		
+		List<SoapHeader> soapHeaders = (List<SoapHeader>) exchange.getIn()
+				.getHeader(Header.HEADER_LIST);
+
+		for (SoapHeader soapHeader : soapHeaders) {
+
+			if (soapHeader.getName().toString().equals(soapHeaderName)) {
+				Element element = (Element) soapHeader.getObject();
+
+				if (element != null) {
+					ret = element.getTextContent();
+				}
+
+				log.info("Soap Header Name:" + soapHeaderName +  "  value: " + ret);
+				
+			}
+		}
+		
+		return ret;
+	}
+	
+	
 	/**
 	 * This method will set the WS-Addressing Message Properties on the exchange prior to sending an outbound CXF message.
 	 * It allows for 'MessageID' and 'ReplyTo'
