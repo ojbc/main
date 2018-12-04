@@ -27,4 +27,8 @@
 	<cht-doc:StateCriminalHistoryRecordDocument>
 		<cht-doc:Base64BinaryObject>MA==</cht-doc:Base64BinaryObject>
 	</cht-doc:StateCriminalHistoryRecordDocument>
+	<cht-doc:AlternateArrestStateFingerprintIdentifierIndicator>true</cht-doc:AlternateArrestStateFingerprintIdentifierIndicator>
+	<cht-doc:NoArrestFoundIndicator>false</cht-doc:NoArrestFoundIndicator>
+	<cht-doc:ArrestStateFingerprintIdentifierExistsIndicator>true</cht-doc:ArrestStateFingerprintIdentifierExistsIndicator>
+	<cht-doc:ArrestReportCorrectiveActionIndicator>false</cht-doc:ArrestReportCorrectiveActionIndicator>
 </cht-doc:CriminalHistoryTextDocument>
