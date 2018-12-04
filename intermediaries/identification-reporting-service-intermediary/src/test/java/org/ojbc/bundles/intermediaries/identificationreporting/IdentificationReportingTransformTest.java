@@ -48,7 +48,7 @@ public class IdentificationReportingTransformTest {
     	
 		xsltTransformer = new XsltTransformer();
 	}	
-	
+
 	@Test
 	public void arrestReportTransform() throws IOException, SAXException {
 		
@@ -63,7 +63,26 @@ public class IdentificationReportingTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml"));
+				new File("src/test/resources/xmlInstances/arrestReport/person_identification_search_results_state_criminal_with_civil_sid.out.xml"));
+		
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime", "nc:Date", "nc20:Date");							
+	}
+	
+	@Test
+	public void arrestReportTransformCivil() throws IOException, SAXException {
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_civil_sid_to_hijis.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+								
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/arrestReportTransform.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/xmlInstances/arrestReport/person_identification_search_results_state_civil_sid_to_hijis.out.xml"));
 		
 		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime", "nc:Date", "nc20:Date");							
 	}

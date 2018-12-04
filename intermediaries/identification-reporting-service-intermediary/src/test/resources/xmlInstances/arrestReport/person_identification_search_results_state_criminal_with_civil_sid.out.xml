@@ -1,0 +1,120 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<arrest-exch:ArrestReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+                          xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+                          xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                          xmlns:arrest-exch="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
+                          xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                          xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                          xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                          xmlns:s="http://niem.gov/niem/structures/2.0"
+                          xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                          xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+                          xmlns:j40="http://niem.gov/niem/domains/jxdm/4.0"
+                          xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1"
+                          xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+                          xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0"
+                          xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+                          xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1">
+   <lexspd:doPublish>
+      <lexs:PublishMessageContainer>
+         <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+               <lexs:LEXSVersion>3.1</lexs:LEXSVersion>
+               <lexs:MessageDateTime>2018-12-03T16:01:31</lexs:MessageDateTime>
+               <lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+               <lexs:SystemIdentifier>
+                  <nc20:OrganizationName>Submitting Organization Name</nc20:OrganizationName>
+                  <lexs:SystemID>LOTC</lexs:SystemID>
+               </lexs:SystemIdentifier>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+               <lexs:PackageMetadata>
+                  <lexs:DataOwnerMetadata>
+                     <lexs:DataOwnerIdentifier>
+                        <lexs:ORI>68796860</lexs:ORI>
+                     </lexs:DataOwnerIdentifier>
+                  </lexs:DataOwnerMetadata>
+               </lexs:PackageMetadata>
+               <lexs:Digest>
+                  <lexsdigest:EntityActivity>
+                     <nc20:Activity s:id="Arrest_1">
+                        <nc20:ActivityDate>
+                           <nc20:Date>2018-12-03</nc20:Date>
+                        </nc20:ActivityDate>
+                        <nc20:ActivityCategoryText>Arrest</nc20:ActivityCategoryText>
+                     </nc20:Activity>
+                  </lexsdigest:EntityActivity>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="d1e15">
+                        <nc20:PersonBirthDate>
+                           <nc20:Date>1950-01-02</nc20:Date>
+                        </nc20:PersonBirthDate>
+                        <nc20:PersonName>
+                           <nc20:PersonGivenName>Joe</nc20:PersonGivenName>
+                           <nc20:PersonMiddleName>D</nc20:PersonMiddleName>
+                           <nc20:PersonSurName>Smith</nc20:PersonSurName>
+                        </nc20:PersonName>
+                        <j40:PersonAugmentation>
+                           <j40:PersonStateFingerprintIdentification s:id="d1e37">
+                              <nc20:IdentificationID>A123456</nc20:IdentificationID>
+                           </j40:PersonStateFingerprintIdentification>
+                           <j40:PersonStateFingerprintIdentification s:id="d1e46">
+                              <nc20:IdentificationID>L456789</nc20:IdentificationID>
+                           </j40:PersonStateFingerprintIdentification>
+                        </j40:PersonAugmentation>
+                     </lexsdigest:Person>
+                     <j40:ArrestSubject>
+                        <nc20:RoleOfPersonReference s:ref="d1e15"/>
+                     </j40:ArrestSubject>
+                  </lexsdigest:EntityPerson>
+               </lexs:Digest>
+               <lexs:StructuredPayload>
+                  <lexs:StructuredPayloadMetadata>
+                     <lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+                     <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                     <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                  </lexs:StructuredPayloadMetadata>
+                  <ojbc:ArrestReport>
+                     <ojbc:Person>
+                        <ojbc:PersonTrackingIdentification>
+                           <nc20:IdentificationID>12345</nc20:IdentificationID>
+                        </ojbc:PersonTrackingIdentification>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e15"/>
+                     </ojbc:Person>
+                     <ojbc:PersonStateFingerprintIdentification>
+                        <ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+					</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e37"/>
+                     </ojbc:PersonStateFingerprintIdentification>
+                     <ojbc:PersonStateFingerprintIdentification>
+                        <ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
+					</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e46"/>
+                     </ojbc:PersonStateFingerprintIdentification>
+                  </ojbc:ArrestReport>
+               </lexs:StructuredPayload>
+            </lexs:DataItemPackage>
+         </lexs:PublishMessage>
+      </lexs:PublishMessageContainer>
+   </lexspd:doPublish>
+</arrest-exch:ArrestReport>
