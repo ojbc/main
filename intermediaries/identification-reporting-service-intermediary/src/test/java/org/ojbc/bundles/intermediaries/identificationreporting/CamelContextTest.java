@@ -186,7 +186,7 @@ public class CamelContextTest {
 		assertEquals(inputStr, body);
 		
 	}
-	/*
+
 	@Test
 	@DirtiesContext
 	public void testArrestReportingContextRoutes() throws Exception
@@ -231,13 +231,13 @@ public class CamelContextTest {
 		String arrestReport = receivedArrestReportExchange.getIn().getBody(String.class);
 		
 	    //Read the Identification report file from the file system
-	    File expectedFile = new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml");
+	    File expectedFile = new File("src/test/resources/xmlInstances/arrestReport/arrestReport_criminal_with_civil_sid.xml");
 	    String expectedString = FileUtils.readFileToString(expectedFile);
 
 		XmlTestUtils.compareDocs(expectedString, arrestReport, "lexs:MessageDateTime", "nc20:Date");		
 		
 	}
-	*/
+
 	@Test
 	@DirtiesContext
 	public void testArrestReportingContextRoutesWithCriminalSidToHijisMessage() throws Exception
