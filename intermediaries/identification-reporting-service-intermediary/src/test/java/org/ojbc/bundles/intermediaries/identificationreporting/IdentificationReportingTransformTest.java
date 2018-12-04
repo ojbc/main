@@ -63,7 +63,7 @@ public class IdentificationReportingTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/xmlInstances/arrestReport/person_identification_search_results_state_criminal_with_civil_sid.out.xml"));
+				new File("src/test/resources/xmlInstances/arrestReport/arrestReport_criminal_with_civil_sid.xml"));
 		
 		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime", "nc:Date", "nc20:Date");							
 	}
@@ -82,7 +82,7 @@ public class IdentificationReportingTransformTest {
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/xmlInstances/arrestReport/person_identification_search_results_state_civil_sid_to_hijis.out.xml"));
+				new File("src/test/resources/xmlInstances/arrestReport/arrestReport_state_civil_sid_to_hijis.xml"));
 		
 		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime", "nc:Date", "nc20:Date");							
 	}
