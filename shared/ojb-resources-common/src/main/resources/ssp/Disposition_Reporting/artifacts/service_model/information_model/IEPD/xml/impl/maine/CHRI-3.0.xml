@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<CHRIMessage xmlns="http://courts.maine.gov/mejis/chri/3.0/">
+	<!-- robin.case_charge -->
+	<Charge caseId="CARSCCR200200001" sequence="1" incidentDate="2002-06-03" sealed="false">
+		<UTN machineName="AOCSsr" year="2002" sequence="1" />
+		<OBTN arrestTrackingNumber="123456A" chargeTrackingNumber="001" />
+		<!-- robin.case_party -->
+		<Subject sealed="false">
+			<Person birthDate="1982-11-20">
+				<PersonName>
+					<LastName>DOE</LastName>
+					<FirstName>JOHN</FirstName>
+					<MiddleName>Q</MiddleName>
+				</PersonName>
+			</Person>
+		</Subject>
+		<!-- robin.statute -->
+		<Statute sequence="4255" title="17-A" section="207" subsection="1" paragraph="" subparagraph="" division="" subdivision=""
+			variant="1" version="1" class="C">
+			<LongDescription>Intentionally, knowingly or recklessly causing bodily injury to another; victim under age 6 and actor over age
+				18</LongDescription>
+		</Statute>
+		<!-- ChargeOptions may reduce or enhance the Statute class -->
+		<ChargeClassOptions>
+			<ChargeClassOption>
+				<Description>ATTEMPT</Description>
+			</ChargeClassOption>
+			<ChargeClassOption>
+				<Description>CONSPIRACY</Description>
+			</ChargeClassOption>
+			<ChargeClassOption>
+				<Description>SOLICITATION</Description>
+			</ChargeClassOption>
+			<ChargeClassOption>
+				<Description>FIREARM OR DANGEROUS WEAPON</Description>
+			</ChargeClassOption>
+			<ChargeClassOption>
+				<Description>OTHER</Description>
+			</ChargeClassOption>
+		</ChargeClassOptions>
+		<!-- ChargeClass is derived from Statute class and ChargeClassOptions -->
+		<ChargeClass>B</ChargeClass>
+		<!-- robin.case_event_master -->
+		<Events>
+			<Event caseId="CARSCCR200200001" sequence="3" ori="ME002085J" category="PRE-JUDGMENT" subcategory="ORDER"
+				type="DEFERRED DISPOSITION" sealed="true">
+				<EventActions>
+					<EventAction sequence="1" order="1" actionDate="2002-07-21" enteredDate="2002-07-21" action="ENTERED"
+						sealed="false" />
+				</EventActions>
+			</Event>
+			<Event caseId="CARSCCR200200001" sequence="6" ori="ME002085J" category="JUDGEMENT" subcategory="FINDING" type="GUILTY"
+				sealed="false">
+				<!-- robin.case_event_action -->
+				<EventActions>
+					<EventAction sequence="1" order="1" actionDate="2002-08-21" enteredDate="2002-08-22" action="ENTERED BY COURT"
+						sealed="false" />
+					<EventAction sequence="2" order="2" actionDate="2002-08-21" enteredDate="2002-08-22" action="CONT FOR SENTENCING"
+						sealed="false" />
+					<EventAction sequence="3" order="3" actionDate="2002-09-04" enteredDate="2002-09-04" action="VACATED"
+						sealed="false" />
+				</EventActions>
+			</Event>
+			<Event caseId="CARSCCR200200001" sequence="13" ori="ME002085J" category="JUDGEMENT" subcategory="FINDING" type="GUILTY"
+				sealed="false">
+				<!-- robin.case_event_action -->
+				<EventActions>
+					<EventAction sequence="1" order="1" actionDate="2002-09-16" enteredDate="2002-09-16" action="ENTERED BY COURT"
+						sealed="false" />
+				</EventActions>
+			</Event>
+			<Event caseId="CARSCCR200200001" sequence="14" ori="ME002085J" category="SENTENCE" subcategory="RULING" type="ORIGINAL"
+				sealed="false">
+				<!-- robin.case_event_action -->
+				<EventActions>
+					<EventAction sequence="1" order="1" actionDate="2002-09-16" enteredDate="2002-09-16" action="ORDERED"
+						sealed="false" />
+					<EventAction sequence="2" order="2" actionDate="2002-09-17" enteredDate="2002-09-17" action="ISSUED" sealed="false" />
+					<EventAction sequence="3" order="3" actionDate="2002-09-04" enteredDate="2002-09-04" action="VACATED"
+						sealed="false" />
+				</EventActions>
+				<!-- A "sentence" includes jail or prison time, all fines, community service, restitution or other punishment, or terms of probation. -->
+				<!-- Sentence elements are not ordered -->
+				<Sentence>
+					<!-- robin.charge_evt_gninfo -->
+					<SentenceInformation enteredDate="1970-01-01" sealed="false">
+						<SentenceInformationOptions>
+							<SentenceInformationOption>
+								<Description>UNCONDITIONAL DISCHARGE</Description>
+							</SentenceInformationOption>
+							<SentenceInformationOption>
+								<Description>DNA TESTING</Description>
+							</SentenceInformationOption>
+							<SentenceInformationOptionNumber>
+								<Description>JV INSURANCE PAYMENT AMOUNT</Description>
+								<Number>100.00</Number>
+							</SentenceInformationOptionNumber>
+							<SentenceInformationOptionText>
+								<Description>JV SUPPORT PAYMENT FREQUENCY</Description>
+								<Text>MONTHLY</Text>
+							</SentenceInformationOptionText>
+						</SentenceInformationOptions>
+					</SentenceInformation>
+					<!-- robin.sntc_admn_event -->
+					<AdministrativeRelease enteredDate="1970-01-01" sealed="false">
+						<SentenceTermType>ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED</SentenceTermType>
+						<SentenceTerm years="0" months="0" days="0" hours="0" />
+					</AdministrativeRelease>
+					<!-- robin.sntc_jail_event -->
+					<Imprisonment enteredDate="1970-01-01" sealed="false" allSuspended="false" juvenileSentenceAgePeriod="20">
+						<SentenceTermType>INCARCERATED</SentenceTermType>
+						<SentenceTerm life="false" years="0" months="9" days="0" hours="0" />
+						<AllButSuspended years="0" months="0" days="0" hours="0" />
+					</Imprisonment>
+					<!-- robin.sntc_prob_event -->
+					<Probation enteredDate="1970-01-01" sealed="false">
+						<SentenceTermType>PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED</SentenceTermType>
+						<SentenceTerm years="3" months="0" days="0" hours="0" />
+					</Probation>
+					<!-- robin.charge_evt_licsusp -->
+					<LicenseSuspension enteredDate="1970-01-01" sealed="false" registrationSuspended="true">
+						<SentenceTermType>LICENSE SUSPENSION</SentenceTermType>
+						<SentenceTerm years="0" months="6" days="0" hours="0" />
+					</LicenseSuspension>
+					<!-- robin.charge_evt_publicsrv -->
+					<PublicService enteredDate="1970-01-01" sealed="false">
+						<SentenceTermType>PUBLIC SERVICE</SentenceTermType>
+						<SentenceTerm months="1" weeks="2" hours="100" />
+					</PublicService>
+					<!-- robin.sntc_fine_event -->
+					<Fine enteredDate="1970-01-01" sealed="false" amount="100.00" amountOverride="10.00" />
+					<!-- robin.charge_evt_restitution -->
+					<Restitution enteredDate="1970-01-01" sealed="false" amountTotal="1000.00" />
+					<!-- robin.charge_evt_condition -->
+					<SentenceCondition enteredDate="1970-01-01" sealed="false">
+						<SentenceConditionOptions>
+							<SentenceConditionOption>
+								<Description>REFRAIN FROM CRIMINAL CONDUCT</Description>
+							</SentenceConditionOption>
+							<SentenceConditionOptionNumber>
+								<Description>PAY DOC SUPERVISION FEE</Description>
+								<Number>100.00</Number>
+							</SentenceConditionOptionNumber>
+							<SentenceConditionOptionText>
+								<Description>OTHER REQUIREMENT</Description>
+								<Text>COMPLETE GED</Text>
+							</SentenceConditionOptionText>
+						</SentenceConditionOptions>
+					</SentenceCondition>
+					<!-- robin.charge_evt_nocontact -->
+					<NoContacts>
+						<NoContact sequence="1" sealed="false">
+							<Person>
+								<PersonName>
+									<LastName>DOE</LastName>
+									<FirstName>JANE</FirstName>
+									<MiddleName>A</MiddleName>
+								</PersonName>
+							</Person>
+							<Note>AND FAMILY OF</Note>
+						</NoContact>
+						<NoContact sequence="2" sealed="false">
+							<Person birthDate="2002-12-25">
+								<PersonName>
+									<LastName>DOE</LastName>
+									<FirstName>JILL</FirstName>
+									<MiddleName>B</MiddleName>
+								</PersonName>
+							</Person>
+						</NoContact>
+					</NoContacts>
+				</Sentence>
+			</Event>
+		</Events>
+	</Charge>
+</CHRIMessage>

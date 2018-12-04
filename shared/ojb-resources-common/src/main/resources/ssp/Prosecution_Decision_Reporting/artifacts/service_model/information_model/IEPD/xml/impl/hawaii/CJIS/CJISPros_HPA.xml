@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<doc:CJISProsDocument xmlns:doc="http://cjis.gov/CJISProsDocument" xmlns:j="http://www.it.ojp.gov/jxdm/3.0.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cjis.gov/CJISProsDocument CJISProsDocument.xsd">
+	<j:Case>
+		<!-- EventDescription -->
+		<j:ActivityTypeText>Sentencing</j:ActivityTypeText>
+		<j:ActivityPrimaryOrganization>
+			<j:OrganizationORIID>
+				<!-- Insert HPA ORI Here ? -->
+				<j:ID>00000000</j:ID>
+			</j:OrganizationORIID>
+		</j:ActivityPrimaryOrganization>
+		<j:CaseTrackingID>
+			<!-- CauseNumber -->
+			<j:ID>567890</j:ID>
+		</j:CaseTrackingID>
+		<j:CaseCharge>
+			<j:ChargeID j:id="Chg1">
+				<!-- CaseLEReportNumber -->
+				<j:ID>AC45567</j:ID>
+			</j:ChargeID>
+			<j:ChargeClassification>
+				<j:ChargeQualifierText>lead</j:ChargeQualifierText>
+				<!-- Severity -->
+				<j:ChargeSeverityText>M</j:ChargeSeverityText>
+			</j:ChargeClassification>
+			<j:ChargeDisposition>
+				<!-- LeadChargeDispositionDate -->
+				<j:ChargeDispositionDate>2018-06-17</j:ChargeDispositionDate>
+				<!-- DispositionCode -->
+				<j:ChargeDispositionDescriptionText>CWD</j:ChargeDispositionDescriptionText>
+			</j:ChargeDisposition>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionID>
+					<!-- LeadChargeStatute -->
+					<j:ID>707-0712</j:ID>
+				</j:StatuteCodeSectionID>
+				<!-- LeadCharge -->
+				<j:StatuteDescriptionText>Assault 3°</j:StatuteDescriptionText>
+			</j:ChargeStatute>
+			<j:ChargeSubject>
+				<!-- NAME -->
+				<j:PersonName>
+					<j:PersonGivenName>Jerry</j:PersonGivenName>
+					<j:PersonMiddleName>A</j:PersonMiddleName>
+					<j:PersonSurName>Smith</j:PersonSurName>
+				</j:PersonName>
+				<!-- DateOfBirth -->
+				<j:PersonBirthDate>1962-02-18</j:PersonBirthDate>
+				<j:PersonAssignedIDDetails>
+					<j:PersonStateID>
+						<!-- Sid -->
+						<j:ID>A1234567</j:ID>
+					</j:PersonStateID>
+				</j:PersonAssignedIDDetails>
+			</j:ChargeSubject>
+		</j:CaseCharge>
+		<j:CaseCharge>
+			<j:ChargeClassification>
+				<j:ChargeQualifierText>add-on</j:ChargeQualifierText>
+			</j:ChargeClassification>
+			<j:ChargeDisposition>
+				<!-- ChargeDispositionDate -->
+				<j:ChargeDispositionDate>2018-07-09</j:ChargeDispositionDate>
+				<!-- ChargeDispositionCode -->
+				<j:ChargeDispositionDescriptionText>IRM</j:ChargeDispositionDescriptionText>
+			</j:ChargeDisposition>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionID>
+					<!-- ChargeCode -->
+					<j:ID>709-0906</j:ID>
+				</j:StatuteCodeSectionID>
+				<!-- ChargeDescription -->
+				<j:StatuteDescriptionText>Abuse Family/Household Member</j:StatuteDescriptionText>
+			</j:ChargeStatute>
+		</j:CaseCharge>
+	</j:Case>
+</doc:CJISProsDocument>

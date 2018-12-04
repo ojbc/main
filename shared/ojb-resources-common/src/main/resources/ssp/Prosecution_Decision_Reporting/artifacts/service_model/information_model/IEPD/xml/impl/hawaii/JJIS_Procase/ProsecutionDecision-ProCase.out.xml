@@ -1,0 +1,110 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<exc:JJISProsCaseExchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:exc="http://jjis.hawaii.gov/JJISExchange"
+                          xmlns:ext="http://jjis.hawaii.gov/JJISCommonExtension"
+                          xmlns:s="http://niem.gov/niem/structures/2.0"
+                          xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                          xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+   <j:Case>
+      <nc:ActivityIdentification>
+			      <nc:IdentificationID>35159</nc:IdentificationID>
+		    </nc:ActivityIdentification>
+      <nc:CaseCategoryText>TRIAL</nc:CaseCategoryText>
+      <nc:CaseGeneralCategoryText>CLOSED</nc:CaseGeneralCategoryText>
+      <nc:CaseTrackingID>1FC161002</nc:CaseTrackingID>
+      <j:CaseAugmentation>
+         <j:CaseCharge s:id="Charge01">
+            <j:ChargeDisposition>
+               <nc:DispositionDate>
+						            <nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
+					          </nc:DispositionDate>
+               <nc:DispositionDescriptionText>DPNPGEN</nc:DispositionDescriptionText>
+            </j:ChargeDisposition>
+            <j:ChargeQualifierText>Lead</j:ChargeQualifierText>
+            <j:ChargeSeverityText>M</j:ChargeSeverityText>
+            <j:ChargeStatute>
+               <j:StatuteCodeSectionIdentification>
+                  <nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+               </j:StatuteCodeSectionIdentification>
+               <j:StatuteDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:StatuteDescriptionText>
+            </j:ChargeStatute>
+         </j:CaseCharge>
+         <j:CaseCharge s:id="Charge02">
+            <j:ChargeDisposition>
+               <nc:DispositionDate>
+					             <nc:DateTime>2018-03-21T15:39:00</nc:DateTime>
+				           </nc:DispositionDate>
+               <nc:DispositionDescriptionText>DPNPGEN</nc:DispositionDescriptionText>
+            </j:ChargeDisposition>
+            <j:ChargeQualifierText>Additional</j:ChargeQualifierText>
+            <j:ChargeStatute>
+               <j:StatuteCodeSectionIdentification>
+                  <nc:IdentificationID>709-906(1), 709-906(4) and 709-906(5)(a) HRS</nc:IdentificationID>
+               </j:StatuteCodeSectionIdentification>
+               <j:StatuteDescriptionText>Refusal to Comply with a Lawful Order of a Police Officer (1st Offense)</j:StatuteDescriptionText>
+            </j:ChargeStatute>
+         </j:CaseCharge>
+         <j:CaseProsecutionAttorney>
+            <nc:RoleOfPersonReference s:ref="d1e134"/>
+         </j:CaseProsecutionAttorney>
+      </j:CaseAugmentation>
+   </j:Case>
+   <j:Person s:id="Def01">
+      <nc:PersonBirthDate>
+			      <nc:Date>1986-05-25</nc:Date>
+		    </nc:PersonBirthDate>
+      <nc:PersonName>
+			      <nc:PersonFullName>Smith, Allan E.</nc:PersonFullName>
+		    </nc:PersonName>
+      <nc:PersonOtherIdentification>
+         <nc:IdentificationID>A107</nc:IdentificationID>
+         <nc:IdentificationCategoryDescriptionText>SID</nc:IdentificationCategoryDescriptionText>
+      </nc:PersonOtherIdentification>
+      <nc:PersonSexCode>M</nc:PersonSexCode>
+   </j:Person>
+   <nc:Person s:id="d1e134">
+      <nc:PersonName>
+         <nc:PersonFullName>Unassigned Deputy</nc:PersonFullName>
+      </nc:PersonName>
+   </nc:Person>
+   <j:Offense s:id="Offense01">
+      <nc:ActivityDate>
+         <nc:Date>2011-07-16</nc:Date>
+      </nc:ActivityDate>
+   </j:Offense>
+   <j:Offense s:id="Offense02">
+      <nc:ActivityDate>
+         <nc:Date>2011-07-16</nc:Date>
+      </nc:ActivityDate>
+   </j:Offense>
+   <j:OffenseChargeAssociation>
+      <j:OffenseReference s:ref="Offense01"/>
+      <j:ChargeReference s:ref="Charge01"/>
+   </j:OffenseChargeAssociation>
+   <j:OffenseChargeAssociation>
+      <j:OffenseReference s:ref="Offense02"/>
+      <j:ChargeReference s:ref="Charge02"/>
+   </j:OffenseChargeAssociation>
+   <j:OffenseSubjectAssociation>
+      <j:OffenseReference s:ref="Offense01"/>
+      <j:OffenseReference s:ref="Offense02"/>
+      <j:SubjectReference s:ref="Def01"/>
+   </j:OffenseSubjectAssociation>
+</exc:JJISProsCaseExchange>

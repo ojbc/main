@@ -29,14 +29,14 @@
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
 		<j:ArrestCharge>
+			<j:ChargeDisposition>
+				<nc:DispositionDate>
+					<nc:Date>2016-06-15</nc:Date>
+				</nc:DispositionDate>
+			</j:ChargeDisposition>
 			<j:ChargeIdentification>
 				<nc:IdentificationID>C123456</nc:IdentificationID>
 			</j:ChargeIdentification>
 		</j:ArrestCharge>
 	</j:Arrest>
-	<nc:Disposition>
-		<nc:DispositionDate>
-			<nc:Date>2016-06-15</nc:Date>
-		</nc:DispositionDate>
-	</nc:Disposition>
 </er-req-doc:ExpungeRequest>

@@ -26,8 +26,7 @@
                             xmlns:s="http://release.niem.gov/niem/structures/3.0/"
                             xmlns:fn="http://www.w3.org/2005/xpath-functions"
                             xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-                            xmlns:chri="http://courts.maine.gov/mejis/chri/3.0/"
-                            xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0 ../../../xsd/impl/maine/chri_codes_3.0.xsd">
+                            xmlns:chri="http://courts.maine.gov/mejis/chri/3.0/">
    <nc:Case>
       <j:CaseAugmentation>
          <j:CaseCourtEvent s:metadata="DM02">
@@ -121,7 +120,7 @@
                <nc:IdentificationID>ME002085J</nc:IdentificationID>
             </ext:OrganizationORIIdentification>
          </j:CaseCourtEvent>
-         <j:CaseCourtEvent s:id="d1e73" s:metadata="DM01">
+         <j:CaseCourtEvent s:id="d1e83" s:metadata="DM01">
             <nc:ActivityCategoryText>ORIGINAL</nc:ActivityCategoryText>
             <nc:ActivityDescriptionText>RULING</nc:ActivityDescriptionText>
             <nc:ActivityName>SENTENCE</nc:ActivityName>
@@ -232,6 +231,7 @@
                <nc:ActivityName>Imprisonment</nc:ActivityName>
                <j:TermDuration>P0Y9M0DT0H</j:TermDuration>
                <j:TermLifeIndicator>false</j:TermLifeIndicator>
+               <ext:SentenceSuspendedTimeRemainder>ALL BUT 0 years 0 months 0 days 0 hours</ext:SentenceSuspendedTimeRemainder>
                <ext:TermEnteredDate>
                   <nc:Date>1970-01-01</nc:Date>
                </ext:TermEnteredDate>
@@ -365,7 +365,7 @@
       <j:Charge s:ref="d1e5"/>
    </j:PersonChargeAssociation>
    <ext:CourtEventSentenceAssociation>
-      <j:CaseCourtEvent s:ref="d1e73"/>
+      <j:CaseCourtEvent s:ref="d1e83"/>
       <j:ChargeSentence s:ref="d1e1"/>
    </ext:CourtEventSentenceAssociation>
    <ext:DispositionMetadata s:id="DM01">
