@@ -172,9 +172,11 @@
 			<!-- DateOfBirth -->
 			<nc:Date>1962-02-18</nc:Date>
 		</nc:PersonBirthDate>
+		<!-- NAME -->
 		<nc:PersonName>
-			<!-- NAME -->
-			<nc:PersonFullName>Smith, Jerry A.</nc:PersonFullName>
+			<nc:PersonGivenName>Jerry</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>Smith</nc:PersonSurName>
 		</nc:PersonName>
 		<!-- Sex -->
 		<j:PersonSexCode>M</j:PersonSexCode>
