@@ -944,6 +944,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequestErrorReporting/1.0";
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC ="chm-rep";
 	
+	public static final String NS_RECORD_REPLICATION_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC ="rr-req-doc";
+
+	public static final String NS_RECORD_REPLICATION_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT ="rr-req-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1864,6 +1870,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC);
 		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC,NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC );
+		
+		
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC, NS_RECORD_REPLICATION_REQUEST_DOC);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_REQUEST_DOC,NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT, NS_RECORD_REPLICATION_REQUEST_EXT);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_REQUEST_EXT,NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT );
+
 		
 	}
 
