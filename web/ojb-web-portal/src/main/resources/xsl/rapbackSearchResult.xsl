@@ -113,7 +113,7 @@
 			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:LatestSubsequentResultDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td align="right">
+			<td align="right" style="white-space: nowrap;">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
