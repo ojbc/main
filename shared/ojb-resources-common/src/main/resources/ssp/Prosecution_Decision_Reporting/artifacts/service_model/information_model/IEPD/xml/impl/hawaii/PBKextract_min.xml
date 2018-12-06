@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<Report
+	xsi:schemaLocation="LegalInquiry_x0020_Custom http://gpbk-tx-hissrs/ReportServer?%2FHIHonolulu%2FCustomReports%2FLegalInquiry%2FLegalInquiry%20Custom&amp;rs%3ACommand=Render&amp;rs%3AFormat=XML&amp;rs%3ASessionID=b1wj1g453oxlqh45tsd55w55&amp;rc%3ASchema=True"
+	Name="LegalInquiry Custom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="LegalInquiry_x0020_Custom">
+	<Tablix1>
+		<Details_Collection>
+			<Details FileNumber="003001455" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Mcalinn, Michael P." Severity="M"
+				LeadChargeStatute="707-0712" LeadChargeOffenseDate="2008-03-23T00:00:00" LeadCharge="Assault 3°"
+				LeadChargeDispositionDate="2018-06-17T00:00:00" ChargeCode="707-0712" ChargeOffenseDate="2008-03-23T00:00:00"
+				ChargeDescription="Assault 3°" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-06-17T00:00:00" ProsAttorneyName=""
+				DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A758699" Sex="M" DateOfBirth="1955-07-31T00:00:00"
+				CaseReferralDate="2008-03-31T00:00:00" CaseDisposition="" CaseDispositionDate="1900-01-01T00:00:00"
+				ChargeOffenseFromDate="2008-03-23T00:00:00" ChargeOffenseToDate="2008-03-23T00:00:00" CaseLEReportNumber="08114370" />
+			<Details FileNumber="003001455" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Mcalinn, Michael P." Severity="M"
+				LeadChargeStatute="707-0712" LeadChargeOffenseDate="2008-03-23T00:00:00" LeadCharge="Assault 3°"
+				LeadChargeDispositionDate="2018-06-17T00:00:00" ChargeCode="708-0823" ChargeOffenseDate="2008-03-23T00:00:00"
+				ChargeDescription="Criminal Property Damage 4°" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-06-17T00:00:00"
+				ProsAttorneyName="" DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A758699" Sex="M"
+				DateOfBirth="1955-07-31T00:00:00" CaseReferralDate="2008-03-31T00:00:00" CaseDisposition=""
+				CaseDispositionDate="1900-01-01T00:00:00" ChargeOffenseFromDate="2008-03-23T00:00:00" ChargeOffenseToDate="2008-03-23T00:00:00"
+				CaseLEReportNumber="08114370" />
+			<Details FileNumber="003001455" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Mcalinn, Michael P." Severity="M"
+				LeadChargeStatute="707-0712" LeadChargeOffenseDate="2008-03-23T00:00:00" LeadCharge="Assault 3°"
+				LeadChargeDispositionDate="2018-06-17T00:00:00" ChargeCode="707-0712" ChargeOffenseDate="2008-03-23T00:00:00"
+				ChargeDescription="Assault 3°" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-06-17T00:00:00" ProsAttorneyName=""
+				DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A758699" Sex="M" DateOfBirth="1955-07-31T00:00:00"
+				CaseReferralDate="2008-03-31T00:00:00" CaseDisposition="" CaseDispositionDate="1900-01-01T00:00:00"
+				ChargeOffenseFromDate="2008-03-23T00:00:00" ChargeOffenseToDate="2008-03-23T00:00:00" CaseLEReportNumber="08114370" />
+			<Details FileNumber="003001455" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Mcalinn, Michael P." Severity="M"
+				LeadChargeStatute="707-0712" LeadChargeOffenseDate="2008-03-23T00:00:00" LeadCharge="Assault 3°"
+				LeadChargeDispositionDate="2018-06-17T00:00:00" ChargeCode="708-0823" ChargeOffenseDate="2008-03-23T00:00:00"
+				ChargeDescription="Criminal Property Damage 4°" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-06-17T00:00:00"
+				ProsAttorneyName="" DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A758699" Sex="M"
+				DateOfBirth="1955-07-31T00:00:00" CaseReferralDate="2008-03-31T00:00:00" CaseDisposition=""
+				CaseDispositionDate="1900-01-01T00:00:00" ChargeOffenseFromDate="2008-03-23T00:00:00" ChargeOffenseToDate="2008-03-23T00:00:00"
+				CaseLEReportNumber="08114370" />
+			<Details FileNumber="003002992" Stage="CLOSED" CaseStatus="REFUSED" NAME="Molina, Jeffrey U." Severity="M"
+				LeadChargeStatute="707-0717" LeadChargeOffenseDate="2010-03-28T00:00:00" LeadCharge="Terroristic Threatening 2°"
+				LeadChargeDispositionDate="2018-04-18T00:00:00" ChargeCode="707-0717" ChargeOffenseDate="2010-03-28T00:00:00"
+				ChargeDescription="Terroristic Threatening 2°" ChargeDispositionCode="CNA" ChargeDispositionDate="2018-04-18T00:00:00"
+				ProsAttorneyName="" DefAttorneyName="" JudgeName="" DispositionCode="CNA" Sid="" DateOfBirth="1980-07-04T00:00:00"
+				CaseReferralDate="2010-04-13T00:00:00" CaseDisposition="" CaseDispositionDate="1900-01-01T00:00:00"
+				ChargeOffenseFromDate="2010-03-28T00:00:00" ChargeOffenseToDate="2010-03-28T00:00:00" CaseLEReportNumber="10110638" />
+			<Details FileNumber="003003245" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Leopoldo, Joao G." Severity="M"
+				LeadChargeStatute="711-1106" LeadChargeOffenseDate="2005-05-05T00:00:00" LeadCharge="Harassment"
+				LeadChargeDispositionDate="2018-03-18T00:00:00" ChargeCode="711-1106" ChargeOffenseDate="2005-05-05T00:00:00"
+				ChargeDescription="Harassment" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-03-18T00:00:00" ProsAttorneyName=""
+				DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A1024522" Sex="M" DateOfBirth="1979-05-14T00:00:00"
+				CaseReferralDate="2005-05-17T00:00:00" CaseDisposition="" CaseDispositionDate="1900-01-01T00:00:00"
+				ChargeOffenseFromDate="2005-05-05T00:00:00" ChargeOffenseToDate="2005-05-05T00:00:00" CaseLEReportNumber="05180718" />
+			<Details FileNumber="003003245" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Leopoldo, Joao G." Severity="M"
+				LeadChargeStatute="711-1106" LeadChargeOffenseDate="2005-05-05T00:00:00" LeadCharge="Harassment"
+				LeadChargeDispositionDate="2018-03-18T00:00:00" ChargeCode="709-0906" ChargeOffenseDate="2005-05-05T00:00:00"
+				ChargeDescription="Abuse Family/Household Member" ChargeDispositionCode="CNA" ChargeDispositionDate="2005-10-28T00:00:00"
+				ProsAttorneyName="" DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A1024522" Sex="M"
+				DateOfBirth="1979-05-14T00:00:00" CaseReferralDate="2005-05-17T00:00:00" CaseDisposition=""
+				CaseDispositionDate="1900-01-01T00:00:00" ChargeOffenseFromDate="2005-05-05T00:00:00" ChargeOffenseToDate="2005-05-05T00:00:00"
+				CaseLEReportNumber="05180718" />
+			<Details FileNumber="003003245" Stage="CLOSED" CaseStatus="DISPOSED" NAME="Leopoldo, Joao G." Severity="M"
+				LeadChargeStatute="711-1106" LeadChargeOffenseDate="2005-05-05T00:00:00" LeadCharge="Harassment"
+				LeadChargeDispositionDate="2018-03-18T00:00:00" ChargeCode="711-1106" ChargeOffenseDate="2005-05-05T00:00:00"
+				ChargeDescription="Harassment" ChargeDispositionCode="PNP" ChargeDispositionDate="2018-03-18T00:00:00" ProsAttorneyName=""
+				DefAttorneyName="" JudgeName="" DispositionCode="PNP" Sid="A1024522" Sex="M" DateOfBirth="1979-05-14T00:00:00"
+				CaseReferralDate="2005-05-17T00:00:00" CaseDisposition="" CaseDispositionDate="1900-01-01T00:00:00"
+				ChargeOffenseFromDate="2005-05-05T00:00:00" ChargeOffenseToDate="2005-05-05T00:00:00" CaseLEReportNumber="05180718" />
+		</Details_Collection>
+	</Tablix1>
+</Report>
