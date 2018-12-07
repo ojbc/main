@@ -190,12 +190,10 @@
 		<ojbc:PersonStateFingerprintIdentification>
 			<xsl:choose>
 				<xsl:when test="ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'">
-					<ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
-					</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+					<ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</xsl:when>
 				<xsl:when test="ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'">
-					<ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
-					</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+					<ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 				</xsl:when>
 			</xsl:choose>
 			<lexslib:SameAsDigestReference>
