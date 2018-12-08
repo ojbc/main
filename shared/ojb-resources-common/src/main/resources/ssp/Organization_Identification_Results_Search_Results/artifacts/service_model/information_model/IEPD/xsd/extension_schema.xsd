@@ -89,6 +89,8 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 					<xsd:element ref="oirs-res-ext:SubscriptionValidation" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubscriptionGracePeriod" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubscriptionIdentification"/>
+					<xsd:element ref="oirs-res-ext:RapBackSubscriptionIdentification"/>
+					<xsd:element ref="oirs-res-ext:RapBackActivityNotificationIdentification"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -423,5 +425,14 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	
+		<xsd:element name="RapBackSubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Unique identification assigned by NGI that identifies a rap back subscription as a whole.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackActivityNotificationIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification for future reported event matches for rap back.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

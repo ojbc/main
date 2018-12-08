@@ -17,7 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xs:schema targetNamespace="http://release.niem.gov/niem/niem-core/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xs:schema targetNamespace="http://release.niem.gov/niem/niem-core/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xs:annotation>
     <xs:documentation>NIEM Core.</xs:documentation>
   </xs:annotation>
@@ -100,6 +100,14 @@
           <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommentType">
+    <xs:annotation>
+      <xs:documentation>A data type for a comment, note, or remark providing additional information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ConditionType">
@@ -250,6 +258,18 @@
         <xs:sequence>
           <xs:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:MeasureUnit" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MetadataType">
+    <xs:annotation>
+      <xs:documentation>A data type for information that further qualifies primary data; data about data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:MetadataType">
+        <xs:sequence>
+          <xs:element ref="nc:Comment" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -437,6 +457,11 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:attribute name="sequenceID" type="xs:integer">
+    <xs:annotation>
+      <xs:documentation>A numeric identifier that explicitly sequences or orders elements.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
   <xs:element name="Activity" type="nc:ActivityType" nillable="true">
     <xs:annotation>
       <xs:documentation>A single or set of related actions, events, or process steps.</xs:documentation>
@@ -520,6 +545,11 @@
   <xs:element name="CaseTrackingID" type="niem-xs:string">
     <xs:annotation>
       <xs:documentation>An identifier used to track a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Comment" type="nc:CommentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A comment, note, or remark.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Condition" type="nc:ConditionType">
@@ -775,6 +805,11 @@
   <xs:element name="MeasureValueText" type="nc:TextType" substitutionGroup="nc:MeasureValue">
     <xs:annotation>
       <xs:documentation>A textual description of a measurement value.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Metadata" type="nc:MetadataType" appinfo:appliesToTypes="structures:ObjectType structures:AssociationType">
+    <xs:annotation>
+      <xs:documentation>Information that further qualifies primary data; data about data.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ObligationAugmentationPoint" abstract="true">

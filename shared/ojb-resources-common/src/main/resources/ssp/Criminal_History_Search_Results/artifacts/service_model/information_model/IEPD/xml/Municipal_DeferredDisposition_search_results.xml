@@ -67,6 +67,7 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D96487</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>					
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -128,6 +129,7 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1234</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>

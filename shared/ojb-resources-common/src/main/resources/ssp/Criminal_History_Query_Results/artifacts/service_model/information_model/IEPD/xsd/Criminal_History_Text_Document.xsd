@@ -19,13 +19,14 @@
 -->
 <xsd:schema xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryTextDocument/1.0"
 	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="NIEM_2.1/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="NIEM_2.1/proxy/xsd/2.0/xsd.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="NIEM_2.1/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="NIEM_2.1/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
 		schemaLocation="ErrorReporting.xsd" />
 	<xsd:complexType name="CriminalHistoryTextDocumentType">
@@ -34,6 +35,12 @@
 				<xsd:sequence>
 					<xsd:element ref="cht-doc:FederalCriminalHistoryRecordDocument" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cht-doc:StateCriminalHistoryRecordDocument" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cht-doc:PersonTrackingIdentification" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cht-doc:AlternateArrestStateFingerprintIdentifierIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cht-doc:NoArrestFoundIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cht-doc:ArrestStateFingerprintIdentifierExistsIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cht-doc:ArrestReportCorrectiveActionIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="error:PersonQueryResultError" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -74,6 +81,36 @@
 	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateArrestStateFingerprintIdentifierIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the arrest SID is an alternate; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NoArrestFoundIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if no arrest is found; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestStateFingerprintIdentifierExistsIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if no arrest SID exists; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestReportCorrectiveActionIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if arrest report requires maintenance; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A biometric identifier assigned to a person for the purpose of correlating identification activities.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

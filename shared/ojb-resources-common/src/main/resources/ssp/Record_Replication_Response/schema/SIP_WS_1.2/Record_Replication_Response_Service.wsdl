@@ -51,11 +51,10 @@
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
-	<!-- Secure, GFIPM-conformant binding requiring SAML -->
 	<wsdl:binding name="Record_Replication_Response_Secure_ServiceSOAPBinding"
 		type="tns:Record_Replication_Response_Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="SubmitRecordReplicationResponse">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/RecordReplicationResponseService/1.0/SubmitRecordReplicationResponse" />

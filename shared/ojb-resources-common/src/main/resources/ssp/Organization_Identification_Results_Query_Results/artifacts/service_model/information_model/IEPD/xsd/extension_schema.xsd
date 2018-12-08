@@ -52,6 +52,7 @@
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="oirq-res-ext:IdentificationSearchResultsRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:NationalSexOffenderRegistryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -336,6 +337,11 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:element name="NationalSexOffenderRegistryDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A document submitted to or returned from the National Sex Offender Registry.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IdentificationReasonRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A representation of a reason why someone is being identified.</xsd:documentation>
@@ -385,5 +391,17 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="NationalSexOffenderRegistrySearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:NationalSexOffenderRegistryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person is in the National Sex Offender Registry (NSOR).
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NationalSexOffenderRegistryDemographicsDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:NationalSexOffenderRegistryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Demographics information used to search the FBI's National Sex Offender Registry (NSOR).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>

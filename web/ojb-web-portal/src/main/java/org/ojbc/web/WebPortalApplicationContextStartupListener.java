@@ -131,6 +131,9 @@ public class WebPortalApplicationContextStartupListener implements
 					case "wildlife-license-query":
 						camelContext.startRoute("personQueryWildlifeLicenseResultsServiceEndpointRoute");
 						break;
+					case "professional-license-query":
+						camelContext.startRoute("personQueryProfessionalLicenseResultsServiceEndpointRoute");
+						break;
 					default:
 						break;
 					}

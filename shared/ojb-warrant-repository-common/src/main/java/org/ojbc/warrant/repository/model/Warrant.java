@@ -40,7 +40,7 @@ public class Warrant {
     private String offenseCode;
     private String generalOffenseCharacter;
     private String criminalTrackingNumber;
-    private boolean extradite;
+    private Boolean extradite;
     private String extraditionLimits;
     private String bondAmount;
     private String pickupLimits;
@@ -152,12 +152,7 @@ public class Warrant {
 	public void setBondAmount(String bondAmount) {
 		this.bondAmount = bondAmount;
 	}
-	public boolean isExtradite() {
-		return extradite;
-	}
-	public void setExtradite(boolean extradite) {
-		this.extradite = extradite;
-	}
+
 	public String getPickupLimits() {
 		return pickupLimits;
 	}
@@ -224,5 +219,11 @@ public class Warrant {
 	}
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+	public Boolean getExtradite() {
+		return extradite;
+	}
+	public void setExtradite(Boolean extradite) {
+		this.extradite = extradite;
 	}
 }

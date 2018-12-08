@@ -45,7 +45,11 @@
     	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WILDLIFE_LICENSING" />
 		</entry>
-
+		
+    	<!-- Professional License -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.PROFESSIONAL_LICENSING" />
+		</entry>
 
     	<!-- Person Warrants -->
     	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
@@ -66,11 +70,6 @@
     	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.VEHICLE_CRASH" />
 		</entry>
-		
-		<!-- Person Wildlife Licensing -->
-        <entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing">
-            <util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WILDLIFE_LICENSING" />
-        </entry>
 		
 		<!-- Person to Incident list, not supported by static mock adapter --> 
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>

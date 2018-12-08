@@ -31,7 +31,7 @@
 			<nc:IdentificationID>003001455</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityStatus>
-			<!-- CaseStatusCode -->
+			<!-- CaseStatus -->
 			<pd-hi-codes:CaseStatusCode>DISPOSED</pd-hi-codes:CaseStatusCode>
 		</nc:ActivityStatus>
 		<nc:ActivityDisposition>
@@ -43,7 +43,7 @@
 		</nc:ActivityDisposition>
 		<nc:CaseDisposition>
 			<!-- DispositionCode -->
-			<nc:DispositionText>Final Disposition</nc:DispositionText>
+			<nc:DispositionText>DPNP</nc:DispositionText>
 			<!-- DispositionDate -->
 			<nc:CaseDispositionFinalDate>
 				<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
@@ -79,7 +79,7 @@
 				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
 				<j:CourtEventAppearance>
 					<j:CourtAppearanceDate>
-						<!-- Docket Date -->
+						<!-- DocketDate -->
 						<nc:DateTime>2001-10-26T21:32:52</nc:DateTime>
 					</j:CourtAppearanceDate>
 				</j:CourtEventAppearance>
@@ -122,7 +122,7 @@
 				<nc:DispositionText>PNP</nc:DispositionText>
 			</j:ChargeDisposition>
 			<j:ChargeStatute>
-				<!-- Charge Code -->
+				<!-- ChargeCode -->
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>707-0712</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
@@ -143,7 +143,7 @@
 			<nc:DateTime>2008-03-31T00:00:00</nc:DateTime>
 		</nc:ActivityDate>
 		<j:ArrestAgency>
-			<!-- AgencyName -->
+			<!-- LEAgency -->
 			<nc:OrganizationName>Honolulu Police Department</nc:OrganizationName>
 			<pd-ext:AgencyCaseIdentification>
 				<!-- CaseLEReportNumber -->
@@ -166,25 +166,17 @@
 			<!-- ChargeOffenseDate -->
 			<nc:Date>2008-03-23</nc:Date>
 		</nc:ActivityDate>
-		<nc:ActivityDateRange>
-			<nc:StartDate>
-				<!-- ChargeOffenseFromDate -->
-				<nc:Date>2008-03-23</nc:Date>
-			</nc:StartDate>
-			<nc:EndDate>
-				<!-- ChargeOffenseFromDate -->
-				<nc:Date>2008-03-23</nc:Date>
-			</nc:EndDate>
-		</nc:ActivityDateRange>
 	</j:Offense>
 	<nc:Person structures:id="Def01">
 		<nc:PersonBirthDate>
 			<!-- DateOfBirth -->
-			<nc:Date>1981-02-23</nc:Date>
+			<nc:Date>1962-02-18</nc:Date>
 		</nc:PersonBirthDate>
+		<!-- NAME -->
 		<nc:PersonName>
-			<!-- NAME -->
-			<nc:PersonFullName>Howard A Jones</nc:PersonFullName>
+			<nc:PersonGivenName>Jerry</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>Smith</nc:PersonSurName>
 		</nc:PersonName>
 		<!-- Sex -->
 		<j:PersonSexCode>M</j:PersonSexCode>

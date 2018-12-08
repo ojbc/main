@@ -64,6 +64,18 @@
 
 	    </camel:route>	    
 	    
+	    <!-- Professional License Response Listener -->
+	    <camel:route id="personQueryProfessionalLicenseResultsServiceEndpointRoute" autoStartup="false">
+	    	<from uri="personQueryProfessionalLicenseResultsServiceEndpoint"/>
+	    	<camel:log message="Received response message - Professional License: ${body}" loggingLevel="INFO"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:professionalLicensingMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:professionalLicensingRequestProcessor?method=updateMapWithResponse"/>
+
+	    </camel:route>	  	    
 	    	        
 	    <!-- Criminal History Response Listener -->
 	    <camel:route id="personQueryResultsHandlerCriminalHistoryServiceRoute" autoStartup="false">
