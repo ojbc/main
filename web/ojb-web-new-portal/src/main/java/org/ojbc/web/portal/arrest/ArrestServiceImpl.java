@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.arrest;
 
+import javax.annotation.Resource;
+
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestReferRequestProcessor;

@@ -10,21 +10,17 @@
 	<body>
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
-        <h3 class="mt-5">Disposition Search Results</h3>
-        <form action="#" th:action="@{/dispositions/advancedSearch}" th:object="${dispositionSearchRequest}" id="searchForm" method="post">
+	      <div id="loadingAjaxPane" ></div>
+	      
+        <h3 class="mt-5">Arrest Search Results</h3>
+        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row">
 	            <div class="col-9">
 			          <table>
 			            <tr>
-			              <td>Disposition Date </td>
-			              <td><input type="text" th:field="*{dispositionDateRangeStartDate}" width="250" placeholder="From"/></td>
-			              <td><input type="text" th:field="*{dispositionDateRangeEndDate}" width="250" placeholder="To"/></td>
-			              <td th:errors="*{dispositionDateRangeStartDate}">Disposition Date error message</td>
-			            </tr>
-			            <tr>
 			              <td>Arrest Date </td>
-			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" width="250" placeholder="From"/></td>
-			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" width="250" placeholder="To"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/></td>
 			              <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
 			            </tr>
 			            <tr>
@@ -53,7 +49,7 @@
 			              <td/>
 			              <td><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></td>
 			              <td th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN error message</td>
-			              <td><input type="text" th:field="*{dob}" width="250" placeholder="Date of Birth"/></td>
+			              <td><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></td>
 			              <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">DOB error message</td>
 			            </tr>
 			            <tr>
@@ -74,15 +70,44 @@
         <hr/>
         
         <div id="searchResultsList" th:fragment="resultsList" >
-	        <p th:utext="${dispositionSearchContent}" ></p>
+	        <p th:utext="${arrestSearchContent}" ></p>
 	        <script th:inline="javascript">
               $(function(){
                   $('#searchResultsTable').DataTable({
                       "columnDefs": [
                           { "orderable": false, "targets": 6 }
                         ]
-                    });
-              });
+                  });
+                  $('[data-toggle="tooltip"]').tooltip(); 
+                  
+                  $('#searchResultsTable').on('click', 'a.editArrest',function() {
+                      xhr = $.get( context +"daArrests/" + $(this).closest("tr").attr("id"), function(data) {
+                        $('#portalContent').html(data);
+                      }).fail(ojbc.displayFailMessage);
+                  });
+                  $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
+	                	  var arrestId = $(this).closest("tr").attr("id"); 
+	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , "",
+	             					  function(ans) { 
+	                		       if(ans){
+		                             xhr = $.get( context +"daArrests/" + arrestId + "/hide", function(data) {
+		                                 $("#searchResultsList").replaceWith(data);
+		                               }).fail(ojbc.displayFailMessage);
+	                		       } 
+	           		      }); 
+                  });
+                  $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
+                      var arrestId = $(this).closest("tr").attr("id"); 
+                      bootpopup.confirm("Please confirm that you want to refer this arrest" , "",
+                         function(ans) { 
+                            if(ans){
+                                xhr = $.get( context +"daArrests/" + arrestId  + "/refer", function(data) {
+                                    $("#searchResultsList").replaceWith(data);
+                                }).fail(ojbc.displayFailMessage);
+                            } 
+                         }); 
+                  });
+             });
           </script>
         </div>
  		    <script th:inline="javascript">
@@ -91,14 +116,7 @@
  	        /*]]>*/
 
 	        $(function(){
-	              
-              $('[data-toggle="tooltip"]').tooltip();   
-              $('#dispositionDateRangeStartDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('#dispositionDateRangeEndDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
+	            
               $('#arrestDateRangeStartDate').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
@@ -108,15 +126,24 @@
               $('#dob').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
-
+              $('.date').mask('99/99/9999');
+              
+              $('#searchForm input').keypress(function (e) {
+            	  if (e.which == 13) {
+            	    $('#submit').click();
+            	    return false;    
+            	  }
+            	});
+              
               $('#submit').click (function(){
                 var formData = $('#searchForm').serialize();
                  
-                xhr = $.post(context + "dispositions/advancedSearch",formData,function(data) {
+                xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
              	  }).fail();
               });
-             }); 
+              
+            }); 
 	
 	        </script>
 	    </div>

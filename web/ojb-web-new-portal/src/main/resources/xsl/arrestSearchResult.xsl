@@ -34,6 +34,7 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	
+	<xsl:param name="resultType">MUNI</xsl:param>
 	<xsl:template match="/chsres-doc:CriminalHistorySearchResults">
 	
 	  <xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -96,13 +97,24 @@
 				</xsl:for-each>
 			</td>
 			<td align="right" width="120px">
-			  <a href="#" class="editArrest" style="margin-right:3px">
-  				<i class="fas fa-edit fa-2x" title="Edit" data-toggle="tooltip"></i>
+			  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">
+  				<i class="fas fa-edit fa-2x"></i>
  				</a>
- 				<a href="#" class="hideArrest" style="margin-right:3px">
- 				  <i class="fas fa-eye-slash fa-2x" title="Hide" data-toggle="tooltip"></i>
+ 				<a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
+ 				  <i class="fas fa-eye-slash fa-2x"></i>
 				</a>
-				<a href="#" class="referArrest"><i class="fas fa-share-square fa-2x" title="Refer to DA" data-toggle="tooltip"></i></a>
+				<xsl:element name="a">
+				  <xsl:attribute name="href">#</xsl:attribute>
+				  <xsl:attribute name="class">referArrest</xsl:attribute>
+				  <xsl:attribute name="title">
+				    <xsl:choose>
+				      <xsl:when test="$resultType = 'MUNI'">Refer to DA</xsl:when>
+				      <xsl:when test="$resultType = 'DA'">Refer to Municipal Court</xsl:when>
+				    </xsl:choose>
+				  </xsl:attribute>
+          <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
+				  <i class="fas fa-share-square fa-2x"></i>
+				</xsl:element>
 			</td>
 		</tr>
 	</xsl:template>

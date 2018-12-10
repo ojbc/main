@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,6 +45,8 @@ public class ArrestSearchRequest {
     
     private String arrestIdentification;
     private String ori;
+    
+    private ArrestType arrestType; 
     
 	public LocalDate getArrestDateRangeStartDate() {
 		return arrestDateRangeStartDate;
@@ -111,14 +114,6 @@ public class ArrestSearchRequest {
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	@Override
-	public String toString() {
-		return "ArrestSearchRequest [arrestDateRangeStartDate=" + arrestDateRangeStartDate + ", arrestDateRangeEndDate="
-				+ arrestDateRangeEndDate + ", firstName=" + firstName + ", firstNameSearchMetadata="
-				+ firstNameSearchMetadata + ", lastName=" + lastName + ", lastNameSearchMetadata="
-				+ lastNameSearchMetadata + ", dob=" + dob + ", ssn=" + ssn + ", otn=" + otn + ", arrestIdentification="
-				+ arrestIdentification + ", ori=" + ori + "]";
-	}
 	
 	public boolean isEmpty() {
 		return this.getArrestDateRangeEndDate() == null &&
@@ -145,5 +140,20 @@ public class ArrestSearchRequest {
 		return this.getDob() != null || 
 				Arrays.asList(this.getFirstName(), this.getLastName(), this.getSsn())
 				.stream().anyMatch(StringUtils::isNotBlank);
+	}
+	
+	@Override
+	public String toString() {
+		return "ArrestSearchRequest [arrestDateRangeStartDate=" + arrestDateRangeStartDate + ", arrestDateRangeEndDate="
+				+ arrestDateRangeEndDate + ", firstName=" + firstName + ", firstNameSearchMetadata="
+				+ firstNameSearchMetadata + ", lastName=" + lastName + ", lastNameSearchMetadata="
+				+ lastNameSearchMetadata + ", dob=" + dob + ", ssn=" + ssn + ", otn=" + otn + ", arrestIdentification="
+				+ arrestIdentification + ", ori=" + ori + ", arrestType=" + getArrestType() + "]";
+	}
+	public ArrestType getArrestType() {
+		return arrestType;
+	}
+	public void setArrestType(ArrestType arrestType) {
+		this.arrestType = arrestType;
 	}
 }

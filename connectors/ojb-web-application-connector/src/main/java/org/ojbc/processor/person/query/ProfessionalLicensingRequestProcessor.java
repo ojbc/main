@@ -23,14 +23,14 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 

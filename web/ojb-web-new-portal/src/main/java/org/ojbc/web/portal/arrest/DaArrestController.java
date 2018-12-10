@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.CodeTableService;
@@ -28,11 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
-	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping"})
-@RequestMapping("/arrests")
-public class ArrestController {
-	private static final Log log = LogFactory.getLog(ArrestController.class);
+@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
+	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping"})
+@RequestMapping("/daArrests")
+public class DaArrestController {
+	private static final Log log = LogFactory.getLog(DaArrestController.class);
 
 	@Autowired
 	ArrestService arrestService;
@@ -96,11 +97,12 @@ public class ArrestController {
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+			arrestSearchRequest.setArrestType(ArrestType.DA);
 			
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}
 		getArrestSearchResults(request, arrestSearchRequest, model);
-		return "arrest/arrests::resultsPage";
+		return "arrest/da/arrests::resultsPage";
 	}
 
 	@PostMapping("/advancedSearch")
@@ -109,13 +111,13 @@ public class ArrestController {
 		
 		log.info("arrestSearchRequest:" + arrestSearchRequest );
 		getArrestSearchResults(request, arrestSearchRequest, model);
-		return "arrest/arrests::resultsList";
+		return "arrest/da/arrests::resultsList";
 	}
 
 	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest arrestSearchRequest,
 			Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.findArrests(arrestSearchRequest, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertMuniArrestSearchResult(searchContent);
+		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent);
 		model.put("arrestSearchResults", searchContent); 
 		model.put("arrestSearchContent", transformedResults); 
 		model.put("arrestSearchRequest", arrestSearchRequest);

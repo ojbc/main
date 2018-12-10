@@ -953,8 +953,17 @@ public class RequestMessageBuilderUtilities {
 	
 	public static Document createArrestSearchRequest(ArrestSearchRequest arrestSearchRequest) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
-        Element rootElement = document.createElementNS(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, 
-        		NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC + ":MunicipalChargesSearchRequest");
+        Element rootElement = null;
+        switch (arrestSearchRequest.getArrestType()) {
+        case MUNI: 
+        	rootElement = document.createElementNS(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, 
+        			NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC + ":MunicipalChargesSearchRequest");
+        	break; 
+        case DA: 
+        	rootElement = document.createElementNS(NS_DA_CHARGE_SEARCH_REQUEST_DOC, 
+        			NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC + ":DAChargesSearchRequest");
+        	break; 
+        }
         rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, 
         		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);

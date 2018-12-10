@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SearchFieldMetadata;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
@@ -30,9 +31,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
 	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping"})
-@RequestMapping("/arrests")
-public class ArrestController {
-	private static final Log log = LogFactory.getLog(ArrestController.class);
+@RequestMapping("/muniArrests")
+public class MuniArrestController {
+	private static final Log log = LogFactory.getLog(MuniArrestController.class);
 
 	@Autowired
 	ArrestService arrestService;
@@ -96,6 +97,7 @@ public class ArrestController {
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+			arrestSearchRequest.setArrestType(ArrestType.MUNI);
 			
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}

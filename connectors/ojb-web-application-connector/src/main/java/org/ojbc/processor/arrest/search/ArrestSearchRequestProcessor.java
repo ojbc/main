@@ -29,6 +29,7 @@ import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +46,7 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 	 */
 	protected CamelContext camelContext;
 	
-	private MessageProcessor arrestSearchMessageProcessor;
+	private MessageProcessor messageProcessor;
 	
 	private OJBSamlMap OJBSamlMap;
 	
@@ -57,6 +58,10 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 		
 		//POJO to XML Request
 		Document arrestSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
+		
+		if (ArrestType.DA == arrestSearchRequest.getArrestType()) {
+			messageProcessor.setOperationName("SubmitDAChargesSearchRequest");
+		}
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
@@ -75,7 +80,7 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 
 		OJBSamlMap.putToken(tokenID, samlToken);
 
-		arrestSearchMessageProcessor.sendResponseMessage(camelContext, senderExchange);
+		messageProcessor.sendResponseMessage(camelContext, senderExchange);
 		
 		//Put message ID and "noResponse" place holder.  
 		putRequestInMap(federatedQueryID);
@@ -105,14 +110,14 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 	}
 
 
-	public MessageProcessor getArrestSearchMessageProcessor() {
-		return arrestSearchMessageProcessor;
+	public MessageProcessor getMessageProcessor() {
+		return messageProcessor;
 	}
 
 
-	public void setArrestSearchMessageProcessor(
-			MessageProcessor arrestSearchMessageProcessor) {
-		this.arrestSearchMessageProcessor = arrestSearchMessageProcessor;
+	public void setMessageProcessor(
+			MessageProcessor messageProcessor) {
+		this.messageProcessor = messageProcessor;
 	}
 
 

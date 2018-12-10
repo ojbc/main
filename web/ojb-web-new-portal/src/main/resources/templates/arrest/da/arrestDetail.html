@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Arrest Detail</title>
+		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+		<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+	    <!-- Begin page content -->
+	    <div th:fragment="arrestDetail">
+	       <div id="loadingAjaxPane" ></div>
+	       
+	       <div class="card card-primary">
+					  <div class="card-header"><H5>ARREST DETAIL</H5></div>
+					  <div class="card-body">
+						     <p th:utext="${arrestDetailTransformed}" ></p>
+			      </div>
+   			 </div>
+   			 <div id="modalDiv">
+						<!-- The Modal -->
+						<div class="modal" id="dispositionModal">
+              <div id="modalIframeSpinner" ></div>
+						  <div class="modal-dialog modal-lg">
+						    <div class="modal-content">
+						
+						      <!-- Modal Header -->
+						      <div class="modal-header">
+						        <h4 class="modal-title">Add/Edit Disposition</h4>
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						      </div>
+						
+						      <!-- Modal body -->
+						      <div class="modal-body">
+						        <th:block th:include="arrest/dispositionForm::dispositionForm"></th:block>
+						      </div>
+					
+						      <!-- Modal footer -->
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
+	                  <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+						      </div>
+						
+			          </div>
+					  </div>
+				  </div>
+			   </div>
+		     <script th:inline="javascript">
+		        /*<![CDATA[*/
+				      var dispoCodeMapping = [[${dispoCodeMapping}]]; 
+				      var muniFiledChargeCodeMapping = [[${muniFiledChargeCodeMapping}]]; 
+				      var muniAmendedChargeCodeMapping = [[${muniAmendedChargeCodeMapping}]]; 
+				      var muniAlternateSentenceMapping = [[${muniAlternateSentenceMapping}]]; 
+				      var muniReasonsForDismissalMapping = [[${muniReasonsForDismissalMapping}]]; 
+			      /*]]>*/
+         	   var dispoTables = [];
+             $(function(){
+            	   $('.date').mask('99/99/9999');
+            	   $('.money').mask('000,000,000,000,000', {reverse: true});
+            	   
+            	   $('table.dispositionsTable').each(function(){
+                	 dispoTables[$(this).attr('id')] = $(this).DataTable({
+                		 dom: 'rt',
+                		 order: [ 1, "desc" ],
+                		 columnDefs: [ 
+                        {
+                            "targets": 0,
+                            "searchable": false,
+                            "orderable": false
+                        }, 
+                        {
+                             "targets": [2],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (dispoCodeMapping.hasOwnProperty(data)){
+                            		   return dispoCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [4],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniFiledChargeCodeMapping.hasOwnProperty(data)){
+                            		   return muniFiledChargeCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [5],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniAmendedChargeCodeMapping.hasOwnProperty(data)){
+                            		   return muniAmendedChargeCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [15],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniAlternateSentenceMapping.hasOwnProperty(data)){
+                            		   return muniAlternateSentenceMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [16],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (muniReasonsForDismissalMapping.hasOwnProperty(data)){
+                            		   return muniReasonsForDismissalMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                			  {
+                		      "targets": [6, 7, 14],
+                		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
+                		    }
+                		  ]/* , 
+                		  scrollX: true,
+             			    fixedColumns: {
+             			        leftColumns: 3
+             			    } */
+                	 });
+                 });
+            	   
+                 $('.dispositionsTable').on('click', 'a.addDisposition',function() {
+                    var chargeId = $(this).closest("table").attr("id");
+                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                    $("#arrestChargeIdentification").val(chargeId);
+                    $("#dispositionIdentification").val('');
+                    $("#dispositionDate").val('');
+                    $("#dispositionCode").val('');
+                    $("#courtCaseNumber").val('');
+                    $("#filedCharge").val('');
+                    $("#amendedCharge").val('');
+                    $("#fineAmount").val('');
+                    $("#fineSuspended").val('');
+                    $("#jailYears").val('');
+                    $("#jailDays").val('');
+                    $("#suspendedYears").val('');
+                    $("#suspendedDays").val('');
+                    $("#deferredYears").val('');
+                    $("#deferredDays").val('');
+                    $("#restitution").val('');
+                    $("#alternateSentence").val('');
+                    $("#reasonForDismissal").val('');
+                    $("#provisionCode").val('');
+
+                    console.log($("#dispositionForm").serialize());
+                    xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                    	$('.modal-body').html(data);
+                      $('#dispositionModal').modal('show');
+                    }).fail(ojbc.displayFailMessage);
+                 }); 
+                 
+                 $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
+                	 var chargeId = $(this).closest("table").attr("id");
+                	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                	 $("#arrestChargeIdentification").val(chargeId);
+                	 $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
+                	 
+                	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
+                	 console.log(rowData);
+                	 $("#dispositionDate").val(rowData[1]);
+                	 $("#dispositionCode").val(rowData[2]);
+                	 $("#courtCaseNumber").val(rowData[3]);
+                	 $("#filedCharge").val(rowData[4]);
+                	 $("#amendedCharge").val(rowData[5]);
+                	 $("#fineAmount").val(rowData[6].split('.', 1));
+                	 $("#fineSuspended").val(rowData[7].split('.', 1));
+                	 $("#jailYears").val(rowData[8]);
+                	 $("#jailDays").val(rowData[9]);
+                	 $("#suspendedYears").val(rowData[10]);
+                	 $("#suspendedDays").val(rowData[11]);
+                	 $("#deferredYears").val(rowData[12]);
+                	 $("#deferredDays").val(rowData[13]);
+                	 $("#restitution").val(rowData[14].split('.', 1));
+                	 $("#alternateSentence").val(rowData[15]);
+                	 $("#reasonForDismissal").val(rowData[16]);
+                	 $("#provisionCode").val(rowData[16]);
+                	 
+                   xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                      $('.modal-body').html(data);
+                      $('#dispositionModal').modal('show');
+                   }).fail(ojbc.displayFailMessage);
+                 });
+                 
+                 $('#saveDisposition').on('click', function(){
+                	 var formData = $("#dispositionForm").serialize();
+                	 
+                	 var restitution = parseInt($("#restitution").val().replace(',', ''));
+                	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
+               	   if ( restitution > 5000 || fineAmount > 1000){
+               		   var confirmMessage = ""
+               		   if (fineAmount > 1000) {
+               			   confirmMessage += 'The Fine Amount exceeds $1,000. ' 
+               		   }
+               		   if (restitution > 1000) {
+               			   confirmMessage += ' The Restitution exceeds $5,000. ' 
+               		   }
+               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){save(formData);} });  
+               	   }
+               	   else{
+               		   save(formData);
+               	   }
+                 });
+
+                 function save(formData){
+                     xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
+                         console.log(formData);
+                         
+                         
+                         if ($(data).find('div.card').length > 0){
+                           $("#dispositionModal .close").click();
+                           $('#portalContent').html(data); 
+                         }
+                         else{
+                           $('.modal-body').html(data);
+                           $('#dispositionModal').modal('show');
+                         }
+                       }).fail(ojbc.displayFailMessage);
+                 }
+                 
+                 $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
+                   $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
+                   $("#arrestChargeIdentification").val($(this).closest("table").attr("id"));
+                   $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
+                   bootpopup.confirm("Please confirm that you want to delete this disposition" , "", 
+                      function(ans) { 
+                         if(ans){
+                             xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
+                                 $('#portalContent').html(data); 
+                             }).fail(ojbc.displayFailMessage);
+                         } 
+                      }); 
+
+                 });
+            });
+	      </script>
+      </div>
+      
+	</body>
+</html>

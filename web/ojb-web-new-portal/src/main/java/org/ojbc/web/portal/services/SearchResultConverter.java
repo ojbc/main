@@ -53,7 +53,7 @@ public class SearchResultConverter implements ApplicationContextAware {
 	
 	@Value("${arrestSearchResultXslLocation:classpath:xsl/arrestSearchResult.xsl}")
 	org.springframework.core.io.Resource arrestSearchResultXsl;
-
+	
 	@Value("${arrestDetailXslLocation:classpath:xsl/arrestDetail.xsl}")
 	org.springframework.core.io.Resource arrestDetailXsl;
 	
@@ -71,11 +71,21 @@ public class SearchResultConverter implements ApplicationContextAware {
         return convertXml(searchContent, dispositionSearchResultXsl, null);
     }
     
-    public String convertArrestSearchResult(String searchContent) {
+    public String convertMuniArrestSearchResult(String searchContent) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
     	return convertXml(searchContent, arrestSearchResultXsl, null);
+    }
+    
+    public String convertDaArrestSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+    	
+    	Map<String, Object>  paramsMap = new HashMap<>();
+    	paramsMap.put("resultType", "DA");
+    	return convertXml(searchContent, arrestSearchResultXsl, paramsMap);
     }
     
     public String convertArrestDetail(String searchContent) {

@@ -57,12 +57,14 @@ public class SamlServiceImpl implements SamlService{
     private Boolean demoLawEnforcementEmployerIndicator;
     
 	public Element getSamlAssertion(HttpServletRequest request) {
-		Element assertion = null;
-		
-		try {
-			assertion = retrieveAssertionFromShibboleth(request);
-		} catch (Exception e) {
-			e.printStackTrace();
+		Element assertion = (Element) request.getAttribute("samlAssertion");
+
+		if (assertion == null) {
+			try {
+				assertion = retrieveAssertionFromShibboleth(request);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
@@ -161,7 +163,6 @@ public class SamlServiceImpl implements SamlService{
             customAttributes.put(SamlAttribute.SupervisoryRoleIndicator, "true");
 //            customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
-            
             if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }

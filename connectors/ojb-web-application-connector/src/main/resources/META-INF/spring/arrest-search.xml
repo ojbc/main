@@ -66,7 +66,7 @@
   	<!-- Arrest Search Request and Response Endpoints -->
    <bean id="arrestSearchRequestProcessor" class="org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.arrestSearchRequestReplyToEndpoint.endpoint}</value></property>
-   		<property name="arrestSearchMessageProcessor" ref="arrestSearchMessageProcessor"/>
+   		<property name="messageProcessor" ref="arrestSearchMessageProcessor"/>
    		<property name="requestResponseMap" ref="arrestSearchRequestResponseMap"/>
    		<property name="maxPolls" value="${webapplication.maxPolls}"/>
    		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>

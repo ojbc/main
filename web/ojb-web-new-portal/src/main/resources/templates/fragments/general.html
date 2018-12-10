@@ -31,8 +31,8 @@
 	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_MUNI', 'AUTHZ_DA') ">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <span sec:authorize="hasAuthority('AUTHZ_MUNI')"><a class="dropdown-item" href="#" id="arrest">Municipal Arrests</a></span>
-	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="disposition">Deferred Dispositions</a>
+	                <span sec:authorize="hasAuthority('AUTHZ_MUNI')"><a class="dropdown-item" href="#" id="muniArrest">Municipal Arrests</a></span>
+	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="daArrest">DA Arrests</a>
 	              </div>
 	            </li>
 	          </ul>
@@ -67,18 +67,18 @@
 	          var context = [[@{/}]];
 	      /*]]>*/
 	      $(function(){
-	          $('#disposition').click(function() {   
+	          $('#daArrest').click(function() {   
                 $(this).parent().toggleClass('show');
 
-	              xhr = $.get(context + 'dispositions', function(data) {
+	              xhr = $.get(context + 'daArrests', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 
 	          });
-	          $('#arrest').click(function() {   
+	          $('#muniArrest').click(function() {   
                 $(this).parent().toggleClass('show');
 
-	              xhr = $.get(context + 'arrests', function(data) {
+	              xhr = $.get(context + 'muniArrests', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 

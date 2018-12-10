@@ -39,6 +39,7 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
@@ -212,6 +213,7 @@ public class RequestMessageBuilderUtilitiesTest {
     	arrestSearchRequest.setLastName("STEVENSON");
     	arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
     	arrestSearchRequest.setSsn("123456789");
+    	arrestSearchRequest.setArrestType(ArrestType.MUNI);
     	
     	Document document = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
     	Assert.assertNotNull(document);
