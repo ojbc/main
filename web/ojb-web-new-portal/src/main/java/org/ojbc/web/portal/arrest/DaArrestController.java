@@ -59,27 +59,29 @@ public class DaArrestController {
 		model.addAttribute("disposition", new Disposition());
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
-		if (!model.containsAttribute("dispoCodeMapping")) {
-			model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
+		if (!model.containsAttribute("daDispoCodeMapping")) {
+			model.addAttribute("daDispoCodeMapping", codeTableService.getDaDispositionCodeMap());
 		}
 		
-		if (!model.containsAttribute("muniAmendedChargeCodeMapping")) {
-			model.addAttribute("muniAmendedChargeCodeMapping", codeTableService.getMuniAmendedChargeCodeMap());
+		if (!model.containsAttribute("daAmendedChargeCodeMapping")) {
+			model.addAttribute("daAmendedChargeCodeMapping", codeTableService.getDaAmendedChargeCodeMap());
 		}
 		
-		if (!model.containsAttribute("muniFiledChargeCodeMapping")) {
-			model.addAttribute("muniFiledChargeCodeMapping", codeTableService.getMuniFiledChargeCodeMap());
+		if (!model.containsAttribute("daFiledChargeCodeMapping")) {
+			model.addAttribute("daFiledChargeCodeMapping", codeTableService.getDaFiledChargeCodeMap());
 		}
 		
-		if (!model.containsAttribute("muniAlternateSentenceMapping")) {
-			model.addAttribute("muniAlternateSentenceMapping", codeTableService.getMuniAlternateSentenceMap());
+		if (!model.containsAttribute("daAlternateSentenceMapping")) {
+			model.addAttribute("daAlternateSentenceMapping", codeTableService.getDaAlternateSentenceMap());
 		}
 		
-		if (!model.containsAttribute("muniReasonsForDismissalMapping")) {
-			model.addAttribute("muniReasonsForDismissalMapping", codeTableService.getMuniReasonsForDismissalMap());
+		if (!model.containsAttribute("daReasonsForDismissalMapping")) {
+			model.addAttribute("daReasonsForDismissalMapping", codeTableService.getDaReasonsForDismissalMap());
+		}
+		if (!model.containsAttribute("daProvisionCodeMapping")) {
+			model.addAttribute("daProvisionCodeMapping", codeTableService.getDaProvisions());
 		}
 		
-		model.addAttribute("provisionCodeMapping", appProperties.getProvisionCodeMapping());
     }
     
 	@InitBinder("disposition")

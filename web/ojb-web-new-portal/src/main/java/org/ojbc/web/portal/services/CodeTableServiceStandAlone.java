@@ -33,6 +33,42 @@ public class CodeTableServiceStandAlone implements CodeTableService{
 	public Map<String, String> getMuniReasonsForDismissalMap(){
 		return appProperties.getMuniReasonForDismissalMapping(); 
 	}
+
+	@Override
+	public Map<String, String> getDaDispositionCodeMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> getDaFiledChargeCodeMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> getDaAmendedChargeCodeMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> getDaAlternateSentenceMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> getDaReasonsForDismissalMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> getDaProvisions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

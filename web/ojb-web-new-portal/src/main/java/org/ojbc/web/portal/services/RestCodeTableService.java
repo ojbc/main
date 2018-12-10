@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.ojbc.web.portal.AppProperties;
@@ -24,79 +25,69 @@ public class RestCodeTableService implements CodeTableService{
 	}
 	
 	public Map<String, String> getMuniDispositionCodeMap(){
-		return getMuniDispositionCodes()
-				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription, 
-						(oldValue, newValue) -> oldValue, LinkedHashMap::new))
-				; 
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-disposition-codes");
 	}
 
 	public Map<String, String> getMuniFiledChargeCodeMap(){
-		return getMuniFiledChargeCodes()
-				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
-						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-filed-charge-codes");
 	}
 	
 	public Map<String, String> getMuniAmendedChargeCodeMap(){
-		return getMuniAmendedChargeCodes()
-				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
-						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-amended-charge-codes");
 	}
 	
 	public Map<String, String> getMuniAlternateSentenceMap(){
-		return getMuniAlternateSentences()
-				.stream()
-				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription , 
-						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-alternate-sentences");
 	}
 	
 	public Map<String, String> getMuniReasonsForDismissalMap(){
-		return getMuniReasonsForDismissal()
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-reasons-for-dismissal");
+	}
+	
+	
+	public Map<String, String> getCodeMap(Function<String, List<CodeTableEntry>> function, String uri){
+		return function.apply(uri)
 				.stream()
 				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
-						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+					(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}
 	
-	public List<CodeTableEntry> getMuniDispositionCodes() {
-		return this.webClient.get().uri("/criminalhistory/municipal-disposition-codes")
+	public List<CodeTableEntry> getCodeTableEntries(String uri) {
+		return this.webClient.get().uri(uri)
 				.retrieve()
 				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
 				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
 				.block();
+	}
+	
+	@Override
+	public Map<String, String> getDaDispositionCodeMap() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
 	}
 
-	public List<CodeTableEntry> getMuniFiledChargeCodes() {
-		return this.webClient.get().uri("/criminalhistory/municipal-filed-charge-codes")
-				.retrieve()
-				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
-				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
-				.block();
+	@Override
+	public Map<String, String> getDaFiledChargeCodeMap() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-filed-charge-codes");
 	}
-	
-	public List<CodeTableEntry> getMuniAmendedChargeCodes() {
-		return this.webClient.get().uri("/criminalhistory/municipal-amended-charge-codes")
-				.retrieve()
-				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
-				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
-				.block();
+
+	@Override
+	public Map<String, String> getDaAmendedChargeCodeMap() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-amended-charge-codes");
 	}
-	
-	public List<CodeTableEntry> getMuniAlternateSentences() {
-		return this.webClient.get().uri("/criminalhistory/municipal-alternate-sentences")
-				.retrieve()
-				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
-				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
-				.block();
+
+	@Override
+	public Map<String, String> getDaAlternateSentenceMap() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-alternative-sentences");
 	}
-	
-	public List<CodeTableEntry> getMuniReasonsForDismissal() {
-		return this.webClient.get().uri("/criminalhistory/municipal-reasons-for-dismissal")
-				.retrieve()
-				.bodyToMono( new ParameterizedTypeReference<List<CodeTableEntry>>() {})
-				.defaultIfEmpty(new ArrayList<CodeTableEntry>())
-				.block();
+
+	@Override
+	public Map<String, String> getDaReasonsForDismissalMap() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-reasons-for-dismissal");
+	}
+
+	@Override
+	public Map<String, String> getDaProvisions() {
+		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-provisions");
 	}
 	
 }
