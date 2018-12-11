@@ -40,13 +40,7 @@
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="ProsecutionDecisionReportType" abstract="false" mixed="false">
 		<xsd:annotation>
-			<xsd:documentation>A data type for charge filing document.
-			</xsd:documentation>
-			<xsd:appinfo>
-				<i:ConformantIndicator>true</i:ConformantIndicator>
-				<xsd:documentation>A data type for a charge filing
-				</xsd:documentation>
-			</xsd:appinfo>
+			<xsd:documentation>A data type for a prosecution decision document.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
