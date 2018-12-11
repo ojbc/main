@@ -87,7 +87,7 @@ public class SamlServiceImpl implements SamlService{
 	
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
-		log.info("getting SAML assertion from http servlet request: " + request);
+		log.debug("getting SAML assertion from http servlet request: " + request);
 		if (request == null) return null;
 		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
 		
@@ -167,8 +167,8 @@ public class SamlServiceImpl implements SamlService{
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
 
-//            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "Municipal Court");
-            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "District Attorney");
+            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "Municipal Court");
+//            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "District Attorney");
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);

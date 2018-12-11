@@ -128,7 +128,7 @@ public class DaArrestController {
 	@GetMapping("/{id}")
 	public String getArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
 		getArrestDetail(request, id, model); 
-		return "arrest/arrestDetail::arrestDetail";
+		return "arrest/da/arrestDetail::arrestDetail";
 	}
 
 	@GetMapping("/{id}/hide")
@@ -137,7 +137,7 @@ public class DaArrestController {
 		
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
-		return "arrest/arrests::resultsList";
+		return "arrest/da/arrests::resultsList";
 	}
 	
 	@GetMapping("/{id}/refer")
@@ -146,7 +146,7 @@ public class DaArrestController {
 		
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
-		return "arrest/arrests::resultsList";
+		return "arrest/da/arrests::resultsList";
 	}
 	
 	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
@@ -161,7 +161,7 @@ public class DaArrestController {
 			Map<String, Object> model) throws Throwable {
 		
 		model.put("disposition", disposition);
-		return "arrest/dispositionForm::dispositionForm";
+		return "arrest/da/dispositionForm::dispositionForm";
 	}
 
 	@PostMapping("/saveDisposition")
@@ -171,7 +171,7 @@ public class DaArrestController {
 		if (bindingResult.hasErrors()) {
 			log.info("has binding errors");
 			log.info(bindingResult.getAllErrors());
-			return "arrest/dispositionForm::dispositionForm";
+			return "arrest/da/dispositionForm::dispositionForm";
 		}
 		
 		setCodeDescriptions(disposition, model); 
@@ -179,7 +179,7 @@ public class DaArrestController {
 		arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
-		return "arrest/arrestDetail::arrestDetail";
+		return "arrest/da/arrestDetail::arrestDetail";
 	}
 
 	@PostMapping("/dispositions/delete")
@@ -189,22 +189,22 @@ public class DaArrestController {
 		arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
-		return "arrest/arrestDetail::arrestDetail";
+		return "arrest/da/arrestDetail::arrestDetail";
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void setCodeDescriptions(@Valid Disposition disposition, Map<String, Object> model) {
-		Map<String, String> muniReasonsForDismissalMapping = (Map<String, String>) model.get("muniReasonsForDismissalMapping"); 
-		Map<String, String> dispoCodeMapping = (Map<String, String>) model.get("dispoCodeMapping"); 
-		Map<String, String> muniAmendedChargeCodeMapping = (Map<String, String>) model.get("muniAmendedChargeCodeMapping"); 
-		Map<String, String> muniFiledChargeCodeMapping = (Map<String, String>) model.get("muniFiledChargeCodeMapping"); 
-		Map<String, String> muniAlternateSentenceMapping = (Map<String, String>) model.get("muniAlternateSentenceMapping"); 
+		Map<String, String> daReasonsForDismissalMapping = (Map<String, String>) model.get("daReasonsForDismissalMapping"); 
+		Map<String, String> daDispoCodeMapping = (Map<String, String>) model.get("daDispoCodeMapping"); 
+		Map<String, String> daAmendedChargeCodeMapping = (Map<String, String>) model.get("daAmendedChargeCodeMapping"); 
+		Map<String, String> daFiledChargeCodeMapping = (Map<String, String>) model.get("daFiledChargeCodeMapping"); 
+		Map<String, String> daAlternateSentenceMapping = (Map<String, String>) model.get("daAlternateSentenceMapping"); 
 		
-		disposition.setAlternateSentenceDescripiton(muniAlternateSentenceMapping.get(disposition.getAlternateSentence()));
-		disposition.setAmendedChargeDescription(muniAmendedChargeCodeMapping.get(disposition.getAmendedCharge()));
-		disposition.setFiledChargeDescription(muniFiledChargeCodeMapping.get(disposition.getFiledCharge()));
-		disposition.setDispositionDescription(dispoCodeMapping.get(disposition.getDispositionCode()));
-		disposition.setReasonForDismissalDescripiton(muniReasonsForDismissalMapping.get(disposition.getReasonForDismissal()));
+		disposition.setAlternateSentenceDescripiton(daAlternateSentenceMapping.get(disposition.getAlternateSentence()));
+		disposition.setAmendedChargeDescription(daAmendedChargeCodeMapping.get(disposition.getAmendedCharge()));
+		disposition.setFiledChargeDescription(daFiledChargeCodeMapping.get(disposition.getFiledCharge()));
+		disposition.setDispositionDescription(daDispoCodeMapping.get(disposition.getDispositionCode()));
+		disposition.setReasonForDismissalDescripiton(daReasonsForDismissalMapping.get(disposition.getReasonForDismissal()));
 	}
 	
 

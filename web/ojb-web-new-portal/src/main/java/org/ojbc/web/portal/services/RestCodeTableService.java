@@ -25,31 +25,38 @@ public class RestCodeTableService implements CodeTableService{
 	}
 	
 	public Map<String, String> getMuniDispositionCodeMap(){
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-disposition-codes");
+		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-disposition-codes");
 	}
 
 	public Map<String, String> getMuniFiledChargeCodeMap(){
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-filed-charge-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-filed-charge-codes");
 	}
 	
 	public Map<String, String> getMuniAmendedChargeCodeMap(){
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-amended-charge-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-amended-charge-codes");
 	}
 	
 	public Map<String, String> getMuniAlternateSentenceMap(){
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-alternate-sentences");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-alternate-sentences");
 	}
 	
 	public Map<String, String> getMuniReasonsForDismissalMap(){
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/municipal-reasons-for-dismissal");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-reasons-for-dismissal");
 	}
 	
 	
-	public Map<String, String> getCodeMap(Function<String, List<CodeTableEntry>> function, String uri){
+	public Map<String, String> getIdDescriptionMap(Function<String, List<CodeTableEntry>> function, String uri){
 		return function.apply(uri)
 				.stream()
 				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
 					(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+	}
+	
+	public Map<String, String> getCodeDescriptionMap(Function<String, List<CodeTableEntry>> function, String uri){
+		return function.apply(uri)
+				.stream()
+				.collect(Collectors.toMap(CodeTableEntry::getCode, CodeTableEntry::getDescription, 
+						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}
 	
 	public List<CodeTableEntry> getCodeTableEntries(String uri) {
@@ -62,32 +69,32 @@ public class RestCodeTableService implements CodeTableService{
 	
 	@Override
 	public Map<String, String> getDaDispositionCodeMap() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
+		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
 	}
 
 	@Override
 	public Map<String, String> getDaFiledChargeCodeMap() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-filed-charge-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-filed-charge-codes");
 	}
 
 	@Override
 	public Map<String, String> getDaAmendedChargeCodeMap() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-amended-charge-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-amended-charge-codes");
 	}
 
 	@Override
 	public Map<String, String> getDaAlternateSentenceMap() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-alternative-sentences");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-alternative-sentences");
 	}
 
 	@Override
 	public Map<String, String> getDaReasonsForDismissalMap() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-reasons-for-dismissal");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-reasons-for-dismissal");
 	}
 
 	@Override
 	public Map<String, String> getDaProvisions() {
-		return getCodeMap(this::getCodeTableEntries, "/criminalhistory/da-provisions");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-provisions");
 	}
 	
 }

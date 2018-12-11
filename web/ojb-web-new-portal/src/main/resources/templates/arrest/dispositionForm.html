@@ -142,7 +142,7 @@
 	    	  $('#dispositionDate').datepicker({
                   uiLibrary: 'bootstrap4', size: 'small'
           });
-	    	  $(".chosen-select").chosen(); 
+	    	  $(".chosen-select").chosen();  
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					
@@ -153,6 +153,7 @@
 					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
 					var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
 					
+					console.log($('#dispositionCode').val());
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
 					}
@@ -249,6 +250,8 @@
 		                $('#restitution').prop('disabled', true);
 		                $('#alternateSentence').val('');
 		                $('#alternateSentence').prop('disabled', true).trigger("chosen:updated");
+		                $('#provisionCode').val('');
+		                $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          else{
                     $('#fineAmount').prop('disabled', false);
@@ -259,6 +262,7 @@
                     toggleDefferredYearsDays();
                     $('#restitution').prop('disabled', false);
                     $('#alternateSentence').prop('disabled', false).trigger("chosen:updated");
+                    $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
 		          }
 		  	  });
 		  	  

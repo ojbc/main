@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.services.CodeTableService;
@@ -96,6 +97,7 @@ public class ArrestController {
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+			arrestSearchRequest.setArrestType(ArrestType.MUNI);
 			
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}

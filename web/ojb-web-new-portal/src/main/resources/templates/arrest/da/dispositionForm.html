@@ -11,7 +11,7 @@
 	    <!-- Begin page content -->
   <div th:fragment="dispositionForm">
     
-    <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
+    <form action="#" th:action="@{/daArrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
       <input type="hidden" th:field="*{arrestIdentification}" />
       <input type="hidden" th:field="*{arrestChargeIdentification}" />
       <input type="hidden" th:field="*{dispositionIdentification}" />
@@ -25,7 +25,7 @@
              <label for="dispositionCode">Disposition Code *</label>
              <select th:field="*{dispositionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
-						    <option th:each="item: ${dispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+						    <option th:each="item: ${daDispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
              </select>
              <div th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}" class="invalid-feedback">Disposition Code error message</div>
            </div>
@@ -40,7 +40,7 @@
                  <label>Filed Charge *</label>
 		             <select th:field="*{filedCharge}" class="form-control chosen-select" th:errorclass="is-invalid">
 		                <option value="" >Please select ...</option>
-		                <option th:each="item: ${muniFiledChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+		                <option th:each="item: ${daFiledChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 		             </select>
                  <div th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}" class="invalid-feedback">Filed charge error message</div>
                </div>
@@ -48,7 +48,7 @@
                  <label>Amended Charge</label>
                  <select th:field="*{amendedCharge}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
                     <option value="" >Please select ...</option>
-                    <option th:each="item: ${muniAmendedChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+                    <option th:each="item: ${daAmendedChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
                  </select>
                  <div th:if="${#fields.hasErrors('amendedCharge')}" th:errors="*{amendedCharge}" class="invalid-feedback">Amended charge error message</div>
                </div>
@@ -114,7 +114,7 @@
                  <label>Alternate Sentence</label>
 	               <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
 	                  <option value="" >Please select ...</option>
-	                  <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
+	                  <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
 	               </select>
                  <div th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}" class="invalid-feedback">Alternate sentence error message</div>
                </div>		
@@ -123,7 +123,7 @@
                <label>Reason For Dismissal</label>
 	             <select th:field="*{reasonForDismissal}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	                <option value="" >Please select ...</option>
-	                <option th:each="item: ${muniReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
+	                <option th:each="item: ${daReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
 	             </select>
                <div th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}" class="invalid-feedback">Reason for dismissal error message</div>
              </div>					                
@@ -131,7 +131,7 @@
                <label>Provision</label>
 	             <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
 	                <option value="" >Please select ...</option>
-	                <option th:each="item: ${provisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+	                <option th:each="item: ${daProvisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 	             </select>
                <div th:if="${#fields.hasErrors('provisionCode')}" th:errors="*{provisionCode}" class="invalid-feedback">Provision error message</div>
              </div>					                
@@ -140,7 +140,7 @@
     <script th:inline="javascript">
 	      $(function(){
 	    	  $('#dispositionDate').datepicker({
-                  uiLibrary: 'bootstrap4', size: 'small'
+             uiLibrary: 'bootstrap4', size: 'small'
           });
 	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
@@ -150,9 +150,10 @@
 					//376 - pled guilty of other charge
 					//520 - Nolo contendere to different charge
 					var dispoCodesForAmendedCharge = ['348', '376', '520'];
-					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
-					var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
+					var dispoCodesForDismissalReason = ['302']; //305-charge dismissal
+					var dispoCodesWithoutSentence = ['301', '302' '305', '326', '377', '331', '538', '398'];
 					
+					console.log($('#dispositionCode').val()); 
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
 					}
