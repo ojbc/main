@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -48,6 +49,7 @@ public class RestCodeTableService implements CodeTableService{
 	public Map<String, String> getIdDescriptionMap(Function<String, List<CodeTableEntry>> function, String uri){
 		return function.apply(uri)
 				.stream()
+				.filter(i->!"no description".equalsIgnoreCase(StringUtils.lowerCase(i.getDescription().trim())))
 				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
 					(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}

@@ -150,8 +150,9 @@
 					//376 - pled guilty of other charge
 					//520 - Nolo contendere to different charge
 					var dispoCodesForAmendedCharge = ['348', '376', '520'];
-					var dispoCodesForDismissalReason = ['302']; //305-charge dismissal
-					var dispoCodesWithoutSentence = ['301', '302' '305', '326', '377', '331', '538', '398'];
+					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
+					var dispoCodesWithoutSentence = ['301', '302', '305', '306', '307', '314', '320', '331', 
+						  '390', '398', '500', '505', '510', '511', '524', '530', '537','539', '540', '541','542'];
 					
 					console.log($('#dispositionCode').val()); 
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
@@ -226,8 +227,7 @@
 		        	  $('#reasonForDismissal').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          
-/*           var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
-	           var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
+/*	           var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
  */           
 		          if (dispoCodesWithoutSentence.includes($('#dispositionCode').val())){
 		                $('#fineAmount').val('');
@@ -250,6 +250,8 @@
 		                $('#restitution').prop('disabled', true);
 		                $('#alternateSentence').val('');
 		                $('#alternateSentence').prop('disabled', true).trigger("chosen:updated");
+		                $('#provisionCode').val('');
+		                $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          else{
                     $('#fineAmount').prop('disabled', false);
@@ -260,6 +262,7 @@
                     toggleDefferredYearsDays();
                     $('#restitution').prop('disabled', false);
                     $('#alternateSentence').prop('disabled', false).trigger("chosen:updated");
+                    $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
 		          }
 		  	  });
 		  	  

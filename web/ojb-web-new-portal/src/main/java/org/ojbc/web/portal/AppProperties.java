@@ -57,7 +57,7 @@ public class AppProperties {
 		dispoCodeMapping.put("388", "Sentence Revoked");
 		dispoCodeMapping.put("398", "Charges Filed");
 		
-		setDispoCodesRequiringSentence(Arrays.asList("310", "356", "357"));
+		setDispoCodesRequiringSentence(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "503", "520", "525"));
 		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
 	}
 
