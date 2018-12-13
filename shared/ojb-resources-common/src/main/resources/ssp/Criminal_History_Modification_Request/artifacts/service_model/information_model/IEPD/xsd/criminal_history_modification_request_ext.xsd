@@ -251,6 +251,13 @@
 			<xsd:documentation>An identification for a disposition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeDispositionSeverityCodeText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code text for the severity level of a charge disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
