@@ -21,7 +21,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
@@ -44,16 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
-    		.requestMatchers()
-		    .antMatchers("/arrests/**", "/daArrests/**")
-		    .and()
 		    .authorizeRequests().antMatchers("/arrests/**").hasAuthority("AUTHZ_MUNI")
 		    .antMatchers("/daArrests/**").hasAuthority("AUTHZ_DA")
-		    .antMatchers("/daArrests/dispositions/**").hasAuthority("AUTHZ_DA")
-		    .antMatchers("/**").authenticated()
-		    .and()
-		    .sessionManagement()
-		    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		    .anyRequest().authenticated()
 		    .and().securityContext()
 		    .and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
