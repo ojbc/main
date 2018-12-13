@@ -500,7 +500,7 @@ public class RapbackController {
 		String rapbackSearchResults = (String) model.get("rapbackSearchResults");
 		DetailsRequest detailsRequest = new DetailsRequest();
 		detailsRequest.setQueryType("FBIRapsheet");
-		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY);
+		detailsRequest.setIdentificationSourceText(OJBCWebServiceURIs.CRIMINAL_HISTORY_FBI);
 		Document document = OJBUtils.loadXMLFromString(rapbackSearchResults);
 		Node node = XmlUtils.xPathNodeSearch(document, "/oirs-res-doc:OrganizationIdentificationResultsSearchResults/"
 				+ "oirs-res-ext:OrganizationIdentificationResultsSearchResult[intel30:SystemIdentification/nc30:IdentificationID='" + transactionNumber + "']"); 
