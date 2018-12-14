@@ -23,6 +23,10 @@
 	xmlns:rr-req-ext="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0 ../xsd/record_replication_request.xsd ">
+	<rr-req-ext:RecordReplicationRecordIdentification>
+		<nc:IdentificationID>Record Replication Record ID</nc:IdentificationID>
+		<nc:IdentificationSourceText>Record Replication Record Source</nc:IdentificationSourceText>
+	</rr-req-ext:RecordReplicationRecordIdentification>
 	<nc:Person>
 		<rr-req-ext:PersonTrackingIdentification>
 			<nc:IdentificationID>OTN234567</nc:IdentificationID>

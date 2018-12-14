@@ -17,17 +17,22 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<w:WantList w:release="4.0-with-domain-updates" w:product="NIEM"
-  w:nillableDefault="true" xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/">
-  <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
-  <w:Type w:name="nc:IdentificationType" w:isRequested="true">
-    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:IdentificationSourceText"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:PersonType" w:isRequested="false">
-    <w:ElementInType w:name="nc:PersonAugmentationPoint"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-</w:WantList>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<bean id="org.ojbc.bundles.intermediaries.record-replication-request-service-intermediary-context" class="org.ojbc.util.osgi.OjbcContextImpl"/>
+
+	<util:list id="propertiesList">
+		<ref bean="classpathProperties"/>
+		<ref bean="contextProperties"/>
+		<ref bean="derivedBundleOsgiProperties"/>
+	</util:list>
+
+</beans>
