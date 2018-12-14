@@ -142,7 +142,8 @@ public class DaArrestController {
 	
 	@GetMapping("/{id}/refer")
 	public String referArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		arrestService.referArrest(id, samlService.getSamlAssertion(request));
+		
+		arrestService.referArrestToMuni(id, samlService.getSamlAssertion(request));
 		
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);

@@ -82,9 +82,18 @@
    </bean>
   
   	<!-- Arrest Refer Request Processor -->
-   <bean id="arrestReferRequestProcessor" class="org.ojbc.processor.arrest.modify.ArrestReferRequestProcessor">
+   <bean id="daArrestReferRequestProcessor" class="org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.arrestModifyRequestReplyToEndpoint.endpoint}</value></property>
-   		<property name="messageProcessor" ref="arrestReferMessageProcessor"/>
+   		<property name="messageProcessor" ref="daArrestReferMessageProcessor"/>
+   		<property name="requestResponseMap" ref="arrestModifyRequestResponseMap"/>
+   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+   </bean>
+  
+   <bean id="muniArrestReferRequestProcessor" class="org.ojbc.processor.arrest.modify.MuniArrestReferRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.arrestModifyRequestReplyToEndpoint.endpoint}</value></property>
+   		<property name="messageProcessor" ref="muniArrestReferMessageProcessor"/>
    		<property name="requestResponseMap" ref="arrestModifyRequestResponseMap"/>
    		<property name="maxPolls" value="${webapplication.maxPolls}"/>
    		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
@@ -113,8 +122,14 @@
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
 	</bean>
 
-	<bean id="arrestReferMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+	<bean id="daArrestReferMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>ReferArrestToDistrictAttorneyRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+	</bean>
+
+	<bean id="muniArrestReferMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>ReferArrestToMunicipalProsecutorRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
 	</bean>

@@ -18,8 +18,9 @@ package org.ojbc.web.portal.arrest;
 
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
-import org.ojbc.processor.arrest.modify.ArrestReferRequestProcessor;
+import org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
+import org.ojbc.processor.arrest.modify.MuniArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,9 @@ public class ArrestServiceImpl implements ArrestService {
 	@Autowired
 	private DeleteDispositionRequestProcessor deleteDispositionRequestProcessor;
 	@Autowired
-	private ArrestReferRequestProcessor arrestReferRequestProcessor;
+	private DaArrestReferRequestProcessor daArrestReferRequestProcessor;
+	@Autowired
+	private MuniArrestReferRequestProcessor muniArrestReferRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -69,8 +72,13 @@ public class ArrestServiceImpl implements ArrestService {
 	}
 
 	@Override
-	public String referArrest(String id, Element samlAssertion) throws Throwable {
-		return arrestReferRequestProcessor.invokeRequest(id, samlAssertion);
+	public String referArrestToDa(String id, Element samlAssertion) throws Throwable {
+		return daArrestReferRequestProcessor.invokeRequest(id, samlAssertion);
 	}
 
+	@Override
+	public String referArrestToMuni(String id, Element samlAssertion) throws Throwable {
+		return muniArrestReferRequestProcessor.invokeRequest(id, samlAssertion);
+	}
+	
 }

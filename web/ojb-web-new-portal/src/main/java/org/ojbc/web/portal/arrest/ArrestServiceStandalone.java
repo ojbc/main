@@ -56,9 +56,15 @@ public class ArrestServiceStandalone implements ArrestService {
 	}
 
 	@Override
-	public String referArrest(String id, Element samlAssertion) throws Throwable {
+	public String referArrestToDa(String id, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
 		return null;
-		
+	}
+
+	@Override
+	public String referArrestToMuni(String id, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

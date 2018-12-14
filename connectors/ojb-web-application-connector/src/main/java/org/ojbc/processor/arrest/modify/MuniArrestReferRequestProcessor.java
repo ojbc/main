@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 
 @Configuration
 @Profile("arrest-search")
-public class ArrestReferRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
+public class MuniArrestReferRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	/**
 	 * Camel context needed to use producer template to send messages
@@ -55,7 +55,7 @@ public class ArrestReferRequestProcessor extends RequestResponseProcessor implem
 		}	
 		
 		//POJO to XML Request
-		Document arrestHideRequestPayload = RequestMessageBuilderUtilities.createDistrictAttorneyArrestReferralRequest(id);
+		Document arrestHideRequestPayload = RequestMessageBuilderUtilities.createMunicipalProsecutorArrestReferralRequest(id);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
