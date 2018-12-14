@@ -491,6 +491,7 @@ public class RapbackController {
 			return rapsheet;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			logger.error("Got exception when retrieving the FBI rapsheet", ex);
 			return "<p>Got error while retrieve the rapsheet, please report to the IT department or try again later</p>";
 		}
 	}
