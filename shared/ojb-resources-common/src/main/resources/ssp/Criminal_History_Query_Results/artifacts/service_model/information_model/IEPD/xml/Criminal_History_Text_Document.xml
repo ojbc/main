@@ -27,6 +27,12 @@
 	<cht-doc:StateCriminalHistoryRecordDocument>
 		<cht-doc:Base64BinaryObject>MA==</cht-doc:Base64BinaryObject>
 	</cht-doc:StateCriminalHistoryRecordDocument>
+	<cht-doc:PersonTrackingIdentification>
+		<nc:IdentificationID>OTN123456</nc:IdentificationID>
+	</cht-doc:PersonTrackingIdentification>
+	<j:PersonStateFingerprintIdentification>
+		<nc:IdentificationID>SID123456</nc:IdentificationID>
+	</j:PersonStateFingerprintIdentification>
 	<cht-doc:AlternateArrestStateFingerprintIdentifierIndicator>true</cht-doc:AlternateArrestStateFingerprintIdentifierIndicator>
 	<cht-doc:NoArrestFoundIndicator>false</cht-doc:NoArrestFoundIndicator>
 	<cht-doc:ArrestStateFingerprintIdentifierExistsIndicator>true</cht-doc:ArrestStateFingerprintIdentifierExistsIndicator>

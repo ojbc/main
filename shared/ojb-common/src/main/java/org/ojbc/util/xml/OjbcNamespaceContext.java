@@ -977,6 +977,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC ="chm-rep";
 	
 	
+	public static final String NS_RECORD_REPLICATION_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC ="rr-req-doc";
+
+	public static final String NS_RECORD_REPLICATION_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/RecordReplicationRequestExtension/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT ="rr-req-ext";
+	
+	public static final String NS_RECORD_REPLICATION_RESPONSE_DOC ="http://ojbc.org/IEPD/Exchange/RecordReplicationResponse/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_RESPONSE_DOC ="rr-resp-doc";
+			
+	public static final String NS_RECORD_REPLICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0";
+	public static final String NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT ="rr-resp-ext";
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1930,6 +1942,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_FBI_RECORD_REQUEST, NS_FBI_RECORD_REQUEST);
 		uriToPrefixMap.put(NS_FBI_RECORD_REQUEST,NS_PREFIX_FBI_RECORD_REQUEST);
+
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC, NS_RECORD_REPLICATION_REQUEST_DOC);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_REQUEST_DOC,NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT, NS_RECORD_REPLICATION_REQUEST_EXT);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_REQUEST_EXT,NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT );
+
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_RESPONSE_DOC, NS_RECORD_REPLICATION_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_RESPONSE_DOC,NS_PREFIX_RECORD_REPLICATION_RESPONSE_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT, NS_RECORD_REPLICATION_RESPONSE_EXT);
+		uriToPrefixMap.put(NS_RECORD_REPLICATION_RESPONSE_EXT,NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT );
+		
 		
 	}
 
