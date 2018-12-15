@@ -61,6 +61,13 @@ public class RestCodeTableService implements CodeTableService{
 						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 	}
 	
+	public Map<String, String> getIdCitationDescriptionMap(Function<String, List<CodeTableEntry>> function, String uri){
+		return function.apply(uri)
+				.stream()
+				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getCitationDescription, 
+						(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+	}
+	
 	public List<CodeTableEntry> getCodeTableEntries(String uri) {
 		return this.webClient.get().uri(uri)
 				.retrieve()
@@ -76,12 +83,12 @@ public class RestCodeTableService implements CodeTableService{
 
 	@Override
 	public Map<String, String> getDaFiledChargeCodeMap() {
-		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-filed-charge-codes");
+		return getIdCitationDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-filed-charge-codes");
 	}
 
 	@Override
 	public Map<String, String> getDaAmendedChargeCodeMap() {
-		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-amended-charge-codes");
+		return getIdCitationDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-amended-charge-codes");
 	}
 
 	@Override

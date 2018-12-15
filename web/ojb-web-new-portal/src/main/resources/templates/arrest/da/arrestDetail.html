@@ -33,7 +33,7 @@
 						
 						      <!-- Modal body -->
 						      <div class="modal-body">
-						        <th:block th:include="arrest/dispositionForm::dispositionForm"></th:block>
+						        <th:block th:include="arrest/da/dispositionForm::dispositionForm"></th:block>
 						      </div>
 					
 						      <!-- Modal footer -->
@@ -171,9 +171,11 @@
                 	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
                 	 $("#arrestChargeIdentification").val(chargeId);
                 	 $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
-                	 
+                	 console.log("chargeId:" + chargeId);
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
                 	 console.log(rowData);
+                	 console.log(rowData[4]);
+                	 console.log(rowData[5]);
                 	 $("#dispositionDate").val(rowData[1]);
                 	 $("#dispositionCode").val(rowData[2]);
                 	 $("#courtCaseNumber").val(rowData[3]);

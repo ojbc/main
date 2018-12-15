@@ -1,9 +1,15 @@
 package org.ojbc.web.portal.services;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CodeTableEntry {
 
 	public String id;
 	public String code;
 	public String description;
+	private String citation;
 	
 	public String getId() {
 		return id;
@@ -22,6 +28,22 @@ public class CodeTableEntry {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public String getCitation() {
+		return citation;
+	}
+	public void setCitation(String citation) {
+		this.citation = citation;
+	}
+	
+	@JsonIgnore
+	public String getCitationDescription() {
+		if (StringUtils.isNotBlank(citation)) {
+			return citation + " " + description;  
+		}
+		else {
+			return description;
+		}
 	}
 	
 }
