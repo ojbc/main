@@ -53,6 +53,7 @@
 				      var amendedChargeCodeMapping = [[${daAmendedChargeCodeMapping}]]; 
 				      var alternateSentenceMapping = [[${daAlternateSentenceMapping}]]; 
 				      var reasonsForDismissalMapping = [[${daReasonsForDismissalMapping}]]; 
+				      var chargeSeverityCodeMapping = [[${chargeSeverityCodeMapping}]]; 
 			      /*]]>*/
          	   var dispoTables = [];
              $(function(){
@@ -103,7 +104,18 @@
                              }
                         },
                         {
-                             "targets": [15],
+                             "targets": [6],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (chargeSeverityCodeMapping.hasOwnProperty(data)){
+                            		   return chargeSeverityCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
+                        {
+                             "targets": [16],
                              "render": function ( data, type, row, meta ) {
                             	   if (alternateSentenceMapping.hasOwnProperty(data)){
                             		   return alternateSentenceMapping[data];
@@ -114,7 +126,7 @@
                              }
                         },
                         {
-                             "targets": [16],
+                             "targets": [17],
                              "render": function ( data, type, row, meta ) {
                             	   if (reasonsForDismissalMapping.hasOwnProperty(data)){
                             		   return reasonsForDismissalMapping[data];
@@ -125,7 +137,7 @@
                              }
                         },
                 			  {
-                		      "targets": [6, 7, 14],
+                		      "targets": [7, 8, 15],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
                 		  ]/* , 
@@ -181,20 +193,24 @@
                 	 $("#courtCaseNumber").val(rowData[3]);
                 	 $("#filedCharge").val(rowData[4]);
                 	 $("#amendedCharge").val(rowData[5]);
-                	 $("#fineAmount").val(rowData[6].split('.', 1));
-                	 $("#fineSuspended").val(rowData[7].split('.', 1));
-                	 $("#jailYears").val(rowData[8]);
-                	 $("#jailDays").val(rowData[9]);
-                	 $("#suspendedYears").val(rowData[10]);
-                	 $("#suspendedDays").val(rowData[11]);
-                	 $("#deferredYears").val(rowData[12]);
-                	 $("#deferredDays").val(rowData[13]);
-                	 $("#restitution").val(rowData[14].split('.', 1));
-                	 $("#alternateSentence").val(rowData[15]);
-                	 $("#reasonForDismissal").val(rowData[16]);
-                	 $("#provisionCode").val(rowData[16]);
+                	 $("#fineAmount").val(rowData[7].split('.', 1));
+                	 $("#fineSuspended").val(rowData[8].split('.', 1));
+                	 $("#jailYears").val(rowData[9]);
+                	 $("#jailDays").val(rowData[10]);
+                	 $("#suspendedYears").val(rowData[11]);
+                	 $("#suspendedDays").val(rowData[12]);
+                	 $("#deferredYears").val(rowData[13]);
+                	 $("#deferredDays").val(rowData[14]);
+                	 $("#restitution").val(rowData[15].split('.', 1));
+                	 $("#alternateSentence").val(rowData[16]);
+                	 $("#reasonForDismissal").val(rowData[17]);
+                	 $("#provisionCode").val(rowData[18]);
                 	 
-                   xhr = $.get( context +"daArrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
+                   xhr = $.get( context +"daArrests/dispositionForm", 
+                		  $("#dispositionForm").serialize() + "&amendedCharge=" + rowData[5] + "&suspendedYears=" + rowData[11] 
+                          + "&deferredYears=" + rowData[13] +  "&deferredDays=" + rowData[14] + "&reasonForDismissal=" + rowData[17],  
+                          function(data) {
                       $('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
                    }).fail(ojbc.displayFailMessage);

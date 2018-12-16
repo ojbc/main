@@ -33,6 +33,7 @@ public class AppProperties {
 	private Map<String, String> muniAlternateSentenceMapping = new HashMap<>();
 	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
 	private Map<String, String> provisionCodeMapping = new HashMap<>();
+	private Map<String, String> chargeSeverityCodeMapping = new HashMap<>();
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
@@ -59,6 +60,10 @@ public class AppProperties {
 		
 		setDispoCodesRequiringSentence(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "503", "520", "525"));
 		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
+		
+		chargeSeverityCodeMapping.put("F", "Felony");
+		chargeSeverityCodeMapping.put("M", "Misdemeanor");
+		chargeSeverityCodeMapping.put("E", "Either");
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -139,5 +144,13 @@ public class AppProperties {
 
 	public void setAllowQueriesWithoutSAMLToken(Boolean allowQueriesWithoutSAMLToken) {
 		this.allowQueriesWithoutSAMLToken = allowQueriesWithoutSAMLToken;
+	}
+
+	public Map<String, String> getChargeSeverityCodeMapping() {
+		return chargeSeverityCodeMapping;
+	}
+
+	public void setChargeSeverityCodeMapping(Map<String, String> chargeSeverityCodeMapping) {
+		this.chargeSeverityCodeMapping = chargeSeverityCodeMapping;
 	}
 }

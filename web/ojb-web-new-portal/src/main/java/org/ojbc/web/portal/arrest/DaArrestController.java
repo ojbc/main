@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
-	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", "daProvisionCodeMapping"})
+	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
+	"daProvisionCodeMapping", "chargeSeverityCodeMapping"})
 @RequestMapping("/daArrests")
 public class DaArrestController {
 	private static final Log log = LogFactory.getLog(DaArrestController.class);
@@ -80,6 +81,9 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("daProvisionCodeMapping")) {
 			model.addAttribute("daProvisionCodeMapping", codeTableService.getDaProvisions());
+		}
+		if (!model.containsAttribute("chargeSeverityCodeMapping")) {
+			model.addAttribute("chargeSeverityCodeMapping", appProperties.getChargeSeverityCodeMapping());
 		}
 		
     }

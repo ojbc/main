@@ -192,7 +192,8 @@
                 	 $("#reasonForDismissal").val(rowData[16]);
                 	 $("#provisionCode").val(rowData[16]);
                 	 
-                   xhr = $.get( context +"arrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                   xhr = $.get( context +"arrests/dispositionForm", + "&amendedCharge=" + rowData[5] + "&suspendedYears=" + rowData[10] 
+                   + "&deferredYears=" + rowData[12] +  "&deferredDays=" + rowData[13] + "&reasonForDismissal=" + rowData[16],  function(data) {
                       $('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
                    }).fail(ojbc.displayFailMessage);
