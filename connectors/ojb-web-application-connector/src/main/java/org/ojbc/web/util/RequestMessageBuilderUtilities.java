@@ -1297,6 +1297,9 @@ public class RequestMessageBuilderUtilities {
     	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     			"DispositionCodeDescriptionText", disposition.getDispositionDescription());
     	
+    	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    			"DispositionProvisionText", disposition.getProvisionCode());
+    	
     	if (StringUtils.isNotBlank(disposition.getDispositionIdentification())) {
     		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     				"DispositionStatusCode", "Modified");
