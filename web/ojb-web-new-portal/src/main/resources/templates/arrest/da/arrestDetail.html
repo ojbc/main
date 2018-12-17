@@ -54,6 +54,7 @@
 				      var alternateSentenceMapping = [[${daAlternateSentenceMapping}]]; 
 				      var reasonsForDismissalMapping = [[${daReasonsForDismissalMapping}]]; 
 				      var chargeSeverityCodeMapping = [[${chargeSeverityCodeMapping}]]; 
+				      var daProvisionCodeMapping = [[${daProvisionCodeMapping}]]; 
 			      /*]]>*/
          	   var dispoTables = [];
              $(function(){
@@ -136,6 +137,17 @@
                             	   }
                              }
                         },
+                        {
+                             "targets": [18],
+                             "render": function ( data, type, row, meta ) {
+                            	   if (daProvisionCodeMapping.hasOwnProperty(data)){
+                            		   return daProvisionCodeMapping[data];
+                            	   }
+                            	   else{
+	                                 return data;
+                            	   }
+                             }
+                        },
                 			  {
                 		      "targets": [7, 8, 15],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
@@ -209,7 +221,8 @@
                 	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
                    xhr = $.get( context +"daArrests/dispositionForm", 
                 		  $("#dispositionForm").serialize() + "&amendedCharge=" + rowData[5] + "&suspendedYears=" + rowData[11] 
-                          + "&deferredYears=" + rowData[13] +  "&deferredDays=" + rowData[14] + "&reasonForDismissal=" + rowData[17],  
+                          + "&deferredYears=" + rowData[13] +  "&deferredDays=" + rowData[14] + "&reasonForDismissal=" + rowData[17]
+                          + "&chargeSeverityCode="+ rowData[6],  
                           function(data) {
                       $('.modal-body').html(data);
                       $('#dispositionModal').modal('show');

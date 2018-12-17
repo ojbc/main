@@ -174,6 +174,7 @@
 						      <td/>
 						      <td/>
 						      <td/>
+						      <td/>
 						    </tr>
 			         </tfoot> 
 			      </table>
@@ -248,7 +249,7 @@
 		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>
 		  </td>
 		  <td>
-		    <!-- TODO Put provision description here -->
+		    <xsl:value-of select="chsres-ext:DispositionProvisionText"></xsl:value-of>
 		  </td>
 		</tr>
 	   
