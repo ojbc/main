@@ -119,6 +119,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DispositionProvisionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A disposition provision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="FineSuspendedAmount" type="nc:AmountType" substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
