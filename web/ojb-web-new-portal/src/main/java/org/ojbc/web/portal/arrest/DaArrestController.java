@@ -57,7 +57,7 @@ public class DaArrestController {
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
-		model.addAttribute("disposition", new Disposition());
+		model.addAttribute("disposition", new Disposition(ArrestType.DA));
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
 		if (!model.containsAttribute("daDispoCodeMapping")) {
@@ -156,7 +156,7 @@ public class DaArrestController {
 	
 	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
+		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
 	}

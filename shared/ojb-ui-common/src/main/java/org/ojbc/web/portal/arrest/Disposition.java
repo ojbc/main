@@ -27,10 +27,12 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang3.StringUtils;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 public class Disposition {
+	private ArrestType dispositionType; 
 	private String arrestIdentification;
 	private String arrestChargeIdentification;
 	private String dispositionIdentification;
@@ -45,12 +47,10 @@ public class Disposition {
     private String courtCaseNumber;
     
     @NotBlank
-    private String filedChargeMuniCode;
-    private String filedChargeMuniCodeDescription; 
-    private String filedChargeMuniCode;
-    private String filedChargeMuniCodeDescription; 
-    private String amendedChargeMuniCode;
-    private String amendedChargeMuniCodeDescription; 
+    private String filedCharge;
+    private String filedChargeDescription; 
+    private String amendedCharge;
+    private String amendedChargeDescription; 
     private String chargeSeverityCode;
     
     @Min(1)
@@ -83,7 +83,14 @@ public class Disposition {
     private String reasonForDismissal;
     private String reasonForDismissalDescripiton;
     private String provisionCode;
-    
+
+    public Disposition() {
+    	super();
+    }
+	public Disposition(ArrestType dispositionType) {
+		this();
+		this.dispositionType = dispositionType;
+	}
     public boolean containsSentenceInfo() {
     	return (Objects.nonNull(jailYears) && jailYears > 0) 
     		||  (Objects.nonNull(jailDays) && jailDays > 0) 
@@ -255,5 +262,11 @@ public class Disposition {
 	}
 	public void setChargeSeverityCode(String chargeSeverityCode) {
 		this.chargeSeverityCode = chargeSeverityCode;
+	}
+	public ArrestType getDispositionType() {
+		return dispositionType;
+	}
+	public void setDispositionType(ArrestType dispositionType) {
+		this.dispositionType = dispositionType;
 	}
 }    

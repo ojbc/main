@@ -38,12 +38,6 @@ public class ArrestServiceStandalone implements ArrestService {
 	}
 
 	@Override
-	public String saveDisposition(Disposition disposition, Element samlToken) throws Throwable {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String hideArrest(String id, Element samlToken) throws Throwable {
 		// TODO Auto-generated method stub
 		return null;
@@ -63,6 +57,12 @@ public class ArrestServiceStandalone implements ArrestService {
 
 	@Override
 	public String referArrestToMuni(String id, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String saveDisposition(Disposition disposition, Element samlToken) throws Throwable {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -59,6 +59,7 @@ import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.OjbcWebConstants;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
@@ -1261,17 +1262,29 @@ public class RequestMessageBuilderUtilities {
         
         if (StringUtils.isNotBlank(disposition.getAmendedCharge())) {
         	Element amendedCharge = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "AmendedCharge");
-        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-        			"ChargeMunicipalCodeText", disposition.getAmendedCharge());
-        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-        			"ChargeMunicipalCodeDescriptionText", disposition.getAmendedChargeDescription());
+        	
+        	if (disposition.getDispositionType() == ArrestType.MUNI) {
+	        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+	        			"ChargeMunicipalCodeText", disposition.getAmendedCharge());
+	        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+	        			"ChargeMunicipalCodeDescriptionText", disposition.getAmendedChargeDescription());
+        	}
+        	else if (disposition.getDispositionType() == ArrestType.DA) {
+        		createChargeStatuteElement(disposition.getAmendedCharge(), disposition.getAmendedChargeDescription(), amendedCharge);
+        	}
         }
         
     	Element filedCharge = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "FiledCharge");
-    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-    			"ChargeMunicipalCodeText", disposition.getFiledCharge());
-    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-    			"ChargeMunicipalCodeDescriptionText", disposition.getFiledChargeDescription());
+    	
+    	if (disposition.getDispositionType() == ArrestType.MUNI) {
+	    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+	    			"ChargeMunicipalCodeText", disposition.getFiledCharge());
+	    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+	    			"ChargeMunicipalCodeDescriptionText", disposition.getFiledChargeDescription());
+    	}    	
+    	else if (disposition.getDispositionType() == ArrestType.DA) {
+    		createChargeStatuteElement(disposition.getFiledCharge(), disposition.getFiledChargeDescription(), filedCharge);
+    	}
     	
     	if (StringUtils.isNotBlank(disposition.getCourtCaseNumber())) {
     		Element courtCase = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "CourtCase");
@@ -1299,7 +1312,9 @@ public class RequestMessageBuilderUtilities {
     		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     				"DispositionDismissalReasonCodeText", disposition.getReasonForDismissal());
     	}
-    	
+		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+				"ChargeDispositionSeverityCodeText", disposition.getChargeSeverityCode());
+
     	if (disposition.containsSentenceInfo()) {
     		Element chargeSentence = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeSentence");
     		XmlUtils.addAttribute(chargeSentence, NS_STRUCTURES_40, "id", CHARGE_SENTENCE_01);
@@ -1358,6 +1373,13 @@ public class RequestMessageBuilderUtilities {
     	}
     	
 		return document;
+	}
+
+	private static void createChargeStatuteElement(String statuteCode, String statuteCodeDscription, Element parent) {
+		Element chargeStatute = XmlUtils.appendElement(parent, NS_JXDM_60, "ChargeStatute");
+		Element statuteCodeIdentification = XmlUtils.appendElement(chargeStatute, NS_JXDM_60, "StatuteCodeIdentification");
+		XmlUtils.appendTextElement(statuteCodeIdentification, NS_NC_40, "IdentificationID", statuteCode);
+		XmlUtils.appendTextElement(chargeStatute, NS_JXDM_60, "StatuteDescriptionText", statuteCodeDscription);
 	}
 
 	private static String getTermDurationString(Integer years, Integer days) {

@@ -56,7 +56,7 @@ public class ArrestController {
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
-		model.addAttribute("disposition", new Disposition());
+		model.addAttribute("disposition", new Disposition(ArrestType.MUNI));
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
 		if (!model.containsAttribute("dispoCodeMapping")) {

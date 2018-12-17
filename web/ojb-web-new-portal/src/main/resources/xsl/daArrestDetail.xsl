@@ -108,6 +108,7 @@
 			        <col/>
 			        <col/>
 			        <col/>
+			        <col/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
@@ -124,6 +125,7 @@
 			            <th rowspan="2">COURT CASE #</th>
 			            <th rowspan="2">FILED CHARGE</th>
 			            <th rowspan="2">AMENDED CHARGE</th>
+			            <th rowspan="2">F/M</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
@@ -155,6 +157,7 @@
 						          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
 						        </a>
 						      </td>
+						      <td/>
 						      <td/>
 						      <td/>
 						      <td/>
@@ -203,10 +206,13 @@
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
 		  <td>
-		    <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
+		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText"/>
+		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText"/>
+		  </td>
+		  <td>
+		    <xsl:value-of select="chsres-ext:ChargeDispositionSeverityCodeText"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SupervisionFineAmount/nc:Amount"/>
