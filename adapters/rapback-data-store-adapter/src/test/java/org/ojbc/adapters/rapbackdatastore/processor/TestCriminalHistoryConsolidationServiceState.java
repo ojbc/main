@@ -114,7 +114,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	
     	//See processor camel context test for the database method tests
     	@SuppressWarnings("unchecked")
-		List<Subscription> subscriptions = (List<Subscription>)ex.getIn().getHeader("subscriptionsMissingUCNtoAdd");
+		List<Subscription> subscriptions = (List<Subscription>)ex.getIn().getHeader("subscriptionsToModify");
     	
     	log.info("Subscriptions to modify: " + subscriptions);
     	

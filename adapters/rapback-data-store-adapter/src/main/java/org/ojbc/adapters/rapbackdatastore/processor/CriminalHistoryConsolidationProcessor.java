@@ -199,7 +199,7 @@ public class CriminalHistoryConsolidationProcessor {
 				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID, fingerprintPurpose);
     	
     	//Create subscriptions for user for subscriptions where UCN is added
-    	exch.getIn().setHeader("subscriptionsMissingUCNtoAdd", subscriptionsWithUCNAdded);
+    	exch.getIn().setHeader("subscriptionsToModify", subscriptionsWithUCNAdded);
 
     	criminalHistoryConsolidationNotifications = returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
     	

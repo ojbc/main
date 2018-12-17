@@ -23,6 +23,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -34,6 +35,8 @@ import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 
 public interface RapbackDAO {
 	
+	public Integer updateCriminalHistoryDemographics(CriminalHistoryDemographicsUpdateRequest criminalHistoryDemographicsUpdateRequest, Integer subjectId);
+	public List<IdentificationTransaction> returnMatchingCivilIdentifications(String otn, String civilSid);
 	public Integer saveSubject(final Subject subject);
 	public void saveIdentificationTransaction(IdentificationTransaction identificationTransaction);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);

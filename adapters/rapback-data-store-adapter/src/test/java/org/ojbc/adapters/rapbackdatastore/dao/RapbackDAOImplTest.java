@@ -42,6 +42,7 @@ import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -457,6 +458,61 @@ public class RapbackDAOImplTest {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
+	@Test
+	public void testReturnMatchingCivilIdentifications() throws Exception{
+		
+		List<IdentificationTransaction> identificationTransactions = rapbackDAO.returnMatchingCivilIdentifications("0400025", "A123459");
+		
+		assertEquals(1, identificationTransactions.size());
+		
+		Integer subscriptionId = identificationTransactions.get(0).getSubscriptionId();
+		assertNotNull(subscriptionId);
+		
+	}
+	
+	@Test
+	public void testUpdateCriminalHistoryDemographics()
+	{
+		CriminalHistoryDemographicsUpdateRequest criminalHistoryDemographicsUpdateRequest = new CriminalHistoryDemographicsUpdateRequest();
+		Integer subjectId = 1;
+		
+		Subject subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Test", subject.getFirstName());
+		assertEquals("Jane", subject.getLastName());
+		assertEquals("W", subject.getMiddleInitial());
+		assertEquals("1990-10-12", subject.getDob().toLocalDate().toString());
+		
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateGivenName("Joan");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateSurName("Jett");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateMiddleName("M");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateDOB(LocalDate.now());
+		
+		rapbackDAO.updateCriminalHistoryDemographics(criminalHistoryDemographicsUpdateRequest, subjectId);
+		
+		subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Joan", subject.getFirstName());
+		assertEquals("Jett", subject.getLastName());
+		assertEquals("M", subject.getMiddleInitial());
+		assertEquals(LocalDate.now().toString(), subject.getDob().toLocalDate().toString());
+		
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateGivenName("Test");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateSurName("Jane");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateMiddleName("W");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateDOB(LocalDate.of(1990, 10, 12));
+		
+		rapbackDAO.updateCriminalHistoryDemographics(criminalHistoryDemographicsUpdateRequest, subjectId);
+
+		subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Test", subject.getFirstName());
+		assertEquals("Jane", subject.getLastName());
+		assertEquals("1990-10-12", subject.getDob().toLocalDate().toString());
+		assertEquals("W", subject.getMiddleInitial());
+
+	}
+	
 	@Test
 	public void testGetCivilFingerprint() throws Exception {
 		

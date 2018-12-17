@@ -116,7 +116,7 @@ public class TestCriminalHistoryConsolidationService {
     	    }              
     	});
 
-    	context.getRouteDefinition("reportNewFederalSubscriptionsWithUCNAddedRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("directUpdateSubscriptionsRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route

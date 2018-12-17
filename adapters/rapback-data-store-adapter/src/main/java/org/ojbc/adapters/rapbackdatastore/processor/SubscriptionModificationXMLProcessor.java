@@ -155,8 +155,11 @@ public class SubscriptionModificationXMLProcessor {
 		
 		if (fbiSubscription != null)
 		{	
-		    String fbiSubscriptionID = fbiSubscription.getFbiRapbackSubscription().getFbiSubscriptionId();
-		    subscriptionXMLPojo.setFbiSubscriptionID(fbiSubscriptionID);
+			if (fbiSubscription.getFbiRapbackSubscription() != null)
+			{	
+				String fbiSubscriptionID = fbiSubscription.getFbiRapbackSubscription().getFbiSubscriptionId();
+				subscriptionXMLPojo.setFbiSubscriptionID(fbiSubscriptionID);
+			}
 		}
 	}
 
