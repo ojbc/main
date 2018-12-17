@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<pd-doc:ProsecutionDecisionReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0 ../../../xsd/ProsecutionDecisionReport.xsd"
+	xmlns:pd-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionReport/1.0"
+	xmlns:pd-ext="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<j:ActivityAugmentation>
+			<j:CaseLinkage>
+				<j:OrganizationORIIdentification>
+					<!-- Insert HPA ORI -->
+					<nc:IdentificationID>002021A</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:CaseLinkage>
+		</j:ActivityAugmentation>
+		<!-- CauseNumber -->
+		<nc:CaseTrackingID>567890</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeDisposition>
+					<nc:DispositionDate>
+						<!-- ChargeDispositionDate -->
+						<nc:Date>2018-07-09</nc:Date>
+					</nc:DispositionDate>
+					<!-- ChargeDispositionCode -->
+					<nc:DispositionText>IRM</nc:DispositionText>
+				</j:ChargeDisposition>
+				<j:ChargeIdentification>
+					<!-- ChargeLEReportNumber -->
+					<nc:IdentificationID>AC45567</nc:IdentificationID>
+				</j:ChargeIdentification>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<!-- ChargeCode -->
+						<nc:IdentificationID>709-0906</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+					<!-- ChargeDescription -->
+					<j:StatuteDescriptionText>Abuse Family/Household Member</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<j:CaseCourtEvent>
+				<!-- EventDescription -->
+				<nc:ActivityDescriptionText>Sentencing</nc:ActivityDescriptionText>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<nc:EntityPerson structures:ref="Def01" />
+			</j:CaseDefendantParty>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person structures:id="Def01">
+		<nc:PersonBirthDate>
+			<!-- DateOfBirth -->
+			<nc:Date>1962-02-18</nc:Date>
+		</nc:PersonBirthDate>
+			<!-- NAME -->
+		<nc:PersonName>
+			<nc:PersonGivenName>Jerry</nc:PersonGivenName>
+			<nc:PersonMiddleName>A.</nc:PersonMiddleName>
+			<nc:PersonSurName>Smith</nc:PersonSurName>
+		</nc:PersonName>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<!-- Sid -->
+				<nc:IdentificationID>A1234567</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</nc:Person>
+</pd-doc:ProsecutionDecisionReport>

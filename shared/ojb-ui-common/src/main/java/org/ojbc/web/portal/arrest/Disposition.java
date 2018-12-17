@@ -45,10 +45,13 @@ public class Disposition {
     private String courtCaseNumber;
     
     @NotBlank
-    private String filedCharge;
-    private String filedChargeDescription; 
-    private String amendedCharge;
-    private String amendedChargeDescription; 
+    private String filedChargeMuniCode;
+    private String filedChargeMuniCodeDescription; 
+    private String filedChargeMuniCode;
+    private String filedChargeMuniCodeDescription; 
+    private String amendedChargeMuniCode;
+    private String amendedChargeMuniCodeDescription; 
+    private String chargeSeverityCode;
     
     @Min(1)
     @NumberFormat(pattern = "#,###,###,###,###")
@@ -246,5 +249,11 @@ public class Disposition {
 	}
 	public void setProvisionCode(String provisionCode) {
 		this.provisionCode = provisionCode;
+	}
+	public String getChargeSeverityCode() {
+		return chargeSeverityCode;
+	}
+	public void setChargeSeverityCode(String chargeSeverityCode) {
+		this.chargeSeverityCode = chargeSeverityCode;
 	}
 }    
