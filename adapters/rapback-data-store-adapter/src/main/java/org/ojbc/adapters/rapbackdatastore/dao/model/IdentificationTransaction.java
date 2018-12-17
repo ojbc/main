@@ -40,7 +40,10 @@ public class IdentificationTransaction implements Serializable{
 
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
+	
 	private Subscription subscription;
+	private Integer subscriptionId;
+	
 	private DateTime latestSubsequentResultDate;
 	private String fbiSubscriptionId; 
 
@@ -179,6 +182,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setFbiSubscriptionId(String fbiSubscriptionId) {
 		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
+	public Integer getSubscriptionId() {
+		return subscriptionId;
+	}
+
+	public void setSubscriptionId(Integer subscriptionId) {
+		this.subscriptionId = subscriptionId;
 	}
 
 }

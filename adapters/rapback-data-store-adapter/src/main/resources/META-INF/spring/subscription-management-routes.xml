@@ -31,6 +31,7 @@
 	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
 	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
 	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
+	xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
@@ -59,6 +60,13 @@
 				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:filter>
+				<camel:xpath>/chdu-report-doc:CriminalHistoryDemographicsUpdateReport</camel:xpath>
+				
+				<camel:to uri="direct:processCriminalHistoryDemographicsUpdateReport"/>			
+
+			</camel:filter>			
 			
 			<camel:filter>
 				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
@@ -282,7 +290,7 @@
 			<log message="Body: ${body}"/>
 			
 			<!-- Report new federal subscriptions with the UCN that was added  -->
-			<camel:wireTap uri="direct:reportNewFederalSubscriptionsWithUCNAdded">
+			<camel:wireTap uri="direct:updateSubscriptions">
 				<body><simple>${body}</simple></body>
 			</camel:wireTap>
 			
@@ -311,12 +319,12 @@
 			</camel:split>
 		</route>
 
-		<route id="reportNewFederalSubscriptionsWithUCNAddedRoute">
-			<camel:from uri="direct:reportNewFederalSubscriptionsWithUCNAdded"/>
+		<route id="directUpdateSubscriptionsRoute">
+			<camel:from uri="direct:updateSubscriptions"/>
 
 			<camel:split>
 				<!-- The body is a map of Subscriptions -->
-				<camel:simple>${in.header.subscriptionsMissingUCNtoAdd}</camel:simple>
+				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
 
 
 				<camel:log message="Subscription to Add ${body}"/>
@@ -345,6 +353,21 @@
 				
 			</camel:split>			
 
+		</route>
+		
+		<route>
+			<camel:from uri="direct:processCriminalHistoryDemographicsUpdateReport"/>
+			
+			<camel:log message="Processing demographics update"/>
+			
+			<camel:to uri="bean:criminalHistoryDemographicUpdateProcessor?method=processCriminalHistoryDemographicsUpdate"/>
+			
+			<camel:log message="Subscriptions to update: ${in.headers.subscriptionsToModify}"/>
+			
+			<camel:to uri="direct:updateSubscriptions"/>
+			
+			<camel:stop/>
+			
 		</route>
 		
 		<!-- Automatically Archive idled records flow -->

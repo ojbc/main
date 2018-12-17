@@ -19,6 +19,7 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -44,6 +45,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -139,6 +141,17 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private DateTime toDateTime(Timestamp timestamp){
 		return timestamp == null? null : new DateTime(timestamp); 
+	}
+	
+	private boolean hasColumn(ResultSet rs, String columnName) throws SQLException {
+	    ResultSetMetaData rsmd = rs.getMetaData();
+	    int columns = rsmd.getColumnCount();
+	    for (int x = 1; x <= columns; x++) {
+	        if (columnName.toLowerCase().equals(rsmd.getColumnName(x).toLowerCase())) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	
 	private java.sql.Date toSqlDate(DateTime date){
@@ -367,6 +380,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
 		identificationTransaction.setAvailableForSubscriptionStartDate(toDateTime(rs.getTimestamp("Available_For_Subscription_Start_Date")));
 
+		if (hasColumn(rs, "subscription_id"))
+		{
+			Integer subscriptionId = rs.getInt("subscription_id"); 
+			identificationTransaction.setSubscriptionId(subscriptionId);
+		}	
+		
 		Integer subjectId = rs.getInt("subject_id");
 		
 		if (subjectId != null){
@@ -1141,6 +1160,74 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "SET identification_category = ? "
 				+ "WHERE transaction_number  = ? ";
 		jdbcTemplate.update(sql, identificationCategory, transactionNumber);
+	}
+
+	@Override
+	public List<IdentificationTransaction> returnMatchingCivilIdentifications(String otn, String civilSid) {
+
+		String sql = "SELECT t.subscription_id,t.transaction_number, t.identification_category, t.creation_timestamp, " +
+				" t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, t.subscription_id," + 
+				" s.*  " +
+				" FROM identification_transaction t " +
+				" LEFT OUTER JOIN identification_subject s ON t.subject_id=s.subject_id " +
+				" where t.subject_id=s.subject_id  " +
+				" and t.otn=? " +
+				" and s.civil_sid=? ";
+		
+		List<IdentificationTransaction> identificationTransactions = jdbcTemplate.query(sql, new Object[]{otn, civilSid}, new IdentificationTransactionRowMapper()); 
+		
+		return identificationTransactions;
+	}
+
+	@Override
+	public Integer updateCriminalHistoryDemographics(
+			CriminalHistoryDemographicsUpdateRequest criminalHistoryDemographicsUpdateRequest, Integer subjectId) {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("subjectId", subjectId); 
+		
+		String firstName = criminalHistoryDemographicsUpdateRequest.getPostUpdateGivenName();
+		String middleName = criminalHistoryDemographicsUpdateRequest.getPostUpdateMiddleName();
+		String lastName = criminalHistoryDemographicsUpdateRequest.getPostUpdateSurName();
+		
+		LocalDate dob = criminalHistoryDemographicsUpdateRequest.getPostUpdateDOB();
+		
+		StringBuffer sql = new StringBuffer(); 
+				
+		sql.append("UPDATE identification_subject SET ");
+		
+		if (StringUtils.isNotBlank(firstName))
+		{	
+			sql.append("first_name = :firstName,");
+			paramMap.put("firstName", firstName); 
+		}		
+		
+		if (StringUtils.isNotBlank(lastName))
+		{	
+			sql.append("last_name = :lastName,");
+			paramMap.put("lastName", lastName); 
+		}
+		
+		if (StringUtils.isNotBlank(middleName))
+		{	
+			sql.append("middle_initial = :middelInitial,");
+			paramMap.put("middelInitial", middleName); 
+		}
+				
+		if (dob != null)
+		{	
+			sql.append("dob = :dob,");
+			paramMap.put("dob", dob == null? null:toSqlDate(dob)); 
+		}		
+
+		sql.deleteCharAt(sql.length() - 1);
+		
+		sql.append(" WHERE subject_id = :subjectId");
+
+		int rowsUpdated = namedParameterJdbcTemplate.update(sql.toString(), paramMap);
+		
+		return rowsUpdated;
 	}
 
 }
