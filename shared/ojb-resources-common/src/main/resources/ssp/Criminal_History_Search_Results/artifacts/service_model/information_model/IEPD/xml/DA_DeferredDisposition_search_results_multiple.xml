@@ -86,6 +86,7 @@
 					</chsres-ext:CourtCase>
 					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
+					<chsres-ext:DispositionProvisionText>Provision</chsres-ext:DispositionProvisionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
