@@ -162,29 +162,10 @@
             	   
                  $('.dispositionsTable').on('click', 'a.addDisposition',function() {
                     var chargeId = $(this).closest("table").attr("id");
-                    $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
-                    $("#arrestChargeIdentification").val(chargeId);
-                    $("#dispositionIdentification").val('');
-                    $("#dispositionDate").val('');
-                    $("#dispositionCode").val('');
-                    $("#courtCaseNumber").val('');
-                    $("#filedCharge").val('');
-                    $("#amendedCharge").val('');
-                    $("#fineAmount").val('');
-                    $("#fineSuspended").val('');
-                    $("#jailYears").val('');
-                    $("#jailDays").val('');
-                    $("#suspendedYears").val('');
-                    $("#suspendedDays").val('');
-                    $("#deferredYears").val('');
-                    $("#deferredDays").val('');
-                    $("#restitution").val('');
-                    $("#alternateSentence").val('');
-                    $("#reasonForDismissal").val('');
-                    $("#provisionCode").val('');
-
-                    console.log($("#dispositionForm").serialize());
-                    xhr = $.get( context +"daArrests/dispositionForm", $("#dispositionForm").serialize(),  function(data) {
+                    xhr = $.get( context +"daArrests/dispositionForm", {
+                        arrestIdentification: $('#searchResultsTable').attr('arrestId'),
+                        arrestChargeIdentification:chargeId},  
+                        function(data) {
                     	$('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
                     }).fail(ojbc.displayFailMessage);
@@ -192,38 +173,37 @@
                  
                  $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
                 	 var chargeId = $(this).closest("table").attr("id");
-                	 $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
-                	 $("#arrestChargeIdentification").val(chargeId);
-                	 $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
                 	 console.log("chargeId:" + chargeId);
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
                 	 console.log(rowData);
                 	 console.log(rowData[4]);
                 	 console.log(rowData[5]);
-                	 $("#dispositionDate").val(rowData[1]);
-                	 $("#dispositionCode").val(rowData[2]);
-                	 $("#courtCaseNumber").val(rowData[3]);
-                	 $("#filedCharge").val(rowData[4]);
-                	 $("#amendedCharge").val(rowData[5]);
-                	 $("#fineAmount").val(rowData[7].split('.', 1));
-                	 $("#fineSuspended").val(rowData[8].split('.', 1));
-                	 $("#jailYears").val(rowData[9]);
-                	 $("#jailDays").val(rowData[10]);
-                	 $("#suspendedYears").val(rowData[11]);
-                	 $("#suspendedDays").val(rowData[12]);
-                	 $("#deferredYears").val(rowData[13]);
-                	 $("#deferredDays").val(rowData[14]);
-                	 $("#restitution").val(rowData[15].split('.', 1));
-                	 $("#alternateSentence").val(rowData[16]);
-                	 $("#reasonForDismissal").val(rowData[17]);
-                	 $("#provisionCode").val(rowData[18]);
                 	 
                 	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
-                   xhr = $.get( context +"daArrests/dispositionForm", 
-                		  $("#dispositionForm").serialize() + "&amendedCharge=" + rowData[5] + "&suspendedYears=" + rowData[11] 
-                          + "&deferredYears=" + rowData[13] +  "&deferredDays=" + rowData[14] + "&reasonForDismissal=" + rowData[17]
-                          + "&chargeSeverityCode="+ rowData[6],  
-                          function(data) {
+                   xhr = $.get( context +"daArrests/dispositionForm", {
+		                	       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
+		                	       arrestChargeIdentification:chargeId, 
+		                	       dispositionIdentification:$(this).closest("tr").attr("id"),
+		                	       dispositionDate:rowData[1], 
+		                	       dispositionCode:rowData[2], 
+		                	       courtCaseNumber:rowData[3], 
+		                	       filedCharge:rowData[4], 
+		                	       amendedCharge:rowData[5], 
+		                	       chargeSeverityCode:rowData[6],
+		                	       fineAmount:rowData[7].split('.', 1).toString(),
+		                	       fineSuspended:rowData[8].split('.', 1).toString(), 
+		                	       jailYears:rowData[9], 
+		                	       jailDays:rowData[10], 
+		                	       suspendedYears:rowData[11], 
+		                	       suspendedDays:rowData[12], 
+		                	       deferredYears:rowData[13],
+		                	       deferredDays:rowData[14],
+		                	       restitution:rowData[15].split('.', 1).toString(),
+		                	       alternateSentence:rowData[16],
+		                	       reasonForDismissal:rowData[17],
+		                	       provisionCode:rowData[18]
+                     		   },
+                     		   function(data) {
                       $('.modal-body').html(data);
                       $('#dispositionModal').modal('show');
                    }).fail(ojbc.displayFailMessage);
