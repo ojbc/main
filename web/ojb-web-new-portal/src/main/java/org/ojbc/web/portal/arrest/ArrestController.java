@@ -56,6 +56,7 @@ public class ArrestController {
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
+    	log.info("Add ModelAtrributes");
 		model.addAttribute("disposition", new Disposition(ArrestType.MUNI));
 		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
@@ -80,6 +81,8 @@ public class ArrestController {
 		}
 		
 		model.addAttribute("provisionCodeMapping", appProperties.getProvisionCodeMapping());
+		
+    	log.info("All ModelAtrributes are added.");
     }
     
 	@InitBinder("disposition")
@@ -101,6 +104,7 @@ public class ArrestController {
 			
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}
+		log.info("runing defaultSearch with " + arrestSearchRequest );
 		getArrestSearchResults(request, arrestSearchRequest, model);
 		return "arrest/arrests::resultsPage";
 	}

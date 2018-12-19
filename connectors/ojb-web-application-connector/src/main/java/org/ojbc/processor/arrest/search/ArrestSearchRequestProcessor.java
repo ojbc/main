@@ -51,6 +51,8 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 	private OJBSamlMap OJBSamlMap;
 	
 	public String invokeRequest(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
+		
+		log.info("invoking the arrest search request service with the saml token ");
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
