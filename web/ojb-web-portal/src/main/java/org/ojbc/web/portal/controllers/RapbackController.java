@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -42,7 +41,6 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.OJBCDateUtils;
-import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
@@ -451,13 +449,13 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiSubscription}", method = RequestMethod.GET)
+	@RequestMapping(value = "stateRapsheet/{sid}/{transactionNumber}/{hasFbiRapsheet}", method = RequestMethod.GET)
 	public String getStateRapsheet(HttpServletRequest request, 
 			@PathVariable("sid") String sid,
 			@PathVariable("transactionNumber") String transactionNumber,
-			@PathVariable("hasFbiSubscription") Boolean hasFbiSubscription,
+			@PathVariable("hasFbiRapsheet") Boolean hasFbiRapsheet,
 			Map<String, Object> model) {
-		RapSheetQueryRequest rapsheetQueryRequest = new RapSheetQueryRequest(sid, transactionNumber, hasFbiSubscription); 
+		RapSheetQueryRequest rapsheetQueryRequest = new RapSheetQueryRequest(sid, transactionNumber, hasFbiRapsheet); 
 		model.put("rapsheetQueryRequest", rapsheetQueryRequest);
 		
 		try {

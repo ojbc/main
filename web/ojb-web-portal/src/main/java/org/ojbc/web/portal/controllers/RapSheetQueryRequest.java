@@ -27,14 +27,14 @@ public class RapSheetQueryRequest implements Serializable{
 	
 	private String sid;
 	private String transactionNumber;
-	private Boolean hasFbiSubscription; 
+	private Boolean hasFbiRapsheet; 
 
 	public RapSheetQueryRequest(String sid, String transactionNumber,
-			Boolean hasFbiSubscription) {
+			Boolean hasFbiRapsheet) {
 		super();
 		this.sid = sid;
 		this.transactionNumber = transactionNumber;
-		this.hasFbiSubscription = hasFbiSubscription;
+		this.setHasFbiRapsheet(hasFbiRapsheet);
 	}
 
 	public String toString(){
@@ -57,12 +57,12 @@ public class RapSheetQueryRequest implements Serializable{
 		this.transactionNumber = transactionNumber;
 	}
 
-	public Boolean getHasFbiSubscription() {
-		return hasFbiSubscription;
+	public Boolean getHasFbiRapsheet() {
+		return hasFbiRapsheet;
 	}
 
-	public void setHasFbiSubscription(Boolean hasFbiSubscription) {
-		this.hasFbiSubscription = hasFbiSubscription;
+	public void setHasFbiRapsheet(Boolean hasFbiRapsheet) {
+		this.hasFbiRapsheet = hasFbiRapsheet;
 	}
 
 }
