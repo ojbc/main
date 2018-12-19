@@ -207,10 +207,10 @@
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
 		  <td>
-		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
+		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText"/>
+		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:ChargeDispositionSeverityCodeText"/>
