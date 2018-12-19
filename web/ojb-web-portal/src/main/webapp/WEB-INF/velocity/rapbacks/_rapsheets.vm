@@ -73,7 +73,7 @@
 					<a href="#stateRapsheetTab">State Rap Sheet</a>
 				</li>
 				
-				#if( "$!rapsheetQueryRequest.hasFbiSubscription" == 'true' ) 
+				#if( "$!rapsheetQueryRequest.hasFbiRapsheet" == 'true' ) 
 					#set( $url = "#springUrl('/rapbacks/fbiRapsheet/')" + $!rapsheetQueryRequest.transactionNumber )
 					<li id="FBI Rap Sheet">
 						<a href="$url">FBI Rap Sheet</a>

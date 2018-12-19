@@ -172,6 +172,13 @@
 				<xsl:otherwise>false</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:variable name="hasFbiRapsheet">
+			<xsl:choose>
+				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State/FBI)' 
+					and normalize-space(oirsr-ext:Subscription/oirsr-ext:RapBackActivityNotificationIdentification/nc:IdentificationID) ">true</xsl:when>
+				<xsl:otherwise>false</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
 		<xsl:if test="$hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
@@ -202,7 +209,7 @@
 			</xsl:attribute>
 			<i class="fa fa-eye fa-lg"></i>
 		</a>
-		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiSubscription), '/')}" 
+		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
 					class="blueIcon getStateRapsheet hidden"></a>
 	</xsl:template>
 	
