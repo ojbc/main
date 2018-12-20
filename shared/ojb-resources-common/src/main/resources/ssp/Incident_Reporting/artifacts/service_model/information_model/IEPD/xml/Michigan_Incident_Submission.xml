@@ -418,7 +418,7 @@
 									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
 								</nc:PersonPhysicalFeature>
 								<nc:PersonPhysicalFeature>
-									<nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
+									<nc:PhysicalFeatureCategoryCode>DISC ANKL</nc:PhysicalFeatureCategoryCode>
 									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
 								</nc:PersonPhysicalFeature>
 								<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
