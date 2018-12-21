@@ -40,6 +40,9 @@ public class AppProperties {
 
 	private Boolean allowQueriesWithoutSAMLToken = true; 
 	
+	private Integer ajpPort = 9090; 
+	private Boolean ajpEnabled = true; 
+	
 	public AppProperties() {
 		super();
 		dispoCodeMapping.put("301", "Acquitted");
@@ -153,4 +156,21 @@ public class AppProperties {
 	public void setChargeSeverityCodeMapping(Map<String, String> chargeSeverityCodeMapping) {
 		this.chargeSeverityCodeMapping = chargeSeverityCodeMapping;
 	}
+
+	public Boolean getAjpEnabled() {
+		return ajpEnabled;
+	}
+
+	public void setAjpEnabled(Boolean ajpEnabled) {
+		this.ajpEnabled = ajpEnabled;
+	}
+
+	public Integer getAjpPort() {
+		return ajpPort;
+	}
+
+	public void setAjpPort(Integer ajpPort) {
+		this.ajpPort = ajpPort;
+	}
+
 }
