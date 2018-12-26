@@ -24,6 +24,8 @@ public class PersonIDAdditional {
 
 	private String personAdditionalID;
 
+	private String sent;
+	
 	public Integer getPersonIDAdditionalID() {
 		return personIDAdditionalID;
 	}
@@ -47,6 +49,14 @@ public class PersonIDAdditional {
 
 	public void setPersonAdditionalID(String personAdditionalID) {
 		this.personAdditionalID = personAdditionalID;
+	}
+
+	public String getSent() {
+		return sent;
+	}
+
+	public void setSent(String sent) {
+		this.sent = sent;
 	}
 	
 }
