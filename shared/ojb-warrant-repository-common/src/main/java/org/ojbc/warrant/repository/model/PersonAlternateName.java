@@ -34,6 +34,8 @@ public class PersonAlternateName {
 	private String nameSuffix;
 	
 	private String middleName;
+	
+	private String sent;
 
 	public Integer getPersonAlternateNameID() {
 		return personAlternateNameID;
@@ -93,6 +95,14 @@ public class PersonAlternateName {
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+
+	public String getSent() {
+		return sent;
+	}
+
+	public void setSent(String sent) {
+		this.sent = sent;
 	}
 
 }

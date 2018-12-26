@@ -16,27 +16,24 @@
  */
 package org.ojbc.warrant.repository.model;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import java.time.LocalDate;
 
-public class PersonOLNAdditional {
+public class PersonDOBAdditional {
 
-	private Integer personOLNID;
+	private Integer personDOBAdditionalID;
 
 	private Integer personID;
 	
-	private String operatorLicenseNumber;
+	private LocalDate dobAdditional;
 
-	private String operatorLicenseState;
-	
 	private String sent;
 
-	public Integer getPersonOLNID() {
-		return personOLNID;
+	public Integer getPersonDOBAdditionalID() {
+		return personDOBAdditionalID;
 	}
 
-	public void setPersonOLNID(Integer personOLNID) {
-		this.personOLNID = personOLNID;
+	public void setPersonDOBAdditionalID(Integer personDOBAdditionalID) {
+		this.personDOBAdditionalID = personDOBAdditionalID;
 	}
 
 	public Integer getPersonID() {
@@ -47,24 +44,12 @@ public class PersonOLNAdditional {
 		this.personID = personID;
 	}
 
-	public String getOperatorLicenseNumber() {
-		return operatorLicenseNumber;
+	public LocalDate getDobAdditional() {
+		return dobAdditional;
 	}
 
-	public void setOperatorLicenseNumber(String operatorLicenseNumber) {
-		this.operatorLicenseNumber = operatorLicenseNumber;
-	}
-
-	public String getOperatorLicenseState() {
-		return operatorLicenseState;
-	}
-
-	public void setOperatorLicenseState(String operatorLicenseState) {
-		this.operatorLicenseState = operatorLicenseState;
-	}
-
-	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	public void setDobAdditional(LocalDate dobAdditional) {
+		this.dobAdditional = dobAdditional;
 	}
 
 	public String getSent() {
@@ -74,5 +59,5 @@ public class PersonOLNAdditional {
 	public void setSent(String sent) {
 		this.sent = sent;
 	}
-	
+
 }

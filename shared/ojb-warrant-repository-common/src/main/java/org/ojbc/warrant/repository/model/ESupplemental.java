@@ -16,46 +16,50 @@
  */
 package org.ojbc.warrant.repository.model;
 
-public class PersonSSNAdditional {
+public class ESupplemental {
 
-	private Integer personSSNID;
+	//Table name where esupplemental came from
+	private String supplementalType;
 	
-	private Integer personID;
+	//Value of Esupplemental, for example a Scar/Mark/Tattoo
+	private String supplementalValue;
 	
-	private String socialSecurityNumber;
+	//PK from this table
+	private Integer identifier;
 
-	private String sent;
+	private Integer personPk;
 	
-	public Integer getPersonSSNID() {
-		return personSSNID;
+	public String getSupplementalType() {
+		return supplementalType;
 	}
 
-	public void setPersonSSNID(Integer personSSNID) {
-		this.personSSNID = personSSNID;
+	public void setSupplementalType(String supplementalType) {
+		this.supplementalType = supplementalType;
 	}
 
-	public Integer getPersonID() {
-		return personID;
+	public String getSupplementalValue() {
+		return supplementalValue;
 	}
 
-	public void setPersonID(Integer personID) {
-		this.personID = personID;
+	public void setSupplementalValue(String supplementalValue) {
+		this.supplementalValue = supplementalValue;
 	}
 
-	public String getSocialSecurityNumber() {
-		return socialSecurityNumber;
+	public Integer getIdentifier() {
+		return identifier;
 	}
 
-	public void setSocialSecurityNumber(String socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
+	public void setIdentifier(Integer identifier) {
+		this.identifier = identifier;
 	}
 
-	public String getSent() {
-		return sent;
+	public Integer getPersonPk() {
+		return personPk;
 	}
 
-	public void setSent(String sent) {
-		this.sent = sent;
+	public void setPersonPk(Integer personPk) {
+		this.personPk = personPk;
 	}
 
+	
 }
