@@ -167,6 +167,10 @@ public class TestDatabaseLoad {
 		rs = conn.createStatement().executeQuery("select count(*) as rowcount from warrant");
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
+		
+		rs = conn.createStatement().executeQuery("select * from PERSONSMTADDITIONAL ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
 	}
 
 	@Test
