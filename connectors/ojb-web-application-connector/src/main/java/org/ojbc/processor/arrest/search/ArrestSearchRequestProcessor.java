@@ -23,6 +23,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
@@ -62,7 +63,18 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 		Document arrestSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
 		
 		if (ArrestType.DA == arrestSearchRequest.getArrestType()) {
-			messageProcessor.setOperationName("SubmitDAChargesSearchRequest");
+			if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
+				messageProcessor.setOperationName("SubmitDAChargesSearchRequest");
+			}
+			else {
+				messageProcessor.setOperationName("SubmitDADeferredDispositionSearchRequest");
+			}
+		}
+		else if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
+			messageProcessor.setOperationName("SubmitMunicipalChargesSearchRequest");
+		}
+		else {
+			messageProcessor.setOperationName("SubmitMunicipalDeferredDispositionSearchRequest");
 		}
 		
 		//Create exchange

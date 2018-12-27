@@ -32,6 +32,11 @@ public class ArrestSearchRequest {
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private LocalDate arrestDateRangeEndDate;
 	
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private LocalDate dispositionDateRangeStartDate; 
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private LocalDate dispositionDateRangeEndDate;
+	
 	private String firstName;
     private SearchFieldMetadata firstNameSearchMetadata;
     
@@ -159,5 +164,17 @@ public class ArrestSearchRequest {
 	}
 	public void setArrestWithDeferredDispositions(Boolean arrestWithDeferredDispositions) {
 		this.arrestWithDeferredDispositions = arrestWithDeferredDispositions;
+	}
+	public LocalDate getDispositionDateRangeStartDate() {
+		return dispositionDateRangeStartDate;
+	}
+	public void setDispositionDateRangeStartDate(LocalDate dispositionDateRangeStartDate) {
+		this.dispositionDateRangeStartDate = dispositionDateRangeStartDate;
+	}
+	public LocalDate getDispositionDateRangeEndDate() {
+		return dispositionDateRangeEndDate;
+	}
+	public void setDispositionDateRangeEndDate(LocalDate dispositionDateRangeEndDate) {
+		this.dispositionDateRangeEndDate = dispositionDateRangeEndDate;
 	}
 }

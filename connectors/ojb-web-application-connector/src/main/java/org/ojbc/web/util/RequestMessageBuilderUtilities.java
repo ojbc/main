@@ -48,6 +48,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -957,12 +958,24 @@ public class RequestMessageBuilderUtilities {
         Element rootElement = null;
         switch (arrestSearchRequest.getArrestType()) {
         case MUNI: 
-        	rootElement = document.createElementNS(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, 
+        	if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
+        		rootElement = document.createElementNS(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, 
         			NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC + ":MunicipalChargesSearchRequest");
+        	}
+        	else {
+        		rootElement = document.createElementNS(NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC, 
+        				NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC + ":MunicipalDeferredDispositionSearchRequest");
+        	}
         	break; 
         case DA: 
-        	rootElement = document.createElementNS(NS_DA_CHARGE_SEARCH_REQUEST_DOC, 
-        			NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC + ":DAChargesSearchRequest");
+        	if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
+	        	rootElement = document.createElementNS(NS_DA_CHARGE_SEARCH_REQUEST_DOC, 
+	        			NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC + ":DAChargesSearchRequest");
+        	}
+        	else {
+        		rootElement = document.createElementNS(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, 
+        				NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC + ":DADeferredDispositionSearchRequest");
+        	}
         	break; 
         }
         rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, 
@@ -1041,6 +1054,23 @@ public class RequestMessageBuilderUtilities {
         			XmlUtils.appendTextElement(subjectIdentification, NS_NC_40, "IdentificationID", arrestSearchRequest.getOtn());
         		}
         		
+        	}
+        	
+        	if (BooleanUtils.isTrue(arrestSearchRequest.getArrestWithDeferredDispositions()) 
+        			&& (arrestSearchRequest.getDispositionDateRangeStartDate() != null 
+        				|| arrestSearchRequest.getDispositionDateRangeEndDate()!= null)) {
+        		Element disposition = XmlUtils.appendElement(rootElement, NS_NC_40, "Disposition");
+        		Element dispositionDate = XmlUtils.appendElement(disposition, NS_NC_40, "DispositionDate");
+        		Element dateRange = XmlUtils.appendElement(dispositionDate, NS_NC_40, "DateRange");
+        		
+        		if (arrestSearchRequest.getDispositionDateRangeStartDate() != null) {
+        			Element startDate = XmlUtils.appendElement(dateRange, NS_NC_40, "StartDate");
+        			XmlUtils.appendTextElement(startDate, NS_NC_40, "Date", arrestSearchRequest.getDispositionDateRangeStartDate().toString());
+        		}
+        		if (arrestSearchRequest.getDispositionDateRangeEndDate() != null) {
+        			Element endDate = XmlUtils.appendElement(dateRange, NS_NC_40, "EndDate");
+        			XmlUtils.appendTextElement(endDate, NS_NC_40, "Date", arrestSearchRequest.getDispositionDateRangeEndDate().toString());
+        		}
         	}
 //        		<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
         	XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
