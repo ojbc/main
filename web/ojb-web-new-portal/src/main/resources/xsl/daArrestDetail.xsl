@@ -192,12 +192,17 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
-        <a href="#" class="editDisposition" style="margin-right:3px">
-          <i class="fas fa-edit fa-lg" title="edit" data-toggle="tooltip"></i>
+        <a href="#" class="editDisposition" style="margin-right:3px" title="edit" data-toggle="tooltip">
+          <i class="fas fa-edit fa-lg"></i>
         </a>
-        <a href="#" class="deleteDisposition">
-          <i class="fas fa-trash-alt fa-lg" title="delete" data-toggle="tooltip"></i>
+        <a href="#" class="deleteDisposition" title="delete" data-toggle="tooltip">
+          <i class="fas fa-trash-alt fa-lg"></i>
         </a>
+        <xsl:if test="chsres-ext:ChargeDispositionCategoryCode = 'deferred'">
+          <a href="#" class="expungeDisposition"  title="expunge" data-toggle="tooltip" style="margin-left:3px">
+             <i class="fas fa-calendar-times fa-lg" ></i>
+          </a>
+        </xsl:if>
       </td>
 		  <td>
 		    <xsl:apply-templates select="nc:DispositionDate/nc:Date"  mode="formatDateAsMMDDYYYY"/>
