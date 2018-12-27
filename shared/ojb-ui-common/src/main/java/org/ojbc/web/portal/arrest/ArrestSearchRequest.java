@@ -19,6 +19,7 @@ package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
@@ -47,6 +48,7 @@ public class ArrestSearchRequest {
     private String ori;
     
     private ArrestType arrestType; 
+    private Boolean arrestWithDeferredDispositions; 
     
 	public LocalDate getArrestDateRangeStartDate() {
 		return arrestDateRangeStartDate;
@@ -144,16 +146,18 @@ public class ArrestSearchRequest {
 	
 	@Override
 	public String toString() {
-		return "ArrestSearchRequest [arrestDateRangeStartDate=" + arrestDateRangeStartDate + ", arrestDateRangeEndDate="
-				+ arrestDateRangeEndDate + ", firstName=" + firstName + ", firstNameSearchMetadata="
-				+ firstNameSearchMetadata + ", lastName=" + lastName + ", lastNameSearchMetadata="
-				+ lastNameSearchMetadata + ", dob=" + dob + ", ssn=" + ssn + ", otn=" + otn + ", arrestIdentification="
-				+ arrestIdentification + ", ori=" + ori + ", arrestType=" + getArrestType() + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 	public ArrestType getArrestType() {
 		return arrestType;
 	}
 	public void setArrestType(ArrestType arrestType) {
 		this.arrestType = arrestType;
+	}
+	public Boolean getArrestWithDeferredDispositions() {
+		return arrestWithDeferredDispositions;
+	}
+	public void setArrestWithDeferredDispositions(Boolean arrestWithDeferredDispositions) {
+		this.arrestWithDeferredDispositions = arrestWithDeferredDispositions;
 	}
 }
