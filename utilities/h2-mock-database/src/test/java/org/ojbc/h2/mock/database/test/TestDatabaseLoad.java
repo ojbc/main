@@ -171,6 +171,27 @@ public class TestDatabaseLoad {
 		rs = conn.createStatement().executeQuery("select * from PERSONSMTADDITIONAL ");
 		assertTrue(rs.next());
 		assertEquals("F",rs.getString("sent"));
+		
+		rs = conn.createStatement().executeQuery("select * from PERSONSSNADDITIONAL ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
+		rs = conn.createStatement().executeQuery("select * from PERSONALTERNATENAME ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
+		rs = conn.createStatement().executeQuery("select * from PERSONOLNADDITIONAL ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
+		rs = conn.createStatement().executeQuery("select * from PERSONIDADDITIONAL ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
+		rs = conn.createStatement().executeQuery("select * from PERSONALTERNATENAME ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
 	}
 
 	@Test
@@ -196,4 +217,5 @@ public class TestDatabaseLoad {
 		assertEquals(3,rs.getInt("ConsentDecisionTypeID"));
 		assertEquals("inmate not interviewed",rs.getString("ConsentDecisionDescription"));
 	}
+
 }
