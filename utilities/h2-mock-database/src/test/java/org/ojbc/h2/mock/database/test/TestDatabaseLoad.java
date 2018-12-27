@@ -192,6 +192,10 @@ public class TestDatabaseLoad {
 		assertTrue(rs.next());
 		assertEquals("F",rs.getString("sent"));
 
+		rs = conn.createStatement().executeQuery("select * from PersonDOBAdditional ");
+		assertTrue(rs.next());
+		assertEquals("F",rs.getString("sent"));
+
 	}
 
 	@Test
