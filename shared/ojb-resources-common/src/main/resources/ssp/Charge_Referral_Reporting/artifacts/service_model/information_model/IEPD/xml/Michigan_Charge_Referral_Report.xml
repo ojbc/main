@@ -17,10 +17,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<crr-doc:ChargeReferralReport xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+<crr-doc:ChargeReferralReport xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0 ../xsd/exchange_schema/Charge_Referral_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -477,6 +480,9 @@
 								<inc-ext:PersonDepartmentOfCorrectionsIdentification>
 									<nc:IdentificationID>0987654</nc:IdentificationID>
 								</inc-ext:PersonDepartmentOfCorrectionsIdentification>
+								<inc-ext:PersonMiscellaneousRecordIdentification>
+									<nc:IdentificationID>PS-123456</nc:IdentificationID>
+								</inc-ext:PersonMiscellaneousRecordIdentification>
 								<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
 							</inc-ext:Person>
 							<inc-ext:Warrant>

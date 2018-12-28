@@ -385,6 +385,7 @@
 					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonEmployeeIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonNameRecordNumber" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonMiscellaneousRecordIdentification" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -1414,6 +1415,13 @@
 		<xsd:element name="OrganizationCodeText" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>A text code assigned to an organization.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonMiscellaneousRecordIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
