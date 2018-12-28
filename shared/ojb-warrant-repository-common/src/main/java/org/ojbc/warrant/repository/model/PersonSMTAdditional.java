@@ -18,19 +18,13 @@ package org.ojbc.warrant.repository.model;
 
 public class PersonSMTAdditional {
 
-	private Integer personSMTSupplementalID;
+	private Integer personSMTAdditionalID;
 	
 	private Integer personID;
 	
 	private String personScarsMarksTattoos;
 
-	public Integer getPersonSMTAdditionalID() {
-		return personSMTSupplementalID;
-	}
-
-	public void setPersonSMTAdditionalID(Integer personSMTSupplementalID) {
-		this.personSMTSupplementalID = personSMTSupplementalID;
-	}
+	private String sent;
 
 	public String getPersonScarsMarksTattoos() {
 		return personScarsMarksTattoos;
@@ -46,6 +40,22 @@ public class PersonSMTAdditional {
 
 	public void setPersonID(Integer personID) {
 		this.personID = personID;
+	}
+
+	public String getSent() {
+		return sent;
+	}
+
+	public void setSent(String sent) {
+		this.sent = sent;
+	}
+
+	public Integer getPersonSMTAdditionalID() {
+		return personSMTAdditionalID;
+	}
+
+	public void setPersonSMTAdditionalID(Integer personSMTAdditionalID) {
+		this.personSMTAdditionalID = personSMTAdditionalID;
 	}
 
 }

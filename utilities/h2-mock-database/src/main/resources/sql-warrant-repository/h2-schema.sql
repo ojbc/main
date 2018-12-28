@@ -68,6 +68,13 @@ CREATE TABLE Person (
                 CONSTRAINT Person_pk PRIMARY KEY (PersonID)
 );
 
+CREATE TABLE PersonDOBAdditional (
+                PersonDOBAdditionalID INTEGER NOT NULL,
+                PersonID INTEGER NOT NULL,
+                DOBAdditional DATE,
+                SENT VARCHAR(1) NOT NULL,
+                CONSTRAINT PersonDOBAdditional_pk PRIMARY KEY (PersonDOBAdditionalID)
+);
 
 CREATE TABLE Vehicle (
                 VehicleID IDENTITY NOT NULL,
@@ -95,15 +102,17 @@ CREATE TABLE PersonIDAdditional (
                 PersonIDAdditionalID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 PersonAdditionalID VARCHAR(15) NOT NULL,
+                SENT VARCHAR(1) NOT NULL,
                 CONSTRAINT PersonIDAdditional_pk PRIMARY KEY (PersonIDAdditionalID)
 );
 
 
 CREATE TABLE PersonSMTAdditional (
-                PersonSMTSupplementalID IDENTITY NOT NULL,
+                PersonSMTAdditionalID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 PersonScarsMarksTattoos VARCHAR(3),
-                CONSTRAINT PersonSMTAdditional_pk PRIMARY KEY (PersonSMTSupplementalID)
+                SENT VARCHAR(1) NOT NULL,
+                CONSTRAINT PersonSMTAdditional_pk PRIMARY KEY (PersonSMTAdditionalID)
 );
 COMMENT ON COLUMN PersonSMTAdditional.PersonScarsMarksTattoos IS 'Maximum of 3 characters.';
 
@@ -113,6 +122,7 @@ CREATE TABLE PersonOLNAdditional (
                 PersonID INTEGER NOT NULL,
                 OperatorLicenseNumber VARCHAR(20),
                 OperatorLicenseState VARCHAR(2),
+                SENT VARCHAR(1) NOT NULL,
                 CONSTRAINT PersonOLNAdditional_pk PRIMARY KEY (PersonOLNID)
 );
 
@@ -121,6 +131,7 @@ CREATE TABLE PersonSSNAdditional (
                 PersonSSNID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 SocialSecurityNumber VARCHAR(9),
+                Sent VARCHAR(1) NOT NULL,
                 CONSTRAINT PersonID PRIMARY KEY (PersonSSNID)
 );
 COMMENT ON TABLE PersonSSNAdditional IS 'Nine additional Social Security Numbers are allowed for a person.';
@@ -134,6 +145,7 @@ CREATE TABLE PersonAlternateName (
                 LastName VARCHAR(28),
                 MiddleName VARCHAR(30),
                 NameSuffix VARCHAR(3),
+                SENT VARCHAR(1) NOT NULL,
                 CONSTRAINT PersonAlternateName_pk PRIMARY KEY (PersonAlternateNameID)
 );
 COMMENT ON TABLE PersonAlternateName IS 'Need to add Person Entry Number (SYSIDNO)';
@@ -214,8 +226,7 @@ CREATE TABLE Officer (
                 CONSTRAINT Officer_pk PRIMARY KEY (OfficerID)
 );
 
-
-ALTER TABLE WarrantStatus ADD CONSTRAINT WarrantStatusType_WarrantStatus_fk
+ALTER TABLE WarrantStatus ADD CONSTRAINT WarrantStatusType_Status_fk
 FOREIGN KEY (WarrantStatusTypeID)
 REFERENCES WarrantStatusType (WarrantStatusTypeID)
 ON DELETE NO ACTION
@@ -263,6 +274,12 @@ REFERENCES Person (PersonID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE PersonDOBAdditional ADD CONSTRAINT Person_PersonDOBAdditional_fk
+FOREIGN KEY (PersonID)
+REFERENCES Person (PersonID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Officer ADD CONSTRAINT Arrest_Officer_fk
 FOREIGN KEY (ChargeRefID)
 REFERENCES ChargeRef (ChargeRefID)
@@ -281,7 +298,7 @@ REFERENCES Warrant (WarrantID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE WarrantStatus ADD CONSTRAINT Warrant_WarrantStatus_fk
+ALTER TABLE WarrantStatus ADD CONSTRAINT Warrant_Status_fk
 FOREIGN KEY (WarrantID)
 REFERENCES Warrant (WarrantID)
 ON DELETE CASCADE

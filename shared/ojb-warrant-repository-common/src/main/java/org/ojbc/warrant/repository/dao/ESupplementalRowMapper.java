@@ -14,48 +14,27 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.warrant.repository.model;
+package org.ojbc.warrant.repository.dao;
 
-public class PersonSSNAdditional {
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-	private Integer personSSNID;
-	
-	private Integer personID;
-	
-	private String socialSecurityNumber;
+import org.ojbc.warrant.repository.model.ESupplemental;
+import org.springframework.jdbc.core.RowMapper;
 
-	private String sent;
-	
-	public Integer getPersonSSNID() {
-		return personSSNID;
+public class ESupplementalRowMapper implements RowMapper<ESupplemental> {
+
+	@Override
+	public ESupplemental mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		ESupplemental eSupplemental = new ESupplemental();
+		
+		eSupplemental.setIdentifier(rs.getInt("pkid"));
+		eSupplemental.setSupplementalValue(rs.getString("supplementalValue"));
+		eSupplemental.setSupplementalType(rs.getString("supplementalType"));
+		
+		return eSupplemental;
 	}
 
-	public void setPersonSSNID(Integer personSSNID) {
-		this.personSSNID = personSSNID;
-	}
-
-	public Integer getPersonID() {
-		return personID;
-	}
-
-	public void setPersonID(Integer personID) {
-		this.personID = personID;
-	}
-
-	public String getSocialSecurityNumber() {
-		return socialSecurityNumber;
-	}
-
-	public void setSocialSecurityNumber(String socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
-	}
-
-	public String getSent() {
-		return sent;
-	}
-
-	public void setSent(String sent) {
-		this.sent = sent;
-	}
 
 }
