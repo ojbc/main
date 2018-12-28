@@ -17,6 +17,7 @@
 package org.ojbc.warrant.repository.dao;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import org.ojbc.warrant.repository.model.ESupplemental;
@@ -33,8 +34,26 @@ public class ESupplementalRowMapper implements RowMapper<ESupplemental> {
 		eSupplemental.setSupplementalValue(rs.getString("supplementalValue"));
 		eSupplemental.setSupplementalType(rs.getString("supplementalType"));
 		
+		if (hasColumn(rs, "supplementalSecondaryValue"))
+		{
+			eSupplemental.setSupplementalSecondaryValue(rs.getString("supplementalSecondaryValue"));
+		}	
+		
 		return eSupplemental;
 	}
 
 
+	public static boolean hasColumn(ResultSet rs, String columnName) throws SQLException {
+	    ResultSetMetaData rsmd = rs.getMetaData();
+	    int columns = rsmd.getColumnCount();
+	    for (int x = 1; x <= columns; x++) {
+	        if (columnName.equals(rsmd.getColumnName(x))) {
+	            return true;
+	        }
+	        if (columnName.toLowerCase().equals(rsmd.getColumnLabel(x).toLowerCase())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 }

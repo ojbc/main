@@ -24,6 +24,9 @@ public class ESupplemental {
 	//Value of Esupplemental, for example a Scar/Mark/Tattoo
 	private String supplementalValue;
 	
+	//Value of Esupplemental additional value, for example an operating license state
+	private String supplementalSecondaryValue;
+	
 	//PK from this table
 	private Integer identifier;
 
@@ -59,6 +62,14 @@ public class ESupplemental {
 
 	public void setPersonPk(Integer personPk) {
 		this.personPk = personPk;
+	}
+
+	public String getSupplementalSecondaryValue() {
+		return supplementalSecondaryValue;
+	}
+
+	public void setSupplementalSecondaryValue(String supplementalSecondaryValue) {
+		this.supplementalSecondaryValue = supplementalSecondaryValue;
 	}
 
 	
