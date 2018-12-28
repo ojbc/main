@@ -33,6 +33,9 @@
 				<nc:DispositionDate>
 					<nc:Date>2016-06-15</nc:Date>
 				</nc:DispositionDate>
+				<chm-req-ext:DispositionIdentification>
+					<nc:IdentificationID>D96487</nc:IdentificationID>
+				</chm-req-ext:DispositionIdentification>
 			</j:ChargeDisposition>
 			<j:ChargeIdentification>
 				<nc:IdentificationID>C123456</nc:IdentificationID>
