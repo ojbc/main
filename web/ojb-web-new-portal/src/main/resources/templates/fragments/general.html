@@ -105,11 +105,10 @@
  	          $(document).ajaxStart(function(){
 	              
               if( $(".modal").is(':visible')){
-                var modalDiv = $(".modal");
-              
                 var loadingDiv =  $("#modalIframeSpinner");
-                loadingDiv.height(modalDiv.height());
-                loadingDiv.width(modalDiv.width());
+                
+                loadingDiv.height($(".modal-dialog").height() + parseInt($(".modal-dialog").css("margin-top"), 10));
+                loadingDiv.width($(".modal").width());
 	              
                 $("#modalIframeSpinner").show();           
 	          
