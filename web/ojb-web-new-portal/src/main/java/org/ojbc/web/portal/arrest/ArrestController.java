@@ -112,7 +112,7 @@ public class ArrestController {
 		
 		if (arrestSearchRequest == null) {
 			arrestSearchRequest = new ArrestSearchRequest();
-			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(90));
 			arrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
@@ -184,6 +184,24 @@ public class ArrestController {
 		return "arrest/dispositionForm::dispositionForm";
 	}
 
+	@GetMapping("/expungeDispositionForm")
+	public String getExpungeDispositionForm(HttpServletRequest request, Disposition disposition, 
+			Map<String, Object> model) throws Throwable {
+		disposition.setDispositionDate(null);
+		model.put("disposition", disposition);
+		return "arrest/expungeDispositionForm::expungeDispositionForm";
+	}
+	
+	@PostMapping("/expungeDisposition")
+	public String expungeDisposition(HttpServletRequest request, @ModelAttribute Disposition disposition, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		
+		log.info("Expunge disposition" + disposition);
+		//arrestService.expungeDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, disposition.getArrestIdentification(), model); 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+
 	@PostMapping("/saveDisposition")
 	public String saveDisposition(HttpServletRequest request, @Valid @ModelAttribute Disposition disposition, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
@@ -201,7 +219,7 @@ public class ArrestController {
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
-
+	
 	@PostMapping("/dispositions/delete")
 	public String deleteDisposition(HttpServletRequest request,  Disposition disposition,
 			Map<String, Object> model) throws Throwable {
