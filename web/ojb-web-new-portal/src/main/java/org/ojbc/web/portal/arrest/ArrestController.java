@@ -197,7 +197,7 @@ public class ArrestController {
 			Map<String, Object> model) throws Throwable {
 		
 		log.info("Expunge disposition" + disposition);
-		//arrestService.expungeDisposition(disposition, samlService.getSamlAssertion(request));
+		arrestService.expungeDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}

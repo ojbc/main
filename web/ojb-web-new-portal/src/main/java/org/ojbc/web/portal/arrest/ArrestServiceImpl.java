@@ -20,6 +20,7 @@ import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
 import org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
+import org.ojbc.processor.arrest.modify.ExpungeDispositionRequestProcessor;
 import org.ojbc.processor.arrest.modify.MuniArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
@@ -42,6 +43,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
 	@Autowired
 	private DeleteDispositionRequestProcessor deleteDispositionRequestProcessor;
+	@Autowired
+	private ExpungeDispositionRequestProcessor expungeDispositionRequestProcessor;
 	@Autowired
 	private DaArrestReferRequestProcessor daArrestReferRequestProcessor;
 	@Autowired
@@ -79,6 +82,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String referArrestToMuni(String id, Element samlAssertion) throws Throwable {
 		return muniArrestReferRequestProcessor.invokeRequest(id, samlAssertion);
+	}
+
+	@Override
+	public String expungeDisposition(Disposition disposition, Element samlToken) throws Throwable {
+		return expungeDispositionRequestProcessor.invokeRequest(disposition, samlToken);
 	}
 	
 }

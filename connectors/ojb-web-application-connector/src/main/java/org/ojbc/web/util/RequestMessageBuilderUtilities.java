@@ -1539,6 +1539,60 @@ public class RequestMessageBuilderUtilities {
 		rootElement.setAttribute("xmlns:" + NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC, 
 				NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC);
 		return createArrestModifyRequest(id, document, rootElement);
+	}
+//	<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+//			xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+//			xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+//			xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+//			xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+//			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0 ../xsd/expunge_request.xsd ">
+//			<j:Arrest>
+//				<j:ArrestAgencyRecordIdentification>
+//					<nc:IdentificationID>1004233</nc:IdentificationID>
+//					<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+//				</j:ArrestAgencyRecordIdentification>
+//				<j:ArrestCharge>
+//					<j:ChargeDisposition>
+//						<nc:DispositionDate>
+//							<nc:Date>2016-06-15</nc:Date>
+//						</nc:DispositionDate>
+//						<chm-req-ext:DispositionIdentification>
+//							<nc:IdentificationID>D96487</nc:IdentificationID>
+//						</chm-req-ext:DispositionIdentification>
+//					</j:ChargeDisposition>
+//					<j:ChargeIdentification>
+//						<nc:IdentificationID>C123456</nc:IdentificationID>
+//					</j:ChargeIdentification>
+//				</j:ArrestCharge>
+//			</j:Arrest>
+//		</er-req-doc:ExpungeRequest>
+	public static Document createExpungeRequest(Disposition disposition) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+		Element rootElement = document.createElementNS(NS_EXPUNGE_REQUEST_DOC, NS_PREFIX_EXPUNGE_REQUEST_DOC + ":ExpungeRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+        		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_60, NS_JXDM_60);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_STRUCTURES_40, NS_STRUCTURES_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
+        document.appendChild(rootElement);
+        
+        Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest"); 
+        Element arrestAgencyRecordIdentification = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgencyRecordIdentification");
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", disposition.getArrestIdentification());
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
+
+		Element arrestCharge = XmlUtils.appendElement(rootElement, NS_JXDM_60, "ArrestCharge");
+		Element chargeDisposition = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeDisposition");
+		Element dispositionDate = XmlUtils.appendElement(chargeDisposition, NS_NC_40, "nc:DispositionDate");
+		XmlUtils.appendTextElement(dispositionDate, NS_NC_40, "Date", disposition.getDispositionDate().toString());
+		
+		Element dispositionIdentification = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "DispositionIdentification");
+		XmlUtils.appendTextElement(dispositionIdentification, NS_NC_40, "IdentificationID", disposition.getDispositionIdentification());
+		
+		Element chargeIdentification = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeIdentification");
+		XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
+		return document;
 	}	
     
 }

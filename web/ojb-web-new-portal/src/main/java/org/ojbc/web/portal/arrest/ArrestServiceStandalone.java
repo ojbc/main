@@ -67,4 +67,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String expungeDisposition(Disposition disposition, Element samlToken) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
