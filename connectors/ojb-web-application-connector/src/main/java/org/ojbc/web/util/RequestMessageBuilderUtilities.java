@@ -1582,7 +1582,7 @@ public class RequestMessageBuilderUtilities {
 		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", disposition.getArrestIdentification());
 		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
 
-		Element arrestCharge = XmlUtils.appendElement(rootElement, NS_JXDM_60, "ArrestCharge");
+		Element arrestCharge = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
 		Element chargeDisposition = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeDisposition");
 		Element dispositionDate = XmlUtils.appendElement(chargeDisposition, NS_NC_40, "nc:DispositionDate");
 		XmlUtils.appendTextElement(dispositionDate, NS_NC_40, "Date", disposition.getDispositionDate().toString());
