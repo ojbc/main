@@ -214,7 +214,7 @@
                    }).fail(ojbc.displayFailMessage);
                  });
                  
-                 $('body').on('click', '#expungeDisposition', function(){
+                 $('#dispositionModal').on('click', '#expungeDisposition', function(){
                      var formData = $("#expungeDispositionForm").serialize();
                      // Date between 1900 and 2099. 
                      var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
@@ -229,7 +229,7 @@
                  });      
 
                  
-                 $('body').on('click', '#saveDisposition', function(){
+                 $('#dispositionModal').on('click', '#saveDisposition', function(){
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
