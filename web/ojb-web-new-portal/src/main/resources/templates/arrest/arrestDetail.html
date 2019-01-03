@@ -205,24 +205,7 @@
                 	 xhr = $.get( context +"arrests/expungeDispositionForm", {
                          arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                          arrestChargeIdentification:chargeId, 
-                         dispositionIdentification:$(this).closest("tr").attr("id"),
-                         dispositionDate:rowData[1], 
-                         dispositionCode:rowData[2], 
-                         courtCaseNumber:rowData[3], 
-                         filedCharge:rowData[4], 
-                         amendedCharge:rowData[5], 
-                         fineAmount:rowData[6].split('.', 1).toString(),
-                         fineSuspended:rowData[7].split('.', 1).toString(), 
-                         jailYears:rowData[8], 
-                         jailDays:rowData[9], 
-                         suspendedYears:rowData[10], 
-                         suspendedDays:rowData[11], 
-                         deferredYears:rowData[12],
-                         deferredDays:rowData[13],
-                         restitution:rowData[14].split('.', 1).toString(),
-                         alternateSentence:rowData[15],
-                         reasonForDismissal:rowData[16],
-                         provisionCode:rowData[17]},  
+                         dispositionIdentification:$(this).closest("tr").attr("id")},  
 	                       function(data) {
                       $('.modal-body').html(data);
                       $('.modal-title').html("Expunge Disposition");
@@ -241,7 +224,7 @@
                     	 bootpopup.confirm("Please confirm that you would like to expunge this record.", "", function(ans) { if(ans){expungeDisposition(formData);} });
                      }
                      else{
-                   	 bootpopup.alert("Please enter valid date in the right format mm/dd/yyyy", "Error");   	 
+                    	 bootpopup.alert("Please enter valid date in the right format mm/dd/yyyy", "Error");   	 
                      }
                  });      
 
@@ -259,7 +242,7 @@
                		   if (restitution > 1000) {
                			   confirmMessage += ' The Restitution exceeds $5,000. ' 
                		   }
-               		   bootpopup.confirm("Please confirm that you would like to expunge this record", "", function(ans) { if(ans){saveDisposition(formData);} });  
+               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){saveDisposition(formData);} });  
                	   }
                	   else{
                		   saveDisposition(formData);

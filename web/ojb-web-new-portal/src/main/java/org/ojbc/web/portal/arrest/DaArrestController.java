@@ -213,6 +213,29 @@ public class DaArrestController {
 		return "arrest/da/arrestDetail::arrestDetail";
 	}
 	
+	@GetMapping("/expungeDispositionForm")
+	public String getExpungeDispositionForm(HttpServletRequest request, Disposition disposition, 
+			Map<String, Object> model) throws Throwable {
+		disposition.setDispositionDate(null);
+		model.put("disposition", disposition);
+		return "arrest/expungeDispositionForm::expungeDispositionForm";
+	}
+	
+	@PostMapping("/expungeDisposition")
+	public String expungeDisposition(HttpServletRequest request, @ModelAttribute Disposition disposition, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		
+		expunge(request, disposition, model); 
+		return "arrest/da/arrestDetail::arrestDetail";
+	}
+	
+	protected void expunge(HttpServletRequest request, Disposition disposition, Map<String, Object> model)
+			throws Throwable {
+		log.info("Expunge disposition" + disposition);
+		arrestService.expungeDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, disposition.getArrestIdentification(), model);
+	}
+
 	@SuppressWarnings("unchecked")
 	private void setCodeDescriptions(@Valid Disposition disposition, Map<String, Object> model) {
 		Map<String, String> daReasonsForDismissalMapping = (Map<String, String>) model.get("daReasonsForDismissalMapping"); 

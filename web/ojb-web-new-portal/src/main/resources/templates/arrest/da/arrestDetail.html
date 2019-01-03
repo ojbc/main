@@ -55,8 +55,6 @@
 					
 						      <!-- Modal footer -->
 						      <div class="modal-footer">
-						        <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
-	                  <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 						      </div>
 						
 			          </div>
@@ -183,9 +181,11 @@
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId},  
                         function(data) {
-                    	$('.modal-body').html(data);
-                      $('#dispositionModal').modal('show');
-                    }).fail(ojbc.displayFailMessage);
+		                    	$('.modal-body').html(data);
+		                    	$('.modal-title').html("Add Disposition");
+		                    	$('.modal-footer').html($("#saveDispositionButtons").html())
+		                      $('#dispositionModal').modal('show');
+ 	                      }).fail(ojbc.displayFailMessage);
                  }); 
                  
                  $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
@@ -221,12 +221,45 @@
 		                	       provisionCode:rowData[18]
                      		   },
                      		   function(data) {
-                      $('.modal-body').html(data);
-                      $('#dispositionModal').modal('show');
-                   }).fail(ojbc.displayFailMessage);
+				                      $('.modal-body').html(data);
+				                      $('.modal-title').html("Expunge Disposition");
+				                      $('.modal-footer').html($("#expungeDispositionButtons").html())
+				                      $('#dispositionModal').modal('show');
+				                   }).fail(ojbc.displayFailMessage);
                  });
                  
-                 $('#saveDisposition').on('click', function(){
+                 $('.dispositionsTable tbody').on('click', 'a.expungeDisposition',function() {
+                     var chargeId = $(this).closest("table").attr("id");
+                     var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
+
+                     xhr = $.get( context +"daArrests/expungeDispositionForm", {
+                           arrestIdentification: $('#searchResultsTable').attr('arrestId'),
+                           arrestChargeIdentification:chargeId, 
+                           dispositionIdentification:$(this).closest("tr").attr("id")},  
+                           function(data) {
+                        $('.modal-body').html(data);
+                        $('.modal-title').html("Expunge Disposition");
+                        $('.modal-footer').html($("#expungeDispositionButtons").html())
+                        $('#dispositionModal').modal('show');
+                     }).fail(ojbc.displayFailMessage);
+                  });
+                   
+                 $('body').on('click', '#expungeDisposition', function(){
+                     var formData = $("#expungeDispositionForm").serialize();
+                     // Date between 1900 and 2099. 
+                     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+                     var dispositionDateString = $('#dispositionDate').val();
+                     
+                     if (dispositionDateString && date_regex.test(dispositionDateString)){
+                    	 bootpopup.confirm("Please confirm that you would like to expunge this record.", "", function(ans) { if(ans){expungeDisposition(formData);} });
+                     }
+                     else{
+                    	 bootpopup.alert("Please enter valid date in the right format mm/dd/yyyy", "Error");   	 
+                     }
+                 });      
+
+                 
+                 $('body').on('click', '#saveDisposition', function(){
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
@@ -239,14 +272,29 @@
                		   if (restitution > 1000) {
                			   confirmMessage += ' The Restitution exceeds $5,000. ' 
                		   }
-               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){save(formData);} });  
+               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){saveDisposition(formData);} });  
                	   }
                	   else{
-               		   save(formData);
+               		   saveDisposition(formData);
                	   }
                  });
 
-                 function save(formData){
+                 function expungeDisposition(formData){
+                     xhr = $.post(context + "daArrests/expungeDisposition",formData,function(data) {
+                         console.log(formData);
+                         
+                         if ($(data).find('div.card').length > 0){
+                           $("#dispositionModal .close").click();
+                           $('#portalContent').html(data); 
+                         }
+                         else{
+                           $('.modal-body').html(data);
+                           $('#dispositionModal').modal('show');
+                         }
+                     }).fail(ojbc.displayFailMessage);
+                 }
+
+                 function saveDisposition(formData){
                      xhr = $.post(context + "daArrests/saveDisposition",formData,function(data) {
                          console.log(formData);
                          
@@ -278,6 +326,14 @@
                  });
             });
 	      </script>
+	      <div id="saveDispositionButtons" style="display:none;">
+	          <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
+	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+	      </div>
+	      <div id="expungeDispositionButtons" style="display:none;">
+	          <button type="button" class="btn btn-primary" id="expungeDisposition">Submit</button>
+	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+	      </div>
       </div>
       
 	</body>
