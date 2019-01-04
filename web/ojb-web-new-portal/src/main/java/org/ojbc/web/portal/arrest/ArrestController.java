@@ -54,7 +54,7 @@ public class ArrestController {
 	@GetMapping("/lookup")
 	public String getArrestLookupForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		log.info("presenting Arrest Lookup Form ");
-		return "arrest/arrestLookupForm";
+		return "arrest/arrestLookupForm::arrestLookupForm";
 	}
 
 
