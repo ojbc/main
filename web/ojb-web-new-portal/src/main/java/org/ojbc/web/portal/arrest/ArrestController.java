@@ -15,7 +15,10 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.arrest;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,6 +28,7 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -46,6 +50,13 @@ public class ArrestController {
 	
 	@Resource
 	AppProperties appProperties;
-		
+	
+	@GetMapping("/lookup")
+	public String getArrestLookupForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
+		log.info("presenting Arrest Lookup Form ");
+		return "arrest/arrestLookupForm";
+	}
+
+
 
 }

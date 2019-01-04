@@ -51,6 +51,7 @@
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
 	                <span sec:authorize="hasAuthority('AUTHZ_MUNI')"><a class="dropdown-item" href="#" id="muniArrest">Municipal Arrests</a></span>
 	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="daArrest">DA Arrests</a>
+	                <a class="dropdown-item" href="#" id="arrestLookup">Arrest Lookup</a>
 	              </div>
 	            </li>
 	          </ul>
@@ -97,6 +98,15 @@
                 $(this).parent().toggleClass('show');
 
 	              xhr = $.get(context + 'muniArrests', function(data) {
+	                 $('#portalContent').html(data); 
+	               }).fail(ojbc.displayFailMessage);
+	              return false; 
+	          });
+	          
+	          $('#arrestLookup').click(function() {   
+                $(this).parent().toggleClass('show');
+
+	              xhr = $.get(context + 'arrests/lookup', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 
