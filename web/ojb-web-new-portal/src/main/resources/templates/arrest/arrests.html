@@ -31,7 +31,7 @@
 	      <div id="loadingAjaxPane" ></div>
 	      
         <h3 class="mt-5">Arrest Search Results</h3>
-        <form action="#" th:action="@{/arrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
+        <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
         </form>
         <hr/>
@@ -48,7 +48,7 @@
                   $('[data-toggle="tooltip"]').tooltip(); 
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
-                      xhr = $.get( context +"arrests/" + $(this).closest("tr").attr("id"), function(data) {
+                      xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id"), function(data) {
                         $('#portalContent').html(data);
                       }).fail(ojbc.displayFailMessage);
                   });
@@ -57,7 +57,7 @@
 	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , "",
 	             					  function(ans) { 
 	                		       if(ans){
-		                             xhr = $.get( context +"arrests/" + arrestId + "/hide", function(data) {
+		                             xhr = $.get( context +"muniArrests/" + arrestId + "/hide", function(data) {
 		                                 $("#searchResultsList").replaceWith(data);
 		                               }).fail(ojbc.displayFailMessage);
 	                		       } 
@@ -68,7 +68,7 @@
                       bootpopup.confirm("Please confirm that you want to refer this arrest" , "",
                          function(ans) { 
                             if(ans){
-                                xhr = $.get( context +"arrests/" + arrestId  + "/refer", function(data) {
+                                xhr = $.get( context +"muniArrests/" + arrestId  + "/refer", function(data) {
                                     $("#searchResultsList").replaceWith(data);
                                 }).fail(ojbc.displayFailMessage);
                             } 
@@ -105,7 +105,7 @@
               $('#submit').click (function(){
                 var formData = $('#searchForm').serialize();
                  
-                xhr = $.post(context + "arrests/advancedSearch",formData,function(data) {
+                xhr = $.post(context + "muniArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
              	  }).fail();
               });

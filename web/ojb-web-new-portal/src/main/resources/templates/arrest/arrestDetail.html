@@ -155,7 +155,7 @@
                  $('.dispositionsTable').on('click', 'a.addDisposition',function() {
                     var chargeId = $(this).closest("table").attr("id");
                     console.log($("#dispositionForm").serialize());
-                    xhr = $.get( context +"arrests/dispositionForm", {
+                    xhr = $.get( context +"muniArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId},  function(data) {
                     	$('.modal-body').html(data);
@@ -170,7 +170,7 @@
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
                 	 console.log(rowData);
                    
-                	 xhr = $.get( context +"arrests/dispositionForm", {
+                	 xhr = $.get( context +"muniArrests/dispositionForm", {
 	                       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
 	                       arrestChargeIdentification:chargeId, 
 	                       dispositionIdentification:$(this).closest("tr").attr("id"),
@@ -202,7 +202,7 @@
                 	 var chargeId = $(this).closest("table").attr("id");
                    var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
 
-                	 xhr = $.get( context +"arrests/expungeDispositionForm", {
+                	 xhr = $.get( context +"muniArrests/expungeDispositionForm", {
                          arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                          arrestChargeIdentification:chargeId, 
                          dispositionIdentification:$(this).closest("tr").attr("id")},  
@@ -250,7 +250,7 @@
                  });
 
                  function expungeDisposition(formData){
-                     xhr = $.post(context + "arrests/expungeDisposition",formData,function(data) {
+                     xhr = $.post(context + "muniArrests/expungeDisposition",formData,function(data) {
                          console.log(formData);
                          
                          if ($(data).find('div.card').length > 0){
@@ -265,7 +265,7 @@
                  }
                  
                  function saveDisposition(formData){
-                     xhr = $.post(context + "arrests/saveDisposition",formData,function(data) {
+                     xhr = $.post(context + "muniArrests/saveDisposition",formData,function(data) {
                          console.log(formData);
                          
                          
@@ -287,7 +287,7 @@
                    bootpopup.confirm("Please confirm that you want to delete this disposition" , "", 
                       function(ans) { 
                          if(ans){
-                             xhr = $.post(context + "arrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
+                             xhr = $.post(context + "muniArrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
                                  $('#portalContent').html(data); 
                              }).fail(ojbc.displayFailMessage);
                          } 

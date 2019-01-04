@@ -96,7 +96,7 @@
 	          $('#muniArrest').click(function() {   
                 $(this).parent().toggleClass('show');
 
-	              xhr = $.get(context + 'arrests', function(data) {
+	              xhr = $.get(context + 'muniArrests', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 

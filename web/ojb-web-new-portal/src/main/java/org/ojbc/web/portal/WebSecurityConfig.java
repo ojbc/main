@@ -59,8 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
-		    .authorizeRequests().antMatchers("/arrests/**").hasAuthority("AUTHZ_MUNI")
+		    .authorizeRequests()
+		    .antMatchers("/muniArrests/**").hasAuthority("AUTHZ_MUNI")
 		    .antMatchers("/daArrests/**").hasAuthority("AUTHZ_DA")
+		    .antMatchers("/arrests/**").hasAnyAuthority("AUTHZ_DA", "AUTHZ_MUNI")
 		    .anyRequest().authenticated()
 		    .and().securityContext()
 		    .and()
