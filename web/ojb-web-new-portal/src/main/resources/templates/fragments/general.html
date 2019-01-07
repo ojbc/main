@@ -106,7 +106,7 @@
 	          $('#arrestLookup').click(function() {   
                 $(this).parent().toggleClass('show');
 
-	              xhr = $.get(context + 'arrests/lookup', function(data) {
+	              xhr = $.get(context + 'arrests/lookupForm', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 

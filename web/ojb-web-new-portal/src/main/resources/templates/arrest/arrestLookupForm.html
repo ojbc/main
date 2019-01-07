@@ -17,7 +17,7 @@
 
 -->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
     <title>OJBC Web Portal</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
@@ -28,22 +28,58 @@
   <body>
      <!-- Begin page content -->
      <div th:fragment="arrestLookupForm">
+       <div id="loadingAjaxPane" ></div>
        <h3 class="mt-5">Arrest Lookup</h3>
        
+       <div id="arrestLookUpResponse"></div>
 	     <form action="#" id="arrestLookupForm" method="post">
           <div class="col-3">
            <table>
              <tr>
                <td>OTN *</td>
-               <td><input type="text" id="otn" width="250" placeholder="OTN"/></td>
+               <td><input type="text" id="otn" name="otn" width="250" placeholder="OTN"/></td>
              </tr>
            </table>
           </div>
           <div class="col-3" style="text-align:right;">
                 <button type="button" class="btn-primary" id="submit">Submit</button>
                 <button type="reset" class="btn-secondary">Reset</button>
+                <sec:csrfInput/>
           </div>
 	      </form>
+        <script th:inline="javascript">
+          /*<![CDATA[*/
+            var context = [[@{/}]];
+            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+          /*]]>*/
+
+          $(function(){
+              
+              $('#arrestLookupForm input').keypress(function (e) {
+                if (e.which == 13) {
+                  $('#submit').click();
+                  return false;    
+                }
+              });
+              
+              $('#submit').click (function(){
+                var formData = $('#arrestLookupForm').serialize();
+                 
+                var requestData = {
+                	'otn': $("#otn").val(),
+                };
+                requestData[_csrf_param_name] = _csrf_token;
+                
+                xhr = $.post(context + "arrests/lookup", requestData, function(data) {
+                  $('#arrestLookUpResponse').html(data);
+                }).fail();
+              });
+              
+            }); 
+  
+          </script>
+	      
       </div>
   </body>
 </html>

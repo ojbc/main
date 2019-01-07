@@ -29,7 +29,10 @@ import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/arrests")
@@ -40,23 +43,22 @@ public class ArrestController {
 	ArrestService arrestService;
 	
 	@Resource
-	SearchResultConverter searchResultConverter;
-
-	@Resource
 	SamlService samlService;
 	
-	@Resource
-	CodeTableService codeTableService;
-	
-	@Resource
-	AppProperties appProperties;
-	
-	@GetMapping("/lookup")
+	@GetMapping("/lookupForm")
 	public String getArrestLookupForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		log.info("presenting Arrest Lookup Form ");
 		return "arrest/arrestLookupForm::arrestLookupForm";
 	}
 
+	@PostMapping("/lookup")
+	public @ResponseBody String lookup(HttpServletRequest request, String otn, Map<String, Object> model) throws Throwable {
+		log.info("look up OTN: " + otn);
+		
+		
+		return "Retrieval of this arrest has been requested, please check back shortly to view the arrest";
+	}
+	
 
 
 }
