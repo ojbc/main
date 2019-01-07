@@ -73,4 +73,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String lookupOtn(String otn, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

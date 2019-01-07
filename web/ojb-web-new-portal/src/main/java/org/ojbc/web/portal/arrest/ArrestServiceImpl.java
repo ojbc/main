@@ -24,6 +24,7 @@ import org.ojbc.processor.arrest.modify.ExpungeDispositionRequestProcessor;
 import org.ojbc.processor.arrest.modify.MuniArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestDetailSearchRequestProcessor;
 import org.ojbc.processor.arrest.search.ArrestSearchRequestProcessor;
+import org.ojbc.processor.recordreplication.RecordReplicationRequestProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -49,6 +50,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private DaArrestReferRequestProcessor daArrestReferRequestProcessor;
 	@Autowired
 	private MuniArrestReferRequestProcessor muniArrestReferRequestProcessor;
+	@Autowired
+	private RecordReplicationRequestProcessor recordReplicationRequestProcessor;
 	
 	@Override
 	public String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
@@ -87,6 +90,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String expungeDisposition(Disposition disposition, Element samlToken) throws Throwable {
 		return expungeDispositionRequestProcessor.invokeRequest(disposition, samlToken);
+	}
+
+	@Override
+	public String lookupOtn(String otn, Element samlAssertion) throws Throwable {
+		return recordReplicationRequestProcessor.invokeRequest(otn, samlAssertion);
 	}
 	
 }

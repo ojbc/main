@@ -68,6 +68,7 @@
 	<import resource="wildlife-license-query.xml"/>
 	<import resource="arrest-modification.xml"/>
 	<import resource="arrest-search.xml"/>
+	<import resource="record-replication.xml"/>
 	
 	<import resource="professional-license-query.xml"/>
 	

@@ -28,4 +28,5 @@ public interface ArrestService {
 	String deleteDisposition(Disposition disposition, Element samlAssertion) throws Throwable;
 	String referArrestToDa(String id, Element samlAssertion) throws Throwable;
 	String referArrestToMuni(String id, Element samlAssertion) throws Throwable;
+	String lookupOtn(String otn, Element samlAssertion) throws Throwable;
 }

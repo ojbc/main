@@ -64,16 +64,19 @@
               });
               
               $('#submit').click (function(){
-                var formData = $('#arrestLookupForm').serialize();
-                 
-                var requestData = {
-                	'otn': $("#otn").val(),
-                };
-                requestData[_csrf_param_name] = _csrf_token;
-                
-                xhr = $.post(context + "arrests/lookup", requestData, function(data) {
-                  $('#arrestLookUpResponse').html(data);
-                }).fail();
+            	  if ($("#otn").val()){
+	                var requestData = {
+	                	'otn': $("#otn").val(),
+	                };
+	                requestData[_csrf_param_name] = _csrf_token;
+	                
+	                xhr = $.post(context + "arrests/lookup", requestData, function(data) {
+	                  $('#arrestLookUpResponse').html(data);
+	                }).fail(ojbc.displayFailMessage);
+            	  }
+	              else{
+	            	  bootpopup.alert("Please enter an OTN to lookup", "Error");
+	              }
               });
               
             }); 

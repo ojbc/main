@@ -336,6 +336,19 @@
 			  <camel:to uri="bean:arrestSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>	    
 	    
+	    <!--Record Replication Result Listener -->
+	    <camel:route id="recordReplicationResultsHandlerRoute" autoStartup="false">
+	    	<from uri="recordReplicationResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Record Replication Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			  <camel:to uri="bean:recordReplicationMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			  <camel:to uri="bean:recordReplicationRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>	    
+	    
 	    <!--Arrest Modify Result Listener -->
 	    <camel:route id="arrestModifyResultsHandlerRoute" autoStartup="false">
 	    	<from uri="arrestModifyResultsHandlerServiceEndpoint"/>

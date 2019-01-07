@@ -176,9 +176,13 @@
     <camel:endpoint id="arrestSearchResultsHandlerServiceEndpoint"
       uri="cxf:bean:arrestSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
-	    <!-- Arrest Search Results Handler-->
+	    <!-- Arrest Modify Results Handler-->
     <camel:endpoint id="arrestModifyResultsHandlerServiceEndpoint"
       uri="cxf:bean:arrestModifyResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
+	    <!-- Arrest Modify Results Handler-->
+    <camel:endpoint id="recordReplicationResultsHandlerServiceEndpoint"
+      uri="cxf:bean:recordReplicationResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
@@ -791,8 +795,25 @@
         </wsp:Policy>
       </policy:policies>
     </cxf:features>
-  </cxf:cxfEndpoint>      
-       
+  </cxf:cxfEndpoint>   
+     
+  <!-- Record Replication Response Service, hosted by portal  -->
+  <cxf:cxfEndpoint id="recordReplicationResultsHandlerService"
+    address="${webapplication.recordReplicationResultsHandlerServiceEndpoint}"
+    wsdlURL="classpath:ssp/Record_Replication_Response/schema/SIP_WS_1.2/Record_Replication_Response_Service.wsdl"
+    serviceName="ojbc:Record_Replication_Response_Service_Service" 
+    endpointName="ojbc:Record_Replication_Response_Service"
+    xmlns:ojbc="http://ojbc.org/Services/WSDL/RecordReplicationResponseService/1.0">
+     <cxf:features> 
+      <policy:policies> 
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+          <wsam:Addressing> 
+            <wsp:Policy /> 
+          </wsam:Addressing> 
+        </wsp:Policy> 
+      </policy:policies> 
+    </cxf:features>  
+  </cxf:cxfEndpoint>       
   <!-- Arrest Modify Result handler, hosted by Web Application -->
   <cxf:cxfEndpoint id="arrestModifyResultsHandlerService"
     address="${webapplication.arrestModify.arrestModifyResultsHandlerEndpoint}"

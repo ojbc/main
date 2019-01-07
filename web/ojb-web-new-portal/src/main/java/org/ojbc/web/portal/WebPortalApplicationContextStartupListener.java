@@ -134,6 +134,7 @@ public class WebPortalApplicationContextStartupListener implements
 					case "arrest-search":
 						camelContext.startRoute("arrestSearchResultsHandlerRoute");
 						camelContext.startRoute("arrestModifyResultsHandlerRoute");
+						camelContext.startRoute("recordReplicationResultsHandlerRoute");
 						break;
 					default:
 						break;

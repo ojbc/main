@@ -1540,32 +1540,7 @@ public class RequestMessageBuilderUtilities {
 				NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC);
 		return createArrestModifyRequest(id, document, rootElement);
 	}
-//	<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
-//			xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-//			xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-//			xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
-//			xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-//			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0 ../xsd/expunge_request.xsd ">
-//			<j:Arrest>
-//				<j:ArrestAgencyRecordIdentification>
-//					<nc:IdentificationID>1004233</nc:IdentificationID>
-//					<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-//				</j:ArrestAgencyRecordIdentification>
-//				<j:ArrestCharge>
-//					<j:ChargeDisposition>
-//						<nc:DispositionDate>
-//							<nc:Date>2016-06-15</nc:Date>
-//						</nc:DispositionDate>
-//						<chm-req-ext:DispositionIdentification>
-//							<nc:IdentificationID>D96487</nc:IdentificationID>
-//						</chm-req-ext:DispositionIdentification>
-//					</j:ChargeDisposition>
-//					<j:ChargeIdentification>
-//						<nc:IdentificationID>C123456</nc:IdentificationID>
-//					</j:ChargeIdentification>
-//				</j:ArrestCharge>
-//			</j:Arrest>
-//		</er-req-doc:ExpungeRequest>
+
 	public static Document createExpungeRequest(Disposition disposition) throws Exception {
 		Document document = OJBCXMLUtils.createDocument();  
 		Element rootElement = document.createElementNS(NS_EXPUNGE_REQUEST_DOC, NS_PREFIX_EXPUNGE_REQUEST_DOC + ":ExpungeRequest");
@@ -1592,6 +1567,23 @@ public class RequestMessageBuilderUtilities {
 		
 		Element chargeIdentification = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeIdentification");
 		XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
+		return document;
+	}
+
+	public static Document createRecordReplicationRequest(String otn) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+		Element rootElement = document.createElementNS(NS_RECORD_REPLICATION_REQUEST_DOC, NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC + ":RecordReplicationRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT, 
+        		NS_RECORD_REPLICATION_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        document.appendChild(rootElement);
+        
+        Element recordReplicationRecordIdentification = XmlUtils.appendElement(rootElement, NS_RECORD_REPLICATION_REQUEST_EXT, "RecordReplicationRecordIdentification");
+        XmlUtils.appendTextElement(recordReplicationRecordIdentification, NS_NC_40, "IdentificationSourceText", "{http://ojbc.org/Services/WSDL/RecordReplicationRequestService/1.0}SubmitRecordReplicationRequest");
+        
+        Element person = XmlUtils.appendElement(rootElement, NS_NC_40, "Person"); 
+        Element personTrackingIdentification = XmlUtils.appendElement(person, NS_RECORD_REPLICATION_REQUEST_EXT, "PersonTrackingIdentification");
+        XmlUtils.appendTextElement(personTrackingIdentification, NS_NC_40, "IdentificationID", otn);
 		return document;
 	}	
     
