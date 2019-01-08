@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
@@ -54,28 +53,13 @@ public class ArrestController {
 	public @ResponseBody String lookup(HttpServletRequest request, String otn, Map<String, Object> model) throws Throwable {
 		log.info("look up OTN: " + otn);
 		String response = arrestService.lookupOtn(otn, samlService.getSamlAssertion(request)); 
-		String responseMessage = getResponseMessage(otn, response); 
-		return responseMessage;
+		String recordFound = getResponseMessage(otn, response); 
+		return recordFound;
 	}
 
 	private String getResponseMessage(String otn, String response) throws Exception {
 		Document responseDocument = XmlUtils.toDocument(response); 
-		Boolean recordFound =  BooleanUtils.toBoolean(XmlUtils.xPathStringSearch(responseDocument, "/rr-resp-doc:/RecordReplicationResponse/rr-resp-ext:RecordFoundIndicator"));
-		
-		StringBuilder sb = new StringBuilder(); 
-		if (recordFound) {
-			sb.append("Retrieval of the arrest "); 
-			sb.append(otn); 
-			sb.append("has been requested, please check back shortly to view the arrest");
-		}
-		else {
-			sb.append("Unable to locate OTN "); 
-			sb.append(otn); 
-			sb.append(", please try another OTN");
-		}
-		
-		String responseMessage = sb.toString();
-		return responseMessage;
+		return XmlUtils.xPathStringSearch(responseDocument, "/rr-resp-doc:RecordReplicationResponse/rr-resp-ext:RecordFoundIndicator");
 	}
 	
 

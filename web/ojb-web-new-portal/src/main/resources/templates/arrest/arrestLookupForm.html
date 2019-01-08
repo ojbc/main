@@ -31,21 +31,18 @@
        <div id="loadingAjaxPane" ></div>
        <h3 class="mt-5">Arrest Lookup</h3>
        
-       <div id="arrestLookUpResponse"></div>
-	     <form action="#" id="arrestLookupForm" method="post">
-          <div class="col-3">
-           <table>
-             <tr>
-               <td>OTN *</td>
-               <td><input type="text" id="otn" name="otn" width="250" placeholder="OTN"/></td>
-             </tr>
-           </table>
-          </div>
-          <div class="col-3" style="text-align:right;">
-                <button type="button" class="btn-primary" id="submit">Submit</button>
-                <button type="reset" class="btn-secondary">Reset</button>
-                <sec:csrfInput/>
-          </div>
+	     <form action="#" id="arrestLookupForm" method="post" >
+	       <div class="form-row">
+					  <div class="form-group input-group col-8" id="otnDiv">
+					    <input type="text" class="form-control" id="otn" placeholder="OTN" required autofocus>
+					    <div class="invalid-feedback">Please provide a valid OTN</div>
+	            <div id="arrestLookUpResponse"></div>
+					  </div>
+	          <div class="col-4">
+              <button type="button" class="btn-primary" id="submit">Submit</button>
+              <button type="reset" class="btn-secondary" id="reset">Reset</button>
+	          </div>
+				 </div>
 	      </form>
         <script th:inline="javascript">
           /*<![CDATA[*/
@@ -64,23 +61,37 @@
               });
               
               $('#submit').click (function(){
+                $('#arrestLookUpResponse').removeClass().html("");
             	  if ($("#otn").val()){
 	                var requestData = {
-	                	'otn': $("#otn").val(),
+	                	'otn': $("#otn").val()
 	                };
 	                requestData[_csrf_param_name] = _csrf_token;
+                  $("#otn").removeClass("is-invalid").addClass("is-valid");
 	                
 	                xhr = $.post(context + "arrests/lookup", requestData, function(data) {
-	                  $('#arrestLookUpResponse').html(data);
+	                	if (data === 'true'){
+	                		  $('#arrestLookUpResponse').addClass("valid-feedback").html("Retrieval of the arrest has been requested, please check back shortly to view the arrest");
+	                	}
+	                	else{
+	                		  $("#otn").removeClass("is-valid").addClass("is-invalid");
+	                      $('#arrestLookUpResponse').addClass("invalid-feedback").html("Unable to locate OTN, please try another OTN");
+	                	}
 	                }).fail(ojbc.displayFailMessage);
             	  }
 	              else{
-	            	  bootpopup.alert("Please enter an OTN to lookup", "Error");
+	            	  $("#otn").removeClass("is-valid").addClass("is-invalid");
 	              }
+                 
               });
+
+              $('#reset').click (function(){
+            	  $("#otn").val("").removeClass("is-valid is-invalid");
+                $('#arrestLookUpResponse').removeClass().html("");
+              });
+           });
+   
               
-            }); 
-  
           </script>
 	      
       </div>
