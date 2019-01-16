@@ -109,6 +109,11 @@
 		
 		</camel:route>		
 		
+		<route id="callNotificationBrokerRouteDirectVM">
+			<from uri="direct-vm:callNotificationBrokerDirectVM"/>
+			<to uri="direct:callNotificationBroker"/>
+		</route>
+		
 		<route id="callNotificationBrokerRoute">
             
             <from uri="direct:callNotificationBroker"/>

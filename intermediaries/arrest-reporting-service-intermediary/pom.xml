@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>arrest-reporting-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<name>OJB :: arrest-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
