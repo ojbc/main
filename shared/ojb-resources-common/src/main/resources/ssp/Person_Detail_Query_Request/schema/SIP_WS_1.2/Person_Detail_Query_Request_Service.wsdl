@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal 
+	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either source 
+	code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the RPL is provided 
+	strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH WARRANTIES, 
+	INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. 
+	See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2017 
+	Open Justice Broker Consortium -->
 <wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:pdq-req-doc="http://ojbc.org/IEPD/Exchange/PersonDetailQueryRequest/1.0"
+	xmlns:pdiq-req-doc="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryRequest/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/Person_Detail_Query_Request_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Person_Detail_Query_Request_Service/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
@@ -29,14 +19,22 @@
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonDetailQueryRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/PersonDetailQueryRequest.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/PersonDetailImageQueryRequest.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Person-Detail-Query-Request">
 		<wsdl:part name="Person-Detail-Query-Request" element="pdq-req-doc:PersonDetailQueryRequest" />
 	</wsdl:message>
+	<wsdl:message name="Person-Detail-Image-Query-Request">
+		<wsdl:part name="Person-Detail-Image-Query-Request" element="pdiq-req-doc:PersonDetailImageQueryRequest" />
+	</wsdl:message>
 	<wsdl:portType name="Person-Detail-Query-Request-Service">
 		<wsdl:operation name="SubmitPersonDetailQueryRequest">
 			<wsdl:input name="Person-Detail-Query-Request" message="tns:Person-Detail-Query-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="SubmitPersonDetailImageQueryRequest">
+			<wsdl:input name="Person-Detail-Image-Query-Request" message="tns:Person-Detail-Image-Query-Request" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Person-Detail-Query-Request-Service_SecureSOAPBinding"
@@ -49,6 +47,12 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="SubmitPersonDetailImageQueryRequest">
+			<soap:operation soapAction="SubmitPersonDetailImageQueryRequest" style="document" />
+			<wsdl:input name="Person-Detail-Image-Query-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:binding name="Person-Detail-Query-Request-ServiceSOAPBinding" type="tns:Person-Detail-Query-Request-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
@@ -56,6 +60,12 @@
 		<wsdl:operation name="SubmitPersonDetailQueryRequest">
 			<soap:operation soapAction="SubmitPersonDetailQueryRequest" style="document" />
 			<wsdl:input name="Person-Detail-Query-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitPersonDetailImageQueryRequest">
+			<soap:operation soapAction="SubmitPersonDetailImageQueryRequest" style="document" />
+			<wsdl:input name="Person-Detail-Image-Query-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
