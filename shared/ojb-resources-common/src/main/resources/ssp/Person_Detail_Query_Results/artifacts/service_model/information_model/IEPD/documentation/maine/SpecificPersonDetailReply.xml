@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<ImcCrossAgencyExchangeSpecificPersonDetailReply xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RoutingInformation>
+    <SchemaVersion>1.0</SchemaVersion>
+    <MessageID>364</MessageID>
+    <MessageReferenceID>103</MessageReferenceID>
+    <GroupingID />
+    <OriginatingSoftwareInformation>
+      <CompanyName>CentralSquare Technologies</CompanyName>
+      <CompanyProduct>Cross Agency Exchange Interface</CompanyProduct>
+      <SoftwareVersion>4.7.0.76</SoftwareVersion>
+    </OriginatingSoftwareInformation>
+    <EndPointTo>
+      <EndPointName>PRV</EndPointName>
+      <EndPointID>PRV</EndPointID>
+      <endPointType>A</endPointType>
+    </EndPointTo>
+    <EndPointFrom>
+      <EndPointName>IMC</EndPointName>
+      <EndPointID>IMC</EndPointID>
+      <endPointType>A</endPointType>
+    </EndPointFrom>
+    <OriginatingPerson>
+      <OriginatingPersonID>
+        <IdentificationID>PNJ</IdentificationID>
+      </OriginatingPersonID>
+    </OriginatingPerson>
+    <OriginatingOrganization>
+      <OrganizationName>AnyTown, RI Police</OrganizationName>
+      <OrganizationAugmentation>
+        <OrganizationORIIdentification>
+          <IdentificationID>ME0000000</IdentificationID>
+        </OrganizationORIIdentification>
+      </OrganizationAugmentation>
+    </OriginatingOrganization>
+  </RoutingInformation>
+  <ReplyInformation>
+    <PersonIdentifier>
+      <PersonUniqueIdentifier>737459500</PersonUniqueIdentifier>
+      <DriverLicense>
+        <DriverLicenseID>DL123456</DriverLicenseID>
+        <DrivingJurisdictionAuthorityNCICLSTACode>MA</DrivingJurisdictionAuthorityNCICLSTACode>
+      </DriverLicense>
+    </PersonIdentifier>
+    <PersonType>
+      <PersonUniqueIdentifier>737459500</PersonUniqueIdentifier>
+      <Person>
+        <PersonSexCode>F</PersonSexCode>
+        <PersonName>
+          <PersonGivenName>MARY</PersonGivenName>
+          <PersonMiddleName>A</PersonMiddleName>
+          <PersonSurName>SMITH</PersonSurName>
+          <PersonNameSuffixText>Jr</PersonNameSuffixText>
+          <PersonNamePrefixText>Dr</PersonNamePrefixText>
+        </PersonName>
+        <PersonSSNIdentification>
+          <IdentificationID>123456789</IdentificationID>
+        </PersonSSNIdentification>
+        <PersonBirthDate>
+          <Date>1956-12-15</Date>
+        </PersonBirthDate>
+      </Person>
+      <LocationAddress>
+        <StructuredAddress>
+          <LocationCityName>MEDFIELD</LocationCityName>
+          <LocationStateUSPostalServiceCode>MA</LocationStateUSPostalServiceCode>
+          <LocationPostalCode>13021</LocationPostalCode>
+          <LocationPostalExtensionCode>1234</LocationPostalExtensionCode>
+          <LocationStreet>
+            <StreetFullText>14 SMITH ST</StreetFullText>
+          </LocationStreet>
+        </StructuredAddress>
+      </LocationAddress>
+      <DriverLicense>
+        <DriverLicenseID>DL123456</DriverLicenseID>
+        <DrivingJurisdictionAuthorityNCICLSTACode>MA</DrivingJurisdictionAuthorityNCICLSTACode>
+      </DriverLicense>
+      <PersonSummary>
+        <PersonUniqueIdentifier>737459500</PersonUniqueIdentifier>
+        <SexOffender>false</SexOffender>
+        <Caution>false</Caution>
+        <Suicidal>false</Suicidal>
+        <GangAffiliation>Knights</GangAffiliation>
+        <NumberOfGunPermits>2</NumberOfGunPermits>
+        <NumberOfArrests>1</NumberOfArrests>
+        <NumberOfWarrants>0</NumberOfWarrants>
+        <NumberOfRestrainingOrders>0</NumberOfRestrainingOrders>
+        <DetailQueryAllowed>false</DetailQueryAllowed>
+        <LastUpdatedDate>
+          <DateTime>2018-07-09T09:46:00</DateTime>
+        </LastUpdatedDate>
+      </PersonSummary>
+    </PersonType>
+    <PersonDetailInformation>Mary Smith	 Page: 1  
+14 Smith St
+Medfield, MA	Printed: 06/04/2012
+Phone: 508-678-9990
+
+	Age:	77	DOB:	12/15/1934
+
+	Sex:	F	Glasses:	None
+	Race:	W	Ethnicity:	Non-Hispanic
+	Height:	502 - 34 	Weight:	112
+	Eyes:	Blue	Hair:	Red Or Auburn
+
+	SSN:	737459500  
+	OLN:	MA 737459500
+
+	Handed:	Right
+
+
+
+
+
+  Cross Agency Report Viewed By: PNJ - Cross Agency ID
+</PersonDetailInformation>
+    <ImageTypeList>
+      <ImageItem>
+        <ImageORI>
+          <OrganizationORIIdentification>
+            <IdentificationID>IO12345</IdentificationID>
+          </OrganizationORIIdentification>
+        </ImageORI>
+        <ImageNumber>7374595022</ImageNumber>
+        <ImageUniqueIdentifier>00005284.JPG</ImageUniqueIdentifier>
+        <ImageType>MF</ImageType>
+      </ImageItem>
+      <ImageItem>
+        <ImageORI>
+          <OrganizationORIIdentification>
+             <IdentificationID>IO12345</IdentificationID>
+          </OrganizationORIIdentification>
+        </ImageORI>
+        <ImageNumber>7374595023</ImageNumber>
+        <ImageUniqueIdentifier>00005285.JPG</ImageUniqueIdentifier>
+        <ImageType>TA</ImageType>
+      </ImageItem>
+    </ImageTypeList>
+    <ReplyMessage>Message Reply</ReplyMessage>
+  </ReplyInformation>
+</ImcCrossAgencyExchangeSpecificPersonDetailReply>
