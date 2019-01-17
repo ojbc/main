@@ -40,9 +40,15 @@
 	        <p th:utext="${arrestSearchContent}" ></p>
 	        <script th:inline="javascript">
               $(function(){
+                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
                   $('#searchResultsTable').DataTable({
                       "columnDefs": [
-                          { "orderable": false, "targets": 6 }
+                          { "orderable": false, "targets": 6 },
+                          {
+                              "targets":[2, 4], 
+                              "type":"date"
+                          },
                         ]
                   });
                   $('[data-toggle="tooltip"]').tooltip(); 

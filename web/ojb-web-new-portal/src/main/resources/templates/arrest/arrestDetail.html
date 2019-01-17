@@ -69,11 +69,14 @@
 				      var muniAmendedChargeCodeMapping = [[${muniAmendedChargeCodeMapping}]]; 
 				      var muniAlternateSentenceMapping = [[${muniAlternateSentenceMapping}]]; 
 				      var muniReasonsForDismissalMapping = [[${muniReasonsForDismissalMapping}]]; 
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 			      /*]]>*/
          	   var dispoTables = [];
              $(function(){
             	   $('.date').mask('99/99/9999');
             	   $('.money').mask('000,000,000,000,000', {reverse: true});
+            	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
             	   
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
@@ -85,6 +88,10 @@
                             "searchable": false,
                             "orderable": false
                         }, 
+                        {
+                            "targets":1, 
+                            "type":"date"
+                        },
                         {
                              "targets": [2],
                              "render": function ( data, type, row, meta ) {
@@ -281,12 +288,15 @@
                  }
                  
                  $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
-                   $("#arrestIdentification").val($('#searchResultsTable').attr('arrestId'));
-                   $("#arrestChargeIdentification").val($(this).closest("table").attr("id"));
-                   $("#dispositionIdentification").val($(this).closest("tr").attr("id"));
+                	 var requestData = {
+                       'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
+                       'arrestChargeIdentification': $(this).closest("table").attr("id"),
+                       'dispositionIdentification': $(this).closest("tr").attr("id")
+                   };
                    bootpopup.confirm("Please confirm that you want to delete this disposition" , "", 
                       function(ans) { 
                          if(ans){
+                             requestData[_csrf_param_name] = _csrf_token;
                              xhr = $.post(context + "muniArrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
                                  $('#portalContent').html(data); 
                              }).fail(ojbc.displayFailMessage);
