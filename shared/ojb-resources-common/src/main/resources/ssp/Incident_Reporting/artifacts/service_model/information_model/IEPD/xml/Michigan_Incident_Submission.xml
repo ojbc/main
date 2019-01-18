@@ -417,6 +417,10 @@
 									<nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
 									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
 								</nc:PersonPhysicalFeature>
+								<nc:PersonPhysicalFeature>
+									<nc:PhysicalFeatureCategoryCode>DISC ANKL</nc:PhysicalFeatureCategoryCode>
+									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
+								</nc:PersonPhysicalFeature>
 								<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
 								<ndexia:PersonAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />

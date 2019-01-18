@@ -22,11 +22,12 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-warrant-repository-common</artifactId>
 	<name>OJB :: ojb-warrant-repository-common :: shared</name>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
-		<groupId>org.ojbc.build</groupId>
+	  <groupId>org.ojbc.build</groupId>
 	  <artifactId>ojb-shared-aggregate</artifactId>
 	  <version>1.0.0</version>
 	</parent>

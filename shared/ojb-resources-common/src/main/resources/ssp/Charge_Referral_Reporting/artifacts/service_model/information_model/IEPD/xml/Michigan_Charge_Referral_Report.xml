@@ -17,10 +17,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<crr-doc:ChargeReferralReport xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+<crr-doc:ChargeReferralReport xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0 ../xsd/exchange_schema/Charge_Referral_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -319,6 +322,15 @@
 								</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
+						<!-- ======================= Prosecution Agency ======================= -->
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="Prosecution_Agency_1">
+								<nc:OrganizationAbbreviationText>GCPros
+								</nc:OrganizationAbbreviationText>
+								<nc:OrganizationName>Genesee County Prosecution
+								</nc:OrganizationName>
+							</nc:Organization>
+						</lexsdigest:EntityOrganization>									
 						<!-- ======================= Residence Location Telephone Number ======================= -->
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber s:id="Res_Tel_1">
@@ -426,6 +438,9 @@
 									</nc:PhysicalFeatureCategoryCode>
 									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
 								</nc:PersonPhysicalFeature>
+								<nc:PersonPhysicalFeature>
+									<nc:PhysicalFeatureCategoryCode>DISC ANKL</nc:PhysicalFeatureCategoryCode>
+								</nc:PersonPhysicalFeature>
 								<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
 								<ndexia:PersonAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
@@ -445,6 +460,18 @@
 									<lexslib:SameAsDigestReference lexslib:ref="Res_Loc_1" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
+							<ndexia:Organization>
+								<j:OrganizationAugmentation>
+									<j:OrganizationORIIdentification>
+										<nc:IdentificationID>83655221</nc:IdentificationID>
+									</j:OrganizationORIIdentification>
+								</j:OrganizationAugmentation>
+								<ndexia:OrganizationAugmentation
+									xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+									<lexslib:SameAsDigestReference
+										lexslib:ref="Prosecution_Agency_1" />
+								</ndexia:OrganizationAugmentation>
+							</ndexia:Organization>							
 						</ndexia:IncidentReport>
 					</lexs:StructuredPayload>
 					<lexs:StructuredPayload>
@@ -474,6 +501,9 @@
 								<inc-ext:PersonDepartmentOfCorrectionsIdentification>
 									<nc:IdentificationID>0987654</nc:IdentificationID>
 								</inc-ext:PersonDepartmentOfCorrectionsIdentification>
+								<inc-ext:PersonMiscellaneousRecordIdentification>
+									<nc:IdentificationID>PS-123456</nc:IdentificationID>
+								</inc-ext:PersonMiscellaneousRecordIdentification>
 								<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
 							</inc-ext:Person>
 							<inc-ext:Warrant>

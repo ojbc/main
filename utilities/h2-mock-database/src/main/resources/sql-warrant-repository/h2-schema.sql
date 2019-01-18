@@ -69,7 +69,7 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE PersonDOBAdditional (
-                PersonDOBAdditionalID INTEGER NOT NULL,
+                PersonDOBAdditionalID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 DOBAdditional DATE,
                 SENT VARCHAR(1) NOT NULL,

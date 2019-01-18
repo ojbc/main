@@ -264,6 +264,7 @@
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonMiscellaneousRecordIdentification" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -660,6 +661,13 @@
 	<xsd:element name="ChargeReferralReportDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an charge referral report document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonMiscellaneousRecordIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain" />

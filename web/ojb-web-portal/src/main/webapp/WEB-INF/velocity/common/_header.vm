@@ -39,7 +39,9 @@
 		
         <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-        <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+        <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 		<!--<script type="text/javascript" src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
         <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
         <script src="#springUrl('/static/js/jquery-datatable/js/dataTables.colReorder.min.js')"></script>

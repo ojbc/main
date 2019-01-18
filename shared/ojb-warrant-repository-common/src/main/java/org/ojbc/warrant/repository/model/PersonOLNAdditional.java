@@ -28,6 +28,8 @@ public class PersonOLNAdditional {
 	private String operatorLicenseNumber;
 
 	private String operatorLicenseState;
+	
+	private String sent;
 
 	public Integer getPersonOLNID() {
 		return personOLNID;
@@ -63,6 +65,14 @@ public class PersonOLNAdditional {
 
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	public String getSent() {
+		return sent;
+	}
+
+	public void setSent(String sent) {
+		this.sent = sent;
 	}
 	
 }
