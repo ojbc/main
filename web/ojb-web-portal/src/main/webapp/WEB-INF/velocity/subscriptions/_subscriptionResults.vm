@@ -17,8 +17,9 @@
  <script type="text/javascript">
  
   $(function() {
-  	$('#searchBarButtonDiv').hide();    		
-  	
+  	$('#searchBarButtonDiv').hide();    	
+  		
+  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
 	var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
@@ -32,7 +33,14 @@
 		      { "bSortable": false, "bSearchable":false },
 		      { "bSortable": false, "bSearchable":false },
 			      null, null,null, null, null, null, null
-		    ] 
+		    ], 
+		 "columnDefs": [
+				{
+					targets: [4, 5, 6],
+				    type: "date" 
+				}  
+			]
+		     
 	});
 		
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
