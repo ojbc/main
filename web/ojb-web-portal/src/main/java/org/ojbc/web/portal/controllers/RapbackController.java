@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -442,6 +443,19 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, sid, transactionNumber, true, model);
+			return "rapbacks/_initialResultsDetails";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "common/_searchDetailsError";
+		}
+	}
+	
+	@RequestMapping(value = "initialResults/{transactionNumber}", method = RequestMethod.GET)
+	public String initialCriminalResults(HttpServletRequest request, 
+			@PathVariable("transactionNumber") String transactionNumber,
+			Map<String, Object> model) {
+		try {
+			processDetailRequest(request, null, transactionNumber, true, model);
 			return "rapbacks/_initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
