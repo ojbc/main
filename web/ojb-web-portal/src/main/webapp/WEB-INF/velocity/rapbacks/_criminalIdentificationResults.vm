@@ -49,7 +49,7 @@
 	$(function() {
 	  
 		$( document ).tooltip();
-		
+		$.fn.dataTable.moment( 'MM/DD/YYYY' );
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
@@ -63,6 +63,9 @@
 				targets: [ 5 ],
 			    searchable: false, 
 			    sortable: false
+			},{
+				targets: [ 2 ],
+			    type: "date" 
 			} ]
         };
 		

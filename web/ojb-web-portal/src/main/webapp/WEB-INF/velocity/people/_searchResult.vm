@@ -19,14 +19,16 @@
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
-	  
+	    
+	  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   		$("#personSearchResultsTable").DataTable({
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
   			 stateSave: true, 
   			 colReorder: true,
 			 "columnDefs": [ 
-			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}
+			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}, 
+			 	{ targets: [ 8 ],  type: "date"} 
 		 	 ]
   		});
   		
