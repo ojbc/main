@@ -75,7 +75,7 @@
 				    sortable: false
 				},  
 				{
-					targets: [2, 3, 4],
+					targets: [2, 3, 4, 6],
 				    type: "date" 
 				}  
 				]
