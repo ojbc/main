@@ -63,10 +63,7 @@
 				targets: [ 5 ],
 			    searchable: false, 
 			    sortable: false
-			},{
-				targets: [ 2 ],
-			    type: "date" 
-			} ]
+			}]
         };
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
