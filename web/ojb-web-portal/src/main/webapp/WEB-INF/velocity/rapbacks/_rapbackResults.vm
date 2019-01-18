@@ -73,11 +73,7 @@
 					targets: [ numCols -1 ],
 				    searchable: false, 
 				    sortable: false
-				},  
-				{
-					targets: [2, 3, 4, 6],
-				    type: "date" 
-				}  
+				}
 				]
 	        };
 		
