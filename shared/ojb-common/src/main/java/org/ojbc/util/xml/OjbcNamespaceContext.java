@@ -71,7 +71,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_WARRANT_MOD_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0";
 	public static final String NS_PREFIX_WARRANT_MOD_DOC_EXCH = "wm-req-doc";	
-	
+
+	public static final String NS_WARRANT_SUP_MOD_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantSupplementalModificationRequest/1.0";
+	public static final String NS_PREFIX_WARRANT_SUP_MOD_DOC_EXCH = "wsm-req-doc";	
+
 	public static final String NS_WARRANT_MOD_REQ_EXT = "http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0";
 	public static final String NS_PREFIX_WARRANT_MOD_REQ_EXT = "wm-req-ext";
 	
@@ -1794,6 +1797,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_DOC_EXCH, NS_WARRANT_MOD_DOC_EXCH);
 		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);	
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_SUP_MOD_DOC_EXCH, NS_WARRANT_SUP_MOD_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_SUP_MOD_DOC_EXCH, NS_PREFIX_WARRANT_SUP_MOD_DOC_EXCH);	
 		
 		prefixToUriMap.put(NS_PREFIX_SCREENING_3_1, NS_SCREENING_3_1);
 		uriToPrefixMap.put(NS_SCREENING_3_1, NS_PREFIX_SCREENING_3_1);

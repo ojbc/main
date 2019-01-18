@@ -68,6 +68,7 @@ public class Person {
     private List<PersonIDAdditional> personIDAdditionals;
     private List<PersonVehicle> personVehicles;
     private List<PersonSMTAdditional> personSMTSupplementals;
+    private List<PersonDOBAdditional> personDOBSupplementals;
     
 	public Integer getPersonID() {
 		return personID;
@@ -329,6 +330,13 @@ public class Person {
 	}
 	public void setAddressStreetFullText(String addressStreetFullText) {
 		this.addressStreetFullText = addressStreetFullText;
+	}
+	public List<PersonDOBAdditional> getPersonDOBSupplementals() {
+		return personDOBSupplementals;
+	}
+	public void setPersonDOBSupplementals(
+			List<PersonDOBAdditional> personDOBSupplementals) {
+		this.personDOBSupplementals = personDOBSupplementals;
 	}
 
 

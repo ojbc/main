@@ -24,6 +24,8 @@ public class PersonSSNAdditional {
 	
 	private String socialSecurityNumber;
 
+	private String sent;
+	
 	public Integer getPersonSSNID() {
 		return personSSNID;
 	}
@@ -46,6 +48,14 @@ public class PersonSSNAdditional {
 
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
+	}
+
+	public String getSent() {
+		return sent;
+	}
+
+	public void setSent(String sent) {
+		this.sent = sent;
 	}
 
 }

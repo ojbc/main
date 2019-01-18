@@ -54,6 +54,7 @@
 	$(function() {
 		$( document ).tooltip();
 		$('#searchBarButtonDiv').hide();
+		$.fn.dataTable.moment( 'MM/DD/YYYY' );
 		
 		if ($("#searchResultsTable")){
 			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
@@ -67,11 +68,17 @@
 				"language": {
 	        		"emptyTable": "No rapback record available"
 	   			 },
-				"columnDefs": [{
+				"columnDefs": [
+				{
 					targets: [ numCols -1 ],
 				    searchable: false, 
 				    sortable: false
-				} ]
+				},  
+				{
+					targets: [2, 3, 4],
+				    type: "date" 
+				}  
+				]
 	        };
 		
 			var oTable = $("#searchResultsTable").DataTable( optTable);
