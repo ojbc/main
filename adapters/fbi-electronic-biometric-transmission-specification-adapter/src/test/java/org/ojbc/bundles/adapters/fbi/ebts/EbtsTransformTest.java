@@ -134,7 +134,8 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/EBTS-RapBack-Civil-Subscription-Request-NDI.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);					
-	}
+	}	
+	
 	
 	@Test
 	public void newCivilSubscriptionSRCTestEbtsTransform() throws Exception{

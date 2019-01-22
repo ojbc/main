@@ -323,7 +323,10 @@
 						<xsl:apply-templates
 							select="submsg-ext:SubscriptionIdentification[nc:IdentificationID !='']"
 							mode="userDefinedElement" />
-						
+						<xsl:apply-templates
+							select="submsg-ext:SubscribingOrganization/nc:OrganizationIdentification[nc:IdentificationID !='']" mode="userDefinedElement" />
+						<xsl:apply-templates
+							select="submsg-ext:FingerprintIdentificationTransactionIdentification[nc:IdentificationID !='']" mode="userDefinedElement" />						
 
 						
 						<xsl:choose>
@@ -448,6 +451,22 @@
 			</ebts:UserDefinedElementText>
 		</ebts:RecordRapBackUserDefinedElement>
 	</xsl:template>
+	<xsl:template match="submsg-ext:SubscribingOrganization/nc:OrganizationIdentification" mode="userDefinedElement">
+		<ebts:RecordRapBackUserDefinedElement>
+			<ebts:UserDefinedElementName>AGENCY OCA</ebts:UserDefinedElementName>
+			<ebts:UserDefinedElementText>
+				<xsl:value-of select="normalize-space(nc:IdentificationID)" />
+			</ebts:UserDefinedElementText>
+		</ebts:RecordRapBackUserDefinedElement>
+	</xsl:template>
+	<xsl:template match="submsg-ext:FingerprintIdentificationTransactionIdentification" mode="userDefinedElement">
+		<ebts:RecordRapBackUserDefinedElement>
+			<ebts:UserDefinedElementName>FINGERPRINT IDENTIFICATION TRANSACTION ID</ebts:UserDefinedElementName>
+			<ebts:UserDefinedElementText>
+				<xsl:value-of select="normalize-space(nc:IdentificationID)" />
+			</ebts:UserDefinedElementText>
+		</ebts:RecordRapBackUserDefinedElement>
+	</xsl:template>	
 	<xsl:template match="submsg-ext:CriminalSubscriptionReasonCode"
 		mode="rapBackCategory">
 		<ebts:RecordRapBackCategoryCode>
