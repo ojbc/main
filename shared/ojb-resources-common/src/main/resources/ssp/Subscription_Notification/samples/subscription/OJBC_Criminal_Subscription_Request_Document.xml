@@ -17,24 +17,24 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<b-2:Subscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
-	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+<b-2:Subscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://www.w3.org/2005/08/addressing"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
 	<b-2:ConsumerReference>
 		<add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
 		<add:ReferenceParameters />
 		<add:Metadata />
 	</b-2:ConsumerReference>
 	<b-2:Filter>
-		<b-2:TopicExpression
-			Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
+		<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
 	</b-2:Filter>
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
 		<submsg-ext:SubscribingOrganization>
+			<nc20:OrganizationIdentification>
+				<nc20:IdentificationID>OCA123456</nc20:IdentificationID>
+			</nc20:OrganizationIdentification>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
 					<nc20:IdentificationID>2345576</nc20:IdentificationID>
@@ -67,6 +67,10 @@
 			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
 			</nc20:IdentificationID>
 		</submsg-ext:SubscriptionQualifierIdentification>
+		<submsg-ext:SubscriptionTransactionIdentification>
+			<nc20:IdentificationID>ST123456
+			</nc20:IdentificationID>
+		</submsg-ext:SubscriptionTransactionIdentification>
 		<nc20:DateRange>
 			<nc20:StartDate>
 				<nc20:Date>2014-06-20</nc20:Date>
