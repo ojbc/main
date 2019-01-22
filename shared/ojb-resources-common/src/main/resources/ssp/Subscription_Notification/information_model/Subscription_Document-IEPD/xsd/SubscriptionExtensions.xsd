@@ -63,6 +63,8 @@
 					</xsd:element>
 					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
 						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionTransactionIdentification"
+						minOccurs="0" />						
 					<xsd:element ref="nc:DateRange" minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionIdentification"
 						minOccurs="0" />
@@ -160,6 +162,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubscriptionTransactionIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier for a subscription transaction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="SubscriptionReasonRepresentation"
 		abstract="true">
 		<xsd:annotation>
