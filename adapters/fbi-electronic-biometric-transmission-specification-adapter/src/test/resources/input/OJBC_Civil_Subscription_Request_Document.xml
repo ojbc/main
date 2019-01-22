@@ -38,6 +38,9 @@
 			<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
 		</submsg-ext:SubscriptionRelatedCaseIdentification>
 		<submsg-ext:SubscribingOrganization>
+			<nc20:OrganizationIdentification>
+				<nc20:IdentificationID>OCA123456</nc20:IdentificationID>
+			</nc20:OrganizationIdentification>				
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
 					<nc20:IdentificationID>2345576</nc20:IdentificationID>
@@ -65,6 +68,10 @@
 		<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
 		<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
 		<submsg-ext:SystemName>portal</submsg-ext:SystemName>
+		<submsg-ext:FingerprintIdentificationTransactionIdentification>
+			<nc20:IdentificationID>FIT123456
+			</nc20:IdentificationID>
+		</submsg-ext:FingerprintIdentificationTransactionIdentification>						
 		<submsg-ext:SubscriptionQualifierIdentification>
 			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
 			</nc20:IdentificationID>
