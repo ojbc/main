@@ -82,14 +82,22 @@
                <ebts:RecordRapBackInStateOptOutIndicator>Y</ebts:RecordRapBackInStateOptOutIndicator>
                <ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
-               <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
-                  <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
-               </ebts:RecordRapBackUserDefinedElement>
-			            <ebts:RecordRapBackUserDefinedElement>
-                  <ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
-                  <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
-               </ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>AGENCY OCA</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>OCA123456</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>FINGERPRINT IDENTIFICATION TRANSACTION ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>FIT123456</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
 		          </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
                <nc:CaseTrackingID>0123ABC</nc:CaseTrackingID>
