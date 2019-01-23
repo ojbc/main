@@ -63,14 +63,14 @@
 		<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
 		<!-- We need to figure out the formal name for the portal -->
 		<submsg-ext:SystemName>portal</submsg-ext:SystemName>
-		<submsg-ext:SubscriptionQualifierIdentification>
-			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
-			</nc20:IdentificationID>
-		</submsg-ext:SubscriptionQualifierIdentification>
 		<submsg-ext:FingerprintIdentificationTransactionIdentification>
 			<nc20:IdentificationID>FIT123456
 			</nc20:IdentificationID>
 		</submsg-ext:FingerprintIdentificationTransactionIdentification>
+		<submsg-ext:SubscriptionQualifierIdentification>
+			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
+			</nc20:IdentificationID>
+		</submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:DateRange>
 			<nc20:StartDate>
 				<nc20:Date>2014-06-20</nc20:Date>
