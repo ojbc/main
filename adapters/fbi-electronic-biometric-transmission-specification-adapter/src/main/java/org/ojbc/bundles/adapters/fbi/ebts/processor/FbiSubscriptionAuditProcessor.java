@@ -119,7 +119,7 @@ public class FbiSubscriptionAuditProcessor {
 			
 			boolean errorIndicator = false;
 			
-			if (StringUtils.isNotBlank(transactionStatusText))
+			if (StringUtils.isNotBlank(transactionStatusText) && transactionCategoryCode.equals("ERRA"))
 			{
 				federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
 				errorIndicator = true;
