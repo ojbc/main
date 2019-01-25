@@ -77,7 +77,7 @@
 	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryCriminalHistoryReplyToEndpoint}</value></property>
 	   		<property name="messageProcessor" ref="fbiCriminalHistoryMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="criminalHistoryRequestResponseMap"/>
-	   		<property name="maxPolls" value="${webapplication.fbiRapsheet.maxPolls:310}"/>
+	   		<property name="maxPolls" value="${webapplication.fbiRapsheet.maxPolls:190}"/>
 	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
 	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
