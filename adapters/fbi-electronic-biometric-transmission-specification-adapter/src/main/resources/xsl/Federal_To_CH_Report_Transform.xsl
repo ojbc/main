@@ -76,10 +76,22 @@
 	<xsl:template match="ebts:RecordControllingAgency">
 		<chr-ext:RecordControllingOrganization>
 			<nc:EntityOrganization>
-				<xsl:apply-templates select="nc20:OrganizationIdentification" />
+				<xsl:apply-templates
+					select="../../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='SUBSCRIBING AGENCY OCA']"
+					mode="oca" />
+				<xsl:apply-templates select="nc20:OrganizationIdentification/nc20:IdentificationID" mode="ori" />
 			</nc:EntityOrganization>
 		</chr-ext:RecordControllingOrganization>
 	</xsl:template>
+	<xsl:template match="nc20:IdentificationID" mode="ori">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>
+					<xsl:value-of select="normalize-space(.)" />
+				</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</xsl:template>	
 	<xsl:template match="itl:PackageDescriptiveTextRecord"
 		mode="rapsheet">
 		<chr-ext:FederalCriminalHistoryRecordDocument>
@@ -102,6 +114,9 @@
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionID" />
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionTerm" />
 			<xsl:apply-templates select="ebts:RecordRapBackTermDate" />
+			<xsl:apply-templates
+				select="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='FINGERPRINT IDENTIFICATION TRANSACTION ID']"
+				mode="subftid" />			
 			<xsl:apply-templates
 				select="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='STATE SUBSCRIPTION ID']"
 				mode="subqid" />
@@ -277,4 +292,18 @@
 			<xsl:value-of select="normalize-space($jurisdictionCode)" />
 		</chr-ext:CriminalHistoryReportJurisdictionCode>
 	</xsl:template>
+	<xsl:template match="ebts:UserDefinedElementText" mode="oca">
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+	</xsl:template>	
+	<xsl:template match="ebts:UserDefinedElementText" mode="subftid">
+		<chr-ext:FingerprintIdentificationTransactionIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
+		</chr-ext:FingerprintIdentificationTransactionIdentification>
+	</xsl:template>	
 </xsl:stylesheet>
