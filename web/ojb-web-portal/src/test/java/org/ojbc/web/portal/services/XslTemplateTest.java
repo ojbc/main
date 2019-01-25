@@ -324,7 +324,7 @@ public class XslTemplateTest {
 
     @Test
     public void incidentSpillman() throws Exception {
-        validatePersonSearchTransformation("xsl/incident-spillman.xsl", "incidentSpillman.xml", "incidentSpillman.html");
+        validatePersonSearchTransformation("xsl/incident-summary.xsl", "incidentSpillman.xml", "incidentSpillman.html");
     }
   
     @Test
