@@ -27,7 +27,7 @@
       <chr-ext:RecordCategoryCodeText>02</chr-ext:RecordCategoryCodeText>
       <chr-ext:ImageReferenceIdentification>
          <nc:IdentificationID>00</nc:IdentificationID>
-      </chr-ext:ImageReferenceIdentification>
+      </chr-ext:ImageReferenceIdentification> 
       <chr-ext:RecordForwardOrganization>
          <nc:EntityOrganization>
             <nc:OrganizationIdentification>
@@ -40,9 +40,14 @@
       </chr-ext:RecordForwardOrganization>
       <chr-ext:RecordControllingOrganization>
          <nc:EntityOrganization>
-            <nc:OrganizationIdentification>
-               <nc:IdentificationID>NY0303000</nc:IdentificationID>
-            </nc:OrganizationIdentification>
+			<nc:OrganizationIdentification>
+				<nc:IdentificationID>OCA123456</nc:IdentificationID>
+			</nc:OrganizationIdentification>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>NY0303000</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
          </nc:EntityOrganization>
       </chr-ext:RecordControllingOrganization>
       <chr-ext:FederalCriminalHistoryRecordDocument>
@@ -66,6 +71,10 @@
          <chr-ext:RapBackTermDate>
             <nc:Date>2015-01-01</nc:Date>
          </chr-ext:RapBackTermDate>
+		<chr-ext:FingerprintIdentificationTransactionIdentification>
+			<nc:IdentificationID>FIT123456
+			</nc:IdentificationID>
+		</chr-ext:FingerprintIdentificationTransactionIdentification>	         
          <chr-ext:SubscriptionQualifierIdentification>
             <nc:IdentificationID>S128483</nc:IdentificationID>
          </chr-ext:SubscriptionQualifierIdentification>
