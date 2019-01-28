@@ -203,7 +203,7 @@
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
-		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="View Rapsheet">
+		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="Refresh Rap Sheet">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
