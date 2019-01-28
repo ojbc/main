@@ -27,7 +27,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -504,7 +503,7 @@ public class RapbackController {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("Got exception when retrieving the FBI rapsheet", ex);
-			return "<p>Got error while retrieve the rapsheet, please report to the IT department or try again later</p>";
+			return "<p>Error retrieving FBI rap sheet, please report to the IT department or try again later</p>";
 		}
 	}
 	
