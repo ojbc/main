@@ -255,7 +255,7 @@
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      width:400,
-			      height:150,
+			      height:200,
 			      modal: true,
 			      buttons: {
 			        "Yes": function() {
@@ -303,7 +303,7 @@
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      width:400,
-			      height:150,
+			      height:200,
 			      modal: true,
 			      buttons: {
 			        "Yes": function() {
@@ -441,7 +441,7 @@
 </div>
 
 <div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you still authorized to view criminal history details for this individual?</p>
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>
 </div>
 <div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
