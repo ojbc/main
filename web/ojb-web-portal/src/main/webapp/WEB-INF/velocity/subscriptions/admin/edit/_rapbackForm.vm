@@ -115,7 +115,7 @@
 		<tr>
 			<td class="detailsLabel" width="100px">ORI</td>
 			<td>
-				$userLogonInfo.employerOri
+				$subscription.ori
 			</td>
 			<td  class="detailsLabel">
 				Agency Name
@@ -144,7 +144,11 @@
 			<tr>
 				<td class="detailsLabel">Purpose</td>
 				<td>
-					#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+					#if(${subscription.subscriptionPurpose} == 'CI'|| ${subscription.subscriptionPurpose} == 'CJ')
+						#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+					#else
+						<input type="text" name="temp" value="CIVIL" readonly="readonly">
+					#end
 					#springFormHiddenInput("subscription.subscriptionPurpose")
 				</td>
 				<td>
