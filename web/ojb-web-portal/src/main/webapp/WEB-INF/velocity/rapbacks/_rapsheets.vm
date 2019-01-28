@@ -41,7 +41,7 @@
 				    beforeLoad: function( event, ui ) {
 				    	var tempDiv = '<div style="height: 50"> <div id="modalIframeSpinner" style="height:50%;width:100%; top:50; left:0;"/></div>';
 				    	ui.panel.html(tempDiv);
-				        ui.jqXHR.fail(function() {
+				        ui.jqXHR.fail(function(e) {
 				          ui.panel.html(
 				            "Couldn't load this tab. Please report the error to the IT department or try again later. ");
 				        });
