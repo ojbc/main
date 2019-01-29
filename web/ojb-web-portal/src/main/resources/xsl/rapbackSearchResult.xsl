@@ -102,7 +102,7 @@
 			</td>
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
 			<td width="60px">
-				<xsl:if test="$validationDueDate &lt; current-date()">
+				<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">
 					<xsl:attribute name="style">color:red</xsl:attribute>
 				</xsl:if>
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
