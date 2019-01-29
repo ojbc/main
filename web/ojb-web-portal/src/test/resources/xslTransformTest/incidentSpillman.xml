@@ -1,0 +1,240 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<ir-doc:IncidentReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+                       xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                       xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                       xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                       xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                       xmlns:s="http://niem.gov/niem/structures/2.0"
+                       xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+                       xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                       xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                       xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+   <lexspd:doPublish>
+      <lexs:PublishMessageContainer>
+         <lexs:PublishMessage>
+            <lexs:PDMessageMetadata>
+               <lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+               <lexs:MessageDateTime>2012-08-02T10:30:04.048-04:00</lexs:MessageDateTime>
+               <lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+               <lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+            </lexs:PDMessageMetadata>
+            <lexs:DataSubmitterMetadata>
+               <lexs:SystemIdentifier>
+                  <lexs:ORI>Maine</lexs:ORI>
+                  <nc:OrganizationName>Maine Insight</nc:OrganizationName>
+                  <lexs:SystemID>Insight</lexs:SystemID>
+               </lexs:SystemIdentifier>
+               <lexs:SystemContact>
+                  <nc:PersonGivenName>Joe</nc:PersonGivenName>
+                  <nc:PersonSurName>Contact</nc:PersonSurName>
+                  <nc:PersonFullName>Joe Contact</nc:PersonFullName>
+                  <nc:ContactTelephoneNumber>
+                     <nc:NANPTelephoneNumber>
+                        <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                        <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                        <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                     </nc:NANPTelephoneNumber>
+                  </nc:ContactTelephoneNumber>
+                  <nc:OrganizationName>Maine Insight</nc:OrganizationName>
+               </lexs:SystemContact>
+            </lexs:DataSubmitterMetadata>
+            <lexs:DataItemPackage>
+               <lexs:PackageMetadata>
+                  <lexs:DataItemID>15-087755</lexs:DataItemID>
+                  <lexs:DataItemContact>
+                     <nc:PersonGivenName>Frank</nc:PersonGivenName>
+                     <nc:PersonSurName>Smith</nc:PersonSurName>
+                     <nc:PersonFullName>Frank Smith</nc:PersonFullName>
+                     <nc:ContactTelephoneNumber>
+                        <nc:NANPTelephoneNumber>
+                           <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                           <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                           <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                        </nc:NANPTelephoneNumber>
+                     </nc:ContactTelephoneNumber>
+                  </lexs:DataItemContact>
+                  <lexs:DataItemReferenceID>15-087755</lexs:DataItemReferenceID>
+                  <lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+                  <lexs:DataItemStatus>Closed</lexs:DataItemStatus>
+                  <lexs:DataOwnerMetadata>
+                     <lexs:DataOwnerIdentifier>
+                        <lexs:ORI>Maine</lexs:ORI>
+                        <nc:OrganizationName>Maine Insight</nc:OrganizationName>
+                        <lexs:SystemID>N-DEx Connector</lexs:SystemID>
+                     </lexs:DataOwnerIdentifier>
+                     <lexs:DataOwnerContact>
+                        <nc:PersonGivenName>Bill</nc:PersonGivenName>
+                        <nc:PersonSurName>Johnson</nc:PersonSurName>
+                        <nc:PersonFullName>Bill Johnson</nc:PersonFullName>
+                        <nc:ContactTelephoneNumber>
+                           <nc:NANPTelephoneNumber>
+                              <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                              <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                              <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                           </nc:NANPTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                     </lexs:DataOwnerContact>
+                  </lexs:DataOwnerMetadata>
+                  <lexs:DisseminationCriteriaValue>
+                     <lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+                     <lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+                  </lexs:DisseminationCriteriaValue>
+                  <lexs:DataItemCategory>
+                     <lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+                  </lexs:DataItemCategory>
+               </lexs:PackageMetadata>
+               <lexs:Digest>
+                  <lexsdigest:EntityActivity>
+                     <lexsdigest:Metadata>
+                        <nc:ReportedDate>
+                           <nc:DateTime>2015-11-12T15:32:58</nc:DateTime>
+                        </nc:ReportedDate>
+                     </lexsdigest:Metadata>
+                     <nc:Activity s:id="d1e19">
+                        <nc:ActivityIdentification>
+                           <nc:IdentificationID>15-087755</nc:IdentificationID>
+                        </nc:ActivityIdentification>
+                        <nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+                        <nc:ActivityDateRange>
+                           <nc:StartDate>
+                              <nc:DateTime>2015-11-12T15:32:58</nc:DateTime>
+                           </nc:StartDate>
+                           <nc:EndDate>
+                              <nc:DateTime>2015-11-12T15:32:58</nc:DateTime>
+                           </nc:EndDate>
+                        </nc:ActivityDateRange>
+                     </nc:Activity>
+                  </lexsdigest:EntityActivity>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="d1e52">
+                        <nc:PersonName>
+                           <nc:PersonFullName>Tim Smith</nc:PersonFullName>
+                        </nc:PersonName>
+                     </lexsdigest:Person>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="d1e62">
+                        <nc:PersonName>
+                           <nc:PersonFullName>Jones E</nc:PersonFullName>
+                        </nc:PersonName>
+                     </lexsdigest:Person>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityPerson>
+                     <lexsdigest:Person s:id="d1e71">
+                        <nc:PersonName>
+                           <nc:PersonFullName>Martin, P</nc:PersonFullName>
+                        </nc:PersonName>
+                     </lexsdigest:Person>
+                     <j:EnforcementOfficial>
+                        <nc:RoleOfPersonReference s:ref="d1e71"/>
+                     </j:EnforcementOfficial>
+                  </lexsdigest:EntityPerson>
+                  <lexsdigest:EntityOrganization>
+                     <nc:Organization s:id="d1e68"/>
+                  </lexsdigest:EntityOrganization>
+                  <lexsdigest:EntityLocation>
+                     <nc:Location s:id="d1e43">
+                        <nc:LocationAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetFullText>82 Jamesville Blvd</nc:StreetFullText>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>Brewer</nc:LocationCityName>
+                              <nc:LocationStateName>ME</nc:LocationStateName>
+                              <nc:LocationPostalCode>04412</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:LocationAddress>
+                     </nc:Location>
+                  </lexsdigest:EntityLocation>
+                  <lexsdigest:Associations>
+                     <j:ActivityEnforcementOfficialAssociation>
+                        <nc:ActivityReference s:ref="d1e19"/>
+                        <nc:PersonReference s:ref="d1e71"/>
+                     </j:ActivityEnforcementOfficialAssociation>
+                     <lexsdigest:IncidentLocationAssociation>
+                        <nc:ActivityReference s:ref="d1e19"/>
+                        <nc:LocationReference s:ref="d1e43"/>
+                     </lexsdigest:IncidentLocationAssociation>
+                     <nc:ActivityInvolvedPersonAssociation>
+                        <nc:ActivityReference s:ref="d1e19"/>
+                        <nc:PersonReference s:ref="d1e52"/>
+                        <nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+                     </nc:ActivityInvolvedPersonAssociation>
+                     <nc:ActivityInvolvedPersonAssociation>
+                        <nc:ActivityReference s:ref="d1e19"/>
+                        <nc:PersonReference s:ref="d1e62"/>
+                        <nc:PersonActivityInvolvementText>ReceivedBy</nc:PersonActivityInvolvementText>
+                     </nc:ActivityInvolvedPersonAssociation>
+                     <nc:ActivityReportingOrganizationAssociation>
+                        <nc:ActivityReference s:ref="d1e19"/>
+                        <nc:OrganizationReference s:ref="d1e68"/>
+                     </nc:ActivityReportingOrganizationAssociation>
+                     <nc:PersonAssignedUnitAssociation>
+                        <nc:PersonReference s:ref="d1e71"/>
+                        <nc:OrganizationReference s:ref="d1e68"/>
+                     </nc:PersonAssignedUnitAssociation>
+                  </lexsdigest:Associations>
+               </lexs:Digest>
+               <lexs:StructuredPayload>
+                  <lexs:StructuredPayloadMetadata>
+                     <lexs:CommunityURI>http://www.ojbc.org
+				</lexs:CommunityURI>
+                     <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                     <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                  </lexs:StructuredPayloadMetadata>
+                  <inc-ext:IncidentReport xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+                                          xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                     <inc-ext:Incident>
+                        <inc-ext:IncidentNatureText>Theft</inc-ext:IncidentNatureText>
+                        <inc-ext:IncidentClearanceCodeText>PND</inc-ext:IncidentClearanceCodeText>
+                        <inc-ext:IncidentDispositionDeclaredDate>2015-12-03</inc-ext:IncidentDispositionDeclaredDate>
+                        <inc-ext:IncidentDispositionCodeText>CAA</inc-ext:IncidentDispositionCodeText>
+                        <inc-ext:IncidentCallReceivedCodeText>T</inc-ext:IncidentCallReceivedCodeText>
+                        <inc-ext:IncidentRecordSecurityIdentification>
+                           <nc:IdentificationID>BRPD</nc:IdentificationID>
+                        </inc-ext:IncidentRecordSecurityIdentification>
+                        <inc-ext:IncidentLongTermCallIdentification>
+                           <nc:IdentificationID>2480211</nc:IdentificationID>
+                        </inc-ext:IncidentLongTermCallIdentification>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e19"/>
+                     </inc-ext:Incident>
+                     <inc-ext:Location>
+                        <inc-ext:SpatialReferenceIdentification>
+                           <nc:IdentificationID>5756</nc:IdentificationID>
+                        </inc-ext:SpatialReferenceIdentification>
+                        <inc-ext:LocationAreaCodeText>BRLB1</inc-ext:LocationAreaCodeText>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e43"/>
+                     </inc-ext:Location>
+                     <inc-ext:Person>
+                        <inc-ext:PersonNameRecordNumber>123456</inc-ext:PersonNameRecordNumber>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e52"/>
+                     </inc-ext:Person>
+                     <inc-ext:Organization>
+                        <inc-ext:OrganizationCodeText>BRPD</inc-ext:OrganizationCodeText>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e68"/>
+                     </inc-ext:Organization>
+                  </inc-ext:IncidentReport>
+               </lexs:StructuredPayload>
+            </lexs:DataItemPackage>
+         </lexs:PublishMessage>
+      </lexs:PublishMessageContainer>
+   </lexspd:doPublish>
+</ir-doc:IncidentReport>

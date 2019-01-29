@@ -1,0 +1,106 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+
+<script type="text/javascript"> $(function () { $('#incidentDetailTabs').tabs({ activate: function( event, ui ) { var modalIframe =
+			$("#modalIframe", parent.document); modalIframe.height(modalIframe.contents().find("body").height() + 16); } });
+			$("#modalContainer", parent.document).animate({ scrollTop: $("#incidentTab").offset().top }, 400); }); 
+		</script><div id="incidentDetailTabs">
+   <ul>
+      <li><a href="#incidentTab">INCIDENT</a></li>
+      <li><a href="#callTab">CALL INFO</a></li>
+   </ul>
+   <div id="incidentTab">
+      <table>
+         <tr>
+            <td class="incidentLabel">Incident Number:</td>
+            <td>15-087755</td>
+            <td class="incidentLabel">Incident Nature:</td>
+            <td>Theft</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Record Security ID:</td>
+            <td>BRPD</td>
+            <td class="incidentLabel"></td>
+            <td></td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Reported Date:</td>
+            <td>2015-11-12 15:32:58</td>
+            <td class="incidentLabel"></td>
+            <td></td>
+         </tr>
+         <tr>
+            <td class="incidentLabel"> Start Date/Time:</td>
+            <td>2015-11-12 15:32:58</td>
+            <td class="incidentLabel">End Date/Time:</td>
+            <td>2015-11-12 15:32:58</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Location:</td>
+            <td>82 Jamesville Blvd Brewer, ME 04412</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Geobase Address ID:</td>
+            <td>5756</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Area Location Code:</td>
+            <td>BRLB1</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Disposition Date:</td>
+            <td>2015-12-03</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Disposition Code:</td>
+            <td>CAA</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Clearance Code:</td>
+            <td>PND</td>
+         </tr>
+      </table>
+   </div>
+   <div id="callTab">
+      <table>
+         <tr>
+            <td class="incidentLabel">Call Receiver:</td>
+            <td>Jones E</td>
+            <td class="incidentLabel">How Received:</td>
+            <td>T</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Long Term Call ID:</td>
+            <td>2480211</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Caller or Contact Name:</td>
+            <td>Tim Smith</td>
+            <td class="incidentLabel">Name Number:</td>
+            <td>123456</td>
+         </tr>
+         <tr>
+            <td class="incidentLabel">Responding Agency Code:</td>
+            <td>BRPD</td>
+            <td class="incidentLabel">Responding Officer:</td>
+            <td>Martin, P</td>
+         </tr>
+      </table>
+   </div>
+</div>
