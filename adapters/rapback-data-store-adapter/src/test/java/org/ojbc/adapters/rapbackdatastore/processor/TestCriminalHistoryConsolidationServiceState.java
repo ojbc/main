@@ -249,7 +249,7 @@ public class TestCriminalHistoryConsolidationServiceState {
 		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "civil"));
 		
 		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
-		expectedEmailBody="You are receiving this message because a identity consolidation event has occurred related to one or more of your Rap Back subscriptions.  Log on to the Applicant Rap Back Application in the HIJIS Portal to confirm you are authorized to view the updated record(s).";
+		expectedEmailBody="123456 has been updated to 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription and for updated criminal history record information.";
 		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999", "civil"));
 
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
