@@ -47,7 +47,7 @@ public class TestFbiEmailErrorProcessor {
 		
 		System.out.println(ex.getIn().getBody(String.class));
 		
-		assertEquals(ex.getIn().getBody(String.class), "Error Code:Error code\nError Text:This is the transaction text | This is the second transaction text\n\nThis subscription request that was sent to the FBI has failed.");
+		assertEquals(ex.getIn().getBody(String.class), "Error Code:Error code\nError Text:This is the transaction text: RB001: some error | This is the second transaction text\n\nThis subscription request that was sent to the FBI has failed.");
 	}
 	
 }
