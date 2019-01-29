@@ -20,10 +20,8 @@
 <chr-doc:CriminalHistoryReport
 	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0 ../xsd/CriminalHistoryReport.xsd ">
 	<chr-ext:CriminalHistoryReportJurisdictionCode>FBI</chr-ext:CriminalHistoryReportJurisdictionCode>
 	<chr-ext:TransactionDescriptiveRecord>
@@ -46,6 +44,11 @@
 				<nc:OrganizationIdentification>
 					<nc:IdentificationID>NY0303000</nc:IdentificationID>
 				</nc:OrganizationIdentification>
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>2345576</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
 			</nc:EntityOrganization>
 		</chr-ext:RecordControllingOrganization>
 		<chr-ext:FederalCriminalHistoryRecordDocument>
@@ -69,6 +72,10 @@
 			<chr-ext:RapBackTermDate>
 				<nc:Date>2015-01-01</nc:Date>
 			</chr-ext:RapBackTermDate>
+			<chr-ext:FingerprintIdentificationTransactionIdentification>
+				<nc:IdentificationID>FIT123456
+				</nc:IdentificationID>
+			</chr-ext:FingerprintIdentificationTransactionIdentification>
 			<chr-ext:SubscriptionQualifierIdentification>
 				<nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
 				</nc:IdentificationID>

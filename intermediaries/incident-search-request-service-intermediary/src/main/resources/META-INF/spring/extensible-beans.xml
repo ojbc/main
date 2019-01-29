@@ -71,9 +71,9 @@
 				</property>
 				<property name="uriToErrorSystemNameMap">
 					<util:map>
-						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="Demo RMS" />
-						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="Demo RMS" />
-						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="Demo RMS" />
+						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="RMS" />
+						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="RMS" />
+						<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" value="RMS" />
 					</util:map>				
 				</property>
 		  	</bean>
