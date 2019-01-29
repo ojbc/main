@@ -78,7 +78,7 @@
          <ebts:DomainDefinedDescriptiveFields>
             <ebts:RecordRapBackData>
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
-               <ebts:RecordRapBackInStateOptOutIndicator>Y</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
 			
 				           <ebts:RecordRapBackSubscriptionID>987654321</ebts:RecordRapBackSubscriptionID>
 			
