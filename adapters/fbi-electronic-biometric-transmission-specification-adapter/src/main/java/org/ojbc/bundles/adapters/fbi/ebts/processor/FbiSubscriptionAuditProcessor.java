@@ -55,7 +55,7 @@ public class FbiSubscriptionAuditProcessor {
 		
 		try {
 			
-			XmlUtils.printNode(input);
+			//XmlUtils.printNode(input);
 			
 			Node recordRapBackData = XmlUtils.xPathNodeSearch(input, "//ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData");
 			
@@ -94,7 +94,7 @@ public class FbiSubscriptionAuditProcessor {
 			logger.info("Audit entry returned from database:" + federalRapbackSubscriptionFromDatabase);
 			
 			Document input = (Document) ex.getIn().getBody(Document.class);
-			XmlUtils.printNode(input.getDocumentElement());
+			//XmlUtils.printNode(input.getDocumentElement());
 			
 			FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
 			
@@ -119,10 +119,18 @@ public class FbiSubscriptionAuditProcessor {
 			
 			boolean errorIndicator = false;
 			
-			if (StringUtils.isNotBlank(transactionStatusText) && transactionCategoryCode.equals("ERRA"))
+			if (StringUtils.isNotBlank(transactionStatusText))
 			{
-				federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
-				errorIndicator = true;
+				//RB001, RB002, RB003, RB004, RB005, RB006, RB007, RB013, RB014 or RB015 in the transaction status text indicate an error
+				if (StringUtils.contains(transactionStatusText, "RB001") || StringUtils.contains(transactionStatusText, "RB002") || StringUtils.contains(transactionStatusText, "RB003") 
+					|| StringUtils.contains(transactionStatusText, "RB004") || StringUtils.contains(transactionStatusText, "RB005") || StringUtils.contains(transactionStatusText, "RB006")
+					|| StringUtils.contains(transactionStatusText, "RB007")	|| StringUtils.contains(transactionStatusText, "RB013") || StringUtils.contains(transactionStatusText, "RB014")
+					|| StringUtils.contains(transactionStatusText, "RB015")
+				   )
+				{	
+					federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
+					errorIndicator = true;
+				}
 			}	
 			
 			federalRapbackSubscription.setFbiSubscriptionId(XmlUtils.xPathStringSearch(input, "//ebts:RecordRapBackSubscriptionID"));

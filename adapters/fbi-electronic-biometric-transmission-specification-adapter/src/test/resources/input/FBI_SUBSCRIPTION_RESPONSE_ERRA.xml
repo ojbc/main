@@ -96,7 +96,7 @@
                 <ebts:RecordTransactionData>
                     <ebts:TransactionResponseData>
                         <!--MSG 2.060-->
-                        <ebts:TransactionStatusText>This is the transaction text</ebts:TransactionStatusText>
+                        <ebts:TransactionStatusText>This is the transaction text: RB001: some error</ebts:TransactionStatusText>
                         <ebts:TransactionStatusText>This is the second transaction text</ebts:TransactionStatusText>
                     </ebts:TransactionResponseData>
                 </ebts:RecordTransactionData>
