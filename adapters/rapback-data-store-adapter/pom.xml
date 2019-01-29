@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>rapback-data-store-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 
 	<name>OJB :: rapback-data-store-adapter:: adapter</name>
 	<url>http://www.ojbc.org</url>
