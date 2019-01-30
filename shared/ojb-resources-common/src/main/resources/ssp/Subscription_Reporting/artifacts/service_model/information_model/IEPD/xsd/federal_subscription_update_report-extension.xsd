@@ -65,6 +65,7 @@
 					<xsd:element ref="fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:StateSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:SubscribtionTransactionStatusText" minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:FingerprintIdentificationTransactionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:SubscribingOrganization" minOccurs="0" />
 					<xsd:element ref="fed_subcr_upd-ext:RecordForwardOrganization" minOccurs="0" />
 				</xsd:sequence>
@@ -300,5 +301,11 @@
 			<xsd:documentation>The forwarding organization.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="FingerprintIdentificationTransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier for an event where a person was fingerprinted.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>
