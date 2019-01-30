@@ -17,11 +17,14 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<fed_subcr-doc:FederalSubscriptionCreationReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
-	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0" xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:s30="http://release.niem.gov/niem/structures/3.0/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+<fed_subcr-doc:FederalSubscriptionCreationReport
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
+	xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0 ../xsd/federal_subscription_creation_report_schema.xsd">
 	<fed_subcr-ext:RapBackSubscriptionData>
 		<fed_subcr-ext:RapBackActivityNotificationFormatCode>2</fed_subcr-ext:RapBackActivityNotificationFormatCode>
@@ -51,10 +54,18 @@
 			<nc30:IdentificationID>S33222</nc30:IdentificationID>
 		</fed_subcr-ext:StateSubscriptionIdentification>
 		<fed_subcr-ext:SubscribtionTransactionStatusText>Text</fed_subcr-ext:SubscribtionTransactionStatusText>
+		<fed_subcr-ext:FingerprintIdentificationTransactionIdentification>
+			<nc30:IdentificationID>FIT123456</nc30:IdentificationID>
+		</fed_subcr-ext:FingerprintIdentificationTransactionIdentification>
 		<fed_subcr-ext:SubscribingOrganization>
 			<nc30:OrganizationIdentification>
 				<nc30:IdentificationID>NY0303000</nc30:IdentificationID>
 			</nc30:OrganizationIdentification>
+			<jxdm50:OrganizationAugmentation>
+				<jxdm50:OrganizationORIIdentification>
+					<nc30:IdentificationID>2345576</nc30:IdentificationID>
+				</jxdm50:OrganizationORIIdentification>
+			</jxdm50:OrganizationAugmentation>
 		</fed_subcr-ext:SubscribingOrganization>
 		<fed_subcr-ext:RecordForwardOrganization>
 			<nc30:OrganizationIdentification>
