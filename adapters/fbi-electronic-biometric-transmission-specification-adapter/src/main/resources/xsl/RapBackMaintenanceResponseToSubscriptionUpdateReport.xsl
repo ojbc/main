@@ -56,6 +56,9 @@
 				mode="stateSubscrID" />
 			<xsl:apply-templates select="../ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionStatusText"
 				mode="transactionStatus" />
+			<xsl:apply-templates
+				select="//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('FINGERPRINT IDENTIFICATION TRANSACTION ID')]/ebts:UserDefinedElementText"
+				mode="fingerprintTransaction" />				
 			<xsl:apply-templates select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
 			<xsl:apply-templates select="../ansi-nist:RecordForwardOrganizations" />
 		</fed_subcr_upd-ext:RapBackSubscriptionData>
@@ -188,6 +191,20 @@
 			</nc30:IdentificationID>
 		</fed_subcr_upd-ext:StateSubscriptionIdentification>
 	</xsl:template>
+	<xsl:template match="ebts:UserDefinedElementText" mode="oca">
+		<nc30:OrganizationIdentification>
+			<nc30:IdentificationID>
+				<xsl:value-of select="." />
+			</nc30:IdentificationID>
+		</nc30:OrganizationIdentification>
+	</xsl:template>
+	<xsl:template match="ebts:UserDefinedElementText" mode="fingerprintTransaction">
+		<fed_subcr_upd-ext:FingerprintIdentificationTransactionIdentification>
+			<nc30:IdentificationID>
+				<xsl:value-of select="." />
+			</nc30:IdentificationID>
+		</fed_subcr_upd-ext:FingerprintIdentificationTransactionIdentification>
+	</xsl:template>
 	<xsl:template match="ebts:TransactionStatusText" mode="transactionStatus">
 		<fed_subcr_upd-ext:SubscribtionTransactionStatusText>
 			<xsl:value-of select="." />
@@ -206,9 +223,21 @@
 	</xsl:template>
 	<xsl:template match="ebts:RecordControllingAgency">
 		<fed_subcr_upd-ext:SubscribingOrganization>
-			<xsl:apply-templates select="nc:OrganizationIdentification" />
+			<xsl:apply-templates
+				select="//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('SUBSCRIBING AGENCY OCA')]/ebts:UserDefinedElementText"
+				mode="oca" />
+			<xsl:apply-templates select="nc:OrganizationIdentification" mode="ori" />
 		</fed_subcr_upd-ext:SubscribingOrganization>
 	</xsl:template>
+	<xsl:template match="nc:OrganizationIdentification" mode="ori">
+		<jxdm50:OrganizationAugmentation>
+			<jxdm50:OrganizationORIIdentification>
+				<nc30:IdentificationID>
+					<xsl:value-of select="nc:IdentificationID" />
+				</nc30:IdentificationID>
+			</jxdm50:OrganizationORIIdentification>
+		</jxdm50:OrganizationAugmentation>
+	</xsl:template>	
 	<xsl:template match="ansi-nist:RecordForwardOrganizations">
 		<fed_subcr_upd-ext:RecordForwardOrganization>
 			<xsl:apply-templates select="nc:OrganizationIdentification" />
