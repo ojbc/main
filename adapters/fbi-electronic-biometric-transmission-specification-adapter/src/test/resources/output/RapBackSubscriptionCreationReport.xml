@@ -56,7 +56,7 @@
          <nc30:IdentificationID>S128483</nc30:IdentificationID>
       </fed_subcr-ext:StateSubscriptionIdentification>
       <fed_subcr-ext:SubscribtionTransactionStatusText>MATCH MADE AGAINST SUBJECTS FINGERPRINTS ON 05/01/94. PLEASE NOTIFY SUBMITTING STATE IF MATCH RESULTS</fed_subcr-ext:SubscribtionTransactionStatusText>
-           <fed_subcr-ext:FingerprintIdentificationTransactionIdentification>
+      	<fed_subcr-ext:FingerprintIdentificationTransactionIdentification>
          <nc30:IdentificationID>FIT123456</nc30:IdentificationID>
       </fed_subcr-ext:FingerprintIdentificationTransactionIdentification> 
       <fed_subcr-ext:SubscribingOrganization>
