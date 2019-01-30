@@ -81,7 +81,7 @@
                <ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
-               <ebts:RecordRapBackInStateOptOutIndicator>Y</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
