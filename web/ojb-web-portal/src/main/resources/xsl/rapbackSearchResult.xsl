@@ -117,17 +117,6 @@
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
-				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
-					<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
-						<xsl:attribute name="id">
-							<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
-						</xsl:attribute>
-						<i class="fa fa-bell fa-lg"></i>
-					</a>
-					<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-						class="blueIcon subsequentResults hidden">
-					</a>
-				</xsl:if>
 				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
@@ -211,6 +200,18 @@
 		</a>
 		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
 					class="blueIcon getStateRapsheet hidden"></a>
+		<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
+			<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-bell fa-lg"></i>
+			</a>
+			<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+				class="blueIcon subsequentResults hidden">
+			</a>
+		</xsl:if>
+		
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
