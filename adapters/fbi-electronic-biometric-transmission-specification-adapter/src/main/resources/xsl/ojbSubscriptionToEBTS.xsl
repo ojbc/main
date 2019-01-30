@@ -316,7 +316,6 @@
 						<xsl:apply-templates
 							select="submsg-ext:TriggeringEvents/submsg-ext:FederalTriggeringEventCode"
 							mode="triggerCriminal" />
-					
 						<xsl:apply-templates
 							select="submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification[nc:IdentificationID !='']"
 							mode="userDefinedElement" />
@@ -327,8 +326,6 @@
 							select="submsg-ext:SubscribingOrganization/nc:OrganizationIdentification[nc:IdentificationID !='']" mode="userDefinedElement" />
 						<xsl:apply-templates
 							select="submsg-ext:FingerprintIdentificationTransactionIdentification[nc:IdentificationID !='']" mode="userDefinedElement" />						
-
-						
 						<xsl:choose>
 							<!-- This indicates that the maintenance is a "replace" -->
 							<xsl:when test="$action = 'modifySubscription'">
