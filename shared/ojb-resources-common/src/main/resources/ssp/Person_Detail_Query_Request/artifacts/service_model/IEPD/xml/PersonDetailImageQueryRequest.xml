@@ -17,12 +17,23 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pdiq-req-doc:PersonDetailImageQueryRequest xmlns:pdiq-req-doc="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryRequest/1.0"
-	xmlns:pdiq-req-ext="http://ojbc.org/IEPD/Extensions/PersonDetailImageQueryRequestExtension/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<pdiq-req-doc:PersonDetailImageQueryRequest
+	xmlns:pdiq-req-doc="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryRequest/1.0"
+	xmlns:pdiq-req-ext="http://ojbc.org/IEPD/Extensions/PersonDetailImageQueryRequestExtension/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryRequest/1.0 ../xsd/PersonDetailImageQueryRequest.xsd ">
 	<pdiq-req-ext:PersonUniqueImageIdentification>
 		<nc:IdentificationID>I12345.jpg</nc:IdentificationID>
-		<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Person_Detail_Query_Request_Service/1.0}Person-Query-Service---Person-Detail-Image</nc:IdentificationSourceText>
+		<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Person_Detail_Query_Request_Service/1.0}Person-Query-Service---Person-Detail-Image
+		</nc:IdentificationSourceText>
 	</pdiq-req-ext:PersonUniqueImageIdentification>
+	<nc:Organization>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>1234</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
 </pdiq-req-doc:PersonDetailImageQueryRequest>

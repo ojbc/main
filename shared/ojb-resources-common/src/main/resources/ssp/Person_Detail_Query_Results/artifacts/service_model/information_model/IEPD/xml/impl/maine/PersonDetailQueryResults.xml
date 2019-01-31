@@ -63,6 +63,11 @@
 			<pdq-res-ext:PersonNumberOfWarrants structures:metadata="M001">0</pdq-res-ext:PersonNumberOfWarrants>
 			<pdq-res-ext:PersonNumberOfRestrainingOrders structures:metadata="M001">0
 			</pdq-res-ext:PersonNumberOfRestrainingOrders>
+			<pdq-res-ext:PersonDetailQueryAllowedIndicator>true</pdq-res-ext:PersonDetailQueryAllowedIndicator>
+			<pdq-res-ext:PersonDetailInformationText>Mary Smith Page: 1 14 Smith St Medfield, MA Printed: 06/04/2012 Phone: 508-678-9990 Age:
+				77 DOB: 12/15/1934 Sex: F Glasses: None Race: W Ethnicity: Non-Hispanic Height: 502 - 34 Weight: 112 Eyes: Blue Hair: Red Or
+				Auburn SSN: 737459500 OLN: MA 737459500 Handed: Right
+			</pdq-res-ext:PersonDetailInformationText>
 		</nc:Person>
 		<j:DriverLicense structures:id="dl01">
 			<j:DriverLicenseIdentification>
@@ -107,11 +112,6 @@
 				<nc:DateTime>2018-07-09T09:46:00</nc:DateTime>
 			</nc:LastUpdatedDate>
 		</nc:Metadata>
-		<pdq-res-ext:PersonDetailQueryAllowedIndicator>true</pdq-res-ext:PersonDetailQueryAllowedIndicator>
-		<pdq-res-ext:PersonDetailInformationText>Mary Smith Page: 1 14 Smith St Medfield, MA Printed: 06/04/2012 Phone: 508-678-9990 Age:
-			77 DOB: 12/15/1934 Sex: F Glasses: None Race: W Ethnicity: Non-Hispanic Height: 502 - 34 Weight: 112 Eyes: Blue Hair: Red Or
-			Auburn SSN: 737459500 OLN: MA 737459500 Handed: Right
-		</pdq-res-ext:PersonDetailInformationText>
 		<pdq-res-ext:PersonDetailMessageText>Message Reply</pdq-res-ext:PersonDetailMessageText>
 		<nc:PersonCurrentLocationAssociation>
 			<nc:Person structures:ref="person01" />
