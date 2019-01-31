@@ -18,14 +18,18 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
-	elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="FederalSubscriptionCreationReportType">
@@ -65,6 +69,7 @@
 					<xsd:element ref="fed_subcr-ext:SubscriptionRelatedCaseIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:StateSubscriptionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:SubscribtionTransactionStatusText" minOccurs="0" />
+					<xsd:element ref="fed_subcr-ext:FingerprintIdentificationTransactionIdentification" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:SubscribingOrganization" minOccurs="0" />
 					<xsd:element ref="fed_subcr-ext:RecordForwardOrganization" minOccurs="0" />
 				</xsd:sequence>
@@ -207,8 +212,8 @@
 	</xsd:element>
 	<xsd:element name="RapBackInStateOptOutIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if Submitter wishes to opt-out of receiving notifications for events originating within the submitter’s own state;
-				false otherwise.
+			<xsd:documentation>True if Submitter wishes to opt-out of receiving notifications for events originating within the submitter’s
+				own state; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -284,7 +289,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryDocument" type="nc:DocumentType" substitutionGroup="fed_subcr-ext:CriminalHistoryDocumentRepresentation">
+	<xsd:element name="CriminalHistoryDocument" type="nc:DocumentType"
+		substitutionGroup="fed_subcr-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a rap sheet..
 			</xsd:documentation>
@@ -300,5 +306,12 @@
 			<xsd:documentation>The forwarding organization.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
+	<xsd:element name="FingerprintIdentificationTransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier for an event where a person was fingerprinted.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary"
+		xmime:expectedContentType="text/plain" />
 </xsd:schema>
