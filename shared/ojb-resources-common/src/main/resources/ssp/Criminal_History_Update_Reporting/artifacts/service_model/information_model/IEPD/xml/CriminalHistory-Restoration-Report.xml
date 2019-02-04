@@ -29,6 +29,10 @@
 			<chr-report-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</chr-report-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</chr-report-ext:CriminalHistoryRecordDocument>
+	<chr-report-ext:FingerprintIdentificationTransactionIdentification>
+		<nc:IdentificationID>FIT123456
+				</nc:IdentificationID>
+	</chr-report-ext:FingerprintIdentificationTransactionIdentification>
 	<nc:Person>
 		<chr-report-ext:RestorationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
