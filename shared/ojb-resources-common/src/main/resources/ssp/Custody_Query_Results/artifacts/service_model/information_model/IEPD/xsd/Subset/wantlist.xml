@@ -70,6 +70,7 @@
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EmployeeOccupationCategoryText"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:EntityOrganization" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:FullTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LanguageName" w:isReference="false" w:nillable="false"/>
@@ -84,6 +85,7 @@
   <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Metadata" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonAliasIdentityAssociation"
     w:isReference="false" w:nillable="false"/>
@@ -382,6 +384,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationSubUnit"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonIdentityAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="false"
