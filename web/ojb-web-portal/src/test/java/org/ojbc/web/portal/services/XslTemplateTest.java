@@ -326,7 +326,16 @@ public class XslTemplateTest {
     public void incidentSpillman() throws Exception {
         validatePersonSearchTransformation("xsl/incident-summary.xsl", "incidentSpillman.xml", "incidentSpillman.html");
     }
-  
+
+    /*
+    
+    @Test
+    public void personDetail() throws Exception {
+    	validatePersonSearchTransformation("xsl/personDetail.xsl", "personDetailResults.xml", "personDetailResults.html");
+    }
+
+	*/
+
     @Test
     public void subscriptionSearchResult() throws Exception {    	                
                     
