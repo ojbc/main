@@ -95,6 +95,10 @@
 		</nc:Organization>
 		<nc:Image structures:id="image01">
 			<nc:BinaryID>7374595022</nc:BinaryID>
+			<nc:BinaryCategoryText>M</nc:BinaryCategoryText>
+			<nc:Base64BinaryObject>MA==</nc:Base64BinaryObject>
+			<nc:BinaryDescriptionText>DigitalImage Description</nc:BinaryDescriptionText>
+			<nc:BinaryFormatText>image/jpeg</nc:BinaryFormatText>
 			<pdq-res-ext:ImageOwner>
 				<j:OrganizationAugmentation>
 					<j:OrganizationORIIdentification>
