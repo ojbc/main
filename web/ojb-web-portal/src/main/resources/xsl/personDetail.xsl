@@ -51,6 +51,21 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="pdq-res-ext:PersonDetailReport" mode="personDetailTab">
+		<table>
+			<tr>
+				<xsl:for-each
+					select="nc:Image[@structures:id=../nc:Person/nc:PersonDigitalImage/@structures:ref]/nc:BinaryBase64Object">
+					<td style="vertical-align: top;">
+						<xsl:element name="img">
+							<xsl:attribute name="id">imageHolder</xsl:attribute>
+							<xsl:attribute name="style">max-width: 180px;max-height: 250px;</xsl:attribute>
+							<xsl:attribute name="src">data:image/jpeg;base64,<xsl:value-of
+								select="." /></xsl:attribute>
+						</xsl:element>
+					</td>
+				</xsl:for-each>
+			</tr>
+		</table>
 		<table class="detailsTable">
 			<tr>
 				<td colspan="8" class="detailsFullName">
