@@ -20,7 +20,6 @@
 <wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:pdq-res-doc="http://ojbc.org/IEPD/Exchange/PersonDetailQueryResults/1.0"
-	xmlns:pdiq-res-doc="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryResults/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/Person_Detail_Query_Results_Service/1.0"
 	targetNamespace="http://ojbc.org/Services/WSDL/Person_Detail_Query_Results_Service/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
@@ -30,22 +29,14 @@
 		<xsd:schema>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonDetailQueryResults/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/PersonDetailQueryResults.xsd" />
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/PersonDetailImageQueryResults/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/PersonDetailImageQueryResults.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Person-Detail-Query-Results">
 		<wsdl:part name="Person-Detail-Query-Results" element="pdq-res-doc:PersonDetailQueryResults" />
 	</wsdl:message>
-	<wsdl:message name="Person-Detail-Image-Query-Results">
-		<wsdl:part name="Person-Detail-Image-Query-Results" element="pdiq-res-doc:PersonDetailImageQueryResults" />
-	</wsdl:message>
 	<wsdl:portType name="Person-Detail-Query-Results-Service">
 		<wsdl:operation name="SubmitPersonDetailQueryResults">
 			<wsdl:input name="Person-Detail-Query-Results" message="tns:Person-Detail-Query-Results" />
-		</wsdl:operation>
-		<wsdl:operation name="SubmitPersonDetailImageQueryResults">
-			<wsdl:input name="Person-Detail-Image-Query-Results" message="tns:Person-Detail-Image-Query-Results" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Person-Detail-Query-Results-Service_SecureSOAPBinding"
@@ -58,12 +49,6 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="SubmitPersonDetailImageQueryResults">
-			<soap:operation soapAction="SubmitPersonDetailImageQueryResults" style="document" />
-			<wsdl:input name="Person-Detail-Image-Query-Results">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:binding name="Person-Detail-Query-Results-ServiceSOAPBinding" type="tns:Person-Detail-Query-Results-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
@@ -71,12 +56,6 @@
 		<wsdl:operation name="SubmitPersonDetailQueryResults">
 			<soap:operation soapAction="SubmitPersonDetailQueryResults" style="document" />
 			<wsdl:input name="Person-Detail-Query-Results">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="SubmitPersonDetailImageQueryResults">
-			<soap:operation soapAction="SubmitPersonDetailImageQueryResults" style="document" />
-			<wsdl:input name="Person-Detail-Image-Query-Results">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>

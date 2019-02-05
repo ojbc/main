@@ -29,6 +29,10 @@
 			<chiu-report-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</chiu-report-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</chiu-report-ext:CriminalHistoryRecordDocument>
+	<chiu-report-ext:FingerprintIdentificationTransactionIdentification>
+		<nc:IdentificationID>FIT123456
+				</nc:IdentificationID>
+	</chiu-report-ext:FingerprintIdentificationTransactionIdentification>
 	<nc:Person>
 		<chiu-report-ext:PreIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>

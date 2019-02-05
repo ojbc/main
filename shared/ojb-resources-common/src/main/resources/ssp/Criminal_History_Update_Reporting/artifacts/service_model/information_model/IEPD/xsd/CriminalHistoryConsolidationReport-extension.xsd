@@ -43,6 +43,7 @@
 				<xsd:sequence>
 					<xsd:element ref="chc-report-ext:CriminalHistoryReportJurisdictionRepresentation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="chc-report-ext:CriminalHistoryDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="chc-report-ext:FingerprintIdentificationTransactionIdentification" minOccurs="0" />
 					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -138,14 +139,19 @@
 	<xsd:element name="CriminalHistoryRecordDocument" type="nc:DocumentType"
 		substitutionGroup="chc-report-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a
-				rap sheet.
+			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a rap sheet.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationTransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier for an event where a person was fingerprinted.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
