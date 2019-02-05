@@ -34,6 +34,9 @@
 	<xsl:template match="/itl:NISTBiometricInformationExchangePackage">
 		<chr-report-doc:CriminalHistoryRestorationReport>
 			<xsl:apply-templates select="." mode="jurisdiction" />
+			<xsl:apply-templates
+				select="//ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('FINGERPRINT IDENTIFICATION TRANSACTION ID')]/ebts:UserDefinedElementText"
+				mode="fingerprintTransaction" />			
 			<xsl:apply-templates select="." mode="UCN" />
 		</chr-report-doc:CriminalHistoryRestorationReport>
 	</xsl:template>
@@ -59,4 +62,11 @@
 			<xsl:value-of select="normalize-space($jurisdictionCode)" />
 		</chr-report-ext:CriminalHistoryReportJurisdictionCode>
 	</xsl:template>
+	<xsl:template match="ebts:UserDefinedElementText" mode="fingerprintTransaction">
+		<chr-report-ext:FingerprintIdentificationTransactionIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
+		</chr-report-ext:FingerprintIdentificationTransactionIdentification>
+	</xsl:template>	
 </xsl:stylesheet>

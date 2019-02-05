@@ -22,6 +22,9 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
 	<chr-report-ext:CriminalHistoryReportJurisdictionCode>FBI</chr-report-ext:CriminalHistoryReportJurisdictionCode>
+	<chr-report-ext:FingerprintIdentificationTransactionIdentification>
+		<nc:IdentificationID>FIT123456</nc:IdentificationID>
+	</chr-report-ext:FingerprintIdentificationTransactionIdentification>	
 	<nc:Person>
 		<chr-report-ext:RestorationIdentifiers>
 			<j:PersonFBIIdentification>
