@@ -16,7 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,10 +39,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionEmail;
 import org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.w3c.dom.Document;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -94,5 +97,55 @@ public class TestExpiringSubscriptionsManager {
 		assertTrue(expiringSubscriptions.get(0).getMessageBody().startsWith("You have 2 Rap Back subscription"));
 		assertTrue(expiringSubscriptions.get(1).getMessageBody().startsWith("You have 1 Rap Back subscription"));
 		
+	}
+	
+	@Test
+	public void testReturnExpiredSubscriptionsToUnsubscribe() throws Exception
+	{
+		loadTestData("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet_expired.xml");
+		
+		List<Document> expiringSubscriptionsToUnsubscribe = expiringSubscriptionsManager.returnExpiredSubscriptionsToUnsubscribe();
+		
+		log.info(expiringSubscriptionsToUnsubscribe);
+		
+		assertEquals(3, expiringSubscriptionsToUnsubscribe.size());
+		
+//<b-2:Unsubscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+//      xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+//      xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+//      xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0">
+//<unsubmsg-exch:UnsubscriptionMessage>
+//<submsg-ext:SubscriptionIdentification>
+//<nc:IdentificationID>1</nc:IdentificationID>
+//</submsg-ext:SubscriptionIdentification>
+//<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+//</unsubmsg-exch:UnsubscriptionMessage>
+//<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</b-2:TopicExpression>
+//</b-2:Unsubscribe>
+		boolean assertionsRun = false;
+		
+		for (Document doc: expiringSubscriptionsToUnsubscribe)
+		{
+			String subscriptionIdentificationId = XmlUtils.xPathStringSearch(doc, 
+					"//submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+			
+			
+			
+			if (subscriptionIdentificationId.equals("1"))
+			{
+				assertEquals("1", subscriptionIdentificationId);	
+				
+				String topic = XmlUtils.xPathStringSearch(doc, "//b-2:TopicExpression[@Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete']");  
+				assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);
+				
+				String subscriptionReasonCode = XmlUtils.xPathStringSearch(doc, 
+						"//submsg-ext:CriminalSubscriptionReasonCode");
+				assertEquals("CI", subscriptionReasonCode);
+				
+				assertionsRun = true;
+			}
+		}	
+		
+		assertTrue(assertionsRun);
 	}
 }
