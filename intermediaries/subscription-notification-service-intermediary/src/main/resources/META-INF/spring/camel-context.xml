@@ -389,6 +389,9 @@
 			<camel:choice>
 				<camel:when>
 					<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+					
+					<camel:log message="Subscription has FBI subscription, sending cancellation message"/>
+					
 					<camel:wireTap uri="direct:processFbiUnsubscription"/>
 				</camel:when>
 			</camel:choice>

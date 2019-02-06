@@ -1125,6 +1125,11 @@ public class SubscriptionSearchQueryDAO {
 
         log.info("Found " + ret.size() + " Subscriptions");
         
+        if (subscriptionSearchRequest.isIncludeExpiredSubscriptions())
+        {
+        	return ret;
+        }
+        
         List<Subscription> resultsWithoutExpired = ret.stream()
         		.filter(Subscription::isNotExpired)
         		.collect(Collectors.toList()); 
