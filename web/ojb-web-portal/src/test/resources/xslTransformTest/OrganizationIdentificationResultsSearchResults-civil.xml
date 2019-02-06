@@ -76,9 +76,9 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:SubscriptionIdentification>
 		</oirs-res-ext:Subscription>
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
-		<oirs-res-ext:LatestSubsequentResultDate>
+		<oirs-res-ext:LatestNotificationDate>
 			<nc:Date>2016-01-01</nc:Date>
-		</oirs-res-ext:LatestSubsequentResultDate>
+		</oirs-res-ext:LatestNotificationDate>
 		<oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
 		<oirs-res-ext:IdentificationReportedDate>
 			<nc:Date>2016-01-01</nc:Date>

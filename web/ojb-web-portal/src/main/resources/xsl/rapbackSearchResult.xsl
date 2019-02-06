@@ -71,7 +71,7 @@
 						<th>START DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>
-						<th>SUBSEQUENT RESULT</th>
+						<th>NOTIFICATION DATE</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -111,7 +111,7 @@
 				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 			</td>
 			<td width="60px">
-				<xsl:apply-templates select="oirsr-ext:LatestSubsequentResultDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:apply-templates select="oirsr-ext:LatestNotificationDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td align="right" style="white-space: nowrap;">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
