@@ -70,6 +70,7 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 					<xsd:element ref="oirs-res-ext:SubscriptionReceivedFBINotificationIndicator" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:LatestSubsequentResultDate" minOccurs="0"/>
+					<xsd:element ref="oirs-res-ext:LatestNotificationDate" minOccurs="0"/>					
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReportedDate" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SourceSystemNameText" minOccurs="0"/>
@@ -283,6 +284,11 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 			<xsd:documentation>The date of latest subsequent result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="LatestNotificationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of latest notification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="CivilIdentificationReasonCode" type="oirs-res-ext:CivilIdentificationReasonCodeType" substitutionGroup="oirs-res-ext:IdentificationReasonRepresentation"/>
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
 		<xsd:simpleContent>
