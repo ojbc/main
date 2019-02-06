@@ -44,7 +44,8 @@ public class IdentificationTransaction implements Serializable{
 	private Subscription subscription;
 	private Integer subscriptionId;
 	
-	private DateTime latestSubsequentResultDate;
+	private DateTime latestNotificationDate;
+	private Boolean havingSubsequentResults;
 	private String fbiSubscriptionId; 
 
 	public IdentificationTransaction(){
@@ -140,9 +141,13 @@ public class IdentificationTransaction implements Serializable{
 	}
 
 	public Boolean getHavingSubsequentResults() {
-		return this.latestSubsequentResultDate != null;
+		return this.havingSubsequentResults;
 	}
 
+	public void setHavingSubsequentResults(Boolean havingSubsequentResults) {
+		this.havingSubsequentResults = havingSubsequentResults;
+	}
+	
 	public DateTime getAvailableForSubscriptionStartDate() {
 		return availableForSubscriptionStartDate;
 	}
@@ -160,12 +165,12 @@ public class IdentificationTransaction implements Serializable{
 		this.ownerAgencyName = ownerAgencyName;
 	}
 
-	public DateTime getLatestSubsequentResultDate() {
-		return latestSubsequentResultDate;
+	public DateTime getLatestNotificationDate() {
+		return latestNotificationDate;
 	}
-
-	public void setLatestSubsequentResultDate(DateTime latestSubsequentResultDate) {
-		this.latestSubsequentResultDate = latestSubsequentResultDate;
+	
+	public void setLatestNotificationDate(DateTime latestNotificationDate) {
+		this.latestNotificationDate = latestNotificationDate;
 	}
 
 	public DateTime getCreationTimestamp() {
