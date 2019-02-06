@@ -26,6 +26,7 @@
 	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+    xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -252,6 +253,29 @@
 				<!-- Don't enable emails until we get the subscription owner field saved -->
 <!-- 				<to uri="smtpEndpoint" /> -->
 				<camel:log message="About to send email: ${body}"/>
+				
+			</camel:split>
+
+		</camel:route>
+		
+		<camel:route id="cancelExpiredInvalidSubscriptionsRoute" autoStartup="{{publishSubscribe.cancelExpiredInvalidSubscriptions}}">
+			<camel:from uri="quartz2://subscriptionNotification/cancelExpiredInvalidSubscriptionsTimer?cron={{publishSubscribe.unsubscribeExpiringSubscriptionsCronTimer}}"/>			
+			
+			<camel:log message="Unsubscribe for expired/invalid subscriptions"/>
+			
+			<camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiredSubscriptionsToUnsubscribe"/>
+			
+			<camel:split>
+				<!-- The body is a list of unsubscriptions documents-->
+				<camel:simple>${body}</camel:simple>
+				
+				<camel:setHeader headerName="subscriptionId">
+					<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc20:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				
+				<camel:log message="Unsubscription expired or invalid subscription: ${in.headers.subscriptionId}"/>
+				
+				<camel:to uri="direct:processUnsubscription"/>
 				
 			</camel:split>
 
