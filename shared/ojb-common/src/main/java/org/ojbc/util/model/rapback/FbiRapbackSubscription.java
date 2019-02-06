@@ -41,6 +41,7 @@ public class FbiRapbackSubscription implements Serializable{
 	private String rapbackActivityNotificationFormatDescription; 
 	private String ucn;
 	private String eventIdentifier;
+	private String transactionNumber; 
 	private DateTime timestamp;
 	
 	public FbiRapbackSubscription() {
@@ -183,6 +184,14 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public void setEventIdentifier(String eventIdentifier) {
 		this.eventIdentifier = eventIdentifier;
+	}
+
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
 	}
 
 }

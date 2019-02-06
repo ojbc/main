@@ -48,7 +48,7 @@ public class SubscriptionNotificationReportingProcessor {
 	private FbiRapbackDao fbiRapbackDao;
 
 	@Transactional
-	public void processFbiNotificationReport(@Body Document report, @Header("operationName") String operationName, @Header("currentUcn") String currentUcn, @Header("newUcn") String newUcn) throws Exception
+	public void processFbiNotificationReport(@Body Document report, @Header("operationName") String operationName, @Header("currentUcn") String currentUcn, @Header("newUcn") String newUcn, @Header("transactionNumber") String transactionNumber) throws Exception
 	{
 		String ucn="";
 		String xpathToRapsheet = "";
@@ -58,7 +58,7 @@ public class SubscriptionNotificationReportingProcessor {
 			ucn=newUcn;
 			xpathToRapsheet="/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chc-report-ext:Base64BinaryObject";
 			
-			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+			retrieveAndSaveRapsheet(report, transactionNumber, ucn, xpathToRapsheet, false); 
 		}
 
 		if (RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_RESTORATION.equals(operationName)){
@@ -66,7 +66,7 @@ public class SubscriptionNotificationReportingProcessor {
 			ucn=currentUcn;
 			xpathToRapsheet="/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chr-report-ext:Base64BinaryObject";
 			
-			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+			retrieveAndSaveRapsheet(report, transactionNumber, ucn, xpathToRapsheet, false); 
 		}
 
 		if (RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_IDENTIFIER_UPDATE.equals(operationName)){
@@ -74,7 +74,7 @@ public class SubscriptionNotificationReportingProcessor {
 			ucn=newUcn;
 			xpathToRapsheet="/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryRecordDocument/nc30:DocumentBinary/chiu-report-ext:Base64BinaryObject";
 			
-			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+			retrieveAndSaveRapsheet(report, transactionNumber, ucn, xpathToRapsheet, false);
 		}
 
 		if (RapbackDataStoreAdapterConstants.REPORT_NEW_CRIMINAL_HISTORY_EVENT.equals(operationName)){
@@ -84,7 +84,7 @@ public class SubscriptionNotificationReportingProcessor {
 			
 			log.info("Saving and retrieving rap sheet for criminal history record: " + ucn);
 			
-			retrieveAndSaveRapsheet(report, ucn, xpathToRapsheet);
+			retrieveAndSaveRapsheet(report, transactionNumber, ucn, xpathToRapsheet, true);
 		}
 
 	}
@@ -107,12 +107,11 @@ public class SubscriptionNotificationReportingProcessor {
 	private void processFbiSubscriptionUpdateReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildFbiSubscriptionFromUpdate(report);
 		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
-		
-		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
-				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getTransactionNumber(), fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject", false);
 	}
 
-	private void retrieveAndSaveRapsheet(Document report, String ucn, String xpathToRapsheet) {
+	private void retrieveAndSaveRapsheet(Document report, String transactionNumber, String ucn, String xpathToRapsheet, Boolean notificationIndicator) throws Exception {
 		byte[] binaryData = getBinaryData(report, xpathToRapsheet);
 		
 		if (binaryData == null || binaryData.length == 0) 
@@ -121,7 +120,9 @@ public class SubscriptionNotificationReportingProcessor {
 		SubsequentResults subsequentResults = new SubsequentResults(); 
 		subsequentResults.setRapSheet(binaryData);
 		subsequentResults.setUcn(ucn);
+		subsequentResults.setTransactionNumber(transactionNumber);
 		subsequentResults.setResultsSender(ResultSender.FBI);
+		subsequentResults.setNotificationIndicator(notificationIndicator);
 		fbiRapbackDao.saveSubsequentResults(subsequentResults);
 	}
 
@@ -129,8 +130,8 @@ public class SubscriptionNotificationReportingProcessor {
 	private void processFbiSubscriptionCreationReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildNewFbiSubscription(report);
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
-		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
-				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject");
+		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getTransactionNumber(), fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject", false);
 	}
 
 	private FbiRapbackSubscription buildFbiSubscriptionFromUpdate(
@@ -142,6 +143,9 @@ public class SubscriptionNotificationReportingProcessor {
 		
 		String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackActivityNotificationFormatCode");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat(rapBackActivityNotificationFormatCode);
+		
+		String transactionNumber = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:FingerprintIdentificationTransactionIdentification/nc30:IdentificationID");
+		fbiRapbackSubscription.setTransactionNumber(transactionNumber);
 		
 		String rapBackExpirationDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr_upd-ext:RapBackExpirationDate/nc30:Date");
 		fbiRapbackSubscription.setRapbackExpirationDate(OJBCDateUtils.parseLocalDate(rapBackExpirationDate));
@@ -178,6 +182,9 @@ public class SubscriptionNotificationReportingProcessor {
 		String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackActivityNotificationFormatCode");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat(rapBackActivityNotificationFormatCode);
 		
+		String transactionNumber = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:FingerprintIdentificationTransactionIdentification/nc30:IdentificationID");
+		fbiRapbackSubscription.setTransactionNumber(transactionNumber);
+
 		String rapBackCategoryCode = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackCategoryCode");
 		fbiRapbackSubscription.setRapbackCategory(rapBackCategoryCode);
 		

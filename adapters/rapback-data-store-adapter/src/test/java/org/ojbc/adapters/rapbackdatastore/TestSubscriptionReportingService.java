@@ -60,6 +60,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
         "classpath:META-INF/spring/subscription-management-routes.xml"
       })
+@DirtiesContext
 public class TestSubscriptionReportingService {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );
@@ -139,6 +140,7 @@ public class TestSubscriptionReportingService {
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResultsByUcn("1234567898");
 		assertEquals(1, subsequentResults.size());
 		assertEquals("This is a criminal history", new String(subsequentResults.get(0).getRapSheet()));
+		assertEquals("000001820140729014008339998", subsequentResults.get(0).getTransactionNumber());
 		log.info("Rap Sheet: " + new String(subsequentResults.get(0).getRapSheet()));
 		
     	Exchange fbiSubscriptionUpdateExchange = MessageUtils.createSenderExchange(context, 
@@ -174,6 +176,8 @@ public class TestSubscriptionReportingService {
 		assertEquals(2, subsequentResultsAfterUpdate.size());
 		log.info("Rap Sheet 2: " + new String(subsequentResultsAfterUpdate.get(1).getRapSheet()));
 		assertEquals("This is a criminal history", new String(subsequentResultsAfterUpdate.get(1).getRapSheet()));
+		assertEquals("000001820140729014008339998", subsequentResultsAfterUpdate.get(0).getTransactionNumber());
+
 	}
 	
 }

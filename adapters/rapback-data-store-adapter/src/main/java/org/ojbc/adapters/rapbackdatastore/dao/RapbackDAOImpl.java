@@ -533,7 +533,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
-				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.ucn = s.ucn or subsq.civil_sid=s.civil_sid) as latestSubsequentResultDate "
+				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.transaction_number = t.transaction_number) as latestSubsequentResultDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
@@ -1021,9 +1021,11 @@ public class RapbackDAOImpl implements RapbackDAO {
 				throws SQLException {
 			SubsequentResults subsequentResult = new SubsequentResults();
 			subsequentResult.setId(rs.getLong("subsequent_result_id"));
+			subsequentResult.setTransactionNumber(rs.getString("transaction_number"));
 			subsequentResult.setUcn(rs.getString("ucn"));
 			subsequentResult.setCivilSid(rs.getString("civil_sid"));
 			subsequentResult.setRapSheet(ZipUtils.unzip(rs.getBytes("rap_sheet")));
+			subsequentResult.setNotificationIndicator(rs.getBoolean("notification_indicator"));
 			subsequentResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
 			return subsequentResult;
 		}

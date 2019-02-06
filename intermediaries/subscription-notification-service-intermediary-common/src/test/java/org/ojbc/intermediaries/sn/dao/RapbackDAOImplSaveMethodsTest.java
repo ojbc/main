@@ -64,9 +64,11 @@ public class RapbackDAOImplSaveMethodsTest {
 	public void testSaveSubsequentResults() throws Exception {
 		
 		SubsequentResults subsequentResults = new SubsequentResults();
+		subsequentResults.setTransactionNumber("000001820140729014008339995");
 		subsequentResults.setUcn("9222201");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
 		subsequentResults.setResultsSender(ResultSender.FBI);
+		subsequentResults.setNotificationIndicator(false);
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
@@ -75,6 +77,8 @@ public class RapbackDAOImplSaveMethodsTest {
 		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = " + pkId.toString());
 		assertTrue(rs.next());
 		assertEquals("9222201", rs.getString("ucn"));
+		assertEquals("000001820140729014008339995", rs.getString("transaction_number"));
+		assertEquals(Boolean.FALSE, rs.getBoolean("notification_indicator"));
 		
 		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
 		log.info("Rap sheet content: " + rapsheetContent);
