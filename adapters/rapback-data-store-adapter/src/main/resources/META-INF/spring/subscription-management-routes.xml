@@ -33,6 +33,7 @@
 	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
 	xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
@@ -88,6 +89,9 @@
 				</camel:setHeader>
 				<camel:setHeader headerName="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="transactionNumber">
+					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
 				<camel:filter>
@@ -177,6 +181,9 @@
 				<camel:setHeader headerName="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
+				<camel:setHeader headerName="transactionNumber">
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
 				
 				<camel:filter>
 					<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
@@ -200,6 +207,9 @@
 					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/nc:Person/chr-report-ext:RestorationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
+				<camel:setHeader headerName="transactionNumber">
+					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
 				<camel:setHeader headerName="consolidationType">
 					<constant>criminalHistoryRestorationReport</constant>
 				</camel:setHeader>		
@@ -217,6 +227,10 @@
 					<camel:xpath resultType="java.lang.String">/chr-doc:CriminalHistoryReport/nc:Person/j51:PersonAugmentation/j51:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
+				<camel:setHeader headerName="transactionNumber">
+					<camel:xpath resultType="java.lang.String">/chr-doc:CriminalHistoryReport/chr-ext:TransactionDescriptiveRecord/chr-ext:RapBackSubscription/chr-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				
 				<log message="Saving Subsequent Results for Criminal History Update"/>
 					
 				<camel:to uri="bean:subscriptionNotificationReportingProcessor?method=processFbiNotificationReport"/>	
@@ -226,6 +240,7 @@
 			
 			<camel:log message="Current SID: ${in.headers.currentSid}, New SID:  ${in.headers.newSid}"/>
 			<camel:log message="Current UCN ${in.headers.currentUcn}, New UCN:  ${in.headers.newUcn}"/>
+			<camel:log message="Transaction Number ${in.headers.transactionNumber}"/>
 			<camel:log message="Consolidation Type ${in.headers.consolidationType}, Consolidation Jurisdiction:  ${in.headers.consolidationJurisdiction}, fingerprint purpose: ${in.headers.fingerprintPurpose}"/>
 			
 			<camel:filter>
@@ -258,9 +273,7 @@
 				<!-- Save subsequent results for only consolidations and restorations, not expungements -->
 				<camel:filter>
 					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' or ${in.headers.consolidationType} == 'criminalHistoryRestorationReport' or ${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport'</camel:simple>
-				
 					<log message="Saving Subsequent Results"/>
-					
 					<camel:to uri="bean:subscriptionNotificationReportingProcessor?method=processFbiNotificationReport"/>
 					
 				</camel:filter>

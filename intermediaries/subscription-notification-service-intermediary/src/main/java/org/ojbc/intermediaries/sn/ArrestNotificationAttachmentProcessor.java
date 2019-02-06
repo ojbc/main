@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
@@ -59,13 +60,17 @@ public class ArrestNotificationAttachmentProcessor {
 		
 		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person[@s:id = ../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]"
 				+ "/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-		List<String> fbiIds = rapbackDao.getFbiIds(civilSid);
 		
-		if (fbiIds.size() > 0){
-			for (String fbiId : fbiIds ){
-				subsequentResult.setUcn(fbiId);
-				rapbackDao.saveSubsequentResults(subsequentResult);
-			}
+		subsequentResult.setCivilSid(civilSid);
+
+		String fbiSubscriptionId = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:RelatedFBISubscription/notfm-ext:RecordRapBackSubscriptionIdentification/nc:IdentificationID");
+		String ucn = rapbackDao.getUcnByFbiSubscritionId(fbiSubscriptionId);
+		subsequentResult.setUcn(ucn);
+		String transactionNumber = rapbackDao.getTransactionNumberByFbiSubscriptionId(fbiSubscriptionId);
+		if (StringUtils.isNotBlank(transactionNumber)){
+			subsequentResult.setTransactionNumber(transactionNumber);
+			subsequentResult.setNotificationIndicator(true);
+			rapbackDao.saveSubsequentResults(subsequentResult);
 		}
 		else{
 			log.info("No valid FBI subscription found for the civil SID, the arrest notification attachment is not persisted");
@@ -78,20 +83,32 @@ public class ArrestNotificationAttachmentProcessor {
 		
 		if (emailNotifications != null && emailNotifications.size() > 0)
 		{
-			Document notificationReport = emailNotifications.get(0).getNotificationRequest().getRequestDocument();
-			
-			Node notificationMessageNode = XmlUtils.xPathNodeSearch(notificationReport, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
-			
-			SubsequentResults subsequentResult = new SubsequentResults(); 
-			subsequentResult.setRapSheet(Base64.decodeBase64(baseb4BinaryData));
-			subsequentResult.setResultsSender(ResultSender.State);
-			
-			String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-			
-			subsequentResult.setCivilSid(civilSid);
-			
-			rapbackDao.saveSubsequentResults(subsequentResult);
+			for(EmailNotification emailNotification: emailNotifications){
+				
+				SubsequentResults subsequentResult = new SubsequentResults(); 
+				subsequentResult.setRapSheet(Base64.decodeBase64(baseb4BinaryData));
+				subsequentResult.setResultsSender(ResultSender.State);
+				subsequentResult.setNotificationIndicator(true);
+				subsequentResult.setTransactionNumber(getTransactionNumber(emailNotification));
+				subsequentResult.setCivilSid(getCivilSid(emailNotification));
+				
+				rapbackDao.saveSubsequentResults(subsequentResult);
+			}
 		}
+	}
+
+	private String getTransactionNumber(EmailNotification emailNotification) {
+		long stateSubscriptionId = emailNotification.getSubscription().getId();
+		String transactionNumber = rapbackDao.getTransactionNumberBySubscriptionId(stateSubscriptionId);
+		return transactionNumber;
+	}
+
+	private String getCivilSid(EmailNotification emailNotification)
+			throws Exception {
+		Document notificationReport = emailNotification.getNotificationRequest().getRequestDocument();
+		Node notificationMessageNode = XmlUtils.xPathNodeSearch(notificationReport, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
+		String civilSid = XmlUtils.xPathStringSearch(notificationMessageNode, "jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		return civilSid;
 	}
 	
 }

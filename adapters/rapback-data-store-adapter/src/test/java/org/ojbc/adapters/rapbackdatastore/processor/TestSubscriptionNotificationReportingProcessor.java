@@ -90,10 +90,11 @@ public class TestSubscriptionNotificationReportingProcessor {
     	String operationName=RapbackDataStoreAdapterConstants.REPORT_CRIMINAL_HISTORY_CONSOLIDATION;
     	String currentUcn="";
     	String newUcn="9222202";
+    	String transactionNumber = "000001820140729014008339995";
     	
     	Document report = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Consolidation-Report.xml"));
     	
-    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn);
+    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn, transactionNumber);
     	
     	List<SubsequentResults> subsequentResults = rapbackDAOImpl.getSubsequentResultsByUcn("9222202");
     	assertEquals(1, subsequentResults.size());
@@ -104,7 +105,7 @@ public class TestSubscriptionNotificationReportingProcessor {
     	
     	report = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-IdentifierUpdate-Report.xml"));
     	
-    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn);
+    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn, transactionNumber);
 
     	subsequentResults = rapbackDAOImpl.getSubsequentResultsByUcn("FBI2095607");
     	assertEquals(1, subsequentResults.size());
@@ -115,7 +116,7 @@ public class TestSubscriptionNotificationReportingProcessor {
     	
     	report = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Restoration-Report.xml"));
     	
-    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn);
+    	subscriptionNotificationReportingProcessor.processFbiNotificationReport(report, operationName, currentUcn, newUcn, transactionNumber);
     	
     	subsequentResults = rapbackDAOImpl.getSubsequentResultsByUcn("FBI234567");
     	assertEquals(1, subsequentResults.size());
