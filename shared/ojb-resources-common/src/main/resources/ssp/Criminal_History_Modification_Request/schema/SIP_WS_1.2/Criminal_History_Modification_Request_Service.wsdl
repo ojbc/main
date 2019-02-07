@@ -22,6 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:aar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0"
 	xmlns:ahr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
+	xmlns:auhr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"	
 	xmlns:amr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 	xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
 	xmlns:daar-req-doc="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0"
@@ -39,6 +40,8 @@
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_add_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_hide_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_unhide_request.xsd" />				
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_modify_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
@@ -62,6 +65,9 @@
 	<wsdl:message name="Arrest-Hide-Request">
 		<wsdl:part element="ahr-req-doc:ArrestHideRequest" name="Arrest-Hide-Request" />
 	</wsdl:message>
+	<wsdl:message name="Arrest-Unhide-Request">
+		<wsdl:part element="auhr-req-doc:ArrestUnhideRequest" name="Arrest-Unhide-Request" />
+	</wsdl:message>	
 	<wsdl:message name="Expunge-Request">
 		<wsdl:part element="er-req-doc:ExpungeRequest" name="Expunge-Request" />
 	</wsdl:message>
@@ -88,6 +94,9 @@
 		<wsdl:operation name="HideArrestRequest">
 			<wsdl:input message="tns:Arrest-Hide-Request" name="Arrest-Hide-Request" />
 		</wsdl:operation>
+		<wsdl:operation name="UnhideArrestRequest">
+			<wsdl:input message="tns:Arrest-Unhide-Request" name="Arrest-Unhide-Request" />
+		</wsdl:operation>		
 		<wsdl:operation name="ExpungeRequest">
 			<wsdl:input message="tns:Expunge-Request" name="Expunge-Request" />
 		</wsdl:operation>
@@ -131,6 +140,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="UnhideArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/UnhideArrestRequest" />
+			<wsdl:input name="Arrest-Unhide-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />
@@ -193,6 +209,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="UnhideArrestRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/UnhideArrestRequest" />
+			<wsdl:input name="Arrest-Unhide-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />

@@ -234,6 +234,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestHiddenIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if arrest is hidden; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>		
 	<xsd:element name="ChargeDispositionCategoryCode" type="chsres-ext:ChargeDispositionCategoryCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
