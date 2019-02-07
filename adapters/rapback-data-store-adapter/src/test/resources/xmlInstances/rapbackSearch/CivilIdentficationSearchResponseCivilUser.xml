@@ -58,6 +58,7 @@
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-16</nc30:Date>
       </oirs-res-ext:IdentificationReportedDate>
+      <oirs-res-ext:AgencyCaseNumber>ID12345</oirs-res-ext:AgencyCaseNumber>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
