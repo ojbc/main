@@ -92,6 +92,7 @@
 		<oirs-res-ext:IdentificationReportedDate>
 			<nc:Date>2016-01-01</nc:Date>
 		</oirs-res-ext:IdentificationReportedDate>
+		<oirs-res-ext:AgencyCaseNumber>AC4567</oirs-res-ext:AgencyCaseNumber>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>123456</nc:IdentificationID>
@@ -128,6 +129,7 @@
 		<oirs-res-ext:IdentificationReportedDate>
 			<nc:Date>2016-01-01</nc:Date>
 		</oirs-res-ext:IdentificationReportedDate>
+		<oirs-res-ext:AgencyCaseNumber>AC4567</oirs-res-ext:AgencyCaseNumber>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>9876543</nc:IdentificationID>
@@ -161,6 +163,7 @@
 		<oirs-res-ext:SubscriptionReceivedFBINotificationIndicator>true</oirs-res-ext:SubscriptionReceivedFBINotificationIndicator>
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
 		<oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
+		<oirs-res-ext:AgencyCaseNumber>AC4567</oirs-res-ext:AgencyCaseNumber>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>9876543</nc:IdentificationID>
@@ -171,9 +174,6 @@
 		<srm:TotalAuthorizedSearchResultsQuantity>46</srm:TotalAuthorizedSearchResultsQuantity>
 	</srm:SearchResultsMetadata>
 	<nc:EntityOrganization structures:id="ORG1">
-		<nc:OrganizationIdentification>
-			<nc:IdentificationID>ID123456</nc:IdentificationID>
-		</nc:OrganizationIdentification>
 		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
