@@ -231,6 +231,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestUnhideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is unhidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an arrest record is hidden; false otherwise.
