@@ -69,6 +69,7 @@
 			<chsres-ext:ArrestHideDate>
 				<nc:Date>2018-06-02</nc:Date>
 			</chsres-ext:ArrestHideDate>
+			<chsres-ext:IncludeHiddenArrestIndicator>false</chsres-ext:IncludeHiddenArrestIndicator>			
 		</j:Arrest>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
