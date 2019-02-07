@@ -39,6 +39,7 @@
 		</nc:ActivityDate>
 		<j:ArrestSubject structures:ref="Subject_01">
 		</j:ArrestSubject>
+		<chsreq-ext:IncludeHiddenArrestIndicator>false</chsreq-ext:IncludeHiddenArrestIndicator>
 	</j:Arrest>
 	<j:Subject structures:id="Subject_01">
 		<nc:RoleOfPerson structures:ref="Person_01" />

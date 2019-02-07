@@ -27,5 +27,6 @@
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>A34567890</nc:IdentificationID>
 		</nc:ActivityIdentification>
+		<chsreq-ext:IncludeHiddenArrestIndicator>false</chsreq-ext:IncludeHiddenArrestIndicator>
 	</j:Arrest>
 </adsreq-doc:ArrestDetailSearchRequest>
