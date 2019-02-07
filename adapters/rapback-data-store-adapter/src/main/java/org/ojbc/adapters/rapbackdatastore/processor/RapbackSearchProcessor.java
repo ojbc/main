@@ -384,6 +384,8 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendDateElement(identificationTransaction.getCreationTimestamp(), 
 				organizationIdentificationResultsSearchResultElement, 
 				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		XmlUtils.appendTextElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "AgencyCaseNumber", identificationTransaction.getOwnerProgramOca());
 		appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
  
 		Element systemIdentifierElement = XmlUtils.appendElement(
