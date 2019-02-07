@@ -718,7 +718,10 @@ public class RapbackController {
 						+ "/nc30:IdentificationID='" + transactionNumber + "']");
 		Node identifiedPerson = XmlUtils.xPathNodeSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentifiedPerson");
 		Subscription subscription = new Subscription(); 
-		subscription.setCaseId(transactionNumber);
+		subscription.setTransactionNumber(transactionNumber);
+		
+		String ownerProgramOca = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:AgencyCaseNumber");
+		subscription.setCaseId(ownerProgramOca);
 		
 		DateTime dob = XmlUtils.parseXmlDate(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonBirthDate/nc30:Date"));
 		subscription.setDateOfBirth(dob.toDate());
