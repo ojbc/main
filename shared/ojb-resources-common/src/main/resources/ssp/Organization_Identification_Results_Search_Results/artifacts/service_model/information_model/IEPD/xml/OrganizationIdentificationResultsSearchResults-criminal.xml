@@ -17,20 +17,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<oirs-res-doc:OrganizationIdentificationResultsSearchResults 
-xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0" 
-xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
-xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
-xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
-xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset/niem/domains/jxdm/5.0/jxdm.xsd http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults
+	xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset/niem/domains/jxdm/5.0/jxdm.xsd http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0 ../xsd/exchange_schema.xsd ">
 	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 		<oirs-res-ext:IdentifiedPerson>
 			<nc:PersonBirthDate>
@@ -46,7 +43,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
+					</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
@@ -55,7 +53,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Archived</oirs-res-ext:IdentificationResultStatusCode>
-		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1"
+			xsi:nil="true" />
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
 		<oirs-res-ext:CriminalIdentificationReasonCode>CAR</oirs-res-ext:CriminalIdentificationReasonCode>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
@@ -63,7 +62,6 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<nc:IdentificationID>123456</nc:IdentificationID>
 			<nc:SystemName>RapbackDataStore</nc:SystemName>
 		</intel:SystemIdentification>
-		
 	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 		<oirs-res-ext:IdentifiedPerson>
@@ -77,7 +75,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A9000000</nc:IdentificationID>
-					<oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
+					</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
@@ -86,7 +85,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
-		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1"
+			xsi:nil="true" />
 		<oirs-res-ext:CriminalIdentificationReasonCode>CAR</oirs-res-ext:CriminalIdentificationReasonCode>
 		<oirs-res-ext:IdentificationReportedDate>
 			<nc:Date>2016-01-01</nc:Date>
@@ -109,7 +109,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A81771818</nc:IdentificationID>
-					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
+					</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<!-- This is sometimes called the OTN -->
@@ -118,7 +119,8 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Archived</oirs-res-ext:IdentificationResultStatusCode>
-		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1"
+			xsi:nil="true" />
 		<oirs-res-ext:CriminalIdentificationReasonCode>SOR</oirs-res-ext:CriminalIdentificationReasonCode>
 		<oirs-res-ext:IdentificationReportedDate>
 			<nc:Date>2016-01-01</nc:Date>
@@ -130,6 +132,9 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 		</intel:SystemIdentification>
 	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID123456</nc:IdentificationID>
+		</nc:OrganizationIdentification>
 		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
@@ -138,7 +143,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 		</j:OrganizationAugmentation>
 	</nc:EntityOrganization>
 	<nc:ContactInformationAssociation>
-		<nc:ContactEntity structures:ref="ORG1"/>
+		<nc:ContactEntity structures:ref="ORG1" />
 		<nc:ContactInformation>
 			<nc:ContactEmailID>test@agency.org</nc:ContactEmailID>
 			<nc:ContactEmailID>test2@agency.org</nc:ContactEmailID>
