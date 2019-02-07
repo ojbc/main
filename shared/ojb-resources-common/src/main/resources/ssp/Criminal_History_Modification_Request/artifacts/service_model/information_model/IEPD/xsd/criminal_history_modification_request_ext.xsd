@@ -85,6 +85,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="ArrestUnhideRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an unhide arrest request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>	
 	<xsd:complexType name="DistrictAttorneyArrestReferralRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a district attorney charge referral request.</xsd:documentation>
@@ -219,12 +231,24 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestUnhideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date an arrest record is unhidden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ArrestHideIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an arrest record is hidden; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestUnhideIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an arrest record is to be un-hidden; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ChargeStatusCode" type="chm-req-ext:ChargeStatusCodeType"
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
@@ -257,7 +281,7 @@
 			<xsd:documentation>A code text for the severity level of a charge disposition.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>
+	</xsd:element>	
 	<xsd:element name="DispositionStatusCode" type="chm-req-ext:DispositionStatusCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
