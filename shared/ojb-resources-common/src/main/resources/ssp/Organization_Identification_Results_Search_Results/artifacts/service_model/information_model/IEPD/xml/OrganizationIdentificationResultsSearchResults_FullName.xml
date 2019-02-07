@@ -117,6 +117,9 @@
 		</intel:SystemIdentification>
 	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
 	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID123456</nc:IdentificationID>
+		</nc:OrganizationIdentification>
 		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
