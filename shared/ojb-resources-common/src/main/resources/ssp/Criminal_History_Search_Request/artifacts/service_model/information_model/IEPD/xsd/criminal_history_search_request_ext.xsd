@@ -21,7 +21,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
 		schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd" />
@@ -164,6 +164,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="IncludeHiddenArrestIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if hidden arrests are to be included in the search; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:complexType name="SearchQualifierCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="chsreq-ext:SearchQualifierCodeSimpleType">
