@@ -250,7 +250,7 @@
 			<chsres-ext:ArrestPrimarySystemIdentification>
 				<nc:IdentificationID>A3245667</nc:IdentificationID>
 			</chsres-ext:ArrestPrimarySystemIdentification>
-			<chsres-ext:IncludeHiddenArrestIndicator>false</chsres-ext:IncludeHiddenArrestIndicator>
+			<chsres-ext:ArrestHiddenIndicator>false</chsres-ext:ArrestHiddenIndicator>
 		</j:Arrest>
 		<j:ActivityObligationAssociation>
 			<nc:Activity structures:ref="Sentence_01" />

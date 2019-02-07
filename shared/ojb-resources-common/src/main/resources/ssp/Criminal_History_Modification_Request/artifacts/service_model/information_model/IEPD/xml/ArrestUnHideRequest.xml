@@ -28,9 +28,9 @@
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
-		<chm-req-ext:ArrestHideDate>
+		<chm-req-ext:ArrestUnhideDate>
 			<nc:Date>2018-07-12</nc:Date>
-		</chm-req-ext:ArrestHideDate>
+		</chm-req-ext:ArrestUnhideDate>
 		<chm-req-ext:ArrestUnhideIndicator>true</chm-req-ext:ArrestUnhideIndicator>
 	</j:Arrest>
 </auhr-req-doc:ArrestUnhideRequest>
