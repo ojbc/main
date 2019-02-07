@@ -74,8 +74,8 @@ public class Subscription implements Serializable {
 	//Category
 	private String subscriptionPurpose;
 	
-	//Agency case number
-	private String caseId;
+	//Agency case number, save OCA into this field
+	private String caseId;  
 
 	private String systemName;
 
@@ -100,6 +100,8 @@ public class Subscription implements Serializable {
 	private String ownerLastName;
 	private String agencyName;
 	private String ori;
+	
+	private String transactionNumber; 
 
 	public String getStateId() {
 		return stateId;
@@ -398,6 +400,14 @@ public class Subscription implements Serializable {
 
 	public void setAgencyName(String agencyName) {
 		this.agencyName = agencyName;
+	}
+
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
 	}
 
 }
