@@ -587,7 +587,7 @@ public class SubscriptionSearchQueryDAO {
     	{	
     		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
     		{	
-    			subscribeIdentificationTransaction(ret, request.getAgencyCaseNumber(), request.getEndDateString());
+    			subscribeIdentificationTransaction(ret, request.getTransactionNumber(), request.getEndDateString());
     		}	
     	}
     	
