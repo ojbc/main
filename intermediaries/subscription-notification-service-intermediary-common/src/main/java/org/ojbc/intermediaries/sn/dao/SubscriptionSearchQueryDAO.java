@@ -868,14 +868,7 @@ public class SubscriptionSearchQueryDAO {
     	
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
     }
-    
-    private void validateSubscription(Integer subscriptionId){
-    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
-    			+ "SET available_for_subscription_start_date = ? WHERE subscription_id = ? ";
-    	
-    	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
-    }
-    
+        
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 
         int returnCount;
