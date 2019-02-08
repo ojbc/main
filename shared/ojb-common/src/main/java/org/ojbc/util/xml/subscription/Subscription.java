@@ -102,6 +102,7 @@ public class Subscription implements Serializable {
 	private String ori;
 	
 	private String transactionNumber; 
+	private String ownerProgramOca; 
 
 	public String getStateId() {
 		return stateId;
@@ -408,6 +409,14 @@ public class Subscription implements Serializable {
 
 	public void setTransactionNumber(String transactionNumber) {
 		this.transactionNumber = transactionNumber;
+	}
+
+	public String getOwnerProgramOca() {
+		return ownerProgramOca;
+	}
+
+	public void setOwnerProgramOca(String ownerProgramOca) {
+		this.ownerProgramOca = ownerProgramOca;
 	}
 
 }

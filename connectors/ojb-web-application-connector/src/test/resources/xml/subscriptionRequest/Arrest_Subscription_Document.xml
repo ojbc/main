@@ -30,6 +30,16 @@
         <submsg-ext:SubscriptionRelatedCaseIdentification>
             <nc:IdentificationID>0123ABC</nc:IdentificationID>
         </submsg-ext:SubscriptionRelatedCaseIdentification>
+        <submsg-ext:SubscribingOrganization>
+            <nc:OrganizationIdentification>
+                <nc:IdentificationID>OCA012345</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+            <jxdm41:OrganizationAugmentation>
+                <jxdm41:OrganizationORIIdentification>
+                    <nc:IdentificationID>ORI012345</nc:IdentificationID>
+                </jxdm41:OrganizationORIIdentification>
+            </jxdm41:OrganizationAugmentation>
+        </submsg-ext:SubscribingOrganization>
         <submsg-ext:Subject>
             <nc:PersonBirthDate>
                 <nc:Date>1972-08-02</nc:Date>
