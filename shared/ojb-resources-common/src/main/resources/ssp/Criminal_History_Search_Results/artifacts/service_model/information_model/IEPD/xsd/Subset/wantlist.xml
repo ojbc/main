@@ -273,4 +273,5 @@
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xs:date" w:isRequested="true"/>
   <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:positiveInteger" w:isRequested="true"/>
 </w:WantList>

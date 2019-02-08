@@ -88,6 +88,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
 				</j:ChargeDisposition>
 				<j:ChargeDisposition structures:id="Dispo_02">
 					<nc:DispositionDate>
@@ -117,6 +118,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -203,6 +205,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
