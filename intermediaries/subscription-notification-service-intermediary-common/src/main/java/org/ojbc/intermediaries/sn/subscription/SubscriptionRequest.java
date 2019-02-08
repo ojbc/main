@@ -72,6 +72,7 @@ public abstract class SubscriptionRequest {
 	private String subscriptionOwnerLastName;
 	private String subscriptionOwnerOri;
 	private String ori;
+	private String transactionNumber; 
 	
 	public String getSubscriptionOwnerEmailAddress() {
 		return subscriptionOwnerEmailAddress;
@@ -162,6 +163,8 @@ public abstract class SubscriptionRequest {
 		setSubscriptionQualifier(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID"));
 		setSubscriptionSystemId(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
 		agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+		
+		transactionNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
 		ori = XmlUtils.xPathStringSearch(subscriptionMsg, 
 				"submsg-ext:SubscribingOrganization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
 		
@@ -315,6 +318,14 @@ public abstract class SubscriptionRequest {
 
 	public void setSubscriptionOwnerOri(String subscriptionOwnerOri) {
 		this.subscriptionOwnerOri = subscriptionOwnerOri;
+	}
+
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
 	}
 
 
