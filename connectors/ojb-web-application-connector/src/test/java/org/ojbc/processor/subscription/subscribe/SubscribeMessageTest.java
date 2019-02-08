@@ -114,6 +114,9 @@ public class SubscribeMessageTest {
 		subscription.setSystemId("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		
 		subscription.setTransactionNumber("Trans0123");
+		
+		subscription.setOri("ORI012345");
+		subscription.setOwnerProgramOca("OCA012345");
 		return subscription;
 	}
 

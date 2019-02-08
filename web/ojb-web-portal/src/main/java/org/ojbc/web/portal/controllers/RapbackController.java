@@ -722,6 +722,7 @@ public class RapbackController {
 		
 		String ownerProgramOca = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:AgencyCaseNumber");
 		subscription.setCaseId(ownerProgramOca);
+		subscription.setOwnerProgramOca(ownerProgramOca);
 		
 		DateTime dob = XmlUtils.parseXmlDate(XmlUtils.xPathStringSearch(identifiedPerson, "nc30:PersonBirthDate/nc30:Date"));
 		subscription.setDateOfBirth(dob.toDate());

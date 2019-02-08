@@ -203,10 +203,10 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
+		buildCaseIdElement(subMsgNode, subscription);
+
 		buildOrganizationOriElement(subMsgNode, subscription);
 		
-		buildCaseIdElement(subMsgNode, subscription);
-												
 		buildSubjectElement(subMsgNode,subscription);	
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
@@ -246,12 +246,19 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	private static void buildOrganizationOriElement(Element subMsgNode,
 			Subscription subscription) {
 		
-		if (StringUtils.isNotBlank(subscription.getOri())){
+		if (StringUtils.isNotBlank(subscription.getOri()) || StringUtils.isNotBlank(subscription.getOwnerProgramOca())){
 			Element subscribingOrganization = XmlUtils.appendElement(subMsgNode, NS_SUB_MSG_EXT, "SubscribingOrganization");
-			Element organizationAugmentation = XmlUtils.appendElement(subscribingOrganization, NS_JXDM_41, "OrganizationAugmentation");
-			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_41, "OrganizationORIIdentification");
-			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC, "IdentificationID");
-			identificationID.setTextContent(subscription.getOri());
+
+			if (StringUtils.isNotBlank(subscription.getOwnerProgramOca())){
+				Element organizationIdentification = XmlUtils.appendElement(subscribingOrganization, NS_NC, "OrganizationIdentification");
+				XmlUtils.appendTextElement(organizationIdentification, NS_NC, "IdentificationID", subscription.getOwnerProgramOca());
+			}
+			
+			if (StringUtils.isNotBlank(subscription.getOri())){
+				Element organizationAugmentation = XmlUtils.appendElement(subscribingOrganization, NS_JXDM_41, "OrganizationAugmentation");
+				Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_41, "OrganizationORIIdentification");
+				XmlUtils.appendTextElement(organizationORIIdentification, NS_NC, "IdentificationID", subscription.getOri());
+			}
 		}
 		
 	}
