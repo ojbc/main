@@ -63,6 +63,7 @@ public class SubscribeMessageTest {
 	}	
 	
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void subscribeMessageTest() throws Exception{
 		
@@ -76,7 +77,8 @@ public class SubscribeMessageTest {
 						
 		String sExpectedXmlSubDoc = XmlUtils.getRootNodeAsString("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml");				
 		sExpectedXmlSubDoc = sExpectedXmlSubDoc.replace("@SUB_QUAL_ID@", subQualId);
-						
+
+		XmlUtils.printNode(generatedSubscriptinDoc);
 		Diff diff = new Diff(sExpectedXmlSubDoc, sGeneratedSubscriptionDoc);		
 		DetailedDiff detailDiff = new DetailedDiff(diff);		
 		List<Difference> diffList = detailDiff.getAllDifferences();
@@ -111,6 +113,7 @@ public class SubscribeMessageTest {
 		subscription.setSubscriptionPurpose("CI");		
 		subscription.setSystemId("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB");
 		
+		subscription.setTransactionNumber("Trans0123");
 		return subscription;
 	}
 

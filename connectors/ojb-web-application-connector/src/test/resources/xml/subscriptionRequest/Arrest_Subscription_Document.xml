@@ -50,6 +50,9 @@
         <nc:ContactEmailID>testimap@locahost</nc:ContactEmailID>
         <nc:ContactEmailID>email@local.gov</nc:ContactEmailID>
         <submsg-ext:SystemName>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</submsg-ext:SystemName>
+		<submsg-ext:FingerprintIdentificationTransactionIdentification>
+			<nc:IdentificationID>Trans0123</nc:IdentificationID>
+		</submsg-ext:FingerprintIdentificationTransactionIdentification>
         <submsg-ext:SubscriptionQualifierIdentification>
             <nc:IdentificationID>@SUB_QUAL_ID@</nc:IdentificationID>
         </submsg-ext:SubscriptionQualifierIdentification>
