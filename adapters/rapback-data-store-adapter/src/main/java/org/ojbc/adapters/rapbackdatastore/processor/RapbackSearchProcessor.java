@@ -431,14 +431,17 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 			appendSubscriptionElement(
 					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
 		}
-		appendSubsequentResultsAvailableIndicator(
-				organizationIdentificationResultsSearchResultElement,
-				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
-		
-		appendDateElement(identificationTransaction.getLatestNotificationDate(), 
-				organizationIdentificationResultsSearchResultElement, 
-				"LatestNotificationDate", 
-				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+			appendSubsequentResultsAvailableIndicator(
+					organizationIdentificationResultsSearchResultElement,
+					identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+			
+		if (currentState == IdentificationTransactionState.Subscribed_State || 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI){
+			appendDateElement(identificationTransaction.getLatestNotificationDate(), 
+					organizationIdentificationResultsSearchResultElement, 
+					"LatestNotificationDate", 
+					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		}
 	}
 
 	private void appendIdentificationRequestingOrganization(
