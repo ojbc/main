@@ -85,6 +85,11 @@ public class ArrestNotificationAttachmentProcessor {
 		{
 			for(EmailNotification emailNotification: emailNotifications){
 				
+				if (StringUtils.isBlank(baseb4BinaryData))
+				{
+					continue;
+				}	
+				
 				SubsequentResults subsequentResult = new SubsequentResults(); 
 				subsequentResult.setRapSheet(Base64.decodeBase64(baseb4BinaryData));
 				subsequentResult.setResultsSender(ResultSender.State);

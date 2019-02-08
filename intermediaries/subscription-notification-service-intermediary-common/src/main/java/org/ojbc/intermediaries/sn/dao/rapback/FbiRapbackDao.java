@@ -336,8 +336,20 @@ public class FbiRapbackDao {
 	
 	public String getTransactionNumberBySubscriptionId(long stateSubscriptionId) {
 		final String sql ="SELECT t.TRANSACTION_NUMBER FROM identification_transaction t "
-				+ "WHERE SUBSCRIPTION_ID = ? "; 
-		return jdbcTemplate.queryForObject(sql, String.class, stateSubscriptionId);
+				+ "WHERE SUBSCRIPTION_ID = ? ";
+		
+		String transactionNumber = null;
+		
+		try
+		{
+			transactionNumber = jdbcTemplate.queryForObject(sql, String.class, stateSubscriptionId);
+		}
+		catch (Exception ex)
+		{
+			log.error("Transaction number not found for state subscription id: " + stateSubscriptionId);
+		}
+		
+		return transactionNumber;
 	}
 	
 	public String getTransactionNumberByFbiSubscriptionId(
