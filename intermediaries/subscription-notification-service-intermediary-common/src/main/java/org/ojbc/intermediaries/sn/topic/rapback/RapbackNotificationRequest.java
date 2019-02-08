@@ -41,6 +41,7 @@ public class RapbackNotificationRequest extends NotificationRequest {
 	private String SID;
 	private String UCN;
 	private List<RapbackTriggeringEvent> triggeringEvents;
+	private String attorneyGeneralIndicator;
 	
 	public RapbackNotificationRequest(Message message) throws Exception{
 	    this(message.getBody(Document.class));
@@ -56,6 +57,8 @@ public class RapbackNotificationRequest extends NotificationRequest {
 	    
 	    NodeList eventTypeNodeList = XmlUtils.xPathNodeListSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:TriggeringEvent");
 	
+	    attorneyGeneralIndicator = XmlUtils.xPathStringSearch(document,"/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:NotifyingActivityExtensions/hawaii-ext:AttorneyGeneralCaseDetails/hawaii-ext:AttorneyGeneralCaseIndicator");
+	    
 	    if (eventTypeNodeList != null)
 	    {
 			for(int i=0; i<eventTypeNodeList.getLength(); i++){
@@ -186,6 +189,14 @@ public class RapbackNotificationRequest extends NotificationRequest {
 
 	public void setTriggeringEvents(List<RapbackTriggeringEvent> triggeringEvents) {
 		this.triggeringEvents = triggeringEvents;
+	}
+
+	public String getAttorneyGeneralIndicator() {
+		return attorneyGeneralIndicator;
+	}
+
+	public void setAttorneyGeneralIndicator(String attorneyGeneralIndicator) {
+		this.attorneyGeneralIndicator = attorneyGeneralIndicator;
 	}
 
 
