@@ -183,6 +183,16 @@ public class RapbackController {
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 
+	@RequestMapping(value = "/rapbackDefaultSearch", method = RequestMethod.POST)
+	public String rapbackDefaultSearch(HttpServletRequest request, 
+	        Map<String, Object> model) {
+		
+		IdentificationResultSearchRequest rapbackSearchRequest = getDefaultCivilIdentificationSearchRequest();
+		model.put("rapbackSearchRequest", rapbackSearchRequest);
+		
+		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
+	}
+
 	private String performRapbackSearchAndReturnResult(HttpServletRequest request,
 			Map<String, Object> model,
 			IdentificationResultSearchRequest searchRequest) {
@@ -816,6 +826,16 @@ public class RapbackController {
 			model.put("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
 		}
 
+		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
+	}
+	
+	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.POST)
+	public String criminalIdentificationDefaultSearch(HttpServletRequest request, 
+			Map<String, Object> model) {
+		
+		IdentificationResultSearchRequest criminalIdentificationSearchRequest = getDefaultCriminallIdentificationSearchRequest();
+		model.put("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
+		
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
