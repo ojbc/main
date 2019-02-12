@@ -16,7 +16,7 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,8 +42,6 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.log4j.Logger;
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,6 +50,8 @@ import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -66,6 +66,7 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml"
         })
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class CamelContextTestRapbackNotifications {
 	
 	private static final Logger logger = Logger.getLogger(CamelContextTestRapbackNotifications.class);
