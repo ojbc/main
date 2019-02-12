@@ -257,6 +257,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
 	public static final String NS_JXDM_60 = "http://release.niem.gov/niem/domains/jxdm/6.0/";
+	public static final String NS_JXDM_61 = "http://release.niem.gov/niem/domains/jxdm/6.1/";
+	public static final String NS_PREFIX_JXDM_61 = "jxdm61";
 	
 	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
 	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
@@ -958,6 +960,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 			
 	public static final String NS_RECORD_REPLICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0";
 	public static final String NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT ="rr-resp-ext";
+	
+	public static final String NS_AUDIT_LOG_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/AuditLogSearchRequest/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC ="alreq-doc";
+
+	public static final String NS_AUDIT_LOG_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT ="alreq-ext";
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1223,12 +1231,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_SOAP_PREFIX, NS_SOAP);
 		uriToPrefixMap.put(NS_SOAP, NS_SOAP_PREFIX);
+		
 		prefixToUriMap.put(NS_PREFIX_JXDM_40, NS_JXDM_40);
 		uriToPrefixMap.put(NS_JXDM_40, NS_PREFIX_JXDM_40);
+		
 		prefixToUriMap.put(NS_PREFIX_JXDM_50, NS_JXDM_50);
 		uriToPrefixMap.put(NS_JXDM_50, NS_PREFIX_JXDM_50);
+		
 		prefixToUriMap.put(NS_PREFIX_JXDM_60, NS_JXDM_60);
 		uriToPrefixMap.put(NS_JXDM_60, NS_PREFIX_JXDM_60);
+
+		prefixToUriMap.put(NS_PREFIX_JXDM_61, NS_JXDM_61);
+		uriToPrefixMap.put(NS_JXDM_61, NS_PREFIX_JXDM_61);
+
 		prefixToUriMap.put(NS_PREFIX_JXDM_41, NS_JXDM_41);
 		uriToPrefixMap.put(NS_JXDM_41, NS_PREFIX_JXDM_41);
 		prefixToUriMap.put(NS_PREFIX_USPS_STATES, NS_USPS_STATES);
@@ -1895,6 +1910,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT, NS_RECORD_REPLICATION_RESPONSE_EXT);
 		uriToPrefixMap.put(NS_RECORD_REPLICATION_RESPONSE_EXT,NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT );
 		
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC, NS_AUDIT_LOG_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_DOC,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT, NS_AUDIT_LOG_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT );
+
 	}
 
 	@Override
