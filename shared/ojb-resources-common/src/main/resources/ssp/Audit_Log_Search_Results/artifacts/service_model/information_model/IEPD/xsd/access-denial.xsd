@@ -26,8 +26,7 @@
 		schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
 		schemaLocation="Subset/niem/utility/structures/4.0/structures.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0"
-		schemaLocation="audit_log_search_results_ext.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="Subset/niem/proxy/xsd/4.0/xs.xsd" />
 	<xsd:element name="InformationAccessDenial" type="iad:InformationAccessDenialType">
 		<xsd:annotation>
 			<xsd:documentation>An explanation of a persons inability to access requested information
@@ -55,13 +54,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InformationAccessDenyingSystemNameText" type="xsd:string">
+	<xsd:element name="InformationAccessDenyingSystemNameText" type="niem-xs:string">
 		<xsd:annotation>
 			<xsd:documentation>The name of the system that has denied access.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InformationAccessDenialReasonText" type="xsd:string">
+	<xsd:element name="InformationAccessDenialReasonText" type="niem-xs:string">
 		<xsd:annotation>
 			<xsd:documentation>An explanation about why access was denied.</xsd:documentation>
 		</xsd:annotation>
