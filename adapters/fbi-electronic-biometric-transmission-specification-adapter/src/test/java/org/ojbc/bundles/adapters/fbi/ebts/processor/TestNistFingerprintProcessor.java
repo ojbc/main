@@ -33,10 +33,12 @@ import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+@DirtiesContext
 public class TestNistFingerprintProcessor {
 
 	@Test

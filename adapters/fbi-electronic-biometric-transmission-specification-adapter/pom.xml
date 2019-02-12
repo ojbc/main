@@ -46,9 +46,7 @@
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-enhanced-audit-common-version>[1.0.2,)</ojb-enhanced-audit-common-version>
-		<xmlunit.version>1.5</xmlunit.version>
 		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
-		<junit-version>4.8.1</junit-version>
 		<java-version>1.8</java-version>
 		<saxon-version>9.5.1-5</saxon-version>
 		<wss4j-version>1.5.6</wss4j-version>
@@ -96,13 +94,6 @@
 			<artifactId>camel-http4</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
@@ -186,11 +177,6 @@
 			<artifactId>camel-test-spring3</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -50,6 +50,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -65,6 +66,7 @@ import org.w3c.dom.NodeList;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml"
         })
+@DirtiesContext
 public class CamelContextTest {
 	
 	private static final Logger logger = Logger.getLogger(CamelContextTest.class);
