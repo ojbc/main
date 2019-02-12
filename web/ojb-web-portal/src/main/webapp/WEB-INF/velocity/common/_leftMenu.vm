@@ -132,7 +132,7 @@
     		 
 		$('#rapbackLink').click(function() {	  
 	  				  				  					  					    			    	
-    		xhr = $.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
 				$('#portalContent').html(data);	
 			}).done(function(){
 				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
@@ -146,7 +146,7 @@
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationDefaultSearch')", function(data) {
     		
 				$('#portalContent').html(data);	
 											
