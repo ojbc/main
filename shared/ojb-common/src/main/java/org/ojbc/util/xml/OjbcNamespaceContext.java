@@ -435,6 +435,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_INTEL_40 = "http://release.niem.gov/niem/domains/intelligence/4.0/";
 	public static final String NS_PREFIX_INTEL_40 = "intel40";		
 
+	public static final String NS_INTEL_41 = "http://release.niem.gov/niem/domains/intelligence/4.1/";
+	public static final String NS_PREFIX_INTEL_41 = "intel41";		
+
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
 	public static final String NS_SEARCH_REQUEST_ERROR_REPORTING = "http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0";
@@ -983,7 +986,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_INTEL_40, NS_INTEL_40);
 		uriToPrefixMap.put(NS_INTEL_40, NS_PREFIX_INTEL_40);
-		
+
+		prefixToUriMap.put(NS_PREFIX_INTEL_41, NS_INTEL_41);
+		uriToPrefixMap.put(NS_INTEL_41, NS_PREFIX_INTEL_41);
+
 		prefixToUriMap.put(NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
 
