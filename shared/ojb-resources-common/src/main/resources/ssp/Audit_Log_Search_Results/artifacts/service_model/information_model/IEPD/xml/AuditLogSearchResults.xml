@@ -50,32 +50,30 @@
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<nc:SystemName>System 1</nc:SystemName>
 		</intel:SystemIdentification>
-		<alsres-ext:AuditRequestMessage>
-			<alreq-doc:AuditLogSearchRequest xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-				xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
-				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/"
-				xmlns:alreq-doc="http://ojbc.org/IEPD/Exchange/AuditLogSearchRequest/1.0"
-				xmlns:alreq-ext="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-				<nc:UserPersonName structures:id="UP01">
-					<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
-					<nc:PersonSurName>Farley</nc:PersonSurName>
-				</nc:UserPersonName>
-				<nc:Organization structures:id="ORG01">
-					<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>HI123456</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:Organization>
-				<nc:PersonOrganizationAssociation>
-					<nc:Person structures:ref="UP01" />
-					<nc:Organization structures:ref="ORG01" />
-				</nc:PersonOrganizationAssociation>
-				<alreq-ext:SourceSystemNameText>System 1</alreq-ext:SourceSystemNameText>
-			</alreq-doc:AuditLogSearchRequest>
-		</alsres-ext:AuditRequestMessage>
+		<alsres-ext:AuditedRequestMessage>
+			<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+				xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+				xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+				xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<j:Arrest>
+					<j:ArrestAgencyRecordIdentification>
+						<nc:IdentificationID>1004233</nc:IdentificationID>
+						<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+					</j:ArrestAgencyRecordIdentification>
+					<j:ArrestCharge>
+						<j:ChargeDisposition>
+							<nc:DispositionDate>
+								<nc:Date>2016-06-15</nc:Date>
+							</nc:DispositionDate>
+						</j:ChargeDisposition>
+						<j:ChargeIdentification>
+							<nc:IdentificationID>C123456</nc:IdentificationID>
+						</j:ChargeIdentification>
+					</j:ArrestCharge>
+				</j:Arrest>
+			</er-req-doc:ExpungeRequest>
+		</alsres-ext:AuditedRequestMessage>
 	</alsres-ext:AuditLogSearchResult>
 	<alsres-ext:AuditLogSearchResult>
 		<nc:UserPersonName structures:id="UP02">
@@ -103,31 +101,29 @@
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<nc:SystemName>System 1</nc:SystemName>
 		</intel:SystemIdentification>
-		<alsres-ext:AuditRequestMessage>
-			<alreq-doc:AuditLogSearchRequest xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-				xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
-				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/"
-				xmlns:alreq-doc="http://ojbc.org/IEPD/Exchange/AuditLogSearchRequest/1.0"
-				xmlns:alreq-ext="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-				<nc:UserPersonName structures:id="UP01">
-					<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
-					<nc:PersonSurName>Farley</nc:PersonSurName>
-				</nc:UserPersonName>
-				<nc:Organization structures:id="ORG01">
-					<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
-					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>HI123456</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
-					</j:OrganizationAugmentation>
-				</nc:Organization>
-				<nc:PersonOrganizationAssociation>
-					<nc:Person structures:ref="UP01" />
-					<nc:Organization structures:ref="ORG01" />
-				</nc:PersonOrganizationAssociation>
-				<alreq-ext:SourceSystemNameText>System 1</alreq-ext:SourceSystemNameText>
-			</alreq-doc:AuditLogSearchRequest>
-		</alsres-ext:AuditRequestMessage>
+		<alsres-ext:AuditedRequestMessage>
+			<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+				xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+				xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+				xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<j:Arrest>
+					<j:ArrestAgencyRecordIdentification>
+						<nc:IdentificationID>1004233</nc:IdentificationID>
+						<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+					</j:ArrestAgencyRecordIdentification>
+					<j:ArrestCharge>
+						<j:ChargeDisposition>
+							<nc:DispositionDate>
+								<nc:Date>2016-06-15</nc:Date>
+							</nc:DispositionDate>
+						</j:ChargeDisposition>
+						<j:ChargeIdentification>
+							<nc:IdentificationID>C123456</nc:IdentificationID>
+						</j:ChargeIdentification>
+					</j:ArrestCharge>
+				</j:Arrest>
+			</er-req-doc:ExpungeRequest>
+		</alsres-ext:AuditedRequestMessage>
 	</alsres-ext:AuditLogSearchResult>
 </alsres-doc:AuditLogSearchResults>
