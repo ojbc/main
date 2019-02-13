@@ -39,7 +39,7 @@
 		</nc:Organization>
 		<alsres-ext:UserActionPerformedText>Added Disposition</alsres-ext:UserActionPerformedText>
 		<alsres-ext:UserActionPerformedDate>
-			<nc:Date>2018-02-21</nc:Date>
+			<nc:DateTime>2018-05-30T09:00:00</nc:DateTime>
 		</alsres-ext:UserActionPerformedDate>
 		<nc:PersonOrganizationAssociation>
 			<nc:Person structures:ref="UP01" />
@@ -50,24 +50,6 @@
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<nc:SystemName>System 1</nc:SystemName>
 		</intel:SystemIdentification>
-		<alsres-ext:AuditLogRequestContent>
-			<nc:UserPersonName>
-				<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
-				<nc:PersonSurName>Farley</nc:PersonSurName>
-			</nc:UserPersonName>
-			<nc:Organization>
-				<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
-				<j:OrganizationAugmentation>
-					<j:OrganizationORIIdentification>
-						<nc:IdentificationID>HI123456</nc:IdentificationID>
-					</j:OrganizationORIIdentification>
-				</j:OrganizationAugmentation>
-			</nc:Organization>
-			<nc:PersonOrganizationAssociation>
-				<nc:Person structures:ref="UP01" />
-				<nc:Organization structures:ref="ORG01" />
-			</nc:PersonOrganizationAssociation>
-		</alsres-ext:AuditLogRequestContent>
 	</alsres-ext:AuditLogSearchResult>
 	<alsres-ext:AuditLogSearchResult>
 		<nc:UserPersonName structures:id="UP02">
@@ -84,7 +66,7 @@
 		</nc:Organization>
 		<alsres-ext:UserActionPerformedText>Submitted Arrest</alsres-ext:UserActionPerformedText>
 		<alsres-ext:UserActionPerformedDate>
-			<nc:Date>2018-02-26</nc:Date>
+			<nc:DateTime>2018-06-12T11:10:00</nc:DateTime>
 		</alsres-ext:UserActionPerformedDate>
 		<nc:PersonOrganizationAssociation>
 			<nc:Person structures:ref="UP01" />
@@ -95,12 +77,18 @@
 			<nc:IdentificationID>1234</nc:IdentificationID>
 			<nc:SystemName>System 1</nc:SystemName>
 		</intel:SystemIdentification>
-		<alsres-ext:AuditLogRequestContent>
-			<nc:UserPersonName>
+	</alsres-ext:AuditLogSearchResult>
+	<alsres-ext:AuditLogRequestContent>
+		<alreq-doc:AuditLogSearchRequest xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+			xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+			xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/"
+			xmlns:alreq-doc="http://ojbc.org/IEPD/Exchange/AuditLogSearchRequest/1.0"
+			xmlns:alreq-ext="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<nc:UserPersonName structures:id="UP01">
 				<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
 				<nc:PersonSurName>Farley</nc:PersonSurName>
 			</nc:UserPersonName>
-			<nc:Organization>
+			<nc:Organization structures:id="ORG01">
 				<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
 				<j:OrganizationAugmentation>
 					<j:OrganizationORIIdentification>
@@ -109,9 +97,10 @@
 				</j:OrganizationAugmentation>
 			</nc:Organization>
 			<nc:PersonOrganizationAssociation>
-				<nc:Person structures:ref="UP02" />
-				<nc:Organization structures:ref="ORG02" />
+				<nc:Person structures:ref="UP01" />
+				<nc:Organization structures:ref="ORG01" />
 			</nc:PersonOrganizationAssociation>
-		</alsres-ext:AuditLogRequestContent>
-	</alsres-ext:AuditLogSearchResult>
+			<alreq-ext:SourceSystemNameText>System 1</alreq-ext:SourceSystemNameText>
+		</alreq-doc:AuditLogSearchRequest>
+	</alsres-ext:AuditLogRequestContent>
 </alsres-doc:AuditLogSearchResults>
