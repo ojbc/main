@@ -47,6 +47,7 @@
 				<xsd:sequence>
 					<xsd:element ref="alsres-ext:AuditLogSearchResult" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+					<xsd:element ref="alsres-ext:AuditLogRequestContent" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -66,7 +67,6 @@
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="alsres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
-					<xsd:element ref="alsres-ext:AuditLogRequestContent" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
