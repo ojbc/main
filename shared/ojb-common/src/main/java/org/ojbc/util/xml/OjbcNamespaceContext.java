@@ -967,6 +967,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_AUDIT_LOG_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0";
 	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT ="alreq-ext";
 
+	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/AuditLogSearchResults/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC ="alsres-doc";
+
+	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT ="alsres-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1916,6 +1922,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT, NS_AUDIT_LOG_SEARCH_REQUEST_EXT);
 		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT );
 
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC, NS_AUDIT_LOG_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_DOC,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT, NS_AUDIT_LOG_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT );
 	}
 
 	@Override
