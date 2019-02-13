@@ -47,7 +47,6 @@
 				<xsd:sequence>
 					<xsd:element ref="alsres-ext:AuditLogSearchResult" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
-					<xsd:element ref="alsres-ext:AuditLogRequestContent" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -67,11 +66,12 @@
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="alsres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="alsres-ext:AuditRequestMessage" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xs:complexType name="AuditLogRequestContentType">
+	<xs:complexType name="AuditRequestMessageType">
 		<xs:sequence>
 			<xs:any processContents="skip" namespace="##any" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
@@ -100,5 +100,5 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xs:element name="AuditLogRequestContent" type="alsres-ext:AuditLogRequestContentType" />
+	<xs:element name="AuditRequestMessage" type="alsres-ext:AuditRequestMessageType" />
 </xsd:schema>
