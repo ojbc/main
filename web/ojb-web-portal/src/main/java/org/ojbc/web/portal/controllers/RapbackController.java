@@ -601,9 +601,11 @@ public class RapbackController {
 		}
 	}
 	
-	@RequestMapping(value = "subscribe", method = RequestMethod.GET)
+	@RequestMapping(value = "subscribe", method = RequestMethod.POST)
 	public @ResponseBody String subscribe(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
+		
+		logger.info("In civil subscribe function");
 		try {
 			Subscription subscription = buildSubscription(transactionNumber, model);
 			FaultableSoapResponse faultableSoapResponse = callSubscribeService(subscription, samlService.getSamlAssertion(request));
@@ -613,7 +615,7 @@ public class RapbackController {
 			}
 			else{
 				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
-				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
+				return faultableSoapResponse.getException().getMessage() + ", please report the error and try again later.";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -634,7 +636,7 @@ public class RapbackController {
 			}
 			else{
 				model.put("informationMessages", simpleServiceResponse.getErrorMessage());
-				return simpleServiceResponse.getErrorMessage() + ", please report the error try again later.";
+				return simpleServiceResponse.getErrorMessage() + ", please report the error and try again later.";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -655,7 +657,7 @@ public class RapbackController {
 			}
 			else{
 				model.put("informationMessages", simpleServiceResponse.getErrorMessage());
-				return simpleServiceResponse.getErrorMessage() + ", please report the error try again later.";
+				return simpleServiceResponse.getErrorMessage() + ", please report the error and try again later.";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -693,7 +695,7 @@ public class RapbackController {
 			}
 			else{
 				model.put("informationMessages", faultableSoapResponse.getException().getMessage());
-				return faultableSoapResponse.getException().getMessage() + ", please report the error try again later.";
+				return faultableSoapResponse.getException().getMessage() + ", please report the error and try again later.";
 			}
 		}catch(Exception e){
 			e.printStackTrace();
