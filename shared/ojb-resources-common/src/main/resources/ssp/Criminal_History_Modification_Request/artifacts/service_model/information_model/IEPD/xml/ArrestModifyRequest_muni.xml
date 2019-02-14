@@ -39,11 +39,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
@@ -58,6 +60,7 @@
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>				
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -98,11 +101,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-9</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
@@ -112,6 +117,7 @@
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>				
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>

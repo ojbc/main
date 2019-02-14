@@ -49,6 +49,7 @@
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>45-6955</nc:IdentificationID>
@@ -67,6 +68,7 @@
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 				<chm-req-ext:ChargeDispositionSeverityCodeText>F</chm-req-ext:ChargeDispositionSeverityCodeText>
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -114,11 +116,12 @@
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>45-6956</nc:IdentificationID>
 						</j:StatuteCodeIdentification>
-						<j:StatuteDescriptionText>Possession of marijuana</j:StatuteDescriptionText>
+						<j:StatuteDescriptionText>Possession of marijuana</j:StatuteDescriptionText>					
 					</j:ChargeStatute>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>378</chm-req-ext:DispositionCodeText>
@@ -126,6 +129,7 @@
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 				<chm-req-ext:ChargeDispositionSeverityCodeText>F</chm-req-ext:ChargeDispositionSeverityCodeText>
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>

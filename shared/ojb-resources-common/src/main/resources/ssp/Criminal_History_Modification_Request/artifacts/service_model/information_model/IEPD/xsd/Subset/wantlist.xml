@@ -21,6 +21,7 @@
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/">
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityAugmentation" w:isReference="false" w:nillable="true"/>
@@ -254,4 +255,7 @@
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xs:date" w:isRequested="true"/>
   <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:nonNegativeInteger" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:positiveInteger" w:isRequested="true"/>
+  <w:Type w:name="xs:positiveInteger" w:isRequested="true"/>
 </w:WantList>

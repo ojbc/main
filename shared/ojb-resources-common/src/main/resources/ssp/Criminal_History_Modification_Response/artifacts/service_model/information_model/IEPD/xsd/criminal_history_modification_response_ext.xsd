@@ -129,4 +129,11 @@
 			<xsd:documentation>A finalize arrest response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A number of disposition charges.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

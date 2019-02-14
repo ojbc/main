@@ -122,6 +122,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSentence" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeSeverityText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
@@ -273,4 +275,5 @@
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xs:date" w:isRequested="true"/>
   <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:positiveInteger" w:isRequested="true"/>
 </w:WantList>
