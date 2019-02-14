@@ -101,7 +101,7 @@
 		}
 		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
-    		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.post("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
 					refreshSearchResultsTable();
