@@ -39,11 +39,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
@@ -99,11 +101,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-9</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>

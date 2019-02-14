@@ -71,11 +71,13 @@
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -103,11 +105,13 @@
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -190,11 +194,13 @@
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
