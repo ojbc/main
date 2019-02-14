@@ -378,11 +378,14 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			
 			String civilSubscriptionReasonCode = XmlUtils.xPathStringSearch(document, 
 					"//submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");
-
+			log.info("Civil Subscription Reason Code: " + civilSubscriptionReasonCode );
+			
 			if (StringUtils.isNotBlank(civilSubscriptionReasonCode)){
 				String transactionNumber = XmlUtils.xPathStringSearch(document, 
-						"//submsg-exch:SubscriptionMessage/submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+						"//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
 				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
+				
+				log.info("FBI Subscription Qualification: " + fbiSubscriptionQualification );
 				
 				//Add civil fingerprints here
 	 			byte[] civilFingerPrint = rapbackDao.getCivilFingerPrints(transactionNumber);
