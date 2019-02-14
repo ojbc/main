@@ -260,6 +260,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
 	public static final String NS_JXDM_60 = "http://release.niem.gov/niem/domains/jxdm/6.0/";
+	public static final String NS_JXDM_61 = "http://release.niem.gov/niem/domains/jxdm/6.1/";
+	public static final String NS_PREFIX_JXDM_61 = "jxdm61";
 	
 	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
 	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
@@ -435,6 +437,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_INTEL_40 = "http://release.niem.gov/niem/domains/intelligence/4.0/";
 	public static final String NS_PREFIX_INTEL_40 = "intel40";		
+
+	public static final String NS_INTEL_41 = "http://release.niem.gov/niem/domains/intelligence/4.1/";
+	public static final String NS_PREFIX_INTEL_41 = "intel41";		
 
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
@@ -996,7 +1001,19 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 			
 	public static final String NS_RECORD_REPLICATION_RESPONSE_EXT ="http://ojbc.org/IEPD/Extensions/RecordReplicationResponseExtension/1.0";
 	public static final String NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT ="rr-resp-ext";
+	
+	public static final String NS_AUDIT_LOG_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/AuditLogSearchRequest/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC ="alreq-doc";
 
+	public static final String NS_AUDIT_LOG_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchRequest/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT ="alreq-ext";
+
+	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/AuditLogSearchResults/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC ="alsres-doc";
+
+	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0";
+	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT ="alsres-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1010,6 +1027,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_EBTS, NS_EBTS);
 		uriToPrefixMap.put(NS_EBTS, NS_PREFIX_EBTS);
+
+		prefixToUriMap.put(NS_PREFIX_INTEL_41, NS_INTEL_41);
+		uriToPrefixMap.put(NS_INTEL_41, NS_PREFIX_INTEL_41);
 
 		prefixToUriMap.put(NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC, NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC);
@@ -1270,6 +1290,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_JXDM_50, NS_PREFIX_JXDM_50);
 		prefixToUriMap.put(NS_PREFIX_JXDM_60, NS_JXDM_60);
 		uriToPrefixMap.put(NS_JXDM_60, NS_PREFIX_JXDM_60);
+
+		prefixToUriMap.put(NS_PREFIX_JXDM_61, NS_JXDM_61);
+		uriToPrefixMap.put(NS_JXDM_61, NS_PREFIX_JXDM_61);
+
 		prefixToUriMap.put(NS_PREFIX_JXDM_41, NS_JXDM_41);
 		uriToPrefixMap.put(NS_JXDM_41, NS_PREFIX_JXDM_41);
 		prefixToUriMap.put(NS_PREFIX_USPS_STATES, NS_USPS_STATES);
@@ -1973,6 +1997,17 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_RECORD_REPLICATION_RESPONSE_EXT,NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT );
 		
 		
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC, NS_AUDIT_LOG_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_DOC,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT, NS_AUDIT_LOG_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT );
+
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC, NS_AUDIT_LOG_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_DOC,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT, NS_AUDIT_LOG_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT );
 	}
 
 	@Override

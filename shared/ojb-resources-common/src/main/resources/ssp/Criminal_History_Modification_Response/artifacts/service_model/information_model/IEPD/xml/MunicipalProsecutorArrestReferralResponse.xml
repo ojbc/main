@@ -28,12 +28,12 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../xsd/criminal_history_modification_response.xsd">
 	<chm-resp-ext:ModificationResponseMessage>
 		<chm-resp-ext:MunicipalProsecutorArrestReferralResponseText>CHARGE REFERRED SUCCESSFULLY</chm-resp-ext:MunicipalProsecutorArrestReferralResponseText>
-	<j:Arrest>
-		<j:ArrestAgencyRecordIdentification>
-			<nc:IdentificationID>1004233</nc:IdentificationID>
-			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
-		</j:ArrestAgencyRecordIdentification>
-	</j:Arrest>
+		<j:Arrest>
+			<j:ArrestAgencyRecordIdentification>
+				<nc:IdentificationID>1004233</nc:IdentificationID>
+				<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+			</j:ArrestAgencyRecordIdentification>
+		</j:Arrest>
 	</chm-resp-ext:ModificationResponseMessage>
 	<nc:SystemName>nc:SystemName</nc:SystemName>
 </chm-resp-doc:CriminalHistoryModificationResponse>

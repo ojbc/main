@@ -63,6 +63,7 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>			
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -86,6 +87,7 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>

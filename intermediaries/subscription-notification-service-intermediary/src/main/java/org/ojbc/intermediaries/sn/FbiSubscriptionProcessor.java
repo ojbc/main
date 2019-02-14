@@ -23,6 +23,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
