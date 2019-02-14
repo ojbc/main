@@ -65,7 +65,7 @@
 				      <td>
 				        <xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonSSNIdentification/nc:IdentificationID"/>
 				      </td>
-				      <td>
+				      <td id="arrestDate">
 				        <xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 				      </td>
            </tr>

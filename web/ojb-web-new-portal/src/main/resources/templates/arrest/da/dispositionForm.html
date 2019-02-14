@@ -33,6 +33,7 @@
       <input type="hidden" th:field="*{arrestIdentification}" />
       <input type="hidden" th:field="*{arrestChargeIdentification}" />
       <input type="hidden" th:field="*{dispositionIdentification}" />
+      <input type="hidden" th:field="*{arrestDate}" />
          <div class="form-row">
            <div class="col-md-3 mb-2">
              <label>Disposition Date *</label>
@@ -166,13 +167,15 @@
       </form>
     <script th:inline="javascript">
 	      $(function(){
-	    	  $('#dispositionDate').datepicker({
-             uiLibrary: 'bootstrap4', size: 'small'
-          });
 	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					
+					$("#dispositionForm").on("focus", "#dispositionDate", function(){
+		          $('#dispositionDate').datepicker({
+		              uiLibrary: 'bootstrap4', size: 'small'
+		           });
+					});
 					//348 - Found guilty of different charge
 					//376 - pled guilty of other charge
 					//520 - Nolo contendere to different charge

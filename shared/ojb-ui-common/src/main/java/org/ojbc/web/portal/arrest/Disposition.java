@@ -23,6 +23,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -39,7 +40,11 @@ public class Disposition {
 
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@NotNull
+	@PastOrPresent 
 	private LocalDate dispositionDate; 
+	
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private LocalDate arrestDate; 
 	
 	@NotBlank
 	private String dispositionCode;
@@ -268,5 +273,11 @@ public class Disposition {
 	}
 	public void setDispositionType(ArrestType dispositionType) {
 		this.dispositionType = dispositionType;
+	}
+	public LocalDate getArrestDate() {
+		return arrestDate;
+	}
+	public void setArrestDate(LocalDate arrestDate) {
+		this.arrestDate = arrestDate;
 	}
 }    

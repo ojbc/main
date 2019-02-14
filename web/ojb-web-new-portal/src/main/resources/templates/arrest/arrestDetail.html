@@ -164,7 +164,8 @@
                     console.log($("#dispositionForm").serialize());
                     xhr = $.get( context +"muniArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
-                        arrestChargeIdentification:chargeId},  function(data) {
+                        arrestChargeIdentification:chargeId, 
+                        arrestDate: $('#arrestDate').text() }, function(data) {
                     	$('.modal-body').html(data);
                     	$('.modal-title').html("Add Disposition");
                     	$('.modal-footer').html($("#saveDispositionButtons").html())
@@ -197,7 +198,8 @@
 	                       restitution:rowData[14].split('.', 1).toString(),
 	                       alternateSentence:rowData[15],
 	                       reasonForDismissal:rowData[16],
-	                       provisionCode:rowData[17]},  function(data) {
+	                       provisionCode:rowData[17], 
+                         arrestDate: $('#arrestDate').text()},  function(data) {
                       $('.modal-body').html(data);
                       $('.modal-title').html("Edit Disposition");
                       $('.modal-footer').html($("#saveDispositionButtons").html())

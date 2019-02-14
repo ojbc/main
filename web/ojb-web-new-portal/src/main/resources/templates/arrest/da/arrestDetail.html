@@ -187,7 +187,8 @@
                     var chargeId = $(this).closest("table").attr("id");
                     xhr = $.get( context +"daArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
-                        arrestChargeIdentification:chargeId},  
+                        arrestChargeIdentification:chargeId, 
+                        arrestDate: $('#arrestDate').text() },  
                         function(data) {
 		                    	$('.modal-body').html(data);
 		                    	$('.modal-title').html("Add Disposition");
@@ -226,7 +227,8 @@
 		                	       restitution:rowData[15].split('.', 1).toString(),
 		                	       alternateSentence:rowData[16],
 		                	       reasonForDismissal:rowData[17],
-		                	       provisionCode:rowData[18]
+		                	       provisionCode:rowData[18], 
+		                	       arrestDate: $('#arrestDate').text()
                      		   },
                      		   function(data) {
 				                      $('.modal-body').html(data);
@@ -289,7 +291,7 @@
 
                  function expungeDisposition(formData){
                      xhr = $.post(context + "daArrests/expungeDisposition",formData,function(data) {
-                         console.log(formData);
+                         /* console.log(formData); */
                          
                          if ($(data).find('div.card').length > 0){
                            $("#dispositionModal .close").click();
@@ -304,7 +306,7 @@
 
                  function saveDisposition(formData){
                      xhr = $.post(context + "daArrests/saveDisposition",formData,function(data) {
-                         console.log(formData);
+                         /* console.log(formData); */
                          
                          
                          if ($(data).find('div.card').length > 0){

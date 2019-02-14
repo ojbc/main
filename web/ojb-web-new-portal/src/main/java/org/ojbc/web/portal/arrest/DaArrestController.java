@@ -115,7 +115,8 @@ public class DaArrestController {
 		
 		if (arrestSearchRequest == null) {
 			arrestSearchRequest = new ArrestSearchRequest();
-			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+//			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
