@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/" xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/4.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:pdq-res-ext="http://ojbc.org/IEPD/Extensions/PersonDetailQueryResultsExtension/1.0"
+	xmlns:me-imc-codes="http://ojbc.org/IEPD/Extensions/Maine/IMC/Codes/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonDetailQueryResultsExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
+		schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/6.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/4.1/"
+		schemaLocation="./Subset/niem/domains/intelligence/4.1/intelligence.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="./Subset/niem/proxy/xsd/4.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
+		schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+		schemaLocation="query-results-metadata.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+		schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:complexType name="PersonDetailQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for person detail query results.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="pdq-res-ext:PersonDetailReport" minOccurs="0" />
+					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonDetailReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person detail report.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Image" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdq-res-ext:PersonDetailQueryAllowedIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdq-res-ext:PersonDetailInformationText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pdq-res-ext:PersonDetailMessageText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonCurrentLocationAssociation" minOccurs="0" />
+					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0" />
+					<xsd:element ref="j:PersonGangAssociation" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PersonDetailReport" type="pdq-res-ext:PersonDetailReportType">
+		<xsd:annotation>
+			<xsd:documentation>A person detail report.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonSexOffenderIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is a sex offender; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonCautionIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if caution should be used with person; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonSuicidalIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is suicidal; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNumberOfGunPermits" type="niem-xs:integer" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The number of gun permits a person has.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNumberOfArrests" type="niem-xs:integer" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The number of times a person has been arrested.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNumberOfWarrants" type="niem-xs:integer" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The number of warrants a person has.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNumberOfRestrainingOrders" type="niem-xs:integer"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The number of restraining orders a person has.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonDetailQueryAllowedIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person detail query is allowed; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ImageOwner" type="nc:OrganizationType" substitutionGroup="nc:ImageAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The owner of an image.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ImageRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:ImageAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique record identification for an image.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+			<xsd:element name="PersonDetailInformationText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A message associated with the person detail results.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonDetailMessageText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A message associated with the person detail results.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

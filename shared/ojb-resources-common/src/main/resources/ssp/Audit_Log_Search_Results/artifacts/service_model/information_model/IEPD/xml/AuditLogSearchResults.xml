@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<alsres-doc:AuditLogSearchResults
+	xmlns:alsres-doc="http://ojbc.org/IEPD/Exchange/AuditLogSearchResults/1.0"
+	xmlns:alsres-ext="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AuditLogSearchResults/1.0 ../xsd/audit_log_search_results.xsd ">
+	<alsres-ext:AuditLogSearchResult>
+		<nc:UserPersonName structures:id="UP01">
+			<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
+			<nc:PersonSurName>Farley</nc:PersonSurName>
+		</nc:UserPersonName>
+		<nc:Organization structures:id="ORG01">
+			<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>HI123456</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</nc:Organization>
+		<alsres-ext:UserActionPerformedText>Added Disposition</alsres-ext:UserActionPerformedText>
+		<alsres-ext:UserActionPerformedDate>
+			<nc:DateTime>2018-05-30T09:00:00</nc:DateTime>
+		</alsres-ext:UserActionPerformedDate>
+		<nc:PersonOrganizationAssociation>
+			<nc:Person structures:ref="UP01" />
+			<nc:Organization structures:ref="ORG01" />
+		</nc:PersonOrganizationAssociation>
+		<alsres-ext:SourceSystemNameText>System 1</alsres-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>1234</nc:IdentificationID>
+			<nc:SystemName>System 1</nc:SystemName>
+		</intel:SystemIdentification>
+		<alsres-ext:AuditedRequestMessage>
+			<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+				xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+				xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+				xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<j:Arrest>
+					<j:ArrestAgencyRecordIdentification>
+						<nc:IdentificationID>1004233</nc:IdentificationID>
+						<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+					</j:ArrestAgencyRecordIdentification>
+					<j:ArrestCharge>
+						<j:ChargeDisposition>
+							<nc:DispositionDate>
+								<nc:Date>2016-06-15</nc:Date>
+							</nc:DispositionDate>
+						</j:ChargeDisposition>
+						<j:ChargeIdentification>
+							<nc:IdentificationID>C123456</nc:IdentificationID>
+						</j:ChargeIdentification>
+					</j:ArrestCharge>
+				</j:Arrest>
+			</er-req-doc:ExpungeRequest>
+		</alsres-ext:AuditedRequestMessage>
+	</alsres-ext:AuditLogSearchResult>
+	<alsres-ext:AuditLogSearchResult>
+		<nc:UserPersonName structures:id="UP02">
+			<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
+			<nc:PersonSurName>Farley</nc:PersonSurName>
+		</nc:UserPersonName>
+		<nc:Organization structures:id="ORG02">
+			<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>HI123456</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</nc:Organization>
+		<alsres-ext:UserActionPerformedText>Submitted Arrest</alsres-ext:UserActionPerformedText>
+		<alsres-ext:UserActionPerformedDate>
+			<nc:DateTime>2018-06-12T11:10:00</nc:DateTime>
+		</alsres-ext:UserActionPerformedDate>
+		<nc:PersonOrganizationAssociation>
+			<nc:Person structures:ref="UP01" />
+			<nc:Organization structures:ref="ORG01" />
+		</nc:PersonOrganizationAssociation>
+		<alsres-ext:SourceSystemNameText>System 1</alsres-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>1234</nc:IdentificationID>
+			<nc:SystemName>System 1</nc:SystemName>
+		</intel:SystemIdentification>
+		<alsres-ext:AuditedRequestMessage>
+			<er-req-doc:ExpungeRequest xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
+				xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+				xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+				xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+				xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<j:Arrest>
+					<j:ArrestAgencyRecordIdentification>
+						<nc:IdentificationID>1004233</nc:IdentificationID>
+						<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+					</j:ArrestAgencyRecordIdentification>
+					<j:ArrestCharge>
+						<j:ChargeDisposition>
+							<nc:DispositionDate>
+								<nc:Date>2016-06-15</nc:Date>
+							</nc:DispositionDate>
+						</j:ChargeDisposition>
+						<j:ChargeIdentification>
+							<nc:IdentificationID>C123456</nc:IdentificationID>
+						</j:ChargeIdentification>
+					</j:ArrestCharge>
+				</j:Arrest>
+			</er-req-doc:ExpungeRequest>
+		</alsres-ext:AuditedRequestMessage>
+	</alsres-ext:AuditLogSearchResult>
+</alsres-doc:AuditLogSearchResults>
