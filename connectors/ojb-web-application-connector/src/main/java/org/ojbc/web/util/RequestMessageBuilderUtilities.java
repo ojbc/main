@@ -1369,6 +1369,13 @@ public class RequestMessageBuilderUtilities {
     			XmlUtils.appendTextElement(sentenceTerm, NS_JXDM_60, "TermDuration", termDurationString);
     		}
     		
+    		if (hasValue(disposition.getPrisonYears(), disposition.getPrisonDays())) {
+    			Element sentenceTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceTerm");
+    			XmlUtils.appendTextElement(sentenceTerm, NS_NC_40, "ActivityCategoryText", "PRISON");
+    			String termDurationString = getTermDurationString(disposition.getPrisonYears(), disposition.getPrisonDays());
+    			XmlUtils.appendTextElement(sentenceTerm, NS_JXDM_60, "TermDuration", termDurationString);
+    		}
+    		
     		if (hasValue(disposition.getFineAmount())) {
     			Element supervisionFineAmount = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SupervisionFineAmount");
     			XmlUtils.appendTextElement(supervisionFineAmount, NS_NC_40, "Amount", disposition.getFineAmount().toString());

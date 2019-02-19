@@ -112,6 +112,7 @@
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
+			        <colgroup span="2"/>
                <col/>
                <col/>
                <col/>
@@ -128,6 +129,7 @@
 			            <th rowspan="2">F/M</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
+			            <th scope="colgroup" colspan="2" style="text-align:middle">PRISON</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
                    <th rowspan="2">RESTITUTION</th>
@@ -139,6 +141,8 @@
 			          <tr>
                    <th scope="col">AMOUNT</th>
                    <th scope="col">SUSPENDED</th>
+                   <th scope="col">YEARS</th>
+                   <th scope="col">DAYS</th>
                    <th scope="col">YEARS</th>
                    <th scope="col">DAYS</th>
                    <th scope="col">YEARS</th>
@@ -157,6 +161,8 @@
 						          <i class="fas fa-plus-square fa-lg" title="add" data-toggle="tooltip"></i>
 						        </a>
 						      </td>
+						      <td/>
+						      <td/>
 						      <td/>
 						      <td/>
 						      <td/>
@@ -231,6 +237,12 @@
 		  </td>
 		  <td>
 		    <xsl:value-of select="substring-before(substring-after(../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SentenceTerm[nc:ActivityCategoryText='JAIL']/j:TermDuration, 'Y'), 'D')"/>
+		  </td>
+		  <td>
+		    <xsl:value-of select="substring-before(substring-after(../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SentenceTerm[nc:ActivityCategoryText='PRISON']/j:TermDuration, 'P'), 'Y')"/>
+		  </td>
+		  <td>
+		    <xsl:value-of select="substring-before(substring-after(../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SentenceTerm[nc:ActivityCategoryText='PRISON']/j:TermDuration, 'Y'), 'D')"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="substring-before(substring-after(../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SentenceSuspendedTerm/j:TermDuration, 'P'), 'Y')"/>

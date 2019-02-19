@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -44,7 +45,7 @@ public class DispositionValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Disposition disposition = (Disposition) obj;
         
-        if (disposition.getDispositionDate().isAfter(disposition.getArrestDate())) {
+        if ( Objects.nonNull(disposition.getDispositionDate()) && disposition.getDispositionDate().isAfter(disposition.getArrestDate())) {
         	errors.rejectValue("dispositionDate", null, "may not be after arrest date " + disposition.getArrestDate().format(formatter));
         }
         
@@ -53,15 +54,7 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("fineSuspended", null, "may not be greater than Fine Amount");
         }
         
-        if (disposition.getSuspendedDays() != null && disposition.getSuspendedDays() > 0 ) {
-        	
-        	int jailDays = Optional.ofNullable(disposition.getJailYears()).map(i->i*360).orElse(0)
-        			+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0)
-        			- Optional.ofNullable(disposition.getSuspendedYears()).map(i->i*360).orElse(0); 
-        	if (disposition.getSuspendedDays() > jailDays) {
-        		errors.rejectValue("suspendedDays", null, "may not be greater than Jail Days");
-        	}
-        }
+        validateJailSuspendedDeferredDays(disposition, errors);
         
         if (appProperties.getDispoCodesRequiringSentence().contains(disposition.getDispositionCode()) && !disposition.containsSentenceInfo()) {
         	errors.rejectValue("dispositionCode", null, "the dispo code requires sentence info");
@@ -71,4 +64,17 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("amendedCharge", null, "the dispo code requires an amended charge");
         }
     }
+
+	private void validateJailSuspendedDeferredDays(Disposition disposition, Errors errors) {
+        if (disposition.getSuspendedDays() != null && disposition.getSuspendedDays() > 0 ) {
+        	
+        	int jailDays = Optional.ofNullable(disposition.getJailYears()).map(i->i*360).orElse(0)
+        			+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0)
+        			- Optional.ofNullable(disposition.getSuspendedYears()).map(i->i*360).orElse(0); 
+        	if (disposition.getSuspendedDays() > jailDays) {
+        		errors.rejectValue("suspendedDays", null, "may not be greater than Jail Days");
+        	}
+        }
+		
+	}
 }

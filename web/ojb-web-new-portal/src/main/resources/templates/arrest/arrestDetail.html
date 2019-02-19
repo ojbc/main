@@ -248,7 +248,7 @@
                		   if (fineAmount > 1000) {
                			   confirmMessage += 'The Fine Amount exceeds $1,000. ' 
                		   }
-               		   if (restitution > 1000) {
+               		   if (restitution > 5000) {
                			   confirmMessage += ' The Restitution exceeds $5,000. ' 
                		   }
                		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){saveDisposition(formData);} });  

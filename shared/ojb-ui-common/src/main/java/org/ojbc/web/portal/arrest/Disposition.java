@@ -65,17 +65,18 @@ public class Disposition {
     @NumberFormat(pattern = "#,###,###,###,###")
     private Integer fineSuspended;
     
-    @Max(1)
     private Integer jailYears;
     @Max(359)
     private Integer jailDays;
     
-    @Max(1)
+    private Integer prisonYears;
+    @Max(359)
+    private Integer prisonDays;
+    
     private Integer suspendedYears;
     @Max(359)
     private Integer suspendedDays;
     
-    @Max(1)
     private Integer deferredYears;
     @Max(359)
     private Integer deferredDays;
@@ -106,7 +107,10 @@ public class Disposition {
     		||  (Objects.nonNull(fineAmount) && fineAmount > 0) 
     		||  (Objects.nonNull(fineSuspended) && fineSuspended > 0) 
     		|| StringUtils.isNotBlank(alternateSentence)
-    		|| (Objects.nonNull(restitution) && restitution > 0); 
+    		|| (Objects.nonNull(restitution) && restitution > 0) 
+    		|| (dispositionType == ArrestType.DA 
+    			&& ((Objects.nonNull(prisonYears) && prisonYears > 0) 
+					|| (Objects.nonNull(prisonDays) && prisonDays > 0))); 
     }
 	public String getArrestIdentification() {
 		return arrestIdentification;
@@ -279,5 +283,17 @@ public class Disposition {
 	}
 	public void setArrestDate(LocalDate arrestDate) {
 		this.arrestDate = arrestDate;
+	}
+	public Integer getPrisonYears() {
+		return prisonYears;
+	}
+	public void setPrisonYears(Integer prisonYears) {
+		this.prisonYears = prisonYears;
+	}
+	public Integer getPrisonDays() {
+		return prisonDays;
+	}
+	public void setPrisonDays(Integer prisonDays) {
+		this.prisonDays = prisonDays;
 	}
 }    

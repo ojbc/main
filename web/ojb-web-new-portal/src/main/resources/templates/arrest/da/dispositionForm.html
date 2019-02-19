@@ -83,68 +83,97 @@
 	          </div>
           </div>
           <div class="form-row">
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <label>Fine Amount</label>
               <input type="text" th:field="*{fineAmount}" width="250" class="money form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
             </div>
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <label>Fine Suspended</label>
               <input type="text" th:field="*{fineSuspended}" width="250" class="money form-control" th:errorclass="is-invalid"/>
               <small id="fineSuspendedHelp" class="form-text text-muted">&le; Fine Amount</small>
               <div th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}" class="invalid-feedback">Fine suspended error message</div>
             </div>
-          </div>
-           <div class="form-row">
-             <div class="col-md-2 mb-2">
-               <label>Jail Years</label>
-               <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
-               <small id="jailYearsHelp" class="form-text text-muted">blank or 1</small>
-               <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
-             </div>
-             <div class="col-md-2 mb-2">
-               <label>Jail Days</label>
-               <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
-               <small id="jailDaysHelp" class="form-text text-muted">blank or up to 359</small>
-               <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
-             </div>
-             <div class="col-md-2 mb-2">
-               <label>Suspended Years</label>
-               <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid" disabled/>
-               <small id="suspendedYearsHelp" class="form-text text-muted">blank or 1</small>
-               <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
-             </div>
-             <div class="col-md-2 mb-2">
-               <label>Suspended Days</label>
-               <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
-               <small id="suspendedDaysHelp" class="form-text text-muted">&le; Jail Days</small>
-               <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
-             </div>
-             <div class="col-md-2 mb-2">
-               <label>Deferred Years</label>
-               <input type="number" min="1" max="1" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
-               <small id="deferredYearsHelp" class="form-text text-muted">blank or 1</small>
-               <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
-             </div>
-             <div class="col-md-2 mb-2">
-               <label>Deferred Days</label>
-               <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
-               <small id="deferredDaysHelp" class="form-text text-muted">blank or up to 359</small>
-               <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
-             </div>
-           </div>
-           <div class="form-row">
-             <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
                <label>Restitution</label>
                <input type="text" th:field="*{restitution}" width="10" class="money form-control" th:errorclass="is-invalid"/>
                <div th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}" class="invalid-feedback">Restitution error message</div>
-             </div>					                
+             </div>                         
+            
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label>Jail</label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Prison</label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Suspended</label>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Deferred</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-3 mb-3">
+              <label>Years</label>
+              <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Years</label>
+              <input type="number" min="1" max="100" th:field="*{prisonYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{prisonYears}" class="invalid-feedback">Prison years error message</div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Years</label>
+              <input type="number" min="1" max="100" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid" disabled/>
+              <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Years</label>
+              <input type="number" min="1" max="100" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
+            </div>
+          </div>
+          <div class="form-row">
+             <div class="col-md-3 mb-3">
+              <label>Days</label>
+              <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
+            </div>
+             <div class="col-md-3 mb-3">
+              <label>Days</label>
+              <input type="number" min="1" max="359" th:field="*{prisonDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('prisonDays')}" th:errors="*{prisonDays}" class="invalid-feedback">Prison days error message</div>
+            </div>
+						<div class="col-md-3 mb-3">
+						   <label>Days</label>
+						   <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+						   <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
+						</div>
+            <div class="col-md-3 mb-3">
+              <label>Days</label>
+              <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
+            </div>
+          </div>
+          <div class="form-row">
+	           <div class="col-md-6 mb-4">
+	             <label>Provision</label>
+	             <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
+	               <option value="" >Please select ...</option>
+	               <option th:each="item: ${daProvisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+	             </select>
+	             <div th:if="${#fields.hasErrors('provisionCode')}" th:errors="*{provisionCode}" class="invalid-feedback">Provision error message</div>
+	           </div>                         
              <div class="col-md-6 mb-4">
                <label>Alternate Sentence</label>
-              <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
-                 <option value="" >Please select ...</option>
-                 <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
-              </select>
+	             <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
+	               <option value="" >Please select ...</option>
+	               <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
+	             </select>
                <div th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}" class="invalid-feedback">Alternate sentence error message</div>
              </div>		
            </div>			                
@@ -155,14 +184,6 @@
                <option th:each="item: ${daReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
             </select>
              <div th:if="${#fields.hasErrors('reasonForDismissal')}" th:errors="*{reasonForDismissal}" class="invalid-feedback">Reason for dismissal error message</div>
-           </div>					                
-           <div class="form-group">
-             <label>Provision</label>
-            <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
-               <option value="" >Please select ...</option>
-               <option th:each="item: ${daProvisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
-            </select>
-             <div th:if="${#fields.hasErrors('provisionCode')}" th:errors="*{provisionCode}" class="invalid-feedback">Provision error message</div>
            </div>					                
       </form>
     <script th:inline="javascript">
