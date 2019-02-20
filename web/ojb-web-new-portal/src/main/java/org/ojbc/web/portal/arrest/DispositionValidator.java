@@ -24,6 +24,8 @@ import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ojbc.util.helper.ArrayUtils;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -66,15 +68,59 @@ public class DispositionValidator implements Validator {
     }
 
 	private void validateJailSuspendedDeferredDays(Disposition disposition, Errors errors) {
-        if (disposition.getSuspendedDays() != null && disposition.getSuspendedDays() > 0 ) {
+        if (ArrayUtils.hasPositiveValue(disposition.getJailDays(), disposition.getJailYears()) 
+        		&& ArrayUtils.hasPositiveValue(disposition.getPrisonDays(), disposition.getPrisonYears()) ) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getJailDays())) {
+    			errors.rejectValue("jailDays", null, "may not coexist with prison time");
+    		}
+    		if (ArrayUtils.hasPositiveValue(disposition.getJailYears())) {
+    			errors.rejectValue("jailYears", null, "may not coexist with prison time");
+    		}
+    		if (ArrayUtils.hasPositiveValue(disposition.getPrisonYears())) {
+    			errors.rejectValue("prisonYears", null, "may not coexist with jail time");
+    		}
+    		if (ArrayUtils.hasPositiveValue(disposition.getPrisonDays())) {
+    			errors.rejectValue("prisonDays", null, "may not coexist with jail time");
+    		}
+        	
+        }
+        if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays(), disposition.getSuspendedYears()) ) {
         	
         	int jailDays = Optional.ofNullable(disposition.getJailYears()).map(i->i*360).orElse(0)
-        			+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0)
-        			- Optional.ofNullable(disposition.getSuspendedYears()).map(i->i*360).orElse(0); 
-        	if (disposition.getSuspendedDays() > jailDays) {
-        		errors.rejectValue("suspendedDays", null, "may not be greater than Jail Days");
+        			+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0); 
+        	int suspendedDays = Optional.ofNullable(disposition.getSuspendedYears()).map(i->i*360).orElse(0)
+        			+ Optional.ofNullable(disposition.getSuspendedDays()).map(i->i.intValue()).orElse(0);
+        	if (suspendedDays > jailDays) {
+        		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
+        			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
+        		}
+        		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+        			errors.rejectValue("suspendedYears", null, "may not be greater than Jail time");
+        		}
         	}
         }
+        
+        if (disposition.getDispositionType() == ArrestType.DA 
+        		&& ArrayUtils.hasPositiveValue(disposition.getDeferredDays(), disposition.getDeferredYears()) 
+        		&& ArrayUtils.hasPositiveValue(disposition.getJailYears(),disposition.getPrisonDays(), disposition.getPrisonYears()) ) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getDeferredDays())) {
+    			errors.rejectValue("deferredDays", null, "must be empty when jail years or prison time are not empty");
+    		}
+    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+    			errors.rejectValue("deferredYears", null, "must be empty when jail years or prison time are not empty");
+    		}
+        }
 		
+        if (disposition.getDispositionType() == ArrestType.MUNI 
+        		&& ArrayUtils.hasPositiveValue(disposition.getDeferredDays(), disposition.getDeferredYears()) 
+        		&& ArrayUtils.hasPositiveValue(disposition.getJailYears(),disposition.getJailDays()) ) {
+        	if (ArrayUtils.hasPositiveValue(disposition.getDeferredDays())) {
+        		errors.rejectValue("deferredDays", null, "must be empty when jail time is not empty");
+        	}
+        	if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+        		errors.rejectValue("deferredYears", null, "must be empty when jail time is not empty");
+        	}
+        }
+        
 	}
 }

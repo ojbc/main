@@ -219,8 +219,9 @@
 	     	   
 					toggleSentenceInfo();
 					
-					if ($('#jailYears').val() === '1'){
+					if ($('#jailYears').val() > 0){
 					 	$('#suspendedYears').prop('disabled', false); 
+			      $('#suspendedDays').prop('disabled', false); 
             $('#deferredYears').val(''); 
             $('#deferredDays').val(''); 
 					 	$('#deferredYears').prop('disabled', true); 
@@ -235,6 +236,18 @@
             $('#deferredDays').prop('disabled', true); 
 					}
 					
+					if ($('#prisonYears').val() > 0  || $('#prisonDays').val() > 0 ){
+						
+						if ($('#prisonYears').val() > 0){
+		           $('#suspendedYears').prop('disabled', false); 
+	             $('#suspendedDays').prop('disabled', false); 
+						}
+            $('#deferredYears').val(''); 
+            $('#deferredDays').val(''); 
+            $('#deferredYears').prop('disabled', true); 
+            $('#deferredDays').prop('disabled', true); 
+          }
+					
           $("#dispositionForm").on("change", "#jailYears", function(){
               if ($('#jailYears').val() > '0'){
                   $('#suspendedYears').prop('disabled', false); 
@@ -245,24 +258,66 @@
                   $('#deferredDays').prop('disabled', true); 
               }
               else{
-                  $('#suspendedYears').val(''); 
-                  $('#suspendedYears').prop('disabled', true); 
-                  toggleDefferredYearsDays();              }
+            	    if (!($('#prisonYears').val() > 0)){ //TODO confirm with Andrew 
+	                  $('#suspendedYears').val(''); 
+	                  $('#suspendedYears').prop('disabled', true);
+            	    }
+                  
+                  if (!($('#prisonYears').val() > 0  || $('#prisonDays').val() > 0)){
+                	  toggleDefferredYearsDays();              
+                  }
+              }
+          });
+					
+          $("#dispositionForm").on("change", "#prisonYears", function(){
+              if ($('#prisonYears').val() > '0'){
+                  $('#suspendedYears').prop('disabled', false); //TODO confirm with Andrew 
+                  $('#suspendedDays').prop('disabled', false);  //TODO confirm with Andrew 
+                  $('#deferredYears').val(''); 
+                  $('#deferredDays').val(''); 
+                  $('#deferredYears').prop('disabled', true); 
+                  $('#deferredDays').prop('disabled', true); 
+              }
+              else{
+	            	  if (!($('#jailYears').val() > 0)){
+	                  $('#suspendedYears').val(''); //TODO confirm with Andrew 
+	                  $('#suspendedYears').prop('disabled', true);//TODO confirm with Andrew
+	            	  }
+                  
+                  if (!($('#jailYears').val() > 0  || $('#prisonDays').val() > 0)){
+                	  toggleDefferredYearsDays();              
+                  }
+              }
           });
 					
           $("#dispositionForm").on("change", "#jailDays", function(){
               if ($('#jailDays').val() > 0){
                   $('#suspendedDays').prop('disabled', false); 
+              }
+              else{
+            	  if (!($('#jailYears').val() > 0)){
+                  $('#suspendedDays').val(''); 
+                  $('#suspendedDays').prop('disabled', true);
+            	  }
+              }
+          });
+					
+          $("#dispositionForm").on("change", "#prisonDays", function(){
+              if ($('#prisonDays').val() > 0){
+                  $('#suspendedDays').prop('disabled', false); //TODO confirm with Andrew 
                   $('#deferredYears').val(''); 
                   $('#deferredYears').prop('disabled', true); 
                   $('#deferredDays').val(''); 
                   $('#deferredDays').prop('disabled', true); 
               }
               else{
-                  $('#suspendedDays').val(''); 
-                  $('#suspendedDays').prop('disabled', true); 
-                  
-                  toggleDefferredYearsDays();
+            	   if (!($('#prisonYears').val() > 0)){  //TODO confirm with Andrew.  prison and suspended info relationship.
+	                  $('#suspendedDays').val(''); 
+	                  $('#suspendedDays').prop('disabled', true);
+            	   }
+                 if (!($('#jailYears').val() > 0  || $('#prisonYears').val() > 0)){
+                     toggleDefferredYearsDays();              
+                 }
               }
           });
 					

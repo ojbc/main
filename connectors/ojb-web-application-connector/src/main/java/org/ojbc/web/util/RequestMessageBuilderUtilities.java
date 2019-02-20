@@ -16,35 +16,59 @@
  */
 package org.ojbc.web.util;
 
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_DETAIL_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_MODIFY_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DA_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DELETE_DISPOSITION_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_EXPUNGE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_60;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_40;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_40;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_40;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_40;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_60;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_60;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XSI;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_EXPUNGE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_60;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MODIFY_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_40;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
-import static org.ojbc.util.xml.OjbcNamespaceContext.*;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XSI;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_RECORD_REPLICATION_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_RECORD_REPLICATION_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_40;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -53,6 +77,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.helper.ArrayUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
@@ -1352,35 +1377,35 @@ public class RequestMessageBuilderUtilities {
     		Element chargeSentence = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeSentence");
     		XmlUtils.addAttribute(chargeSentence, NS_STRUCTURES_40, "id", CHARGE_SENTENCE_01);
     		
-    		if (hasValue(disposition.getDeferredDays(), disposition.getDeferredYears())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getDeferredDays(), disposition.getDeferredYears())) {
     			Element sentenceDeferredTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceDeferredTerm");
     			String termDurationString = getTermDurationString(disposition.getDeferredYears(), disposition.getDeferredDays());
     			XmlUtils.appendTextElement(sentenceDeferredTerm, NS_JXDM_60, "TermDuration", termDurationString);
     		}
-    		if (hasValue(disposition.getSuspendedDays(), disposition.getSuspendedYears())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays(), disposition.getSuspendedYears())) {
     			Element sentenceSuspendedTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceSuspendedTerm");
     			String termDurationString = getTermDurationString(disposition.getSuspendedYears(), disposition.getSuspendedDays());
     			XmlUtils.appendTextElement(sentenceSuspendedTerm, NS_JXDM_60, "TermDuration", termDurationString);
     		}
-    		if (hasValue(disposition.getJailYears(), disposition.getJailDays())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getJailYears(), disposition.getJailDays())) {
     			Element sentenceTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceTerm");
     			XmlUtils.appendTextElement(sentenceTerm, NS_NC_40, "ActivityCategoryText", "JAIL");
     			String termDurationString = getTermDurationString(disposition.getJailYears(), disposition.getJailDays());
     			XmlUtils.appendTextElement(sentenceTerm, NS_JXDM_60, "TermDuration", termDurationString);
     		}
     		
-    		if (hasValue(disposition.getPrisonYears(), disposition.getPrisonDays())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getPrisonYears(), disposition.getPrisonDays())) {
     			Element sentenceTerm = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SentenceTerm");
     			XmlUtils.appendTextElement(sentenceTerm, NS_NC_40, "ActivityCategoryText", "PRISON");
     			String termDurationString = getTermDurationString(disposition.getPrisonYears(), disposition.getPrisonDays());
     			XmlUtils.appendTextElement(sentenceTerm, NS_JXDM_60, "TermDuration", termDurationString);
     		}
     		
-    		if (hasValue(disposition.getFineAmount())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getFineAmount())) {
     			Element supervisionFineAmount = XmlUtils.appendElement(chargeSentence, NS_JXDM_60, "SupervisionFineAmount");
     			XmlUtils.appendTextElement(supervisionFineAmount, NS_NC_40, "Amount", disposition.getFineAmount().toString());
     		}
-    		if (hasValue(disposition.getFineSuspended())) {
+    		if (ArrayUtils.hasPositiveValue(disposition.getFineSuspended())) {
     			Element fineSuspendedAmount = XmlUtils.appendElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "FineSuspendedAmount");
     			XmlUtils.appendTextElement(fineSuspendedAmount, NS_NC_40, "Amount", disposition.getFineSuspended().toString());
     		}
@@ -1398,7 +1423,7 @@ public class RequestMessageBuilderUtilities {
     			XmlUtils.appendElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargePrimarySystemIdentification");
     	XmlUtils.appendTextElement(chargePrimarySystemIdentification, NS_NC_40, "IdentificationID", disposition.getArrestChargeIdentification());
 
-    	if (hasValue(disposition.getRestitution())) {
+    	if (ArrayUtils.hasPositiveValue(disposition.getRestitution())) {
     		Element restitution = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Restitution");
     		XmlUtils.addAttribute(restitution, NS_STRUCTURES_40, "id", RESTITUTION_01);
     		Element obligationDueAmount = XmlUtils.appendElement(restitution, NS_NC_40, "ObligationDueAmount");
@@ -1427,10 +1452,6 @@ public class RequestMessageBuilderUtilities {
 				+ "Y"+ (Objects.isNull(days)?"0":days.toString()) + "D";
 	}
 
-	private static boolean hasValue(Integer... values) {
-		return Arrays.stream(values).filter(Objects::nonNull)
-				.anyMatch(i -> i>0);
-	}
 
 	public static Document createArrestHideRequest(String id) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
