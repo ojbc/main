@@ -276,7 +276,14 @@
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
                 	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
-               	   if ( restitution > 5000 || fineAmount > 1000){
+                	 var jailYears = parseInt($("#jailYears").val()) || 0; 
+                	 var jailDays = parseInt($("#jailDays").val()) || 0; 
+                	 var jailTime = 360 * jailYears + jailDays;
+                	 var suspendedYears = parseInt($("#suspendedYears").val()) || 0; 
+                	 var suspendedDays = parseInt($("#suspendedDays").val()) || 0; 
+                	 var suspendedTime = 360 * suspendedYears + suspendedDays; 
+                	 
+               	   if ( restitution > 5000 || fineAmount > 1000 || jailTime > 360  || suspendedTime > 360 ){
                		   var confirmMessage = ""
                		   if (fineAmount > 1000) {
                			   confirmMessage += 'The Fine Amount exceeds $1,000. ' 
@@ -284,6 +291,15 @@
                		   if (restitution > 5000) {
                			   confirmMessage += ' The Restitution exceeds $5,000. ' 
                		   }
+               		   
+               		   if (jailTime > 360){
+               			   confirmMessage += ' The Jail Time exceeds 360 days. '
+               		   }
+               		   
+               		   if (suspendedTime > 360){
+               			   confirmMessage += ' The Suspended Time exceeds 360 days. '
+               		   }
+               		   
                		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){saveDisposition(formData);} });  
                	   }
                	   else{
