@@ -1080,7 +1080,9 @@ public class RequestMessageBuilderUtilities {
         		}
         		
         	}
-        	
+            XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeHiddenArrestIndicator", 
+    			BooleanUtils.toString(arrestSearchRequest.getIncludeHiddenArrestIndicator(), "true", "false", "false"));
+
         	if (BooleanUtils.isTrue(arrestSearchRequest.getArrestWithDeferredDispositions()) 
         			&& (arrestSearchRequest.getDispositionDateRangeStartDate() != null 
         				|| arrestSearchRequest.getDispositionDateRangeEndDate()!= null)) {

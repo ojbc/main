@@ -54,6 +54,7 @@ public class ArrestSearchRequest {
     
     private ArrestType arrestType; 
     private Boolean arrestWithDeferredDispositions; 
+    private Boolean includeHiddenArrestIndicator; 
     
 	public LocalDate getArrestDateRangeStartDate() {
 		return arrestDateRangeStartDate;
@@ -176,5 +177,11 @@ public class ArrestSearchRequest {
 	}
 	public void setDispositionDateRangeEndDate(LocalDate dispositionDateRangeEndDate) {
 		this.dispositionDateRangeEndDate = dispositionDateRangeEndDate;
+	}
+	public Boolean getIncludeHiddenArrestIndicator() {
+		return includeHiddenArrestIndicator;
+	}
+	public void setIncludeHiddenArrestIndicator(Boolean includeHiddenArrestIndicator) {
+		this.includeHiddenArrestIndicator = includeHiddenArrestIndicator;
 	}
 }

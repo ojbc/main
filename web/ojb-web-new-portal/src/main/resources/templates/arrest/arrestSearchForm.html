@@ -74,9 +74,13 @@
 	              <td th:if="${#fields.hasErrors('arrestIdentification')}" th:errors="*{arrestIdentification}">Arrest ID error message</td>
 	            </tr>
 	            <tr>
-	              <td colspan="4">
+	              <td colspan="2">
 	                 Arrests With Deferred Dispositions 
 	                 <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
+                 </td>
+	              <td colspan="2">
+	                 Include Hidden Arrest
+	                 <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
                  </td>
 	            </tr>
 	          </table>
