@@ -79,4 +79,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String unhideArrest(String id, Element samlToken) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

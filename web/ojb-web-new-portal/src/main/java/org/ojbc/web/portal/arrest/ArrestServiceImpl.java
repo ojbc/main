@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
+import org.ojbc.processor.arrest.modify.ArrestUnhideRequestProcessor;
 import org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
 import org.ojbc.processor.arrest.modify.ExpungeDispositionRequestProcessor;
@@ -42,6 +43,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ArrestModifyRequestProcessor arrestModifyRequestProcessor;
 	@Autowired
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
+	@Autowired
+	private ArrestUnhideRequestProcessor arrestUnhideRequestProcessor;
 	@Autowired
 	private DeleteDispositionRequestProcessor deleteDispositionRequestProcessor;
 	@Autowired
@@ -95,6 +98,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String lookupOtn(String otn, Element samlAssertion) throws Throwable {
 		return recordReplicationRequestProcessor.invokeRequest(otn, samlAssertion);
+	}
+
+	@Override
+	public String unhideArrest(String id, Element samlToken) throws Throwable {
+		return arrestUnhideRequestProcessor.invokeRequest(id, samlToken);
 	}
 	
 }

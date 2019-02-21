@@ -39,6 +39,8 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICAT
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_UNHIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC;
@@ -49,7 +51,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_EXPUNGE_REQUEST_D
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_60;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MODIFY_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MODIFY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_CHARGE_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC;
@@ -1290,8 +1292,8 @@ public class RequestMessageBuilderUtilities {
 	public static Document createArrestModifyRequest(Disposition disposition) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_MODIFY_REQUEST_DOC, 
-        		NS_PREFIX_MODIFY_HIDE_REQUEST_DOC + ":ArrestModifyRequest");
-        rootElement.setAttribute("xmlns:" + NS_PREFIX_MODIFY_HIDE_REQUEST_DOC, 
+        		NS_PREFIX_MODIFY_REQUEST_DOC + ":ArrestModifyRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_MODIFY_REQUEST_DOC, 
         		NS_ARREST_MODIFY_REQUEST_DOC);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
         		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
@@ -1461,10 +1463,16 @@ public class RequestMessageBuilderUtilities {
         		NS_PREFIX_ARREST_HIDE_REQUEST_DOC + ":ArrestHideRequest");
         rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_HIDE_REQUEST_DOC, 
         		NS_ARREST_HIDE_REQUEST_DOC);
-        return createArrestModifyRequest(id, document, rootElement);
+        
+        Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
+		Element arrestHideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideDate");
+		XmlUtils.appendTextElement(arrestHideDate, NS_NC_40, "Date", LocalDate.now().toString());
+		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
+        
+        return document;
 	}
 
-	private static Document createArrestModifyRequest(String id, Document document, Element rootElement) {
+	private static Element createArrestModifyRequestArrestElement(String id, Document document, Element rootElement) {
 		rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
         		NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
@@ -1476,14 +1484,8 @@ public class RequestMessageBuilderUtilities {
     	
 		Element arrestAgencyRecordIdentification = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgencyRecordIdentification"); 
 		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationID", id);
-		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);
-
-		Element arrestHideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideDate");
-		XmlUtils.appendTextElement(arrestHideDate, NS_NC_40, "Date", LocalDate.now().toString());
-		
-		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
-		
-        return document;
+		XmlUtils.appendTextElement(arrestAgencyRecordIdentification, NS_NC_40, "IdentificationSourceText", CRIMINAL_HISTORY_MODIFICATION_REQUEST);		
+        return arrest;
 	}
 //<dd-req-doc:DeleteDispositionRequest
 //	xmlns:dd-req-doc="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0"
@@ -1559,7 +1561,8 @@ public class RequestMessageBuilderUtilities {
         		NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC + ":MunicipalProsecutorArrestReferralRequest");
         rootElement.setAttribute("xmlns:" + NS_PREFIX_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC, 
         		NS_MUNICIPAL_PROSECUTOR_ARREST_REFERRAL_REQUEST_DOC);
-		return createArrestModifyRequest(id, document, rootElement);
+        createArrestModifyRequestArrestElement(id, document, rootElement);
+		return document;
 
 	}	
 	public static Document createDistrictAttorneyArrestReferralRequest(String id) throws Exception {
@@ -1568,7 +1571,8 @@ public class RequestMessageBuilderUtilities {
 				NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC + ":DistrictAttorneyArrestReferralRequest");
 		rootElement.setAttribute("xmlns:" + NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC, 
 				NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC);
-		return createArrestModifyRequest(id, document, rootElement);
+        createArrestModifyRequestArrestElement(id, document, rootElement);
+		return document;
 	}
 
 	public static Document createExpungeRequest(Disposition disposition) throws Exception {
@@ -1615,6 +1619,37 @@ public class RequestMessageBuilderUtilities {
         Element personTrackingIdentification = XmlUtils.appendElement(person, NS_RECORD_REPLICATION_REQUEST_EXT, "PersonTrackingIdentification");
         XmlUtils.appendTextElement(personTrackingIdentification, NS_NC_40, "IdentificationID", otn);
 		return document;
+	}
+//	<auhr-req-doc:ArrestUnhideRequest xmlns:auhr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"
+//			xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
+//			xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+//			xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+//			xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+//			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0 ../xsd/arrest_unhide_request.xsd ">
+//			<j:Arrest>
+//				<j:ArrestAgencyRecordIdentification>
+//					<nc:IdentificationID>1004233</nc:IdentificationID>
+//					<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
+//				</j:ArrestAgencyRecordIdentification>
+//				<chm-req-ext:ArrestUnhideDate>
+//					<nc:Date>2018-07-12</nc:Date>
+//				</chm-req-ext:ArrestUnhideDate>
+//				<chm-req-ext:ArrestUnhideIndicator>true</chm-req-ext:ArrestUnhideIndicator>
+//			</j:Arrest>
+//		</auhr-req-doc:ArrestUnhideRequest>
+	public static Document createArrestUnhideRequest(String id) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ARREST_UNHIDE_REQUEST_DOC, 
+        		NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC + ":ArrestUnhideRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC, 
+        		NS_ARREST_UNHIDE_REQUEST_DOC);
+        Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
+        
+		Element arrestUnhideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideDate");
+		XmlUtils.appendTextElement(arrestUnhideDate, NS_NC_40, "Date", LocalDate.now().toString());
+		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideIndicator", "true");
+
+        return document;
 	}	
     
 }

@@ -152,6 +152,15 @@ public class DaArrestController {
 		return "arrest/da/arrestDetail::arrestDetail";
 	}
 
+	@GetMapping("/{id}/unhide")
+	public String unhideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		arrestService.unhideArrest(id, samlService.getSamlAssertion(request));
+		
+		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchrequest, model);
+		return "arrest/da/arrests::resultsList";
+	}
+	
 	@GetMapping("/{id}/hide")
 	public String hideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
 		arrestService.hideArrest(id, samlService.getSamlAssertion(request));

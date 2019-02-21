@@ -69,6 +69,12 @@
 	                		       } 
 	           		      }); 
                   });
+                  $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+	                	  var arrestId = $(this).closest("tr").attr("id"); 
+                      xhr = $.get( context +"muniArrests/" + arrestId + "/unhide", function(data) {
+                          $("#searchResultsList").replaceWith(data);
+                      }).fail(ojbc.displayFailMessage);
+                  });
                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
                       var arrestId = $(this).closest("tr").attr("id"); 
                       bootpopup.confirm("Please confirm that you want to refer this arrest" , "",
