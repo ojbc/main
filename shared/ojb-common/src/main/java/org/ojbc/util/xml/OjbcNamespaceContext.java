@@ -918,8 +918,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ARREST_HIDE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0";
 	public static final String NS_PREFIX_ARREST_HIDE_REQUEST_DOC ="ahr-req-doc";
 
+	public static final String NS_ARREST_UNHIDE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0";
+	public static final String NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC ="auhr-req-doc";
+	
 	public static final String NS_ARREST_MODIFY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0";
-	public static final String NS_PREFIX_MODIFY_HIDE_REQUEST_DOC ="amr-req-doc";
+	public static final String NS_PREFIX_MODIFY_REQUEST_DOC ="amr-req-doc";
 
 	public static final String NS_EXPUNGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0";
 	public static final String NS_PREFIX_EXPUNGE_REQUEST_DOC ="er-req-doc";
@@ -1046,8 +1049,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_ARREST_HIDE_REQUEST_DOC, NS_ARREST_HIDE_REQUEST_DOC);
 		uriToPrefixMap.put(NS_ARREST_HIDE_REQUEST_DOC, NS_PREFIX_ARREST_HIDE_REQUEST_DOC);
 
-		prefixToUriMap.put(NS_PREFIX_MODIFY_HIDE_REQUEST_DOC, NS_ARREST_MODIFY_REQUEST_DOC);
-		uriToPrefixMap.put(NS_ARREST_MODIFY_REQUEST_DOC, NS_PREFIX_MODIFY_HIDE_REQUEST_DOC);
+		prefixToUriMap.put(NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC, NS_ARREST_UNHIDE_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_UNHIDE_REQUEST_DOC, NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_MODIFY_REQUEST_DOC, NS_ARREST_MODIFY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_MODIFY_REQUEST_DOC, NS_PREFIX_MODIFY_REQUEST_DOC);
 
 		prefixToUriMap.put(NS_PREFIX_EXPUNGE_REQUEST_DOC, NS_EXPUNGE_REQUEST_DOC);
 		uriToPrefixMap.put(NS_EXPUNGE_REQUEST_DOC, NS_PREFIX_EXPUNGE_REQUEST_DOC);
