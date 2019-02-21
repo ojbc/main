@@ -100,9 +100,18 @@
 			  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">
   				<i class="fas fa-edit fa-2x"></i>
  				</a>
- 				<a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
- 				  <i class="fas fa-eye-slash fa-2x"></i>
-				</a>
+ 				<xsl:choose>
+	 				<xsl:when test="j:Arrest/chsres-ext:ArrestHiddenIndicator = 'true'">
+            <a href="#" class="unhideArrest" style="margin-right:3px" title="Unhide" data-toggle="tooltip">
+              <i class="fas fa-eye fa-2x"></i>
+            </a>
+					</xsl:when>
+					<xsl:otherwise>
+            <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
+              <i class="fas fa-eye-slash fa-2x"></i>
+            </a>
+					</xsl:otherwise>
+				</xsl:choose>
 				<xsl:element name="a">
 				  <xsl:attribute name="href">#</xsl:attribute>
 				  <xsl:attribute name="class">referArrest</xsl:attribute>
