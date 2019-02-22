@@ -74,12 +74,24 @@
           </div>
           <div class="form-row">
 	          <div class="col-md-3 mb-2">
-	            <label for="chargeSeverityCode">Charge Severity</label>
+	            <label for="chargeSeverityCode">Filed Charge Severity</label>
 	            <select th:field="*{chargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 	            </select>
-	            <div th:if="${#fields.hasErrors('chargeSeverityCode')}" th:errors="*{chargeSeverityCode}" class="invalid-feedback">Disposition Code error message</div>
+	          </div>
+	          <div class="col-md-3 mb-2">
+	            <label for="filedGeneralOffenseCode">General Offense Code</label>
+	          </div>
+	          <div class="col-md-3 mb-2">
+	            <label for="amendedChargeSeverityCode">Amended Charge Severity</label>
+	            <select th:field="*{amendedChargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
+	               <option value="" >Please select ...</option>
+	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+	            </select>
+	          </div>
+	          <div class="col-md-3 mb-2">
+	            <label for="amendedGeneralOffenseCode">General Offense Code</label>
 	          </div>
           </div>
           <div class="form-row">

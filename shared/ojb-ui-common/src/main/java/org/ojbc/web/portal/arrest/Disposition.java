@@ -57,6 +57,9 @@ public class Disposition {
     private String amendedCharge;
     private String amendedChargeDescription; 
     private String chargeSeverityCode;
+    private String amendedChargeSeverityCode;
+    private String filedGeneralOffenseCode;
+    private String amendedGeneralOffenseCode;
     
     @Min(1)
     @NumberFormat(pattern = "#,###,###,###,###")
@@ -295,5 +298,23 @@ public class Disposition {
 	}
 	public void setPrisonDays(Integer prisonDays) {
 		this.prisonDays = prisonDays;
+	}
+	public String getAmendedChargeSeverityCode() {
+		return amendedChargeSeverityCode;
+	}
+	public void setAmendedChargeSeverityCode(String amendedChargeSeverityCode) {
+		this.amendedChargeSeverityCode = amendedChargeSeverityCode;
+	}
+	public String getFiledGeneralOffenseCode() {
+		return filedGeneralOffenseCode;
+	}
+	public void setFiledGeneralOffenseCode(String filedGeneralOffenseCode) {
+		this.filedGeneralOffenseCode = filedGeneralOffenseCode;
+	}
+	public String getAmendedGeneralOffenseCode() {
+		return amendedGeneralOffenseCode;
+	}
+	public void setAmendedGeneralOffenseCode(String amendedGeneralOffenseCode) {
+		this.amendedGeneralOffenseCode = amendedGeneralOffenseCode;
 	}
 }    
