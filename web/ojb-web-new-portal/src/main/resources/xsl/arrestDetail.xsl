@@ -46,18 +46,15 @@
 			
 				<thead>
 					<tr>
-						<th>OTN</th>
 						<th>NAME</th>
 						<th>DOB</th>
 						<th>SSN</th>
+						<th>OTN</th>
 						<th>DATE OF ARREST</th>
 					</tr>
 				</thead>
 				<tbody>
 				   <tr>
-				      <td>
-				        <xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
-				      </td>         
 				      <td><xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 				      <td>
 				        <xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
@@ -65,8 +62,11 @@
 				      <td>
 				        <xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonSSNIdentification/nc:IdentificationID"/>
 				      </td>
+				      <td>
+				        <xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
+				      </td>         
 				      <td id="arrestDate">
-				        <xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				        <strong><xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/></strong>
 				      </td>
            </tr>
 				</tbody>

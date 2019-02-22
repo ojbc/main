@@ -82,6 +82,9 @@
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
                 		 dom: 'rt',
                 		 order: [ 1, "desc" ],
+                		 language: {
+                		      "emptyTable": "No disposition data on file"
+                		    },
                 		 columnDefs: [ 
                         {
                             "targets": 0,
