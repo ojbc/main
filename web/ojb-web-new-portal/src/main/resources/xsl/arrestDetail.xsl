@@ -93,7 +93,7 @@
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
       </div>
-      <div class="collapse show hscroll" data-parent="#accordion">
+      <div class="collapse hscroll" data-parent="#accordion">
         <xsl:attribute name="id">
            <xsl:value-of select="concat('charge', position())"></xsl:value-of>
         </xsl:attribute>
