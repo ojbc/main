@@ -73,3 +73,7 @@ main{
   display:none;
   z-index: 10000;
 }
+
+table.dispositionsTable td.dataTables_empty {
+    text-align: left;    
+}
