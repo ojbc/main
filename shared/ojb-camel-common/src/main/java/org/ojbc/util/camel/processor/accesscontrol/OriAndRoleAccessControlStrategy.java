@@ -41,8 +41,15 @@ public class OriAndRoleAccessControlStrategy implements AccessControlStrategy{
 	
 	List<String> authorizedORIs;
 	
+	List<String> unAuthorizedORIs;
+	
 	public OriAndRoleAccessControlStrategy(List<String> authorizedORIsProperty) {
 	    authorizedORIs = authorizedORIsProperty;
+	}
+	
+	public OriAndRoleAccessControlStrategy(List<String> authorizedORIsProperty, List<String> unAuthorizedORIsProperty) {
+	    authorizedORIs = authorizedORIsProperty;
+	    unAuthorizedORIs= unAuthorizedORIsProperty;
 	}
 	
 	@Override
@@ -51,16 +58,32 @@ public class OriAndRoleAccessControlStrategy implements AccessControlStrategy{
 		AccessControlResponse accessControlResponse = new AccessControlResponse();
 		String employerORI = "";
 		
-		if (authorizedORIs == null || authorizedORIs.size() == 0){
-			accessControlResponse.setAuthorized(false);
-			accessControlResponse.setAccessControlResponseMessage("There are no authorized ORIs to query data.");
-			
-			return accessControlResponse;
-		}	
+		if (unAuthorizedORIs == null || unAuthorizedORIs.size() == 0)
+		{	
+			if (authorizedORIs == null || authorizedORIs.size() == 0){
+				accessControlResponse.setAuthorized(false);
+				accessControlResponse.setAccessControlResponseMessage("There are no authorized ORIs to query data.");
+				
+				return accessControlResponse;
+			}
+		}
 		
 		try{
 			Message cxfMessage = ex.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
 			employerORI = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI);
+			
+			if (unAuthorizedORIs != null)
+			{
+				if (unAuthorizedORIs.contains(employerORI)) 
+				{
+				    accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+				            " are NOT authorized to run this query. The ORI is as an unauthorized ORI.");
+				    
+				    accessControlResponse.setAuthorized(false);
+				    
+				    return accessControlResponse;
+				}
+			}				
 			
             if (isAuthorized(employerORI, cxfMessage)){
 				accessControlResponse.setAuthorized(true);
