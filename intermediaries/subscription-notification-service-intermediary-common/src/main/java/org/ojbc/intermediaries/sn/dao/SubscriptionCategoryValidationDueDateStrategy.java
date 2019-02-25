@@ -23,6 +23,8 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.ojbc.intermediaries.sn.SubscriptionCategoryCode;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class SubscriptionCategoryValidationDueDateStrategy implements ValidationDueDateStrategy {
 
@@ -64,9 +66,42 @@ public class SubscriptionCategoryValidationDueDateStrategy implements Validation
      * there is no validation due date.
      */
     @Override
-    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode,LocalDate validationDate)  {
+    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate validationDate)  {
     	
-    	//If an exempt subscriber list is defined, see if the subscription owner is in that list.
+    	String subscriptionOwner = request.getSubscriptionOwner();
+    	String subscriptionCategoryCode = request.getReasonCategoryCode();
+    	
+    	String requestEndDateString = request.getEndDateString();
+    	
+    	LocalDate endDate = null;
+    	
+    	if (StringUtils.isNotBlank(requestEndDateString))
+    	{
+    		//ISO_LOCAL_DATE
+    		endDate = LocalDate.parse(requestEndDateString);
+    	}
+    		
+    	DateTime ret = getCommonValidationDueDate(validationDate, endDate,
+				subscriptionOwner, subscriptionCategoryCode, true);
+        
+        return ret;
+    }
+    
+	@Override
+	public DateTime getValidationDueDate(Subscription subscription,
+			LocalDate validationDate) {
+    	String subscriptionOwner = subscription.getSubscriptionOwner();
+    	String subscriptionCategoryCode = subscription.getSubscriptionCategoryCode();
+    	
+    	DateTime ret = getCommonValidationDueDate(validationDate, null,
+				subscriptionOwner, subscriptionCategoryCode, false);
+        
+        return ret;	
+    }
+
+	private DateTime getCommonValidationDueDate(LocalDate validationDate, LocalDate subscriptionEndDate,
+			String subscriptionOwner, String subscriptionCategoryCode, boolean isSubscriptionRequest) {
+		//If an exempt subscriber list is defined, see if the subscription owner is in that list.
     	//The 'exempt' subscription owner is allowed to have no validation due date
 		if (exemptSubscriptionOwners != null)
 		{
@@ -79,25 +114,43 @@ public class SubscriptionCategoryValidationDueDateStrategy implements Validation
 		}	
     	
 		DateTime ret = null;
+		LocalDate retAsLocalDate = null;
 
         if (validationDate != null) {
         	if (StringUtils.isNotBlank(subscriptionCategoryCode))
         	{	
         		if (subscriptionCategoryCode.equals(SubscriptionCategoryCode.CS.name()))
         		{	
-        			ret = validationDate.plusYears(criminalSupervisionLengthInYears).toDateTimeAtCurrentTime();
+        			retAsLocalDate  = validationDate.plusYears(criminalSupervisionLengthInYears);
+        			ret = retAsLocalDate.toDateTimeAtCurrentTime();
         		}
         		
         		if (subscriptionCategoryCode.equals(SubscriptionCategoryCode.CI.name()))
         		{	
-        			ret = validationDate.plusYears(criminalInvestigationLengthInYears).toDateTimeAtCurrentTime();
+        			retAsLocalDate = validationDate.plusYears(criminalInvestigationLengthInYears); 
+        			ret = retAsLocalDate.toDateTimeAtCurrentTime();
         		}	
 
         		if (SubscriptionCategoryCode.getCivilCodes().contains(subscriptionCategoryCode))
         		{	
-        			ret = validationDate.plusYears(civilLengthInYears).toDateTimeAtCurrentTime();
+        			retAsLocalDate = validationDate.plusYears(civilLengthInYears);
+        			ret = retAsLocalDate.toDateTimeAtCurrentTime();
         		}	
 
+        		if (subscriptionCategoryCode.equals(SubscriptionCategoryCode.CI.name()) || subscriptionCategoryCode.equals(SubscriptionCategoryCode.CS.name()))
+        		{	
+
+	        		if (isSubscriptionRequest)
+	        		{
+	        			if (subscriptionEndDate != null)
+	        			{	
+	    	    			if (subscriptionEndDate.isBefore(retAsLocalDate))
+	    	    			{
+	    	    				return subscriptionEndDate.toDateTimeAtCurrentTime();
+	    	    			}
+	        			}
+	        		}
+	        	}
         	}
         	
         }
