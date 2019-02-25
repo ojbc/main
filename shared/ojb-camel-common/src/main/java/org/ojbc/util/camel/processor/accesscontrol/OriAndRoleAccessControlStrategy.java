@@ -72,6 +72,7 @@ public class OriAndRoleAccessControlStrategy implements AccessControlStrategy{
 			Message cxfMessage = ex.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
 			employerORI = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI);
 			
+			//This allows user to only set unauthorized ORI list and does not need to set authorized list
 			if (unAuthorizedORIs != null)
 			{
 				if (unAuthorizedORIs.contains(employerORI)) 
@@ -82,6 +83,17 @@ public class OriAndRoleAccessControlStrategy implements AccessControlStrategy{
 				    accessControlResponse.setAuthorized(false);
 				    
 				    return accessControlResponse;
+				}
+				else
+				{
+					if (authorizedORIs==null)
+					{
+						accessControlResponse.setAuthorized(true);
+						accessControlResponse.setAccessControlResponseMessage("Users in the ORI: " + employerORI + 
+						        " are authorized to run this query.");
+						
+						return accessControlResponse;
+					}	
 				}
 			}				
 			
