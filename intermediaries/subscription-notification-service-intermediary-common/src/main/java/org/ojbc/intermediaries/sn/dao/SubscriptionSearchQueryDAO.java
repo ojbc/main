@@ -538,7 +538,7 @@ public class SubscriptionSearchQueryDAO {
     	// allow nulls
     	Date endDate = getSqlDateFromString(request.getEndDateString());
     	
-    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request.getSubscriptionOwner(), request.getTopic(), request.getReasonCategoryCode(), creationDateTime);
+    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request, creationDateTime);
     	
     	java.util.Date validationDueDate = null;
     	
@@ -570,7 +570,7 @@ public class SubscriptionSearchQueryDAO {
     		
     		long subscriptionID = subscriptions.get(0).getId();
     		
-    		updateSubscription(request.getSubjectName(), startDate, endDate,
+    		updateSubscription(validationDueDate, request.getSubjectName(), startDate, endDate,
     				creationDate, fullyQualifiedTopic, subscriptionID, subscriptions.get(0).getSubscriptionOwnerFk());
     		
     		updateEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), subscriptionID);
@@ -626,11 +626,11 @@ public class SubscriptionSearchQueryDAO {
 		return startDate;
 	}
 
-	private void updateSubscription(String offenderName, Date startDate, Date endDate,
+	private void updateSubscription(java.util.Date validationDueDate, String offenderName, Date startDate, Date endDate,
 			java.util.Date lastValidationDate, String fullyQualifiedTopic,
 			long subscriptionID, Integer subscriptionOwnerFk) {
-		this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? where id=?", new Object[] {
-		    fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), lastValidationDate, subscriptionOwnerFk, subscriptionID
+		this.jdbcTemplate.update("update subscription set validationDueDate=?, topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? where id=?", new Object[] {
+				validationDueDate, fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), lastValidationDate, subscriptionOwnerFk, subscriptionID
 		});
 	}
 

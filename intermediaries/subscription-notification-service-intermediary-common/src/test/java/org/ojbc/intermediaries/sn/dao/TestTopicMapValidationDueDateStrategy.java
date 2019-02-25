@@ -29,6 +29,7 @@ import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.test.annotation.DirtiesContext;
 import org.w3c.dom.Document;
 @DirtiesContext
@@ -58,16 +59,27 @@ public class TestTopicMapValidationDueDateStrategy {
 		message.setBody(messageDocument);
 		
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
-		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		ArrestSubscriptionRequest subRequest = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
         
+		Subscription subscription = new Subscription();
+		
         DateTime baseDate = DateTime.now();
         
-        sub.setTopic("t1");
-        DateTime validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t1","", new LocalDate());
+        subRequest.setTopic("t1");
+        DateTime validationDueDate = strategy.getValidationDueDate(subRequest, new LocalDate());
         assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
 
-        sub.setTopic("t2");
-        validationDueDate = strategy.getValidationDueDate(sub.getSubscriptionOwner(), "t2", "",new LocalDate());
+        subscription.setTopic("t1");
+        validationDueDate = strategy.getValidationDueDate(subscription, new LocalDate());
+        assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
+
+        
+        subRequest.setTopic("t2");
+        validationDueDate = strategy.getValidationDueDate(subRequest,new LocalDate());
+        assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
+
+        subscription.setTopic("t2");
+        validationDueDate = strategy.getValidationDueDate(subscription,new LocalDate());
         assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
 
     }

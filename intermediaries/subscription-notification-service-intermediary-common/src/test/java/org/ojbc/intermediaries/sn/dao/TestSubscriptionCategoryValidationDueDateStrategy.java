@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.w3c.dom.Document;
 
 /**
@@ -36,6 +37,8 @@ import org.w3c.dom.Document;
  */
 public class TestSubscriptionCategoryValidationDueDateStrategy {
 
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
+	
 	@Test
 	public void testStaticValidationDueDateStrategy() throws Exception
 	{
@@ -55,19 +58,55 @@ public class TestSubscriptionCategoryValidationDueDateStrategy {
 		message.setBody(messageDocument);
 		
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
-		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		ArrestSubscriptionRequest subRequest = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
 		
-		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE,new LocalDate())));
+		Subscription subscription = new Subscription();
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION,new LocalDate())));
+		//If the end date is less than the validation due date then the validation due date should be the end date
+		DateTime endDate = DateTime.now().plusDays(10);
+		subRequest.setEndDateString(DATE_FORMATTER.print(endDate));
+
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE);
+		assertEquals(fmt.print(endDate), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.FIREARMS,new LocalDate())));
+		//Set the end date back to null to resume normal behavior
+		subRequest.setEndDateString(null);
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE);
+		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
+
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_INVESTIGATIVE);
+		assertEquals(fmt.print(currentDate.plusYears(1)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT,new LocalDate())));
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT,new LocalDate())));
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_SUPERVISION);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
 		
-		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(sub.getSubscriptionOwner(), "", SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT,new LocalDate())));
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.FIREARMS);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
+		
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.FIREARMS);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
+		
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
+		
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
+		
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
+		
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
+		
+		subRequest.setReasonCategoryCode(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subRequest, new LocalDate())));
+		
+		subscription.setSubscriptionCategoryCode(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT);
+		assertEquals(fmt.print(currentDate.plusYears(5)), fmt.print(strategy.getValidationDueDate(subscription, new LocalDate())));
+		
 	}
 	
 }
