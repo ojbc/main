@@ -101,6 +101,9 @@ public class DaArrestController {
 		if (!model.containsAttribute("chargeSeverityCodeMapping")) {
 			model.addAttribute("chargeSeverityCodeMapping", appProperties.getChargeSeverityCodeMapping());
 		}
+		if (!model.containsAttribute("daCaseTypeCodeMapping")) {
+			model.addAttribute("daCaseTypeCodeMapping", appProperties.getDaCaseTypeCodeMapping());
+		}
 		
     }
     
@@ -190,7 +193,7 @@ public class DaArrestController {
 	@GetMapping("/dispositionForm")
 	public String getDispositionForm(HttpServletRequest request, Disposition disposition, 
 			Map<String, Object> model) throws Throwable {
-		
+		disposition.disassembleCourtCaseNumber();
 		model.put("disposition", disposition);
 		return "arrest/da/dispositionForm::dispositionForm";
 	}
@@ -205,6 +208,7 @@ public class DaArrestController {
 			return "arrest/da/dispositionForm::dispositionForm";
 		}
 		
+		disposition.assembleCourtCaseNumber();
 		setCodeDescriptions(disposition, model); 
 		log.info(disposition);
 		arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));

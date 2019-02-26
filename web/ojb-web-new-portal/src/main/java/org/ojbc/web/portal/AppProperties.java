@@ -35,6 +35,7 @@ public class AppProperties {
 	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
 	private Map<String, String> provisionCodeMapping = new HashMap<>();
 	private Map<String, String> chargeSeverityCodeMapping = new HashMap<>();
+	private Map<String, String> daCaseTypeCodeMapping = new HashMap<>();
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
@@ -68,6 +69,12 @@ public class AppProperties {
 		chargeSeverityCodeMapping.put("F", "Felony");
 		chargeSeverityCodeMapping.put("M", "Misdemeanor");
 		chargeSeverityCodeMapping.put("E", "Either");
+		
+		daCaseTypeCodeMapping.put("F", "Felony");
+		daCaseTypeCodeMapping.put("M", "Misdemeanor");
+		daCaseTypeCodeMapping.put("T", "Traffic");
+		daCaseTypeCodeMapping.put("W", "Wildlife");
+		daCaseTypeCodeMapping.put("Y", "Youth");
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -172,6 +179,14 @@ public class AppProperties {
 
 	public void setAjpPort(Integer ajpPort) {
 		this.ajpPort = ajpPort;
+	}
+
+	public Map<String, String> getDaCaseTypeCodeMapping() {
+		return daCaseTypeCodeMapping;
+	}
+
+	public void setDaCaseTypeCodeMapping(Map<String, String> daCaseTypeCodeMapping) {
+		this.daCaseTypeCodeMapping = daCaseTypeCodeMapping;
 	}
 
 }

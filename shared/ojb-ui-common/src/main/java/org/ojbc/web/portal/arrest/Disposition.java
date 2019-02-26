@@ -17,11 +17,13 @@
 package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
@@ -92,6 +94,15 @@ public class Disposition {
     private String reasonForDismissal;
     private String reasonForDismissalDescripiton;
     private String provisionCode;
+    
+    @NotBlank
+    private String county; 
+    @NotBlank
+    private String caseType; 
+    @NotBlank
+    private String year; 
+    @NotBlank
+    private String caseNumber; 
 
     public Disposition() {
     	super();
@@ -145,6 +156,23 @@ public class Disposition {
 	public void setCourtCaseNumber(String courtCaseNumber) {
 		this.courtCaseNumber = courtCaseNumber;
 	}
+	public void assembleCourtCaseNumber() {
+		boolean isCourtCaseNumberPartsReady = Arrays.asList(this.county, this.caseType, this.year, this.caseNumber)
+				.stream().allMatch(Objects::nonNull);
+		if (isCourtCaseNumberPartsReady) {
+			this.courtCaseNumber = StringUtils.join(this.county, this.caseType, this.year, this.caseNumber);
+		}
+	}
+	
+	public void disassembleCourtCaseNumber() {
+		if (StringUtils.isNotBlank(this.courtCaseNumber) && this.dispositionType == ArrestType.DA) {
+			this.county = StringUtils.substring(this.courtCaseNumber, 0, 2);
+			this.caseType = StringUtils.substring(this.courtCaseNumber, 2, 3);
+			this.year = StringUtils.substring(this.courtCaseNumber, 3, 5);
+			this.caseNumber = StringUtils.substring(this.courtCaseNumber, 5);
+		}
+	}
+	
 	public String getFiledCharge() {
 		return filedCharge;
 	}
@@ -316,5 +344,29 @@ public class Disposition {
 	}
 	public void setAmendedGeneralOffenseCode(String amendedGeneralOffenseCode) {
 		this.amendedGeneralOffenseCode = amendedGeneralOffenseCode;
+	}
+	public String getCounty() {
+		return county;
+	}
+	public void setCounty(String county) {
+		this.county = StringUtils.leftPad(county, 2, '0');
+	}
+	public String getCaseType() {
+		return caseType;
+	}
+	public void setCaseType(String caseType) {
+		this.caseType = caseType;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = StringUtils.leftPad(year, 2, '0');
+	}
+	public String getCaseNumber() {
+		return caseNumber;
+	}
+	public void setCaseNumber(String caseNumber) {
+		this.caseNumber = StringUtils.leftPad(caseNumber, 5, '0');
 	}
 }    
