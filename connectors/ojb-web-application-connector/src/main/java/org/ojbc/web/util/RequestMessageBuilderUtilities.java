@@ -1329,6 +1329,8 @@ public class RequestMessageBuilderUtilities {
 	        			"ChargeMunicipalCodeDescriptionText", disposition.getAmendedChargeDescription());
         	}
         	else if (disposition.getDispositionType() == ArrestType.DA) {
+        		XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+        				"ChargeDispositionSeverityCodeText", disposition.getAmendedChargeSeverityCode());
         		createChargeStatuteElement(disposition.getAmendedCharge(), disposition.getAmendedChargeDescription(), amendedCharge);
         	}
         }
@@ -1342,6 +1344,8 @@ public class RequestMessageBuilderUtilities {
 	    			"ChargeMunicipalCodeDescriptionText", disposition.getFiledChargeDescription());
     	}    	
     	else if (disposition.getDispositionType() == ArrestType.DA) {
+    		XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    				"ChargeDispositionSeverityCodeText", disposition.getChargeSeverityCode());
     		createChargeStatuteElement(disposition.getFiledCharge(), disposition.getFiledChargeDescription(), filedCharge);
     	}
     	
@@ -1374,8 +1378,6 @@ public class RequestMessageBuilderUtilities {
     		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
     				"DispositionDismissalReasonCodeText", disposition.getReasonForDismissal());
     	}
-		XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-				"ChargeDispositionSeverityCodeText", disposition.getChargeSeverityCode());
 
     	if (disposition.containsSentenceInfo()) {
     		Element chargeSentence = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeSentence");
