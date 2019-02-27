@@ -348,7 +348,9 @@ public class Disposition {
 		return county;
 	}
 	public void setCounty(String county) {
-		this.county = StringUtils.leftPad(county, 2, '0');
+		if (StringUtils.isNotBlank(county)) {
+			this.county = StringUtils.leftPad(county, 2, '0');
+		}
 	}
 	public String getCaseType() {
 		return caseType;
@@ -360,12 +362,16 @@ public class Disposition {
 		return year;
 	}
 	public void setYear(String year) {
-		this.year = StringUtils.leftPad(year, 2, '0');
+		if (StringUtils.isNotBlank(year)) {
+			this.year = StringUtils.leftPad(year, 2, '0');
+		}
 	}
 	public String getCaseNumber() {
 		return caseNumber;
 	}
 	public void setCaseNumber(String caseNumber) {
-		this.caseNumber = StringUtils.leftPad(caseNumber, 5, '0');
+		if (StringUtils.isNotBlank(caseNumber)) {
+			this.caseNumber = StringUtils.leftPad(caseNumber, 5, '0');
+		}
 	}
 }    
