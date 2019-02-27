@@ -18,6 +18,8 @@ package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * Interface for objects that compute a validation due date from a subscription
@@ -25,11 +27,21 @@ import org.joda.time.LocalDate;
 public interface ValidationDueDateStrategy {
     
     /**
-     * Given a subscription object, figure out what the validation due date is.
+     * Given a subscription request object, figure out what the validation due date is.
+     * This method should be used for add or modifying subscriptions
      * @param subscription the subscription
      * @return the date on which the subscription must be validated
      * @throws Exception
      */
-    public DateTime getValidationDueDate(String subscriptionOwner, String topic, String subscriptionCategoryCode, LocalDate validationDate);
+    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate validationDate);
+    
+    /**
+     * This method should be used when a subscription is retrieved from the database and we are validating it
+     * 
+     * @param subscription
+     * @param validationDate
+     * @return
+     */
+    public DateTime getValidationDueDate(Subscription subscription, LocalDate validationDate);
 
 }

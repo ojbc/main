@@ -28,6 +28,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.w3c.dom.Document;
 
 /**
@@ -55,17 +56,24 @@ public class TestStaticValidationDueDateStrategy {
 		message.setBody(messageDocument);
 		
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
-		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		ArrestSubscriptionRequest subRequest = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		subRequest.setSubscriptionOwner("SYSTEM");
 		
-		sub.setSubscriptionOwner("SYSTEM");
+		assertNull(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate()));
 		
-		assertNull(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "", new LocalDate()));
+		Subscription subscription = new Subscription();
+		subscription.setSubscriptionOwner("SYSTEM");
+
+		assertNull(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate()));
 		
-		sub.setSubscriptionOwner("NOT_SYSTEM");
-		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "", new LocalDate())));
+		subRequest.setSubscriptionOwner("NOT_SYSTEM");
+		subscription.setSubscriptionOwner("NOT_SYSTEM");
+		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate())));
+		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate())));
 		
 		staticValidationDueDateStrategy.setValidDays(30);
-		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(sub.getSubscriptionOwner(), "", "",new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate())));
 	}
 	
 }

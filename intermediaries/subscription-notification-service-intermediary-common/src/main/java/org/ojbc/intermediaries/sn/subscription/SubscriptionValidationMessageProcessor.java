@@ -83,7 +83,7 @@ public class SubscriptionValidationMessageProcessor {
 	public String getValidationDueDateString(@Header("subscription") Subscription subscription) {
 		if (subscription == null) throw new IllegalArgumentException("Can't calculate the validation due date when subscription is not found.");
 		
-		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription.getSubscriptionOwner(), subscription.getTopic(), subscription.getSubscriptionCategoryCode(), subscription.getLastValidationDate().toLocalDate());
+		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, subscription.getLastValidationDate().toLocalDate());
 		String validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
 		return validationDueDateString;
 	}
