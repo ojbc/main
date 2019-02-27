@@ -37,6 +37,7 @@
 	<xsl:output method="html" encoding="UTF-8" />
 	
 	<xsl:param name="rapbackValidationButtonShowingPeriod" select="60"/>
+	<xsl:param name="allowFirearmSubscription"/>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -125,7 +126,9 @@
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
 		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
-		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'">
+		<xsl:variable name="civilIdentificationReasonCode" select="oirsr-ext:CivilIdentificationReasonCode"/>
+		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
+			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription)">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
