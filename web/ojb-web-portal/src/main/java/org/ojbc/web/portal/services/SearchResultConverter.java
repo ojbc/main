@@ -90,6 +90,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${chDisplaySupervisionTroCustodyHeaders:true}")
 	Boolean chDisplaySupervisionTroCustodyHeaders;
 
+    @Value("${allowFirearmSubscription:true}")
+    Boolean allowFirearmSubscription;
+    
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -127,6 +130,7 @@ public class SearchResultConverter implements ApplicationContextAware {
     	}
         Map<String, Object> params = new HashMap<String, Object>(); 
         params.put("rapbackValidationButtonShowingPeriod", rapbackValidationButtonShowingPeriod);
+        params.put("allowFirearmSubscription", allowFirearmSubscription);
         return convertXml(searchContent, rapbackSearchResultXsl, params);
     }
     

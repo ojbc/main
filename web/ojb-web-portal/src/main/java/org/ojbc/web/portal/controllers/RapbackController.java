@@ -140,6 +140,9 @@ public class RapbackController {
     @Value("${civilSubscriptionPlaceholderEmail:consult@agency.profile}")
     String civilSubscriptionPlaceholderEmail;
     
+    @Value("${allowFirearmSubscription:true}")
+    String allowFirearmSubscription;
+    
     @ModelAttribute
     public void addModelAttributes(Model model) {
     	
