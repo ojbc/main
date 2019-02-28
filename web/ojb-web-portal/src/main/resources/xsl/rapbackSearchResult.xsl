@@ -109,7 +109,10 @@
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) !='Available for Subscription' 
+					or oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription">
+					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+				</xsl:if>
 			</td>
 			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:LatestNotificationDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
