@@ -86,6 +86,7 @@
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
 		
 		<tr>
 			<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
@@ -110,7 +111,8 @@
 			</td>
 			<td>
 				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) !='Available for Subscription' 
-					or oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription">
+					or (following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
+							and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription))">
 					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 				</xsl:if>
 			</td>
@@ -129,7 +131,6 @@
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
 		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
-		<xsl:variable name="civilIdentificationReasonCode" select="oirsr-ext:CivilIdentificationReasonCode"/>
 		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
 			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription)">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
