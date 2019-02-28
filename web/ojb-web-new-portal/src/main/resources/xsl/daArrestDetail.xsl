@@ -224,12 +224,13 @@
 		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
 		  </td>
       <td>
-        <xsl:value-of select="chsres-ext:ChargeDispositionSeverityCodeText"/>
+        <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeSeverityText"/>
       </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
 		  </td>
 		  <td>
+        <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeSeverityText"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/j:SupervisionFineAmount/nc:Amount"/>
