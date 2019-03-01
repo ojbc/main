@@ -61,14 +61,21 @@
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
 	                	  var arrestId = $(this).closest("tr").attr("id"); 
-	                	  bootpopup.confirm("Please confirm that you want to hide this arrest" , "",
-	             					  function(ans) { 
-	                		       if(ans){
-		                             xhr = $.get( context +"daArrests/" + arrestId + "/hide", function(data) {
-		                                 $("#searchResultsList").replaceWith(data);
-		                               }).fail(ojbc.displayFailMessage);
-	                		       } 
-	           		      }); 
+                      bootpopup({
+                          title: "", 
+                          size: "large",
+                          showclose: false,
+                          content: [
+                                { p: {text: "Hiding an arrest will remove it from your list for 30 days. You will still be able to search for this arrest.  "}},
+                                { p: {text: "Do you want to hide this arrest?"}}
+                                ], 
+                          cancel: function() {},
+                          ok: function(data, array, event) {  
+                              xhr = $.get( context +"daArrests/" + arrestId + "/hide", function(data) {
+                                  $("#searchResultsList").replaceWith(data);
+                                }).fail(ojbc.displayFailMessage);
+                          },
+                      });
                   });
                   $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
 	                	  var arrestId = $(this).closest("tr").attr("id"); 
@@ -77,17 +84,24 @@
                       }).fail(ojbc.displayFailMessage);
                   });
                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
-                      var arrestId = $(this).closest("tr").attr("id"); 
-                      bootpopup.confirm("Please confirm that you want to refer this arrest" , "",
-                         function(ans) { 
-                            if(ans){
-                                xhr = $.get( context +"daArrests/" + arrestId  + "/refer", function(data) {
-                                    $("#searchResultsList").replaceWith(data);
-                                }).fail(ojbc.displayFailMessage);
-                            } 
-                         }); 
-                  });
-             });
+                      var arrestId = $(this).closest("tr").attr("id");
+                      bootpopup({
+                    	  title: "", 
+                    	  size: "large",
+                    	  showclose: false,
+                    	  content: [
+                    	        { p: {text: "Referring an arrest to the Municipal Court will permanently remove the arrest from the county’s charge list.  If both the DA and municipal court refer this arrest, the disposition will be updated to 'NO CHARGES FILED' in OSBI’s criminal history records."}},
+                    	        { p: {text: "Do you want to refer this arrest to the Municipal Court?"}}
+                    	        ], 
+              	        cancel: function() {},
+               	        ok: function(data, array, event) {  
+               	        	xhr = $.get( context +"daArrests/" + arrestId  + "/refer", function(data) {
+                            $("#searchResultsList").replaceWith(data);
+                          }).fail(ojbc.displayFailMessage); 
+              	        },
+                      });
+                  }); 
+             }); 
           </script>
         </div>
  		    <script th:inline="javascript">
