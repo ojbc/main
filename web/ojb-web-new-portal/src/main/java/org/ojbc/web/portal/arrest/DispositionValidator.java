@@ -47,8 +47,8 @@ public class DispositionValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Disposition disposition = (Disposition) obj;
         
-        if ( Objects.nonNull(disposition.getDispositionDate()) && disposition.getDispositionDate().isAfter(disposition.getArrestDate())) {
-        	errors.rejectValue("dispositionDate", null, "may not be after arrest date " + disposition.getArrestDate().format(formatter));
+        if ( Objects.nonNull(disposition.getDispositionDate()) && disposition.getDispositionDate().isBefore(disposition.getArrestDate())) {
+        	errors.rejectValue("dispositionDate", null, "may not be before arrest date " + disposition.getArrestDate().format(formatter));
         }
         
         if (disposition.getFineSuspended() != null && disposition.getFineSuspended() > 0 && 
