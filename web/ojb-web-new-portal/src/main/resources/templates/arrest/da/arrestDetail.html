@@ -288,23 +288,33 @@
                 	 var suspendedTime = 360 * suspendedYears + suspendedDays; 
                 	 
                	   if ( restitution > 5000 || fineAmount > 1000 || jailTime > 360  || suspendedTime > 360 ){
-               		   var confirmMessage = ""
+               		   var contentArray = [];
                		   if (fineAmount > 1000) {
-               			   confirmMessage += 'The Fine Amount exceeds $1,000. ' 
+               			   contentArray.push({ p: {text: "The Fine Amount exceeds $1,000. "}});
                		   }
                		   if (restitution > 5000) {
-               			   confirmMessage += ' The Restitution exceeds $5,000. ' 
+                       contentArray.push({ p: {text: "The Restitution exceeds $5,000. "}});
                		   }
                		   
                		   if (jailTime > 360){
-               			   confirmMessage += ' The Jail Time exceeds 360 days. '
+                       contentArray.push({ p: {text: "The Jail Time exceeds 360 days."}});
                		   }
                		   
                		   if (suspendedTime > 360){
-               			   confirmMessage += ' The Suspended Time exceeds 360 days. '
+               			   contentArray.push({ p: {text: "The Suspended Time exceeds 360 days. "}});
                		   }
                		   
-               		   bootpopup.confirm(confirmMessage + "Please confirm to proceed.", "", function(ans) { if(ans){saveDisposition(formData);} });  
+               		   contentArray.push({ p: {text: "Do you want to proceed?"}});
+                     bootpopup({
+                         title: "", 
+                         showclose: false,
+                         content: contentArray, 
+                         no: function() {},
+                         yes: function(data, array, event) {  
+                        	 saveDisposition(formData);
+                       	 },
+                     });
+
                	   }
                	   else{
                		   saveDisposition(formData);
