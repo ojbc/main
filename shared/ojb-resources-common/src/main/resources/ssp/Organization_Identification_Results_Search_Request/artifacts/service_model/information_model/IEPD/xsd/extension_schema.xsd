@@ -22,10 +22,11 @@
 	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" 
 	targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
 	<xsd:complexType name="OrganizationIdentificationResultsSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit an organization identification results search.</xsd:documentation>
@@ -62,8 +63,6 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	
-	<!-- Added -->
 	<xsd:element name="IdentificationReportedDateRange" type="nc:DateRangeType">
 		<xsd:annotation>
 			<xsd:documentation>A range of dates when identifications could have occurred.</xsd:documentation>
