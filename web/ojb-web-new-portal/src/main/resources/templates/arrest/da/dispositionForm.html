@@ -185,7 +185,7 @@
               </div>
               <div class="col-md-2 mb-2">
                <label>County </label>
-	             <input type="text" th:field="*{county}" class="form-control" th:errorclass="is-invalid"/>
+	             <input type="text" th:field="*{county}" class="form-control" th:errorclass="is-invalid" readonly/>
 	             <div th:if="${#fields.hasErrors('county')}" th:errors="*{county}" class="invalid-feedback">County error message</div>
               </div>
               <div class="col-md-3 mb-2">
