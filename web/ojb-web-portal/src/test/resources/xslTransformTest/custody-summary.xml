@@ -36,7 +36,7 @@
 			</nc:ActivityIdentification>
 			<nc:ActivityCategoryText>Parole - Std</nc:ActivityCategoryText>
 			<nc:ActivityDate>
-				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
+				<nc:Date>2013-12-17</nc:Date>
 			</nc:ActivityDate>
 			<nc:SupervisionPerson structures:ref="Person_01" />
 			<nc:SupervisionSupervisor>
