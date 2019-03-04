@@ -282,12 +282,21 @@
                 	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
                 	 var jailYears = parseInt($("#jailYears").val()) || 0; 
                 	 var jailDays = parseInt($("#jailDays").val()) || 0; 
-                	 var jailTime = 360 * jailYears + jailDays;
                 	 var suspendedYears = parseInt($("#suspendedYears").val()) || 0; 
                 	 var suspendedDays = parseInt($("#suspendedDays").val()) || 0; 
                 	 var suspendedTime = 360 * suspendedYears + suspendedDays; 
+                	 var jailTime = 360 * jailYears + jailDays - suspendedTime;
+                   var deferredYears = parseInt($("#deferredYears").val()) || 0; 
+                   var deferredDays = parseInt($("#deferredDays").val()) || 0; 
+                   var deferredTime = 360 * deferredYears + deferredDays; 
+                   var prisonYears = parseInt($("#prisonYears").val()) || 0; 
+                   var prisonDays = parseInt($("#prisonDays").val()) || 0; 
+                   var prisonTime = 360 * prisonYears + prisonDays; 
                 	 
-               	   if ( restitution > 5000 || fineAmount > 1000 || jailTime > 360  || suspendedTime > 360 ){
+                	 var chargeSeverity = $('#amendedChargeSeverityCode').val() || $('#chargeSeverityCode').val(); 
+                	 
+               	   if ( restitution > 5000 || fineAmount > 1000 || jailTime > 360  || 
+               			   (chargeSeverity === 'M' && ( deferredTime > 360 || prisonTime > 0)) ){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                			   contentArray.push({ p: {text: "The Fine Amount exceeds $1,000. "}});
@@ -296,12 +305,16 @@
                        contentArray.push({ p: {text: "The Restitution exceeds $5,000. "}});
                		   }
                		   
-               		   if (jailTime > 360){
-                       contentArray.push({ p: {text: "The Jail Time exceeds 360 days."}});
+               		   if (jailTime > 360 && chargeSeverity === 'F'){
+                       contentArray.push({ p: {text: "Jail Time exceeds one year."}});
                		   }
                		   
-               		   if (suspendedTime > 360){
-               			   contentArray.push({ p: {text: "The Suspended Time exceeds 360 days. "}});
+               		   if ((jailTime > 360 || deferredTime > 360 )&& chargeSeverity === 'M'){
+                       contentArray.push({ p: {text: "The sentence exceeds one year on a misdemeanor offense."}});
+               		   }
+               		   
+               		   if (prisonTime > 0 && chargeSeverity === 'M'){
+               			   contentArray.push({ p: {text: "The sentence includes prison time on a misdemeanor offense. "}});
                		   }
                		   
                		   contentArray.push({ p: {text: "Do you want to proceed?"}});
