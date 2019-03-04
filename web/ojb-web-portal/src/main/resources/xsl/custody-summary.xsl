@@ -95,7 +95,7 @@
 				<tr>
 					<td class="detailsLabel">Agency Record:</td>
 					<td>
-						<xsl:value-of select="j:BookingAgencyRecordIdentification/nc:IdentificationID	" />
+						<xsl:value-of select="j:BookingAgencyRecordIdentification/nc:IdentificationID" />
 					</td>
 				</tr>
 			</table>
@@ -114,22 +114,24 @@
 				<tr>
 					<td class="detailsLabel">Category:</td>
 					<td>
-						<xsl:value-of select="nc:ActivityCategoryText	" />
+						<xsl:value-of select="nc:ActivityCategoryText" />
 					</td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Division:</td>
 					<td>
 						<xsl:value-of
-							select="//nc:Organization[@structures:id=//nc:SupervisionSupervisor/nc:EntityOrganization/@structures:ref]/nc:OrganizationSubUnit/nc:OrganizationName	" />
+							select="//nc:Organization/nc:OrganizationSubUnit/nc:OrganizationName" />
 					</td>
 				</tr>
+				<xsl:if test="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText">
 				<tr>
 					<td class="detailsLabel">Supervisor:</td>
 					<td>
-						<xsl:value-of select="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText	" />
+						<xsl:value-of select="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText" />
 					</td>
 				</tr>
+				</xsl:if>
 			</table>
 		</div>
 	</xsl:template>
