@@ -30,27 +30,20 @@
 		<nc:SystemName>Source System Name</nc:SystemName>
 	</intel:SystemIdentification>
 	<cq-res-ext:Custody>
-		<j:Booking structures:id="Booking_01">
+		<nc:Supervision>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>FAN Number</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityCategoryText>Parole - Std</nc:ActivityCategoryText>
 			<nc:ActivityDate>
 				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
 			</nc:ActivityDate>
-			<j:BookingAgencyRecordIdentification>
-				<nc:IdentificationID>FAN Number</nc:IdentificationID>
-			</j:BookingAgencyRecordIdentification>
-			<j:BookingSubject>
-				<nc:RoleOfPerson structures:ref="Person_01" />
-			</j:BookingSubject>
-		</j:Booking>
-		<j:Detention structures:id="Detention_01">
-			<nc:ActivityCategoryText>Parole - Std</nc:ActivityCategoryText>
-			<nc:ActivityDate>
-				<nc:Date>2013-12-17</nc:Date>
-			</nc:ActivityDate>
+			<nc:SupervisionPerson structures:ref="Person_01" />
 			<nc:SupervisionSupervisor>
 				<nc:EntityOrganization structures:ref="Division_01" />
 				<cq-res-ext:SupervisorCategoryText>Probation Officer</cq-res-ext:SupervisorCategoryText>
 			</nc:SupervisionSupervisor>
-		</j:Detention>
+		</nc:Supervision>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
