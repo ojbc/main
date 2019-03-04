@@ -63,7 +63,7 @@
 		<xsl:apply-templates select="nc:Supervision" />
 	</xsl:template>
 	<xsl:template match="nc:Person">
-		<h3>Person</h3>
+		<h3>Supervision Subject</h3>
 		<div>
 			<table style="width:100%">
 				<tr>
@@ -86,9 +86,9 @@
 		<div>
 			<table style="width:100%">
 				<tr>
-					<td class="detailsLabel">Date:</td>
+					<td class="detailsLabel">Start Date:</td>
 					<td>
-						<xsl:apply-templates select="nc:ActivityDate/nc:DateTime" />
+						<xsl:value-of select="substring-before(nc:ActivityDate/nc:DateTime,'T')" />
 					</td>
 				</tr>
 				<tr>
