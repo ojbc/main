@@ -75,7 +75,7 @@
 				<tr>
 					<td class="detailsLabel">DOB:</td>
 					<td>
-						<xsl:value-of select="nc:PersonBirthDate/nc:Date" />
+						<xsl:apply-templates select="nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 					</td>
 				</tr>
 			</table>
@@ -88,7 +88,7 @@
 				<tr>
 					<td class="detailsLabel">Start Date:</td>
 					<td>
-						<xsl:value-of select="substring-before(nc:ActivityDate/nc:DateTime,'T')" />
+						<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 					</td>
 				</tr>
 				<tr>
