@@ -95,6 +95,7 @@
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Release" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Status" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
   <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="false">
@@ -248,6 +249,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ActivityIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityDateRepresentation"
@@ -469,6 +472,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:SupervisionRelease"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:SupervisionPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:SupervisionSupervisor"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:SupervisionAugmentationPoint"
