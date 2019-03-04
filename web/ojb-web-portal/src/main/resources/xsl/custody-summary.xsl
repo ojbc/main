@@ -29,7 +29,7 @@
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
-	<xsl:variable name="subjectId" select="//j:Booking/j:BookingSubject/nc:RoleOfPerson/@structures:ref" />
+	<xsl:variable name="subjectId" select="//nc:Supervision/nc:SupervisionPerson/@structures:ref" />
 	<xsl:template match="/">
 		<table class="detailsTable">
 			<tr>
@@ -60,8 +60,7 @@
 	</xsl:template>
 	<xsl:template match="cq-res-ext:Custody" mode="report">
 		<xsl:apply-templates select="nc:Person[@structures:id=$subjectId]" />
-		<xsl:apply-templates select="j:Booking" />
-		<xsl:apply-templates select="j:Detention" />
+		<xsl:apply-templates select="nc:Supervision" />
 	</xsl:template>
 	<xsl:template match="nc:Person">
 		<h3>Person</h3>
@@ -82,8 +81,8 @@
 			</table>
 		</div>
 	</xsl:template>
-	<xsl:template match="j:Booking">
-		<h3>Booking</h3>
+	<xsl:template match="nc:Supervision">
+		<h3>Supervision</h3>
 		<div>
 			<table style="width:100%">
 				<tr>
@@ -93,28 +92,16 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="detailsLabel">Agency Record:</td>
-					<td>
-						<xsl:value-of select="j:BookingAgencyRecordIdentification/nc:IdentificationID" />
-					</td>
-				</tr>
-			</table>
-		</div>
-	</xsl:template>
-	<xsl:template match="j:Detention">
-		<h3>Detention</h3>
-		<div>
-			<table style="width:100%">
-				<tr>
-					<td class="detailsLabel">Date:</td>
-					<td>
-						<xsl:apply-templates select="nc:ActivityDate/nc:Date" />
-					</td>
-				</tr>
-				<tr>
 					<td class="detailsLabel">Category:</td>
 					<td>
 						<xsl:value-of select="nc:ActivityCategoryText" />
+					</td>
+				</tr>			
+				
+				<tr>
+					<td class="detailsLabel">Agency Record:</td>
+					<td>
+						<xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID" />
 					</td>
 				</tr>
 				<tr>
@@ -123,7 +110,7 @@
 						<xsl:value-of
 							select="//nc:Organization/nc:OrganizationSubUnit/nc:OrganizationName" />
 					</td>
-				</tr>
+				</tr>				
 				<xsl:if test="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText">
 				<tr>
 					<td class="detailsLabel">Supervisor:</td>
@@ -131,7 +118,7 @@
 						<xsl:value-of select="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText" />
 					</td>
 				</tr>
-				</xsl:if>
+				</xsl:if>				
 			</table>
 		</div>
 	</xsl:template>
