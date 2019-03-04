@@ -41,10 +41,8 @@
 	              <td>First Name </td>
 	              <td><input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/></td>
 	              <td>
-	                 <span th:each="metaData : ${searchFieldMetaData}">
-	                   <input type="radio" th:field="*{firstNameSearchMetadata}" th:value="${metaData}" />
-	                   <label th:for="${#ids.prev('firstNameSearchMetadata')}" th:text="${metaData}">Wireframe</label>
-	                 </span>
+                   <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}" />
+                   Exact Match
 	              </td>
 	              <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name error message</td>
 	            </tr>
@@ -52,10 +50,8 @@
 	              <td>Last Name </td>
 	              <td><input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/></td>
 	              <td>
-	                  <span th:each="metaData : ${searchFieldMetaData}">
-	                    <input type="radio" th:field="*{lastNameSearchMetadata}" th:value="${metaData}" />
-	                    <label th:for="${#ids.prev('lastNameSearchMetadata')}" th:text="${metaData}">Wireframe</label>
-	                  </span>
+                   <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
+                   Exact Match
 	              </td>
 	              <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error message</td>
 	            </tr>
@@ -74,13 +70,14 @@
 	              <td th:if="${#fields.hasErrors('arrestIdentification')}" th:errors="*{arrestIdentification}">Arrest ID error message</td>
 	            </tr>
 	            <tr>
-	              <td colspan="2">
-	                 Arrests With Deferred Dispositions 
+	              <td/>
+	              <td>
 	                 <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
+	                 Arrests With Deferred Dispositions 
                  </td>
 	              <td colspan="2">
-	                 Include Hidden Arrest
 	                 <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
+	                 Include Hidden Arrest
                  </td>
 	            </tr>
 	          </table>

@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -78,7 +77,6 @@ public class DaArrestController {
     public void addModelAttributes(Model model) {
     	
 		model.addAttribute("disposition", new Disposition(ArrestType.DA));
-		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
 		if (!model.containsAttribute("daDispoCodeMapping")) {
 			model.addAttribute("daDispoCodeMapping", codeTableService.getDaDispositionCodeMap());
@@ -146,6 +144,8 @@ public class DaArrestController {
 
 	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest arrestSearchRequest,
 			Map<String, Object> model) throws Throwable {
+		arrestSearchRequest.setFirstNameSearchMetaData(); 
+		arrestSearchRequest.setLastNameSearchMetaData();
 		String searchContent = arrestService.findArrests(arrestSearchRequest, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent);
 		model.put("arrestSearchResults", searchContent); 

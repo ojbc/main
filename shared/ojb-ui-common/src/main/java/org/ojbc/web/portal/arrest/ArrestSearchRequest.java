@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
@@ -39,9 +40,11 @@ public class ArrestSearchRequest {
 	
 	private String firstName;
     private SearchFieldMetadata firstNameSearchMetadata;
+    private Boolean firstNameExactMatch; 
     
     private String lastName;
     private SearchFieldMetadata lastNameSearchMetadata;
+    private Boolean lastNameExactMatch; 
     
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate dob;
@@ -183,5 +186,34 @@ public class ArrestSearchRequest {
 	}
 	public void setIncludeHiddenArrestIndicator(Boolean includeHiddenArrestIndicator) {
 		this.includeHiddenArrestIndicator = includeHiddenArrestIndicator;
+	}
+	public Boolean getFirstNameExactMatch() {
+		return firstNameExactMatch;
+	}
+	public void setFirstNameExactMatch(Boolean firstNameExactMatch) {
+		this.firstNameExactMatch = firstNameExactMatch;
+	}
+	public Boolean getLastNameExactMatch() {
+		return lastNameExactMatch;
+	}
+	public void setLastNameExactMatch(Boolean lastNameExactMatch) {
+		this.lastNameExactMatch = lastNameExactMatch;
+	}
+	
+	public void setFirstNameSearchMetaData() {
+		if (BooleanUtils.isNotTrue(this.getFirstNameExactMatch())) {
+			this.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		}
+		else {
+			this.setFirstNameSearchMetadata(SearchFieldMetadata.ExactMatch);
+		}
+	}
+	public void setLastNameSearchMetaData() {
+		if (BooleanUtils.isNotTrue(this.getLastNameExactMatch())) {
+			this.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		}
+		else {
+			this.setLastNameSearchMetadata(SearchFieldMetadata.ExactMatch);
+		}
 	}
 }

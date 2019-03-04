@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -74,7 +73,6 @@ public class MuniArrestController {
     	
     	log.info("Add ModelAtrributes");
 		model.addAttribute("disposition", new Disposition(ArrestType.MUNI));
-		model.addAttribute("searchFieldMetaData", Arrays.asList(SearchFieldMetadata.StartsWith, SearchFieldMetadata.ExactMatch));
 		
 		if (!model.containsAttribute("dispoCodeMapping")) {
 			model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
@@ -139,6 +137,8 @@ public class MuniArrestController {
 
 	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest arrestSearchRequest,
 			Map<String, Object> model) throws Throwable {
+		arrestSearchRequest.setFirstNameSearchMetaData(); 
+		arrestSearchRequest.setLastNameSearchMetaData();
 		String searchContent = arrestService.findArrests(arrestSearchRequest, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertMuniArrestSearchResult(searchContent);
 		model.put("arrestSearchResults", searchContent); 
