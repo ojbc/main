@@ -49,6 +49,10 @@ public class Disposition {
 	
 	@NotBlank
 	private String dispositionCode;
+	@Min(1)
+	@Max(99)
+	@NotNull
+	private Integer counts; 
 	private String dispositionDescription;
     private String courtCaseNumber;
     
@@ -105,6 +109,7 @@ public class Disposition {
 
     public Disposition() {
     	super();
+    	this.counts = 1; 
     }
 	public Disposition(ArrestType dispositionType) {
 		this();
@@ -373,5 +378,11 @@ public class Disposition {
 		if (StringUtils.isNotBlank(caseNumber)) {
 			this.caseNumber = StringUtils.leftPad(caseNumber, 5, '0');
 		}
+	}
+	public Integer getCounts() {
+		return counts;
+	}
+	public void setCounts(Integer counts) {
+		this.counts = counts;
 	}
 }    

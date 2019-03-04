@@ -111,6 +111,7 @@
 			        <col/>
 			        <col/>
 			        <col/>
+			        <col/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
@@ -124,6 +125,7 @@
                   <th rowspan="2">ACTION</th>
 			            <th rowspan="2">DISPO DATE</th>
 			            <th rowspan="2">DISPO CODE</th>
+			            <th rowspan="2">COUNTS</th>
 			            <th rowspan="2">COURT CASE #</th>
 			            <th rowspan="2">FILED CHARGE</th>
                   <th rowspan="2">F/M</th>
@@ -184,6 +186,7 @@
 						      <td/>
 						      <td/>
 						      <td/>
+						      <td/>
 						    </tr>
 			         </tfoot> 
 			      </table>
@@ -217,6 +220,7 @@
 		    <xsl:apply-templates select="nc:DispositionDate/nc:Date"  mode="formatDateAsMMDDYYYY"/>
 		  </td>         
 		  <td><xsl:value-of select="chsres-ext:DispositionCodeText"/></td>
+		  <td><xsl:value-of select="chsres-ext:DispositionChargeCountQuantity"/></td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
