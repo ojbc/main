@@ -29,6 +29,7 @@ import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -54,6 +55,12 @@ public class DispositionValidator implements Validator {
         if (disposition.getFineSuspended() != null && disposition.getFineSuspended() > 0 && 
         		(disposition.getFineAmount() == null || disposition.getFineSuspended() > disposition.getFineAmount() )) {
         	errors.rejectValue("fineSuspended", null, "may not be greater than Fine Amount");
+        }
+        
+        if (disposition.getDispositionType() == ArrestType.DA) {
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseType", null, "may not be empty");
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
         }
         
         validateJailSuspendedDeferredDays(disposition, errors);

@@ -107,7 +107,7 @@
                              }
                         },
                         {
-                             "targets": [4],
+                             "targets": [5],
                              "render": function ( data, type, row, meta ) {
                             	   if (muniFiledChargeCodeMapping.hasOwnProperty(data)){
                             		   return muniFiledChargeCodeMapping[data];
@@ -118,7 +118,7 @@
                              }
                         },
                         {
-                             "targets": [5],
+                             "targets": [6],
                              "render": function ( data, type, row, meta ) {
                             	   if (muniAmendedChargeCodeMapping.hasOwnProperty(data)){
                             		   return muniAmendedChargeCodeMapping[data];
@@ -129,7 +129,7 @@
                              }
                         },
                         {
-                             "targets": [15],
+                             "targets": [16],
                              "render": function ( data, type, row, meta ) {
                             	   if (muniAlternateSentenceMapping.hasOwnProperty(data)){
                             		   return muniAlternateSentenceMapping[data];
@@ -140,7 +140,7 @@
                              }
                         },
                         {
-                             "targets": [16],
+                             "targets": [17],
                              "render": function ( data, type, row, meta ) {
                             	   if (muniReasonsForDismissalMapping.hasOwnProperty(data)){
                             		   return muniReasonsForDismissalMapping[data];
@@ -151,7 +151,7 @@
                              }
                         },
                 			  {
-                		      "targets": [6, 7, 14],
+                		      "targets": [7, 8, 15],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
                 		  ]/* , 
@@ -187,21 +187,22 @@
 	                       dispositionIdentification:$(this).closest("tr").attr("id"),
 	                       dispositionDate:rowData[1], 
 	                       dispositionCode:rowData[2], 
-	                       courtCaseNumber:rowData[3], 
-	                       filedCharge:rowData[4], 
-	                       amendedCharge:rowData[5], 
-	                       fineAmount:rowData[6].split('.', 1).toString(),
-	                       fineSuspended:rowData[7].split('.', 1).toString(), 
-	                       jailYears:rowData[8], 
-	                       jailDays:rowData[9], 
-	                       suspendedYears:rowData[10], 
-	                       suspendedDays:rowData[11], 
-	                       deferredYears:rowData[12],
-	                       deferredDays:rowData[13],
-	                       restitution:rowData[14].split('.', 1).toString(),
-	                       alternateSentence:rowData[15],
-	                       reasonForDismissal:rowData[16],
-	                       provisionCode:rowData[17], 
+	                       counts:rowData[3], 
+	                       courtCaseNumber:rowData[4], 
+	                       filedCharge:rowData[5], 
+	                       amendedCharge:rowData[6], 
+	                       fineAmount:rowData[7].split('.', 1).toString(),
+	                       fineSuspended:rowData[8].split('.', 1).toString(), 
+	                       jailYears:rowData[9], 
+	                       jailDays:rowData[10], 
+	                       suspendedYears:rowData[11], 
+	                       suspendedDays:rowData[12], 
+	                       deferredYears:rowData[13],
+	                       deferredDays:rowData[14],
+	                       restitution:rowData[15].split('.', 1).toString(),
+	                       alternateSentence:rowData[16],
+	                       reasonForDismissal:rowData[17],
+	                       provisionCode:rowData[18], 
                          arrestDate: $('#arrestDate').text()},  function(data) {
                       $('.modal-body').html(data);
                       $('.modal-title').html("Edit Disposition");

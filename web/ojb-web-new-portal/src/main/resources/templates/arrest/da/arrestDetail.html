@@ -109,7 +109,7 @@
                              }
                         },
                         {
-                             "targets": [4],
+                             "targets": [5],
                              "render": function ( data, type, row, meta ) {
                             	   if (filedChargeCodeMapping.hasOwnProperty(data)){
                             		   return filedChargeCodeMapping[data];
@@ -120,7 +120,18 @@
                              }
                         },
                         {
-                             "targets": [5],
+                            "targets": [6],
+                            "render": function ( data, type, row, meta ) {
+                                if (chargeSeverityCodeMapping.hasOwnProperty(data)){
+                                  return chargeSeverityCodeMapping[data];
+                                }
+                                else{
+                                  return data;
+                                }
+                            }
+                        },
+                        {
+                             "targets": [7],
                              "render": function ( data, type, row, meta ) {
                             	   if (amendedChargeCodeMapping.hasOwnProperty(data)){
                             		   return amendedChargeCodeMapping[data];
@@ -131,7 +142,7 @@
                              }
                         },
                         {
-                             "targets": [6],
+                             "targets": [8],
                              "render": function ( data, type, row, meta ) {
                             	   if (chargeSeverityCodeMapping.hasOwnProperty(data)){
                             		   return chargeSeverityCodeMapping[data];
@@ -142,7 +153,7 @@
                              }
                         },
                         {
-                             "targets": [16],
+                             "targets": [20],
                              "render": function ( data, type, row, meta ) {
                             	   if (alternateSentenceMapping.hasOwnProperty(data)){
                             		   return alternateSentenceMapping[data];
@@ -153,7 +164,7 @@
                              }
                         },
                         {
-                             "targets": [17],
+                             "targets": [21],
                              "render": function ( data, type, row, meta ) {
                             	   if (reasonsForDismissalMapping.hasOwnProperty(data)){
                             		   return reasonsForDismissalMapping[data];
@@ -164,7 +175,7 @@
                              }
                         },
                         {
-                             "targets": [18],
+                             "targets": [22],
                              "render": function ( data, type, row, meta ) {
                             	   if (daProvisionCodeMapping.hasOwnProperty(data)){
                             		   return daProvisionCodeMapping[data];
@@ -175,7 +186,7 @@
                              }
                         },
                 			  {
-                		      "targets": [7, 8, 15],
+                		      "targets": [9, 10, 19],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
                 		  ]/* , 

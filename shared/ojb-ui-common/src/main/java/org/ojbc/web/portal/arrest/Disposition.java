@@ -98,13 +98,9 @@ public class Disposition {
     private String reasonForDismissalDescripiton;
     private String provisionCode;
     
-    @NotBlank
     private String county; 
-    @NotBlank
     private String caseType; 
-    @NotBlank
     private String year; 
-    @NotBlank
     private String caseNumber; 
 
     public Disposition() {
