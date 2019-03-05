@@ -159,16 +159,33 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.validate',function() {
-    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: $(this).attr("id")}, function(data) {
-    		
-				if (data === 'success'){
-					refreshSearchResultsTable();				
-				}
-				else{
-					showErrorMessage(data);
-				}	
-																      
-			}).fail(ojbc.displayFailMessage);
+			var row = $(this).parent().parent();
+			var id = $(this).attr("id"); 		    
+		    $( "#dialog-confirm-validate" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      width:400,
+			      height:300,
+			      modal: true,
+			      buttons: {
+			        "Validate": function() {
+			    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: id}, function(data) {
+							if (data === 'success'){
+								refreshSearchResultsTable();				
+							}
+							else{
+								showErrorMessage(data);
+							}	
+						}).fail(ojbc.displayFailMessage);
+						
+				        $( this ).dialog( "close" );
+			        },
+			        "Close": function() {
+	            		$( this ).dialog( "close" );
+	            	}
+			     }
+		    });   		
+    	
     	});
     	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
@@ -445,6 +462,13 @@
 <div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
   You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
+</div>
+<div id="dialog-confirm-validate" title="Are you authorized?" class="hidden">
+	<div style="margin:7px;padding:7px;">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
+		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
+		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
+	</div>
 </div>
 
 
