@@ -44,6 +44,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
@@ -566,6 +567,7 @@
         <xs:sequence>
           <xs:element ref="nc:SupervisionCustodyStatus" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:SupervisionRelease" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:SupervisionPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:SupervisionSupervisor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:SupervisionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -633,6 +635,11 @@
   <xs:element name="ActivityDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that references an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ActivityPersonAssociation" type="nc:ActivityPersonAssociationType" nillable="true">
@@ -1180,6 +1187,11 @@
       <xs:documentation>A number that identifies a particular unit or location within a street.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Supervision" type="nc:SupervisionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A process of overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="SupervisionAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for SupervisionType.</xs:documentation>
@@ -1188,6 +1200,11 @@
   <xs:element name="SupervisionCustodyStatus" type="nc:StatusType" nillable="true">
     <xs:annotation>
       <xs:documentation>A status of the custody of a person under supervision.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionPerson" type="nc:PersonType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is being supervised.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SupervisionRelease" type="nc:ReleaseType" nillable="true">

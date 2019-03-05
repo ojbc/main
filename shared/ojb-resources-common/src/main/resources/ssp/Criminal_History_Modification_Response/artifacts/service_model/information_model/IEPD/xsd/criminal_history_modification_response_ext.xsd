@@ -59,7 +59,8 @@
 					<xsd:choice>
 						<xsd:element ref="chm-resp-ext:ArrestAddResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestModifyResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />						
+						<xsd:element ref="chm-resp-ext:ArrestUnhideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:DistrictAttorneyArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:MunicipalProsecutorArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
@@ -91,6 +92,11 @@
 			<xsd:documentation>An arrest hide response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestUnhideResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An arrest un-hide response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ExpungeResponseText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>An expunge response message.</xsd:documentation>
