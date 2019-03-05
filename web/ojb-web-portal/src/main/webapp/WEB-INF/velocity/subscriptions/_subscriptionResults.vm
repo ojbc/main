@@ -214,7 +214,11 @@
     </div>
     
     <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden">
-  		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.   If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".   If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
+  		<div style="margin:7px;padding:7px;">
+  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
+  			<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
+  			<p>If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
+  		</div>
 	</div>
     
 </div>
