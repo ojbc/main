@@ -62,20 +62,32 @@
 			alert('No subscriptions selected');
 			return false;
 		}
-		    
-		var confirmValidate = confirm('Are you sure you want to validate?');				
-		
-		if(!confirmValidate){
-			return false;
-		}				    				    
+
+		var row = $(this).parent();		    
+	    $( "#dialog-confirm-validate" ).dialog({
+	    	  position: { my: "center center", at: "center center", of: row },
+		      resizable: true,
+		      width:400,
+		      height:300,
+		      modal: true,
+		      buttons: {
+		        "Validate": function() {
+					var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
+				
+					//call spring controller and refresh the current page with the subscription search results returned				 
+					$.post(urlRequest, function(data) {										
+					      $('#portalContent').html(data);					      
+						}
+					).fail(ojbc.displayFailMessage);
+					
+			        $( this ).dialog( "close" );
+		        },
+		        "Close": function() {
+	            		 $( this ).dialog( "close" );
+            	}
+		     }
+	    });   		
 		    				    
-		var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
-		
-		//call spring controller and refresh the current page with the subscription search results returned				 
-		$.post(urlRequest, function(data) {										
-		      $('#portalContent').html(data);					      
-			}
-		).fail(ojbc.displayFailMessage);
 			
 		return false;
 	});	  
@@ -200,4 +212,9 @@
 		#end
 		$subscriptionsContent								
     </div>
+    
+    <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden">
+  		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.   If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".   If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
+	</div>
+    
 </div>
