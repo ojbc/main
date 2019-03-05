@@ -435,12 +435,6 @@
 
 	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />
 
-	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
-		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
-		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
-		<property name="faultMessageProcessor" ref="faultMessageProcessor" />
-	</bean>
-  
   <!-- Only use this setting when doing a bulk load, otherwise comment it out. -->
 	<bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
 		<property name="name" value="default" />

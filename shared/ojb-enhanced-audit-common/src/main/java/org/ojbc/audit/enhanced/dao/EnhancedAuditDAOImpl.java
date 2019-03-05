@@ -53,6 +53,7 @@ import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -1200,6 +1201,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
+	
+	@Override
+	public Integer saveValidationRequest(ValidationRequest validationRequest) {
+
+		final String VALIDATION_REQUEST_INSERT="INSERT into SUBSCRIPTION_VALIDATION "
+        		+ "(USER_INFO_ID, STATE_SUBSCRIPTION_ID, VALIDATION_DUE_DATE) "
+        		+ "values (?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VALIDATION_REQUEST_INSERT, new String[] {"SUBSCRIPTION_VALIDATION_ID"});
+        	            DaoUtils.setPreparedStatementVariable(validationRequest.getUserInfoFK(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(validationRequest.getStateSubscriptionId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(validationRequest.getValidationDueDate(), ps, 3);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
 	
 	@Override
 	public List<String> retrieveTriggeringEventsForNotification(

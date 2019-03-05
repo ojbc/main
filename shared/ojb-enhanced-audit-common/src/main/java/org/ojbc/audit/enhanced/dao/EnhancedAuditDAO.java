@@ -37,6 +37,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 
 
 public interface EnhancedAuditDAO {
@@ -130,5 +131,7 @@ public interface EnhancedAuditDAO {
 	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId, Integer triggeringEventId);
 	
 	public List<String> retrieveTriggeringEventsForNotification(Integer federalRapbackNotificationId);
+	
+	public Integer saveValidationRequest (ValidationRequest validationRequest);
 	
 }

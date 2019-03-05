@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.audit.enhanced.processor.AbstractValidationRequestProcessor;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
 import org.ojbc.util.model.rapback.Subscription;
@@ -50,6 +51,8 @@ public class SubscriptionValidationMessageProcessor {
 	
 	private ValidationDueDateStrategy validationDueDateStrategy;
 	
+	private AbstractValidationRequestProcessor subscriptionValidationProcessor;  
+	
 	/**
 	 * This method accepts the exchange, attempts to validate the message and creates the appropriate response
 	 * 
@@ -69,6 +72,9 @@ public class SubscriptionValidationMessageProcessor {
 			log.debug("Updated validation date for subscription id: " + subscriptionId);
 			
 			exchange.getIn().setBody(returnDoc);
+			
+			//Do auditing here
+			subscriptionValidationProcessor.auditValidationRequest(exchange);
 		}
 
 		//Create an exception if no rows are updated
@@ -173,5 +179,15 @@ public class SubscriptionValidationMessageProcessor {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
 
+
+	public AbstractValidationRequestProcessor getSubscriptionValidationProcessor() {
+		return subscriptionValidationProcessor;
+	}
+
+
+	public void setSubscriptionValidationProcessor(
+			AbstractValidationRequestProcessor subscriptionValidationProcessor) {
+		this.subscriptionValidationProcessor = subscriptionValidationProcessor;
+	}
 
 }

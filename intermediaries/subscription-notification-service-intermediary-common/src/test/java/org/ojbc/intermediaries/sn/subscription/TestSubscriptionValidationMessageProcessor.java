@@ -21,7 +21,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -30,14 +32,23 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
+import org.apache.cxf.message.MessageImpl;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
@@ -49,7 +60,8 @@ import org.w3c.dom.Node;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+		})
 @DirtiesContext
 public class TestSubscriptionValidationMessageProcessor {
 
@@ -81,7 +93,18 @@ public class TestSubscriptionValidationMessageProcessor {
 
 		CamelContext ctx = new DefaultCamelContext();
 		Exchange ex = new DefaultExchange(ctx);
+		
+		org.apache.cxf.message.Message message = new MessageImpl();
 
+		//Add SAML token to request call
+		SAMLTokenPrincipal principal = createSAMLToken();
+		message.put("wss4j.principal.result", principal);
+		
+		ex.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
+		
+		ex.getIn().setHeader("subscriptionId", "44");
+		ex.getIn().setHeader("validationDueDateString", "2030-11-10");
+		
 		ex.getIn().setBody(document);
 
 		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62723'");
@@ -155,4 +178,18 @@ public class TestSubscriptionValidationMessageProcessor {
 
 	}
 
+	private SAMLTokenPrincipal createSAMLToken() throws Exception {
+		
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "OJBC:IDP:OJBC");
+		customAttributes.put(SamlAttribute.FederationId, "OJBC:IDP:OJBC:USER:admin");
+		customAttributes.put(SamlAttribute.IdentityProviderId, "OJBC");
+		
+		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth",
+				SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+		
+		SAMLTokenPrincipal principal = new SAMLTokenPrincipalImpl(new SamlAssertionWrapper(samlToken));
+		return principal;
+	}
 }
