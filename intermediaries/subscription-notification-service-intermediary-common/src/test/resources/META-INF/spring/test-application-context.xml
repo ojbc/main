@@ -35,7 +35,14 @@
     <bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
         <property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
         <property name="validationDueDateStrategy" ref="subscriptionCategoryValidationDueDateStrategy"/>
+        <property name="subscriptionValidationProcessor" ref="subscriptionValidationNullObjectProcessor"/>
     </bean>
+
+    <bean id="subscriptionValidationNullObjectProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionValidationNullObjectProcessor">
+    	<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
+    </bean>
+    
+    <bean id="userInfoNullObjectProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor"/>
 
 	<bean id="subscriptionCategoryValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy"/>
 

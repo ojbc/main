@@ -214,6 +214,19 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="subscriptionValidationMessageProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
+				<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+				<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
+				<property name="faultMessageProcessor" ref="faultMessageProcessor" />
+		      	<property name="subscriptionValidationProcessor" ref="subscriptionValidationProcessor"/>			
+			</bean>
+		</constructor-arg>
+	</bean>
+		
 	<bean id="notificationsSentStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="notificationsSentStrategy" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />

@@ -156,6 +156,20 @@
 		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
 	</bean>
 		
+	<bean id ="subscriptionValidationProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionValidationSQLProcessor">
+        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+        <property name="userInfoProcessor" ref="userInfoSQLProcessor"/>	
+    </bean>
+    
+	<bean id="userInfoSQLProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoSQLProcessor">
+        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+    </bean>
+    
+    <bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplateAudit"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplateAudit"/>
+	</bean>   		
+		
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 	</bean>
@@ -188,6 +202,11 @@
 	<bean id="namedParameterJdbcTemplate" 
       class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
  	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplateAudit" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSourceAudit"/>
 	</bean>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

@@ -48,6 +48,7 @@ import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -587,6 +588,24 @@ public class EnhancedAuditDaoTest {
 		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
 		assertEquals("employer ori", userAcknowledgementFromDatabase.getUserInfo().getEmployerOri());
 		
+	}
+
+	@Test
+	public void testValidationMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+
+		
+		ValidationRequest validationRequest = new ValidationRequest();
+
+		validationRequest.setStateSubscriptionId("44");
+		validationRequest.setUserInfoFK(userInfoPk);
+		validationRequest.setValidationDueDate(LocalDate.now());
+		
+		Integer validationPk = enhancedAuditDao.saveValidationRequest(validationRequest);
+		assertNotNull(validationPk);
 	}
 	
 	@Test
