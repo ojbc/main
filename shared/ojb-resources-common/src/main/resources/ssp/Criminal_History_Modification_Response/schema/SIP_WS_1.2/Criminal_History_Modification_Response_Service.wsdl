@@ -41,6 +41,9 @@
 	<wsdl:message name="Arrest-Hide-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Hide-Response" />
 	</wsdl:message>
+		<wsdl:message name="Arrest-Unhide-Response">
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Unhide-Response" />
+	</wsdl:message>
 	<wsdl:message name="Expunge-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Expunge-Response" />
 	</wsdl:message>
@@ -67,6 +70,9 @@
 		<wsdl:operation name="HideArrestResponse">
 			<wsdl:input message="tns:Arrest-Hide-Response" name="Arrest-Hide-Response" />
 		</wsdl:operation>
+		<wsdl:operation name="UnhideArrestResponse">
+			<wsdl:input message="tns:Arrest-Unhide-Response" name="Arrest-Unhide-Response" />
+		</wsdl:operation>		
 		<wsdl:operation name="ExpungeResponse">
 			<wsdl:input message="tns:Expunge-Response" name="Expunge-Response" />
 		</wsdl:operation>
@@ -107,6 +113,13 @@
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/HideArrestResponse" />
 			<wsdl:input name="Arrest-Hide-Response">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+				<wsdl:operation name="UnhideArrestResponse">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/UnhideArrestResponse" />
+			<wsdl:input name="Arrest-Unhide-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -172,6 +185,15 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+				<wsdl:operation name="UnhideArrestResponse">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/UnhideArrestResponse" />
+			<wsdl:input name="Arrest-Unhide-Response">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		
+		
 		<wsdl:operation name="ExpungeResponse">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ExpungeResponse" />

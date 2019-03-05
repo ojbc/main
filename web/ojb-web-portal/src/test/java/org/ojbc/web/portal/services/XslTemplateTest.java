@@ -335,6 +335,12 @@ public class XslTemplateTest {
 
 */
     @Test
+    public void custodySummary() throws Exception {
+    	validatePersonSearchTransformation("xsl/custody-summary.xsl", "custody-summary.xml", "custody-summary.html");
+    }
+    
+    
+    @Test
     public void subscriptionSearchResult() throws Exception {    	                
                     
     	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");

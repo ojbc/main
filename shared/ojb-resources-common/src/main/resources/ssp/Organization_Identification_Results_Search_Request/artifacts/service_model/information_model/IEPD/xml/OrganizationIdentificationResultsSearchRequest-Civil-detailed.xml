@@ -23,12 +23,21 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
 	<nc:Person>
 		<nc:PersonName>
 			<nc:PersonGivenName>Walter</nc:PersonGivenName>
 			<nc:PersonSurName>White</nc:PersonSurName>
 		</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>F987654321</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
 		<oirs-req-ext:IdentifiedPersonTrackingIdentification>
 			<nc:IdentificationID>12345678</nc:IdentificationID>
 		</oirs-req-ext:IdentifiedPersonTrackingIdentification>
