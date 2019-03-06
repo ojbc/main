@@ -24,6 +24,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
@@ -870,7 +871,9 @@ public class RequestMessageBuilderUtilities {
 			IdentificationResultSearchRequest searchRequest, Element rootElement) {
 		if (StringUtils.isNotBlank(searchRequest.getFirstName()) 
         		|| StringUtils.isNotBlank(searchRequest.getLastName()) 
-        		|| StringUtils.isNotBlank(searchRequest.getOtn())){
+        		|| StringUtils.isNotBlank(searchRequest.getOtn())
+        		|| StringUtils.isNotBlank(searchRequest.getSid())
+        		|| StringUtils.isNotBlank(searchRequest.getUcn())){
         	Element person = XmlUtils.appendElement(rootElement, NS_NC_30, "Person");
         	
         	if (StringUtils.isNotBlank(searchRequest.getFirstName())
@@ -885,7 +888,18 @@ public class RequestMessageBuilderUtilities {
         			personSurName.setTextContent(searchRequest.getLastName().trim());
         		}
         	}
-        	
+        	if (StringUtils.isNotBlank(searchRequest.getSid()) 
+        			|| StringUtils.isNotBlank(searchRequest.getUcn())){
+        		Element personAugmentation = XmlUtils.appendElement(person, NS_JXDM_50, "PersonAugmentation");
+        		if (StringUtils.isNotBlank(searchRequest.getUcn())){
+        			Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonFBIIdentification");
+        			XmlUtils.appendTextElement(personFBIIdentification, NS_NC_30, "IdentificationID", searchRequest.getUcn());
+        		}
+        		if (StringUtils.isNotBlank(searchRequest.getSid())){
+        			Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonStateFingerprintIdentification");
+        			XmlUtils.appendTextElement(personStateFingerprintIdentification, NS_NC_30, "IdentificationID", searchRequest.getSid());
+        		}
+        	}
         	if (StringUtils.isNotBlank(searchRequest.getOtn())){
         		Element identifiedPersonTrackingIdentification = 
         				XmlUtils.appendElement(person, 
