@@ -67,8 +67,6 @@
 	    $( "#dialog-confirm-validate" ).dialog({
 	    	  position: { my: "center center", at: "center center", of: row },
 		      resizable: true,
-		      width:400,
-		      height:300,
 		      modal: true,
 		      buttons: {
 		        "Validate": function() {
@@ -213,7 +211,7 @@
 		$subscriptionsContent								
     </div>
     
-    <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden">
+    <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
   		<div style="margin:7px;padding:7px;">
   			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
   			<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
