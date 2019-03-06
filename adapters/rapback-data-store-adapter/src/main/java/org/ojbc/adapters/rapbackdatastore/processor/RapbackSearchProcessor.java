@@ -192,6 +192,12 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 			String otn = XmlUtils.xPathStringSearch(personNode, 
 					"oirs-req-ext:IdentifiedPersonTrackingIdentification/nc30:IdentificationID");
 			searchRequest.setOtn(StringUtils.trimToNull(otn));
+			
+			String sid = XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification/nc30:IdentificationID");
+			searchRequest.setSid(sid);
+			
+			String ucn = XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+			searchRequest.setUcn(ucn);
 		}
 		
 	}
