@@ -545,6 +545,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
 				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
 				+ "	AND (:otn is null OR t.otn = :otn ) "
+				+ "	AND (:sid is null OR upper(s.civil_sid) = upper(:sid) ) "
+				+ "	AND (:ucn is null OR upper(s.ucn) = upper(:ucn) ) "
 				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
 				+ "	AND (:excludeArchived = false OR t.archived != true ) "
@@ -558,6 +560,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("firstName", searchRequest.getFirstName() );
 		paramMap.put("lastName", searchRequest.getLastName()); 
 		paramMap.put("otn", searchRequest.getOtn()); 
+		paramMap.put("sid", searchRequest.getSid()); 
+		paramMap.put("ucn", searchRequest.getUcn()); 
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
 		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
