@@ -19,11 +19,13 @@ package org.ojbc.web.portal.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.web.portal.AppProperties;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
@@ -34,7 +36,10 @@ import org.w3c.dom.Element;
 public class PortalAuthenticationDetailsSource implements
         AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> {
     private final Log log = LogFactory.getLog(this.getClass());
-   
+    
+	@Resource
+	AppProperties appProperties;
+
     @Override
     public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(
             HttpServletRequest context) {
@@ -65,6 +70,10 @@ public class PortalAuthenticationDetailsSource implements
         	case "Municipal Court": 
         		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
         		break; 
+        }
+        
+        if (appProperties.getFedIdsWithAuditPrivilege().contains(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId))) {
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_AUDIT.name()) );
         }
         
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 

@@ -39,6 +39,7 @@ public class AppProperties {
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
+	private List<String> fedIdsWithAuditPrivilege;
 
 	private Boolean allowQueriesWithoutSAMLToken = true; 
 	
@@ -75,6 +76,9 @@ public class AppProperties {
 		daCaseTypeCodeMapping.put("T", "Traffic");
 		daCaseTypeCodeMapping.put("W", "Wildlife");
 		daCaseTypeCodeMapping.put("Y", "Youth");
+		
+		setFedIdsWithAuditPrivilege(Arrays.asList("HIJIS:IDP:HCJDC:USER:demouser"));
+//		setFedIdsWithAuditPrivilege(new ArrayList<>());
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -187,6 +191,14 @@ public class AppProperties {
 
 	public void setDaCaseTypeCodeMapping(Map<String, String> daCaseTypeCodeMapping) {
 		this.daCaseTypeCodeMapping = daCaseTypeCodeMapping;
+	}
+
+	public List<String> getFedIdsWithAuditPrivilege() {
+		return fedIdsWithAuditPrivilege;
+	}
+
+	public void setFedIdsWithAuditPrivilege(List<String> fedIdsWithAuditPrivilege) {
+		this.fedIdsWithAuditPrivilege = fedIdsWithAuditPrivilege;
 	}
 
 }
