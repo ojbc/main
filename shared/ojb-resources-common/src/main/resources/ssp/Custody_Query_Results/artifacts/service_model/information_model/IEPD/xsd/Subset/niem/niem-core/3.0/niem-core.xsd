@@ -421,6 +421,7 @@
         <xs:sequence>
           <xs:element ref="nc:OrganizationBranchName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationPrimaryContactInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationSubUnit" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -975,6 +976,11 @@
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationPrimaryContactInformation" type="nc:ContactInformationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A preferred means of contacting an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationSubUnit" type="nc:OrganizationType" nillable="true">
