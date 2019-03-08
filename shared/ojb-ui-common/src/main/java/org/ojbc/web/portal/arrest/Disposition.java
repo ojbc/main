@@ -50,7 +50,7 @@ public class Disposition {
 	@NotBlank
 	private String dispositionCode;
 	@Min(1)
-	@Max(99)
+	@Max(999)
 	@NotNull
 	private Integer counts; 
 	private String dispositionDescription;

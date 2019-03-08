@@ -40,7 +40,7 @@
              <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
              <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
            </div>
-           <div class="col-md-5 mb-5">
+           <div class="col-md-4 mb-4">
              <label for="dispositionCode">Disposition Code *</label>
              <select th:field="*{dispositionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
@@ -48,9 +48,9 @@
              </select>
              <div th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}" class="invalid-feedback">Disposition Code error message</div>
            </div>
-           <div class="col-md-1 mb-1">
+           <div class="col-md-2 mb-2">
              <label for="counts">Counts *</label>
-             <input type="number" min="1" max="99" th:field="*{counts}" width="1" class="form-control" th:errorclass="is-invalid"/>
+             <input type="number" min="1" max="999" th:field="*{counts}" width="1" class="form-control" th:errorclass="is-invalid"/>
              <div th:if="${#fields.hasErrors('counts')}" th:errors="*{counts}" class="invalid-feedback">Counts error message</div>
            </div>
            <div class="col-md-3 mb-3">
