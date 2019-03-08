@@ -23,17 +23,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.arrest.ArrestService;
+import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/audit")
-@SessionAttributes({"auditSearchRequest"})
+@SessionAttributes({"auditSearchRequest", "agencyOriMapping"})
 public class AuditController {
 	private static final Log log = LogFactory.getLog(AuditController.class);
 
@@ -43,6 +46,17 @@ public class AuditController {
 	@Resource
 	SamlService samlService;
 	
+	@Resource
+	CodeTableService codeTableService;
+	
+    @ModelAttribute
+    public void addModelAttributes(Model model) {
+    	
+		if (!model.containsAttribute("agencyOriMapping")) {
+			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
+		}
+    }	
+
 	@GetMapping("/searchForm")
 	public String getAuditLogsSearchForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		log.info("presenting Audit Logs Search Form ");

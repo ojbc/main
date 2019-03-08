@@ -61,8 +61,13 @@
 		              <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error message</td>
 		            </tr>
 		            <tr>
-		              <td>Agency</td>
-		              <td><input type="text" th:field="*{ori}" width="250" placeholder="ori"/></td>
+		              <td><label for="ori">Agency</label></td>
+		              <td>             
+				             <select th:field="*{ori}" class="form-control chosen-select" th:errorclass="is-invalid">
+				                <option value="" >Please select ...</option>
+				                <option th:each="item: ${agencyOriMapping}" th:value="${item.key}" th:text="${item.value}" />
+				             </select>
+                  </td>
 		            </tr>
 		          </table>
 	           </div>

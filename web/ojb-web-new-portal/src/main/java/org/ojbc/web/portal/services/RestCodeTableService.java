@@ -121,5 +121,10 @@ public class RestCodeTableService implements CodeTableService{
 	public Map<String, String> getDaProvisions() {
 		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-provisions");
 	}
+
+	@Override
+	public Map<String, String> getAgencies() {
+		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
+	}
 	
 }

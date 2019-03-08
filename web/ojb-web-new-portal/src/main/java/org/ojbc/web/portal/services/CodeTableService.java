@@ -30,5 +30,6 @@ public interface CodeTableService {
 	public Map<String, String> getDaAlternateSentenceMap();
 	public Map<String, String> getDaReasonsForDismissalMap();
 	public Map<String, String> getDaProvisions();
+	public Map<String, String> getAgencies();
 	
 }

@@ -85,6 +85,12 @@ public class CodeTableServiceStandAlone implements CodeTableService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Map<String, String> getAgencies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
