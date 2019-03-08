@@ -59,6 +59,19 @@ public class ArrestSearchRequest {
     private Boolean arrestWithDeferredDispositions; 
     private Boolean includeHiddenArrestIndicator; 
     
+    public ArrestSearchRequest() {
+    	super();
+		this.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+//		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
+		this.setArrestDateRangeEndDate(LocalDate.now());
+		this.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		this.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+    }
+    
+    public ArrestSearchRequest(ArrestType arrestType) {
+    	this();
+		this.setArrestType(arrestType);
+    }
 	public LocalDate getArrestDateRangeStartDate() {
 		return arrestDateRangeStartDate;
 	}

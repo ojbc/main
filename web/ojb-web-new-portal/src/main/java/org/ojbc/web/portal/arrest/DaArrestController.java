@@ -15,7 +15,6 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.arrest;
-import java.time.LocalDate;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -27,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
-import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.security.SamlTokenProcessor;
 import org.ojbc.web.portal.services.CodeTableService;
@@ -119,14 +117,7 @@ public class DaArrestController {
 		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
 		
 		if (arrestSearchRequest == null) {
-			arrestSearchRequest = new ArrestSearchRequest();
-			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
-//			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
-			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
-			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
-			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
-			arrestSearchRequest.setArrestType(ArrestType.DA);
-			
+			arrestSearchRequest = new ArrestSearchRequest(ArrestType.DA);
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}
 		getArrestSearchResults(request, arrestSearchRequest, model);
