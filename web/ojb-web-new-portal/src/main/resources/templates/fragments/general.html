@@ -115,6 +115,15 @@
 	              return false; 
 	          });
 	          
+	          $('#auditLogs').click(function() {   
+                $(this).parent().toggleClass('show');
+
+	              xhr = $.get(context + 'audit/searchForm', function(data) {
+	                 $('#portalContent').html(data); 
+	               }).fail(ojbc.displayFailMessage);
+	              return false; 
+	          });
+	          
  	          $(document).ajaxStart(function(){
 	              
               if( $(".modal").is(':visible')){
