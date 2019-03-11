@@ -73,15 +73,11 @@ public class AuditController {
 	public String findAuditLogs(HttpServletRequest request, AuditSearchRequest auditSearchRequest, Map<String, Object> model) throws Throwable {
 		log.info("Find audit logs with : " + auditSearchRequest);
 //		String response = arrestService.lookupOtn(otn, samlService.getSamlAssertion(request)); 
-//		String recordFound = getResponseMessage(otn, response); 
-		return null;
-	}
+//		String recordFound = getResponseMessage(otn, response);
+		model.put("auditSearchContent", "<span>Results list</span>"); 
 
-//	private String getResponseMessage(String otn, String response) throws Exception {
-//		Document responseDocument = XmlUtils.toDocument(response); 
-//		return XmlUtils.xPathStringSearch(responseDocument, "/rr-resp-doc:RecordReplicationResponse/rr-resp-ext:RecordFoundIndicator");
-//	}
-	
+		return "audit/auditSearchForm::resultsList";
+	}
 
 
 }

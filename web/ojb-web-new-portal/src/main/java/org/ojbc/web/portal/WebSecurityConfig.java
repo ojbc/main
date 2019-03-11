@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers("/muniArrests/**").hasAuthority("AUTHZ_MUNI")
 		    .antMatchers("/daArrests/**").hasAuthority("AUTHZ_DA")
 		    .antMatchers("/arrests/**").hasAnyAuthority("AUTHZ_DA", "AUTHZ_MUNI")
+		    .antMatchers("/audit/**").hasAnyAuthority("AUTHZ_AUDIT")
 		    .anyRequest().authenticated()
 		    .and().securityContext()
 		    .and()

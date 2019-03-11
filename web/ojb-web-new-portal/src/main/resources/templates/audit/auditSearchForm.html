@@ -35,33 +35,39 @@
 	     <form action="#" th:object="${auditSearchRequest}" id="searchForm" method="post">
 	       <div class="form-row">
            <div class="col-9">
-	              <div class="form-group row">
+	              <div class="form-row">
 		              <label class="col-2 col-form-label">Audit Date </label>
-		              <div class="col-sm-10">
-			              <input type="text" th:field="*{auditDateRangeStartDate}" class="date" width="250" placeholder="From"/>
-			              <input type="text" th:field="*{auditDateRangeEndDate}" class="date" width="250" placeholder="To"/>
+		              <div class="col-sm-3">
+			              <input type="text" th:field="*{auditDateRangeStartDate}" class="date" placeholder="From"/>
 			              <div th:if="${#fields.hasErrors('auditDateRangeStartDate')}" th:errors="*{auditDateRangeStartDate}">Audit Date error message</div>
 		              </div>
-	              </div>
-                <div class="form-group row">
-		              <label for="firstName" class="col-2 col-form-label">First Name </label>
-		              <div class="col-sm-10">
-			              <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
-	                  <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}" />
-	                    Exact Match
+		              <div class="col-sm-3">
+                    <input type="text" th:field="*{auditDateRangeEndDate}" class="date" placeholder="To"/>
 		              </div>
 	              </div>
-                <div class="form-group row">
+                <div class="form-row">
+		              <label for="firstName" class="col-2 col-form-label">First Name </label>
+		              <div class="col-sm-3">
+			              <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
+		              </div>
+		              <div class="col-sm-3">
+                    <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}" />
+                      Exact Match
+		              </div>
+	              </div>
+                <div class="form-row">
 		              <label for="lastName" class="col-2 col-form-label">Last Name </label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-3">
 			              <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
+		              </div>
+                  <div class="col-sm-3">
 	                  <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
 	                   Exact Match
 		              </div>
 		            </div>
-                <div class="form-group row">
+                <div class="form-row">
 		              <label for="ori" class="col-2 col-form-label">Agency</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-8">
 	  		            <select th:field="*{ori}" class="form-control chosen-select" th:errorclass="is-invalid">
 				                <option value="" >Please select ...</option>
 				                <option th:each="item: ${agencyOriMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -70,11 +76,66 @@
                  </div>
 	           </div>
 	           <div class="col-3" style="text-align:right;">
-	                 <button type="button" class="btn-primary" id="submit">Refresh Search</button>
+	                 <button type="button" class="btn-primary" id="submit">Search</button>
 	                 <button type="reset" class="btn-secondary">Reset</button>
 	           </div>
 	       </div>
 	      </form>
+        <hr/>
+        
+        <div id="searchResultsList" th:fragment="resultsList" >
+          <p th:utext="${auditSearchContent}" ></p>
+          <script th:inline="javascript">
+              $(function(){
+                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+                  $('#searchResultsTable').DataTable({
+                  });
+              });
+          </script>
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+              var _csrf_token = /*[[${_csrf.token}]]*/ '';
+              var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+
+            /*]]>*/
+             $(function(){
+                 $('.date').mask('99/99/9999');
+                 $('#auditDateRangeStartDate').datepicker({
+                     uiLibrary: 'bootstrap4', size: 'small'
+                 });
+                 $('#auditDateRangeEndDate').datepicker({
+                     uiLibrary: 'bootstrap4', size: 'small'
+                 });
+                 $(".chosen-select").chosen(); 
+                 $('#searchForm input').keypress(function (e) {
+                   
+                 if (e.which == 13) {
+                     $('#submit').click();
+                     return false;    
+                   }
+                 });
+                 
+                 $('#submit').click (function(){
+                   var requestData = {
+                       'auditDateRangeStartDate': $('#auditDateRangeStartDate').val(),
+                       'auditDateRangeEndDate': $('#auditDateRangeEndDate').val(),
+                       'firstName': $('#firstName').val(),
+                       'lastName': $('#lastName').val(),
+                       'ori': $('#ori').val(),
+                       'firstNameExactMatch': $('#firstNameExactMatch').val(),
+                       'lastNameExactMatch': $('#lastNameExactMatch').val(),
+                   };
+                   requestData[_csrf_param_name] = _csrf_token;
+                   xhr = $.post(context + "audit/auditLogs",requestData,function(data) {
+                     $('#searchResultsList').replaceWith(data);
+                   }).fail();
+                 });
+
+
+             });
+	      </script>
       </div>
 	</body>
 </html>
