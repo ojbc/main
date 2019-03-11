@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.processor.arrest.search;
+package org.ojbc.processor.audit.search;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
@@ -23,7 +23,6 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
@@ -31,8 +30,7 @@ import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.OjbcWebConstants.ArrestType;
-import org.ojbc.web.portal.arrest.ArrestSearchRequest;
+import org.ojbc.web.portal.audit.AuditSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -41,7 +39,7 @@ import org.w3c.dom.Element;
 
 @Configuration
 @Profile("arrest-search")
-public class ArrestSearchRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
+public class AuditSearchRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	/**
 	 * Camel context needed to use producer template to send messages
@@ -52,37 +50,23 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable {
+	public String invokeRequest(AuditSearchRequest auditSearchRequest, Element samlToken) throws Throwable {
 		
-		log.info("invoking the arrest search request service with the saml token ");
+		log.info("invoking the audit search request service with auditSearchRequest:  " + auditSearchRequest);
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document arrestSearchRequestPayload = RequestMessageBuilderUtilities.createArrestSearchRequest(arrestSearchRequest);
-		XmlUtils.printNode(arrestSearchRequestPayload);
-		if (ArrestType.DA == arrestSearchRequest.getArrestType()) {
-			if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
-				messageProcessor.setOperationName("SubmitDAChargesSearchRequest");
-			}
-			else {
-				messageProcessor.setOperationName("SubmitDADeferredDispositionSearchRequest");
-			}
-		}
-		else if (BooleanUtils.isNotTrue(arrestSearchRequest.getArrestWithDeferredDispositions())) {
-			messageProcessor.setOperationName("SubmitMunicipalChargesSearchRequest");
-		}
-		else {
-			messageProcessor.setOperationName("SubmitMunicipalDeferredDispositionSearchRequest");
-		}
+		Document requestPayload = RequestMessageBuilderUtilities.createAuditSearchRequest(auditSearchRequest);
 		
+		XmlUtils.printNode(requestPayload);
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 		
 		//Set exchange body to XML Request message
-		senderExchange.getIn().setBody(arrestSearchRequestPayload);
+		senderExchange.getIn().setBody(requestPayload);
 		
 		//Set reply to and WS-Addressing message ID
 		String federatedQueryID = getFederatedQueryId();

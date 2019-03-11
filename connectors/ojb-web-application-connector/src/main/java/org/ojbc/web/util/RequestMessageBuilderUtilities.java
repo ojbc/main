@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_DETAIL_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_HIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_MODIFY_REQUEST_DOC;
@@ -100,6 +101,7 @@ import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.Disposition;
+import org.ojbc.web.portal.audit.AuditSearchRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -109,6 +111,8 @@ import org.w3c.dom.Element;
  *
  */
 public class RequestMessageBuilderUtilities {
+
+	private static final String AUDIT_LOG_SEARCH_REQUEST_SYSTEM_NAME = "{http://ojbc.org/Services/WSDL/AuditLogSearchRequestService/1.0}SubmitAuditLogSearchRequest";
 
 	private static final String RESTITUTION_01 = "RESTITUTION_01";
 
@@ -771,6 +775,15 @@ public class RequestMessageBuilderUtilities {
 			date.setTextContent(localDate.toString());
 		}
 	}
+    
+    public static final void appendDateWapper( Element parent, 
+    		String elementName, String wrapperElementNS, String dateElementNS, LocalDate localDate) {
+    	if (localDate != null){
+    		Element dateWrapperElement = XmlUtils.appendElement(parent, wrapperElementNS, elementName);
+    		Element date = XmlUtils.appendElement(dateWrapperElement, dateElementNS, "Date");
+    		date.setTextContent(localDate.toString());
+    	}
+    }
 
 	private static void appendIdentificationSearchRequestPerson(
 			IdentificationResultSearchRequest searchRequest, Element rootElement) {
@@ -1647,6 +1660,7 @@ public class RequestMessageBuilderUtilities {
         		NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC + ":ArrestUnhideRequest");
         rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC, 
         		NS_ARREST_UNHIDE_REQUEST_DOC);
+        document.appendChild(rootElement);
         Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
         
 		Element arrestUnhideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideDate");
@@ -1654,6 +1668,74 @@ public class RequestMessageBuilderUtilities {
 		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideIndicator", "true");
 
         return document;
+	}
+	public static Document createAuditSearchRequest(AuditSearchRequest auditSearchRequest) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_AUDIT_LOG_SEARCH_REQUEST_DOC, 
+        		NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC + ":AuditLogSearchRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC, 
+        		NS_AUDIT_LOG_SEARCH_REQUEST_DOC);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT, 
+        		NS_AUDIT_LOG_SEARCH_REQUEST_EXT);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_40, NS_NC_40);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_JXDM_61, NS_JXDM_61);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_STRUCTURES_40, NS_STRUCTURES_40);
+        document.appendChild(rootElement);
+        
+        if (auditSearchRequest.getAuditDateRangeStartDate() != null 
+        		|| auditSearchRequest.getAuditDateRangeEndDate() != null) {
+        	Element dateRange = XmlUtils.appendElement(rootElement, NS_NC_40, "DateRange");
+    		appendDateWapper(dateRange, "StartDate", NS_NC_40, NS_NC_40, auditSearchRequest.getAuditDateRangeStartDate());
+    		appendDateWapper(dateRange, "EndDate", NS_NC_40, NS_NC_40, auditSearchRequest.getAuditDateRangeEndDate());
+        }
+		if (StringUtils.isNotBlank(auditSearchRequest.getFirstName()) ||
+				StringUtils.isNotBlank(auditSearchRequest.getLastName())) {
+			Element personName = XmlUtils.appendElement(rootElement, NS_NC_40, "UserPersonName");
+			XmlUtils.addAttribute(personName, NS_STRUCTURES_40, "id", "UP001");
+			if (StringUtils.isNotBlank(auditSearchRequest.getFirstName())) {
+				Element personGivenName = XmlUtils.appendElement(personName, NS_NC_40, "PersonGivenName");
+				personGivenName.setTextContent(auditSearchRequest.getFirstName());
+				XmlUtils.addAttribute(personGivenName, NS_STRUCTURES_40, "metadata", 
+						NIEMXMLUtils.getMetaDataId(auditSearchRequest.getFirstNameSearchMetadata()));
+			}
+			if (StringUtils.isNotBlank(auditSearchRequest.getLastName())) {
+				Element personSurName = XmlUtils.appendElement(personName, NS_NC_40, "PersonSurName");
+				personSurName.setTextContent(auditSearchRequest.getLastName());
+				XmlUtils.addAttribute(personSurName, NS_STRUCTURES_40, "metadata", 
+						NIEMXMLUtils.getMetaDataId(auditSearchRequest.getLastNameSearchMetadata()));
+			}
+		}
+		
+		if (StringUtils.isNotBlank(auditSearchRequest.getOri())) {
+			Element organization = XmlUtils.appendElement(rootElement, NS_NC_40, "Organization");
+			XmlUtils.addAttribute(organization, NS_STRUCTURES_40, "id", "ORG01");
+			
+			Element organizationAugmentation = XmlUtils.appendElement(organization, NS_JXDM_61, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_61, "OrganizationORIIdentification");
+			XmlUtils.appendTextElement(organizationORIIdentification, NS_NC_40, "IdentificationID", auditSearchRequest.getOri());
+		}
+		
+		if (StringUtils.isNotBlank(auditSearchRequest.getOri()) 
+				&& (StringUtils.isNotBlank(auditSearchRequest.getFirstName()) || StringUtils.isNotBlank(auditSearchRequest.getLastName()))) {
+			Element personOrganizationAssociation = XmlUtils.appendElement(rootElement, NS_NC_40, "PersonOrganizationAssociation");
+			Element person = XmlUtils.appendElement(personOrganizationAssociation, NS_NC_40, "Person");
+			XmlUtils.addAttribute(person, NS_STRUCTURES_40, "ref", "UP01");
+			Element organization = XmlUtils.appendElement(personOrganizationAssociation, NS_NC_40, "Organization");
+			XmlUtils.addAttribute(organization, NS_STRUCTURES_40, "ref", "ORG01");
+		}
+		
+    	XmlUtils.appendTextElement(rootElement, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
+    			AUDIT_LOG_SEARCH_REQUEST_SYSTEM_NAME); 
+    	Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "SearchMetadata");
+    	XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
+    	XmlUtils.appendTextElement(exactMatchMetaData, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
+    	
+    	Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "SearchMetadata");
+    	XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
+    	XmlUtils.appendTextElement(startsWithMetaData, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
+    	
+
+		return document;
 	}	
     
 }

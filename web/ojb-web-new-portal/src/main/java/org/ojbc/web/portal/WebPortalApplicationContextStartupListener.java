@@ -135,6 +135,7 @@ public class WebPortalApplicationContextStartupListener implements
 						camelContext.startRoute("arrestSearchResultsHandlerRoute");
 						camelContext.startRoute("arrestModifyResultsHandlerRoute");
 						camelContext.startRoute("recordReplicationResultsHandlerRoute");
+						camelContext.startRoute("auditSearchResultsHandlerRoute");
 						break;
 					default:
 						break;

@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.web.portal.arrest.ArrestService;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
+import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,13 +36,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/audit")
-@SessionAttributes({"auditSearchRequest", "agencyOriMapping"})
+@SessionAttributes({"auditSearchRequest", "agencyOriMapping", "auditSearchResults", "auditSearchContent"})
 public class AuditController {
 	private static final Log log = LogFactory.getLog(AuditController.class);
 
 	@Autowired
-	ArrestService arrestService;
+	AuditService auditService;
 	
+	@Resource
+	SearchResultConverter searchResultConverter;
+
 	@Resource
 	SamlService samlService;
 	
@@ -71,11 +74,23 @@ public class AuditController {
 
 	@PostMapping("/auditLogs")
 	public String findAuditLogs(HttpServletRequest request, AuditSearchRequest auditSearchRequest, Map<String, Object> model) throws Throwable {
-		log.info("Find audit logs with : " + auditSearchRequest);
-		model.put("auditSearchContent", "<span>Results list</span>"); 
-
+		
+		getAuditSearchResults(request, auditSearchRequest, model);
 		return "audit/auditLogs::resultsList";
+		
 	}
 
+	private void getAuditSearchResults(HttpServletRequest request, AuditSearchRequest auditSearchRequest,
+			Map<String, Object> model) throws Throwable {
+		auditSearchRequest.setFirstNameSearchMetaData(); 
+		auditSearchRequest.setLastNameSearchMetaData();
+		log.debug("Find audit logs with : " + auditSearchRequest);
+		String searchContent = auditService.findAuditLogs(auditSearchRequest, samlService.getSamlAssertion(request));
+		String transformedResults = searchResultConverter.convertAuditSearchResult(searchContent);
+		model.put("auditSearchResults", searchContent); 
+		model.put("auditSearchContent", transformedResults); 
+		model.put("auditSearchRequest", auditSearchRequest);
+	}
+	
 
 }

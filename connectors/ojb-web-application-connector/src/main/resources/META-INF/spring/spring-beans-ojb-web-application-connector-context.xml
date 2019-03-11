@@ -70,6 +70,8 @@
 	<import resource="arrest-search.xml"/>
 	<import resource="record-replication.xml"/>
 	
+	<import resource="audit-search.xml"/>
+	
 	<import resource="professional-license-query.xml"/>
 	
 	<import resource="camel-context.xml"/>

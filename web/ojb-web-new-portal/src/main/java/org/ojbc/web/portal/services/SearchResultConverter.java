@@ -60,6 +60,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${arrestDetailXslLocation:classpath:xsl/daArrestDetail.xsl}")
 	org.springframework.core.io.Resource daArrestDetailXsl;
 	
+	@Value("${arrestDetailXslLocation:classpath:xsl/auditLogs.xsl}")
+	org.springframework.core.io.Resource auditLogsXsl;
+	
 	@Autowired(required=false)
 	Map<String,String> searchDetailToXsl;
 	
@@ -104,6 +107,13 @@ public class SearchResultConverter implements ApplicationContextAware {
     	}
     	return convertXml(searchContent, daArrestDetailXsl, null);
     }
+    
+	public String convertAuditSearchResult(String searchContent) {
+    	if (StringUtils.isBlank(searchContent)){
+    		return "";
+    	}
+		return convertXml(searchContent, auditLogsXsl, null);
+	}
     
 	org.springframework.core.io.Resource getResource(String systemName) throws UnsupportedEncodingException{
 		systemName = URLDecoder.decode(StringUtils.trimToEmpty(systemName), "UTF-8");
@@ -150,6 +160,7 @@ public class SearchResultConverter implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
     }
+
 }
 
 
