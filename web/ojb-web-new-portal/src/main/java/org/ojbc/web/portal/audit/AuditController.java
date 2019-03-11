@@ -66,17 +66,15 @@ public class AuditController {
 			auditSearchRequest = new AuditSearchRequest();
 			model.put("auditSearchRequest", auditSearchRequest);
 		}
-		return "audit/auditSearchForm::auditSearchForm";
+		return "audit/auditLogs::resultsPage";
 	}
 
 	@PostMapping("/auditLogs")
 	public String findAuditLogs(HttpServletRequest request, AuditSearchRequest auditSearchRequest, Map<String, Object> model) throws Throwable {
 		log.info("Find audit logs with : " + auditSearchRequest);
-//		String response = arrestService.lookupOtn(otn, samlService.getSamlAssertion(request)); 
-//		String recordFound = getResponseMessage(otn, response);
 		model.put("auditSearchContent", "<span>Results list</span>"); 
 
-		return "audit/auditSearchForm::resultsList";
+		return "audit/auditLogs::resultsList";
 	}
 
 

@@ -27,12 +27,12 @@
 	</head>
 	<body>
      <!-- Begin page content -->
-     <div th:fragment="auditSearchForm">
+     <div>
      
 	     <div id="loadingAjaxPane" ></div>
 	     <h3 class="mt-5">Audit Search</h3>
 	     
-	     <form action="#" th:object="${auditSearchRequest}" id="searchForm" method="post">
+	     <form action="#" th:object="${auditSearchRequest}" id="searchForm" method="post" th:fragment="auditSearchForm">
 	       <div class="form-row">
            <div class="col-9">
 	              <div class="form-row">
@@ -83,59 +83,6 @@
 	      </form>
         <hr/>
         
-        <div id="searchResultsList" th:fragment="resultsList" >
-          <p th:utext="${auditSearchContent}" ></p>
-          <script th:inline="javascript">
-              $(function(){
-                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
-
-                  $('#searchResultsTable').DataTable({
-                  });
-              });
-          </script>
-        </div>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-              var _csrf_token = /*[[${_csrf.token}]]*/ '';
-              var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
-
-            /*]]>*/
-             $(function(){
-                 $('.date').mask('99/99/9999');
-                 $('#auditDateRangeStartDate').datepicker({
-                     uiLibrary: 'bootstrap4', size: 'small'
-                 });
-                 $('#auditDateRangeEndDate').datepicker({
-                     uiLibrary: 'bootstrap4', size: 'small'
-                 });
-                 $(".chosen-select").chosen(); 
-                 $('#searchForm input').keypress(function (e) {
-                   
-                 if (e.which == 13) {
-                     $('#submit').click();
-                     return false;    
-                   }
-                 });
-                 
-                 $('#submit').click (function(){
-                   var requestData = {
-                       'auditDateRangeStartDate': $('#auditDateRangeStartDate').val(),
-                       'auditDateRangeEndDate': $('#auditDateRangeEndDate').val(),
-                       'firstName': $('#firstName').val(),
-                       'lastName': $('#lastName').val(),
-                       'ori': $('#ori').val(),
-                       'firstNameExactMatch': $('#firstNameExactMatch').val(),
-                       'lastNameExactMatch': $('#lastNameExactMatch').val(),
-                   };
-                   requestData[_csrf_param_name] = _csrf_token;
-                   xhr = $.post(context + "audit/auditLogs",requestData,function(data) {
-                     $('#searchResultsList').replaceWith(data);
-                   }).fail();
-                 });
-
-
-             });
-	      </script>
       </div>
 	</body>
 </html>
