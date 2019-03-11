@@ -57,7 +57,7 @@
 			<nc:OrganizationPrimaryContactInformation>
 				<nc:ContactTelephoneNumber>
 					<nc:FullTelephoneNumber>
-						<nc:TelephoneNumberFullID>(223)234-2121</nc:TelephoneNumberFullID>
+						<nc:TelephoneNumberFullID>(223) 234-2121</nc:TelephoneNumberFullID>
 					</nc:FullTelephoneNumber>
 				</nc:ContactTelephoneNumber>
 			</nc:OrganizationPrimaryContactInformation>
