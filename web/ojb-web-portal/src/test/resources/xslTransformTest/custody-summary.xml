@@ -41,7 +41,6 @@
 			<nc:SupervisionPerson structures:ref="Person_01" />
 			<nc:SupervisionSupervisor>
 				<nc:EntityOrganization structures:ref="Division_01" />
-				<cq-res-ext:SupervisorCategoryText>Probation Officer</cq-res-ext:SupervisorCategoryText>
 			</nc:SupervisionSupervisor>
 		</nc:Supervision>
 		<nc:Person structures:id="Person_01">
@@ -55,6 +54,13 @@
 			</nc:PersonName>
 		</nc:Person>
 		<nc:Organization structures:id="Division_01">
+			<nc:OrganizationPrimaryContactInformation>
+				<nc:ContactTelephoneNumber>
+					<nc:FullTelephoneNumber>
+						<nc:TelephoneNumberFullID>(223) 234-2121</nc:TelephoneNumberFullID>
+					</nc:FullTelephoneNumber>
+				</nc:ContactTelephoneNumber>
+			</nc:OrganizationPrimaryContactInformation>
 			<nc:OrganizationSubUnit>
 				<nc:OrganizationName>Division Name</nc:OrganizationName>
 			</nc:OrganizationSubUnit>

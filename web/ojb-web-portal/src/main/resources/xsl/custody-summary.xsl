@@ -111,14 +111,12 @@
 							select="//nc:Organization/nc:OrganizationSubUnit/nc:OrganizationName" />
 					</td>
 				</tr>				
-				<xsl:if test="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText">
 				<tr>
-					<td class="detailsLabel">Supervisor:</td>
+					<td class="detailsLabel">Division Phone:</td>
 					<td>
-						<xsl:value-of select="nc:SupervisionSupervisor/cq-res-ext:SupervisorCategoryText" />
+						<xsl:value-of select="//nc:Organization/nc:OrganizationPrimaryContactInformation/nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID" />	
 					</td>
-				</tr>
-				</xsl:if>				
+				</tr>				
 			</table>
 		</div>
 	</xsl:template>
