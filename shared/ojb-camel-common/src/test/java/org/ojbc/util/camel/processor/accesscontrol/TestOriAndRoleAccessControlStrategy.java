@@ -16,7 +16,9 @@
  */
 package org.ojbc.util.camel.processor.accesscontrol;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,8 +40,8 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
 public class TestOriAndRoleAccessControlStrategy {
 
