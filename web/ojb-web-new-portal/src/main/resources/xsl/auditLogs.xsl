@@ -19,111 +19,79 @@
 -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
-	xmlns:chsres-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchResults/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+  xmlns:alsres-doc="http://ojbc.org/IEPD/Exchange/AuditLogSearchResults/1.0"
+  xmlns:alsres-ext="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.1/"
   xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+  xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+  xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd"
 	exclude-result-prefixes="#all">
 
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	
-	<xsl:param name="resultType">MUNI</xsl:param>
-	<xsl:template match="/chsres-doc:CriminalHistorySearchResults">
+	<xsl:template match="/alsres-doc:AuditLogSearchResults">
 	
 	  <xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
-    <xsl:variable name="requestErrors" select="srm:SearchResultsMetadata/srer:SearchRequestError" />
     <xsl:variable name="tooManyResultsErrors" select="srm:SearchResultsMetadata/srer:SearchErrors/srer:SearchResultsExceedThresholdError" />
 
     <xsl:apply-templates select="$accessDenialReasons" />
-    <xsl:apply-templates select="$requestErrors" />
     <xsl:apply-templates select="$tooManyResultsErrors" />
     
-    <xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
-		  <xsl:call-template name="arrests"/>
+    <xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons))">
+		  <xsl:call-template name="auditLogs"/>
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template name="arrests">
+	<xsl:template name="auditLogs">
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
 				<thead>
 					<tr>
-						<th>OTN</th>
 						<th>NAME</th>
-						<th>DOB</th>
-						<th>SSN</th>
-						<th>DATE OF Arrest</th>
-						<th>CHARGE</th>
-						<th></th>
+						<th>AGENCY NAME</th>
+						<th>ORI</th>
+						<th>ACTION</th>
+						<th>REQUEST ID</th>
+						<th>REQUEST TYPE</th>
+						<th>REQUEST PAYLOAD</th>
+						<th>DATE</th>
 					</tr>
 				</thead>
 				<tbody>
-					<xsl:apply-templates select="chsres-ext:CriminalHistorySearchResult"/>
+					<xsl:apply-templates select="alsres-ext:AuditLogSearchResult"/>
 				</tbody>
 			</table>
 	</xsl:template>
 	
-	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
+	<xsl:template match="alsres-ext:AuditLogSearchResult">
 		<tr>
 		  <xsl:attribute name="id">
          <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
 		  
+			<td><xsl:apply-templates select="nc:UserPersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
-				<xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>
-			</td>					
-			<td><xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
-			<td>
-				<xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>	
-			<td>
-				<xsl:apply-templates select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/nc:RoleOfPerson/nc:PersonSSNIdentification/nc:IdentificationID"/>
+				<xsl:value-of select="nc:Organization/nc:OrganizationName"/>
 			</td>
 			<td>
-				<xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:value-of select="nc:Organization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/>
 			</td>
 			<td>
-				<xsl:for-each select="j:Arrest/j:ArrestCharge/j:ChargeDescriptionText">
-					<xsl:if test="position() != 1">
-						<br/>
-					</xsl:if>
-					<xsl:value-of select="."/>
-				</xsl:for-each>
+				<xsl:value-of select="alsres-ext:UserActionPerformedText"/>
 			</td>
-			<td align="right" width="120px">
-			  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">
-  				<i class="fas fa-edit fa-2x"></i>
- 				</a>
- 				<xsl:choose>
-	 				<xsl:when test="j:Arrest/chsres-ext:ArrestHiddenIndicator = 'true'">
-            <a href="#" class="unhideArrest" style="margin-right:3px" title="Unhide" data-toggle="tooltip">
-              <i class="fas fa-eye fa-2x"></i>
-            </a>
-					</xsl:when>
-					<xsl:otherwise>
-            <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
-              <i class="fas fa-eye-slash fa-2x"></i>
-            </a>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:element name="a">
-				  <xsl:attribute name="href">#</xsl:attribute>
-				  <xsl:attribute name="class">referArrest</xsl:attribute>
-				  <xsl:attribute name="title">
-				    <xsl:choose>
-				      <xsl:when test="$resultType = 'MUNI'">Refer to DA</xsl:when>
-				      <xsl:when test="$resultType = 'DA'">Refer to Municipal Court</xsl:when>
-				    </xsl:choose>
-				  </xsl:attribute>
-          <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
-				  <i class="fas fa-share-square fa-2x"></i>
-				</xsl:element>
+			<td>
+				Request ID
+			</td>
+			<td>
+				Request Type
+			</td>
+			<td>
+				<xsl:value-of select="alsres-ext:AuditedRequestMessage"/>
+			</td>
+			<td>
+				<xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
 			</td>
 		</tr>
 	</xsl:template>
@@ -132,14 +100,6 @@
     <span class="error">
       User does not meet privilege requirements to access
       <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />. To request access, contact your IT department.
-    </span>
-    <br />
-  </xsl:template>
-
-  <xsl:template match="srer:SearchRequestError">
-    <span class="error">
-      System Name: <xsl:value-of select="nc:SystemName" />, 
-      Error: <xsl:value-of select="srer:ErrorText" />
     </span>
     <br />
   </xsl:template>
