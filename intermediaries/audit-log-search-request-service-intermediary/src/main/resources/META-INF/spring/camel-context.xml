@@ -45,10 +45,10 @@
 		<endpoint id="auditSearchResultsServiceEndpoint"
 			uri="cxf:bean:auditSearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}" />
 
-	    <endpoint id="auditSearchRequestAdapterServiceEndpoint" 
+	    <endpoint id="auditLogSearchRequestServiceAdapterEndpoint" 
 	    	uri="cxf:bean:auditSearchRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
 		
-		<endpoint id="auditSearchPresentResultsServiceEndpoint" 
+		<endpoint id="auditLogSearchPresentResultsServiceEndpoint" 
 			uri="cxf:bean:auditSearchPresentResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>                        
 
 		<!-- Federated Search Request Handler-->

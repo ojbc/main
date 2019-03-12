@@ -61,7 +61,7 @@
 	
 	<!-- Audit Search Request Service, hosted by Adapter, called by broker  -->	
 	<cxf:cxfEndpoint id="auditSearchRequestAdapterService"
-		address="${auditLogSearchRequestServiceEndpoint}"
+		address="${auditLogSearchRequestServiceAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Audit_Log_Search_Request/schema/SIP_WS_1.2/Audit_Log_Search_Request_Service.wsdl"
 		serviceName="ojbc:AuditLog_Search_Request_Service_Service" 
 		endpointName="ojbc:AuditLog_Search_Request_Secure_Service"
@@ -70,8 +70,7 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
 			<entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
+            <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 		</cxf:properties>
 	</cxf:cxfEndpoint>		
 		
