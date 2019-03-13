@@ -31,7 +31,7 @@
 
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
-	
+
 	<xsl:template match="/alsres-doc:AuditLogSearchResults">
 	
 	  <xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -87,8 +87,8 @@
 			<td>
 				Request Type
 			</td>
-			<td>
-				<xsl:value-of select="alsres-ext:AuditedRequestMessage"/>
+			<td><pre>
+			  <xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
 			</td>
 			<td>
 				<xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
@@ -110,5 +110,33 @@
     </span>
     <br />
   </xsl:template>
-	
+	<xsl:template match="*" mode="serialize">
+    <xsl:text>&lt;</xsl:text>
+    <xsl:value-of select="name()"/>
+    <xsl:apply-templates select="@*" mode="serialize" />
+    <xsl:choose>
+        <xsl:when test="node()">
+            <xsl:text>&gt;</xsl:text>
+            <xsl:apply-templates mode="serialize" />
+            <xsl:text>&lt;/</xsl:text>
+            <xsl:value-of select="name()"/>
+            <xsl:text>&gt;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text> /&gt;</xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template match="@*" mode="serialize">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="name()"/>
+    <xsl:text>="</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>"</xsl:text>
+</xsl:template>
+
+<xsl:template match="text()" mode="serialize">
+    <xsl:value-of select="."/>
+</xsl:template>
  </xsl:stylesheet>
