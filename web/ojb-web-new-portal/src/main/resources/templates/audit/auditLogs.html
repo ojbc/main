@@ -75,8 +75,8 @@
                        'firstName': $('#firstName').val(),
                        'lastName': $('#lastName').val(),
                        'ori': $('#ori').val(),
-                       'firstNameExactMatch': $('#firstNameExactMatch').val(),
-                       'lastNameExactMatch': $('#lastNameExactMatch').val(),
+                       'firstNameExactMatch': $('#firstNameExactMatch1').is(":checked"),
+                       'lastNameExactMatch': $('#lastNameExactMatch1').is(":checked"),
                    };
                    requestData[_csrf_param_name] = _csrf_token;
                    xhr = $.post(context + "audit/auditLogs",requestData,function(data) {
