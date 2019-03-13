@@ -46,7 +46,7 @@
 	</xsl:template>
 
 	<xsl:template name="auditLogs">
-			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
+			<table class="table table-striped table-bordered" style="width:100%;" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th>NAME</th>
@@ -55,8 +55,8 @@
 						<th>ACTION</th>
 						<th>REQUEST ID</th>
 						<th>REQUEST TYPE</th>
+            <th>DATE</th>
 						<th>REQUEST PAYLOAD</th>
-						<th>DATE</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,11 +87,11 @@
 			<td>
 				Request Type
 			</td>
+      <td>
+        <xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
+      </td>
 			<td><pre>
 			  <xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
-			</td>
-			<td>
-				<xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
 			</td>
 		</tr>
 	</xsl:template>
