@@ -66,7 +66,7 @@
 		                
 		                    var systemName =$(this).attr('systemName');
 		                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-		                    var identificationID = $(this).attr('identificationID');
+		                    var identificationID = encodeURI($(this).attr('identificationID'));
 		                    
 		                    
 		                    $('#incidentsSummary tr').removeClass("incidentSelected");
@@ -99,7 +99,7 @@
 		            </tr>
 		            <xsl:apply-templates /> 
 		        </table>
-		        <div id="incidentDetailTabsHolder"></div>   
+		        <div id="incidentDetailTabsHolder" style="height:200px;"></div>   
 	        </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
