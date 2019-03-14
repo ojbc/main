@@ -118,6 +118,7 @@
             dialog.dialog({
                 width: dlgWidth,
                 height: dlgHeight,
+                maxHeight:dlgHeight,
                 close: function(event, ui) {
                     $('#modalIframe').attr('src', '');
                     dialog.remove();
