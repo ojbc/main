@@ -239,6 +239,11 @@
 			<xsd:documentation>True if arrest is hidden; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ArrestHasChargeDispositionIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if one or more charges for an arrest has a disposition, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
