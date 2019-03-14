@@ -18,7 +18,7 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.1/"
@@ -66,16 +66,16 @@
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="alsres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
-					<xsd:element ref="alsres-ext:AuditedRequestMessage" minOccurs="0" />
+					<xsd:element ref="nc:Request"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xs:complexType name="AuditedRequestMessageType">
-		<xs:sequence>
-			<xs:any processContents="skip" namespace="##any" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
+	<xsd:complexType name="AuditedRequestMessageType">
+		<xsd:sequence>
+			<xsd:any processContents="skip" namespace="##any" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:element name="AuditLogSearchResult" type="alsres-ext:AuditLogSearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A single returned record about an audit log.
@@ -100,5 +100,5 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xs:element name="AuditedRequestMessage" type="alsres-ext:AuditedRequestMessageType" />
+	<xsd:element name="AuditedRequestMessage" type="alsres-ext:AuditedRequestMessageType" substitutionGroup="nc:RequestAugmentationPoint"/>
 </xsd:schema>
