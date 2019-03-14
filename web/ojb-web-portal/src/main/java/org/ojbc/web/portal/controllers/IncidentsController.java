@@ -36,7 +36,10 @@ import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.IncidentSearchCommandValidator;
+import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -149,9 +152,11 @@ public class IncidentsController {
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication) {
 		try {
-			processDetailRequest(request, systemName, detailsRequest, model);
+			
+			processDetailRequest(request, systemName, detailsRequest, model, authentication);
+			
 			return "incidents/_incidentDetails";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,13 +192,22 @@ public class IncidentsController {
 		return userSession.getMostRecentIncidentSearch().getAdvanceSearch().getOnBehalfOf();
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
+	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication)
 			throws Exception {
-		Element samlAssertion = samlService.getSamlAssertion(request);		
-		
-		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
-		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName,null);
-		model.put("searchContent", convertedContent);
+
+		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL))
+		{
+			Element samlAssertion = samlService.getSamlAssertion(request);		
+			
+			String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
+			String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName,null);
+			model.put("searchContent", convertedContent);
+		}
+		else
+		{
+			model.put("searchContent", "<span class='error'>User is not authorized to see incident detail.</span>");
+		}
+
 	}
 
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
