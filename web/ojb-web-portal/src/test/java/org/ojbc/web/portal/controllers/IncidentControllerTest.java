@@ -224,7 +224,7 @@ public class IncidentControllerTest {
 		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem", null)).thenReturn(
 				"converted details xml");
 		
-		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model);
+		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model, null);
 		
 		verify(samlService).getSamlAssertion(servletRequest);
 		assertThat(expectedView, is("incidents/_incidentDetails"));
@@ -238,7 +238,7 @@ public class IncidentControllerTest {
 		when(detailsQueryInterface.invokeRequest(detailsRequest, federatedQueryId, null))
 			.thenThrow(new RuntimeException());
 		
-		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model);
+		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model, null);
 		
 		assertThat(expectedView, is("common/_searchDetailsError"));
 	}

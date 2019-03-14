@@ -27,12 +27,14 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
 @Service
 public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
-	@Resource(name = "searchURIToQueryURIMap")
+	
+	@Autowired(required = false)
 	private Map<String, String> searchURIToQueryURIMap;	
 	
 	private static final Log log = LogFactory.getLog( DetailsQueryInterfaceMockImpl.class );
@@ -72,7 +74,7 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.INCIDENT_REPORT)) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/incidentReport/Incident_Sample.xml"));
-		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.PERSON_TO_INCIDENT)) {
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.PERSON_TO_INCIDENT) || requestIdSrcTxt.equals("{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest")) {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/personToIncident/Incident_Person_Search_Results.xml"));
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.VEHICLE_TO_INCIDENT)) {
