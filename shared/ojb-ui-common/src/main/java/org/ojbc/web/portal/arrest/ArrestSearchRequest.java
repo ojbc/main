@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
@@ -168,7 +169,7 @@ public class ArrestSearchRequest {
 	
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	public ArrestType getArrestType() {
 		return arrestType;

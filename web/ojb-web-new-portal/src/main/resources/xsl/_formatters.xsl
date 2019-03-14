@@ -280,7 +280,7 @@
        </xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonName | nc20:PersonName | nc40:PersonName" mode="primaryName">
+	<xsl:template match="nc:PersonName | nc20:PersonName | nc40:PersonName |nc40:UserPersonName" mode="primaryName">
 		<b>
 			<xsl:choose>
 				<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
@@ -295,7 +295,7 @@
 			</xsl:choose>
 		</b>
 	</xsl:template>
-	<xsl:template match="nc:PersonName | nc20:PersonName | nc40:PersonName" mode="firstNameFirst">
+	<xsl:template match="nc:PersonName | nc20:PersonName | nc40:PersonName |nc40:UserPersonName" mode="firstNameFirst">
 		<xsl:choose>
 			<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
 				<xsl:value-of select="*:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonMiddleName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonSurName"/>
