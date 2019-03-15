@@ -227,6 +227,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of qualifying details that impact sentencing and severity of the charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ChargeDispositionSeverityCodeText" type="nc:TextType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>

@@ -46,6 +46,7 @@
 						</j:StatuteCodeIdentification>
 						<j:StatuteDescriptionText>Possession of paraph</j:StatuteDescriptionText>
 					</j:ChargeStatute>
+					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>	
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -56,6 +57,7 @@
 						</j:StatuteCodeIdentification>
 						<j:StatuteDescriptionText>Possession of paraph</j:StatuteDescriptionText>
 					</j:ChargeStatute>
+					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:CourtCase>
 					<nc:ActivityIdentification>
