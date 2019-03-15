@@ -319,7 +319,7 @@
                        no: function() {},
                        yes: function(data, array, event) {  
                            requestData[_csrf_param_name] = _csrf_token;
-                           xhr = $.post(context + "muniArrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
+                           xhr = $.post(context + "muniArrests/dispositions/delete", requestData, function(data) {
                                $('#portalContent').html(data); 
                            }).fail(ojbc.displayFailMessage);
                        },
