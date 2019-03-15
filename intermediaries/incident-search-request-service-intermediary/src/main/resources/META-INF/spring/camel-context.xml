@@ -273,15 +273,20 @@
 			<camel:filter>
 				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.searchPersonResponseNodeCount} == 0 and ${in.header.searchVehicleResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="No search results returned, however, response contains error results"/>
-				<to uri="xslt:xslt/IncidentSearchResultsErrorToMergeNotificationMessage.xsl"/>	
 				
 				<camel:filter>
 					<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
+					
+					<to uri="xslt:xslt/IncidentSearchResultsErrorToMergeNotificationMessage.xsl"/>	
+					
 					<camel:to uri="direct:sendMergeMessageResponse"/>
 				</camel:filter>
 					
 				<camel:filter>
 					<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentPersonSearchResults'</camel:simple>
+					
+					<!-- This line remove the OJBWrapper element that the aggregator adds -->
+					<camel:setBody><xpath>//isr:IncidentPersonSearchResults</xpath></camel:setBody>
 
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
@@ -293,6 +298,10 @@
 
 				<camel:filter>
 					<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentVehicleSearchResults'</camel:simple>
+					
+					<!-- This line remove the OJBWrapper element that the aggregator adds -->
+					<camel:setBody><xpath>//isr:IncidentVehicleSearchResults</xpath></camel:setBody>
+					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 				
 					<camel:setHeader headerName="operationName"><constant>SubmitIncidentVehicleSearchResults</constant></camel:setHeader>	

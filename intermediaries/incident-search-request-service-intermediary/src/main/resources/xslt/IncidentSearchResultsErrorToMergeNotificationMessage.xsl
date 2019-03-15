@@ -37,7 +37,7 @@
             <EntityContainer/>
             <MergedRecords/>
             <SearchResultsMetadataCollection>
-                <xsl:copy-of select="exchange:IncidentSearchResults/srm:SearchResultsMetadata"/>
+                <xsl:copy-of select="//srm:SearchResultsMetadata"/>
             </SearchResultsMetadataCollection>
         </EntityMergeResultMessage>
     </xsl:template>    
