@@ -288,9 +288,14 @@ public class SubscriptionSearchQueryDAO {
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
                 + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id "
-                + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";
+                + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ? and s.active=1";
 		
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);
+        
+        if (subscriptions==null || subscriptions.size() ==0)
+        {
+        	return null;
+        }	
         
         Subscription subscription = DataAccessUtils.singleResult(subscriptions);
         
