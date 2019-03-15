@@ -261,7 +261,7 @@
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>FBI_Notification_${in.headers.transactionControlIdentification}.xml</camel:simple>
+						<camel:simple>FBI_Notification_${in.headers.transactionControlIdentification}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 					</camel:setHeader>
 					
 					<camel:setHeader headerName="pathToNotificationFile">
