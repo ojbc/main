@@ -347,12 +347,14 @@
                  });
 
                  function expungeDisposition(formData){
+                     chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "daArrests/expungeDisposition",formData,function(data) {
                          /* console.log(formData); */
                          
                          if ($(data).find('div.card').length > 0){
                            $("#dispositionModal .close").click();
                            $('#portalContent').html(data); 
+                           $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
                            $('.modal-body').html(data);
@@ -362,13 +364,12 @@
                  }
 
                  function saveDisposition(formData){
+                     chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "daArrests/saveDisposition",formData,function(data) {
-                         /* console.log(formData); */
-                         
-                         
                          if ($(data).find('div.card').length > 0){
                            $("#dispositionModal .close").click();
                            $('#portalContent').html(data); 
+                           $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
                            $('.modal-body').html(data);
@@ -392,10 +393,11 @@
                              ], 
                        no: function() {},
                        yes: function(data, array, event) {  
+                           chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                            requestData[_csrf_param_name] = _csrf_token;
-
                            xhr = $.post(context + "daArrests/dispositions/delete", requestData, function(data) {
                                $('#portalContent').html(data); 
+                               $("a.card-link[href = '" + chargeRef + "']").click();
                            }).fail(ojbc.displayFailMessage);
                        },
                    });
