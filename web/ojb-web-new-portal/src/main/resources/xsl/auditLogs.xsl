@@ -90,8 +90,10 @@
       <td>
         <xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
       </td>
-			<td><pre>
-			  <xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
+			<td>
+			   <div class="auditRequestPayload">
+			     <pre><xsl:text>      </xsl:text><xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
+			   </div>
 			</td>
 		</tr>
 	</xsl:template>
