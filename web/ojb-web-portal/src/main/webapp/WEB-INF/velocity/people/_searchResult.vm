@@ -119,27 +119,26 @@
             dialog.dialog({
                 width: dlgWidth,
                 height: dlgHeight,
+                maxHeight:dlgHeight,
                 close: function(event, ui) {
                     $('#modalIframe').attr('src', '');
                     dialog.remove();
                 },
                 open: function(event,ui){
                 
-                	if(searchCategory != 'Incident' || $sec.allGranted("AUTHZ_INCIDENT_DETAIL")){ 
-						console.log("spinning");
-						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-						$("#modalIframeSpinner").width($("#modalIframe").width());
-						$("#modalIframeSpinner").show();
-			     		
-			     		$("#modalIframe").load( function() {
-			     			//alert("Load event fired");
-							$("#modalIframeSpinner").hide();				
-													
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						});
-						
-	                 	$('#modalIframe').attr('src', url);		
-                 	}     		
+				/*console.log("spinning");*/
+				$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+				$("#modalIframeSpinner").width($("#modalIframe").width());
+				$("#modalIframeSpinner").show();
+	     		
+	     		$("#modalIframe").load( function() {
+	     			//alert("Load event fired");
+					$("#modalIframeSpinner").hide();				
+											
+					$(this).css('height', $(this).contents().find("body").height() + 16);
+				});
+				
+             	$('#modalIframe').attr('src', url);		
 
                 },
                 position: {

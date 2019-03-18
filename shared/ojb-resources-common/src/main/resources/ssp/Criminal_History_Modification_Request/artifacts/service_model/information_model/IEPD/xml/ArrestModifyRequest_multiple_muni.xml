@@ -98,12 +98,14 @@
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
+					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
 					<chm-req-ext:ChargeMunicipalCodeText>4567-9</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
+					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>390</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionCodeDescriptionText>Disposition Code Description</chm-req-ext:DispositionCodeDescriptionText>
