@@ -91,6 +91,9 @@
         <xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
       </td>
 			<td>
+			   <a href="#" class="requestPayload" style="margin-right:3px" title="request payload" data-toggle="tooltip">
+			     <i class="fas fa-file-alt fa-lg" ></i>
+		     </a>
 			   <div class="auditRequestPayload">
 			     <pre><xsl:text>      </xsl:text><xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
 			   </div>

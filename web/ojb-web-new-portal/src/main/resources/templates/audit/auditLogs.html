@@ -38,13 +38,55 @@
           <p th:utext="${auditSearchContent}" ></p>
           <script th:inline="javascript">
               $(function(){
-                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
+                  $.fn.dataTable.moment( 'MM/DD/YYYY - HH/mm' );
 
-                  $('#searchResultsTable').DataTable({
+                  var table = $('#searchResultsTable').DataTable({
+                    "columnDefs": [
+                        { "orderable": false, "targets": 7 },
+                        {
+                            "targets":[6], 
+                            "type":"datetime"
+                        },
+                      ]
                   });
+                  
+                  $('#searchResultsTable').on('click', 'a.requestPayload',function() {
+                	   table.$('tr.selected').removeClass('selected');
+               	     $(this).closest("tr").addClass('selected');  
+                     $('div.modal-body').html($(this).next("div.auditRequestPayload").html());
+                     $('#requestPayloadModal').modal('show');
+                  }); 
+
               });
           </script>
         </div>
+        <div id="modalDiv">
+           <!-- The Modal -->
+           <div class="modal" id="requestPayloadModal">
+             <div id="modalIframeSpinner" ></div>
+             <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+           
+                 <!-- Modal Header -->
+                 <div class="modal-header">
+                   <h4 class="modal-title">Request Payload</h4>
+                   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 </div>
+           
+                 <!-- Modal body -->
+                 <div class="modal-body">
+                   modal body
+                 </div>
+         
+                 <!-- Modal footer -->
+                 <div class="modal-footer">
+                 </div>
+           
+               </div>
+            </div>
+           </div>
+        </div>
+        
         <script th:inline="javascript">
             /*<![CDATA[*/
               var _csrf_token = /*[[${_csrf.token}]]*/ '';
@@ -83,7 +125,6 @@
                      $('#searchResultsList').replaceWith(data);
                    }).fail();
                  });
-
 
              });
         </script>
