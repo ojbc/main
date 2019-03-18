@@ -82,10 +82,10 @@
 				<xsl:value-of select="alsres-ext:UserActionPerformedText"/>
 			</td>
 			<td>
-				Request ID
+				<xsl:value-of select="nc:Request/nc:RequestIdentification/nc:IdentificationID"/>
 			</td>
 			<td>
-				Request Type
+				<xsl:value-of select="nc:Request/nc:RequestCategoryText"/>
 			</td>
       <td>
         <xsl:apply-templates select="alsres-ext:UserActionPerformedDate/nc:DateTime" mode="formatDateTime"/>
@@ -95,7 +95,7 @@
 			     <i class="fas fa-file-alt fa-lg" ></i>
 		     </a>
 			   <div class="auditRequestPayload">
-			     <pre><xsl:text>      </xsl:text><xsl:apply-templates select="alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
+			     <pre><xsl:text>      </xsl:text><xsl:apply-templates select="nc:Request/alsres-ext:AuditedRequestMessage" mode="serialize"/></pre>
 			   </div>
 			</td>
 		</tr>
