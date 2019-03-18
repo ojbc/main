@@ -37,7 +37,10 @@
 		<log4j-version>1.2.17</log4j-version>
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
+    <junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
+    <junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
+    <junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
+		<ojb-common-version>[4.0.0,)</ojb-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
 		<lucene-version>4.7.2</lucene-version>
@@ -92,6 +95,18 @@
 			<version>${log4j-version}</version>
 		</dependency>		
 		
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit-jupiter-engine-version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>${junit-vintage-engine-version}</version>
+        <scope>test</scope>
+    </dependency>
 		
 	</dependencies>
 	<build>

@@ -78,6 +78,7 @@
             	   $('.money').mask('000,000,000,000,000', {reverse: true});
             	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
             	   
+            	   var chargeRef; 
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
                 		 dom: 'rt',
@@ -212,7 +213,7 @@
                  });
                  
                  $('.dispositionsTable tbody').on('click', 'a.expungeDisposition',function() {
-                	 var chargeId = $(this).closest("table").attr("id");
+                	var chargeId = $(this).closest("table").attr("id");
                    var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
 
                 	 xhr = $.get( context +"muniArrests/expungeDispositionForm", {
@@ -243,6 +244,7 @@
 
                  
                  $('#dispositionModal').on('click', '#saveDisposition', function(){
+
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
@@ -273,12 +275,14 @@
                  });
 
                  function expungeDisposition(formData){
+                     chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "muniArrests/expungeDisposition",formData,function(data) {
                          console.log(formData);
                          
                          if ($(data).find('div.card').length > 0){
                            $("#dispositionModal .close").click();
                            $('#portalContent').html(data); 
+                           $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
                            $('.modal-body').html(data);
@@ -288,6 +292,7 @@
                  }
                  
                  function saveDisposition(formData){
+                     chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "muniArrests/saveDisposition",formData,function(data) {
                          console.log(formData);
                          
@@ -295,6 +300,7 @@
                          if ($(data).find('div.card').length > 0){
                            $("#dispositionModal .close").click();
                            $('#portalContent').html(data); 
+                           $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
                            $('.modal-body').html(data);
@@ -319,8 +325,11 @@
                        no: function() {},
                        yes: function(data, array, event) {  
                            requestData[_csrf_param_name] = _csrf_token;
-                           xhr = $.post(context + "muniArrests/dispositions/delete", $("#dispositionForm").serialize(), function(data) {
+                           
+                           chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
+                           xhr = $.post(context + "muniArrests/dispositions/delete", requestData, function(data) {
                                $('#portalContent').html(data); 
+                               $("a.card-link[href = '" + chargeRef + "']").click();
                            }).fail(ojbc.displayFailMessage);
                        },
                    });
