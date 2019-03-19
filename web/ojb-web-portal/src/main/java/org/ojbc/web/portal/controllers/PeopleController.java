@@ -42,7 +42,10 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonFilterCommandValidator;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
+import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -263,11 +266,12 @@ public class PeopleController {
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
-	        Map<String, Object> model) {
+	        Map<String, Object> model, Authentication authentication) {
 		log.info("in searchDetails");
+		
 		try {
 			
-			processDetailRequest(request, systemName, detailsRequest, model);
+			processDetailRequest(request, systemName, detailsRequest, model, authentication, searchResultCategory);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			model.put("searchContent", "error");
@@ -325,12 +329,19 @@ public class PeopleController {
 		
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
+	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory)
 			throws Exception {
-	    String convertedContent = getConvertedSearchResult(request, systemName,
-				detailsRequest, model);
-         model.put("searchContent", convertedContent); 
-
+		
+		if (searchResultCategory.equals("Incident") && (authentication == null || !SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)))
+		{
+			model.put("searchContent", "<span class='error'>User is not authorized to see incident list.</span>"); 	
+		}	
+		else
+		{	
+		    String convertedContent = getConvertedSearchResult(request, systemName,
+					detailsRequest, model);
+	         model.put("searchContent", convertedContent); 
+		}
 	}
 
 	private String getConvertedSearchResult(HttpServletRequest request, String systemName,

@@ -227,6 +227,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of qualifying details that impact sentencing and severity of the charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ChargeDispositionSeverityCodeText" type="nc:TextType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
@@ -237,6 +242,11 @@
 	<xsd:element name="ArrestHiddenIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if arrest is hidden; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrestHasChargeDispositionIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if one or more charges for an arrest has a disposition, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"

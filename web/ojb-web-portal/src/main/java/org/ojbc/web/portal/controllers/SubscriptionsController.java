@@ -223,12 +223,14 @@ public class SubscriptionsController {
 	@ModelAttribute
     public void setupFormModelAttributes(Model model) {
 		
+		log.info("subscriptionPurposeValueToLabelMap: "+ subscriptionPurposeValueToLabelMap);
 		subscriptionPurposeValueToLabelMap.forEach((key, value) -> {
 			if (StringUtils.isNotBlank(key)){
 				subscriptionPurposeMap.put(key, value);
 			}
 		});
 		model.addAttribute("subscriptionPurposeMap", subscriptionPurposeMap);
+		log.info("subscriptionPurposeMap: "+ subscriptionPurposeMap);
 		Arrays.stream(SubscriptionStatus.values()).map(SubscriptionStatus::name)
 			.forEach(item -> subscriptionStatusMap.put(item, item));
 		model.addAttribute("subscriptionStatusMap", subscriptionStatusMap);
