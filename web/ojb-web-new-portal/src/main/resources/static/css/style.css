@@ -81,3 +81,7 @@ table.dispositionsTable td.dataTables_empty {
 .auditRequestPayload{
 	display: none;
 }
+
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9;
+}
