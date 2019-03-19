@@ -125,8 +125,7 @@
 	          });
 	          
  	          $(document).ajaxStart(function(){
-	              
-              if( $(".modal").is(':visible')){
+              if( $("#dispositionModal").is(':visible')){
                 var loadingDiv =  $("#modalIframeSpinner");
                 
                 loadingDiv.height($(".modal-dialog").height() + parseInt($(".modal-dialog").css("margin-top"), 10));
