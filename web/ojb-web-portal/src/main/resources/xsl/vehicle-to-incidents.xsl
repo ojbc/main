@@ -100,7 +100,7 @@
 		            </tr>
 		            <xsl:apply-templates /> 
 		        </table>
-		        <div id="incidentDetailTabsHolder"></div>   
+		        <div id="incidentDetailTabsHolder" style="height:200px;"></div>   
 	        </xsl:otherwise>
         </xsl:choose> 
     </xsl:template>
