@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
@@ -177,6 +178,13 @@ public class MuniArrestController {
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
 		return "arrest/arrests::resultsList";
+	}
+	
+	@GetMapping("/summary")
+	public @ResponseBody String presentArrest(Map<String, Object> model) throws Throwable {
+		String arrrestDetail = (String) model.get("arrestDetail");
+		String transformedArrestSummary = searchResultConverter.convertArrestSummary(arrrestDetail);
+		return transformedArrestSummary;
 	}
 	
 	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {

@@ -57,6 +57,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${arrestDetailXslLocation:classpath:xsl/arrestDetail.xsl}")
 	org.springframework.core.io.Resource arrestDetailXsl;
 	
+	@Value("${arrestDetailXslLocation:classpath:xsl/arrestSummary.xsl}")
+	org.springframework.core.io.Resource arrestSummaryXsl;
+	
 	@Value("${arrestDetailXslLocation:classpath:xsl/daArrestDetail.xsl}")
 	org.springframework.core.io.Resource daArrestDetailXsl;
 	
@@ -101,6 +104,13 @@ public class SearchResultConverter implements ApplicationContextAware {
     	return convertXml(searchContent, arrestDetailXsl, null);
     }
     
+	public String convertArrestSummary(String arrrestDetail) {
+		if (StringUtils.isBlank(arrrestDetail)){
+			return "";
+		}
+		return convertXml(arrrestDetail, arrestSummaryXsl, null);
+	}
+
     public String convertDaArrestDetail(String searchContent) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
