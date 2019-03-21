@@ -45,6 +45,8 @@ public class AppProperties {
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
+	private String submitArrestConfirmationMessage="You are about to submit this arrest to OSBI.  "
+			+ "If you would like to edit this arrest in the future, you will need to use the \"Arrest Lookup\" functionality in this tool";
 	
 	public AppProperties() {
 		super();
@@ -199,6 +201,14 @@ public class AppProperties {
 
 	public void setFedIdsWithAuditPrivilege(List<String> fedIdsWithAuditPrivilege) {
 		this.fedIdsWithAuditPrivilege = fedIdsWithAuditPrivilege;
+	}
+
+	public String getSubmitArrestConfirmationMessage() {
+		return submitArrestConfirmationMessage;
+	}
+
+	public void setSubmitArrestConfirmationMessage(String submitArrestConfirmationMessage) {
+		this.submitArrestConfirmationMessage = submitArrestConfirmationMessage;
 	}
 
 }

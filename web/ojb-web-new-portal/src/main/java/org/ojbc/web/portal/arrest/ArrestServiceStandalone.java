@@ -85,4 +85,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String finalizeArrest(String id, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

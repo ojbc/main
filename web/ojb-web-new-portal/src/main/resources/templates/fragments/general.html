@@ -125,13 +125,19 @@
 	          });
 	          
  	          $(document).ajaxStart(function(){
-              if( $("#dispositionModal").is(':visible')){
-                var loadingDiv =  $("#modalIframeSpinner");
+              if( $(".ojbc-modal").is(':visible')){
+            	  var visibleOjbcModal = $(".ojbc-modal:visible");
+            	  var modalDialog = visibleOjbcModal.children(".modal-dialog"); 
+                var loadingDiv = visibleOjbcModal.children(".modalIframeSpinner");
                 
-                loadingDiv.height($(".modal-dialog").height() + parseInt($(".modal-dialog").css("margin-top"), 10));
-                loadingDiv.width($(".modal").width());
+                console.log("modalDialog.height():" + modalDialog.height()); 
+                console.log("modalDialog.height() + parseInt( modalDialog.css('margin-top'), 10):" + modalDialog.height() + parseInt( modalDialog.css("margin-top"), 10)); 
+                console.log("modalDialog.css('margin-top'):" + modalDialog.css("margin-top")); 
+                console.log("visibleOjbcModal.width():" + visibleOjbcModal.width()); 
+                loadingDiv.height(modalDialog.height() + parseInt( modalDialog.css("margin-top"), 10));
+                loadingDiv.width(visibleOjbcModal.width());
 	              
-                $("#modalIframeSpinner").show();           
+                loadingDiv.show();           
 	          
               }
               else{
@@ -145,7 +151,7 @@
               }               
              }).ajaxStop(function() {
                $("#loadingAjaxPane").hide();                
-               $("#modalIframeSpinner").hide();
+               $(".modalIframeSpinner").hide();
              });
  	          
 	      });

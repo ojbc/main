@@ -1736,6 +1736,17 @@ public class RequestMessageBuilderUtilities {
     	
 
 		return document;
+	}
+
+	public static Document createArrestFinalizeRequest(String id) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_FINALIZE_ARREST_REQUEST_DOC, 
+        		NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC + ":FinalizeArrestRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC, 
+        		NS_FINALIZE_ARREST_REQUEST_DOC);
+        
+        createArrestModifyRequestArrestElement(id, document, rootElement);
+        return document;
 	}	
     
 }

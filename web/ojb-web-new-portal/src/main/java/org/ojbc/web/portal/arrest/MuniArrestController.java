@@ -46,7 +46,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
-	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping"})
+	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping", 
+	"submitArrestConfirmationMessage"})
 @RequestMapping("/muniArrests")
 public class MuniArrestController {
 	private static final Log log = LogFactory.getLog(MuniArrestController.class);
@@ -97,6 +98,9 @@ public class MuniArrestController {
 		
 		model.addAttribute("provisionCodeMapping", appProperties.getProvisionCodeMapping());
 		
+		if (!model.containsAttribute("submitArrestConfirmationMessage")) {
+			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());
+		}
     	log.info("All ModelAtrributes are added.");
     }
     
@@ -160,6 +164,15 @@ public class MuniArrestController {
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
 		return "arrest/arrests::resultsList";
+	}
+	
+	@GetMapping("/{id}/finalize")
+	public String finalizeArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		String response = arrestService.finalizeArrest(id, samlService.getSamlAssertion(request));
+		log.info("finalize arrest response:" + response);
+		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchrequest, model);
+		return "arrest/arrests::resultsPage";
 	}
 	
 	@GetMapping("/{id}/unhide")

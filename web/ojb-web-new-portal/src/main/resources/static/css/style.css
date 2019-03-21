@@ -63,7 +63,7 @@ main{
   overflow-y:hidden;	
 }
 
-#loadingAjaxPane, #modalIframeSpinner  { 
+#loadingAjaxPane, #modalIframeSpinner, .modalIframeSpinner  { 
   position: absolute;
   background-color: #7e7e7e;
   opacity: 0.75;

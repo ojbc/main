@@ -91,6 +91,16 @@
    		<property name="OJBSamlMap" ref="ojbSamlMap"/>
    </bean>
   
+  	<!-- Arrest Finalize Request Processor -->
+   <bean id="arrestFinalizeRequestProcessor" class="org.ojbc.processor.arrest.modify.ArrestFinalizeRequestProcessor">
+   		<property name="replyToAddress"><value>${webapplication.arrestModifyRequestReplyToEndpoint.endpoint}</value></property>
+   		<property name="messageProcessor" ref="arrestFinalizeMessageProcessor"/>
+   		<property name="requestResponseMap" ref="arrestModifyRequestResponseMap"/>
+   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
+   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
+   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+   </bean>
+  
   	<!-- Arrest Refer Request Processor -->
    <bean id="daArrestReferRequestProcessor" class="org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor">
    		<property name="replyToAddress"><value>${webapplication.arrestModifyRequestReplyToEndpoint.endpoint}</value></property>
@@ -143,6 +153,11 @@
 	</bean>
 	<bean id="arrestUnhideMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 		<property name="operationName"><value>UnhideArrestRequest</value></property>
+		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
+		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
+	</bean>
+	<bean id="arrestFinalizeMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+		<property name="operationName"><value>FinalizeArrestRequest</value></property>
 		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0</value></property>
 		<property name="destinationEndpoint"><value>arrestModificationRequestService</value></property>
 	</bean>

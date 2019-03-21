@@ -45,8 +45,8 @@
    			 </div>
    			 <div id="modalDiv">
 						<!-- The Modal -->
-						<div class="modal" id="dispositionModal">
-              <div id="modalIframeSpinner" ></div>
+						<div class="modal ojbc-modal" id="dispositionModal" aria-hidden="true">
+              <div class="modalIframeSpinner" ></div>
 						  <div class="modal-dialog modal-lg">
 						    <div class="modal-content">
 						
@@ -70,7 +70,8 @@
 				    </div>
 				    
 						<!-- Submit arrest Modal -->
-						<div class="modal fade" id="submitArrestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+						<div class="modal fade ojbc-modal" id="submitArrestModal" tabindex="-1" role="dialog" aria-labelledby="submitArrestModalTitle" aria-hidden="true">
+              <div class="modalIframeSpinner" ></div>
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -84,7 +85,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						        <button type="button" class="btn btn-primary">Confirm</button>
+						        <button type="button" class="btn btn-primary" id="confirmSubmitArrest">Confirm</button>
 						      </div>
 						    </div>
 						  </div>
@@ -97,6 +98,7 @@
 				      var muniAmendedChargeCodeMapping = [[${muniAmendedChargeCodeMapping}]]; 
 				      var muniAlternateSentenceMapping = [[${muniAlternateSentenceMapping}]]; 
 				      var muniReasonsForDismissalMapping = [[${muniReasonsForDismissalMapping}]]; 
+				      var submitArrestConfirmationMessage = [[${submitArrestConfirmationMessage}]];
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 			      /*]]>*/
@@ -196,6 +198,25 @@
                     	$('#submitArrestModalContent').html(data);
                       $('#submitArrestModal').modal('show');
                     }).fail(ojbc.displayFailMessage);
+                 }); 
+                 
+                 $('#submitArrestModal').on('click', '#confirmSubmitArrest',function() {
+                    var contentArray = [];
+                    contentArray.push({ p: {text: submitArrestConfirmationMessage}});
+                    contentArray.push({ p: {text: "Do you want to proceed?"}});
+                    bootpopup({
+                        title: "", 
+                        showclose: false,
+                        content: contentArray, 
+                        no: function() {},
+                        yes: function(data, array, event) {  
+                            xhr = $.get( context +"muniArrests/" + $('#searchResultsTable').attr('arrestId') + "/finalize", function(data) {
+                            	 $("#submitArrestModal .close").click(); 
+                               $("#portalContent").html(data);
+                               $(".modal-backdrop").hide();
+                            }).fail(ojbc.displayFailMessage); 
+                        },
+                    });
                  }); 
                  
                  $('.dispositionsTable').on('click', 'a.addDisposition',function() {
