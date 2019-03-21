@@ -167,8 +167,8 @@ public class SamlServiceImpl implements SamlService{
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
 
-            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "Municipal Court");
-//            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "District Attorney");
+//            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "Municipal Court");
+            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "District Attorney");
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);

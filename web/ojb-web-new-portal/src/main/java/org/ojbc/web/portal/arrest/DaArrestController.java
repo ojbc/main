@@ -42,13 +42,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
-	"daProvisionCodeMapping", "chargeSeverityCodeMapping"})
+	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage"})
 @RequestMapping("/daArrests")
 public class DaArrestController {
 	private static final Log log = LogFactory.getLog(DaArrestController.class);
@@ -103,6 +104,9 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("daCaseTypeCodeMapping")) {
 			model.addAttribute("daCaseTypeCodeMapping", appProperties.getDaCaseTypeCodeMapping());
+		}
+		if (!model.containsAttribute("submitArrestConfirmationMessage")) {
+			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());
 		}
 		
     }
@@ -166,6 +170,22 @@ public class DaArrestController {
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
 		return "arrest/da/arrests::resultsList";
+	}
+	
+	@GetMapping("/{id}/finalize")
+	public String finalizeArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
+		String response = arrestService.finalizeArrest(id, samlService.getSamlAssertion(request));
+		log.info("finalize arrest response:" + response);
+		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchrequest, model);
+		return "arrest/da/arrests::resultsPage";
+	}
+	
+	@GetMapping("/summary")
+	public @ResponseBody String presentArrest(Map<String, Object> model) throws Throwable {
+		String arrrestDetail = (String) model.get("arrestDetail");
+		String transformedArrestSummary = searchResultConverter.convertArrestSummary(arrrestDetail);
+		return transformedArrestSummary;
 	}
 	
 	@GetMapping("/{id}/refer")
