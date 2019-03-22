@@ -35,7 +35,7 @@
   </xsl:template>
   <xsl:template match="chsres-ext:CriminalHistorySearchResult" mode="personDetail">
     <div class="card card-primary">
-	    <div class="card-header"><h5>PERSON DETAIL</h5></div>
+	    <h4 class="card-header">PERSON DETAIL</h4>
 	    <div class="card-body">
 		    <table class="table table-bordered table-striped">
 		      <tr>
@@ -76,7 +76,7 @@
   </xsl:template>
   <xsl:template match="chsres-ext:CriminalHistorySearchResult" mode="charges">
     <div class="card card-primary">
-      <div class="card-header"><h5>CHARGES</h5></div>
+      <h4 class="card-header">CHARGES</h4>
       <div class="card-body">
          <xsl:apply-templates select="j:Arrest/j:ArrestCharge" />
       </div>
@@ -84,7 +84,7 @@
   </xsl:template>
   <xsl:template match="j:ArrestCharge">
     <div class="card card-primary">
-      <h6 class="card-header"><xsl:value-of select="j:ChargeDescriptionText" /></h6>
+      <h5 class="card-header"><xsl:value-of select="j:ChargeDescriptionText" /></h5>
       <div class="card-body">
          <xsl:apply-templates select="j:ChargeDisposition" />
       </div>
@@ -93,12 +93,12 @@
   <xsl:template match="j:ChargeDisposition">
     <xsl:variable name="CDid" select="@structures:id" />
     <div class="card card-primary">
-      <h7 class="card-header">CHARGE DISPOSITION</h7>
+      <h6 class="card-header">CHARGE DISPOSITION</h6>
       <div class="card-body">
-             <table class="table table-bordered table-striped">
+          <table class="table table-bordered table-striped">
 			      <xsl:if test="nc:DispositionDate/nc:Date[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION DATE:</td>
+			          <th colspan="2">DISPOSITION DATE:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="nc:DispositionDate/nc:Date" />
 			          </td>
@@ -106,7 +106,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionIdentification/nc:IdentificationID[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION ID:</td>
+			          <th colspan="2">DISPOSITION ID:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionIdentification/nc:IdentificationID" />
 			          </td>
@@ -114,7 +114,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:ChargeDispositionCategoryCode[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">CHARGE DISPOSITION CATEGORY CODE:</td>
+			          <th colspan="2">CHARGE DISPOSITION CATEGORY CODE:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:ChargeDispositionCategoryCode" />
 			          </td>
@@ -122,7 +122,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">COURT CASE ID:</td>
+			          <th colspan="2">COURT CASE ID:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID" />
 			          </td>
@@ -130,7 +130,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionCodeText[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION CODE:</td>
+			          <th colspan="2">DISPOSITION CODE:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionCodeText" />
 			          </td>
@@ -138,7 +138,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionCodeDescriptionText[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION CODE DESCRIPTION:</td>
+			          <th colspan="2">DISPOSITION CODE DESCRIPTION:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionCodeDescriptionText" />
 			          </td>
@@ -146,7 +146,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionDismissalReasonText[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION DISMISSAL REASON:</td>
+			          <th colspan="2">DISPOSITION DISMISSAL REASON:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionDismissalReasonText" />
 			          </td>
@@ -154,7 +154,7 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionDismissalReasonCodeText[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION DISMISSAL REASON CODE:</td>
+			          <th colspan="2">DISPOSITION DISMISSAL REASON CODE:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText" />
 			          </td>
@@ -162,87 +162,101 @@
 			      </xsl:if>
 			      <xsl:if test="chsres-ext:DispositionChargeCountQuantity[. !='']">
 			        <tr>
-			          <td colspan="2" class="dispositionLabel">DISPOSITION CHARGE COUNT:</td>
+			          <th colspan="2">DISPOSITION CHARGE COUNT:</th>
 			          <td colspan="6">
 			            <xsl:value-of select="chsres-ext:DispositionChargeCountQuantity" />
 			          </td>
 			        </tr>
 			      </xsl:if>
 			    </table>
-					        <tr>
-		      <h4>FILED CHARGE</h4>
-		    </tr>
-		    <table class="filedChargeTable">
-		      <xsl:if test="chsres-ext:FiledCharge/j:ChargeDescriptionText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE DESCRIPTION:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:FiledCharge/j:ChargeSeverityText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE SEVERITY:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeSeverityText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE MUNICIPAL CODE:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE MUNICIPAL CODE DESCRIPTION:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeDescriptionText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		    </table>
-		    <tr>
-		      <h4>AMENDED CHARGE</h4>
-		    </tr>
-		    <table class="amendedChargeTable">
-		      <xsl:if test="chsres-ext:AmendedCharge/j:ChargeDescriptionText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE DESCRIPTION:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:AmendedCharge/j:ChargeSeverityText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE SEVERITY:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeSeverityText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE MUNICIPAL CODE:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		      <xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
-		        <tr>
-		          <td colspan="2" class="chargeLabel">CHARGE MUNICIPAL CODE DESCRIPTION:</td>
-		          <td colspan="6">
-		            <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText" />
-		          </td>
-		        </tr>
-		      </xsl:if>
-		    </table>
+			    <xsl:if test="normalize-space(chsres-ext:FiledCharge/j:ChargeDescriptionText) 
+			              or normalize-space(chsres-ext:FiledCharge/j:ChargeSeverityText)
+			              or normalize-space(chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText) 
+			              or normalize-space(chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeDescriptionText) "> 
+             <div class="card card-primary">
+					      <div class="card-header">FILED CHARGE</div>
+					      <div class="card-body">
+				          <table class="table table-bordered table-striped">
+                      <xsl:if test="chsres-ext:FiledCharge/j:ChargeDescriptionText[. !='']">
+					            <tr>
+					              <th colspan="2">CHARGE DESCRIPTION:</th>
+					              <td colspan="6">
+					                <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText" />
+					              </td>
+					            </tr>
+					          </xsl:if>
+					          <xsl:if test="chsres-ext:FiledCharge/j:ChargeSeverityText[. !='']">
+					            <tr>
+					              <th colspan="2">CHARGE SEVERITY:</th>
+					              <td colspan="6">
+					                <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeSeverityText" />
+					              </td>
+					            </tr>
+					          </xsl:if>
+					          <xsl:if test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText[. !='']">
+					            <tr>
+					              <th colspan="2">CHARGE MUNICIPAL CODE:</th>
+					              <td colspan="6">
+					                <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText" />
+					              </td>
+					            </tr>
+					          </xsl:if>
+					          <xsl:if test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
+					            <tr>
+					              <th colspan="2">CHARGE MUNICIPAL CODE DESCRIPTION:</th>
+					              <td colspan="6">
+					                <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeDescriptionText" />
+					              </td>
+					            </tr>
+					          </xsl:if>
+                     </table>
+                  </div>
+              </div>
+			    </xsl:if>
+		    <xsl:if test="normalize-space(chsres-ext:AmendedCharge/j:ChargeDescriptionText) 
+                    or normalize-space(chsres-ext:AmendedCharge/j:ChargeSeverityText)
+                    or normalize-space(chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText) 
+                    or normalize-space(chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText) "> 
+          <div class="card card-primary">
+             <div class="card-header">AMENDED CHARGE</div>
+             <div class="card-body">
+               <table class="table table-bordered table-striped">
+				          <xsl:if test="chsres-ext:AmendedCharge/j:ChargeDescriptionText[. !='']">
+				            <tr>
+				              <th colspan="2">CHARGE DESCRIPTION:</th>
+				              <td colspan="6">
+				                <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText" />
+				              </td>
+				            </tr>
+				          </xsl:if>
+				          <xsl:if test="chsres-ext:AmendedCharge/j:ChargeSeverityText[. !='']">
+				            <tr>
+				              <th colspan="2">CHARGE SEVERITY:</th>
+				              <td colspan="6">
+				                <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeSeverityText" />
+				              </td>
+				            </tr>
+				          </xsl:if>
+				          <xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText[. !='']">
+				            <tr>
+				              <th colspan="2">CHARGE MUNICIPAL CODE:</th>
+				              <td colspan="6">
+				                <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText" />
+				              </td>
+				            </tr>
+				          </xsl:if>
+				          <xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
+				            <tr>
+				              <th colspan="2">CHARGE MUNICIPAL CODE DESCRIPTION:</th>
+				              <td colspan="6">
+				                <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText" />
+				              </td>
+				            </tr>
+				          </xsl:if>
+               </table>
+             </div>
+          </div>
+        </xsl:if>
 		    <xsl:apply-templates
 		      select="../j:ChargeSentence[@structures:id=../../../chsres-ext:DispositionSentenceAssociation[nc:Disposition/@structures:ref=$CDid]/j:Sentence/@structures:ref]" />
 			    
@@ -251,89 +265,93 @@
   </xsl:template>
   <xsl:template match="j:ChargeSentence">
     <xsl:variable name="CSid" select="@structures:id" />
-    <tr>
-      <h4>SENTENCE</h4>
-    </tr>
-    <table class="sentenceTable">
-      <xsl:if test="j:SentenceDeferredTerm/j:TermDuration[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">DEFERRED SENTENCE DATE:</td>
-          <td colspan="6">
-            <xsl:value-of select="j:SentenceDeferredTerm/nc:ActivityDate/nc:Date" />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" class="sentenceLabel">DEFERRED SENTENCE TERM:</td>
-          <td colspan="6">
-            <xsl:apply-templates select="j:SentenceDeferredTerm/j:TermDuration" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="j:SentenceSuspendedTerm/j:TermDuration[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">SUSPENDED SENTENCE TERM:</td>
-          <td colspan="6">
-            <xsl:apply-templates select="j:SentenceSuspendedTerm/j:TermDuration" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="j:SentenceTerm/j:TermDuration[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">SENTENCE CATEGORY:</td>
-          <td colspan="6">
-            <xsl:value-of select="j:SentenceTerm/nc:ActivityCategoryText" />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" class="sentenceLabel">SENTENCE TERM:</td>
-          <td colspan="6">
-            <xsl:apply-templates select="j:SentenceTerm/j:TermDuration" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="j:SupervisionFineAmount/nc:Amount[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">FINE</td>
-          <td colspan="6">
-            <xsl:value-of select="j:SupervisionFineAmount/nc:Amount" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="chsres-ext:FineSuspendedAmount/nc:Amount[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">SUSPENDED FINE:</td>
-          <td colspan="6">
-            <xsl:value-of select="chsres-ext:FineSuspendedAmount/nc:Amount" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="chsres-ext:AlternateSentenceCodeText[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">ALTERNATE SENTENCE CODE:</td>
-          <td colspan="6">
-            <xsl:value-of select="chsres-ext:AlternateSentenceCodeText" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if test="chsres-ext:AlternateSentenceCodeDescriptionText[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">ALTERNATE SENTENCE CODE DESCRIPTION:</td>
-          <td colspan="6">
-            <xsl:value-of select="chsres-ext:AlternateSentenceCodeDescriptionText" />
-          </td>
-        </tr>
-      </xsl:if>
-      <xsl:if
-        test="//j:Restitution[@structures:id=//j:ActivityObligationAssociation[nc:Activity/@structures:ref=$CSid]/nc:Obligation/@structures:ref]/nc:ObligationDueAmount/nc:Amount[. !='']">
-        <tr>
-          <td colspan="2" class="sentenceLabel">RESTITUTION AMOUNT:</td>
-          <td colspan="6">
-            <xsl:value-of
-              select="//j:Restitution[@structures:id=//j:ActivityObligationAssociation[nc:Activity/@structures:ref=$CSid]/nc:Obligation/@structures:ref]/nc:ObligationDueAmount/nc:Amount" />
-          </td>
-        </tr>
-      </xsl:if>
-    </table>
+    <div class="card card-primary">
+       <div class="card-header">SENTENCE</div>
+       <div class="card-body">
+         <table class="table table-bordered table-striped">
+            <xsl:if test="normalize-space(j:SentenceDeferredTerm/nc:ActivityDate/nc:Date)">
+ 			        <tr>
+			          <th colspan="2">DEFERRED SENTENCE DATE:</th>
+			          <td colspan="6">
+			            <xsl:value-of select="j:SentenceDeferredTerm/nc:ActivityDate/nc:Date" />
+			          </td>
+			        </tr>
+		        </xsl:if>
+			      <xsl:if test="j:SentenceDeferredTerm/j:TermDuration[. !='']">
+			        <tr>
+			          <th colspan="2">DEFERRED SENTENCE TERM:</th>
+			          <td colspan="6">
+			            <xsl:apply-templates select="j:SentenceDeferredTerm/j:TermDuration" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="j:SentenceSuspendedTerm/j:TermDuration[. !='']">
+			        <tr>
+			          <th colspan="2">SUSPENDED SENTENCE TERM:</th>
+			          <td colspan="6">
+			            <xsl:apply-templates select="j:SentenceSuspendedTerm/j:TermDuration" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="j:SentenceTerm/j:TermDuration[. !='']">
+			        <tr>
+			          <th colspan="2">SENTENCE CATEGORY:</th>
+			          <td colspan="6">
+			            <xsl:value-of select="j:SentenceTerm/nc:ActivityCategoryText" />
+			          </td>
+			        </tr>
+			        <tr>
+			          <th colspan="2">SENTENCE TERM:</th>
+			          <td colspan="6">
+			            <xsl:apply-templates select="j:SentenceTerm/j:TermDuration" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="j:SupervisionFineAmount/nc:Amount[. !='']">
+			        <tr>
+			          <th colspan="2">FINE</th>
+			          <td colspan="6">
+			            <xsl:value-of select="j:SupervisionFineAmount/nc:Amount" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="chsres-ext:FineSuspendedAmount/nc:Amount[. !='']">
+			        <tr>
+			          <th colspan="2">SUSPENDED FINE:</th>
+			          <td colspan="6">
+			            <xsl:value-of select="chsres-ext:FineSuspendedAmount/nc:Amount" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="chsres-ext:AlternateSentenceCodeText[. !='']">
+			        <tr>
+			          <th colspan="2">ALTERNATE SENTENCE CODE:</th>
+			          <td colspan="6">
+			            <xsl:value-of select="chsres-ext:AlternateSentenceCodeText" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if test="chsres-ext:AlternateSentenceCodeDescriptionText[. !='']">
+			        <tr>
+			          <th colspan="2">ALTERNATE SENTENCE CODE DESCRIPTION:</th>
+			          <td colspan="6">
+			            <xsl:value-of select="chsres-ext:AlternateSentenceCodeDescriptionText" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+			      <xsl:if
+			        test="//j:Restitution[@structures:id=//j:ActivityObligationAssociation[nc:Activity/@structures:ref=$CSid]/nc:Obligation/@structures:ref]/nc:ObligationDueAmount/nc:Amount[. !='']">
+			        <tr>
+			          <th colspan="2">RESTITUTION AMOUNT:</th>
+			          <td colspan="6">
+			            <xsl:value-of
+			              select="//j:Restitution[@structures:id=//j:ActivityObligationAssociation[nc:Activity/@structures:ref=$CSid]/nc:Obligation/@structures:ref]/nc:ObligationDueAmount/nc:Amount" />
+			          </td>
+			        </tr>
+			      </xsl:if>
+         </table>
+       </div>
+    </div>
   </xsl:template>
   <xsl:template match="nc:PersonName" mode="constructName">
     <xsl:value-of select="concat(nc:PersonSurName,', ',nc:PersonGivenName)" />
