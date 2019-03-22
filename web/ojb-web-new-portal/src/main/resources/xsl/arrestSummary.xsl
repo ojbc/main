@@ -76,7 +76,7 @@
   </xsl:template>
   <xsl:template match="chsres-ext:CriminalHistorySearchResult" mode="charges">
     <div class="card card-primary">
-      <h4 class="card-header">CHARGES</h4>
+      <h4 class="card-header">ARREST CHARGES</h4>
       <div class="card-body">
          <xsl:apply-templates select="j:Arrest/j:ArrestCharge" />
       </div>
@@ -84,7 +84,7 @@
   </xsl:template>
   <xsl:template match="j:ArrestCharge">
     <div class="card card-primary">
-      <h5 class="card-header"><xsl:value-of select="j:ChargeDescriptionText" /></h5>
+      <h5 class="card-header">CHARGE : <xsl:value-of select="j:ChargeDescriptionText" /></h5>
       <div class="card-body">
          <xsl:apply-templates select="j:ChargeDisposition" />
       </div>
