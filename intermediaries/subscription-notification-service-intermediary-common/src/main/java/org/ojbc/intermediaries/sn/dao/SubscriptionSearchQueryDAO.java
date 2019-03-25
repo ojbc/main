@@ -1092,6 +1092,11 @@ public class SubscriptionSearchQueryDAO {
         	staticCriteria.append(" and upper(ap.agency_ori) = upper(?) ");
         }	
         
+        if (subscriptionSearchRequest.getActive() != null){
+        	criteriaList.add(BooleanUtils.toString(subscriptionSearchRequest.getActive(), "1", "0"));
+        	staticCriteria.append(" and active = ? ");
+        }
+        
         if (subscriptionSearchRequest.getSubscriptionCategories().size() > 0){
         	staticCriteria.append( " and ( ");
         	for (int i=0 ; i < subscriptionSearchRequest.getSubscriptionCategories().size(); i++){
@@ -1105,13 +1110,12 @@ public class SubscriptionSearchQueryDAO {
         	staticCriteria.append( " ) ");
         }
 
-        //TODO find out how to return active or inactive records. 
         Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
 
         Map<String, String> subjectIdentifiers = subscriptionSearchRequest.getSubjectIdentifiers();
         criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
 
-        String queryString = BASE_QUERY_STRING + " and s.active =1 " + staticCriteria.toString() ; 
+        String queryString = BASE_QUERY_STRING + staticCriteria.toString() ; 
         
         if (subjectIdentifiers.size() > 0 ){
             queryString += " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());

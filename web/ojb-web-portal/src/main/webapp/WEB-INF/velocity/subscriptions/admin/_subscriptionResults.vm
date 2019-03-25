@@ -17,6 +17,7 @@
  <script type="text/javascript">
  
   $(function() {
+  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   	$('#searchBarButtonDiv').hide();    		
   	
 	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
