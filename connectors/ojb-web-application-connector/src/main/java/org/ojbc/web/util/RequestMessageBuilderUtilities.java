@@ -423,15 +423,13 @@ public class RequestMessageBuilderUtilities {
         	adminSearchRequestIndicator.setTextContent(BooleanUtils.toString(subscriptionSearchRequest.getAdminSearch(), "true", "false"));
         }
         
-        if (subscriptionSearchRequest.getStatus() != null && subscriptionSearchRequest.getStatus().size() == 1 ){
-        	Element subscriptionActiveIndicator = 
-        			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscriptionActiveIndicator");
-        	
+        if (subscriptionSearchRequest.getStatus() != null && subscriptionSearchRequest.getStatus().size() > 0 ){
         	if (subscriptionSearchRequest.getStatus().contains(SubscriptionStatus.ACTIVE.name())){
-        		subscriptionActiveIndicator.setTextContent("true");
+        		XmlUtils.appendTextElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "RequestActiveSubscriptionsIndicator", "true");
         	}
-        	else{
-        		subscriptionActiveIndicator.setTextContent("false");
+        	
+        	if (subscriptionSearchRequest.getStatus().contains(SubscriptionStatus.INACTIVE.name())){
+        		XmlUtils.appendTextElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "RequestInactiveSubscriptionsIndicator", "true");
         	}
         }
         
