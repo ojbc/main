@@ -18,6 +18,7 @@ package org.ojbc.web.model.subscription.search;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -46,6 +47,7 @@ public class SubscriptionSearchRequest implements Serializable{
 	public SubscriptionSearchRequest(Boolean adminSearch) {
 		this();
 		this.adminSearch = adminSearch;
+		status = Arrays.asList(SubscriptionStatus.ACTIVE.name());
 	}
 
 	@Override

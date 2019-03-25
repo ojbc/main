@@ -81,8 +81,12 @@
 			        <div>#springFormInput("subscriptionSearchRequest.ownerOri" "placeholder='ORI'")</div>
 			        
 					<div class="labelText">
-						<p class="searchSubHeader"> Subscription Purpose</p>
-						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategories" $subscriptionPurposeMap "<br>" "")
+						<p class="searchSubHeader"> SUBSCRIPTION PURPOSE</p>
+						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategories" $subscriptionPurposeMap " &nbsp;" "")
+					</div>    				        
+					<div class="labelText">
+						<p class="searchSubHeader"> SUBSCRIPTION STATUS</p>
+						#springFormCheckboxes("subscriptionSearchRequest.status" $subscriptionStatusMap " &nbsp;" "")
 					</div>    				        
 	        	</td>
   				<td>
