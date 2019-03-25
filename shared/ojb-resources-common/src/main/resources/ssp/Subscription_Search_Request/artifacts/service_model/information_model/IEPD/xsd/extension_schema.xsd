@@ -33,7 +33,8 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="ssreq-ext:AdminSearchRequestIndicator" minOccurs="0" />
-					<xsd:element ref="ssreq-ext:SubscriptionActiveIndicator" minOccurs="0" />
+					<xsd:element ref="ssreq-ext:RequestActiveSubscriptionsIndicator" minOccurs="0" />
+					<xsd:element ref="ssreq-ext:RequestInactiveSubscriptionsIndicator" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:MaximumNumberSearchRecordsReturned" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
@@ -115,9 +116,14 @@
 			<xsd:documentation>True if the request is an admin search request; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionActiveIndicator" type="niem-xsd:boolean">
+	<xsd:element name="RequestActiveSubscriptionsIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the subscription is active; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the request is for active subscriptions; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RequestInactiveSubscriptionsIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the request is for inactive subscriptions; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="MaximumNumberSearchRecordsReturned" type="niem-xsd:nonNegativeInteger">
