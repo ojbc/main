@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -63,8 +64,24 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
     	String adminSearchIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator");
     	subscriptionSearchRequest.setAdminSearch(BooleanUtils.toBooleanObject(adminSearchIndicator));
     	
-    	String subscriptionActiveIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscriptionActiveIndicator");
-    	subscriptionSearchRequest.setActive(BooleanUtils.toBooleanObject(subscriptionActiveIndicator));
+    	String requestActiveSubscriptionsIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestActiveSubscriptionsIndicator");
+    	String requestInactiveSubscriptionsIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestInactiveSubscriptionsIndicator");
+    	
+    	if (!Objects.equals(BooleanUtils.toBoolean(requestActiveSubscriptionsIndicator), 
+    			BooleanUtils.toBoolean(requestInactiveSubscriptionsIndicator))){
+    		
+    		if(BooleanUtils.toBoolean(requestActiveSubscriptionsIndicator)){
+    			subscriptionSearchRequest.setActive(true);
+    		}
+    		
+    		if(BooleanUtils.toBoolean(requestInactiveSubscriptionsIndicator)){
+    			subscriptionSearchRequest.setActive(false);
+    		}
+    	}
+    	
+    	if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getActive())){
+    		subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
+    	}
     	
     	String ownerFirstName = XmlUtils.xPathStringSearch(request, 
     			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
