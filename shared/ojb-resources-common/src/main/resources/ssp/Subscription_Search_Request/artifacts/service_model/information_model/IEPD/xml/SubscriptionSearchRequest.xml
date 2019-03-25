@@ -22,7 +22,8 @@
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
 	<ssreq-ext:AdminSearchRequestIndicator>true</ssreq-ext:AdminSearchRequestIndicator>
-	<ssreq-ext:SubscriptionActiveIndicator>true</ssreq-ext:SubscriptionActiveIndicator>
+	<ssreq-ext:RequestActiveSubscriptionsIndicator>true</ssreq-ext:RequestActiveSubscriptionsIndicator>
+	<ssreq-ext:RequestInactiveSubscriptionsIndicator>true</ssreq-ext:RequestInactiveSubscriptionsIndicator>
 	<ssreq-ext:MaximumNumberSearchRecordsReturned>10</ssreq-ext:MaximumNumberSearchRecordsReturned>
 	<ssreq-ext:SubscribedEntity s:id="SE001">
 		<nc:EntityPerson>
