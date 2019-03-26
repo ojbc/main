@@ -16,12 +16,15 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,6 +50,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
 	public final String SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME = "Subscriptions";
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	private Integer maxSubscriptionsCount; 
 
     public SubscriptionSearchQueryProcessor(){
     	super();
@@ -55,7 +59,6 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
     public Document searchBySubscripitonSearchRequest(@Body Document request) throws Exception{
     	SubscriptionSearchRequest subscriptionSearchRequest = parseSubscriptionSearchRequest(request);
     	List<Subscription> subscriptions = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
-    	log.info("subscriptions: " + subscriptions);
     	return buildSubscriptionSearchResponseDoc(subscriptions); 
     }
     
@@ -227,18 +230,18 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
      */
     public Document buildSubscriptionSearchResponseDoc(List<Subscription> subscriptions) throws Exception {
 
-        Document doc = null;
-
         DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
         docBuilderFact.setNamespaceAware(true);
         DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
 
-        doc = docBuilder.newDocument();
+        Document doc = docBuilder.newDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS, "SubscriptionSearchResults");
         doc.appendChild(root);
         root.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_RESULTS);
 
-        for (Subscription subscription : subscriptions) {
+        List<Subscription> returningSubscriptions = subscriptions
+        		.stream().limit(maxSubscriptionsCount).collect(Collectors.toList());
+        for (Subscription subscription : returningSubscriptions) {
             Element subscriptionSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT, "SubscriptionSearchResult");
             int index = subscriptions.indexOf(subscription);
 
@@ -246,20 +249,30 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
             		OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT );
         }
 
-        createFbiSubscriptions(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscribedEntity(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionSubjects(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionOwnerEmails(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscriptionEmails(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createSubscribedEntityContactInformationAssociations(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        createStateSubscriptionFBISubscriptionAssociation(subscriptions, root);
-        createSubscriptionContactInformationAssociations(subscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
-        
+        createFbiSubscriptions(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscribedEntity(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionSubjects(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionOwnerEmails(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscriptionEmails(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createSubscribedEntityContactInformationAssociations(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createStateSubscriptionFBISubscriptionAssociation(returningSubscriptions, root);
+        createSubscriptionContactInformationAssociations(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        appendSearchResultMetaData(subscriptions.size(), root);
         ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
 
         return doc;
         
     }
+    
+	private void appendSearchResultMetaData(int size, Element rootElement) {
+		Element searchResultsMetadata = XmlUtils.appendElement(rootElement,
+				NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+		Element totalAuthorizedSearchResultsQuantity = XmlUtils.appendElement(
+				searchResultsMetadata, NS_SEARCH_RESULTS_METADATA_EXT,
+				"TotalAuthorizedSearchResultsQuantity");
+		totalAuthorizedSearchResultsQuantity.setTextContent(
+				String.valueOf(size));
+	}
 
     private void createSubscribedEntityContactInformationAssociations(List<Subscription> subscriptions, Element root,
 			String extensionSchema) {
@@ -681,6 +694,14 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 
 	public void setSubscriptionSearchQueryDAO(SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public Integer getMaxSubscriptionsCount() {
+		return maxSubscriptionsCount;
+	}
+
+	public void setMaxSubscriptionsCount(Integer maxSubscriptionsCount) {
+		this.maxSubscriptionsCount = maxSubscriptionsCount;
 	}
 
 }

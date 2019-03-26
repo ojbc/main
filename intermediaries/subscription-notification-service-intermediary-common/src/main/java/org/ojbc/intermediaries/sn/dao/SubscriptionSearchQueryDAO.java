@@ -98,7 +98,6 @@ public class SubscriptionSearchQueryDAO {
     private AgencyResultsExtractor agencyResultsSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
     private boolean fbiSubscriptionMember = false;
-	private Integer maxSubscriptionsCount; 
     private ValidationDueDateStrategy validationDueDateStrategy = new DefaultValidationDueDateStrategy();
     
     public SubscriptionSearchQueryDAO() {
@@ -1142,16 +1141,7 @@ public class SubscriptionSearchQueryDAO {
         		.filter(Subscription::isNotExpired)
         		.collect(Collectors.toList()); 
         log.info("Found " + resultsWithoutExpired.size() + " Not expired Subscriptions");
-        return resultsWithoutExpired.stream().limit(maxSubscriptionsCount).collect(Collectors.toList());
-
-	}
-
-	public Integer getMaxSubscriptionsCount() {
-		return maxSubscriptionsCount;
-	}
-
-	public void setMaxSubscriptionsCount(Integer maxSubscriptionsCount) {
-		this.maxSubscriptionsCount = maxSubscriptionsCount;
+        return resultsWithoutExpired;
 	}
 
 }
