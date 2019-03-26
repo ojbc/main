@@ -1433,6 +1433,8 @@ public class SubscriptionsController {
 		try{
 						
 			rawResults = subConfig.getSubscriptionSearchBean().invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
+			userSession.setMostRecentSubscriptionSearchResult(rawResults);
+			userSession.setSavedMostRecentSubscriptionSearchResult(null);
 						
 		}catch(Exception e){
 			
