@@ -74,6 +74,15 @@
 	 		              </select>
  		              </div>
                  </div>
+                <div class="form-row">
+		              <label for="ori" class="col-2 col-form-label">Activity Type</label>
+                  <div class="col-sm-8">
+	  		            <select th:field="*{activityTypeId}" class="form-control chosen-select" th:errorclass="is-invalid">
+				                <option value="" >Please select ...</option>
+				                <option th:each="item: ${auditActivityTypeMapping}" th:value="${item.key}" th:text="${item.value}" />
+	 		              </select>
+ 		              </div>
+                 </div>
 	           </div>
 	           <div class="col-3" style="text-align:right;">
 	                 <button type="button" class="btn-primary" id="submit">Search</button>

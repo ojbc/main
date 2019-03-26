@@ -36,6 +36,8 @@ public class AuditSearchRequest {
     private Boolean lastNameExactMatch; 
     
     private String ori;
+    private String activityTypeId; 
+    private String activityTypeDescription;
     
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate auditDateRangeStartDate; 
@@ -137,5 +139,21 @@ public class AuditSearchRequest {
 		else {
 			this.setLastNameSearchMetadata(SearchFieldMetadata.ExactMatch);
 		}
+	}
+
+	public String getActivityTypeId() {
+		return activityTypeId;
+	}
+
+	public void setActivityTypeId(String activityTypeId) {
+		this.activityTypeId = activityTypeId;
+	}
+
+	public String getActivityTypeDescription() {
+		return activityTypeDescription;
+	}
+
+	public void setActivityTypeDescription(String activityTypeDescription) {
+		this.activityTypeDescription = activityTypeDescription;
 	}
 }

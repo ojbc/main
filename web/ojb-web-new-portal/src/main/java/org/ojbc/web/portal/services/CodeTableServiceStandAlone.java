@@ -91,6 +91,12 @@ public class CodeTableServiceStandAlone implements CodeTableService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Map<String, String> getAuditActivityTypes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

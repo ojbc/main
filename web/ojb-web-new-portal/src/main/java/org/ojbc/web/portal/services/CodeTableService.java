@@ -31,5 +31,6 @@ public interface CodeTableService {
 	public Map<String, String> getDaReasonsForDismissalMap();
 	public Map<String, String> getDaProvisions();
 	public Map<String, String> getAgencies();
+	public Map<String, String> getAuditActivityTypes();
 	
 }

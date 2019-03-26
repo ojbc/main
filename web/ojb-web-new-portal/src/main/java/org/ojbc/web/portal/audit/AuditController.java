@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/audit")
-@SessionAttributes({"auditSearchRequest", "agencyOriMapping", "auditSearchResults", "auditSearchContent"})
+@SessionAttributes({"auditSearchRequest", "agencyOriMapping", "auditSearchResults", "auditSearchContent", "auditActivityTypeMapping"})
 public class AuditController {
 	private static final Log log = LogFactory.getLog(AuditController.class);
 
@@ -57,6 +57,9 @@ public class AuditController {
     	
 		if (!model.containsAttribute("agencyOriMapping")) {
 			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
+		}
+		if (!model.containsAttribute("auditActivityTypeMapping")) {
+			model.addAttribute("auditActivityTypeMapping", codeTableService.getAuditActivityTypes());
 		}
     }	
 

@@ -123,6 +123,11 @@ public class RestCodeTableService implements CodeTableService{
 	}
 
 	@Override
+	public Map<String, String> getAuditActivityTypes() {
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/audit-activity-types");
+	}
+	
+	@Override
 	public Map<String, String> getAgencies() {
 		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
 	}
