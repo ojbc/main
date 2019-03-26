@@ -193,4 +193,7 @@
   	<ssr-ext:SubscribedEntityReference s:ref="SE004" />
   	<nc:ContactInformationReference s:ref="CI004" />
   </ssr-ext:SubscribedEntityContactInformationAssociation>
+  <srm:SearchResultsMetadata>
+  	<srm:TotalAuthorizedSearchResultsQuantity>500</srm:TotalAuthorizedSearchResultsQuantity>
+  </srm:SearchResultsMetadata>
 </ssr:SubscriptionSearchResults>
