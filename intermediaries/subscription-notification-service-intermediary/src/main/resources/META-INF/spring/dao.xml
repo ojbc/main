@@ -32,7 +32,7 @@
 		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="gracePeriodStrategy" ref="gracePeriodStrategy"/>
 		<property name="validationExemptionFilter" ref="validationExemptionFilter"/>
-		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:5000}"/>
+		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:500}"/>
 		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:false}"/>
     </bean>
 
