@@ -86,6 +86,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	
 	            	subscription.setStartDate(new DateTime(rs.getDate("startDate")));
 	            	
+	            	subscription.setActive(rs.getBoolean("active"));
+	            	
                     Date endDate = rs.getDate("endDate");
                     if (endDate != null)
                     {

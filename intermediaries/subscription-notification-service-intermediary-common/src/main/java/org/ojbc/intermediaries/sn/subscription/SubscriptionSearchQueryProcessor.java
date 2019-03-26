@@ -55,6 +55,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
     public Document searchBySubscripitonSearchRequest(@Body Document request) throws Exception{
     	SubscriptionSearchRequest subscriptionSearchRequest = parseSubscriptionSearchRequest(request);
     	List<Subscription> subscriptions = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+    	log.info("subscriptions: " + subscriptions);
     	return buildSubscriptionSearchResponseDoc(subscriptions); 
     }
     
@@ -430,9 +431,17 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 	private void appendSubscriptionActiveIndicator(Subscription subscription, String extensionSchema,
 			Element subscriptionElement) {
 		if(subscription.getActive()!= null){
-	        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
-	        subscriptionActiveIndicatorElement.setTextContent(subscription.getActive().toString());
+			if (subscription.getActive() && subscription.isNotExpired()){
+				XmlUtils.appendTextElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator", "true");
+			}
+			else{
+				XmlUtils.appendTextElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator", "false");
+			}
         }
+		else if (subscription.isExpired()){
+	        Element subscriptionActiveIndicatorElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionActiveIndicator");
+	        subscriptionActiveIndicatorElement.setTextContent("false");
+		}
 	}
 
 	private void appendSubscriptionQualifierIdentification(Subscription subscriptionSearchResponse,
