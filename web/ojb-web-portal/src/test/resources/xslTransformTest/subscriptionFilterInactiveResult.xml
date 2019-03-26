@@ -18,20 +18,18 @@
 
 -->
 <ssr:SubscriptionSearchResults xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"><ssr-ext:SubscriptionSearchResult xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:Subscription s:id="S002">
+		<ssr-ext:Subscription s:id="S001">
 			<nc:ActivityDateRange>
 				<nc:StartDate>
-					<nc:Date>2001-01-01</nc:Date>
+					<nc:Date>2002-01-01</nc:Date>
 				</nc:StartDate>
-				<nc:EndDate>
-					<nc:Date>2001-12-31</nc:Date>
-				</nc:EndDate>
 			</nc:ActivityDateRange>
+			<ssr-ext:SubscriptionActiveIndicator>false</ssr-ext:SubscriptionActiveIndicator>
 			<ssr-ext:SubscriptionSubject>
-				<nc:RoleOfPersonReference s:ref="P2"/>
+				<nc:RoleOfPersonReference s:ref="P1"/>
 			</ssr-ext:SubscriptionSubject>
-			<wsn-br:Topic xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-			<ssr-ext:SubscribedEntity s:id="SE2"/>
+			<wsn-br:Topic xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
+			<ssr-ext:SubscribedEntity s:id="SE1"/>
 			<ssr-ext:SubscriptionOriginator>
 				<ssr-ext:SubscriptionOriginatorIdentification>
 					<nc:IdentificationID>IDP:USER:admin
@@ -39,42 +37,44 @@
 				</ssr-ext:SubscriptionOriginatorIdentification>
 			</ssr-ext:SubscriptionOriginator>
 			<ssr-ext:SubscriptionValidation>
-				<ssr-ext:SubscriptionValidationDueDate>
-					<nc:Date>2001-04-01</nc:Date>
-				</ssr-ext:SubscriptionValidationDueDate>
 				<ssr-ext:SubscriptionValidatedDate>
-					<nc:Date>2001-03-01</nc:Date>
+					<nc:Date>2002-02-02</nc:Date>
 				</ssr-ext:SubscriptionValidatedDate>
 			</ssr-ext:SubscriptionValidation>
 			<ssr-ext:SubscriptionGracePeriod>
 				<ssr-ext:SubscriptionGracePeriodDateRange>
 					<nc:StartDate>
-						<nc:Date>2001-11-01</nc:Date>
+						<nc:Date>2002-10-01</nc:Date>
 					</nc:StartDate>
 					<nc:EndDate>
-						<nc:Date>2001-12-31</nc:Date>
+						<nc:Date>2002-12-31</nc:Date>
 					</nc:EndDate>
 				</ssr-ext:SubscriptionGracePeriodDateRange>
 			</ssr-ext:SubscriptionGracePeriod>
 		</ssr-ext:Subscription>
-		<ssr-ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+		<ssr-ext:SourceSystemNameText>IDP:USER:admin
 		</ssr-ext:SourceSystemNameText>
 		<intel:SystemIdentifier xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
-			<nc:IdentificationID>62723</nc:IdentificationID>
+			<nc:IdentificationID>62720</nc:IdentificationID>
 			<intel:SystemName>Subscriptions</intel:SystemName>
 		</intel:SystemIdentifier>
-	</ssr-ext:SubscriptionSearchResult><ssr-ext:Person xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" s:id="P2">
+	</ssr-ext:SubscriptionSearchResult><ssr-ext:Person xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" s:id="P1">
+		<nc:PersonBirthDate>
+			<nc:Date>1960-10-02</nc:Date>
+		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonFullName>First2 Last2</nc:PersonFullName>
+			<nc:PersonFullName>First1 Last1</nc:PersonFullName>
+			<nc:PersonGivenName>First1</nc:PersonGivenName>
+			<nc:PersonSurName>Last1</nc:PersonSurName>
 		</nc:PersonName>
-		<jxdm41:PersonAugmentation xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
-			<jxdm41:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>A9999999</nc:IdentificationID>
-			</jxdm41:PersonStateFingerprintIdentification>
-		</jxdm41:PersonAugmentation>
-	</ssr-ext:Person><nc:ContactInformation s:id="SE2CE1">
-		<nc:ContactEmailID>arrestActive@localhost</nc:ContactEmailID>
+	</ssr-ext:Person><nc:ContactInformation s:id="SE1CE1">
+		<nc:ContactEmailID>email3@email.com</nc:ContactEmailID>
+	</nc:ContactInformation><nc:ContactInformation s:id="SE1CE2">
+		<nc:ContactEmailID>email2@email.com</nc:ContactEmailID>
 	</nc:ContactInformation><ssr-ext:SubscriptionContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
-		<ssr-ext:SubscriptionReference s:ref="S002"/>
-		<nc:ContactInformationReference s:ref="SE2CE1"/>
+		<ssr-ext:SubscriptionReference s:ref="S001"/>
+		<nc:ContactInformationReference s:ref="SE1CE1"/>
+	</ssr-ext:SubscriptionContactInformationAssociation><ssr-ext:SubscriptionContactInformationAssociation xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+		<ssr-ext:SubscriptionReference s:ref="S001"/>
+		<nc:ContactInformationReference s:ref="SE1CE2"/>
 	</ssr-ext:SubscriptionContactInformationAssociation></ssr:SubscriptionSearchResults>
