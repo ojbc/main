@@ -1092,8 +1092,8 @@ public class SubscriptionSearchQueryDAO {
         	staticCriteria.append(" and upper(ap.agency_ori) = upper(?) ");
         }	
         
-        if (subscriptionSearchRequest.getActive() != null){
-        	criteriaList.add(BooleanUtils.toString(subscriptionSearchRequest.getActive(), "1", "0"));
+        if (BooleanUtils.isTrue(subscriptionSearchRequest.getActive())){
+        	criteriaList.add("1");
         	staticCriteria.append(" and active = ? ");
         }
         
@@ -1125,6 +1125,12 @@ public class SubscriptionSearchQueryDAO {
         
         List<Subscription> ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
+        if (BooleanUtils.isFalse(subscriptionSearchRequest.getActive())){
+        	ret = ret.stream()
+        			.filter(subscription -> BooleanUtils.isFalse(subscription.getActive()) || subscription.isExpired())
+        			.collect(Collectors.toList());
+        }
+        
         log.info("Found " + ret.size() + " Subscriptions");
         
         if (subscriptionSearchRequest.isIncludeExpiredSubscriptions())
