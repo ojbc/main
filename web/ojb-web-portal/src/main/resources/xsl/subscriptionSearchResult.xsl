@@ -56,6 +56,15 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
 		<xsl:if test="not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors)">
+			<xsl:variable name="containedResultCount">
+				<xsl:value-of select="count(ext:SubscriptionSearchResult)"></xsl:value-of>
+			</xsl:variable>
+			<xsl:if test="$containedResultCount &lt; srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity">
+				<span class="hint">
+					The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
+					entries are loaded. Please refine your search with the ADVANCED SEARCH.
+				</span>
+			</xsl:if>
 			<xsl:call-template name="Subscriptions"/>
 			<span id="subscriptionButtons">
 				<xsl:if test="$validateSubscriptionButton='true'">
