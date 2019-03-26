@@ -32,6 +32,12 @@
     <w:ElementInType w:name="j:OrganizationORIIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:ActivityType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ActivityIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:ActivityDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>

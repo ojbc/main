@@ -35,6 +35,12 @@
 		<nc:PersonGivenName structures:metadata="SM001">Joeseph</nc:PersonGivenName>
 		<nc:PersonSurName structures:metadata="SM002">Farley</nc:PersonSurName>
 	</nc:UserPersonName>
+	<alreq-ext:UserActionPerformed>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>1</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDescriptionText>Add Disposition</nc:ActivityDescriptionText>
+	</alreq-ext:UserActionPerformed>
 	<nc:Organization structures:id="ORG01">
 		<nc:OrganizationName>Hawaii PD</nc:OrganizationName>
 		<j:OrganizationAugmentation>
