@@ -41,6 +41,7 @@
     			<nc:Date>2016-03-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
+    	<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
       <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P001"/>
       </ssr-ext:SubscriptionSubject>
@@ -86,6 +87,8 @@
     			<nc:Date>2018-01-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
+    	    	<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
+    	
       <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P003"/>
       </ssr-ext:SubscriptionSubject>
@@ -113,6 +116,7 @@
     			<nc:Date>2016-03-12</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
+    	<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
       <ssr-ext:SubscriptionSubject>
       	<nc:RoleOfPersonReference s:ref="P002"/>
       </ssr-ext:SubscriptionSubject>
@@ -189,4 +193,7 @@
   	<ssr-ext:SubscribedEntityReference s:ref="SE004" />
   	<nc:ContactInformationReference s:ref="CI004" />
   </ssr-ext:SubscribedEntityContactInformationAssociation>
+  <srm:SearchResultsMetadata>
+  	<srm:TotalAuthorizedSearchResultsQuantity>500</srm:TotalAuthorizedSearchResultsQuantity>
+  </srm:SearchResultsMetadata>
 </ssr:SubscriptionSearchResults>

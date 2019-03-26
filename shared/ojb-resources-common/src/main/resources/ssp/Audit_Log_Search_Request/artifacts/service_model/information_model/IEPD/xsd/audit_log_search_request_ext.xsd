@@ -40,6 +40,7 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:DateRange" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:UserPersonName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="alreq-ext:UserActionPerformed" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="alreq-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
@@ -112,6 +113,19 @@
 			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be
 				queried.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="UserActionPerformedType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an action performed by a user which is recorded in the audit log.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="UserActionPerformed" type="alreq-ext:UserActionPerformedType">
+		<xsd:annotation>
+			<xsd:documentation>An action performed by a user which is recorded in the audit log.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
