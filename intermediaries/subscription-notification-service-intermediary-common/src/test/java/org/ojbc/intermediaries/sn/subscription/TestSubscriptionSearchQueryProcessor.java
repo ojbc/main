@@ -56,6 +56,7 @@ public class TestSubscriptionSearchQueryProcessor {
     @Before
     public void setUp() throws Exception {
         processor = new SubscriptionSearchQueryProcessor();
+        processor.setMaxSubscriptionsCount(500);
     }
 
     @Rule

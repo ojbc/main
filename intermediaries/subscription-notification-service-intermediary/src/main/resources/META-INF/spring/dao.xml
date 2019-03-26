@@ -32,7 +32,6 @@
 		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="gracePeriodStrategy" ref="gracePeriodStrategy"/>
 		<property name="validationExemptionFilter" ref="validationExemptionFilter"/>
-		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:500}"/>
 		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:false}"/>
     </bean>
 
@@ -172,6 +171,7 @@
 		
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:500}"/>
 	</bean>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>
