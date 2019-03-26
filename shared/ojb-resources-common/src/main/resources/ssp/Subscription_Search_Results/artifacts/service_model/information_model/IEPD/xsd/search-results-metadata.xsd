@@ -34,6 +34,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+				<xsd:element ref="srm:TotalAuthorizedSearchResultsQuantity" minOccurs="0" />
 					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
 					<xsd:element ref="srer:SearchErrors" minOccurs="0"/>
 					<xsd:element ref="srer:SearchRequestError" minOccurs="0"/>
@@ -42,4 +43,10 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="SearchResultsMetadata" type="srm:SearchResultsMetadataType"/>
+	<xsd:element name="TotalAuthorizedSearchResultsQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of all records that the user is
+				authorized to view.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
