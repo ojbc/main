@@ -219,7 +219,6 @@
     
     <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
         <property name="dataSource" ref="dataSourceSubscriptions"/>
-		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:5000}"/>
 		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:true}"/>
     </bean>
     
