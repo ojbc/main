@@ -119,6 +119,8 @@
                        'ori': $('#ori').val(),
                        'firstNameExactMatch': $('#firstNameExactMatch1').is(":checked"),
                        'lastNameExactMatch': $('#lastNameExactMatch1').is(":checked"),
+                       'activityTypeId':$('#activityTypeId').val(),
+                       'activityTypeDescription':$('#activityTypeId option:selected').html()
                    };
                    requestData[_csrf_param_name] = _csrf_token;
                    xhr = $.post(context + "audit/auditLogs",requestData,function(data) {

@@ -1706,6 +1706,12 @@ public class RequestMessageBuilderUtilities {
 			}
 		}
 		
+		if (StringUtils.isNotBlank(auditSearchRequest.getActivityTypeId())) {
+			Element userActionPerformed = XmlUtils.appendElement(rootElement, NS_AUDIT_LOG_SEARCH_REQUEST_EXT, "UserActionPerformed");
+			Element activityIdentification = XmlUtils.appendElement(userActionPerformed, NS_NC_40, "ActivityIdentification");
+			XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", auditSearchRequest.getActivityTypeId());
+			XmlUtils.appendTextElement(userActionPerformed, NS_NC_40, "ActivityDescriptionText", auditSearchRequest.getActivityTypeDescription());
+		}
 		if (StringUtils.isNotBlank(auditSearchRequest.getOri())) {
 			Element organization = XmlUtils.appendElement(rootElement, NS_NC_40, "Organization");
 			XmlUtils.addAttribute(organization, NS_STRUCTURES_40, "id", "ORG01");
