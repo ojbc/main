@@ -152,7 +152,11 @@
 					#springFormHiddenInput("subscription.subscriptionPurpose")
 				</td>
 				<td>
-					Active
+					#if( ${subscription.active})
+						Active
+					#else
+						Inactive
+					#end
 				</td>
 				<td>
 					#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
