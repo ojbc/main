@@ -1158,6 +1158,7 @@ public class SubscriptionsController {
 			model.put("initializationSucceeded", false);			
 			e.printStackTrace();
 			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
+			model.put("subscription", new Subscription());	
 		}
 		
 		if (!BooleanUtils.isTrue(admin)){
