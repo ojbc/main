@@ -18,23 +18,21 @@
 -->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>OJBC Web Portal</title>
-		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
-	</head>
-	<body>
-		<header th:replace="fragments/general.html :: header"> </header>
-	    <!-- Begin page content -->
-    <main role="main" class="container">
-      <div id="portalContent">
-        <div id="loadingAjaxPane" ></div>
-        <div th:replace="homepage::homepageContent"></div>
-        <!-- <h1 class="mt-5">Home page content</h1> -->
-      </div>
-    </main>
-	
-		<footer th:replace="fragments/general.html :: footer"></footer>	
-		<!-- /.container -->
-		<th:block th:include="fragments/general.html :: javascripts"></th:block>
-	</body>
+  <head>
+    <title>Home Page</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+      <!-- Begin page content -->
+  <div th:fragment="homepageContent">
+    <h1 class="mt-5">Home page content from external folder</h1>
+    <script th:inline="javascript">
+      $(function(){
+      });
+    </script>
+  </div>
+  </body>
 </html>

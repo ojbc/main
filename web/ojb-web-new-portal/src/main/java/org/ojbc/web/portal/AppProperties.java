@@ -37,6 +37,7 @@ public class AppProperties {
 	private Map<String, String> chargeSeverityCodeMapping = new HashMap<>();
 	private Map<String, String> daCaseTypeCodeMapping = new HashMap<>();
 	private String restServiceBaseUrl = "http://localhost:9898";
+	private String externalTemplatesFolder ;
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
 	private List<String> fedIdsWithAuditPrivilege;
@@ -209,6 +210,14 @@ public class AppProperties {
 
 	public void setSubmitArrestConfirmationMessage(String submitArrestConfirmationMessage) {
 		this.submitArrestConfirmationMessage = submitArrestConfirmationMessage;
+	}
+
+	public String getExternalTemplatesFolder() {
+		return externalTemplatesFolder;
+	}
+
+	public void setExternalTemplatesFolder(String externalTemplatesFolder) {
+		this.externalTemplatesFolder = externalTemplatesFolder;
 	}
 
 }
