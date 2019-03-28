@@ -50,16 +50,23 @@ public class SubscriptionQueryResultsProcessor {
 		Node rootSubQueryResultsNode = XmlUtils.xPathNodeSearch(subscriptionQueryResponseDoc, "sqr:SubscriptionQueryResults");
 							
 		Node subQueryResultNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:SubscriptionQueryResult");
-		parseSubscriptionQueryResultNode(subQueryResultNode, subscription);	
-						
-		Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
-		parsePersonNode(personNode, subscription);
 		
-		parseSubscriptionContactInfoNode(rootSubQueryResultsNode, subscription);
-		
-		parseSubscriptionOwnerInfo(rootSubQueryResultsNode, subscription);
-		parseFbiSubscriptionInfo(rootSubQueryResultsNode, subscription);
-		parseFederalInformationNodes(subQueryResultNode, subscription);
+		if ( subQueryResultNode != null ){
+			parseSubscriptionQueryResultNode(subQueryResultNode, subscription);	
+							
+			Node personNode = XmlUtils.xPathNodeSearch(rootSubQueryResultsNode, "sqr-ext:Person");
+			parsePersonNode(personNode, subscription);
+			
+			parseSubscriptionContactInfoNode(rootSubQueryResultsNode, subscription);
+			
+			parseSubscriptionOwnerInfo(rootSubQueryResultsNode, subscription);
+			parseFbiSubscriptionInfo(rootSubQueryResultsNode, subscription);
+			parseFederalInformationNodes(subQueryResultNode, subscription);
+		}
+		else {
+			String errorMessage = XmlUtils.xPathStringSearch(rootSubQueryResultsNode, "qrm:QueryResultsMetadata/qrer:QueryRequestError/qrer:ErrorText");
+			throw new IllegalStateException(errorMessage);
+		}
 		
 		return subscription;
 	}		
@@ -205,6 +212,7 @@ public class SubscriptionQueryResultsProcessor {
 		
 		String gracePeriodEndDateString = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionGracePeriod/sqr-ext:SubscriptionGracePeriodDateRange/nc:EndDate/nc:Date");
 		subscription.setGracePeriodEndDate(Optional.ofNullable(gracePeriodEndDateString).map(LocalDate::parse).orElse(null));
+		
 	}	
 	
 	private void parseSubscriptionDateNode(Node dateRangeNode, Subscription subscription) throws Exception{				
