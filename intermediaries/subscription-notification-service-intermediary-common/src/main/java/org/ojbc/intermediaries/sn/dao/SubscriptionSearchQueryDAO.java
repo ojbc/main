@@ -255,7 +255,7 @@ public class SubscriptionSearchQueryDAO {
     		@Header("adminQuery") String adminQuery) {
     	log.info("adminQuery: " + Optional.ofNullable(adminQuery).map(Objects::toString).orElse(""));
     	
-        String sqlQuery = BASE_QUERY_STRING + " and s.id=? and s.active = 1";
+        String sqlQuery = BASE_QUERY_STRING + " and s.id=? ";
         
         List<Subscription> subscriptions = null;
         
@@ -886,11 +886,11 @@ public class SubscriptionSearchQueryDAO {
             Object[] criteriaArray = new Object[] {
                 fullyQualifiedTopic, subscriptionSystemId
             };
-            String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=?";
+            String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=? and s.active != 0";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
 
             log.debug("fbiSubscriptionMember? " + BooleanUtils.toStringTrueFalse(fbiSubscriptionMember));
-            if (fbiSubscriptionMember){
+            if (returnCount > 0 && fbiSubscriptionMember){
             	unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
             }
             return returnCount;
@@ -904,7 +904,7 @@ public class SubscriptionSearchQueryDAO {
                 fullyQualifiedTopic, systemName
             };
             criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIds));
-            String queryString = "update subscription s set s.active=0 where s.topic=? and s.subscribingSystemIdentifier=? and"
+            String queryString = "update subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and"
                     + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIds.size());
 
             log.debug("Query String: " + queryString);
