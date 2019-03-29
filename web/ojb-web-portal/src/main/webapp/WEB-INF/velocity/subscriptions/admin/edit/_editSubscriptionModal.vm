@@ -226,12 +226,14 @@
 
 <div style="display:none;" id="modalIframeSpinner"></div>
 <div style="width:auto;" id="subFormDiv">
-	<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
-	 	<div id="subModalButtonDiv">
-	        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-	        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-	    </div>            
-	</div>	  
+	#if( ${subscription.active} )
+		<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
+		 	<div id="subModalButtonDiv">
+		        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
+		        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
+		    </div>            
+		</div>	  
+	#end
 	<form id="subscriptionForm">  	
 		<div>
 			<span class="subscriptionHint">Topic:</span>
