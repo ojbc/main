@@ -152,7 +152,7 @@
 					#springFormHiddenInput("subscription.subscriptionPurpose")
 				</td>
 				<td>
-					#if( ${subscription.active})
+					#if( ${subscription.active} )
 						Active
 					#else
 						Inactive
