@@ -75,8 +75,11 @@ public class DispositionValidator implements Validator {
     }
 
 	private void validateJailSuspendedDeferredDays(Disposition disposition, Errors errors) {
-        if (ArrayUtils.hasPositiveValue(disposition.getJailDays(), disposition.getJailYears()) 
-        		&& ArrayUtils.hasPositiveValue(disposition.getPrisonDays(), disposition.getPrisonYears()) ) {
+		int jailDays = Optional.ofNullable(disposition.getJailYears()).map(i->i*360).orElse(0)
+				+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0); 
+		int prisonDays = Optional.ofNullable(disposition.getPrisonYears()).map(i->i*360).orElse(0)
+				+ Optional.ofNullable(disposition.getPrisonDays()).map(i->i.intValue()).orElse(0); 
+        if (jailDays > 0 && prisonDays > 0 ) {
     		if (ArrayUtils.hasPositiveValue(disposition.getJailDays())) {
     			errors.rejectValue("jailDays", null, "may not coexist with prison time");
     		}
@@ -92,8 +95,6 @@ public class DispositionValidator implements Validator {
         	
         }
         
-    	int jailDays = Optional.ofNullable(disposition.getJailYears()).map(i->i*360).orElse(0)
-    			+ Optional.ofNullable(disposition.getJailDays()).map(i->i.intValue()).orElse(0); 
     	int suspendedDays = Optional.ofNullable(disposition.getSuspendedYears()).map(i->i*360).orElse(0)
     			+ Optional.ofNullable(disposition.getSuspendedDays()).map(i->i.intValue()).orElse(0);
     	int deferredDays = Optional.ofNullable(disposition.getDeferredYears()).map(i->i*360).orElse(0)
@@ -112,16 +113,38 @@ public class DispositionValidator implements Validator {
     		}
     	}
     	
-    	if (suspendedDays > jailDays) {
-    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
-    			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
-    		}
-    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
-    			errors.rejectValue("suspendedYears", null, "may not be greater than Jail time");
+    	if (disposition.getDispositionType() == ArrestType.MUNI) {
+	    	if (suspendedDays > jailDays) {
+	    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
+	    			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
+	    		}
+	    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+	    			errors.rejectValue("suspendedYears", null, "may not be greater than Jail time");
+	    		}
+	    	}
+    	}
+    	else if (disposition.getDispositionType() == ArrestType.DA && suspendedDays > 0) {
+    		
+    		if (!(jailDays > 0 && prisonDays > 0)) {
+		    	if (prisonDays > 0 && suspendedDays > prisonDays ) {
+		    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
+		    			errors.rejectValue("suspendedDays", null, "may not be greater than prison time");
+		    		}
+		    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+		    			errors.rejectValue("suspendedYears", null, "may not be greater than prison time");
+		    		}
+		    	}
+		    	else if (suspendedDays > jailDays){
+		    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
+		    			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
+		    		}
+		    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedYears())) {
+		    			errors.rejectValue("suspendedYears", null, "may not be greater than Jail time");
+		    		}
+		    	}
     		}
     	}
-        	
-        
+    	
         if (disposition.getDispositionType() == ArrestType.DA 
         		&& ArrayUtils.hasPositiveValue(disposition.getDeferredDays(), disposition.getDeferredYears()) 
         		&& ArrayUtils.hasPositiveValue(disposition.getJailYears(),disposition.getPrisonDays(), disposition.getPrisonYears()) ) {
