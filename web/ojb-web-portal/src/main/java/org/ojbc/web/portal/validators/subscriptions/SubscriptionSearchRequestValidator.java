@@ -31,11 +31,11 @@ public class SubscriptionSearchRequestValidator implements Validator{
 	
 	private final Log log = LogFactory.getLog(this.getClass());	
 	
-    @Value("${sidRegexForAddSubscription:([a-zA-Z]\\d+)?}")
-    String sidRegexForSubscription;
+    @Value("${sidRegexForSubscriptionAdminSearch:([ASXLasxl][a-zA-Z0-9]+)?}")
+    String sidRegexForSubscriptionAdminSearch;
     
-    @Value("${sidRegexValidationErrorMessage: SID must start with a letter}")
-    String sidRegexValidationErrorMessage;
+    @Value("${sidRegexAdminSearchValidationErrorMessage: SID must start with A, L, S or X }")
+    String sidRegexAdminSearchValidationErrorMessage;
     
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -48,8 +48,8 @@ public class SubscriptionSearchRequestValidator implements Validator{
 		log.info("Validating subscription " + subscriptionSearchRequest);
 		
 		if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid()) 
-				&& !subscriptionSearchRequest.getSid().matches(sidRegexForSubscription)){
-			errors.rejectValue("sid", null, sidRegexValidationErrorMessage);
+				&& !subscriptionSearchRequest.getSid().matches(sidRegexForSubscriptionAdminSearch)){
+			errors.rejectValue("sid", null, sidRegexAdminSearchValidationErrorMessage);
 		}
 		
 		if (StringUtils.isNotBlank(subscriptionSearchRequest.getUcn()) 
