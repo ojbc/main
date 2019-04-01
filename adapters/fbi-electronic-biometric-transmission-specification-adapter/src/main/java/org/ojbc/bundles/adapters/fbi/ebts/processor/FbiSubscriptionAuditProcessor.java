@@ -111,13 +111,21 @@ public class FbiSubscriptionAuditProcessor {
 				String stateSubscriptionId = XmlUtils.xPathStringSearch(recordRapBackData, 
 						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE SUBSCRIPTION ID']/ebts:UserDefinedElementText");
 				federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
-				federalRapbackSubscription.setSid(XmlUtils.xPathStringSearch(recordRapBackData, 
-						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText"));
+				
+				String stateFingerPrintId= XmlUtils.xPathStringSearch(recordRapBackData, 
+						"ebts:RecordRapBackUserDefinedElement[upper-case(ebts:UserDefinedElementName/text())='STATE FINGERPRINT ID']/ebts:UserDefinedElementText");
+				
+				federalRapbackSubscription.setSid(stateFingerPrintId);
 			}	
 			
-			
-			
 			boolean errorIndicator = false;
+			
+			//Always consider an ERRA an error
+			if (transactionCategoryCode.equals("ERRA"))
+			{
+				federalRapbackSubscription.setTransactionStatusText(transactionStatusText);
+				errorIndicator = true;
+			}
 			
 			if (StringUtils.isNotBlank(transactionStatusText))
 			{
@@ -163,7 +171,7 @@ public class FbiSubscriptionAuditProcessor {
 					enhancedAuditDAO.deleteFederalRapbackSubscriptionError(federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 				}
 				
-				enhancedAuditDAO.saveFederalRapbackSubscriptionError(federalRapbackSubscriptionPk, federalRapbackSubscription.getStateSubscriptionId());
+				enhancedAuditDAO.saveFederalRapbackSubscriptionError(federalRapbackSubscriptionPk, federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 				
 			}	
 			else
