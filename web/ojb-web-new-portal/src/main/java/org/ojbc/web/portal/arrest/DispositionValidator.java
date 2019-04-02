@@ -70,7 +70,19 @@ public class DispositionValidator implements Validator {
         }
         
         if (appProperties.getDispoCodesRequiringAmendedCharge().contains(disposition.getDispositionCode()) && StringUtils.isBlank(disposition.getAmendedCharge())) {
-        	errors.rejectValue("amendedCharge", null, "the dispo code requires an amended charge");
+        	errors.rejectValue("amendedCharge", null, "required by the dispo code");
+        }
+        
+        if (disposition.getDispositionType() == ArrestType.DA) {
+        	if (appProperties.getDispoCodesRequiringChargeSeverity().contains(disposition.getDispositionCode())) {
+        		if (StringUtils.isBlank(disposition.getChargeSeverityCode())) {
+        			errors.rejectValue("chargeSeverityCode", null, "required by the dispo code");
+        		}
+        		
+        		if (StringUtils.isNotBlank(disposition.getAmendedCharge()) && StringUtils.isBlank(disposition.getAmendedChargeSeverityCode())) {
+        			errors.rejectValue("amendedChargeSeverityCode", null, "required by the dispo code");
+        		}
+        	}
         }
     }
 

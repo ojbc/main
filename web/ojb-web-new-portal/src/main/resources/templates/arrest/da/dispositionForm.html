@@ -87,6 +87,7 @@
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 	            </select>
+	            <div th:if="${#fields.hasErrors('chargeSeverityCode')}" th:errors="*{chargeSeverityCode}" class="invalid-feedback">Filed Charge Severity error message</div>
 	          </div>
 	          <div class="col-md-3 mb-2">
 	            <label for="filedGeneralOffenseCode">General Offense Code</label>
@@ -97,6 +98,7 @@
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
 	            </select>
+	            <div th:if="${#fields.hasErrors('amendedChargeSeverityCode')}" th:errors="*{amendedChargeSeverityCode}" class="invalid-feedback">Amended sCharge Severity error message</div>
 	          </div>
 	          <div class="col-md-3 mb-2">
 	            <label for="amendedGeneralOffenseCode">General Offense Code</label>
