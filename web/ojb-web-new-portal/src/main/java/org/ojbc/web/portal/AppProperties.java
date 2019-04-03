@@ -70,7 +70,7 @@ public class AppProperties {
 		
 		setDispoCodesRequiringSentence(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "503", "520", "525"));
 		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
-		setDispoCodesRequiringChargeSeverity(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "500"));
+		setDispoCodesRequiringChargeSeverity(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "500", "520"));
 		
 		chargeSeverityCodeMapping.put("F", "Felony");
 		chargeSeverityCodeMapping.put("M", "Misdemeanor");
