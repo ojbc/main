@@ -29,61 +29,58 @@
      <!-- Begin page content -->
      <form action="#" th:object="${arrestSearchRequest}" id="searchForm" method="post">
        <div th:fragment="arrestSearchFormContent">
-	          <table>
-	            <tr>
-	              <td>Arrest Date </td>
-	              <td><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></td>
-	              <td><input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/></td>
-	              <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
-	            </tr>
-	            <tr>
-	              <td>First Name </td>
-	              <td><input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/></td>
-	              <td>
-                   <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}" />
-                   Exact Match
-	              </td>
-	              <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name error message</td>
-	            </tr>
-	            <tr>
-	              <td>Last Name </td>
-	              <td><input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/></td>
-	              <td>
-                   <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
-                   Exact Match
-	              </td>
-	              <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error message</td>
-	            </tr>
-	            <tr>
-	              <td/>
-	              <td><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></td>
-	              <td th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">SSN error message</td>
-	              <td><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></td>
-	              <td th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">DOB error message</td>
-	            </tr>
-	            <tr>
-	              <td/>
-	              <td><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></td>
-	              <td th:if="${#fields.hasErrors('otn')}" th:errors="*{otn}">OTN error message</td>
-	              <td><input type="text" th:field="*{arrestIdentification}" width="250" placeholder="Arrest ID"/></td>
-	              <td th:if="${#fields.hasErrors('arrestIdentification')}" th:errors="*{arrestIdentification}">Arrest ID error message</td>
-	            </tr>
-	            <tr>
-	              <td/>
-	              <td>
-	                 <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
-	                 Arrests With Deferred Dispositions 
-                 </td>
-	              <td colspan="2">
-	                 <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
-	                 Include Hidden Arrests
-                 </td>
-	            </tr>
-	          </table>
-	          <div>
+           <div class="form-row">
+             <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
+             <div class="col-sm-3"><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></div>
+             <label class="col-1 col-form-label font-weight-bold text-right">To </label>
+             <div class="col-sm-3">
+                <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/>
+		            <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</div>
+             </div>
+           </div>
+           <div class="form-row">
+	           <label for="lastName" class="col-2 col-form-label font-weight-bold text-right">Last Name </label>
+	           <div class="col-sm-3">
+	             <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
+	             <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
+	             <span class="align-bottom">Exact Match</span>
+	           </div>
+	           <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
+	           <div class="col-sm-3">
+	              <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
+	              <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}"/>
+	              <span class="align-bottom">Exact Match</span>
+	           </div>
+           </div>
+           <div class="form-row">
+             <label for="ssn" class="col-2 col-form-label font-weight-bold text-right">SSN </label>
+             <div class="col-sm-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
+             <label for="dob" class="col-1 col-form-label font-weight-bold text-right">DOB </label>
+             <div class="col-sm-3"><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></div>
+           </div>
+           <div class="form-row">
+             <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>
+             <div class="col-sm-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
+           </div>
+           <div class="form-row">
+             <div class="col-2"/>
+             <div class="col-sm-3">
+                <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
+                <span class="font-weight-bold ">Arrests With Deferred Dispositions</span> 
+             </div>
+             <div class="col-1"/>
+             <div class="col-sm-3">
+                <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
+                <span class="font-weight-bold ">Include Hidden Arrests</span>
+             </div>
+           </div>
+           <div class="form-row mt-2">
+             <div class="col-2"/>
+             <div class="col-sm-3">
                  <button type="button" class="btn-primary" id="submit">Search</button>
                  <button type="reset" class="btn-secondary">Reset</button>
-	          </div>
+	           </div>
+           </div>
        </div>
       </form>
 	</body>

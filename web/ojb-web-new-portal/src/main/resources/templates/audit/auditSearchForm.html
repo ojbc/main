@@ -39,7 +39,7 @@
 	           <input type="text" th:field="*{auditDateRangeStartDate}" class="date" placeholder="From"/>
 	           <div th:if="${#fields.hasErrors('auditDateRangeStartDate')}" th:errors="*{auditDateRangeStartDate}">Audit Date error message</div>
 	          </div>
-	            <label class="col-1 col-form-label font-weight-bold text-right">To </label>
+            <label class="col-1 col-form-label font-weight-bold text-right">To </label>
 	          <div class="col-sm-3">
 	              <input type="text" th:field="*{auditDateRangeEndDate}" class="date" placeholder="To"/>
 	          </div>
@@ -49,13 +49,13 @@
             <div class="col-sm-3">
               <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
               <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
-              <span class="font-weight-bold align-bottom">Exact Match</span>
+              <span class="align-bottom">Exact Match</span>
             </div>
             <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
             <div class="col-sm-3">
 	             <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
 	             <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}"/>
-	             <span class="font-weight-bold align-bottom">Exact Match</span>
+	             <span class="align-bottom">Exact Match</span>
             </div>
           </div>
           <div class="form-row">
@@ -76,7 +76,7 @@
              </select>
             </div>
           </div>
-          <div class="form-row">
+          <div class="form-row mt-2">
             <div class="col-2"/>
             <div class="col-7">
 	            <button type="button" class="btn-primary" id="submit">Search</button>
