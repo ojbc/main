@@ -28,8 +28,7 @@
 	<body>
      <!-- Begin page content -->
      <form action="#" th:object="${arrestSearchRequest}" id="searchForm" method="post">
-       <div class="row" th:fragment="arrestSearchFormContent">
-           <div class="col-9">
+       <div th:fragment="arrestSearchFormContent">
 	          <table>
 	            <tr>
 	              <td>Arrest Date </td>
@@ -81,11 +80,10 @@
                  </td>
 	            </tr>
 	          </table>
-           </div>
-           <div class="col-3" style="text-align:right;">
-                 <button type="button" class="btn-primary" id="submit">Refresh Search</button>
+	          <div>
+                 <button type="button" class="btn-primary" id="submit">Search</button>
                  <button type="reset" class="btn-secondary">Reset</button>
-           </div>
+	          </div>
        </div>
       </form>
 	</body>
