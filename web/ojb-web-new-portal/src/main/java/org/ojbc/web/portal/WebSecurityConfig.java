@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.ojbc.web.portal.security.PortalAuthenticationDetailsSource;
+import org.ojbc.web.portal.security.PortalPreAuthenticatedUserDetailsService;
 import org.ojbc.web.portal.security.SamlAuthenticationFilter;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
 
 @EnableWebSecurity
 @Configuration
@@ -50,6 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Resource
 	PortalAuthenticationDetailsSource portalAuthenticationDetailsSource;
+	
+	@Resource
+	PortalPreAuthenticatedUserDetailsService portalPreAuthenticatedUserDetailsService;
 	
 	@Override
     public void configure(WebSecurity web) throws Exception {
@@ -88,9 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PreAuthenticatedAuthenticationProvider preauthAuthProvider() {
     	PreAuthenticatedAuthenticationProvider preauthAuthProvider =
     		new PreAuthenticatedAuthenticationProvider();
-    	preauthAuthProvider.setPreAuthenticatedUserDetailsService(
-    		new PreAuthenticatedGrantedAuthoritiesUserDetailsService()
-    	);
+    	preauthAuthProvider.setPreAuthenticatedUserDetailsService(portalPreAuthenticatedUserDetailsService);
     	return preauthAuthProvider;
     }
     

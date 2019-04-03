@@ -50,7 +50,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
         String principal = StringUtils.isNotBlank(federationId)? federationId:WebPortalConstants.EMPTY_FEDERATION_ID;
         
         request.setAttribute("principal", principal);
-        return principal; 
+        return samlAssertion; 
     }
 
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
