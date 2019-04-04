@@ -98,6 +98,8 @@ public class TestFbiSubscriptionAuditProcessor {
 	    assertEquals("CI", federalRapbackSubscription.getSubscriptonCategoryCode());
 	    assertEquals("This is the transaction text: RB001: some error | This is the second transaction text", federalRapbackSubscription.getTransactionStatusText());
 	    
+	    ex.getIn().setHeader("trxCatCode", "RBMNTR");
+	    
 	    //This response will 'resolve' errors by sending back a good response
 	    input = XmlUtils.parseFileToDocument(new File("src/test/resources/input/FBI_Subscription_Response_C99999999.xml"));
 	    assertNotNull(input);
