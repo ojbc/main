@@ -114,7 +114,7 @@ import org.xml.sax.InputSource;
 @RequestMapping("/subscriptions/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage"})
 public class SubscriptionsController {
-	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "FBI subscription request processing";
+	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
 	private static final String FBI_UCN_DOES_NOT_EXIST_WARNING = "FBI UCN does not exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.";
 
 	private Log log = LogFactory.getLog(this.getClass());
