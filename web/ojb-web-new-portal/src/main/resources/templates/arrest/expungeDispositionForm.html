@@ -42,6 +42,7 @@
 		      </form>
 		    <script th:inline="javascript">
 			      $(function(){
+              $('[data-toggle="popover"]').popover(); 
 			    	  $('#dispositionDate').datepicker({
 		                  uiLibrary: 'bootstrap4', size: 'small'
 		          });

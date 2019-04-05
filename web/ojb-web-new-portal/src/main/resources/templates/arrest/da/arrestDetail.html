@@ -322,7 +322,7 @@
                            dispositionIdentification:$(this).closest("tr").attr("id")},  
                            function(data) {
                         $('.modal-body').html(data);
-                        $('.modal-title').html("Expunge Disposition");
+                        $('.modal-title').html('Expunge Disposition <a href="#" data-toggle="popover" data-trigger="hover" data-content="Expunging a charge will remove the original plea and update the disposition to \'PLED NOT GUILTY, CASE DISMISSED\'. The arrest will remain the record. "><i class="fas fa-info-circle"></i></a>');
                         $('.modal-footer').html($("#expungeDispositionButtons").html())
                         $('#dispositionModal').modal('show');
                      }).fail(ojbc.displayFailMessage);
