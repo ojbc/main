@@ -36,12 +36,20 @@
       <input type="hidden" th:field="*{arrestDate}" />
          <div class="form-row">
            <div class="col-md-3 mb-3">
-             <label>Disposition Date *</label>
+             <label>Disposition Date *
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="The date the 'disposition code' action occurred.  Includes declinations, case filings, dismissals, pleas and findings, etc…">
+                   <i class="fas fa-info-circle"></i></a>
+             </label>
              <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
              <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
            </div>
            <div class="col-md-4 mb-4">
-             <label for="dispositionCode">Disposition Code *</label>
+             <label for="dispositionCode">Disposition Code *
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="The action of the court or prosecutor relating to the charge.  Includes declinations, case filings, dismissals, pleas and findings, etc…">
+                   <i class="fas fa-info-circle"></i></a>
+             </label>
              <select th:field="*{dispositionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
 						    <option th:each="item: ${daDispoCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -49,12 +57,20 @@
              <div th:if="${#fields.hasErrors('dispositionCode')}" th:errors="*{dispositionCode}" class="invalid-feedback">Disposition Code error message</div>
            </div>
            <div class="col-md-2 mb-2">
-             <label for="counts">Counts *</label>
+             <label for="counts">Counts *
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="This will default to 1. Increase as needed if the subject was charged with the same offense more than once resulting in the same disposition.  There is a maximum of 999.">
+                   <i class="fas fa-info-circle"></i></a>
+             </label>
              <input type="number" min="1" max="999" th:field="*{counts}" width="1" class="form-control" th:errorclass="is-invalid"/>
              <div th:if="${#fields.hasErrors('counts')}" th:errors="*{counts}" class="invalid-feedback">Counts error message</div>
            </div>
            <div class="col-md-3 mb-3">
-              <label>Reason For Dismissal</label>
+              <label>Reason For Dismissal
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Include, if known, whenever the disposition code is CHARGES DISMISSED.">
+                   <i class="fas fa-info-circle"></i></a>
+              </label>
 	            <select th:field="*{reasonForDismissal}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${daReasonsForDismissalMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -64,7 +80,12 @@
           </div>
           <div class="form-row">
             <div class="col-md-6 mb-4">
-              <label>Filed Charge *</label>
+              <label>Filed Charge *
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Original charge as filed by the prosecutor. This may be the same or different from the charge at arrest.  
+                    If the final charge is different than the 'filed charge', the new charge will be in the AMENDED CHARGE field.">
+                   <i class="fas fa-info-circle"></i></a>
+              </label>
             <select th:field="*{filedCharge}" class="form-control chosen-select" th:errorclass="is-invalid">
                <option value="" >Please select ...</option>
                <option th:each="item: ${daFiledChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -72,7 +93,11 @@
               <div th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}" class="invalid-feedback">Filed charge error message</div>
             </div>
             <div class="col-md-6 mb-4">
-              <label>Amended Charge</label>
+              <label>Amended Charge
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="If the final offense is different than the FILED CHARGE, the new charge will be the AMENDED CHARGE.">
+                   <i class="fas fa-info-circle"></i></a>
+              </label>
               <select th:field="*{amendedCharge}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
                  <option value="" >Please select ...</option>
                  <option th:each="item: ${daAmendedChargeCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -82,7 +107,11 @@
           </div>
           <div class="form-row">
 	          <div class="col-md-3 mb-2">
-	            <label for="chargeSeverityCode">Filed Charge Severity</label>
+	            <label for="chargeSeverityCode">Filed Charge Severity
+	              <a href="#" data-toggle="popover" data-trigger="hover" 
+	                 data-content="Felony or Misdemeanor">
+	                 <i class="fas fa-info-circle"></i></a>
+	            </label>
 	            <select th:field="*{chargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -90,10 +119,20 @@
 	            <div th:if="${#fields.hasErrors('chargeSeverityCode')}" th:errors="*{chargeSeverityCode}" class="invalid-feedback">Filed Charge Severity error message</div>
 	          </div>
 	          <div class="col-md-3 mb-2">
-	            <label for="filedGeneralOffenseCode">General Offense Code</label>
+	            <label for="filedGeneralOffenseCode">General Offense Code
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Options include ATTEMPTED or AFTER FELONY CONVICTION.  
+                   Only use if the General Offense Code is not built into offense charge. For example, 
+                   it would be unnecessary to use AFTER FELONY CONVICTION if the charge is POSSESSION OF A FIREARM AFTER FELONY CONVICTION.">
+                   <i class="fas fa-info-circle"></i></a>
+	            </label>
 	          </div>
 	          <div class="col-md-3 mb-2">
-	            <label for="amendedChargeSeverityCode">Amended Charge Severity</label>
+	            <label for="amendedChargeSeverityCode">Amended Charge Severity
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Felony or Misdemeanor">
+                   <i class="fas fa-info-circle"></i></a>
+	            </label>
 	            <select th:field="*{amendedChargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -111,7 +150,11 @@
               <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
             </div>
             <div class="col-md-4 mb-4">
-              <label>Fine Suspended <small id="fineSuspendedHelp" class="text-muted">&le; Fine Amount</small></label>
+              <label>Fine Suspended
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Must be less than or equal to the fine amount.">
+                   <i class="fas fa-info-circle"></i></a>
+              </label>
               <input type="text" th:field="*{fineSuspended}" width="250" class="money form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}" class="invalid-feedback">Fine suspended error message</div>
             </div>
@@ -123,15 +166,31 @@
             
           </div>
           <div class="form-row">
-            <span class="col-md-3 mb-3">Jail</span>
+            <span class="col-md-3 mb-3">Jail
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                 data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
+                 <i class="fas fa-info-circle"></i></a>
+            </span>
             <span class="col-md-3 mb-3">
               <label>Prison</label>
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Prison Time is served under the Department of Corrections. 
+                     Prison Time can only be populated if Charge Severity = felony and Court Case Number Case Type = F.  
+                     Prison Days cannot exceed 359.  360 prison days = 1 prison year.  Each month = 30 days. 6 months = 180 days.  ">
+                   <i class="fas fa-info-circle"></i></a>
             </span>
             <span class="col-md-3 mb-3">
               <label>Suspended</label>
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                 data-content="Suspended time cannot be greater than Prison/Jail time. ">
+                 <i class="fas fa-info-circle"></i></a>
             </span>
             <span class="col-md-3 mb-3">
               <label>Deferred</label>
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                 data-content="Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days. 
+                  Cannot have deferred time and time in Prison or Suspended for same charge.  ">
+                 <i class="fas fa-info-circle"></i></a>
             </span>
           </div>
           <div class="form-row">
@@ -170,7 +229,11 @@
           </div>
           <div class="form-row">
 	           <div class="col-md-6 mb-4">
-	             <label>Provision</label>
+	             <label>Provision
+	                <a href="#" data-toggle="popover" data-trigger="hover" 
+	                   data-content="Concurrent sentences run at the same time; Consecutive sentences run one after another.  ">
+	                   <i class="fas fa-info-circle"></i></a>
+	             </label>
 	             <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${daProvisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -178,7 +241,12 @@
 	             <div th:if="${#fields.hasErrors('provisionCode')}" th:errors="*{provisionCode}" class="invalid-feedback">Provision error message</div>
 	           </div>                         
              <div class="col-md-6 mb-4">
-               <label>Alternate Sentence</label>
+               <label>Additional Sentence
+                  <a href="#" data-toggle="popover" data-trigger="hover" 
+                     data-content="Information related to the disposition that cannot be reported using one of the previous fields.  
+                     (e.g. COMMUNITY SERVICE, FINE AND COSTS, SERVING WEEKENDS ONLY, etc...)">
+                     <i class="fas fa-info-circle"></i></a>
+               </label>
 	             <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
 	               <option value="" >Please select ...</option>
 	               <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -217,6 +285,7 @@
       </form>
     <script th:inline="javascript">
 	      $(function(){
+	    	  $('[data-toggle="popover"]').popover();
 	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
