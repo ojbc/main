@@ -360,6 +360,7 @@
                    var prisonYears = parseInt($("#prisonYears").val()) || 0; 
                    var prisonDays = parseInt($("#prisonDays").val()) || 0; 
                    var prisonTime = 360 * prisonYears + prisonDays; 
+                   var counts = parseInt($("#counts").val()) || 0; 
                 	 
                 	 var chargeSeverity = $('#amendedChargeSeverityCode').val() || $('#chargeSeverityCode').val(); 
                 	 
@@ -383,6 +384,9 @@
                		   
                		   if (prisonTime > 0 && chargeSeverity === 'M'){
                			   contentArray.push({ p: {text: "The sentence includes prison time on a misdemeanor offense. "}});
+               		   }
+               		   if (counts > 10){
+               			   contentArray.push({ p: {text: "The counts exceeds 10. "}});
                		   }
                		   
                		   contentArray.push({ p: {text: "Do you want to proceed?"}});

@@ -306,8 +306,10 @@
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
-                	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
-               	   if ( restitution > 5000 || fineAmount > 1000){
+                	 var fineAmount = parseInt($("#fineAmount").val().replace(',', ''));
+                   var counts = parseInt($("#counts").val()) || 0; 
+
+                   if ( restitution > 5000 || fineAmount > 1000){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                        contentArray.push({ p: {text: "The Fine Amount exceeds $1,000."}});
@@ -315,7 +317,10 @@
                		   if (restitution > 5000) {
                			   contentArray.push({ p: {text: "The Restitution exceeds $5,000. "}});
                		   }
-               		   
+                     if (counts > 10){
+                         contentArray.push({ p: {text: "The counts exceeds 10. "}});
+                     }
+
                      contentArray.push({ p: {text: "Do you want to proceed?"}});
                      bootpopup({
                          title: "", 
