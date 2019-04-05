@@ -29,8 +29,7 @@
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
 	      <div id="loadingAjaxPane" ></div>
-	      
-        <h3 class="mt-4">Arrest Search Results</h3>
+        <h3>Arrest Search Results</h3>
         <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"></div>
         </form>

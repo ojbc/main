@@ -35,14 +35,19 @@
 </head>
 <body>
 	    <header th:fragment="header">
-	      <!-- Fixed navbar -->
-	      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-	        <a class="navbar-brand" href="#"><img th:src="@{/images/oklahoma_logo.png}" height="50px"/></a>
+        <div class="banner mt-5 pt-1">
+          <div class="text-white">
+            <img th:src="@{/images/oklahoma_logo.png}" height="75px" />
+            <span class="initials align-bottom" aria-hidden="true">RAPUP</span>
+            <span class="fullname align-middle">Record of Arrest and Prosecution Update Portal</span>
+          </div>
+        </div>
+	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
 	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	          <span class="navbar-toggler-icon"></span>
 	        </button>
 	        <div class="collapse navbar-collapse" id="navbarCollapse">
-	          <ul class="navbar-nav mr-auto">
+	          <ul class="navbar-nav mr-auto text-white">
 	            <li class="nav-item active">
 	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
 	            </li>
@@ -59,14 +64,14 @@
 	         <span class="small font-italic pr-2 text-secondary">Signed in as <span th:text="${#authentication.getPrincipal().getUsername()}"/></span><a href="#"><i class="fas fa-user-circle fa-lg"></i></a>
 	        </div>
 	      </nav>
-	    </header>
-    <p>Go to the next page to see fragments in action</p>
-    <footer class="footer" th:fragment="footer">
-      <div class="container" align="center">
-        <span class="text-muted">OSBI RAPUP tool</span>
-<!--          Roles: <span sec:authentication="principal.authorities"></span> -->
-      </div>
-    </footer>
+      </header>
+	    <p>Go to the next page to see fragments in action</p>
+	    <footer class="footer" th:fragment="footer">
+	      <div class="container" align="center">
+	        <span class="text-muted">OSBI RAPUP tool</span>
+	<!--          Roles: <span sec:authentication="principal.authorities"></span> -->
+	      </div>
+	    </footer>
     
     <div th:fragment="javascripts">
    	    <!-- Optional JavaScript -->
