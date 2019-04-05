@@ -46,11 +46,34 @@
 			
 				<thead>
 					<tr>
-						<th>NAME</th>
-						<th>DOB</th>
-						<th>SSN</th>
-						<th>OTN</th>
-						<th>DATE OF ARREST</th>
+          <tr>
+            <th>NAME
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The name on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+            </th>
+            <th>DOB
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The date of birth on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+            </th>
+            <th>SSN
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The social security number on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+            </th>
+            <th>OTN
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="Offender Tracking Number on the OSBI fingerprint card supplied by the arresting agency.  
+                  OTN is used to link the filing/disposition record to the OSBI Criminal History File.  OTN consists of nine numbers and a letter. (E.G. 001234567R)">
+                <i class="fas fa-info-circle"></i></a>
+            </th>
+            <th>DATE OF Arrest
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
+                <i class="fas fa-info-circle"></i></a>
+            </th>
+          </tr>
 					</tr>
 				</thead>
 				<tbody>
