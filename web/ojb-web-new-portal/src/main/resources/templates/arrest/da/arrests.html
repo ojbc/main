@@ -39,6 +39,7 @@
 	        <p th:utext="${arrestSearchContent}" ></p>
 	        <script th:inline="javascript">
               $(function(){
+                  $('[data-toggle="popover"]').popover(); 
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
                   $('#searchResultsTable').DataTable({

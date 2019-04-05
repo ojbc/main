@@ -54,12 +54,37 @@
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
 				<thead>
 					<tr>
-						<th>OTN</th>
-						<th>NAME</th>
-						<th>DOB</th>
-						<th>SSN</th>
-						<th>DATE OF Arrest</th>
-						<th>CHARGE</th>
+						<th>OTN
+					    <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="Offender Tracking Number on the OSBI fingerprint card supplied by the arresting agency.  
+                  OTN is used to link the filing/disposition record to the OSBI Criminal History File.  OTN consists of nine numbers and a letter. (E.G. 001234567R)">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
+						<th>NAME
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The name on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
+						<th>DOB
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The date of birth on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
+						<th>SSN
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The social security number on the fingerprint card at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
+						<th>DATE OF Arrest
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
+						<th>CHARGE
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="The charge on the fingerprint card entered by the arresting agency at the time of arrest.">
+                <i class="fas fa-info-circle"></i></a>
+						</th>
 						<th></th>
 					</tr>
 				</thead>
