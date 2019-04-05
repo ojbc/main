@@ -38,7 +38,7 @@
           <div class="col-md-3 mb-2">
            <label>Disposition Date *
              <a href="#" data-toggle="popover" data-trigger="hover" 
-                data-content="The date the 'disposition code' action occurred.  Includes declinations, case filings, dismissals, pleas and findings, etc…">
+                data-content="The date the case is sentenced and will reflect as a filing date on filed charges.">
                 <i class="fas fa-info-circle"></i></a>
            </label>
            <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
@@ -47,7 +47,7 @@
          <div class="col-md-4 mb-4">
            <label for="dispositionCode">Disposition Code *
              <a href="#" data-toggle="popover" data-trigger="hover" 
-                data-content="The action of the court or prosecutor relating to the charge.  Includes declinations, case filings, dismissals, pleas and findings, etc…">
+                data-content="Result of the hearing.">
                 <i class="fas fa-info-circle"></i></a>
            </label>
            <select th:field="*{dispositionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
@@ -66,7 +66,11 @@
            <div th:if="${#fields.hasErrors('counts')}" th:errors="*{counts}" class="invalid-feedback">Counts error message</div>
          </div>
          <div class="col-md-3 mb-3">
-           <label>Court Case Number </label>
+           <label>Court Case Number 
+             <a href="#" data-toggle="popover" data-trigger="hover" 
+                data-content="If Court Case Number is not available use Citation Number.">
+                <i class="fas fa-info-circle"></i></a>
+           </label>
            <input type="text" th:field="*{courtCaseNumber}" class="form-control" th:errorclass="is-invalid"/>
            <div th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}" class="invalid-feedback">Court Case Number error message</div>
          </div>
@@ -75,8 +79,7 @@
         <div class="col-md-6 mb-4">
           <label>Filed Charge *
             <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="Original charge as filed by the prosecutor. This may be the same or different from the charge at arrest.  
-                If the final charge is different than the 'filed charge', the new charge will be in the AMENDED CHARGE field.">
+               data-content="Original charge as filed. The arrest that the defendant is charged with can be same or different from charge at arrest.">
                <i class="fas fa-info-circle"></i></a>
           </label>
 	        <select th:field="*{filedCharge}" class="form-control chosen-select" th:errorclass="is-invalid">
@@ -88,7 +91,7 @@
         <div class="col-md-6 mb-4">
           <label>Amended Charge
             <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="If the final offense is different than the FILED CHARGE, the new charge will be the AMENDED CHARGE.">
+               data-content="The offense that the defendant is sentenced for is different from filed charge. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
           <select th:field="*{amendedCharge}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
@@ -118,7 +121,7 @@
         <div class="col-md-2 mb-2">
           <label>Jail Years
             <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
+               data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
           <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
@@ -127,7 +130,7 @@
         <div class="col-md-2 mb-2">
           <label>Jail Days
             <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
+               data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
           <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
@@ -160,7 +163,7 @@
           <label>Deferred Days
             <a href="#" data-toggle="popover" data-trigger="hover" 
                data-content="Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days. 
-                Cannot have deferred time and Suspended time for same charge.  ">
+                Cannot have deferred time and Suspended time for same charge. Does not result in a conviction on the rap sheet. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
           <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
@@ -176,8 +179,7 @@
         <div class="col-md-6 mb-4">
           <label>Additional Sentence
             <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="Information related to the disposition that cannot be reported using one of the previous fields.  
-               (e.g. COMMUNITY SERVICE, FINE AND COSTS, SERVING WEEKENDS ONLY, etc...)">
+               data-content="Any disposition that cannot be reported using one of the other fields and can be used as an additional sentencing.">
                <i class="fas fa-info-circle"></i></a>
           </label>
           <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
