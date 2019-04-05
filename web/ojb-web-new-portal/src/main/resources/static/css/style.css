@@ -37,7 +37,7 @@ body {
 }
 
 .banner{
-  background-image: url('https://www.fbi.gov/++theme++fbigov.theme/images/fbibanner-frontpage.png');
+  background-image: url('../images/banner-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position:center;
