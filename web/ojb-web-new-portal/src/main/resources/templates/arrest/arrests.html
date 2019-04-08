@@ -42,7 +42,8 @@
             	    $('[data-toggle="popover"]').popover(); 
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-                  $('#searchResultsTable').DataTable({
+                  var table = $('#searchResultsTable').DataTable({
+                	    responsive: true, 
                       "columnDefs": [
                           { "orderable": false, "targets": 6 },
                           {
@@ -51,6 +52,8 @@
                           },
                         ]
                   });
+                  new $.fn.dataTable.FixedHeader( table );
+                  
                   $('[data-toggle="tooltip"]').tooltip(); 
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
