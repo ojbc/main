@@ -29,7 +29,11 @@
      <!-- Begin page content -->
      <div th:fragment="arrestLookupForm">
        <div id="loadingAjaxPane" ></div>
-       <h3 class="mt-4">Arrest Lookup</h3>
+       <h3 class="mt-4">Arrest Lookup
+          <a href="#" data-toggle="popover" data-trigger="hover" 
+             data-content="This screen allows users to request that a specific arrest record be made available for viewing or editing through this tool">
+             <i class="fas fa-info-circle"></i></a>
+       </h3>
        
 	     <form action="#" id="arrestLookupForm" method="post" >
 	       <div class="form-row">
@@ -52,7 +56,7 @@
           /*]]>*/
 
           $(function(){
-              
+        	    $('[data-toggle="popover"]').popover();
               $('#arrestLookupForm input').keypress(function (e) {
                 if (e.which == 13) {
                   $('#submit').click();
