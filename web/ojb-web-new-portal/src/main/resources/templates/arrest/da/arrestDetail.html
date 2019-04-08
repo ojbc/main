@@ -110,8 +110,22 @@
             	   $('.money').mask('000,000,000,000,000', {reverse: true});
             	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
             	   
+            	   $("#searchResultsTable").DataTable({
+                       responsive: true, 
+                       fixedHeader: { header:true },
+                       dom: 'rt',
+                       columnDefs: [ 
+                           {
+                               "targets": [0, 1, 2, 3, 4],
+                               "searchable": false,
+                               "orderable": false
+                           }]
+            	   });
+            	   
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
+                		 responsive: true, 
+                		 fixedHeader: { header:true },
                 		 dom: 'rt',
                 		 order: [ 1, "desc" ],
                      language: {

@@ -40,6 +40,8 @@
                   $.fn.dataTable.moment( 'MM/DD/YYYY - HH/mm' );
 
                   var table = $('#searchResultsTable').DataTable({
+                	  responsive: true, 
+                	  fixedHeader: {header: true}, 
                     "columnDefs": [
                         { "orderable": false, "targets": 7 },
                         {

@@ -44,6 +44,7 @@
 
                   var table = $('#searchResultsTable').DataTable({
                 	    responsive: true,
+                	    fixedHeader: {header: true},
                       "columnDefs": [
                           { "orderable": false, "targets": 6 },
                           {
@@ -53,7 +54,6 @@
 
                         ]
                   });
-                  new $.fn.dataTable.FixedHeader( table );
                   
                   $('[data-toggle="tooltip"]').tooltip(); 
                   
