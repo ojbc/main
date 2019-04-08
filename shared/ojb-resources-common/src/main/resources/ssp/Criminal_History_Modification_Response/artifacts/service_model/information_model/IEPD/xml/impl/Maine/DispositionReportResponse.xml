@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<chm-resp-doc:CriminalHistoryModificationResponse
+	xmlns:chm-rep="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequestErrorReporting/1.0"
+	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
+	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
+	xmlns:chm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../../../xsd/criminal_history_modification_response.xsd">
+	<chm-resp-ext:ModificationResponseMessage>
+		<chm-resp-ext:DispositionReportResponse>
+			<chm-resp-ext:DispositionReportResponseMessage>
+				<court:CourtTransactionResponse xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+					xmlns:court="http://maine.gov/niem2/courtTransaction/1.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+					xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+					xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+					xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<court:Metadata>
+						<nc:CommentText>Disposition Report Response</nc:CommentText>
+						<nc:ReportedDate>
+							<nc:Date>2001-01-01</nc:Date>
+						</nc:ReportedDate>
+						<nc:ReportingOrganizationText>Disposition Reporting Organization</nc:ReportingOrganizationText>
+						<nc:SourceIDText>nc:SourceIDText</nc:SourceIDText>
+						<court:Version>court:Version</court:Version>
+					</court:Metadata>
+					<court:Subject>
+						<nc:PersonAlternateName />
+						<nc:PersonBirthDate>
+							<nc:Date>2001-01-01</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
+						<nc:PersonDeathDate>
+							<nc:Date>2001-01-01</nc:Date>
+						</nc:PersonDeathDate>
+						<nc:PersonHeightMeasure>
+							<nc:MeasureText>6 feet 1 inches</nc:MeasureText>
+						</nc:PersonHeightMeasure>
+						<nc:PersonLivingIndicator>true</nc:PersonLivingIndicator>
+						<nc:PersonMaritalStatusText>Married</nc:PersonMaritalStatusText>
+						<nc:PersonMedicalCondition>
+							<nc:MedicalConditionText>Diabetic</nc:MedicalConditionText>
+						</nc:PersonMedicalCondition>
+						<nc:PersonName />
+						<nc:PersonOtherIdentification>
+							<nc:IdentificationID>OID12345</nc:IdentificationID>
+						</nc:PersonOtherIdentification>
+						<nc:PersonPhysicalFeature />
+						<nc:PersonReligionText>Lutheran</nc:PersonReligionText>
+						<nc:PersonSSNIdentification>
+							<nc:IdentificationID>123456789</nc:IdentificationID>
+						</nc:PersonSSNIdentification>
+						<nc:PersonWeightMeasure>
+							<nc:MeasureText>200 lbs</nc:MeasureText>
+						</nc:PersonWeightMeasure>
+						<j:PersonAugmentation />
+					</court:Subject>
+					<court:Cycle>
+						<court:Sequence>Sequence</court:Sequence>
+						<court:Utn>12345</court:Utn>
+						<court:ArrestTrackingNumber>ATN1234567</court:ArrestTrackingNumber>
+						<court:ChargeTrackingNumber>496793</court:ChargeTrackingNumber>
+					</court:Cycle>
+					<court:ResponseType>
+						<court:StatusCode>SUCCESS</court:StatusCode>
+						<court:StatusLiteral>TRANSACTION PROCESSED SUCCESSFULLY WITHOUT ERRORS</court:StatusLiteral>
+						<court:StatusDetail>StatusDetail</court:StatusDetail>
+					</court:ResponseType>
+				</court:CourtTransactionResponse>
+			</chm-resp-ext:DispositionReportResponseMessage>
+		</chm-resp-ext:DispositionReportResponse>
+	</chm-resp-ext:ModificationResponseMessage>
+	<nc:SystemName>nc:SystemName</nc:SystemName>
+</chm-resp-doc:CriminalHistoryModificationResponse>
