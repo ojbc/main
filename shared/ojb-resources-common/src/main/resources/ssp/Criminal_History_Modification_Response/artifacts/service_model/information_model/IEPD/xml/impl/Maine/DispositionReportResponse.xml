@@ -18,12 +18,8 @@
 
 -->
 <chm-resp-doc:CriminalHistoryModificationResponse
-	xmlns:chm-rep="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequestErrorReporting/1.0"
 	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
 	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
-	xmlns:chm-rm="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponseMetadata/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../../../xsd/criminal_history_modification_response.xsd">
 	<chm-resp-ext:ModificationResponseMessage>
@@ -89,5 +85,4 @@
 			</chm-resp-ext:DispositionReportResponseMessage>
 		</chm-resp-ext:DispositionReportResponse>
 	</chm-resp-ext:ModificationResponseMessage>
-	<nc:SystemName>nc:SystemName</nc:SystemName>
 </chm-resp-doc:CriminalHistoryModificationResponse>
