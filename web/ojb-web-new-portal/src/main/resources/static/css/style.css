@@ -122,3 +122,16 @@ header span.fullname {
 .navbar-dark {
 	background-color: #000000 !important;
 }
+
+.navbar-nav .dropdown-menu{
+	background-color: #262626;
+}
+.navbar-nav .dropdown-menu .dropdown-item{
+	color: #bfbfbf;
+}
+
+.navbar-nav .dropdown-item:hover, .dropdown-item:focus {
+  color: white;
+  text-decoration: none;
+  background-color: #808080;
+}
