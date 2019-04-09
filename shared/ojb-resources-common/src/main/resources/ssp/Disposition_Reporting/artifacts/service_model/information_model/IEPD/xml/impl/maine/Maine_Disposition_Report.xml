@@ -19,10 +19,15 @@
 -->
 <disp-doc:DispositionReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../../../xsd/impl/maine/disposition_codes.xsd"
-	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
-	xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+	xmlns:me_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<disp-ext:TransactionIdentification>
+		<nc:IdentificationID>GUID12345</nc:IdentificationID>
+	</disp-ext:TransactionIdentification>
 	<nc:Person structures:id="Person_1">
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
@@ -118,7 +123,7 @@
 					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
 					<j:TermLifeIndicator>false</j:TermLifeIndicator>
 					<disp-ext:SentenceTermAugmentation>
-						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
+						<me_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
 						<me_codes:SentenceServedCode>CONCURRENT</me_codes:SentenceServedCode>
 						<disp-ext:SentenceSuspendedTimeRemainder />
 					</disp-ext:SentenceTermAugmentation>
@@ -129,7 +134,7 @@
 					<j:TermDuration>P1Y2M3DT10H30M0S</j:TermDuration>
 					<j:TermLifeIndicator>false</j:TermLifeIndicator>
 					<disp-ext:SentenceTermAugmentation>
-						<me_codes:SentenceTermCategoryCode> ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
+						<me_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE CONTINUED</me_codes:SentenceTermCategoryCode>
 						<disp-ext:SentenceSuspendedTimeRemainder />
 					</disp-ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
