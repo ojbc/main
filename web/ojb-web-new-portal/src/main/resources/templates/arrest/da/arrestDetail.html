@@ -114,11 +114,11 @@
             	   $("#searchResultsTable").DataTable({
             		    responsive: true, 
                     dom: 'rt',
+                    ordering: false,
                     columnDefs: [ 
                         {
                             "targets": [0, 1, 2, 3, 4],
-                            "searchable": false,
-                            "orderable": false
+                            "searchable": false
                         }]
             	   });
             	   

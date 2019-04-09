@@ -114,19 +114,17 @@
                      responsive: true, 
                      fixedHeader: { header:true },
                      dom: 'rt',
+                     ordering: false,
                      columnDefs: [ 
                          {
                              "targets": [0, 1, 2, 3, 4],
-                             "searchable": false,
-                             "orderable": false
+                             "searchable": false
                          }]
                  });
                  
             	   var chargeRef; 
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
-                		 responsive: true,
-                		 fixedHeader:{ header:true }, 
                 		 dom: 'rt',
                 		 order: [ 1, "desc" ],
                 		 language: {
