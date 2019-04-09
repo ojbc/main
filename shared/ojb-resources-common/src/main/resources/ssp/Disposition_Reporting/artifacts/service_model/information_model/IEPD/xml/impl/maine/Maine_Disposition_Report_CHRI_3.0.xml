@@ -23,9 +23,6 @@
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
 	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0 ../../../xsd/impl/maine/chri_codes_3.0.xsd">
-	<ext:TransactionIdentification>
-		<nc:IdentificationID>T12345</nc:IdentificationID>
-	</ext:TransactionIdentification>
 	<nc:Case>
 		<j:CaseAugmentation>
 			<j:CaseCourtEvent s:metadata="DM02">
