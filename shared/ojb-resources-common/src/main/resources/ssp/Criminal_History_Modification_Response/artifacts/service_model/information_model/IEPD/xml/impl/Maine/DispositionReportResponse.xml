@@ -20,8 +20,11 @@
 <chm-resp-doc:CriminalHistoryModificationResponse
 	xmlns:chm-resp-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0"
 	xmlns:chm-resp-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationResponse/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../../../xsd/criminal_history_modification_response.xsd">
+	<chm-resp-ext:TransactionIdentification>
+		<nc:IdentificationID>T12345</nc:IdentificationID>
+	</chm-resp-ext:TransactionIdentification>
 	<chm-resp-ext:ModificationResponseMessage>
 		<chm-resp-ext:DispositionReportResponse>
 			<chm-resp-ext:DispositionReportResponseMessage>
