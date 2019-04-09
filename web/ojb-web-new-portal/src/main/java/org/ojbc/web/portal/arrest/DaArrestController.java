@@ -49,7 +49,8 @@ import org.w3c.dom.Element;
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
-	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage"})
+	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
+	"daGeneralOffenseDescMapping"})
 @RequestMapping("/daArrests")
 public class DaArrestController {
 	private static final Log log = LogFactory.getLog(DaArrestController.class);
@@ -104,6 +105,12 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("daCaseTypeCodeMapping")) {
 			model.addAttribute("daCaseTypeCodeMapping", appProperties.getDaCaseTypeCodeMapping());
+		}
+		if (!model.containsAttribute("daGeneralOffenseCodeMapping")) {
+			model.addAttribute("daGeneralOffenseCodeMapping", appProperties.getDaGeneralOffenseCodeMapping());
+		}
+		if (!model.containsAttribute("daGeneralOffenseDescMapping")) {
+			model.addAttribute("daGeneralOffenseDescMapping", appProperties.getDaGeneralOffenseDescMapping());
 		}
 		if (!model.containsAttribute("submitArrestConfirmationMessage")) {
 			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());

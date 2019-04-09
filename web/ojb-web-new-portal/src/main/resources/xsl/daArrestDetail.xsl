@@ -135,6 +135,7 @@
 			        <col/>
 			        <col/>
 			        <col/>
+			        <col/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
@@ -150,6 +151,7 @@
 			            <th rowspan="2">DISPO CODE</th>
 			            <th rowspan="2">COUNTS</th>
 			            <th rowspan="2">COURT CASE #</th>
+			            <th rowspan="2">GENERAL OFFENSE CODE</th>
 			            <th rowspan="2">FILED CHARGE</th>
                   <th rowspan="2">F/M</th>
 			            <th rowspan="2">AMENDED CHARGE</th>
@@ -210,6 +212,7 @@
 						      <td/>
 						      <td/>
 						      <td/>
+						      <td/>
 						    </tr>
 			         </tfoot> 
 			      </table>
@@ -247,6 +250,7 @@
 		  <td>
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
+		  <td><xsl:value-of select="chsres-ext:ChargeModificationDescriptionCodeText"/></td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
 		  </td>

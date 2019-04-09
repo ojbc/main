@@ -1393,7 +1393,7 @@ public class RequestMessageBuilderUtilities {
     	}
 
     	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "DispositionChargeCountQuantity", disposition.getCounts().toString());
-    	
+    	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeModificationDescriptionCodeText", disposition.getGeneralOffenseCode());
     	if (disposition.containsSentenceInfo()) {
     		Element chargeSentence = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeSentence");
     		XmlUtils.addAttribute(chargeSentence, NS_STRUCTURES_40, "id", CHARGE_SENTENCE_01);

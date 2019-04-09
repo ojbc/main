@@ -63,8 +63,7 @@ public class Disposition {
     private String amendedChargeDescription; 
     private String chargeSeverityCode;
     private String amendedChargeSeverityCode;
-    private String filedGeneralOffenseCode;
-    private String amendedGeneralOffenseCode;
+    private String generalOffenseCode;
     
     @Min(1)
     @NumberFormat(pattern = "#,###,###,###,###")
@@ -333,18 +332,6 @@ public class Disposition {
 	public void setAmendedChargeSeverityCode(String amendedChargeSeverityCode) {
 		this.amendedChargeSeverityCode = amendedChargeSeverityCode;
 	}
-	public String getFiledGeneralOffenseCode() {
-		return filedGeneralOffenseCode;
-	}
-	public void setFiledGeneralOffenseCode(String filedGeneralOffenseCode) {
-		this.filedGeneralOffenseCode = filedGeneralOffenseCode;
-	}
-	public String getAmendedGeneralOffenseCode() {
-		return amendedGeneralOffenseCode;
-	}
-	public void setAmendedGeneralOffenseCode(String amendedGeneralOffenseCode) {
-		this.amendedGeneralOffenseCode = amendedGeneralOffenseCode;
-	}
 	public String getCounty() {
 		return county;
 	}
@@ -380,5 +367,11 @@ public class Disposition {
 	}
 	public void setCounts(Integer counts) {
 		this.counts = counts;
+	}
+	public String getGeneralOffenseCode() {
+		return generalOffenseCode;
+	}
+	public void setGeneralOffenseCode(String generalOffenseCode) {
+		this.generalOffenseCode = generalOffenseCode;
 	}
 }    

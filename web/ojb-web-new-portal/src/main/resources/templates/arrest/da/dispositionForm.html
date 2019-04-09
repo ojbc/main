@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="form-row">
-	          <div class="col-md-3 mb-2">
+	          <div class="col-md-6 mb-4">
 	            <label for="chargeSeverityCode">Filed Charge Severity
 	              <a href="#" data-toggle="popover" data-trigger="hover" 
 	                 data-content="Felony or Misdemeanor">
@@ -118,16 +118,7 @@
 	            </select>
 	            <div th:if="${#fields.hasErrors('chargeSeverityCode')}" th:errors="*{chargeSeverityCode}" class="invalid-feedback">Filed Charge Severity error message</div>
 	          </div>
-	          <div class="col-md-3 mb-2">
-	            <label for="filedGeneralOffenseCode">General Offense Code
-                <a href="#" data-toggle="popover" data-trigger="hover" 
-                   data-content="Options include ATTEMPTED or AFTER FELONY CONVICTION.  
-                   Only use if the General Offense Code is not built into offense charge. For example, 
-                   it would be unnecessary to use AFTER FELONY CONVICTION if the charge is POSSESSION OF A FIREARM AFTER FELONY CONVICTION.">
-                   <i class="fas fa-info-circle"></i></a>
-	            </label>
-	          </div>
-	          <div class="col-md-3 mb-2">
+	          <div class="col-md-6 mb-4">
 	            <label for="amendedChargeSeverityCode">Amended Charge Severity
                 <a href="#" data-toggle="popover" data-trigger="hover" 
                    data-content="Felony or Misdemeanor">
@@ -139,17 +130,28 @@
 	            </select>
 	            <div th:if="${#fields.hasErrors('amendedChargeSeverityCode')}" th:errors="*{amendedChargeSeverityCode}" class="invalid-feedback">Amended sCharge Severity error message</div>
 	          </div>
-	          <div class="col-md-3 mb-2">
-	            <label for="amendedGeneralOffenseCode">General Offense Code</label>
-	          </div>
           </div>
           <div class="form-row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
+              <label for="generalOffenseCode">General Offense Code
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Options include ATTEMPTED or AFTER FELONY CONVICTION.  
+                   Only use if the General Offense Code is not built into offense charge. For example, 
+                   it would be unnecessary to use AFTER FELONY CONVICTION if the charge is POSSESSION OF A FIREARM AFTER FELONY CONVICTION.">
+                   <i class="fas fa-info-circle"></i></a>
+              </label>
+              <select th:field="*{generalOffenseCode}" class="form-control chosen-select" th:errorclass="is-invalid">
+                 <option value="" >Please select ...</option>
+                 <option th:each="item: ${daGeneralOffenseCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
+              </select>
+              <div th:if="${#fields.hasErrors('generalOffenseCode')}" th:errors="*{generalOffenseCode}" class="invalid-feedback">General Offense Code error message</div>
+            </div>
+            <div class="col-md-3 mb-3">
               <label>Fine Amount</label>
               <input type="text" th:field="*{fineAmount}" width="250" class="money form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
               <label>Fine Suspended
                 <a href="#" data-toggle="popover" data-trigger="hover" 
                    data-content="Must be less than or equal to the fine amount.">
@@ -158,7 +160,7 @@
               <input type="text" th:field="*{fineSuspended}" width="250" class="money form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('fineSuspended')}" th:errors="*{fineSuspended}" class="invalid-feedback">Fine suspended error message</div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
                <label>Restitution</label>
                <input type="text" th:field="*{restitution}" width="10" class="money form-control" th:errorclass="is-invalid"/>
                <div th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}" class="invalid-feedback">Restitution error message</div>

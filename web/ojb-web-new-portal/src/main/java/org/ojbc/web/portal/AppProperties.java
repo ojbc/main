@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,8 @@ public class AppProperties {
 	private Map<String, String> provisionCodeMapping = new HashMap<>();
 	private Map<String, String> chargeSeverityCodeMapping = new HashMap<>();
 	private Map<String, String> daCaseTypeCodeMapping = new HashMap<>();
+	private Map<String, String> daGeneralOffenseCodeMapping;
+	private Map<String, String> daGeneralOffenseDescMapping; 
 	private String restServiceBaseUrl = "http://localhost:9898";
 	private String externalTemplatesFolder ;
 	private List<String> dispoCodesRequiringSentence;
@@ -83,7 +86,11 @@ public class AppProperties {
 		daCaseTypeCodeMapping.put("Y", "Youth");
 		
 		setFedIdsWithAuditPrivilege(Arrays.asList("HIJIS:IDP:HCJDC:USER:demouser"));
-//		setFedIdsWithAuditPrivilege(new ArrayList<>());
+		
+		Map<String, String> generalOffenseCodeMapping = new HashMap<String, String>();
+		generalOffenseCodeMapping.put("A", "Attempted");
+		generalOffenseCodeMapping.put("V", "After Felony Conviction");
+		setDaGeneralOffenseCodeMapping(generalOffenseCodeMapping);
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -228,6 +235,27 @@ public class AppProperties {
 
 	public void setDispoCodesRequiringChargeSeverity(List<String> dispoCodesRequiringChargeSeverity) {
 		this.dispoCodesRequiringChargeSeverity = dispoCodesRequiringChargeSeverity;
+	}
+
+	public Map<String, String> getDaGeneralOffenseCodeMapping() {
+		return daGeneralOffenseCodeMapping;
+	}
+
+	public void setDaGeneralOffenseCodeMapping(Map<String, String> daGeneralOffenseCodeMapping) {
+		this.daGeneralOffenseCodeMapping = daGeneralOffenseCodeMapping;
+		
+		daGeneralOffenseDescMapping = new HashMap<>();
+		for (Entry<String, String> entry: daGeneralOffenseCodeMapping.entrySet()) {
+			daGeneralOffenseDescMapping.put(entry.getValue(), entry.getKey());
+		}
+	}
+
+	public Map<String, String> getDaGeneralOffenseDescMapping() {
+		return daGeneralOffenseDescMapping;
+	}
+
+	public void setDaGeneralOffenseDescMapping(Map<String, String> daGeneralOffenseDescMapping) {
+		this.daGeneralOffenseDescMapping = daGeneralOffenseDescMapping;
 	}
 
 }

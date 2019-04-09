@@ -97,8 +97,9 @@
 				      var reasonsForDismissalMapping = [[${daReasonsForDismissalMapping}]]; 
 				      var chargeSeverityCodeMapping = [[${chargeSeverityCodeMapping}]]; 
 				      var daProvisionCodeMapping = [[${daProvisionCodeMapping}]]; 
+				      var daGeneralOffenseDescMapping = [[${daGeneralOffenseDescMapping}]]; 
 		          var submitArrestConfirmationMessage = [[${submitArrestConfirmationMessage}]];
-
+		          
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 
@@ -111,21 +112,18 @@
             	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
             	   
             	   $("#searchResultsTable").DataTable({
-                       responsive: true, 
-                       fixedHeader: { header:true },
-                       dom: 'rt',
-                       columnDefs: [ 
-                           {
-                               "targets": [0, 1, 2, 3, 4],
-                               "searchable": false,
-                               "orderable": false
-                           }]
+            		    responsive: true, 
+                    dom: 'rt',
+                    columnDefs: [ 
+                        {
+                            "targets": [0, 1, 2, 3, 4],
+                            "searchable": false,
+                            "orderable": false
+                        }]
             	   });
             	   
             	   $('table.dispositionsTable').each(function(){
                 	 dispoTables[$(this).attr('id')] = $(this).DataTable({
-                		 responsive: true, 
-                		 fixedHeader: { header:true },
                 		 dom: 'rt',
                 		 order: [ 1, "desc" ],
                      language: {
@@ -153,7 +151,7 @@
                              }
                         },
                         {
-                             "targets": [5],
+                             "targets": [6],
                              "render": function ( data, type, row, meta ) {
                             	   if (filedChargeCodeMapping.hasOwnProperty(data)){
                             		   return filedChargeCodeMapping[data];
@@ -164,7 +162,7 @@
                              }
                         },
                         {
-                            "targets": [6],
+                            "targets": [7],
                             "render": function ( data, type, row, meta ) {
                                 if (chargeSeverityCodeMapping.hasOwnProperty(data)){
                                   return chargeSeverityCodeMapping[data];
@@ -175,7 +173,7 @@
                             }
                         },
                         {
-                             "targets": [7],
+                             "targets": [8],
                              "render": function ( data, type, row, meta ) {
                             	   if (amendedChargeCodeMapping.hasOwnProperty(data)){
                             		   return amendedChargeCodeMapping[data];
@@ -186,7 +184,7 @@
                              }
                         },
                         {
-                             "targets": [8],
+                             "targets": [9],
                              "render": function ( data, type, row, meta ) {
                             	   if (chargeSeverityCodeMapping.hasOwnProperty(data)){
                             		   return chargeSeverityCodeMapping[data];
@@ -197,7 +195,7 @@
                              }
                         },
                         {
-                             "targets": [20],
+                             "targets": [21],
                              "render": function ( data, type, row, meta ) {
                             	   if (alternateSentenceMapping.hasOwnProperty(data)){
                             		   return alternateSentenceMapping[data];
@@ -208,7 +206,7 @@
                              }
                         },
                         {
-                             "targets": [21],
+                             "targets": [22],
                              "render": function ( data, type, row, meta ) {
                             	   if (reasonsForDismissalMapping.hasOwnProperty(data)){
                             		   return reasonsForDismissalMapping[data];
@@ -219,7 +217,7 @@
                              }
                         },
                         {
-                             "targets": [22],
+                             "targets": [23],
                              "render": function ( data, type, row, meta ) {
                             	   if (daProvisionCodeMapping.hasOwnProperty(data)){
                             		   return daProvisionCodeMapping[data];
@@ -230,7 +228,7 @@
                              }
                         },
                 			  {
-                		      "targets": [9, 10, 19],
+                		      "targets": [10, 11, 20],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
                 		  ]/* , 
@@ -298,24 +296,25 @@
 		                	       dispositionCode:rowData[2], 
 		                	       counts:rowData[3], 
 		                	       courtCaseNumber:rowData[4], 
-		                	       filedCharge:rowData[5], 
-		                	       chargeSeverityCode:rowData[6],
-		                	       amendedCharge:rowData[7], 
-		                	       amendedChargeSeverityCode:rowData[8],
-		                	       fineAmount:rowData[9].split('.', 1).toString(),
-		                	       fineSuspended:rowData[10].split('.', 1).toString(), 
-		                	       jailYears:rowData[11], 
-		                	       jailDays:rowData[12], 
-		                	       prisonYears:rowData[13], 
-		                	       prisonDays:rowData[14], 
-		                	       suspendedYears:rowData[15], 
-		                	       suspendedDays:rowData[16], 
-		                	       deferredYears:rowData[17],
-		                	       deferredDays:rowData[18],
-		                	       restitution:rowData[19].split('.', 1).toString(),
-		                	       alternateSentence:rowData[20],
-		                	       reasonForDismissal:rowData[21],
-		                	       provisionCode:rowData[22], 
+		                	       generalOffenseCode:daGeneralOffenseDescMapping[rowData[5]], 
+		                	       filedCharge:rowData[6], 
+		                	       chargeSeverityCode:rowData[7],
+		                	       amendedCharge:rowData[8], 
+		                	       amendedChargeSeverityCode:rowData[9],
+		                	       fineAmount:rowData[10].split('.', 1).toString(),
+		                	       fineSuspended:rowData[11].split('.', 1).toString(), 
+		                	       jailYears:rowData[12], 
+		                	       jailDays:rowData[13], 
+		                	       prisonYears:rowData[14], 
+		                	       prisonDays:rowData[15], 
+		                	       suspendedYears:rowData[16], 
+		                	       suspendedDays:rowData[17], 
+		                	       deferredYears:rowData[18],
+		                	       deferredDays:rowData[19],
+		                	       restitution:rowData[20].split('.', 1).toString(),
+		                	       alternateSentence:rowData[21],
+		                	       reasonForDismissal:rowData[22],
+		                	       provisionCode:rowData[23], 
 		                	       arrestDate: $('#arrestDate').text()
                      		   },
                      		   function(data) {
