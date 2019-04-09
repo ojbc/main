@@ -42,6 +42,27 @@
                   var table = $('#searchResultsTable').DataTable({
                 	  responsive: true, 
                 	  fixedHeader: {header: true}, 
+                    buttons: [
+                        {
+                            extend: 'csvHtml5',
+                            exportOptions: {
+                                columns: [ 0, ':visible' ]
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        'colvis'
+                    ],
                     "columnDefs": [
                         { "orderable": false, "targets": 7 },
                         {
@@ -50,6 +71,9 @@
                         },
                       ]
                   });
+                  
+                   table.buttons().container()
+                    .appendTo( '#searchResultsTable_length' ).addClass("mr-5");
                   
                   $('#searchResultsTable').on('click', 'a.requestPayload',function() {
                 	   table.$('tr.selected').removeClass('selected');
