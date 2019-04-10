@@ -52,11 +52,6 @@ public class SubscriptionSearchRequestValidator implements Validator{
 			errors.rejectValue("sid", null, sidRegexAdminSearchValidationErrorMessage);
 		}
 		
-		if (StringUtils.isNotBlank(subscriptionSearchRequest.getUcn()) 
-				&& !subscriptionSearchRequest.getUcn().matches(OjbcWebConstants.FBI_ID_REGEX)){
-			errors.rejectValue("ucn", null, "Invalid format");
-		}
-
 	}
 
 }
