@@ -210,6 +210,7 @@ public class PolicyDAOImpl implements PolicyDAO {
     private Long saveNewUser(String federationId){
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("federation_id", federationId);
+        params.put("create_date", getCurrentTimeStamp());
         
         final Number key = this.insertUser.executeAndReturnKey(params);
         return key.longValue(); 
@@ -222,5 +223,12 @@ public class PolicyDAOImpl implements PolicyDAO {
         
         Boolean valid = jdbcTemplate.queryForObject(ORI_COUNT_BY_ORI_LIST, Boolean.class, ori);
         return valid; 
+    }
+    
+    private static java.sql.Timestamp getCurrentTimeStamp() {
+
+    	java.util.Date today = new java.util.Date();
+    	return new java.sql.Timestamp(today.getTime());
+
     }
 }

@@ -108,14 +108,12 @@
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
-						<chsres-ext:ChargeModificationDescriptionCodeText>V</chsres-ext:ChargeModificationDescriptionCodeText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
-						<chsres-ext:ChargeModificationDescriptionCodeText>A</chsres-ext:ChargeModificationDescriptionCodeText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -128,6 +126,7 @@
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
+					<chsres-ext:ChargeModificationDescriptionCodeText>V</chsres-ext:ChargeModificationDescriptionCodeText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
