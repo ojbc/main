@@ -45,8 +45,7 @@
 							<nc:IdentificationID>45-6955</nc:IdentificationID>
 						</j:StatuteCodeIdentification>
 						<j:StatuteDescriptionText>Possession of paraph</j:StatuteDescriptionText>
-					</j:ChargeStatute>
-					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>	
+					</j:ChargeStatute>	
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -57,7 +56,6 @@
 						</j:StatuteCodeIdentification>
 						<j:StatuteDescriptionText>Possession of paraph</j:StatuteDescriptionText>
 					</j:ChargeStatute>
-					<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:CourtCase>
 					<nc:ActivityIdentification>
@@ -71,6 +69,7 @@
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
 				<chm-req-ext:ChargeDispositionSeverityCodeText>F</chm-req-ext:ChargeDispositionSeverityCodeText>
 				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>
+				<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
