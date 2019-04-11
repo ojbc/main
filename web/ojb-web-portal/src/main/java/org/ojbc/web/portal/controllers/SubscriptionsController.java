@@ -115,6 +115,7 @@ import org.xml.sax.InputSource;
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage"})
 public class SubscriptionsController {
 	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
+	private static final String FBI_SUBSCRIPTION_UPDATE_REQUEST_PROCESSING = "State subscription updated.  FBI subscription update request pending.";
 	private static final String FBI_UCN_DOES_NOT_EXIST_WARNING = "FBI UCN does not exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.";
 
 	private Log log = LogFactory.getLog(this.getClass());
@@ -803,11 +804,16 @@ public class SubscriptionsController {
 			
 			if (fbiIdWarning){
 			
-				if(StringUtils.isEmpty(subscription.getFbiId())){
+				if(StringUtils.isBlank(subscription.getFbiId())){
 					warningList.add(FBI_UCN_DOES_NOT_EXIST_WARNING);
 				}
 				else{
-  					warningList.add(FBI_SUBSCRIPTION_REQUEST_PROCESSING);
+					if (StringUtils.isBlank(subscription.getSystemId())){
+						warningList.add(FBI_SUBSCRIPTION_REQUEST_PROCESSING);
+					}
+					else {
+						warningList.add(FBI_SUBSCRIPTION_UPDATE_REQUEST_PROCESSING);
+					}
 				}
 			}
 		}			
@@ -1090,7 +1096,7 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String getSubscriptionDetail(HttpServletRequest request,			
+	public String editSubscription(HttpServletRequest request,			
 			@RequestParam String identificationID,
 			@RequestParam(required=false, defaultValue="false") Boolean admin,
 			@RequestParam(required=false, defaultValue="adminLanding") String editSourcePage,
