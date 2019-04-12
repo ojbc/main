@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>person-query-service-professional-license-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>OJB :: person-query-service-professional-license-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -53,6 +53,7 @@
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.0,)</ojb-enhanced-audit-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 
@@ -139,6 +140,12 @@
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
 		</dependency>
+
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-enhanced-audit-common</artifactId>
+	      <version>${ojb-enhanced-audit-common-version}</version>
+	    </dependency>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
