@@ -210,7 +210,7 @@ CREATE TABLE PERSON_SEARCH_REQUEST (
                 FBI_ID VARCHAR(20),
                 SID VARCHAR(20),
                 HEIGHT INT,
-                HEIGHT_MIX INT,
+                HEIGHT_MIN INT,
                 HEIGHT_MAX INT,
                 SSN VARCHAR(11),
                 DOB_START_DATE DATE,
