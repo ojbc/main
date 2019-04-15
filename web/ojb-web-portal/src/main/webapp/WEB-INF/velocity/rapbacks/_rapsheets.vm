@@ -43,7 +43,7 @@
 				    	ui.panel.html(tempDiv);
 				        ui.jqXHR.fail(function(e) {
 				          ui.panel.html(
-				            "The FBI’s NGI system has not responded.  Please try again later.");
+				            "The FBI's NGI system has not responded.  Please try again later.");
 				        });
 				    }
 				});
