@@ -18,6 +18,9 @@ package org.ojbc.bundles.intermediaries;
 
 import static junit.framework.Assert.assertTrue;
 
+import javax.annotation.Resource;
+
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
@@ -35,9 +38,13 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/properties-context.xml"}) 
 public class TestIncidentReportRequestServiceIntermediary{
 
+    @Resource
+    private ModelCamelContext context;
+	
     @Test
-    public void testApplicationStartup()
+    public void testApplicationStartup() throws Exception
     {
+    	context.start();
     	assertTrue(true);
-    }	
+    }
 }
