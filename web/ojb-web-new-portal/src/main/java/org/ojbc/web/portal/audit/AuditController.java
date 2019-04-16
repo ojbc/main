@@ -15,6 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.audit;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -83,6 +84,15 @@ public class AuditController {
 		
 	}
 
+	@GetMapping("/users")
+	public String getUsers( Map<String, Object> model) throws Throwable {
+		
+		List<AuditUser> users = codeTableService.getUsers();
+		model.put("users", users);
+		return "audit/users";
+		
+	}
+	
 	private void getAuditSearchResults(HttpServletRequest request, AuditSearchRequest auditSearchRequest,
 			Map<String, Object> model) throws Throwable {
 		auditSearchRequest.setFirstNameSearchMetaData(); 

@@ -61,7 +61,13 @@
 	                <a sec:authorize="hasAuthority('AUTHZ_MUNI')" class="dropdown-item" href="#" id="muniArrest">Municipal Arrests</a>
 	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="daArrest">DA Arrests</a>
 	                <a class="dropdown-item" href="#" id="arrestLookup">Arrest Lookup</a>
-	                <a sec:authorize="hasAuthority('AUTHZ_AUDIT')" class="dropdown-item" href="#" id="auditLogs">Audit Logs</a>
+	              </div>
+	            </li>
+	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_AUDIT') ">
+	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+	              <div class="dropdown-menu" aria-labelledby="dropdown09">
+	                <a class="dropdown-item" href="#" id="auditLogs">Audit Logs</a>
+	                <a class="dropdown-item" href="#" id="users">Users</a>
 	              </div>
 	            </li>
 	          </ul>
@@ -137,6 +143,15 @@
                 $(this).parent().toggleClass('show');
 
 	              xhr = $.get(context + 'audit/searchForm', function(data) {
+	                 $('#portalContent').html(data); 
+	               }).fail(ojbc.displayFailMessage);
+	              return false; 
+	          });
+	          
+	          $('#users').click(function() {   
+                $(this).parent().toggleClass('show');
+
+	              xhr = $.get(context + 'audit/users', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 

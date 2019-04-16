@@ -16,11 +16,13 @@
  */
 package org.ojbc.web.portal.services;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.audit.AuditUser;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +96,12 @@ public class CodeTableServiceStandAlone implements CodeTableService{
 
 	@Override
 	public Map<String, String> getAuditActivityTypes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AuditUser> getUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}

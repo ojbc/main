@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.audit.AuditUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
@@ -92,6 +93,13 @@ public class RestCodeTableService implements CodeTableService{
 				.block();
 	}
 	
+	public List<AuditUser> getUsers(){
+		return this.webClient.get().uri("/criminalhistory/userInformation")
+				.retrieve()
+				.bodyToMono(new ParameterizedTypeReference<List<AuditUser>>() {})
+				.defaultIfEmpty(new ArrayList<AuditUser>())
+				.block();
+	}
 	@Override
 	public Map<String, String> getDaDispositionCodeMap() {
 		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
