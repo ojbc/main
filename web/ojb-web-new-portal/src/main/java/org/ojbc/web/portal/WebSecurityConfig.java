@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**");
     }
 
     @Override
@@ -95,7 +95,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	return preauthAuthProvider;
     }
     
-    @Bean
     public SamlAuthenticationFilter samlAuthenticationFilter(
         final AuthenticationManager authenticationManager) {
     	SamlAuthenticationFilter filter = new SamlAuthenticationFilter();
