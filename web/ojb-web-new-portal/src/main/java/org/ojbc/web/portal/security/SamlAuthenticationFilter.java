@@ -19,6 +19,8 @@ package org.ojbc.web.portal.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.services.SamlService;
@@ -27,13 +29,16 @@ import org.w3c.dom.Element;
 
 public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
     
-	private SamlService samlService;
+    private final Log log = LogFactory.getLog(this.getClass());
+    
+    private SamlService samlService;
     
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
         Element samlAssertion = this.extractSAMLAssertion(request);
         request.setAttribute("samlAssertion", samlAssertion);
 
+        log.debug("Request: " + request.getRequestURL());
         String federationId = null;
         if ( samlAssertion != null) {
            try {

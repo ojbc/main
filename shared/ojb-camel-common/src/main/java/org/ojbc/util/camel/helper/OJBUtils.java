@@ -150,6 +150,7 @@ public class OJBUtils {
 		}
 				
 		
+		@SuppressWarnings("unchecked")
 		List<SoapHeader> soapHeaders = (List<SoapHeader>) exchange.getIn()
 				.getHeader(Header.HEADER_LIST);
 
