@@ -130,8 +130,13 @@ public class SubscriptionNotificationReportingProcessor {
 	private void processFbiSubscriptionCreationReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildNewFbiSubscription(report);
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
-		retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getTransactionNumber(), fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
-				+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject", false);
+		
+		if (!fbiRapbackSubscription.getRapbackCategory().equals("CS") &&  !fbiRapbackSubscription.getRapbackCategory().equals("CI"))
+		{	
+			retrieveAndSaveRapsheet(report, fbiRapbackSubscription.getTransactionNumber(), fbiRapbackSubscription.getUcn(), "fed_subcr_upd-doc:FederalSubscriptionUpdateReport/fed_subcr_upd-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr_upd-ext:Base64BinaryObject|"
+					+ "fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:CriminalHistoryDocument/nc30:DocumentBinary/fed_subcr-ext:Base64BinaryObject", false);
+		}
+		
 	}
 
 	private FbiRapbackSubscription buildFbiSubscriptionFromUpdate(
