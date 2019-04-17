@@ -89,7 +89,7 @@ public class AuditController {
 		
 		List<AuditUser> users = codeTableService.getUsers();
 		model.put("users", users);
-		return "audit/users";
+		return "audit/users::resultsPage";
 		
 	}
 	
