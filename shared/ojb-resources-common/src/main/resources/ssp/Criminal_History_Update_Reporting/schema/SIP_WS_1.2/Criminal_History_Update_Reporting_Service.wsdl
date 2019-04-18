@@ -29,6 +29,7 @@
 	xmlns:chdu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0"
 	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:cdrs-update-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
@@ -56,6 +57,8 @@
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryDemographicsUpdateReport-exchange.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryReport.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CourtDispositionRecordingStatusUpdate-exchange.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="CycleTrackingIdentifierAssignmentReport">
@@ -91,6 +94,9 @@
 	<wsdl:message name="CriminalHistoryReport">
 		<wsdl:part name="CriminalHistoryReport" element="chr-doc:CriminalHistoryReport" />
 	</wsdl:message>
+	<wsdl:message name="CourtDispositionRecordingStatusUpdate">
+		<wsdl:part name="CourtDispositionRecordingStatusUpdate" element="cdrs-update-doc:CourtDispositionRecordingStatusUpdate" />
+	</wsdl:message>
 	<wsdl:portType name="Criminal-History-Update-Reporting-Service">
 		<wsdl:operation name="ReportCycleTrackingIdentifierAssignment">
 			<wsdl:documentation>This action corresponds with the criminalHistoryCycleTrackingIdentifierAssignment subscription topic.
@@ -123,6 +129,9 @@
 		</wsdl:operation>
 		<wsdl:operation name="ReportNewCriminalHistoryEvent">
 			<wsdl:input name="CriminalHistoryReport" message="tns:CriminalHistoryReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCourtDispositionRecordingStatusUpdate">
+			<wsdl:input name="CourtDispositionRecordingStatusUpdate" message="tns:CourtDispositionRecordingStatusUpdate" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="Criminal-History-Update-Reporting-Secure-ServiceSOAPBinding"
@@ -204,6 +213,14 @@
 		<wsdl:operation name="ReportNewCriminalHistoryEvent">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportNewCriminalHistoryEvent"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCourtDispositionRecordingStatusUpdate">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCourtDispositionRecordingStatusUpdate"
 				style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
