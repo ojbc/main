@@ -46,9 +46,6 @@
 
 	    <endpoint id="criminalHistoryModificationRequestServiceAdapterEndpoint" 
 	    	uri="cxf:bean:criminalHistoryModificationRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
-
-	    <endpoint id="criminalHistoryModificationReportDispositionResponseAdapterEndpoint" 
-	    	uri="cxf:bean:criminalHistoryModificationReportDispositionResponseAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
 	
 		<endpoint id="criminalHistoryModificationPresentResponseServiceEndpoint" 
 			uri="cxf:bean:criminalHistoryModificationPresentResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>                        
@@ -163,18 +160,6 @@
 		<!--  Results Handler Route -->
 		<camel:route>
 			<camel:from uri="criminalHistoryModificationResponseServiceEndpoint"/>
-			
-			
-			<!-- Conditionally route to ReportDispositionResponse and stop. This is a one way rather than request/response operation -->
-			<camel:filter>
-				<camel:simple>${in.headers.operationName} == 'ReportDispositionResponse'</camel:simple>
-
-				<camel:log message="Routing disposition reporting response"/>
-
-				<camel:to uri="criminalHistoryModificationReportDispositionResponseAdapterEndpoint"/>
-				
-				<camel:stop/>
-			</camel:filter>	
 			
 			<camel:log message="Entering Criminal History Modification Response"></camel:log>
 			<camel:setHeader headerName="searchProfile">
