@@ -1660,7 +1660,6 @@ public class RequestMessageBuilderUtilities {
         		NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC + ":ArrestUnhideRequest");
         rootElement.setAttribute("xmlns:" + NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC, 
         		NS_ARREST_UNHIDE_REQUEST_DOC);
-        document.appendChild(rootElement);
         Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
         
 		Element arrestUnhideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideDate");
