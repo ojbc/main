@@ -26,6 +26,7 @@
 	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
 	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"	
+	xmlns:cdrs-update-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingStatusUpdate/1.0"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
@@ -37,6 +38,9 @@
 	
 		<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
 			uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
+
+		<camel:endpoint id="CriminalHistoryUpdateReportingServiceAdapterEndpoint"
+			uri="cxf:bean:CriminalHistoryUpdateReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
     
     	<camel:endpoint id="notificationBrokerServiceEndpoint" 
     		uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}"/>              
@@ -50,6 +54,19 @@
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 
 			<convertBodyTo type="java.lang.String" />
+
+			<camel:filter>
+				<camel:xpath>/cdrs-update-doc:CourtDispositionRecordingStatusUpdate</camel:xpath>
+				
+				<camel:log message="Routing court disposition recording status update message"/>
+								
+				<camel:setHeader headerName="operationName"><constant>ReportCourtDispositionRecordingStatusUpdate</constant></camel:setHeader>	
+				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>
+								
+				<camel:to uri="CriminalHistoryUpdateReportingServiceAdapterEndpoint"/>		
+			
+				<camel:stop/>
+			</camel:filter>
 
 			<!-- Multicast to the core services and member specific routes so each route gets original message -->
 			<camel:multicast>
