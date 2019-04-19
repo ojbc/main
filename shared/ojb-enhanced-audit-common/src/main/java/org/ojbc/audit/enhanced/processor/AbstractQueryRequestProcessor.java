@@ -69,6 +69,11 @@ public abstract class AbstractQueryRequestProcessor {
         	identificationSourceText = XmlUtils.xPathStringSearch(document, "//iqr:SourceSystemNameText");
         }
         
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//isr:SourceSystemNameText");
+        }
+        
         personQueryRequest.setIdentificationId(identificationId);
         personQueryRequest.setIdentificationSourceText(identificationSourceText);
         
