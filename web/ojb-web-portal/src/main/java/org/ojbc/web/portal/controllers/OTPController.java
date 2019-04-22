@@ -62,7 +62,15 @@ public class OTPController {
 		
 		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
 		
-		otpService.generateOTP(userEmail);
+		try {
+			otpService.generateOTP(userEmail);
+		} catch (Exception e) {
+			log.error("Unable to generate OTP, " + e);
+			
+			model.put("otpInfoMessageError", "There was an error and your One-Time Password could not be generated. Please report this issue to the help desk.");
+			
+			return "otp/inputForm";
+		}
 		
 		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP above.  If you did not receive the OTP, please click the 'Request New OTP' link below.");		
 		
@@ -78,7 +86,15 @@ public class OTPController {
 		
 		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
 		
-		otpService.generateOTP(userEmail);
+		try {
+			otpService.generateOTP(userEmail);
+		} catch (Exception e) {
+			log.error("Unable to generate OTP, " + e);
+			
+			model.put("otpInfoMessageError", "There was an error and your One-Time Password could not be generated. Please report this issue to the help desk.");
+			
+			return "otp/inputForm";
+		}
 		
 		model.put("otpInfoMessage", "Your One-Time Password sent to: " + userEmail);
 		
