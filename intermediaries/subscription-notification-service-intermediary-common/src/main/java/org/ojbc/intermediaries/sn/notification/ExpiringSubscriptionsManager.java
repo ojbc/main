@@ -117,6 +117,7 @@ public class ExpiringSubscriptionsManager {
 			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
 			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
 			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
+			subscriptionSearchRequest.setActive(true);
 			
 			//This method will only return active subscriptions
 			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
