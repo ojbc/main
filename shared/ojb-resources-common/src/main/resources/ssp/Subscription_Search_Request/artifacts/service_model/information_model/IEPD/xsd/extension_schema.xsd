@@ -19,12 +19,13 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />	
 	<xsd:complexType name="SubscriptionSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a subscription-based search.</xsd:documentation>
@@ -32,6 +33,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+					<xsd:element ref="ssreq-ext:SubscribingSystemIdentifier" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:AdminSearchRequestIndicator" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:RequestActiveSubscriptionsIndicator" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:RequestInactiveSubscriptionsIndicator" minOccurs="0" />
@@ -109,6 +111,11 @@
 		<xsd:annotation>
 			<xsd:documentation>A relationship between a subscribed entity and contact information.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscribingSystemIdentifier" type="intel:SystemIdentifierType">
+		<xsd:annotation>
+			<xsd:documentation>A number or code assigned by a subscribing system to uniquely identify a person or object.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="AdminSearchRequestIndicator" type="niem-xsd:boolean">

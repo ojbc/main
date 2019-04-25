@@ -34,6 +34,26 @@
 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 		</constructor-arg>
 	</bean>
+	
+	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="queryRequestSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-professional-license-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
+
+	<bean id="personQueryCriminalHistoryResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="personQueryCriminalHistoryResponseSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-professional-license-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.PersonQueryCriminalHistoryResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
 
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />

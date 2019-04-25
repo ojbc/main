@@ -18,6 +18,9 @@ package org.ojbc.warrant.repository.model;
 
 import java.time.LocalDate;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class PersonDOBAdditional {
 
 	private Integer personDOBAdditionalID;
@@ -60,4 +63,8 @@ public class PersonDOBAdditional {
 		this.sent = sent;
 	}
 
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
+    }
 }

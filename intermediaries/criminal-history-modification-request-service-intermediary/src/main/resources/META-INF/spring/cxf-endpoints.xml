@@ -91,21 +91,6 @@
             <entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>	
-	
-	<!-- Criminal History Modification Response Service, hosted by the adapter  -->	
-	<cxf:cxfEndpoint id="criminalHistoryModificationReportDispositionResponseAdapter"
-		address="${criminalHistoryModificationReportDispositionResponseAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Criminal_History_Modification_Response/schema/SIP_WS_1.2/Criminal_History_Modification_Response_Service.wsdl"
-		serviceName="ojbc:Criminal_History_Modification_Response_Service_Service" 
-		endpointName="ojbc:Criminal_History_Modification_Response_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0">
-		<cxf:properties>
-            <entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
-            <entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-            <entry key="ws-security.signature.properties" value-ref="keystoreProperties" />
-            <entry key="ws-security.signature.username" value="${keystoreCertificateAlias}" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>			
 		
 	<!-- Criminal History Modification Response Service, hosted by portal  -->
 	<cxf:cxfEndpoint id="criminalHistoryModificationPresentResponseService"
