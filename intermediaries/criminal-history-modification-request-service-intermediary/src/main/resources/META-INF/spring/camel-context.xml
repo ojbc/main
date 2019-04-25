@@ -46,9 +46,6 @@
 
 	    <endpoint id="criminalHistoryModificationRequestServiceAdapterEndpoint" 
 	    	uri="cxf:bean:criminalHistoryModificationRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
-
-	    <endpoint id="criminalHistoryModificationReportDispositionResponseAdapterEndpoint" 
-	    	uri="cxf:bean:criminalHistoryModificationReportDispositionResponseAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
 	
 		<endpoint id="criminalHistoryModificationPresentResponseServiceEndpoint" 
 			uri="cxf:bean:criminalHistoryModificationPresentResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>                        
@@ -59,18 +56,7 @@
 			
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-
-			<!-- Conditionally route to ReportDispositionResponse and stop. This is a one way rather than request/response operation -->
-			<camel:filter>
-				<camel:simple>${in.headers.operationName} == 'ReportDispositionResponse'</camel:simple>
-
-				<camel:log message="Routing disposition reporting response"/>
-
-				<camel:to uri="criminalHistoryModificationReportDispositionResponseAdapterEndpoint"/>
-				
-				<camel:stop/>
-			</camel:filter>				
-				
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>

@@ -53,12 +53,30 @@
 		<camel:route>
 			<camel:from uri="personQueryProfessionalLicenseRequestServiceEndpoint" />
 			
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.professionalLicense.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
@@ -78,9 +96,6 @@
 				</camel:otherwise>
 			</camel:choice>			
 			
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 

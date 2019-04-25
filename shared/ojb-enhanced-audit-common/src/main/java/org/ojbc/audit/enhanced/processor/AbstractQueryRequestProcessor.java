@@ -40,7 +40,12 @@ public abstract class AbstractQueryRequestProcessor {
         if (StringUtils.isBlank(identificationId))
         {
         	identificationId = XmlUtils.xPathStringSearch(document, "//nc30:IdentificationID");
-        }	
+        } 
+        
+        if (StringUtils.isBlank(identificationId))
+		{
+        	identificationId = XmlUtils.xPathStringSearch(document, "//nc40:IdentificationID");
+		}		
         
         String identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc:IdentificationSourceText");
         
@@ -49,10 +54,30 @@ public abstract class AbstractQueryRequestProcessor {
         	identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc30:SystemName");
         }	
         
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc30:IdentificationSourceText");
+        }	
+        
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc40:IdentificationSourceText");
+        }	
+
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//iqr:SourceSystemNameText");
+        }
+        
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//isr:SourceSystemNameText");
+        }
+        
         personQueryRequest.setIdentificationId(identificationId);
         personQueryRequest.setIdentificationSourceText(identificationSourceText);
         
-        log.debug("Person Search Result: " + personQueryRequest.toString());
+        log.debug("Person Query Request: " + personQueryRequest.toString());
 
         return personQueryRequest;
 	}

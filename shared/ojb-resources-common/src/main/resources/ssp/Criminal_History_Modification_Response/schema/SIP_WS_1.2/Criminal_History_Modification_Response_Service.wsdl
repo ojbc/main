@@ -60,9 +60,6 @@
 	<wsdl:message name="Finalize-Arrest-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Finalize-Arrest-Response" />
 	</wsdl:message>
-	<wsdl:message name="Disposition-Report-Response">
-		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Disposition-Report-Response" />
-	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Response_Service">
 		<wsdl:operation name="AddArrestResponse">
 			<wsdl:input message="tns:Arrest-Add-Response" name="Arrest-Add-Response" />
@@ -91,9 +88,6 @@
 		</wsdl:operation>
 		<wsdl:operation name="FinalizeArrestResponse">
 			<wsdl:input message="tns:Finalize-Arrest-Response" name="Finalize-Arrest-Response" />
-		</wsdl:operation>
-		<wsdl:operation name="ReportDispositionResponse">
-			<wsdl:input message="tns:Disposition-Report-Response" name="Disposition-Report-Response" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -164,13 +158,6 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="ReportDispositionResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ReportDispositionResponse" />
-			<wsdl:input name="Disposition-Report-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
 	</wsdl:binding>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Criminal_History_Modification_Response_Secure_ServiceSOAPBinding"
@@ -237,13 +224,6 @@
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/FinalizeArrestResponse" />
 			<wsdl:input name="Finalize-Arrest-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="ReportDispositionResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ReportDispositionResponse" />
-			<wsdl:input name="Disposition-Report-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
