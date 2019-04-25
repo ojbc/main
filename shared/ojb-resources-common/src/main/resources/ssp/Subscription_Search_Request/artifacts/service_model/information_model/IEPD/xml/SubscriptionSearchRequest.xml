@@ -17,10 +17,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ssreq-doc:SubscriptionSearchRequest xmlns:ssreq-doc="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
-	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+<ssreq-doc:SubscriptionSearchRequest
+	xmlns:ssreq-doc="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
+	<ssreq-ext:SubscribingSystemIdentifier>
+		<nc:IdentificationID>SYS1234</nc:IdentificationID>
+	</ssreq-ext:SubscribingSystemIdentifier>
 	<ssreq-ext:AdminSearchRequestIndicator>true</ssreq-ext:AdminSearchRequestIndicator>
 	<ssreq-ext:RequestActiveSubscriptionsIndicator>true</ssreq-ext:RequestActiveSubscriptionsIndicator>
 	<ssreq-ext:RequestInactiveSubscriptionsIndicator>true</ssreq-ext:RequestInactiveSubscriptionsIndicator>
