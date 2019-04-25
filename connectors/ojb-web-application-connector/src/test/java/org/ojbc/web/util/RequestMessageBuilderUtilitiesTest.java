@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.util;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +39,7 @@ import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -116,6 +119,20 @@ public class RequestMessageBuilderUtilitiesTest {
     	Assert.assertTrue("XML identical " + myDiff.toString(),
     			myDiff.identical());     
     	
+    }
+    
+    
+    @Test
+    public void testCreateSubscriptionSearchRequest() throws Exception {
+    	
+    	SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
+    	
+    	Document document = RequestMessageBuilderUtilities.createSubscriptionSearchRequest(subscriptionSearchRequest);
+    	
+    	assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:IdentificationID"));
+    	assertEquals("true", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator"));
+    	assertEquals("true", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestActiveSubscriptionsIndicator"));
+
     }
     
     @Test

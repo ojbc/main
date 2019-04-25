@@ -77,7 +77,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	Map<String, String> notificationSystemNameMap;
 	
     @RequestMapping("landingPage")
-    public String admingDefaultSearch(HttpServletRequest request,	        
+    public String adminDefaultSearch(HttpServletRequest request,	        
 	        Map<String, Object> model){
 		Element samlElement = samlService.getSamlAssertion(request);
 		

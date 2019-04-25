@@ -47,6 +47,7 @@ public class SubscriptionSearchRequest implements Serializable{
 	private String ucn; 
 	private Map<String, String> subjectIdentifiers;
 	private boolean includeExpiredSubscriptions;
+	private String subscribingSystemIdentifier;
 	
 	public SubscriptionSearchRequest(){
 		super();
@@ -169,6 +170,14 @@ public class SubscriptionSearchRequest implements Serializable{
 
 	public void setIncludeExpiredSubscriptions(boolean includeExpiredSubscriptions) {
 		this.includeExpiredSubscriptions = includeExpiredSubscriptions;
+	}
+
+	public String getSubscribingSystemIdentifier() {
+		return subscribingSystemIdentifier;
+	}
+
+	public void setSubscribingSystemIdentifier(String subscribingSystemIdentifier) {
+		this.subscribingSystemIdentifier = subscribingSystemIdentifier;
 	}
 
 }

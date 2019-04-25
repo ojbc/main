@@ -37,6 +37,7 @@ public class SubscriptionSearchRequest implements Serializable{
 	private List<String> subscriptionCategories;  
 	private String sid;
 	private String ucn; 
+	private String subscribingSystemIdentifier;
 
 	public SubscriptionSearchRequest() {
 		super();
@@ -48,6 +49,7 @@ public class SubscriptionSearchRequest implements Serializable{
 		this();
 		this.adminSearch = adminSearch;
 		status = Arrays.asList(SubscriptionStatus.ACTIVE.name());
+		this.subscribingSystemIdentifier = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	}
 
 	@Override
@@ -141,5 +143,13 @@ public class SubscriptionSearchRequest implements Serializable{
 
 	public void setOwnerFederatedId(String ownerFederatedId) {
 		this.ownerFederatedId = ownerFederatedId;
+	}
+
+	public String getSubscribingSystemIdentifier() {
+		return subscribingSystemIdentifier;
+	}
+
+	public void setSubscribingSystemIdentifier(String subscribingSystemIdentifier) {
+		this.subscribingSystemIdentifier = subscribingSystemIdentifier;
 	}
 }
