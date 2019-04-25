@@ -117,7 +117,7 @@
 			<camel:log message="Process Subscription Search Request: ${body}"/>
 			
 			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest"/>
-			<camel:log message="This is the subscription search response: ${body}"/>
+			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
 		</camel:route>		
 		
 		<camel:route id="processSubscriptionSearchByOwner">			
@@ -144,7 +144,7 @@
 				</camel:otherwise>
 			</camel:choice>
 			
-			<camel:log message="This is the subscription search response: ${body}"/>
+			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
 		
 		</camel:route>
 
