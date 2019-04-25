@@ -416,6 +416,11 @@ public class RequestMessageBuilderUtilities {
         root.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_NC, 
         		OjbcNamespaceContext.NS_NC);
 
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getSubscribingSystemIdentifier()))
+        {
+        	Element subscribedEntity = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscribedEntity");
+        	XmlUtils.appendTextElement(subscribedEntity,  OjbcNamespaceContext.NS_NC, "IdentificationID", subscriptionSearchRequest.getSubscribingSystemIdentifier());
+        }	
         
         if (subscriptionSearchRequest.getAdminSearch() != null){
         	Element adminSearchRequestIndicator = 

@@ -141,6 +141,10 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
 				}
 	        }
 		}
+		
+		String subscribingSystemIdentifier = XmlUtils.xPathStringSearch(request, 
+    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribingSystemIdentifier/nc:IdentificationID");
+    	subscriptionSearchRequest.setSubscribingSystemIdentifier(subscribingSystemIdentifier);
 
     	log.info("Parsed subscriptionSearchRequest " + subscriptionSearchRequest);
 		return subscriptionSearchRequest;

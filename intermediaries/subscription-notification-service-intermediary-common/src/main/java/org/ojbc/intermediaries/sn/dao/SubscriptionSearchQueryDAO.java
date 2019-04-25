@@ -1067,6 +1067,12 @@ public class SubscriptionSearchQueryDAO {
         
         StringBuffer staticCriteria = new StringBuffer();
 
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getSubscribingSystemIdentifier()))
+        {
+        	criteriaList.add(subscriptionSearchRequest.getSubscribingSystemIdentifier().trim());
+        	staticCriteria.append(" and upper(SUBSCRIBINGSYSTEMIDENTIFIER) = upper(?)");
+        }	
+        
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFederatedId()))
         {
         	criteriaList.add(subscriptionSearchRequest.getOwnerFederatedId().trim());
