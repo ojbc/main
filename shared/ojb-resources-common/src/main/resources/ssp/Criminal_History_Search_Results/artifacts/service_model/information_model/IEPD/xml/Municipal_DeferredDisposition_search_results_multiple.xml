@@ -71,13 +71,13 @@
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -90,7 +90,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeDisposition structures:id="Dispo_02">
 					<nc:DispositionDate>
@@ -120,7 +120,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
@@ -145,9 +145,11 @@
 					<chsres-ext:FineSuspendedAmount>
 						<nc:Amount>100.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
-					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
-					<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
-					</chsres-ext:AlternateSentenceCodeDescriptionText>
+					<chsres-ext:AlternateSentence>
+						<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+						<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+						</chsres-ext:AlternateSentenceCodeDescriptionText>
+					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
 				<j:ChargeSentence structures:id="Sentence_02">
 					<j:SentenceDeferredTerm>
@@ -169,9 +171,11 @@
 					<chsres-ext:FineSuspendedAmount>
 						<nc:Amount>50.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
-					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
-					<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
-					</chsres-ext:AlternateSentenceCodeDescriptionText>
+					<chsres-ext:AlternateSentence>
+						<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+						<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+						</chsres-ext:AlternateSentenceCodeDescriptionText>
+					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
@@ -186,16 +190,16 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1222</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
-					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>					
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>						
+						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -209,7 +213,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
@@ -234,9 +238,11 @@
 					<chsres-ext:FineSuspendedAmount>
 						<nc:Amount>100.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
-					<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
-					<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
-					</chsres-ext:AlternateSentenceCodeDescriptionText>
+					<chsres-ext:AlternateSentence>
+						<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
+						<chsres-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+						</chsres-ext:AlternateSentenceCodeDescriptionText>
+					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
