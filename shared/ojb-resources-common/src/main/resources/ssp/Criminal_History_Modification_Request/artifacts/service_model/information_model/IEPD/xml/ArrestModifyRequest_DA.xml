@@ -45,7 +45,7 @@
 							<nc:IdentificationID>45-6955</nc:IdentificationID>
 						</j:StatuteCodeIdentification>
 						<j:StatuteDescriptionText>Possession of paraph</j:StatuteDescriptionText>
-					</j:ChargeStatute>	
+					</j:ChargeStatute>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -91,7 +91,12 @@
 				<chm-req-ext:FineSuspendedAmount>
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
-				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentence>
+					<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence 1</chm-req-ext:AlternateSentenceCodeText>
+				</chm-req-ext:AlternateSentence>
+				<chm-req-ext:AlternateSentence>
+					<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence 2</chm-req-ext:AlternateSentenceCodeText>
+				</chm-req-ext:AlternateSentence>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargePrimarySystemIdentification>
 				<nc:IdentificationID>C4567893</nc:IdentificationID>
@@ -117,12 +122,12 @@
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>45-6956</nc:IdentificationID>
 						</j:StatuteCodeIdentification>
-						<j:StatuteDescriptionText>Possession of marijuana</j:StatuteDescriptionText>					
+						<j:StatuteDescriptionText>Possession of marijuana</j:StatuteDescriptionText>
 					</j:ChargeStatute>
 				</chm-req-ext:FiledCharge>
 				<chm-req-ext:DispositionCodeText>378</chm-req-ext:DispositionCodeText>
@@ -152,7 +157,9 @@
 				<chm-req-ext:FineSuspendedAmount>
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
-				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				<chm-req-ext:AlternateSentence>
+					<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+				</chm-req-ext:AlternateSentence>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargePrimarySystemIdentification>
 				<nc:IdentificationID>C13245</nc:IdentificationID>

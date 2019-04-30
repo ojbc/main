@@ -83,6 +83,20 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="AlternateSentenceType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an alternate punishment resulting from conviction of charges in a court case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="chsres-ext:AlternateSentenceCodeText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsres-ext:AlternateSentenceCodeDescriptionText" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="CriminalHistorySearchResult" type="chsres-ext:CriminalHistorySearchResultType">
 		<xsd:annotation>
 			<xsd:documentation>A summary of criminal history information.</xsd:documentation>
@@ -130,9 +144,21 @@
 			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="AlternateSentence" type="chsres-ext:AlternateSentenceType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An alternate punishment resulting from conviction of charges in a court case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>An alternate sentence code.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A code description for an alternate sentence.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ActionCodeText" type="nc:TextType" substitutionGroup="j:ArrestAugmentationPoint">
@@ -208,13 +234,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType"
-		substitutionGroup="j:SentenceAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code description for an alternate sentence.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="ChargeMunicipalCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code for a municipal charge.
@@ -227,7 +246,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A description of qualifying details that impact sentencing and severity of the charge.</xsd:documentation>
 		</xsd:annotation>
@@ -244,7 +264,8 @@
 			<xsd:documentation>True if arrest is hidden; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestHasChargeDispositionIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
+	<xsd:element name="ArrestHasChargeDispositionIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if one or more charges for an arrest has a disposition, false otherwise.</xsd:documentation>
 		</xsd:annotation>
@@ -255,7 +276,7 @@
 			<xsd:documentation>A number of disposition charges.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>			
+	</xsd:element>
 	<xsd:element name="ChargeDispositionCategoryCode" type="chsres-ext:ChargeDispositionCategoryCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
