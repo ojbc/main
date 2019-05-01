@@ -146,7 +146,7 @@ public class DispositionValidator implements Validator {
 		    			errors.rejectValue("suspendedYears", null, "may not be greater than prison time");
 		    		}
 		    	}
-		    	else if (suspendedDays > jailDays){
+		    	else if (jailDays > 0  && suspendedDays > jailDays){
 		    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
 		    			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
 		    		}
