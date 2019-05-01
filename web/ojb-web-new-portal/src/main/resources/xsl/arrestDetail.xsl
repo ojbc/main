@@ -67,7 +67,7 @@
                   OTN is used to link the filing/disposition record to the OSBI Criminal History File.  OTN consists of nine numbers and a letter. (E.G. 001234567R)">
                 <i class="fas fa-info-circle"></i></a>
 						</th>
-            <th>DATE OF Arrest
+            <th>DATE OF ARREST
               <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
                 <i class="fas fa-info-circle"></i></a>
