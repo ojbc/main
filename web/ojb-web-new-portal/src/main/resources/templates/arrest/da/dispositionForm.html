@@ -286,6 +286,10 @@
            </div>					                
       </form>
     <script th:inline="javascript">
+		    /*<![CDATA[*/
+		      var dispoCodesRequiringChargeSeverity = [[${dispoCodesRequiringChargeSeverity}]];
+		    /*]]>*/
+
 	      $(function(){
 	    	  $('[data-toggle="popover"]').popover();
 	    	  $(".chosen-select").chosen(); 
@@ -305,7 +309,6 @@
 					//520 - Nolo contendere to different charge
 					var dispoCodesForAmendedCharge = ['348', '376', '520'];
 					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
-          var dispoCodesForChargeSeverity = ['310', '348', '356', '357', '376', '520'];
           
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
@@ -319,7 +322,7 @@
 					 $('#reasonForDismissal').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
-					if (dispoCodesForChargeSeverity.includes($('#dispositionCode').val())){
+					if (dispoCodesRequiringChargeSeverity.includes($('#dispositionCode').val())){
 					 $('#chargeSeverityCode').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
@@ -456,7 +459,7 @@
 		        	  $('#reasonForDismissal').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          
-		          if (dispoCodesForChargeSeverity.includes($('#dispositionCode').val())){
+		          if (dispoCodesRequiringChargeSeverity.includes($('#dispositionCode').val())){
 		        	  $('#chargeSeverityCode').prop('disabled', false).trigger("chosen:updated");
 		          }
 		          else{

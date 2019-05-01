@@ -50,7 +50,7 @@ import org.w3c.dom.Element;
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
 	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
-	"daGeneralOffenseDescMapping"})
+	"daGeneralOffenseDescMapping", "dispoCodesRequiringChargeSeverity"})
 @RequestMapping("/daArrests")
 public class DaArrestController {
 	private static final Log log = LogFactory.getLog(DaArrestController.class);
@@ -114,6 +114,9 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("submitArrestConfirmationMessage")) {
 			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());
+		}
+		if (!model.containsAttribute("dispoCodesRequiringChargeSeverity")) {
+			model.addAttribute("dispoCodesRequiringChargeSeverity", appProperties.getDispoCodesRequiringChargeSeverity());
 		}
 		
     }
