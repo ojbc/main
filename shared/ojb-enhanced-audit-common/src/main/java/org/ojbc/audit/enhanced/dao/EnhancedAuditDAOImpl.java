@@ -736,9 +736,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			throw new IllegalStateException("Unable to retrieve person query request ID");
 		}
 		
-		if (personQueryRequests.size() == 0 ||  personQueryRequests.size() > 1)
+		if (personQueryRequests.size() == 0)
 		{
-			throw new IllegalStateException("Query returned zero or more than person query request, size: " + personQueryRequests.size());
+			throw new IllegalStateException("Query returned zero person query requests, size: " + personQueryRequests.size() + ", message id: " + messageId);
+		}
+		
+		if (personQueryRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned more than one person query requests, size: " + personQueryRequests.size() + ", message id: " + messageId);
 		}
 		
 		if (personQueryRequests.size() == 1)
