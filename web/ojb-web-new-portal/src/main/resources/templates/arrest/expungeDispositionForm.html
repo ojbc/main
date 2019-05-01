@@ -37,13 +37,14 @@
 		            <div class="col-md-3 mb-2">
 		             <label>Disposition Date *</label>
 		             <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
+		             <div id="feedback" class="invalid-feedback"></div>
 		             <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
 		           </div>
 		      </form>
 		    <script th:inline="javascript">
 			      $(function(){
               $('[data-toggle="popover"]').popover(); 
-			    	  $('#dispositionDate').datepicker({
+ 			    	  $('#dispositionDate').datepicker({
 		                  uiLibrary: 'bootstrap4', size: 'small'
 		          });
 							$('.date').mask('99/99/9999');

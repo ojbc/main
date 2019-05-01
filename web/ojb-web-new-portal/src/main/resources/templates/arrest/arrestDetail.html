@@ -305,11 +305,14 @@
                      var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
                      var dispositionDateString = $('#dispositionDate').val();
                      
-                     if (dispositionDateString && date_regex.test(dispositionDateString)){
+                     if (dispositionDateString && date_regex.test(dispositionDateString) 
+                    		 && (new Date(dispositionDateString) <= new Date())){
+                    	 $("#dispositionDate").removeClass("is-invalid").addClass("is-valid");
                     	 bootpopup.confirm("Please confirm that you would like to expunge this record.", "", function(ans) { if(ans){expungeDisposition(formData);} });
                      }
                      else{
-                    	 bootpopup.alert("Please enter valid date in the right format mm/dd/yyyy", "Error");   	 
+                    	 $("#dispositionDate").removeClass("is-valid").addClass("is-invalid");
+                    	 bootpopup.alert("Please enter non-future date in the format mm/dd/yyyy", "Error");   	 
                      }
                  });      
 

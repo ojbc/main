@@ -220,7 +220,7 @@
           <i class="fas fa-trash-alt fa-lg"></i>
         </a>
         <xsl:if test="chsres-ext:ChargeDispositionCategoryCode = 'deferred'">
-          <a href="#" class="expungeDisposition"  data-content="expunge" data-toggle="popover" data-trigger="hover" style="margin-left:3px">
+          <a href="#" class="expungeDisposition mx-1"  data-content="expunge" data-toggle="popover" data-trigger="hover" style="margin-left:3px">
              <i class="fas fa-calendar-times fa-lg" ></i>
           </a>
         </xsl:if>
