@@ -54,7 +54,10 @@
                         ]
                   });
                   
-                  $('[data-toggle="tooltip"]').tooltip(); 
+                  $('[data-toggle="tooltip"]').tooltip({
+                      trigger : 'hover'
+                  });   
+ 
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
                       xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id"), function(data) {
