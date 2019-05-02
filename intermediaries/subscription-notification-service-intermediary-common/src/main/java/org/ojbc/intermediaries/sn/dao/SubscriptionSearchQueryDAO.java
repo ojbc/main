@@ -236,7 +236,8 @@ public class SubscriptionSearchQueryDAO {
         parameters.addValue("civilSubscriptionCategoryCodes", SubscriptionCategoryCode.getCivilCodes());
 
         String sqlQuery = "select count(*) from subscription s, subscription_owner so where so.federation_id= :subscriptionOwner and active =1 "
-        		+ "and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
+        		+ " and s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID "
+        		+ " and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
 
         int subscriptionCountForOwner = this.jdbcTemplateNamedParameter.queryForObject(sqlQuery, parameters, Integer.class);
 
