@@ -77,7 +77,6 @@ public class AppProperties {
 		
 		chargeSeverityCodeMapping.put("F", "Felony");
 		chargeSeverityCodeMapping.put("M", "Misdemeanor");
-		chargeSeverityCodeMapping.put("E", "Either");
 		
 		daCaseTypeCodeMapping.put("F", "Felony");
 		daCaseTypeCodeMapping.put("M", "Misdemeanor");
