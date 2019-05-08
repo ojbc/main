@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -61,6 +62,17 @@ public class DispositionValidator implements Validator {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseType", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
+        	
+    		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(disposition.getCaseType(), 
+    				disposition.getYear(), disposition.getCaseNumber());
+    		if (isCourtCaseNumberPartsReady && "M".equals(disposition.getCaseType()) ) {
+    			if ("F".equals(disposition.getChargeSeverityCode())) {
+    				errors.rejectValue("chargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
+    			}
+    			if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
+    				errors.rejectValue("amendedChargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
+    			}
+    		}
         }
         
         validateJailSuspendedDeferredDays(disposition, errors);

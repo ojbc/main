@@ -17,7 +17,6 @@
 package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Objects;
 
 import javax.validation.constraints.Max;
@@ -156,8 +155,7 @@ public class Disposition {
 		this.courtCaseNumber = courtCaseNumber;
 	}
 	public void assembleCourtCaseNumber() {
-		boolean isCourtCaseNumberPartsReady = Arrays.asList(this.county, this.caseType, this.year, this.caseNumber)
-				.stream().allMatch(Objects::nonNull);
+		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(this.county, this.caseType, this.year, this.caseNumber);
 		if (isCourtCaseNumberPartsReady) {
 			this.courtCaseNumber = StringUtils.join(this.county, this.caseType, this.year, this.caseNumber);
 		}
