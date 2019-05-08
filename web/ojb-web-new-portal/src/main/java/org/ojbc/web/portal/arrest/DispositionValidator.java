@@ -57,7 +57,7 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("fineSuspended", null, "may not be greater than Fine Amount");
         }
         
-        if (disposition.getDispositionType() == ArrestType.DA) {
+        if (disposition.getDispositionType() == ArrestType.DA && !"390".equals(disposition.getDispositionCode())) {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseType", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
