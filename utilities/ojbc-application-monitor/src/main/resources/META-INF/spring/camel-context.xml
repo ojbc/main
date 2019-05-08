@@ -100,7 +100,15 @@
 			<camel:keyStore resource="{{truststoreLocation}}"
 				password="{{truststorePassword}}" />
 		</camel:trustManagers>
+	</camel:sslContextParameters>			
 
-	</camel:sslContextParameters>	
+    <bean id="https4" class="org.apache.camel.component.http4.HttpComponent">
+      <property name="sslContextParameters" ref="sslContextParameters"/>
+ 	  <property name="x509HostnameVerifier">
+        <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
+      </property>      
+    </bean>	
+
+	
 	
 </beans>
