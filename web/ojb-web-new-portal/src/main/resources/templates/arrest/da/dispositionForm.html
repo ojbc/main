@@ -168,35 +168,11 @@
             
           </div>
           <div class="form-row">
-            <span class="col-md-3 mb-3">Jail
+            <div class="col-md-3 pb-1 mb-3 border">
+              <label>Jail
               <a href="#" data-toggle="popover" data-trigger="hover" 
                  data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
-                 <i class="fas fa-info-circle"></i></a>
-            </span>
-            <span class="col-md-3 mb-3">
-              <label>Prison</label>
-                <a href="#" data-toggle="popover" data-trigger="hover" 
-                   data-content="Prison Time is served under the Department of Corrections. 
-                     Prison Time can only be populated if Charge Severity = felony and Court Case Number Case Type = F.  
-                     Prison Days cannot exceed 359.  360 prison days = 1 prison year.  Each month = 30 days. 6 months = 180 days.  ">
-                   <i class="fas fa-info-circle"></i></a>
-            </span>
-            <span class="col-md-3 mb-3">
-              <label>Suspended</label>
-              <a href="#" data-toggle="popover" data-trigger="hover" 
-                 data-content="Suspended time cannot be greater than Prison/Jail time. ">
-                 <i class="fas fa-info-circle"></i></a>
-            </span>
-            <span class="col-md-3 mb-3">
-              <label>Deferred</label>
-              <a href="#" data-toggle="popover" data-trigger="hover" 
-                 data-content="Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days. 
-                  Cannot have deferred time and time in Prison or Suspended for same charge.  ">
-                 <i class="fas fa-info-circle"></i></a>
-            </span>
-          </div>
-          <div class="form-row">
-            <div class="col-md-3 mb-3">
+                 <i class="fas fa-info-circle"></i></a></label><br>
               <label>Years</label>
               <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
@@ -204,7 +180,13 @@
               <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3 pb-1 border-bottom border-top border-right">
+              <label>Prison</label>
+                <a href="#" data-toggle="popover" data-trigger="hover" 
+                   data-content="Prison Time is served under the Department of Corrections. 
+                     Prison Time can only be populated if Charge Severity = felony and Court Case Number Case Type = F.  
+                     Prison Days cannot exceed 359.  360 prison days = 1 prison year.  Each month = 30 days. 6 months = 180 days.  ">
+                   <i class="fas fa-info-circle"></i></a><br>
               <label>Years</label>
               <input type="number" min="1" max="100" th:field="*{prisonYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{prisonYears}" class="invalid-feedback">Prison years error message</div>
@@ -212,7 +194,11 @@
               <input type="number" min="1" max="359" th:field="*{prisonDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('prisonDays')}" th:errors="*{prisonDays}" class="invalid-feedback">Prison days error message</div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3 pb-1 border-bottom border-top border-right">
+              <label>Suspended</label>
+              <a href="#" data-toggle="popover" data-trigger="hover" 
+                 data-content="Suspended time cannot be greater than Prison/Jail time. ">
+                 <i class="fas fa-info-circle"></i></a> <br>
               <label>Years</label>
               <input type="number" min="1" max="100" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid" disabled/>
               <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
@@ -220,7 +206,12 @@
               <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3 mb-3 pb-1 border-bottom border-right border-top">
+              <label>Deferred  <a href="#" data-toggle="popover" data-trigger="hover" 
+                 data-content="Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days. 
+                  Cannot have deferred time and time in Prison or Suspended for same charge.  ">
+                <i class="fas fa-info-circle"></i></a>
+              </label> <br>
               <label>Years</label>
               <input type="number" min="1" max="100" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
