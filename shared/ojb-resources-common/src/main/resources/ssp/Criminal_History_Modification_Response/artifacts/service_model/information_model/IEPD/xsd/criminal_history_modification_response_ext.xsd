@@ -42,6 +42,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chm-resp-ext:TransactionIdentification" minOccurs="0" />
 					<xsd:element ref="chm-resp-ext:ModificationResponseMessage" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chm-rm:CriminalHistoryModificationResponseMetadata" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:SystemName" minOccurs="0" maxOccurs="unbounded" />
@@ -59,7 +60,7 @@
 					<xsd:choice>
 						<xsd:element ref="chm-resp-ext:ArrestAddResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestModifyResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />						
+						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestUnhideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:DistrictAttorneyArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
@@ -96,7 +97,7 @@
 		<xsd:annotation>
 			<xsd:documentation>An arrest un-hide response message.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="ExpungeResponseText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>An expunge response message.</xsd:documentation>
@@ -140,6 +141,11 @@
 		<xsd:annotation>
 			<xsd:documentation>A number of disposition charges.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An Identification of a Transaction</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

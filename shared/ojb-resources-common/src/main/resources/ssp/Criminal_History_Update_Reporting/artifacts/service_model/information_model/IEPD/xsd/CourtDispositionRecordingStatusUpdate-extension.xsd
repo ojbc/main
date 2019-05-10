@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:cdrs-update-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingStatusUpdate/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	targetNamespace="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingStatusUpdate/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:complexType name="CourtDispositionRecordingStatusUpdateType">
+		<xsd:annotation>
+			<xsd:documentation>A type for a court disposition recording status update.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="cdrs-update-ext:TransactionIdentification" minOccurs="0" />
+					<xsd:element ref="cdrs-update-ext:StatusUpdateCodeText" minOccurs="0" />
+					<xsd:choice>
+						<xsd:element ref="cdrs-update-ext:CourtDispositionRecordingStatus" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="cdrs-update-ext:CourtDispositionRecordingStatusMessage" minOccurs="0" maxOccurs="unbounded" />
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtDispositionRecordingStatusType">
+		<xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CourtDispositionRecordingStatusMessageType">
+		<xsd:sequence>
+			<xsd:any processContents="skip" namespace="##any" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An Identification of a Transaction</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtDispositionRecordingStatus" type="cdrs-update-ext:CourtDispositionRecordingStatusType">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a court disposition recording status.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StatusUpdateCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a status update code text.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtDispositionRecordingStatusMessage"
+		type="cdrs-update-ext:CourtDispositionRecordingStatusMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a court disposition recording status message.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

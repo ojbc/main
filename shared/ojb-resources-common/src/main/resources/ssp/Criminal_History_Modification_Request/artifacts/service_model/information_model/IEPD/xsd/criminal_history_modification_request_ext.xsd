@@ -147,6 +147,20 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="AlternateSentenceType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an alternate punishment resulting from conviction of charges in a court case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="chm-req-ext:AlternateSentenceCodeText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:AlternateSentenceCodeDescriptionText" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="CourtCase" type="nc:CaseType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A disposition case.</xsd:documentation>
@@ -174,9 +188,21 @@
 			<xsd:documentation>The amount of a suspended fine.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType" substitutionGroup="j:SentenceAugmentationPoint">
+	<xsd:element name="AlternateSentence" type="chm-req-ext:AlternateSentenceType"
+		substitutionGroup="j:SentenceAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An alternate sentence code.</xsd:documentation>
+			<xsd:documentation>An alternate punishment resulting from conviction of charges in a court case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An alternate sentence code text.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A code description for an alternate sentence.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionDismissalReasonText" type="nc:TextType"
@@ -211,7 +237,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A description of qualifying details that impact sentencing and severity of the charge.</xsd:documentation>
 		</xsd:annotation>
@@ -220,13 +247,6 @@
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code description for a disposition.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="AlternateSentenceCodeDescriptionText" type="nc:TextType"
-		substitutionGroup="j:SentenceAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code description for an alternate sentence.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

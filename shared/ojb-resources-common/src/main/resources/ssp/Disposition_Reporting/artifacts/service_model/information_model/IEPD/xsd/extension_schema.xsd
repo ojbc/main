@@ -48,6 +48,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="disp-ext:TransactionIdentification" minOccurs="0" />
 					<xsd:element ref="cyfs:SubmittedDateTime" minOccurs="0" />
 					<xsd:element ref="disp-ext:DispositionReportOriginatingSystem" minOccurs="0" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
@@ -1161,8 +1162,14 @@
 	</xsd:element>
 	<xsd:element name="CourtEventSentenceAssociation" type="disp-ext:CourtEventSentenceAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A relationship between a court event and a charge sentence..
+			<xsd:documentation>A relationship between a court event and a charge sentence.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="TransactionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An Identification of a Transaction
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 </xsd:schema>

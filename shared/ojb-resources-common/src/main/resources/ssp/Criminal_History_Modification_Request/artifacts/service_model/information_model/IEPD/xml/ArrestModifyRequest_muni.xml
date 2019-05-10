@@ -39,13 +39,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
-					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
@@ -60,7 +60,8 @@
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
-				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>				
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>
+				<chm-req-ext:ChargeModificationDescriptionCodeText>A</chm-req-ext:ChargeModificationDescriptionCodeText>
 			</j:ChargeDisposition>
 			<j:ChargeSentence structures:id="csentence_01">
 				<j:SentenceDeferredTerm>
@@ -82,9 +83,11 @@
 				<chm-req-ext:FineSuspendedAmount>
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
-				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence Code</chm-req-ext:AlternateSentenceCodeText>
-				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
-				</chm-req-ext:AlternateSentenceCodeDescriptionText>
+				<chm-req-ext:AlternateSentence>
+					<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence Code</chm-req-ext:AlternateSentenceCodeText>
+					<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+					</chm-req-ext:AlternateSentenceCodeDescriptionText>
+				</chm-req-ext:AlternateSentence>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
@@ -101,13 +104,13 @@
 				</chm-req-ext:DispositionIdentification>
 				<chm-req-ext:AmendedCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-8</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:AmendedCharge>
 				<chm-req-ext:FiledCharge>
 					<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>					
+					<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
 					<chm-req-ext:ChargeMunicipalCodeText>4567-9</chm-req-ext:ChargeMunicipalCodeText>
 					<chm-req-ext:ChargeMunicipalCodeDescriptionText>Possession of marijuana</chm-req-ext:ChargeMunicipalCodeDescriptionText>
 				</chm-req-ext:FiledCharge>
@@ -117,7 +120,7 @@
 				<chm-req-ext:DispositionStatusCode>Modified</chm-req-ext:DispositionStatusCode>
 				<chm-req-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chm-req-ext:DispositionDismissalReasonText>
 				<chm-req-ext:DispositionDismissalReasonCodeText>DISCODE</chm-req-ext:DispositionDismissalReasonCodeText>
-				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>				
+				<chm-req-ext:DispositionChargeCountQuantity>1</chm-req-ext:DispositionChargeCountQuantity>
 			</j:ChargeDisposition>
 			<j:ChargeSentence>
 				<j:SentenceDeferredTerm>
@@ -139,9 +142,11 @@
 				<chm-req-ext:FineSuspendedAmount>
 					<nc:Amount>100.00</nc:Amount>
 				</chm-req-ext:FineSuspendedAmount>
-				<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
-				<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
-				</chm-req-ext:AlternateSentenceCodeDescriptionText>
+				<chm-req-ext:AlternateSentence>
+					<chm-req-ext:AlternateSentenceCodeText>Alternate Sentence</chm-req-ext:AlternateSentenceCodeText>
+					<chm-req-ext:AlternateSentenceCodeDescriptionText>Alternate Sentence Code Description
+					</chm-req-ext:AlternateSentenceCodeDescriptionText>
+				</chm-req-ext:AlternateSentence>
 			</j:ChargeSentence>
 			<chm-req-ext:ChargeStatusCode>Modified</chm-req-ext:ChargeStatusCode>
 			<chm-req-ext:ChargePrimarySystemIdentification>
