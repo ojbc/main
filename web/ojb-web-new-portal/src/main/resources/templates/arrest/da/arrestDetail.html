@@ -197,12 +197,18 @@
                         {
                              "targets": [21],
                              "render": function ( data, type, row, meta ) {
-                            	   if (alternateSentenceMapping.hasOwnProperty(data)){
-                            		   return alternateSentenceMapping[data];
-                            	   }
-                            	   else{
-	                                 return data;
-                            	   }
+                           		   var presented = "";
+                           		   data.split(",").forEach(function(entry){
+	                            	   if (alternateSentenceMapping.hasOwnProperty(entry)){
+	                            			 presented += alternateSentenceMapping[entry];
+	                            	   }
+	                            	   else{
+	                            		   presented +=entry;
+	                            	   }
+                            			   presented +="<br>"
+                            		  });
+                            		   
+                           		   return presented;
                              }
                         },
                         {
@@ -312,7 +318,7 @@
 		                	       deferredYears:rowData[18],
 		                	       deferredDays:rowData[19],
 		                	       restitution:rowData[20].split('.', 1).toString(),
-		                	       alternateSentence:rowData[21],
+		                	       alternateSentences:rowData[21],
 		                	       reasonForDismissal:rowData[22],
 		                	       provisionCode:rowData[23], 
 		                	       arrestDate: $('#arrestDate').text()

@@ -1431,12 +1431,11 @@ public class RequestMessageBuilderUtilities {
     			XmlUtils.appendTextElement(fineSuspendedAmount, NS_NC_40, "Amount", disposition.getFineSuspended().toString());
     		}
     		
-    		if (StringUtils.isNotBlank(disposition.getAlternateSentence())) {
-    			XmlUtils.appendTextElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-    					"AlternateSentenceCodeText", disposition.getAlternateSentence());
-    			XmlUtils.appendTextElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
-    					"AlternateSentenceCodeDescriptionText", disposition.getAlternateSentenceDescripiton());
-    		}
+    		disposition.getAlternateSentences().forEach(code->{
+    			Element alternateSentence = XmlUtils.appendElement(chargeSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "AlternateSentence");
+    			XmlUtils.appendTextElement(alternateSentence, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
+    					"AlternateSentenceCodeText", code);
+    		});
     	}
 
     	XmlUtils.appendTextElement(arrestCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargeStatusCode", "Unchanged");

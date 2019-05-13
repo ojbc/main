@@ -15,7 +15,9 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.arrest;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -295,7 +297,12 @@ public class DaArrestController {
 		Map<String, String> daFiledChargeCodeMapping = (Map<String, String>) model.get("daFiledChargeCodeMapping"); 
 		Map<String, String> daAlternateSentenceMapping = (Map<String, String>) model.get("daAlternateSentenceMapping"); 
 		
-		disposition.setAlternateSentenceDescripiton(daAlternateSentenceMapping.get(disposition.getAlternateSentence()));
+		if (!disposition.getAlternateSentences().isEmpty()) {
+			List<String> alternateSentenceDescriptions = disposition.getAlternateSentences().stream()
+					.map(daAlternateSentenceMapping::get)
+					.collect(Collectors.toList());
+			disposition.setAlternateSentenceDescriptions(alternateSentenceDescriptions);
+		}
 		disposition.setAmendedChargeDescription(daAmendedChargeCodeMapping.get(disposition.getAmendedCharge()));
 		disposition.setFiledChargeDescription(daFiledChargeCodeMapping.get(disposition.getFiledCharge()));
 		disposition.setDispositionDescription(daDispoCodeMapping.get(disposition.getDispositionCode()));

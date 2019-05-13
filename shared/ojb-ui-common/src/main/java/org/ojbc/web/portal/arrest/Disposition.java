@@ -17,6 +17,7 @@
 package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.constraints.Max;
@@ -90,8 +91,8 @@ public class Disposition {
     @Min(1)
     @NumberFormat(pattern = "#,###,###,###,###")
     private Integer restitution; 
-    private String alternateSentence; 
-    private String alternateSentenceDescripiton; 
+    private List<String> alternateSentences; 
+    private List<String> alternateSentenceDescriptions; 
     private String reasonForDismissal;
     private String reasonForDismissalDescripiton;
     private String provisionCode;
@@ -118,7 +119,7 @@ public class Disposition {
     		||  (Objects.nonNull(suspendedDays) && suspendedDays > 0) 
     		||  (Objects.nonNull(fineAmount) && fineAmount > 0) 
     		||  (Objects.nonNull(fineSuspended) && fineSuspended > 0) 
-    		|| StringUtils.isNotBlank(alternateSentence)
+    		|| !alternateSentences.isEmpty()
     		|| (Objects.nonNull(restitution) && restitution > 0) 
     		|| (dispositionType == ArrestType.DA 
     			&& ((Objects.nonNull(prisonYears) && prisonYears > 0) 
@@ -236,12 +237,6 @@ public class Disposition {
 	public void setRestitution(Integer restitution) {
 		this.restitution = restitution;
 	}
-	public String getAlternateSentence() {
-		return alternateSentence;
-	}
-	public void setAlternateSentence(String alternateSentence) {
-		this.alternateSentence = alternateSentence;
-	}
 	public String getReasonForDismissal() {
 		return reasonForDismissal;
 	}
@@ -275,12 +270,6 @@ public class Disposition {
 	}
 	public void setAmendedChargeDescription(String amendedChargeDescription) {
 		this.amendedChargeDescription = amendedChargeDescription;
-	}
-	public String getAlternateSentenceDescripiton() {
-		return alternateSentenceDescripiton;
-	}
-	public void setAlternateSentenceDescripiton(String alternateSentenceDescripiton) {
-		this.alternateSentenceDescripiton = alternateSentenceDescripiton;
 	}
 	public String getReasonForDismissalDescripiton() {
 		return reasonForDismissalDescripiton;
@@ -371,5 +360,17 @@ public class Disposition {
 	}
 	public void setGeneralOffenseCode(String generalOffenseCode) {
 		this.generalOffenseCode = generalOffenseCode;
+	}
+	public List<String> getAlternateSentences() {
+		return alternateSentences;
+	}
+	public void setAlternateSentences(List<String> alternateSentences) {
+		this.alternateSentences = alternateSentences;
+	}
+	public List<String> getAlternateSentenceDescriptions() {
+		return alternateSentenceDescriptions;
+	}
+	public void setAlternateSentenceDescriptions(List<String> alternateSentenceDescriptions) {
+		this.alternateSentenceDescriptions = alternateSentenceDescriptions;
 	}
 }    

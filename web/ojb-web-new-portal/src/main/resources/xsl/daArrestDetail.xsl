@@ -162,7 +162,7 @@
 			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
                    <th rowspan="2">RESTITUTION</th>
-                   <th rowspan="2">ALTERNATE SENTENCE</th>
+                   <th rowspan="2">ADDITIONAL SENTENCE</th>
                    <th rowspan="2">REASON FOR DISMISSAL</th>
                    <th rowspan="2">PROVISION</th>
                                      
@@ -297,7 +297,10 @@
 		    <xsl:value-of select="ancestor::chsres-ext:CriminalHistorySearchResult/j:Restitution[@structures:id=$restitutionId]/nc:ObligationDueAmount/nc:Amount"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/chsres-ext:AlternateSentenceCodeText"/>
+		    <xsl:for-each select="../j:ChargeSentence[@structures:id=$chargeSentenceId]/chsres-ext:AlternateSentence/chsres-ext:AlternateSentenceCodeText">
+		      <xsl:if test="position() != 1">,</xsl:if>
+		      <xsl:value-of select="."></xsl:value-of>
+		    </xsl:for-each>
 		  </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>

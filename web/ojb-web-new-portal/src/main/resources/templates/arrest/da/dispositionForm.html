@@ -240,11 +240,11 @@
                      (e.g. COMMUNITY SERVICE, FINE AND COSTS, SERVING WEEKENDS ONLY, etc...)">
                      <i class="fas fa-info-circle"></i></a>
                </label>
-	             <select th:field="*{alternateSentence}" class="form-control chosen-select" th:errorclass="is-invalid">
-	               <option value="" >Please select ...</option>
+	             <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid">
+	               <option value="" ></option>
 	               <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
 	             </select>
-               <div th:if="${#fields.hasErrors('alternateSentence')}" th:errors="*{alternateSentence}" class="invalid-feedback">Alternate sentence error message</div>
+               <div th:if="${#fields.hasErrors('alternateSentences')}" th:errors="*{alternateSentences}" class="invalid-feedback">Alternate sentence error message</div>
              </div>		
            </div>			                
            <div class="form-row">
