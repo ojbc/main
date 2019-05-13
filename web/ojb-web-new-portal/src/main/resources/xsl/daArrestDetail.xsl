@@ -39,6 +39,17 @@
 	</xsl:template>
 
 	<xsl:template name="arrests">
+	    <div class="chargeDropDown d-none">
+        <xsl:for-each select="j:Arrest/j:ArrestCharge">
+          <xsl:element name="option">
+            <xsl:attribute name="value">
+              <xsl:value-of select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"></xsl:value-of>
+            </xsl:attribute>
+            <xsl:value-of select="j:ChargeDescriptionText"></xsl:value-of>
+          </xsl:element>
+        </xsl:for-each>   
+      </div>
+	    
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
         <xsl:attribute name="arrestId">
           <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
@@ -107,115 +118,117 @@
 	</xsl:template>
 	
 	<xsl:template match="j:ArrestCharge">
-	   <div class="card">
+	  <xsl:variable name="chargeId" select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
+	  
+	  <div class="card">
       <div class="card-header">
         <a class="card-link" data-toggle="collapse">
            <xsl:attribute name="href">
-              <xsl:value-of select="concat('#charge', position())"></xsl:value-of>
+              <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
-      </div>
-      <div class="collapse hscroll" data-parent="#accordion">
-        <xsl:attribute name="id">
-           <xsl:value-of select="concat('charge', position())"></xsl:value-of>
-        </xsl:attribute>
-        
-        <div class="card-body">
-			      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
-               <xsl:attribute name="id">
-                   <xsl:value-of select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
-               </xsl:attribute>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <col/>
-			        <colgroup span="2"/>
-			        <colgroup span="2"/>
-			        <colgroup span="2"/>
-			        <colgroup span="2"/>
-               <col/>
-               <col/>
-               <col/>
-               <col/>
-			        <thead>
-			          <tr>
-                  <th rowspan="2">ACTION</th>
-			            <th rowspan="2">DISPO DATE</th>
-			            <th rowspan="2">DISPO CODE</th>
-			            <th rowspan="2">COUNTS</th>
-			            <th rowspan="2">COURT CASE #</th>
-			            <th rowspan="2">GENERAL OFFENSE CODE</th>
-			            <th rowspan="2">FILED CHARGE</th>
-                  <th rowspan="2">F/M</th>
-			            <th rowspan="2">AMENDED CHARGE</th>
-			            <th rowspan="2">F/M</th>
-			            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
-			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
-			            <th scope="colgroup" colspan="2" style="text-align:middle">PRISON</th>
-			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
-			            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
-                   <th rowspan="2">RESTITUTION</th>
-                   <th rowspan="2">ADDITIONAL SENTENCE</th>
-                   <th rowspan="2">REASON FOR DISMISSAL</th>
-                   <th rowspan="2">PROVISION</th>
-                                     
-			          </tr>
-			          <tr>
-                   <th scope="col">AMOUNT</th>
-                   <th scope="col">SUSPENDED</th>
-                   <th scope="col">YEARS</th>
-                   <th scope="col">DAYS</th>
-                   <th scope="col">YEARS</th>
-                   <th scope="col">DAYS</th>
-                   <th scope="col">YEARS</th>
-                   <th scope="col">DAYS</th>
-                   <th scope="col">YEARS</th>
-                   <th scope="col">DAYS</th>
-			          </tr>
-			        </thead>
-			        <tbody>
-			          <xsl:apply-templates select="j:ChargeDisposition"/>
-			        </tbody>
-               <tfoot>				          
-	              <tr>
-						      <td style="vertical-align:top; white-space: nowrap" >
-						        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
-						          <i class="fas fa-plus-square fa-lg"></i>
-						        </a>
-						      </td>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						    </tr>
-			         </tfoot> 
-			      </table>
+     </div>
+     <div class="collapse hscroll" data-parent="#accordion">
+       <xsl:attribute name="id">
+          <xsl:value-of select="concat('charge', $chargeId)"></xsl:value-of>
+       </xsl:attribute>
+       
+       <div class="card-body">
+		      <table class="table table-striped table-bordered dispositionsTable" style="width:100%">
+              <xsl:attribute name="id">
+                  <xsl:value-of select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
+              </xsl:attribute>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <col/>
+		        <colgroup span="2"/>
+		        <colgroup span="2"/>
+		        <colgroup span="2"/>
+		        <colgroup span="2"/>
+              <col/>
+              <col/>
+              <col/>
+              <col/>
+		        <thead>
+		          <tr>
+                 <th rowspan="2">ACTION</th>
+		            <th rowspan="2">DISPO DATE</th>
+		            <th rowspan="2">DISPO CODE</th>
+		            <th rowspan="2">COUNTS</th>
+		            <th rowspan="2">COURT CASE #</th>
+		            <th rowspan="2">GENERAL OFFENSE CODE</th>
+		            <th rowspan="2">FILED CHARGE</th>
+                 <th rowspan="2">F/M</th>
+		            <th rowspan="2">AMENDED CHARGE</th>
+		            <th rowspan="2">F/M</th>
+		            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
+		            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
+		            <th scope="colgroup" colspan="2" style="text-align:middle">PRISON</th>
+		            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
+		            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
+                  <th rowspan="2">RESTITUTION</th>
+                  <th rowspan="2">ADDITIONAL SENTENCE</th>
+                  <th rowspan="2">REASON FOR DISMISSAL</th>
+                  <th rowspan="2">PROVISION</th>
+                                    
+		          </tr>
+		          <tr>
+                  <th scope="col">AMOUNT</th>
+                  <th scope="col">SUSPENDED</th>
+                  <th scope="col">YEARS</th>
+                  <th scope="col">DAYS</th>
+                  <th scope="col">YEARS</th>
+                  <th scope="col">DAYS</th>
+                  <th scope="col">YEARS</th>
+                  <th scope="col">DAYS</th>
+                  <th scope="col">YEARS</th>
+                  <th scope="col">DAYS</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <xsl:apply-templates select="j:ChargeDisposition"/>
+		        </tbody>
+              <tfoot>				          
+              <tr>
+					      <td style="vertical-align:top; white-space: nowrap" >
+					        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
+					          <i class="fas fa-plus-square fa-lg"></i>
+					        </a>
+					      </td>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					      <td/>
+					    </tr>
+		         </tfoot> 
+		      </table>
         </div>
       </div>
     </div>

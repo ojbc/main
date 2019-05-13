@@ -279,6 +279,8 @@
                         arrestDate: $('#arrestDate').text() },  
                         function(data) {
 		                    	$('.modal-body').html(data);
+		                    	$("#arrestChargeIdentification").append($(".chargeDropDown").html());
+		                    	$('#arrestChargeIdentification').val(chargeId);
 		                    	$('.modal-title').html("Add Disposition");
 		                    	$('.modal-footer').html($("#saveDispositionButtons").html())
 		                      $('#dispositionModal').modal('show');
@@ -325,6 +327,8 @@
                      		   },
                      		   function(data) {
 				                      $('.modal-body').html(data);
+				                      $("#arrestChargeIdentification").append($(".chargeDropDown").html());
+				                      $('#arrestChargeIdentification').val(chargeId);
 				                      $('.modal-title').html("Edit Disposition");
 				                      $('.modal-footer').html($("#saveDispositionButtons").html())
 				                      $('#dispositionModal').modal('show');
@@ -386,7 +390,10 @@
                 	 
                 	 var chargeSeverity = $('#amendedChargeSeverityCode').val() || $('#chargeSeverityCode').val(); 
                 	 
-               	   if ( restitution > 5000 || fineAmount > 1000 || jailTime > 360  || 
+                   var originalChargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
+                   var newChargeRef = "#charge" + $("#arrestChargeIdentification").val();;
+
+               	   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || jailTime > 360  || 
                			   (chargeSeverity === 'M' && ( deferredTime > 360 || prisonTime > 0)) ){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
@@ -409,6 +416,9 @@
                		   }
                		   if (counts > 10){
                			   contentArray.push({ p: {text: "The counts exceeds 10. "}});
+               		   }
+               		   if (!(originalChargeRef === newChargeRef)){
+                       contentArray.push({ p: {text: "The disposition will be saved to charge " + $('#arrestChargeIdentification option:selected').text() + " instead."}});
                		   }
                		   
                		   contentArray.push({ p: {text: "Do you want to proceed?"}});
@@ -446,10 +456,11 @@
                  }
 
                  function saveDisposition(formData){
-                     chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "daArrests/saveDisposition",formData,function(data) {
                          if ($(data).find('div.card').length > 0){
+                        	 var chargeRef = "#charge" + $("#arrestChargeIdentification").val();
                            $("#dispositionModal .close").click();
+                           
                            $('#portalContent').html(data); 
                            $("a.card-link[href = '" + chargeRef + "']").click();
                          }

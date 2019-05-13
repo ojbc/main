@@ -178,7 +178,7 @@ public class DispositionValidator implements Validator {
 	    			errors.rejectValue("deferredYears", null, "must be empty when jail years or prison time are not empty");
 	    		}
         	}
-        	else if (disposition.getJailDays() > 90  && deferredDays <= 3600) {
+        	else if (jailDays > 90  && deferredDays <= 3600) {
         		errors.rejectValue("jailDays", null, "may not be greater than 90 when deferred time is not empty");
         	}
         	else if (deferredDays > 3600) {
