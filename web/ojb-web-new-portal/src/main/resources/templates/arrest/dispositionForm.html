@@ -31,9 +31,15 @@
     
     <form action="#" th:action="@{/arrests/saveDisposition}" th:object="${disposition}" id="dispositionForm" method="post">
       <input type="hidden" th:field="*{arrestIdentification}" />
-      <input type="hidden" th:field="*{arrestChargeIdentification}" />
       <input type="hidden" th:field="*{dispositionIdentification}" />
       <input type="hidden" th:field="*{arrestDate}" />
+      <div class="form-row">
+        <div class="col-md-6 mb-2">
+          <label>Charge at Arrest</label>
+          <select th:field="*{arrestChargeIdentification}" class="form-control chosen-select" th:errorclass="is-invalid">
+          </select>
+        </div>
+      </div>
       <div class="form-row">
           <div class="col-md-3 mb-2">
            <label>Disposition Date *
@@ -44,7 +50,7 @@
            <input type="text" th:field="*{dispositionDate}" placeholder="mm/dd/yyyy" class="date form-control" th:errorclass="is-invalid"/>
            <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
          </div>
-         <div class="col-md-4 mb-4">
+         <div class="col-md-4 mb-2">
            <label for="dispositionCode">Disposition Code *
              <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="Result of the hearing.">
@@ -65,7 +71,7 @@
            <input type="number" min="1" max="99" th:field="*{counts}" width="1" class="form-control" th:errorclass="is-invalid"/>
            <div th:if="${#fields.hasErrors('counts')}" th:errors="*{counts}" class="invalid-feedback">Counts error message</div>
          </div>
-         <div class="col-md-3 mb-3">
+         <div class="col-md-3 mb-2">
            <label>Court Case Number 
              <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="If Court Case Number is not available use Citation Number.">
@@ -76,7 +82,7 @@
          </div>
       </div>
       <div class="form-row">
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Filed Charge *
             <a href="#" data-toggle="popover" data-trigger="hover" 
                data-content="Original charge as filed. The arrest that the defendant is charged with can be same or different from charge at arrest.">
@@ -88,7 +94,7 @@
 	        </select>
           <div th:if="${#fields.hasErrors('filedCharge')}" th:errors="*{filedCharge}" class="invalid-feedback">Filed charge error message</div>
         </div>
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Amended Charge
             <a href="#" data-toggle="popover" data-trigger="hover" 
                data-content="The offense that the defendant is sentenced for is different from filed charge. ">
@@ -102,12 +108,12 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Fine Amount</label>
           <input type="text" th:field="*{fineAmount}" width="250" class="money form-control" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('fineAmount')}" th:errors="*{fineAmount}" class="invalid-feedback">Fine amount error message</div>
         </div>
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Fine Suspended
             <a href="#" data-toggle="popover" data-trigger="hover" 
                data-content="Must be less than or equal to the fine amount.">
@@ -171,12 +177,12 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Restitution</label>
           <input type="text" th:field="*{restitution}" width="10" class="money form-control" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('restitution')}" th:errors="*{restitution}" class="invalid-feedback">Restitution error message</div>
         </div>					                
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-2">
           <label>Additional Sentence
             <a href="#" data-toggle="popover" data-trigger="hover" 
                data-content="Any disposition that cannot be reported using one of the other fields and can be used as an additional sentencing.">

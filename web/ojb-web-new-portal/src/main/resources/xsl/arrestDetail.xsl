@@ -39,6 +39,17 @@
 	</xsl:template>
 
 	<xsl:template name="arrests">
+      <div class="chargeDropDown d-none">
+        <xsl:for-each select="j:Arrest/j:ArrestCharge">
+          <xsl:element name="option">
+            <xsl:attribute name="value">
+              <xsl:value-of select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"></xsl:value-of>
+            </xsl:attribute>
+            <xsl:value-of select="j:ChargeDescriptionText"></xsl:value-of>
+          </xsl:element>
+        </xsl:for-each>   
+      </div>
+      
 			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
         <xsl:attribute name="arrestId">
           <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
@@ -105,18 +116,20 @@
 	</xsl:template>
 	
 	<xsl:template match="j:ArrestCharge">
+	   <xsl:variable name="chargeId" select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
+	   
 	   <div class="card">
       <div class="card-header">
         <a class="card-link" data-toggle="collapse">
            <xsl:attribute name="href">
-              <xsl:value-of select="concat('#charge', position())"></xsl:value-of>
+              <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
       </div>
       <div class="collapse hscroll" data-parent="#accordion">
         <xsl:attribute name="id">
-           <xsl:value-of select="concat('charge', position())"></xsl:value-of>
+           <xsl:value-of select="concat('charge', $chargeId)"></xsl:value-of>
         </xsl:attribute>
         
         <div class="card-body">
