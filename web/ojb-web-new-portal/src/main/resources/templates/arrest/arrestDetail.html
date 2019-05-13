@@ -176,12 +176,18 @@
                         {
                              "targets": [16],
                              "render": function ( data, type, row, meta ) {
-                            	   if (muniAlternateSentenceMapping.hasOwnProperty(data)){
-                            		   return muniAlternateSentenceMapping[data];
-                            	   }
-                            	   else{
-	                                 return data;
-                            	   }
+                                 var presented = "";
+                                 data.split(",").forEach(function(entry){
+                                   if (muniAlternateSentenceMapping.hasOwnProperty(entry)){
+                                     presented += muniAlternateSentenceMapping[entry];
+                                   }
+                                   else{
+                                     presented +=entry;
+                                   }
+                                     presented +="<br>"
+                                  });
+                                   
+                                 return presented;
                              }
                         },
                         {
@@ -272,7 +278,7 @@
 	                       deferredYears:rowData[13],
 	                       deferredDays:rowData[14],
 	                       restitution:rowData[15].split('.', 1).toString(),
-	                       alternateSentence:rowData[16],
+	                       alternateSentences:rowData[16],
 	                       reasonForDismissal:rowData[17],
 	                       provisionCode:rowData[18], 
                          arrestDate: $('#arrestDate').text()},  function(data) {

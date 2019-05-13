@@ -16,7 +16,9 @@
  */
 package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -271,9 +273,14 @@ public class MuniArrestController {
 		Map<String, String> dispoCodeMapping = (Map<String, String>) model.get("dispoCodeMapping"); 
 		Map<String, String> muniAmendedChargeCodeMapping = (Map<String, String>) model.get("muniAmendedChargeCodeMapping"); 
 		Map<String, String> muniFiledChargeCodeMapping = (Map<String, String>) model.get("muniFiledChargeCodeMapping"); 
-//		Map<String, String> muniAlternateSentenceMapping = (Map<String, String>) model.get("muniAlternateSentenceMapping"); 
+		Map<String, String> muniAlternateSentenceMapping = (Map<String, String>) model.get("muniAlternateSentenceMapping"); 
 		
-//		disposition.setAlternateSentenceDescripiton(muniAlternateSentenceMapping.get(disposition.getAlternateSentence()));
+		if (!disposition.getAlternateSentences().isEmpty()) {
+			List<String> alternateSentenceDescriptions = disposition.getAlternateSentences().stream()
+					.map(muniAlternateSentenceMapping::get)
+					.collect(Collectors.toList());
+			disposition.setAlternateSentenceDescriptions(alternateSentenceDescriptions);
+		}
 		disposition.setAmendedChargeDescription(muniAmendedChargeCodeMapping.get(disposition.getAmendedCharge()));
 		disposition.setFiledChargeDescription(muniFiledChargeCodeMapping.get(disposition.getFiledCharge()));
 		disposition.setDispositionDescription(dispoCodeMapping.get(disposition.getDispositionCode()));
