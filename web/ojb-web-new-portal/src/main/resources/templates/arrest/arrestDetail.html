@@ -29,8 +29,14 @@
 	    <!-- Begin page content -->
 	    <div th:fragment="arrestDetail">
 	       <div id="loadingAjaxPane" ></div>
-	       
-	       <div class="card card-primary mt-4">
+	       <nav aria-label="breadcrumb">
+					    <ol class="breadcrumb">
+					    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+					    <li class="breadcrumb-item"><a href="#" class="muniArrest">Arrest Search Results</a></li>
+					    <li class="breadcrumb-item active" aria-current="page">Arrest Detail</li>
+					  </ol>
+ 				 </nav>
+ 	       <div class="card card-primary mt-4">
 					  <div class="card-header">
 					     <div class="row">
 						     <div class="col-10">

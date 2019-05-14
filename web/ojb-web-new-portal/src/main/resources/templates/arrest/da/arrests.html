@@ -29,6 +29,12 @@
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
 	      <div id="loadingAjaxPane" ></div>
+        <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Arrest Search Results</li>
+           </ol>
+        </nav>
         <h3>Arrest Search Results</h3>
         <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>

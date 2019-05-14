@@ -29,6 +29,12 @@
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
 	      <div id="loadingAjaxPane" ></div>
+        <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Users</li>
+           </ol>
+        </nav>
         <h3 class="mb-3">Users</h3>
         <div id="searchResultsList" th:fragment="resultsList" >
           <table id="searchResultsTable" class="table table-striped table-bordered dt-responsive display responsive" style="width: 100%; border-spacing: 0;">

@@ -58,16 +58,16 @@
 	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_MUNI', 'AUTHZ_DA', 'AUTHZ_AUDIT') ">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a sec:authorize="hasAuthority('AUTHZ_MUNI')" class="dropdown-item" href="#" id="muniArrest">Municipal Arrests</a>
-	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item" href="#" id="daArrest">DA Arrests</a>
+	                <a sec:authorize="hasAuthority('AUTHZ_MUNI')" class="dropdown-item muniArrest" href="#" id="muniArrest">Municipal Arrests</a>
+	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item daArrest" href="#" id="daArrest">DA Arrests</a>
 	                <a class="dropdown-item" href="#" id="arrestLookup">Arrest Lookup</a>
 	              </div>
 	            </li>
 	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_AUDIT') ">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a class="dropdown-item" href="#" id="auditLogs">Audit Logs</a>
-	                <a class="dropdown-item" href="#" id="users">Users</a>
+	                <a class="dropdown-item auditLogs" href="#" id="auditLogs">Audit Logs</a>
+	                <a class="dropdown-item users" href="#" id="users">Users</a>
 	              </div>
 	            </li>
 	          </ul>
@@ -124,7 +124,7 @@
 	          var context = [[@{/}]];
 	      /*]]>*/
 	      $(function(){
-	          $('#daArrest').click(function() {   
+	    	  $('body').on('click', 'a.daArrest', function() {   
                 $(this).parent().toggleClass('show');
 
 	              xhr = $.get(context + 'daArrests', function(data) {
@@ -132,7 +132,7 @@
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 
 	          });
-	          $('#muniArrest').click(function() {   
+	          $('body').on('click', 'a.muniArrest', function() {   
                 $(this).parent().toggleClass('show');
 
 	              xhr = $.get(context + 'muniArrests', function(data) {

@@ -29,6 +29,12 @@
 	    <!-- Begin page content -->
 	    <div th:fragment="resultsPage">
 	      <div id="loadingAjaxPane" ></div>
+				<nav aria-label="breadcrumb">
+				     <ol class="breadcrumb">
+				     <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+				     <li class="breadcrumb-item active" aria-current="page">Audit Logs</li>
+				   </ol>
+				</nav>
         <h3>Audit Search</h3>
         <form action="#" th:replace="audit/auditSearchForm.html :: auditSearchForm"/>
         <hr/>

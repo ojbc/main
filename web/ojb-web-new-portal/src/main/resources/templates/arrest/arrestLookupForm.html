@@ -29,6 +29,12 @@
      <!-- Begin page content -->
      <div th:fragment="arrestLookupForm">
        <div id="loadingAjaxPane" ></div>
+       <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Arrest Lookup</li>
+          </ol>
+       </nav>
        <h3 class="mt-4">Arrest Lookup
           <a href="#" data-toggle="popover" data-trigger="hover" 
              data-content="This screen allows users to request that a specific arrest record be made available for viewing or editing through this tool">
