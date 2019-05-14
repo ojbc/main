@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**");
     }
 
     @Override
@@ -68,6 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers("/arrests/**").hasAnyAuthority("AUTHZ_DA", "AUTHZ_MUNI")
 		    .antMatchers("/audit/**").hasAnyAuthority("AUTHZ_AUDIT")
 		    .anyRequest().authenticated()
+		    .and()
+	    	.logout().logoutUrl("/logout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
 		    .and().securityContext()
 		    .and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),

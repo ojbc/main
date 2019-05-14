@@ -52,6 +52,7 @@ public class AppProperties {
 	private Boolean ajpEnabled = true; 
 	private String submitArrestConfirmationMessage="You are about to submit this arrest to OSBI.  "
 			+ "If you would like to edit this arrest in the future, you will need to use the \"Arrest Lookup\" functionality in this tool";
+	private String signOutUrl = "/logoutSuccess"; 
 	
 	public AppProperties() {
 		super();
@@ -255,6 +256,14 @@ public class AppProperties {
 
 	public void setDaGeneralOffenseDescMapping(Map<String, String> daGeneralOffenseDescMapping) {
 		this.daGeneralOffenseDescMapping = daGeneralOffenseDescMapping;
+	}
+
+	public String getSignOutUrl() {
+		return signOutUrl;
+	}
+
+	public void setSignOutUrl(String signOutUrl) {
+		this.signOutUrl = signOutUrl;
 	}
 
 }

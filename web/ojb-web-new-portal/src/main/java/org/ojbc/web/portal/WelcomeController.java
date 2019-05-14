@@ -15,25 +15,30 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.services.SamlService;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class WelcomeController {
 	private static final Log log = LogFactory.getLog(WelcomeController.class);
 
-	// inject via application.properties
-	@Value("${welcome.message:test}")
-	private String message = "Hello World";
+	@Resource
+	AppProperties appProperties;
 	
 	@Resource
 	SamlService samlService;
@@ -43,8 +48,22 @@ public class WelcomeController {
 		
 		log.info("in welcome");
 		samlService.getSamlAssertion(request);
-		model.put("message", this.message);
 		return "index";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
+	    return "redirect:" + appProperties.getSignOutUrl();
+	}
+
+	@GetMapping("/logoutSuccess")
+	public String logoutSuccess(Model model) throws IOException {
+		
+		return "logoutSuccess";
 	}
 
 }
