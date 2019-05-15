@@ -268,6 +268,9 @@
                          showclose: false,
                          content: contentArray, 
                          no: function() {},
+                         complete: function() {
+                             $('#submitArrestModal').css('overflow-y', 'auto');
+                         },
                          yes: function(data, array, event) {  
                              xhr = $.get( context +"daArrests/" + $('#searchResultsTable').attr('arrestId') + "/finalize", function(data) {
                                 $("#submitArrestModal .close").click(); 
@@ -285,11 +288,11 @@
                         arrestChargeIdentification:chargeId, 
                         arrestDate: $('#arrestDate').text() },  
                         function(data) {
-		                    	$('.modal-body').html(data);
+		                    	$('#dispositionModal .modal-body').html(data);
 		                    	$("#arrestChargeIdentification").append($(".chargeDropDown").html());
 		                    	$('#arrestChargeIdentification').val(chargeId);
-		                    	$('.modal-title').html("Add Disposition");
-		                    	$('.modal-footer').html($("#saveDispositionButtons").html())
+		                    	$('#dispositionModal .modal-title').html("Add Disposition");
+		                    	$('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
 		                      $('#dispositionModal').modal('show');
  	                      }).fail(ojbc.displayFailMessage);
                  }); 
@@ -333,11 +336,11 @@
 		                	       arrestDate: $('#arrestDate').text()
                      		   },
                      		   function(data) {
-				                      $('.modal-body').html(data);
+				                      $('#dispositionModal .modal-body').html(data);
 				                      $("#arrestChargeIdentification").append($(".chargeDropDown").html());
 				                      $('#arrestChargeIdentification').val(chargeId);
-				                      $('.modal-title').html("Edit Disposition");
-				                      $('.modal-footer').html($("#saveDispositionButtons").html())
+				                      $('#dispositionModal .modal-title').html("Edit Disposition");
+				                      $('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
 				                      $('#dispositionModal').modal('show');
 				                   }).fail(ojbc.displayFailMessage);
                  });
@@ -351,9 +354,9 @@
                            arrestChargeIdentification:chargeId, 
                            dispositionIdentification:$(this).closest("tr").attr("id")},  
                            function(data) {
-                        $('.modal-body').html(data);
-                        $('.modal-title').html('Expunge Disposition <a href="#" data-toggle="popover" data-trigger="hover" data-content="Expunging a charge will remove the original plea and update the disposition to \'PLED NOT GUILTY, CASE DISMISSED\'. The arrest will remain the record. "><i class="fas fa-info-circle"></i></a>');
-                        $('.modal-footer').html($("#expungeDispositionButtons").html())
+                        $('#dispositionModal .modal-body').html(data);
+                        $('#dispositionModal .modal-title').html('Expunge Disposition <a href="#" data-toggle="popover" data-trigger="hover" data-content="Expunging a charge will remove the original plea and update the disposition to \'PLED NOT GUILTY, CASE DISMISSED\'. The arrest will remain the record. "><i class="fas fa-info-circle"></i></a>');
+                        $('#dispositionModal .modal-footer').html($("#expungeDispositionButtons").html())
                         $('#dispositionModal').modal('show');
                      }).fail(ojbc.displayFailMessage);
                   });
@@ -434,7 +437,10 @@
                          showclose: false,
                          content: contentArray, 
                          no: function() {},
-                         yes: function(data, array, event) {  
+                         complete: function() {
+                        	 $('#dispositionModal').css('overflow-y', 'auto');
+                         },
+                         yes: function(data, array, event) { 
                         	 saveDisposition(formData);
                        	 },
                      });
@@ -456,7 +462,7 @@
                            $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
-                           $('.modal-body').html(data);
+                           $('#dispositionModal .modal-body').html(data);
                            $('#dispositionModal').modal('show');
                          }
                      }).fail(ojbc.displayFailMessage);
@@ -464,16 +470,18 @@
 
                  function saveDisposition(formData){
                      xhr = $.post(context + "daArrests/saveDisposition",formData,function(data) {
+                         var chargeId = $("#arrestChargeIdentification").val();
                          if ($(data).find('div.card').length > 0){
-                        	 var chargeRef = "#charge" + $("#arrestChargeIdentification").val();
+                        	 var chargeRef = "#charge" + chargeId;
                            $("#dispositionModal .close").click();
                            
                            $('#portalContent').html(data); 
                            $("a.card-link[href = '" + chargeRef + "']").click();
                          }
                          else{
-                           $('.modal-body').html(data);
-                           $('#dispositionModal').modal('show');
+                           $('#dispositionModal .modal-body').html(data);
+                           $("#arrestChargeIdentification").append($(".chargeDropDown").html());
+                           $('#arrestChargeIdentification').val(chargeId);
                          }
                        }).fail(ojbc.displayFailMessage);
                  }
