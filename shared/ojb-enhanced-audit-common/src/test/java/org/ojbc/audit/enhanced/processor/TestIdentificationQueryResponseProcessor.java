@@ -75,6 +75,8 @@ public class TestIdentificationQueryResponseProcessor {
 		assertEquals("A1000999", identificationQueryResponse.getOtn());
 		
 		assertEquals("ORI1234", identificationQueryResponse.getOri());
+		
+		assertEquals("RBMAPTEST2", identificationQueryResponse.getOca());
 
 		identificationQueryResponseSQLProcessor.auditIdentificationQueryResponse(document, "999888777666555");
 		

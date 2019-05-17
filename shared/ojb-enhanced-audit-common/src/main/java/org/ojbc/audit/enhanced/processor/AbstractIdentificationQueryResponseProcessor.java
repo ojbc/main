@@ -82,7 +82,7 @@ public abstract class AbstractIdentificationQueryResponseProcessor {
 			identificationQueryResponse.setOtn(otn);
 		}			
 		
-		String oca =  XmlUtils.xPathStringSearch(document, "/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/nc30:EntityOrganization/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		String oca =  XmlUtils.xPathStringSearch(document, "/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/nc30:EntityOrganization/nc30:OrganizationIdentification/nc30:IdentificationID");
 		
 		if (StringUtils.isNotBlank(oca))
 		{
