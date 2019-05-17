@@ -41,7 +41,6 @@
 		<route id="sendToFbiEbtsAdapter">
 			<from uri="direct:sentToFbiEbtsAdapter"/>								
 			<log message="\n Operation Name: ${header.operationName} \n"/>
-			<log message="\n message body: ${body} \n"/>
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
 			
 			<camel:choice>
