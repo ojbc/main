@@ -21,6 +21,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -28,6 +29,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 
 
 public interface EnhancedAuditDAO {
@@ -39,6 +41,10 @@ public interface EnhancedAuditDAO {
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
+	
+	public Integer saveVehicleSearchRequest(VehicleSearchRequest vehicleSearchRequest);
+	
+	public Integer saveIncidentSearchRequest(IncidentSearchRequest incidentSearchRequest);
 	
 	public Integer saveIdentificationSearchRequest(IdentificationSearchRequest identificationSearchRequest);
 	
@@ -71,6 +77,10 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+	
+	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk, Integer systemsToSearchPk);
+	
+	public Integer saveVehicleSystemToSearch(Integer vehicleSearchPk, Integer systemsToSearchPk);
 
 	public Integer retrieveIdentificationReasonCodeFromDescription(String description);
 	

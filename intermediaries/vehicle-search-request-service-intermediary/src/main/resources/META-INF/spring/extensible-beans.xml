@@ -35,6 +35,26 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="vehicleSearchSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="vehicleSearchSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.vehicle-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.VehicleSearchRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>
+	
+	<bean id="vehicleSearchResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="vehicleSearchResponseSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.vehicle-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.VehicleSearchResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
+
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.vehicle-search-request-service-intermediary-context" />

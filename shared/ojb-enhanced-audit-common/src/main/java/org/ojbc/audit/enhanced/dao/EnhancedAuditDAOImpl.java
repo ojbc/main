@@ -34,6 +34,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
@@ -43,6 +44,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -299,6 +301,129 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	        
 	}	
+	
+	@Override
+	public Integer saveVehicleSearchRequest(
+			VehicleSearchRequest vehicleSearchRequest) {
+
+        log.debug("Inserting row into VEHICLE_SEARCH_REQUEST table : " + vehicleSearchRequest);
+        
+        final String VEHICLE_SEARCH_INSERT="INSERT into VEHICLE_SEARCH_REQUEST "
+        		+ "(MESSAGE_ID, ON_BEHALF_OF, PURPOSE, USER_INFO_ID, COLOR, VIN, PLATE_NUMBER, MAKE, MODEL, YEAR_RANGE_START, YEAR_RANGE_END) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_SEARCH_INSERT, new String[] {"VEHICLE_SEARCH_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getOnBehalfOf(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getPurpose(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getUserInfofk(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleColor(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleIdentificationNumber(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleLicensePlate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleMake(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleModel(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleYearRangeEnd(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchRequest.getVehicleYearRangeStart(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+		
+	}
+	
+	@Override
+	public Integer saveIncidentSearchRequest(
+			IncidentSearchRequest incidentSearchRequest) {
+        log.debug("Inserting row into INCIDENT_SEARCH_REQUEST table : " + incidentSearchRequest);
+        
+        final String INCIDENT_SEARCH_INSERT="INSERT into INCIDENT_SEARCH_REQUEST "
+        		+ "(MESSAGE_ID, ON_BEHALF_OF, PURPOSE, USER_INFO_ID, CITY_TOWN, INCIDENT_NUMBER, INCIDENT_START_DATE, INCIDENT_END_DATE) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_SEARCH_INSERT, new String[] {"INCIDENT_SEARCH_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getOnBehalfOf(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getPurpose(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getUserInfofk(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getCityTown(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getIncidentNumber(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getStartDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchRequest.getEndDate(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }	
+	
+	@Override
+	public Integer saveVehicleSystemToSearch(Integer vehicleSearchPk,
+			Integer systemsToSearchPk) {
+        log.debug("Inserting rows into VEHICLE_SYSTEMS_TO_SEARCH table : " + systemsToSearchPk.toString());
+        
+        final String VEHICLE_SYSTEMS_TO_SEARCH_INSERT="INSERT into VEHICLE_SYSTEMS_TO_SEARCH "
+        		+ "(VEHICLE_SEARCH_REQUEST_ID, SYSTEMS_TO_SEARCH_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_SYSTEMS_TO_SEARCH_INSERT, new String[] {"VEHICLE_SYSTEMS_TO_SEARCH_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	 	
+    }	
+	
+	@Override
+	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk,
+			Integer systemsToSearchPk) {
+		
+        log.debug("Inserting rows into INCIDENT_SYSTEMS_TO_SEARCH table : " + systemsToSearchPk.toString());
+        
+        final String INCIDENT_SYSTEMS_TO_SEARCH_INSERT="INSERT into INCIDENT_SYSTEMS_TO_SEARCH "
+        		+ "(INCIDENT_SEARCH_REQUEST_ID, SYSTEMS_TO_SEARCH_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_SYSTEMS_TO_SEARCH_INSERT, new String[] {"INCIDENT_SYSTEMS_TO_SEARCH_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	 	
+	}
 	
 	@Override
 	public Integer saveUserInfo(UserInfo userInfo) {
