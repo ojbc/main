@@ -41,7 +41,6 @@
 		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
 		<cxf-version>3.0.5</cxf-version>
-		<saxon-version>9.5.1-5</saxon-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
@@ -56,6 +55,7 @@
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.2,)</ojb-enhanced-audit-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 
@@ -76,6 +76,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
@@ -151,6 +156,12 @@
 
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-enhanced-audit-common</artifactId>
+	      <version>${ojb-enhanced-audit-common-version}</version>
+	    </dependency>
+
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-resources-common</artifactId>
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
@@ -215,15 +226,6 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j-version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>${saxon-version}</version>
-			<type>pom</type>
-			<scope>compile</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
