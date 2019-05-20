@@ -92,12 +92,24 @@
 					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
-						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
-						
-				        <doCatch>
-				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
-				        </doCatch>
+						<camel:filter>
+							<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest'</camel:simple>
+							<camel:log message="Enhanced auditing of Person/Vehicle to Incident"/>
+							
+							<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
+						</camel:filter>
+
+						<camel:filter>
+							<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest'</camel:simple>
+							<camel:log message="Enhanced auditing of Incident Search"/>
+							
+							<camel:to uri="bean:incidentSearchRequestSQLLoggingProcessor?method=auditIncidentSearchRequest"/>
+						</camel:filter>
+					   
+						<doCatch>
+							<exception>java.lang.Exception</exception>
+							<camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+						</doCatch>
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>
