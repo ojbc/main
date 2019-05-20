@@ -70,7 +70,7 @@ public class TestVehicleSearchProcessor {
 		
 		vehicleSearchRequestProcessor.setUserInfoSQLProcessor(userInfoSQLProcessor);
 		
-        File inputFile = new File("src/test/resources/xmlInstances/vehicleSearchRequest.xml");
+        File inputFile = new File("src/test/resources/xmlInstances/VehicleSearchRequest.xml");
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
