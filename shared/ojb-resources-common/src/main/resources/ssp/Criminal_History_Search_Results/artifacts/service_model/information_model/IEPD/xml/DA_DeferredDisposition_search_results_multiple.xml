@@ -72,12 +72,18 @@
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -88,11 +94,11 @@
 					</chsres-ext:CourtCase>
 					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
-					<chsres-ext:DispositionProvisionText>Provision</chsres-ext:DispositionProvisionText>
+					<chsres-ext:DispositionProvisionText>Provision 1</chsres-ext:DispositionProvisionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
+					<chsres-ext:DispositionChargeCountQuantity>3</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeDisposition structures:id="Dispo_02">
 					<nc:DispositionDate>
@@ -104,14 +110,20 @@
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
-						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA2</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
-						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
+						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA2</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -122,7 +134,7 @@
 					</chsres-ext:CourtCase>
 					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
-					<chsres-ext:DispositionProvisionText>Provision</chsres-ext:DispositionProvisionText>
+					<chsres-ext:DispositionProvisionText>Provision 2</chsres-ext:DispositionProvisionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
@@ -139,17 +151,17 @@
 						<j:TermDuration>P2Y1D</j:TermDuration>
 					</j:SentenceDeferredTerm>
 					<j:SentenceSuspendedTerm>
-						<j:TermDuration>P4Y6D</j:TermDuration>
+						<j:TermDuration>P4Y10M6D</j:TermDuration>
 					</j:SentenceSuspendedTerm>
 					<j:SentenceTerm>
 						<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
-						<j:TermDuration>P4Y6D</j:TermDuration>
+						<j:TermDuration>P4Y10M6D</j:TermDuration>
 					</j:SentenceTerm>
 					<j:SupervisionFineAmount>
-						<nc:Amount>200.00</nc:Amount>
+						<nc:Amount>50.00</nc:Amount>
 					</j:SupervisionFineAmount>
 					<chsres-ext:FineSuspendedAmount>
-						<nc:Amount>100.00</nc:Amount>
+						<nc:Amount>150.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentence>
 						<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
@@ -199,7 +211,7 @@
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
-				<j:ChargeDisposition>
+				<j:ChargeDisposition structures:id="Dispo_03">
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -210,12 +222,18 @@
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<chsres-ext:GeneralOffenseCategoryIdentification>
+							<nc:IdentificationID>GOC12345</nc:IdentificationID>
+						</chsres-ext:GeneralOffenseCategoryIdentification>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
@@ -227,7 +245,7 @@
 					</chsres-ext:CourtCase>
 					<chsres-ext:DispositionCodeText>389</chsres-ext:DispositionCodeText>
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
-					<chsres-ext:DispositionProvisionText>Provision</chsres-ext:DispositionProvisionText>
+					<chsres-ext:DispositionProvisionText>Provision 3</chsres-ext:DispositionProvisionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>M</chsres-ext:ChargeDispositionSeverityCodeText>
@@ -240,20 +258,20 @@
 						<nc:ActivityDate>
 							<nc:Date>2001-12-31</nc:Date>
 						</nc:ActivityDate>
-						<j:TermDuration>P2Y1D</j:TermDuration>
+						<j:TermDuration>P2Y</j:TermDuration>
 					</j:SentenceDeferredTerm>
 					<j:SentenceSuspendedTerm>
-						<j:TermDuration>P4Y6D</j:TermDuration>
+						<j:TermDuration>P4Y60D</j:TermDuration>
 					</j:SentenceSuspendedTerm>
 					<j:SentenceTerm>
 						<nc:ActivityCategoryText>JAIL</nc:ActivityCategoryText>
 						<j:TermDuration>P4Y6D</j:TermDuration>
 					</j:SentenceTerm>
 					<j:SupervisionFineAmount>
-						<nc:Amount>200.00</nc:Amount>
+						<nc:Amount>20.00</nc:Amount>
 					</j:SupervisionFineAmount>
 					<chsres-ext:FineSuspendedAmount>
-						<nc:Amount>100.00</nc:Amount>
+						<nc:Amount>10.00</nc:Amount>
 					</chsres-ext:FineSuspendedAmount>
 					<chsres-ext:AlternateSentence>
 						<chsres-ext:AlternateSentenceCodeText>373</chsres-ext:AlternateSentenceCodeText>
@@ -292,11 +310,15 @@
 			<nc:Disposition structures:ref="Dispo_02" />
 			<j:Sentence structures:ref="Sentence_02" />
 		</chsres-ext:DispositionSentenceAssociation>
+		<chsres-ext:DispositionSentenceAssociation>
+			<nc:Disposition structures:ref="Dispo_03" />
+			<j:Sentence structures:ref="Sentence_03" />
+		</chsres-ext:DispositionSentenceAssociation>		
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
 			<nc:SystemName>Court</nc:SystemName>
 		</intel:SystemIdentification>
-		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
+		<chsres-ext:SearchResultCategoryText>DA</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
 </chsres-doc:CriminalHistorySearchResults>
