@@ -69,6 +69,9 @@
 					</chsres-ext:DispositionIdentification>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeDescriptionText>Disposition Description</chsres-ext:DispositionCodeDescriptionText>
+					<chsres-ext:DispositionProvisionCodeText>123</chsres-ext:DispositionProvisionCodeText>
+					<chsres-ext:DispositionProvisionCodeText>Provision 123 Description</chsres-ext:DispositionProvisionCodeText>					
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA1</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -107,6 +110,7 @@
 					</chsres-ext:DispositionIdentification>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeDescriptionText>Disposition Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA3</j:ChargeDescriptionText>
 						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
@@ -200,6 +204,11 @@
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA5</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>26960</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
@@ -216,6 +225,7 @@
 						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
+					<chsres-ext:DispositionCodeDescriptionText>Disposition Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
@@ -290,8 +300,8 @@
 		<chsres-ext:DispositionSentenceAssociation>
 			<nc:Disposition structures:ref="Dispo_03" />
 			<j:Sentence structures:ref="Sentence_03" />
-		</chsres-ext:DispositionSentenceAssociation>		
-		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
+		</chsres-ext:DispositionSentenceAssociation>
+		<chsres-ext:SourceSystemNameText>Alpha Court System</chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
 			<nc:SystemName>Court</nc:SystemName>

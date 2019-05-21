@@ -133,9 +133,15 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionProvisionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionProvisionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A disposition provision.
+			<xsd:documentation>A code representing a disposition provision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionProvisionCodeDescriptionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for a disposition provision code.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
