@@ -319,7 +319,7 @@
 		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>
 		  </td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:DispositionProvisionText"></xsl:value-of>
+		    <xsl:value-of select="chsres-ext:DispositionProvisionCodeText"></xsl:value-of>
 		  </td>
 		</tr>
 	   

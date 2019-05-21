@@ -289,7 +289,7 @@
 		    <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText"/>
 		  </td>
 		  <td>
-		    <!-- TODO Put provision description here -->
+		    <xsl:value-of select="chsres-ext:DispositionProvisionCodeText"></xsl:value-of>
 		  </td>
 		</tr>
 	   
