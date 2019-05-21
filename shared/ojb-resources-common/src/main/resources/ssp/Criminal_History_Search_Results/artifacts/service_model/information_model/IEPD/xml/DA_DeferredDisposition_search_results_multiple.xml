@@ -81,8 +81,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -96,8 +94,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -135,8 +131,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA2</j:ChargeDescriptionText>
@@ -150,8 +144,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -259,8 +251,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -274,8 +264,6 @@
 						<chsres-ext:GeneralOffenseCategoryIdentification>
 							<nc:IdentificationID>GOC12345</nc:IdentificationID>
 						</chsres-ext:GeneralOffenseCategoryIdentification>
-						<chsres-ext:ChargeMunicipalCodeText>4567-8</chsres-ext:ChargeMunicipalCodeText>
-						<chsres-ext:ChargeMunicipalCodeDescriptionText>Possession of paraph</chsres-ext:ChargeMunicipalCodeDescriptionText>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:CourtCase>
