@@ -176,7 +176,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		
-		<xsl:if test="$hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
+		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
