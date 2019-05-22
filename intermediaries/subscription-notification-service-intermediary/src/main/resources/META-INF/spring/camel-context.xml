@@ -464,6 +464,7 @@
 		<property name="rapbackDao" ref="rapbackDao"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
 		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember}"/>
+		<property name="nonFbiSubscriptionReasonCodes" value="#{'${nonFbiSubscriptionReasonCodes:F}'.split(',')}"/>
 	</bean>
 	
 	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />

@@ -23,7 +23,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -60,6 +60,8 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;	
 	
     private Boolean fbiSubscriptionMember;
+    
+    private List<String> nonFbiSubscriptionReasonCodes;
     
 	FbiSubModDocBuilder fbiSubModDocBuilder; 
 	
@@ -373,7 +375,8 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			
 			log.info("Criminal Subscription Reason Code: " + criminalSubscriptionReasonCode );
 			
-			if (StringUtils.isNotBlank(criminalSubscriptionReasonCode)){
+			if (StringUtils.isNotBlank(criminalSubscriptionReasonCode) && 
+					!nonFbiSubscriptionReasonCodes.contains(criminalSubscriptionReasonCode)){
 				return true;
 			}
 			
@@ -381,7 +384,8 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 					"//submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");
 			log.info("Civil Subscription Reason Code: " + civilSubscriptionReasonCode );
 			
-			if (StringUtils.isNotBlank(civilSubscriptionReasonCode)){
+			if (StringUtils.isNotBlank(civilSubscriptionReasonCode) 
+					&& !nonFbiSubscriptionReasonCodes.contains(criminalSubscriptionReasonCode)){
 				String transactionNumber = XmlUtils.xPathStringSearch(document, 
 						"//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
 				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
@@ -436,6 +440,15 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 
 	public void setFbiSubscriptionMember(Boolean fbiSubscriptionMember) {
 		this.fbiSubscriptionMember = fbiSubscriptionMember;
+	}
+
+	public List<String> getNonFbiSubscriptionReasonCodes() {
+		return nonFbiSubscriptionReasonCodes;
+	}
+
+	public void setNonFbiSubscriptionReasonCodes(
+			List<String> nonFbiSubscriptionReasonCodes) {
+		this.nonFbiSubscriptionReasonCodes = nonFbiSubscriptionReasonCodes;
 	}
 }
 
