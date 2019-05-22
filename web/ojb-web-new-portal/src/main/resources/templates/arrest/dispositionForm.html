@@ -51,7 +51,7 @@
            <div th:if="${#fields.hasErrors('dispositionDate')}" th:errors="*{dispositionDate}" class="invalid-feedback">Disposition Date error message</div>
          </div>
          <div class="col-md-4 mb-2">
-           <label for="dispositionCode">Disposition Code *
+           <label for="dispositionCode">Disposition *
              <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="Result of the hearing.">
                 <i class="fas fa-info-circle"></i></a>
@@ -381,8 +381,8 @@
                 $('#deferredDays').prop('disabled', true);
                 $('#restitution').val('');
                 $('#restitution').prop('disabled', true);
-                $('#alternateSentence').val('');
-                $('#alternateSentence').prop('disabled', true).trigger("chosen:updated");
+                $('#alternateSentences').val('');
+                $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
                 $('#provisionCode').val('');
                 $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
           }
@@ -394,7 +394,7 @@
                 $('#suspendedDays').prop('disabled', false);
                 toggleDefferredYearsDays();
                 $('#restitution').prop('disabled', false);
-                $('#alternateSentence').prop('disabled', false).trigger("chosen:updated");
+                $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
                 $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
           }
 

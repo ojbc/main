@@ -75,7 +75,7 @@
                 data-content="The social security number on the fingerprint card at the time of arrest.">
                 <i class="fas fa-info-circle"></i></a>
 						</th>
-						<th>DATE OF Arrest
+						<th style="white-space:nowrap;">DATE OF ARREST
               <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
                 <i class="fas fa-info-circle"></i></a>

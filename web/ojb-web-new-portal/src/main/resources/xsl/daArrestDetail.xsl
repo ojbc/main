@@ -161,7 +161,7 @@
 		          <tr>
                  <th rowspan="2">ACTION</th>
 		            <th rowspan="2">DISPO DATE</th>
-		            <th rowspan="2">DISPO CODE</th>
+		            <th rowspan="2">DISPO</th>
 		            <th rowspan="2">COUNTS</th>
 		            <th rowspan="2">COURT CASE #</th>
 		            <th rowspan="2">GENERAL OFFENSE CODE</th>
