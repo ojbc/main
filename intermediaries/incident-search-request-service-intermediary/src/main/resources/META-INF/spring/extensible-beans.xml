@@ -46,7 +46,7 @@
 	</bean>
 
 	<bean id="incidentSearchRequestSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="queryRequestSQLLoggingProcessor" />
+		<constructor-arg name="beanName" value="incidentSearchRequestSQLLoggingProcessor" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-search-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.ojbc.audit.enhanced.processor.IncidentSearchRequestNullObjectProcessor">
