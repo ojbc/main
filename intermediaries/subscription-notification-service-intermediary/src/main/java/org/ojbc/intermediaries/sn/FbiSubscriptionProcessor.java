@@ -373,7 +373,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			String criminalSubscriptionReasonCode = XmlUtils.xPathStringSearch(document, 
 					"//submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
 			
-			log.info("Criminal Subscription Reason Code: " + criminalSubscriptionReasonCode );
+			log.info("Criminal Subscription Reason Code: " + criminalSubscriptionReasonCode + ", nonFbiSubscriptionReasonCodes" + nonFbiSubscriptionReasonCodes);
 			
 			if (StringUtils.isNotBlank(criminalSubscriptionReasonCode) && 
 					!nonFbiSubscriptionReasonCodes.contains(criminalSubscriptionReasonCode)){
@@ -385,7 +385,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			log.info("Civil Subscription Reason Code: " + civilSubscriptionReasonCode );
 			
 			if (StringUtils.isNotBlank(civilSubscriptionReasonCode) 
-					&& !nonFbiSubscriptionReasonCodes.contains(criminalSubscriptionReasonCode)){
+					&& !nonFbiSubscriptionReasonCodes.contains(civilSubscriptionReasonCode)){
 				String transactionNumber = XmlUtils.xPathStringSearch(document, 
 						"//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
 				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(transactionNumber);
