@@ -67,8 +67,6 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D96487</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
-					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
-					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -78,9 +76,6 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -91,9 +86,6 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -107,6 +99,7 @@
 					</chsres-ext:DispositionProvisionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
 					<chsres-ext:DispositionChargeCountQuantity>3</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
@@ -117,8 +110,6 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1234</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
-					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
-					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA2</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -128,9 +119,6 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA2</j:ChargeDescriptionText>
@@ -141,9 +129,6 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:AmendedCharge>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
@@ -157,6 +142,7 @@
 					</chsres-ext:DispositionProvisionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
 					<chsres-ext:ChargeModificationDescriptionCodeText>V</chsres-ext:ChargeModificationDescriptionCodeText>
 				</j:ChargeDisposition>
@@ -238,7 +224,6 @@
 					<chsres-ext:DispositionIdentification>
 						<nc:IdentificationID>D1222</nc:IdentificationID>
 					</chsres-ext:DispositionIdentification>
-					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:FiledCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 						<j:ChargeSeverityText>MISDEMEANOR</j:ChargeSeverityText>
@@ -248,9 +233,6 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:FiledCharge>
 					<chsres-ext:AmendedCharge>
 						<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
@@ -261,11 +243,7 @@
 							</j:StatuteCodeIdentification>
 							<j:StatuteDescriptionText>StatuteDescriptionText</j:StatuteDescriptionText>
 						</j:ChargeStatute>
-						<chsres-ext:GeneralOffenseCategoryIdentification>
-							<nc:IdentificationID>GOC12345</nc:IdentificationID>
-						</chsres-ext:GeneralOffenseCategoryIdentification>
 					</chsres-ext:AmendedCharge>
-					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:CourtCase>
 						<nc:ActivityIdentification>
 							<nc:IdentificationID>CC456576</nc:IdentificationID>
@@ -275,6 +253,7 @@
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Code Description</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
+					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
 					<chsres-ext:ChargeDispositionSeverityCodeText>M</chsres-ext:ChargeDispositionSeverityCodeText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
