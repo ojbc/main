@@ -243,11 +243,11 @@
 				</tr>
 			</xsl:for-each>
 		</xsl:if>
-		<xsl:if test="../j:ChargeDisposition[@structures:id=$CDid]/DispositionProvisionCodeDescriptionText[. !='']">
+		<xsl:if test="../j:ChargeDisposition[@structures:id=$CDid]/chsres-ext:DispositionProvisionCodeDescriptionText[. !='']">
 			<tr>
 				<td colspan="2" class="sentenceLabel">PROVISION:</td>
 				<td colspan="6">
-					<xsl:value-of select="../j:ChargeDisposition[@structures:id=$CDid]/DispositionProvisionCodeDescriptionText" />
+					<xsl:value-of select="../j:ChargeDisposition[@structures:id=$CDid]/chsres-ext:DispositionProvisionCodeDescriptionText" />
 				</td>
 			</tr>
 		</xsl:if>
