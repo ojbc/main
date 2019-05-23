@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-    http://opensource.org/licenses/RPL-1.5
-    Copyright 2012-2017 Open Justice Broker Consortium
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another license, the contents of this file are subject to the Reciprocal 
+	Public License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You may not copy or use this file in either source 
+	code or executable form, except in compliance with the terms and conditions of the RPL All software distributed under the RPL is provided 
+	strictly on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH WARRANTIES, 
+	INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. 
+	See the RPL for specific language governing rights and limitations under the RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2017 
+	Open Justice Broker Consortium -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:chsres-doc="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"
@@ -63,7 +57,20 @@
 				</b>
 			</td>
 		</tr>
-		<xsl:apply-templates select="j:ChargeDisposition" />
+		<xsl:choose>
+			<xsl:when test="j:ChargeDisposition[. !='']">
+				<xsl:apply-templates select="j:ChargeDisposition" />
+			</xsl:when>
+			<xsl:otherwise>
+				<tr>
+					<td colspan="2" class="dispositionLabel">DISPOSITION:</td>
+					<td colspan="6">
+						<xsl:value-of select="'No disposition provided for this charge'" />
+					</td>
+				</tr>
+			</xsl:otherwise>
+		</xsl:choose>
+		<!-- xsl:apply-templates select="j:ChargeDisposition" / -->
 	</xsl:template>
 	<xsl:template match="j:ChargeDisposition">
 		<xsl:variable name="CDid" select="@structures:id" />
@@ -79,14 +86,24 @@
 				</td>
 			</tr>
 		</xsl:if>
-		<xsl:if test="chsres-ext:DispositionCodeDescriptionText[. !='']">
-			<tr>
-				<td colspan="2" class="dispositionLabel">DISPOSITION:</td>
-				<td colspan="6">
-					<xsl:value-of select="chsres-ext:DispositionCodeDescriptionText" />
-				</td>
-			</tr>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="chsres-ext:DispositionCodeDescriptionText[. !='']">
+				<tr>
+					<td colspan="2" class="dispositionLabel">DISPOSITION:</td>
+					<td colspan="6">
+						<xsl:value-of select="chsres-ext:DispositionCodeDescriptionText" />
+					</td>
+				</tr>
+			</xsl:when>
+			<xsl:otherwise>
+				<tr>
+					<td colspan="2" class="dispositionLabel">DISPOSITION:</td>
+					<td colspan="6">
+						<xsl:value-of select="'No disposition provided for this charge'" />
+					</td>
+				</tr>
+			</xsl:otherwise>
+		</xsl:choose>
 		<xsl:if test="chsres-ext:DispositionDismissalReasonText[. !='']">
 			<tr>
 				<td colspan="2" class="dispositionLabel">DISMISSAL REASON:</td>
@@ -116,6 +133,14 @@
 				<td colspan="2" class="dispositionLabel">COUNTS:</td>
 				<td colspan="6">
 					<xsl:value-of select="chsres-ext:DispositionChargeCountQuantity" />
+				</td>
+			</tr>
+		</xsl:if>
+		<xsl:if test="chsres-ext:DispositionProvisionCodeDescriptionText[. !='']">
+			<tr>
+				<td colspan="2" class="sentenceLabel">PROVISION:</td>
+				<td colspan="6">
+					<xsl:value-of select="chsres-ext:DispositionProvisionCodeDescriptionText" />
 				</td>
 			</tr>
 		</xsl:if>
@@ -242,14 +267,6 @@
 					</td>
 				</tr>
 			</xsl:for-each>
-		</xsl:if>
-		<xsl:if test="../j:ChargeDisposition[@structures:id=$CDid]/chsres-ext:DispositionProvisionCodeDescriptionText[. !='']">
-			<tr>
-				<td colspan="2" class="sentenceLabel">PROVISION:</td>
-				<td colspan="6">
-					<xsl:value-of select="../j:ChargeDisposition[@structures:id=$CDid]/chsres-ext:DispositionProvisionCodeDescriptionText" />
-				</td>
-			</tr>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="nc:PersonName" mode="constructName">
