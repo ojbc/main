@@ -188,7 +188,7 @@
                data-content="Any disposition that cannot be reported using one of the other fields and can be used as an additional sentencing.">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid">
+          <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" data-placeholder="Please select all that apply...">
             <option value="" ></option>
             <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
           </select>

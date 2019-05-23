@@ -365,7 +365,12 @@ public class Disposition {
 		return alternateSentences;
 	}
 	public void setAlternateSentences(List<String> alternateSentences) {
-		this.alternateSentences = alternateSentences;
+		if (alternateSentences == null || alternateSentences.isEmpty()) {
+			this.alternateSentences = null;
+		}
+		else {
+			this.alternateSentences = alternateSentences;
+		}
 	}
 	public List<String> getAlternateSentenceDescriptions() {
 		return alternateSentenceDescriptions;

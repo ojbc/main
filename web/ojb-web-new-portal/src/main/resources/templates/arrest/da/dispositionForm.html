@@ -247,7 +247,7 @@
                    (e.g. COMMUNITY SERVICE, FINE AND COSTS, SERVING WEEKENDS ONLY, etc...)">
                    <i class="fas fa-info-circle"></i></a>
              </label>
-            <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid">
+            <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" data-placeholder="Please select all that apply...">
               <option value="" ></option>
               <option th:each="item: ${daAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
             </select>
@@ -515,7 +515,7 @@
                 $('#deferredDays').prop('disabled', true);
                 $('#restitution').val('');
                 $('#restitution').prop('disabled', true);
-                $('#alternateSentences').val('');
+                $('#alternateSentences').val(null);
                 $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
                 $('#provisionCode').val('');
                 $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
