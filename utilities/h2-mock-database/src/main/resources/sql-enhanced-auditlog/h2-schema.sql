@@ -282,6 +282,7 @@ CREATE TABLE IDENTIFICATION_RESULTS_QUERY_DETAIL (
                 PERSON_FIRST_NAME VARCHAR(80),
                 SID VARCHAR(80),
                 OCA VARCHAR(80),
+                ORI VARCHAR(80),
                 ID_DATE DATE,
                 OTN VARCHAR(80),
                 FBI_ID VARCHAR(80),
