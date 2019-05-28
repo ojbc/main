@@ -47,6 +47,8 @@ public class AppProperties {
 	private List<String> fedIdsWithAuditPrivilege;
 
 	private Boolean allowQueriesWithoutSAMLToken = true; 
+	private Boolean inactivityTimeout=true;
+	private Integer inactivityTimeoutInSeconds = 1800; 
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
@@ -264,6 +266,22 @@ public class AppProperties {
 
 	public void setSignOutUrl(String signOutUrl) {
 		this.signOutUrl = signOutUrl;
+	}
+
+	public Boolean getInactivityTimeout() {
+		return inactivityTimeout;
+	}
+
+	public void setInactivityTimeout(Boolean inactivityTimeout) {
+		this.inactivityTimeout = inactivityTimeout;
+	}
+
+	public Integer getInactivityTimeoutInSeconds() {
+		return inactivityTimeoutInSeconds;
+	}
+
+	public void setInactivityTimeoutInSeconds(Integer inactivityTimeoutInSeconds) {
+		this.inactivityTimeoutInSeconds = inactivityTimeoutInSeconds;
 	}
 
 }

@@ -122,8 +122,20 @@
 		  <script th:inline="javascript">
 	      /*<![CDATA[*/
 	          var context = [[@{/}]];
+	        	var inactivityTimeout = [[${inactivityTimeout}]]; 
+	        	var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]]; 
 	      /*]]>*/
+	      var idleTime;
+
 	      $(function(){
+	    	  if( inactivityTimeout ){
+   	          reloadPage();
+   	          $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+   	              clearTimeout(idleTime);
+   	              ojbc.reloadPage();
+   	          });
+          }
+   	      
 	    	  $('body').on('click', 'a.daArrest', function() {   
                 $(this).parent().toggleClass('show');
 
@@ -216,6 +228,13 @@
               } else {
 	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "Error");
 	            }
+	         }, 
+	         
+	         reloadPage: function() {
+	             clearTimeout(idleTime);
+	             idleTime = setTimeout(function () {
+	                 window.location.assign(context + "logout");
+	             }, inactivityTimeoutInSeconds * 1000);
 	         }
          };
               
