@@ -16,8 +16,6 @@
  */
 package org.ojbc.test.util;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,8 +98,6 @@ public class SoapMessageUtils {
 	    File inputFile = new File(inputFilePath);
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
-	    assertNotNull(inputStr);
-	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
 		return senderExchange;
