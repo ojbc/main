@@ -323,24 +323,39 @@
 	<xsl:template match="j:TermDuration">
 		<xsl:if test="contains(.,'Y')">
 			<xsl:variable name="years" select="translate(substring-before(.,'Y'), translate(., '0123456789', ''), '')"></xsl:variable>
-			<xsl:if test="$years !='0'">
-				<xsl:value-of select="$years,' Years; '" />
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="$years !='0' and $years !='1'">
+					<xsl:value-of select="$years,' Years '" />
+				</xsl:when>
+				<xsl:when test="$years ='1'">
+					<xsl:value-of select="$years,' Year '" />
+				</xsl:when>
+			</xsl:choose>
 		</xsl:if>
 		<xsl:if test="contains(.,'M')">
 			<xsl:choose>
 				<xsl:when test="contains(.,'Y') and contains(.,'M')">
 					<xsl:variable name="months"
 						select="translate(substring-after(substring-before(.,'M'),'Y'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$months !='0'">
-						<xsl:value-of select="$months,' Months; '" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$months !='0' and $months !='1'">
+							<xsl:value-of select="$months,' Months '" />
+						</xsl:when>
+						<xsl:when test="$months ='1'">
+							<xsl:value-of select="$months,' Month '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="months" select="translate(substring-before(.,'M'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$months !='0'">
-						<xsl:value-of select="$months,' Months; '" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$months !='0' and $months !='1'">
+							<xsl:value-of select="$months,' Months '" />
+						</xsl:when>
+						<xsl:when test="$months ='1'">
+							<xsl:value-of select="$months,' Month '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
@@ -349,29 +364,49 @@
 				<xsl:when test="contains(.,'Y') and contains(.,'M')">
 					<xsl:variable name="days"
 						select="translate(substring-after(substring-before(.,'D'),'M'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$days !='0'">
-						<xsl:value-of select="$days,' Days'" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$days !='0' and $days !='1'">
+							<xsl:value-of select="$days,' Days '" />
+						</xsl:when>
+						<xsl:when test="$days ='1'">
+							<xsl:value-of select="$days,' Day '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:when test="contains(.,'Y') and not(contains(.,'M'))">
 					<xsl:variable name="days"
 						select="translate(substring-after(substring-before(.,'D'),'Y'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$days !='0'">
-						<xsl:value-of select="$days,' Days'" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$days !='0' and $days !='1'">
+							<xsl:value-of select="$days,' Days '" />
+						</xsl:when>
+						<xsl:when test="$days ='1'">
+							<xsl:value-of select="$days,' Day '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:when test="contains(.,'M') and not(contains(.,'Y'))">
 					<xsl:variable name="days"
 						select="translate(substring-after(substring-before(.,'D'),'M'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$days !='0'">
-						<xsl:value-of select="$days,' Days'" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$days !='0' and $days !='1'">
+							<xsl:value-of select="$days,' Days '" />
+						</xsl:when>
+						<xsl:when test="$days ='1'">
+							<xsl:value-of select="$days,' Day '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="days" select="translate(substring-before(.,'D'), translate(., '0123456789', ''), '')"></xsl:variable>
-					<xsl:if test="$days !='0'">
-						<xsl:value-of select="$days,' Days; '" />
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="$days !='0' and $days !='1'">
+							<xsl:value-of select="$days,' Days '" />
+						</xsl:when>
+						<xsl:when test="$days ='1'">
+							<xsl:value-of select="$days,' Day '" />
+						</xsl:when>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
