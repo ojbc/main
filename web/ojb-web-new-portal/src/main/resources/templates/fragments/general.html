@@ -129,7 +129,7 @@
 
 	      $(function(){
 	    	  if( inactivityTimeout ){
-   	          reloadPage();
+	    		    ojbc.reloadPage();
    	          $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
    	              clearTimeout(idleTime);
    	              ojbc.reloadPage();
