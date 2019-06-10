@@ -119,7 +119,7 @@ public class Disposition {
     		||  (Objects.nonNull(suspendedDays) && suspendedDays > 0) 
     		||  (Objects.nonNull(fineAmount) && fineAmount > 0) 
     		||  (Objects.nonNull(fineSuspended) && fineSuspended > 0) 
-    		|| !alternateSentences.isEmpty()
+    		||  (alternateSentences != null && !alternateSentences.isEmpty())
     		|| (Objects.nonNull(restitution) && restitution > 0) 
     		|| (dispositionType == ArrestType.DA 
     			&& ((Objects.nonNull(prisonYears) && prisonYears > 0) 

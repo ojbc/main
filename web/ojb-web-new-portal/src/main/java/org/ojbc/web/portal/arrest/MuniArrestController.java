@@ -275,7 +275,7 @@ public class MuniArrestController {
 		Map<String, String> muniFiledChargeCodeMapping = (Map<String, String>) model.get("muniFiledChargeCodeMapping"); 
 		Map<String, String> muniAlternateSentenceMapping = (Map<String, String>) model.get("muniAlternateSentenceMapping"); 
 		
-		if (!disposition.getAlternateSentences().isEmpty()) {
+		if (disposition.getAlternateSentences()!=null && !disposition.getAlternateSentences().isEmpty()) {
 			List<String> alternateSentenceDescriptions = disposition.getAlternateSentences().stream()
 					.map(muniAlternateSentenceMapping::get)
 					.collect(Collectors.toList());

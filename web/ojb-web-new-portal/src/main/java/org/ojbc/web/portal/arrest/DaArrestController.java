@@ -297,7 +297,7 @@ public class DaArrestController {
 		Map<String, String> daFiledChargeCodeMapping = (Map<String, String>) model.get("daFiledChargeCodeMapping"); 
 		Map<String, String> daAlternateSentenceMapping = (Map<String, String>) model.get("daAlternateSentenceMapping"); 
 		
-		if (!disposition.getAlternateSentences().isEmpty()) {
+		if (disposition.getAlternateSentences() != null && !disposition.getAlternateSentences().isEmpty()) {
 			List<String> alternateSentenceDescriptions = disposition.getAlternateSentences().stream()
 					.map(daAlternateSentenceMapping::get)
 					.collect(Collectors.toList());
