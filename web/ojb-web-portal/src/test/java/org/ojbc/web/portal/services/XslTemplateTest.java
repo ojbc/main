@@ -472,7 +472,7 @@ public class XslTemplateTest {
         
         xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
         
-        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResultFullName.html").getInputStream());
         
         sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
                 

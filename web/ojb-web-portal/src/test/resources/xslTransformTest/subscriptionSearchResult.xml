@@ -17,126 +17,125 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<p:SubscriptionSearchResults 
-	xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0" 
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:p="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
-	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0 ../xsd/exchange_schema.xsd ">
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription s:id="S001">
-    	<nc:ActivityDateRange>
-    		<nc:StartDate>
-    			<nc:Date>2014-03-12</nc:Date>
-    		</nc:StartDate>
-    		<nc:EndDate>
-    			<nc:Date>@sub_end_date@</nc:Date>
-    		</nc:EndDate>
-    	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
-      	<nc:RoleOfPersonReference s:ref="P001"/>
-      </ext:SubscriptionSubject>
-      <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE001"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
-      		<nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-      <ext:SubscriptionValidation>
-      	<ext:SubscriptionValidationDueDate>
-      		<nc:Date>2015-03-12</nc:Date>
-      	</ext:SubscriptionValidationDueDate>
-      	<ext:SubscriptionValidatedDate>
-      		<nc:Date>2014-03-12</nc:Date>
-      	</ext:SubscriptionValidatedDate>
-      </ext:SubscriptionValidation>            
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
-	<intel:SystemIdentifier>
-		<nc:IdentificationID>A1099109188</nc:IdentificationID>
-		<intel:SystemName>Subscriptions</intel:SystemName>
-	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription s:id="S002">
-    	<nc:ActivityDateRange>
-    		<nc:StartDate>
-    			<nc:Date>2014-03-12</nc:Date>
-    		</nc:StartDate>
-    		<nc:EndDate>
-    			<nc:Date>2020-01-12</nc:Date>
-    		</nc:EndDate>
-    	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
-      	<nc:RoleOfPersonReference s:ref="P003"/>
-      </ext:SubscriptionSubject>
-      <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE004"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
-      		<nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-       <ext:SubscriptionValidation>
-      	<ext:SubscriptionValidationDueDate>
-      		<nc:Date>2015-03-12</nc:Date>
-      	</ext:SubscriptionValidationDueDate>
-      	<ext:SubscriptionValidatedDate>
-      		<nc:Date>2014-03-12</nc:Date>
-      	</ext:SubscriptionValidatedDate>
-      </ext:SubscriptionValidation>   
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
-	<intel:SystemIdentifier>
-		<nc:IdentificationID>A109918642</nc:IdentificationID>
-		<intel:SystemName>Subscriptions</intel:SystemName>
-	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
-  <ext:SubscriptionSearchResult>
-    <ext:Subscription s:id="S003">
-    	<nc:ActivityDateRange>
-    		<nc:StartDate>
-    			<nc:Date>2014-03-12</nc:Date>
-    		</nc:StartDate>
-    		<nc:EndDate>
-    			<nc:Date>@sub_end_date@</nc:Date>
-    		</nc:EndDate>
-    	</nc:ActivityDateRange>
-      <ext:SubscriptionSubject>
-      	<nc:RoleOfPersonReference s:ref="P002"/>
-      </ext:SubscriptionSubject>
-      <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
-      <ext:SubscribedEntity s:id="SE002"/>
-      <ext:SubscribedEntity s:id="SE003"/>
-      <ext:SubscriptionOriginator>
-      	<ext:SubscriptionOriginatorIdentification>
-      		<nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
-      	</ext:SubscriptionOriginatorIdentification>
-      </ext:SubscriptionOriginator>
-       <ext:SubscriptionValidation>
-      	<ext:SubscriptionValidationDueDate>
-      		<nc:Date>2015-03-12</nc:Date>
-      	</ext:SubscriptionValidationDueDate>
-      	<ext:SubscriptionValidatedDate>
-      		<nc:Date>2014-03-12</nc:Date>
-      	</ext:SubscriptionValidatedDate>
-      </ext:SubscriptionValidation>   
-    </ext:Subscription>
-    <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
-	<intel:SystemIdentifier>
-		<nc:IdentificationID>Michael-Scott-1972-03-01-DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
-		<intel:SystemName>Subscriptions</intel:SystemName>
-	</intel:SystemIdentifier>
-  </ext:SubscriptionSearchResult>
+<p:SubscriptionSearchResults xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0 ../git/main/shared/ojb-resources-common/src/main/resources/ssp/Subscription_Search_Results/artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"
+ xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+ xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+ xmlns:s="http://niem.gov/niem/structures/2.0"
+ xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+ xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+ xmlns:p="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0"
+ xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+ xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+ xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+ xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+ xmlns:ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0">
+    <ext:SubscriptionSearchResult>
+        <ext:Subscription s:id="S001">
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </nc:StartDate>
+                <nc:EndDate>
+                    <nc:Date>@sub_end_date@</nc:Date>
+                </nc:EndDate>
+            </nc:ActivityDateRange>
+            <ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P001"/>
+            </ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+            <ext:SubscribedEntity s:id="SE001"/>
+            <ext:SubscriptionOriginator>
+                <ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
+                </ext:SubscriptionOriginatorIdentification>
+            </ext:SubscriptionOriginator>
+            <ext:SubscriptionValidation>
+                <ext:SubscriptionValidationDueDate>
+                    <nc:Date>2015-03-12</nc:Date>
+                </ext:SubscriptionValidationDueDate>
+                <ext:SubscriptionValidatedDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </ext:SubscriptionValidatedDate>
+            </ext:SubscriptionValidation>            
+        </ext:Subscription>
+        <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>A1099109188</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </ext:SubscriptionSearchResult>
+    <ext:SubscriptionSearchResult>
+        <ext:Subscription s:id="S002">
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </nc:StartDate>
+                <nc:EndDate>
+                    <nc:Date>2020-01-12</nc:Date>
+                </nc:EndDate>
+            </nc:ActivityDateRange>
+            <ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P003"/>
+            </ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+            <ext:SubscribedEntity s:id="SE004"/>
+            <ext:SubscriptionOriginator>
+                <ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
+                </ext:SubscriptionOriginatorIdentification>
+            </ext:SubscriptionOriginator>
+            <ext:SubscriptionValidation>
+                <ext:SubscriptionValidationDueDate>
+                    <nc:Date>2015-03-12</nc:Date>
+                </ext:SubscriptionValidationDueDate>
+                <ext:SubscriptionValidatedDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </ext:SubscriptionValidatedDate>
+            </ext:SubscriptionValidation>   
+        </ext:Subscription>
+        <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>A109918642</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </ext:SubscriptionSearchResult>
+    <ext:SubscriptionSearchResult>
+        <ext:Subscription s:id="S003">
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </nc:StartDate>
+                <nc:EndDate>
+                    <nc:Date>@sub_end_date@</nc:Date>
+                </nc:EndDate>
+            </nc:ActivityDateRange>
+            <ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P002"/>
+            </ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
+            <ext:SubscribedEntity s:id="SE002"/>
+            <ext:SubscribedEntity s:id="SE003"/>
+            <ext:SubscriptionOriginator>
+                <ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
+                </ext:SubscriptionOriginatorIdentification>
+            </ext:SubscriptionOriginator>
+            <ext:SubscriptionValidation>
+                <ext:SubscriptionValidationDueDate>
+                    <nc:Date>2015-03-12</nc:Date>
+                </ext:SubscriptionValidationDueDate>
+                <ext:SubscriptionValidatedDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </ext:SubscriptionValidatedDate>
+            </ext:SubscriptionValidation>   
+        </ext:Subscription>
+        <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>Michael-Scott-1972-03-01-DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </ext:SubscriptionSearchResult>
     <ext:SubscriptionSearchResult>
         <ext:Subscription>
             <nc:ActivityDateRange>
@@ -167,134 +166,140 @@
             <intel:SystemName>Subscriptions</intel:SystemName>
         </intel:SystemIdentifier>
     </ext:SubscriptionSearchResult>  
+    <ext:FBISubscription s:id="FBI001">
+        <nc:ActivityDateRange>
+            <nc:StartDate>
+                <nc:Date>2014-03-12</nc:Date>
+            </nc:StartDate>
+            <nc:EndDate>
+                <nc:Date>2019-03-12</nc:Date>
+            </nc:EndDate>
+        </nc:ActivityDateRange>
+        <ext:SubscriptionFBIIdentification>
+            <nc:IdentificationID>1234567</nc:IdentificationID>
+        </ext:SubscriptionFBIIdentification>
+        <ext:CriminalSubscriptionReasonCode>CI
+        </ext:CriminalSubscriptionReasonCode>
+        <ext:RapBackSubscriptionTermCode>5
+        </ext:RapBackSubscriptionTermCode>
+        <ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
+        <ext:RapBackInStateOptOutIndicator>false
+        </ext:RapBackInStateOptOutIndicator>
+    </ext:FBISubscription>
+    <ext:FBISubscription s:id="FBI002">
+        <nc:ActivityDateRange>
+            <nc:StartDate>
+                <nc:Date>2014-03-12</nc:Date>
+            </nc:StartDate>
+            <nc:EndDate>
+                <nc:Date>2015-03-12</nc:Date>
+            </nc:EndDate>
+        </nc:ActivityDateRange>
+        <ext:SubscriptionFBIIdentification>
+            <nc:IdentificationID>1234568</nc:IdentificationID>
+        </ext:SubscriptionFBIIdentification>
+        <ext:CriminalSubscriptionReasonCode>CI
+        </ext:CriminalSubscriptionReasonCode>
+        <ext:RapBackSubscriptionTermCode>2</ext:RapBackSubscriptionTermCode>
+        <ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
+        <ext:RapBackInStateOptOutIndicator>false
+        </ext:RapBackInStateOptOutIndicator>
+    </ext:FBISubscription>
     <ext:Person s:id="P1">
         <nc:PersonBirthDate>
             <nc:Date>1990-01-01</nc:Date>
         </nc:PersonBirthDate>
         <nc:PersonName>
-            <nc:PersonFullName>TEST NAME</nc:PersonFullName>
-            <nc:PersonGivenName>TEST</nc:PersonGivenName>
+            <nc:PersonGivenName>TEST</nc:PersonGivenName>    
             <nc:PersonSurName>NAME</nc:PersonSurName>
         </nc:PersonName>
     </ext:Person>  
-  <ext:FBISubscription s:id="FBI001">
-	<nc:ActivityDateRange>
-		<nc:StartDate>
-			<nc:Date>2014-03-12</nc:Date>
-		</nc:StartDate>
-		<nc:EndDate>
-			<nc:Date>2019-03-12</nc:Date>
-		</nc:EndDate>
-	</nc:ActivityDateRange>
-	<ext:SubscriptionFBIIdentification>
-		<nc:IdentificationID>1234567</nc:IdentificationID>
-	</ext:SubscriptionFBIIdentification>
-	<ext:CriminalSubscriptionReasonCode>CI
-	</ext:CriminalSubscriptionReasonCode>
-	<ext:RapBackSubscriptionTermCode>5
-	</ext:RapBackSubscriptionTermCode>
-	<ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
-	<ext:RapBackInStateOptOutIndicator>false
-	</ext:RapBackInStateOptOutIndicator>
-  </ext:FBISubscription>
-  <ext:FBISubscription s:id="FBI002">
-	<nc:ActivityDateRange>
-		<nc:StartDate>
-			<nc:Date>2014-03-12</nc:Date>
-		</nc:StartDate>
-		<nc:EndDate>
-			<nc:Date>2015-03-12</nc:Date>
-		</nc:EndDate>
-	</nc:ActivityDateRange>
-	<ext:SubscriptionFBIIdentification>
-		<nc:IdentificationID>1234568</nc:IdentificationID>
-	</ext:SubscriptionFBIIdentification>
-	<ext:CriminalSubscriptionReasonCode>CI
-	</ext:CriminalSubscriptionReasonCode>
-	<ext:RapBackSubscriptionTermCode>1
-	</ext:RapBackSubscriptionTermCode>
-	<ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
-	<ext:RapBackInStateOptOutIndicator>false
-	</ext:RapBackInStateOptOutIndicator>
-  </ext:FBISubscription>
-  <ext:Person s:id="P002">
-  	<nc:PersonBirthDate>
-  		<nc:Date>1972-03-01</nc:Date>
-  	</nc:PersonBirthDate>
-  	<nc:PersonName>
-  		<nc:PersonGivenName>Michael</nc:PersonGivenName>
-  		<nc:PersonSurName>Scott</nc:PersonSurName>
-  	</nc:PersonName>
-  </ext:Person>
-  <ext:Person s:id="P001">
-  	<nc:PersonName>
-  		<nc:PersonGivenName>Dwight</nc:PersonGivenName>
-  		<nc:PersonSurName>Schrute</nc:PersonSurName>
-  	</nc:PersonName>
-  	<j:PersonAugmentation>
-  		<j:PersonFBIIdentification>
-  			<nc:IdentificationID>A1099108</nc:IdentificationID>
-  		</j:PersonFBIIdentification>
-  		<j:PersonStateFingerprintIdentification>
-  			<nc:IdentificationID>A1099109188</nc:IdentificationID>
-  		</j:PersonStateFingerprintIdentification>
-  	</j:PersonAugmentation>
-  </ext:Person>
-  <ext:Person s:id="P003">
-  	<nc:PersonBirthDate>
-  		<nc:Date>1982-03-11</nc:Date>
-  	</nc:PersonBirthDate>
-  	<nc:PersonName>
-  		<nc:PersonGivenName>Xavier</nc:PersonGivenName>
-  		<nc:PersonSurName>Andrews</nc:PersonSurName>
-  	</nc:PersonName>
-  	<j:PersonAugmentation>
-  		<j:PersonFBIIdentification>
-  			<nc:IdentificationID>A1099187</nc:IdentificationID>
-  		</j:PersonFBIIdentification>
-  		<j:PersonStateFingerprintIdentification>
-  			<nc:IdentificationID>A109918765</nc:IdentificationID>
-  		</j:PersonStateFingerprintIdentification>
-  	</j:PersonAugmentation>
-  </ext:Person>
-  <nc:ContactInformation s:id="CI001">
-  	<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
-  </nc:ContactInformation>
-  <nc:ContactInformation s:id="CI002">
-  	<nc:ContactEmailID>parole_officer@gov.gov</nc:ContactEmailID>
-  </nc:ContactInformation>
-  <nc:ContactInformation s:id="CI003">
-  	<nc:ContactEmailID>police_officer@gov.gov</nc:ContactEmailID>
-  </nc:ContactInformation>
+    <ext:Person s:id="P002">
+        <nc:PersonBirthDate>
+            <nc:Date>1972-03-01</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonGivenName>Michael</nc:PersonGivenName>
+            <nc:PersonSurName>Scott</nc:PersonSurName>
+        </nc:PersonName>
+    </ext:Person>
+    <ext:Person s:id="P001">
+        <nc:PersonName>
+            <nc:PersonGivenName>Dwight</nc:PersonGivenName>
+            <nc:PersonSurName>Schrute</nc:PersonSurName>
+        </nc:PersonName>
+        <j:PersonAugmentation>
+            <j:PersonFBIIdentification>
+                <nc:IdentificationID>A1099108</nc:IdentificationID>
+            </j:PersonFBIIdentification>
+            <j:PersonStateFingerprintIdentification>
+                <nc:IdentificationID>A1099109188</nc:IdentificationID>
+            </j:PersonStateFingerprintIdentification>
+        </j:PersonAugmentation>
+    </ext:Person>
+    <ext:Person s:id="P003">
+        <nc:PersonBirthDate>
+            <nc:Date>1982-03-11</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonGivenName>Xavier</nc:PersonGivenName>
+            <nc:PersonSurName>Andrews</nc:PersonSurName>
+        </nc:PersonName>
+        <j:PersonAugmentation>
+            <j:PersonFBIIdentification>
+                <nc:IdentificationID>A1099187</nc:IdentificationID>
+            </j:PersonFBIIdentification>
+            <j:PersonStateFingerprintIdentification>
+                <nc:IdentificationID>A109918765</nc:IdentificationID>
+            </j:PersonStateFingerprintIdentification>
+        </j:PersonAugmentation>
+    </ext:Person>
+    <j:Organization s:id="SO001">
+        <nc:OrganizationName>Some Org</nc:OrganizationName>
+        <j:OrganizationAugmentation>
+            <j:OrganizationORIIdentification>
+                <nc:IdentificationID>AB999999</nc:IdentificationID>
+            </j:OrganizationORIIdentification>
+        </j:OrganizationAugmentation>
+    </j:Organization>
+    <nc:ContactInformation s:id="CI001">
+        <nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <nc:ContactInformation s:id="CI002">
+        <nc:ContactEmailID>parole_officer@gov.gov</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <nc:ContactInformation s:id="CI003">
+        <nc:ContactEmailID>police_officer@gov.gov</nc:ContactEmailID>
+    </nc:ContactInformation>
     <nc:ContactInformation s:id="CI004">
-  	<nc:ContactEmailID>officer@gov.gov</nc:ContactEmailID>
-  </nc:ContactInformation>
-  <ext:SubscriptionContactInformationAssociation>
-  	<ext:SubscriptionReference s:ref="S001" />
-  	<nc:ContactInformationReference s:ref="CI001" />
-  </ext:SubscriptionContactInformationAssociation>
-  <ext:SubscriptionContactInformationAssociation>
-  	<ext:SubscriptionReference s:ref="S002" />
-  	<nc:ContactInformationReference s:ref="CI004" />
-  </ext:SubscriptionContactInformationAssociation>
-  <ext:SubscriptionContactInformationAssociation>
-  	<ext:SubscriptionReference s:ref="S003" />
-  	<nc:ContactInformationReference s:ref="CI002" />
-  </ext:SubscriptionContactInformationAssociation>
-  <ext:SubscriptionContactInformationAssociation>
-  	<ext:SubscriptionReference s:ref="S003" />
-  	<nc:ContactInformationReference s:ref="CI003" />
-  </ext:SubscriptionContactInformationAssociation>
-   <ext:SubscriptionContactInformationAssociation>
-  	<ext:SubscriptionReference s:ref="S004" />
-  	<nc:ContactInformationReference s:ref="CI004" />
-  </ext:SubscriptionContactInformationAssociation>
-  <ext:StateSubscriptionFBISubscriptionAssociation>
-	<ext:StateSubscriptionReference s:ref="S001" />
-	<ext:FBISubscriptionReference	s:ref="FBI001" />
-  </ext:StateSubscriptionFBISubscriptionAssociation>  
-  <ext:StateSubscriptionFBISubscriptionAssociation>
-	<ext:StateSubscriptionReference s:ref="S002" />
-	<ext:FBISubscriptionReference	s:ref="FBI002" />
-  </ext:StateSubscriptionFBISubscriptionAssociation>  
+        <nc:ContactEmailID>officer@gov.gov</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <ext:SubscribedEntityOrganizationAssociation>
+        <ext:SubscribedEntityReference s:ref="SE001"/>
+        <nc:OrganizationReference s:ref="SO001"/>
+    </ext:SubscribedEntityOrganizationAssociation>
+    <ext:StateSubscriptionFBISubscriptionAssociation>
+        <ext:StateSubscriptionReference s:ref="S001" />
+        <ext:FBISubscriptionReference	s:ref="FBI001" />
+    </ext:StateSubscriptionFBISubscriptionAssociation>  
+    <ext:StateSubscriptionFBISubscriptionAssociation>
+        <ext:StateSubscriptionReference s:ref="S002" />
+        <ext:FBISubscriptionReference	s:ref="FBI002" />
+    </ext:StateSubscriptionFBISubscriptionAssociation>  
+    <ext:SubscriptionContactInformationAssociation>
+        <ext:SubscriptionReference s:ref="S001" />
+        <nc:ContactInformationReference s:ref="CI001" />
+    </ext:SubscriptionContactInformationAssociation>
+    <ext:SubscriptionContactInformationAssociation>
+        <ext:SubscriptionReference s:ref="S002" />
+        <nc:ContactInformationReference s:ref="CI004" />
+    </ext:SubscriptionContactInformationAssociation>
+    <ext:SubscriptionContactInformationAssociation>
+        <ext:SubscriptionReference s:ref="S003" />
+        <nc:ContactInformationReference s:ref="CI002" />
+    </ext:SubscriptionContactInformationAssociation>
+    <ext:SubscriptionContactInformationAssociation>
+        <ext:SubscriptionReference s:ref="S003" />
+        <nc:ContactInformationReference s:ref="CI003" />
+    </ext:SubscriptionContactInformationAssociation>
 </p:SubscriptionSearchResults>
