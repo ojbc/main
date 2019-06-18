@@ -278,6 +278,10 @@
         <ext:SubscribedEntityReference s:ref="SE001"/>
         <nc:OrganizationReference s:ref="SO001"/>
     </ext:SubscribedEntityOrganizationAssociation>
+    <ext:SubscribedEntitySubscriptionAssociation>
+        <ext:SubscribedEntityReference s:ref="SE001"/>
+        <ext:SubscriptionReference s:ref="S001"/>
+    </ext:SubscribedEntitySubscriptionAssociation>    
     <ext:StateSubscriptionFBISubscriptionAssociation>
         <ext:StateSubscriptionReference s:ref="S001" />
         <ext:FBISubscriptionReference	s:ref="FBI001" />

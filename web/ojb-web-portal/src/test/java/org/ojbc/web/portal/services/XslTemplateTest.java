@@ -360,7 +360,10 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertedHtmlSubscriptionSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
+        Map <String, Object> searchParams = getDefaultPersonSearchParams();
+        searchParams.put("includeAgencyORIColumn", "true");
+        
+        String convertedHtmlSubscriptionSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, searchParams);
         
         System.out.println("convertedHtmlSubscriptionSearchResult: " + convertedHtmlSubscriptionSearchResult);
                                     
