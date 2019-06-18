@@ -34,11 +34,6 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
-    
-		
-	<!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
-    <camel:endpoint id="subscriptionSearchRequestServiceEndpoint"
-        uri="cxf:bean:subscriptionSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
 
 	<!-- Subscription Search flow -->
 	<routeContext id="searchQueryRoutes" xmlns="http://camel.apache.org/schema/spring">		
@@ -226,7 +221,7 @@
 			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=buildSubscriptionQueryResponseDoc"/>
 			
 			
-			<camel:log message="This is the subscription query response: ${body}"/>
+			<camel:log message="This is the subscription query response: ${body}" loggingLevel="DEBUG"/>
 		
 		</camel:route>		
 		

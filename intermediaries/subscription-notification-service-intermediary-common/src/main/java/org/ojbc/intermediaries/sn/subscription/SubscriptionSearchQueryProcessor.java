@@ -192,7 +192,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         	Subscription subscription = subscriptions.get(i);
 
             if (StringUtils.isNotBlank(subscription.getOri())) {
-                Element subscribedEntityOrganizationAssociation = XmlUtils.appendElement(root, extensionNamespace, "SubscribedEntityOrganizationAssociatio");
+                Element subscribedEntityOrganizationAssociation = XmlUtils.appendElement(root, extensionNamespace, "SubscribedEntityOrganizationAssociation");
 
                 Element subscribedEntityReference = XmlUtils.appendElement(subscribedEntityOrganizationAssociation, extensionNamespace, "SubscribedEntityReference");
 				XmlUtils.addAttribute(subscribedEntityReference, OjbcNamespaceContext.NS_STRUCTURES, "ref", getElementId("SE", i));
@@ -256,9 +256,11 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         createFbiSubscriptions(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntity(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionSubjects(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createOrganization(returningSubscriptions, root);
         createSubscriptionOwnerEmails(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscriptionEmails(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createSubscribedEntityContactInformationAssociations(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
+        createOwnerOrganizationAssociation(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         createStateSubscriptionFBISubscriptionAssociation(returningSubscriptions, root);
         createSubscriptionContactInformationAssociations(returningSubscriptions, root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_RESULTS_EXT);
         appendSearchResultMetaData(subscriptions.size(), root);
