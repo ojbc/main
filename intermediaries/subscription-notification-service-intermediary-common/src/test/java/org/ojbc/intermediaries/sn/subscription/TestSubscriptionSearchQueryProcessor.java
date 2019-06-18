@@ -364,6 +364,13 @@ public class TestSubscriptionSearchQueryProcessor {
 
         String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='S001CE002']/nc:ContactEmailID");
         assertEquals("b@c.com", email2);
+        
+        NodeList subscribedEntitySubscriptionAssociationNodes = XmlUtils
+                .xPathNodeListSearch(doc,
+                        "/ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntitySubscriptionAssociation/ssr-ext:SubscriptionReference[@s:ref='S001']/preceding-sibling::ssr-ext:SubscribedEntityReference");
+        assertNotNull(subscribedEntitySubscriptionAssociationNodes);
+
+        assertEquals(1, subscribedEntitySubscriptionAssociationNodes.getLength());
 
         NodeList contactInfoReferenceNodes = XmlUtils
                 .xPathNodeListSearch(doc,
