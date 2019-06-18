@@ -252,13 +252,13 @@ public class SubscriptionsController {
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, false);
 		
 		return "subscriptions/_subscriptionResults";
 	}
 
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
-			SubscriptionSearchRequest subscriptionSearchRequest) {
+			SubscriptionSearchRequest subscriptionSearchRequest, boolean includeAgencyORIColumn) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
@@ -280,7 +280,9 @@ public class SubscriptionsController {
 		logger.info("Subscription results raw xml:\n" + rawResults);
 		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
+		
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
+		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", includeAgencyORIColumn);
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 

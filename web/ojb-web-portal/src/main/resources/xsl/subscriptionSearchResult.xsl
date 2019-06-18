@@ -90,7 +90,7 @@
 						<th>FBI SUBSCRIPTION</th>
 						<th>EMAIL ADDRESS</th>
 						<xsl:if test="$includeAgencyORIColumn='true'">
-							<th>Owner ORI</th>						
+							<th>OWNER ORI</th>						
 						</xsl:if>
 					</tr>
 				</thead>
@@ -190,7 +190,7 @@
 			</td>
 			
 			<xsl:if test="$includeAgencyORIColumn='true'">
-				<td>AGENCY ORI GOES HERE</td>						
+				<td><xsl:value-of select="/p:SubscriptionSearchResults/j:Organization[@s:id=/p:SubscriptionSearchResults/ext:SubscribedEntityOrganizationAssociation[ext:SubscribedEntityReference/@s:ref=/p:SubscriptionSearchResults/ext:SubscribedEntitySubscriptionAssociation[ext:SubscriptionReference/@s:ref=$subscriptionRefId]/ext:SubscribedEntityReference/@s:ref]/nc:OrganizationReference/@s:ref]/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/></td>						
 			</xsl:if>
 			
 		</tr>
