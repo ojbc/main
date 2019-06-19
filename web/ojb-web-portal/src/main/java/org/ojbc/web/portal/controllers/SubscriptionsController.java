@@ -277,12 +277,20 @@ public class SubscriptionsController {
 			e.printStackTrace();
 		}			
 		
-		logger.info("Subscription results raw xml:\n" + rawResults);
+		logger.debug("Subscription results raw xml:\n" + rawResults);
 		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
 		
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
-		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", includeAgencyORIColumn);
+		
+		if (includeAgencyORIColumn)
+		{	
+			subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", "true");
+		}	
+		else
+		{
+			subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", "false");
+		}	
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 
@@ -291,7 +299,7 @@ public class SubscriptionsController {
 		
 			transformedResults = searchResultConverter.convertSubscriptionSearchResult(rawResults, subResultsHtmlXsltParamMap);
 			
-			logger.info("Subscription Results HTML:\n" + transformedResults);
+			logger.debug("Subscription Results HTML:\n" + transformedResults);
 		}
 													
 		model.put("subscriptionsContent", transformedResults);	
