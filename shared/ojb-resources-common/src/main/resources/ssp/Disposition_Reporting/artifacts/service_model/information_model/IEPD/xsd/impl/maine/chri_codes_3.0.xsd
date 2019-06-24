@@ -316,6 +316,7 @@
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="FILING" />
 			<xsd:enumeration value="JUDGMENT" />
+            <xsd:enumeration value="POST-JUDGMENT"/>			
 			<xsd:enumeration value="POST-SENTENCE" />
 			<xsd:enumeration value="PRE-JUDGMENT" />
 			<xsd:enumeration value="REACTIVATED CASE" />
