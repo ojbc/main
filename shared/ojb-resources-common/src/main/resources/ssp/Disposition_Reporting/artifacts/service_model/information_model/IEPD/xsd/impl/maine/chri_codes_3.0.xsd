@@ -406,7 +406,7 @@
 			<xsd:enumeration value="DISMISSED BY CLERK RULE 48(B)(2)" />
 			<xsd:enumeration value="DISMISSED BY COURT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG" />
-			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTED IN SUPERIOR COURT" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTMENT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - INSUFFICIENT EVIDENCE" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - OTHER" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - PLED OTHER CHARGE" />
