@@ -919,7 +919,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		String startDateString = startDate.format(formatter) + " 00:00:00";
 		String endDateString = endDate.format(formatter) + " 00:00:00";
 		
-		String notificationSelectStatement ="SELECT * FROM NOTIFICATIONS_SENT WHERE TIMESTAMP > '" + startDateString + "' AND TIMESTAMP < '" + endDateString +  "' order by TIMESTAMP desc";
+		String notificationSelectStatement ="SELECT * FROM NOTIFICATIONS_SENT WHERE TIMESTAMP > '" + startDateString + "' AND TIMESTAMP < '" + endDateString +  "' and subscription_owner != 'SYSTEM' order by TIMESTAMP desc";
 		
 		log.info("Retrieve Notifications Sent SQL: " + notificationSelectStatement);
 		
