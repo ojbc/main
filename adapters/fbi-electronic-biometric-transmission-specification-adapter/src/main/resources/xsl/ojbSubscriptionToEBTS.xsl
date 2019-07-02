@@ -332,8 +332,7 @@
 								<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 							</xsl:when>
 							<xsl:when test="$action = 'cancelSubscription'">
-								<ebts:TransactionRapBackMaintenanceCode>C
-								</ebts:TransactionRapBackMaintenanceCode>
+								<ebts:TransactionRapBackMaintenanceCode>C</ebts:TransactionRapBackMaintenanceCode>
 							</xsl:when>
 							<xsl:when test="$action = 'newSubscription'" />
 						</xsl:choose>

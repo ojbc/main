@@ -105,6 +105,9 @@ public class ArrestNotificationAttachmentProcessor {
 	private String getTransactionNumber(EmailNotification emailNotification) {
 		long stateSubscriptionId = emailNotification.getSubscription().getId();
 		String transactionNumber = rapbackDao.getTransactionNumberBySubscriptionId(stateSubscriptionId);
+		
+		log.info("Transaction Number: "  + transactionNumber + ", for subscription ID: " + stateSubscriptionId);
+		
 		return transactionNumber;
 	}
 

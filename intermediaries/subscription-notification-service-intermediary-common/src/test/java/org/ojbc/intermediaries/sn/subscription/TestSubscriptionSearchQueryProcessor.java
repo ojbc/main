@@ -280,6 +280,8 @@ public class TestSubscriptionSearchQueryProcessor {
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "ownerFirst", "ownerLast", "61623",
                 "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers, null,"");
 
+        subscriptionSearchResponse.setOri("ORI12345");
+        
         assertNotNull(subscriptionSearchResponse);
 
         List<Subscription> subscriptionSearchResponseList = new ArrayList<Subscription>();
@@ -287,7 +289,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
         Document doc = processor.buildSubscriptionSearchResponseDoc(subscriptionSearchResponseList);
 
-        //XmlUtils.printNode(doc);
+        XmlUtils.printNode(doc);
 
         // XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd",
         // "Subset/niem", "exchange_schema.xsd", doc);
@@ -362,6 +364,13 @@ public class TestSubscriptionSearchQueryProcessor {
 
         String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='S001CE002']/nc:ContactEmailID");
         assertEquals("b@c.com", email2);
+        
+        NodeList subscribedEntitySubscriptionAssociationNodes = XmlUtils
+                .xPathNodeListSearch(doc,
+                        "/ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntitySubscriptionAssociation/ssr-ext:SubscriptionReference[@s:ref='S001']/preceding-sibling::ssr-ext:SubscribedEntityReference");
+        assertNotNull(subscribedEntitySubscriptionAssociationNodes);
+
+        assertEquals(1, subscribedEntitySubscriptionAssociationNodes.getLength());
 
         NodeList contactInfoReferenceNodes = XmlUtils
                 .xPathNodeListSearch(doc,
@@ -400,7 +409,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertThat(criminalSubscriptionReasonCode, is("CI"));
         
         String rapBackSubscriptionTermCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackSubscriptionTermCode");
-        assertThat(rapBackSubscriptionTermCode, is("1"));
+        assertThat(rapBackSubscriptionTermCode, is("2"));
         
         String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackActivityNotificationFormatCode");
         assertThat(rapBackActivityNotificationFormatCode, is("1"));
@@ -445,7 +454,7 @@ public class TestSubscriptionSearchQueryProcessor {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
 		fbiRapbackSubscription.setRapbackCategory("CI");
-		fbiRapbackSubscription.setSubscriptionTerm("1");
+		fbiRapbackSubscription.setSubscriptionTerm("2");
 		DateTime rapbackExpirationDate = subscriptionSearchResponse.getStartDate().plusDays(365);
 		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(rapbackExpirationDate.getYear(), rapbackExpirationDate.getMonthOfYear(), rapbackExpirationDate.getDayOfMonth()));
 		DateTime rapbackTermDate = subscriptionSearchResponse.getStartDate().plusDays(365);
