@@ -651,8 +651,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Inserting row into IDENTIFICATION_RESULTS_QUERY_DETAIL table : " + identificationQueryResponse.toString());
 		
         final String IDENTIFICATION_QUERY_INSERT="INSERT into IDENTIFICATION_RESULTS_QUERY_DETAIL "
-        		+ "(QUERY_REQUEST_ID, PERSON_FIRST_NAME, PERSON_MIDDLE_NAME,PERSON_LAST_NAME,OCA,SID,FBI_ID,ID_DATE,OTN) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ "(QUERY_REQUEST_ID, PERSON_FIRST_NAME, PERSON_MIDDLE_NAME,PERSON_LAST_NAME,OCA,SID,FBI_ID,ID_DATE,OTN, ORI) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -669,6 +669,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getFbiId(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getIdDate(), ps, 8);
         	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOtn(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOri(), ps, 10);
         	            
         	            return ps;
         	        }
@@ -918,7 +919,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		String startDateString = startDate.format(formatter) + " 00:00:00";
 		String endDateString = endDate.format(formatter) + " 00:00:00";
 		
-		String notificationSelectStatement ="SELECT * FROM NOTIFICATIONS_SENT WHERE TIMESTAMP > '" + startDateString + "' AND TIMESTAMP < '" + endDateString +  "' order by TIMESTAMP desc";
+		String notificationSelectStatement ="SELECT * FROM NOTIFICATIONS_SENT WHERE TIMESTAMP > '" + startDateString + "' AND TIMESTAMP < '" + endDateString +  "' and subscription_owner != 'SYSTEM' order by TIMESTAMP desc";
 		
 		log.info("Retrieve Notifications Sent SQL: " + notificationSelectStatement);
 		

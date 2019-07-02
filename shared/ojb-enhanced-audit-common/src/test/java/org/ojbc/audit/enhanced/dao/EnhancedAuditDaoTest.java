@@ -401,6 +401,7 @@ public class EnhancedAuditDaoTest {
 		identificationQueryResponse.setIdDate(LocalDate.now());
 		identificationQueryResponse.setMessageId("123456");
 		identificationQueryResponse.setOca("oca");
+		identificationQueryResponse.setOri("ori");
 		identificationQueryResponse.setOtn("otn");
 		identificationQueryResponse.setPersonFirstName("first");
 		identificationQueryResponse.setPersonMiddleName("middle");

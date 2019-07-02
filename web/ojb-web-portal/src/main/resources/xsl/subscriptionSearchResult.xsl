@@ -34,7 +34,8 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	<xsl:param name="hrefBase"/>
-	<xsl:param name="validateSubscriptionButton"/>	
+	<xsl:param name="validateSubscriptionButton"/>
+	<xsl:param name="includeAgencyORIColumn">false</xsl:param>	
 	<xsl:param name="validationThreshold">60</xsl:param>	
 	<xsl:param name="subscriptionExpirationAlertPeriod">0</xsl:param>
 	
@@ -88,6 +89,9 @@
 						<th>VALIDATION DUE</th>
 						<th>FBI SUBSCRIPTION</th>
 						<th>EMAIL ADDRESS</th>
+						<xsl:if test="$includeAgencyORIColumn='true'">
+							<th>OWNER ORI</th>						
+						</xsl:if>
 					</tr>
 				</thead>
 				<!-- Need to call Person first in order to sort on last name, first name -->
@@ -184,6 +188,11 @@
 			<td>
 				<xsl:apply-templates select="/p:SubscriptionSearchResults/nc:ContactInformation[@s:id = /p:SubscriptionSearchResults/ext:SubscriptionContactInformationAssociation[ext:SubscriptionReference/@s:ref=$subscriptionRefId]/nc:ContactInformationReference/@s:ref]"/>
 			</td>
+			
+			<xsl:if test="$includeAgencyORIColumn='true'">
+				<td><xsl:value-of select="/p:SubscriptionSearchResults/j:Organization[@s:id=/p:SubscriptionSearchResults/ext:SubscribedEntityOrganizationAssociation[ext:SubscribedEntityReference/@s:ref=/p:SubscriptionSearchResults/ext:SubscribedEntitySubscriptionAssociation[ext:SubscriptionReference/@s:ref=$subscriptionRefId]/ext:SubscribedEntityReference/@s:ref]/nc:OrganizationReference/@s:ref]/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/></td>						
+			</xsl:if>
+			
 		</tr>
 	</xsl:template>
 	
