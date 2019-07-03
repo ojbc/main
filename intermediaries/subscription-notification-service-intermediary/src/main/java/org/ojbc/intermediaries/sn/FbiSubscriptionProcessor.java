@@ -70,7 +70,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
     	fbiSubModDocBuilder = new FbiSubModDocBuilder();
     }
 
-	public void prepareUnsubscribeMessageForFbiEbts(@Body Document document) throws Exception{
+	public Document prepareUnsubscribeMessageForFbiEbts(@Body Document document) throws Exception{
 				
 		String subscriptionId = XmlUtils.xPathStringSearch(document, 
 				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
@@ -81,6 +81,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		appendFbiSubscriptionInfoToUnsubscribeMessage(document, subscription);
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(document.getDocumentElement());
+		return document;
 	}
 	
 
