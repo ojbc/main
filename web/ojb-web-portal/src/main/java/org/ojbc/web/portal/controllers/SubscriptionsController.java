@@ -282,15 +282,7 @@ public class SubscriptionsController {
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
 		
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
-		
-		if (includeAgencyORIColumn)
-		{	
-			subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", "true");
-		}	
-		else
-		{
-			subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", "false");
-		}	
+		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(includeAgencyORIColumn));
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 
@@ -1464,20 +1456,19 @@ public class SubscriptionsController {
 								
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
 		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
+		converterParamsMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
 
 		//note must default to empty string instead of null for ui to display nothing when desired instead
 		// of having ui display "$subscriptionsContent"
 		String transformedResults = ""; 
 				
 		if(StringUtils.isNotBlank(rawResults)){
-			
 			transformedResults = searchResultConverter.convertSubscriptionSearchResult(rawResults, converterParamsMap);			
 		}
 			
 		model.put("subscriptionsContent", transformedResults);
 		model.put("informationMessages", informationMessage);		
 	}
-	
 
 	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
