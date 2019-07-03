@@ -17,9 +17,11 @@
 package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +42,13 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
+import org.w3c.dom.Document;
 
 public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
@@ -53,6 +60,9 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	
 	@Resource
 	protected IncidentNotificationProcessor incidentNotificationProcessor;
+	
+	@Resource
+	protected FbiSubscriptionProcessor fbiSubscriptionProcessor;
 	
 	//TODO ensure prod java code uses correct data source
 		
@@ -117,5 +127,18 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		
 		//Assert that the date stamp is equal for both dates.
 		assertEquals(lastValidationDate.toString("yyyy-MM-dd"), todayPlusOneYear.toString("yyyy-MM-dd"));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testPrepareUnsubscribeMessageForFbiEbts() throws Exception {
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
+
+		assertNotNull(fbiSubscriptionProcessor);
+		Document originalUnsubscribeRequest = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/unSubscribeFbiSubscriptionRequest.xml"));
+		Document preparedRequest = fbiSubscriptionProcessor.prepareUnsubscribeMessageForFbiEbts(originalUnsubscribeRequest);
+		
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/expectedPreparedUnsubscribeFbiRequest.xml", preparedRequest);
 	}	
 }
