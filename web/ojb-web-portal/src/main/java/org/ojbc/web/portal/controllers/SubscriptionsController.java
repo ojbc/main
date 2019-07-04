@@ -1491,7 +1491,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	@ModelAttribute("subscriptionPurposeValueToLabelMap")
+	@ModelAttribute("subscriptionPurposeEditableMap")
 	public Map<String, String> getSubscriptionPurposeValueToLabelMap(Map<String, ?> model) {
 		
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
