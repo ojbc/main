@@ -145,7 +145,7 @@
 				<td class="detailsLabel">Purpose</td>
 				<td>
 					#if(${subscription.subscriptionPurpose} == 'CI'|| ${subscription.subscriptionPurpose} == 'CS')
-						#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+						#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeMap "disabled='disabled'")
 					#else
 						<input type="text" name="temp" value="CIVIL" readonly="readonly">
 					#end

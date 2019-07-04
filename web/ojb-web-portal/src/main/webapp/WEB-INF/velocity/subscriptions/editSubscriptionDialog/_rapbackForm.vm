@@ -73,7 +73,7 @@
  				
 #if(${showSubscriptionPurposeDropDown})
 	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeEditableMap "disabled='disabled'")
 		#springFormHiddenInput("subscription.subscriptionPurpose")
 		
 		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
