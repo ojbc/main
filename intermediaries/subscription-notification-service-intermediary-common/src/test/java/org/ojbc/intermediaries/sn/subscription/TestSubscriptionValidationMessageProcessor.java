@@ -111,9 +111,9 @@ public class TestSubscriptionValidationMessageProcessor {
 		assertEquals(1,rowsUpdated);
 		
 		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionWithFbiInfoBySubscriptionId("62723"); 
-		String validationDueDateString = subscriptionValidationMessageProcessor.getValidationDueDateString(subscription);
+		String validationDueDateString = subscriptionValidationMessageProcessor.getValidationDueDateString(subscription, "criminal");
 		
-		subscriptionValidationMessageProcessor.validateSubscription(ex, 62723, validationDueDateString);
+		subscriptionValidationMessageProcessor.validateSubscription(ex, 62723, validationDueDateString, "criminal");
 
 		Document response = (Document) ex.getIn().getBody();
 		validateAgainstWSNSpec(response);
