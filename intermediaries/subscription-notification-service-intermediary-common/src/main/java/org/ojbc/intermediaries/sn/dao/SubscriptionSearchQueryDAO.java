@@ -1020,13 +1020,20 @@ public class SubscriptionSearchQueryDAO {
         return rowsUpdated;
     }
     
-	private static final String SUBSCRIPTION_VALIDATION_QUERY = 
+	private static final String SUBSCRIPTION_VALIDATION_QUERY_CRIMINAL = 
 			"update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =? where id = ?";
 
-    public int validateSubscription(String validationDueDateString, Integer subscriptionId){
-    	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY, validationDueDateString, validationDueDateString, subscriptionId);
+    public int validateSubscriptionCriminal(String validationDueDateString, Integer subscriptionId){
+    	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CRIMINAL, validationDueDateString, validationDueDateString, subscriptionId);
     }
-    
+
+	private static final String SUBSCRIPTION_VALIDATION_QUERY_CIVIL = 
+			"update subscription set lastValidationDate = curdate(), enddate=?, validationDueDate =?, startdate=? where id = ?";
+
+    public int validateSubscriptionCivil(String validationDueDateString, Integer subscriptionId, String startDateString){
+    	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CIVIL, validationDueDateString, validationDueDateString, startDateString, subscriptionId);
+    }
+
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
         return new PreparedStatementCreator() {
 

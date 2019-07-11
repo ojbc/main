@@ -50,6 +50,7 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -935,7 +936,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     }    
     
     @Test
-    public void testSubscriptionValidation() throws Exception {
+    public void testSubscriptionValidationCriminal() throws Exception {
     	subscriptionProcessorMock.reset();
     	unsubscriptionProcessorMock.reset();
     	subscriptionValidationMock.reset();
@@ -969,7 +970,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, CXF_OPERATION_NAMESPACE_VALIDATE);
     	
 	    //Read the subscription validation request file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Criminal.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
 	    assertNotNull(inputStr);
@@ -1004,6 +1005,84 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
     }    
 
+    @Test
+    public void testSubscriptionValidationCivil() throws Exception {
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
+    	subscriptionValidationMock.expectedMessageCount(1);
+    	
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+				
+    	//Set the WS-Address Message ID
+		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");
+		
+		//Set the operation name and operation namespace for the CXF exchange
+		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
+		
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+		
+		org.apache.cxf.message.Message message = new MessageImpl();
+		
+		//Add SAML token to request call
+		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
+		SAMLTokenPrincipal principal = new SAMLTokenPrincipalImpl(new SamlAssertionWrapper(samlToken));
+		message.put("wss4j.principal.result", principal);
+		
+		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
+ 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAME, CXF_OPERATION_NAME_VALIDATE);
+	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, CXF_OPERATION_NAMESPACE_VALIDATE);
+    	
+	    //Read the subscription validation request file from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Civil.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+	    assertNotNull(inputStr);
+	    
+	    log.debug(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+	    
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:unsubscriptionSecureEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		//Sleep while a response is generated
+		Thread.sleep(3000);
+		
+		//Assert that the mock endpoint expectations are satisfied
+		subscriptionValidationMock.assertIsSatisfied();
+		
+		
+		Exchange ex = subscriptionValidationMock.getReceivedExchanges().get(0);
+		Document returnDocument = ex.getIn().getBody(Document.class);
+		
+		//XmlUtils.printNode(returnDocument);
+
+		assertEquals("62724", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
+
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("62724");
+
+		//Start date/validation date is today's date
+		//Validation due and end date is 5 years from now
+		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getLastValidationDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().plusYears(5).toString(), subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().plusYears(5).toString(), subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+    }    
+    
     @Test
     public void testSubscriptionValidationInvalidMessage() throws Exception {
     

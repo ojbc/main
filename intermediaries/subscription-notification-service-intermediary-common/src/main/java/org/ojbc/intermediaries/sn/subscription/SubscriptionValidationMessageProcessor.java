@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.ojbc.audit.enhanced.processor.AbstractValidationRequestProcessor;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
@@ -60,10 +61,22 @@ public class SubscriptionValidationMessageProcessor {
 	 * @throws Exception
 	 */
 	public void validateSubscription(Exchange exchange, @Header("subscriptionId") Integer subscriptionId, 
-			@Header("validationDueDateString") String validationDueDateString) throws Exception 
+			@Header("validationDueDateString") String validationDueDateString, @Header("validationType") String validationType) throws Exception 
 	{
-		int rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscription(validationDueDateString, subscriptionId);
+		int rowsUpdated = 0; 
 		
+		//Criminal subscriptions will use current date as the start date, update subscription accordingly
+		if (validationType.equals("criminal"))
+		{	
+			rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscriptionCriminal(validationDueDateString, subscriptionId);
+		}
+
+		//Civil subscriptions will use current date as the start date, update subscription accordingly
+		if (validationType.equals("civil"))
+		{	
+			rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscriptionCivil(validationDueDateString, subscriptionId, LocalDate.now().toString());
+		}
+
 		//Send a good response back if a row has been updated
 		if (rowsUpdated == 1)
 		{	
@@ -86,11 +99,30 @@ public class SubscriptionValidationMessageProcessor {
 	}
 
 
-	public String getValidationDueDateString(@Header("subscription") Subscription subscription) {
+	public String getValidationDueDateString(@Header("subscription") Subscription subscription, @Header("validationType") String validationType) {
 		if (subscription == null) throw new IllegalArgumentException("Can't calculate the validation due date when subscription is not found.");
 		
-		DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, subscription.getLastValidationDate().toLocalDate());
-		String validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		if (StringUtils.isBlank(validationType))
+		{
+			throw new IllegalArgumentException("Validation type not specified. Unable to calculate validation date.");
+		}	
+		
+		String validationDueDateString = "";
+		
+		if (validationType.equals("criminal"))
+		{	
+			//update here
+			DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, subscription.getLastValidationDate().toLocalDate());
+			validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		}
+
+		if (validationType.equals("civil"))
+		{	
+			//update here
+			DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, LocalDate.now());
+			validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		}
+
 		return validationDueDateString;
 	}
     

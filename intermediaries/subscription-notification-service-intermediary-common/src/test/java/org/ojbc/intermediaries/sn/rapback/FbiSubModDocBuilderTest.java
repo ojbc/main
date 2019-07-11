@@ -126,7 +126,7 @@ public class FbiSubModDocBuilderTest {
 		assertNotNull(subscription);
 		logger.info("subscription: " + subscription);
 		
-		String validationDueDateString = subscriptionValidationMessageProcessor.getValidationDueDateString(subscription);
+		String validationDueDateString = subscriptionValidationMessageProcessor.getValidationDueDateString(subscription, "criminal");
 		Document modifyDocument = fbiSubModDocBuilder.buildModifyMessageWithSubscripiton(subscription, validationDueDateString);
 		
 		XmlUtils.printNode(modifyDocument);
