@@ -49,6 +49,7 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.SubscriptionCategoryCode;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -1255,7 +1256,7 @@ public class SubscriptionsController {
 			String iTopic = subIdToSubDataJsonObj.getString("topic");
 			String reasonCode = subIdToSubDataJsonObj.getString("reasonCode");
 			
-			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic)){
+			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
 				
 				String vaidationDueDateString = subIdToSubDataJsonObj.getString("validationDueDate");
 				LocalDate validationDueDate = OJBCDateUtils.parseLocalDate(vaidationDueDateString); 

@@ -119,7 +119,7 @@
 		<xsl:variable name="subscribedEntity" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
 		<xsl:variable name="subscriptionID" select="intel:SystemIdentifier/nc:IdentificationID"/>
 		<xsl:variable name="validationDueDate" select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date[normalize-space()]"/>
-		<xsl:variable name="reasonCode" select="ext:Subscription/ext:CriminalSubscriptionReasonCode"/>
+		<xsl:variable name="reasonCode" select="ext:Subscription/ext:CriminalSubscriptionReasonCode | ext:Subscription/ext:CivilSubscriptionReasonCode"/>
 		<xsl:variable name="subjectName">
 			<xsl:choose>
 				<xsl:when test="$subjectPerson/nc:PersonName[nc:PersonGivenName and nc:PersonSurName]">

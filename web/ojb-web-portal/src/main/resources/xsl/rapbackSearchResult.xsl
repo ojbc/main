@@ -185,14 +185,15 @@
 			</a>
 		</xsl:if>
 		
-		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
-			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
-				<xsl:attribute name="id">
-					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
-				</xsl:attribute>
-				<i class="fa fa-check-circle fa-lg"/>
-			</a>
-		</xsl:if>
+		<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<xsl:attribute name="data-reason-code">
+				<xsl:value-of select="normalize-space(oirsr-ext:CivilIdentificationReasonCode)"/>
+			</xsl:attribute>
+			<i class="fa fa-check-circle fa-lg"/>
+		</a>
 		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
