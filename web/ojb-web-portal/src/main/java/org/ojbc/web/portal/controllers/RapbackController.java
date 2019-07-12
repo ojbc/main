@@ -688,10 +688,12 @@ public class RapbackController {
 	
 	@RequestMapping(value = "validate", method = RequestMethod.GET)
 	public @ResponseBody String validate(HttpServletRequest request, @RequestParam String subscriptionId,
+			@RequestParam String reasonCode,
 			Map<String, Object> model) {
 		try{
+			
 			FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
-					subscriptionId, RAPBACK_TOPIC_SUB_TYPE, OjbcWebConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT, 
+					subscriptionId, RAPBACK_TOPIC_SUB_TYPE, reasonCode, 
 					getFederatedQueryId(), samlService.getSamlAssertion(request));
 			if (faultableSoapResponse.isSuccess()){
 				return "success";

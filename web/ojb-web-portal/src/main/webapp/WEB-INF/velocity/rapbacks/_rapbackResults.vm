@@ -146,9 +146,13 @@
 			}
     	}
     	
-    	function refreshSearchResultsTable(){
+    	function refreshSearchResultsTable(message){
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
-				$('#portalContent').html(data);	
+				$('#portalContent').html(data);
+				
+				if (message){	
+					showErrorMessage(message)
+				}
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
@@ -160,16 +164,17 @@
     	
     	$('#searchResultsTable').on('click', 'a.validate',function() {
 			var row = $(this).parent().parent();
-			var id = $(this).attr("id"); 		    
+			var id = $(this).attr("id");
+			var reasonCode = $(this).attr("data-reason-code"); 		    
 		    $( "#dialog-confirm-validate" ).dialog({
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      modal: true,
 			      buttons: {
 			        "Validate": function() {
-			    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: id}, function(data) {
+			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
 							if (data === 'success'){
-								refreshSearchResultsTable();				
+								refreshSearchResultsTable("Validation succeeded");	
 							}
 							else{
 								showErrorMessage(data);
