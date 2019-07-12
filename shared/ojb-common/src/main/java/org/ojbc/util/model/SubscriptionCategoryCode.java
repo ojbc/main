@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn;
+package org.ojbc.util.model;
 
 import java.util.Arrays;
 import java.util.List;
