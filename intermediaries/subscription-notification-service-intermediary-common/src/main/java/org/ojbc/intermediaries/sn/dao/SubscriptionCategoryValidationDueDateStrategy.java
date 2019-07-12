@@ -22,8 +22,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.ojbc.intermediaries.sn.SubscriptionCategoryCode;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.model.SubscriptionCategoryCode;
 import org.ojbc.util.model.rapback.Subscription;
 
 public class SubscriptionCategoryValidationDueDateStrategy implements ValidationDueDateStrategy {
