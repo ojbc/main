@@ -87,7 +87,6 @@ public class AbstractSearchQueryProcessor {
 	}
 
 	void appendPersonAugmentationElement(Subject subject, Element identifiedPerson, String extNamespace) {
-		log.debug("subject: " + subject.toString());
 		if (StringUtils.isNotBlank(subject.getUcn()) 
 				|| StringUtils.isNotBlank(subject.getCivilSid()) 
 				|| StringUtils.isNotBlank(subject.getCriminalSid())){
