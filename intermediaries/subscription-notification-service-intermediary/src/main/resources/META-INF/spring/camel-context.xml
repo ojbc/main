@@ -470,5 +470,10 @@
 	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
 	
 	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
+	
+	<bean id="subscriptionAuditProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionAuditProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>
+	</bean>
 
 </beans>

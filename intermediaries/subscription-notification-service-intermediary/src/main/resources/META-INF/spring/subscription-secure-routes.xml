@@ -47,11 +47,25 @@
 			<!--  Perform some generic message processing --> 
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
-			<camel:to uri="direct:logRoute"/>
+			<!-- perform auditing request here -->
+			<camel:setHeader headerName="subscriptionId">
+				<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
+			</camel:setHeader>
+			
+			<camel:doTry>
+			
+				<camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionRequest"/>
+				
+				<camel:doCatch>
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+				</camel:doCatch>			
+			</camel:doTry>
 			
 			<camel:doTry>
 				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
 
+				<!-- These headers are used when saving the subscription to the database -->
 				<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
 				<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
 
@@ -82,7 +96,16 @@
 				</camel:doCatch>
 			</camel:doTry>	
 			
-			<camel:to uri="direct:logRoute"/>
+			<!-- perform auditing response here -->
+			<camel:doTry>
+			
+				<camel:to uri="bean:subscriptionAuditProcessor?method=auditSubscriptionResponse"/>
+				
+				<camel:doCatch>
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+				</camel:doCatch>			
+			</camel:doTry>
 			
 		</camel:route>
 		
@@ -104,7 +127,16 @@
 					<!--  Perform some generic message processing --> 
 					<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 					
-					<camel:to uri="direct:logRoute"/>
+					<!-- perform auditing request here in try catch block -->
+					<camel:doTry>
+					
+						<camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionRequest"/>
+						
+						<camel:doCatch>
+							<camel:exception>java.lang.Exception</camel:exception>
+							<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+						</camel:doCatch>			
+					</camel:doTry>					
 					
 					<camel:doTry>
 						<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
@@ -126,7 +158,16 @@
 						</camel:doCatch>
 					</camel:doTry>	
 					
-					<camel:to uri="direct:logRoute"/>
+					<!-- perform auditing response here -->
+					<camel:doTry>
+					
+						<camel:to uri="bean:subscriptionAuditProcessor?method=auditUnsubscriptionResponse"/>
+						
+						<camel:doCatch>
+							<camel:exception>java.lang.Exception</camel:exception>
+							<camel:log message="Unable to audit subscription message. An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>
+						</camel:doCatch>			
+					</camel:doTry>					
 					
 				</camel:when>
 				
@@ -176,12 +217,10 @@
 								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
 							</camel:when>
 						</camel:choice>
-					
-						<camel:to uri="direct:logRoute"/>
 						
+						<!-- Auditing will be perform as part of the validation -->					
 						<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>
 						
-						<camel:to uri="direct:logRoute"/>
 						<camel:doCatch>
 							<camel:exception>java.lang.Exception</camel:exception>
 							<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="ERROR"/>

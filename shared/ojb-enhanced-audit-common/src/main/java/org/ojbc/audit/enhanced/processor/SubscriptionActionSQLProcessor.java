@@ -20,40 +20,59 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
+import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 
-public class SubscriptionValidationNullObjectProcessor extends AbstractValidationRequestProcessor {
+public class SubscriptionActionSQLProcessor extends AbstractSubscriptionActionAuditProcessor {
 
-	private static final Log log = LogFactory.getLog(SubscriptionValidationNullObjectProcessor.class);
+	private static final Log log = LogFactory.getLog(SubscriptionActionSQLProcessor.class);
 	
-	private UserInfoNullObjectProcessor userInfoProcessor;
+	private EnhancedAuditDAO enhancedAuditDAO;
+	
+	private UserInfoSQLProcessor userInfoProcessor;
 	
 	@Override
-	public void auditValidationRequest(Exchange exchange) {
+	public Integer auditSubcriptionRequestAction(Exchange exchange, SubscriptionAction subscriptionAction) {
+		
+		Integer subscriptionActionPk = null;
 		
 		try {
+			Integer userInfoPk = userInfoProcessor.auditUserInfo(exchange);
 			
-			userInfoProcessor.auditUserInfo(exchange);
-
-			String subscriptionId = (String) exchange.getIn().getHeader("subscriptionId");
-			String validationDueDateString = (String) exchange.getIn().getHeader("validationDueDateString");
+			log.info(subscriptionAction.toString());
 			
-			ValidationRequest validationRequest = processValidationRequest(subscriptionId, validationDueDateString);
+			subscriptionAction.setUserInfoFK(userInfoPk);
 			
-			log.info(validationRequest.toString());
+			subscriptionActionPk =enhancedAuditDAO.saveSubscriptionAction(subscriptionAction);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Unable to audit subscription validation request: " + ExceptionUtils.getStackTrace(e));
 		}
 		
+		return subscriptionActionPk;
+	}
+	
+	@Override
+	public void auditSubcriptionResponseAction(SubscriptionAction subscriptionAction) {
+
+		enhancedAuditDAO.updateSubscriptionActionWithResponse(subscriptionAction);
+		
 	}
 
-	public UserInfoNullObjectProcessor getUserInfoProcessor() {
+	public EnhancedAuditDAO getEnhancedAuditDAO() {
+		return enhancedAuditDAO;
+	}
+
+	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
+		this.enhancedAuditDAO = enhancedAuditDAO;
+	}
+
+	public UserInfoSQLProcessor getUserInfoProcessor() {
 		return userInfoProcessor;
 	}
 
-	public void setUserInfoProcessor(UserInfoNullObjectProcessor userInfoProcessor) {
+	public void setUserInfoProcessor(UserInfoSQLProcessor userInfoProcessor) {
 		this.userInfoProcessor = userInfoProcessor;
 	}
 
