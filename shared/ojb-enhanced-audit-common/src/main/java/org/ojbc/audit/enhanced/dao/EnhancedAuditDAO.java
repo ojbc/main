@@ -34,10 +34,10 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 
 
 public interface EnhancedAuditDAO {
@@ -132,6 +132,7 @@ public interface EnhancedAuditDAO {
 	
 	public List<String> retrieveTriggeringEventsForNotification(Integer federalRapbackNotificationId);
 	
-	public Integer saveValidationRequest (ValidationRequest validationRequest);
+	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction);
 	
+	public void updateSubscriptionActionWithResponse(SubscriptionAction subscriptionAction);
 }

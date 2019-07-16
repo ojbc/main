@@ -20,53 +20,43 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 
-public class SubscriptionValidationSQLProcessor extends AbstractValidationRequestProcessor {
+public class SubscriptionActionNullObjectProcessor extends AbstractSubscriptionActionAuditProcessor {
 
-	private static final Log log = LogFactory.getLog(SubscriptionValidationSQLProcessor.class);
+	private static final Log log = LogFactory.getLog(SubscriptionActionNullObjectProcessor.class);
 	
-	private EnhancedAuditDAO enhancedAuditDAO;
-	
-	private UserInfoSQLProcessor userInfoProcessor;
+	private UserInfoNullObjectProcessor userInfoProcessor;
 	
 	@Override
-	public void auditValidationRequest(Exchange exchange) {
+	public Integer auditSubcriptionRequestAction(Exchange exchange, SubscriptionAction subscriptionAction) {
 		
 		try {
-			Integer userInfoPk = userInfoProcessor.auditUserInfo(exchange);
 			
-			String subscriptionId = (String) exchange.getIn().getHeader("subscriptionId");
-			String validationDueDateString = (String) exchange.getIn().getHeader("validationDueDateString");
+			userInfoProcessor.auditUserInfo(exchange);
 			
-			ValidationRequest validationRequest = processValidationRequest(subscriptionId, validationDueDateString);
-			validationRequest.setUserInfoFK(userInfoPk);
-			
-			log.info(validationRequest.toString());
-			
-			enhancedAuditDAO.saveValidationRequest(validationRequest);
+			log.info(subscriptionAction.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Unable to audit subscription validation request: " + ExceptionUtils.getStackTrace(e));
 		}
 		
+		return null;
+		
 	}
 
-	public EnhancedAuditDAO getEnhancedAuditDAO() {
-		return enhancedAuditDAO;
+	@Override
+	public void auditSubcriptionResponseAction(SubscriptionAction subscriptionAction) {
+		log.info("Auditing subscription response action: " + subscriptionAction.toString());
+		
 	}
-
-	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
-		this.enhancedAuditDAO = enhancedAuditDAO;
-	}
-
-	public UserInfoSQLProcessor getUserInfoProcessor() {
+	
+	public UserInfoNullObjectProcessor getUserInfoProcessor() {
 		return userInfoProcessor;
 	}
 
-	public void setUserInfoProcessor(UserInfoSQLProcessor userInfoProcessor) {
+	public void setUserInfoProcessor(UserInfoNullObjectProcessor userInfoProcessor) {
 		this.userInfoProcessor = userInfoProcessor;
 	}
 

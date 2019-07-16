@@ -35,6 +35,16 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="jdbcTemplateAudit" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="jdbcTemplateAudit" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.springframework.jdbc.core.JdbcTemplate">
+		 	   <constructor-arg ref="dataSourceAudit"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+	
 	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
@@ -222,10 +232,22 @@
 				<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 				<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 				<property name="faultMessageProcessor" ref="faultMessageProcessor" />
-		      	<property name="subscriptionValidationProcessor" ref="subscriptionValidationProcessor"/>			
+		      	<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>			
 			</bean>
 		</constructor-arg>
 	</bean>
+
+	<bean id="subscriptionActionAuditProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="subscriptionActionAuditProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.SubscriptionActionNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+		
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>	
 		
 	<bean id="notificationsSentStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="notificationsSentStrategy" />

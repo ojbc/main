@@ -21,22 +21,36 @@ import java.time.LocalDate;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class ValidationRequest {
+public class SubscriptionAction {
 
-	private Integer subscriptionValidationId;
+	public static final String SUBSCRIBE_ACTION="subscribe";
+	
+	public static final String SUBSCRIPTION_MODIFICATION_ACTION="subscription_modification";
+	
+	public static final String UNSUBSCRIBE_ACTION="unsubscribe";
+	
+	public static final String VALIDATION_ACTION="validate";
+	
+	private Integer subscriptionActionId;
 	
 	private String stateSubscriptionId;
 	
-	private LocalDate validationDueDate;
+	private String fbiSubscriptionId;
+	
+	private String action;
 	
 	private Integer userInfoFK;
 	
-	public Integer getSubscriptionValidationId() {
-		return subscriptionValidationId;
+	private LocalDate validationDueDate;
+	
+	private boolean successIndicator;
+
+	public Integer getSubscriptionActionId() {
+		return subscriptionActionId;
 	}
 
-	public void setSubscriptionValidationId(Integer subscriptionValidationId) {
-		this.subscriptionValidationId = subscriptionValidationId;
+	public void setSubscriptionActionId(Integer subscriptionActionId) {
+		this.subscriptionActionId = subscriptionActionId;
 	}
 
 	public String getStateSubscriptionId() {
@@ -45,6 +59,30 @@ public class ValidationRequest {
 
 	public void setStateSubscriptionId(String stateSubscriptionId) {
 		this.stateSubscriptionId = stateSubscriptionId;
+	}
+
+	public String getFbiSubscriptionId() {
+		return fbiSubscriptionId;
+	}
+
+	public void setFbiSubscriptionId(String fbiSubscriptionId) {
+		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public Integer getUserInfoFK() {
+		return userInfoFK;
+	}
+
+	public void setUserInfoFK(Integer userInfoFK) {
+		this.userInfoFK = userInfoFK;
 	}
 
 	public LocalDate getValidationDueDate() {
@@ -59,12 +97,11 @@ public class ValidationRequest {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
-	public Integer getUserInfoFK() {
-		return userInfoFK;
+	public boolean isSuccessIndicator() {
+		return successIndicator;
 	}
 
-	public void setUserInfoFK(Integer userInfoFK) {
-		this.userInfoFK = userInfoFK;
+	public void setSuccessIndicator(boolean successIndicator) {
+		this.successIndicator = successIndicator;
 	}
-
 }

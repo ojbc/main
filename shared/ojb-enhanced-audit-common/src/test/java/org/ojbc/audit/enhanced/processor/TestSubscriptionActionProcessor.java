@@ -16,7 +16,7 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
-import static org.junit.Assert.assertEquals;
+import java.time.LocalDate;
 
 import javax.annotation.Resource;
 
@@ -34,7 +34,7 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -46,34 +46,32 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
-public class TestSubscriptionValidationProcessor {
+public class TestSubscriptionActionProcessor {
 
-	private static final Log log = LogFactory.getLog(TestSubscriptionValidationProcessor.class);
+	private static final Log log = LogFactory.getLog(TestSubscriptionActionProcessor.class);
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
 	
 	@Test
-	public void testAuditValidationRequest() throws Exception
+	public void testAuditSubscriptionAction() throws Exception
 	{
-		SubscriptionValidationSQLProcessor queryRequestProcessor = new SubscriptionValidationSQLProcessor();
+		SubscriptionActionSQLProcessor subscriptionActionSQLProcessor = new SubscriptionActionSQLProcessor();
 		UserInfoSQLProcessor userInfoSQLProcessor = new UserInfoSQLProcessor();
 		
 		userInfoSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
-		queryRequestProcessor.setEnhancedAuditDAO(enhancedAuditDao);
+		subscriptionActionSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
 		
-		queryRequestProcessor.setUserInfoProcessor(userInfoSQLProcessor);
+		subscriptionActionSQLProcessor.setUserInfoProcessor(userInfoSQLProcessor);
 		
-		String subscriptionId = "22";
-		String validationDueDateString = "2019-01-02";
+		SubscriptionAction subscriptionAction = new SubscriptionAction();
 		
-		ValidationRequest validationRequest = queryRequestProcessor.processValidationRequest(subscriptionId, validationDueDateString);
+		log.info(subscriptionAction.toString());
 		
-		log.info(validationRequest.toString());
+		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
+		subscriptionAction.setFbiSubscriptionId("33");
+		subscriptionAction.setValidationDueDate(LocalDate.now());
 		
-		assertEquals(subscriptionId, validationRequest.getStateSubscriptionId());
-		assertEquals(validationDueDateString, validationRequest.getValidationDueDate().toString());
-
 		CamelContext ctx = new DefaultCamelContext(); 
 		    
     	//Create a new exchange
@@ -89,7 +87,14 @@ public class TestSubscriptionValidationProcessor {
 		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", "123456");
 		
-		queryRequestProcessor.auditValidationRequest(senderExchange);
+		Integer subscriptionActionPk = subscriptionActionSQLProcessor.auditSubcriptionRequestAction(senderExchange, subscriptionAction);
+		
+		subscriptionAction = new SubscriptionAction();
+		
+		subscriptionAction.setSubscriptionActionId(subscriptionActionPk);
+		subscriptionAction.setSuccessIndicator(true);
+		
+		subscriptionActionSQLProcessor.auditSubcriptionResponseAction(subscriptionAction);
 		
 	}
 	

@@ -49,11 +49,11 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -758,6 +758,37 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 	
 	@Override
+	public void updateSubscriptionActionWithResponse(
+			SubscriptionAction subscriptionAction) {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		
+		final String SUBSCRIPTION_ACTIONS_UPDATE="UPDATE SUBSCRIPTION_ACTIONS SET "
+				+ "SUCCESS_INDICATOR = :successIndicator "
+				+ "WHERE SUBSCRIPTION_ACTIONS_ID = :subscriptionActionsId";
+
+		final String SUBSCRIPTION_ACTIONS_WITH_SUBSCRIPRTIONID_UPDATE="UPDATE SUBSCRIPTION_ACTIONS SET "
+				+ "STATE_SUBSCRIPTION_ID = :stateSubscriptionId, "
+				+ "SUCCESS_INDICATOR = :successIndicator "
+				+ "WHERE SUBSCRIPTION_ACTIONS_ID = :subscriptionActionsId";
+
+		
+		paramMap.put("successIndicator", subscriptionAction.isSuccessIndicator()); 
+		paramMap.put("subscriptionActionsId", subscriptionAction.getSubscriptionActionId()); 
+		
+		if (StringUtils.isNotBlank(subscriptionAction.getStateSubscriptionId()))
+		{
+			paramMap.put("stateSubscriptionId", subscriptionAction.getStateSubscriptionId());
+			namedParameterJdbcTemplate.update(SUBSCRIPTION_ACTIONS_WITH_SUBSCRIPRTIONID_UPDATE, paramMap);	
+		}	
+		else
+		{
+			namedParameterJdbcTemplate.update(SUBSCRIPTION_ACTIONS_UPDATE, paramMap);	
+		}	
+	}
+
+	
+	@Override
 	public void updateFederalRapbackIdentityHistoryWithResponse(
 			FederalRapbackIdentityHistory federalRapbackIdentityHistory)
 			throws Exception {
@@ -1178,6 +1209,33 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     }
 	
 	@Override
+	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction) {
+		final String VALIDATION_REQUEST_INSERT="INSERT into SUBSCRIPTION_ACTIONS "
+        		+ "(USER_INFO_ID, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, VALIDATION_DUE_DATE, ACTION) "
+        		+ "values (?, ?, ?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VALIDATION_REQUEST_INSERT, new String[] {"SUBSCRIPTION_ACTIONS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getUserInfoFK(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getStateSubscriptionId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getFbiSubscriptionId(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getValidationDueDate(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getAction(), ps, 5);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+    }
+	
+	@Override
 	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId,
 			Integer triggeringEventId) {
 		log.debug("Inserting row into TRIGGERING_EVENTS_JOINER table, triggering event id: " + triggeringEventId + ", federal rapback notification id: " + federalRapbackNotificationId);
@@ -1202,32 +1260,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
-	
-	@Override
-	public Integer saveValidationRequest(ValidationRequest validationRequest) {
-
-		final String VALIDATION_REQUEST_INSERT="INSERT into SUBSCRIPTION_VALIDATION "
-        		+ "(USER_INFO_ID, STATE_SUBSCRIPTION_ID, VALIDATION_DUE_DATE) "
-        		+ "values (?, ?, ?)";
-        
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(VALIDATION_REQUEST_INSERT, new String[] {"SUBSCRIPTION_VALIDATION_ID"});
-        	            DaoUtils.setPreparedStatementVariable(validationRequest.getUserInfoFK(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(validationRequest.getStateSubscriptionId(), ps, 2);
-        	            DaoUtils.setPreparedStatementVariable(validationRequest.getValidationDueDate(), ps, 3);
-        	            
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();		
-    }
 	
 	@Override
 	public List<String> retrieveTriggeringEventsForNotification(

@@ -46,9 +46,9 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.ojbc.audit.enhanced.dao.model.ValidationRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -592,21 +592,31 @@ public class EnhancedAuditDaoTest {
 	}
 
 	@Test
-	public void testValidationMethods() throws Exception
+	public void testSubscriptionActionMethods() throws Exception
 	{
 		Integer userInfoPk = saveUserInfo();
 		assertNotNull(userInfoPk);
 		log.info("User info pk: " + userInfoPk);
-
 		
-		ValidationRequest validationRequest = new ValidationRequest();
+		SubscriptionAction subscriptionAction = new SubscriptionAction();
 
-		validationRequest.setStateSubscriptionId("44");
-		validationRequest.setUserInfoFK(userInfoPk);
-		validationRequest.setValidationDueDate(LocalDate.now());
+		subscriptionAction.setFbiSubscriptionId("55");
+		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
+		subscriptionAction.setUserInfoFK(userInfoPk);
+		subscriptionAction.setValidationDueDate(LocalDate.now());
 		
-		Integer validationPk = enhancedAuditDao.saveValidationRequest(validationRequest);
-		assertNotNull(validationPk);
+		Integer subscriptionActionPk = enhancedAuditDao.saveSubscriptionAction(subscriptionAction);
+		assertNotNull(subscriptionActionPk);
+		
+		subscriptionAction = new SubscriptionAction();
+		
+		subscriptionAction.setSuccessIndicator(true);
+		subscriptionAction.setStateSubscriptionId("44");
+		subscriptionAction.setSubscriptionActionId(subscriptionActionPk);
+		
+		enhancedAuditDao.updateSubscriptionActionWithResponse(subscriptionAction);
+		
+		log.info("Subscription action test complete.");
 	}
 	
 	@Test
