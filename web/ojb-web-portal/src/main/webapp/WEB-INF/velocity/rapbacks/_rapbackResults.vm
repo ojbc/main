@@ -101,6 +101,7 @@
 		}
 		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
+    		clearErrorMessage();
     		$.post("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
@@ -114,6 +115,7 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.archive',function() {
+    		clearErrorMessage();
     		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
@@ -126,6 +128,7 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.unarchive',function() {
+    		clearErrorMessage();
     		$.get("#springUrl('/rapbacks/unarchive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
@@ -146,12 +149,18 @@
 			}
     	}
     	
+    	function clearErrorMessage(){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html('');
+			}
+    	}
+    	
     	function refreshSearchResultsTable(message){
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
 				$('#portalContent').html(data);
 				
 				if (message){	
-					showErrorMessage(message)
+					showErrorMessage(message);
 				}
 			}).fail(ojbc.displayFailMessage);
 							    
@@ -159,10 +168,12 @@
     	}
     	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
+    		clearErrorMessage();
 			unsubscribe($(this).attr("id")) ;
     	});
     	
     	$('#searchResultsTable').on('click', 'a.validate',function() {
+    		clearErrorMessage();
 			var row = $(this).parent().parent();
 			var id = $(this).attr("id");
 			var reasonCode = $(this).attr("data-reason-code"); 		    
@@ -174,7 +185,7 @@
 			        "Validate": function() {
 			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
 							if (data === 'success'){
-								refreshSearchResultsTable("Validation succeeded");	
+								refreshSearchResultsTable("Validation Successful");	
 							}
 							else{
 								showErrorMessage(data);
@@ -192,6 +203,7 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+    		clearErrorMessage();
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
@@ -229,6 +241,7 @@
         });
     	
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
+    		clearErrorMessage();
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Rap Sheets" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
@@ -266,6 +279,7 @@
         });
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
+    		clearErrorMessage();
     		var recordStatus = $(this).parent().prev().text();
     		var subsequentResultButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
@@ -314,6 +328,7 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.viewRapsheetConfirmation',function() {
+    		clearErrorMessage();
     		var recordStatus = $(this).parent().prev().text();
     		var viewRapsheetButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
@@ -363,6 +378,7 @@
     	
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
+    		clearErrorMessage();
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
@@ -402,7 +418,6 @@
 
 		function unsubscribe(id){
     		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
-    		
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
