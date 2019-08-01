@@ -26,18 +26,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.WebUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Element;
 
 @Service("ojbcAccessDeniedHandler")
 public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
     @Value("${requireOtpAuthentication:false}")
     Boolean requireOtpAuthentication;
 
+    @Value("${requireFederatedQueryUserIndicator:true}")
+    boolean requireFederatedQueryUserIndicator;
+    
 	private final Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
@@ -54,6 +59,17 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
     	log.info("requireOtpAuthentication:" + BooleanUtils.isTrue(requireOtpAuthentication));
 		if (BooleanUtils.isTrue(requireOtpAuthentication) && !request.isUserInRole(Authorities.AUTHZ_PORTAL_OTP.name()))
 		{
+			if (requireFederatedQueryUserIndicator)
+			{
+				Element samlAssertion = (Element)request.getAttribute("samlAssertion");
+		        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
+		        
+		        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+		        	log.warn("User does not have FederatedQueryUserIndicator");
+		        	request.getRequestDispatcher("/401").forward(request, response);
+		        }
+			}
+	        
 			log.info("User doesn't have OTP role.");
 			request.getRequestDispatcher("/otp/inputForm").forward(request, response);
 			return;
