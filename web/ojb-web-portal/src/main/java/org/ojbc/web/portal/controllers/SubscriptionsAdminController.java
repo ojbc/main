@@ -82,7 +82,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, true);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 	    return "subscriptions/admin/_adminLandingPage";
 	}
@@ -111,7 +111,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 					
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, true);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 		return "subscriptions/admin/_subscriptionResults";
 	}

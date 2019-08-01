@@ -36,6 +36,7 @@
 	<xsl:param name="hrefBase"/>
 	<xsl:param name="validateSubscriptionButton"/>
 	<xsl:param name="includeAgencyORIColumn">false</xsl:param>	
+	<xsl:param name="includeStatusColumn">false</xsl:param>	
 	<xsl:param name="validationThreshold">60</xsl:param>	
 	<xsl:param name="subscriptionExpirationAlertPeriod">0</xsl:param>
 	
@@ -87,10 +88,13 @@
 						<th>START DATE</th>
 						<th>END DATE</th>
 						<th>VALIDATION DUE</th>
-						<th>FBI SUBSCRIPTION</th>
+						<th>UCN</th>
 						<th>EMAIL ADDRESS</th>
 						<xsl:if test="$includeAgencyORIColumn='true'">
 							<th>OWNER ORI</th>						
+						</xsl:if>
+						<xsl:if test="$includeStatusColumn='true'">
+							<th>ACTIVE</th>						
 						</xsl:if>
 					</tr>
 				</thead>
@@ -191,6 +195,28 @@
 			
 			<xsl:if test="$includeAgencyORIColumn='true'">
 				<td><xsl:value-of select="/p:SubscriptionSearchResults/j:Organization[@s:id=/p:SubscriptionSearchResults/ext:SubscribedEntityOrganizationAssociation[ext:SubscribedEntityReference/@s:ref=/p:SubscriptionSearchResults/ext:SubscribedEntitySubscriptionAssociation[ext:SubscriptionReference/@s:ref=$subscriptionRefId]/ext:SubscribedEntityReference/@s:ref]/nc:OrganizationReference/@s:ref]/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/></td>						
+			</xsl:if>
+			<xsl:if test="$includeStatusColumn='true'">
+				<td>
+					<xsl:choose>
+						<xsl:when test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true'">
+							<xsl:variable name="subscriptionRefId">
+								<xsl:value-of select="ext:Subscription/@s:id"/>
+							</xsl:variable>
+		
+							<xsl:variable name="fbiSubscriptionRefId">
+								<xsl:value-of select="/p:SubscriptionSearchResults/ext:StateSubscriptionFBISubscriptionAssociation[ext:StateSubscriptionReference/@s:ref=$subscriptionRefId]
+									/ext:FBISubscriptionReference/@s:ref"/>
+							</xsl:variable>
+							
+							<xsl:choose>
+								<xsl:when test="$fbiSubscriptionRefId != ''">State/FBI</xsl:when>
+								<xsl:otherwise>State</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:otherwise>None</xsl:otherwise>
+					</xsl:choose>
+				</td>						
 			</xsl:if>
 			
 		</tr>

@@ -253,13 +253,13 @@ public class SubscriptionsController {
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
-		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest, false);
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 		return "subscriptions/_subscriptionResults";
 	}
 
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
-			SubscriptionSearchRequest subscriptionSearchRequest, boolean includeAgencyORIColumn) {
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
@@ -283,7 +283,8 @@ public class SubscriptionsController {
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
 		
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
-		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(includeAgencyORIColumn));
+		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
+		subResultsHtmlXsltParamMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
 		
 		//note empty string required for ui - so "$subscriptionsContent" not displayed
 		String transformedResults = ""; 
@@ -1458,6 +1459,7 @@ public class SubscriptionsController {
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
 		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 		converterParamsMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
+		converterParamsMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
 
 		//note must default to empty string instead of null for ui to display nothing when desired instead
 		// of having ui display "$subscriptionsContent"
