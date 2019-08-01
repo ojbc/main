@@ -66,7 +66,7 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 		        
 		        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
 		        	log.warn("User does not have FederatedQueryUserIndicator");
-		        	request.getRequestDispatcher("/401").forward(request, response);
+		        	request.getRequestDispatcher("/403").forward(request, response);
 		        }
 			}
 	        
