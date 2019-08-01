@@ -73,6 +73,8 @@ public class WebUtils {
 			e.printStackTrace();
 		}
         
+        log.info("Federated query user indicator: " + federatedQueryUserIndicatorString);
+        
         if (federatedQueryUserIndicatorString !=null && federatedQueryUserIndicatorString.equals("1"))
         {
         	federatedQueryUserIndicatorString="true";

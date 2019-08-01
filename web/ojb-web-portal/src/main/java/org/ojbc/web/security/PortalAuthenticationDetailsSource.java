@@ -119,6 +119,9 @@ public class PortalAuthenticationDetailsSource implements
 	        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
 	        
 	        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+	        	
+	        	log.warn("User does not have FederatedQueryUserIndicator");
+	        	
 	            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
 	                    grantedAuthorities);
 	        }
