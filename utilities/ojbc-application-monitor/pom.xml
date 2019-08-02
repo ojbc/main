@@ -24,7 +24,7 @@
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>ojbc-application-monitor</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>OJB :: ojbc-application-monitor :: utilities</name>
 	<url>http://www.search.org</url>
 
