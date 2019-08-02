@@ -16,9 +16,12 @@
  */
 package org.ojbc.bundles.utilities.applicationmonitor;
 
+import static org.junit.Assert.*;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -53,12 +56,12 @@ public class CamelContextTest {
     @Before
 	public void setUp() throws Exception {
 
-    	context.getRouteDefinition("checkWebServiceEndpointRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendAlertRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
     	    	//We mock the mail notification endpoint
-    	    	interceptSendToEndpoint("direct:sendAlert").to("mock:mockMailEndpoint");
+    	    	interceptSendToEndpoint("log:org.ojbc.bundles.utilities.applicationmonitor?level=INFO").to("mock:mockMailEndpoint");
     	    	
     	    }              
     	});
@@ -75,6 +78,12 @@ public class CamelContextTest {
 		
 		mockMail.expectedMessageCount(1);
 		mockMail.assertIsSatisfied();
+		
+		Exchange mailMessage = mockMail.getExchanges().get(0);
+		assertEquals("This is the subject", mailMessage.getIn().getHeader("subject"));
+		assertEquals("someone@someemail.com", mailMessage.getIn().getHeader("to"));
+		assertEquals("someone_else@someemail.com", mailMessage.getIn().getHeader("from"));
+		assertEquals("This is the example body", mailMessage.getIn().getBody());
 
 	}
 	
