@@ -53,25 +53,11 @@
     					else{
     						$("#subsAdminContent").html(data);	
     					}	        									         					        				      
+						$('#subscriptionStatus').val('All');
 					}
 				).fail(ojbc.displayFailMessage);
 			});
 			
-			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
-				ojbc.clearSearchResultsFilterFields();
-				validateLinkExists = $("#validateLink").length > 0;
-				
-		  		$.post("#springUrl('/subscriptions/clearFilter/')" + validateLinkExists ,
-		  			  function(data) {
-		  				if (validateLinkExists){	  			
-    						$('#portalContent').html(data);
-    					}
-    					else{
-    						$("#subsAdminContent").html(data);	
-    					}	        									         					        				      
-			    }).fail(ojbc.displayFailMessage);
-	
-			});  
 		});
 	            
 	</script>   

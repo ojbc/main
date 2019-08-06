@@ -20,15 +20,6 @@
   	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   	$('#searchBarButtonDiv').hide();    		
   	
-	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
-		ojbc.clearSearchResultsFilterFields();
-		
-  		$.post("#springUrl('/subscriptions/clearFilter')",function(data) {
-		      $('#portalContent').html(data);
-	    }).fail(ojbc.displayFailMessage);
-	
-	});  
-
     $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
