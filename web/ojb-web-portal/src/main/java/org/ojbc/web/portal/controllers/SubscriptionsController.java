@@ -265,40 +265,17 @@ public class SubscriptionsController {
 		String informationMessage = "";
 		
 		try{
-									
 			rawResults = subConfig.getSubscriptionSearchBean()
 					.invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
-												
 			userSession.setMostRecentSubscriptionSearchResult(rawResults);			
 			userSession.setSavedMostRecentSubscriptionSearchResult(null);
-		
 		}catch(Exception e){
-			
 			informationMessage = "Failed retrieving subscriptions";
 			e.printStackTrace();
 		}			
-		
 		logger.debug("Subscription results raw xml:\n" + rawResults);
-		
-		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
-		
-		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
-		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
-		subResultsHtmlXsltParamMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
-		
-		//note empty string required for ui - so "$subscriptionsContent" not displayed
-		String transformedResults = ""; 
-		
-		if(StringUtils.isNotBlank(rawResults)){
-		
-			transformedResults = searchResultConverter.convertSubscriptionSearchResult(rawResults, subResultsHtmlXsltParamMap);
-			
-			logger.debug("Subscription Results HTML:\n" + transformedResults);
-		}
-													
-		model.put("subscriptionsContent", transformedResults);	
-		model.put("informationMessages", informationMessage);
 		model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		convertSubscriptionSearchResults(model, informationMessage, rawResults, subscriptionSearchRequest);
 	}
 
 
@@ -342,24 +319,7 @@ public class SubscriptionsController {
 		logger.info("Filtered Result: \n" + sFilteredSubResults);
 				
 		//transform the filtered xml results into html		
-		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
-		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
-		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
-		subResultsHtmlXsltParamMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
-
-		String htmlResult = "";
-		
-		if(StringUtils.isNotBlank(sFilteredSubResults)){
-			htmlResult = searchResultConverter.convertSubscriptionSearchResult(sFilteredSubResults, subResultsHtmlXsltParamMap);	
-		}				
-		
-		logger.info("Subscriptions Transformed Html:\n" + htmlResult);
-				 	
-		//put it in the model
-		model.put("subscriptionsContent", htmlResult);	
-		//empty string(not null) prevents variable being displayed in ui html
-		model.put("informationMessages", "");
-		
+		convertSubscriptionSearchResults(model, "", sFilteredSubResults, subscriptionSearchRequest);
 		if (showValidationButton){
 			return "subscriptions/_subscriptionResults";
 		}
@@ -1426,14 +1386,18 @@ public class SubscriptionsController {
 			userSession.setSavedMostRecentSubscriptionSearchResult(null);
 						
 		}catch(Exception e){
-			
 			e.printStackTrace();
-			
 			logger.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
-			
 			informationMessage = "Failed retrieving subscriptions";
 		}
 								
+		convertSubscriptionSearchResults(model, informationMessage, rawResults,
+				subscriptionSearchRequest);		
+	}
+
+	private void convertSubscriptionSearchResults(Map<String, Object> model,
+			String informationMessage, String rawResults,
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
 		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
 		converterParamsMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
@@ -1448,7 +1412,7 @@ public class SubscriptionsController {
 		}
 			
 		model.put("subscriptionsContent", transformedResults);
-		model.put("informationMessages", informationMessage);		
+		model.put("informationMessages", informationMessage);
 	}
 
 	@InitBinder("subscription")
