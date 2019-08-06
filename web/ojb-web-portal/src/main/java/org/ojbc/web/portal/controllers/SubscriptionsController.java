@@ -308,7 +308,8 @@ public class SubscriptionsController {
 			BindingResult errors, Map<String, Object> model) {
 		
 		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
-		
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
+
 		logger.info("inside filter() for status: " + subscriptionStatus);
 		
 		String filterInput;
@@ -343,7 +344,9 @@ public class SubscriptionsController {
 		//transform the filtered xml results into html		
 		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
 		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
-		
+		subResultsHtmlXsltParamMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
+		subResultsHtmlXsltParamMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
+
 		String htmlResult = "";
 		
 		if(StringUtils.isNotBlank(sFilteredSubResults)){
