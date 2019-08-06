@@ -368,31 +368,6 @@ public class SubscriptionsController {
 		}
 	}
 	
-    @RequestMapping(value="clearFilter/{showValidationButton}", method = RequestMethod.POST)
-    public String clearFilter( Map<String, Object> model, @PathVariable("showValidationButton") Boolean showValidationButton ) {
-        
-        //reset the mostRecentSearchResult. 
-        if (userSession.getSavedMostRecentSubscriptionSearchResult() != null) {
-            userSession.setMostRecentSubscriptionSearchResult(userSession.getSavedMostRecentSubscriptionSearchResult()); 
-        } 
-                
-        Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);       
-		subResultsHtmlXsltParamMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(showValidationButton));
-
-        String htmlResult = searchResultConverter.convertSubscriptionSearchResult(
-                userSession.getMostRecentSubscriptionSearchResult(), 
-                subResultsHtmlXsltParamMap);
-        
-        //put it in the model
-        model.put("subscriptionsContent", htmlResult);  
-		if (showValidationButton){
-			return "subscriptions/_subscriptionResults";
-		}
-		else{
-			return "subscriptions/admin/_subscriptionResults";
-		}
-    }
-	
 	/**
 	 * Intended to just be used for returning the modal contents to be 
 	 * displayed for adding a subscription. Another method calls the service 
