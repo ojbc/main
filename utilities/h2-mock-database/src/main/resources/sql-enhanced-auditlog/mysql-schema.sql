@@ -151,6 +151,8 @@ CREATE TABLE SUBSCRIPTION_ACTIONS (
                 USER_INFO_ID INT,
                 STATE_SUBSCRIPTION_ID VARCHAR(20),
                 FBI_SUBSCRIPTION_ID VARCHAR(20),
+                START_DATE DATE,
+                END_DATE DATE,
                 VALIDATION_DUE_DATE DATE,
                 ACTION VARCHAR(100) NOT NULL,
                 SUCCESS_INDICATOR BOOLEAN,

@@ -1211,8 +1211,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	@Override
 	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction) {
 		final String VALIDATION_REQUEST_INSERT="INSERT into SUBSCRIPTION_ACTIONS "
-        		+ "(USER_INFO_ID, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, VALIDATION_DUE_DATE, ACTION) "
-        		+ "values (?, ?, ?, ?, ?)";
+        		+ "(USER_INFO_ID, STATE_SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, START_DATE, END_DATE, VALIDATION_DUE_DATE, ACTION) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -1224,8 +1224,10 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getUserInfoFK(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getStateSubscriptionId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getFbiSubscriptionId(), ps, 3);
-        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getValidationDueDate(), ps, 4);
-        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getAction(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getStartDate(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getEndDate(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getValidationDueDate(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionAction.getAction(), ps, 7);
         	            
         	            return ps;
         	        }

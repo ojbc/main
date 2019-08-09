@@ -43,6 +43,10 @@ public class SubscriptionAction {
 	
 	private LocalDate validationDueDate;
 	
+	private LocalDate startDate;
+	
+	private LocalDate endDate;
+	
 	private boolean successIndicator;
 
 	public Integer getSubscriptionActionId() {
@@ -103,5 +107,21 @@ public class SubscriptionAction {
 
 	public void setSuccessIndicator(boolean successIndicator) {
 		this.successIndicator = successIndicator;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 }
