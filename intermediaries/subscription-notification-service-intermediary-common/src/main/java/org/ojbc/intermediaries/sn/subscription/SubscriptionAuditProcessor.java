@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.processor.AbstractSubscriptionActionAuditProcessor;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.util.SubscriptionActionUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
@@ -70,6 +71,8 @@ public class SubscriptionAuditProcessor {
 				}
 				
 				subscriptionAction.setStateSubscriptionId(String.valueOf(subscription.getId()));
+				
+				SubscriptionActionUtils.setSubscriptionActionDateParams(subscriptionAction, subscription);
 
 			}
 		}
@@ -144,6 +147,8 @@ public class SubscriptionAuditProcessor {
 			}
 			
 			subscriptionAction.setStateSubscriptionId(String.valueOf(subscription.getId()));
+			
+			SubscriptionActionUtils.setSubscriptionActionDateParams(subscriptionAction, subscription);
 
 			//Do auditing here
 			Integer subscriptionActionPk = subscriptionActionAuditProcessor.auditSubcriptionRequestAction(exchange, subscriptionAction);

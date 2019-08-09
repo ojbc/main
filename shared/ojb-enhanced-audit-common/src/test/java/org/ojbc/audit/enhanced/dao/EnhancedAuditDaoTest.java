@@ -604,6 +604,9 @@ public class EnhancedAuditDaoTest {
 		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
 		subscriptionAction.setUserInfoFK(userInfoPk);
 		subscriptionAction.setValidationDueDate(LocalDate.now());
+		subscriptionAction.setStartDate(LocalDate.now().minusYears(2));
+		subscriptionAction.setEndDate(LocalDate.now().plusYears(2));
+		subscriptionAction.setValidationDueDate(LocalDate.now());
 		
 		Integer subscriptionActionPk = enhancedAuditDao.saveSubscriptionAction(subscriptionAction);
 		assertNotNull(subscriptionActionPk);

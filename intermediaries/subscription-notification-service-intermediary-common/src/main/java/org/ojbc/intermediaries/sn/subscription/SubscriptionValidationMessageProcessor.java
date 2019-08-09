@@ -32,6 +32,7 @@ import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.processor.AbstractSubscriptionActionAuditProcessor;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
+import org.ojbc.intermediaries.sn.util.SubscriptionActionUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -68,6 +69,9 @@ public class SubscriptionValidationMessageProcessor {
 		int rowsUpdated = 0; 
 		
 		int subscriptionId = (int)subscription.getId();
+
+		Integer subscriptionActionPk = auditSubscriptionRequest(exchange,
+				subscription, subscriptionId);
 		
 		//Criminal subscriptions will use current date as the start date, update subscription accordingly
 		if (validationType.equals("criminal"))
@@ -79,38 +83,6 @@ public class SubscriptionValidationMessageProcessor {
 		if (validationType.equals("civil"))
 		{	
 			rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscriptionCivil(validationDueDateString, subscriptionId, LocalDate.now().toString());
-		}
-		
-		//Create Subscription Action here
-		SubscriptionAction subscriptionAction = new SubscriptionAction();
-		
-		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
-		
-		FbiRapbackSubscription fbiRapbackSubscription = subscription.getFbiRapbackSubscription();
-		
-		if (fbiRapbackSubscription != null)
-		{	
-			String fbiSubscriptionId = subscription.getFbiRapbackSubscription().getFbiSubscriptionId();
-			
-			if (StringUtils.isNotBlank(fbiSubscriptionId))
-			{	
-				subscriptionAction.setFbiSubscriptionId(fbiSubscriptionId);
-			}
-		}
-		
-		subscriptionAction.setStateSubscriptionId(String.valueOf(subscriptionId));
-
-		java.time.LocalDate validationDueDate = java.time.LocalDate.parse(validationDueDateString); 
-		subscriptionAction.setValidationDueDate(validationDueDate);
-		
-		Integer subscriptionActionPk = null;
-		
-		//Do audit here
-		try {
-			subscriptionActionPk = subscriptionActionAuditProcessor.auditSubcriptionRequestAction(exchange, subscriptionAction);
-			
-		} catch (Exception e) {
-			log.error ("Unable to audit validation message. ", e);
 		}
 		
 		SubscriptionAction subscriptionActionResponse = new SubscriptionAction();
@@ -139,6 +111,42 @@ public class SubscriptionValidationMessageProcessor {
 			faultMessageProcessor.createFault(exchange);
 		}
 
+	}
+
+
+	private Integer auditSubscriptionRequest(Exchange exchange,
+			Subscription subscription, int subscriptionId) {
+		//Create Subscription Action here
+		SubscriptionAction subscriptionAction = new SubscriptionAction();
+		
+		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
+		
+		FbiRapbackSubscription fbiRapbackSubscription = subscription.getFbiRapbackSubscription();
+		
+		if (fbiRapbackSubscription != null)
+		{	
+			String fbiSubscriptionId = subscription.getFbiRapbackSubscription().getFbiSubscriptionId();
+			
+			if (StringUtils.isNotBlank(fbiSubscriptionId))
+			{	
+				subscriptionAction.setFbiSubscriptionId(fbiSubscriptionId);
+			}
+		}
+		
+		subscriptionAction.setStateSubscriptionId(String.valueOf(subscriptionId));
+
+		SubscriptionActionUtils.setSubscriptionActionDateParams(subscriptionAction, subscription);
+		
+		Integer subscriptionActionPk = null;
+		
+		//Do audit here
+		try {
+			subscriptionActionPk = subscriptionActionAuditProcessor.auditSubcriptionRequestAction(exchange, subscriptionAction);
+			
+		} catch (Exception e) {
+			log.error ("Unable to audit validation message. ", e);
+		}
+		return subscriptionActionPk;
 	}
 
 
