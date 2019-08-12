@@ -281,6 +281,7 @@
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:LocationAreaCodeText" minOccurs="0" />
+					<xsd:element ref="inc-ext:LocationCountyCodeText" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -1392,6 +1393,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="LocationCountyCodeText" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>A text code for a county.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="IncidentCallReceivedCodeText" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>A text code for how an incident call was received.</xsd:documentation>
