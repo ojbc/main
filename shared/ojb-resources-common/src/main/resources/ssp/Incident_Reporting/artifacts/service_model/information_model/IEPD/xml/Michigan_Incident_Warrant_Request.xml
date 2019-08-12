@@ -488,6 +488,10 @@
 									<lexslib:SameAsDigestReference lexslib:ref="Offense_1" />
 								</inc-ext:Charge>
 							</inc-ext:Incident>
+							<inc-ext:Location>
+								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
+								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />	
+							</inc-ext:Location>						
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
 								<j:PersonAugmentation>
