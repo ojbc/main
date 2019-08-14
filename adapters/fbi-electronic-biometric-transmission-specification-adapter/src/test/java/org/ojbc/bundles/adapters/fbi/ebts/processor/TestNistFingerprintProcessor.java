@@ -43,7 +43,6 @@ import org.w3c.dom.NodeList;
 public class TestNistFingerprintProcessor {
 
 	@Test
-	@Ignore
 	public void testInsertPackageHighResolutionGrayscaleImageRecord() throws Exception
 	{
 		NistImageProcessor nistImageProcessor = new NistImageProcessor();

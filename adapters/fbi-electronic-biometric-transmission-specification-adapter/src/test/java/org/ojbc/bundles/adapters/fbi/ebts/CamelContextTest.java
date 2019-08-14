@@ -131,7 +131,6 @@ public class CamelContextTest {
     }
     
 	@Test
-	@Ignore
 	public void newCivilSubscriptionTest() throws Exception{
 		
 		fbiEbtsSubscriptionManagerService.reset();
