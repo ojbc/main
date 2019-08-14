@@ -67,12 +67,30 @@
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
 
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.vehicleSearch.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.vehicleSearch.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:vehicleSearchSQLLoggingProcessor?method=auditVehicleSearchRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
@@ -91,9 +109,6 @@
 					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:otherwise>
 			</camel:choice>
-
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
@@ -198,13 +213,32 @@
 			<camel:setHeader headerName="searchProfile">
 				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
+			
+			<camel:log message="System name returned: ${in.headers.searchProfile}"/>
+			
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.vehicleSearch.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:log message="This is a place holder to audit the search response"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+			
 			<camel:log message="Calling Aggregator" />
 			<camel:to uri="direct:aggregateFederatedQuery" />
 		</camel:route>
 
 		<!-- Process aggregated federated responses here, call entity resolution after transforming payload if necessary-->
-		<camel:route>
+		<camel:route id="processFederatedResponseRoute">
 			<camel:from uri="direct:processFederatedResponse"/>
 			
 			<camel:setHeader headerName="searchResponseNodeCount">
@@ -330,7 +364,7 @@
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
-					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint}" />			
+					<camel:log message="About to send entity merge message to ${in.headers.recipientListReplyToEndpoint} with destination override URL of: ${in.headers.CamelDestinationOverrideUrl}" />			
 
 					<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
 								

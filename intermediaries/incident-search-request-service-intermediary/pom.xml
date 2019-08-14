@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-search-request-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<name>OJB :: incident-search-request-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -54,7 +54,7 @@
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
-		<ojb-enhanced-audit-common-version>[1.0.0,)</ojb-enhanced-audit-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.1,)</ojb-enhanced-audit-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 
