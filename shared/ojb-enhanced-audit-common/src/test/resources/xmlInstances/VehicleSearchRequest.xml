@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<vsreq-doc:VehicleSearchRequest
+	xmlns:vsreq-doc="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0"
+	xmlns:vsreq-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchRequest/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleSearchRequest/1.0 ../xsd/exchange_schema.xsd" s:metadata="SM003">
+	<vsreq-ext:Vehicle>
+		<nc:VehicleColorPrimaryCode>BLK</nc:VehicleColorPrimaryCode>
+		<nc:ItemModelName>Titan</nc:ItemModelName>
+		<nc:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>ABC123</nc:IdentificationID>
+		</nc:ConveyanceRegistrationPlateIdentification>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>1234567890ABCDEFGH</nc:IdentificationID>
+		</nc:VehicleIdentification>
+		<vsreq-ext:VehicleYearRange>
+			<nc:StartDate>
+				<nc:Year>2005</nc:Year>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Year>2009</nc:Year>
+			</nc:EndDate>
+		</vsreq-ext:VehicleYearRange>
+		<vsreq-ext:VehicleMakeCode>Nissan</vsreq-ext:VehicleMakeCode>
+	</vsreq-ext:Vehicle>
+	<vsreq-ext:SourceSystemNameText>{system1}URI</vsreq-ext:SourceSystemNameText>
+	<vsreq-ext:SourceSystemNameText>{system2}URI</vsreq-ext:SourceSystemNameText>
+	<vsreq-ext:SearchMetadata s:id="SM003">
+		<vsreq-ext:SearchRequestOnBehalfOfText>John Doe</vsreq-ext:SearchRequestOnBehalfOfText>
+		<vsreq-ext:SearchPurposeText>Criminal Justice</vsreq-ext:SearchPurposeText>
+	</vsreq-ext:SearchMetadata>
+</vsreq-doc:VehicleSearchRequest>

@@ -26,14 +26,14 @@
 	<nc:Case>
 		<j:CaseAugmentation>
 			<j:CaseCourtEvent s:metadata="DM02">
-				<nc:ActivityCategoryText>DEFERRED DISPOSITION</nc:ActivityCategoryText>
-				<nc:ActivityDescriptionText>ORDER</nc:ActivityDescriptionText>
-				<nc:ActivityName>PRE-JUDGMENT</nc:ActivityName>
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
 				<j:CourtEventAction s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>2002-07-21</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>ENTERED</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -49,14 +49,14 @@
 				</ext:OrganizationORIIdentification>
 			</j:CaseCourtEvent>
 			<j:CaseCourtEvent s:metadata="DM01">
-				<nc:ActivityCategoryText>GUILTY</nc:ActivityCategoryText>
-				<nc:ActivityDescriptionText>FINDING</nc:ActivityDescriptionText>
-				<nc:ActivityName>JUDGEMENT</nc:ActivityName>
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
 				<j:CourtEventAction s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>2002-08-21</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>ENTERED BY COURT</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -67,7 +67,7 @@
 					<nc:ActivityDate>
 						<nc:Date>2002-08-21</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>CONT FOR SENTENCING</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>2</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>2</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -78,7 +78,7 @@
 					<nc:ActivityDate>
 						<nc:Date>2002-09-04</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>VACATED</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>3</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>3</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -94,14 +94,14 @@
 				</ext:OrganizationORIIdentification>
 			</j:CaseCourtEvent>
 			<j:CaseCourtEvent s:metadata="DM01">
-				<nc:ActivityCategoryText>GUILTY</nc:ActivityCategoryText>
-				<nc:ActivityDescriptionText>FINDING</nc:ActivityDescriptionText>
-				<nc:ActivityName>JUDGEMENT</nc:ActivityName>
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
 				<j:CourtEventAction s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>2002-09-16</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>ENTERED BY COURT</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -117,14 +117,14 @@
 				</ext:OrganizationORIIdentification>
 			</j:CaseCourtEvent>
 			<j:CaseCourtEvent s:id="d1e83" s:metadata="DM01">
-				<nc:ActivityCategoryText>ORIGINAL</nc:ActivityCategoryText>
-				<nc:ActivityDescriptionText>RULING</nc:ActivityDescriptionText>
-				<nc:ActivityName>SENTENCE</nc:ActivityName>
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
 				<j:CourtEventAction s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>2002-09-16</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>ORDERED</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -135,7 +135,7 @@
 					<nc:ActivityDate>
 						<nc:Date>2002-09-17</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>ISSUED</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>2</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>2</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -146,7 +146,7 @@
 					<nc:ActivityDate>
 						<nc:Date>2002-09-04</nc:Date>
 					</nc:ActivityDate>
-					<nc:ActivityName>VACATED</nc:ActivityName>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
 					<ext:EventActionSequenceID>3</ext:EventActionSequenceID>
 					<ext:EventActionOrderNumber>3</ext:EventActionOrderNumber>
 					<ext:EventActionEnteredDate>
@@ -238,6 +238,9 @@
 					</ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
 				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
 					<nc:ActivityName>PublicService</nc:ActivityName>
 					<j:TermDuration>P1MT100H</j:TermDuration>
 					<ext:TermEnteredDate>

@@ -46,6 +46,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -130,6 +131,7 @@ public class CamelContextTest {
     }
     
 	@Test
+	@Ignore
 	public void newCivilSubscriptionTest() throws Exception{
 		
 		fbiEbtsSubscriptionManagerService.reset();

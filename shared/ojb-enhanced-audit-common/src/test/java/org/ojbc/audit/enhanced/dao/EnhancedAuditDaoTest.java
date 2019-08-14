@@ -41,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -49,6 +50,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -588,6 +590,71 @@ public class EnhancedAuditDaoTest {
 		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
 		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
 		assertEquals("employer ori", userAcknowledgementFromDatabase.getUserInfo().getEmployerOri());
+		
+	}
+	
+	@Test
+	public void testVehicleSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		VehicleSearchRequest vsr = new VehicleSearchRequest();
+		
+		vsr.setMessageId("123");
+		vsr.setOnBehalfOf("behalf");
+		vsr.setPurpose("purpose");
+		vsr.setUserInfofk(userInfoPk);
+		vsr.setVehicleColor("color");
+		vsr.setVehicleIdentificationNumber("vin");
+		vsr.setVehicleLicensePlate("plate");
+		vsr.setVehicleMake("make");
+		vsr.setVehicleModel("model");
+		vsr.setVehicleYearRangeEnd("2009");
+		vsr.setVehicleYearRangeEnd("2018");
+		
+		List<String> systemsToSearch=new ArrayList<String>();
+		
+		systemsToSearch.add("system1");
+		systemsToSearch.add("system2");
+		
+		vsr.setSourceSystemsList(systemsToSearch);
+		
+		Integer vehiclePk = enhancedAuditDao.saveVehicleSearchRequest(vsr);
+		
+		assertNotNull(vehiclePk);
+		
+	}
+
+	@Test
+	public void testIncidentSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		IncidentSearchRequest isr = new IncidentSearchRequest();
+		
+		isr.setMessageId("123");
+		isr.setOnBehalfOf("behalf");
+		isr.setPurpose("purpose");
+		isr.setUserInfofk(userInfoPk);
+		isr.setCategoryType("law");
+		isr.setCityTown("city");
+		isr.setEndDate(LocalDate.now());
+		isr.setStartDate(LocalDate.now().minusDays(10));
+		
+		List<String> systemsToSearch=new ArrayList<String>();
+		
+		systemsToSearch.add("system1");
+		systemsToSearch.add("system2");
+		
+		isr.setSystemsToSearch(systemsToSearch);
+		
+		Integer incidentPk = enhancedAuditDao.saveIncidentSearchRequest(isr);
+		
+		assertNotNull(incidentPk);
 		
 	}
 
