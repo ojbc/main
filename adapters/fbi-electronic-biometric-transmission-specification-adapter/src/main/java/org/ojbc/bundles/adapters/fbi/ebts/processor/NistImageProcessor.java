@@ -64,7 +64,7 @@ public class NistImageProcessor {
 			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:ImageVerticalLineLengthPixelQuantity", fingerPrint.getVerticalLineLength());
 			
 			Element fingerprintImagePosition = XmlUtils.appendElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImagePosition");
-			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerPositionCode", fingerPrint.getFingerPosition());
+			XmlUtils.appendTextElement(fingerprintImagePosition, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerPositionCode", fingerPrint.getImageDesignationCharacter());
 			
 			XmlUtils.appendTextElement(fingerprintImage, OjbcNamespaceContext.NS_NIEM_BIO, "nbio:FingerprintImageImpressionCaptureCategoryCode", fingerPrint.getImpressionType());
 
