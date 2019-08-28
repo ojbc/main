@@ -75,6 +75,7 @@
 				<xsd:sequence>
 					<xsd:element ref="firearm-search-resp-ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="firearm-search-resp-ext:FirearmStatus" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmCategoryText" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -91,6 +92,11 @@
 	<xsd:element name="FirearmStatus" type="firearm-search-resp-ext:FirearmStatusType">
 		<xsd:annotation>
 			<xsd:documentation>The state or disposition of a firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A kind of firearm.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RegistrationStatus" type="firearm-search-resp-ext:RegistrationStatusType">
