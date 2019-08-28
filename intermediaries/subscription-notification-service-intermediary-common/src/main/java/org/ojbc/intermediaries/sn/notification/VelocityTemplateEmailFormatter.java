@@ -20,6 +20,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.VelocityContext;
@@ -45,8 +46,15 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
     public static final class EmailTemplate {
         private String emailSubjectTemplate;
         private String emailBodyTemplate;
+        private String emailSubjectPrefix;
 
         public String getEmailSubjectTemplate() {
+        	
+        	if (StringUtils.isNotBlank(emailSubjectPrefix))
+        	{
+        		return emailSubjectPrefix + emailSubjectTemplate;
+        	}	
+        	
             return emailSubjectTemplate;
         }
 
@@ -62,11 +70,20 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
             this.emailBodyTemplate = emailBodyTemplate;
         }
 
+		public String getEmailSubjectPrefix() {
+			return emailSubjectPrefix;
+		}
+
+		public void setEmailSubjectPrefix(String emailSubjectPrefix) {
+			this.emailSubjectPrefix = emailSubjectPrefix;
+		}
+
 		@Override
 		public String toString() {
 			return "EmailTemplate [emailSubjectTemplate="
 					+ emailSubjectTemplate + ", emailBodyTemplate="
-					+ emailBodyTemplate + "]";
+					+ emailBodyTemplate + ", emailSubjectPrefix="
+					+ emailSubjectPrefix + "]";
 		}
     }
 
