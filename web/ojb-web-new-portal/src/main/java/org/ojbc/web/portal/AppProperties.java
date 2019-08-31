@@ -43,7 +43,7 @@ public class AppProperties {
 	private String externalTemplatesFolder ;
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
-	private List<String> dispoCodesRequiringChargeSeverity;
+	private List<String> dispoCodesNotRequiringChargeSeverity;
 	private List<String> fedIdsWithAuditPrivilege;
 
 	private Boolean allowQueriesWithoutSAMLToken = true; 
@@ -76,7 +76,7 @@ public class AppProperties {
 		
 		setDispoCodesRequiringSentence(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "503", "520", "525"));
 		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
-		setDispoCodesRequiringChargeSeverity(Arrays.asList("310", "348", "356", "357", "376", "380", "384", "388", "398","500", "503", "520", "525"));
+		setDispoCodesNotRequiringChargeSeverity(Arrays.asList("390"));
 		
 		chargeSeverityCodeMapping.put("F", "Felony");
 		chargeSeverityCodeMapping.put("M", "Misdemeanor");
@@ -231,12 +231,12 @@ public class AppProperties {
 		this.externalTemplatesFolder = externalTemplatesFolder;
 	}
 
-	public List<String> getDispoCodesRequiringChargeSeverity() {
-		return dispoCodesRequiringChargeSeverity;
+	public List<String> getDispoCodesNotRequiringChargeSeverity() {
+		return dispoCodesNotRequiringChargeSeverity;
 	}
 
-	public void setDispoCodesRequiringChargeSeverity(List<String> dispoCodesRequiringChargeSeverity) {
-		this.dispoCodesRequiringChargeSeverity = dispoCodesRequiringChargeSeverity;
+	public void setDispoCodesNotRequiringChargeSeverity(List<String> dispoCodesNotRequiringChargeSeverity) {
+		this.dispoCodesNotRequiringChargeSeverity = dispoCodesNotRequiringChargeSeverity;
 	}
 
 	public Map<String, String> getDaGeneralOffenseCodeMapping() {

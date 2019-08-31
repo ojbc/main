@@ -119,7 +119,7 @@
                 data-content="Felony or Misdemeanor">
                 <i class="fas fa-info-circle"></i></a>
            </label>
-           <select th:field="*{chargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
+           <select th:field="*{chargeSeverityCode}" class="form-control chosen-select" th:errorclass="is-invalid">
               <option value="" >Please select ...</option>
               <option th:each="item: ${chargeSeverityCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
            </select>
@@ -175,19 +175,7 @@
           
         </div>
         <div class="form-row">
-          <div class="col-md-3 pb-1 mb-3 border">
-            <label>Jail
-            <a href="#" data-toggle="popover" data-trigger="hover" 
-               data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
-               <i class="fas fa-info-circle"></i></a></label><br>
-            <label>Years</label>
-            <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
-            <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
-            <label>Days</label>
-            <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
-            <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
-          </div>
-          <div class="col-md-3 mb-3 pb-1 border-bottom border-top border-right">
+          <div class="col-md-3 mb-3 border pb-1">
             <label>Prison</label>
               <a href="#" data-toggle="popover" data-trigger="hover" 
                  data-content="Prison Time is served under the Department of Corrections. 
@@ -200,6 +188,18 @@
             <label>Days</label>
             <input type="number" min="1" max="359" th:field="*{prisonDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('prisonDays')}" th:errors="*{prisonDays}" class="invalid-feedback">Prison days error message</div>
+          </div>
+          <div class="col-md-3 pb-1 mb-3 border-bottom border-top border-right">
+            <label>Jail
+            <a href="#" data-toggle="popover" data-trigger="hover" 
+               data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
+               <i class="fas fa-info-circle"></i></a></label><br>
+            <label>Years</label>
+            <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+            <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
+            <label>Days</label>
+            <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+            <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
           </div>
           <div class="col-md-3 mb-3 pb-1 border-bottom border-top border-right">
             <label>Suspended</label>
@@ -285,7 +285,6 @@
       </form>
     <script th:inline="javascript">
 		    /*<![CDATA[*/
-		      var dispoCodesRequiringChargeSeverity = [[${dispoCodesRequiringChargeSeverity}]];
 		    /*]]>*/
 
 	      $(function(){
@@ -318,10 +317,6 @@
 	     	   
 					if (dispoCodesForDismissalReason.includes($('#dispositionCode').val())){
 					 $('#reasonForDismissal').prop('disabled', false).trigger("chosen:updated");
-					}
-	     	   
-					if (dispoCodesRequiringChargeSeverity.includes($('#dispositionCode').val())){
-					 $('#chargeSeverityCode').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
 					toggleSentenceInfo();
@@ -451,14 +446,6 @@
 		          else{
 		        	  $('#reasonForDismissal').val('');
 		        	  $('#reasonForDismissal').prop('disabled', true).trigger("chosen:updated");
-		          }
-		          
-		          if (dispoCodesRequiringChargeSeverity.includes($('#dispositionCode').val())){
-		        	  $('#chargeSeverityCode').prop('disabled', false).trigger("chosen:updated");
-		          }
-		          else{
-		        	  $('#chargeSeverityCode').val('');
-		        	  $('#chargeSeverityCode').prop('disabled', true).trigger("chosen:updated");
 		          }
 		          
 		          toggleSentenceInfo();

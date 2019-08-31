@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -62,6 +63,10 @@ public class DispositionValidator implements Validator {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
         	
+        	if (StringUtils.isNotBlank(disposition.getCaseNumber()) && Integer.valueOf(disposition.getCaseNumber()) <=1) {
+        		errors.rejectValue("caseNumber", null, "must be greater than 1");
+        	}
+        	
     		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(disposition.getCaseType(), 
     				disposition.getYear(), disposition.getCaseNumber());
     		if (isCourtCaseNumberPartsReady && "M".equals(disposition.getCaseType()) ) {
@@ -85,7 +90,8 @@ public class DispositionValidator implements Validator {
         }
         
         if (disposition.getDispositionType() == ArrestType.DA) {
-        	if (appProperties.getDispoCodesRequiringChargeSeverity().contains(disposition.getDispositionCode())) {
+        	if (!(appProperties.getDispoCodesNotRequiringChargeSeverity().contains(disposition.getDispositionCode()) || 
+        			Arrays.asList("T", "W").contains(disposition.getCaseType()))) {
         		if (StringUtils.isBlank(disposition.getChargeSeverityCode())) {
         			errors.rejectValue("chargeSeverityCode", null, "required by the dispo code");
         		}
