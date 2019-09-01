@@ -64,6 +64,7 @@
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
 					<xsd:element ref="psr-ext:PersonBirthDateRange" minOccurs="0"/>
+					<xsd:element ref="psr-ext:PersonNameIdentification" minOccurs="0"/>					
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -118,6 +119,11 @@
 			<xsd:documentation>A range of possible dates of birth for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identification associated with a persons name.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that is to be queried.
