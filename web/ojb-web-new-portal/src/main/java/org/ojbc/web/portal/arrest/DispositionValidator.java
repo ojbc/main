@@ -19,7 +19,6 @@ package org.ojbc.web.portal.arrest;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -48,10 +47,6 @@ public class DispositionValidator implements Validator {
 
     public void validate(Object obj, Errors errors) {
         Disposition disposition = (Disposition) obj;
-        
-        if ( Objects.nonNull(disposition.getDispositionDate()) && disposition.getDispositionDate().isBefore(disposition.getArrestDate())) {
-        	errors.rejectValue("dispositionDate", null, "may not be before arrest date " + disposition.getArrestDate().format(formatter));
-        }
         
         if (disposition.getFineSuspended() != null && disposition.getFineSuspended() > 0 && 
         		(disposition.getFineAmount() == null || disposition.getFineSuspended() > disposition.getFineAmount() )) {

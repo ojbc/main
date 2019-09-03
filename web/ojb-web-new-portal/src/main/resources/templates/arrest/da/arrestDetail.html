@@ -111,6 +111,8 @@
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 
 			      /*]]>*/
+			       // Date between 1900 and 2099.
+			       var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
          	   var dispoTables = [];
              $(function(){
             	   $('[data-toggle="popover"]').popover(); 
@@ -363,10 +365,8 @@
                    
                  $('#dispositionModal').on('click', '#expungeDisposition', function(){
                      var formData = $("#expungeDispositionForm").serialize();
-                     // Date between 1900 and 2099. 
-                     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+                      
                      var dispositionDateString = $('#dispositionDate').val();
-                     
                      if (dispositionDateString && date_regex.test(dispositionDateString)
                     		 && (new Date(dispositionDateString) <= new Date())){
                        $("#dispositionDate").removeClass("is-invalid").addClass("is-valid");
@@ -397,14 +397,23 @@
                    var prisonDays = parseInt($("#prisonDays").val()) || 0; 
                    var prisonTime = 360 * prisonYears + prisonDays; 
                    var counts = parseInt($("#counts").val()) || 0; 
-                	 
+
+                   var dispositionDateWarning = false;
+                   if ($('#dispositionCode').val() != '398'){
+                       var dispositionDateString = $("#dispositionDate").val();
+                       var dispositionDate = date_regex.test(dispositionDateString)? new Date(dispositionDateString):null;
+                       var arrestDate = new Date($("#arrestDate").text());
+                       if (dispositionDate < arrestDate){
+                    	   dispositionDateWarning = true; 
+                       }
+                	 }
                 	 var chargeSeverity = $('#amendedChargeSeverityCode').val() || $('#chargeSeverityCode').val(); 
                 	 
                    var originalChargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                    var newChargeRef = "#charge" + $("#arrestChargeIdentification").val();;
 
                	   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || jailTime > 360  || 
-               			   (chargeSeverity === 'M' && ( deferredTime > 360 || prisonTime > 0)) ){
+               			   (chargeSeverity === 'M' && ( deferredTime > 360 || prisonTime > 0) ) || dispositionDateWarning){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                			   contentArray.push({ p: {text: "The Fine Amount exceeds $1,000. "}});
@@ -429,6 +438,10 @@
                		   }
                		   if (!(originalChargeRef === newChargeRef)){
                        contentArray.push({ p: {text: "The disposition will be saved to charge " + $('#arrestChargeIdentification option:selected').text() + " instead."}});
+               		   }
+               		   
+               		   if (dispositionDateWarning){
+                       contentArray.push({ p: {text: "The disposition date is before the arrest date."}});
                		   }
                		   
                		   contentArray.push({ p: {text: "Do you want to proceed?"}});
