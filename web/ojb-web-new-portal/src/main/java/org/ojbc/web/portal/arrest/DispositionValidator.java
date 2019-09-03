@@ -17,6 +17,7 @@
 package org.ojbc.web.portal.arrest;
 
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
@@ -57,6 +58,15 @@ public class DispositionValidator implements Validator {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseType", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
+        	
+        	if (StringUtils.isNotBlank(disposition.getYear())) {
+        		if ( disposition.getYear().length() < 4) {
+        			errors.rejectValue("year", null, "must be 4-digit");
+        		}
+        		else if (Integer.valueOf(disposition.getYear()) > LocalDate.now().getYear()) {
+        			errors.rejectValue("year", null, "may not be greater than current year");
+        		}
+        	}
         	
         	if (StringUtils.isNotBlank(disposition.getCaseNumber()) && Integer.valueOf(disposition.getCaseNumber()) <=1) {
         		errors.rejectValue("caseNumber", null, "must be greater than 1");

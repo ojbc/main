@@ -15,6 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.arrest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.LocalDate;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
@@ -52,7 +54,7 @@ import org.w3c.dom.Element;
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
 	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
-	"daGeneralOffenseDescMapping", "dispoCodesNotRequiringChargeSeverity"})
+	"daGeneralOffenseDescMapping", "dispoCodesNotRequiringChargeSeverity", "yearList"})
 @RequestMapping("/daArrests")
 public class DaArrestController {
 	private static final Log log = LogFactory.getLog(DaArrestController.class);
@@ -119,6 +121,12 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("dispoCodesNotRequiringChargeSeverity")) {
 			model.addAttribute("dispoCodesNotRequiringChargeSeverity", appProperties.getDispoCodesNotRequiringChargeSeverity());
+		}
+		if (!model.containsAttribute("yearList")) {
+			List<String> yearList = new ArrayList<>(); 
+			yearList.add(String.valueOf(LocalDate.now().getYear())); 
+			yearList.add(String.valueOf(LocalDate.now().getYear() -1 )); 
+			model.addAttribute("yearList", yearList);
 		}
 		
     }
