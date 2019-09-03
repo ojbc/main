@@ -107,6 +107,7 @@
 				      var muniAlternateSentenceMapping = [[${muniAlternateSentenceMapping}]]; 
 				      var muniReasonsForDismissalMapping = [[${muniReasonsForDismissalMapping}]]; 
 				      var submitArrestConfirmationMessage = [[${submitArrestConfirmationMessage}]];
+				      var provisionCodeMapping = [[${provisionCodeMapping}]];
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 			      /*]]>*/
@@ -207,6 +208,17 @@
                             	   else{
 	                                 return data;
                             	   }
+                             }
+                        },
+                        {
+                             "targets": [18],
+                             "render": function ( data, type, row, meta ) {
+                                 if (provisionCodeMapping.hasOwnProperty(data)){
+                                    return provisionCodeMapping[data];
+                                 }
+                                 else{
+                                    return data;
+                                 }
                              }
                         },
                 			  {
