@@ -30,4 +30,11 @@
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
 	</j:Arrest>
+	<chm-req-ext:ReferToAgency>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ORI1223322</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</chm-req-ext:ReferToAgency>
 </daar-req-doc:DistrictAttorneyArrestReferralRequest>
