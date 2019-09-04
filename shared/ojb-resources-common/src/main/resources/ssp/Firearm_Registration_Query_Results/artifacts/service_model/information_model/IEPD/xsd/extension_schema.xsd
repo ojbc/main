@@ -88,6 +88,7 @@
 					<xsd:element ref="firearm-ext:FirearmImporter" minOccurs="0"/>
 					<xsd:element ref="firearm-ext:FirearmAcquisition" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="firearm-ext:FirearmStatus" minOccurs="0"/>
+					<xsd:element ref="firearm-ext:FirearmCategoryText" minOccurs="0"/>					
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -106,6 +107,11 @@
 			<xsd:documentation>The state or disposition of a firearm.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="FirearmCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A kind of firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="FirearmStatusRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A head element for ways to represent the status of a firearm.</xsd:documentation>
