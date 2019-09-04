@@ -60,6 +60,9 @@
 	<wsdl:message name="Finalize-Arrest-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Finalize-Arrest-Response" />
 	</wsdl:message>
+	<wsdl:message name="Decline-Charge-Response">
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Decline-Charge-Response" />
+	</wsdl:message>	
 	<wsdl:portType name="Criminal_History_Modification_Response_Service">
 		<wsdl:operation name="AddArrestResponse">
 			<wsdl:input message="tns:Arrest-Add-Response" name="Arrest-Add-Response" />
@@ -89,6 +92,9 @@
 		<wsdl:operation name="FinalizeArrestResponse">
 			<wsdl:input message="tns:Finalize-Arrest-Response" name="Finalize-Arrest-Response" />
 		</wsdl:operation>
+		<wsdl:operation name="DeclineChargeResponse">
+			<wsdl:input message="tns:Decline-Charge-Response" name="Decline-Charge-Response" />
+		</wsdl:operation>		
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
 	<wsdl:binding name="Criminal_History_Modification_Response_ServiceSOAPBinding"
@@ -158,6 +164,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="DeclineChargeResponse">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeclineChargeResponse" />
+			<wsdl:input name="Decline-Charge-Response">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 	</wsdl:binding>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Criminal_History_Modification_Response_Secure_ServiceSOAPBinding"
@@ -227,6 +240,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="DeclineChargeResponse">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DeclineChargeResponse" />
+			<wsdl:input name="Decline-Charge-Response">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 	</wsdl:binding>
 	<wsdl:service name="Criminal_History_Modification_Response_Service_Service">
 		<wsdl:port binding="tns:Criminal_History_Modification_Response_ServiceSOAPBinding"
