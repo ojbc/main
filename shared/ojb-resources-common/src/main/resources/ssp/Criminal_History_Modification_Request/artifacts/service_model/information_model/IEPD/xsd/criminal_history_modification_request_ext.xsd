@@ -99,17 +99,44 @@
 	</xsd:complexType>
 	<xsd:complexType name="DistrictAttorneyArrestReferralRequestType">
 		<xsd:annotation>
+			<xsd:documentation>A data type for a district attorney arrest referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:ReferToAgency" minOccurs="0" maxOccurs="1" />					
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DistrictAttorneyChargeReferralRequestType">
+		<xsd:annotation>
 			<xsd:documentation>A data type for a district attorney charge referral request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:ReferToAgency" minOccurs="0" maxOccurs="1" />					
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>	
+	<xsd:complexType name="MunicipalProsecutorArrestReferralRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a municipal prosecutor arrest referral request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:ReferToAgency" minOccurs="0" maxOccurs="1" />						
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="MunicipalProsecutorArrestReferralRequestType">
+	<xsd:complexType name="MunicipalProsecutorChargeReferralRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a municipal prosecutor charge referral request.</xsd:documentation>
 		</xsd:annotation>
@@ -117,10 +144,11 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chm-req-ext:ReferToAgency" minOccurs="0" maxOccurs="1" />						
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
-	</xsd:complexType>
+	</xsd:complexType>	
 	<xsd:complexType name="DeleteDispositionRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a delete disposition request.</xsd:documentation>
@@ -330,6 +358,11 @@
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code for the Charge Status.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReferToAgency" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The agency on the receiving end of a referral.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="ChargeStatusCodeType">

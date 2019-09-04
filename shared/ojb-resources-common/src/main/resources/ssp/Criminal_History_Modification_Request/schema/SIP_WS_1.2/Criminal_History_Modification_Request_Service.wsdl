@@ -22,14 +22,16 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:aar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestAddRequest/1.0"
 	xmlns:ahr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
-	xmlns:auhr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"	
+	xmlns:auhr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"
 	xmlns:amr-req-doc="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 	xmlns:er-req-doc="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
 	xmlns:daar-req-doc="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0"
 	xmlns:mpar-req-doc="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorArrestReferralRequest/1.0"
 	xmlns:dd-req-doc="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0"
 	xmlns:fa-req-doc="http://ojbc.org/IEPD/Exchange/FinalizeArrestRequest/1.0"
-	xmlns:dc-req-doc="http://ojbc.org/IEPD/Exchange/DeclineChargeRequest/1.0"	
+	xmlns:dc-req-doc="http://ojbc.org/IEPD/Exchange/DeclineChargeRequest/1.0"
+	xmlns:mpcr-req-doc="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorChargeReferralRequest/1.0"
+	xmlns:dacr-req-doc="http://ojbc.org/IEPD/Exchange/DistrictAttorneyChargeReferralRequest/1.0"
 	name="Criminal_History_Modification_Request_Service"
 	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0"
 	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
@@ -43,7 +45,7 @@
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestHideRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_hide_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestUnhideRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_unhide_request.xsd" />				
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_unhide_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ArrestModifyRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/arrest_modify_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ExpungeRequest/1.0"
@@ -57,7 +59,11 @@
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FinalizeArrestRequest/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/finalize_arrest_request.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DeclineChargeRequest/1.0"
-				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/decline_charge_request.xsd" />				
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/decline_charge_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorChargeReferralRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/municipal_prosecutor_charge_referral_request.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DistrictAttorneyChargeReferralRequest/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/district_attorney_charge_referral_request.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Arrest-Add-Request">
@@ -71,7 +77,7 @@
 	</wsdl:message>
 	<wsdl:message name="Arrest-Unhide-Request">
 		<wsdl:part element="auhr-req-doc:ArrestUnhideRequest" name="Arrest-Unhide-Request" />
-	</wsdl:message>	
+	</wsdl:message>
 	<wsdl:message name="Expunge-Request">
 		<wsdl:part element="er-req-doc:ExpungeRequest" name="Expunge-Request" />
 	</wsdl:message>
@@ -90,7 +96,14 @@
 	</wsdl:message>
 	<wsdl:message name="Decline-Charge-Request">
 		<wsdl:part element="dc-req-doc:DeclineChargeRequest" name="Decline-Charge-Request" />
-	</wsdl:message>	
+	</wsdl:message>
+	<wsdl:message name="District-Attorney-Charge-Referral-Request">
+		<wsdl:part element="dacr-req-doc:DistrictAttorneyChargeReferralRequest" name="District-Attorney-Charge-Referral-Request" />
+	</wsdl:message>
+	<wsdl:message name="Municipal-Prosecutor-Charge-Referral-Request">
+		<wsdl:part element="mpcr-req-doc:MunicipalProsecutorChargeReferralRequest"
+			name="Municipal-Prosecutor-Charge-Referral-Request" />
+	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Request_Service">
 		<wsdl:operation name="AddArrestRequest">
 			<wsdl:input message="tns:Arrest-Add-Request" name="Arrest-Add-Request" />
@@ -103,7 +116,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="UnhideArrestRequest">
 			<wsdl:input message="tns:Arrest-Unhide-Request" name="Arrest-Unhide-Request" />
-		</wsdl:operation>		
+		</wsdl:operation>
 		<wsdl:operation name="ExpungeRequest">
 			<wsdl:input message="tns:Expunge-Request" name="Expunge-Request" />
 		</wsdl:operation>
@@ -122,7 +135,14 @@
 		</wsdl:operation>
 		<wsdl:operation name="DeclineChargeRequest">
 			<wsdl:input message="tns:Decline-Charge-Request" name="Decline-Charge-Request" />
-		</wsdl:operation>		
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToDistrictAttorneyRequest">
+			<wsdl:input message="tns:District-Attorney-Charge-Referral-Request" name="District-Attorney-Charge-Referral-Request" />
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToMunicipalProsecutorRequest">
+			<wsdl:input message="tns:Municipal-Prosecutor-Charge-Referral-Request"
+				name="Municipal-Prosecutor-Charge-Referral-Request" />
+		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
 	<wsdl:binding name="Criminal_History_Modification_Request_ServiceSOAPBinding"
@@ -156,7 +176,7 @@
 			<wsdl:input name="Arrest-Unhide-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
-		</wsdl:operation>		
+		</wsdl:operation>
 		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />
@@ -198,7 +218,21 @@
 			<wsdl:input name="Decline-Charge-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
-		</wsdl:operation>		
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToDistrictAttorneyRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ReferChargeToDistrictAttorneyRequest" />
+			<wsdl:input name="District-Attorney-Charge-Referral-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToMunicipalProsecutorRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ReferChargeToMunicipalProsecutorRequest" />
+			<wsdl:input name="Municipal-Prosecutor-Charge-Referral-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
 	</wsdl:binding>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Criminal_History_Modification_Request_Secure_ServiceSOAPBinding"
@@ -232,7 +266,7 @@
 			<wsdl:input name="Arrest-Unhide-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
-		</wsdl:operation>		
+		</wsdl:operation>
 		<wsdl:operation name="ExpungeRequest">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ExpungeRequest" />
@@ -274,7 +308,21 @@
 			<wsdl:input name="Decline-Charge-Request">
 				<soap:body use="literal" />
 			</wsdl:input>
-		</wsdl:operation>		
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToDistrictAttorneyRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ReferChargeToDistrictAttorneyRequest" />
+			<wsdl:input name="District-Attorney-Charge-Referral-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReferChargeToMunicipalProsecutorRequest">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationRequestService/1.0/ReferChargeToMunicipalProsecutorRequest" />
+			<wsdl:input name="Municipal-Prosecutor-Charge-Referral-Request">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="Criminal_History_Modification_Request_Service_Service">
 		<wsdl:port binding="tns:Criminal_History_Modification_Request_ServiceSOAPBinding"
