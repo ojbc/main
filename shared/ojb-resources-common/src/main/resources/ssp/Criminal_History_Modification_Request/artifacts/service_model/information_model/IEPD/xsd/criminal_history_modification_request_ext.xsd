@@ -161,6 +161,18 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="DeclineChargeRequestType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a decline charge request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>	
 	<xsd:element name="CourtCase" type="nc:CaseType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A disposition case.</xsd:documentation>
