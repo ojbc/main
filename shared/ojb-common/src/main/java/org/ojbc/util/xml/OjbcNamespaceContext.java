@@ -1017,6 +1017,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0";
 	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT ="alsres-ext";
 	
+	public static final String NS_DECLINE_CHARGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DeclineChargeRequest/1.0";
+	public static final String NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC ="dc-req-doc";
+	
+	public static final String NS_ARREST_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0";
+	public static final String NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC ="ar-req-doc";
+
+	public static final String NS_CHARGE_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferralRequest/1.0";
+	public static final String NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC ="cr-req-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -2002,7 +2011,6 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT, NS_RECORD_REPLICATION_RESPONSE_EXT);
 		uriToPrefixMap.put(NS_RECORD_REPLICATION_RESPONSE_EXT,NS_PREFIX_RECORD_REPLICATION_RESPONSE_EXT );
 		
-		
 		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC, NS_AUDIT_LOG_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_REQUEST_DOC,NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC );
 
@@ -2014,6 +2022,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT, NS_AUDIT_LOG_SEARCH_RESULTS_EXT);
 		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT );
+
+		prefixToUriMap.put(NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC, NS_DECLINE_CHARGE_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DECLINE_CHARGE_REQUEST_DOC,NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC, NS_ARREST_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_REFERRAL_REQUEST_DOC,NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC, NS_CHARGE_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_CHARGE_REFERRAL_REQUEST_DOC,NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC );
 	}
 
 	@Override
