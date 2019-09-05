@@ -27,12 +27,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryModificationResponse/1.0 ../xsd/criminal_history_modification_response.xsd">
 	<chm-resp-ext:ModificationResponseMessage>
-		<chm-resp-ext:MunicipalProsecutorArrestReferralResponseText>ARREST REFERRED SUCCESSFULLY</chm-resp-ext:MunicipalProsecutorArrestReferralResponseText>
+		<chm-resp-ext:ChargeReferralResponseText>CHARGE REFERRED SUCCESSFULLY</chm-resp-ext:ChargeReferralResponseText>
 		<j:Arrest>
 			<j:ArrestAgencyRecordIdentification>
 				<nc:IdentificationID>1004233</nc:IdentificationID>
 				<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 			</j:ArrestAgencyRecordIdentification>
+			<j:ArrestCharge>
+				<j:ChargeIdentification>
+					<nc:IdentificationID>C123456</nc:IdentificationID>
+				</j:ChargeIdentification>
+			</j:ArrestCharge>
 		</j:Arrest>
 	</chm-resp-ext:ModificationResponseMessage>
 	<nc:SystemName>nc:SystemName</nc:SystemName>
