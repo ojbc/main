@@ -17,24 +17,37 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<mpar-req-doc:MunicipalProsecutorArrestReferralRequest
-	xmlns:mpar-req-doc="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorArrestReferralRequest/1.0"
+<ar-req-doc:ArrestReferralRequest
+	xmlns:ar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/MunicipalProsecutorArrestReferralRequest/1.0 ../xsd/municipal_prosecutor_arrest_referral_request.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0 ../xsd/arrest_referral_request.xsd">
 	<j:Arrest>
 		<j:ArrestAgencyRecordIdentification>
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
+		<!-- Multiple Charges for OSBI -->
+		<j:ArrestCharge>
+			<j:ChargeIdentification>
+				<nc:IdentificationID>C123456</nc:IdentificationID>
+			</j:ChargeIdentification>
+		</j:ArrestCharge>
+		<j:ArrestCharge>
+			<j:ChargeIdentification>
+				<nc:IdentificationID>C123456789</nc:IdentificationID>
+			</j:ChargeIdentification>
+		</j:ArrestCharge>
 	</j:Arrest>
 	<chm-req-ext:ReferToAgency>
+		<!-- Either "OrganizationCategoryText" OR OrganizationAugmentation(ORI) for OSBI -->
+		<nc:OrganizationCategoryText>DA</nc:OrganizationCategoryText>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
 				<nc:IdentificationID>ORI1223322</nc:IdentificationID>
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</chm-req-ext:ReferToAgency>
-</mpar-req-doc:MunicipalProsecutorArrestReferralRequest>
+</ar-req-doc:ArrestReferralRequest>
