@@ -47,12 +47,8 @@
 	<wsdl:message name="Expunge-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Expunge-Response" />
 	</wsdl:message>
-	<wsdl:message name="District-Attorney-Arrest-Referral-Response">
-		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="District-Attorney-Arrest-Referral-Response" />
-	</wsdl:message>
-	<wsdl:message name="Municipal-Prosecutor-Arrest-Referral-Response">
-		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse"
-			name="Municipal-Prosecutor-Arrest-Referral-Response" />
+	<wsdl:message name="Arrest-Referral-Response">
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Arrest-Referral-Response" />
 	</wsdl:message>
 	<wsdl:message name="Delete-Disposition-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Delete-Disposition-Response" />
@@ -63,12 +59,8 @@
 	<wsdl:message name="Decline-Charge-Response">
 		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Decline-Charge-Response" />
 	</wsdl:message>
-	<wsdl:message name="District-Attorney-Charge-Referral-Response">
-		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="District-Attorney-Charge-Referral-Response" />
-	</wsdl:message>
-	<wsdl:message name="Municipal-Prosecutor-Charge-Referral-Response">
-		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse"
-			name="Municipal-Prosecutor-Charge-Referral-Response" />
+	<wsdl:message name="Charge-Referral-Response">
+		<wsdl:part element="chm-resp-doc:CriminalHistoryModificationResponse" name="Charge-Referral-Response" />
 	</wsdl:message>
 	<wsdl:portType name="Criminal_History_Modification_Response_Service">
 		<wsdl:operation name="AddArrestResponse">
@@ -86,12 +78,8 @@
 		<wsdl:operation name="ExpungeResponse">
 			<wsdl:input message="tns:Expunge-Response" name="Expunge-Response" />
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyArrestReferralResponse">
-			<wsdl:input message="tns:District-Attorney-Arrest-Referral-Response" name="District-Attorney-Arrest-Referral-Response" />
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorArrestReferralResponse">
-			<wsdl:input message="tns:Municipal-Prosecutor-Arrest-Referral-Response"
-				name="Municipal-Prosecutor-Arrest-Referral-Response" />
+		<wsdl:operation name="ArrestReferralResponse">
+			<wsdl:input message="tns:Arrest-Referral-Response" name="Arrest-Referral-Response" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteDispositionResponse">
 			<wsdl:input message="tns:Delete-Disposition-Response" name="Delete-Disposition-Response" />
@@ -102,12 +90,8 @@
 		<wsdl:operation name="DeclineChargeResponse">
 			<wsdl:input message="tns:Decline-Charge-Response" name="Decline-Charge-Response" />
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyChargeReferralResponse">
-			<wsdl:input message="tns:District-Attorney-Charge-Referral-Response" name="District-Attorney-Charge-Referral-Response" />
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorChargeReferralResponse">
-			<wsdl:input message="tns:Municipal-Prosecutor-Charge-Referral-Response"
-				name="Municipal-Prosecutor-Charge-Referral-Response" />
+		<wsdl:operation name="ChargeReferralResponse">
+			<wsdl:input message="tns:Charge-Referral-Response" name="Charge-Referral-Response" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- This is an unsecured binding and should only be used for testing purposes -->
@@ -150,17 +134,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyArrestReferralResponse">
+		<wsdl:operation name="ArrestReferralResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DistrictAttorneyArrestReferralResponse" />
-			<wsdl:input name="District-Attorney-Arrest-Referral-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorArrestReferralResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/MunicipalProsecutorArrestReferralResponse" />
-			<wsdl:input name="Municipal-Prosecutor-Arrest-Referral-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ArrestReferralResponse" />
+			<wsdl:input name="Arrest-Referral-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -185,17 +162,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyChargeReferralResponse">
+		<wsdl:operation name="ChargeReferralResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DistrictAttorneyChargeReferralResponse" />
-			<wsdl:input name="District-Attorney-Charge-Referral-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorChargeReferralResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/MunicipalProsecutorChargeReferralResponse" />
-			<wsdl:input name="Municipal-Prosecutor-Charge-Referral-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ChargeReferralResponse" />
+			<wsdl:input name="Charge-Referral-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -240,17 +210,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyArrestReferralResponse">
+		<wsdl:operation name="ArrestReferralResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DistrictAttorneyArrestReferralResponse" />
-			<wsdl:input name="District-Attorney-Arrest-Referral-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorArrestReferralResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/MunicipalProsecutorArrestReferralResponse" />
-			<wsdl:input name="Municipal-Prosecutor-Arrest-Referral-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ArrestReferralResponse" />
+			<wsdl:input name="Arrest-Referral-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -275,17 +238,10 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		<wsdl:operation name="DistrictAttorneyChargeReferralResponse">
+		<wsdl:operation name="ChargeReferralResponse">
 			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/DistrictAttorneyChargeReferralResponse" />
-			<wsdl:input name="District-Attorney-Charge-Referral-Response">
-				<soap:body use="literal" />
-			</wsdl:input>
-		</wsdl:operation>
-		<wsdl:operation name="MunicipalProsecutorChargeReferralResponse">
-			<soap:operation
-				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/MunicipalProsecutorChargeReferralResponse" />
-			<wsdl:input name="Municipal-Prosecutor-Charge-Referral-Response">
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryModificationResponseService/1.0/ChargeReferralResponse" />
+			<wsdl:input name="Charge-Referral-Response">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
