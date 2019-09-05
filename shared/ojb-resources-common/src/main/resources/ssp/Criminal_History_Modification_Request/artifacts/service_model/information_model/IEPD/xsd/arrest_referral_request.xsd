@@ -18,14 +18,14 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:daar-req-doc="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0"
+	xmlns:ar-req-doc="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0"
 	xmlns:chm-req-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/DistrictAttorneyArrestReferralRequest/1.0" elementFormDefault="qualified">
+	targetNamespace="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0" schemaLocation="criminal_history_modification_request_ext.xsd" />
-	<!-- Root data element for the District Attorney Arrest Referral Request -->
-	<xsd:element name="DistrictAttorneyArrestReferralRequest" type="chm-req-ext:DistrictAttorneyArrestReferralRequestType">
+	<!-- Root data element for an Arrest Referral Request -->
+	<xsd:element name="ArrestReferralRequest" type="chm-req-ext:ArrestReferralRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A district attorney charge referral request.</xsd:documentation>
+			<xsd:documentation>An arrest referral request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
