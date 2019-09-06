@@ -220,6 +220,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeReferralCountQuantity" type="niem-xs:nonNegativeInteger"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A number of times a charge is referred to another agency.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ArrestPrimarySystemIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>

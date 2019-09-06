@@ -121,6 +121,7 @@
 						</chsres-ext:AlternateSentenceCodeDescriptionText>
 					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
+				<chsres-ext:ChargeReferralCountQuantity>2</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>

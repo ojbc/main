@@ -63,11 +63,12 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>			
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargeReferralCountQuantity>1</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
@@ -87,11 +88,12 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargeReferralCountQuantity>2</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
@@ -105,7 +107,7 @@
 			<chsres-ext:ArrestPrimarySystemIdentification>
 				<nc:IdentificationID>A3245667</nc:IdentificationID>
 			</chsres-ext:ArrestPrimarySystemIdentification>
-			<chsres-ext:ArrestHiddenIndicator>false</chsres-ext:ArrestHiddenIndicator>			
+			<chsres-ext:ArrestHiddenIndicator>false</chsres-ext:ArrestHiddenIndicator>
 		</j:Arrest>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
