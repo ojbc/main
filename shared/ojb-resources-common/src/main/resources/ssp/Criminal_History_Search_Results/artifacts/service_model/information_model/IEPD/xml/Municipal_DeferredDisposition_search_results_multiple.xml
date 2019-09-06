@@ -118,6 +118,7 @@
 						</chsres-ext:AlternateSentenceCodeDescriptionText>
 					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
+				<chsres-ext:ChargeReferralCountQuantity>3</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
@@ -189,6 +190,7 @@
 						</chsres-ext:AlternateSentenceCodeDescriptionText>
 					</chsres-ext:AlternateSentence>
 				</j:ChargeSentence>
+				<chsres-ext:ChargeReferralCountQuantity>2</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
@@ -198,6 +200,7 @@
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargeReferralCountQuantity>1</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
