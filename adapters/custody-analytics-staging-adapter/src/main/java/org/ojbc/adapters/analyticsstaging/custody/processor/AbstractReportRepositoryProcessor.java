@@ -104,7 +104,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
 				"preceding-sibling::jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
 		Boolean registeredSexOffenderBoolean = BooleanUtils.toBooleanObject(registeredSexOffender);
-		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", null); 
+		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", "unknown"); 
 		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
@@ -114,15 +114,15 @@ public abstract class AbstractReportRepositoryProcessor {
  		person.setOccupation(occupation);
 	 	
  		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
- 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", null);
+ 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "unknown");
  		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
 
  		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
- 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", null); 
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", "unknown"); 
  		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
  		
  		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
- 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", null);
+ 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", "unknown");
  		person.setWorkReleaseStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.WorkReleaseStatusType, workReleaseStatusType));;
  		
 	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
@@ -163,7 +163,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				String medicaidIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, "hs:MedicaidIndicator");
 				Boolean medicaidIndicatorBoolean = BooleanUtils.toBooleanObject(medicaidIndicator);
-				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", null);
+				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", "unknown");
 				assessment.setMedicaidStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.MedicaidStatusType, medicaidStatusType));
 				
 				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
@@ -323,7 +323,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				treatment.setTreatmentProviderName(treatmentProvider);
 				
 				Boolean treatmentCourtOrdered = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator"));
-				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", null); 
+				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", "Unknown"); 
 				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
 				String treatmentStatus = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentStatusCode");

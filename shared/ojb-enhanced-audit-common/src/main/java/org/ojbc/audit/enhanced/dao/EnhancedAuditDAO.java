@@ -16,29 +16,65 @@
  */
 package org.ojbc.audit.enhanced.dao;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 
 
 public interface EnhancedAuditDAO {
 
+	public Integer saveFederalRapbackIdentityHistory(FederalRapbackIdentityHistory federalRapbackIdentityHistory);
+	
+	public void updateFederalRapbackIdentityHistoryWithResponse(FederalRapbackIdentityHistory federalRapbackIdentityHistory) throws Exception;
+	
+	public Integer saveFederalRapbackRenewalNotification(FederalRapbackRenewalNotification federalRapbackRenewalNotification);
+	
 	public Integer saveFederalRapbackSubscription(FederalRapbackSubscription federalRapbackSubscription);
 	
 	public void updateFederalRapbackSubscriptionWithResponse(FederalRapbackSubscription federalRapbackSubscription) throws Exception;
 	
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
 	
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors();
+	
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionFromStateSubscriptionId(String stateSubscriptionId);
+	
+	public List<FederalRapbackNotification> retrieveFederalNotifications(LocalDate startDate, LocalDate endDate);
+	
+	public List<NotificationSent> retrieveNotifications(LocalDate startDate, LocalDate endDate);
+	
+	public List<FederalRapbackRenewalNotification> retrieveFederalRapbackRenewalNotifications(LocalDate startDate, LocalDate endDate);
+	
+	public List<FederalRapbackNotification> retrieveFederalNotificationsBySubscriptionId(String subscriptionId);
+	
+	public Integer saveFederalRapbackNotification(FederalRapbackNotification federalRapbackNotification);
+	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
+	
+	public Integer saveVehicleSearchRequest(VehicleSearchRequest vehicleSearchRequest);
+	
+	public Integer saveIncidentSearchRequest(IncidentSearchRequest incidentSearchRequest);
 	
 	public Integer saveIdentificationSearchRequest(IdentificationSearchRequest identificationSearchRequest);
 	
@@ -58,6 +94,10 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
+	public Integer saveuserAcknowledgement(UserAcknowledgement userAcknowledgement);
+	
+	public List<UserAcknowledgement> retrieveUserAcknowledgement(String federationId);
+	
 	public Integer saveUserAuthentication(Integer userInfoPk, String action);
 	
 	public Integer savePrintResults(PrintResults printResults);
@@ -71,6 +111,10 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+	
+	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk, Integer systemsToSearchPk);
+	
+	public Integer saveVehicleSystemToSearch(Integer vehicleSearchPk, Integer systemsToSearchPk);
 
 	public Integer retrieveIdentificationReasonCodeFromDescription(String description);
 	
@@ -82,6 +126,23 @@ public interface EnhancedAuditDAO {
 	
 	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
 	
+	public Integer retrieveFederalRapbackSubscriptionError(String stateSubscriptionId);
+	
+	public Integer deleteFederalRapbackSubscriptionError(String stateSubscriptionId);
+	
+	public Integer saveFederalRapbackSubscriptionError(Integer federalSubcriptionId, String stateSubscriptionId);
+	
+	public Integer resolveFederalRapbackSubscriptionError(String stateSubscriptionId);
+	
 	public PrintResults retrievePrintResultsfromMessageID(String messageId);
 	
+	public List<TriggeringEvents> retrieveAllTriggeringEvents();
+	
+	public Integer saveTriggeringEvent(Integer federalRapbackNotificationId, Integer triggeringEventId);
+	
+	public List<String> retrieveTriggeringEventsForNotification(Integer federalRapbackNotificationId);
+	
+	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction);
+	
+	public void updateSubscriptionActionWithResponse(SubscriptionAction subscriptionAction);
 }

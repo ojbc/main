@@ -99,17 +99,7 @@ public class PersonToCustodySearchRequestProcessor extends RequestResponseProces
 		String response = pollMap(federatedQueryID);
 		
 		logResponse(response);
-		
-		//This is a defensive check in case the polling completes and the service has not yet returned a response
-		//In this case we send back an empty search result
-		if (response.equals(NO_RESPONSE))
-		{
-			log.debug("We recieved no response. Create XML response to send back.");
-			
-			//TODO work on the error message
-			response="<exchange:IncidentPersonSearchResults xmlns:exchange=\"http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0\"/>"; 
-		}
-		
+				
 		//return response here
 		return response;
 	}

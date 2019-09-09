@@ -59,7 +59,7 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 	
 	@Override
 	public SimpleServiceResponse handleIdentificationResultsModificationRequest(
-			String transactionNumber, Element samlToken) throws Exception {
+			String transactionNumber, boolean archive, Element samlToken) throws Exception {
 		
 		checkTransactionNumber(transactionNumber);
 		
@@ -72,7 +72,8 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 		log.info("Processing initial results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
 		
 		Document identificationResultsModificationRequestPayload;
-		identificationResultsModificationRequestPayload = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest(transactionNumber);
+		identificationResultsModificationRequestPayload = 
+				RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest(transactionNumber, archive);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
@@ -91,6 +92,12 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 
 		OJBSamlMap.putToken(tokenID, samlToken);
 
+		if (archive){
+			messageProcessor.setOperationName("SubmitIdentificationResultsArchiveRequest");
+		}
+		else{
+			messageProcessor.setOperationName("SubmitIdentificationResultsUnarchiveRequest");
+		}
 		messageProcessor.sendResponseMessage(camelContext, senderExchange);
 		
 		//Put message ID and "noResponse" place holder.  

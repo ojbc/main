@@ -30,7 +30,8 @@ import java.util.Set;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
-
+import org.springframework.test.annotation.DirtiesContext;
+@DirtiesContext
 public class EmailEnhancementStrategyTest {
     
     @Test

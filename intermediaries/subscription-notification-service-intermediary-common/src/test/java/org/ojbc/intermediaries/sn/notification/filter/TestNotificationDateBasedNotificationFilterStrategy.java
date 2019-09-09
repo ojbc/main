@@ -22,7 +22,7 @@ import java.io.File;
 
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
-
+import org.springframework.test.annotation.DirtiesContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+@DirtiesContext
 public class TestNotificationDateBasedNotificationFilterStrategy {
 
 	@Test

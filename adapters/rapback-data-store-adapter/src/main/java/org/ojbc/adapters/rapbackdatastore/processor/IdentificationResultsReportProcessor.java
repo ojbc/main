@@ -42,6 +42,9 @@ import org.w3c.dom.Node;
 @Service
 public class IdentificationResultsReportProcessor extends AbstractReportRepositoryProcessor {
 
+	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
+	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
+
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
     private String databaseResendFolder; 
@@ -66,6 +69,12 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception
 	{
 		log.info("Processing Identification Results Report.");
+		
+		String transactionCategoryText = XmlUtils.xPathStringSearch(report, "/pidresults:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText|"
+				+ "/pidresults:PersonStateIdentificationResults/ident-ext:TransactionCategoryText");
+		if (CRIMINAL_SID_TO_HIJIS.equals(transactionCategoryText) || CIVIL_SID_TO_HIJIS.equals(transactionCategoryText)){
+			return; 
+		}
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, 
 				"/pidresults:PersonFederalIdentificationResults[ident-ext:CivilIdentificationReasonCode]|"

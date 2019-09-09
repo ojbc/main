@@ -23,6 +23,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -36,7 +37,9 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.ojbc.bundles.adapters.staticmock.courtcase.CourtCaseSearchResultBuilder;
 import org.ojbc.bundles.adapters.staticmock.custody.CustodySearchResultBuilder;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+
 import static org.ojbc.util.xml.OjbcNamespaceContext.*;
+
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -74,6 +77,9 @@ public class StaticMockQuery {
 
 	private static final String FIREARM_PROHIBITION_SAMPLES_DIRECTORY = "static-instances/FirearmProhibition";
 	
+	private static final String STATE_RAPSHEET_SAMPLES_DIRECTORY = "static-instances/StateRapsheet";
+	
+	private static final String FBI_RAPSHEET_SAMPLES_DIRECTORY = "static-instances/FBIRapsheet";
 	
 	static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
@@ -157,6 +163,10 @@ public class StaticMockQuery {
 	private ClasspathXmlDataSource professionalLicenseDataSource;
 	
 	private ClasspathXmlDataSource firearmProhibitionDataSource;
+	
+	private ClasspathXmlDataSource stateRapsheetDataSource;
+	
+	private ClasspathXmlDataSource fbiRapsheetDataSource;
 		
 	private OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext(); 
 
@@ -164,7 +174,8 @@ public class StaticMockQuery {
 		
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
 				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY, 
-				VEHICLE_CRASH_SAMPLES_DIRECTORY, WILDLIFE_LICENSE_SAMPLES_DIRECTORY, PROFESSIONAL_LICENSE_SAMPLES_DIRECTORY, FIREARM_PROHIBITION_SAMPLES_DIRECTORY);
+				VEHICLE_CRASH_SAMPLES_DIRECTORY, WILDLIFE_LICENSE_SAMPLES_DIRECTORY, FIREARM_PROHIBITION_SAMPLES_DIRECTORY, STATE_RAPSHEET_SAMPLES_DIRECTORY, 
+				FBI_RAPSHEET_SAMPLES_DIRECTORY, PROFESSIONAL_LICENSE_SAMPLES_DIRECTORY);
 	}
 
 	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, 
@@ -173,7 +184,9 @@ public class StaticMockQuery {
 			String vehicleCrashSampleDir, 
 			String wildlifeLicenseSampleDir,
 			String professionalLicenseSampleDir,
-			String firearmProhibitionSampleDir) {
+			String firearmProhibitionSampleDir, 
+			String stateRapsheetSampleDir, 
+			String fbiRapsheetSampleDir) {
 		
 		criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
 		
@@ -196,6 +209,10 @@ public class StaticMockQuery {
 		professionalLicenseDataSource = new ClasspathXmlDataSource(professionalLicenseSampleDir);
 		
 		firearmProhibitionDataSource = new ClasspathXmlDataSource(firearmProhibitionSampleDir);
+		
+		stateRapsheetDataSource = new ClasspathXmlDataSource(stateRapsheetSampleDir);
+		
+		fbiRapsheetDataSource = new ClasspathXmlDataSource(fbiRapsheetSampleDir);
 	}
 
 	/**
@@ -426,6 +443,9 @@ public class StaticMockQuery {
 				+ NS_PREFIX_NC_30 + ":IdentificationID");
 			break;
 		}
+		case NS_FBI_RECORD_REQUEST + ":FBIRecordRequest": {
+			return fbiRapsheetDataSource.getDocuments();
+		}
 		default: 
 			systemElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationSourceText");
 			systemIdElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationID");
@@ -447,7 +467,15 @@ public class StaticMockQuery {
 		
 		switch (systemId) {
 		case CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID: 
-			return queryDocuments(documentId, criminalHistoryDataSource);
+			String civilPurposeRequestIndicator = XmlUtils.xPathStringSearch(rootElement, "pqr:CivilPurposeRequestIndicator");
+			String textRapSheetRequestIndicator = XmlUtils.xPathStringSearch(rootElement, "pqr:TextRapSheetRequestIndicator");
+			
+			if (BooleanUtils.toBoolean(civilPurposeRequestIndicator) && BooleanUtils.toBoolean(textRapSheetRequestIndicator)){
+				return stateRapsheetDataSource.getDocuments();
+			}
+			else {
+				return queryDocuments(documentId, criminalHistoryDataSource);
+			}
 		case WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
 			return queryDocuments(documentId, warrantDataSource);
 		case INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
@@ -516,8 +544,6 @@ public class StaticMockQuery {
 		Element rootElement = searchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		
-		XmlUtils.printNode(searchRequestMessage);
 		
 		if (NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName)) {
 			return personSearchDocuments(searchRequestMessage, baseDate);
@@ -2335,8 +2361,6 @@ public class StaticMockQuery {
 		
 		return professionalLicenseDetailXpaths;				
 	}
-		
-	
 	
 	
 	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage) 

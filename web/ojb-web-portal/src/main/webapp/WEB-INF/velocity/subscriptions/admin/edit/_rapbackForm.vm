@@ -1,0 +1,267 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+  $(function() {	
+  	$( "#accordion" ).accordion({
+  		heightStyle: "content",
+  	    activate: function (e, ui) {
+        	$url = $(ui.newHeader[0]).children('a').attr('href');
+        	
+        	if ($url){
+		  		$.get($url, function (data) {
+		     		$(ui.newHeader[0]).next().html(data);
+	          	});
+          	}
+        }
+  	});
+  	
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
+
+    $('#subscriptionForm').tooltip();
+      	      		    		    			  		    			
+    $(".datePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImageOnly: true
+    });	
+    
+	// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+	// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+	// allows being disabled but that prevents the html field value from being sent to the server when the form 
+	// is serialized	    	   		    			
+    $(".disabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImageOnly: true,
+       beforeShow: function(i) {  return false; } 
+    });     	    
+ 
+  	if( '${subscription.subscriptionPurpose}'  === 'CS'){
+		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
+  	}
+  	
+	$('#idLookupLink').click(function(){    	
+		var sidPattern = new RegExp('$sidRegexForAddSubscription');
+	  	var sidVal = $('#stateId').val();
+	  	
+	  	if (sidPattern.test(sidVal)){	
+	  					  					  					  	    					    						 
+			var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
+			    	
+			// calls a spring mvc method returning a json string w/format key,value
+			// where the key is an int index as a string - and the value is an object {first, last}
+			// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+			// to js layer here instead of using json			    						     
+		    $.get(requestUrl, function(data){		  			  			
+					//console.log(data);
+					//generate html drop-down options based on json values from java layer
+					if( data && Object.keys(data.allNames).length > 0){
+						$("#fbiId").val(data.fbiId);
+						$("#formattedFbiId").val(data.formattedFbiId)
+					}else{
+						alert('Requested SID not found');
+						$("#fbiId").val("");
+						$("#formattedFbiId").val("No FBI UCN found");
+					}
+					
+	  			}
+  			).fail(ojbc.displayFailMessage);
+		}else{
+			alert('$sidRegexValidationErrorMessage');
+			$("#fbiId").val("");
+			$("#formattedFbiId").val("No FBI UCN found");
+		}	
+	});    		
+  	
+    $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+    
+    	if ('${subscription.subscriptionPurpose}'==="CI"){
+	    	var checked = $(this).prop('checked');
+	    	//console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+	    	if (checked){
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();	  
+	    	}
+	    	else{
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').val('');
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+	    	}
+    	}
+    	else if ('${subscription.subscriptionPurpose}'==="CS") {
+    		$('#federalRapSheetDisclosureAttentionDesignationText').focus();	  
+    	}
+    });  
+    
+  		  	  		
+    	    	        	            	    		       			       				    	   
+  });	  
+</script>
+	<table class="detailsTable">
+	
+		<tr>
+			<td class="detailsLabel" width="100px">ORI</td>
+			<td>
+				$subscription.ori
+			</td>
+			<td  class="detailsLabel">
+				Agency Name
+			</td>
+			<td>
+				$subscription.agencyName
+			</td>
+		</tr>
+		<tr>
+			<td class="detailsLabel">System Identifier</td>
+			<td>
+				$subscription.systemId
+			</td>
+			<td  class="detailsLabel">
+				Qualifier
+			</td>
+			<td>
+				$subscription.subscriptionQualificationId
+			</td>
+		</tr>
+		<tr>
+		    <td class="detailsLabel">Triggering Event</td>
+		    <td colspan = 3>#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")</td>
+		</tr>
+		#if(${showSubscriptionPurposeDropDown})
+			<tr>
+				<td class="detailsLabel">Purpose</td>
+				<td>
+					#if(${subscription.subscriptionPurpose} == 'CI'|| ${subscription.subscriptionPurpose} == 'CS')
+						#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeMap "disabled='disabled'")
+					#else
+						<input type="text" name="temp" value="CIVIL" readonly="readonly">
+					#end
+					#springFormHiddenInput("subscription.subscriptionPurpose")
+				</td>
+				<td>
+					#if( ${subscription.active} )
+						Active
+					#else
+						Inactive
+					#end
+				</td>
+				<td>
+					#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
+					<span class="subscriptionHint">Disclosure Indicator<span class="subscriptionHint">
+				</td>
+			</tr>
+			<tr>
+				<td class="detailsLabel">Disclosure Contact Information</td>
+				<td colspan=1>
+					#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
+					title='Federal RapSheet Disclosure Contact Info' rows='2' cols='25' maxlength='50'" )
+				</td>
+			    <td class="detailsLabel">Case ID</td>
+			    <td>
+					#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
+				</td>
+			</tr>
+		#end
+		<tr>
+		    <td class="detailsLabel">SID</td>
+		    <td>
+		    	#springFormInput("subscription.stateId" "readonly='readonly' title='SID' style='width:110px'")
+		    </td>
+		    <td class="detailsLabel">FBI UCN</td>
+		    <td>
+		    	#springFormInput("subscription.formattedFbiId" "readonly='readonly' title='FBI ID' style='width:110px'")
+		    	#if( !$subscription.fbiId  ) 
+					<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
+				#end
+				#springFormHiddenInput("subscription.fbiId")
+	    	</td>
+	    </tr>
+	    <tr>
+		    <td class="detailsLabel">Full Name</td>
+		    <td>#springFormInput("subscription.fullName" "readonly='readonly' style='width:200px;'")</td>
+		    <td class="detailsLabel">DOB</td>
+		    <td>#springFormInput("subscription.dateOfBirth" "readonly='readonly' title='DOB' style='width:200px;'")</td>
+		</tr>
+	    <tr>
+		    <td class="detailsLabel">Start Date</td>
+		    <td>
+				#if(${isStartDateEditable})
+					#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+				#else
+					#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+				#end
+		    </td>
+		    <td class="detailsLabel">End Date</td>
+		    <td>
+				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+		    </td>
+		</tr>
+	    <tr>
+			<td class="detailsLabel">Creation Date</td>
+			<td>$subscription.creationDateString</td>
+		    <td class="detailsLabel">Last Update Date</td>
+		    <td>$subscription.lastUpdatedDateString</td>
+		</tr>
+	    <tr>
+			<td class="detailsLabel">Last Validated</td>
+			<td>$subscription.lastValidationDateString</td>
+		    <td class="detailsLabel">Validation Due</td>
+		    <td>$subscription.validationDueDateString</td>
+		</tr>
+	    <tr>
+		    <td class="detailsLabel">E-mail</td>
+		    <td colspan=3>
+				#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1' style='width:190px'")
+				#springFormInput("subscription.emailList[1]" "placeholder='Email Address 2' style='width:190px'")
+				#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3' style='width:190px'")
+			</td>
+		</tr>
+	</table>
+	<div id="accordion">
+	  <h3>FBI Rap Back Subscription Info</h3>
+	  <div>
+		<table class="detailsTable">
+			<tr>
+			    <td class="detailsLabel" style="width:35%">START DATE</td>
+			    <td style="width:20%">$!subscription.fbiRapbackSubscription.rapbackStartDateString</td>
+			    <td class="detailsLabel" style="width:25%">EXPIRATION DATE</td>
+			    <td style="width:20%">$!subscription.fbiRapbackSubscription.rapbackExpirationDateString</td>
+			</tr>
+			<tr>
+			    <td class="detailsLabel">UCN</td>
+			    <td>$!subscription.fbiRapbackSubscription.ucn</td>
+			    <td class="detailsLabel">OPT OUT IN STATE</td>
+			    <td>$!subscription.fbiRapbackSubscription.rapbackOptOutInState</td>
+		    </tr>
+		    <tr>
+			    <td class="detailsLabel">ACTIVITY NOTIFICATION FORMAT</td>
+			    <td>$!subscription.fbiRapbackSubscription.rapbackActivityNotificationFormat</td>
+			    <td class="detailsLabel">RAP BACK CATEGORY</td>
+			    <td>$!subscription.fbiRapbackSubscription.rapbackCategory</td>
+			</tr>
+		    <tr>
+			    <td class="detailsLabel">FBI SUBSCRIPTION ID</td>
+			    <td>$!subscription.fbiRapbackSubscription.fbiSubscriptionId</td>
+			    <td class="detailsLabel"></td>
+			    <td></td>
+			</tr>
+		</table>
+	  </div>
+	  
+	  <h3><a href="#springUrl('/subscriptions/admin/federalRapbackSubscriptionDetail')/$subscription.systemId">FBI Subscription Activities</a></h3> 
+	  <div>
+	  </div> 
+	</div>

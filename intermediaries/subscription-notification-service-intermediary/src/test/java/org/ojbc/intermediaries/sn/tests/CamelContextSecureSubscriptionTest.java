@@ -50,12 +50,13 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
@@ -111,23 +112,14 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	    }              
     	});
     	
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
     	    }              
     	});    	    
-    	
-    	
-    	context.getRouteDefinition("callFbiEbtsModify_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-			
-			@Override
-			public void configure() throws Exception {
-				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
-			}
-		});
-    	
     	
     	
     	context.getRouteDefinition("subscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
@@ -144,6 +136,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	    	// The line below allows us to bypass CXF and send a message directly into the route
     	    	replaceFromWith("direct:unsubscriptionSecureEndpoint");
     	    	interceptSendToEndpoint("bean:subscriptionValidationMessageProcessor?method=validateSubscription").to("mock:subscriptionValidationMock");
+    	    	interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
     	    	interceptSendToEndpoint("direct:processUnsubscription").to("mock:direct:processUnsubscription").stop();
     	    }	
     	});
@@ -943,7 +936,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     }    
     
     @Test
-    public void testSubscriptionValidation() throws Exception {
+    public void testSubscriptionValidationCriminal() throws Exception {
     	subscriptionProcessorMock.reset();
     	unsubscriptionProcessorMock.reset();
     	subscriptionValidationMock.reset();
@@ -977,7 +970,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, CXF_OPERATION_NAMESPACE_VALIDATE);
     	
 	    //Read the subscription validation request file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Criminal.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 
 	    assertNotNull(inputStr);
@@ -1008,10 +1001,88 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		
 		//XmlUtils.printNode(returnDocument);
 
-		assertEquals("62720", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
+		assertEquals("62723", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
 
     }    
 
+    @Test
+    public void testSubscriptionValidationCivil() throws Exception {
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
+    	subscriptionValidationMock.expectedMessageCount(1);
+    	
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+				
+    	//Set the WS-Address Message ID
+		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");
+		
+		//Set the operation name and operation namespace for the CXF exchange
+		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
+		
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+		
+		org.apache.cxf.message.Message message = new MessageImpl();
+		
+		//Add SAML token to request call
+		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
+		SAMLTokenPrincipal principal = new SAMLTokenPrincipalImpl(new SamlAssertionWrapper(samlToken));
+		message.put("wss4j.principal.result", principal);
+		
+		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
+ 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAME, CXF_OPERATION_NAME_VALIDATE);
+	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, CXF_OPERATION_NAMESPACE_VALIDATE);
+    	
+	    //Read the subscription validation request file from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Civil.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+	    assertNotNull(inputStr);
+	    
+	    log.debug(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+	    
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:unsubscriptionSecureEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+
+		//Sleep while a response is generated
+		Thread.sleep(3000);
+		
+		//Assert that the mock endpoint expectations are satisfied
+		subscriptionValidationMock.assertIsSatisfied();
+		
+		
+		Exchange ex = subscriptionValidationMock.getReceivedExchanges().get(0);
+		Document returnDocument = ex.getIn().getBody(Document.class);
+		
+		//XmlUtils.printNode(returnDocument);
+
+		assertEquals("62724", XmlUtils.xPathStringSearch(returnDocument, "/b-2:Validate/svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
+
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("62724");
+
+		//Start date/validation date is today's date
+		//Validation due and end date is 5 years from now
+		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getStartDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().toString(), subscriptions.get(0).getLastValidationDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().plusYears(5).toString(), subscriptions.get(0).getEndDate().toString("yyyy-MM-dd"));
+		assertEquals(LocalDate.now().plusYears(5).toString(), subscriptions.get(0).getValidationDueDate().toString("yyyy-MM-dd"));
+    }    
+    
     @Test
     public void testSubscriptionValidationInvalidMessage() throws Exception {
     
@@ -1020,7 +1091,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
 
-    	subscriptionValidationMock.expectedMessageCount(1);
+    	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
@@ -1071,7 +1142,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		Thread.sleep(3000);
 		
 		//Assert that the mock endpoint expectations are satisfied
-		subscriptionValidationMock.assertIsSatisfied();
+		subscriptionManagerServiceFaultMock.assertIsSatisfied();
 		
 		//TODO: We need to figure out how to intercept an endpoint AFTER it has processed an exchange
 		//In this case we intercept as follows:

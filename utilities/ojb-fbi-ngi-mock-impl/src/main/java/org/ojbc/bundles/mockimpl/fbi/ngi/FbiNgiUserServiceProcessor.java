@@ -21,9 +21,9 @@ import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.helpers.XMLUtils;
 import org.apache.log4j.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,9 +70,8 @@ public class FbiNgiUserServiceProcessor {
 			
 			logger.info("\n\n\n FBI Mock Impl: Using Control Number: " + controlNumberReceived + " \n\n\n");
 			
-			Document doc = XMLUtils.newDocument();
-			
-			Element root = XMLUtils.createElementNS(doc, "http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "ngi-core:NGIControlNumber");		
+			Document doc = OJBCXMLUtils.createDocument();
+			Element root = doc.createElementNS("http://ws.cjis.gov/2014/08/01/ngi/core/xsd", "ngi-core:NGIControlNumber");		
 			root.setTextContent(controlNumberReceived);		
 			doc.appendChild(root);		
 			

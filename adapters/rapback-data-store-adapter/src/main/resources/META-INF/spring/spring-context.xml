@@ -28,7 +28,7 @@
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
  	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
+	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore, org.ojbc.intermediaries.sn.notification" />
 
 	<!-- Transaction manager and scan for annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager"
@@ -48,6 +48,11 @@
 	<bean id="jdbcTemplate" 
       class="org.springframework.jdbc.core.JdbcTemplate">
  	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="enhancedAuditJdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="enhancedAuditDataSource"/>
 	</bean>
 	
 	<bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		

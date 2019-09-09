@@ -31,7 +31,7 @@
   <groupId>org.ojbc.bundles.utilities</groupId>
   <artifactId>audit-rest-utility</artifactId>
   <packaging>bundle</packaging>
-  <version>1.0.0</version>
+  <version>1.0.4</version>
   
   <name>OJB :: audit-rest-utility :: utilities</name>
   <url>http://www.search.org</url>
@@ -55,9 +55,15 @@
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<java-version>1.8</java-version>
 		<jackson.version>1.9.12</jackson.version>
+		<sn-intermediary-common-version>[2.0.0,)</sn-intermediary-common-version>
 	</properties>
   
 	<dependencies>	
+		<dependency>
+			<groupId>org.ojbc.bundles.intermediaries</groupId>
+			<artifactId>subscription-notification-service-intermediary-common</artifactId>
+			<version>${sn-intermediary-common-version}</version>
+		</dependency>	
 		 <dependency>
 		 	<groupId>org.ojbc.bundles.utilities</groupId>
 		 	<artifactId>h2-mock-database</artifactId>

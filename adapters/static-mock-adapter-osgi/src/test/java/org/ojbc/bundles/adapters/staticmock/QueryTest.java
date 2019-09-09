@@ -26,9 +26,11 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class QueryTest extends AbstractStaticMockTest {
 
@@ -47,6 +49,16 @@ public class QueryTest extends AbstractStaticMockTest {
         doPersonTestQuery("sample-5329911427000337392.xml", StaticMockQuery.CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID, "ch-doc:CriminalHistory");
     }
 
+    @Test
+    public void testCriminalHistoryPersonTextQuery() throws Exception {
+    	doPersonRecordTextRequestQuery();
+    }
+    
+    @Test
+    public void testCriminalHistoryFbiRecordQuery() throws Exception {
+    	doPersonFbiRecordTextRequestQuery();
+    }
+    
     @Test
     public void testIncidentPersonQuery() throws Exception {
         doPersonTestQuery("sample-3611105527476841852.xml", StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID, "ir:IncidentReport");
@@ -160,5 +172,40 @@ public class QueryTest extends AbstractStaticMockTest {
         resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage);
         assertEquals(0, resultingDocuments.size());
     }
+
+    private void doPersonRecordTextRequestQuery() throws ParserConfigurationException, Exception {
+        Document queryRequestMessage = OJBUtils.getDocument(
+        		getClass().getResourceAsStream("/criminalHistoryTextRequests/stateTextRecordRequest.xml"));
+        XmlUtils.printNode(queryRequestMessage);
+        List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage);
+        assertEquals(1, resultingDocuments.size());
+        IdentifiableDocumentWrapper doc = resultingDocuments.get(0);
+        assertNotNull(doc);
+        Document document = doc.getDocument();
+        //XmlUtils.printNode(document);
+        Element root = document.getDocumentElement();
+        assertEquals("cht-doc:CriminalHistoryTextDocument", root.getNodeName());
+        
+        Node binaryElement = XmlUtils.xPathNodeSearch(root, "cht-doc:StateCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+        assertNotNull(binaryElement);
+    }
+
+    private void doPersonFbiRecordTextRequestQuery() throws ParserConfigurationException, Exception {
+    	Document queryRequestMessage = OJBUtils.getDocument(
+    			getClass().getResourceAsStream("/criminalHistoryTextRequests/fbiRecordRequest.xml"));
+    	XmlUtils.printNode(queryRequestMessage);
+    	List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage);
+    	assertEquals(1, resultingDocuments.size());
+    	IdentifiableDocumentWrapper doc = resultingDocuments.get(0);
+    	assertNotNull(doc);
+    	Document document = doc.getDocument();
+    	//XmlUtils.printNode(document);
+    	Element root = document.getDocumentElement();
+    	assertEquals("cht-doc:CriminalHistoryTextDocument", root.getNodeName());
+    	
+    	Node binaryElement = XmlUtils.xPathNodeSearch(root, "cht-doc:FederalCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+    	assertNotNull(binaryElement);
+    }
+    
 
 }

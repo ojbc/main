@@ -59,6 +59,23 @@
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
+    
+    <!-- Criminal History Request Service,  hosted by OJB, No SAML token -->
+    <cxf:cxfEndpoint 
+        id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryService"
+        address="${federatedQuery.criminalHistory.personQuerySystemsToSystemIntermediaryEndpoint}"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
+        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
+    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>  
+    
 	  
     <!-- Criminal History handler, hosted by broker, called by adapter, address is static  --> 
     <cxf:cxfEndpoint 
@@ -79,6 +96,21 @@
        </policy:policies>
     </cxf:features>
    </cxf:cxfEndpoint>      
+    
+    <!-- Criminal History Request Service,  hosted by adapter, called by broker, address set dynamically, No SAML token -->
+    <cxf:cxfEndpoint 
+        id="personQueryRequestCriminalHistorySystemToSystemAdapterService"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
+        endpointName="ojbc:Person-Query-Secure-Service-SS---Criminal-History"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
+    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRequestKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${federatedQuery.criminalHistory.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>    
 
                         
     <!-- Criminal History Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
@@ -126,12 +158,16 @@
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</sec:include>
+				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</sec:include>			
+				    
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
 				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384</sec:include>
 				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
 				    <sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384</sec:include>
@@ -142,10 +178,8 @@
 				    <sec:include>TLS_RSA_WITH_AES_128_GCM_SHA256</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_256_CBC_SHA256</sec:include>
 				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384_P384</sec:include>
 				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P256</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>
-				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384_P384</sec:include>
+				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256_P384</sec:include>				    
 				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
 				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
 				    <sec:include>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA_P256</sec:include>
@@ -155,11 +189,7 @@
 				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA256</sec:include>
 				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA256</sec:include>
 				    <sec:include>TLS_DHE_DSS_WITH_AES_256_CBC_SHA</sec:include>
-				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				
-				    <sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256</sec:include>
-					<sec:include>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384</sec:include>
-					<sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256</sec:include>
-					<sec:include>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P384</sec:include>
+				    <sec:include>TLS_DHE_DSS_WITH_AES_128_CBC_SHA</sec:include>				    
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />

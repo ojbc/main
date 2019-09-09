@@ -42,6 +42,8 @@ public class IdentificationResultSearchRequest implements Serializable{
 	private String firstName; 
 	private String lastName; 
 	private String otn; //IdentifiedPersonTrackingIdentification
+	private String sid;
+	private String ucn;
 	private List<String> civilIdentificationReasonCodes = new ArrayList<String>();  
 	private List<String> criminalIdentificationReasonCodes = new ArrayList<String>();  
 
@@ -144,6 +146,22 @@ public class IdentificationResultSearchRequest implements Serializable{
 
 	public void setReportedDateEndDate(Date reportedDateEndDate) {
 		this.reportedDateEndDate = reportedDateEndDate;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public String getUcn() {
+		return ucn;
+	}
+
+	public void setUcn(String ucn) {
+		this.ucn = ucn;
 	}
     
 }

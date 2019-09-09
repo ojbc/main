@@ -38,6 +38,10 @@ public class SubscriptionSAMLTokenProcessor {
 	public void retrieveSAMLTokenFromMessageAndAddCamelHeader(Exchange exchange) throws Exception
 	{
 		String samlFederationID = null;
+		String samlEmailAddress = null;
+		String samlFirstName = null;
+		String samlLastName = null;
+		String samlEmployerOri = null;
 		
 		try
 		{
@@ -61,12 +65,47 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("Federation ID in SAML Token: " + attributeValueAsString);
 						
 						samlFederationID = attributeValueAsString;
-						break;
+					}
+
+					if (attributeName.equals("gfipm:2.0:user:EmailAddressText"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("Email Address in SAML Token: " + attributeValueAsString);
+						
+						samlEmailAddress = attributeValueAsString;
+					}
+
+					if (attributeName.equals("gfipm:2.0:user:GivenName"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("First Name in SAML Token: " + attributeValueAsString);
+						
+						samlFirstName = attributeValueAsString;
 					}
 					
+					if (attributeName.equals("gfipm:2.0:user:SurName"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("Last Name in SAML Token: " + attributeValueAsString);
+						
+						samlLastName = attributeValueAsString;
+					}
+
+					if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("ORI in SAML Token: " + attributeValueAsString);
+						
+						samlEmployerOri = attributeValueAsString;
+					}
+
 					
 				}	
 				
@@ -76,6 +115,27 @@ public class SubscriptionSAMLTokenProcessor {
 			{	
 				exchange.getIn().setHeader("saml_FederationID", samlFederationID);
 			}
+
+			if (StringUtils.isNotEmpty(samlEmailAddress))
+			{	
+				exchange.getIn().setHeader("saml_EmailAddress", samlEmailAddress);
+			}
+
+			if (StringUtils.isNotEmpty(samlFirstName))
+			{	
+				exchange.getIn().setHeader("saml_FirstName", samlFirstName);
+			}
+
+			if (StringUtils.isNotEmpty(samlLastName))
+			{	
+				exchange.getIn().setHeader("saml_LastName", samlLastName);
+			}
+
+			if (StringUtils.isNotEmpty(samlEmployerOri))
+			{	
+				exchange.getIn().setHeader("saml_EmployerOri", samlEmployerOri);
+			}
+
 		}	
 		catch(Exception ex)
 		{

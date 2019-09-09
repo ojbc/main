@@ -602,7 +602,10 @@ a.grayButton:hover {
 	background: url('../images/Subscriptions/icon-add-white.png') no-repeat center;
 }
 
-
+#subFormDiv {
+	width:230px;
+	height:440px;
+}
 /*************************** Search Content **************/
 #searchForm {
 	margin: 0;
@@ -960,12 +963,22 @@ a.grayButton:hover {
 	border: 1px solid #d9d9d9;
 	color: #898989;
 	margin: 6px 6px 6px 6px;
-	padding: 7px;
+	padding: 6px;
+	font-size: 12px;
+}
+#subscriptionForm textarea{
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px;
+	padding: 4px;
 	font-size: 12px;
 }
 
 #subscriptionForm select {
-	margin: 6px 6px 6px 6px;
+	margin: 6px;
 	padding: 4px;
 	height: 30px;
 	width: 220px; 
@@ -978,7 +991,7 @@ a.grayButton:hover {
 
 #subscriptionModalButtonBar {
 	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
-	width: 230px;
+	width: 100%;
 	height: 45px;
 	margin: 6px;
 	position: relative;
@@ -990,10 +1003,14 @@ a.grayButton:hover {
 #subModalButtonDiv {
 	position: relative;
 	top:6px;
-	float:right;
-	margin: 4px 6px 0 0;
+	float:left;
+	margin: 9px 6px 0 0;
 }
 
+#triggeringEventsDiv {
+	padding-left: 12px; 
+	font-size: 12px;
+}
 
 #idLookupImg {
 	background:url('../images/Search Form/icon-search-gray.png') no-repeat center;	
@@ -1335,6 +1352,13 @@ text-shadow: 0 1px #fff; */
 	padding: 1em;
 }
 
+.subscriptionHint{
+	color:gray; 
+	font-size: x-small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
 .detailList{
 	font-size:small; 
 }
@@ -1391,6 +1415,22 @@ text-shadow: 0 1px #fff; */
      font-size: 13px;
 }
 
+#advancedSearchForm input{
+	text-transform: uppercase;
+}
+
+/************************Slider custom-handle*****************************/
+ #custom-handle {
+   width: 3em;
+   height: 1.6em;
+   top: 50%;
+   margin-top: -.8em;
+   text-align: center;
+   line-height: 1.6em;
+ }
+ 
+
 .print-only {
 	display: none;
 }
+

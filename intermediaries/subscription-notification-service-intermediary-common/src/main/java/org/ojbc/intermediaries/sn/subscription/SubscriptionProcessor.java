@@ -16,15 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
-import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
-import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
+import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 
 /**
  * The abstract base class for beans that process subscription and unsubscription requests.  There will be a concrete derivation of this class for each topic.
@@ -72,10 +71,8 @@ public abstract class SubscriptionProcessor {
     public void subscribe(Exchange exchange) throws Exception {
         Message incomingMsg = exchange.getIn();
         SubscriptionRequest request = makeSubscriptionRequestFromIncomingMessage(incomingMsg);
-        String subscriptionOwner = (String) incomingMsg.getHeader("subscriptionOwner");
         
-        subscriptionSearchQueryDAO.subscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getStartDateString(), request.getEndDateString(), request.getSubjectIdentifiers(), request.getEmailAddresses(),
-                request.getSubjectName(), request.getSystemName(), request.getSubscriptionQualifier(), request.getReasonCategoryCode(),  subscriptionOwner, new LocalDate(), request.getAgencyCaseNumber());
+        subscriptionSearchQueryDAO.subscribe(request, new LocalDate());
         
         exchange.getOut().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
     }
@@ -147,13 +144,8 @@ public abstract class SubscriptionProcessor {
             return;
         }
 
-        log.debug("This is the topic:" + request.getTopic());
-        log.debug("This is the Subject Identifier map:" + request.getSubjectIdentifiers());
-        log.debug("This is the Email Address:" + request.getEmailAddresses());
-        log.debug("This is the System Name:" + request.getSystemName());
-        log.debug("This is the subscription qualifier:" + request.getSubscriptionQualifier());
-        log.debug("This is the subscription system identifer:" + request.getSubscriptionSystemId());
-
+        log.debug("UnSubscriptionRequest:" + request);
+        
         // Attempt to unsubscribe user
         int rowsUnsubscribed = subscriptionSearchQueryDAO.unsubscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getSubjectIdentifiers(), request.getSystemName(), subscriptionOwner);
 
@@ -171,12 +163,12 @@ public abstract class SubscriptionProcessor {
 
     }
 
-    	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
 		return subscriptionSearchQueryDAO;
 	}
 
 	public void setSubscriptionSearchQueryDAO(
-			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
 

@@ -25,14 +25,18 @@ import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.helper.ZipUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -82,7 +86,28 @@ public class FbiRapbackDao {
     
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-        
+    
+	public byte[] getCivilFingerPrints(String transactionNumber) {
+		final String CIVIL_FINGERPRINT_SELECT="SELECT FINGER_PRINTS_FILE FROM CIVIL_FINGER_PRINTS WHERE TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID=2";
+		
+		byte[] fingerPrintsFileZipped = null;
+		
+		try {
+			fingerPrintsFileZipped = jdbcTemplate.queryForObject(CIVIL_FINGERPRINT_SELECT, byte[].class, transactionNumber);
+		} catch (DataAccessException e) {
+			log.error("Query returned no results");
+		}
+		
+		byte[] fingerPrintsFileUnzipped = null;
+				
+		if (fingerPrintsFileZipped != null)
+		{	
+			fingerPrintsFileUnzipped = ZipUtils.unzip(fingerPrintsFileZipped);
+		}	
+		
+		return fingerPrintsFileUnzipped;
+	}    
+    
     
     public List<Subscription> getStateSubscriptions(String fbiUcnId, String reasonCode){
     	
@@ -137,23 +162,71 @@ public class FbiRapbackDao {
 		return DataAccessUtils.singleResult(fbiSubscriptions);
 	}
 	
+	/**
+	 * get FBI rapback subscription by subscription ID.
+	 * @param subscriptionId
+	 * @return
+	 */
+	public FbiRapbackSubscription getFbiRapbackSubscription(Integer subscriptionId) {
+		
+		logger.info("\n Using subscription ID: " + subscriptionId + " to find FBI subscription");
+		if ( subscriptionId == null || subscriptionId <= 0){
+			throw new IllegalArgumentException("Invalid subscription ID."); 
+		}
+		
+		final String sql = "SELECT * FROM fbi_rap_back_subscription "
+				+ "WHERE subscription_id = ? "
+				+ "ORDER BY report_timestamp DESC;";
+		
+		
+		List<FbiRapbackSubscription> fbiSubscriptions = 
+				jdbcTemplate.query(sql, new FbiSubscriptionRowMapper(), subscriptionId);
+		
+		if (fbiSubscriptions != null && fbiSubscriptions.size() > 1){
+			return fbiSubscriptions.get(0);
+		}
+		
+		return DataAccessUtils.singleResult(fbiSubscriptions);
+	}
+	
+	/**
+	 * get FBI rapback subscription by subscription ID.
+	 * @param subscriptionId
+	 * @return
+	 */
+	public String getUcnByFbiSubscritionId(String fbiSubscriptionId) {
+		
+		logger.info("\n Using FBI subscription ID: " + fbiSubscriptionId + " to find ucn");
+		
+		final String sql = "SELECT ucn FROM fbi_rap_back_subscription "
+				+ "WHERE FBI_SUBSCRIPTION_ID = ? "
+				+ "ORDER BY report_timestamp DESC;";
+		
+		String ucn = jdbcTemplate.queryForObject(sql, String.class, fbiSubscriptionId);
+		
+		return ucn;
+	}
+	
 	
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());
 
         final String SUBSEQUENT_RESULTS_INSERT="insert into SUBSEQUENT_RESULTS "
-    			+ "(ucn, RAP_SHEET, RESULTS_SENDER_ID) "
-    			+ "values (?, ?, ?)";
+    			+ "(TRANSACTION_NUMBER, UCN, CIVIL_SID, RAP_SHEET, RESULTS_SENDER_ID, NOTIFICATION_INDICATOR) "
+    			+ "values (?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(SUBSEQUENT_RESULTS_INSERT, 
-        	                		new String[] {"ucn", "RAP_SHEET", "RESULTS_SENDER_ID" });
-        	            ps.setString(1, subsequentResults.getUcn());
-						ps.setBlob(2, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
-        	            ps.setInt(3, subsequentResults.getResultsSender().ordinal()+1);
+        	                		new String[] {"SUBSEQUENT_RESULT_ID"});
+        	            ps.setString(1, subsequentResults.getTransactionNumber());
+        	            ps.setString(2, subsequentResults.getUcn());
+        	            ps.setString(3, subsequentResults.getCivilSid());
+						ps.setBlob(4, new SerialBlob(ZipUtils.zip(subsequentResults.getRapSheet())));
+        	            ps.setInt(5, subsequentResults.getResultsSender().ordinal()+1);
+        	            ps.setBoolean(6, subsequentResults.getNotificationIndicator());
         	            return ps;
         	        }
         	    },
@@ -172,13 +245,15 @@ public class FbiRapbackDao {
 			fbiSubscription.setFbiSubscriptionId(rs.getString("fbi_subscription_id"));
 			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
 			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
-			fbiSubscription.setRapbackExpirationDate(toDateTime(rs.getDate("rap_back_expiration_date")));
-			fbiSubscription.setRapbackStartDate(toDateTime(rs.getDate("rap_back_start_date")));
-			fbiSubscription.setRapbackTermDate(toDateTime(rs.getDate("rap_back_term_date")));
+			fbiSubscription.setRapbackExpirationDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_expiration_date")));
+			fbiSubscription.setRapbackStartDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_start_date")));
+			fbiSubscription.setRapbackTermDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_term_date")));
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
 			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
 			fbiSubscription.setUcn(rs.getString("ucn"));
-			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
+			fbiSubscription.setEventIdentifier(rs.getString("event_identifier"));
+			fbiSubscription.setStateSubscriptionId(rs.getInt("subscription_id"));
+			fbiSubscription.setTimestamp(OJBCDateUtils.toDateTime(rs.getTimestamp("report_timestamp")));
 		
 			return fbiSubscription;
 		}
@@ -237,6 +312,7 @@ public class FbiRapbackDao {
 	 * Decide whether the owner ORI of the transaction with the subscription ID has FBI subscription qualification. 
 	 * @param subscriptionId
 	 * @return
+	 * TODO do we need this method anymore? -hw
 	 */
 	public Boolean getfbiSubscriptionQualification(Integer subscriptionId){
 		final String sql = "SELECT fbi_subscription_qualification FROM agency_profile "
@@ -245,10 +321,45 @@ public class FbiRapbackDao {
 		return DataAccessUtils.singleResult(fbiSubscriptionQualifications);
 	}
 	
-	private DateTime toDateTime(Date date){
-		return date == null? null : new DateTime(date); 
+	/**
+	 * Decide whether the owner ORI of the transaction with the subscription ID has FBI subscription qualification. 
+	 * @param subscriptionId
+	 * @return
+	 * TODO do we need this method anymore? -hw
+	 */
+	public Boolean hasFbiSubscription(Integer subscriptionId){
+		final String sql = "SELECT count(*) > 0 FROM fbi_rap_back_subscription t "
+				+ "WHERE t.subscription_id= ? ";	
+		Boolean hasFbiSubscription = jdbcTemplate.queryForObject(sql, Boolean.class, subscriptionId); 
+		return BooleanUtils.isTrue(hasFbiSubscription);
 	}
-
+	
+	public String getTransactionNumberBySubscriptionId(long stateSubscriptionId) {
+		final String sql ="SELECT t.TRANSACTION_NUMBER FROM identification_transaction t "
+				+ "WHERE SUBSCRIPTION_ID = ? ";
+		
+		String transactionNumber = null;
+		
+		try
+		{
+			transactionNumber = jdbcTemplate.queryForObject(sql, String.class, stateSubscriptionId);
+		}
+		catch (Exception ex)
+		{
+			log.error("Transaction number not found for state subscription id: " + stateSubscriptionId);
+		}
+		
+		return transactionNumber;
+	}
+	
+	public String getTransactionNumberByFbiSubscriptionId(
+			String fbiSubscriptionId) {
+		final String sql ="SELECT t.TRANSACTION_NUMBER FROM identification_transaction t "
+				+ "LEFT JOIN FBI_RAP_BACK_SUBSCRIPTION fs ON fs.SUBSCRIPTION_ID = t.SUBSCRIPTION_ID "
+				+ "WHERE FBI_SUBSCRIPTION_ID = ? "; 
+		return jdbcTemplate.queryForObject(sql, String.class, fbiSubscriptionId);
+	}
+	
 	public static String getFbiSubscriptionSelect() {
 		return FBI_SUBSCRIPTION_SELECT;
 	}
@@ -269,5 +380,6 @@ public class FbiRapbackDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
 
 }

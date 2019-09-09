@@ -35,12 +35,6 @@
 
 	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer" />
 
-	<bean id="arrestSubscriptionAddValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
-	
-	<bean id="arrestSubscriptionEditValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
-
 	<bean id="currentUneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
 
@@ -53,18 +47,32 @@
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" />
+	<bean id="fiveYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" >
+		<constructor-arg name="period" value="5"></constructor-arg>
+	</bean>
 
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="currentEditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/ci"
+			value-ref="oneYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
-			value-ref="blankEditableEndDateStrategy" />
+			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="blankEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="blankEditableEndDateStrategy" />
 	</util:map>
 
@@ -72,7 +80,11 @@
 	<util:map id="editSubscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="uneditableStartDateStrategy" />
 	</util:map>
 
@@ -124,7 +136,7 @@
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
 		<entry key="Law Enforcement RMS"
-			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" />
+			value="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
@@ -159,6 +171,7 @@
 		<entry key="subscriptionsLink" value="#" />
 		<entry key="rapbackLink" value="#" />
 		<entry key="criminalIdLink" value="#" />
+		<entry key="adminLink" value="#" />
 		<entry key="helpLink" value="#" />
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
@@ -543,13 +556,23 @@
 	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Type" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value="Rapback" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Purpose" />
 		<entry key="CS" value="Supervision" />
 		<entry key="CI" value="Investigation" />
+	</util:map>
+
+	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
+		<entry key="ARREST" value="Arrest" />
+		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
+		<entry key="NCIC-SOR" value="NCIC NSOR" />
+		<entry key="DEATH" value="Death Notice" />
 	</util:map>
 
 	<!-- for the filter subscription form -->
@@ -627,6 +650,21 @@
 		<entry key="critical" value="Critical" />
 		<entry key="low" value="Low/Cosmetic" />
 	</util:map>
+	
+<!--
+   	<bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClientRequestFactory">
+        <constructor-arg value="${webapplication.connector.truststoreLocation}"/>
+        <constructor-arg value="${webapplication.connector.truststorePassword}"/>
+    </bean>
 
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="clientHttpRequestFactory"/>
+        <property name="messageConverters">
+	        <list>
+	            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	        </list>
+		</property>
+    </bean>	 
+ -->
 </beans>                      
 

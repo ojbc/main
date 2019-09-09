@@ -23,7 +23,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>2.0.3</version>
+	<version>2.0.18</version>
 	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
@@ -41,6 +41,7 @@
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.0,)</ojb-enhanced-audit-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.7.12</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
@@ -53,7 +54,8 @@
 		<dbunit.version>2.4.9</dbunit.version>
 		<commonsIo.version>2.4</commonsIo.version>
 		<spring-version>3.2.11.RELEASE</spring-version>	
-		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
+		<h2-mock-database-version>[2.0.5,)</h2-mock-database-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 
@@ -106,7 +108,17 @@
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
 		</dependency>
-
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-enhanced-audit-common</artifactId>
+	      <version>${ojb-enhanced-audit-common-version}</version>
+	      <exclusions>
+				<exclusion>
+					<groupId>net.sf.saxon</groupId>
+					<artifactId>Saxon-HE</artifactId>
+				</exclusion>				
+			</exclusions>	
+	    </dependency>		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit-dep</artifactId>
@@ -149,6 +161,12 @@
 					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Test -->
@@ -203,7 +221,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.6.0</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

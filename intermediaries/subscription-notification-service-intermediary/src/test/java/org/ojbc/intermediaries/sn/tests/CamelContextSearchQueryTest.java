@@ -225,7 +225,7 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 
 		Document returnDocument = ex.getIn().getBody(Document.class);
 		
-		//XmlUtils.printNode(returnDocument);
+		XmlUtils.printNode(returnDocument);
 		
         Node searchResultNode = XmlUtils.xPathNodeSearch(returnDocument, "/ssr:SubscriptionSearchResults/ssr-ext:SubscriptionSearchResult"); 
         assertNotNull(searchResultNode);

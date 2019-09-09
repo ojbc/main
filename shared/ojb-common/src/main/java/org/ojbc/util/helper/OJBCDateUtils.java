@@ -18,12 +18,16 @@ package org.ojbc.util.helper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 
 public final class OJBCDateUtils {
 	private static final Log log = LogFactory.getLog( OJBCDateUtils.class );
@@ -52,7 +56,7 @@ public final class OJBCDateUtils {
 				return LocalDateTime.parse(dateTimeString);
 			}
 			else{
-				log.warn("The dateTimeString can not be blank");
+				log.warn("The dateTimeString is blank");
 			}
 		}
 		catch (DateTimeParseException e){
@@ -73,7 +77,7 @@ public final class OJBCDateUtils {
 				return LocalDate.parse(dateString);
 			}
 			else{
-				log.warn("The dateString can not be blank");
+				log.warn("The dateString is blank");
 			}
 		}
 		catch (DateTimeParseException e){
@@ -82,5 +86,41 @@ public final class OJBCDateUtils {
 		
 		return null;
 	}
+	
+	/**
+	 * @param startDate
+	 * @param period
+	 * @return the startDate + period * year
+	 */
+	public static Date getEndDate(Date startDate,
+			Integer period) {
+		
+		if (startDate != null && period != null){
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(startDate);
+			
+			calendar.add(Calendar.YEAR, period);
+			Date defaultEndDate = calendar.getTime();
+			return defaultEndDate;
+		}
+		
+		return null;
+	}
 
+	public static DateTime toDateTime(Date date) {
+		return date == null ? null : new DateTime(date);
+	}
+
+	public static LocalDate toLocalDate(java.sql.Date date){
+		return Optional.ofNullable(date).map(java.sql.Date::toLocalDate).orElse(null);
+	}
+	
+	public static Date toDate(LocalDate localDate){
+		return localDate != null ? 
+				Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+	}
+	
+	public static LocalDate toLocalDate(Date date){
+		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;  
+	}
 }

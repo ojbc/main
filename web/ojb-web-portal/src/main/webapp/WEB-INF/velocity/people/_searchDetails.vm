@@ -49,12 +49,10 @@
 	       	$('#searchDetailsFrame').on('click', 'a', function(){    		
 	  			$("#modalIframeSpinner").show();
   			});
-  			
-  			
+  			  			
 			$("#printButton").on("click", function(){
 				window.print();
 			}); 
-			
   			
 		});
     </script>

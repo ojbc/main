@@ -1,0 +1,85 @@
+/**
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ */
+/* multi select */
+.lwms-main{font-family: Arial,Helvetica,sans-serif; background: url('../images/doublearrow.png') no-repeat 204px 110px; width:435px;}
+
+.lwms-main .lwms-left, .lwms-main .lwms-right{width: 200px; color: #555; float: left;}
+
+.lwms-main .lwms-list{
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border: 1px solid #ccc;
+}
+
+.lwms-selected{display:none;}
+
+.lwms-main .lwms-left{margin-right: 35px;}
+
+.lwms-main ul{margin: 0; list-style-type: none;}
+
+.lwms-main ul.lwms-list{  
+  height: 200px;
+  padding: 0px 0px;
+  overflow-y: auto;
+  background:#fff;
+}
+
+.lwms-main .lwms-left li.lwms-selectli,
+.lwms-main .lwms-right li.lwms-selectli{
+  padding: 4px 10px;
+  color: #555;
+  font-size: 12px;
+  line-height:16px;
+  border-bottom:1px solid #D4D4D4;
+}
+
+.lwms-filterhead {
+  color: #4A4A4A;
+  font-size: 12px;
+  font-weight: bold;
+  height: 25px;
+  line-height: 25px;
+  margin-top: 5px;
+  vertical-align: middle;
+}
+
+.lwms-filterhead a {
+  color: #4A4A4A;
+  text-decoration: none;
+}
+
+.lwms-filcount {
+  color: #078697;
+  font-size: 14px;
+}
+
+.lwms-filterhead a:hover { text-decoration: underline; }
+
+.lwms-main li.lwms-selectli:hover,
+.lwms-main .lwms-right li:hover{
+  cursor: pointer;
+  text-decoration: none;
+  color:#fff;
+  background-color: #1a849b;
+}
+
+/* clear fix */
+.lwms-cf:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.lwms-cf { display: inline-block;}
+html[xmlns] .lwms-cf {display: block;} 
+* html .lwms-cf { height: 1%;}

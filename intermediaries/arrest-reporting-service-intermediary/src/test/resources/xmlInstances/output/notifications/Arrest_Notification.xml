@@ -38,7 +38,7 @@
       <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
                Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b:Topic>
       <b:ProducerReference>
-         <add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+         <add:Address>notifiying system name</add:Address>
          <add:ReferenceParameters/>
          <add:Metadata/>
       </b:ProducerReference>
@@ -74,6 +74,11 @@
                   <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
                   <nc:PersonSurName>JONES</nc:PersonSurName>
                </nc:PersonName>
+               <j:PersonAugmentation>
+                  <j:PersonStateFingerprintIdentification>
+                     <nc:IdentificationID>A398118900</nc:IdentificationID>
+                  </j:PersonStateFingerprintIdentification>
+               </j:PersonAugmentation>
             </j:Person>
          </notification:NotificationMessage>
       </b:Message>

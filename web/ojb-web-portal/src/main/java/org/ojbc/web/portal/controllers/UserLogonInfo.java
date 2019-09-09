@@ -27,9 +27,20 @@ public class UserLogonInfo implements Serializable{
 	
 	private String userNameString;
 	private String userName;
+	private String userFirstName; 
+	private String userLastName; 
+	
 	private String employer;
+	private String employerSubunitName;
+	private String identityProviderId;
+	private String federationId;
+
 	private String timeOnlineString;
 	private String emailAddress;
+	private String employerOri; 
+	private Boolean criminalJusticeEmployerIndicator; 
+	private Boolean lawEnforcementEmployerIndicator;
+
 
 	UserLogonInfo() {
 		setUserNameString(PortalController.DEFAULT_USER_LOGON_MESSAGE);
@@ -80,4 +91,71 @@ public class UserLogonInfo implements Serializable{
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
     }
+
+	public String getEmployerOri() {
+		return employerOri;
+	}
+
+	public void setEmployerOri(String employerOri) {
+		this.employerOri = employerOri;
+	}
+
+	public Boolean getCriminalJusticeEmployerIndicator() {
+		return criminalJusticeEmployerIndicator;
+	}
+
+	public void setCriminalJusticeEmployerIndicator(
+			Boolean criminalJusticeEmployerIndicator) {
+		this.criminalJusticeEmployerIndicator = criminalJusticeEmployerIndicator;
+	}
+
+	public Boolean getLawEnforcementEmployerIndicator() {
+		return lawEnforcementEmployerIndicator;
+	}
+
+	public void setLawEnforcementEmployerIndicator(
+			Boolean lawEnforcementEmployerIndicator) {
+		this.lawEnforcementEmployerIndicator = lawEnforcementEmployerIndicator;
+	}
+
+	public String getUserFirstName() {
+		return userFirstName;
+	}
+
+	public void setUserFirstName(String userFirstName) {
+		this.userFirstName = userFirstName;
+	}
+
+	public String getUserLastName() {
+		return userLastName;
+	}
+
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+
+	public String getEmployerSubunitName() {
+		return employerSubunitName;
+	}
+
+	public void setEmployerSubunitName(String employerSubunitName) {
+		this.employerSubunitName = employerSubunitName;
+	}
+
+	public String getIdentityProviderId() {
+		return identityProviderId;
+	}
+
+	public void setIdentityProviderId(String identityProviderId) {
+		this.identityProviderId = identityProviderId;
+	}
+
+	public String getFederationId() {
+		return federationId;
+	}
+
+	public void setFederationId(String federationId) {
+		this.federationId = federationId;
+	}
+	
 }

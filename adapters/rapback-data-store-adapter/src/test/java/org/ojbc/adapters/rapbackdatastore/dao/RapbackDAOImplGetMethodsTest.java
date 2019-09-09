@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +115,8 @@ public class RapbackDAOImplGetMethodsTest {
 		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
 		List<String> status = new ArrayList<String>();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
-		status.add(IdentificationTransactionState.Subscribed.toString());
+		status.add(IdentificationTransactionState.Subscribed_State.toString());
+		status.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		searchRequest.setIdentificationTransactionStatus(status);
 		
 		List<String> reasonCodes = new ArrayList<String>();
@@ -140,7 +142,8 @@ public class RapbackDAOImplGetMethodsTest {
 		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
 		List<String> status = new ArrayList<String>();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
-		status.add(IdentificationTransactionState.Subscribed.toString());
+		status.add(IdentificationTransactionState.Subscribed_State.toString());
+		status.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		searchRequest.setIdentificationTransactionStatus(status);
 		
 		List<String> reasonCodes = new ArrayList<String>();
@@ -183,12 +186,13 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		List<String> status = new ArrayList<String>();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
-		status.add(IdentificationTransactionState.Subscribed.toString());
+		status.add(IdentificationTransactionState.Subscribed_State.toString());
+		status.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		searchRequest.setIdentificationTransactionStatus(status);
 		
 		List<IdentificationTransaction> transactionsForSuperUserWithStatusCriteria = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(4, transactionsForSuperUserWithStatusCriteria.size());
+		assertEquals(3, transactionsForSuperUserWithStatusCriteria.size());
 		
 		
 		List<String> reasonCodes = new ArrayList<String>();
@@ -196,21 +200,22 @@ public class RapbackDAOImplGetMethodsTest {
 		searchRequest.setCivilIdentificationReasonCodes(reasonCodes);
 		List<IdentificationTransaction> transactionsForSuperUserWithReasonCode = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(2, transactionsForSuperUserWithReasonCode.size());
+		assertEquals(1, transactionsForSuperUserWithReasonCode.size());
 		
 		reasonCodes.clear();
 		status.clear();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
 		List<IdentificationTransaction> transactionsForSuperUserWithOnlyAvailableForSubscription = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(1, transactionsForSuperUserWithOnlyAvailableForSubscription.size());
+		assertEquals(0, transactionsForSuperUserWithOnlyAvailableForSubscription.size());
 		
 		status.clear();
-		status.add(IdentificationTransactionState.Subscribed.toString());
+		status.add(IdentificationTransactionState.Subscribed_State.toString());
+		status.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		status.add(IdentificationTransactionState.Archived.toString());
 		List<IdentificationTransaction> transactionsForSuperUserWithSubscribedOrArchived = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(3, transactionsForSuperUserWithSubscribedOrArchived.size());
+		assertEquals(4, transactionsForSuperUserWithSubscribedOrArchived.size());
 		
 		searchRequest.setFirstName("Lisa");
 		List<IdentificationTransaction> transactionsForSuperUserWithSubscribedOrArchivedLisa = 
@@ -220,7 +225,8 @@ public class RapbackDAOImplGetMethodsTest {
 		searchRequest.setFirstName(null);
 		status.clear();
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
-		status.add(IdentificationTransactionState.Subscribed.toString());
+		status.add(IdentificationTransactionState.Subscribed_State.toString());
+		status.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		searchRequest.setIdentificationTransactionStatus(null);
 		searchRequest.setReportedDateStartLocalDate(LocalDate.parse("2013-10-20"));
 		searchRequest.setReportedDateEndLocalDate(LocalDate.parse("2016-06-10"));
@@ -339,7 +345,8 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		SubsequentResults result2 = subsequentResults.get(1);
 		assertEquals(Long.valueOf(2), result2.getId());
-		assertEquals("9222201", result2.getUcn());
+		assertNull(result2.getUcn());
+		assertEquals("A123459", result2.getCivilSid());
 		assertEquals(ResultSender.State, result2.getResultsSender());
 		assertEquals(25, result2.getRapSheet().length);
 		log.info("result2 result:" + new String(result2.getRapSheet()));
@@ -357,8 +364,13 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals("1234567890", agencyProfile.getAgencyOri());
 		assertEquals("Demo Agency", agencyProfile.getAgencyName());
 		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
+		assertEquals(Boolean.TRUE, agencyProfile.getStateSubscriptionQualified());
 		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
 		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
+		
+		assertThat(agencyProfile.getTriggeringEventCodes().size(), equalTo(4));
+		assertTrue(agencyProfile.getTriggeringEventCodes()
+				.containsAll(Arrays.asList("ARREST", "DISPOSITION", "NCIC-WARRANT", "NCIC-SOR")));
 		
 		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
 		assertNull(agencyProfileNull);

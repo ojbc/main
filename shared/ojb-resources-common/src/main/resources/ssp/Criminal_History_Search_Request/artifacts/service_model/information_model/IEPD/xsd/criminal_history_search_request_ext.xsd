@@ -39,6 +39,8 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />					
 					<xsd:element ref="chsreq-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsreq-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>

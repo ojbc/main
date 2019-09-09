@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<nistbio:NISTBiometricInformationExchangePackage xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                                 xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+                                                 xmlns:nbio="http://niem.gov/niem/biometrics/1.0"
+                                                 xmlns:nistbio="http://biometrics.nist.gov/standard/2011"
+                                                 xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                 xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+   <nistbio:PackageInformationRecord>
+      <nbio:RecordCategoryCode>01</nbio:RecordCategoryCode>
+      <nbio:Transaction>
+         <nbio:TransactionDate>
+            <nc:Date>2015-07-14</nc:Date>
+         </nbio:TransactionDate>
+         <nbio:TransactionDestinationOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>WVIAFIS0Z</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nbio:TransactionDestinationOrganization>
+         <nbio:TransactionOriginatingOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>HI002595Y</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nbio:TransactionOriginatingOrganization>
+         <nbio:TransactionControlIdentification>
+            <nc:IdentificationID>9876500000</nc:IdentificationID>
+         </nbio:TransactionControlIdentification>
+         <nbio:TransactionDomain>
+            <nbio:DomainVersionNumberIdentification>
+               <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+            </nbio:DomainVersionNumberIdentification>
+            <nbio:TransactionDomainName>NORAM</nbio:TransactionDomainName>
+         </nbio:TransactionDomain>
+         <nbio:TransactionImageResolutionDetails>
+            <nbio:NativeScanningResolutionValue>00.00</nbio:NativeScanningResolutionValue>
+            <nbio:NominalTransmittingResolutionValue>00.00</nbio:NominalTransmittingResolutionValue>
+         </nbio:TransactionImageResolutionDetails>
+         <nbio:TransactionMajorVersionValue>05</nbio:TransactionMajorVersionValue>
+         <nbio:TransactionMinorVersionValue>00</nbio:TransactionMinorVersionValue>
+         <ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
+         <nbio:TransactionContentSummary>
+            <nbio:ContentFirstRecordCategoryCode>1</nbio:ContentFirstRecordCategoryCode>
+            <nbio:ContentRecordQuantity>03</nbio:ContentRecordQuantity>
+            <nbio:ContentRecordSummary>
+               <nbio:ImageReferenceIdentification>
+                  <nc:IdentificationID>00</nc:IdentificationID>
+               </nbio:ImageReferenceIdentification>
+               <nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+            </nbio:ContentRecordSummary>
+         </nbio:TransactionContentSummary>
+      </nbio:Transaction>
+   </nistbio:PackageInformationRecord>
+   <nistbio:PackageDescriptiveTextRecord>
+      <nbio:RecordCategoryCode>02</nbio:RecordCategoryCode>
+      <nbio:ImageReferenceIdentification>
+         <nc:IdentificationID>00</nc:IdentificationID>
+      </nbio:ImageReferenceIdentification>
+      <nistbio:UserDefinedDescriptiveDetail>
+         <ebts:DomainDefinedDescriptiveFields>
+            <nbio:RecordRapSheetRequestIndicator>true</nbio:RecordRapSheetRequestIndicator>
+            <ebts:RecordRapBackData>
+               <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackAttentionText>Attention Text</ebts:RecordRapBackAttentionText>
+               <ebts:RecordRapBackCategoryCode>I</ebts:RecordRapBackCategoryCode>
+               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackSubscriptionTerm>L</ebts:RecordRapBackSubscriptionTerm>
+               <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>STATE FINGERPRINT ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>STATE SUBSCRIPTION ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>AGENCY OCA</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>OCA123456</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+						<ebts:UserDefinedElementName>FINGERPRINT IDENTIFICATION TRANSACTION ID</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementText>FIT123456</ebts:UserDefinedElementText>
+					</ebts:RecordRapBackUserDefinedElement>
+		          </ebts:RecordRapBackData>
+            <ebts:RecordTransactionActivity>
+               <nc:CaseTrackingID>0123ABC</nc:CaseTrackingID>
+               <ebts:RecordControllingAgency>
+                  <nc:OrganizationIdentification>
+                     <nc:IdentificationID>2345576</nc:IdentificationID>
+                  </nc:OrganizationIdentification>
+               </ebts:RecordControllingAgency>
+            </ebts:RecordTransactionActivity>
+            <ebts:RecordSubject>
+               <nc:PersonBirthDate>
+				              <nc:Date>1972-08-02</nc:Date>
+			            </nc:PersonBirthDate>
+               <ebts:PersonName>
+                  <nc:PersonGivenName>John</nc:PersonGivenName>
+                  <nc:PersonSurName>Doe</nc:PersonSurName>
+               </ebts:PersonName>
+               <j:PersonFBIIdentification>
+					             <nc:IdentificationID>123456789</nc:IdentificationID>
+				           </j:PersonFBIIdentification>
+	            <ebts:PersonFingerprintSet>
+	                <!--DPR 2.038, Optional (Mandatory if submitting fingerprints)-->
+	                <nc:BiometricCaptureDate>
+	                    <nc:Date>1995-03-24</nc:Date>
+	                </nc:BiometricCaptureDate>
+	            </ebts:PersonFingerprintSet>			
+            </ebts:RecordSubject>
+         </ebts:DomainDefinedDescriptiveFields>
+      </nistbio:UserDefinedDescriptiveDetail>
+   </nistbio:PackageDescriptiveTextRecord>
+</nistbio:NISTBiometricInformationExchangePackage>
+

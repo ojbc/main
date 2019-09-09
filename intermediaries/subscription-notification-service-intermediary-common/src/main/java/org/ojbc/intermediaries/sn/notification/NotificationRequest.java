@@ -341,4 +341,8 @@ public abstract class NotificationRequest {
 		return alternateSubjectIdentifiers;
 	}
 
+	public void setNotifyingSystemName(String notifyingSystemName) {
+		this.notifyingSystemName = notifyingSystemName;
+	}
+
 }

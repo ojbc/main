@@ -16,13 +16,17 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -38,17 +42,19 @@ import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -60,7 +66,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class RapbackDAOImplTest {
@@ -86,10 +93,22 @@ public class RapbackDAOImplTest {
     @Resource  
     private DataSource dataSource;  
 
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
 		assertNotNull(fbiSubscriptionDao);
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
+    	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate()");
+    	assertEquals(11, rowsUpdated);
+    	
+		List<String> result = jdbcTemplate.queryForList("select table_name from information_schema.tables",String.class); 
+		assertNotNull(result);
 	}
 	
 	@Test
@@ -175,10 +194,11 @@ public class RapbackDAOImplTest {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints(); 
 		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER + "2");
 		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
-		civilFingerPrints.setFingerPrintsType(FingerPrintsType.FBI);
+		civilFingerPrints.setFingerPrintsType(FingerPrintsType.State);
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
+		
 	}
 	
 //	@Test
@@ -254,12 +274,14 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setFbiSubscriptionId("12345");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
-		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(2016, 5, 12));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(2014, 5, 12));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2016, 5, 12));
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
+		fbiRapbackSubscription.setStateSubscriptionId("62725");
+		fbiRapbackSubscription.setEventIdentifier("eventID");
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
@@ -268,16 +290,17 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", savedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", savedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("2", savedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), savedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(LocalDate.of(2016, 5, 12), savedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2016, 5, 12), savedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(LocalDate.of(2014, 5, 12), savedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), equalTo(62725)); 
 		
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
 		fbiRapbackSubscription.setSubscriptionTerm("5");
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2019, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2019, 5, 12));
 		rapbackDAO.updateFbiRapbackSubscription(fbiRapbackSubscription);
 		
 		FbiRapbackSubscription updatedFbiRapbackSubscription = fbiSubscriptionDao.getFbiRapbackSubscription("CI", "LI3456789");
@@ -285,13 +308,13 @@ public class RapbackDAOImplTest {
 		assertEquals("12345", updatedFbiRapbackSubscription.getFbiSubscriptionId());
 		assertEquals("CI", updatedFbiRapbackSubscription.getRapbackCategory());
 		assertEquals("5", updatedFbiRapbackSubscription.getSubscriptionTerm());
-		assertEquals(new DateTime(2016, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackExpirationDate());
-		assertEquals(new DateTime(2019, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackTermDate());
-		assertEquals(new DateTime(2014, 5, 12, 0, 0, 0, 0, DateTimeZone.getDefault()), updatedFbiRapbackSubscription.getRapbackStartDate());
+		assertEquals(LocalDate.of(2016, 5, 12), updatedFbiRapbackSubscription.getRapbackExpirationDate());
+		assertEquals(LocalDate.of(2019, 5, 12), updatedFbiRapbackSubscription.getRapbackTermDate());
+		assertEquals(LocalDate.of(2014, 5, 12), updatedFbiRapbackSubscription.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
-		
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), equalTo(62725)); 
 	}
 	
 	@Test(expected=DuplicateKeyException.class)
@@ -300,12 +323,13 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiSubscriptionId");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
-		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackStartDate(new DateTime(2014, 5, 12,0,0,0,0));
-		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
+		fbiRapbackSubscription.setRapbackExpirationDate(LocalDate.of(2016, 5, 12));
+		fbiRapbackSubscription.setRapbackStartDate(LocalDate.of(2014, 5, 12));
+		fbiRapbackSubscription.setRapbackTermDate(LocalDate.of(2016, 5, 12));
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
+		fbiRapbackSubscription.setStateSubscriptionId(62725);
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
@@ -358,13 +382,21 @@ public class RapbackDAOImplTest {
 		
 		ResultSet rs = conn.createStatement().executeQuery(sql);
 		assertTrue(rs.next());
-		assertEquals(false,rs.getBoolean("archived"));
+		assertEquals(true,rs.getBoolean("archived"));
 
-		int count = rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		int count = rapbackDAO.unarchiveIdentificationResult("000001820140729014008339997");
 		
 		assertEquals(1, count);
 		
 		ResultSet rsAfter = conn.createStatement().executeQuery(sql);
+		assertTrue(rsAfter.next());
+		assertEquals(false, rsAfter.getBoolean("archived"));
+		
+		count = rapbackDAO.archiveIdentificationResult("000001820140729014008339997");
+		
+		assertEquals(1, count);
+		
+		rsAfter = conn.createStatement().executeQuery(sql);
 		assertTrue(rsAfter.next());
 		assertEquals(true, rsAfter.getBoolean("archived"));
 	}
@@ -379,7 +411,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 
-		rapbackDAO.consolidateSid("A123457", "A123458");
+		rapbackDAO.consolidateSidFederal("A123457", "A123458");
 		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
@@ -410,7 +442,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		
-		rapbackDAO.consolidateUcn("9222201", "9222202");
+		rapbackDAO.consolidateUcnFederal("9222201", "9222202");
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
@@ -426,5 +458,63 @@ public class RapbackDAOImplTest {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
+	@Test
+	public void testReturnMatchingCivilIdentifications() throws Exception{
+		
+		List<IdentificationTransaction> identificationTransactions = rapbackDAO.returnMatchingCivilIdentifications("0400025", "A123459");
+		
+		assertEquals(1, identificationTransactions.size());
+		
+		Integer subscriptionId = identificationTransactions.get(0).getSubscriptionId();
+		assertNotNull(subscriptionId);
+		
+	}
+	
+	@Test
+	public void testUpdateCriminalHistoryDemographics()
+	{
+		CriminalHistoryDemographicsUpdateRequest criminalHistoryDemographicsUpdateRequest = new CriminalHistoryDemographicsUpdateRequest();
+		Integer subjectId = 1;
+		
+		Subject subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Test", subject.getFirstName());
+		assertEquals("Jane", subject.getLastName());
+		assertEquals("W", subject.getMiddleInitial());
+		assertEquals("1990-10-12", subject.getDob().toLocalDate().toString());
+		
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateGivenName("Joan");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateSurName("Jett");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateMiddleName("M");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateDOB(LocalDate.now());
+		
+		rapbackDAO.updateCriminalHistoryDemographics(criminalHistoryDemographicsUpdateRequest, subjectId);
+		
+		subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Joan", subject.getFirstName());
+		assertEquals("Jett", subject.getLastName());
+		assertEquals("M", subject.getMiddleInitial());
+		assertEquals(LocalDate.now().toString(), subject.getDob().toLocalDate().toString());
+		
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateGivenName("Test");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateSurName("Jane");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateMiddleName("W");
+		criminalHistoryDemographicsUpdateRequest.setPostUpdateDOB(LocalDate.of(1990, 10, 12));
+		
+		rapbackDAO.updateCriminalHistoryDemographics(criminalHistoryDemographicsUpdateRequest, subjectId);
 
+		subject = rapbackDAO.getSubject(1);
+		
+		assertEquals("Test", subject.getFirstName());
+		assertEquals("Jane", subject.getLastName());
+		assertEquals("1990-10-12", subject.getDob().toLocalDate().toString());
+		assertEquals("W", subject.getMiddleInitial());
+
+	}
+	
+	@Test
+	public void testGetCivilFingerprint() throws Exception {
+		
+	}	
 }

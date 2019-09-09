@@ -83,11 +83,13 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
 	@Before
 	public void setUp() throws Exception {
 		
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
+
     	    }              
     	});   
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());

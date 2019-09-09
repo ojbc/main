@@ -17,17 +17,25 @@
 package org.ojbc.util.xml.subscription;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -37,7 +45,15 @@ import org.w3c.dom.Element;
 
 public class SubscriptionNotificationDocumentBuilderUtils {				
 
-	private static final Logger logger = Logger.getLogger(SubscriptionNotificationDocumentBuilderUtils.class.getName());
+	public static final String CRIMINAL_JUSTICE_INVESTIGATIVE = "CI";
+	public static final String CRIMINAL_JUSTICE_SUPERVISION = "CS";
+	public static final String FIREARMS = "F";
+	public static final String NON_CRIMINAL_JUSTICE_EMPLOYMENT = "I";
+	public static final String CRIMINAL_JUSTICE_EMPLOYMENT = "J";
+	public static final String SECURITY_CLEARANCE_INFORMATION_ACT = "S";
+	
+	@SuppressWarnings("unused")
+	private static final Log logger = LogFactory.getLog(SubscriptionNotificationDocumentBuilderUtils.class);
 	
 	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	
@@ -45,13 +61,74 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	
 	private static final String TOPIC_EXPRESSION_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";	
 	
-	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
-	
 	private static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public static Document createSubscriptionRequest(Subscription subscription) throws ParserConfigurationException{
+	public static Document createSubscriptionModifyRequest(Subscription subscription) throws ParserConfigurationException{
+		
+        Document doc = createBlankDoc();        
+		
+        Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "b-2:Modify");
+        doc.appendChild(root);
+        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);        
+        
+		buildSubscriptionModificationMessageNode(root, subscription, null);
+		
+		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+		
+		return doc;
+	}
+	
+	private static void buildSubscriptionModificationMessageNode(Element parentNode, 
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap){
+		
+        Element subscriptionModificationMessage = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MODIFY_MESSAGE, "smm:SubscriptionModificationMessage");
+	
+		buildOrganizationOriElement(subscriptionModificationMessage, subscription);
+		
+		buildCaseIdElement(subscriptionModificationMessage, subscription);
+												
+		buildSubjectElement(subscriptionModificationMessage,subscription);	
+		
+		buildSubQualIdNode(subscriptionModificationMessage, subscription);
+			
+		buildSubscriptionIdNode(subscriptionModificationMessage, subscription);
+		
+		buildSubscriptionReasonCodeElement(subscriptionModificationMessage, subscription.getSubscriptionPurpose());
+		
+		buildTriggeringEvents(subscriptionModificationMessage, subscription, triggeringEventCodeTranslationMap);
+		
+		buildFederalRapSheetDisclosure(subscriptionModificationMessage, subscription);
+		
+		//Insert FBI ID here
+		buildFBISubscriptionIDNode(subscriptionModificationMessage, subscription);
+		
+		Element subscriptionModification = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionModification");
+		
+		buildDateRangeNode(subscriptionModification, subscription);
+	}	
+	
+	private static void buildFBISubscriptionIDNode(
+			Element subscriptionModificationMessage, Subscription subscription) {
+		
+		Element fbiSubscription = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FBISubscription");
+		
+		Element subscriptionFBIIdentification = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionFBIIdentification");
+		
+		Element idNode = XmlUtils.appendElement(subscriptionFBIIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+		
+		idNode.setTextContent(subscription.getFbiSubscriptionID());
+		
+		Element criminalSubscriptionReasonCode = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:CriminalSubscriptionReasonCode");
+		criminalSubscriptionReasonCode.setTextContent(subscription.getSubscriptionPurpose());
+		
+
+		
+	}
+	
+	public static Document createSubscriptionRequest(Subscription subscription, 
+			Map<String,String> triggeringEventCodeTranslationMap) throws ParserConfigurationException{
 		
         Document subMsgDoc = createBlankDoc();        
         Element rootSubscribeElement = getRootSubscribeElement(subMsgDoc); 
@@ -62,7 +139,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 						
 		XmlUtils.appendElement(rootSubscribeElement, OjbcNamespaceContext.NS_B2, "SubscriptionPolicy");
 				
-		buildSubscriptionMessageNode(rootSubscribeElement, subscription);
+		buildSubscriptionMessageNode(rootSubscribeElement, subscription, triggeringEventCodeTranslationMap);
 		
 		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(rootSubscribeElement);
 		
@@ -110,9 +187,9 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		Element idNode = XmlUtils.appendElement(subQualIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 				
-		if (StringUtils.isNotBlank(subscription.getSubscriptionQualificationID()))
+		if (StringUtils.isNotBlank(subscription.getSubscriptionQualificationId()))
 		{
-			idNode.setTextContent(subscription.getSubscriptionQualificationID());
+			idNode.setTextContent(subscription.getSubscriptionQualificationId());
 		}
 		else
 		{
@@ -121,12 +198,15 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	}
 	
 	
-	private static void buildSubscriptionMessageNode(Element parentNode, Subscription subscription){
+	private static void buildSubscriptionMessageNode(Element parentNode, 
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
 		buildCaseIdElement(subMsgNode, subscription);
-												
+
+		buildOrganizationOriElement(subMsgNode, subscription);
+		
 		buildSubjectElement(subMsgNode,subscription);	
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
@@ -142,16 +222,120 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 			sysNameNode.setTextContent(SYSTEM_NAME);
 		}	
 		
+		if (StringUtils.isNotBlank(subscription.getTransactionNumber())){
+			Element fingerprintIdentificationTransactionIdentification = XmlUtils.appendElement(subMsgNode, NS_SUB_MSG_EXT, 
+					"FingerprintIdentificationTransactionIdentification");
+			XmlUtils.appendTextElement(fingerprintIdentificationTransactionIdentification, NS_NC, "IdentificationID", subscription.getTransactionNumber());
+		}
+		
 		buildSubQualIdNode(subMsgNode, subscription);
 			
 		buildDateRangeNode(subMsgNode, subscription);		
 		
 		buildSubscriptionIdNode(subMsgNode, subscription);
 		
-		buildSubscriptionReasonCodeElement(subMsgNode, subscription);
+		buildSubscriptionReasonCodeElement(subMsgNode, subscription.getSubscriptionPurpose());
+		
+		buildTriggeringEvents(subMsgNode, subscription, triggeringEventCodeTranslationMap);
+		
+		buildFederalRapSheetDisclosure(subMsgNode, subscription);
+		
 	}
 	
-	private static void buildCaseIdElement(Element parentNode, Subscription subscription){
+
+	private static void buildOrganizationOriElement(Element subMsgNode,
+			Subscription subscription) {
+		
+		if (StringUtils.isNotBlank(subscription.getOri()) || StringUtils.isNotBlank(subscription.getOwnerProgramOca())){
+			Element subscribingOrganization = XmlUtils.appendElement(subMsgNode, NS_SUB_MSG_EXT, "SubscribingOrganization");
+
+			if (StringUtils.isNotBlank(subscription.getOwnerProgramOca())){
+				Element organizationIdentification = XmlUtils.appendElement(subscribingOrganization, NS_NC, "OrganizationIdentification");
+				XmlUtils.appendTextElement(organizationIdentification, NS_NC, "IdentificationID", subscription.getOwnerProgramOca());
+			}
+			
+			if (StringUtils.isNotBlank(subscription.getOri())){
+				Element organizationAugmentation = XmlUtils.appendElement(subscribingOrganization, NS_JXDM_41, "OrganizationAugmentation");
+				Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_41, "OrganizationORIIdentification");
+				XmlUtils.appendTextElement(organizationORIIdentification, NS_NC, "IdentificationID", subscription.getOri());
+			}
+		}
+		
+	}
+
+
+	private static void buildFederalRapSheetDisclosure(Element subMsgNode,
+			Subscription subscription) {
+//	<smext:FederalRapSheetDisclosure>
+//		<smext:FederalRapSheetDisclosureIndicator>true</smext:FederalRapSheetDisclosureIndicator>
+//		<smext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</smext:FederalRapSheetDisclosureAttentionDesignationText>
+//	</smext:FederalRapSheetDisclosure>    	
+
+    	Boolean federalRapSheetDisclosureIndicator = subscription.getFederalRapSheetDisclosureIndicator();
+    	String federalRapSheetDisclosureAttentionDesignationText = subscription.getFederalRapSheetDisclosureAttentionDesignationText();
+
+	    if (BooleanUtils.isTrue(federalRapSheetDisclosureIndicator))
+	    {
+	    	Element federalRapSheetDisclosureElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosure");
+	    
+    		Element federalRapSheetDisclosureIndicatorElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureIndicator");
+    		federalRapSheetDisclosureIndicatorElement.setTextContent(BooleanUtils.toStringTrueFalse(federalRapSheetDisclosureIndicator));
+
+    		if (StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText)){
+	    		Element federalRapSheetDisclosureAttentionDesignationTextElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureAttentionDesignationText");
+	    		federalRapSheetDisclosureAttentionDesignationTextElement.setTextContent(federalRapSheetDisclosureAttentionDesignationText);
+    		}
+
+	    }	
+		
+	}
+
+
+	private static void buildTriggeringEvents(Element subMsgNode,
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap) {
+//	<submsg-ext:TriggeringEvents>
+//		<submsg-ext:FederalTriggeringEventCode>ARREST</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DEATH</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-ENTRY</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-DELETION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-ENTRY</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-MODIFICATION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-DELETION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
+//	</submsg-ext:TriggeringEvents>
+		
+		
+		if (subscription.getFederalTriggeringEventCode() != null && !subscription.getFederalTriggeringEventCode().isEmpty()) {	
+			Element triggeringEventsElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "TriggeringEvents");
+			
+			if (triggeringEventCodeTranslationMap != null)
+			{	
+				List<String> translatedTriggeringEventCode = new ArrayList<>();
+				subscription.getFederalTriggeringEventCode().stream()
+					.map(triggeringEventCodeTranslationMap::get)
+					.forEach(code -> translatedTriggeringEventCode.addAll(Arrays.asList(StringUtils.split(code, ','))));
+				
+		    	for (String triggeringEventCode : translatedTriggeringEventCode) {
+	    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
+	    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
+		    	}	
+
+			}	
+			else
+			{
+		    	for (String triggeringEventCode : subscription.getFederalTriggeringEventCode()) {
+	    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
+	    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
+		    	}	
+			}
+			
+		}	
+	}
+
+
+	private static void buildCaseIdElement(Element parentNode, Subscription subscription) {
 		
 		String caseId = subscription.getCaseId();
 		
@@ -165,17 +349,17 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		}		
 	}
 		
-	private static void buildSubscriptionReasonCodeElement(Element parentElement, Subscription subscription){
-
-		String subscriptionReasonCode = subscription.getSubscriptionPurpose();
+	private static void buildSubscriptionReasonCodeElement(Element parentElement, String subscriptionReasonCode){
 		
 		if(StringUtils.isNotEmpty(subscriptionReasonCode)){
 		
-			if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(subscriptionReasonCode)){
+			if (CRIMINAL_JUSTICE_EMPLOYMENT.equals(subscriptionReasonCode) || FIREARMS.equals(subscriptionReasonCode) || NON_CRIMINAL_JUSTICE_EMPLOYMENT.equals(subscriptionReasonCode) || SECURITY_CLEARANCE_INFORMATION_ACT.equals(subscriptionReasonCode) )
+			{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
-			else{
+			if (CRIMINAL_JUSTICE_INVESTIGATIVE.equals(subscriptionReasonCode) || CRIMINAL_JUSTICE_SUPERVISION.equals(subscriptionReasonCode))
+			{
 				Element subReasonCodeElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
 				subReasonCodeElement.setTextContent(subscriptionReasonCode);
 			}
@@ -400,16 +584,28 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 
         	}
         	
-        	if (StringUtils.isNotBlank(unsubscription.getSid()))
+        	if (StringUtils.isNotBlank(unsubscription.getSid()) || StringUtils.isNotBlank(unsubscription.getSid()))
         	{
         		Element personAugmentation = XmlUtils.appendElement(subject, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-        		
-        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-        		
-        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        		identificationID.setTextContent(unsubscription.getSid());
+
+        		if (StringUtils.isNotBlank(unsubscription.getFbiNumber()))
+        		{		
+	        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+	        		
+	        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        		identificationID.setTextContent(unsubscription.getFbiNumber());
+        		}
+
+        		if (StringUtils.isNotBlank(unsubscription.getSid()))
+        		{		
+	        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+	        		
+	        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        		identificationID.setTextContent(unsubscription.getSid());
+        		}
         		
         	}	
+        	
         	
         }	
         
@@ -451,16 +647,10 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	        identificationID.setTextContent(subscriptionIdentificationId);
         }    
 	        
-		String reasonCode = unsubscription.getReasonCode();
-        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        else{
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        
+		String subscriptionReasonCode = unsubscription.getReasonCode();
+		
+		buildSubscriptionReasonCodeElement(unsubscriptionMessage, subscriptionReasonCode);
+		
 		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
 		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
 		topicExpNode.setTextContent(unsubscription.getTopic());

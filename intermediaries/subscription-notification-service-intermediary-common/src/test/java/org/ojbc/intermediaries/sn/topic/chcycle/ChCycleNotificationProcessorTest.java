@@ -25,7 +25,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -51,7 +50,8 @@ public class ChCycleNotificationProcessorTest {
 
     private static final String EXPECTED_EMAIL_TEXT = "Springfield PD requested an Arrest Tracking Number(ATN) for Maggie Simpson on 2014-11-11";
 
-    private static final Log log = LogFactory.getLog(ChCycleNotificationProcessorTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(ChCycleNotificationProcessorTest.class);
 
     @Autowired
     private ChCycleNotificationProcessor chCycleNotifProcessor;

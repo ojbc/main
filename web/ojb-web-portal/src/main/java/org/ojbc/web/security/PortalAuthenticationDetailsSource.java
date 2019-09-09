@@ -83,6 +83,9 @@ public class PortalAuthenticationDetailsSource implements
     @Value("#{'${orisWithoutIncidentDetailAccess:}'.split(',')}")
     private List<String> orisWithoutIncidentDetailAccess;
     
+    @Value("#{'${fedIdsWithAdminAccess:}'.split(',')}")
+    private List<String> fedIdsWithAdminAccess;
+    
     @Value("${enableEnhancedAudit:false}")
     Boolean enableEnhancedAudit;
 
@@ -102,7 +105,12 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
-        log.info("samlAssertion not null " + BooleanUtils.toStringYesNo(samlAssertion != null));
+        
+        if (samlAssertion == null)
+        {
+        	log.info("samlAssertion is null ");
+        }	
+        
         String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
 
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
@@ -111,6 +119,9 @@ public class PortalAuthenticationDetailsSource implements
 	        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
 	        
 	        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+	        	
+	        	log.warn("User does not have FederatedQueryUserIndicator");
+	        	
 	            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
 	                    grantedAuthorities);
 	        }
@@ -165,6 +176,17 @@ public class PortalAuthenticationDetailsSource implements
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
+        	
+        	/*
+        	 * Check whether to grant admin role.  
+        	 */
+        	log.info("fedIdsWithAdminAccess:" + StringUtils.join(fedIdsWithAdminAccess, ","));
+        	log.info("principal:" + principal);
+        	log.info("fedIdsWithAdminAccess.contains(principal):" + fedIdsWithAdminAccess.contains(principal));
+        	if (fedIdsWithAdminAccess.contains(principal)){
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_ADMIN.name()));
+        	}
+        	
         	String criminalJusticeEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
         	String lawEnforcementEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
 

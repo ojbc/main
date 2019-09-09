@@ -33,25 +33,30 @@ public class CamelSAMLTokenProcessor {
 	public void retrieveSAMLTokenFromMessage(Exchange exchange)
 	{
 		Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-		SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-		Element assertionElement = null;
+		Object token = cxfMessage.get("wss4j.principal.result");
 		
-		if (token != null)
+		if (token instanceof SAMLTokenPrincipal)
 		{	
-			assertionElement = token.getToken().getSaml2().getDOM();
-		}
+			SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
 			
-		if (assertionElement != null)
-		{
-			//Set the token header so that CXF can retrieve this on the outbound call
-			String tokenID = exchange.getExchangeId();
-			exchange.getIn().setHeader("tokenID", tokenID);
-
-			log.info("Retrieved SAML token from inbound message and adding to token map with ID: " + tokenID);
+			Element assertionElement = null;
 			
-			OJBSamlMap.putToken(tokenID, assertionElement);
+			if (token != null)
+			{	
+				assertionElement = samlToken.getToken().getSaml2().getDOM();
+			}
+				
+			if (assertionElement != null)
+			{
+				//Set the token header so that CXF can retrieve this on the outbound call
+				String tokenID = exchange.getExchangeId();
+				exchange.getIn().setHeader("tokenID", tokenID);
+	
+				log.info("Retrieved SAML token from inbound message and adding to token map with ID: " + tokenID);
+				
+				OJBSamlMap.putToken(tokenID, assertionElement);
+			}	
 		}	
-		
 	}
 
 	public OJBSamlMap getOJBSamlMap() {

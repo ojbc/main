@@ -75,6 +75,8 @@
 					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
+						<camel:log message="Preparing to custody query request"/>
+					
 						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
 						
 				        <doCatch>

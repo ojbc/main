@@ -25,7 +25,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -61,7 +60,8 @@ public class IncidentNotificationProcessorTest {
     "Offense Code: Driving Under Influence<br/>Offense Description: DUI<br/><br/>\n" +
     "To follow up on this incident, please call Montpelier Police Department.";
     
-    private static final Log log = LogFactory.getLog(IncidentNotificationProcessorTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(IncidentNotificationProcessorTest.class);
 	
 	@Autowired
     private IncidentNotificationProcessor unit;

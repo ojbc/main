@@ -26,17 +26,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<Subscription>>{
     
-    private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
     
-    private ValidationDueDateStrategy validationDueDateStrategy;
     private GracePeriodStrategy gracePeriodStrategy;
     private ValidationExemptionFilter validationExemptionFilter;
 
@@ -46,14 +51,6 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 
     public void setValidationExemptionFilter(ValidationExemptionFilter validationExemptionFilter) {
         this.validationExemptionFilter = validationExemptionFilter;
-    }
-
-    public ValidationDueDateStrategy getValidationDueDateStrategy() {
-        return validationDueDateStrategy;
-    }
-
-    public void setValidationDueDateStrategy(ValidationDueDateStrategy validationDueDateStrategy) {
-        this.validationDueDateStrategy = validationDueDateStrategy;
     }
 
     public GracePeriodStrategy getGracePeriodStrategy() {
@@ -89,6 +86,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	
 	            	subscription.setStartDate(new DateTime(rs.getDate("startDate")));
 	            	
+	            	subscription.setActive(rs.getBoolean("active"));
+	            	
                     Date endDate = rs.getDate("endDate");
                     if (endDate != null)
                     {
@@ -105,20 +104,73 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
                     	throw new IllegalStateException("Last validation date can not be null");
                     }	
                     
+                    Date creationDate = rs.getDate("creationDate");
+                    if (creationDate != null)
+                    {
+                        subscription.setCreationDate(new DateTime(creationDate));
+                    }
+                    else
+                    {
+                    	throw new IllegalStateException("Creation date can not be null");
+                    }	
+                    
+                    Date lastUpdatedDate = rs.getDate("lastUpdatedDate");
+                    if (lastUpdatedDate != null)
+                    {
+                        subscription.setLastUpdatedDate(new DateTime(lastUpdatedDate));
+                    }
+                    else
+                    {
+                    	throw new IllegalStateException("Last updated date can not be null");
+                    }	                    
+
+	            	if (validationExemptionFilter.requiresValidation(subscription)) {
+	                    Date validationDueDate = rs.getDate("validationDueDate");
+	                    if (validationDueDate != null ||subscription.getEndDate() != null )
+	                    {
+	                        subscription.setValidationDueDate(new DateTime(validationDueDate));
+	                        subscription.setGracePeriod(gracePeriodStrategy.getGracePeriod(subscription));
+	                    }   	            	
+	                } else {
+	            	    subscription.setValidationDueDate(null);
+	            	    subscription.setGracePeriod(null);
+	            	}
+	            	
+	            	subscription.setSubscriptionOwnerFk(rs.getInt("SUBSCRIPTION_OWNER_ID"));
+	            	
 	            	subscription.setSubscriptionOwner(rs.getString("subscriptionOwner"));
+	            	
+	            	subscription.setSubscriptionOwnerEmailAddress(rs.getString("subscriptionOwnerEmailAddress"));
+	            	
+	            	subscription.setSubscriptionOwnerFirstName(rs.getString("subscriptionOwnerFirstName"));
+	            	
+	            	subscription.setSubscriptionOwnerLastName(rs.getString("subscriptionOwnerLastName"));
 	            	
 	            	subscription.setPersonFullName(rs.getString("subjectName"));
 	            	
 	            	subscription.setSubscriptionIdentifier(String.valueOf(id));
 	            	
-	            	if (validationExemptionFilter.requiresValidation(subscription)) {
-	            	    subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
-	            	    subscription.setGracePeriod(gracePeriodStrategy.getGracePeriod(subscription));
-	            	} else {
-	            	    subscription.setValidationDueDate(null);
-	            	    subscription.setGracePeriod(null);
-	            	}
+	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
+	            	subscription.setOri(rs.getString("ori"));
+	            	subscription.setAgencyName(rs.getString("agency_name"));
 	            	
+	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 
+	    			if (StringUtils.isNotBlank(fbiSubscriptionId)){
+	    				FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
+	    				fbiSubscription.setFbiSubscriptionId(fbiSubscriptionId);
+		    			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
+		    			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
+		    			fbiSubscription.setRapbackExpirationDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_expiration_date")));
+		    			fbiSubscription.setRapbackStartDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_start_date")));
+		    			fbiSubscription.setRapbackTermDate(OJBCDateUtils.toLocalDate(rs.getDate("rap_back_term_date")));
+		    			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
+		    			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
+		    			fbiSubscription.setUcn(rs.getString("ucn"));
+		    			fbiSubscription.setStateSubscriptionId(rs.getInt("subscription_id"));
+		    			fbiSubscription.setTimestamp(OJBCDateUtils.toDateTime(rs.getTimestamp("report_timestamp")));
+		    			
+		    			subscription.setFbiRapbackSubscription(fbiSubscription);
+	    			}
 	            	map.put(id, subscription);
 	            	
 	            }	
@@ -147,17 +199,17 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            
 	            subscriptionSubjectIdentifiers.put(identifierName, identifierValue);
 	            
-	            if (identifierName.equals("lastName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.LAST_NAME))
 	            {
 	            	subscription.setPersonLastName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("firstName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.FIRST_NAME))
 	            {
 	            	subscription.setPersonFirstName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("dateOfBirth"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.DATE_OF_BIRTH))
 	            {
 	            	subscription.setDateOfBirth(identifierValue);
 	            }	

@@ -357,7 +357,7 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
 		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));

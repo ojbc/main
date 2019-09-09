@@ -87,7 +87,11 @@
 	    	<camel:setHeader headerName="subject">
 	    		<constant>{{subject}}</constant>
 	    	</camel:setHeader>
-	    	
+
+			<camel:setBody>
+				<constant>{{emailMessagebody}}</constant>
+			</camel:setBody>
+				    	
 	    	<to uri="mailEndpoint" />
 			
 		

@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>fbi-electronic-biometric-transmission-specification-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.9</version>
 	<name>OJB :: fbi-electronic-biometric-transmission-specification-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
@@ -45,15 +45,20 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<xmlunit.version>1.5</xmlunit.version>
-		<sn-interm-cmn-version>[1.0.1,)</sn-interm-cmn-version>
-		<junit-version>4.8.1</junit-version>
+		<ojb-enhanced-audit-common-version>[1.0.2,)</ojb-enhanced-audit-common-version>
+		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
 		<java-version>1.8</java-version>
 		<saxon-version>9.5.1-5</saxon-version>
 		<wss4j-version>1.5.6</wss4j-version>
+		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+		   <groupId>com.github.mhshams</groupId>
+		   <artifactId>jnbis</artifactId>
+		   <version>2.0.2</version>
+		</dependency>	
 		<dependency>
 			<groupId>org.ojbc.bundles.intermediaries</groupId>
 			<artifactId>subscription-notification-service-intermediary-common</artifactId>
@@ -80,12 +85,15 @@
 			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-mail</artifactId>
+			<version>${camel-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-http4</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
@@ -103,6 +111,19 @@
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-enhanced-audit-common</artifactId>
+			<version>${ojb-enhanced-audit-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.utilities</groupId>
+			<artifactId>h2-mock-database</artifactId>
+			<version>${h2-mock-database-version}</version>
+		</dependency>
+
 
 		<!-- CXF libs -->
 
@@ -157,11 +178,6 @@
 			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -212,6 +228,18 @@
 						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
+			</plugin>
+			<!-- Make reuseForks=false to fix the issue of junit tests pass but mvn test fails -->
+			<!-- http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <version>${maven-surefire-plugin-version}</version>
+			    <configuration>
+			        <reuseForks>false</reuseForks>
+			        <forkCount>1</forkCount>
+			        <runOrder>alphabetical</runOrder>
+			    </configuration>
 			</plugin>
 
 		</plugins>

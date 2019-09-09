@@ -16,16 +16,18 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
-import junit.framework.Assert;
+import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,6 +40,7 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -49,7 +52,8 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext
 public class RapbackSearchProcessorTest {
@@ -58,9 +62,26 @@ public class RapbackSearchProcessorTest {
 	@Resource 
 	RapbackSearchProcessor rapbackSearchProcessor; 
 	
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
+    @Resource  
+    private DataSource dataSource;  
+    
 	@Before
 	public void setUp() throws Exception {
-		Assert.assertNotNull(rapbackSearchProcessor);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		assertNotNull(rapbackSearchProcessor);
+		
+    	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = '2011-10-18' where id=62720 or id=62721 or id=62722");
+    	assertEquals(3, rowsUpdated);
+    	
+    	rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = '2015-09-18' where id=62725");
+    	assertEquals(1, rowsUpdated);
+
+    	rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = '2015-10-15' where id=62726 or id=62727");
+    	assertEquals(2, rowsUpdated);
 	}
 
 	@Test

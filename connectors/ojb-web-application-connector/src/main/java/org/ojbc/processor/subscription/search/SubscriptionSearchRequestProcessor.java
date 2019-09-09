@@ -16,6 +16,8 @@
  */
 package org.ojbc.processor.subscription.search;
 
+import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -23,12 +25,13 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.fedquery.error.MergeNotificationErrorProcessor;
 import org.ojbc.web.SubscriptionSearchInterface;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
@@ -50,7 +53,7 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 	private boolean allowQueriesWithoutSAMLToken;
 	
 	@Override
-	public String invokeSubscriptionSearchRequest(String federatedQueryID,
+	public String invokeSubscriptionSearchRequest(SubscriptionSearchRequest request,
 			Element samlToken) throws Exception {
 		
 		String response = "";
@@ -68,18 +71,18 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 			}	
 			
 			if (samlToken == null)
-			{
+	      		{
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
-			Document requestMessage = RequestMessageBuilderUtilities.createSubscriptionSearchRequest();
+			Document requestMessage = RequestMessageBuilderUtilities.createSubscriptionSearchRequest(request);
 			
 			//Create exchange
 			Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
 			
 			//Set exchange body to XML Request message
 			senderExchange.getIn().setBody(requestMessage);
-			
+			String federatedQueryID = getFederatedQueryId();
 			//Set reply to and WS-Addressing message ID
 			senderExchange.getIn().setHeader("federatedQueryRequestGUID", federatedQueryID);
 			senderExchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());

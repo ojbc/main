@@ -19,8 +19,17 @@ package org.ojbc.intermediaries.sn.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import org.apache.camel.Message;
+import org.apache.camel.impl.DefaultMessage;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.ojbc.util.model.rapback.Subscription;
+import org.w3c.dom.Document;
 
 /**
  * Basic unit test for static validation due date strategy.
@@ -31,21 +40,40 @@ public class TestStaticValidationDueDateStrategy {
 	@Test
 	public void testStaticValidationDueDateStrategy() throws Exception
 	{
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+		
 		StaticValidationDueDateStrategy staticValidationDueDateStrategy = new StaticValidationDueDateStrategy("SYSTEM");
 		
 		DateTime currentDate = new DateTime();
+
+		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
+		
+		Message message = new DefaultMessage();
+		
+		message.setHeader("subscriptionOwner", "someone");
+		message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
+		
+		message.setBody(messageDocument);
+		
+		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
+		ArrestSubscriptionRequest subRequest = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		subRequest.setSubscriptionOwner("SYSTEM");
+		
+		assertNull(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate()));
 		
 		Subscription subscription = new Subscription();
-		subscription.setLastValidationDate(currentDate);
 		subscription.setSubscriptionOwner("SYSTEM");
+
+		assertNull(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate()));
 		
-		assertNull(staticValidationDueDateStrategy.getValidationDueDate(subscription));
-		
+		subRequest.setSubscriptionOwner("NOT_SYSTEM");
 		subscription.setSubscriptionOwner("NOT_SYSTEM");
-		assertEquals(currentDate, staticValidationDueDateStrategy.getValidationDueDate(subscription));
+		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate())));
+		assertEquals(fmt.print(currentDate), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate())));
 		
 		staticValidationDueDateStrategy.setValidDays(30);
-		assertEquals(currentDate.plusDays(30), staticValidationDueDateStrategy.getValidationDueDate(subscription));
+		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subRequest, new LocalDate())));
+		assertEquals(fmt.print(currentDate.plusDays(30)), fmt.print(staticValidationDueDateStrategy.getValidationDueDate(subscription, new LocalDate())));
 	}
 	
 }

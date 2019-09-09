@@ -84,12 +84,15 @@ public class SearchResultConverter implements ApplicationContextAware {
     @Value("classpath:xsl/identityBasedAccessControlResult.xsl")
     org.springframework.core.io.Resource identityBasedAccessControlResultXsl;
 
-	@Value("${rapbackValidationButtonShowingPeriod:30}")
+	@Value("${rapbackValidationButtonShowingPeriod:60}")
 	Integer rapbackValidationButtonShowingPeriod;
 
 	@Value("${chDisplaySupervisionTroCustodyHeaders:true}")
 	Boolean chDisplaySupervisionTroCustodyHeaders;
 
+    @Value("${allowFirearmSubscription:true}")
+    Boolean allowFirearmSubscription;
+    
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -127,6 +130,7 @@ public class SearchResultConverter implements ApplicationContextAware {
     	}
         Map<String, Object> params = new HashMap<String, Object>(); 
         params.put("rapbackValidationButtonShowingPeriod", rapbackValidationButtonShowingPeriod);
+        params.put("allowFirearmSubscription", allowFirearmSubscription);
         return convertXml(searchContent, rapbackSearchResultXsl, params);
     }
     

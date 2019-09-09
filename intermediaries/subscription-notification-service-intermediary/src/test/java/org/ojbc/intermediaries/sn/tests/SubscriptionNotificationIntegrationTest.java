@@ -44,13 +44,17 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.audit.AuditDAO;
+import org.ojbc.intermediaries.sn.dao.audit.NotificationsSent;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
+import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.WiserMessage;
 
+@SuppressWarnings("deprecation")
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
     private static final Log log = LogFactory.getLog(SubscriptionNotificationIntegrationTest.class);
@@ -61,15 +65,25 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	@Resource
 	protected IncidentNotificationProcessor incidentNotificationProcessor;
 	
+	@Resource
+	protected AuditDAO auditDaoImpl;
+	
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
+
     	    }              
     	});    	    	
 	}
@@ -172,6 +186,14 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		verifyNotificationForSubscribeSoapRequest(emails);
 		
+		assertNotNull(auditDaoImpl);
+		
+		NotificationsSent notificationsSent = auditDaoImpl.retrieveNotificationSentById(1);
+		
+		assertNotNull(notificationsSent);
+		
+		//Additional assertions in the AuditDaoImpl test
+		assertNotNull(notificationsSent.getSubscription().getId());
 	}
 
 	@Test
@@ -200,7 +222,12 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
     }
 	
     @Test
-    public void notificationArrest_multipleSubscriptions() throws Exception {        
+    public void notificationArrest_multipleSubscriptions() throws Exception {
+    	
+    	//We will use these three subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate() where id = 1 or id =3");
+    	assertEquals(2, rowsUpdated);
+    	
         notifyAndAssertBasics("notificationSoapRequest_A5008305.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 "SID: A5008305", 6);
     }
@@ -297,17 +324,11 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	
 	@Test
 	public void notificationArrest_MultipleInactive() throws Exception {
-		String response = "";
-		
-		response =invokeRequest("unSubscribeSoapRequest_CaseloadExplorer.xml", subscriptionManagerUrl);
-		assertThat(response, containsString("b-2:UnsubscribeResponse"));
-		
-		response =invokeRequest("unSubscribeSoapRequest_HPA.xml", subscriptionManagerUrl);
-		assertThat(response, containsString("b-2:UnsubscribeResponse"));
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSetMultipleInactive.xml"));
 		
         notifyAndAssertBasics("notificationSoapRequest_A5012703.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 null, 0);
-
 	}
 
 	

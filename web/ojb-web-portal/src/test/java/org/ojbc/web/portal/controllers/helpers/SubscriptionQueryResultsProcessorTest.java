@@ -16,12 +16,18 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,13 +36,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 
 public class SubscriptionQueryResultsProcessorTest {
 	
 	@Test
-	public void testParsSubQueryResults() throws Exception{
+	public void testParseSubQueryResults() throws Exception{
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				
@@ -48,31 +55,55 @@ public class SubscriptionQueryResultsProcessorTest {
 				
 		Date dStartDate = subscription.getSubscriptionStartDate();
 		String sStartDate = sdf.format(dStartDate);
-		assertEquals("2014-04-01", sStartDate);
+		assertEquals("2014-03-12", sStartDate);
 				
 		Date dEndDate = subscription.getSubscriptionEndDate();
 		String sEndDate = sdf.format(dEndDate);
-		assertEquals("2014-05-01", sEndDate);
+		assertEquals("2016-03-12", sEndDate);
 				
 		String topic = subscription.getTopic();
 		assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);				
 				
-		String sFullName = subscription.getFullName();
-		assertEquals("Test Name", sFullName);
+		assertEquals("Dwight Schrute", subscription.getFullName());
 		
 		Date dDob = subscription.getDateOfBirth();
     	Date birthDate = sdf.parse("1975-01-12");		
 		assertEquals(0,dDob.compareTo(birthDate));
 				
 		List<String> emailList = subscription.getEmailList();				
-		boolean hasEmail1 = emailList.contains("officer@gmail.com");
+		boolean hasEmail1 = emailList.containsAll(Arrays.asList("subjectEmail1@gov.gov", "subjectEmail2@gov.gov", "subjectEmail3@gov.gov"));
 		assertEquals(true, hasEmail1);
+		
+		assertThat(subscription.getOwnerEmailAddress(), is("probation_officer@gov.gov"));
 				
 		String sStateId = subscription.getStateId();
-		assertEquals("A2588583", sStateId);	
+		assertEquals("A1099109188", sStateId);	
+		assertThat(subscription.getFbiId(), is("123456789"));
 		
 		String systemId = subscription.getSystemId();
 		assertEquals("62726", systemId);
+		assertThat(subscription.getSystemName(), is("Subscriptions"));
+		
+		String federalRapSheetDisclosureAttentionDesignationText =  subscription.getFederalRapSheetDisclosureAttentionDesignationText();
+		assertEquals("Detective George Jones", federalRapSheetDisclosureAttentionDesignationText);
+		
+		Boolean federalRapSheetDisclosureIndicator =  subscription.getFederalRapSheetDisclosureIndicator();
+		assertThat(federalRapSheetDisclosureIndicator, is(true));
+		
+		assertNotNull(subscription.getFederalTriggeringEventCode());
+		assertEquals(2, subscription.getFederalTriggeringEventCode().size());
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("DEATH"));
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("ARREST"));
+		
+		assertNotNull(subscription.getFbiRapbackSubscription());
+		FbiRapbackSubscription fbiRapbackSubscription = subscription.getFbiRapbackSubscription();
+		assertThat(fbiRapbackSubscription.getFbiSubscriptionId(), is("1234567"));
+		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(LocalDate.of(2015, 1, 1)));
+		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(LocalDate.of(2016, 1, 1)));
+		assertThat(fbiRapbackSubscription.getRapbackCategory(), is("CI"));
+		assertThat(fbiRapbackSubscription.getSubscriptionTerm(), is("5"));
+		assertThat(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), is("1"));
+		assertThat(fbiRapbackSubscription.getRapbackOptOutInState(), is(false));
 	}
 	
 	@Test

@@ -32,6 +32,11 @@
 			xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
 			<um:UnsubscriptionMessage>
 				<smext:Subject>
+                    <nc20:PersonName>
+                    	<nc20:PersonGivenName>Test</nc20:PersonGivenName>
+                    	<nc20:PersonSurName>Person</nc20:PersonSurName>
+                        <nc20:PersonFullName>Test Person</nc20:PersonFullName>
+                    </nc20:PersonName>
 					<jxdm41:PersonAugmentation>
 						<jxdm41:PersonStateFingerprintIdentification>
 							<nc20:IdentificationID>A9999999</nc20:IdentificationID>

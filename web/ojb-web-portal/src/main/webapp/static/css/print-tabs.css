@@ -1,0 +1,58 @@
+/**
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ */
+@media print {
+	html,body {
+	    margin: 0 !important;
+	    padding:0 !important;
+	}
+	
+    body * {
+        visibility: hidden;
+    }
+    
+    #tabs{
+      overflow:visible;
+      height: 99%; 
+      margin:0;
+	  page-break-before: avoid !important;
+	  page-break-after: avoid !important;
+	  page-break-inside: avoid !important;    
+    }
+    #tabs *:not(#printButton) 
+    {
+        visibility: visible;
+		page-break-after: avoid!important;
+    }
+    
+    div.ui-tabs-panel div{
+    	overflow: visible !important;
+    }
+    
+    div#stateInitialResultTab div:not(:first-child), 
+    div#fbiInitialResultTab div:not(:first-child)
+    {
+		page-break-before: always !important;
+	}
+    
+    #tabs li[aria-selected='false'],
+    #tabs li[aria-selected='false'] a,
+    button#printButton
+    {
+        display:none;
+	}
+}
+	

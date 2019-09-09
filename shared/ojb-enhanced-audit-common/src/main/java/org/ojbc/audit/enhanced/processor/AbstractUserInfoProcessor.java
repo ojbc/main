@@ -115,6 +115,17 @@ public abstract class AbstractUserInfoProcessor {
 					userInfoRequest.setFederationId(attributeValueAsString);
 									     					
 				}	
+
+				if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
+				{
+					XMLObject attributeValue = attribute.getAttributeValues().get(0);
+					String attributeValueAsString = attributeValue.getDOM().getTextContent();
+					log.debug(attributeValueAsString);
+
+					userInfoRequest.setEmployerOri(attributeValueAsString);
+									     					
+				}	
+
 				
 			}
 				

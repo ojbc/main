@@ -33,8 +33,8 @@ import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;
 
@@ -87,7 +87,6 @@ public class AbstractSearchQueryProcessor {
 	}
 
 	void appendPersonAugmentationElement(Subject subject, Element identifiedPerson, String extNamespace) {
-		log.info("subject: " + subject.toString());
 		if (StringUtils.isNotBlank(subject.getUcn()) 
 				|| StringUtils.isNotBlank(subject.getCivilSid()) 
 				|| StringUtils.isNotBlank(subject.getCriminalSid())){
@@ -137,8 +136,14 @@ public class AbstractSearchQueryProcessor {
 		else {
 			
 			Subscription subscription = identificationTransaction.getSubscription(); 
-			if (subscription != null && subscription.getActive() == Boolean.TRUE){
-				return IdentificationTransactionState.Subscribed;
+			if (subscription != null && subscription.getActive() == Boolean.TRUE 
+					&& (subscription.getEndDate() == null || subscription.getEndDate().plusDays(1).isAfterNow())){
+				if (StringUtils.isNotBlank(identificationTransaction.getFbiSubscriptionId())){
+					return IdentificationTransactionState.Subscribed_State_FBI;
+				}
+				else {
+					return IdentificationTransactionState.Subscribed_State;
+				}
 			}
 			else{
 				return IdentificationTransactionState.Available_for_Subscription;

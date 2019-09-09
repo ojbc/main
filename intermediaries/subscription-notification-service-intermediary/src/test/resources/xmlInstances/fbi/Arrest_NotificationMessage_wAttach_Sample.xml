@@ -76,7 +76,7 @@
 					</notfm-ext:NotifyingActivityReportingSystemURI>
 					<notfm-ext:RelatedFBISubscription>
 						<notfm-ext:RecordRapBackSubscriptionIdentification>
-							<nc:IdentificationID>7689808</nc:IdentificationID>
+							<nc:IdentificationID>fbiSubscriptionId_3</nc:IdentificationID>
 						</notfm-ext:RecordRapBackSubscriptionIdentification>
 					</notfm-ext:RelatedFBISubscription>
 					<notfm-ext:CriminalHistoryRecordDocument>

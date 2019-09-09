@@ -16,7 +16,6 @@
  *#
 <!DOCTYPE html>
 <script type="text/javascript">
- 
 	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
@@ -33,9 +32,8 @@
     			}
 	    	}
 	    	
-	    	var hasSubsequentResultsChecked = $('#hasSubsequentResults').is(":checked");
-	 		var className = settings.aoData[dataIndex].nTr.className;
-	 		if (hasSubsequentResultsChecked && className.indexOf("subsequentResults") === -1) {
+	    	var hasRapBackNotificationsChecked = $('#hasRapBackNotifications').is(":checked");
+	 		if (hasRapBackNotificationsChecked && jQuery.isEmptyObject(data[6]) ) {
 	 			result = false;
 	 		}
 	 		
@@ -54,55 +52,57 @@
 	
 	$(function() {
 		$( document ).tooltip();
+		$('#searchBarButtonDiv').hide();
 		$.fn.dataTable.moment( 'MM/DD/YYYY' );
 		
-		numCols = $("#searchResultsTable").find('tr')[0].cells.length;
-		optTable = {
-			"pagingType": "full_numbers",
-			"pageLength": 50,
-			stateSave: true, 
-			colReorder: true,
-			"order": [[ 1, "asc" ]],
-			"language": {
-        		"emptyTable": "No rapback record available"
-   			 },
-			"columnDefs": [
-			{
-				targets: [ numCols -1 ],
-			    searchable: false, 
-			    sortable: false
-			},  
-			{
-				targets: [2, 3, 4],
-			    type: "date" 
-			}  
-			]
-        };
+		if ($("#searchResultsTable")){
+			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
+			
+			optTable = {
+				"pagingType": "full_numbers",
+				"pageLength": 50,
+				stateSave: true,
+				colReorder: true, 
+				"order": [[ 1, "asc" ]],
+				"language": {
+	        		"emptyTable": "No rapback record available"
+	   			 },
+				"columnDefs": [
+				{
+					targets: [ numCols -1 ],
+				    searchable: false, 
+				    sortable: false
+				}
+				]
+	        };
 		
-		var oTable = $("#searchResultsTable").DataTable( optTable);
-		
-		$('#filterColumn').on("change", '#rapbacksFilter', function() {
-        	oTable.draw();
-    	} );
+			var oTable = $("#searchResultsTable").DataTable( optTable);
+			
+			$('#filterColumn').on("change", '#rapbacksFilter', function() {
+    	    	oTable.draw();
+    		} );
 	  		
-		$('#filterColumn').on("click", '#clearFilterButton', function() {
-			$('#rapbacksFilter').val('');
-        	oTable.draw();
-    	} );
-    	
-		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
-        	oTable.draw();
-    	} );
-    	
-		$('#filterColumn').on("change", '#showArchivedOnly', function() {
-			if ($('#showArchivedOnly').is(":checked")){
+			$('#filterColumn').on("click", '#clearFilterButton', function() {
 				$('#rapbacksFilter').val('');
-			}
-        	oTable.draw();
-    	} );
+	        	oTable.draw();
+	    	} );
     	
+			$('#filterColumn').on("change", '#hasRapBackNotifications', function() {
+	        	oTable.draw();
+	    	} );
+    	
+			$('#filterColumn').on("change", '#showArchivedOnly', function() {
+				if ($('#showArchivedOnly').is(":checked")){
+					$('#rapbacksFilter').val('');
+				}
+	        	oTable.draw();
+	    	} );
+	    	
+		}
+		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
-    		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		clearErrorMessage();
+    		$.post("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
 					refreshSearchResultsTable();
@@ -115,7 +115,21 @@
     	});
     	
     	$('#searchResultsTable').on('click', 'a.archive',function() {
+    		clearErrorMessage();
     		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.unarchive',function() {
+    		clearErrorMessage();
+    		$.get("#springUrl('/rapbacks/unarchive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -135,32 +149,61 @@
 			}
     	}
     	
-    	function refreshSearchResultsTable(){
+    	function clearErrorMessage(){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html('');
+			}
+    	}
+    	
+    	function refreshSearchResultsTable(message){
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
-				$('#portalContent').html(data);	
+				$('#portalContent').html(data);
+				
+				if (message){	
+					showErrorMessage(message);
+				}
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
     	}
     	
     	$('#searchResultsTable').on('click', 'a.unsubscribe',function() {
+    		clearErrorMessage();
 			unsubscribe($(this).attr("id")) ;
     	});
     	
     	$('#searchResultsTable').on('click', 'a.validate',function() {
-    		$.get("#springUrl('/rapbacks/validate')", {subscriptionId: $(this).attr("id")}, function(data) {
-    		
-				if (data === 'success'){
-					refreshSearchResultsTable();				
-				}
-				else{
-					showErrorMessage(data);
-				}	
-																      
-			}).fail(ojbc.displayFailMessage);
+    		clearErrorMessage();
+			var row = $(this).parent().parent();
+			var id = $(this).attr("id");
+			var reasonCode = $(this).attr("data-reason-code"); 		    
+		    $( "#dialog-confirm-validate" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      modal: true,
+			      buttons: {
+			        "Validate": function() {
+			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
+							if (data === 'success'){
+								refreshSearchResultsTable("Validation Successful");	
+							}
+							else{
+								showErrorMessage(data);
+							}	
+						}).fail(ojbc.displayFailMessage);
+						
+				        $( this ).dialog( "close" );
+			        },
+			        "Close": function() {
+	            		$( this ).dialog( "close" );
+	            	}
+			     }
+		    });   		
+    	
     	});
     	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+    		clearErrorMessage();
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
@@ -197,7 +240,46 @@
             return false;
         });
     	
+    	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
+    		clearErrorMessage();
+            var url = this.href;
+            var dialog = $('<div style="display:none"  title="Identification Rap Sheets" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .85;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
+
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
+
+            return false;
+        });
+    	
     	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
+    		clearErrorMessage();
     		var recordStatus = $(this).parent().prev().text();
     		var subsequentResultButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
@@ -206,14 +288,67 @@
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      width:400,
-			      height:150,
+			      height:200,
 			      modal: true,
 			      buttons: {
 			        "Yes": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        	
 			        	subsequentResultButton.click();
 				        $( this ).dialog( "close" );
 			        },
 			        "No": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
+		            		 $( this ).dialog( "close" );
+		            	}
+		            	else{
+						    $( "#dialog-confirm-unsubscribe" ).dialog({
+						    	 position: { my: "center center", at: "center center", of: row },
+							     resizable: true,
+							     width:500,
+							     height:150,
+							     modal: true,
+							     buttons: {
+							         "Continue": function() {
+							              unsubscribe(subscriptionId);
+								          $( this ).dialog( "close" );
+							         },
+		            				 "Cancel" : function(){
+		            					  $( this ).dialog( "close" );
+		            				 }
+		            			 }
+							});		            		
+	            			$( this ).dialog( "close" );
+		            	}
+			        }
+			     }
+		    });   		
+    	});
+    	
+    	$('#searchResultsTable').on('click', 'a.viewRapsheetConfirmation',function() {
+    		clearErrorMessage();
+    		var recordStatus = $(this).parent().prev().text();
+    		var viewRapsheetButton = $(this).next();
+    		var subscriptionId = $(this).attr("id");
+    		var row = $(this).parent().parent();
+		    $( "#dialog-confirm-authorization" ).dialog({
+		    	  position: { my: "center center", at: "center center", of: row },
+			      resizable: true,
+			      width:400,
+			      height:200,
+			      modal: true,
+			      buttons: {
+			        "Yes": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        	
+			        	viewRapsheetButton.click();
+				        $( this ).dialog( "close" );
+			        },
+			        "No": function() {
+			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+
 		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
 		            		 $( this ).dialog( "close" );
 		            	}
@@ -243,6 +378,7 @@
     	
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
+    		clearErrorMessage();
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .8;
@@ -282,7 +418,6 @@
 
 		function unsubscribe(id){
     		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
-    		
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -306,9 +441,8 @@
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});
-
 		
-	});
+	}); 
 </script>
 	
 	
@@ -341,11 +475,18 @@
 </div>
 
 <div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you still authorized to view criminal history details for this individual?</p>
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>
 </div>
-<div id="dialog-confirm-unsubscribe" title="Unsubsribe?" class="hidden">
+<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-  You have indicated that you are no longer authorized to view criminal history for this individual, your subscription will now be cancelled.</p>
+  You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
+</div>
+<div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:auto; height:auto">
+	<div style="margin:7px;padding:7px;">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
+		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
+		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
+	</div>
 </div>
 
 

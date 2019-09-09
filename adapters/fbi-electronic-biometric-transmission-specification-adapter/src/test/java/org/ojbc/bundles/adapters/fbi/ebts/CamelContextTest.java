@@ -17,6 +17,7 @@
 package org.ojbc.bundles.adapters.fbi.ebts;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,12 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
@@ -43,19 +46,28 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
+        "classpath:META-INF/spring/file-drop-routes.xml",
+        "classpath:META-INF/spring/criminal-history-routes.xml",
+        "classpath:META-INF/spring/cxf-endpoints.xml",  
+        "classpath:META-INF/spring/error-handlers.xml",  
         "classpath:META-INF/spring/properties-context.xml",
+        "classpath:META-INF/spring/dao.xml"
         })
+@DirtiesContext
 public class CamelContextTest {
 	
 	private static final Logger logger = Logger.getLogger(CamelContextTest.class);
@@ -65,7 +77,10 @@ public class CamelContextTest {
     
     @Produce
     protected ProducerTemplate producerTemplate;
-    	
+    
+    @EndpointInject(uri = "mock:ngiUserServiceRequestEndpoint")
+    protected MockEndpoint fbiEbtsSubscriptionManagerService;
+    
     @Before
     public void setup() throws Exception{
     	
@@ -98,28 +113,70 @@ public class CamelContextTest {
     	    }              
     	});      
     	
-    	context.getRouteDefinition("arrestNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("federalRapbackNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    	
     	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");    	    	
     	    }              
-    	});       	    	
+    	});      
+    	
+    	context.getRouteDefinition("processOperationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {    	    	
+    	    	interceptSendToEndpoint("https4:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");    	    	
+    	    }              
+    	});     
     	
     	context.start();	
     }
     
 	@Test
-	public void contextStartup() {
-		Assert.assertTrue(true);
-	}
-	
-	
-	@Test
-	public void newCriminalSubscriptionTest() throws Exception{
+	public void newCivilSubscriptionTest() throws Exception{
 		
-    	Exchange senderExchange = new DefaultExchange(context);
+		fbiEbtsSubscriptionManagerService.reset();
+		fbiEbtsSubscriptionManagerService.expectedMessageCount(1);
+		
+    	Exchange senderExchange = createExchange("src/test/resources/input/OJBC_Civil_Subscription_Request_Document.xml");
+		
+	    Exchange returnExchange = producerTemplate.send("direct:fbiEbtsInputEndpoint", senderExchange);
+	    
+		if (returnExchange.getException() != null) {
+			throw new Exception(returnExchange.getException());
+		}
+								
+		fbiEbtsSubscriptionManagerService.assertIsSatisfied();
+		
+		Document transformedReturnMessage = fbiEbtsSubscriptionManagerService.getExchanges().get(0).getIn().getBody(Document.class);
+		
+		XmlUtils.printNode(transformedReturnMessage);
+		
+		NodeList imageNodes = XmlUtils.xPathNodeListSearch(transformedReturnMessage, "//nistbio:NISTBiometricInformationExchangePackage/nistbio:PackageHighResolutionGrayscaleImageRecord");
+		
+		Assert.assertEquals(14, imageNodes.getLength());
+		
+		Element firstImage =  (Element) imageNodes.item(0);
+		
+		Assert.assertEquals("04",XmlUtils.xPathStringSearch(firstImage, "nbio:RecordCategoryCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:ImageReferenceIdentification/nc:IdentificationID"));
+		
+		Assert.assertNotNull(XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nc:BinaryBase64Object"));
+	
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCaptureDetail/nbio:CaptureResolutionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageCompressionAlgorithmCode"));
+		
+		Assert.assertEquals("800",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageHorizontalLineLengthPixelQuantity"));
+		Assert.assertEquals("750",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:ImageVerticalLineLengthPixelQuantity"));
+		
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImagePosition/nbio:FingerPositionCode"));
+		Assert.assertEquals("1",XmlUtils.xPathStringSearch(firstImage, "nbio:FingerprintImage/nbio:FingerprintImageImpressionCaptureCategoryCode"));
+		
+	}
 
-	    File inputFile = new File("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
+	private Exchange createExchange(String fileName) throws IOException, Exception,
+			ParserConfigurationException {
+		Exchange senderExchange = new DefaultExchange(context);
+
+	    File inputFile = new File(fileName);
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    Assert.assertNotNull(inputStr);
@@ -128,14 +185,20 @@ public class CamelContextTest {
 	    
 	    senderExchange.getIn().setBody(inputStr);	    
 	    	    
-	    	    
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingMessageID("123456789");		
 		//Set the operation name and operation namespace for the CXF exchange
 		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);				
 		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
 		soapHeaders.add(makeSoapHeader("http://www.w3.org/2005/08/addressing", "MessageID", "12345"));		
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+		senderExchange.getIn().setHeader("operationName", "Subscribe");
+		return senderExchange;
+	}
+	
+	@Test
+	public void newCriminalSubscriptionTest() throws Exception{
 		
+    	Exchange senderExchange = createExchange("src/test/resources/input/OJBC_Criminal_Subscription_Request_Document.xml");
 		
 	    Exchange returnExchange = producerTemplate.send("direct:fbiEbtsInputEndpoint", senderExchange);
 	    

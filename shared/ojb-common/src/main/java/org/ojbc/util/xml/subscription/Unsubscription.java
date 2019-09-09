@@ -35,6 +35,8 @@ public class Unsubscription {
 
 	private String sid;
 	
+	private String fbiNumber;
+	
 	private LocalDate dateOfBirth;
 	
 	private List<String> emailAddresses;
@@ -141,5 +143,13 @@ public class Unsubscription {
 			String subscriptionQualifierIdentification) {
 		this.subscriptionQualifierIdentification = subscriptionQualifierIdentification;
 	}				
+
+	public String getFbiNumber() {
+		return fbiNumber;
+	}
+
+	public void setFbiNumber(String fbiNumber) {
+		this.fbiNumber = fbiNumber;
+	}
 
 }

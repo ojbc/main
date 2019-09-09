@@ -33,12 +33,28 @@
     </bean>
     
     <bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+        <property name="validationDueDateStrategy" ref="subscriptionCategoryValidationDueDateStrategy"/>
+        <property name="subscriptionActionAuditProcessor" ref="subscriptionActionNullObjectProcessor"/>
     </bean>
+
+    <bean id="subscriptionActionNullObjectProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionActionNullObjectProcessor">
+    	<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
+    </bean>
+    
+    <bean id="userInfoNullObjectProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor"/>
+
+	<bean id="subscriptionCategoryValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
 		<property name="url" value="jdbc:h2:mem:rapback-datastore" />
+		<property name="username" value="sa" />
+	</bean>
+
+    <bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
 		<property name="username" value="sa" />
 	</bean>
     
@@ -144,11 +160,13 @@
 	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 		<property name="subscriptionCategoryCode" value="default"/>
+		<property name="notifyingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 	</bean>
 
 	<bean id="nonCriminalJusticeSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://demostate.gov/SystemNames/1.0}SystemA"/>
 		<property name="subscriptionCategoryCode" value="I"/>
+		<property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer"/>
 	</bean>
 	
 	<bean id="nonCriminalJusticeEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
@@ -257,6 +275,10 @@ If you require more information, please utilize the Federated Query Tool – htt
 		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
 	</bean>
 	
+	<bean id="auditDAOImpl" class="org.ojbc.intermediaries.sn.dao.audit.AuditDAOImpl">		
+		<property name="jdbcTemplateAudit" ref="jdbcTemplateAudit"/>
+	</bean>
+	
 	<bean id="expiringSubscriptionsManager" class="org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager">
 		<property name="warningDaysBeforeExpiration" value="45"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
@@ -270,6 +292,9 @@ If you require more information, please utilize the Federated Query Tool – htt
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
  	   <constructor-arg ref="dataSource"/>
 	</bean>
-			
+
+	<bean id="jdbcTemplateAudit" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSourceAudit"/>
+	</bean>
 
 </beans>

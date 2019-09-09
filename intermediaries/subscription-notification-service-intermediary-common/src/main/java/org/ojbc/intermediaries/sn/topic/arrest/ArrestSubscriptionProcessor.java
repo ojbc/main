@@ -16,7 +16,6 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,10 @@ import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class ArrestSubscriptionProcessor extends SubscriptionProcessor {
 
-	List<String> activeSubjectIdentifiers = new ArrayList<>(Arrays.asList(SubscriptionNotificationConstants.SID, SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER));
+	List<String> activeSubjectIdentifiers = Arrays.asList(SubscriptionNotificationConstants.SID, 
+			SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
+			SubscriptionNotificationConstants.FIRST_NAME, 
+			SubscriptionNotificationConstants.LAST_NAME);
 	
 	@Override
 	public SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(

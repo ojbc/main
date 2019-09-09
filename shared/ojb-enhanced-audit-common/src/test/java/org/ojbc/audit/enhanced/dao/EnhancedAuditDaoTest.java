@@ -19,6 +19,7 @@ package org.ojbc.audit.enhanced.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,18 +28,27 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -54,6 +64,12 @@ public class EnhancedAuditDaoTest {
 	@Autowired
 	private EnhancedAuditDAO enhancedAuditDao;
 		
+	@BeforeAll
+	public void init(){
+	
+		assertNotNull(enhancedAuditDao);
+	}
+	
 	@Test
 	public void testPersonSearchMethods() throws Exception
 	{
@@ -149,6 +165,13 @@ public class EnhancedAuditDaoTest {
 
 	
 	private Integer saveUserInfo() {
+		UserInfo userInfo = getExampleUserInfo();
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		return userInfoPk;
+	}
+
+	private UserInfo getExampleUserInfo() {
 		UserInfo userInfo = new UserInfo();
 		
 		userInfo.setEmployerName("Employer Name");
@@ -158,12 +181,56 @@ public class EnhancedAuditDaoTest {
 		userInfo.setUserEmailAddress("email");
 		userInfo.setUserFirstName("first");
 		userInfo.setUserLastName("last");
-		
-		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
-		return userInfoPk;
+		userInfo.setEmployerOri("employer ori");
+		return userInfo;
 	}	
+
+	@Test
+	public void testSaveFederalRapbackRenewalNotification() throws Exception
+	{
+		FederalRapbackRenewalNotification federalRapbackRenewalNotification = new FederalRapbackRenewalNotification();
+		
+		federalRapbackRenewalNotification.setNotificationRecievedTimestamp(LocalDateTime.now());
+		federalRapbackRenewalNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
+		federalRapbackRenewalNotification.setPersonDob(LocalDate.now().minusYears(18));
+		federalRapbackRenewalNotification.setPersonFirstName("John");
+		federalRapbackRenewalNotification.setPersonMiddleName("q");
+		federalRapbackRenewalNotification.setPersonLastName("Public");
+		federalRapbackRenewalNotification.setRapbackExpirationDate(LocalDate.now());
+		federalRapbackRenewalNotification.setRecordControllingAgency("ORI123456");
+		federalRapbackRenewalNotification.setSid("A123456789");
+		federalRapbackRenewalNotification.setStateSubscriptionId("S123456");
+		federalRapbackRenewalNotification.setTransactionStatusText("Transaction Status Text");
+		federalRapbackRenewalNotification.setUcn("UCN123456");
+		
+		Integer frrPk = enhancedAuditDao.saveFederalRapbackRenewalNotification(federalRapbackRenewalNotification);
+		assertNotNull(frrPk);
+		
+		LocalDate endDate = LocalDate.now().plusDays(1);
+		LocalDate startDate = endDate.minusDays(7);
+		
+		List<FederalRapbackRenewalNotification> federalRapbackRenewalNotifications = enhancedAuditDao.retrieveFederalRapbackRenewalNotifications(startDate, endDate);
 	
-	
+		assertEquals(1, federalRapbackRenewalNotifications.size());
+		
+		FederalRapbackRenewalNotification federalRapbackRenewalNotificationFromDatabase = federalRapbackRenewalNotifications.get(0);
+		
+		assertNotNull(federalRapbackRenewalNotificationFromDatabase.getNotificationRecievedTimestamp());
+		assertEquals("/tmp/path/toNotificationFile", federalRapbackRenewalNotificationFromDatabase.getPathToNotificationFile());
+		assertEquals(LocalDate.now().minusYears(18), federalRapbackRenewalNotificationFromDatabase.getPersonDob());
+		assertEquals("John", federalRapbackRenewalNotificationFromDatabase.getPersonFirstName());
+		assertEquals("q", federalRapbackRenewalNotificationFromDatabase.getPersonMiddleName());
+		assertEquals("Public", federalRapbackRenewalNotificationFromDatabase.getPersonLastName());
+		assertEquals(LocalDate.now(), federalRapbackRenewalNotification.getRapbackExpirationDate());
+		assertEquals("ORI123456", federalRapbackRenewalNotificationFromDatabase.getRecordControllingAgency());
+		assertEquals("A123456789", federalRapbackRenewalNotificationFromDatabase.getSid());
+		assertEquals("S123456", federalRapbackRenewalNotificationFromDatabase.getStateSubscriptionId());
+		assertEquals("Transaction Status Text", federalRapbackRenewalNotificationFromDatabase.getTransactionStatusText());
+		assertEquals("UCN123456", federalRapbackRenewalNotificationFromDatabase.getUcn());
+		
+		
+	}
+		
 	@Test
 	public void testFederalSubscriptionMethods() throws Exception
 	{
@@ -173,15 +240,20 @@ public class EnhancedAuditDaoTest {
 		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
 		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
 		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId("456");
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
 		
 		enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
 
 		FederalRapbackSubscription federalRapbackSubscriptionFromDatabase = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromTCN("9999999");
 		
-		federalRapbackSubscription.setTransactionCategoryCode("ERRA");
+		federalRapbackSubscription.setTransactionCategoryCodeResponse("ERRA");
 		federalRapbackSubscription.setPathToResponseFile("/some/path/to/responseFile");
 		federalRapbackSubscription.setResponseRecievedTimestamp(LocalDateTime.now());
 		federalRapbackSubscription.setFederalRapbackSubscriptionId(federalRapbackSubscriptionFromDatabase.getFederalRapbackSubscriptionId());
+		federalRapbackSubscription.setFbiSubscriptionId("FBISUBID");
 		
 		enhancedAuditDao.updateFederalRapbackSubscriptionWithResponse(federalRapbackSubscription);
 		
@@ -190,10 +262,107 @@ public class EnhancedAuditDaoTest {
 		assertEquals("9999999", federalRapbackSubscriptionFromDatabase.getTransactionControlReferenceIdentification());
 		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
 		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
-		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCode());
+		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeResponse());
+		assertEquals("RBSCRM", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeRequest());
+		assertEquals("FBISUBID", federalRapbackSubscriptionFromDatabase.getFbiSubscriptionId());
+		
+		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
+		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
+		
+		List<FederalRapbackSubscription> federalSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId("456");
+		
+		assertEquals(1, federalSubscriptions.size());
+		
+		federalRapbackSubscriptionFromDatabase = federalSubscriptions.get(0);
+		
+		assertEquals("9999999", federalRapbackSubscriptionFromDatabase.getTransactionControlReferenceIdentification());
+		assertEquals("/some/path/to/requestFile", federalRapbackSubscriptionFromDatabase.getPathToRequestFile());
+		assertEquals("/some/path/to/responseFile", federalRapbackSubscriptionFromDatabase.getPathToResponseFile());
+		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCodeResponse());
+		
+		assertEquals("123", federalRapbackSubscriptionFromDatabase.getSid());
+		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
+		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		
 	}
+	
+	
 
+	@Test
+	public void testFederalRapbackIdentityHistoryMethods() throws Exception
+	{
+
+		FederalRapbackIdentityHistory federalRapbackIdentityHistory = new FederalRapbackIdentityHistory();
+		
+		federalRapbackIdentityHistory.setFbiNotificationId("notificationid1");
+		federalRapbackIdentityHistory.setFbiSubscriptionId("subscription1");
+		federalRapbackIdentityHistory.setPathToRequestFile("c:/pathToRequestFile");
+		federalRapbackIdentityHistory.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackIdentityHistory.setTransactionCategoryCodeRequest("transcodetext");
+		federalRapbackIdentityHistory.setTransactionType("RBIH");
+		federalRapbackIdentityHistory.setUcn("UCN1");
+		federalRapbackIdentityHistory.setTransactionControlReferenceIdentification("tcri");
+		
+		Integer federalRapbackIdentityHistoryPk = enhancedAuditDao.saveFederalRapbackIdentityHistory(federalRapbackIdentityHistory);
+		assertNotNull(federalRapbackIdentityHistoryPk);
+		
+		FederalRapbackIdentityHistory frihUpdate = new FederalRapbackIdentityHistory();
+		
+		frihUpdate.setTransactionControlReferenceIdentification("tcri");
+		frihUpdate.setResponseReceivedTimestamp(LocalDateTime.now());
+		frihUpdate.setTransactionCategoryCodeResponse("RBIHS");
+		frihUpdate.setPathToResponseFile("c:/pathToResponseFile");
+		
+		enhancedAuditDao.updateFederalRapbackIdentityHistoryWithResponse(frihUpdate);
+		
+		log.info("update complete");
+	}
+	
+	@Test
+	public void testFederalRapbackNotificationMethods() throws Exception
+	{
+		FederalRapbackNotification federalRapbackNotification = new FederalRapbackNotification();
+
+		federalRapbackNotification.setNotificationRecievedTimestamp(LocalDateTime.now());
+		federalRapbackNotification.setOriginalIdentifier("123");
+		federalRapbackNotification.setUpdatedIdentifier("456");
+		federalRapbackNotification.setPathToNotificationFile("/tmp/path/toNotificationFile");
+		federalRapbackNotification.setRapBackEventText("Rapback event text");
+		federalRapbackNotification.setStateSubscriptionId("State12345");
+		federalRapbackNotification.setTransactionType("UCN_Consolidation");
+		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
+		
+		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
+		
+		LocalDate endDate = LocalDate.now().plusDays(1);
+		LocalDate startDate = endDate.minusDays(7);
+		
+		List<FederalRapbackNotification> federalNotifications = enhancedAuditDao.retrieveFederalNotifications(startDate, endDate);
+		
+		assertEquals(1, federalNotifications.size());
+		
+		assertEquals("123",federalNotifications.get(0).getOriginalIdentifier());
+		assertEquals("456",federalNotifications.get(0).getUpdatedIdentifier());
+		assertEquals("/tmp/path/toNotificationFile",federalNotifications.get(0).getPathToNotificationFile());
+		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
+		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
+		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
+		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationID());
+		
+		federalNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId("State12345");
+
+		assertEquals(1, federalNotifications.size());
+		
+		assertEquals("123",federalNotifications.get(0).getOriginalIdentifier());
+		assertEquals("456",federalNotifications.get(0).getUpdatedIdentifier());
+		assertEquals("/tmp/path/toNotificationFile",federalNotifications.get(0).getPathToNotificationFile());
+		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
+		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
+		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
+
+	}
+		
 	@Test
 	public void testQueryMethods() throws Exception
 	{
@@ -232,6 +401,7 @@ public class EnhancedAuditDaoTest {
 		identificationQueryResponse.setIdDate(LocalDate.now());
 		identificationQueryResponse.setMessageId("123456");
 		identificationQueryResponse.setOca("oca");
+		identificationQueryResponse.setOri("ori");
 		identificationQueryResponse.setOtn("otn");
 		identificationQueryResponse.setPersonFirstName("first");
 		identificationQueryResponse.setPersonMiddleName("middle");
@@ -299,6 +469,11 @@ public class EnhancedAuditDaoTest {
 		printResults.setDescription("description");
 		printResults.setMessageId("123456");
 		printResults.setSystemName("system name");
+		printResults.setSid("sid");
+
+		UserInfo userInfo = getExampleUserInfo();
+		
+		printResults.setUserInfo(userInfo);
 		
 		Integer prPk = enhancedAuditDao.savePrintResults(printResults);
 		
@@ -309,6 +484,17 @@ public class EnhancedAuditDaoTest {
 		assertEquals("description", printResultsResponse.getDescription());
 		assertEquals("123456", printResultsResponse.getMessageId());
 		assertEquals("system name", printResultsResponse.getSystemName());
+		assertEquals("sid", printResultsResponse.getSid());
+	
+		assertEquals("Employer Name", printResultsResponse.getUserInfo().getEmployerName());
+		assertEquals("Sub Unit", printResultsResponse.getUserInfo().getEmployerSubunitName());
+		assertEquals("Fed ID", printResultsResponse.getUserInfo().getFederationId());
+		assertEquals("IDP", printResultsResponse.getUserInfo().getIdentityProviderId());
+		assertEquals("email", printResultsResponse.getUserInfo().getUserEmailAddress());
+		assertEquals("first", printResultsResponse.getUserInfo().getUserFirstName());
+		assertEquals("last", printResultsResponse.getUserInfo().getUserLastName());
+		assertEquals("employer ori", printResultsResponse.getUserInfo().getEmployerOri());		
+		
 	}	
 
 	@Test
@@ -321,6 +507,214 @@ public class EnhancedAuditDaoTest {
 		assertNotNull(userLoginPk);
 		
 	}	
+	
+	@Test
+	public void testAuditResolveSubscriptionErrors() throws Exception
+	{
+		String stateSubscriptionId = "State1112233";
+		
+		FederalRapbackSubscription federalRapbackSubscription = new FederalRapbackSubscription();
+		
+		federalRapbackSubscription.setTransactionControlReferenceIdentification("9999999");
+		federalRapbackSubscription.setPathToRequestFile("/some/path/to/requestFile");
+		federalRapbackSubscription.setRequestSentTimestamp(LocalDateTime.now());
+		federalRapbackSubscription.setSid("123");
+		federalRapbackSubscription.setStateSubscriptionId(stateSubscriptionId);
+		federalRapbackSubscription.setFbiSubscriptionId("789");
+		federalRapbackSubscription.setSubscriptonCategoryCode("CS");
+		federalRapbackSubscription.setTransactionCategoryCodeRequest("RBSCRM");
+		federalRapbackSubscription.setTransactionStatusText("This is an FBI error");
+		
+		//Save subscription with error
+		Integer federalSubcriptionId = enhancedAuditDao.saveFederalRapbackSubscription(federalRapbackSubscription);
+		
+		//Now save error
+		enhancedAuditDao.saveFederalRapbackSubscriptionError(federalSubcriptionId, stateSubscriptionId);
+		
+		//Ensure we get a single error back from subscription
+		Integer federalSubscriptionId = enhancedAuditDao.retrieveFederalRapbackSubscriptionError(stateSubscriptionId);
+		assertNotNull(federalSubscriptionId);
+		
+		//Now test the DAO method that returns all errors, we should get one there too
+		List<FederalRapbackSubscription> frs = enhancedAuditDao.retrieveFederalRapbackSubscriptionErrors();
+		assertEquals(1, frs.size());
+		
+		//Resolve error
+		enhancedAuditDao.resolveFederalRapbackSubscriptionError(stateSubscriptionId);
+		
+		federalSubscriptionId = enhancedAuditDao.retrieveFederalRapbackSubscriptionError(stateSubscriptionId);
+		assertNull(federalSubscriptionId);
 
+	}
+
+	@Test
+	public void testSaveuserAcknowledgement() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		UserAcknowledgement userAcknowledgement = new UserAcknowledgement();
+		
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserInfoId(userInfoPk);
+		
+		userAcknowledgement.setUserInfo(userInfo);
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		userAcknowledgement.setDecision(true);
+		userAcknowledgement.setDecisionDateTime(now);
+		userAcknowledgement.setSid("A123456789");
+		
+		Integer userAckPk = enhancedAuditDao.saveuserAcknowledgement(userAcknowledgement);
+		assertNotNull(userAckPk);
+		
+		List<UserAcknowledgement> userAcknowledgements = enhancedAuditDao.retrieveUserAcknowledgement("Fed ID");
+		
+		assertEquals(1, userAcknowledgements.size());
+		
+		UserAcknowledgement userAcknowledgementFromDatabase = userAcknowledgements.get(0);
+		
+		assertEquals("A123456789", userAcknowledgementFromDatabase.getSid());
+		assertEquals(true, userAcknowledgementFromDatabase.isDecision());
+		
+		
+		assertEquals("Employer Name", userAcknowledgementFromDatabase.getUserInfo().getEmployerName());
+		assertEquals("Sub Unit", userAcknowledgementFromDatabase.getUserInfo().getEmployerSubunitName());
+		assertEquals("Fed ID", userAcknowledgementFromDatabase.getUserInfo().getFederationId());
+		assertEquals("IDP", userAcknowledgementFromDatabase.getUserInfo().getIdentityProviderId());
+		assertEquals("email", userAcknowledgementFromDatabase.getUserInfo().getUserEmailAddress());
+		assertEquals("first", userAcknowledgementFromDatabase.getUserInfo().getUserFirstName());
+		assertEquals("last", userAcknowledgementFromDatabase.getUserInfo().getUserLastName());
+		assertEquals("employer ori", userAcknowledgementFromDatabase.getUserInfo().getEmployerOri());
+		
+	}
+	
+	@Test
+	public void testVehicleSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		VehicleSearchRequest vsr = new VehicleSearchRequest();
+		
+		vsr.setMessageId("123");
+		vsr.setOnBehalfOf("behalf");
+		vsr.setPurpose("purpose");
+		vsr.setUserInfofk(userInfoPk);
+		vsr.setVehicleColor("color");
+		vsr.setVehicleIdentificationNumber("vin");
+		vsr.setVehicleLicensePlate("plate");
+		vsr.setVehicleMake("make");
+		vsr.setVehicleModel("model");
+		vsr.setVehicleYearRangeEnd("2009");
+		vsr.setVehicleYearRangeEnd("2018");
+		
+		List<String> systemsToSearch=new ArrayList<String>();
+		
+		systemsToSearch.add("system1");
+		systemsToSearch.add("system2");
+		
+		vsr.setSourceSystemsList(systemsToSearch);
+		
+		Integer vehiclePk = enhancedAuditDao.saveVehicleSearchRequest(vsr);
+		
+		assertNotNull(vehiclePk);
+		
+	}
+
+	@Test
+	public void testIncidentSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		IncidentSearchRequest isr = new IncidentSearchRequest();
+		
+		isr.setMessageId("123");
+		isr.setOnBehalfOf("behalf");
+		isr.setPurpose("purpose");
+		isr.setUserInfofk(userInfoPk);
+		isr.setCategoryType("law");
+		isr.setCityTown("city");
+		isr.setEndDate(LocalDate.now());
+		isr.setStartDate(LocalDate.now().minusDays(10));
+		
+		List<String> systemsToSearch=new ArrayList<String>();
+		
+		systemsToSearch.add("system1");
+		systemsToSearch.add("system2");
+		
+		isr.setSystemsToSearch(systemsToSearch);
+		
+		Integer incidentPk = enhancedAuditDao.saveIncidentSearchRequest(isr);
+		
+		assertNotNull(incidentPk);
+		
+	}
+
+	@Test
+	public void testSubscriptionActionMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		SubscriptionAction subscriptionAction = new SubscriptionAction();
+
+		subscriptionAction.setFbiSubscriptionId("55");
+		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
+		subscriptionAction.setUserInfoFK(userInfoPk);
+		subscriptionAction.setValidationDueDate(LocalDate.now());
+		subscriptionAction.setStartDate(LocalDate.now().minusYears(2));
+		subscriptionAction.setEndDate(LocalDate.now().plusYears(2));
+		subscriptionAction.setValidationDueDate(LocalDate.now());
+		
+		Integer subscriptionActionPk = enhancedAuditDao.saveSubscriptionAction(subscriptionAction);
+		assertNotNull(subscriptionActionPk);
+		
+		subscriptionAction = new SubscriptionAction();
+		
+		subscriptionAction.setSuccessIndicator(true);
+		subscriptionAction.setStateSubscriptionId("44");
+		subscriptionAction.setSubscriptionActionId(subscriptionActionPk);
+		
+		enhancedAuditDao.updateSubscriptionActionWithResponse(subscriptionAction);
+		
+		log.info("Subscription action test complete.");
+	}
+	
+	@Test
+	public void testRetrieveNotifications() throws Exception
+	{
+		LocalDate startDate = LocalDate.now().minusYears(100);
+		LocalDate endDate = LocalDate.now();
+		
+		List<NotificationSent> notificationsSent = enhancedAuditDao.retrieveNotifications(startDate, endDate);
+		
+		log.info(notificationsSent);
+		assertEquals(3, notificationsSent.size());
+		
+		NotificationSent notificationSent = notificationsSent.get(0);
+		
+		assertEquals(new Integer(3), notificationSent.getNotificationSentId());
+		assertEquals("{http://ojbc.org/wsn/topics}:person/rapback", notificationSent.getTopic());
+		assertEquals("62725", notificationSent.getSubscriptionIdentifier());
+		assertEquals("test3@email.com", notificationSent.getSubscriptionOwnerEmailAddress());
+		assertEquals("STATE:IDP:AGENCY:USER:test3email.com", notificationSent.getSubscriptionOwner());
+		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationSent.getNotifyingSystemName());
+		assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", notificationSent.getSubscribingSystemIdentifier());
+		assertEquals("2018-10-22T11:14:46", notificationSent.getNotificationSentTimestamp().toString());
+		assertEquals("Bill Padmanabhan", notificationSent.getSubscriptionSubject());
+		assertEquals("HI123456", notificationSent.getSubscriptionOwnerAgency());
+		
+		NotificationSent notificationSentWithTriggeringEvent = notificationsSent.get(1);
+		
+		assertNotNull(notificationSentWithTriggeringEvent.getTriggeringEvents());
+		
+	}
 }
 

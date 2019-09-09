@@ -61,6 +61,9 @@ public class TestDatabaseLoad {
     private DataSource auditLogTestDataSource;
 
     @Autowired
+    private DataSource enhancedAuditLogDataSource;
+    
+    @Autowired
     private DataSource subscriptionDataSource;
 
     @Autowired
@@ -99,6 +102,15 @@ public class TestDatabaseLoad {
 		assertEquals(62720,rs.getInt("id"));
 
 	}
+	
+	@Test
+	public void testEnhancedAuditLog() throws Exception {
+		
+		Connection conn = enhancedAuditLogDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select count(*) as count from FEDERAL_RAPBACK_NOTIFICATION");
+		assertTrue(rs.next());
+		assertEquals(2, rs.getInt("count"));
+	}
 
 	@Test
 	public void testCustodyDataSource() throws Exception {
@@ -132,12 +144,25 @@ public class TestDatabaseLoad {
 	public void testRapbackDatastore() throws Exception {
 
 		Connection conn = rapbackDataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
+		ResultSet rs = conn.createStatement().executeQuery("select s.id, so.EMAIL_ADDRESS from subscription s, SUBSCRIPTION_OWNER so where s.SUBSCRIPTION_OWNER_ID=so.SUBSCRIPTION_OWNER_ID");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
+		assertEquals("bill@local.gov",rs.getString("EMAIL_ADDRESS"));
 
 		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 		assertTrue(rs.next());
+		
+		rs = conn.createStatement().executeQuery("select count(*) as count from fbi_rap_back_subscription");
+		assertTrue(rs.next());
+		assertEquals(5, rs.getInt("count"));
+
+		rs = conn.createStatement().executeQuery("select count(*) as count from AGENCY_EMAIL_CATEGORY");
+		assertTrue(rs.next());
+		assertEquals(4, rs.getInt("count"));
+
+		rs = conn.createStatement().executeQuery("select count(*) as count from AGENCY_CONTACT_EMAIL_JOINER");
+		assertTrue(rs.next());
+		assertEquals(8, rs.getInt("count"));
 	}
 
 	@Test

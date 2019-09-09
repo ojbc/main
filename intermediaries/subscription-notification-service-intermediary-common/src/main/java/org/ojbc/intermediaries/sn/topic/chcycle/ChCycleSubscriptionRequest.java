@@ -17,13 +17,11 @@
 package org.ojbc.intermediaries.sn.topic.chcycle;
 
 import java.util.HashMap;
-import java.util.Set;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.camel.Message;
 
 public class ChCycleSubscriptionRequest extends SubscriptionRequest {
 
@@ -44,7 +42,7 @@ public class ChCycleSubscriptionRequest extends SubscriptionRequest {
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 	}
 
 }

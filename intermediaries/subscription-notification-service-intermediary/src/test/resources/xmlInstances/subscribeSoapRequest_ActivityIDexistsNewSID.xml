@@ -44,6 +44,8 @@
                 <smext:Subject>
                     <nc20:PersonName>
                         <nc20:PersonFullName>Al Capone</nc20:PersonFullName>
+						<nc20:PersonGivenName>Al</nc20:PersonGivenName>
+						<nc20:PersonSurName>Capone</nc20:PersonSurName>                        
                     </nc20:PersonName>
                     <jxdm41:PersonAugmentation>
                         <jxdm41:PersonStateFingerprintIdentification>

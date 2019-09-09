@@ -39,6 +39,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +47,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchProfile;
@@ -74,7 +76,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl", "samlAssertion", "userLogonInfo"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
@@ -89,6 +91,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
 	public static final String RAPBACK_LINK_ID = "rapbackLink";
 	public static final String CRIMINAL_ID_LINK_ID = "criminalIdLink";
+	private static final String ADMIN_LINK_ID = "adminLink";
 	public static final String HELP_LINK_ID = "helpLink";
 	public static final String HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
     public static final String PRIVACY_LINK_ID = "privacyPolicyLink";
@@ -101,12 +104,14 @@ public class PortalController implements ApplicationContextAware {
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
 	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
 	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
+	public static final String ADMIN_LINK_TITLE = "Admin";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
 	public static final String FAQ_LINK_TITLE = "Frequently Asked Questions";
 	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/ Report a Problem";
 	
 	private static final Log log = LogFactory.getLog(PortalController.class);
+
 
 	private XPath xPath;
 	
@@ -224,13 +229,14 @@ public class PortalController implements ApplicationContextAware {
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
 
-		UserLogonInfo userLogonInfo = new UserLogonInfo();
+		org.ojbc.web.portal.controllers.UserLogonInfo userLogonInfo = new org.ojbc.web.portal.controllers.UserLogonInfo();
 
 		try {
 			Element assertionElement = samlService.getSamlAssertion(request);
 						
-			userLogonInfo = getUserLogonInfo(assertionElement);			
-			//note this will only have a value in production
+			userLogonInfo = getUserLogonInfo(assertionElement);	
+			model.put("userLogonInfo", userLogonInfo);
+			
 			userSession.setUserLogonInfo(userLogonInfo);
 			
 		} catch (Exception e) {
@@ -240,7 +246,6 @@ public class PortalController implements ApplicationContextAware {
 		model.put("personFilterCommand", new PersonFilterCommand());
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
-		model.put("userLogonInfo", userLogonInfo);
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
 		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
@@ -458,7 +463,7 @@ public class PortalController implements ApplicationContextAware {
 		return "";
 	}
 
-	UserLogonInfo getUserLogonInfo(Element assertionElement) {
+	public UserLogonInfo getUserLogonInfo(Element assertionElement) {
 				
 		UserLogonInfo userLogonInfo = new UserLogonInfo();
 		
@@ -486,13 +491,31 @@ public class PortalController implements ApplicationContextAware {
 			String userAgency = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 			
+	    	String criminalJusticeEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.CriminalJusticeEmployerIndicator);
+	    	userLogonInfo.setCriminalJusticeEmployerIndicator(BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString));
+	    	String lawEnforcementEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.LawEnforcementEmployerIndicator);
+	    	userLogonInfo.setLawEnforcementEmployerIndicator(BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString)); 
+	    	userLogonInfo.setEmployerOri(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI));  
+
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
 			userLogonInfo.setUserName((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName));
 			userLogonInfo.setEmployer(userAgency);
 			userLogonInfo.setUserNameString(StringUtils.join(Arrays.asList(userLogonInfo.getUserName(), userLogonInfo.getEmployer()), " / "));
-			userLogonInfo.setEmailAddress(sEmail);			
+			userLogonInfo.setEmailAddress(sEmail);
+			userLogonInfo.setUserFirstName(userFirstName);
+			userLogonInfo.setUserLastName(userLastName);
+			
+			String employerSubunitName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerSubUnitName']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setEmployerSubunitName(employerSubunitName);
+			String federationId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setFederationId(federationId);
+			String identityProviderId = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:IdentityProviderId']/saml2:AttributeValue/text()", assertionElement,
+					XPathConstants.STRING);
+			userLogonInfo.setIdentityProviderId(identityProviderId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -500,10 +523,10 @@ public class PortalController implements ApplicationContextAware {
 		return userLogonInfo;
 	}
 
-//	@ModelAttribute("sensitiveInfoAlert")
-//	public Boolean getSensitiveInfoAlert() {
-//	    return sensitiveInfoAlert;
-//	}
+	@ModelAttribute("sensitiveInfoAlert")
+	public Boolean getSensitiveInfoAlert() {
+	    return sensitiveInfoAlert;
+	}
 	
     @ModelAttribute("sensitiveInfoAlertMessage")
     public String getSensitiveInfoAlertMessage() {
@@ -571,6 +594,7 @@ public class PortalController implements ApplicationContextAware {
 			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
 			leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
 			leftMenuLinkTitles.put(CRIMINAL_ID_LINK_ID, CRIMINAL_ID_LINK_TITLE);
+			leftMenuLinkTitles.put(ADMIN_LINK_ID, ADMIN_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);

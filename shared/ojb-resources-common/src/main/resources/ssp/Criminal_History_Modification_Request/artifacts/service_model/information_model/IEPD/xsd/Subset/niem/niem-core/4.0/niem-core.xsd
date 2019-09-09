@@ -161,7 +161,9 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:OrganizationCategoryAbstract" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -249,6 +251,11 @@
   <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Agency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A division of a governmental or international body.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Amount" type="niem-xs:decimal" nillable="true">
@@ -351,9 +358,24 @@
       <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OrganizationCategoryAbstract" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional type of organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationCategoryText" type="nc:TextType" substitutionGroup="nc:OrganizationCategoryAbstract">
+    <xs:annotation>
+      <xs:documentation>A kind or functional type of organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Person" type="nc:PersonType" nillable="true">

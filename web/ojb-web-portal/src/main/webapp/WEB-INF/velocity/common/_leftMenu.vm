@@ -110,13 +110,13 @@
     		}).fail(ojbc.displayFailMessage);			    
 		    					   
 		    return false;
-		})
+		});
     		 
-		$('#subscriptionsLink').click(function() {	  
+		$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
 	  				  				  					  					    			    	
 			xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
-    		
-				$('#portalContent').html(data);	
+				$('#portalContent').html(data);
+			}).done(function(){	
 														
 				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
 					    	
@@ -128,11 +128,11 @@
 			}).fail(ojbc.displayFailMessage);
 			
 			return false;
-		})
+		});
     		 
 		$('#rapbackLink').click(function() {	  
 	  				  				  					  					    			    	
-    		xhr = $.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
 				$('#portalContent').html(data);	
 			}).done(function(){
 				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
@@ -146,7 +146,7 @@
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationDefaultSearch')", function(data) {
     		
 				$('#portalContent').html(data);	
 											
@@ -172,7 +172,7 @@
 		    ojbc.populatePortalContentFromUrl("#springUrl('/portal/faq')");
 					    
 		    return false;
-		})
+		});
     		 
 		$('#suggestionFormLink').click (function() {	    
 				
@@ -187,6 +187,23 @@
 		    return false;
 		})
     		 
+		$('#adminLink').click (function() {	    
+				
+		    $('#searchBarButtonDiv').css("display", "none");
+
+    		xhr = $.get("#springUrl('/subscriptions/admin/landingPage')", function(data) {
+				$('#portalContent').html(data);	
+			}).done(function(){
+				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+								    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
+			}).fail(ojbc.displayFailMessage);
+							    					    
+		    return false;
+		})
+    		 
 	})
 	        
 </script>
@@ -194,11 +211,12 @@
 <div id="leftMenu">
 	#foreach($entry in $leftMenuLinks.entrySet())
 		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
-			&& $entry.getKey() != "queryLink" 
+			&& $entry.getKey() != "queryLink" && $entry.getKey() != "adminLink" 
 			|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
 			|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
 			|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
-			|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
+			|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY")
+			|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
 			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a> 
 		#end		
 		

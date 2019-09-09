@@ -21,8 +21,8 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
+import org.ojbc.util.model.rapback.Subscription;
 
 public class IdentificationTransaction implements Serializable{
 
@@ -30,6 +30,7 @@ public class IdentificationTransaction implements Serializable{
 	private String transactionNumber;
 	private String otn; //PersonTrackingIdentidication
 	private DateTime timestamp;
+	private DateTime creationTimestamp;
 	private DateTime availableForSubscriptionStartDate;
 	private String ownerOri; 
 	private String ownerAgencyName; 
@@ -39,8 +40,13 @@ public class IdentificationTransaction implements Serializable{
 
 	private Subject subject;
 	private IdentificationTransactionState currentState; 
+	
 	private Subscription subscription;
-	private Boolean havingSubsequentResults; 
+	private Integer subscriptionId;
+	
+	private DateTime latestNotificationDate;
+	private Boolean havingSubsequentResults;
+	private String fbiSubscriptionId; 
 
 	public IdentificationTransaction(){
 		super();
@@ -135,13 +141,13 @@ public class IdentificationTransaction implements Serializable{
 	}
 
 	public Boolean getHavingSubsequentResults() {
-		return havingSubsequentResults;
+		return this.havingSubsequentResults;
 	}
 
 	public void setHavingSubsequentResults(Boolean havingSubsequentResults) {
 		this.havingSubsequentResults = havingSubsequentResults;
 	}
-
+	
 	public DateTime getAvailableForSubscriptionStartDate() {
 		return availableForSubscriptionStartDate;
 	}
@@ -157,6 +163,38 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setOwnerAgencyName(String ownerAgencyName) {
 		this.ownerAgencyName = ownerAgencyName;
+	}
+
+	public DateTime getLatestNotificationDate() {
+		return latestNotificationDate;
+	}
+	
+	public void setLatestNotificationDate(DateTime latestNotificationDate) {
+		this.latestNotificationDate = latestNotificationDate;
+	}
+
+	public DateTime getCreationTimestamp() {
+		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(DateTime creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
+
+	public String getFbiSubscriptionId() {
+		return fbiSubscriptionId;
+	}
+
+	public void setFbiSubscriptionId(String fbiSubscriptionId) {
+		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
+	public Integer getSubscriptionId() {
+		return subscriptionId;
+	}
+
+	public void setSubscriptionId(Integer subscriptionId) {
+		this.subscriptionId = subscriptionId;
 	}
 
 }

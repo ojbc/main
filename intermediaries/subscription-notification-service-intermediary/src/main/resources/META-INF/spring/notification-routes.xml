@@ -26,6 +26,7 @@
 	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+    xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -52,6 +53,41 @@
 						</camel:when>
 					</camel:choice>
 					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
+					
+					<camel:choice>
+						<!-- This is an in state arrest notification -->
+						<camel:when>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
+
+							<camel:setHeader headerName="base64BinaryData">
+								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
+							</camel:setHeader>
+							
+							<camel:log message="In state arrest notification received for rapback topic"/>
+							
+							<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
+							
+							<!-- Look for matching notifications here -->
+							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=saveInstateRapsheet"></camel:to>
+							
+						</camel:when>
+						
+						<!-- This is a federal arrest notification -->
+						<camel:when>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate</camel:xpath>
+							
+							<camel:log message="Federal notification received for rapback topic"/>
+							
+							<camel:to uri="bean:rapbackNotificationProcessor?method=findRapbackSubscriptionForNotification" />
+						</camel:when>
+						<camel:otherwise>
+							<camel:log message="No known notifying message was in the notification.  Stopping route"/>
+							<camel:stop/>
+						</camel:otherwise>		
+					</camel:choice>				
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
@@ -81,10 +117,16 @@
 				<!-- The body is a list of Email Notifications -->
 				<camel:simple>${body}</camel:simple>
 
+				<camel:to uri="bean:notificationLoggingProcessor?method=logNotification"/>
+
 				<camel:choice>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
 						<camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
+						<camel:to uri="bean:rapbackNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
@@ -196,7 +238,7 @@
 		</camel:route>
 
 		<camel:route id="notifyOfExpiringSubscriptionsRoute" autoStartup="{{publishSubscribe.notifyOfExpiringSubscriptions}}">
-			<camel:from uri="quartz://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
+			<camel:from uri="quartz2://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
 			
 			<camel:log message="Checking for expiring subscriptions"/>
 			
@@ -216,8 +258,31 @@
 
 		</camel:route>
 		
+		<camel:route id="cancelExpiredInvalidSubscriptionsRoute" autoStartup="{{publishSubscribe.cancelExpiredInvalidSubscriptions}}">
+			<camel:from uri="quartz2://subscriptionNotification/cancelExpiredInvalidSubscriptionsTimer?cron={{publishSubscribe.unsubscribeExpiringSubscriptionsCronTimer}}"/>			
+			
+			<camel:log message="Unsubscribe for expired/invalid subscriptions"/>
+			
+			<camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiredSubscriptionsToUnsubscribe"/>
+			
+			<camel:split>
+				<!-- The body is a list of unsubscriptions documents-->
+				<camel:simple>${body}</camel:simple>
+				
+				<camel:setHeader headerName="subscriptionId">
+					<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc20:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				
+				<camel:log message="Unsubscription expired or invalid subscription: ${in.headers.subscriptionId}"/>
+				
+				<camel:to uri="direct:processUnsubscription"/>
+				
+			</camel:split>
+
+		</camel:route>
+		
 		<camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
-			<camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
+			<camel:from uri="quartz2://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
 			
 			<camel:log message="Entering route to check when last notifications were sent" />
 			

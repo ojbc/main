@@ -25,6 +25,7 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
@@ -60,23 +61,25 @@ public class OJBSamlCallbackHandler implements CallbackHandler{
 				//Get Token ID from CXF message
 				String tokenID = returnCamelPropertyFromCXFMessage(message, "tokenID");
 				
-				//Get SAML token from hashmap
-				Element assertionElement = (Element)OJBSamlMap.getToken(tokenID);
-				
-				//Throw exception if SAML token is null
-				if (assertionElement == null)
+				if (StringUtils.isNotBlank(tokenID))
 				{
-					log.error("Unable to find assertion element in token map.");
-					throw new IOException("Unable to find assertion element");
-				}	
-				
-				//Set assertion element on callback object
-				callback.setAssertionElement(assertionElement);
-				
-				//Remove SAML token from map, it is only needed once
-				//TODO: We need a way to determine how many endpoints to call and allow the SAML token to be retrieved that many times
-				//OJBSamlMap.removeToken(tokenID);
-
+					//Get SAML token from hashmap
+					Element assertionElement = (Element)OJBSamlMap.getToken(tokenID);
+					
+					//Throw exception if SAML token is null
+					if (assertionElement == null)
+					{
+						log.error("Unable to find assertion element in token map.");
+						throw new IOException("Unable to find assertion element");
+					}	
+					
+					//Set assertion element on callback object
+					callback.setAssertionElement(assertionElement);
+					
+					//Remove SAML token from map, it is only needed once
+					//TODO: We need a way to determine how many endpoints to call and allow the SAML token to be retrieved that many times
+					//OJBSamlMap.removeToken(tokenID);
+				}
 			}
 		}
 
@@ -98,12 +101,17 @@ public class OJBSamlCallbackHandler implements CallbackHandler{
 	    
 		List<String> propertyList = (ArrayList<String>)reqCtx.get(propertyName);
 		
-		String returnValue = propertyList.get(0);
+		String returnValue = "";
 		
-		if (returnValue==null)
-		{
-			throw new IOException("Unable to retrieve message property from CXF Message: " + propertyName);
-		}	
+		if (propertyList != null)
+		{	
+			returnValue = propertyList.get(0);
+			
+			if (returnValue==null)
+			{
+				throw new IOException("Unable to retrieve message property from CXF Message: " + propertyName);
+			}	
+		}
 		
 		return returnValue;
 	}

@@ -39,6 +39,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 		
+	public static final String NS_FBI_RECORD_REQUEST = "http://ojbc.org/IEPD/Exchange/FBIQueryRequest/1.0";
+	public static final String NS_PREFIX_FBI_RECORD_REQUEST = "fqr-doc";
+	
 	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryResults/1.0";
 	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "fppq-res-doc";
 	
@@ -700,6 +703,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST = "ira-req-doc";
     public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0";
     
+    public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST = "irua-req-doc";
+    public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsUnarchiveRequest/1.0";
+    
     public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST = "oirs-req-doc";
     public static final String NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0";
     
@@ -868,6 +874,26 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PROSECUTION_DECISION_HAWAII_CODES_DOC ="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionReportCodes/Hawaii/1.0";
 	public static final String NS_PREFIX_PROSECUTION_DECISION_HAWAII_CODES_DOC ="pd-hi-codes";
 
+	public static final String NS_EBTS ="http://cjis.fbi.gov/fbi_ebts/10.0";
+	public static final String NS_PREFIX_EBTS ="ebts";	
+	
+	public static final String NS_CH_RESTORATION_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0";
+	public static final String NS_PREFIX_CH_RESTORATION_DOC ="chr-report-doc";
+
+	public static final String NS_CH_RESTORATION_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_RESTORATION_EXT ="chr-report-ext";
+
+	public static final String NS_CH_CONSOLIDATION_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0";
+	public static final String NS_PREFIX_CONSOLIDATION_DOC ="chc-report-doc";
+
+	public static final String NS_CH_CONSOLIDATION_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_CONSOLIDATION_EXT ="chc-report-ext";
+	
+	public static final String NS_CH_IDENTIFIER_UPDATE_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0";
+	public static final String NS_PREFIX_IDENTIFIER_UPDATE_DOC ="chiu-report-doc";
+
+	public static final String NS_CH_IDENTIFIER_UPDATE_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0";
+	public static final String NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT ="chiu-report-ext";
 	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequest/1.0";
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT ="chm-req-ext";
 	
@@ -909,7 +935,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/MunicipalDeferredDispositionSearchRequest/1.0";
 	public static final String NS_PREFIX_MUNICIPAL_DEFERRED_DISPOSITION_SEARCH_REQUEST_DOC ="mddreq-doc";
-
+	
 	public static final String NS_CBRN_40 = "http://release.niem.gov/niem/domains/cbrn/4.0/";
 	public static final String NS_PREFIX_CBRN_40 = "cbrn40";
 	
@@ -937,6 +963,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DADeferredDispositionSearchRequest/1.0";
 	public static final String NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC ="da-defdisposearch-req-doc";
 
+	public static final String NS_CRIMINAL_HISTORY_TEXT_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC ="cht-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT ="chr-ext";
+
 	public static final String NS_FINALIZE_ARREST_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/FinalizeArrestRequest/1.0";
 	public static final String NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC ="fa-req-doc";
 
@@ -954,6 +986,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC ="http://ojbc.org/IEPD/Extensions/CriminalHistoryModificationRequestErrorReporting/1.0";
 	public static final String NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC ="chm-rep";
+	
+	public static final String NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC ="http://ojbc.org/IEPD/Exchange/CriminalHistoryDemographicsUpdateReport/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC ="chdu-report-doc";
+
+	public static final String NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT ="http://ojbc.org/IEPD/Extensions/CriminalHistoryDemographicsUpdateReport/Extension/1.0";
+	public static final String NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT ="chdu-report-ext";
 	
 	public static final String NS_RECORD_REPLICATION_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/RecordReplicationRequest/1.0";
 	public static final String NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC ="rr-req-doc";
@@ -979,6 +1017,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_AUDIT_LOG_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/AuditLogSearchResults/1.0";
 	public static final String NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT ="alsres-ext";
 	
+	public static final String NS_DECLINE_CHARGE_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/DeclineChargeRequest/1.0";
+	public static final String NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC ="dc-req-doc";
+	
+	public static final String NS_ARREST_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ArrestReferralRequest/1.0";
+	public static final String NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC ="ar-req-doc";
+
+	public static final String NS_CHARGE_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferralRequest/1.0";
+	public static final String NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC ="cr-req-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -989,6 +1036,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_INTEL_40, NS_INTEL_40);
 		uriToPrefixMap.put(NS_INTEL_40, NS_PREFIX_INTEL_40);
+
+		prefixToUriMap.put(NS_PREFIX_EBTS, NS_EBTS);
+		uriToPrefixMap.put(NS_EBTS, NS_PREFIX_EBTS);
 
 		prefixToUriMap.put(NS_PREFIX_INTEL_41, NS_INTEL_41);
 		uriToPrefixMap.put(NS_INTEL_41, NS_PREFIX_INTEL_41);
@@ -1249,13 +1299,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_SOAP_PREFIX, NS_SOAP);
 		uriToPrefixMap.put(NS_SOAP, NS_SOAP_PREFIX);
-		
 		prefixToUriMap.put(NS_PREFIX_JXDM_40, NS_JXDM_40);
 		uriToPrefixMap.put(NS_JXDM_40, NS_PREFIX_JXDM_40);
-		
 		prefixToUriMap.put(NS_PREFIX_JXDM_50, NS_JXDM_50);
 		uriToPrefixMap.put(NS_JXDM_50, NS_PREFIX_JXDM_50);
-		
 		prefixToUriMap.put(NS_PREFIX_JXDM_60, NS_JXDM_60);
 		uriToPrefixMap.put(NS_JXDM_60, NS_PREFIX_JXDM_60);
 
@@ -1739,6 +1786,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    	    
+	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST);
+	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST);
+	    
 	    prefixToUriMap.put(NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_CASE_FILE_DECISION_REPORT_DOC_EXCH);
 	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	
 	    
@@ -1871,7 +1921,25 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT, NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT);
 		uriToPrefixMap.put(NS_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_PROFESSIONAL_LICENSE_QUERY_REQUEST_EXT);
 		
-		prefixToUriMap.put(NS_PREFIX_CBRN_40, NS_CBRN_40);
+		prefixToUriMap.put(NS_PREFIX_CH_RESTORATION_DOC, NS_CH_RESTORATION_DOC);
+		uriToPrefixMap.put(NS_CH_RESTORATION_DOC, NS_PREFIX_CH_RESTORATION_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_RESTORATION_EXT, NS_CH_RESTORATION_EXT);
+		uriToPrefixMap.put(NS_CH_RESTORATION_EXT, NS_PREFIX_CH_RESTORATION_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CONSOLIDATION_DOC, NS_CH_CONSOLIDATION_DOC);
+		uriToPrefixMap.put(NS_CH_CONSOLIDATION_DOC, NS_PREFIX_CONSOLIDATION_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_CONSOLIDATION_EXT, NS_CH_CONSOLIDATION_EXT);
+		uriToPrefixMap.put(NS_CH_CONSOLIDATION_EXT, NS_PREFIX_CH_CONSOLIDATION_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_IDENTIFIER_UPDATE_DOC, NS_CH_IDENTIFIER_UPDATE_DOC);
+		uriToPrefixMap.put(NS_CH_IDENTIFIER_UPDATE_DOC, NS_PREFIX_IDENTIFIER_UPDATE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT, NS_CH_IDENTIFIER_UPDATE_EXT);
+		uriToPrefixMap.put(NS_CH_IDENTIFIER_UPDATE_EXT, NS_PREFIX_CH_IDENTIFIER_UPDATE_EXT);
+		
+				prefixToUriMap.put(NS_PREFIX_CBRN_40, NS_CBRN_40);
 		uriToPrefixMap.put(NS_CBRN_40, NS_PREFIX_CBRN_40);
 		
 		prefixToUriMap.put(NS_PREFIX_CA_SUB_CHARGE_DISPO_DOC, NS_CA_SUB_CHARGE_DISPO_DOC);
@@ -1897,6 +1965,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC);
 		uriToPrefixMap.put(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC,NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC, NS_CRIMINAL_HISTORY_TEXT_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_TEXT_DOC,NS_PREFIX_CRIMINAL_HISTORY_TEXT_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT, NS_CRIMINAL_HISTORY_REPORT_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_REPORT_EXT,NS_PREFIX_CRIMINAL_HISTORY_REPORT_EXT );
 
 		prefixToUriMap.put(NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC, NS_FINALIZE_ARREST_REQUEST_DOC);
 		uriToPrefixMap.put(NS_FINALIZE_ARREST_REQUEST_DOC,NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC );
@@ -1915,6 +1989,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC);
 		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC,NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_ERROR_REPORTING_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_FBI_RECORD_REQUEST, NS_FBI_RECORD_REQUEST);
+		uriToPrefixMap.put(NS_FBI_RECORD_REQUEST,NS_PREFIX_FBI_RECORD_REQUEST);
+		
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC, NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC,NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT, NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT);
+		uriToPrefixMap.put(NS_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT,NS_PREFIX_CRIMINAL_HISTORY_DEMOGRAPHIC_UPDATE_REPORTING_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC, NS_RECORD_REPLICATION_REQUEST_DOC);
 		uriToPrefixMap.put(NS_RECORD_REPLICATION_REQUEST_DOC,NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC );
@@ -1939,6 +2022,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT, NS_AUDIT_LOG_SEARCH_RESULTS_EXT);
 		uriToPrefixMap.put(NS_AUDIT_LOG_SEARCH_RESULTS_EXT,NS_PREFIX_AUDIT_LOG_SEARCH_RESULTS_EXT );
+
+		prefixToUriMap.put(NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC, NS_DECLINE_CHARGE_REQUEST_DOC);
+		uriToPrefixMap.put(NS_DECLINE_CHARGE_REQUEST_DOC,NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC, NS_ARREST_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ARREST_REFERRAL_REQUEST_DOC,NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC, NS_CHARGE_REFERRAL_REQUEST_DOC);
+		uriToPrefixMap.put(NS_CHARGE_REFERRAL_REQUEST_DOC,NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC );
 	}
 
 	@Override

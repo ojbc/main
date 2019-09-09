@@ -28,12 +28,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,18 +42,11 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
-import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
-import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -77,8 +68,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
+import org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionRequest;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -90,8 +93,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
-@DirtiesContext
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml" })
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionSearchQueryDAO {
 
 	private static final Log log = LogFactory
@@ -105,8 +108,15 @@ public class TestSubscriptionSearchQueryDAO {
 
 	private ValidationDueDateStrategy springConfiguredStrategy;
 
+    //This is used to update database to achieve desired state for test
+    @SuppressWarnings("unused")
+	private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() {
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
 		springConfiguredStrategy = subscriptionSearchQueryDAO
 				.getValidationDueDateStrategy();
 	}
@@ -121,8 +131,13 @@ public class TestSubscriptionSearchQueryDAO {
 		loadTestData("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet_manual.xml");
 	}
 
+	@SuppressWarnings("unused")
 	private void loadEmptyTestData() throws Exception {
 		loadTestData("src/test/resources/xmlInstances/dbUnit/emptySubscriptionDataSet.xml");
+	}
+
+	private void loadAgencyTestData() throws Exception {
+		loadTestData("src/test/resources/xmlInstances/dbUnit/agencyProfileDataSet.xml");
 	}
 
 	private void loadWildcardTestData() throws Exception {
@@ -158,6 +173,114 @@ public class TestSubscriptionSearchQueryDAO {
 				new FlatXmlDataSetBuilder().build(manualTestFile));
 	}
 
+	@Test
+	public void testAgencyProfileEmailAddresses()
+	{
+		List<Subscription> subs = subscriptionSearchQueryDAO.queryForSubscription("62723");
+		assertEquals(1, subs.size());
+		
+		Subscription sub = subs.get(0);
+		assertEquals("I", sub.getSubscriptionCategoryCode());
+		assertEquals("62723", sub.getSubscriptionIdentifier());
+		
+		List<String> emailAddresses = subscriptionSearchQueryDAO.returnAgencyProfileEmailForSubscription(sub.getSubscriptionIdentifier(), sub.getSubscriptionCategoryCode());
+		
+		log.info(emailAddresses.toString());
+		
+		assertEquals(1, emailAddresses.size());
+		assertEquals("demo.agency@localhost", emailAddresses.get(0));
+		
+	}
+	
+	@Test
+	public void testRetrieveSubscriptionOwner() throws Exception
+	{
+		loadManualTestData();
+		
+		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("1234567890");
+		assertEquals(new Integer(1), agencyPk);
+		
+		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "1234567890");
+		
+		assertNotNull(subNumber);
+		
+		Integer subOwner = subscriptionSearchQueryDAO.returnSubscriptionOwnerFromFederationId("BillUniqueFederationId");
+		assertNotNull(subOwner);
+		
+	}
+	
+	@Test
+	public void testUpdateSubscriptionProperties() throws Exception
+	{
+		loadManualTestData();
+		
+		Map<String, String> subscriptionPropertiesRequest = null;
+		Map<String, String> subscriptionPropertiesDatabase = null;
+		
+		//both null, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+		
+		//one is null, other isn't, update
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		
+		//Both the same, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		//Change one, update
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		subscriptionPropertiesDatabase.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testInsertSubjectIdentifiers() throws Exception
+	{
+		loadManualTestData();
+		
+		subscriptionSearchQueryDAO.insertSubjectIdentifier(1, "test", "someValue");
+		
+		List<Subscription> subs= subscriptionSearchQueryDAO.queryForSubscription("1");
+		
+		assertEquals(1, subs.size());
+		
+		assertEquals("someValue",subs.get(0).getSubscriptionSubjectIdentifiers().get("test"));
+		
+	}	
+	
+	@Test
+	public void testSubscriptionProperties()
+			throws Exception {
+		loadManualTestData();
+		Map<String, String> subscriptionProperties = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+				
+		assertEquals(4, subscriptionProperties.size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
+		assertEquals("true", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+	
+		int rowsDeleted = subscriptionSearchQueryDAO.deleteSubscriptionProperties("1");
+		assertEquals(4, rowsDeleted);
+		
+		subscriptionSearchQueryDAO.saveSubscriptionProperties(subscriptionProperties, 1);
+		
+		assertEquals(4, subscriptionProperties.size());
+		
+	}
+	
 	@Test
 	public void testUniqueSubscriptionOwners()
 			throws Exception {
@@ -208,6 +331,18 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(2013, lastValidationDate.getYear());
 		assertEquals(8, lastValidationDate.getMonthOfYear());
 		assertEquals(27, lastValidationDate.getDayOfMonth());
+		
+		assertNotNull(response.getFbiRapbackSubscription());
+		FbiRapbackSubscription fbiRapbackSubscription = response.getFbiRapbackSubscription();
+		assertThat(fbiRapbackSubscription.getFbiSubscriptionId(), is("fbiId1"));
+		assertThat(fbiRapbackSubscription.getRapbackCategory(), is("CI"));
+		assertThat(fbiRapbackSubscription.getSubscriptionTerm(), is("5"));
+		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(java.time.LocalDate.of(2017,9,27)));
+		assertThat(fbiRapbackSubscription.getRapbackTermDate(), is(java.time.LocalDate.of(2017,9,27)));
+		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(java.time.LocalDate.of(2012,9,27)));
+		assertThat(fbiRapbackSubscription.getRapbackOptOutInState(), is(true));
+		assertThat(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), is("1"));
+		assertThat(fbiRapbackSubscription.getUcn(), is("074644NG0"));
 	}
 
 	@Test
@@ -216,7 +351,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		loadMultiTopicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305Topic1.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305Topic1.xml");
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 
@@ -236,15 +371,14 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		SystemCollectionValidationExemptionFilter validationExemptionFilter = new SystemCollectionValidationExemptionFilter();
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(validationDueDateStrategy);
 		subscriptionSearchQueryDAO.setGracePeriodStrategy(gracePeriodStrategy);
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008308.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008308.xml");
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 
@@ -282,8 +416,7 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(validationDueDateStrategy);
@@ -318,8 +451,7 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(validationDueDateStrategy);
@@ -336,10 +468,10 @@ public class TestSubscriptionSearchQueryDAO {
 		Interval gracePeriod = response.getGracePeriod();
 		assertEquals(10, Days
 				.daysBetween(lastValidationDate, validationDueDate).getDays());
-		assertEquals(2,
+		assertEquals(11,
 				Days.daysBetween(lastValidationDate, gracePeriod.getStart())
 						.getDays());
-		assertEquals(12,
+		assertEquals(21,
 				Days.daysBetween(lastValidationDate, gracePeriod.getEnd())
 						.getDays());
 
@@ -359,11 +491,22 @@ public class TestSubscriptionSearchQueryDAO {
 	public void testQueryForSubscriptionsByOwnerAndId() throws Exception {
 		loadManualTestData();
 		Subscription subscription = subscriptionSearchQueryDAO
-				.queryForSubscription("OJBC:IDP:OJBC:USER:admin", "1");
+				.queryForSubscription("OJBC:IDP:OJBC:USER:admin", "1", "false");
 		assertNotNull(subscription);
 		assertEquals("bill", subscription.getPersonFirstName());
 		assertEquals("padmanabhan", subscription.getPersonLastName());
 		assertEquals("1970-02-03", subscription.getDateOfBirth());
+		
+		assertNotNull(subscription.getSubscriptionProperties());
+		
+		assertEquals(4, subscription.getSubscriptionProperties().size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
+		assertEquals("true", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+
+		assertEquals("0123ABC",subscription.getAgencyCaseNumber());
 	}
 
 	@Test
@@ -372,7 +515,7 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadBasicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
 		// one SID, two subscriptions, each with one email address
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -382,7 +525,7 @@ public class TestSubscriptionSearchQueryDAO {
 			assertEquals(1, subscription.getEmailAddressesToNotify().size());
 		}
 		// one SID, one subscription, two email addresses
-		request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008306.xml");
+		request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008306.xml");
 		subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 		assertEquals(1, subscriptions.size());
@@ -392,63 +535,11 @@ public class TestSubscriptionSearchQueryDAO {
 
 	@Test
 	@DirtiesContext
-	public void testSearchForSubscriptionsMatchingNotificationRequestWithStaticValidationDueDate()
-			throws Exception {
-
-		loadValidationDateTestData();
-
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
-		DateTime eventDate = request.getNotificationEventDate();
-
-		// one subscription with default validation due date strategy
-		List<Subscription> subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		DateTime lastValidationDate = subscriptions.get(0)
-				.getLastValidationDate();
-
-		// We use this field to calculate the validation due date for the
-		// strategy to test edge cases
-		Days daysBetweenTodayAndValidationDate = Days.daysBetween(
-				lastValidationDate, eventDate);
-
-		log.debug("Days between last validation date and today: "
-				+ daysBetweenTodayAndValidationDate.getDays());
-
-		StaticValidationDueDateStrategy staticValidationDueDateStrategy = new StaticValidationDueDateStrategy();
-
-		// Validation due date is day of event
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays());
-		subscriptionSearchQueryDAO
-				.setValidationDueDateStrategy(staticValidationDueDateStrategy);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		// Validation due date is day after event
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays() + 1);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		// Validation due date is day before event : failure!
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays() - 1);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(0, subscriptions.size());
-	}
-
-	@Test
-	@DirtiesContext
 	public void testSearchForSubscriptionsMatchingNotificationRequestByEventDateAndSubjectInactive()
 			throws Exception {
 		loadBasicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5012703.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5012703.xml");
 
 		// Inactive subscription
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -476,6 +567,36 @@ public class TestSubscriptionSearchQueryDAO {
 						"{http://demostate.gov/SystemNames/1.0}SystemA",
 						"SYSTEM", Collections.singletonMap("SID", "A5008305"));
 		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						"{http://demostate.gov/SystemNames/1.0}SystemB",
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("subscriptionQualifier", "20920"));
+		assertEquals(1, subscriptions.size());
+
+
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -484,7 +605,7 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadNullLastValidationDateTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
 		subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
@@ -529,7 +650,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement s = dataSource.getConnection().createStatement();
 
 		ResultSet rs = s
-				.executeQuery("select * from subscription where active=1");
+				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from subscription s, subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active=1");
 
 		assertTrue(rs.next());
 		int id = rs.getInt("id");
@@ -602,106 +723,28 @@ public class TestSubscriptionSearchQueryDAO {
 
 	}
 
-	@Test
-	@DirtiesContext
-	public void testSubscribe_noExistingSubscriptions() throws Exception {
-
-		Statement s = dataSource.getConnection().createStatement();
-
-		Map<String, String> subjectIds = new HashMap<String, String>();
-		subjectIds.put(SubscriptionNotificationConstants.SID, "1234");
-		subjectIds.put(
-				SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
-				"ABCDE");
-
-		ResultSet rs = s.executeQuery("select * from subscription");
-
-		int recordCount = 0;
-		while (rs.next()) {
-			recordCount++;
-		}
-
-		LocalDate currentDate = new LocalDate();
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", currentDate,
-				"0123ABC").intValue();
-
-		rs = s.executeQuery("select * from subscription");
-
-		int postRecordCount = 0;
-		while (rs.next()) {
-			postRecordCount++;
-			int id = rs.getInt("ID");
-			if (id == subscriptionId) {
-				assertEquals("topic", rs.getString("TOPIC"));
-				DateTime d = new DateTime(rs.getDate("STARTDATE"));
-				assertEquals(2013, d.getYear());
-				assertEquals(1, d.getMonthOfYear());
-				assertEquals(1, d.getDayOfMonth());
-				d = new DateTime(rs.getDate("ENDDATE"));
-				assertEquals(2013, d.getYear());
-				assertEquals(1, d.getMonthOfYear());
-				assertEquals(1, d.getDayOfMonth());
-				assertEquals("systemName",
-						rs.getString("SUBSCRIBINGSYSTEMIDENTIFIER"));
-				assertEquals("offenderName", rs.getString("SUBJECTNAME"));
-				assertEquals(1, rs.getByte("ACTIVE"));
-				Date lastValidationDateColValue = rs
-						.getDate("lastValidationDate");
-				assertNotNull(lastValidationDateColValue);
-				DateTime lastValidationDate = new DateTime(
-						lastValidationDateColValue);
-				assertEquals(currentDate.toDateTimeAtStartOfDay().toDate(),
-						lastValidationDate.toDate());
-				assertEquals("0123ABC", rs.getString("agency_case_number"));
-			}
-		}
-
-		assertEquals(1, postRecordCount - recordCount);
-
-		rs.close();
-		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
-				+ subscriptionId);
-
-		postRecordCount = 0;
-		while (rs.next()) {
-			postRecordCount++;
-			assertEquals(NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
-					rs.getString("NOTIFICATIONMECHANISMTYPE"));
-			assertEquals("none@none.com", rs.getString("NOTIFICATIONADDRESS"));
-		}
-
-		assertEquals(1, postRecordCount);
-
-		rs.close();
-		rs = s.executeQuery("select * from subscription_subject_identifier where subscriptionid="
-				+ subscriptionId);
-		// ResultSetMetaData rsmd = rs.getMetaData();
-		// for (int i=0;i < rsmd.getColumnCount();i++) {
-		// log.info(rsmd.getColumnLabel(i+1) + ", " +
-		// rsmd.getColumnClassName(i+1));
-		// }
-
-		postRecordCount = 0;
-		while (rs.next()) {
-			postRecordCount++;
-			String identifierName = rs.getString("IdentifierName");
-			if ("SID".equals(identifierName)) {
-				assertEquals("1234", rs.getString("IdentifierValue"));
-			} else if ("subscriptionQualifier".equals(identifierName)) {
-				assertEquals("ABCDE", rs.getString("IdentifierValue"));
-			} else {
-				throw new IllegalStateException("Unexpected identifier: "
-						+ identifierName);
-			}
-		}
-
-		assertEquals(2, postRecordCount);
-
-		s.close();
-
+	private SubscriptionRequest buildSubscriptionRequest(Map<String, String> subjectIds,
+			Map<String, String> subscriptionProperties) {
+		SubscriptionRequest request = new RapbackSubscriptionRequest();
+        request.setSubscriptionSystemId(null) ;
+		request.setTopic("topic");
+		request.setStartDateString("2013-01-01");
+		request.setEndDateString("2013-01-01"); 
+		request.setSubjectIdentifiers(subjectIds); 
+		request.setSubscriptionProperties(subscriptionProperties); 
+		request.setEmailAddresses(new HashSet<String>(Arrays.asList("none@none.com")));
+        request.setSubjectName("offenderName"); 
+        request.setSystemName("systemName"); 
+        request.setSubscriptionQualifier("ABCDE"); 
+        request.setReasonCategoryCode("CI");  
+        request.setSubscriptionOwner("SYSTEM"); 
+        request.setSubscriptionOwnerEmailAddress("ownerEmail@local.gov");
+        request.setSubscriptionOwnerOri("1234567890");
+        request.setSubscriptionOwnerFirstName("bill");
+        request.setSubscriptionOwnerLastName("smith");
+        request.setAgencyCaseNumber("0123ABC");
+        request.setOri("1234567890");
+		return request;
 	}
 
 	@Test
@@ -723,10 +766,11 @@ public class TestSubscriptionSearchQueryDAO {
 		Set<String> emailAddyList = new HashSet<String>();
 		emailAddyList.addAll(Arrays.asList("p1@none.com", "p2@none.com"));
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds, emailAddyList,
-				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM",
-				new LocalDate(), "0123ABC").intValue();
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
+				null);
+		request.setEmailAddresses(emailAddyList);
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request,
+				new LocalDate()).intValue();
 
 		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
 				+ subscriptionId);
@@ -767,10 +811,8 @@ public class TestSubscriptionSearchQueryDAO {
 		LocalDate originalDate = DateTimeFormat.forPattern("yyyy-MM-dd")
 				.parseDateTime("2013-01-01").toLocalDate();
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", originalDate, "0123ABC")
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds, null);
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, originalDate)
 				.intValue();
 
 		rs = s.executeQuery("select * from subscription where id="
@@ -787,18 +829,24 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate subsequentDate = new LocalDate();
 
+		Map<String, String> subscriptionPropertiesRequest = new HashMap<String, String>();
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+
+		SubscriptionRequest subRequest = buildSubscriptionRequest(subjectIds, subscriptionPropertiesRequest);
+		subRequest.setEndDateString("2013-01-02");
 		subscriptionId = subscriptionSearchQueryDAO
-				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
-						subjectIds,
-						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", 
-						subsequentDate, "0123ABC").intValue();
+				.subscribe(subRequest, subsequentDate).intValue();
 
 		assertEquals(oldSubscriptionId, subscriptionId); // same id, must have
 															// been an update
 															// not insert
 
-		rs = s.executeQuery("select * from subscription where id="
+		rs = s.executeQuery("select s.*, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress from subscription s, subscription_owner so where s.subscription_owner_id = so.subscription_owner_id and id="
 				+ subscriptionId);
 
 		recordCount = 0;
@@ -815,10 +863,15 @@ public class TestSubscriptionSearchQueryDAO {
 			assertTrue(lastValidationDate.isAfter(originalDate
 					.toDateTimeAtStartOfDay()));
 			assertEquals("0123ABC", rs.getString("agency_case_number"));
+			assertEquals("local1@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
 		}
 
 		assertEquals(1, recordCount);
+		
+		Map<String, String> propertiesFromDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties(String.valueOf(subscriptionId));
 
+		assertEquals(4, propertiesFromDatabase.size());	
+		
 		s.close();
 
 	}
@@ -828,7 +881,7 @@ public class TestSubscriptionSearchQueryDAO {
 	public void testSubscribe_noExistingSubscriptionsForTopic()
 			throws Exception {
 
-		loadEmptyTestData();
+		loadAgencyTestData();
 
 		Map<String, String> subjectIds = new HashMap<String, String>();
 		subjectIds.put(SubscriptionNotificationConstants.SID, "1234");
@@ -839,10 +892,11 @@ public class TestSubscriptionSearchQueryDAO {
 		LocalDate originalDate = DateTimeFormat.forPattern("yyyy-MM-dd")
 				.parseDateTime("2013-01-01").toLocalDate();
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic1", "2013-01-01", "2013-01-01", subjectIds,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", null, "SYSTEM", originalDate, "0123ABC")
+		SubscriptionRequest subRequest = buildSubscriptionRequest(subjectIds, null);
+		subRequest.setTopic("topic1");
+		subRequest.setReasonCategoryCode(null);
+
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe( subRequest, originalDate)
 				.intValue();
 
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -851,12 +905,11 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate subsequentDate = new LocalDate();
 
+		subRequest.setTopic("topic2");
+		subRequest.setEndDateString("2013-01-02");
+		subRequest.setReasonCategoryCode(null);
 		int secondSubscriptionId = subscriptionSearchQueryDAO
-				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
-						subjectIds,
-						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", null, "SYSTEM",
-						subsequentDate, "0123ABC").intValue();
+				.subscribe(subRequest, subsequentDate).intValue();
 
 		assertFalse(secondSubscriptionId == subscriptionId); // because topic1
 																// and topic2
@@ -871,7 +924,7 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_single() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
+		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(1);
 
@@ -881,8 +934,8 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_multiple() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)"
-				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and identifierValue=?)";
+		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) "
+				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(2);
 
@@ -909,86 +962,12 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadManualTestData();
 		subscriptionSearchQueryDAO
-				.consolidateSid("A5008305", "A5008306");
-		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
-	}
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","1",SubscriptionNotificationConstants.SID);
 
-	@Test
-	@DirtiesContext
-	public void testUnsubscribeCivilSubscription()
-			throws Exception {
-		
-		Statement statement = dataSource.getConnection().createStatement();
-		ResultSet rs = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
-		assertTrue(rs.next());
-		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
-		log.info("availableForSubscriptionStartDate before unsubscribe: " + availableForSubscriptionStartDate);
-		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, XmlUtils.parseXmlDate("2015-10-16").toDate()));
-		
 		subscriptionSearchQueryDAO
-			.unsubscribe("62724","{http://ojbc.org/wsn/topics}:person/arrest", null, null, null);
-		
-		ResultSet rsAfter = statement.executeQuery("select * from identification_transaction where subscription_id = '62724'");
-		assertTrue(rsAfter.next());
-		Date availableForSubscriptionStartDateAfter = rsAfter.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
-		log.info("availableForSubscriptionStartDate after unsubscribe: " + availableForSubscriptionStartDateAfter);
-		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, Calendar.getInstance().getTime()));
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testSubscribe_noExistingCivilSubscriptions() throws Exception {
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","3",SubscriptionNotificationConstants.SID);
 
-		Statement s = dataSource.getConnection().createStatement();
-		ResultSet rs = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
-		assertTrue(rs.next());
-		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
-		log.info("availableForSubscriptionStartDate before subscribe: " + availableForSubscriptionStartDate);
-		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDate, Calendar.getInstance().getTime()));
-
-		Map<String, String> subjectIds = new HashMap<String, String>();
-		subjectIds.put(SubscriptionNotificationConstants.SID, "A023460");
-		subjectIds.put(
-				SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
-				"ABCDE");
-
-		ResultSet rsCountBefore = s.executeQuery("select count(*) as count from subscription");
-		assertTrue(rsCountBefore.next());
-		int recordCount = rsCountBefore.getInt("count");
-
-		LocalDate currentDate = new LocalDate();
-		subscriptionSearchQueryDAO.subscribe(null,
-				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", currentDate,
-				"000001820140729014008339997").intValue();
-
-		ResultSet rsCountAfter = s.executeQuery("select count(*) as count from subscription");
-		assertTrue(rsCountAfter.next());
-
-		int postRecordCount = rsCountAfter.getInt("count");
-		assertEquals(1, postRecordCount - recordCount);
-		rs.close();
-		
-		ResultSet rsAvalibaleDateAfterSubscribe = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
-		assertTrue(rsAvalibaleDateAfterSubscribe.next());
-		Date availableForSubscriptionStartDateAfter = rsAvalibaleDateAfterSubscribe.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
-		log.info("availableForSubscriptionStartDate after subscribe: " + availableForSubscriptionStartDateAfter);
-		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, XmlUtils.parseXmlDate("2016-11-03").toDate()));
-	}
-
-	private ArrestNotificationRequest returnArrestNotificationRequest(
-			String pathToNotificationRequest) throws Exception {
-		CamelContext ctx = new DefaultCamelContext();
-		Exchange ex = new DefaultExchange(ctx);
-
-		ex.getIn().setBody(
-				TestNotificationBuilderUtil
-						.getMessageBody(pathToNotificationRequest));
-
-		Message message = ex.getIn();
-
-		return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(message);
+		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
 	}
 
 	private IncidentNotificationRequest returnIncidentNotificationRequest(

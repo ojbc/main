@@ -20,35 +20,43 @@ import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
 import java.io.Serializable;
 import java.io.StringReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
+import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.SubscriptionCategoryCode;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.model.person.search.PersonName;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
@@ -60,31 +68,36 @@ import org.ojbc.web.model.subscription.response.UnsubscriptionAccessDenialRespon
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
+import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
+import org.ojbc.web.portal.controllers.dto.CriminalHistoryRapsheetData;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.rest.client.SubscriptionsRestClient;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
-import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
-import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
-import org.ojbc.web.portal.validators.VehicleCrashSubscriptionValidator;
-import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
+import org.ojbc.web.portal.validators.subscriptions.SubscriptionSearchRequestValidator;
+import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,10 +113,18 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes("subscription")
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage"})
 public class SubscriptionsController {
-		
+	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
+	private static final String FBI_SUBSCRIPTION_UPDATE_REQUEST_PROCESSING = "State subscription updated.  FBI subscription update request pending.";
+	private static final String FBI_UCN_DOES_NOT_EXIST_WARNING = "FBI UCN does not exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.";
+
+	private Log log = LogFactory.getLog(this.getClass());
+
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
+	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/rapback";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/rapback/ci";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/rapback/cs";
 	
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
 	
@@ -114,6 +135,11 @@ public class SubscriptionsController {
 	private static DocumentBuilder docBuilder;
 	
 	private SimpleDateFormat dateFormDOB = new SimpleDateFormat("yyyy-MM-dd");
+	private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	private DateTimeFormatter localDateformatterMmDdYyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	
+	@Value("${validationThreshold: 60}")
+	Integer validationThreshold;
 
 	@Value("${defaultPersonSearchSubscriptionTopic:}")
 	String defaultPersonSearchSubscriptionTopic;
@@ -132,6 +158,15 @@ public class SubscriptionsController {
 	@Value("${fbiIdWarning:false}")
 	Boolean fbiIdWarning;
 	
+	@Value("${sidRegexForAddSubscription:[a-zA-Z0-9]+}")
+	String sidRegexForAddSubscription;
+	
+	@Value("${sidRegexValidationErrorMessage:SID should contain only Chars or Digits}")
+	String sidRegexValidationErrorMessage;
+	
+	@Value("${subscriptionExpirationAlertPeriod:0}")
+	String subscriptionExpirationAlertPeriod;
+	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
 	
@@ -144,6 +179,9 @@ public class SubscriptionsController {
 	@Resource
 	Map<String, String> subscriptionDefaultsMap;
 	
+	@Value("#{getObject('triggeringEventCodeMap')}")
+	Map<String, String> triggeringEventCodeMap;
+	
     @Resource
     Map<String, String> subscriptionFilterProperties;
 		
@@ -153,24 +191,11 @@ public class SubscriptionsController {
 	@Resource
 	SamlService samlService;
 		
-	//TODO see if edit validator needs injection also
-	@Value("#{getObject('arrestSubscriptionAddValidator')}")
-	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
+	@Resource
+	SubscriptionValidator subscriptionValidator;
 	
 	@Resource
-	ArrestSubscriptionValidatorInterface arrestSubscriptionEditValidator;
-	
-	@Resource
-	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;
-	
-	@Resource
-	ChCycleSubscriptionValidator chCycleSubscriptionValidator;
-
-	@Resource
-	VehicleCrashSubscriptionValidator vehicleCrashSubscriptionValidator;
-
-	@Resource
-	IncidentSubscriptionEditValidator incidentSubscriptionEditValidator;
+	SubscriptionSearchRequestValidator subscriptionSearchRequestValidator;
 	
 	@Resource
 	SearchResultConverter searchResultConverter;
@@ -187,65 +212,81 @@ public class SubscriptionsController {
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
 		
-		
-    @ModelAttribute("subscriptionFilterProperties")
-    public Map<String, String> getSubscriptionFilterProperties(){
-    	return subscriptionFilterProperties;
-    } 	
+	@Autowired
+	SubscriptionQueryResultsProcessor subQueryResultProcessor;
+	
+	@Resource
+	SubscriptionsRestClient subscriptionsRestClient;
+	
+	
+	private Map<String, String> subscriptionStatusMap = new HashMap<String, String>();
+	private Map<String, String> subscriptionPurposeMap = new HashMap<String, String>();
 
+	@ModelAttribute
+    public void setupFormModelAttributes(Model model) {
+		
+		log.info("subscriptionPurposeValueToLabelMap: "+ subscriptionPurposeValueToLabelMap);
+		subscriptionPurposeValueToLabelMap.forEach((key, value) -> {
+			if (StringUtils.isNotBlank(key)){
+				subscriptionPurposeMap.put(key, value);
+			}
+		});
+		model.addAttribute("subscriptionPurposeMap", subscriptionPurposeMap);
+		log.info("subscriptionPurposeMap: "+ subscriptionPurposeMap);
+		Arrays.stream(SubscriptionStatus.values()).map(SubscriptionStatus::name)
+			.forEach(item -> subscriptionStatusMap.put(item, item));
+		model.addAttribute("subscriptionStatusMap", subscriptionStatusMap);
+        model.addAttribute("subscriptionFilterProperties", subscriptionFilterProperties);
+        model.addAttribute("vmDateTool", new DateTool());
+        model.addAttribute("dateTimeformatter", dateTimeformatter);
+        model.addAttribute("localDateformatterMmDdYyyyy", localDateformatterMmDdYyyyy);
+        model.addAttribute("booleanUtils", BooleanUtils.class);
+        model.addAttribute("sidRegexForAddSubscription", sidRegexForAddSubscription);
+        model.addAttribute("sidRegexValidationErrorMessage", sidRegexValidationErrorMessage);
+        model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
+    }
+    
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
-	        Map<String, Object> model) {		
-								
-		Element samlElement = samlService.getSamlAssertion(request);
-		String searchId = getFederatedQueryId();
+			Map<String, Object> model) {		
 		
+		Element samlElement = samlService.getSamlAssertion(request);
+		
+		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		
+		return "subscriptions/_subscriptionResults";
+	}
+
+	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
 		
 		try{
-									
 			rawResults = subConfig.getSubscriptionSearchBean()
-					.invokeSubscriptionSearchRequest(searchId, samlElement);
-												
+					.invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
 			userSession.setMostRecentSubscriptionSearchResult(rawResults);			
 			userSession.setSavedMostRecentSubscriptionSearchResult(null);
-		
 		}catch(Exception e){
-			
 			informationMessage = "Failed retrieving subscriptions";
 			e.printStackTrace();
 		}			
-		
-		logger.info("Subscription results raw xml:\n" + rawResults);
-		
-		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);
-		subResultsHtmlXsltParamMap.put("messageIfNoResults", "You do not have any subscriptions.");
-		
-		//note empty string required for ui - so "$subscriptionsContent" not displayed
-		String transformedResults = ""; 
-		
-		if(StringUtils.isNotBlank(rawResults)){
-		
-			transformedResults = searchResultConverter.convertSubscriptionSearchResult(rawResults, subResultsHtmlXsltParamMap);
-			
-			logger.info("Subscription Results HTML:\n" + transformedResults);
-		}
-													
-		model.put("subscriptionsContent", transformedResults);	
-		model.put("informationMessages", informationMessage);
-		
-		return "subscriptions/_subscriptionResults";
+		logger.debug("Subscription results raw xml:\n" + rawResults);
+		model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		convertSubscriptionSearchResults(model, informationMessage, rawResults, subscriptionSearchRequest);
 	}
 
 
-	@RequestMapping(value="filter", method = RequestMethod.POST)
+	@RequestMapping(value="filter/{showValidationButton}", method = RequestMethod.POST)
 	public String filter(@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
+			@PathVariable("showValidationButton") Boolean showValidationButton,
 			BindingResult errors, Map<String, Object> model) {
 		
 		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
-		
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
+
 		logger.info("inside filter() for status: " + subscriptionStatus);
 		
 		String filterInput;
@@ -278,43 +319,14 @@ public class SubscriptionsController {
 		logger.info("Filtered Result: \n" + sFilteredSubResults);
 				
 		//transform the filtered xml results into html		
-		Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);		
-		subResultsHtmlXsltParamMap.put("messageIfNoResults", "No " + subscriptionStatus +" subscriptions");
-		
-		String htmlResult = "";
-		
-		if(StringUtils.isNotBlank(sFilteredSubResults)){
-			htmlResult = searchResultConverter.convertSubscriptionSearchResult(sFilteredSubResults, subResultsHtmlXsltParamMap);	
-		}				
-		
-		logger.info("Subscriptions Transformed Html:\n" + htmlResult);
-				 	
-		//put it in the model
-		model.put("subscriptionsContent", htmlResult);	
-		//empty string(not null) prevents variable being displayed in ui html
-		model.put("informationMessages", "");
-		
-		return "subscriptions/_subscriptionResults";
+		convertSubscriptionSearchResults(model, "", sFilteredSubResults, subscriptionSearchRequest);
+		if (showValidationButton){
+			return "subscriptions/_subscriptionResults";
+		}
+		else{
+			return "subscriptions/admin/_subscriptionResults";
+		}
 	}
-	
-    @RequestMapping(value="clearFilter", method = RequestMethod.POST)
-    public String clearFilter( Map<String, Object> model ) {
-        
-        //reset the mostRecentSearchResult. 
-        if (userSession.getSavedMostRecentSubscriptionSearchResult() != null) {
-            userSession.setMostRecentSubscriptionSearchResult(userSession.getSavedMostRecentSubscriptionSearchResult()); 
-        } 
-                
-        Map<String,Object> subResultsHtmlXsltParamMap = getParams(0, null, null);       
-        
-        String htmlResult = searchResultConverter.convertSubscriptionSearchResult(
-                userSession.getMostRecentSubscriptionSearchResult(), 
-                subResultsHtmlXsltParamMap);
-        
-        //put it in the model
-        model.put("subscriptionsContent", htmlResult);  
-        return "subscriptions/_subscriptionResults";
-    }
 	
 	/**
 	 * Intended to just be used for returning the modal contents to be 
@@ -401,113 +413,45 @@ public class SubscriptionsController {
 	 *  Two-step process uses search service with sid to get system id
 	 *  which is passed into the detail service
 	 */
-	@RequestMapping(value="personNames", method = RequestMethod.GET)
-	public @ResponseBody String getPersonNames(HttpServletRequest request, 
-			@ModelAttribute("detailsRequest")DetailsRequest detailsRequest, 
-			Map<String, Object> model) {
-				
-		String rNamesJsonArray = null;
-		
-		String personSid = detailsRequest.getIdentificationID();
-						
-		String systemId = null;
-		
-		if(StringUtils.isNotBlank(personSid)){			
+	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
+	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
+			@RequestParam("identificationID") String sid,
+			@ModelAttribute("subscription") Subscription subscription,
+			Model model) throws Exception {
+		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, StringUtils.trimToEmpty(sid));
+		model.addAttribute("rapsheetData", rapsheetData);
+		return rapsheetData;
 			
-			systemId = getSystemIdFromPersonSID(request, detailsRequest);			
-		}
-									
-		if(StringUtils.isNotBlank(systemId)){
-			
-			logger.info("using systemId: " + systemId);				
-			
-			Document rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);	
-									
-			loadChDataFromRapsheet(rapSheetDoc, model);
+	}
 
-			// consider making UI retrieve names from subscription pojo, since ui already 
-			// retrieves dob and fbi from sub. pojo
-			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);
-		}									
-						
-		return rNamesJsonArray;
-	}
-	
-	
-	private Date parseRapsheetDate(String rapSheetDate){
+	CriminalHistoryRapsheetData getChRapsheetData(HttpServletRequest request, String sid) throws Exception {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		CriminalHistoryRapsheetData sidLookupResult = new CriminalHistoryRapsheetData();
 		
-		Date dobDate = null;
-		try {
-			dobDate = sdf.parse(rapSheetDate);
-			
-		} catch (ParseException e) {
-			logger.error("Couldn't parse date: " + rapSheetDate);
-			e.printStackTrace();
-		}		
-		return dobDate;
-	}
-	
-	
-	private void loadChDataFromRapsheet(Document rapSheetDoc, Map<String, Object> model){
-		
-		Subscription subscription = (Subscription)model.get("subscription");
-		
-		logger.info("\n\n\n * * * * \n Subscription before loading CH data * * * * \n " + subscription + "\n\n\n");
-		
-		String dobString = getDOBFromRapsheet(rapSheetDoc);
-				
-		Date dobDate = parseRapsheetDate(dobString);
-		subscription.setDateOfBirth(dobDate);
-				
-		String fbiId = getFbiIdFromRapsheet(rapSheetDoc);		
-		subscription.setFbiId(fbiId);
-		
-		logger.info("\n\n\n * * * * * \n\n Populated Subscription from Rapsheet \n " + subscription + "* * * * * \n");
-				
-		// see if this is needed, because we already modified the object which is pass-by-reference
-		model.put("subscription", subscription);		
-	}
-	
-	
-	private String prepareNamesFromRapSheetParsing(Document rapSheetDoc, Map<String, Object> model){
-				
-		String rNamesJsonArray = null; 
-		
-		SubscribedPersonNames subscribedPersonNames = null;
-		
-		if(rapSheetDoc != null){
-			try {
-				subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
-				
-			} catch (Exception e) {
-				logger.error("Exception getting names from rapsheet \n" + e);
-			}				
-		}				
-		
-		if(subscribedPersonNames != null){
-			
-			List<String> allNamesList = new ArrayList<String>();
-			
-			allNamesList.add(subscribedPersonNames.getOriginalName());			
-			
-			allNamesList.addAll(subscribedPersonNames.getAlternateNamesList());
-			
-			JSONArray namesJsonArray = new JSONArray(allNamesList);
-			
-			rNamesJsonArray = namesJsonArray == null ? null : namesJsonArray.toString();
-			
-			model.put("originalName", subscribedPersonNames.getOriginalName());
-			
-			logger.info("returning all names: \n " + rNamesJsonArray + ", with original name: " + subscribedPersonNames.getOriginalName());									
-		}
-				
-		return rNamesJsonArray;		
-	}
-	
-	
+		Document rapSheetDoc = getRapsheetBySid(request, sid);
 
+		if (rapSheetDoc != null){
+		
+			sidLookupResult.setFbiId(getFbiIdFromRapsheet(rapSheetDoc));
+			sidLookupResult.setPersonNames(getAllPersonNamesFromRapsheet(rapSheetDoc));
+			sidLookupResult.setDobs(getDobsFromRapsheet(rapSheetDoc));
+			return sidLookupResult;
+		}
+		
+		return sidLookupResult;
+	}
+
+	private Document getRapsheetBySid(HttpServletRequest request, String sid) {
+		String systemId = getSystemIdFromPersonSID(request, sid);	
+		
+		Document rapSheetDoc = null; 
+		if (StringUtils.isNotBlank(systemId) ){
+			rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);
+		}
+		return rapSheetDoc;
+	}
+	
+	
 	@RequestMapping(value="arrestForm", method=RequestMethod.POST)
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
@@ -522,11 +466,12 @@ public class SubscriptionsController {
 		}	
 		
 		logger.info("Subscription: " + subscription.toString());
-		
-		initDatesForAddArrestForm(subscription, model);
+		initDatesForAddForm(subscription, model, ARREST_TOPIC_SUB_TYPE);
 				
 		// pre-populate an email field on the form w/email from saml token
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
+		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -538,11 +483,41 @@ public class SubscriptionsController {
 							
 		model.put("subscription", subscription);
 		
+		return "subscriptions/addSubscriptionDialog/_arrestForm";
+	}
+	
+	@RequestMapping(value="rapbackForm", method=RequestMethod.POST)
+	public String getRapbackForm(HttpServletRequest request,
+			@ModelAttribute("subscription") Subscription subscription,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside getRapbackForm()");		
+		initDatesForAddRapbackForm(subscription, model);
+		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		// pre-populate an email field on the form w/email from saml token
+		String sEmail = userLogonInfo.getEmailAddress();
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+		
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
+			String purposeSelection = subscriptionDefaultsMap.get("purpose");
+			if(StringUtils.isNotEmpty(purposeSelection)){
+				subscription.setSubscriptionPurpose(purposeSelection);	
+			}		
+		}
+		else{
+			subscription.setSubscriptionPurpose("CS");	
+		}
+		
+		model.put("subscription", subscription);
+		
 		model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 		
 		model.put("showCaseIdInput", showCaseIdInput);
-		 				
-		return "subscriptions/addSubscriptionDialog/_arrestForm";
+		
+		return "subscriptions/addSubscriptionDialog/_rapbackForm";
 	}
 	
 	
@@ -552,125 +527,55 @@ public class SubscriptionsController {
 	 * pre-populate the subscription start date as a convenience to the user
 	 * this will be displayed on the modal
 	 */
-	private void initDatesForAddArrestForm(Subscription subscription, Map<String, Object> model){
+	private void initDatesForAddRapbackForm(Subscription subscription, Map<String, Object> model){
 				
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);		
-		Date defaultSubStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE);		
 				
-		subscription.setSubscriptionStartDate(defaultSubStartDate);
+		subscription.setSubscriptionStartDate(startDateStrategy.getDefaultValue());
 		
-		model.put("isStartDateEditable", isStartDateEditable);
+		model.put("isStartDateEditable", startDateStrategy.isEditable());
 		
 		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
-		
-		Date defaultSubEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultSubEndDate);
-		
-		model.put("isEndDateEditable", isEndDateEditable);		
+		SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CS);
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
+			SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
+			subscription.setSubscriptionEndDate(ciEndDateStrategy.getDefaultValue());
+			model.put("isEndDateEditable", ciEndDateStrategy.isEditable());
+			
+			model.put("csDefaultEndDate", csEndDateStrategy.getDefaultValue());
+			model.put("ciDefaultEndDate", ciEndDateStrategy.getDefaultValue());
+		}
+		else{
+			subscription.setSubscriptionEndDate(csEndDateStrategy.getDefaultValue());
+			model.put("isEndDateEditable", csEndDateStrategy.isEditable());
+		}
 	}
 	
 	
-	private void initDatesForEditArrestForm(Map<String, Object> model){
+	void initDatesForEditForm(Map<String, Object> model, String topic){
 		
-		SubscriptionStartDateStrategy arrestEditSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
+		SubscriptionStartDateStrategy editSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(topic);
 		
-		boolean isStartDateEditable = arrestEditSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);
+		model.put("isStartDateEditable", editSubStartDateStrategy.isEditable());
 	}
 	
 	
-	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
+	private void initDatesForAddForm(Subscription subscription, Map<String, Object> model, String topic){
 		
 		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
-				
-		model.put("isStartDateEditable", isStartDateEditable);		
-		
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(topic);		
+		subscription.setSubscriptionStartDate(startDateStrategy.getDefaultValue());
+		model.put("isStartDateEditable", startDateStrategy.isEditable());		
 		
 		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-	
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
-
-	private void initDatesForEditIncidentForm(Map<String, Object> model){
-		
-		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		
-		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(topic);
+		subscription.setSubscriptionEndDate(endDateStrategy.getDefaultValue());
+		model.put("isEndDateEditable", endDateStrategy.isEditable());				
 	}
 	
-	
-
-	private void initDatesForAddChCycleForm(Subscription subscription, Map<String, Object> model){
-		
-		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
-				
-		model.put("isStartDateEditable", isStartDateEditable);		
-		
-		
-		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-	
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
-	
-	private void initDatesForAddVehicleCrashForm(Subscription subscription, Map<String, Object> model){
-		
-		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
-				
-		model.put("isStartDateEditable", isStartDateEditable);		
-		
-		
-		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-	
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
-	
-	private void initDatesForEditVehicleCrashForm(Map<String, Object> model){
+	void initDatesForEditVehicleCrashForm(Map<String, Object> model){
 		
 		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
 		
@@ -679,15 +584,6 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);		
 	}
 	
-	private void initDatesForEditChCycleForm(Map<String, Object> model){
-		
-		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
-		
-		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);		
-	}
-
 	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
@@ -703,10 +599,11 @@ public class SubscriptionsController {
 		
 		logger.debug("Subscription: " + subscription.toString());
 		
-		initDatesForAddIncidentForm(subscription, model);
+		initDatesForAddForm(subscription, model, INCIDENT_TOPIC_SUB_TYPE);
 		
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
-		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
+
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -731,9 +628,10 @@ public class SubscriptionsController {
 		
 		logger.info("Subscription: " + subscription.toString());
 				
-		initDatesForAddChCycleForm(subscription, model);
+		initDatesForAddForm(subscription, model, CHCYCLE_TOPIC_SUB_TYPE);
 		
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -759,9 +657,10 @@ public class SubscriptionsController {
 		
 		logger.info("Subscription: " + subscription.toString());
 				
-		initDatesForAddVehicleCrashForm(subscription, model);
+		initDatesForAddForm(subscription, model, PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
 		
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -772,38 +671,15 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/_vehicleCrashForm";
 	}
 	
-	private void validateSubscription(Subscription subscription, BindingResult errors){
-				
-		logger.info("subscription: \n" + subscription);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			arrestSubscriptionAddValidator.validate(subscription, errors);
-			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			incidentSubscriptionAddValidator.validate(subscription, errors);
-			
-		} else if (PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-
-			vehicleCrashSubscriptionValidator.validate(subscription, errors);
-		
-		}	
-		else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			chCycleSubscriptionValidator.validate(subscription, errors);
-		}
-	}
-	
-	
 	/**
 	 * @return
 	 * 		json array string of errors if any.  These can be used by the UI to display to the user
 	 */
-	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
+	@RequestMapping(value="saveSubscription", method=RequestMethod.POST)
 	public  @ResponseBody SaveSubscriptionResponse  saveSubscription(HttpServletRequest request, @RequestParam Map<String,String> allRequestParams,
-			@ModelAttribute("subscription") Subscription subscription,
-			BindingResult errors) {
+			@ModelAttribute("subscription") @Valid Subscription subscription,
+			BindingResult errors, 
+			Map<String, Object> model) {
 								
 		logger.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
 		
@@ -811,8 +687,6 @@ public class SubscriptionsController {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
-		validateSubscription(subscription, errors);										
-		
 		// retrieve any spring mvc validation errors from the controller
 		List<String> errorsList = getValidationBindingErrorsList(errors);
 						
@@ -821,17 +695,20 @@ public class SubscriptionsController {
 		if(errorsList == null || errorsList.isEmpty()){		
 			
 			try {
+				
+				processSubscriptionName(subscription, model);
 				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
-
 				errorsList = Arrays.asList("An error occurred while processing subscription");				
-								
 				logger.error("Failed processing subscription: " + e);
 			}									
-		}					
+		}	
 		
-		List<String> subWarningsList = getSubscriptionWarnings(subscription);
+		List<String> subWarningsList = new ArrayList<>(); 
+		if (errorsList.isEmpty()){
+			subWarningsList = getSubscriptionWarnings(subscription);
+		}
 		
 		String errorMsgsWarnMsgsJson = getErrorsWarningsJson(errorsList, subWarningsList);
 		
@@ -848,19 +725,38 @@ public class SubscriptionsController {
 		}
 		
 		return subscriptionResponse;
+	}
+
+	private void processSubscriptionName(Subscription subscription, Map<String, Object> model) {
+		if (RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic()) 
+				|| ARREST_TOPIC_SUB_TYPE.equalsIgnoreCase(subscription.getTopic())) {
+			CriminalHistoryRapsheetData rapsheetData = (CriminalHistoryRapsheetData) model.get("rapsheetData"); 
+			
+			PersonName personName = rapsheetData.getfullNameToPersonNameMap().get(subscription.getFullName());
+			subscription.setFirstName(personName.getGivenName());
+			subscription.setLastName(personName.getSurName());
+		}
 	}		 
 	
 	List<String> getSubscriptionWarnings(Subscription subscription){
 		
 		List<String> warningList = new ArrayList<String>();
 			
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
+		if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
 			
 			if (fbiIdWarning){
 			
-				if(StringUtils.isEmpty(subscription.getFbiId())){
-					warningList.add("FBI ID missing. Subscription with the FBI is pending.");
-				}				
+				if(StringUtils.isBlank(subscription.getFbiId())){
+					warningList.add(FBI_UCN_DOES_NOT_EXIST_WARNING);
+				}
+				else{
+					if (StringUtils.isBlank(subscription.getSystemId())){
+						warningList.add(FBI_SUBSCRIPTION_REQUEST_PROCESSING);
+					}
+					else {
+						warningList.add(FBI_SUBSCRIPTION_UPDATE_REQUEST_PROCESSING);
+					}
+				}
 			}
 		}			
 		
@@ -891,18 +787,18 @@ public class SubscriptionsController {
 	 * @throws Exception 
 	 * 		if no response received from subscribe operation
 	 */
-	private List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
+	List<String> processSubscribeOperation(Subscription subscription, Element samlElement) throws Exception{
 				
 		if(subscription == null){
 			throw new Exception("subscription was null");
 		}
 				
 		logger.info("Calling subscribe operation...");
+		logger.info("email lists: " + subscription.getEmailList()); 
 		
 		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
 		
-			FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, 
-					getFederatedQueryId(), samlElement);
+		FaultableSoapResponse faultableSoapResponse = subscribeBean.subscribe(subscription, getFederatedQueryId(), samlElement);
 				
 		logger.info("Subscribe operation returned faultableSoapResponse:  " + faultableSoapResponse);
 		
@@ -934,11 +830,8 @@ public class SubscriptionsController {
 		Document subResponseDoc = getSubscriptionResponseDoc(faultableSoapResponse);
 						
 		if(subResponseDoc != null){
-			
 			errorsList = getErrorsFromSubscriptionResponse(subResponseDoc);	
-			
 		}else{
-			
 			errorsList = Arrays.asList("Did not receive subscription confirmation");			
 		}	
 		
@@ -948,29 +841,29 @@ public class SubscriptionsController {
 	
 	private Document getSubscriptionResponseDoc(FaultableSoapResponse faultableSoapResponse) throws Exception{
 		
-	  if(faultableSoapResponse == null){
-		  throw new Exception("Cannot get Document from null " + FaultableSoapResponse.class.getName());
-	  }
-		
-	  String sSoapEnvelope = faultableSoapResponse.getSoapResponse();
-	  
-	  if(StringUtils.isBlank(sSoapEnvelope)){
-		  throw new Exception("soap envelope was blank in the FaultableSoapResponse");
-	  }
-	  				
-	  Document soapEnvDoc = getDocBuilder().parse(new InputSource(new StringReader(sSoapEnvelope)));
-      
-	  if(soapEnvDoc == null){
-		  throw new Exception("soapEnvDoc Document could not be parsed");
-	  }
-	  	  
-      Document subResponseDoc = getSubscriptionResponseDocFromSoapEnvDoc(soapEnvDoc);   
-      
-      if(subResponseDoc == null){
-    	  throw new Exception("Could not get subscription response document from soap envelope document");
-      }
-            		
-      return subResponseDoc;
+		  if(faultableSoapResponse == null){
+			  throw new Exception("Cannot get Document from null " + FaultableSoapResponse.class.getName());
+		  }
+			
+		  String sSoapEnvelope = faultableSoapResponse.getSoapResponse();
+		  
+		  if(StringUtils.isBlank(sSoapEnvelope)){
+			  throw new Exception("soap envelope was blank in the FaultableSoapResponse");
+		  }
+		  				
+		  Document soapEnvDoc = getDocBuilder().parse(new InputSource(new StringReader(sSoapEnvelope)));
+	      
+		  if(soapEnvDoc == null){
+			  throw new Exception("soapEnvDoc Document could not be parsed");
+		  }
+		  	  
+	      Document subResponseDoc = getSubscriptionResponseDocFromSoapEnvDoc(soapEnvDoc);   
+	      
+	      if(subResponseDoc == null){
+	    	  throw new Exception("Could not get subscription response document from soap envelope document");
+	      }
+	            		
+	      return subResponseDoc;
 	}
 	
 	
@@ -1101,9 +994,14 @@ public class SubscriptionsController {
 			
 			SubscriptionRequestErrorResponse invalidReqResp = (SubscriptionRequestErrorResponse)subResponse;
 			
-			rErrorMsg = "Invalid Request: \n";
-			rErrorMsg += invalidReqResp.getRequestErrorSystemName() + "\n";
-			rErrorMsg += invalidReqResp.getRequestErrorTxt();
+			if (invalidReqResp.getRequestErrorTxt().contains("InvalidEmailAddressesException")){
+				rErrorMsg = "The subscription request contains an invalid e-mail address"; 
+			}
+			else{
+				rErrorMsg = "Invalid Request: \n";
+				rErrorMsg += invalidReqResp.getRequestErrorSystemName() + "\n";
+				rErrorMsg += invalidReqResp.getRequestErrorTxt();
+			}
 			
 		}else if(SubscriptionResponseType.UNSUBSCRIPTION_ACCESS_DENIAL == responseType){
 			
@@ -1140,57 +1038,67 @@ public class SubscriptionsController {
 	 * 		used to display appropriate form on the edit modal view
 	 */
 	@RequestMapping(value="editSubscription", method = RequestMethod.GET)
-	public String getSubscriptionEditModal(HttpServletRequest request,			
+	public String editSubscription(HttpServletRequest request,			
 			@RequestParam String identificationID,
-			@RequestParam String topic,
+			@RequestParam(required=false, defaultValue="false") Boolean admin,
+			@RequestParam(required=false, defaultValue="adminLanding") String editSourcePage,
 			Map<String, Object> model) {
 		
+		model.put("editSourcePage", editSourcePage);
 		try{			
 			//init success flag to true - allow processing below to set it to false if things go wrong
 			model.put("initializationSucceeded", true);
+			log.info("identificationID: " + identificationID);
+			log.info("admin: " + BooleanUtils.toString(admin, "true", "false", "false"));
 						
-			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request);
+			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request, admin);
 			
 			Subscription subscription = parseSubscriptionQueryResults(subQueryResponseDoc);				
-						
-			List<String> allNamesList = null;	
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				 ChRapsheetData chRapsheetData = lookupChRapbackDataForArrestEdit(request, subscription, model);
-				
-				 allNamesList = chRapsheetData.formattedAlternateNamesList;				 
-				 subscription.setFbiId(chRapsheetData.fbiNumber);
-
-				 Date rapSheetDob = parseRapsheetDate(chRapsheetData.personDob);				 
-				 subscription.setDateOfBirth(rapSheetDob);
-				
-				 initDatesForEditArrestForm(model);
+				initDatesForEditForm(model, ARREST_TOPIC_SUB_TYPE);
 				 
-				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
+				Date defaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+						endDateStrategy.getPeriod());
+				model.put("defaultEndDate", defaultEndDate);
 				
-				 model.put("showCaseIdInput", showCaseIdInput);
+			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+				
+				initDatesForEditForm(model, RAPBACK_TOPIC_SUB_TYPE);
+				 
+				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
+
+					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
+					Date ciDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							ciEndDateStrategy.getPeriod());
+					model.put("ciDefaultEndDate", ciDefaultEndDate);
+					
+					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CS);
+					Date csDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							csEndDateStrategy.getPeriod());
+					model.put("csDefaultEndDate", csDefaultEndDate);
+				}
+				 
+				model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				
+				model.put("showCaseIdInput", showCaseIdInput);
 				
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				initDatesForEditIncidentForm(model);
+				initDatesForEditForm(model, INCIDENT_TOPIC_SUB_TYPE);
 			
 			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-
-				initDatesForEditChCycleForm(model);
-			
+				
+				initDatesForEditForm(model, CHCYCLE_TOPIC_SUB_TYPE);
 			}else if(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				initDatesForEditVehicleCrashForm(model);
 			}
 											
-			if(allNamesList != null && !allNamesList.isEmpty()){
-				JSONArray namesJsonArray = new JSONArray(allNamesList);		
-				subscription.setPersonNamesJsonArray(namesJsonArray.toString());			
-			}						
-			
 			logger.info("Subscription Edit Request: " + subscription);
-									
 			model.put("subscription", subscription);	
 											
 		}catch(Exception e){
@@ -1198,63 +1106,20 @@ public class SubscriptionsController {
 			model.put("initializationSucceeded", false);			
 			e.printStackTrace();
 			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
+			model.put("subscription", new Subscription());	
 		}
 		
-		return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
-	}
-	
-	
-	private class ChRapsheetData{
-		
-		List<String> formattedAlternateNamesList;
-		
-		SubscribedPersonNames subscribedPersonNames;
-		
-		String fbiNumber;
-				
-		String personDob;
-	}
-	
-	private ChRapsheetData lookupChRapbackDataForArrestEdit(HttpServletRequest request, Subscription subscription, 
-			Map<String, Object> model) throws Exception{
-		
-		List<String> allNamesList = new ArrayList<String>();
-		
-		ChRapsheetData chRapsheetData = getChRapbackData(request, subscription);
-		
-		SubscribedPersonNames subscribedNames = chRapsheetData.subscribedPersonNames;
-		
-		String originalName = subscribedNames == null ? null : subscribedNames.getOriginalName();
-										
-		if(StringUtils.isNotBlank(originalName)){
-			allNamesList.add(originalName);
+		if (!BooleanUtils.isTrue(admin)){
+			return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
 		}
-										
-		List<String> alternateNameList = subscribedNames == null ? null : subscribedNames.getAlternateNamesList();
-		
-		if(alternateNameList != null && !alternateNameList.isEmpty()){
-			allNamesList.addAll(subscribedNames.getAlternateNamesList());
-		}								
-										
-		if(allNamesList == null || allNamesList.isEmpty()){
-			model.put("initializationSucceeded", false);
-			logger.error("Failed to lookup names for arrest subscription");
-		}else{
-			model.put("originalName", subscribedNames.getOriginalName());
+		else{
+			return "subscriptions/admin/edit/_editSubscriptionModal";
 		}
-				
-		chRapsheetData.formattedAlternateNamesList = allNamesList;
-		
-		
-		return chRapsheetData;
 	}
-	
 	
 	
 	private Subscription parseSubscriptionQueryResults(
 			Document subQueryResponseDoc) throws Exception {
-
-		SubscriptionQueryResultsProcessor subQueryResultProcessor = new SubscriptionQueryResultsProcessor();
 
 		Subscription subscription = subQueryResultProcessor
 				.parseSubscriptionQueryResults(subQueryResponseDoc);
@@ -1265,22 +1130,17 @@ public class SubscriptionsController {
 	}
 	
 	
-	private Document runSubscriptionQueryForEditModal(String identificationID,
-			HttpServletRequest request) throws Exception {
-
-		Document subQueryResponseDoc = null;
+	Document runSubscriptionQueryForEditModal(String identificationID,
+			HttpServletRequest request, Boolean admin) throws Exception {
 
 		Element samlAssertion = samlService.getSamlAssertion(request);
 
-		DetailsRequest subscriptionQueryRequest = new DetailsRequest();
-		subscriptionQueryRequest.setIdentificationID(identificationID);
+		DetailsRequest subscriptionQueryRequest = new DetailsRequest(identificationID, admin);
 
-		String subQueryResponse = null;
-
-		subQueryResponse = subConfig.getSubscriptionQueryBean().invokeRequest(
+		String subQueryResponse = subConfig.getSubscriptionQueryBean().invokeRequest(
 				subscriptionQueryRequest, getFederatedQueryId(), samlAssertion);
 
-		subQueryResponseDoc = getDocBuilder().parse(new InputSource(new StringReader(subQueryResponse)));
+		Document subQueryResponseDoc = getDocBuilder().parse(new InputSource(new StringReader(subQueryResponse)));
 
 		logger.info("subQueryResponseDoc: \n");
 		XmlUtils.printNode(subQueryResponseDoc);
@@ -1325,6 +1185,7 @@ public class SubscriptionsController {
 		// used to generated status message
 		List<String> validatedIdList = new ArrayList<String>();		
 		List<String> failedIdList = new ArrayList<String>();
+		List<String> failedDueToValidationDateList = new ArrayList<String>();
 		
 		// call the validate operation for each id/topic parameter
 		for(String iSubId : idJsonNames){
@@ -1332,7 +1193,20 @@ public class SubscriptionsController {
 			JSONObject subIdToSubDataJsonObj = subIdToSubDataJsonObjMap.getJSONObject(iSubId);
 			
 			String iTopic = subIdToSubDataJsonObj.getString("topic");
-			String reasonCode = subIdToSubDataJsonObj.getString("");
+			String reasonCode = subIdToSubDataJsonObj.getString("reasonCode");
+			
+			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
+				
+				String vaidationDueDateString = subIdToSubDataJsonObj.getString("validationDueDate");
+				LocalDate validationDueDate = OJBCDateUtils.parseLocalDate(vaidationDueDateString); 
+				
+				if (validationDueDate != null && 
+						LocalDate.now().isBefore(validationDueDate.minusDays(validationThreshold))){
+					failedDueToValidationDateList.add(iSubId);
+					continue; 
+				}
+			}
+
 						
 			try{
 				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
@@ -1362,7 +1236,7 @@ public class SubscriptionsController {
 			}														
 		}
 				
-		String operationResultMessage = getOperationResultStatusMessage(validatedIdList, failedIdList);				
+		String operationResultMessage = getOperationResultStatusMessage(validatedIdList, failedIdList, failedDueToValidationDateList);				
 		
 		refreshSubscriptionsContent(request, model, operationResultMessage);						
 	}
@@ -1404,9 +1278,9 @@ public class SubscriptionsController {
 	}
 
 
-	private String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList){
+	String getOperationResultStatusMessage(List<String> succeededIdList, List<String> failedIdList, List<String> failedDueToValidationDateList){
 				
-		String resultMessage = null;
+		String resultMessage = "";
 		
 		boolean hasSuccessfulIds = !succeededIdList.isEmpty();
 		boolean hasFailedIds = !failedIdList.isEmpty();
@@ -1429,8 +1303,15 @@ public class SubscriptionsController {
 			sFailedIds = Arrays.toString(aFailedIds);									
 		}
 				
-		if(hasFailedIds){			
-			resultMessage = "Ids Failed: " + sFailedIds;			
+		if(hasFailedIds || (failedDueToValidationDateList != null && !failedDueToValidationDateList.isEmpty())){	
+			if (hasFailedIds){
+				resultMessage = "Ids Failed: " + sFailedIds;
+			}
+			
+			if (failedDueToValidationDateList != null && !failedDueToValidationDateList.isEmpty()){
+				resultMessage += 
+						"\n one or more selected subscriptions are not eligible for validation because the validation due date is too far in the future. "; 
+			}
 		}else{			
 			resultMessage = "Operation Successful";			
 		}
@@ -1476,131 +1357,139 @@ public class SubscriptionsController {
 			}														
 		}
 		
-		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList);
-								
+		String operationStatusResultMsg = getOperationResultStatusMessage(successfulUnsubIdlist, failedUnsubIdList, null);
+
 		refreshSubscriptionsContent(request, model, operationStatusResultMsg);
-		
-		return "subscriptions/_subscriptionResults";
+
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
+
+		if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())){
+			return "subscriptions/_subscriptionResults";
+		}
+		else {
+			return "subscriptions/admin/_subscriptionResults";
+		}
 	}
 	
 	
-	private void refreshSubscriptionsContent(HttpServletRequest request, Map<String, Object> model, String informationMessage) {
+	void refreshSubscriptionsContent(HttpServletRequest request, Map<String, Object> model, String informationMessage) {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		String searchId = getFederatedQueryId();
-		
 		String rawResults = null;
 		
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 		try{
 						
-			rawResults = subConfig.getSubscriptionSearchBean().invokeSubscriptionSearchRequest(searchId, samlElement);
+			rawResults = subConfig.getSubscriptionSearchBean().invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
+			userSession.setMostRecentSubscriptionSearchResult(rawResults);
+			userSession.setSavedMostRecentSubscriptionSearchResult(null);
 						
 		}catch(Exception e){
-			
 			e.printStackTrace();
-			
 			logger.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
-			
 			informationMessage = "Failed retrieving subscriptions";
 		}
 								
+		convertSubscriptionSearchResults(model, informationMessage, rawResults,
+				subscriptionSearchRequest);		
+	}
+
+	private void convertSubscriptionSearchResults(Map<String, Object> model,
+			String informationMessage, String rawResults,
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		Map<String,Object> converterParamsMap = getParams(0, null, null);
+		converterParamsMap.put("validateSubscriptionButton", BooleanUtils.toStringTrueFalse(BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())));
+		converterParamsMap.put("includeAgencyORIColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
+		converterParamsMap.put("includeStatusColumn", BooleanUtils.toStringTrueFalse(BooleanUtils.isTrue(subscriptionSearchRequest.getAdminSearch())));
 
 		//note must default to empty string instead of null for ui to display nothing when desired instead
 		// of having ui display "$subscriptionsContent"
 		String transformedResults = ""; 
 				
 		if(StringUtils.isNotBlank(rawResults)){
-			
 			transformedResults = searchResultConverter.convertSubscriptionSearchResult(rawResults, converterParamsMap);			
 		}
 			
 		model.put("subscriptionsContent", transformedResults);
-		model.put("informationMessages", informationMessage);		
+		model.put("informationMessages", informationMessage);
 	}
-	
 
-	@InitBinder
+	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
+		binder.addValidators(subscriptionValidator);
+	}
+	
+	@InitBinder("subscriptionSearchRequest")
+	public void initSubscriptionSearchRequestBinder(WebDataBinder binder) {
+		binder.addValidators(subscriptionSearchRequestValidator);
 	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
 	public Map<String, String> getTopicValueToLabelMap() {
+		if (subscriptionTypeValueToLabelMap != null && subscriptionTypeValueToLabelMap.size() == 2){
+			subscriptionTypeValueToLabelMap.remove("");
+		}
 		return subscriptionTypeValueToLabelMap;
 	}
 	
 	
-	@ModelAttribute("subscriptionPurposeValueToLabelMap")
-	public Map<String, String> getSubscriptionPurposeValueToLabelMap() {
-		return subscriptionPurposeValueToLabelMap;
+	@ModelAttribute("subscriptionPurposeEditableMap")
+	public Map<String, String> getSubscriptionPurposeValueToLabelMap(Map<String, ?> model) {
+		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		
+		Map<String, String> subscriptionPurposeMap = new HashMap<>();
+		
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
+			subscriptionPurposeMap.putAll(subscriptionPurposeValueToLabelMap);
+		}
+		else if (userLogonInfo.getCriminalJusticeEmployerIndicator()){
+			subscriptionPurposeMap.put("CS", subscriptionPurposeValueToLabelMap.get("CS"));
+		}
+		return subscriptionPurposeMap;
 	}
 
-	private ChRapsheetData getChRapbackData(HttpServletRequest request, Subscription subscription) throws Exception{
-						
-		DetailsRequest detailsRequestWithStateId = new DetailsRequest();
-		detailsRequestWithStateId.setIdentificationID(subscription.getStateId());
-		
-		String crimHistSysIdFromPersonSid = getSystemIdFromPersonSID(request, detailsRequestWithStateId);
-		
-		if(StringUtils.isBlank(crimHistSysIdFromPersonSid)){
-			return null;
-		}
-		
-		Document rapSheetDoc = processDetailQueryCriminalHistory(request, crimHistSysIdFromPersonSid);	
-				
-		logger.info("Rapsheet doc for alt names: \n");		
-		XmlUtils.printNode(rapSheetDoc);
-		
-		SubscribedPersonNames subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
-				
-		logger.info("Subscription person names: \n"+ subscribedPersonNames.getOriginalName() + " + " 
-				+ Arrays.toString(subscribedPersonNames.getAlternateNamesList().toArray()));	
-				
-		ChRapsheetData chRapsheetData = new ChRapsheetData();		
-		chRapsheetData.subscribedPersonNames = subscribedPersonNames;		
-		chRapsheetData.fbiNumber = getFbiIdFromRapsheet(rapSheetDoc);
-		chRapsheetData.personDob = getDOBFromRapsheet(rapSheetDoc);
-		
-		return chRapsheetData;
-	}
-		
-	
-	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
+	Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
+		params.put("subscriptionExpirationAlertPeriod", subscriptionExpirationAlertPeriod);
+		params.put("validationThreshold", validationThreshold.toString());
 		return params;
 	}
-	
 
 	// note system id is used by the broker intermediary to recognize that this is 
 	// an edit.  The system id is not set for the add operation
-	@RequestMapping(value="updateSubscription", method=RequestMethod.GET)
+	@RequestMapping(value="updateSubscription", method=RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody String updateSubscription(HttpServletRequest request,
-			@ModelAttribute("subscription") Subscription subscription,
+			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		
+		logger.info("\n* * * * inside updateSubscription() * * * *\n\n: " + subscription + "\n");
 		Element samlElement = samlService.getSamlAssertion(request);		
 						
 		// get potential spring mvc controller validation errors from validating UI values
-		validateSubscriptionUpdate(subscription, errors);		
+//		validateSubscriptionUpdate(subscription, errors);		
 						
 		List<String> errorsList = getValidationBindingErrorsList(errors);
 		
 		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
+			
 			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
-						
-		List<String> warningsList = getSubscriptionWarnings(subscription);
-		
+			
+		List<String> warningsList  = new ArrayList<>();
+		if (errorsList.isEmpty()){
+			warningsList = getSubscriptionWarnings(subscription);
+		}
 		String errorsWarningsJson = getErrorsWarningsJson(errorsList, warningsList);
 		
 		logger.info("\n\n updateSubscription(...) returning errors/warnings json: \n" + errorsWarningsJson);
@@ -1609,26 +1498,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void validateSubscriptionUpdate(Subscription subscription, BindingResult errorsBindingResult){
-								
-		logger.info("sub Edit Request = \n" + subscription);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			arrestSubscriptionEditValidator.validate(subscription, errorsBindingResult);
-			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);
-		
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			chCycleSubscriptionValidator.validate(subscription, errorsBindingResult);
-		}
-	}
-	
-	
-	private List<String> getValidationBindingErrorsList(BindingResult errors){
+	List<String> getValidationBindingErrorsList(Errors errors){
 		
 		List<String> errorMsgList = null;
 		
@@ -1653,12 +1523,16 @@ public class SubscriptionsController {
 	 * @return systemId
 	 */
 	private String getSystemIdFromPersonSID(HttpServletRequest request,
-			DetailsRequest detailsRequestWithSid) {
-						
-		logger.info("person sid: " + detailsRequestWithSid.getIdentificationID());
+			String sid) {
+
+		if (StringUtils.isBlank(sid)){
+			return null;
+		}
+		
+		logger.info("person sid: " + sid);
 		
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();				
-		personSearchRequest.setPersonSID(detailsRequestWithSid.getIdentificationID());	
+		personSearchRequest.setPersonSID(sid);	
 		
 		List<String> sourceSystemsList = Arrays.asList(OJBCWebServiceURIs.CRIMINAL_HISTORY_SEARCH);		
 		personSearchRequest.setSourceSystems(sourceSystemsList);
@@ -1758,7 +1632,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getFbiIdFromRapsheet(Document rapSheetDoc){
+	String getFbiIdFromRapsheet(Document rapSheetDoc){
 	
 		String fbiId = null;
 		
@@ -1773,19 +1647,37 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getDOBFromRapsheet(Document rapSheetDoc){
+	private List<LocalDate> getDobsFromRapsheet(Document rapSheetDoc){
 		
-		String dob = null;
+		List<LocalDate> dobs = new ArrayList<>();
 		
 		try{			
-			dob = XmlUtils.xPathStringSearch(rapSheetDoc, 
-					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate/nc:Date");
+			String primaryDobString = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate"
+					+ "[@s:metadata =/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Metadata[nc:CommentText='Primary']/@s:id]/nc:Date");
+			List<String> dobStrings = new ArrayList<>();
+			dobStrings.add(primaryDobString);
+			
+			NodeList aliasDobNodes = XmlUtils.xPathNodeListSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate"
+					+ "[@s:metadata =/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Metadata[nc:CommentText='Alias']/@s:id]/nc:Date");
+			for(int i=0; i < aliasDobNodes.getLength(); i++){
+				Node dobNode = aliasDobNodes.item(i);	
+				String dobString = dobNode.getTextContent();	
+				
+				dobStrings.add(dobString);
+			}
+			
+			dobs = dobStrings.stream()
+					.map(OJBCDateUtils::parseLocalDate)
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
 			
 		}catch(Exception e){
 			logger.error("Exception while getting dob from rapsheet \n" + e);
 		}
 		
-		return dob;
+		return dobs;
 	}	
 	
 	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
@@ -1796,10 +1688,9 @@ public class SubscriptionsController {
 						
 		Node pNameNode = XmlUtils.xPathNodeSearch(rapSheetNode, "rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonName");
 		
-		String personOrigFullName = getNameConcatinated(pNameNode);			
-		personOrigFullName = StringUtils.strip(personOrigFullName);
+		PersonName personOrigFullName = getPersonName(pNameNode);			
 		
-		if(StringUtils.isNotBlank(personOrigFullName)){			
+		if(personOrigFullName!= null){			
 			rSubscribedPersonNames.setOriginalName(personOrigFullName);			
 		}
 						
@@ -1809,10 +1700,10 @@ public class SubscriptionsController {
 		for(int i=0; i < altNameNodeList.getLength(); i++){
 			
 			Node iAltNameNode = altNameNodeList.item(i);	
-			String fullNameContinated = getNameConcatinated(iAltNameNode);	
+			PersonName personName = getPersonName(iAltNameNode);	
 			
-			if(StringUtils.isNotBlank(fullNameContinated)){
-				rSubscribedPersonNames.getAlternateNamesList().add(fullNameContinated);
+			if(personName.isNotEmpty()){
+				rSubscribedPersonNames.getAlternateNamesList().add(personName);
 			}								
 		}		
 		return rSubscribedPersonNames;		
@@ -1820,29 +1711,16 @@ public class SubscriptionsController {
 	
 
 	
-	String getNameConcatinated(Node nameNode) throws Exception{
+	PersonName getPersonName(Node nameNode) throws Exception{
 		
-		String fullName = "";
 		
 		String fName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonGivenName");
 		String mName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonMiddleName");		
 		String lName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonSurName");	
 								
-		if(StringUtils.isNotBlank(fName)){
-			fullName += fName.trim();
-		}
-						
-		if(StringUtils.isNotBlank(mName)){
-			fullName += " " + mName.trim();
-		}
+		PersonName personName = new PersonName(fName, mName, lName);
 		
-		if(StringUtils.isNotBlank(lName)){
-			fullName += " " + lName.trim();
-		}
-		
-		fullName = StringUtils.trim(fullName);
-		
-		return fullName;	
+		return personName;	
 	}
 	
 	

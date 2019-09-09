@@ -133,9 +133,15 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionProvisionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionProvisionCodeText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A disposition provision.
+			<xsd:documentation>A code representing a disposition provision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DispositionProvisionCodeDescriptionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code description for a disposition provision code.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -172,6 +178,20 @@
 			<xsd:documentation>A type of general offense identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeOwnerAgency" type="nc:OrganizationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The agency who is responsible for a charge at the time of disposing of a charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
+	<xsd:element name="ChargeAssignedAgency" type="nc:OrganizationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The agency who is responsible for a charge modification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
+	
+	
 	<xsd:element name="RecordCategoryIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
@@ -214,6 +234,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeReferralCountQuantity" type="niem-xs:nonNegativeInteger"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A number of times a charge is referred to another agency.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="ArrestPrimarySystemIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
@@ -246,6 +273,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeReviewedIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a charge has been reviewed; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>

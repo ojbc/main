@@ -18,12 +18,16 @@ package org.ojbc.intermediaries.sn.util;
 
 import static junit.framework.Assert.assertEquals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.ojbc.intermediaries.sn.notification.Offense;
 import org.ojbc.util.xml.XmlUtils;
-
+import org.w3c.dom.Document;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Test;
@@ -75,8 +79,6 @@ public class NotificationBrokerUtilsTest {
     	
 		List<String> offenseStrings = NotificationBrokerUtils.getOffenseStrings(offenses );
 		
-		System.out.println(offenseStrings);
-		
 		assertEquals("Offense Code: Offense 1 - NDEx Code<br/>Offense Description: Offense 1 Text<br/>", offenseStrings.get(0));
 		assertEquals("Offense Code: Offense 2 - Category Text<br/>Offense Description: Offense 2 Text<br/>", offenseStrings.get(1));
 		assertEquals("Offense Description: Offense 3 Text<br/>", offenseStrings.get(2));
@@ -104,4 +106,14 @@ public class NotificationBrokerUtilsTest {
     	
     }
     
+	public static Document getMessageBody(String filePath) throws Exception {
+		File inputFile = new File(filePath);
+
+		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+		docBuilderFact.setNamespaceAware(true);
+		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+		Document document = docBuilder.parse(inputFile);
+		
+		return document;
+	}
 }

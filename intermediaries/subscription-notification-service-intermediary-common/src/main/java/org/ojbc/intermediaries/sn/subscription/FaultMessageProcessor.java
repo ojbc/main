@@ -106,7 +106,7 @@ public class FaultMessageProcessor {
 
 		if (operationName.equals("Validate"))
 		{
-			detailPayload = FaultMessageBuilderUtil.createUnableToValidateSubscriptionFault((String)exchange.getIn().getHeader("subscriptionID"));
+			detailPayload = FaultMessageBuilderUtil.createUnableToValidateSubscriptionFault((String) exchange.getIn().getHeader("subscriptionId"));
 		}	
 
 	    SoapFault fault = new SoapFault("unable to process request", SoapFault.FAULT_CODE_SERVER);

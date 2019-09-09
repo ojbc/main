@@ -27,8 +27,7 @@
   			 stateSave: true, 
   			 colReorder: true,
 			 "columnDefs": [ 
-			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}, 
-			 	{ targets: [ 8 ],  type: "date"} 
+			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}
 		 	 ]
   		});
   		
@@ -139,7 +138,7 @@
 				});
 				
              	$('#modalIframe').attr('src', url);		
-
+	
                 },
                 position: {
                            my: "center",

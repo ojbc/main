@@ -63,10 +63,11 @@
 						<xsd:element ref="chm-resp-ext:ArrestHideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ArrestUnhideResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:ExpungeResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:DistrictAttorneyArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
-						<xsd:element ref="chm-resp-ext:MunicipalProsecutorArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:ArrestReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:DeleteDispositionResponseText" minOccurs="0" maxOccurs="unbounded" />
 						<xsd:element ref="chm-resp-ext:FinalizeArrestResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:DeclineChargeResponseText" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="chm-resp-ext:ChargeReferralResponseText" minOccurs="0" maxOccurs="unbounded" />
 					</xsd:choice>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -116,14 +117,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DistrictAttorneyArrestReferralResponseText" type="nc:TextType">
+	<xsd:element name="ArrestReferralResponseText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A district attorney charge referral response message.</xsd:documentation>
+			<xsd:documentation>An arrest referral response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MunicipalProsecutorArrestReferralResponseText" type="nc:TextType">
+	<xsd:element name="ChargeReferralResponseText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A municipal prosecutor charge referral response message.</xsd:documentation>
+			<xsd:documentation>A charge referral response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DeleteDispositionResponseText" type="nc:TextType">
@@ -134,6 +135,11 @@
 	<xsd:element name="FinalizeArrestResponseText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A finalize arrest response message.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeclineChargeResponseText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A decline charge response message.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"

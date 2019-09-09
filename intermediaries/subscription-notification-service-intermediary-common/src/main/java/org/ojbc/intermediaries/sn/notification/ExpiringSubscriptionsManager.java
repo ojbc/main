@@ -18,16 +18,22 @@ package org.ojbc.intermediaries.sn.notification;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionSearchRequest;
+import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.ojbc.util.xml.subscription.Unsubscription;
+import org.w3c.dom.Document;
 
 public class ExpiringSubscriptionsManager {
 
@@ -49,7 +55,11 @@ public class ExpiringSubscriptionsManager {
 		
 		for (String subscriptionOwner : uniqueSubscriptionOwners)
 		{
-			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.searchForSubscriptionsBySubscriptionOwner(subscriptionOwner);
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
+			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
+			
+			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
 			
 			for (Subscription subscription : subscriptionsForOwner)
 			{
@@ -81,8 +91,8 @@ public class ExpiringSubscriptionsManager {
 			
 			email.setMessageBody(MESSAGE_BODY.replace("<NUMBER_OF_EXPIRING_SUBSCRIPTIONS>", String.valueOf(numberOfExpiringSubscriptions)));
 			
-			//TODO: we will need to change this to the subscription owner email which needs to be added to the database.
-			email.setTo(entry.getKey());
+			//All subscriptions will have the same owner and email address so we can get the email address from the first subscription because there will be at least 1
+			email.setTo(entry.getValue().get(0).getSubscriptionOwnerEmailAddress());
 			email.setSubject(EMAIL_SUBJECT);
 			
 			emailsToSend.add(email);
@@ -91,6 +101,62 @@ public class ExpiringSubscriptionsManager {
 		
 		return emailsToSend;
 		
+	}
+	
+	public List<Document> returnExpiredSubscriptionsToUnsubscribe()
+	{
+		log.info("Checking for expired subscriptions to unsubscribe");
+		
+		List<String> uniqueSubscriptionOwners = subscriptionSearchQueryDAO.getUniqueSubscriptionOwners();
+		
+		Set<Subscription> expiredSubscriptions = new HashSet<Subscription>();
+		List<Document> subscriptionsToUnsubscribe = new ArrayList<Document>();
+		
+		for (String subscriptionOwner : uniqueSubscriptionOwners)
+		{
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
+			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
+			subscriptionSearchRequest.setActive(true);
+			
+			//This method will only return active subscriptions
+			List<Subscription> subscriptionsForOwner = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
+			
+			for (Subscription subscription : subscriptionsForOwner)
+			{
+				
+				if (subscription.isExpired())
+				{
+					expiredSubscriptions.add(subscription);
+				}	
+				
+				if (subscription.getEndDate() != null)
+				{
+					if (subscription.getEndDate().isBefore(DateTime.now()))
+					{
+						expiredSubscriptions.add(subscription);
+					}	
+				}	
+			}	
+			
+		}	
+
+		expiredSubscriptions.forEach((expiredSubscription) -> {
+		    
+			//handle unsubscription here
+			Unsubscription unsubscription = new Unsubscription(String.valueOf(expiredSubscription.getId()), expiredSubscription.getTopic(), expiredSubscription.getSubscriptionCategoryCode(), null, null, null, null);
+			
+			Document unsubscriptionDoc;
+			try {
+				unsubscriptionDoc = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
+				subscriptionsToUnsubscribe.add(unsubscriptionDoc);
+			} catch (Exception e) {
+				log.error("Unable to creat subscription for: " + expiredSubscription.getId(), e);
+			}
+			
+		});
+		
+		return subscriptionsToUnsubscribe;
 	}
 
 	public String createCamelEmail(Exchange in, @Body ExpiringSubscriptionEmail expiringSubscriptionEmail)

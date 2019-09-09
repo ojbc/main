@@ -61,7 +61,7 @@ public class TestArchiveProcessor {
 		
 		archiveProcessor.setRapbackDAO(rapbackDAO);
 		
-		Document result = archiveProcessor.processArchiveResult("000001820140729014008339997", "System Name");
+		Document result = archiveProcessor.processArchiveResult("000001820140729014008339997", "System Name", "SubmitIdentificationResultsArchiveRequest");
 		
 		XmlUtils.printNode(result);
 		

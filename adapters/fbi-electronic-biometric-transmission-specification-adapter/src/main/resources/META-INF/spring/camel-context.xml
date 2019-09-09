@@ -25,38 +25,26 @@
 	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
 	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
-	<import resource="properties-context.xml"/>
-	<import resource="cxf-endpoints.xml"/>	
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="fbi-electronic-biometric-transmission-specification-adapter">
-	
-		<!-- 
-			#########################################################################################
-					File system Directories		
-			#########################################################################################
-		-->
-			<!-- alternative endpoint for testing: file system message input directory -->
-			<endpoint id="inputMessageDirEndpoint" 
-				uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />			
-
-			<!-- Test sending in sample fbi ngi response messages -->
-			<endpoint id="ngiResponseTestInputDirEndpoint" 
-				uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />
-						
-			<!-- Our directory to store synchronous FBI responses with 'control number' information -->
-			<endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
-
-			<!-- Our directory to store FBI asynchronous Subscription Acknowledgement responses -->
-			<endpoint id="ngiSubAcknowledgeAsynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_SubAcknowledge_AsynchResponse"/>
-			
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="fbi-electronic-biometric-transmission-specification-adapter" streamCache="true">
+	  	<routeContextRef ref="ebtsFileDropRoutes"/>	
+	  	<routeContextRef ref="ebtsCriminalHistoryRoutes"/>	
+	  	<routeContextRef ref="fbiErrorHandlingRoutes"/>
+	  	
 		<!-- 
 			#########################################################################################
 					Web Service Endpoints
@@ -64,25 +52,46 @@
 		 -->
 
 		<!-- called by s/n intermediary -->
-		<endpoint id="fbiEbtsWebServiceInputEndpoint"
+		<endpoint id="fbiEbtsServiceEndpoint"
 			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 										
-		<!-- called by s/n intermediary -->
-		<endpoint id="fbiEbtsSubscriptionManagerEndpoint" uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />									
+		<!-- called by s/n intermediary and rapback adapter for SID consolidation -->
+		<endpoint id="fbiEbtsSubscriptionManagerServiceEndpoint" 
+			uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />									
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
+			uri="https4://${fbiEbtsAdapter.ngiUserServiceEndpoint}" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
 		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<endpoint id="arrestReportingServiceEndpoint" 
-			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint" 
+			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+
+		<endpoint id="personQueryRequestCriminalHistoryServiceEndpoint" 
+			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
+		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint" 
+			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
+		<endpoint id="fbiDeadLetterDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiConnectionFailures"/>	
+		
+		<endpoint id="fbiSubscriptionRequestDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/requests"/>
+		
+		<endpoint id="fbiIdentitySummaryRequestsDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/requests"/>
+		
+		<endpoint id="fbiSubscriptionResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses"/>	
+
+		<endpoint id="fbiIdentitySummaryResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/responses"/>
+
+		<endpoint id="fbiNotificationsDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications"/>	
+		
+		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>				
 		
 		<!-- 
 			#########################################################################################
@@ -92,55 +101,22 @@
 				
 		<camel:route id="fbiEbtsSubscriptionManager_Route">
 		
-			<from uri="fbiEbtsSubscriptionManagerEndpoint"/>
+			<from uri="fbiEbtsSubscriptionManagerServiceEndpoint"/>
 		
-			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerEndpoint \n\n\n"/>
+			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerServiceEndpoint \n\n\n"/>
 
-			<setHeader headerName="originalSubscriptionOperation">
-				<simple>${header.operationName}</simple>
-			</setHeader>
-			
 			<to uri="direct:processFbiEbtsRequest"/>
 										
-			<log message="\n\n\n Getting ready to send response for operation: ${header.originalSubscriptionOperation}  \n\n\n"/>			
+			<log message="\n\n\n Getting ready to send response for operation: ${header.operationName}  \n\n\n"/>			
 								
 			<to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeManagerResponse"/>
 			
 		</camel:route>
-		
-		
-		<!--  for testing SUBSCRIBE by dropping message into adapter input directory -->
-		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
-		
-			<camel:from uri="inputMessageDirEndpoint"/>
-			
-			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
-			
-			<camel:setHeader headerName="operationName">
-				<constant>Subscribe</constant>
-			</camel:setHeader>		
-		
-			<camel:to uri="direct:processFbiEbtsRequest"/>
-		
-			<!-- Save the fbi synchronous response(control number) to a file -->
-			<camel:setHeader headerName="CamelFileName">
-				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
-			</camel:setHeader>
-			
-			<camel:setHeader headerName="fbiResponseControlNumber">
-				<camel:xpath>/ngi-core:NGIControlNumber/text()</camel:xpath>												
-			</camel:setHeader>
-			
-			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
-			
-			<camel:to uri="ngiControlNumberSynchResponseDir"/>
-		</camel:route>
-
 
 		<!-- Called by ojb s/n intermediary -->
 		<camel:route id="fbiEbtsInputWebServiceRoute">
 	
-			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
+			<camel:from uri="fbiEbtsServiceEndpoint" />
 			
 			<camel:log message="\n\n Fbi Adapter service received inbound message. \n\n" />													 						
 			
@@ -153,24 +129,49 @@
 
 		<camel:route id="fbiEbtsProcessingRoute">
 		
-			<camel:from uri="direct:processFbiEbtsRequest"/>			
-						
+			<camel:from uri="direct:processFbiEbtsRequest"/>	
+
+			<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />	
+
 			<camel:choice>
 			  <camel:when>
-			    <simple>${header.operationName} == 'Modify'</simple>  			    
-			    <log message="\n\n\n Processing operation:  Modify \n\n\n" />    			    
-			    <to uri="direct:processOperation"/>    
+			    <simple>${header.operationName} == 'Subscribe'</simple>			  	
+
+			  	<!-- Received criminal or civil subscription -->
+				<camel:choice>
+					<camel:when>
+					 	<camel:xpath>/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode</camel:xpath>
+					 	
+					 	<camel:log message="Criminal Subscription Received"/>
+					 	
+					</camel:when>
+					<camel:when>
+						<camel:xpath>/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode</camel:xpath>
+						
+						<camel:log message="Civil Subscription Received"/>
+						
+						<camel:setHeader headerName="civilSubscription">
+							<camel:constant>true</camel:constant>
+						</camel:setHeader>
+						
+						<!-- retrieve fingerprints as NIST attachment here -->
+						<camel:to uri="bean:nistImageProcessor?method=extractCivilFingerprints"/>
+						
+					</camel:when>
+					<camel:otherwise>
+						<camel:log message="Unrecognized subscription type"/>
+						<camel:stop/>
+					</camel:otherwise>			
+				</camel:choice>
 			  </camel:when>
-			  <when>
-			    <simple>${header.operationName} == 'Subscribe'</simple>			    
-			    <log message="\n\n\n Processing operation:  Subscribe \n\n\n" />  			    
-			    <to uri="direct:processOperation"/>
-			  </when>
-			  <when>
-			  	<simple>${header.operationName} == 'Unsubscribe'</simple>			  	
-			  	<log message="\n\n\n Processing operation:  Unsubscribe \n\n\n" />			  	
+			</camel:choice>  
+			
+			<camel:choice>
+			  <camel:when>
+			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
+				
 			  	<to uri="direct:processOperation"/>
-			  </when>
+			  </camel:when>
 			  <otherwise>
 			  	<log message="\n\n\n Unknown operation: ${header.operationName}  - Not processing!  \n\n\n" loggingLevel="ERROR"/>
 			  </otherwise>			  
@@ -179,47 +180,35 @@
 		</camel:route>
 		
 		
-		<route id="processOperationRoute">
+		<route id="processOperationRoute" errorHandlerRef="deadLetterErrorHandler">
 		
 			<from uri="direct:processOperation" />
 			
-			<camel:to uri="direct:transformToFbiNgiMessage" />
-		
+			<camel:log message="Operation Name: ${header.operationName}"/>
+			
+			<!-- the Criminal history transform is handled in a different route -->
+			<camel:filter>
+				<simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>	
+				<camel:to uri="direct:transformToFbiNgiMessage" />
+			</camel:filter>
+			
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
 
-			<camel:setHeader headerName="operationNameSpace">
-				<constant>http://ws.cjis.gov/2014/08/01/ngi/service</constant>
-			</camel:setHeader>
+			<camel:removeHeaders pattern="*"/>
 
-			<camel:setHeader headerName="operationName">
-				<constant>submitRequest</constant>
-			</camel:setHeader>
-		
+			<camel:to uri="xslt:xsl/SOAPWrapper.xsl"/>
+					
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 						
-			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response \n\n\n"/>					
+			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response: ${body} \n\n\n"/>					
 		
 		</route>
 		
-				
-		<route id="fbiNgiResponseTestInputRoute">
-				 
-		  <from uri="ngiResponseTestInputDirEndpoint"/>
-		  
-		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
-		  		  
-			<multicast parallelProcessing="false" >
-				<to uri="direct:processFbiNgiResponse"/>				
-				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
-			</multicast>				
-		</route>
-			
-						
 		<route id="fbiNgiResponseWebServiceRoute">		
 			
 			<from uri="ngiResponseServiceEndpoint"/>	
 			
-			<log message="Using fbi ngi response Webservice route \n\n\n" loggingLevel="INFO"/>
+			<log message="Process FBI asynchronous response and send void message \n\n\n" loggingLevel="INFO"/>
 				
 			<multicast parallelProcessing="false" >
 				<to uri="direct:processFbiNgiResponse"/>				
@@ -229,59 +218,251 @@
 				
 		
 		<!-- 
-			Receives from FBI NGI - either Subscription Acknowledgments or arrest notifications  			 
+			Receives from FBI NGI - either Subscription Acknowledgments or FBI rapback notifications  			 
 			* Subscription Acknowledgments from FBI NGI, saves them to disk and sends back a synchronous VOID response message to FBI
-			* Arrest Notifications: transforms and sends to Arrest Intermediary			
+			* FBI Rapback Notifications: transforms and sends to Criminal History Reporting Service			
 		-->
 		<camel:route id="ngiResponseServiceRoute">
 		
 			<camel:from uri="direct:processFbiNgiResponse"/>
 			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
 			<camel:log message="\n\n ngiResponseService... \n\n"/>
 
 			<camel:setHeader headerName="trxCatCode">
-				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
-			</camel:setHeader>
-
-			<camel:setHeader headerName="rapBackTriggerCode">
-			 	<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackTriggeringEventCode/text()</xpath>
+				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode</xpath>
 			</camel:setHeader>
 			
-			<log message="\n\n\n trxCatCode: ${header.trxCatCode}, rapBackTriggerCode: ${header.rapBackTriggerCode} \n\n\n" loggingLevel="INFO"/>
+			<camel:setHeader headerName="transactionControlReferenceIdentification">
+				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlReferenceIdentification/nc:IdentificationID</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="transactionControlIdentification">
+				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ansi-nist:TransactionControlIdentification/nc:IdentificationID</xpath>
+			</camel:setHeader>
+
+			<log message="\nTransaction Category Code: ${header.trxCatCode},  Transaction Control Reference ID:  ${header.transactionControlReferenceIdentification}, Transaction Control Identification: ${header.transactionControlIdentification}" loggingLevel="INFO"/>
 
 			<choice>
 				<when>
-					<simple>${header.trxCatCode} == 'RBN' and ${header.rapBackTriggerCode} == '1'</simple>
+					<simple>${header.trxCatCode} == 'RBIHSR'</simple>
 					
-					<log message="\n\n\n  Detected Arrest Message, processing... \n\n\n" loggingLevel="INFO"/>
+					<camel:to uri="direct:processRBIHSR"/>
+				</when>
+				<when>
+					<simple>${header.trxCatCode} == 'RBRN'</simple>
 					
-					<to uri="direct:processArrestNotification"/>				
+					<camel:to uri="direct:processRBRN"/>
+				</when>
+				<when>
+					<simple>${header.trxCatCode} == 'RBN'</simple>
+					
+					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Notification_${in.headers.transactionControlIdentification}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToNotificationFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiNotificationsDir"/>
+					
+					<camel:to uri="bean:rapbackEventTextProcessor?method=processRapbackEventText"/>
+					
+					<!-- Audit message here, PK is saved as header for updates downstream -->
+					<camel:to uri="bean:fbiNotificationAuditProcessor?method=auditFBIRapbackNotification"/>
+					
+					<camel:choice>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_CONSOLIDATION'</camel:simple>
+							<to uri="direct:processFederalRapbackConsolidation"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_DELETION'</camel:simple>
+							<to uri="direct:processFederalRapbackDeletion"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_RESTORATION'</camel:simple>
+							<to uri="direct:processFederalRapbackRestoration"/>	
+						</camel:when>
+						<camel:when>
+							<camel:xpath>//ebts:RapBackTriggeringEventCode</camel:xpath>
+							<to uri="direct:processFederalRapbackNotification"/>	
+						</camel:when>
+						<camel:otherwise>
+							<camel:log message="Unknown notification from FBI"/>
+						</camel:otherwise>
+					</camel:choice>
+					
+									
 				</when>
 				<when>
 					<simple>${header.trxCatCode} == 'RBSR'</simple>
 					<log message="\n\n\n Handling message as Rapback Subscription Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToResponseFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiSubscriptionResponseDir"/>
+									
+					<camel:to uri="bean:fbiSubscriptionAuditProcessor?method=auditFBISubscriptionResponse"/>				
 									
 					<to uri="direct:processRapbackSubscriptionResponse"/>																				
 				</when>				
 				<when>
 					<simple>${header.trxCatCode} == 'RBMNTR'</simple>
 					<log message="\n\n\n Handling message as Rapback Subscription Maintenance Response \n\n\n" loggingLevel="INFO"/>	
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToResponseFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiSubscriptionResponseDir"/>
+					
+					<camel:to uri="bean:fbiSubscriptionAuditProcessor?method=auditFBISubscriptionResponse"/>
 									
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
+				<when>
+					<simple>${header.trxCatCode} == 'ERRA'</simple>
+					<log message="\n\n\n Handling message as Rapback Subscription Error Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToResponseFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiSubscriptionResponseDir"/>
+					
+					<camel:to uri="bean:fbiSubscriptionAuditProcessor?method=auditFBISubscriptionResponse"/>		
+									
+					<to uri="direct:processSubscriptionErrorResponse"/>																				
+				</when>				
+
+				<when>
+					<simple>${header.trxCatCode} == 'ERRI'</simple>
+					<log message="\n\n\n Handling message as Federal Identity History Error Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Identity_History_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToResponseFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/responses/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiIdentitySummaryResponseDir"/>
+					
+					<to uri="direct:processRBIHSR"/>																				
+				</when>				
+
+				
 				<otherwise>
-					  <log message="\n\n\n Unrecognized Message!! \n\n\n" loggingLevel="WARN"/> 
+					  <log message="\n\n\n Unrecognized Message from FBI!! \n\n\n${body}\n\n\n\n" loggingLevel="WARN"/> 
 				</otherwise>						
 			</choice>
 											
 		</camel:route>		
 		
-		
-		<route id="arrestNotificationRoute">
-		
-			<from uri="direct:processArrestNotification"/>
+		<route id="processRBRNRoute">
+			<camel:from uri="direct:processRBRN"/>
 			
-			<log message="\n\n\n processArrestNotification... \n\n\n" loggingLevel="INFO" />	
+			<camel:log message="Processing RBRN messaage"/>
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Rapback_Renewal_Notification_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="pathToNotificationFile">
+				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications/$simple{in.headers.CamelFileName}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiNotificationsDir"/>
+
+			<camel:to uri="bean:fbiRapbackRenewalAuditProcessor?method=auditFBIRapbackRenewalNotification"/>
+			
+			<camel:log message="RBRN auditing complete."/>
+			
+			<camel:stop/>
+			
+		</route>
+		
+		<route id="processSubscriptionErrorResponseRoute">
+		
+			<from uri="direct:processSubscriptionErrorResponse"/>
+			
+			<camel:log message="Send email notification of error"/>
+			
+			<camel:to uri="bean:fbiEmailErrorProcessor?method=createErrorEmail"/>
+			
+			<camel:to uri="smtpEndpoint"/>
+
+		</route>		
+
+		<route id="processFederalRapbackConsolidationRoute">
+		
+			<from uri="direct:processFederalRapbackConsolidation"/>
+			
+			<camel:log message="Process Federal Consolidation"/>
+			
+			<camel:to uri="xslt:xsl/RBNToConsolidationReport.xsl"/>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryConsolidation</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
+			
+		</route>		
+
+		<route id="processFederalRapbackRestorationRoute">
+		
+			<from uri="direct:processFederalRapbackRestoration"/>
+			
+			<camel:log message="Process Federal Restoration"/>
+			
+			<camel:to uri="xslt:xsl/RBNToRestorationReport.xsl"/>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryRestoration</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
+		
+		</route>		
+
+		<route id="processFederalRapbackDeletionRoute">
+		
+			<from uri="direct:processFederalRapbackDeletion"/>
+			
+			<camel:log message="Process Federal Deletion"/>
+			
+			<camel:to uri="xslt:xsl/RBNToExpungementReport.xsl"/>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryExpungement</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
+		</route>		
+		
+		<route id="federalRapbackNotificationRoute">
+		
+			<from uri="direct:processFederalRapbackNotification"/>
+			
+			<log message="\n\n\n process federal rapback notification... \n\n\n" loggingLevel="INFO" />	
 						
 			<setHeader headerName="rapsheet">			
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText/text()</xpath>			
@@ -289,16 +470,20 @@
 			
 			<to uri="bean:rapsheetMtomProcessor?method=convertToBase64Binary"/>		
 		
-			<log message="\n\n\n Transforming Federal_To_Arrest_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n Transforming Federal_To_CH_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
 			
-			<to uri="xslt:xsl/Federal_To_Arrest_Report_Transform.xsl"/>
+			<to uri="xslt:xsl/Federal_To_CH_Report_Transform.xsl"/>
 			
-			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
-			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 			
-			<to uri="arrestReportingServiceEndpoint" />
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportNewCriminalHistoryEvent</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
+			
+			<to uri="criminalHistoryUpdateReportingServiceEndpoint" />
 		</route>
 		
 				
@@ -306,9 +491,12 @@
 		
 			<from uri="direct:processRapbackSubscriptionResponse"/>
 		
+			<!-- Why is this in here? -->
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
+			
+			<camel:to uri="bean:fbiEbtsResponseProcessor?method=convertRapsheetToBase64" />
 			
 			<convertBodyTo type="java.lang.String"/>
 			
@@ -332,6 +520,7 @@
 		
 			<from uri="direct:processRapBackSubscriptionMaintenanceResponse"/>
 		
+			<!-- Why is this in here? -->		
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
@@ -379,19 +568,102 @@
 			<setHeader headerName="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
 			<setHeader headerName="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
 			<setHeader headerName="originatingAgencyCaseNumber"><simple>{{fbiEbtsAdapter.originatingAgencyCaseNumber}}</simple></setHeader>
-			<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
-			<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
 			<setHeader headerName="transactionContentSummaryContentRecordCountCriminal"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
-			<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCivil}}</simple></setHeader>
 			<setHeader headerName="rapBackDisclosureIndicator"><simple>{{fbiEbtsAdapter.rapBackDisclosureIndicator}}</simple></setHeader>
+			
+			<camel:log message="\n\n Native scanning resolution: ${in.headers.nativeScanningResolution}, ${in.headers.nominalTransmittingResolution}, transaction count: ${in.headers.transactionContentSummaryContentRecordCountCivil} \n\n"/>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.nativeScanningResolution} == null</camel:simple>
+			
+				<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.nominalTransmittingResolution} == null</camel:simple>
+			
+				<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.headers.transactionContentSummaryContentRecordCountCivil} == null</camel:simple>
+			
+				<setHeader headerName="transactionContentSummaryContentRecordCountCivil"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+			</camel:filter>
+	
+			<camel:log message="\n\n Native scanning resolution: ${in.headers.nativeScanningResolution}, ${in.headers.nominalTransmittingResolution}, transaction count: ${in.headers.transactionContentSummaryContentRecordCountCivil} \n\n"/>
+	
+			<camel:filter>
+				<camel:simple>${in.headers.civilSubscription} == 'true'</camel:simple>
+			
+				<setHeader headerName="civilRapBackSubscriptionTerm"><simple>{{fbiEbtsAdapter.civilRapBackSubscriptionTerm}}</simple></setHeader>
+			</camel:filter>						
 						
 			<camel:to uri="xslt:xsl/ojbSubscriptionToEBTS.xsl" />
+			
+			<!-- call processor to insert civil images here -->
+			<camel:filter>
+				<camel:simple>${in.headers.civilSubscription} == 'true'</camel:simple>
+				
+				<camel:log message="Adding civil fingerprints"/>
+				
+				<camel:to uri="bean:nistImageProcessor?method=insertPackageHighResolutionGrayscaleImageRecord"/>
+				
+			</camel:filter>
+			
+			<camel:convertBodyTo type="java.lang.String"/>							
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Subscription_Request_${in.headers.controlID}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="pathToRequestFile">
+				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/requests/$simple{in.headers.CamelFileName}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiSubscriptionRequestDir"/>
+			
+			<camel:to uri="bean:fbiSubscriptionAuditProcessor?method=auditFBISubscriptionRequest"/>
 			
 			<camel:log message="\n\n Transformed ojb subscription to FBI EBTS NGI format \n\n" />		
 		</camel:route>				
 
 	</camel:camelContext>
+	
+	<util:map id="triggeringEventCodeLookup">
+		<entry key="1" value="ARREST" />
+		<entry key="2" value="DISPOSITION" />
+		<entry key="3" value="ARREST" />
+		<entry key="5" value="NCIC-WARRANT-ENTRY’" />
+		<entry key="6" value="NCIC-WARRANT-DELETION" />
+		<entry key="7" value="NCIC-WARRANT-MODIFICATION" />
+		<entry key="8" value="NCIC-SOR-ENTRY" />
+		<entry key="9" value="NCIC-SOR-DELETION" />
+		<entry key="10" value="NCIC-SOR-MODIFICATION" />
+		<entry key="12" value="DEATH" />
+	</util:map>
+
+	<bean id="fbiRapbackIdentityHistoryAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiRapbackIdentityHistoryAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiSubscriptionAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiSubscriptionAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiRapbackRenewalAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiRapbackRenewalAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiNotificationAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiNotificationAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+		<property name="triggeringEventCodeLookup" ref="triggeringEventCodeLookup"/>
+	</bean>	
+	
+	<bean id="fbiEmailErrorProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEmailErrorProcessor">
+		<property name="toEmailAddress" value="${fbiEbtsAdapter.errorToAddress}"/>
+	</bean>	
 		
 	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
 	
@@ -401,7 +673,14 @@
 	
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
 	
-	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
-	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="rapbackEventTextProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapbackEventTextProcessor"/>
+	
+	<bean id="nistImageProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NistImageProcessor"/>
+	
+	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+	
+	<bean id="criminalHistoryTextResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.CriminalHistoryTextResponseProcessor"/>
+	
 </beans>

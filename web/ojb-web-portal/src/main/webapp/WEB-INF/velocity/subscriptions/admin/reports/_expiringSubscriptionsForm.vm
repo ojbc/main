@@ -1,0 +1,98 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+ 	  jQuery('#oris').lwMultiSelect();
+
+	  $(function() {
+
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+ 		  ojbc.handleEsc();
+ 		  
+    	  var handle = $( "#custom-handle" );
+	      $( "#slider" ).slider({
+		      range: "max",
+		      min: 1,
+		      max: "$validationThreshold",
+		      value: "$expiringSubscriptionRequest.daysUntilExpiry",
+		      create: function() {
+		        handle.text( $( this ).slider( "value" ) );
+		      },
+  		      slide: function( event, ui ) {
+		        handle.text( ui.value );
+		      }
+		  });
+		    
+			$('#submitButton').click (function(){
+	        	ojbc.clearPlaceholders();
+	        	var formData = $('#expiringSubscriptionsForm').serialize() + "&daysUntilExpiry=" + handle.text();
+	        	console.log(formData);
+	  	       	xhr = $.post("#springUrl('/subscriptions/admin/expiringSubscriptions')",formData, function(data) {
+			       $("#subsAdminContent").html(data);
+		        }).fail(ojbc.displayFailMessage);
+			});
+		
+	        $('#clearButton').click (function(event){
+			  $.get("#springUrl('/subscriptions/admin/expiringSubscriptionsForm?resetForm=true')", function(data) {
+			    $('#subsAdminContent').html(data);
+			    
+			  }).fail(ojbc.displayFailMessage)
+	      	});
+	
+			//This allows the input fields on the search form to submit form with enter key
+			$('#searchTabs input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#submitButton').click();
+			    }
+			});
+	
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#searchTabs select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#submitButton').click();
+			    }
+			});			
+	
+	  });
+  </script>
+
+<div id="searchTabs" class="contentBox">
+    <form id='expiringSubscriptionsForm' >
+	    #if($errors.hasGlobalErrors())
+	        #foreach( $globalError in $errors.globalErrors )
+	            <div class="error" style="padding:1em;"> $globalError.defaultMessage </div>
+	        #end
+	    #end
+		<table>
+			<tr>
+				<td style="padding-left: 1em;">
+		        	<p class="searchSubHeader"> NUMBER OF DAYS BEFORE EXPIRATION</p>
+		        	<div id="slider">
+  						<div id="custom-handle" class="ui-slider-handle"></div>
+					</div>
+			        <p class="searchSubHeader"> AGENCIES</p>
+			        
+			        <div>#springFormMultiSelect("expiringSubscriptionRequest.oris" $agencyMap "")</div> 
+	        	</td>
+	    	<tr>
+	    </table>
+    <div class="searchCancelSection" style="width:100% !important;left:0; bottom:0;margin-right:10px;">
+    	<a id="submitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> Get Report</a>
+    	<a id="clearButton" class="grayButton"  >CLEAR</a>
+    </div>
+    </form>
+</div>

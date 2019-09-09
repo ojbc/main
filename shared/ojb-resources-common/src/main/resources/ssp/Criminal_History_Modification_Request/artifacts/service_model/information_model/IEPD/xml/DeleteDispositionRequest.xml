@@ -25,6 +25,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DeleteDispositionRequest/1.0 ../xsd/delete_disposition_request.xsd">
 	<j:Arrest>
+		<j:ArrestAgency>
+			<nc:OrganizationName>Oklahoma PD</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI3285762</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
 		<j:ArrestAgencyRecordIdentification>
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>

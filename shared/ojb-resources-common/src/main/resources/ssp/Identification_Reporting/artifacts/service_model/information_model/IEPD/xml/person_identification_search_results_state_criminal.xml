@@ -21,7 +21,7 @@
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
-	<ident-ext:TransactionCategoryText>CIVIL-SID-TO-HIJIS</ident-ext:TransactionCategoryText>
+	<ident-ext:TransactionCategoryText>CRIMINAL-SID-TO-HIJIS</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -36,10 +36,6 @@
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
 					<ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-				</j:PersonStateFingerprintIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>L456789</nc:IdentificationID>
-					<ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<ident-ext:PersonTrackingIdentification>
@@ -63,6 +59,5 @@
 			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</ident-ext:StateIdentificationSearchResultDocument>
-<!--	<ident-ext:CriminalIdentificationReasonCode>SOR</ident-ext:CriminalIdentificationReasonCode> -->
 	<ident-ext:CriminalIdentificationReasonCode>CAR</ident-ext:CriminalIdentificationReasonCode> 
 </pidres-doc:PersonStateIdentificationResults>

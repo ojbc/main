@@ -14,186 +14,180 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<!DOCTYPE html>
  <script type="text/javascript">
  
-	  $(function() {
-	  
-			$('#demogFilterInfo').on('click', '#filterClear', function(){    		
-				ojbc.clearSearchResultsFilterFields();
+  $(function() {
+  	$('#searchBarButtonDiv').hide();    	
+  		
+  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
+	var table = $("#searchResultsTable").DataTable({
+		 "order": [[ 3, "asc" ]],
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No subscriptions found"
+    	 }, 
+	     "aoColumns": [
+		      { "bSortable": false, "bSearchable":false },
+		      { "bSortable": false, "bSearchable":false },
+			      null, null,null, null, null, null, null
+		    ]
+		     
+	});
+		
+	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+	
+	function getCheckedValues() {
+	
+		var checkedValues = $('input:checkbox:checked').map(function() {
+			//console.log("value:" + this.value);
+			var id = JSON.parse(this.value).id;
+		    return '"' + id +'":' + this.value;
+		}).get();
+		
+		if (!String(checkedValues)) {
+			return null; 
+		}
+		else {
+			return	'{' + checkedValues + '}';
+		}	  		
+	}
+
+	$('#subscriptionButtons').on('click', '#validateLink',function() {
+		var checkedValues = getCheckedValues();	
+																																	
+		if( !checkedValues ){
+			alert('No subscriptions selected');
+			return false;
+		}
+
+		var row = $(this).parent();		    
+	    $( "#dialog-confirm-validate" ).dialog({
+	    	  position: { my: "center center", at: "center center", of: row },
+		      resizable: true,
+		      modal: true,
+		      buttons: {
+		        "Validate": function() {
+					var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
 				
-		  		$.post("#springUrl('/subscriptions/clearFilter')",function(data) {
-				      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage);
-			
-	    	});  
-	    	  		
-	  		$("#searchResultsTable").DataTable({
-	  			 "order": [[ 3, "asc" ]],
-	  			 "pagingType": "full_numbers",
-	  			 "pageLength": 25,
-	  			 stateSave: true,
-	  			 colReorder: true,
-  			     "aoColumns": [
-				      { "bSortable": false, "bSearchable":false },
-				      { "bSortable": false, "bSearchable":false },
-					      null, null,null, null, null, null, null
-				    ] 
-	  		});
-	  		
-	  		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
-	  		
-	  		
-	  		function getCheckedValues() {
-	  		
-				var checkedValues = $('input:checkbox:checked').map(function() {
-					var id = JSON.parse(this.value).id;
-				    return '"' + id +'":' + this.value;
-				}).get();
-				
-				if (!String(checkedValues)) {
-					return null; 
-				}
-				else {
-					return	'{' + checkedValues + '}';
-				}	  		
-			}
-	  		
-			$('#subscriptionButtons').on('click', '#validateLink',function() {
-				var checkedValues = getCheckedValues();	
-																																			
-				if( !checkedValues ){
-					alert('No subscriptions selected');
-					return false;
-				}
-				    
-				var confirmValidate = confirm('Are you sure you want to validate?');				
-				
-				if(!confirmValidate){
-					return false;
-				}				    				    
-				    				    
-				var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
-				
-				//call spring controller and refresh the current page with the subscription search results returned				 
-				$.post(urlRequest, function(data) {										
-				      $('#portalContent').html(data);					      
-					}
-				).fail(ojbc.displayFailMessage);
-					
-				return false;
-				
-			  }    				
-    		 )	  
-	  
-  			$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
-				var checkedValues = getCheckedValues();	
-				
-				if(!checkedValues){
-					alert('No subscriptions selected');
-					return false;
-				}
-				
-				//console.log("checkedValues: " + checkedValues);
-										
-				var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-				
-				if(confirmUnsubscribe == true){
-																				
-					var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-					
-					//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-					$.get(urlRequest, function(data) {										
+					//call spring controller and refresh the current page with the subscription search results returned				 
+					$.post(urlRequest, function(data) {										
 					      $('#portalContent').html(data);					      
 						}
 					).fail(ojbc.displayFailMessage);
-						
-					return false;
-															 																		 
-				}else{
-				  return false;
+					
+			        $( this ).dialog( "close" );
+		        },
+		        "Close": function() {
+	            		 $( this ).dialog( "close" );
+            	}
+		     }
+	    });   		
+		    				    
+			
+		return false;
+	});	  
+	
+	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
+		var checkedValues = getCheckedValues();	
+		
+		if(!checkedValues){
+			alert('No subscriptions selected');
+			return false;
+		}
+		
+		//console.log("checkedValues: " + checkedValues);
+								
+		var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
+		
+		if(confirmUnsubscribe == true){
+																		
+			var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
+			
+			//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+			$.get(urlRequest, function(data) {										
+			      $('#portalContent').html(data);					      
 				}
+			).fail(ojbc.displayFailMessage);
 				
-			  }    				
-    		 )
-    		 
-	  		// listener for click on any editSubscriptionLink button
-	  		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-				var editMvcUrl = encodeURI(this);
-					 	    		    			
-		  		$.get(editMvcUrl, 
-		  			function(data){			  			
-		  							  			
-		    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
-		    			 vSubDialog.dialog({                    
-				                position: {
-		                           my: "center",
-		                           at: "center",
-		                           of: window
-				                },
-				                modal:true,
-						        width:240,
-						        height:530,
-						        resizable:false,
-						        open:function(event,ui){
-						        	$('#editSubscriptionDialog').html(data);
-						        },
-						        close: function(event, ui){
-						        	$(this).dialog("close");
-						        	$('#editSubscriptionDialog').remove();
-						        }    	                                  
-		                    }); 			  						  				  				
-		  			}
-		  		).fail(ojbc.displayFailMessage);	
-		  		
-		  		//prevent default browser navigation to link<a> href url, because we're using the url 
-		  		// as a spring mvc call
-		  		return false;		  					  					  		                                                     
-		 	});   		 
-	  
-  			$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
-				// call the spring controller method we need by this GET URL request,
-				// that method populates the mvc model map with objects needed that 
-				// are used by the html in the modal velocity template file
-		  		$.post("#springUrl('/subscriptions/addSubscription')", 
-		  			function(data){			  			
-		  							  			
-		    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
-		    			 
-		    			 vSubDialog.dialog({                    
-				                position: {
-		                           my: "center",
-		                           at: "center",
-		                           of: window
-				                },
-				                modal:true,
-						        width:240,
-						        height:530,
-						        resizable:false,
-						        open:function(event,ui){							        							        	
-						        	$('#addSubscriptionDialog').html(data);
-						        	$('#modalIframeSpinner').hide();
-						        },
-						        close: function(event, ui){
-						        	$(this).dialog("close");
-						        	$('#addSubscriptionDialog').remove();
-						        }    	                                  
-		                    }); 			  						  				  				
-		  			}
-		  		).fail(ojbc.displayFailMessage);
-		  	}); 
-    		
-    		var searchBarIsHidden = $('#searchBar').is(':hidden');
-    		
-    		// hide the search bar so we can just show the subscriptions content	
-    		if(!searchBarIsHidden){
-    			// note can also use:  $('#id').hide();			
-    			$('#searchBarButtonDiv').css("display", "none");
-    		}	  
-    		    		    		    			   			
-   			return false;	 
-   			   	    
-	  });
+			return false;
+													 																		 
+		}else{
+		  return false;
+		}
+		
+    });
+	
+	// listener for click on any editSubscriptionLink button
+	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
+		var editMvcUrl = encodeURI(this);
+		var dlgHeight = $(window).height() * .9;	 	    		    			
+  		$.get(editMvcUrl, 
+  			function(data){			  			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
+    			 vSubDialog.dialog({                    
+		                position: {
+                           my: "left top",
+                           at: "left bottom",
+                           of: $("#stateBanner")
+		                },
+		                modal:true,
+				        maxWidth:480,
+				        maxHeight:dlgHeight,
+						resizable:false,
+				        open:function(event,ui){
+				        	$('#editSubscriptionDialog').html(data);
+				        },
+				        close: function(event, ui){
+				        	$(this).dialog("close");
+				        	$('#editSubscriptionDialog').remove();
+				        }    	                                  
+                    }).css({height:"auto", overflow:"auto"}); 			  						  				  				
+  			}
+  		).fail(ojbc.displayFailMessage);	
+  		
+  		//prevent default browser navigation to link<a> href url, because we're using the url 
+  		// as a spring mvc call
+  		return false;		  					  					  		                                                     
+ 	});   		 
+    
+	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
+		// call the spring controller method we need by this GET URL request,
+		// that method populates the mvc model map with objects needed that 
+		// are used by the html in the modal velocity template file
+		var dlgHeight = $(window).height() * .9;
+  		$.post("#springUrl('/subscriptions/addSubscription')", 
+  			function(data){			  			
+  							  			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
+    			 
+    			 vSubDialog.dialog({                    
+		                position: {
+                           my: "left top",
+                           at: "left bottom",
+                           of: $("#searchBar")
+		                },
+		                modal:true,
+				        maxWidth:480,
+				        maxHeight:dlgHeight,
+				        resizable:false,
+				        open:function(event,ui){							        							        	
+				        	$('#addSubscriptionDialog').html(data);
+				        	$('#modalIframeSpinner').hide();
+				        },
+				        close: function(event, ui){
+				        	$(this).dialog("close");
+				        	$('#addSubscriptionDialog').remove();
+				        }    	                                  
+                    }).css({height:"auto", overflow:"auto"});; 			  						  				  				
+  			}
+  		).fail(ojbc.displayFailMessage);
+  		return false;			  					  		                                                      
+  	}); 
+
+  });
     
 </script>
 	
@@ -216,4 +210,13 @@
 		#end
 		$subscriptionsContent								
     </div>
+    
+    <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
+  		<div style="margin:7px;padding:7px;">
+  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
+  			<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
+  			<p>If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
+  		</div>
+	</div>
+    
 </div>

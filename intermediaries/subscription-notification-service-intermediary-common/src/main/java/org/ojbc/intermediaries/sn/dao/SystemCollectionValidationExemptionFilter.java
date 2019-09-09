@@ -19,6 +19,8 @@ package org.ojbc.intermediaries.sn.dao;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.ojbc.util.model.rapback.Subscription;
+
 /**
  * An implementation of the exemption interface that determines exemption based on membership in a configured list of subscribing systems.
  *

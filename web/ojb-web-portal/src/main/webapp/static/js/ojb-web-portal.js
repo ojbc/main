@@ -34,13 +34,31 @@ $(function() {
 	   
 	   //Remove the load spinner on popup window detail retrieving
 	   if ($("#modalIframeSpinner").length){
-		   $("#modalIframeSpinner").remove();
+		   $("#modalIframeSpinner").hide();
 	   }
    });
 });
 
 ojbc = {
-	
+	hideSearchBarButtons: function(){
+		var searchBarIsHidden = $('#searchBar').is(':hidden');
+		// hide the search bar so we can just show the subscriptions content	
+		if(!searchBarIsHidden){
+			// note can also use:  $('#id').hide();			
+			$('#searchBarButtonDiv').css("display", "none");
+		}	  
+
+	},
+	showLoadingPane: function(){
+ 		var loadingDiv =  $("#loadingAjaxPane");
+ 		var portalContentDiv = $("#portalContent");
+		
+ 		loadingDiv.height(portalContentDiv.height());
+ 		loadingDiv.width(portalContentDiv.width());
+ 		
+      	$("#loadingAjaxPane").show();          	
+	},
+
 	handleEsc:function(){
 	   $("body").on("keyup", function(event){
 	  	  if ( event.keyCode == 27 ) {

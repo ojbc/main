@@ -16,18 +16,27 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import javax.sql.DataSource;
+import java.util.Optional;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.processor.AbstractSubscriptionActionAuditProcessor;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.dao.ValidationDueDateStrategy;
+import org.ojbc.intermediaries.sn.util.SubscriptionActionUtils;
+import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,59 +49,132 @@ public class SubscriptionValidationMessageProcessor {
 
 	private static final Log log = LogFactory.getLog( SubscriptionValidationMessageProcessor.class );
 	
-	private JdbcTemplate jdbcTemplate;
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 	
-	private FaultMessageProcessor faultMessageProcessor;
+	private FaultMessageProcessor faultMessageProcessor = new FaultMessageProcessor();
 	
-	private static final String SUBSCRIPTION_VALIDATION_QUERY = "update subscription set lastValidationDate = curdate() where id = ?";
+	private ValidationDueDateStrategy validationDueDateStrategy;
 	
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-    
-
+	private AbstractSubscriptionActionAuditProcessor subscriptionActionAuditProcessor;  
+	
 	/**
 	 * This method accepts the exchange, attempts to validate the message and creates the appropriate response
 	 * 
 	 * @param exchange
 	 * @throws Exception
 	 */
-	public void validateSubscription(Exchange exchange) throws Exception 
+	public void validateSubscription(Exchange exchange, @Header("subscription") Subscription subscription, 
+			@Header("validationDueDateString") String validationDueDateString, @Header("validationType") String validationType) throws Exception 
 	{
-		Document subscriptionValidationRequestMessage = exchange.getIn().getBody(Document.class);
+		int rowsUpdated = 0; 
 		
-		String subscriptionID="";
+		int subscriptionId = (int)subscription.getId();
+
+		Integer subscriptionActionPk = auditSubscriptionRequest(exchange,
+				subscription, subscriptionId);
 		
-		//Try to get the subscription ID.  If not found or not set, create a fault
-		try {
-			subscriptionID = returnSubscriptionIDFromSubscriptionValidationRequestMessage(subscriptionValidationRequestMessage);
-		} catch (Exception e) {
-			
-			exchange.getIn().setHeader("subscriptionID", subscriptionID);
-			
-			faultMessageProcessor.createFault(exchange);
-			return;
+		//Criminal subscriptions will use current date as the start date, update subscription accordingly
+		if (validationType.equals("criminal"))
+		{	
+			rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscriptionCriminal(validationDueDateString, subscriptionId);
+		}
+
+		//Civil subscriptions will use current date as the start date, update subscription accordingly
+		if (validationType.equals("civil"))
+		{	
+			rowsUpdated = getSubscriptionSearchQueryDAO().validateSubscriptionCivil(validationDueDateString, subscriptionId, LocalDate.now().toString());
 		}
 		
-		int rowsUpdated = this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY,new Object[] {subscriptionID.trim()});
+		SubscriptionAction subscriptionActionResponse = new SubscriptionAction();
+		subscriptionActionResponse.setSubscriptionActionId(subscriptionActionPk);
 		
 		//Send a good response back if a row has been updated
 		if (rowsUpdated == 1)
 		{	
+			subscriptionActionResponse.setSuccessIndicator(true);
+			subscriptionActionAuditProcessor.auditSubcriptionResponseAction(subscriptionActionResponse);
+
 			Document returnDoc = createSubscriptionValidationResponseMessage(true);
 			
-			log.debug("Updated validation date for subscription id: " + subscriptionID);
+			log.debug("Updated validation date for subscription id: " + subscriptionId);
 			
 			exchange.getIn().setBody(returnDoc);
+			
 		}
 
 		//Create an exception if no rows are updated
 		if (rowsUpdated == 0)
 		{	
-			exchange.getIn().setHeader("subscriptionID", subscriptionID);
+			subscriptionActionResponse.setSuccessIndicator(false);
+			subscriptionActionAuditProcessor.auditSubcriptionResponseAction(subscriptionActionResponse);
+			
 			faultMessageProcessor.createFault(exchange);
 		}
 
+	}
+
+
+	private Integer auditSubscriptionRequest(Exchange exchange,
+			Subscription subscription, int subscriptionId) {
+		//Create Subscription Action here
+		SubscriptionAction subscriptionAction = new SubscriptionAction();
+		
+		subscriptionAction.setAction(SubscriptionAction.VALIDATION_ACTION);
+		
+		FbiRapbackSubscription fbiRapbackSubscription = subscription.getFbiRapbackSubscription();
+		
+		if (fbiRapbackSubscription != null)
+		{	
+			String fbiSubscriptionId = subscription.getFbiRapbackSubscription().getFbiSubscriptionId();
+			
+			if (StringUtils.isNotBlank(fbiSubscriptionId))
+			{	
+				subscriptionAction.setFbiSubscriptionId(fbiSubscriptionId);
+			}
+		}
+		
+		subscriptionAction.setStateSubscriptionId(String.valueOf(subscriptionId));
+
+		SubscriptionActionUtils.setSubscriptionActionDateParams(subscriptionAction, subscription);
+		
+		Integer subscriptionActionPk = null;
+		
+		//Do audit here
+		try {
+			subscriptionActionPk = subscriptionActionAuditProcessor.auditSubcriptionRequestAction(exchange, subscriptionAction);
+			
+		} catch (Exception e) {
+			log.error ("Unable to audit validation message. ", e);
+		}
+		return subscriptionActionPk;
+	}
+
+
+	public String getValidationDueDateString(@Header("subscription") Subscription subscription, @Header("validationType") String validationType) {
+		if (subscription == null) throw new IllegalArgumentException("Can't calculate the validation due date when subscription is not found.");
+		
+		if (StringUtils.isBlank(validationType))
+		{
+			throw new IllegalArgumentException("Validation type not specified. Unable to calculate validation date.");
+		}	
+		
+		String validationDueDateString = "";
+		
+		if (validationType.equals("criminal"))
+		{	
+			//update here
+			DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, subscription.getLastValidationDate().toLocalDate());
+			validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		}
+
+		if (validationType.equals("civil"))
+		{	
+			//update here
+			DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription, LocalDate.now());
+			validationDueDateString = Optional.ofNullable(validationDueDate).map(i->i.toString("yyyy-MM-dd")).orElse("");
+		}
+
+		return validationDueDateString;
 	}
     
 	
@@ -158,4 +240,37 @@ public class SubscriptionValidationMessageProcessor {
 	public void setFaultMessageProcessor(FaultMessageProcessor faultMessageProcessor) {
 		this.faultMessageProcessor = faultMessageProcessor;
 	}
+
+
+	public ValidationDueDateStrategy getValidationDueDateStrategy() {
+		return validationDueDateStrategy;
+	}
+
+
+	public void setValidationDueDateStrategy(
+			ValidationDueDateStrategy validationDueDateStrategy) {
+		this.validationDueDateStrategy = validationDueDateStrategy;
+	}
+
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+
+	public void setSubscriptionSearchQueryDAO(SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+
+	public AbstractSubscriptionActionAuditProcessor getSubscriptionActionAuditProcessor() {
+		return subscriptionActionAuditProcessor;
+	}
+
+
+	public void setSubscriptionActionAuditProcessor(
+			AbstractSubscriptionActionAuditProcessor subscriptionActionAuditProcessor) {
+		this.subscriptionActionAuditProcessor = subscriptionActionAuditProcessor;
+	}
+
 }

@@ -26,6 +26,7 @@
     xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
     xmlns:sec="http://cxf.apache.org/configuration/security"
     xmlns:http="http://cxf.apache.org/transports/http/configuration"
+    xmlns:camel="http://camel.apache.org/schema/spring"
     xsi:schemaLocation="
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
@@ -76,29 +77,59 @@
     	endpointName="ngi:NGIResponsePort"
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
-    
-    
-	<cxf:cxfEndpoint id="arrestReportingService"
-		address="${fbiEbtsAdapter.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
-		serviceName="ojbc:Arrest-Reporting-ServiceService"  
-		endpointName="ojbc:Arrest-Reporting-Service" 
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
-		<cxf:properties>
-			<entry key="mtom-enabled" value="true" />
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-		<cxf:features>
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>	 
-	</cxf:cxfEndpoint>
 	
+	<!-- hosted by this intermediary, invoked by connector -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
+		address="${fbiEbtsAdapter.criminalHistoryUpdateReportingSecureEndpoint}"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+ 		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
+		</cxf:properties> 
+	</cxf:cxfEndpoint>	 	
+    
+    <!-- Criminal History Request Service, hosted by OJB -->
+    <cxf:cxfEndpoint 
+        id="personQueryRequestCriminalHistoryService"
+        address="${fbiEbtsAdapter.criminalHistoryPersonQueryEndpoint}"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Request/schema/SIP_WS_1.2/Criminal_History_Query_Request_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-RequestServiceService"
+        endpointName="ojbc:Person-Query-Secure-Service---Criminal-History"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0"
+    >
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+	  
+    <!-- Criminal History handler, hosted by broker, called by adapter, address is static  --> 
+    <cxf:cxfEndpoint 
+        id="personQueryResultsHandlerCriminalHistoryService"
+        address="${fbiEbtsAdapter.criminalHistoryPersonQueryResultsEndpoint}"
+        wsdlURL="classpath:ssp/Criminal_History_Query_Results/schema/SIP_WS_1.2/Criminal_History_Query_Results_Service.wsdl"
+        serviceName="ojbc:Criminal-History-Query-Results-ServiceService"
+		endpointName="ojbc:Criminal-History-Query-Results-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0"
+    >
+     <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy/>
+          </wsam:Addressing>
+        </wsp:Policy>
+       </policy:policies>
+    </cxf:features>
+   </cxf:cxfEndpoint>          
+    
 	<cxf:cxfEndpoint id="subscriptionReportingService"
 		address="${fbiEbtsAdapter.subscriptionReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
@@ -112,7 +143,7 @@
 			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 		
 	</cxf:cxfEndpoint>
-    
+        
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
@@ -149,8 +180,32 @@
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>       
-    
+	</http:conduit>      
+	
+	
+	<!-- 
+		Used for OUTBOUND SSL/TLS Connection to FBI 
+	-->
+	<camel:sslContextParameters id="sslContextParameters">
+		<camel:trustManagers>
+			<camel:keyStore resource="{{fbiEbtsAdapter.truststoreLocation}}"
+				password="{{fbiEbtsAdapter.truststorePassword}}" />
+		</camel:trustManagers>
+
+		<camel:keyManagers keyPassword="{{fbiEbtsAdapter.fbi.keyPassword}}">
+			<camel:keyStore resource="{{fbiEbtsAdapter.fbi.keystoreLocation}}"
+				password="{{fbiEbtsAdapter.fbi.keystorePassword}}" />
+		</camel:keyManagers>
+	</camel:sslContextParameters>
+	
+    <bean id="https4" class="org.apache.camel.component.http4.HttpComponent">
+      <property name="sslContextParameters" ref="sslContextParameters"/>
+      <property name="x509HostnameVerifier">
+        <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
+      </property>
+    </bean>	 
+	
+	
     <!-- The Jetty server context will optionally provide a unique port for the FBI.  If the spring profile jetty-server is not active, it is ignore -->
     
     <beans profile="jetty-server">
@@ -158,8 +213,8 @@
 			bus="cxf">
 			<httpj:engine port="${fbiEbtsAdapter.fbiPortNumber}">
 				<httpj:tlsServerParameters>
-					<sec:keyManagers keyPassword="${fbiEbtsAdapter.keyPassword}">
-						<sec:keyStore type="jks" password="${fbiEbtsAdapter.keystorePassword}" file="${fbiEbtsAdapter.keystoreLocation}" />
+					<sec:keyManagers keyPassword="${fbiEbtsAdapter.fbi.keyPassword}">
+						<sec:keyStore type="jks" password="${fbiEbtsAdapter.fbi.keystorePassword}" file="${fbiEbtsAdapter.fbi.keystoreLocation}" />
 					</sec:keyManagers>
 					<sec:cipherSuitesFilter>
 						    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>

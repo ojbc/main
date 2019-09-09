@@ -49,7 +49,6 @@
 		
 		<!-- Plugin versions -->
     <surefire.version>2.21.0</surefire.version>
-		
 	</properties>
 
 	<dependencies>

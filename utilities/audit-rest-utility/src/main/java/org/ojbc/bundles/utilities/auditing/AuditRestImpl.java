@@ -16,15 +16,30 @@
  */
 package org.ojbc.bundles.utilities.auditing;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.util.model.rapback.AgencyProfile;
+import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +49,12 @@ public class AuditRestImpl implements AuditInterface {
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
+	
+	@Resource
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+	@Resource
+	Map<String, String> notificationSystemToTriggeringEvent;
 	
 	private static final String LOGIN_ACTION="login";
 	
@@ -69,5 +90,175 @@ public class AuditRestImpl implements AuditInterface {
 		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGOUT_ACTION);
 		
 		return Response.status(Status.OK).entity(userInfo).build();
+	}
+
+	@Override
+	public Response auditUserAcknowledgement(
+			UserAcknowledgement userAcknowledgement) {
+		log.info("Audit user acknowledgement: " + userAcknowledgement.toString());
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userAcknowledgement.getUserInfo());
+	
+		userAcknowledgement.getUserInfo().setUserInfoId(userInfoPk);
+		
+		enhancedAuditDao.saveuserAcknowledgement(userAcknowledgement);
+		
+		return Response.status(Status.OK).entity(userAcknowledgement).build();	
+		
+	}	
+	
+	@Override
+	public List<FederalRapbackSubscription> searchForFederalRapbackSubscriptions(String subscriptionId) {
+		log.info("Subscription ID: " + subscriptionId);
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId(subscriptionId);
+		
+		return federalRapbackSubscriptions;
+	}
+
+	@Override
+	public List<Subscription> retrieveExpiringSubscriptions(ExpiringSubscriptionRequest request) {
+		
+		log.info("Days until expiration: " + request.getDaysUntilExpiry());
+		log.info("ORIs: " + request.getOris());
+		
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiringAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
+		
+		return subscriptions;
+	}
+
+	@Override
+	public List<Subscription> retrieveExpiredSubscriptions(
+			ExpiringSubscriptionRequest request) {
+		log.info("Days until expiration: " + request.getDaysUntilExpiry());
+		log.info("ORIs: " + request.getOris());
+		
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForExpiredAndInvalidSubscriptions(request.getOris(), request.getDaysUntilExpiry(), request.getSystemName());
+		
+		return subscriptions;
+	}
+
+	@Override
+	public List<AgencyProfile> retrieveAllAgencies() {
+		
+		List<AgencyProfile> agencyProfiles = subscriptionSearchQueryDAO.returnAllAgencies();
+		
+		
+		return agencyProfiles;
+	}
+
+	@Override
+	public List<FederalRapbackNotification> retrieveRapbackNotifications(QueryRequestByDateRange queryRequestByDateRange) {
+		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotifications(queryRequestByDateRange.getStartDate(), queryRequestByDateRange.getEndDate());
+		return federalRapbackNotifications;
+	}
+	
+	@Override
+	public List<NotificationSent> retrieveNotificationsSent(QueryRequestByDateRange queryRequestByDateRange) {
+		List<NotificationSent> notificationSents = enhancedAuditDao.retrieveNotifications(queryRequestByDateRange.getStartDate(), queryRequestByDateRange.getEndDate());
+		
+		for (NotificationSent notificationSent : notificationSents)
+		{
+			if (StringUtils.isNotBlank(notificationSent.getNotifyingSystemName()))
+			{
+				if (notificationSystemToTriggeringEvent.containsKey(notificationSent.getNotifyingSystemName()))
+				{
+					ArrayList<String> triggeringEvents = new ArrayList<String>();
+					triggeringEvents.add(notificationSystemToTriggeringEvent.get(notificationSent.getNotifyingSystemName()));
+					
+					notificationSent.setTriggeringEvents(triggeringEvents);
+				}	
+			}
+		}	
+		
+		
+		return notificationSents;
+	}	
+
+	@Override
+	public List<FederalRapbackNotification> searchForFederalRapbackNotifications(
+			String subscriptionId) {
+		List<FederalRapbackNotification> federalRapbackNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId(subscriptionId);
+		return federalRapbackNotifications;
+	}
+
+	@Override
+	public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors() {
+		log.info("Retrieve Federal Subscription Errors.");
+		
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionErrors();
+		
+		return federalRapbackSubscriptions;	
+	}
+
+	@Override
+	public FederalRapbackSubscriptionDetail returnFederalRapbackSubscriptionDetail(
+			String subscriptionId) {
+
+		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = new FederalRapbackSubscriptionDetail();
+		
+		//Return all federal subscription info for the state subscription
+		List<FederalRapbackSubscription> federalRapbackSubscriptions = enhancedAuditDao.retrieveFederalRapbackSubscriptionFromStateSubscriptionId(subscriptionId);
+	
+		federalRapbackSubscriptionDetail.setFederalRapbackSubscriptions(federalRapbackSubscriptions);
+		
+		boolean latestMaintenanceRequestFound = false;
+		
+		//Results come back sorted in descending order by timestamp
+		for (FederalRapbackSubscription federalRapbackSubscription : federalRapbackSubscriptions)
+		{
+			if ("RBSCVL".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
+			{
+				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBSR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+				{
+					federalRapbackSubscriptionDetail.setFbiSubscriptionCreated(true);
+				}	
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+				{	
+					federalRapbackSubscriptionDetail.setFbiSubscriptionErrorText(federalRapbackSubscription.getTransactionStatusText());
+				}	
+			}	
+			
+			if ("RBSCRM".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
+			{
+				federalRapbackSubscriptionDetail.setFbiSubscriptionSent(true);
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBSR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+				{
+					federalRapbackSubscriptionDetail.setFbiSubscriptionCreated(true);
+				}	
+				
+				if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+				{	
+					federalRapbackSubscriptionDetail.setFbiSubscriptionErrorText(federalRapbackSubscription.getTransactionStatusText());
+				}	
+			}				
+			
+			if (!latestMaintenanceRequestFound)
+			{
+				if ("RBMNT".equals(federalRapbackSubscription.getTransactionCategoryCodeRequest()))
+				{
+					federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceSent(true);
+					
+					if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionCategoryCodeResponse()) && federalRapbackSubscription.getTransactionCategoryCodeResponse().equals("RBMNTR") && StringUtils.isNotBlank(federalRapbackSubscription.getFbiSubscriptionId()))
+					{
+						federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceConfirmed(true);
+					}	
+					
+					if (StringUtils.isNotBlank(federalRapbackSubscription.getTransactionStatusText()))
+					{	
+						federalRapbackSubscriptionDetail.setFbiRapbackMaintenanceErrorText(federalRapbackSubscription.getTransactionStatusText());
+					}	
+					
+					latestMaintenanceRequestFound = true;
+				}	
+				
+			}	
+		}	
+		
+		return federalRapbackSubscriptionDetail;
 	}
 }

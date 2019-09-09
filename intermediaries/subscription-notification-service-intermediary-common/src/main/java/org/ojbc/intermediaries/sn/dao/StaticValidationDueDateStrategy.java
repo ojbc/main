@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * A due date strategy that determines the due date based on a fixed number of days from the last validated date.
@@ -70,26 +73,50 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
      * there is no validation due date.
      */
     @Override
-    public DateTime getValidationDueDate(Subscription subscription) {
+    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate validationDate)  {
     	
-    	//If an exempt subscriber list is defined, see if the subscription owner is in that list.
+    	String subscriptionOwner = request.getSubscriptionOwner();
+    	
+    	DateTime ret = getCommonValidationDueDate(validationDate,
+				subscriptionOwner);
+        
+        return ret;
+    }
+
+	@Override
+	public DateTime getValidationDueDate(Subscription subscription,
+			LocalDate validationDate) {
+		
+    	String subscriptionOwner = subscription.getSubscriptionOwner();
+    	
+    	DateTime ret = getCommonValidationDueDate(validationDate,
+				subscriptionOwner);
+        
+        return ret;
+	}
+    
+	private DateTime getCommonValidationDueDate(LocalDate validationDate,
+			String subscriptionOwner) {
+		//If an exempt subscriber list is defined, see if the subscription owner is in that list.
     	//The 'exempt' subscription owner is allowed to have no validation due date
 		if (exemptSubscriptionOwners != null)
 		{
 			//determine if submitting ORI exists in the list of authorized ORIs
 			for(String s:exemptSubscriptionOwners){
-				if(s.replaceAll("\\s","").equalsIgnoreCase(subscription.getSubscriptionOwner())){
+				if(s.replaceAll("\\s","").equalsIgnoreCase(subscriptionOwner)){
 					return null;
 				}
 			}
 		}	
     	
-        DateTime ret = null;
-        DateTime lastValidatedDate = subscription.getLastValidationDate();
-        if (lastValidatedDate != null) {
-            ret = lastValidatedDate.plusDays(validDays);
+		DateTime ret = null;
+
+        if (validationDate != null) {
+            ret = validationDate.plusDays(validDays).toDateTimeAtCurrentTime();
         }
+        
         return ret;
     }
+
 
 }

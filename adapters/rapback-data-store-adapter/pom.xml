@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>rapback-data-store-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.11</version>
 
 	<name>OJB :: rapback-data-store-adapter:: adapter</name>
 	<url>http://www.ojbc.org</url>
@@ -49,8 +49,8 @@
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
-		<ojb-test-common-version>1.0.0</ojb-test-common-version>
-		<sn-intermediary-common-version>2.0.0</sn-intermediary-common-version>
+		<ojb-test-common-version>[1.0.0,)</ojb-test-common-version>
+		<sn-intermediary-common-version>[2.0.5,)</sn-intermediary-common-version>
 		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
@@ -58,6 +58,9 @@
 		<java-version>1.8</java-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<cglib-version>2.2</cglib-version>
+		<hamcrest-version>1.3</hamcrest-version>
+		<mockito-version>1.9.5</mockito-version>
+		<junit-version>4.11</junit-version>
 	</properties>
 
 	<dependencies>
@@ -89,6 +92,12 @@
 			<artifactId>camel-quartz2</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-mail</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+
 		<!-- CXF libs -->
 
 		<dependency>
@@ -176,7 +185,39 @@
 			<version>${ojb-osgi-common-version}</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.30</version>
+		</dependency>
 		<!-- for testing -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito-version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <artifactId>hamcrest-core</artifactId>
+		            <groupId>org.hamcrest</groupId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>${junit-version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <artifactId>hamcrest-core</artifactId>
+		            <groupId>org.hamcrest</groupId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.hamcrest</groupId>
+		    <artifactId>hamcrest-all</artifactId>
+		    <version>${hamcrest-version}</version>
+		</dependency>	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -233,6 +274,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>

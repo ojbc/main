@@ -26,7 +26,7 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/" 
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
@@ -36,7 +36,8 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	
-	<xsl:param name="rapbackValidationButtonShowingPeriod" select="30"/>
+	<xsl:param name="rapbackValidationButtonShowingPeriod" select="60"/>
+	<xsl:param name="allowFirearmSubscription"/>
 	
 	<xsl:template match="/oirsr:OrganizationIdentificationResultsSearchResults">
 		<xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -71,6 +72,7 @@
 						<th>START DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>
+						<th>NOTIFICATION DATE</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -83,6 +85,9 @@
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult">
 		<xsl:variable name="systemID" select="intel:SystemIdentifier"/>
 		<xsl:variable name="rapbackId" select="intel:SystemIdentifier/nc:IdentificationID"/>
+		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		
 		<tr>
 			<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 				<xsl:attribute name="class">subsequentResults</xsl:attribute>
@@ -91,54 +96,51 @@
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
-			<td>
+			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>	
-			<td>
+			<td width="60px">
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
-			<td>
-				<xsl:if test="$validationDueDate &lt; current-date()">
+			<td width="60px">
+				<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">
 					<xsl:attribute name="style">color:red</xsl:attribute>
 				</xsl:if>
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) != 'Available for Subscription'">
+				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) !='Available for Subscription' 
+					or (following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
+							and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription))">
 					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 				</xsl:if>
 			</td>
-			<td align="right" width="115px">
+			<td width="60px">
+				<xsl:apply-templates select="oirsr-ext:LatestNotificationDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>
+			<td align="right" style="white-space: nowrap;">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
-				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
-				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
-					<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
-						<xsl:attribute name="id">
-							<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
-						</xsl:attribute>
-						<i class="fa fa-bell fa-lg"></i>
-					</a>
-					<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-						class="blueIcon subsequentResults hidden">
-					</a>
-				</xsl:if>
-				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
+				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
+					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
-<!-- Hide the Subscribe button for phase 1 -->	
-<!-- 		
-		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
-			<xsl:attribute name="id">
-				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
-			</xsl:attribute>
-			<i class="fa fa-rss fa-lg"/>
-		</a>
- -->	<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
+			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription)">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-rss fa-lg"/>
+			</a>
+		</xsl:if>
+		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
@@ -146,22 +148,78 @@
 		</a>
 	</xsl:template>
 	
+	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="archived">
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		<a href="#" class="blueIcon unarchive" style="margin-right:3px" title="Unarchive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-folder-open fa-lg"></i>
+		</a>
+	</xsl:template>
+	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="subscribed">
 		<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>
-		<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">				
-			<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+		<xsl:variable name="sid" select="normalize-space(oirsr-ext:IdentifiedPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[oirsr-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID)"/>
+		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
+		<xsl:variable name="hasFbiSubscription">
+			<xsl:choose>
+				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State/FBI)'">true</xsl:when>
+				<xsl:otherwise>false</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="hasFbiRapsheet">
+			<xsl:choose>
+				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State/FBI)' 
+					and normalize-space(oirsr-ext:Subscription/oirsr-ext:RapBackActivityNotificationIdentification/nc:IdentificationID) ">true</xsl:when>
+				<xsl:otherwise>false</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 				<xsl:attribute name="id">
-					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 				</xsl:attribute>
-				<i class="fa fa-check-circle fa-lg"/>
+				<i class="fa fa-rss fa-lg"/>
 			</a>
 		</xsl:if>
+		
+		<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<xsl:attribute name="data-reason-code">
+				<xsl:value-of select="normalize-space(oirsr-ext:CivilIdentificationReasonCode)"/>
+			</xsl:attribute>
+			<i class="fa fa-check-circle fa-lg"/>
+		</a>
 		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
+		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="Refresh Rap Sheet">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-eye fa-lg"></i>
+		</a>
+		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
+					class="blueIcon getStateRapsheet hidden"></a>
+		<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
+			<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
+				<xsl:attribute name="id">
+					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
+				</xsl:attribute>
+				<i class="fa fa-bell fa-lg"></i>
+			</a>
+			<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+				class="blueIcon subsequentResults hidden">
+			</a>
+		</xsl:if>
+		
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

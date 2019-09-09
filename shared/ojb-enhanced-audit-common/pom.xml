@@ -58,9 +58,15 @@
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
     <!-- Plugin versions -->
     <surefire.version>2.21.0</surefire.version>
+		<jackson.version>1.9.12</jackson.version> 
 	</properties>
 
 	<dependencies>
+	<dependency>
+  			<groupId>com.fasterxml.jackson.core</groupId>
+             <artifactId>jackson-annotations</artifactId>
+             <version>2.0.0</version>
+         </dependency>		
 		 <dependency>
 		 	<groupId>org.ojbc.bundles.utilities</groupId>
 		 	<artifactId>h2-mock-database</artifactId>

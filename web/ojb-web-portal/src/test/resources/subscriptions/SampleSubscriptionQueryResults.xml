@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -16,119 +17,164 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<sqr:SubscriptionQueryResults xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
-                              xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
-                              xmlns:isres="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-                              xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
-                              xmlns:isr-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0"
-                              xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
-                              xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
-                              xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-                              xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
-                              xmlns:sqreq-ext="http://ojbc.org/IEPD/Extension/SubscriptionQueryRequest/1.0"
-                              xmlns:emrm-ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0"
-                              xmlns:fbi="http://niem.gov/niem/fbi/2.0"
-                              xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
-                              xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
-                              xmlns:ssr="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0"
-                              xmlns:emrm-exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
-                              xmlns:submsg-exch="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
-                              xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-                              xmlns:niem-xs="http://niem.gov/niem/proxy/xsd/2.0"
-                              xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
-                              xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
-                              xmlns:pci="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0"
-                              xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
-                              xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
-                              xmlns:isr="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
-                              xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
-                              xmlns:firearm-reg-req-ext="http://ojbc.org/IEPD/Extension/FirearmRegistrationQueryRequest/1.0"
-                              xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
-                              xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
-                              xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0"
-                              xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
-                              xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0"
-                              xmlns:ch="http://ojbc.org/IEPD/Extensions/RapSheet/1.0"
-                              xmlns:rap="http://nlets.org/niem2/rapsheet/1.0"
-                              xmlns:sqreq="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0"
-                              xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
-                              xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0"
-                              xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
-                              xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0"
-                              xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-                              xmlns:add="http://www.w3.org/2005/08/addressing"
-                              xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
-                              xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
-                              xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-                              xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
-                              xmlns:firearm-search-req-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0"
-                              xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-                              xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
-                              xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
-                              xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
-                              xmlns:firearm-reg-req-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryRequest/1.0"
-                              xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0"
-                              xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0"
-                              xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
-                              xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-                              xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
-                              xmlns:iqr="http://ojbc.org/IEPD/Extensions/IncidentReportRequest/1.0"
-                              xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-                              xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-                              xmlns:screening="http://niem.gov/niem/domains/screening/2.0"
-                              xmlns:s="http://niem.gov/niem/structures/2.0"
-                              xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
-                              xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-                              xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-                              xmlns:iqr-doc="http://ojbc.org/IEPD/Exchange/IncidentReportRequest/1.0"
-                              xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                              xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
-   <sqr-ext:SubscriptionQueryResult>
-      <sqr-ext:Subscription>
-         <nc:ActivityDateRange>
-            <nc:StartDate>
-               <nc:Date>2014-04-01</nc:Date>
-            </nc:StartDate>
-            <nc:EndDate>
-               <nc:Date>2014-05-01</nc:Date>
-            </nc:EndDate>            
-         </nc:ActivityDateRange>
-         <sqr-ext:SubscriptionSubject>
-            <nc:RoleOfPersonReference s:ref="P0"/>
-         </sqr-ext:SubscriptionSubject>
-         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-         <sqr-ext:SubscribedEntity s:id="SE0"/>
-         <sqr-ext:SubscriptionOriginator>
-            <sqr-ext:SubscriptionOriginatorIdentification>
-               <nc:IdentificationID>HIJIS:IDP:HCJDC:USER:admin</nc:IdentificationID>
-            </sqr-ext:SubscriptionOriginatorIdentification>
-         </sqr-ext:SubscriptionOriginator>
-      </sqr-ext:Subscription>
-      <sqr-ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</sqr-ext:SourceSystemNameText>
-      <intel:SystemIdentifier>
-         <nc:IdentificationID>62726</nc:IdentificationID>
-         <intel:SystemName>Subscriptions</intel:SystemName>
-      </intel:SystemIdentifier>
-   </sqr-ext:SubscriptionQueryResult>
-   <sqr-ext:Person s:id="P0">
-	<nc:PersonBirthDate>
-		<nc:Date>1975-01-12</nc:Date>
-	</nc:PersonBirthDate>
-      <nc:PersonName>
-         <nc:PersonFullName>Test Name</nc:PersonFullName>
-      </nc:PersonName>
-      <jxdm41:PersonAugmentation>
-         <jxdm41:PersonStateFingerprintIdentification>
-            <nc:IdentificationID>A2588583</nc:IdentificationID>
-         </jxdm41:PersonStateFingerprintIdentification>
-      </jxdm41:PersonAugmentation>
-   </sqr-ext:Person>
-   <nc:ContactInformation s:id="SE0CE1">
-      <nc:ContactEmailID>officer@gmail.com</nc:ContactEmailID>
-   </nc:ContactInformation>
-   <sqr-ext:SubscribedEntityContactInformationAssociation>
-      <sqr-ext:SubscribedEntityReference s:ref="SE0"/>
-      <nc:ContactInformationReference s:ref="SE0CE1"/>
-   </sqr-ext:SubscribedEntityContactInformationAssociation>
-</sqr:SubscriptionQueryResults>
+<sqr-doc:SubscriptionQueryResults xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:sqr-doc="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0 ../xsd/exchange_schema.xsd ">
+	<sqr-ext:SubscriptionQueryResult>
+		<sqr-ext:Subscription s:id="S001">
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2014-03-12</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2016-03-12</nc:Date>
+				</nc:EndDate>
+			</nc:ActivityDateRange>
+			<sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
+			<sqr-ext:SubscriptionQualifierIdentification>
+				<nc:IdentificationID>Q123456</nc:IdentificationID>
+			</sqr-ext:SubscriptionQualifierIdentification>
+			<sqr-ext:SubscriptionCreationDate>
+				<nc:Date>2014-03-12</nc:Date>
+			</sqr-ext:SubscriptionCreationDate>
+			<sqr-ext:SubscriptionLastUpdatedDate>
+				<nc:Date>2014-05-20</nc:Date>
+			</sqr-ext:SubscriptionLastUpdatedDate>
+			<sqr-ext:SubscriptionRelatedCaseIdentification>
+				<nc:IdentificationID>0123ABC</nc:IdentificationID>
+			</sqr-ext:SubscriptionRelatedCaseIdentification>
+			<sqr-ext:FBISubscription>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2015-01-01</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2016-01-01</nc:Date>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+				<sqr-ext:SubscriptionFBIIdentification>
+					<nc:IdentificationID>1234567</nc:IdentificationID>
+				</sqr-ext:SubscriptionFBIIdentification>
+				<sqr-ext:CriminalSubscriptionReasonCode>CI</sqr-ext:CriminalSubscriptionReasonCode>
+				<sqr-ext:RapBackSubscriptionTermCode>5</sqr-ext:RapBackSubscriptionTermCode>
+				<sqr-ext:RapBackActivityNotificationFormatCode>1</sqr-ext:RapBackActivityNotificationFormatCode>
+				<sqr-ext:RapBackInStateOptOutIndicator>false
+				</sqr-ext:RapBackInStateOptOutIndicator>
+			</sqr-ext:FBISubscription>
+			<sqr-ext:SubscriptionSubject>
+				<nc:RoleOfPersonReference s:ref="P001" />
+			</sqr-ext:SubscriptionSubject>
+			<wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+			<sqr-ext:SubscribedEntity s:id="SE001">
+				<nc:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonGivenName>Neil</nc:PersonGivenName>
+						<nc:PersonSurName>Manning</nc:PersonSurName>
+					</nc:PersonName>
+				</nc:EntityPerson>
+			</sqr-ext:SubscribedEntity>
+			<sqr-ext:SubscriptionOriginator>
+				<sqr-ext:SubscriptionOriginatorIdentification>
+					<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov
+					</nc:IdentificationID>
+				</sqr-ext:SubscriptionOriginatorIdentification>
+			</sqr-ext:SubscriptionOriginator>
+			<sqr-ext:SubscriptionValidation>
+				<sqr-ext:SubscriptionValidationDueDate>
+					<nc:Date>2015-03-12</nc:Date>
+				</sqr-ext:SubscriptionValidationDueDate>
+				<sqr-ext:SubscriptionValidatedDate>
+					<nc:Date>2014-03-12</nc:Date>
+				</sqr-ext:SubscriptionValidatedDate>
+			</sqr-ext:SubscriptionValidation>
+			<sqr-ext:SubscriptionGracePeriod>
+				<sqr-ext:SubscriptionGracePeriodDateRange>
+					<nc:StartDate>
+						<nc:Date>2014-09-13</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2014-10-13</nc:Date>
+					</nc:EndDate>
+				</sqr-ext:SubscriptionGracePeriodDateRange>
+			</sqr-ext:SubscriptionGracePeriod>
+			<sqr-ext:CriminalSubscriptionReasonCode>CI
+			</sqr-ext:CriminalSubscriptionReasonCode>
+			<!-- OR sqr-ext:CivilSubscriptionReasonCode>I</sqr-ext:CivilSubscriptionReasonCode -->
+			<sqr-ext:TriggeringEvents>
+				<sqr-ext:FederalTriggeringEventCode>ARREST
+				</sqr-ext:FederalTriggeringEventCode>
+				<sqr-ext:FederalTriggeringEventCode>DEATH
+				</sqr-ext:FederalTriggeringEventCode>
+			</sqr-ext:TriggeringEvents>
+			<sqr-ext:FederalRapSheetDisclosure>
+				<sqr-ext:FederalRapSheetDisclosureIndicator>true
+				</sqr-ext:FederalRapSheetDisclosureIndicator>
+				<sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>
+			</sqr-ext:FederalRapSheetDisclosure>
+		</sqr-ext:Subscription>
+		<sqr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</sqr-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>62726</nc:IdentificationID>
+			<intel:SystemName>Subscriptions</intel:SystemName>
+		</intel:SystemIdentifier>
+	</sqr-ext:SubscriptionQueryResult>
+	<sqr-ext:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1975-01-12</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Dwight</nc:PersonGivenName>
+			<nc:PersonSurName>Schrute</nc:PersonSurName>
+			<nc:PersonFullName>Dwight Schrute</nc:PersonFullName>
+		</nc:PersonName>
+		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A1099109188</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</sqr-ext:Person>
+	<j:Organization s:id="SO01">
+		<nc:OrganizationName>Agency Name</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ORI23456</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<nc:ContactInformation s:id="CI001">
+		<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="SCI001">
+		<nc:ContactEmailID>subjectEmail1@gov.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="SCI002">
+		<nc:ContactEmailID>subjectEmail2@gov.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="SCI003">
+		<nc:ContactEmailID>subjectEmail3@gov.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<sqr-ext:SubscribedEntityOrganizationAssociation>
+		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
+		<nc:OrganizationReference s:ref="SO01" />
+	</sqr-ext:SubscribedEntityOrganizationAssociation>
+	<sqr-ext:SubscribedEntityContactInformationAssociation>
+		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
+		<nc:ContactInformationReference s:ref="CI001" />
+	</sqr-ext:SubscribedEntityContactInformationAssociation>
+	<sqr-ext:SubscribedEntitySubscriptionAssociation>
+		<sqr-ext:SubscribedEntityReference s:ref="SE001" />
+		<sqr-ext:SubscriptionReference s:ref="S001" />
+	</sqr-ext:SubscribedEntitySubscriptionAssociation>
+	<sqr-ext:SubscriptionContactInformationAssociation>
+		<sqr-ext:SubscriptionReference s:ref="S001" />
+		<nc:ContactInformationReference s:ref="SCI001" />
+		<nc:ContactInformationReference s:ref="SCI002" />
+		<nc:ContactInformationReference s:ref="SCI003" />
+	</sqr-ext:SubscriptionContactInformationAssociation>
+</sqr-doc:SubscriptionQueryResults>

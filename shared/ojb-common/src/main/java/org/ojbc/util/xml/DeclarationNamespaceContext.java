@@ -38,6 +38,7 @@ public class DeclarationNamespaceContext implements NamespaceContext {
     public DeclarationNamespaceContext(String declarationString) {
         prefixToUriMap = new HashMap<String, String>();
         uriToPrefixMap = new HashMap<String, String>();
+        
         Pattern p = Pattern.compile("xmlns:(.+?)=\"(.+?)\"[\\s]??");
         Matcher m = p.matcher(declarationString);
         while (m.find()) {

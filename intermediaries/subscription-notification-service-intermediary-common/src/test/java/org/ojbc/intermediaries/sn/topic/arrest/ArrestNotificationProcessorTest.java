@@ -25,7 +25,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -49,7 +48,8 @@ import org.w3c.dom.Document;
 @DirtiesContext
 public class ArrestNotificationProcessorTest {
     
-    private static final Log log = LogFactory.getLog(ArrestNotificationProcessorTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(ArrestNotificationProcessorTest.class);
 	
 	@Autowired
     private ArrestNotificationProcessor arrestNotificationProcessor;

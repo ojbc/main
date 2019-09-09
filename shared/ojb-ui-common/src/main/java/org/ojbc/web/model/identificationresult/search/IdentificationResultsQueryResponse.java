@@ -28,6 +28,7 @@ public class IdentificationResultsQueryResponse {
 	private String fbiSearchResultFile; 
 	private List<String> fbiIdentityHistorySummaryDocuments;
 	private String messageId;
+	private String sid; 
 	
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
@@ -63,5 +64,11 @@ public class IdentificationResultsQueryResponse {
 	}
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 }

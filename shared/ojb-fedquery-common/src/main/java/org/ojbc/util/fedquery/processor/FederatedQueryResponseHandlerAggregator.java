@@ -50,6 +50,7 @@ public class FederatedQueryResponseHandlerAggregator {
         
         List<String> endpointsThatDidNotRespond = new ArrayList<String>();
         
+        log.info("grouped size: " + grouped.size());
 		for (Exchange exchange : grouped)
 		{
 		

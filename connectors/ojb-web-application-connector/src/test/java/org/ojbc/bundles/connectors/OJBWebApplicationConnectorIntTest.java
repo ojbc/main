@@ -43,6 +43,7 @@ import org.ojbc.web.impl.DetailQueryDispatcher;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestTestUtils;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -336,10 +337,8 @@ public class OJBWebApplicationConnectorIntTest{
 		//Add SAML token to request call
 		Element samlToken = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
 
-		String federatedQueryID = returnFederatedQueryGUID();
-		
 		//Invoke the service
-		String response = subscriptionSearchRequestProcessor.invokeSubscriptionSearchRequest(federatedQueryID, samlToken);
+		String response = subscriptionSearchRequestProcessor.invokeSubscriptionSearchRequest(new SubscriptionSearchRequest(), samlToken);
     			
     	log.info("Body recieved by Service (truncated): " + StringUtils.abbreviate(response, 503));
     	

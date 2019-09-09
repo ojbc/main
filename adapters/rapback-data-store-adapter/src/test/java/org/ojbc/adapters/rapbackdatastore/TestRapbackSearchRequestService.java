@@ -44,6 +44,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/subscription-management-routes.xml"
 		})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestRapbackSearchRequestService {

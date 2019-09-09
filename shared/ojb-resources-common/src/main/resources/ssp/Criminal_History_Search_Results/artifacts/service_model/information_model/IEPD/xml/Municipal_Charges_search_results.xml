@@ -48,6 +48,15 @@
 			<nc:ActivityDate>
 				<nc:Date>2018-05-29</nc:Date>
 			</nc:ActivityDate>
+			<!-- NEW 9/9/19 -->
+			<j:ArrestAgency>
+				<nc:OrganizationName>Oklahoma PD</nc:OrganizationName>
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>ORI3285762</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
+			</j:ArrestAgency>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
@@ -63,14 +72,29 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>			
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C123456</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargeReferralCountQuantity>1</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
+				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
+				</chsres-ext:ChargeOwnerAgency>
+				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeAssignedAgency>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeAssignedAgency>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -87,14 +111,26 @@
 							<nc:IdentificationID>1234567890</nc:IdentificationID>
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
-					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>						
+					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
 				</j:ChargeIdentification>
+				<chsres-ext:ChargeReferralCountQuantity>2</chsres-ext:ChargeReferralCountQuantity>
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
+				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
+				</chsres-ext:ChargeOwnerAgency>
+				<chsres-ext:ChargeAssignedAgency>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeAssignedAgency>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
@@ -105,7 +141,7 @@
 			<chsres-ext:ArrestPrimarySystemIdentification>
 				<nc:IdentificationID>A3245667</nc:IdentificationID>
 			</chsres-ext:ArrestPrimarySystemIdentification>
-			<chsres-ext:ArrestHiddenIndicator>false</chsres-ext:ArrestHiddenIndicator>			
+			<chsres-ext:ArrestHiddenIndicator>false</chsres-ext:ArrestHiddenIndicator>
 		</j:Arrest>
 		<chsres-ext:SourceSystemNameText>Alpha Court System </chsres-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

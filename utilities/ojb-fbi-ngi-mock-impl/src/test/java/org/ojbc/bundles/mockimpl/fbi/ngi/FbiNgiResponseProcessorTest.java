@@ -19,6 +19,8 @@ package org.ojbc.bundles.mockimpl.fbi.ngi;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -27,12 +29,16 @@ import org.junit.Test;
 
 public class FbiNgiResponseProcessorTest {
 
+	private static final Log log = LogFactory.getLog(FbiNgiResponseProcessorTest.class);
+	
 	@Test
 	public void responseProcessorTest() throws Exception{
 		
 		FbiNgiResponseProcessor responseProcessor = new FbiNgiResponseProcessor();
 		
-		String subAckResponse = responseProcessor.getSubAckResponse(FbiNgiResponseProcessor.RAP_BACK_MAITENANCE_RESPONSE);
+		String subAckResponse = responseProcessor.getSubAckResponse("1234567890", FbiNgiResponseProcessor.RAP_BACK_MAITENANCE_RESPONSE,"stateSubId", "fingerprintId");
+		
+		log.info("Subscription Ack:" + subAckResponse);
 		
 		//assert the transformed xml against expected xml output doc				
 		String expectedXmlString = FileUtils.readFileToString(
@@ -41,6 +47,21 @@ public class FbiNgiResponseProcessorTest {
 		Diff diff = XMLUnit.compareXML(expectedXmlString, subAckResponse);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
+		
+		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
+		
+		
+		subAckResponse = responseProcessor.getSubAckResponse("1234567890", FbiNgiResponseProcessor.RAP_BACK_SCRIPTION_RESPONSE,"stateSubId", "fingerprintId");
+		
+		log.info("Subscription Ack:" + subAckResponse);
+		
+		//assert the transformed xml against expected xml output doc				
+		expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/Template(RBSR)RapBackSubscriptionResponse.xml"));
+							
+		diff = XMLUnit.compareXML(expectedXmlString, subAckResponse);		
+		
+		detailedDiff = new DetailedDiff(diff);
 		
 		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
 		

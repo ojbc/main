@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * A strategy that looks up the appropriate child strategy by the subscription's topic, and returns the result of executing that strategy on the subscription.  This allows
@@ -37,17 +40,35 @@ public class TopicMapValidationDueDateStrategy implements ValidationDueDateStrat
         this.map = map;
     }
 
-    @Override
-    public DateTime getValidationDueDate(Subscription subscription) {
-        String topic = subscription.getTopic();
-        if (topic != null) {
+
+	@Override
+	public DateTime getValidationDueDate(SubscriptionRequest request,LocalDate validationDate) {
+
+    	String topic = request.getTopic();
+		
+		if (topic != null) {
             ValidationDueDateStrategy s = map.get(topic);
             if (s != null) {
-                return s.getValidationDueDate(subscription);
+                return s.getValidationDueDate(request,validationDate);
             }
             throw new IllegalArgumentException("Topic " + topic + " not found in validation due date strategy map");
         }
-        throw new IllegalArgumentException("Subscription does not have a topic");
+        throw new IllegalArgumentException("Subscription does not have a topic");	
     }
+
+
+	@Override
+	public DateTime getValidationDueDate(Subscription subscription,
+			LocalDate validationDate) {
+    	String topic = subscription.getTopic();
+		
+		if (topic != null) {
+            ValidationDueDateStrategy s = map.get(topic);
+            if (s != null) {
+                return s.getValidationDueDate(subscription,validationDate);
+            }
+            throw new IllegalArgumentException("Topic " + topic + " not found in validation due date strategy map");
+        }
+        throw new IllegalArgumentException("Subscription does not have a topic");	}
 
 }

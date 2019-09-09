@@ -32,5 +32,4 @@
 		<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 	</svm:SubscriptionValidationMessage>
 	<b-2:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
-	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
 </b-2:Validate>

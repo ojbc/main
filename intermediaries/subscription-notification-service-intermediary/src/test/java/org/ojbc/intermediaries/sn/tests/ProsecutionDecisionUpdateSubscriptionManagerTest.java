@@ -54,6 +54,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
 
+@SuppressWarnings("deprecation")
 @DirtiesContext
 public class ProsecutionDecisionUpdateSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
 	
@@ -144,6 +145,7 @@ public class ProsecutionDecisionUpdateSubscriptionManagerTest extends AbstractSu
 	}
 		
 	private String callServiceViaHttp(String msgBody, String url) throws Exception {
+		@SuppressWarnings({ "resource" })
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		post.setEntity(new StringEntity(msgBody));

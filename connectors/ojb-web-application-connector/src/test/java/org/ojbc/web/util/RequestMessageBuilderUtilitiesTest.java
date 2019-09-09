@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,6 +43,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
@@ -124,9 +126,23 @@ public class RequestMessageBuilderUtilitiesTest {
     	
     }
     
+    
+    @Test
+    public void testCreateSubscriptionSearchRequest() throws Exception {
+    	
+    	SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
+    	
+    	Document document = RequestMessageBuilderUtilities.createSubscriptionSearchRequest(subscriptionSearchRequest);
+    	
+    	assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:IdentificationID"));
+    	assertEquals("true", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator"));
+    	assertEquals("true", XmlUtils.xPathStringSearch(document, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestActiveSubscriptionsIndicator"));
+
+    }
+    
     @Test
     public void testCreateIdentificationResultsModificationRequest() throws Exception {
-    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993");
+    	Document document = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993", true);
     	
     	String documentInString = OJBUtils.getStringFromDocument(document);
     	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(documentInString));
@@ -140,7 +156,12 @@ public class RequestMessageBuilderUtilitiesTest {
     	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
     	Assert.assertTrue("XML identical " + myDiff.toString(),
     			myDiff.identical());     
+
+    	Document unarchiveRequestDocument = RequestMessageBuilderUtilities.createIdentificationResultsModificationRequest("000001820140729014008339993", false);
     	
+    	String unarchiveRequestDocumentInString = OJBUtils.getStringFromDocument(unarchiveRequestDocument);
+    	log.debug("\nIdentification Results Modification Request:\n"+ StringUtils.trimToEmpty(unarchiveRequestDocumentInString));
+
     }
     
     @Test

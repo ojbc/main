@@ -51,32 +51,14 @@
             <nc30:IdentificationID>0400024</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
-      <oirs-res-ext:Subscription>
-         <nc30:ActivityDateRange>
-            <nc30:StartDate>
-               <nc30:Date>2014-10-15</nc30:Date>
-            </nc30:StartDate>
-            <nc30:EndDate>
-               <nc30:Date>2015-10-15</nc30:Date>
-            </nc30:EndDate>
-         </nc30:ActivityDateRange>
-         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-         <oirs-res-ext:SubscriptionValidation>
-            <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2015-10-15</nc30:Date>
-            </oirs-res-ext:SubscriptionValidationDueDate>
-         </oirs-res-ext:SubscriptionValidation>
-         <oirs-res-ext:SubscriptionIdentification>
-            <nc30:IdentificationID>62724</nc30:IdentificationID>
-         </oirs-res-ext:SubscriptionIdentification>
-      </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-16</nc30:Date>
       </oirs-res-ext:IdentificationReportedDate>
+      <oirs-res-ext:AgencyCaseNumber>ID12345</oirs-res-ext:AgencyCaseNumber>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
       <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
@@ -93,6 +75,12 @@
             <nc30:IdentificationID>68796860</nc30:IdentificationID>
          </jxdm50:OrganizationORIIdentification>
       </jxdm50:OrganizationAugmentation>
+      <oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>false</oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
+         <oirs-res-ext:FederalTriggeringEventCode>ARREST</oirs-res-ext:FederalTriggeringEventCode>
+         <oirs-res-ext:FederalTriggeringEventCode>DEATH</oirs-res-ext:FederalTriggeringEventCode>
+      </oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
    </nc30:EntityOrganization>
    <nc30:ContactInformationAssociation>
       <nc30:ContactEntity s30:ref="ORG_01"/>

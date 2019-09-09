@@ -26,10 +26,13 @@ public class SubsequentResults implements Serializable{
 
 	private static final long serialVersionUID = -8697166964476446066L;
 	private Long id; //Subsequent Results ID;
+	private String transactionNumber; 
 	private String ucn;
+	private String civilSid;
 	private byte[] rapSheet;
 	private DateTime timestamp;
-	private ResultSender resultsSender; 
+	private ResultSender resultsSender;
+	private Boolean notificationIndicator; 
 	
 	public SubsequentResults(){
 		super();
@@ -77,6 +80,30 @@ public class SubsequentResults implements Serializable{
 
 	public void setUcn(String ucn) {
 		this.ucn = ucn;
+	}
+
+	public String getCivilSid() {
+		return civilSid;
+	}
+
+	public void setCivilSid(String civilSid) {
+		this.civilSid = civilSid;
+	}
+
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
+	}
+
+	public Boolean getNotificationIndicator() {
+		return notificationIndicator;
+	}
+
+	public void setNotificationIndicator(Boolean notificationIndicator) {
+		this.notificationIndicator = notificationIndicator;
 	}
 
 }

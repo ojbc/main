@@ -27,6 +27,8 @@ import org.ojbc.intermediaries.sn.util.EmailAddressValidatorResponse;
 import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -52,38 +54,60 @@ public abstract class SubscriptionRequest {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
 	
 	protected Document document;
-	protected String topic;
-	protected String startDateString;
-	protected String endDateString;
-	protected String subjectName;
-	protected Set<String> emailAddresses;
-	protected String systemName;
-	protected String subscriptionQualifier;
-	protected String subscriptionSystemId;
+	private String topic;
+	private String startDateString;
+	private String endDateString;
+	private String subjectName;
+	private Set<String> emailAddresses;
+	private String systemName;
+	private String subscriptionQualifier;
+	private String subscriptionSystemId;
 	protected Map<String, String> subjectIdentifiers;
+	protected Map<String, String> subscriptionProperties;
 	private String agencyCaseNumber; 	
 	private String reasonCategoryCode;
+	private String subscriptionOwner;
+	private String subscriptionOwnerEmailAddress;
+	private String subscriptionOwnerFirstName;
+	private String subscriptionOwnerLastName;
+	private String subscriptionOwnerOri;
+	private String ori;
+	private String transactionNumber; 
 	
+	public String getSubscriptionOwnerEmailAddress() {
+		return subscriptionOwnerEmailAddress;
+	}
+
+	public void setSubscriptionOwnerEmailAddress(
+			String subscriptionOwnerEmailAddress) {
+		this.subscriptionOwnerEmailAddress = subscriptionOwnerEmailAddress;
+	}
+	
+	public SubscriptionRequest(){
+		super();
+	}
+
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
-		
+	
+		this();
 		//Get the message body as DOM
 		document = message.getBody(Document.class);
 		
 		reasonCategoryCode = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode|//submsg-exch:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode");		
 		
-		topic = XmlUtils.xPathStringSearch(document, "//b-2:Subscribe/b-2:Filter/b-2:TopicExpression");
-		topic = StringUtils.replace(topic, "topics:", "{http://ojbc.org/wsn/topics}:");
+		setTopic(XmlUtils.xPathStringSearch(document, "//b-2:Subscribe/b-2:Filter/b-2:TopicExpression"));
+		setTopic(StringUtils.replace(getTopic(), "topics:", "{http://ojbc.org/wsn/topics}:"));
 		
 		Node subscriptionMsg = XmlUtils.xPathNodeSearch(document,"//submsg-exch:SubscriptionMessage");
 		
-		startDateString = XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:StartDate/nc:Date");
-		endDateString = XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:EndDate/nc:Date");
+		setStartDateString(XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:StartDate/nc:Date"));
+		setEndDateString(XmlUtils.xPathStringSearch(subscriptionMsg,"nc:DateRange/nc:EndDate/nc:Date"));
 		
 		//Check start date versus end date here
-		if (StringUtils.isNotBlank(startDateString) && StringUtils.isNotBlank(endDateString))
+		if (StringUtils.isNotBlank(getStartDateString()) && StringUtils.isNotBlank(getEndDateString()))
 		{
-			DateTime startDate = DATE_FORMATTER.parseDateTime(startDateString);
-			DateTime endDate = DATE_FORMATTER.parseDateTime(endDateString);
+			DateTime startDate = DATE_FORMATTER.parseDateTime(getStartDateString());
+			DateTime endDate = DATE_FORMATTER.parseDateTime(getEndDateString());
 			
 			if (endDate.toDateMidnight().isBefore(startDate.toDateMidnight()))
 			{
@@ -99,12 +123,12 @@ public abstract class SubscriptionRequest {
 	    if (emailNodes != null && emailNodes.getLength() > 0) {
 	        for (int i = 0; i < emailNodes.getLength(); i++) {
 	            if (emailNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-	    			if (emailAddresses == null)
+	    			if (getEmailAddresses() == null)
 	    			{
-	    				emailAddresses = new HashSet<String>();
+	    				setEmailAddresses(new HashSet<String>());
 	    			}	
 	    			
-	    			wasEntryAddedToSet = emailAddresses.add(emailNodes.item(i).getTextContent());
+	    			wasEntryAddedToSet = getEmailAddresses().add(emailNodes.item(i).getTextContent());
 	    			
 	    			if (!wasEntryAddedToSet)
 	    			{
@@ -115,7 +139,7 @@ public abstract class SubscriptionRequest {
 	        }
 	    }
 		
-	    if (emailAddresses == null || emailAddresses.size() == 0)
+	    if (getEmailAddresses() == null || getEmailAddresses().size() == 0)
 	    {
 	    	throw new Exception("The request does not contain any email addresses.");
 	    }	
@@ -123,7 +147,7 @@ public abstract class SubscriptionRequest {
 		EmailAddressPatternValidator emailAddressPatternValidator = new EmailAddressPatternValidator(allowedEmailAddressPatterns);
 		
 		//Check email addresses here
-		EmailAddressValidatorResponse emailAddressValidatorResponse = emailAddressPatternValidator.areEmailAddressesValid(new ArrayList<String>(emailAddresses));
+		EmailAddressValidatorResponse emailAddressValidatorResponse = emailAddressPatternValidator.areEmailAddressesValid(new ArrayList<String>(getEmailAddresses()));
 		
 		if (!emailAddressValidatorResponse.isAreAllEmailAddressValid())
 		{
@@ -134,14 +158,35 @@ public abstract class SubscriptionRequest {
 			throw new InvalidEmailAddressesException("The request contains invalid email addresses.", invalidEmailAddress);
 		}	
 		
-		systemName = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SystemName");
-		subjectName = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:Subject/nc:PersonName/nc:PersonFullName");
-		subscriptionQualifier = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
-		subscriptionSystemId = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID");
+		setSystemName(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SystemName"));
+		setSubjectName(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:Subject/nc:PersonName/nc:PersonFullName"));
+		setSubscriptionQualifier(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID"));
+		setSubscriptionSystemId(XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID"));
 		agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+		
+		transactionNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID");
+		ori = XmlUtils.xPathStringSearch(subscriptionMsg, 
+				"submsg-ext:SubscribingOrganization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
+		
+		
+		subscriptionOwner = (String) message.getHeader("subscriptionOwner");
+		subscriptionOwnerEmailAddress = (String) message.getHeader("subscriptionOwnerEmailAddress");
+		subscriptionOwnerFirstName = (String) message.getHeader("subscriptionOwnerFirstName");
+		subscriptionOwnerLastName = (String) message.getHeader("subscriptionOwnerLastName");
+		subscriptionOwnerOri = (String) message.getHeader("subscriptionOwnerOri");
+		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
+		// subscriptionProperties intentionally left out - should be populated by derived class
 	}
 	
+	public String getSubscriptionOwner() {
+		return subscriptionOwner;
+	}
+
+	public void setSubscriptionOwner(String subscriptionOwner) {
+		this.subscriptionOwner = subscriptionOwner;
+	}
+
 	public String getTopic() {
 		return topic;
 	}
@@ -198,5 +243,90 @@ public abstract class SubscriptionRequest {
 		this.subjectIdentifiers = subjectIdentifiers;
 	}	
 	
+	public Map<String, String> getSubscriptionProperties() {
+		return subscriptionProperties;
+	}
+
+	public void setSubscriptionProperties(Map<String, String> subscriptionProperties) {
+		this.subscriptionProperties = subscriptionProperties;
+	}
+
+	public String getOri() {
+		return ori;
+	}
+
+	public void setOri(String ori) {
+		this.ori = ori;
+	}
 	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
+	}
+
+	public void setSubscriptionSystemId(String subscriptionSystemId) {
+		this.subscriptionSystemId = subscriptionSystemId;
+	}
+
+	public void setSubscriptionQualifier(String subscriptionQualifier) {
+		this.subscriptionQualifier = subscriptionQualifier;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	public void setEmailAddresses(Set<String> emailAddresses) {
+		this.emailAddresses = emailAddresses;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
+	public void setEndDateString(String endDateString) {
+		this.endDateString = endDateString;
+	}
+
+	public void setStartDateString(String startDateString) {
+		this.startDateString = startDateString;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getSubscriptionOwnerFirstName() {
+		return subscriptionOwnerFirstName;
+	}
+
+	public void setSubscriptionOwnerFirstName(String subscriptionOwnerFirstName) {
+		this.subscriptionOwnerFirstName = subscriptionOwnerFirstName;
+	}
+
+	public String getSubscriptionOwnerLastName() {
+		return subscriptionOwnerLastName;
+	}
+
+	public void setSubscriptionOwnerLastName(String subscriptionOwnerLastName) {
+		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
+	}
+
+	public String getSubscriptionOwnerOri() {
+		return subscriptionOwnerOri;
+	}
+
+	public void setSubscriptionOwnerOri(String subscriptionOwnerOri) {
+		this.subscriptionOwnerOri = subscriptionOwnerOri;
+	}
+
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
+	}
+
+
 }

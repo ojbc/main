@@ -46,12 +46,12 @@
 		<xsl:variable name="subscribedEntityID" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
 		<xsl:choose>
 			<xsl:when test="$filterSubscriptionStatus = 'Active'">
-				<xsl:if test="not($gracePeriodStartDate) or ($currentDate &lt; $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true'">
 					<xsl:copy-of select="." copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus = 'Inactive'">
-				<xsl:if test="$gracePeriodStartDate and ($currentDate &gt;= $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'false'">
 					<xsl:copy-of select="." copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
@@ -60,7 +60,7 @@
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus='Expiring'">										
 				<xsl:variable name="warningDate" select="xs:date($gracePeriodStartDate)  - ($validationDueWarningDays * xs:dayTimeDuration('P1D'))"/>								
-				<xsl:if test="$gracePeriodStartDate and $currentDate &gt;= $warningDate and $currentDate &lt; $gracePeriodStartDate">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true' and $currentDate &gt;= $warningDate">
 					 <xsl:copy-of select="." copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
@@ -74,12 +74,12 @@
 		<xsl:variable name="personNode" select="/ssr:SubscriptionSearchResults/ext:Person[@s:id=$subjectID]"/>
 		<xsl:choose>
 			<xsl:when test="$filterSubscriptionStatus = 'Active'">
-				<xsl:if test="not($gracePeriodStartDate) or ($currentDate &lt; $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true'">
 					<xsl:copy-of select="$personNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus = 'Inactive'">
-				<xsl:if test="$gracePeriodStartDate and ($currentDate &gt;= $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'false'">
 					<xsl:copy-of select="$personNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
@@ -88,7 +88,7 @@
 			</xsl:when>			
 			<xsl:when test="$filterSubscriptionStatus='Expiring'">
 				<xsl:variable name="warningDate" select="xs:date($gracePeriodStartDate)  - ($validationDueWarningDays * xs:dayTimeDuration('P1D'))"/>
-					<xsl:if test="$gracePeriodStartDate and $currentDate &gt;= $warningDate and $currentDate &lt; $gracePeriodStartDate">
+					<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true' and $currentDate &gt;= $warningDate ">
 						<xsl:copy-of select="$personNode" copy-namespaces="no"/>
 					</xsl:if>
 			</xsl:when>		
@@ -99,15 +99,16 @@
 		<xsl:variable name="gracePeriodStartDate" select="ext:Subscription/ext:SubscriptionGracePeriod/ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"/>	
 		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
 		<xsl:variable name="subscribedEntityID" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
-		<xsl:variable name="contactInfoNode" select="/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id = /ssr:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref = $subscribedEntityID]/nc:ContactInformationReference/@s:ref]"/>
+		<xsl:variable name="subscriptionRefId" select="ext:Subscription/@s:id"/>
+		<xsl:variable name="contactInfoNode" select="/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id = /ssr:SubscriptionSearchResults/ext:SubscriptionContactInformationAssociation[ext:SubscriptionReference/@s:ref = $subscriptionRefId]/nc:ContactInformationReference/@s:ref]"/>
 		<xsl:choose>
 			<xsl:when test="$filterSubscriptionStatus = 'Active'">
-				<xsl:if test="not($gracePeriodStartDate) or ($currentDate &lt; $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true'">
 					<xsl:copy-of select="$contactInfoNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus = 'Inactive'">
-				<xsl:if test="$gracePeriodStartDate and ($currentDate &gt;= $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'false'">
 					<xsl:copy-of select="$contactInfoNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
@@ -116,7 +117,7 @@
 			</xsl:when>		
 			<xsl:when test="$filterSubscriptionStatus='Expiring'">
 				<xsl:variable name="warningDate" select="xs:date($gracePeriodStartDate)  - ($validationDueWarningDays * xs:dayTimeDuration('P1D'))"/>
-					<xsl:if test="$gracePeriodStartDate and $currentDate &gt;= $warningDate and $currentDate &lt; $gracePeriodStartDate">
+					<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true' and $currentDate &gt;= $warningDate">
 						<xsl:copy-of select="$contactInfoNode" copy-namespaces="no"/>
 					</xsl:if>
 			</xsl:when>
@@ -127,25 +128,31 @@
 		<xsl:variable name="gracePeriodStartDate" select="ext:Subscription/ext:SubscriptionGracePeriod/ext:SubscriptionGracePeriodDateRange/nc:StartDate/nc:Date"/>	
 		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
 		<xsl:variable name="subscribedEntityID" select="ext:Subscription/ext:SubscribedEntity/@s:id"/>
+		<xsl:variable name="subscriptionRefId" select="ext:Subscription/@s:id"/>
 		<xsl:variable name="infoAssocNode" select="/ssr:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref = $subscribedEntityID]"/>
+		<xsl:variable name="subContactAssociationNode" select="/ssr:SubscriptionSearchResults/ext:SubscriptionContactInformationAssociation[ext:SubscriptionReference/@s:ref = $subscriptionRefId]"/>
 		<xsl:choose>
 			<xsl:when test="$filterSubscriptionStatus = 'Active'">
-				<xsl:if test="not($gracePeriodStartDate) or ($currentDate &lt; $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true'">
 					<xsl:copy-of select="$infoAssocNode" copy-namespaces="no"/>
+					<xsl:copy-of select="$subContactAssociationNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus = 'Inactive'">
-				<xsl:if test="$gracePeriodStartDate and ($currentDate &gt;= $gracePeriodStartDate)">
+				<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'false'">
 					<xsl:copy-of select="$infoAssocNode" copy-namespaces="no"/>
+					<xsl:copy-of select="$subContactAssociationNode" copy-namespaces="no"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="$filterSubscriptionStatus = 'All'">
 				<xsl:copy-of select="$infoAssocNode"/>
+				<xsl:copy-of select="$subContactAssociationNode"/>
 			</xsl:when>		
 			<xsl:when test="$filterSubscriptionStatus='Expiring'">
 				<xsl:variable name="warningDate" select="xs:date($gracePeriodStartDate)  - ($validationDueWarningDays * xs:dayTimeDuration('P1D'))"/>
-					<xsl:if test="$gracePeriodStartDate and $currentDate &gt;= $warningDate and $currentDate &lt; $gracePeriodStartDate">
+					<xsl:if test="ext:Subscription/ext:SubscriptionActiveIndicator = 'true' and $currentDate &gt;= $warningDate">
 						<xsl:copy-of select="$infoAssocNode" copy-namespaces="no"/>
+						<xsl:copy-of select="$subContactAssociationNode" copy-namespaces="no"/>
 					</xsl:if>
 			</xsl:when>		
 		</xsl:choose>

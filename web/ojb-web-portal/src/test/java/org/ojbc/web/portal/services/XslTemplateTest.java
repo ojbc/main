@@ -347,11 +347,11 @@ public class XslTemplateTest {
         
         String sXmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + "subscriptionSearchResult.xml").getInputStream());
                         
-        sXmlInput = sXmlInput.replace("<nc:Date>@sub_end_date@</nc:Date>", "<nc:Date>" + CURRENT_DATE_yyyyMMdd +"</nc:Date>");
+        sXmlInput = sXmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
                         
         String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
                         
-        sExpectedHtml = sExpectedHtml.replace("<td>@sub_end_date@</td>", "<td>" + CURRENT_DATE_MMddyyyy + "</td>");
+        sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
         
         List<String> expectedHtmlLineList = IOUtils.readLines(new ByteArrayInputStream(sExpectedHtml.getBytes()), CharEncoding.UTF_8);
                              
@@ -360,9 +360,14 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertedHtmlPersonSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
+        Map <String, Object> searchParams = getDefaultPersonSearchParams();
+        searchParams.put("includeAgencyORIColumn", "true");
+        
+        String convertedHtmlSubscriptionSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, searchParams);
+        
+        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertedHtmlSubscriptionSearchResult);
                                     
-        assertLinesEquals(expectedHtmlLineList, convertedHtmlPersonSearchResult);                                                    
+        assertLinesEquals(expectedHtmlLineList, convertedHtmlSubscriptionSearchResult);                                                    
     }
     
     
@@ -388,7 +393,7 @@ public class XslTemplateTest {
         searchResultConverter.searchResultXsl = xsl;
         
         String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
-                               
+        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertResult); 
         assertLinesEquals(expectedHtml, convertResult);
     }    
     
@@ -470,7 +475,7 @@ public class XslTemplateTest {
         
         xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
         
-        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResultFullName.html").getInputStream());
         
         sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
                 
@@ -575,8 +580,7 @@ public class XslTemplateTest {
     private void validateRapbackSearchTransformation(String inputXmlPath, String expectedHtmlPath) throws Exception {
         
         String xmlInput = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/ssp/Organization_Identification_Results_Search_Results"
-                + "/artifacts/service_model/information_model/IEPD/xml/" + inputXmlPath));
+                "/xslTransformTest/" + inputXmlPath));
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
         
@@ -617,7 +621,6 @@ public class XslTemplateTest {
         params.put("rows", 10);
         params.put("hrefBase", "pagination");
         params.put("validateSubscriptionButton", "true");
-        params.put("messageIfNoResults", "You do not have any subscriptions.");
         params.put("chDisplaySupervisionTroCustodyHeaders", "true");
         return params;
     }

@@ -32,6 +32,8 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<util:properties
+					location="classpath:identification_reporting_service_intermediary.cfg" />
 				<osgix:cm-properties id="osgiProperties"
 					persistent-id="identification_reporting_service_intermediary" />
 			</array>

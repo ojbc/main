@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * A strategy that sets the grace period with a start date of the validation due date (as determined by a passed-in ValidationDueDateStrategy) or subscription end date, and an end date some 
@@ -26,7 +27,6 @@ import org.joda.time.Interval;
  */
 public class StaticGracePeriodStrategy implements GracePeriodStrategy {
 
-    private ValidationDueDateStrategy validationDueDateStrategy;
     private int gracePeriodDays;
 
     public int getGracePeriodDays() {
@@ -37,15 +37,11 @@ public class StaticGracePeriodStrategy implements GracePeriodStrategy {
         this.gracePeriodDays = gracePeriodDays;
     }
 
-    public StaticGracePeriodStrategy(ValidationDueDateStrategy validationDueDateStrategy) {
-        this.validationDueDateStrategy = validationDueDateStrategy;
-    }
-
     @Override
     public Interval getGracePeriod(Subscription subscription) {
         Interval ret = null;
         
-        DateTime validationDueDate = validationDueDateStrategy.getValidationDueDate(subscription);
+        DateTime validationDueDate = subscription.getValidationDueDate();
         DateTime subscriptionEndDate = subscription.getEndDate();
         DateTime gracePeriodStart = null;
         
@@ -56,7 +52,7 @@ public class StaticGracePeriodStrategy implements GracePeriodStrategy {
         
         if (subscriptionEndDate == null && validationDueDate != null)
         {
-        	gracePeriodStart = validationDueDateStrategy.getValidationDueDate(subscription);
+        	gracePeriodStart = subscription.getValidationDueDate();
         } 
         
         if (subscriptionEndDate != null && validationDueDate == null)
@@ -72,7 +68,7 @@ public class StaticGracePeriodStrategy implements GracePeriodStrategy {
         	}	
         	else
         	{
-        		gracePeriodStart = validationDueDateStrategy.getValidationDueDate(subscription);	
+        		gracePeriodStart = subscription.getValidationDueDate();
         	}
         }
         	

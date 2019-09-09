@@ -64,7 +64,7 @@ import org.w3c.dom.Node;
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/extensible-beans.xml",		
 		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+		"classpath:META-INF/spring/properties-context.xml"})
 public class CamelContextTest {
 
     @Resource

@@ -30,7 +30,6 @@ import org.apache.camel.Message;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestUnSubscriptionRequest;
 import org.w3c.dom.Document;
 
 public class ProsecutionDecisionUpdateUnSubscriptionRequestTest {
@@ -41,7 +40,7 @@ public class ProsecutionDecisionUpdateUnSubscriptionRequestTest {
 		
 		Mockito.when(message.getBody(Document.class)).thenReturn(getMessageBody());
 		
-		ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest(message);
+		ProsecutionDecisionUpdateUnSubscriptionRequest request = new ProsecutionDecisionUpdateUnSubscriptionRequest(message);
 		
 		assertThat(request.getSubscriptionQualifier(), is("302593"));
 		Assert.assertNotNull(request.getEmailAddresses());

@@ -20,6 +20,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.VelocityContext;
@@ -45,8 +46,15 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
     public static final class EmailTemplate {
         private String emailSubjectTemplate;
         private String emailBodyTemplate;
+        private String emailSubjectPrefix;
 
         public String getEmailSubjectTemplate() {
+        	
+        	if (StringUtils.isNotBlank(emailSubjectPrefix))
+        	{
+        		return emailSubjectPrefix + emailSubjectTemplate;
+        	}	
+        	
             return emailSubjectTemplate;
         }
 
@@ -62,11 +70,20 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
             this.emailBodyTemplate = emailBodyTemplate;
         }
 
+		public String getEmailSubjectPrefix() {
+			return emailSubjectPrefix;
+		}
+
+		public void setEmailSubjectPrefix(String emailSubjectPrefix) {
+			this.emailSubjectPrefix = emailSubjectPrefix;
+		}
+
 		@Override
 		public String toString() {
 			return "EmailTemplate [emailSubjectTemplate="
 					+ emailSubjectTemplate + ", emailBodyTemplate="
-					+ emailBodyTemplate + "]";
+					+ emailBodyTemplate + ", emailSubjectPrefix="
+					+ emailSubjectPrefix + "]";
 		}
     }
 
@@ -116,6 +133,7 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         String topic = emailNotification.getNotificationRequest().getTopic();
         String subscribingSystem = emailNotification.getSubscribingSystemIdentifier();
         String subscriptionCategoryCode = emailNotification.getSubscriptionCategoryCode();
+        String notifyingSystemName = emailNotification.getNotificationRequest().getNotifyingSystemName();
         
         EmailTemplate ret = defaultEmailTemplate;
         Map<NotificationFormatKey, EmailTemplate> systemTemplateMap = topicSystemTemplateMap.get(topic);
@@ -125,6 +143,9 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         	
         	emailNotificationIdentifierKeyWrapper.setSubscribingSystemName(subscribingSystem);
         	emailNotificationIdentifierKeyWrapper.setSubscriptionCategoryCode(subscriptionCategoryCode);
+        	emailNotificationIdentifierKeyWrapper.setNotifyingSystemName(notifyingSystemName);
+        	
+        	log.info("Subscribing System: " + subscribingSystem + ", Subscription Category Code: " + subscriptionCategoryCode + ", Notifying system name: " + notifyingSystemName);
         	
             EmailTemplate mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapper);
             if (mappedTemplate == null) {
@@ -132,8 +153,7 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
             	NotificationFormatKey emailNotificationIdentifierKeyWrapperDefault = new NotificationFormatKey();
             	
             	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
-            	
-            	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+            	emailNotificationIdentifierKeyWrapperDefault.setNotifyingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
             	emailNotificationIdentifierKeyWrapperDefault.setSubscriptionCategoryCode("default");
             	
                 mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapperDefault);

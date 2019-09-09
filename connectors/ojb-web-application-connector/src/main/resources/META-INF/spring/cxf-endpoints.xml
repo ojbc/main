@@ -852,8 +852,7 @@
         </wsp:Policy>
       </policy:policies>
     </cxf:features>
-  </cxf:cxfEndpoint>      
-       
+  </cxf:cxfEndpoint>         
        	
 	<util:properties id="portalKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>

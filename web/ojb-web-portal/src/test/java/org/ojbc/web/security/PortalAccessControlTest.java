@@ -219,6 +219,8 @@ public class PortalAccessControlTest {
         		+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
         		+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"adminLink\" class=\"leftMenuLink\" "
+        		+ "href=\"#\" target=\"_blank\"><div></div>Admin </a>")); 
     }
     
     @Test

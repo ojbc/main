@@ -43,6 +43,8 @@
             	</smext:SubscriptionRelatedCaseIdentification>
                 <smext:Subject>
                     <nc20:PersonName>
+                    	<nc20:PersonGivenName>Test</nc20:PersonGivenName>
+                    	<nc20:PersonSurName>Person</nc20:PersonSurName>
                         <nc20:PersonFullName>Test Person</nc20:PersonFullName>
                     </nc20:PersonName>
                     <jxdm41:PersonAugmentation>

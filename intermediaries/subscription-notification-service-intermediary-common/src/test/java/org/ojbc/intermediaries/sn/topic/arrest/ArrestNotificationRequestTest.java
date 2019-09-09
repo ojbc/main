@@ -23,14 +23,13 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.apache.camel.Message;
+import org.junit.Test;
+import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-import org.apache.camel.Message;
-import org.apache.commons.lang.StringUtils;
-import org.junit.Test;
-import org.mockito.Mockito;
 import org.w3c.dom.Document;
 
 public class ArrestNotificationRequestTest {

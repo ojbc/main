@@ -25,11 +25,12 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
+import org.ojbc.intermediaries.sn.topic.rapback.RapbackNotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.model.rapback.Subscription;
 
 /**
  * The abstract base class for topic-specific notification processors...there will be a concrete derivation of this class for each topic.
@@ -43,6 +44,7 @@ public abstract class NotificationProcessor {
     private NotificationFilterStrategy notificationFilterStrategy = new DefaultNotificationFilterStrategy();
     private EmailEnhancementStrategy emailEnhancementStrategy = new DefaultEmailEnhancementStrategy();
     private boolean consolidateEmailAddresses = false;
+    private boolean sendNotificationToSubscriptionOwner = false;
     private EmailFormatter emailFormatter = new EmailFormatter.DefaultEmailFormatter();
     
     /**
@@ -153,7 +155,7 @@ public abstract class NotificationProcessor {
         }
         
         if (emailNotifications.size() == 0) {
-            log.warn("No subscriptions found for subject " + request.getSubjectIdentifiers() + " and event date of " + NotificationBrokerUtils.returnFormattedNotificationEventDate(request.getNotificationEventDate(), request.isNotificationEventDateInclusiveOfTime()));
+            log.info("No subscriptions found for subject " + request.getSubjectIdentifiers() + " and event date of " + NotificationBrokerUtils.returnFormattedNotificationEventDate(request.getNotificationEventDate(), request.isNotificationEventDateInclusiveOfTime()));
         }
         
         return emailNotifications;
@@ -234,7 +236,7 @@ public abstract class NotificationProcessor {
         
     }
     
-    List<EmailNotification> createUniqueNotifications(List<Subscription> subscriptions, NotificationRequest request) {
+    protected List<EmailNotification> createUniqueNotifications(List<Subscription> subscriptions, NotificationRequest request) {
         
         List<EmailNotification> emailNotifications = new ArrayList<EmailNotification>();
 
@@ -246,34 +248,18 @@ public abstract class NotificationProcessor {
             
             for (String emailAddress : subscription.getEmailAddressesToNotify()) {
                 
-                boolean add = true;
-                
-                for (EmailNotification emailNotification : emailNotifications) {
-                    
-                    Set<String> emailAddresses = emailNotification.getToAddresseeSet();
-                    if (emailAddresses.contains(emailAddress) && emailNotification.getSubscribingSystemIdentifier().equals(subscriptionSubscribingSystemName)) {
-                        add = false;
-                        break;
-                    }
-                    
-                }
-                
-                if (add) {
-                    if (!consolidateEmailAddresses || (consolidateEmailAddresses && en == null)) {
-                        en = new EmailNotification();
-                        emailNotifications.add(en);
-                    }
-                    
-                    en.setSubscriptionSubjectIdentifiers(subscription.getSubscriptionSubjectIdentifiers());
-                    en.setSubjectName(subscription.getPersonFullName());
-                    en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
-                    
-                    en.setSubscriptionCategoryCode(subscription.getSubscriptionCategoryCode());
-                    en.addToAddressee(emailAddress);
-                    en.setNotificationRequest(request);
-                }
+                en = createEmailNotification(request, emailNotifications,
+						subscription, en, subscriptionSubscribingSystemName,
+						emailAddress);
                 
             }
+            
+            if (sendNotificationToSubscriptionOwner)
+            {
+                en = createEmailNotification(request, emailNotifications,
+						subscription, en, subscriptionSubscribingSystemName,
+						subscription.getSubscriptionOwnerEmailAddress());
+            }	
             
         }
 
@@ -283,6 +269,46 @@ public abstract class NotificationProcessor {
         
     }
 
+	private EmailNotification createEmailNotification(
+			NotificationRequest request,
+			List<EmailNotification> emailNotifications,
+			Subscription subscription, EmailNotification en,
+			String subscriptionSubscribingSystemName, String emailAddress) {
+		boolean add = true;
+		
+		for (EmailNotification emailNotification : emailNotifications) {
+		    
+		    Set<String> emailAddresses = emailNotification.getToAddresseeSet();
+		    if (emailAddresses.contains(emailAddress) && emailNotification.getSubscribingSystemIdentifier().equals(subscriptionSubscribingSystemName)) {
+		        add = false;
+		        break;
+		    }
+		    
+		}
+		
+		if (add) {
+		    if (!consolidateEmailAddresses || (consolidateEmailAddresses && en == null)) {
+		        en = new EmailNotification();
+		        emailNotifications.add(en);
+		    }
+		    
+		    en.setSubscriptionSubjectIdentifiers(subscription.getSubscriptionSubjectIdentifiers());
+		    en.setSubjectName(subscription.getPersonFullName());
+		    en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
+		    
+		    en.setSubscriptionCategoryCode(subscription.getSubscriptionCategoryCode());
+		    en.addToAddressee(emailAddress);
+		    en.setNotificationRequest(request);
+		    en.setSubscription(subscription);
+		    
+		    if (request instanceof RapbackNotificationRequest)
+		    {
+		    	en.setTriggeringEvents(((RapbackNotificationRequest)request).getTriggeringEvents());
+		    }	
+		}
+		return en;
+	}
+
 	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
 		return subscriptionSearchQueryDAO;
 	}
@@ -290,6 +316,15 @@ public abstract class NotificationProcessor {
 	public void setSubscriptionSearchQueryDAO(
 			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public boolean isSendNotificationToSubscriptionOwner() {
+		return sendNotificationToSubscriptionOwner;
+	}
+
+	public void setSendNotificationToSubscriptionOwner(
+			boolean sendNotificationToSubscriptionOwner) {
+		this.sendNotificationToSubscriptionOwner = sendNotificationToSubscriptionOwner;
 	}
 
 }

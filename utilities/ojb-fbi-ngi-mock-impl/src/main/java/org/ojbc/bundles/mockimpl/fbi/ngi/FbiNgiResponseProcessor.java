@@ -33,6 +33,7 @@ public class FbiNgiResponseProcessor {
 	
 	public static final String RAP_BACK_MAITENANCE_RESPONSE = "RBMNT";
 	public static final String RAP_BACK_SCRIPTION_RESPONSE = "RBSCRM";
+	public static final String RAP_BACK_CIVIL_SCRIPTION_RESPONSE = "RBSCVL";
 	
 	private Logger logger = Logger.getLogger(FbiNgiResponseProcessor.class);
 	
@@ -50,13 +51,21 @@ public class FbiNgiResponseProcessor {
 				
 		String trxCatCode = exchange.getIn().getHeader("transactionCategoryCode", String.class);
 		logger.info("\n\n\n trxCatCode: " + trxCatCode + "\n\n\n");
+
+		String transactionControlIdentification = exchange.getIn().getHeader("transactionControlIdentification", String.class);
+		logger.info("\n\n\n transactionControlIdentification: " + transactionControlIdentification + "\n\n\n");
 		
+		String stateSubscriptionId = exchange.getIn().getHeader("stateSubscriptionId", String.class);
+		logger.info("\n\n\n stateSubscriptionId: " + stateSubscriptionId + "\n\n\n");
+		
+		String stateFingerprintId = exchange.getIn().getHeader("stateFingerprintId", String.class);
+		logger.info("\n\n\n stateFingerprintId: " + stateFingerprintId + "\n\n\n");
 		
 		if (StringUtils.isBlank(transactionCategoryCode)){
 			throw new IllegalArgumentException("The transactionCategoryCode is missing."); 
 		}
 		
-		String subAckResponse = getSubAckResponse(transactionCategoryCode);
+		String subAckResponse = getSubAckResponse(transactionControlIdentification, transactionCategoryCode, stateSubscriptionId, stateFingerprintId);
 		
 		logger.info("\n\n Processor returning subsription aknowledgement response:... \n\n");
 				
@@ -64,13 +73,13 @@ public class FbiNgiResponseProcessor {
 	}
 	
 	
-	String getSubAckResponse(String transactionCategoryCode) throws Exception{
+	String getSubAckResponse(String transactionControlIdentification, String transactionCategoryCode, String stateSubscriptionId, String stateFingerprintId) throws Exception{
 				
 		String sResponseDoc = null;
 		
 		InputStream inStreamSubResp = null;
 		
-		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE)){
+		if (transactionCategoryCode.equals(RAP_BACK_SCRIPTION_RESPONSE) || transactionCategoryCode.equals(RAP_BACK_CIVIL_SCRIPTION_RESPONSE) ){
 						
 			inStreamSubResp = getClass().getClassLoader().getResourceAsStream("mockXml/Template(RBSR)RapBackSubscriptionResponse.xml");														    	
 		
@@ -83,7 +92,13 @@ public class FbiNgiResponseProcessor {
 			
 			Document responseDoc = docBuilder.parse(inStreamSubResp);	
 			
-			sResponseDoc = OJBUtils.getStringFromDocument(responseDoc);					
+			sResponseDoc = OJBUtils.getStringFromDocument(responseDoc);
+			
+			sResponseDoc = sResponseDoc.replace("STATE_FINGERPRINT_ID_PLACEHOLDER", stateFingerprintId);
+			
+			sResponseDoc = sResponseDoc.replace("STATE_SUBSCRIPTION_ID_PLACEHOLDER", stateSubscriptionId);
+			sResponseDoc = sResponseDoc.replace("TransactionControlReferenceIdentification_HOLDER", transactionControlIdentification);
+			
 		}		
 		return sResponseDoc;
 	}

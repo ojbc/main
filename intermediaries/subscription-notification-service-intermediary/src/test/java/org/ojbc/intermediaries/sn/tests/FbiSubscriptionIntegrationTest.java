@@ -17,9 +17,11 @@
 package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +42,13 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
+import org.ojbc.test.util.XmlTestUtils;
+import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.xml.XmlUtils;
+import org.springframework.test.annotation.DirtiesContext;
+import org.w3c.dom.Document;
 
 public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
@@ -54,10 +61,13 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	@Resource
 	protected IncidentNotificationProcessor incidentNotificationProcessor;
 	
+	@Resource
+	protected FbiSubscriptionProcessor fbiSubscriptionProcessor;
+	
 	//TODO ensure prod java code uses correct data source
 		
 	@Resource
-	private DataSource rapbackDataSource;
+	private DataSource dataSource;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -65,18 +75,20 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
 		
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");    	    	
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+
     	    }              
     	});    	    	
 	}		
 			
 	protected IDatabaseConnection getConnection() throws Exception {
 		
-		Connection con = rapbackDataSource.getConnection();
+		Connection con = dataSource.getConnection();
 		IDatabaseConnection connection = new DatabaseConnection(con);
 		return connection;
 	}	
@@ -91,7 +103,9 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		
 		String response = invokeRequest("fbiSubscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));        
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));    
+		
+		Thread.sleep(3000);
 
 		//Query for subscription just added to confirm validation date
 		//DB Unit doesn't have good support for this
@@ -102,10 +116,10 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("{http://ojbc.org/wsn/topics}:person/arrest", "{http://demostate.gov/SystemNames/1.0}SystemA", "SYSTEM", subjectIdentifiers );
 		
 		//We should only get one result
-		assertEquals(1, subscriptions.size());
+		assertEquals(2, subscriptions.size());
 		
 		//Get the validation date from database
-		DateTime lastValidationDate = subscriptions.get(0).getLastValidationDate();
+		DateTime lastValidationDate = subscriptions.get(1).getLastValidationDate();
 		
 		//Add one year to the current date
 		DateTime todayPlusOneYear = new DateTime();
@@ -113,5 +127,18 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		
 		//Assert that the date stamp is equal for both dates.
 		assertEquals(lastValidationDate.toString("yyyy-MM-dd"), todayPlusOneYear.toString("yyyy-MM-dd"));
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testPrepareUnsubscribeMessageForFbiEbts() throws Exception {
+        DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
+		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
+
+		assertNotNull(fbiSubscriptionProcessor);
+		Document originalUnsubscribeRequest = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/unSubscribeFbiSubscriptionRequest.xml"));
+		Document preparedRequest = fbiSubscriptionProcessor.prepareUnsubscribeMessageForFbiEbts(originalUnsubscribeRequest);
+		
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/expectedPreparedUnsubscribeFbiRequest.xml", preparedRequest);
 	}	
 }

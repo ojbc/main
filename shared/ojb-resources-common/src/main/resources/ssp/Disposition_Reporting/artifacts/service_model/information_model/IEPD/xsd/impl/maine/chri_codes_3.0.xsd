@@ -202,20 +202,28 @@
 			<xsd:enumeration value="LICENSE SUSPENSION" />
 			<xsd:enumeration value="PUBLIC SERVICE" />
 			<xsd:enumeration value="PROBATION" />
+			<xsd:enumeration value="PROBATION NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="PROBATION CONTINUED" />
+			<xsd:enumeration value="PROBATION CONTINUED NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED" />
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED" />
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="PROBATION REVOKED" />
+			<xsd:enumeration value="PROBATION REVOKED NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="PROBATION REVOKED PROBATION REVOCATION CONTINUED" />
+			<xsd:enumeration value="PROBATION REVOKED PROBATION REVOCATION CONTINUED NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE CONTINUED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE CONTINUED; NO SENTENCE IMPOSED" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE CONTINUED" />
 			<xsd:enumeration
 				value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE CONTINUED; NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE TERMINATED" />
 			<xsd:enumeration
 				value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE CONTINUED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE CONTINUED; NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED" />
@@ -233,6 +241,291 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="codes_chri:SentenceTermCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="EventActionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Event action code.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AFFIRMED" />
+			<xsd:enumeration value="APPROVED" />
+			<xsd:enumeration value="BASIC COMPLETED" />
+			<xsd:enumeration value="CASE CLOSED" />
+			<xsd:enumeration value="COMMITMENT ISSUED" />
+			<xsd:enumeration value="CONT FOR SENTENCING" />
+			<xsd:enumeration value="COPIES TO PROBATION" />
+			<xsd:enumeration value="COPIES TO SHERIFF" />
+			<xsd:enumeration value="COPY SENT" />
+			<xsd:enumeration value="CORRECTED" />
+			<xsd:enumeration value="DEEP BROCHURE GIVEN" />
+			<xsd:enumeration value="DEF. ACK. RECEIPT" />
+			<xsd:enumeration value="DENIED" />
+			<xsd:enumeration value="EDI" />
+			<xsd:enumeration value="ENTERED" />
+			<xsd:enumeration value="ENTERED BY COURT" />
+			<xsd:enumeration value="ENTERED BY PARTIES" />
+			<xsd:enumeration value="ENTERED BY PL/PETR" />
+			<xsd:enumeration value="FILED" />
+			<xsd:enumeration value="GRANTED" />
+			<xsd:enumeration value="INDICTED IN SC" />
+			<xsd:enumeration value="INSUFFICIENT EVID." />
+			<xsd:enumeration value="ISSUED" />
+			<xsd:enumeration value="JUVENILE ACK. RECEIPT" />
+			<xsd:enumeration value="MODIFIED" />
+			<xsd:enumeration value="NOT APPROVED" />
+			<xsd:enumeration value="NOTICE RIGHT APPEAL GIVEN" />
+			<xsd:enumeration value="NOTICE RIGHT SENT. APL. GIVEN" />
+			<xsd:enumeration value="NOTICE SEX REG GIVEN" />
+			<xsd:enumeration value="ORDERED" />
+			<xsd:enumeration value="PLED TO OTHER CHARGE" />
+			<xsd:enumeration value="RECOMMITTED TO CMO" />
+			<xsd:enumeration value="REMANDED" />
+			<xsd:enumeration value="RETURNED" />
+			<xsd:enumeration value="SCHEDULE OTHER COURT" />
+			<xsd:enumeration value="SCHEDULED" />
+			<xsd:enumeration value="SENT" />
+			<xsd:enumeration value="TRANSFERRED" />
+			<xsd:enumeration value="VACATED" />
+			<xsd:enumeration value="WITHDRAWN" />
+			<xsd:enumeration value="WITNESS UNAVAILABLE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EventActionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an event action code.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes_chri:EventActionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="EventCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Event action code.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="FILING" />
+			<xsd:enumeration value="JUDGMENT" />
+            <xsd:enumeration value="POST-JUDGMENT"/>			
+			<xsd:enumeration value="POST-SENTENCE" />
+			<xsd:enumeration value="PRE-JUDGMENT" />
+			<xsd:enumeration value="REACTIVATED CASE" />
+			<xsd:enumeration value="SENTENCE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EventCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an event action code.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes_chri:EventCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="EventSubCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Event action code.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="FILING DOCUMENT" />
+			<xsd:enumeration value="FINDING" />
+			<xsd:enumeration value="HEARING" />
+			<xsd:enumeration value="MOTION" />
+			<xsd:enumeration value="ORDER" />
+			<xsd:enumeration value="OTHER FILING" />
+			<xsd:enumeration value="RULING" />
+			<xsd:enumeration value="SUPPLEMENTAL FILING" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EventSubCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an event action code.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes_chri:EventSubCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="EventStatusCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Event action code.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="41(B) DISMISSAL" />
+			<xsd:enumeration value="ADJUDGED" />
+			<xsd:enumeration value="ADMIN INSPECTION WARRANT" />
+			<xsd:enumeration value="ADMIN RELEASE REVOCATION" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE NOT VIOLATED" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE VIOLATED" />
+			<xsd:enumeration value="AFFIRMED" />
+			<xsd:enumeration value="AMENDED INDICTMENT" />
+			<xsd:enumeration value="AMENDMENT" />
+			<xsd:enumeration value="ANNULMENT JUDGMENT" />
+			<xsd:enumeration value="APPT PERM GUARDIAN JUDGMENT" />
+			<xsd:enumeration value="APPT TEMP GUARDIAN JUDGMENT" />
+			<xsd:enumeration value="ASSURANCE OF DISCONTINUANCE" />
+			<xsd:enumeration value="BAIL AND PLEADING" />
+			<xsd:enumeration value="BOUNDOVER TO SC" />
+			<xsd:enumeration value="CHILD SUPPORT JUDGMENT" />
+			<xsd:enumeration value="COMMUTATION" />
+			<xsd:enumeration value="CONSENT DECREE" />
+			<xsd:enumeration value="CONTEMPT FOUND" />
+			<xsd:enumeration value="CONTEMPT NOT FOUND" />
+			<xsd:enumeration value="CORRECTION" />
+			<xsd:enumeration value="DE FACTO PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="DEFAULT" />
+			<xsd:enumeration value="DEFERRED DISPOSITION" />
+			<xsd:enumeration value="DENIED" />
+			<xsd:enumeration value="DIMINIMUS" />
+			<xsd:enumeration value="DIS FND INCOMPTNCE STAND TRIAL" />
+			<xsd:enumeration value="DISMISSED" />
+			<xsd:enumeration value="DISMISSED - PLAINTIFF FTA" />
+			<xsd:enumeration value="DISMISSED AFTER FILING" />
+			<xsd:enumeration value="DISMISSED BY CLERK RULE 48(B)(2)" />
+			<xsd:enumeration value="DISMISSED BY COURT" />
+			<xsd:enumeration value="DISMISSED BY DA/AG" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - INDICTMENT" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - INSUFFICIENT EVIDENCE" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - OTHER" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - PLED OTHER CHARGE" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - WITNESS UNAVAILABLE" />
+			<xsd:enumeration value="DISMISSED BY PET - ADOPTED" />
+			<xsd:enumeration value="DISMISSED BY PET. - CHILD 18" />
+			<xsd:enumeration value="DISMISSED WITH PREJUDICE" />
+			<xsd:enumeration value="DISMISSED WITHOUT PREJUDICE" />
+			<xsd:enumeration value="DISMISSED-OTHER" />
+			<xsd:enumeration value="DISPOSITIONAL HEARING" />
+			<xsd:enumeration value="DIVORCE JUDGMENT" />
+			<xsd:enumeration value="DIVORCE JUDGMENT W/ CHILDREN" />
+			<xsd:enumeration value="DIVORCE JUDGMENT W/O CHILDREN" />
+			<xsd:enumeration value="EMANCIPATION JUDGMENT" />
+			<xsd:enumeration value="EMERGENCY PATHOGEN TEST ORDER" />
+			<xsd:enumeration value="EXPEDITED ENFORCEMENT" />
+			<xsd:enumeration value="EXTRADITION ORDERED" />
+			<xsd:enumeration value="EXTRADITION WAIVED" />
+			<xsd:enumeration value="FILED" />
+			<xsd:enumeration value="FILED WITH COSTS" />
+			<xsd:enumeration value="FILED WITHOUT COSTS" />
+			<xsd:enumeration value="FINAL ABUSE ORDER" />
+			<xsd:enumeration value="FINAL HARASSMENT ORDER" />
+			<xsd:enumeration value="FINAL JUDGMENT" />
+			<xsd:enumeration value="FIND DECREE ADOPTION JUDGMENT" />
+			<xsd:enumeration value="FINDING INCOMPTNCE STAND TRIAL" />
+			<xsd:enumeration value="FOREIGN JUDGMENT" />
+			<xsd:enumeration value="FORFEITURE" />
+			<xsd:enumeration value="GRANDPARENT RIGHTS JUDGMENT" />
+			<xsd:enumeration value="GRANTED" />
+			<xsd:enumeration value="GUILTY" />
+			<xsd:enumeration value="HIV TESTING ORDER" />
+			<xsd:enumeration value="INDICTMENT" />
+			<xsd:enumeration value="INTENDED PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="JEOPARDY DECISION" />
+			<xsd:enumeration value="JUDGMENT DETERMINATION" />
+			<xsd:enumeration value="JUDGMENT OF ACQUITTAL" />
+			<xsd:enumeration value="JUDICIAL SEPARATION JUDGMENT" />
+			<xsd:enumeration value="JUVENILE DHHS CUSTODY ORDER" />
+			<xsd:enumeration value="MODIFIED" />
+			<xsd:enumeration value="MOTION TO CONVERT TO ADMIN REL" />
+			<xsd:enumeration value="MOTION TO SEAL CRIM HISTORY" />
+			<xsd:enumeration value="MOTION TO TERMINATE ADMIN REL" />
+			<xsd:enumeration value="MOTION TO TERMINATE PROBATION" />
+			<xsd:enumeration value="NAME CHANGE JUDGMENT" />
+			<xsd:enumeration value="NO BILL" />
+			<xsd:enumeration value="NO COMPLAINT" />
+			<xsd:enumeration value="NO FORFEITURE" />
+			<xsd:enumeration value="NO PROBABLE CAUSE" />
+			<xsd:enumeration value="NON EMERG PATHOGEN TEST ORDER" />
+			<xsd:enumeration value="NON-ADOPTION JUDGMENT" />
+			<xsd:enumeration value="NON-DEFACTO PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="NON-GUARDIANSHIP JUDGMENT" />
+			<xsd:enumeration value="NON-INTEND PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="NON-NAME CHANGE JUDGMENT" />
+			<xsd:enumeration value="NON-PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="NON-PATERNITY JUDGMENT" />
+			<xsd:enumeration value="NON-TERM/REM/RESIG GUARD JUDG" />
+			<xsd:enumeration value="NOT ADJUDGED" />
+			<xsd:enumeration value="NOT CRIMINALLY RESPONSIBLE" />
+			<xsd:enumeration value="NOT GUILTY" />
+			<xsd:enumeration value="OFFENSE COMMITTED" />
+			<xsd:enumeration value="OFFENSE NOT COMMITTED" />
+			<xsd:enumeration value="ORDER FORFEITURE DISTRIBUTION" />
+			<xsd:enumeration value="ORDER RE REOPN CRIM HIST FILE" />
+			<xsd:enumeration value="ORIGINAL" />
+			<xsd:enumeration value="OTHER DOMESTIC REL JUDGMENT" />
+			<xsd:enumeration value="OTHER MARRIAGE DISS JUDGMENT" />
+			<xsd:enumeration value="PARDON" />
+			<xsd:enumeration value="PARENTAGE JUDGMENT" />
+			<xsd:enumeration value="PARENTAL RIGHT/RESPON JUDGMENT" />
+			<xsd:enumeration value="PARTIAL DISMISS W/O PREJUDICE" />
+			<xsd:enumeration value="PARTIAL DISMISSED W/ PREJUDICE" />
+			<xsd:enumeration value="PARTIAL STIPULATION DISMISSAL" />
+			<xsd:enumeration value="PATERNITY JUDGMENT" />
+			<xsd:enumeration value="PERMANENT TRANSFER" />
+			<xsd:enumeration value="PETITION" />
+			<xsd:enumeration value="PROBABLE CAUSE" />
+			<xsd:enumeration value="PROBATION NOT VIOLATED" />
+			<xsd:enumeration value="PROBATION REVOCATION" />
+			<xsd:enumeration value="PROBATION VIOLATED" />
+			<xsd:enumeration value="RELEASE TREATMENT ORDER" />
+			<xsd:enumeration value="REMAND TO DISTRICT COURT" />
+			<xsd:enumeration value="REMOVAL TO FEDERAL COURT" />
+			<xsd:enumeration value="REMOVAL TO SUPERIOR COURT" />
+			<xsd:enumeration value="RETURNED TO COMPACT STATE" />
+			<xsd:enumeration value="RETURNED TO PARENT/GUARDIAN" />
+			<xsd:enumeration value="REVERSED" />
+			<xsd:enumeration value="REVISED" />
+			<xsd:enumeration value="REVOKED" />
+			<xsd:enumeration value="RULE 3 DISMISSAL" />
+			<xsd:enumeration value="RULE 92(d) DISMISSAL" />
+			<xsd:enumeration value="SPOUSAL SUPPORT JUDGMENT" />
+			<xsd:enumeration value="STIPULATION OF DISMISSAL" />
+			<xsd:enumeration value="SUBPOENA ISSUED" />
+			<xsd:enumeration value="SUMMARILY DISMISSED" />
+			<xsd:enumeration value="SUPERSEDING INDICTMENT" />
+			<xsd:enumeration value="TERM/REM/RESIG/GUARD JUDGMENT" />
+			<xsd:enumeration value="TERMINATION DECISION" />
+			<xsd:enumeration value="TRANSFER FOR JURY TRIAL" />
+			<xsd:enumeration value="TREATMENT DECISION" />
+			<xsd:enumeration value="UIFSA JUDGMENT" />
+			<xsd:enumeration value="VACATED" />
+			<xsd:enumeration value="VIOLATION COMMITTED" />
+			<xsd:enumeration value="VIOLATION NOT COMMITTED" />
+			<xsd:enumeration value="WAIVER" />
+			<xsd:enumeration value="WITHDRAWN" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EventStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an event action code.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/3.0" i:name="Object" />
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="codes_chri:EventStatusCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -313,6 +606,34 @@
 		substitutionGroup="disp-ext:SentenceOption">
 		<xsd:annotation>
 			<xsd:documentation>Sentence information option code.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EventActionCode" type="codes_chri:EventActionCodeType"
+		substitutionGroup="nc:ActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Event action code.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EventCategoryCode" type="codes_chri:EventCategoryCodeType"
+		substitutionGroup="nc:ActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Event category code.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EventSubCategoryCode" type="codes_chri:EventSubCategoryCodeType"
+		substitutionGroup="nc:ActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Event sub category code.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EventStatusCode" type="codes_chri:EventStatusCodeType"
+		substitutionGroup="nc:ActivityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Event status code.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

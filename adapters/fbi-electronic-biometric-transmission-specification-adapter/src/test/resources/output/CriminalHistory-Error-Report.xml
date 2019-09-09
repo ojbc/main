@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<cht-doc:CriminalHistoryTextDocument xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0">
+<error:PersonQueryResultError>
+<error:ErrorText>E0004 EBTS logical record does not comply with message contents or length field values or the record is not parseable.</error:ErrorText>
+<error:PersonRecordRequestIdentification>
+<nc:IdentificationID>gggggg</nc:IdentificationID>
+</error:PersonRecordRequestIdentification>
+</error:PersonQueryResultError>
+</cht-doc:CriminalHistoryTextDocument>

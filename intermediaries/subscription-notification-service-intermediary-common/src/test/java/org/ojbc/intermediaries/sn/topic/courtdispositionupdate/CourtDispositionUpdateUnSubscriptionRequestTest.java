@@ -30,7 +30,6 @@ import org.apache.camel.Message;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestUnSubscriptionRequest;
 import org.w3c.dom.Document;
 
 public class CourtDispositionUpdateUnSubscriptionRequestTest {
@@ -41,11 +40,11 @@ public class CourtDispositionUpdateUnSubscriptionRequestTest {
 		
 		Mockito.when(message.getBody(Document.class)).thenReturn(getMessageBody());
 		
-		ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest(message);
+		CourtDispositionUpdateUnSubscriptionRequest request = new CourtDispositionUpdateUnSubscriptionRequest(message);
 		
 		assertThat(request.getSubscriptionQualifier(), is("302593"));
 		Assert.assertNotNull(request.getEmailAddresses());
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate"));
+		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate"));
 		assertThat(request.getSubjectIdentifiers().size(), is(5));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
@@ -57,7 +56,7 @@ public class CourtDispositionUpdateUnSubscriptionRequestTest {
 
 	private Document getMessageBody() throws Exception {
 		
-		File inputFile = new File("src/test/resources/xmlInstances/prosecutionDecisionUpdate/unSubscribeRequest-prosecutionDecisionUpdate.xml");
+		File inputFile = new File("src/test/resources/xmlInstances/courtDispositionUpdate/unSubscribeRequest-courtDispositionUpdate.xml");
 
 		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
 		docBuilderFact.setNamespaceAware(true);

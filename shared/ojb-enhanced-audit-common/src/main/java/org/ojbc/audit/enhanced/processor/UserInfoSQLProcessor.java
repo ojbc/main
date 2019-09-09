@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
+import javax.security.auth.x500.X500Principal;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -37,12 +39,28 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 	{
 		Integer userInfoPk = null;
 		
+		UserInfo userInfo = new UserInfo();
+		
 		try {
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
-
-			UserInfo userInfo = processUserInfoRequest(assertion);
+			Object token = cxfMessage.get("wss4j.principal.result");
+			
+			if (token instanceof SAMLTokenPrincipal)
+			{
+				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+				
+				Assertion assertion = samlToken.getToken().getSaml2();
+	
+				userInfo = processUserInfoRequest(assertion);
+			}
+			
+			if (token instanceof X500Principal)
+			{
+				X500Principal x509Cert = (X500Principal)cxfMessage.get("wss4j.principal.result");
+				
+				userInfo.setIdentityProviderId(x509Cert.getName());
+	
+			}
 			
 			userInfoPk = enhancedAuditDAO.saveUserInfo(userInfo);
 			

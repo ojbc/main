@@ -16,11 +16,18 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.util.List;
 
 import junit.framework.Assert;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.DefaultExchange;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
@@ -55,6 +62,7 @@ public class SubModifyProcessorTest {
 		Diff diff = new Diff(expectedSubModRespDoc, generatedModRespDoc);
 		DetailedDiff detailDiff = new DetailedDiff(diff);
 		
+		@SuppressWarnings("unchecked")
 		List<Difference> difList = detailDiff.getAllDifferences();
 		int diffCount = difList == null ? 0 : difList.size();
 		
@@ -62,4 +70,26 @@ public class SubModifyProcessorTest {
 	}
 	
 
+	@Test
+	public void testConvertRapsheetToBase64() throws Exception{
+
+		FbiEbtsResponseProcessor fbiEbtsResponseProcessor = new FbiEbtsResponseProcessor();
+		
+	    CamelContext ctx = new DefaultCamelContext(); 
+	    Exchange ex = new DefaultExchange(ctx);
+	    
+	    Document rapbackSubscriptionResponse = XmlUtils.parseFileToDocument(new File("src/test/resources/input/Template(RBSR)RapBackSubscriptionResponse.xml"));
+		assertNotNull(rapbackSubscriptionResponse);
+	    
+		fbiEbtsResponseProcessor.convertRapsheetToBase64(ex, rapbackSubscriptionResponse);
+		
+		assertEquals("U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=", ex.getIn().getHeader("transactionElectronicRapSheetAsBase64"));
+		
+		byte[] decoded = java.util.Base64.getDecoder().decode("U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=".getBytes());
+		
+		String decodedString = new String(decoded);
+		
+		assertEquals("Subject's Rap Sheet goes here",decodedString);
+		
+	}
 }

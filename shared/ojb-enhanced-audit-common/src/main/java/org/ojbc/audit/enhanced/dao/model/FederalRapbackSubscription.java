@@ -16,25 +16,49 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
-public class FederalRapbackSubscription {
+public class FederalRapbackSubscription implements Serializable {
 	
+	private static final long serialVersionUID = 444000465826777573L;
+
 	private Integer federalRapbackSubscriptionId;
 	
 	private String transactionControlReferenceIdentification;
 	
-	private String transactionCategoryCode;
-
+	private String transactionCategoryCodeRequest;
+	
+	private String transactionCategoryCodeResponse;
+	
 	private String pathToResponseFile;
 	
 	private String pathToRequestFile;
+	
+	private String stateSubscriptionId;
+	
+	private String fbiSubscriptionId;
+	
+	private String sid;
+	
+	private String subscriptonCategoryCode;
+	
+	//In case of error, the error message will be in this field
+	private String transactionStatusText;
 
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime requestSentTimestamp;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime responseRecievedTimestamp;
 
 	public Integer getFederalRapbackSubscriptionId() {
@@ -48,14 +72,6 @@ public class FederalRapbackSubscription {
 	public void setTransactionControlReferenceIdentification(
 			String transactionControlReferenceIdentification) {
 		this.transactionControlReferenceIdentification = transactionControlReferenceIdentification;
-	}
-
-	public String getTransactionCategoryCode() {
-		return transactionCategoryCode;
-	}
-
-	public void setTransactionCategoryCode(String transactionCategoryCode) {
-		this.transactionCategoryCode = transactionCategoryCode;
 	}
 
 	public String getPathToResponseFile() {
@@ -96,6 +112,64 @@ public class FederalRapbackSubscription {
 
 	public void setFederalRapbackSubscriptionId(Integer federalRapbackSubscriptionId) {
 		this.federalRapbackSubscriptionId = federalRapbackSubscriptionId;
+	}
+
+	public String getStateSubscriptionId() {
+		return stateSubscriptionId;
+	}
+
+	public void setStateSubscriptionId(String stateSubscriptionId) {
+		this.stateSubscriptionId = stateSubscriptionId;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public String getTransactionStatusText() {
+		return transactionStatusText;
+	}
+
+	public void setTransactionStatusText(String transactionStatusText) {
+		this.transactionStatusText = transactionStatusText;
+	}
+
+	public String getSubscriptonCategoryCode() {
+		return subscriptonCategoryCode;
+	}
+
+	public void setSubscriptonCategoryCode(String subscriptonCategoryCode) {
+		this.subscriptonCategoryCode = subscriptonCategoryCode;
+	}
+
+	public String getFbiSubscriptionId() {
+		return fbiSubscriptionId;
+	}
+
+	public void setFbiSubscriptionId(String fbiSubscriptionId) {
+		this.fbiSubscriptionId = fbiSubscriptionId;
+	}
+
+	public String getTransactionCategoryCodeRequest() {
+		return transactionCategoryCodeRequest;
+	}
+
+	public void setTransactionCategoryCodeRequest(
+			String transactionCategoryCodeRequest) {
+		this.transactionCategoryCodeRequest = transactionCategoryCodeRequest;
+	}
+
+	public String getTransactionCategoryCodeResponse() {
+		return transactionCategoryCodeResponse;
+	}
+
+	public void setTransactionCategoryCodeResponse(
+			String transactionCategoryCodeResponse) {
+		this.transactionCategoryCodeResponse = transactionCategoryCodeResponse;
 	}
 	
 }

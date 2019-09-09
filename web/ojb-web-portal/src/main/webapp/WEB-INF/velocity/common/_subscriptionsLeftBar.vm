@@ -19,15 +19,21 @@
 	<script type="text/javascript">
 	
 		$(function(){
-		 							         								
+		
 			$('#subResultsFilterButton').click(function() {	
 																		
+				validateLinkExists = $("#validateLink").length > 0; 
 				var formData = $('#filterSubscriptionForm').serialize();
 								             	
-		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
 		  			formData,	  		
-		  			function(data) {		  			
-    					$('#portalContent').html(data);	        									         					        				      
+		  			function(data) {	
+		  				if (validateLinkExists){	  			
+    						$('#portalContent').html(data);
+    					}
+    					else{
+    						$("#subsAdminContent").html(data);	
+    					}	        									         					        				      
 					}
 				).fail(ojbc.displayFailMessage);				
 			});
@@ -36,15 +42,22 @@
 			$('#subResultsFilterClearButton').click (function() {	
 
 				var formData = 'subscriptionStatus=All';
+				validateLinkExists = $("#validateLink").length > 0;
 								             	
-		  		$.post("#springUrl('/subscriptions/filter')",  	
+		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
 		  			formData,	  		
 		  			function(data) {		  			
-    					$('#portalContent').html(data);	        									         					        				      
+		  				if (validateLinkExists){	  			
+    						$('#portalContent').html(data);
+    					}
+    					else{
+    						$("#subsAdminContent").html(data);	
+    					}	        									         					        				      
+						$('#subscriptionStatus').val('All');
 					}
 				).fail(ojbc.displayFailMessage);
 			});
-								         		         		        
+			
 		});
 	            
 	</script>   

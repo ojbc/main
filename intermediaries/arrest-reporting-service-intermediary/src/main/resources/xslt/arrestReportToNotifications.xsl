@@ -30,6 +30,7 @@
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:oar="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" exclude-result-prefixes="xs ar lexs lexspd lexsdigest j40 oar" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:strip-space elements="*"/>
+	<xsl:param name="notifyingSystemName">http://www.ojbc.org/arrestNotificationProducer</xsl:param>
 	<xsl:variable name="lexsDataItemPackage" select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage"/>
 	<xsl:variable name="lexsDigest" select="$lexsDataItemPackage/lexs:Digest"/>
 	<xsl:variable name="lexsAssociations" select="$lexsDigest/lexsdigest:Associations"/>
@@ -56,6 +57,7 @@
 	</xsl:variable>
 	<xsl:variable name="arrestID" select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']/@s:id"/>
 	<xsl:variable name="arresteeID" select="$lexsDigest/lexsdigest:EntityPerson[j40:ArrestSubject][1]/lexsdigest:Person/@s:id"/>
+	<xsl:variable name="civilSidID" select="//ojbc:PersonStateFingerprintIdentification[ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/lexslib:SameAsDigestReference/@lexslib:ref"/>
 	<xsl:variable name="activityID">A001</xsl:variable>
 	<xsl:variable name="contactInfoID">CI001</xsl:variable>
 	<xsl:param name="topic">topics:person/arrest</xsl:param>
@@ -84,7 +86,7 @@
 				</b:Topic>
 				<!--Optional:-->
 				<b:ProducerReference>
-					<add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+					<add:Address><xsl:value-of select="$notifyingSystemName"/></add:Address>
 					<!--Optional:-->
 					<add:ReferenceParameters>
 						<!--You may enter ANY elements at this point-->
@@ -105,6 +107,7 @@
 							</notificationExt:NotifyingActivityReportingSystemNameText>
 							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport/oar:RelatedFBISubscription/oar:RecordRapBackSubscriptionIdentification[nc:IdentificationID]"/>
 							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]"/>
+							<xsl:apply-templates select="$lexsDataItemPackage/lexs:StructuredPayload/ojbc:ArrestReport[oar:StateCriminalHistoryRecordDocument]"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Arrest']" mode="arrest"/>
 							<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Incident']" mode="incident"/>
 							<xsl:apply-templates select="/*/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText = 'Offense']" mode="Offense"/>
@@ -210,13 +213,20 @@
 			</notificationExt:RecordRapBackSubscriptionIdentification>
 		</notificationExt:RelatedFBISubscription>
 	</xsl:template>
-	<xsl:template match="ojbc:ArrestReport">
+	<xsl:template match="ojbc:ArrestReport[oar:FederalCriminalHistoryRecordDocument]">
 		<notificationExt:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
 				<notificationExt:Base64BinaryObject><xsl:value-of select="ojbc:FederalCriminalHistoryRecordDocument/nc:DocumentBinary/ojbc:Base64BinaryObject"/></notificationExt:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</notificationExt:CriminalHistoryRecordDocument>
 	</xsl:template>
+	<xsl:template match="ojbc:ArrestReport[oar:StateCriminalHistoryRecordDocument]">
+		<notificationExt:CriminalHistoryRecordDocument>
+			<nc:DocumentBinary>
+				<notificationExt:Base64BinaryObject><xsl:value-of select="ojbc:StateCriminalHistoryRecordDocument/nc:DocumentBinary/ojbc:Base64BinaryObject"/></notificationExt:Base64BinaryObject>
+			</nc:DocumentBinary>
+		</notificationExt:CriminalHistoryRecordDocument>
+	</xsl:template>	
 	<xsl:template match="j40:EnforcementOfficial" mode="enforcementOfficialUnit">
 		<xsl:variable name="enforcementOfficialID" select="preceding-sibling::lexsdigest:Person/@s:id"/>
 		<xsl:variable name="enforcementOfficialOrganizationID" select="$lexsDigest/lexsdigest:Associations/nc:PersonAssignedUnitAssociation/nc:OrganizationReference/@s:ref"/>
@@ -256,7 +266,14 @@
 	</xsl:template>
 	<xsl:template match="nc:Activity" mode="arrest">
 		<j:Arrest>
-			<xsl:copy-of select="nc:ActivityDate" copy-namespaces="no"/>
+			<xsl:choose>
+			  <xsl:when test="nc:ActivityDate">
+			    <xsl:copy-of select="nc:ActivityDate" copy-namespaces="no"/>
+			  </xsl:when>
+			  <xsl:otherwise>
+			  	<nc:ActivityDate><xsl:value-of select="format-date(current-date(), '[M01]/[D01]/[Y0001]')"/></nc:ActivityDate>
+			  </xsl:otherwise>
+			</xsl:choose>			
 			<xsl:apply-templates select="$lexsDigest/lexsdigest:EntityOrganization/nc:Organization[@s:id = $lexsAssociations/nc:PersonAssignedUnitAssociation[nc:PersonReference/@s:ref=$lexsAssociations/lexsdigest:ArrestOfficerAssociation[nc:ActivityReference/@s:ref=$arrestID]/nc:PersonReference/@s:ref]/nc:OrganizationReference/@s:ref]" mode="arrestAgency"/>
 			<xsl:apply-templates select="$lexsAssociations/lexsdigest:ArrestOfficerAssociation[nc:ActivityReference/@s:ref=$arrestID]" mode="arrestOfficial"/>
 			<xsl:apply-templates select="$lexsAssociations/lexsdigest:ArrestSubjectAssociation[nc:ActivityReference/@s:ref=$arrestID]" mode="arrestSubject"/>
@@ -292,6 +309,13 @@
 			<xsl:copy-of select="nc:PersonAlternateName" copy-namespaces="no"/>
 			<xsl:copy-of select="nc:PersonBirthDate" copy-namespaces="no"/>
 			<xsl:copy-of select="nc:PersonName" copy-namespaces="no"/>
+			<xsl:if test="$civilSidID">
+	            <j:PersonAugmentation>
+	                <j:PersonStateFingerprintIdentification>
+	                    <nc:IdentificationID><xsl:value-of select="j40:PersonAugmentation/j40:PersonStateFingerprintIdentification[@s:id=$civilSidID]/nc:IdentificationID"/></nc:IdentificationID>
+	                </j:PersonStateFingerprintIdentification>
+	            </j:PersonAugmentation>
+            </xsl:if>
 		</j:Person>
 	</xsl:template>
 	<xsl:template match="nc:Location" mode="residence">

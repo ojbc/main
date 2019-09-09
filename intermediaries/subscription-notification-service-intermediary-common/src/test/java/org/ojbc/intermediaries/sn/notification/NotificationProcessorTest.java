@@ -47,10 +47,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -231,7 +231,8 @@ public class NotificationProcessorTest {
     public void testCreateUniqueNotificationsConsolidated() throws Exception {
 
         notificationProcessor.setConsolidateEmailAddresses(true);
-
+        notificationProcessor.setSendNotificationToSubscriptionOwner(false);
+        
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         Subscription subscription = new Subscription();

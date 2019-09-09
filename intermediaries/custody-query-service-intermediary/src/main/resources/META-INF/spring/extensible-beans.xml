@@ -47,14 +47,6 @@
 
 	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
 
-	<bean id="personQueryCriminalHistoryResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="personQueryCriminalHistoryResponseSQLProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-query-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.audit.enhanced.processor.PersonQueryCriminalHistoryResponseNullObjectProcessor"/>
-		</constructor-arg>
-	</bean>
-
 	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-query-service-intermediary-context" />

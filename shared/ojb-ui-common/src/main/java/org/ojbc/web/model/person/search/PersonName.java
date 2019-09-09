@@ -17,7 +17,10 @@
 package org.ojbc.web.model.person.search;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.web.SearchFieldMetadata;
 
 public class PersonName implements Serializable {
@@ -29,8 +32,15 @@ public class PersonName implements Serializable {
     private SearchFieldMetadata surNameMetaData;
 
     public PersonName() {
+    	super();
     }
 
+    public PersonName(String givenName, String middleName, String surName) {
+    	this();
+    	this.givenName = givenName; 
+    	this.middleName = middleName; 
+    	this.surName = surName; 
+    }
     public String getGivenName() {
         return givenName;
     }
@@ -69,5 +79,18 @@ public class PersonName implements Serializable {
 
     public void setSurNameMetaData(SearchFieldMetadata surNameMetaData) {
         this.surNameMetaData = surNameMetaData;
+    }
+    
+    /**
+     * @return givenName middleName surName separated by a space. 
+     */
+    public String getFullName(){
+    	return Arrays.asList(givenName, middleName, surName).stream()
+    			.filter(name -> StringUtils.isNotBlank(name))
+    			.collect(Collectors.joining(" "));
+    }
+    
+    public boolean isNotEmpty(){
+    	return StringUtils.isNotBlank(givenName) && StringUtils.isNotBlank(surName);
     }
 }

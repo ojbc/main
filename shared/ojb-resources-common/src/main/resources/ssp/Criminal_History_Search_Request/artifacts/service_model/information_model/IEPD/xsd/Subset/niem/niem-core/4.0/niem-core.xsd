@@ -32,6 +32,19 @@
         <xs:sequence>
           <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ActivityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an aggregation of information about a set of related activities and events.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -93,6 +106,18 @@
       <xs:extension base="structures:MetadataType"/>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OrganizationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a body of people organized for a particular purpose.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonNameTextType">
     <xs:annotation>
       <xs:documentation>A data type for a name by which a person is known, referred, or addressed.</xs:documentation>
@@ -144,6 +169,11 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:element name="ActivityAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ActivityType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date of an activity.</xs:documentation>
@@ -152,6 +182,16 @@
   <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Case" type="nc:CaseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An aggregation of information about a set of related activities and events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CaseType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
@@ -192,6 +232,11 @@
   <xs:element name="Metadata" type="nc:MetadataType" nillable="true" appinfo:appliesToTypes="structures:AssociationType structures:ObjectType">
     <xs:annotation>
       <xs:documentation>Information that further qualifies primary data; data about data.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Person" type="nc:PersonType" nillable="true">

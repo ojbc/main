@@ -42,6 +42,13 @@
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
 	</bean>
 
+	<bean id="rapbackSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
 	<bean id="courtDispositionUpdateProcessor"
 		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
@@ -79,12 +86,23 @@
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
 	</bean>
 	
+	<bean id="rapbackNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="sendNotificationToSubscriptionOwner" value="${publishSubscribe.sendNotificationToSubscriptionOwner}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>
+	
 	<bean id="arrestNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="sendNotificationToSubscriptionOwner" value="${publishSubscribe.sendNotificationToSubscriptionOwner}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 
@@ -136,12 +154,11 @@
 		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateNotificationSubjectIdentifiers"/>
 		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
 	</bean>
-	
-	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
+		
+	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="maxSubscriptionsCount" value="${subscriptionSearchQuery.maxSubscriptionsCount:250}"/>
 	</bean>
-	
-	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor"/>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>
 		
@@ -153,12 +170,13 @@
 		<constructor-arg name="map">
 			<util:map>
 				<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticValidationDueDateStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticValidationDueDateStrategy" />
 			</util:map>
 		</constructor-arg>
 	</bean>	
 	
 	<bean id="expiringSubscriptionsManager" class="org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager">
-		<property name="warningDaysBeforeExpiration" value="45"/>
+		<property name="warningDaysBeforeExpiration" value="${publishSubscribe.warningDaysBeforeExpiration}"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 	</bean>		
 			
@@ -175,5 +193,14 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
  	   <constructor-arg ref="dataSource"/>
 	</bean>
+	
+	<bean id="notificationLoggingProcessor" class="org.ojbc.intermediaries.sn.notification.NotificationLoggingProcessor">
+		<property name="auditDaoImpl" ref="auditDAOImpl"/>
+	</bean>
+	
+	<bean id="auditDAOImpl" class="org.ojbc.intermediaries.sn.dao.audit.AuditDAOImpl">		
+		<property name="jdbcTemplateAudit" ref="jdbcTemplateAudit"/>
+	</bean>
+	
 			
 </beans>

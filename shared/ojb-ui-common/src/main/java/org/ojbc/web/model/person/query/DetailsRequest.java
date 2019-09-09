@@ -17,22 +17,40 @@
 package org.ojbc.web.model.person.query;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.ojbc.web.OJBCWebServiceURIs;
 
 public class DetailsRequest implements Serializable{
 
-    private static final long serialVersionUID = -8308338659183972879L;
+	private static final long serialVersionUID = -8308338659183972879L;
     private String identificationID;
 	private String identificationSourceText;
 	private String queryType;
 	private String activeAccordionId; 
+	private Boolean civilPurposeRequest; 
+	private Boolean textRapsheetRequest; 
+	private Boolean admin; 
+	
+	private String fbiId; 
+	private String rapbackSubscriptionId; 
+	private String rapbackActivityNotificationId; 
 
+	private String federatedQueryId;
 	//Logging
 	private String purpose;
 	private String onBehalfOf;
 	
+    public DetailsRequest() {
+		super();
+	}
+
+	public DetailsRequest(String identificationID, Boolean admin) {
+		this();
+		this.identificationID = identificationID;
+		this.admin = admin;
+	}
+    
 	public String getIdentificationID() {
 		return identificationID;
 	}
@@ -45,35 +63,11 @@ public class DetailsRequest implements Serializable{
 	public void setIdentificationSourceText(String identificationSourceText) {
 		this.identificationSourceText = identificationSourceText;
 	}
+
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this);
+	}
 	
-	public String toString() {
-		  StringBuilder result = new StringBuilder();
-		  String newLine = System.getProperty("line.separator");
-
-		  result.append( this.getClass().getName() );
-		  result.append( " Object {" );
-		  result.append(newLine);
-
-		  //determine fields declared in this class only (no fields of superclass)
-		  Field[] fields = this.getClass().getDeclaredFields();
-
-		  //print field names paired with their values
-		  for ( Field field : fields  ) {
-		    result.append("  ");
-		    try {
-		      result.append( field.getName() );
-		      result.append(": ");
-		      //requires access to private field:
-		      result.append( field.get(this) );
-		    } catch ( IllegalAccessException ex ) {
-		      System.out.println(ex);
-		    }
-		    result.append(newLine);
-		  }
-		  result.append("}");
-
-		  return result.toString();
-		}
 	public String getPurpose() {
 		return purpose;
 	}
@@ -103,5 +97,60 @@ public class DetailsRequest implements Serializable{
     public void setActiveAccordionId(String activeAccordionId) {
         this.activeAccordionId = activeAccordionId;
     }
+	public Boolean getAdmin() {
+		return admin;
+	}
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	public Boolean getCivilPurposeRequest() {
+		return civilPurposeRequest;
+	}
+
+	public void setCivilPurposeRequest(Boolean civilPurposeRequest) {
+		this.civilPurposeRequest = civilPurposeRequest;
+	}
+
+	public Boolean getTextRapsheetRequest() {
+		return textRapsheetRequest;
+	}
+
+	public void setTextRapsheetRequest(Boolean textRapsheetRequest) {
+		this.textRapsheetRequest = textRapsheetRequest;
+	}
+
+	public String getFbiId() {
+		return fbiId;
+	}
+
+	public void setFbiId(String fbiId) {
+		this.fbiId = fbiId;
+	}
+
+	public String getRapbackSubscriptionId() {
+		return rapbackSubscriptionId;
+	}
+
+	public void setRapbackSubscriptionId(String rapbackSubscriptionId) {
+		this.rapbackSubscriptionId = rapbackSubscriptionId;
+	}
+
+	public String getRapbackActivityNotificationId() {
+		return rapbackActivityNotificationId;
+	}
+
+	public void setRapbackActivityNotificationId(
+			String rapbackActivityNotificationId) {
+		this.rapbackActivityNotificationId = rapbackActivityNotificationId;
+	}
+
+	public String getFederatedQueryId() {
+		return federatedQueryId;
+	}
+
+	public void setFederatedQueryId(String federatedQueryId) {
+		this.federatedQueryId = federatedQueryId;
+	}
 
 }

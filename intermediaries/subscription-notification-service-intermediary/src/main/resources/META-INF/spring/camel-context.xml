@@ -70,6 +70,14 @@
 							</camel:setHeader>
 						</camel:when>
 						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/rapback' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>rapback</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
 							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/incident' and
 		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
 		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -122,6 +130,11 @@
 						<camel:setHeader headerName="subscriptionOwner">
 							<constant>SYSTEM</constant>
 						</camel:setHeader>
+						
+						<!-- Auto subscriptions don't have an owner email address -->
+						<camel:setHeader headerName="subscriptionOwnerEmailAddress">
+							<constant></constant>
+						</camel:setHeader>
 						<camel:to uri="direct:processSubscription" />
 						<camel:doCatch>
 							<camel:exception>java.lang.Exception</camel:exception>
@@ -157,6 +170,12 @@
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/arrest'</camel:xpath>
 					<camel:to uri="direct:processSubscriptionArrest" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionRapback" />
 				</camel:when>
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/incident' and
@@ -234,6 +253,12 @@
 					<camel:to uri="direct:processUnsubscribeArrest" />
 				</camel:when>
 				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeRapback" />
+				</camel:when>
+				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/incident' and
 	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -279,18 +304,42 @@
 			
 			<camel:log message="Processing Subscription (arrest)" />	
 								
+			<!-- this synchronous call is last because it modifies the message -->
+			<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
+		</camel:route>
+		
+		<camel:route id="processSubscriptionRapback_route">
+		
+			<camel:from uri="direct:processSubscriptionRapback" />
+			
+			<camel:log message="Processing Subscription (rapback)" />	
+			
+			<camel:setHeader headerName="subscriptionRequest">
+				<camel:method bean="rapbackSubscriptionProcessor" method="makeSubscriptionRequestFromIncomingMessage"/>
+			</camel:setHeader>
+								
+			<camel:setHeader headerName="subscriptionId">
+				<camel:method bean="subscriptionSearchQueryDAO" method="subscribe"/>
+			</camel:setHeader>
+			
+			<camel:log message="Subscription ID from subscribe method: ${in.headers.subscriptionId}"/>					
+								
 			<camel:multicast>				
 				<camel:choice>
 					<camel:when>
 						<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
+						
+						<camel:log message="Process FBI subscription, processor returned true."/>
+						
 						<to uri="direct:processPotentialFbiSubscription"/>
 					</camel:when>			 				 							 																														 				
 				</camel:choice>				
 				<!-- this synchronous call is last because it modifies the message -->
-				<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+				<to uri="bean:org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil?method=createSubscribeResponse()" />
 														
 			</camel:multicast>						
-		</camel:route>
+		</camel:route>		
 		
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
@@ -326,18 +375,31 @@
 			<camel:from uri="direct:processUnsubscribeArrest" />
 			
 			<camel:log message="Processing Unsubscription (arrest)" />
+						
+			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeRapback" />
+			
+			<camel:log message="Processing Unsubscription (rapback)" />
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiUnsubscribeRoute</camel:simple>
+					<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+					
+					<camel:log message="Subscription has FBI subscription, sending cancellation message"/>
+					
 					<camel:wireTap uri="direct:processFbiUnsubscription"/>
 				</camel:when>
 			</camel:choice>
 			
 			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			<camel:to uri="bean:rapbackSubscriptionProcessor?method=unsubscribe" />									
 			
-		</camel:route>
+		</camel:route>		
 		
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeIncident" />
@@ -362,46 +424,17 @@
 			<camel:log message="Processing Unsubscription(Prosecution Decision Update)" />
 			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=unsubscribe" />
 		</camel:route>
-
+		
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeVehicleCrash" />
 			<camel:log message="Processing Unsubscription(Vehicle Crash" />
 			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
-
-		<!-- Criminal History Consolidation Request flow -->
-		<route id="criminalHistoryConsolidationRequestRoute">
-			<from uri="criminalHistoryConsolidationReportingServiceEndpoint" />
-			<onException>
-				<exception>java.lang.Exception</exception>
-				<handled><constant>true</constant></handled>
-				<camel:log message="An exception was thrown: ${exception.cause.message}"
-					loggingLevel="ERROR" />
-				<setHeader headerName="CamelFileName">
-					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-				</setHeader>	
-				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
-			</onException>
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			<camel:setHeader headerName="currentSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc30:Person/CHcr-ext:PreConsolidationIdentifiers/nc30:PersonStateIdentification/nc30:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc30:Person/CHcr-ext:PostConsolidationIdentifiers/nc30:PersonStateIdentification/nc30:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<to uri="bean:sidConsolidationProcessor?method=consolidateSid" />
-			<log message="SID consolidated"></log>
-		</route>
-		
+			
 	</camel:camelContext>
 
 	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />
 
-	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
-		<property name="dataSource" ref="dataSource" />
-		<property name="faultMessageProcessor" ref="faultMessageProcessor" />
-	</bean>
-  
   <!-- Only use this setting when doing a bulk load, otherwise comment it out. -->
 	<bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
 		<property name="name" value="default" />
@@ -427,10 +460,20 @@
 		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
 	</bean>
 	
-	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
+	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" >
+		<property name="rapbackDao" ref="rapbackDao"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember}"/>
+		<property name="nonFbiSubscriptionReasonCodes" value="#{'${nonFbiSubscriptionReasonCodes:F}'.split(',')}"/>
+	</bean>
 	
 	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
 	
 	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
+	
+	<bean id="subscriptionAuditProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionAuditProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>
+	</bean>
 
 </beans>

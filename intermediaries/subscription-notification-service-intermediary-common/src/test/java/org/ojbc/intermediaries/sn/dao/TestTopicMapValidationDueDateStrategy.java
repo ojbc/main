@@ -21,15 +21,22 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.Message;
+import org.apache.camel.impl.DefaultMessage;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.format.DateTimeFormat;
+import org.joda.time.LocalDate;
 import org.junit.Test;
-
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
+import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.test.annotation.DirtiesContext;
+import org.w3c.dom.Document;
+@DirtiesContext
 public class TestTopicMapValidationDueDateStrategy {
     
     @Test
-    public void testTopicMapValidationDueDateStrategy() {
+    public void testTopicMapValidationDueDateStrategy() throws Exception{
         
         StaticValidationDueDateStrategy staticStrategy1 = new StaticValidationDueDateStrategy();
         StaticValidationDueDateStrategy staticStrategy2 = new StaticValidationDueDateStrategy();
@@ -42,13 +49,39 @@ public class TestTopicMapValidationDueDateStrategy {
         
         TopicMapValidationDueDateStrategy strategy = new TopicMapValidationDueDateStrategy(map);
         
-        Subscription subscription = new Subscription();
-        DateTime baseDate = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime("2014-10-03");
-        subscription.setLastValidationDate(baseDate);
-        subscription.setTopic("t1");
-        DateTime validationDueDate = strategy.getValidationDueDate(subscription);
-        assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
+		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
+		
+		Message message = new DefaultMessage();
+		
+		message.setHeader("subscriptionOwner", "someone");
+		message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
+		
+		message.setBody(messageDocument);
+		
+		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
+		ArrestSubscriptionRequest subRequest = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
         
+		Subscription subscription = new Subscription();
+		
+        DateTime baseDate = DateTime.now();
+        
+        subRequest.setTopic("t1");
+        DateTime validationDueDate = strategy.getValidationDueDate(subRequest, new LocalDate());
+        assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
+
+        subscription.setTopic("t1");
+        validationDueDate = strategy.getValidationDueDate(subscription, new LocalDate());
+        assertEquals(10, Days.daysBetween(baseDate, validationDueDate).getDays());
+
+        
+        subRequest.setTopic("t2");
+        validationDueDate = strategy.getValidationDueDate(subRequest,new LocalDate());
+        assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
+
+        subscription.setTopic("t2");
+        validationDueDate = strategy.getValidationDueDate(subscription,new LocalDate());
+        assertEquals(20, Days.daysBetween(baseDate, validationDueDate).getDays());
+
     }
 
 }

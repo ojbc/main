@@ -45,24 +45,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
+import org.ojbc.adapters.rapbackdatastore.dao.EnhancedAuditDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
+import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,6 +85,9 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 
     @Value("${system.name}")
     private String systemName;
+    
+    @Resource
+    EnhancedAuditDAO enhancedAuditDAO;
 
     public RapbackSearchProcessor() throws ParserConfigurationException {
     	super();
@@ -186,6 +192,12 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 			String otn = XmlUtils.xPathStringSearch(personNode, 
 					"oirs-req-ext:IdentifiedPersonTrackingIdentification/nc30:IdentificationID");
 			searchRequest.setOtn(StringUtils.trimToNull(otn));
+			
+			String sid = XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification/nc30:IdentificationID");
+			searchRequest.setSid(sid);
+			
+			String ucn = XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+			searchRequest.setUcn(ucn);
 		}
 		
 	}
@@ -294,6 +306,26 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
 			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
 			identificationID.setTextContent(agencyProfile.getAgencyOri());
+
+			Element stateSubscriptionsIndicator = XmlUtils.appendElement(
+					entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedForStateSubscriptionsIndicator");
+			stateSubscriptionsIndicator.setTextContent(BooleanUtils.toStringTrueFalse(agencyProfile.getStateSubscriptionQualified()));
+			
+			Element federalSubscriptionsIndicator = XmlUtils.appendElement(
+					entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedForFederalSubscriptionsIndicator");
+			federalSubscriptionsIndicator.setTextContent(BooleanUtils.toStringTrueFalse(agencyProfile.getFbiSubscriptionQualified()));
+			
+			if (agencyProfile.getTriggeringEventCodes().size()>0){
+				Element organizationAuthorizedTriggeringEvents = XmlUtils.appendElement(
+						entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedTriggeringEvents");
+				for (String triggeringEventCode : agencyProfile.getTriggeringEventCodes()){
+					Element federalTriggeringEventCode = XmlUtils.appendElement(
+							organizationAuthorizedTriggeringEvents, 
+							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+							"FederalTriggeringEventCode");
+					federalTriggeringEventCode.setTextContent(triggeringEventCode);
+				}
+			}
 		}
 		
 		for (int i = 0; i < agencyProfiles.size(); i++){
@@ -355,9 +387,11 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendReasonCodeElement(isCivilResponse, identificationTransaction,
 				organizationIdentificationResultsSearchResultElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		
-		appendDateElement(identificationTransaction.getTimestamp(), 
+		appendDateElement(identificationTransaction.getCreationTimestamp(), 
 				organizationIdentificationResultsSearchResultElement, 
 				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		XmlUtils.appendTextElement(organizationIdentificationResultsSearchResultElement, 
+				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "AgencyCaseNumber", identificationTransaction.getOwnerProgramOca());
 		appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
  
 		Element systemIdentifierElement = XmlUtils.appendElement(
@@ -398,13 +432,22 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendIdentificationRequestingOrganization(organizationIdentificationResultsSearchResultElement,
 				identificationTransaction, oriOrgnizationIdMap);
 		
-		if (currentState == IdentificationTransactionState.Subscribed){
+		if (currentState == IdentificationTransactionState.Subscribed_State || 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI){
 			appendSubscriptionElement(
 					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
 		}
-		appendSubsequentResultsAvailableIndicator(
-				organizationIdentificationResultsSearchResultElement,
-				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+			appendSubsequentResultsAvailableIndicator(
+					organizationIdentificationResultsSearchResultElement,
+					identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+			
+		if (currentState == IdentificationTransactionState.Subscribed_State || 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI){
+			appendDateElement(identificationTransaction.getLatestNotificationDate(), 
+					organizationIdentificationResultsSearchResultElement, 
+					"LatestNotificationDate", 
+					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		}
 	}
 
 	private void appendIdentificationRequestingOrganization(
@@ -435,6 +478,31 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendValidationDueDate(subscription.getValidationDueDate(), subscriptionElement);
 		appendSubscriptionId(subscription.getId(), subscriptionElement);
 		
+		if (subscription.getFbiRapbackSubscription() != null){
+			appendRapbackSubscriptionId(subscription, subscriptionElement);
+			appendRapbackActivityNotificationId(subscription, subscriptionElement);
+		}
+	}
+
+	private void appendRapbackActivityNotificationId(Subscription subscription,
+			Element subscriptionElement) {
+		String rapbackActivityNotificationId = 
+				enhancedAuditDAO.getRapbackActivityNotificationId(subscription.getId());
+		if (StringUtils.isNotBlank(rapbackActivityNotificationId)){
+			Element rapBackActivityNotificationIdentification = 
+					XmlUtils.appendElement(subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "RapBackActivityNotificationIdentification");
+			Element identificationId = XmlUtils.appendElement(rapBackActivityNotificationIdentification, NS_NC_30, "IdentificationID");
+			identificationId.setTextContent(rapbackActivityNotificationId);
+		}
+	}
+
+	private Element appendRapbackSubscriptionId(Subscription subscription,
+			Element subscriptionElement) {
+		Element rapBackSubscriptionIdentification = 
+				XmlUtils.appendElement(subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "RapBackSubscriptionIdentification");
+		Element identificationId = XmlUtils.appendElement(rapBackSubscriptionIdentification, NS_NC_30, "IdentificationID");
+		identificationId.setTextContent(subscription.getFbiRapbackSubscription().getFbiSubscriptionId());
+		return rapBackSubscriptionIdentification;
 	}
 
 	private void appendSubscriptionId(long id, Element subscriptionElement) {
