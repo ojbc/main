@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
 	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping", 
-	"submitArrestConfirmationMessage"})
+	"submitArrestConfirmationMessage", "provisionCodeMapping"})
 @RequestMapping("/muniArrests")
 public class MuniArrestController {
 	private static final Log log = LogFactory.getLog(MuniArrestController.class);
@@ -98,11 +98,14 @@ public class MuniArrestController {
 			model.addAttribute("muniReasonsForDismissalMapping", codeTableService.getMuniReasonsForDismissalMap());
 		}
 		
-		model.addAttribute("provisionCodeMapping", appProperties.getProvisionCodeMapping());
+		if (!model.containsAttribute("provisionCodeMapping")) {
+			model.addAttribute("provisionCodeMapping", codeTableService.getDaProvisions());
+		}
 		
 		if (!model.containsAttribute("submitArrestConfirmationMessage")) {
 			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());
 		}
+		
     	log.info("All ModelAtrributes are added.");
     }
     
