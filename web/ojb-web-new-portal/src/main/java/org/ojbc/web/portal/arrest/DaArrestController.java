@@ -24,14 +24,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
-import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
-import org.ojbc.web.portal.security.SamlTokenProcessor;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -48,7 +45,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Element;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
@@ -228,21 +224,8 @@ public class DaArrestController {
 	@GetMapping("/dispositionForm")
 	public String getDispositionForm(HttpServletRequest request, Disposition disposition, 
 			Map<String, Object> model) throws Throwable {
-		disposition.disassembleCourtCaseNumber();
-		
-		setDispositionCounty(request, disposition);
 		model.put("disposition", disposition);
 		return "arrest/da/dispositionForm::dispositionForm";
-	}
-
-	private void setDispositionCounty(HttpServletRequest request, Disposition disposition) {
-		Element samlElement = samlService.getSamlAssertion(request);
-		String ori = SamlTokenProcessor.getAttributeValue(samlElement, SamlAttribute.EmployerORI);
-		if (disposition.getDispositionType() == ArrestType.DA 
-				&& StringUtils.isBlank(disposition.getCounty()) 
-				&& StringUtils.isNotBlank(ori)) {
-			disposition.setCounty(StringUtils.substring(ori, 2,4));
-		}
 	}
 
 	@PostMapping("/saveDisposition")

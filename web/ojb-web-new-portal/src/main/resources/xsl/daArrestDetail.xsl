@@ -84,6 +84,7 @@
                 data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
                 <i class="fas fa-info-circle"></i></a>
             </th>
+            <th>ARREST AGENCY</th>
           </tr>
 					</tr>
 				</thead>
@@ -102,6 +103,18 @@
 				      <td id="arrestDate">
 				        <strong><xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/></strong>
 				      </td>
+              <td>
+                <xsl:if test="j:Arrest/j:ArrestAgency">
+	                <xsl:value-of select="j:Arrest/j:ArrestAgency/nc:OrganizationName"></xsl:value-of>
+	                <xsl:text>(</xsl:text>
+	                <xsl:value-of select="j:Arrest/j:ArrestAgency/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/>
+	                <xsl:text>)</xsl:text>
+                </xsl:if>
+                <span class="d-none" id="arrestOri">
+                  <xsl:value-of select="j:Arrest/j:ArrestAgency/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/>
+                </span>
+                
+              </td>         
            </tr>
 				</tbody>
 			</table>

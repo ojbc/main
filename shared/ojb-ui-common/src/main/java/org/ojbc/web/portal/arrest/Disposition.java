@@ -38,6 +38,7 @@ public class Disposition {
 	private String arrestIdentification;
 	private String arrestChargeIdentification;
 	private String dispositionIdentification;
+	private String arrestOri;
 
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@NotNull
@@ -377,5 +378,16 @@ public class Disposition {
 	}
 	public void setAlternateSentenceDescriptions(List<String> alternateSentenceDescriptions) {
 		this.alternateSentenceDescriptions = alternateSentenceDescriptions;
+	}
+	public String getArrestOri() {
+		return arrestOri;
+	}
+	public void setArrestOri(String arrestOri) {
+		this.arrestOri = arrestOri;
+		if (this.getDispositionType() == ArrestType.DA 
+				&& StringUtils.isBlank(this.getCounty()) 
+				&& StringUtils.isNotBlank(arrestOri)) {
+			this.setCounty(StringUtils.substring(arrestOri, 2,4));
+		}
 	}
 }    

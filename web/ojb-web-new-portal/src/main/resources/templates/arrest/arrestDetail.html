@@ -269,6 +269,7 @@
                     xhr = $.get( context +"muniArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId, 
+                        arrestOri:$('#arrestOri').text(),
                         arrestDate: $('#arrestDate').text() }, function(data) {
                     	$('#dispositionModal .modal-body').html(data);
                       $("#arrestChargeIdentification").append($(".chargeDropDown").html());
@@ -287,6 +288,7 @@
                 	 xhr = $.get( context +"muniArrests/dispositionForm", {
 	                       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
 	                       arrestChargeIdentification:chargeId, 
+	                       arrestOri:$('#arrestOri').text(),
 	                       dispositionIdentification:$(this).closest("tr").attr("id"),
 	                       dispositionDate:rowData[1], 
 	                       dispositionCode:rowData[2], 
