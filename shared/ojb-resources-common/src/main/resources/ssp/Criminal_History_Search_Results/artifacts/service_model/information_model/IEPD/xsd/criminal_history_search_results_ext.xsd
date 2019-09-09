@@ -259,6 +259,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeReviewedIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a charge has been reviewed; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
