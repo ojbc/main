@@ -60,17 +60,6 @@
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
-					<!-- NEW 9/9/19 -->
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -94,6 +83,18 @@
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<!-- NEW 9/9/19 -->
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
+				</chsres-ext:ChargeOwnerAgency>
+				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeAssignedAgency>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeAssignedAgency>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -120,6 +121,16 @@
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
+				</chsres-ext:ChargeOwnerAgency>
+				<chsres-ext:ChargeAssignedAgency>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeAssignedAgency>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />

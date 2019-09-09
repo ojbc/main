@@ -178,6 +178,20 @@
 			<xsd:documentation>A type of general offense identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeOwnerAgency" type="nc:OrganizationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The agency who is responsible for a charge at the time of disposing of a charge.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
+	<xsd:element name="ChargeAssignedAgency" type="nc:OrganizationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The agency who is responsible for a charge modification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
+	
+	
 	<xsd:element name="RecordCategoryIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
