@@ -288,6 +288,7 @@
                     xhr = $.get( context +"daArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId, 
+                        arrestOri:$('#arrestOri').text(),
                         arrestDate: $('#arrestDate').text() },  
                         function(data) {
 		                    	$('#dispositionModal .modal-body').html(data);
@@ -316,6 +317,7 @@
 		                	       dispositionCode:rowData[2], 
 		                	       counts:rowData[3], 
 		                	       courtCaseNumber:rowData[4], 
+	                           arrestOri:$('#arrestOri').text(),
 		                	       generalOffenseCode:daGeneralOffenseDescMapping[rowData[5]], 
 		                	       filedCharge:rowData[6], 
 		                	       chargeSeverityCode:rowData[7],

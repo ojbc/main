@@ -155,6 +155,7 @@ public class Disposition {
 	}
 	public void setCourtCaseNumber(String courtCaseNumber) {
 		this.courtCaseNumber = courtCaseNumber;
+		this.disassembleCourtCaseNumber();
 	}
 	public void assembleCourtCaseNumber() {
 		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(this.county, this.caseType, this.year, this.caseNumber);
@@ -384,6 +385,7 @@ public class Disposition {
 	}
 	public void setArrestOri(String arrestOri) {
 		this.arrestOri = arrestOri;
+		this.disassembleCourtCaseNumber();
 		if (this.getDispositionType() == ArrestType.DA 
 				&& StringUtils.isBlank(this.getCounty()) 
 				&& StringUtils.isNotBlank(arrestOri)) {
