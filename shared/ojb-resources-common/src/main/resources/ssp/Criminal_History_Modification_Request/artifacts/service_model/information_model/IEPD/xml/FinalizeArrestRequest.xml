@@ -29,5 +29,15 @@
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
+		<j:ArrestCharge>
+			<chm-req-ext:ChargePrimarySystemIdentification>
+				<nc:IdentificationID>C4567893</nc:IdentificationID>
+			</chm-req-ext:ChargePrimarySystemIdentification>
+		</j:ArrestCharge>
+		<j:ArrestCharge>
+			<chm-req-ext:ChargePrimarySystemIdentification>
+				<nc:IdentificationID>CC4567893</nc:IdentificationID>
+			</chm-req-ext:ChargePrimarySystemIdentification>
+		</j:ArrestCharge>
 	</j:Arrest>
 </fa-req-doc:FinalizeArrestRequest>
