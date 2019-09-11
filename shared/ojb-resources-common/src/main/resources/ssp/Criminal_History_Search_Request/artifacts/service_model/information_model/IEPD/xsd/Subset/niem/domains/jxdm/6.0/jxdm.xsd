@@ -69,6 +69,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -144,6 +145,11 @@
   <xs:element name="CaseNumberText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifying number for a case that this activity is a part of, where the case number belongs to the agency that owns the activity information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">

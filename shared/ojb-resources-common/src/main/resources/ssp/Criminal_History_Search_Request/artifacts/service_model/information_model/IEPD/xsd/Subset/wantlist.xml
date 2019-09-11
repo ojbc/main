@@ -52,6 +52,8 @@
   <w:Type w:name="j:ChargeType" w:isRequested="false">
     <w:ElementInType w:name="j:ChargeDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtType" w:isRequested="true"/>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
