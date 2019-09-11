@@ -40,7 +40,7 @@
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />					
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsreq-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="chsreq-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -80,7 +80,7 @@
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
-	</xsd:complexType>	
+	</xsd:complexType>
 	<xsd:complexType name="MunicipalDeferredDispositionSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a Municiapl Charges search request.
@@ -99,7 +99,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:complexType name="DADeferredDispositionSearchRequestType">
+	<xsd:complexType name="DADeferredDispositionSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit a DA Charges search request.
 			</xsd:documentation>
@@ -169,6 +169,19 @@
 	<xsd:element name="IncludeHiddenArrestIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if hidden arrests are to be included in the search; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargePrimarySystemIdentification" type="nc:IdentificationType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system identification for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeHasDispositionIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a charges has a disposition, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>	
 	<xsd:complexType name="SearchQualifierCodeType">
