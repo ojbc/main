@@ -56,6 +56,6 @@ public class OjbcWebConstants {
     public static final String FBI_ID_PATTERN_ONE_TO_SIX_DIGITS_PLUS_2ALPHA_1CHK = "^\\d{1,6}[AaC-Fc-fHhJ-Nj-nPRTprtV-Xv-x][A-Ea-e]\\d$";
 
     public enum ArrestType{
-    	DA, MUNI;
+    	DA, MUNI, OSBI;
     }
 }
