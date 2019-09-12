@@ -83,6 +83,8 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_RECORD_REPLICATION_REQUE
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_40;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DECLINE_CHARGE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -115,6 +117,7 @@ import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
+import org.ojbc.web.portal.arrest.ArrestCharge;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.Disposition;
 import org.ojbc.web.portal.audit.AuditSearchRequest;
@@ -1970,6 +1973,23 @@ public class RequestMessageBuilderUtilities {
         Element rapBackActivityNotificationIdentification = XmlUtils.appendElement(rootElement, NS_FBI_RECORD_REQUEST, "RapBackActivityNotificationIdentification");
         XmlUtils.appendTextElement(rapBackActivityNotificationIdentification, NS_NC, "IdentificationID", detailsRequest.getRapbackActivityNotificationId());
         
+        return document;
+	}
+
+	public static Document createChargeDeclineRequest(ArrestCharge arrestCharge) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_DECLINE_CHARGE_REQUEST_DOC, 
+        		NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC + ":DeclineChargeRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC, 
+        		NS_DECLINE_CHARGE_REQUEST_DOC);
+        
+        Element arrest = createArrestModifyRequestArrestElement(arrestCharge.getArrestIdentification(), document, rootElement);
+        
+        Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+        XmlUtils.appendTextElement(arrestChargeElement, NS_JXDM_60, "ChargeDescriptionText", arrestCharge.getArrestChargeDescription());
+        
+        Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
+        XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", arrestCharge.getArrestChargeIdentification());
         return document;
 	}	
     

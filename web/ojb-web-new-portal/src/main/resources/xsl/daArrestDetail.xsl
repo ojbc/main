@@ -214,38 +214,40 @@
 		        <tbody>
 		          <xsl:apply-templates select="j:ChargeDisposition"/>
 		        </tbody>
-              <tfoot>				          
-              <tr>
-					      <td style="vertical-align:top; white-space: nowrap" >
-					        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
-					          <i class="fas fa-plus-square fa-lg"></i>
-					        </a>
-					      </td>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					      <td/>
-					    </tr>
-		         </tfoot> 
+            <tfoot>	
+              <xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '390'])">			          
+		             <tr>
+						      <td style="vertical-align:top; white-space: nowrap" >
+						        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
+						          <i class="fas fa-plus-square fa-lg"></i>
+						        </a>
+						      </td>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						      <td/>
+						    </tr>
+					    </xsl:if>
+	         </tfoot> 
 		      </table>
         </div>
       </div>
@@ -261,9 +263,11 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
-        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover">
-          <i class="fas fa-edit fa-lg"></i>
-        </a>
+        <xsl:if test ="not(chsres-ext:DispositionCodeText = '390')">
+	        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover">
+	          <i class="fas fa-edit fa-lg"></i>
+	        </a>
+        </xsl:if>
         <a href="#" class="deleteDisposition" data-content="delete" data-toggle="popover" data-trigger="hover">
           <i class="fas fa-trash-alt fa-lg"></i>
         </a>
@@ -283,7 +287,14 @@
 		  </td> 
 		  <td><xsl:value-of select="chsres-ext:ChargeModificationDescriptionCodeText"/></td>
 		  <td>
-		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
+		    <xsl:choose>
+		      <xsl:when test="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID">
+				    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID"/>
+		      </xsl:when>
+		      <xsl:otherwise>
+				    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
+		      </xsl:otherwise>
+		    </xsl:choose>
 		  </td>
       <td>
         <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeSeverityText"/>

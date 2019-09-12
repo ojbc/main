@@ -29,6 +29,7 @@ import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
+import org.ojbc.web.portal.arrest.ArrestCharge;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -37,7 +38,7 @@ import org.w3c.dom.Element;
 
 @Configuration
 @Profile("arrest-search")
-public class ArrestFinalizeRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
+public class ChargeDeclineRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	/**
 	 * Camel context needed to use producer template to send messages
@@ -48,14 +49,14 @@ public class ArrestFinalizeRequestProcessor extends RequestResponseProcessor imp
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken) throws Throwable {
+	public String invokeRequest(ArrestCharge arrestCharge, Element samlToken) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document requestPayload = RequestMessageBuilderUtilities.createArrestFinalizeRequest(id);
+		Document requestPayload = RequestMessageBuilderUtilities.createChargeDeclineRequest(arrestCharge);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

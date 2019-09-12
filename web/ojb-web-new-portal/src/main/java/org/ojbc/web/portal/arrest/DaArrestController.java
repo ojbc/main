@@ -263,7 +263,7 @@ public class DaArrestController {
 			Map<String, Object> model) throws Throwable {
 		log.debug("decline charge: " + arrestCharge);
 		arrestCharge.setArrestType(ArrestType.DA);
-//		arrestService.declineCharge(arrestCharge, samlService.getSamlAssertion(request));
+		arrestService.declineCharge(arrestCharge, samlService.getSamlAssertion(request));
 //		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, arrestCharge.getArrestIdentification(), model); 
 		return "arrest/da/arrestDetail::arrestDetail";
