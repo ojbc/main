@@ -37,6 +37,27 @@
 				</nc:EndDate>
 			</nc:DateRange>
 		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI12345</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+		<j:ArrestAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI3427</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+		<j:ArrestAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI5678</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
 		<j:ArrestSubject structures:ref="Subject_01">
 		</j:ArrestSubject>
 		<chsreq-ext:IncludeHiddenArrestIndicator>false</chsreq-ext:IncludeHiddenArrestIndicator>

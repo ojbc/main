@@ -27,18 +27,6 @@
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>A34567890</nc:IdentificationID>
 		</nc:ActivityIdentification>
-		<j:ArrestCharge>
-			<chsreq-ext:ChargePrimarySystemIdentification>
-				<nc:IdentificationID>C4567893</nc:IdentificationID>
-			</chsreq-ext:ChargePrimarySystemIdentification>
-			<chsreq-ext:ChargeHasDispositionIndicator>true</chsreq-ext:ChargeHasDispositionIndicator>
-		</j:ArrestCharge>
-		<j:ArrestCharge>
-			<chsreq-ext:ChargePrimarySystemIdentification>
-				<nc:IdentificationID>CC4567893</nc:IdentificationID>
-			</chsreq-ext:ChargePrimarySystemIdentification>
-			<chsreq-ext:ChargeHasDispositionIndicator>false</chsreq-ext:ChargeHasDispositionIndicator>
-		</j:ArrestCharge>
 		<chsreq-ext:IncludeHiddenArrestIndicator>false</chsreq-ext:IncludeHiddenArrestIndicator>
 	</j:Arrest>
 </adsreq-doc:ArrestDetailSearchRequest>
