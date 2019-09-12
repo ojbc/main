@@ -30,5 +30,6 @@ public interface ArrestService {
 	String referArrestToDa(String id, Element samlAssertion) throws Throwable;
 	String referArrestToMuni(String id, Element samlAssertion) throws Throwable;
 	String lookupOtn(String otn, Element samlAssertion) throws Throwable;
-	String finalizeArrest(String id, Element samlAssertion) throws Throwable;;
+	String finalizeArrest(String id, Element samlAssertion) throws Throwable;
+	String declineCharge(ArrestCharge arrestCharge, Element samlAssertion) throws Throwable;
 }

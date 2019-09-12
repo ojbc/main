@@ -42,6 +42,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -254,6 +255,17 @@ public class DaArrestController {
 		arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 		getArrestDetail(request, disposition.getArrestIdentification(), model); 
+		return "arrest/da/arrestDetail::arrestDetail";
+	}
+	
+	@PostMapping("/charges/decline")
+	public String delineCharge(HttpServletRequest request,  ArrestCharge arrestCharge,
+			Map<String, Object> model) throws Throwable {
+		log.debug("decline charge: " + arrestCharge);
+		arrestCharge.setArrestType(ArrestType.DA);
+//		arrestService.declineCharge(arrestCharge, samlService.getSamlAssertion(request));
+//		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, arrestCharge.getArrestIdentification(), model); 
 		return "arrest/da/arrestDetail::arrestDetail";
 	}
 	

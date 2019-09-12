@@ -91,4 +91,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String declineCharge(ArrestCharge arrestCharge, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -112,5 +112,11 @@ public class ArrestServiceImpl implements ArrestService {
 	public String finalizeArrest(String id, Element samlAssertion) throws Throwable {
 		return arrestFinalizeRequestProcessor.invokeRequest(id, samlAssertion);
 	}
+
+	@Override
+	public String declineCharge(ArrestCharge arrestCharge, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
