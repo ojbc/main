@@ -290,5 +290,16 @@ public class MuniArrestController {
 		disposition.setReasonForDismissalDescripiton(muniReasonsForDismissalMapping.get(disposition.getReasonForDismissal()));
 	}
 	
+	@PostMapping("/charges/decline")
+	public String delineCharge(HttpServletRequest request,  ArrestCharge arrestCharge,
+			Map<String, Object> model) throws Throwable {
+		log.debug("decline charge: " + arrestCharge);
+		arrestCharge.setArrestType(ArrestType.MUNI);
+		arrestService.declineCharge(arrestCharge, samlService.getSamlAssertion(request));
+//		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
+		getArrestDetail(request, arrestCharge.getArrestIdentification(), model); 
+		return "arrest/arrestDetail::arrestDetail";
+	}
+	
 
 }

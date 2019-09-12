@@ -102,7 +102,7 @@
 				        <strong><xsl:apply-templates select="j:Arrest/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/></strong>
 				      </td>
               <td>
-	              <xsl:if test="j:Arrest/j:ArrestAgency">
+	            <xsl:if test="j:Arrest/j:ArrestAgency">
 	                <xsl:value-of select="j:Arrest/j:ArrestAgency/nc:OrganizationName"></xsl:value-of>
 	                <xsl:text>(</xsl:text>
 	                <xsl:value-of select="j:Arrest/j:ArrestAgency/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID"/>
@@ -137,12 +137,12 @@
               <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
-           <xsl:if test="not(j:ChargeDisposition)">
-             <a href="#" class="delineCharge pl-3" style="margin-right:3px" data-content="deline the charge" data-toggle="popover" data-trigger="hover">
-               <i class="fas fa-times-circle fa-lg"></i>
-             </a>
-           </xsl:if>
         </a>
+        <xsl:if test="not(j:ChargeDisposition)">
+          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
+            <i class="fas fa-times-circle fa-lg"></i>
+          </a>
+        </xsl:if>
       </div>
       <div class="collapse hscroll" data-parent="#accordion">
         <xsl:attribute name="id">
@@ -170,7 +170,7 @@
                <col/>
 			        <thead>
 			          <tr>
-                   <th rowspan="2">ACTION</th>
+                  <th rowspan="2">ACTION</th>
 			            <th rowspan="2">DISPO DATE</th>
 			            <th rowspan="2">DISPO</th>
 			            <th rowspan="2">COUNTS</th>
@@ -181,11 +181,10 @@
 			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">SUSPENDED</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">DEFERRED</th>
-                   <th rowspan="2">RESTITUTION</th>
-                   <th rowspan="2">ADDITIONAL SENTENCE</th>
-                   <th rowspan="2">REASON FOR DISMISSAL</th>
-                   <th rowspan="2">PROVISION</th>
-                                     
+                  <th rowspan="2">RESTITUTION</th>
+                  <th rowspan="2">ADDITIONAL SENTENCE</th>
+                  <th rowspan="2">REASON FOR DISMISSAL</th>
+                  <th rowspan="2">PROVISION</th>
 			          </tr>
 			          <tr>
                    <th scope="col">AMOUNT</th>
@@ -201,33 +200,35 @@
 			        <tbody>
 			          <xsl:apply-templates select="j:ChargeDisposition"/>
 			        </tbody>
-               <tfoot>				          
-	              <tr>
-						      <td style="vertical-align:top; white-space: nowrap" >
-						        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
-						          <i class="fas fa-plus-square fa-lg"></i>
-						        </a>
-						      </td>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						      <td/>
-						    </tr>
-			         </tfoot> 
+              <tfoot>
+              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326'])">			          				          
+		              <tr>
+							      <td style="vertical-align:top; white-space: nowrap" >
+							        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
+							          <i class="fas fa-plus-square fa-lg"></i>
+							        </a>
+							      </td>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							      <td/>
+							    </tr>
+    					  </xsl:if>
+			        </tfoot> 
 			      </table>
         </div>
       </div>
@@ -243,9 +244,11 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
-        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover" >
-          <i class="fas fa-edit fa-lg"></i>
-        </a>
+        <xsl:if test ="not(chsres-ext:DispositionCodeText = '326')">
+	        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover" >
+    	      <i class="fas fa-edit fa-lg"></i>
+        	</a>
+        </xsl:if>
         <a href="#" class="deleteDisposition" data-content="delete" data-toggle="popover" data-trigger="hover">
           <i class="fas fa-trash-alt fa-lg"></i>
         </a>
@@ -264,7 +267,14 @@
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
 		  </td> 
 		  <td>
-		    <xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
+		  	<xsl:choose>
+		  	  <xsl:when test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText">
+		    	<xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
+		      </xsl:when>
+		      <xsl:otherwise>
+				    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
+		      </xsl:otherwise>
+		    </xsl:choose>
 		  </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText"/>

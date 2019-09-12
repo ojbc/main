@@ -469,6 +469,30 @@
                    });
 
                 });
+                $('#accordion').on('click', 'a.declineCharge',function() {
+                    var requestData = {
+                         'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
+                         'arrestChargeIdentification': $(this).prev(".card-link").attr("href").slice(7),
+                         'arrestChargeDescription': $(this).prev(".card-link").text()
+                    };
+                    
+                    chargeRef = $(this).prev(".card-link").attr("href");
+                    bootpopup({
+                        title: "", 
+                        showclose: false,
+                        content: [
+                              { p: {text: "Do you want to deline this charge?"}}
+                              ], 
+                        no: function() {},
+                        yes: function(data, array, event) {  
+                            requestData[_csrf_param_name] = _csrf_token;
+                            xhr = $.post(context + "muniArrests/charges/decline", requestData, function(data) {
+                                $('#portalContent').html(data); 
+                                $("a.card-link[href = '" + chargeRef + "']").click();
+                            }).fail(ojbc.displayFailMessage);
+                        },
+                    });
+                  });
             });
 	      </script>
 	      <div id="saveDispositionButtons" style="display:none;">

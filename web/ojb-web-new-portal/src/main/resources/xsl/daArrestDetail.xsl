@@ -142,7 +142,7 @@
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
         <xsl:if test="not(j:ChargeDisposition)">
-          <a href="#" class="delineCharge pl-3" style="margin-right:3px" data-content="deline the charge" data-toggle="popover" data-trigger="hover">
+          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
             <i class="fas fa-times-circle fa-lg"></i>
           </a>
         </xsl:if>
