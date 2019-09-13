@@ -62,7 +62,7 @@
 		<xsl:choose>
 			<xsl:when test="j:ChargeDisposition[. !='']">
 				<xsl:apply-templates select="j:ChargeDisposition">
-					<xsl:sort select="xsd:integer(translate(./nc:DispositionDate/nc:Date,'-', ''))" data-type="number" order="descending" />
+					<xsl:sort select="translate(./nc:DispositionDate/nc:Date,'-', '')" order="descending" />
 				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>

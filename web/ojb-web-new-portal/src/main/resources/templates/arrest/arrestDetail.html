@@ -237,6 +237,14 @@
                  $('#portalContent').on('click', '#presentArrest',function() {
                     xhr = $.get( context +"muniArrests/summary", function(data) {
                     	$('#submitArrestModalContent').html(data);
+                    	var dispositionTableCount = $(".dispositionsTable").length;
+                    	var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
+                    	if (dispositionTableCount === emptyDispositionTableCount){
+                    		$("#confirmSubmitArrest").addClass("d-none");
+                    	}
+                    	else{
+                    		$("#confirmSubmitArrest").removeClass("d-none");
+                    	}
                       $('#submitArrestModal').modal('show');
                     }).fail(ojbc.displayFailMessage);
                  }); 
