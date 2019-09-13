@@ -74,7 +74,7 @@ public class CamelContextTest {
 
 		mockMail.reset();
 		
-		Thread.sleep(2500);
+		Thread.sleep(10000);
 		
 		mockMail.expectedMessageCount(1);
 		mockMail.assertIsSatisfied();
