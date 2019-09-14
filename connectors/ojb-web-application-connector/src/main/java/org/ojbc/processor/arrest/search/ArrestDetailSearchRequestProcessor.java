@@ -48,14 +48,14 @@ public class ArrestDetailSearchRequestProcessor extends RequestResponseProcessor
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken) throws Throwable {
+	public String invokeRequest(String id, Element samlToken, String... chargeIds) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document arrestDetailSearchRequestPayload = RequestMessageBuilderUtilities.createArrestDetailSearchRequest(id);
+		Document arrestDetailSearchRequestPayload = RequestMessageBuilderUtilities.createArrestDetailSearchRequest(id, chargeIds);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

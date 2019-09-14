@@ -48,14 +48,14 @@ public class ArrestFinalizeRequestProcessor extends RequestResponseProcessor imp
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken) throws Throwable {
+	public String invokeRequest(String id, String[] chargeIds, Element samlToken) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document requestPayload = RequestMessageBuilderUtilities.createArrestFinalizeRequest(id);
+		Document requestPayload = RequestMessageBuilderUtilities.createArrestFinalizeRequest(id, chargeIds);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

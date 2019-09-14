@@ -190,7 +190,7 @@ public class DaArrestController {
 	
 	@GetMapping("/{id}/finalize")
 	public String finalizeArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		String response = arrestService.finalizeArrest(id, samlService.getSamlAssertion(request));
+		String response = arrestService.finalizeArrest(id, null, samlService.getSamlAssertion(request));
 		log.info("finalize arrest response:" + response);
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);

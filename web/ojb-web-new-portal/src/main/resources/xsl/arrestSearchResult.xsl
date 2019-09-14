@@ -120,6 +120,9 @@
 					</xsl:if>
 					<xsl:value-of select="."/>
 				</xsl:for-each>
+				<span class="chargeIds d-none">
+				  <xsl:value-of select="string-join(j:Arrest/j:ArrestCharge/j:ChargeIdentification/nc:IdentificationID, ',')"/>
+				</span>
 			</td>
 			<td align="right" width="120px">
 			  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">

@@ -21,7 +21,7 @@ import org.w3c.dom.Element;
 public interface ArrestService {
 
 	String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable;
-	String getArrest(String id, Element samlToken) throws Throwable;
+	String getArrest(String id, Element samlToken, String... chargeIds) throws Throwable;
 	String hideArrest(String id, Element samlToken) throws Throwable;
 	String unhideArrest(String id, Element samlToken) throws Throwable;
 	String saveDisposition(Disposition disposition, Element samlToken) throws Throwable;
@@ -30,6 +30,6 @@ public interface ArrestService {
 	String referArrestToDa(String id, Element samlAssertion) throws Throwable;
 	String referArrestToMuni(String id, Element samlAssertion) throws Throwable;
 	String lookupOtn(String otn, Element samlAssertion) throws Throwable;
-	String finalizeArrest(String id, Element samlAssertion) throws Throwable;
+	String finalizeArrest(String id, String[] chargeIds, Element samlAssertion) throws Throwable;
 	String declineCharge(ArrestCharge arrestCharge, Element samlAssertion) throws Throwable;
 }

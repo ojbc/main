@@ -26,6 +26,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_MODIFIC
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DA_CHARGE_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DECLINE_CHARGE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DELETE_DISPOSITION_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_EXPUNGE_REQUEST_DOC;
@@ -56,6 +57,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DELETE_DISPOSITION_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DISTRICT_ATTORNEY_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_EXPUNGE_REQUEST_DOC;
@@ -83,8 +85,6 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_RECORD_REPLICATION_REQUE
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_40;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DECLINE_CHARGE_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DECLINE_CHARGE_REQUEST_DOC;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -1207,7 +1207,9 @@ public class RequestMessageBuilderUtilities {
         		rootElement = document.createElementNS(NS_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC, 
         				NS_PREFIX_DA_DEFERRED_DISPO_SEARCH_REQUEST_DOC + ":DADeferredDispositionSearchRequest");
         	}
-        	break; 
+        	break;
+		default:
+			break; 
         }
         rootElement.setAttribute("xmlns:" + NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, 
         		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT);
@@ -1331,7 +1333,7 @@ public class RequestMessageBuilderUtilities {
 //		</nc:ActivityIdentification>
 //	</j:Arrest>
 //</adsreq-doc:ArrestDetailSearchRequest>
-	public static Document createArrestDetailSearchRequest(String id) throws Exception {
+	public static Document createArrestDetailSearchRequest(String id, String... chargeIds) throws Exception {
 		if (StringUtils.isBlank(id)) return null;
 		
         Document document = OJBCXMLUtils.createDocument();  
@@ -1350,10 +1352,18 @@ public class RequestMessageBuilderUtilities {
     	
 		Element activityIdentification = XmlUtils.appendElement(arrest, NS_NC_40, "ActivityIdentification"); 
 		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", id);
+		
+        for (String chargeId : chargeIds) {
+            Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+            Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, 
+            		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "ChargePrimarySystemIdentification");
+            XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
+        }
 
 //    		<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
 		XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
 			"{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest");
+		
 		
         return document;
 	}
@@ -1936,14 +1946,20 @@ public class RequestMessageBuilderUtilities {
 		return document;
 	}
 
-	public static Document createArrestFinalizeRequest(String id) throws Exception {
+	public static Document createArrestFinalizeRequest(String id, String[] chargeIds) throws Exception {
 		Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_FINALIZE_ARREST_REQUEST_DOC, 
         		NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC + ":FinalizeArrestRequest");
         rootElement.setAttribute("xmlns:" + NS_PREFIX_FINALIZE_ARREST_REQUEST_DOC, 
         		NS_FINALIZE_ARREST_REQUEST_DOC);
         
-        createArrestModifyRequestArrestElement(id, document, rootElement);
+        Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
+        
+        for (String chargeId : chargeIds) {
+            Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+            Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ChargePrimarySystemIdentification");
+            XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
+        }
         return document;
 	}
 
