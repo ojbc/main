@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -164,9 +165,12 @@ public class DaArrestController {
 		model.put("arrestSearchRequest", arrestSearchRequest);
 	}
 	
-	@GetMapping("/{id}")
-	public String getArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		getArrestDetail(request, id, model); 
+	@GetMapping("/{arrestId}/charges/{chargeIds}")
+	public String getArrest(HttpServletRequest request, @PathVariable String arrestId, 
+			@PathVariable List<String> chargeIds, 
+			Map<String, Object> model) throws Throwable {
+		log.debug("chargeIds: " + chargeIds); 
+		getArrestDetail(request, arrestId, model, chargeIds.toArray(new String[chargeIds.size()])); 		
 		return "arrest/da/arrestDetail::arrestDetail";
 	}
 
@@ -188,9 +192,12 @@ public class DaArrestController {
 		return "arrest/da/arrests::resultsList";
 	}
 	
-	@GetMapping("/{id}/finalize")
-	public String finalizeArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		String response = arrestService.finalizeArrest(id, null, samlService.getSamlAssertion(request));
+	@PostMapping("/finalize")
+	public String finalizeArrest(HttpServletRequest request, 
+			@RequestParam("arrestIdentification") String arrestIdentification, 
+			@RequestParam("chargeIds[]") String[] chargeIds, 
+			Map<String, Object> model) throws Throwable {
+		String response = arrestService.finalizeArrest(arrestIdentification, chargeIds, samlService.getSamlAssertion(request));
 		log.info("finalize arrest response:" + response);
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
@@ -217,6 +224,14 @@ public class DaArrestController {
 	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
 		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
 		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
+		model.put("arrestDetail", searchContent); 
+		model.put("arrestDetailTransformed", transformedResults);
+	}
+	
+	private void getArrestDetail(HttpServletRequest request, String arrestId, 
+			Map<String, Object> model, String... chargeIds) throws Throwable {
+		String searchContent = arrestService.getArrest(arrestId, samlService.getSamlAssertion(request), chargeIds);
+		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
 	}

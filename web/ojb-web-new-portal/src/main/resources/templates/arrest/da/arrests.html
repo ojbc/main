@@ -66,7 +66,9 @@
                   });   
                   
                   $('#searchResultsTable').on('click', 'a.editArrest',function() {
-                      xhr = $.get( context +"daArrests/" + $(this).closest("tr").attr("id"), function(data) {
+                      var selectedRow = $(this).closest("tr"); 
+                      var chargeIds = selectedRow.find(".chargeIds").text();  
+                      xhr = $.get( context +"daArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
                         $('#portalContent').html(data);
                       }).fail(ojbc.displayFailMessage);
                   });

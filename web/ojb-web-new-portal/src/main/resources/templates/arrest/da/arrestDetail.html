@@ -257,12 +257,40 @@
                  $('#portalContent').on('click', '#presentArrest',function() {
                      xhr = $.get( context +"daArrests/summary", function(data) {
                        $('#submitArrestModalContent').html(data);
+                       var dispositionTableCount = $(".dispositionsTable").length;
+                       var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
+                       if (dispositionTableCount === emptyDispositionTableCount){
+                         $("#confirmSubmitArrest").addClass("d-none");
+                       }
+                       else{
+                         $("#confirmSubmitArrest").removeClass("d-none");
+                       }
                        $('#submitArrestModal').modal('show');
                      }).fail(ojbc.displayFailMessage);
                   }); 
                   
                   $('#submitArrestModal').on('click', '#confirmSubmitArrest',function() {
+                     chargeIds = []; 
+                     $(".dispositionsTable:not(:has(.dataTables_empty))").each(function(){
+                       chargeIds.push($(this).attr("id"));
+                     }); 
+                     var requestData = {
+                         'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
+                         'chargeIds': chargeIds
+                     };
+
+                     console.log("requestData: "  + requestData);
+                     console.log("requestData: "  + $.param(requestData));
+                      
                      var contentArray = [];
+                     emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
+                     
+                     if (emptyDispositionTableCount == 1){
+                       contentArray.push({ p: {text: "One of the charges has no disposition. "}});
+                     }
+                     else if (emptyDispositionTableCount > 1){
+                       contentArray.push({ p: {text: "Some of the charges have no dispositions. "}});
+                     }
                      contentArray.push({ p: {text: submitArrestConfirmationMessage}});
                      contentArray.push({ p: {text: "Do you want to proceed?"}});
                      bootpopup({
@@ -274,7 +302,8 @@
                              $('#submitArrestModal').css('overflow-y', 'auto');
                          },
                          yes: function(data, array, event) {  
-                             xhr = $.get( context +"daArrests/" + $('#searchResultsTable').attr('arrestId') + "/finalize", function(data) {
+                             requestData[_csrf_param_name] = _csrf_token;
+                             xhr = $.post( context +"daArrests/finalize", $.param(requestData), function(data) {
                                 $("#submitArrestModal .close").click(); 
                                 $("#portalContent").html(data);
                                 $(".modal-backdrop").hide();
