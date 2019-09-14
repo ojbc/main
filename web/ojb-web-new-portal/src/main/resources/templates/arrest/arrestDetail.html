@@ -238,7 +238,7 @@
                     xhr = $.get( context +"muniArrests/summary", function(data) {
                     	$('#submitArrestModalContent').html(data);
                     	var dispositionTableCount = $(".dispositionsTable").length;
-                    	var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
+                    	var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length;
                     	if (dispositionTableCount === emptyDispositionTableCount){
                     		$("#confirmSubmitArrest").addClass("d-none");
                     	}
@@ -263,7 +263,7 @@
                     console.log("requestData: "  + $.param(requestData));
                     
                     var contentArray = [];
-                    emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
+                    emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length;
                     
                     if (emptyDispositionTableCount == 1){
                     	contentArray.push({ p: {text: "One of the charges has no disposition. "}});

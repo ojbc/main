@@ -231,7 +231,7 @@ public class DaArrestController {
 	private void getArrestDetail(HttpServletRequest request, String arrestId, 
 			Map<String, Object> model, String... chargeIds) throws Throwable {
 		String searchContent = arrestService.getArrest(arrestId, samlService.getSamlAssertion(request), chargeIds);
-		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
+		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
 	}
