@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
+@SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
 	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping", 
 	"submitArrestConfirmationMessage", "provisionCodeMapping"})
 @RequestMapping("/muniArrests")
@@ -162,7 +162,11 @@ public class MuniArrestController {
 			@PathVariable List<String> chargeIds, 
 			Map<String, Object> model) throws Throwable {
 		log.debug("chargeIds: " + chargeIds); 
-		getArrestDetail(request, arrestId, model, chargeIds.toArray(new String[chargeIds.size()])); 
+		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
+		ArrestDetailSearchRequest arrestDetailSearchRequest = new ArrestDetailSearchRequest(arrestSearchRequest);
+		arrestDetailSearchRequest.setArrestIdentification(arrestId);
+		arrestDetailSearchRequest.setChargeIds(chargeIds);
+		getArrestDetail(request, arrestDetailSearchRequest, model); 		
 		return "arrest/arrestDetail::arrestDetail";
 	}
 
@@ -212,17 +216,11 @@ public class MuniArrestController {
 		return transformedArrestSummary;
 	}
 	
-	private void getArrestDetail(HttpServletRequest request, String id, Map<String, Object> model) throws Throwable {
-		String searchContent = arrestService.getArrest(id, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
-		model.put("arrestDetail", searchContent); 
-		model.put("arrestDetailTransformed", transformedResults);
-	}
-
-	private void getArrestDetail(HttpServletRequest request, String arrestId, 
-			Map<String, Object> model, String... chargeIds) throws Throwable {
-		String searchContent = arrestService.getArrest(arrestId, samlService.getSamlAssertion(request), chargeIds);
-		String transformedResults = searchResultConverter.convertArrestDetail(searchContent);
+	private void getArrestDetail(HttpServletRequest request, ArrestDetailSearchRequest arrestDetailSearchRequest, 
+			Map<String, Object> model) throws Throwable {
+		model.put("arrestDetailSearchRequest", arrestDetailSearchRequest);
+		String searchContent = arrestService.getArrest(arrestDetailSearchRequest, samlService.getSamlAssertion(request));
+		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
 	}
@@ -254,7 +252,7 @@ public class MuniArrestController {
 			throws Throwable {
 		log.info("Expunge disposition" + disposition);
 		arrestService.expungeDisposition(disposition, samlService.getSamlAssertion(request));
-		getArrestDetail(request, disposition.getArrestIdentification(), model);
+		getArrestDetail(request, (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest"), model);
 	}
 
 	@PostMapping("/saveDisposition")
@@ -271,7 +269,7 @@ public class MuniArrestController {
 		log.info(disposition);
 		arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
-		getArrestDetail(request, disposition.getArrestIdentification(), model); 
+		getArrestDetail(request, (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest"), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
 	
@@ -281,7 +279,7 @@ public class MuniArrestController {
 		log.debug("deleting disposition " + disposition.toString());
 		arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
-		getArrestDetail(request, disposition.getArrestIdentification(), model); 
+		getArrestDetail(request, (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest"), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
 	
@@ -312,7 +310,7 @@ public class MuniArrestController {
 		arrestCharge.setArrestType(ArrestType.MUNI);
 		arrestService.declineCharge(arrestCharge, samlService.getSamlAssertion(request));
 //		String response = arrestService.deleteDisposition(disposition, samlService.getSamlAssertion(request));
-		getArrestDetail(request, arrestCharge.getArrestIdentification(), model); 
+		getArrestDetail(request, (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest"), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
 	

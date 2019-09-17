@@ -21,7 +21,7 @@ import org.w3c.dom.Element;
 public interface ArrestService {
 
 	String findArrests(ArrestSearchRequest arrestSearchRequest, Element samlToken) throws Throwable;
-	String getArrest(String id, Element samlToken, String... chargeIds) throws Throwable;
+	String getArrest(ArrestDetailSearchRequest arrestDetailSearchRequest, Element samlToken) throws Throwable;
 	String hideArrest(String id, Element samlToken) throws Throwable;
 	String unhideArrest(String id, Element samlToken) throws Throwable;
 	String saveDisposition(Disposition disposition, Element samlToken) throws Throwable;

@@ -68,8 +68,8 @@ public class ArrestServiceImpl implements ArrestService {
 	}
 
 	@Override
-	public String getArrest(String id, Element samlToken, String... chargeIds) throws Throwable {
-		return arrestDetailSearchRequestProcessor.invokeRequest(id, samlToken, chargeIds);
+	public String getArrest(ArrestDetailSearchRequest arrestDetailSearchRequest, Element samlToken) throws Throwable {
+		return arrestDetailSearchRequestProcessor.invokeRequest(arrestDetailSearchRequest, samlToken);
 	}
 
 	@Override

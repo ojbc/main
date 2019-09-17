@@ -32,7 +32,7 @@ public class ArrestServiceStandalone implements ArrestService {
 	}
 
 	@Override
-	public String getArrest(String id, Element samlToken, String... chargeIds) throws Throwable {
+	public String getArrest(ArrestDetailSearchRequest arrestDetailSearchRequest, Element samlToken) throws Throwable {
 		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 				"/xmlInstances/Municipal_DeferredDisposition_search_results_multiple.xml"));
 	}

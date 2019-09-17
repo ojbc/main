@@ -18,6 +18,7 @@ package org.ojbc.web.portal.arrest;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -54,7 +55,7 @@ public class ArrestSearchRequest {
     private String otn;
     
     private String arrestIdentification;
-    private String ori;
+    private List<String> oris;
     
     private ArrestType arrestType; 
     private Boolean arrestWithDeferredDispositions; 
@@ -126,12 +127,6 @@ public class ArrestSearchRequest {
 	}
 	public void setArrestIdentification(String arrestIdentification) {
 		this.arrestIdentification = arrestIdentification;
-	}
-	public String getOri() {
-		return ori;
-	}
-	public void setOri(String ori) {
-		this.ori = ori;
 	}
 	public LocalDate getDob() {
 		return dob;
@@ -229,5 +224,13 @@ public class ArrestSearchRequest {
 		else {
 			this.setLastNameSearchMetadata(SearchFieldMetadata.ExactMatch);
 		}
+	}
+
+	public List<String> getOris() {
+		return oris;
+	}
+
+	public void setOris(List<String> oris) {
+		this.oris = oris;
 	}
 }

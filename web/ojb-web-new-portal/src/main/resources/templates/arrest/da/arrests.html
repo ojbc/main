@@ -36,7 +36,7 @@
            </ol>
         </nav>
         <h3>Arrest Search Results</h3>
-        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
+        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
         </form>
         <hr/>

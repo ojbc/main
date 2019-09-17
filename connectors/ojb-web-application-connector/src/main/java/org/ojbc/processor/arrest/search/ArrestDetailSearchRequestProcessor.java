@@ -29,6 +29,7 @@ import org.ojbc.processor.rapback.search.RapbackSearchRequestProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
+import org.ojbc.web.portal.arrest.ArrestDetailSearchRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -48,14 +49,14 @@ public class ArrestDetailSearchRequestProcessor extends RequestResponseProcessor
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken, String... chargeIds) throws Throwable {
+	public String invokeRequest(ArrestDetailSearchRequest arrestDetailSearchRequest, Element samlToken) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document arrestDetailSearchRequestPayload = RequestMessageBuilderUtilities.createArrestDetailSearchRequest(id, chargeIds);
+		Document arrestDetailSearchRequestPayload = RequestMessageBuilderUtilities.createArrestDetailSearchRequest(arrestDetailSearchRequest);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

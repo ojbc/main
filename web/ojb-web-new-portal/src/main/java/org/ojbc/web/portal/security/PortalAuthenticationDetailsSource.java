@@ -70,6 +70,10 @@ public class PortalAuthenticationDetailsSource implements
         	case "Municipal Court": 
         		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
         		break; 
+        	case "Criminal History Repository":
+        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        		break;
         }
         
         if (appProperties.getFedIdsWithAuditPrivilege().contains(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId))) {

@@ -118,6 +118,7 @@ import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.ojbc.web.portal.arrest.ArrestCharge;
+import org.ojbc.web.portal.arrest.ArrestDetailSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
 import org.ojbc.web.portal.arrest.Disposition;
 import org.ojbc.web.portal.audit.AuditSearchRequest;
@@ -1333,8 +1334,8 @@ public class RequestMessageBuilderUtilities {
 //		</nc:ActivityIdentification>
 //	</j:Arrest>
 //</adsreq-doc:ArrestDetailSearchRequest>
-	public static Document createArrestDetailSearchRequest(String id, String... chargeIds) throws Exception {
-		if (StringUtils.isBlank(id)) return null;
+	public static Document createArrestDetailSearchRequest(ArrestDetailSearchRequest arrestDetailSearchRequest) throws Exception {
+		if (arrestDetailSearchRequest == null) return null;
 		
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_DETAIL_SEARCH_REQUEST_DOC, 
@@ -1351,9 +1352,9 @@ public class RequestMessageBuilderUtilities {
     	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
     	
 		Element activityIdentification = XmlUtils.appendElement(arrest, NS_NC_40, "ActivityIdentification"); 
-		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", id);
+		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", arrestDetailSearchRequest.getArrestIdentification());
 		
-        for (String chargeId : chargeIds) {
+        for (String chargeId : arrestDetailSearchRequest.getChargeIds()) {
             Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
             Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, 
             		NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "ChargePrimarySystemIdentification");
