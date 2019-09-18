@@ -16,19 +16,25 @@
  */
 package org.ojbc.web.portal.security;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.portal.AppProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -38,6 +44,10 @@ import org.w3c.dom.Element;
 @Component
 public class PortalPreAuthenticatedUserDetailsService implements
 		AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
+	
+	@Resource
+	AppProperties appProperties;
+
     private final Log log = LogFactory.getLog(this.getClass());
 	/**
 	 * Get a UserDetails object based on the user name contained in the given token, and
@@ -78,6 +88,46 @@ public class PortalPreAuthenticatedUserDetailsService implements
 		} catch (Exception e) {
 			log.error("Failed to retrieve the user name from the SAML token.", e);
 		}
-		return new User(userName, "N/A", true, true, true, true, authorities);
+		
+        List<SimpleGrantedAuthority> grantedAuthorities = 
+                new ArrayList<SimpleGrantedAuthority>();
+
+        if (samlAssertion == null){
+        	log.info("samlAssertion is null ");
+        }
+        else {
+        	SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
+        	grantedAuthorities.add(rolePortalUser);
+        }
+        
+        String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
+        String employerOrganizationCategoryText = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText);
+        
+        switch (employerOrganizationCategoryText) {
+        	case "District Attorney": 
+            	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+        		break; 
+        	case "Municipal Court": 
+        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        		break; 
+        	case "Criminal History Repository":
+        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        		break;
+        }
+        
+        if (appProperties.getFedIdsWithAuditPrivilege().contains(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId))) {
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_AUDIT.name()) );
+        }
+        
+
+        //TODO call the rest service to get the list ORIs and access roles. 
+    	SimpleGrantedAuthority canSearch = new SimpleGrantedAuthority(Authorities.CAN_SEARCH.name());
+    	grantedAuthorities.add(canSearch);
+    	
+    	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, Arrays.asList("OK072015A"), 
+    			"muniuser@search.org", SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId), ori );
+		
+		return osbiUser;
 	}
 }

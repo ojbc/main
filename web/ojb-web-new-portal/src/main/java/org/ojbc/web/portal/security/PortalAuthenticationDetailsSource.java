@@ -24,13 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Element;
 
 @Service
 public class PortalAuthenticationDetailsSource implements
@@ -49,37 +47,6 @@ public class PortalAuthenticationDetailsSource implements
         List<SimpleGrantedAuthority> grantedAuthorities = 
                 new ArrayList<SimpleGrantedAuthority>(); 
  
-        Element samlAssertion = (Element)context.getAttribute("samlAssertion");
-        
-        if (samlAssertion == null){
-        	log.info("samlAssertion is null ");
-        }
-        else {
-        	SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
-        	grantedAuthorities.add(rolePortalUser);
-        }
-        
-//        String principal = (String) context.getAttribute("principal");
-//        String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
-        String employerOrganizationCategoryText = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText);
-        
-        switch (employerOrganizationCategoryText) {
-        	case "District Attorney": 
-            	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        		break; 
-        	case "Municipal Court": 
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        		break; 
-        	case "Criminal History Repository":
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        		break;
-        }
-        
-        if (appProperties.getFedIdsWithAuditPrivilege().contains(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId))) {
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_AUDIT.name()) );
-        }
-        
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
                 grantedAuthorities);
     }

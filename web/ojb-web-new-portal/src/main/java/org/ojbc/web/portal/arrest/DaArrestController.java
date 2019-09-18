@@ -29,10 +29,12 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.security.OsbiUser;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -134,11 +136,13 @@ public class DaArrestController {
 	}
 
 	@GetMapping("")
-	public String defaultSearch(HttpServletRequest request, Map<String, Object> model) throws Throwable {
+	public String defaultSearch(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Throwable {
+		OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
 		ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest");
 		
 		if (daArrestSearchRequest == null) {
 			daArrestSearchRequest = new ArrestSearchRequest(ArrestType.DA);
+			daArrestSearchRequest.setOris(osbiUser.getOris());
 			model.put("daArrestSearchRequest", daArrestSearchRequest);
 		}
 		getArrestSearchResults(request, daArrestSearchRequest, model);
