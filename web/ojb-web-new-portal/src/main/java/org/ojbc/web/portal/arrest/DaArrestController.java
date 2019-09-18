@@ -35,6 +35,7 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,7 +51,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"arrestSearchResults", "daArrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", "daDispoCodeMapping", 
+@SessionAttributes({"arrestSearchResults", "daArrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", 
+	"daDispoCodeMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
 	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
 	"daGeneralOffenseDescMapping", "dispoCodesNotRequiringChargeSeverity", "yearList"})
@@ -155,6 +157,11 @@ public class DaArrestController {
 		
 		log.info("daArrestSearchRequest:" + daArrestSearchRequest );
 		daArrestSearchRequest.setArrestType(ArrestType.DA);
+		
+		if (daArrestSearchRequest.getOris() == null || daArrestSearchRequest.getOris().isEmpty()) {
+			OsbiUser osbiUser = (OsbiUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			daArrestSearchRequest.setOris(osbiUser.getOris());
+		}
 		getArrestSearchResults(request, daArrestSearchRequest, model);
 		return "arrest/da/arrests::resultsList";
 	}

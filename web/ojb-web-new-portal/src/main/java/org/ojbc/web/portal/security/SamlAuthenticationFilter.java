@@ -49,7 +49,6 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
             } catch (Exception e) {
                 e.printStackTrace();
             } 
-
         }
         
         String principal = StringUtils.isNotBlank(federationId)? federationId:WebPortalConstants.EMPTY_FEDERATION_ID;

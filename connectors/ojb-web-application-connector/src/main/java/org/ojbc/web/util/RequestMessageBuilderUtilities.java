@@ -1241,7 +1241,22 @@ public class RequestMessageBuilderUtilities {
         			XmlUtils.appendTextElement(endDate, NS_NC_40, "Date", arrestSearchRequest.getArrestDateRangeEndDate().toString());
         		}
         	}
+//    	<j:ArrestAgency>
+//			<j:OrganizationAugmentation>
+//				<j:OrganizationORIIdentification>
+//					<nc:IdentificationID>ORI12345</nc:IdentificationID>
+//				</j:OrganizationORIIdentification>
+//			</j:OrganizationAugmentation>
+//		</j:ArrestAgency>
         	
+        	if (arrestSearchRequest.getOris() != null && arrestSearchRequest.getOris().size() > 0) {
+        		for (String ori: arrestSearchRequest.getOris()) {
+        			Element arrestAgency = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgency");
+        			Element organizationAugmentation = XmlUtils.appendElement(arrestAgency, NS_JXDM_60, "OrganizationAugmentation");
+        			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_60, "OrganizationORIIdentification");
+        			XmlUtils.appendTextElement(organizationORIIdentification, NS_NC_40, "IdentificationID", ori);
+        		}
+        	}
         	if (arrestSearchRequest.isSubjectInfoNotEmpty()) {
         		Element arrestSubject = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestSubject"); 
         		XmlUtils.addAttribute(arrestSubject, NS_STRUCTURES_40, "ref", "Subject_01");
