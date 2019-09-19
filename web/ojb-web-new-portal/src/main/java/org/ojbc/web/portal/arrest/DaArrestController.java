@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "daArrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", 
-	"daDispoCodeMapping", 
+	"daDispoCodeMapping", "agencyOriMapping", 
 	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
 	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
 	"daGeneralOffenseDescMapping", "dispoCodesNotRequiringChargeSeverity", "yearList"})
@@ -122,6 +122,9 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("dispoCodesNotRequiringChargeSeverity")) {
 			model.addAttribute("dispoCodesNotRequiringChargeSeverity", appProperties.getDispoCodesNotRequiringChargeSeverity());
+		}
+		if (!model.containsAttribute("agencyOriMapping")) {
+			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
 		}
 		if (!model.containsAttribute("yearList")) {
 			List<String> yearList = new ArrayList<>(); 
@@ -299,6 +302,13 @@ public class DaArrestController {
 		disposition.setDispositionDate(null);
 		model.put("disposition", disposition);
 		return "arrest/expungeDispositionForm::expungeDispositionForm";
+	}
+	
+	@GetMapping("/chargeReferralForm")
+	public String getExpungeDispositionForm(HttpServletRequest request, ChargeReferral chargeReferral, 
+			Map<String, Object> model) throws Throwable {
+		model.put("chargeReferral", chargeReferral);
+		return "arrest/chargeReferralForm::chargeReferralForm";
 	}
 	
 	@PostMapping("/expungeDisposition")

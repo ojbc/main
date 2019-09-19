@@ -555,31 +555,45 @@
                 });
               });
               
-              
               $('#accordion').on('click', 'a.declineCharge',function() {
-                  var requestData = {
-                       'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
-                       'arrestChargeIdentification': $(this).prev(".card-link").attr("href").slice(7),
-                       'arrestChargeDescription': $(this).prev(".card-link").text()
-                  };
-                  
-                  chargeRef = $(this).prev(".card-link").attr("href");
-                  bootpopup({
-                      title: "", 
-                      showclose: false,
-                      content: [
-                            { p: {text: "Do you want to deline this charge?"}}
-                            ], 
-                      no: function() {},
-                      yes: function(data, array, event) {  
-                          requestData[_csrf_param_name] = _csrf_token;
-                          xhr = $.post(context + "daArrests/charges/decline", requestData, function(data) {
-                              $('#portalContent').html(data); 
-                              $("a.card-link[href = '" + chargeRef + "']").click();
-                          }).fail(ojbc.displayFailMessage);
-                      },
-                  });
+                var requestData = {
+                     'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
+                     'arrestChargeIdentification': $(this).prev(".card-link").attr("href").slice(7),
+                     'arrestChargeDescription': $(this).prev(".card-link").text()
+                };
+                
+                chargeRef = $(this).prev(".card-link").attr("href");
+                bootpopup({
+                    title: "", 
+                    showclose: false,
+                    content: [
+                          { p: {text: "Do you want to deline this charge?"}}
+                          ], 
+                    no: function() {},
+                    yes: function(data, array, event) {  
+                        requestData[_csrf_param_name] = _csrf_token;
+                        xhr = $.post(context + "daArrests/charges/decline", requestData, function(data) {
+                            $('#portalContent').html(data); 
+                            $("a.card-link[href = '" + chargeRef + "']").click();
+                        }).fail(ojbc.displayFailMessage);
+                  },
                 });
+              });
+              
+              $('#accordion').on('click', 'a.referCharge',function() {
+                  var chargeId = $(this).siblings(".card-link").attr("href").slice(7);
+
+                  xhr = $.get( context +"daArrests/chargeReferralForm", {
+                        arrestIdentification: $('#searchResultsTable').attr('arrestId'),
+                        arrestChargeIdentification:chargeId},  
+                        function(data) {
+                     $('#dispositionModal .modal-body').html(data);
+                     $('#dispositionModal .modal-title').html('Refer Charge');
+                     $('#dispositionModal .modal-footer').html($("#referChargeButtons").html())
+                     $('#referToMuniRow').addClass('d-none');
+                     $('#dispositionModal').modal('show');
+                  }).fail(ojbc.displayFailMessage);
+               });
 
             });
 	      </script>
@@ -589,6 +603,10 @@
 	      </div>
 	      <div id="expungeDispositionButtons" style="display:none;">
 	          <button type="button" class="btn btn-primary" id="expungeDisposition">Submit</button>
+	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+	      </div>
+	      <div id="referChargeButtons" style="display:none;">
+	          <button type="button" class="btn btn-primary" id="referCharge">Submit</button>
 	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 	      </div>
       </div>

@@ -145,6 +145,13 @@
           <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
             <i class="fas fa-times-circle fa-lg"></i>
           </a>
+          <xsl:element name="a">
+	          <xsl:attribute name="href">#</xsl:attribute>
+	          <xsl:attribute name="class">referCharge pl-2</xsl:attribute>
+	          <xsl:attribute name="title">refer the charge</xsl:attribute>
+	          <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
+	          <i class="fas fa-share-square fa-lg"></i>
+          </xsl:element>
         </xsl:if>
      </div>
      <div class="collapse hscroll" data-parent="#accordion">
