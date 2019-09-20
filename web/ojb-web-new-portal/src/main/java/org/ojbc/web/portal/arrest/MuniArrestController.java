@@ -313,6 +313,28 @@ public class MuniArrestController {
 		getArrestDetail(request, (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest"), model); 
 		return "arrest/arrestDetail::arrestDetail";
 	}
+
+	@PostMapping("/referCharge")
+	public String referCharge(HttpServletRequest request, @ModelAttribute ChargeReferral chargeReferral, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		log.debug("chargeReferral: " + chargeReferral);
+
+		@SuppressWarnings("unused")
+		String response = arrestService.referCharge(chargeReferral, samlService.getSamlAssertion(request));
+		//TODO check if success response. 
+		ArrestDetailSearchRequest arrestDetailSearchRequest = (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest");
+		arrestDetailSearchRequest.getChargeIds().removeIf(id->id.equalsIgnoreCase(chargeReferral.getArrestChargeIdentification()));
+		if (arrestDetailSearchRequest.getChargeIds().size() > 0) {
+			getArrestDetail(request, arrestDetailSearchRequest, model);
+			return "arrest/arrestDetail::arrestDetail";
+		}
+		else {
+			ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+			getArrestSearchResults(request, arrestSearchRequest, model);
+			return "arrest/arrests::resultsList";
+		}
+	}
 	
+
 
 }

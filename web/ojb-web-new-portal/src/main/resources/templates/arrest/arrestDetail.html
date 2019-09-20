@@ -498,6 +498,20 @@
                    });
 
                 });
+                $('#dispositionModal').on('click', '#referCharge', function(){
+                    var formData = $("#chargeReferralForm").serialize();
+                    bootpopup.confirm("Please confirm that you would like to refer this charge.", "",
+                      function(ans) { 
+                        if(ans){
+                           chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
+                           xhr = $.post(context + "muniArrests/referCharge",formData,function(data) {
+                               /* console.log(formData); */
+                             $("#dispositionModal .close").click();
+                             $('#portalContent').html(data); 
+                           }).fail(ojbc.displayFailMessage);
+                        } 
+                      });
+                  });      
                 $('#accordion').on('click', 'a.declineCharge',function() {
                     var requestData = {
                          'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
@@ -521,7 +535,24 @@
                             }).fail(ojbc.displayFailMessage);
                         },
                     });
-                  });
+              });
+                
+              $('#accordion').on('click', 'a.referCharge',function() {
+                 var chargeId = $(this).siblings(".card-link").attr("href").slice(7);
+                 var chargeDescription = $(this).siblings(".card-link").text();
+
+                 xhr = $.get( context +"arrests/chargeReferralForm", {
+                       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
+                       arrestChargeIdentification:chargeId},  
+                       function(data) {
+                    $('#dispositionModal .modal-body').html(data);
+                    $('#dispositionModal .modal-title').html('Refer Charge ' + chargeDescription);
+                    $('#dispositionModal .modal-footer').html($("#referChargeButtons").html())
+                    $('#referToMuniRow').addClass('d-none');
+                    $('#dispositionModal').modal('show');
+                 }).fail(ojbc.displayFailMessage);
+              });
+
             });
 	      </script>
 	      <div id="saveDispositionButtons" style="display:none;">
@@ -532,7 +563,11 @@
 	          <button type="button" class="btn btn-primary" id="expungeDisposition">Submit</button>
 	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 	      </div>
+	      <div id="referChargeButtons" style="display:none;">
+            <button type="button" class="btn btn-primary" id="referCharge" disabled>Submit</button>
+            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+        </div>
+	      
       </div>
-      
 	</body>
 </html>
