@@ -22,6 +22,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -36,6 +37,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.portal.AppProperties;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +51,9 @@ import org.w3c.dom.Element;
 public class SamlServiceImpl implements SamlService{
 	
 	private final Logger log = LoggerFactory.getLogger(SamlServiceImpl.class);
-
-    @Value("${webapplication.allowQueriesWithoutSAMLToken:true}")
-    private Boolean allowQueriesWithoutSAMLToken;
+	
+	@Resource
+	AppProperties appProperties;
 
     @Value("${webapplication.demoLawEnforcementEmployerIndicator:true}")
     private Boolean demoLawEnforcementEmployerIndicator;
@@ -67,7 +69,7 @@ public class SamlServiceImpl implements SamlService{
 			}
 		}
 		
-		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
+		if (assertion == null && appProperties.getAllowQueriesWithoutSAMLToken()){
 			log.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
 		}
@@ -167,8 +169,7 @@ public class SamlServiceImpl implements SamlService{
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
 
-            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "Municipal Court");
-//            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, "District Attorney");
+            customAttributes.put(SamlAttribute.EmployerOrganizationCategoryText, appProperties.getEmployerOrganizationCategoryText());
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
@@ -179,14 +180,5 @@ public class SamlServiceImpl implements SamlService{
         
         return samlAssertion;
     }
-
-	public Boolean getAllowQueriesWithoutSAMLToken() {
-		return allowQueriesWithoutSAMLToken;
-	}
-
-	public void setAllowQueriesWithoutSAMLToken(
-			Boolean allowQueriesWithoutSAMLToken) {
-		this.allowQueriesWithoutSAMLToken = allowQueriesWithoutSAMLToken;
-	}
 
 }

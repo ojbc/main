@@ -56,6 +56,12 @@ public class AppProperties {
 			+ "If you would like to edit this arrest in the future, you will need to use the \"Arrest Lookup\" functionality in this tool";
 	private String signOutUrl = "/logoutSuccess"; 
 	
+	/*
+	 * demo user Saml attributes
+	 */
+	private String employerOrganizationCategoryText;
+	
+	
 	public AppProperties() {
 		super();
 		dispoCodeMapping.put("301", "Acquitted");
@@ -282,6 +288,14 @@ public class AppProperties {
 
 	public void setInactivityTimeoutInSeconds(Integer inactivityTimeoutInSeconds) {
 		this.inactivityTimeoutInSeconds = inactivityTimeoutInSeconds;
+	}
+
+	public String getEmployerOrganizationCategoryText() {
+		return employerOrganizationCategoryText;
+	}
+
+	public void setEmployerOrganizationCategoryText(String employerOrganizationCategoryText) {
+		this.employerOrganizationCategoryText = employerOrganizationCategoryText;
 	}
 
 }
