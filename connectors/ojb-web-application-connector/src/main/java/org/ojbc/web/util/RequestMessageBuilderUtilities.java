@@ -17,6 +17,8 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_DETAIL_SEARCH_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CHARGE_REFERRAL_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_HIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_MODIFY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_UNHIDE_REQUEST_DOC;
@@ -120,6 +122,7 @@ import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.ojbc.web.portal.arrest.ArrestCharge;
 import org.ojbc.web.portal.arrest.ArrestDetailSearchRequest;
 import org.ojbc.web.portal.arrest.ArrestSearchRequest;
+import org.ojbc.web.portal.arrest.ChargeReferral;
 import org.ojbc.web.portal.arrest.Disposition;
 import org.ojbc.web.portal.audit.AuditSearchRequest;
 import org.w3c.dom.Document;
@@ -2023,6 +2026,37 @@ public class RequestMessageBuilderUtilities {
         Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
         XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", arrestCharge.getArrestChargeIdentification());
         return document;
+	}
+
+	public static Document createChargeReferralRequest(ChargeReferral chargeReferral) throws Exception {
+		Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_CHARGE_REFERRAL_REQUEST_DOC, 
+        		NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC + ":ChargeReferralRequest");
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC, 
+        		NS_CHARGE_REFERRAL_REQUEST_DOC);
+        
+        Element arrest = createArrestModifyRequestArrestElement(chargeReferral.getArrestIdentification(), document, rootElement);
+        Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+        
+        Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
+        XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeReferral.getArrestChargeIdentification());
+        
+        Element referToAgency = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ReferToAgency");
+        
+        if (chargeReferral.getTargetOwnerType() != null) {
+        	XmlUtils.appendTextElement(referToAgency, NS_NC_40, "OrganizationCategoryText", chargeReferral.getTargetOwnerType().name());
+        }
+        
+        if (StringUtils.isNotBlank(chargeReferral.getTargetOri())) {
+            Element organizationAugmentation = XmlUtils.appendElement(referToAgency, 
+                    OjbcNamespaceContext.NS_JXDM_60, "OrganizationAugmentation"); 
+            Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, 
+                    OjbcNamespaceContext.NS_JXDM_60, "OrganizationORIIdentification"); 
+            XmlUtils.appendTextElement(organizationORIIdentification, 
+                    OjbcNamespaceContext.NS_NC_40, "IdentificationID", chargeReferral.getTargetOri()); 
+        }
+        
+		return document;
 	}	
     
 }

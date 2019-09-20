@@ -21,6 +21,7 @@ import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestUnhideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ChargeDeclineRequestProcessor;
+import org.ojbc.processor.arrest.modify.ChargeReferralRequestProcessor;
 import org.ojbc.processor.arrest.modify.DaArrestReferRequestProcessor;
 import org.ojbc.processor.arrest.modify.DeleteDispositionRequestProcessor;
 import org.ojbc.processor.arrest.modify.ExpungeDispositionRequestProcessor;
@@ -47,6 +48,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ArrestFinalizeRequestProcessor arrestFinalizeRequestProcessor;
 	@Autowired
 	private ChargeDeclineRequestProcessor chargeDeclineRequestProcessor;
+	@Autowired
+	private ChargeReferralRequestProcessor chargeReferralRequestProcessor;
 	@Autowired
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
 	@Autowired
@@ -119,6 +122,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String declineCharge(ArrestCharge arrestCharge, Element samlAssertion) throws Throwable {
 		return chargeDeclineRequestProcessor.invokeRequest(arrestCharge, samlAssertion);
+	}
+
+	@Override
+	public String referCharge(ChargeReferral chargeReferral, Element samlAssertion) throws Throwable {
+		return chargeReferralRequestProcessor.invokeRequest(chargeReferral, samlAssertion);
 	}
 	
 }

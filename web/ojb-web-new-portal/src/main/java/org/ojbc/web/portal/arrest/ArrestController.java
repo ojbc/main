@@ -62,6 +62,11 @@ public class ArrestController {
 		return XmlUtils.xPathStringSearch(responseDocument, "/rr-resp-doc:RecordReplicationResponse/rr-resp-ext:RecordFoundIndicator");
 	}
 	
-
-
+	@GetMapping("/chargeReferralForm")
+	public String getExpungeDispositionForm(HttpServletRequest request, ChargeReferral chargeReferral, 
+			Map<String, Object> model) throws Throwable {
+		model.put("chargeReferral", chargeReferral);
+		return "arrest/chargeReferralForm::chargeReferralForm";
+	}
+	
 }

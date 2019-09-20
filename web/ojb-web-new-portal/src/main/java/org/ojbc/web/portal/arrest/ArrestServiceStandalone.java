@@ -97,4 +97,10 @@ public class ArrestServiceStandalone implements ArrestService {
 		return null;
 	}
 
+	@Override
+	public String referCharge(ChargeReferral chargeReferral, Element samlAssertion) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

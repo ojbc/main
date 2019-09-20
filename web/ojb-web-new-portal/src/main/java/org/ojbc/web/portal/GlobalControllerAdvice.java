@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.portal.services.CodeTableService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,11 +33,18 @@ public class GlobalControllerAdvice {
 
 	@Resource
     AppProperties appProperties;
-    
+	
+	@Resource
+	CodeTableService codeTableService;
+
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
+		if (!model.containsAttribute("agencyOriMapping")) {
+			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
+		}
+
     }
     
 }

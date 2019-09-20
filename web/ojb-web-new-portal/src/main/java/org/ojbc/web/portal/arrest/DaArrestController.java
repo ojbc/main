@@ -52,8 +52,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"arrestSearchResults", "daArrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", 
-	"daDispoCodeMapping", "agencyOriMapping", 
-	"daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
+	"daDispoCodeMapping",  "daAmendedChargeCodeMapping", "daFiledChargeCodeMapping", "daAlternateSentenceMapping", "daReasonsForDismissalMapping", 
 	"daProvisionCodeMapping", "chargeSeverityCodeMapping", "submitArrestConfirmationMessage", "daGeneralOffenseCodeMapping", 
 	"daGeneralOffenseDescMapping", "dispoCodesNotRequiringChargeSeverity", "yearList"})
 @RequestMapping("/daArrests")
@@ -122,9 +121,6 @@ public class DaArrestController {
 		}
 		if (!model.containsAttribute("dispoCodesNotRequiringChargeSeverity")) {
 			model.addAttribute("dispoCodesNotRequiringChargeSeverity", appProperties.getDispoCodesNotRequiringChargeSeverity());
-		}
-		if (!model.containsAttribute("agencyOriMapping")) {
-			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
 		}
 		if (!model.containsAttribute("yearList")) {
 			List<String> yearList = new ArrayList<>(); 
@@ -304,19 +300,33 @@ public class DaArrestController {
 		return "arrest/expungeDispositionForm::expungeDispositionForm";
 	}
 	
-	@GetMapping("/chargeReferralForm")
-	public String getExpungeDispositionForm(HttpServletRequest request, ChargeReferral chargeReferral, 
-			Map<String, Object> model) throws Throwable {
-		model.put("chargeReferral", chargeReferral);
-		return "arrest/chargeReferralForm::chargeReferralForm";
-	}
-	
 	@PostMapping("/expungeDisposition")
 	public String expungeDisposition(HttpServletRequest request, @ModelAttribute Disposition disposition, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		
 		expunge(request, disposition, model); 
 		return "arrest/da/arrestDetail::arrestDetail";
+	}
+	
+	@PostMapping("/referCharge")
+	public String referCharge(HttpServletRequest request, @ModelAttribute ChargeReferral chargeReferral, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		log.debug("chargeReferral: " + chargeReferral);
+
+		@SuppressWarnings("unused")
+		String response = arrestService.referCharge(chargeReferral, samlService.getSamlAssertion(request));
+		//TODO check if success response. 
+		ArrestDetailSearchRequest arrestDetailSearchRequest = (ArrestDetailSearchRequest)model.get("arrestDetailSearchRequest");
+		arrestDetailSearchRequest.getChargeIds().removeIf(id->id.equalsIgnoreCase(chargeReferral.getArrestChargeIdentification()));
+		if (arrestDetailSearchRequest.getChargeIds().size() > 0) {
+			getArrestDetail(request, arrestDetailSearchRequest, model);
+			return "arrest/da/arrestDetail::arrestDetail";
+		}
+		else {
+			ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest"); 
+			getArrestSearchResults(request, daArrestSearchRequest, model);
+			return "arrest/da/arrests::resultsList";
+		}
 	}
 	
 	protected void expunge(HttpServletRequest request, Disposition disposition, Map<String, Object> model)

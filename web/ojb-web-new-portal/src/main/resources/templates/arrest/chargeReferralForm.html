@@ -35,15 +35,15 @@
           <div class="form-row" id="referToDaRow">
             <div class="col-2"/>
             <div class="col-sm-3">
+               <span class="font-weight-bold pr-2">Refer to DA</span> 
                <input type="checkbox" th:field="*{targetOwnerType}" th:value="DA" />
-               <span class="font-weight-bold ">Refer to DA</span> 
             </div>
           </div>
           <div class="form-row" id="referToMuniRow">
             <div class="col-2"/>
             <div class="col-sm-3">
+               <span class="font-weight-bold pr-2">Refer to MUNI</span> 
                <input type="checkbox" th:field="*{targetOwnerType}" th:value="MUNI" />
-               <span class="font-weight-bold ">Refer to MUNI</span> 
             </div>
           </div>
           <div class="row">
@@ -52,7 +52,7 @@
 				    <div class="col"><hr></div>
           </div>
           <div class="form-row">
-            <label for="ori" class="col-2 col-form-label font-weight-bold text-right">Refer to Agency</label>
+            <label for="ori" class="col-2 col-form-label font-weight-bold text-right">Another Agency</label>
             <div class="col-sm-7">
               <select th:field="*{targetOri}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
@@ -63,15 +63,43 @@
 	      </form>
 		    <script th:inline="javascript">
 			      $(function(){
-              $('[data-toggle="popover"]').popover(); 
- 			    	  $('#dispositionDate').datepicker({
-		                  uiLibrary: 'bootstrap4', size: 'small'
-		          });
-							$('.date').mask('99/99/9999');
-							
-		          $('#expungeDispositionForm input').keypress(function (e) {
+              $(".chosen-select").chosen(); 
+
+              $("#chargeReferralForm").on("click", "input[name=targetOwnerType]", function(){
+                  if ($('#targetOwnerType1').prop('checked')  || $('#targetOwnerType2').prop('checked')){
+                      $('#referCharge').prop('disabled', false); 
+                      $('#targetOri').val(''); 
+                      $('#targetOri').prop('disabled', true).trigger("chosen:updated");
+                  }
+                  else{
+                      if ($('#targetOri').val() === ''){  
+                    	  $('#referCharge').prop('disabled', true);  
+                      }
+                      
+                      $('#targetOri').prop('disabled', false).trigger("chosen:updated");; 
+                  }
+              });
+
+              $("#chargeReferralForm").on("change", "#targetOri", function(){
+                  if ($('#targetOri').val() != ''){
+                      $('#referCharge').prop('disabled', false); 
+                      $('input[name = targetOwnerType]').val('checked', false); 
+                      $('#targetOwnerType1').prop('disabled', true); 
+                      $('#targetOwnerType2').prop('disabled', true); 
+                  }
+                  else{
+                      if( !$('#targetOwnerType1').prop('checked')  && ! $('#targetOwnerType2').prop('checked')){  
+                    	  $('#referCharge').prop('disabled', true);  
+                      }
+                      
+                      $('#targetOwnerType1').prop('disabled', false); 
+                      $('#targetOwnerType2').prop('disabled', false); 
+                  }
+              });
+
+		          $('#chargeReferralForm input').keypress(function (e) {
 		              if (e.which == 13) {
-		                $('#expungeDisposition').click();
+		                $('#referCharge').click();
 		                return false;    
 		              }
 		          });
