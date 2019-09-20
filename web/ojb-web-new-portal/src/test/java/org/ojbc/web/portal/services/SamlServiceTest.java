@@ -18,28 +18,33 @@ package org.ojbc.web.portal.services;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.ojbc.web.portal.AppProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.w3c.dom.Element;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class SamlServiceTest {
 
-	private SamlServiceImpl unit;
+	@Autowired
+	AppProperties appProperties;
 	
-	@BeforeEach
-	public void setUp() throws Exception {
-		unit = new SamlServiceImpl();
-		unit.setAllowQueriesWithoutSAMLToken(false);
-	}
+	@Autowired
+	SamlService samlService;
 
 	@Test
 	public void getSamlAssertion_returnsNullIfExceptionOccurs() {
+		appProperties.setAllowQueriesWithoutSAMLToken(false);
 		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		Mockito.when(request.getHeader("Shib-Assertion-01")).thenReturn(null);
 		
-		Element assertion = unit.getSamlAssertion(request);
+		Element assertion = samlService.getSamlAssertion(request);
 		
 		Assertions.assertNull(assertion);
 	}
