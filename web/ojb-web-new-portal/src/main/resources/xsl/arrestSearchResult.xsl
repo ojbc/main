@@ -143,12 +143,7 @@
 				<xsl:element name="a">
 				  <xsl:attribute name="href">#</xsl:attribute>
 				  <xsl:attribute name="class">referArrest</xsl:attribute>
-				  <xsl:attribute name="title">
-				    <xsl:choose>
-				      <xsl:when test="$resultType = 'MUNI'">Refer to DA</xsl:when>
-				      <xsl:when test="$resultType = 'DA'">Refer to Municipal Court</xsl:when>
-				    </xsl:choose>
-				  </xsl:attribute>
+				  <xsl:attribute name="title">Refer the arrest</xsl:attribute>
           <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
 				  <i class="fas fa-share-square fa-2x"></i>
 				</xsl:element>

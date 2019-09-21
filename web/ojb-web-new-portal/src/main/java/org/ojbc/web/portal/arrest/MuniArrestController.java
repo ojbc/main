@@ -335,6 +335,17 @@ public class MuniArrestController {
 		}
 	}
 	
-
+	@PostMapping("/referArrest")
+	public String referArrest(HttpServletRequest request, @ModelAttribute ArrestReferral arrestReferral, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		log.debug("arrestReferral: " + arrestReferral);
+		
+		@SuppressWarnings("unused")
+		String response = arrestService.referArrest(arrestReferral, samlService.getSamlAssertion(request));
+		//TODO check if success response. 
+		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
+		getArrestSearchResults(request, arrestSearchRequest, model);
+		return "arrest/arrests::resultsList";
+	}
 
 }

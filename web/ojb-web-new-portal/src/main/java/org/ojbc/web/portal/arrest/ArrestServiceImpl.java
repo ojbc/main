@@ -19,6 +19,7 @@ package org.ojbc.web.portal.arrest;
 import org.ojbc.processor.arrest.modify.ArrestFinalizeRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
+import org.ojbc.processor.arrest.modify.ArrestReferralRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestUnhideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ChargeDeclineRequestProcessor;
 import org.ojbc.processor.arrest.modify.ChargeReferralRequestProcessor;
@@ -50,6 +51,8 @@ public class ArrestServiceImpl implements ArrestService {
 	private ChargeDeclineRequestProcessor chargeDeclineRequestProcessor;
 	@Autowired
 	private ChargeReferralRequestProcessor chargeReferralRequestProcessor;
+	@Autowired
+	private ArrestReferralRequestProcessor arrestReferralRequestProcessor;
 	@Autowired
 	private ArrestHideRequestProcessor arrestHideRequestProcessor;
 	@Autowired
@@ -127,6 +130,11 @@ public class ArrestServiceImpl implements ArrestService {
 	@Override
 	public String referCharge(ChargeReferral chargeReferral, Element samlAssertion) throws Throwable {
 		return chargeReferralRequestProcessor.invokeRequest(chargeReferral, samlAssertion);
+	}
+
+	@Override
+	public String referArrest(ArrestReferral arrestReferral, Element samlAssertion) throws Throwable {
+		return arrestReferralRequestProcessor.invokeRequest(arrestReferral, samlAssertion);
 	}
 	
 }

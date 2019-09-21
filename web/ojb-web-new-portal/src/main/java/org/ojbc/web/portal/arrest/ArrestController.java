@@ -63,10 +63,17 @@ public class ArrestController {
 	}
 	
 	@GetMapping("/chargeReferralForm")
-	public String getExpungeDispositionForm(HttpServletRequest request, ChargeReferral chargeReferral, 
+	public String getChargeReferralForm(HttpServletRequest request, ChargeReferral chargeReferral, 
 			Map<String, Object> model) throws Throwable {
 		model.put("chargeReferral", chargeReferral);
 		return "arrest/chargeReferralForm::chargeReferralForm";
+	}
+	
+	@GetMapping("/arrestReferralForm")
+	public String getArrestReferralForm(HttpServletRequest request, ArrestReferral arrestReferral, 
+			Map<String, Object> model) throws Throwable {
+		model.put("arrestReferral", arrestReferral);
+		return "arrest/arrestReferralForm::arrestReferralForm";
 	}
 	
 }
