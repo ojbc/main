@@ -409,8 +409,8 @@
                      }
                  });      
 
-                 $('#dispositionModal').on('click', '#referCharge', function(){
-                   var formData = $("#chargeReferralForm").serialize();
+                 $('#dispositionModal').on('click', '#submitReferral', function(){
+                   var formData = $("#referralForm").serialize();
                  	 bootpopup.confirm("Please confirm that you would like to refer this charge.", "",
                			 function(ans) { 
              	         if(ans){
@@ -622,7 +622,7 @@
 	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 	      </div>
 	      <div id="referChargeButtons" style="display:none;">
-	          <button type="button" class="btn btn-primary" id="referCharge" disabled>Submit</button>
+	          <button type="button" class="btn btn-primary" id="submitReferral" disabled>Submit</button>
 	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 	      </div>
       </div>

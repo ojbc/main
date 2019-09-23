@@ -29,7 +29,7 @@
 	    <!-- Begin page content -->
 		  <div th:fragment="chargeReferralForm">
 		    
-		    <form action="#" th:action="@{/arrests/charges/referral}" th:object="${chargeReferral}" id="chargeReferralForm" method="post">
+		    <form action="#" th:action="@{/arrests/charges/referral}" th:object="${chargeReferral}" id="referralForm" method="post">
 		      <input type="hidden" th:field="*{arrestIdentification}" />
 		      <input type="hidden" th:field="*{arrestChargeIdentification}" />
           <div class="form-row" id="referToDaRow">
@@ -61,50 +61,7 @@
             </div>
           </div>
 	      </form>
-		    <script th:inline="javascript">
-			      $(function(){
-              $(".chosen-select").chosen(); 
-
-              $("#chargeReferralForm").on("click", "input[name=targetOwnerType]", function(){
-                  if ($('#targetOwnerType1').prop('checked')  || $('#targetOwnerType2').prop('checked')){
-                      $('#referCharge').prop('disabled', false); 
-                      $('#targetOri').val(''); 
-                      $('#targetOri').prop('disabled', true).trigger("chosen:updated");
-                  }
-                  else{
-                      if ($('#targetOri').val() === ''){  
-                    	  $('#referCharge').prop('disabled', true);  
-                      }
-                      
-                      $('#targetOri').prop('disabled', false).trigger("chosen:updated");; 
-                  }
-              });
-
-              $("#chargeReferralForm").on("change", "#targetOri", function(){
-                  if ($('#targetOri').val() != ''){
-                      $('#referCharge').prop('disabled', false); 
-                      $('input[name = targetOwnerType]').val('checked', false); 
-                      $('#targetOwnerType1').prop('disabled', true); 
-                      $('#targetOwnerType2').prop('disabled', true); 
-                  }
-                  else{
-                      if( !$('#targetOwnerType1').prop('checked')  && ! $('#targetOwnerType2').prop('checked')){  
-                    	  $('#referCharge').prop('disabled', true);  
-                      }
-                      
-                      $('#targetOwnerType1').prop('disabled', false); 
-                      $('#targetOwnerType2').prop('disabled', false); 
-                  }
-              });
-
-		          $('#chargeReferralForm input').keypress(function (e) {
-		              if (e.which == 13) {
-		                $('#referCharge').click();
-		                return false;    
-		              }
-		          });
-		        });
-		    </script>
+		    <script type="text/javascript" th:src="@{/js/referral.form.js}"></script>
 		  </div>
 	</body>
 </html>
