@@ -56,6 +56,17 @@ public class OjbcWebConstants {
     public static final String FBI_ID_PATTERN_ONE_TO_SIX_DIGITS_PLUS_2ALPHA_1CHK = "^\\d{1,6}[AaC-Fc-fHhJ-Nj-nPRTprtV-Xv-x][A-Ea-e]\\d$";
 
     public enum ArrestType{
-    	DA, MUNI, OSBI;
+    	DA("District Attorney"), MUNI("Municipal Court"), OSBI("Criminal History Repository");
+    	
+    	private String description; 
+    	private ArrestType(String description) {
+    		this.setDescription(description);
+    	}
+		public String getDescription() {
+			return description;
+		}
+		private void setDescription(String description) {
+			this.description = description;
+		}
     }
 }

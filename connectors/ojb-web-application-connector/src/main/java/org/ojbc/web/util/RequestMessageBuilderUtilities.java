@@ -2047,7 +2047,7 @@ public class RequestMessageBuilderUtilities {
         Element referToAgency = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ReferToAgency");
         
         if (chargeReferral.getTargetOwnerType() != null) {
-        	XmlUtils.appendTextElement(referToAgency, NS_NC_40, "OrganizationCategoryText", chargeReferral.getTargetOwnerType().name());
+        	XmlUtils.appendTextElement(referToAgency, NS_NC_40, "OrganizationCategoryText", chargeReferral.getTargetOwnerType().getDescription());
         }
         
         if (StringUtils.isNotBlank(chargeReferral.getTargetOri())) {
@@ -2070,9 +2070,9 @@ public class RequestMessageBuilderUtilities {
         		NS_ARREST_REFERRAL_REQUEST_DOC);
         
         Element arrest = createArrestModifyRequestArrestElement(arrestReferral.getArrestIdentification(), document, rootElement);
-        Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
         
         for (String chargeId : arrestReferral.getArrestChargeIds()) {
+            Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
 	        Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
 	        XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
         }
@@ -2080,7 +2080,7 @@ public class RequestMessageBuilderUtilities {
         Element referToAgency = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ReferToAgency");
         
         if (arrestReferral.getTargetOwnerType() != null) {
-        	XmlUtils.appendTextElement(referToAgency, NS_NC_40, "OrganizationCategoryText", arrestReferral.getTargetOwnerType().name());
+        	XmlUtils.appendTextElement(referToAgency, NS_NC_40, "OrganizationCategoryText", arrestReferral.getTargetOwnerType().getDescription());
         }
         
         if (StringUtils.isNotBlank(arrestReferral.getTargetOri())) {
