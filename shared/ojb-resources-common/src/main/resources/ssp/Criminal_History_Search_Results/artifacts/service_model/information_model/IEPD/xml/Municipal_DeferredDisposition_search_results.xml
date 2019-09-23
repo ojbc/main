@@ -250,6 +250,6 @@
 		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
 	<srm:SearchResultsMetadata>
-		<srm:SearchResultsReturnedChargesQuantity>2</srm:SearchResultsReturnedChargesQuantity>
+		<srm:TotalAuthorizedSearchResultsQuantity>2</srm:TotalAuthorizedSearchResultsQuantity>
 	</srm:SearchResultsMetadata>
 </chsres-doc:CriminalHistorySearchResults>
