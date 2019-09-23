@@ -173,14 +173,11 @@
                      'targetOri':$('#targetOri').val()
                   };
 
-/*                   var formData = $("#referralForm").serialize();
-                  console.log(formData);
- */                  bootpopup.confirm("Please confirm that you would like to refer this arrest.", "",
+                  bootpopup.confirm("Please confirm that you would like to refer this arrest.", "",
                     function(ans) { 
                       if(ans){
                     	   requestData[_csrf_param_name] = _csrf_token;
                          xhr = $.post(context + "muniArrests/referArrest",requestData,function(data) {
-                             /* console.log(formData); */
                            $("#referralModal .close").click();
                            $('#portalContent').html(data); 
                          }).fail(ojbc.displayFailMessage);

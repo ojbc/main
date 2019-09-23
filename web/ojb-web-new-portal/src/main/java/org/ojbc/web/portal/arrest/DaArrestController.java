@@ -356,5 +356,17 @@ public class DaArrestController {
 		disposition.setReasonForDismissalDescripiton(daReasonsForDismissalMapping.get(disposition.getReasonForDismissal()));
 	}
 	
+	@PostMapping("/referArrest")
+	public String referArrest(HttpServletRequest request, @ModelAttribute ArrestReferral arrestReferral, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		log.debug("arrestReferral: " + arrestReferral);
+		
+		@SuppressWarnings("unused")
+		String response = arrestService.referArrest(arrestReferral, samlService.getSamlAssertion(request));
+		//TODO check if success response. 
+		ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest"); 
+		getArrestSearchResults(request, daArrestSearchRequest, model);
+		return "arrest/da/arrests::resultsList";
+	}
 
 }
