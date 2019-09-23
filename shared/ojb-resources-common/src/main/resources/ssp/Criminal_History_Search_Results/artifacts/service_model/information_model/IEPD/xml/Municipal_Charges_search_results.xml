@@ -23,7 +23,8 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
 	<chsres-ext:CriminalHistorySearchResult>
 		<j:Subject structures:id="Subject_01">
@@ -147,6 +148,12 @@
 		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
 	<srm:SearchResultsMetadata>
-		<srm:SearchResultsReturnedChargesQuantity>2</srm:SearchResultsReturnedChargesQuantity>
+		<srm:SearchResultsReturnedChargesQuantity>8</srm:SearchResultsReturnedChargesQuantity>
+		<srer:SearchErrors>
+			<nc:SystemName>System Name</nc:SystemName>
+			<srer:SearchResultsExceedThresholdError>
+				<srer:SearchResultsRecordCount>12</srer:SearchResultsRecordCount>
+			</srer:SearchResultsExceedThresholdError>
+		</srer:SearchErrors>
 	</srm:SearchResultsMetadata>
 </chsres-doc:CriminalHistorySearchResults>
