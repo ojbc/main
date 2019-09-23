@@ -36,7 +36,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="srm:SearchResultsReturnedChargesQuantity" minOccurs="0" />
+					<xsd:element ref="srm:TotalAuthorizedSearchResultsQuantity" minOccurs="0" />
 					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0" />
 					<xsd:element ref="srer:SearchErrors" minOccurs="0" />
 					<xsd:element ref="srer:SearchRequestError" minOccurs="0" />
@@ -45,7 +45,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="SearchResultsMetadata" type="srm:SearchResultsMetadataType" />
-	<xsd:element name="SearchResultsReturnedChargesQuantity" type="niem-xs:nonNegativeInteger">
+	<xsd:element name="TotalAuthorizedSearchResultsQuantity" type="niem-xs:nonNegativeInteger">
 		<xsd:annotation>
 			<xsd:documentation>A number of charge records returned.</xsd:documentation>
 		</xsd:annotation>

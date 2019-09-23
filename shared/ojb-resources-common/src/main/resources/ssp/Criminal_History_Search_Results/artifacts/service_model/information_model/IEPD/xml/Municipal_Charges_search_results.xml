@@ -148,7 +148,7 @@
 		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
 	<srm:SearchResultsMetadata>
-		<srm:SearchResultsReturnedChargesQuantity>8</srm:SearchResultsReturnedChargesQuantity>
+		<srm:TotalAuthorizedSearchResultsQuantity>8</srm:TotalAuthorizedSearchResultsQuantity>
 		<srer:SearchErrors>
 			<nc:SystemName>System Name</nc:SystemName>
 			<srer:SearchResultsExceedThresholdError>
