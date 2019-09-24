@@ -49,24 +49,26 @@ public class GlobalControllerAdvice {
     public void setupModelAttributes(Model model, Authentication authentication) {
         model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
-        OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
-        model.addAttribute("osbiUser", osbiUser);
         
-        if (!model.containsAttribute("agencyOriMapping")) {
-	        Map<String, String> agencyOriMapping = codeTableService.getAgencies();
-			model.addAttribute("agencyOriMapping", agencyOriMapping);
-			if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
-				model.addAttribute("authorizedOriMapping", agencyOriMapping);
-			}
-			else {
-				Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
-				for (String ori: osbiUser.getOris()) {
-					authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
+        if (authentication != null) {
+	        OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
+	        model.addAttribute("osbiUser", osbiUser);
+	        
+	        if (!model.containsAttribute("agencyOriMapping")) {
+		        Map<String, String> agencyOriMapping = codeTableService.getAgencies();
+				model.addAttribute("agencyOriMapping", agencyOriMapping);
+				if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
+					model.addAttribute("authorizedOriMapping", agencyOriMapping);
 				}
-				model.addAttribute("authorizedOriMapping", authorizedOriMapping);
-			}
+				else {
+					Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
+					for (String ori: osbiUser.getOris()) {
+						authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
+					}
+					model.addAttribute("authorizedOriMapping", authorizedOriMapping);
+				}
+	        }
         }
-        
 
     }
     
