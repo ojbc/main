@@ -60,7 +60,8 @@ public class AppProperties {
 	 * demo user Saml attributes
 	 */
 	private String employerOrganizationCategoryText;
-	
+	private String demoSamlAttributeEmployerOri;
+	private String demoSamlAttributeEmailAddressText;
 	
 	public AppProperties() {
 		super();
@@ -296,6 +297,22 @@ public class AppProperties {
 
 	public void setEmployerOrganizationCategoryText(String employerOrganizationCategoryText) {
 		this.employerOrganizationCategoryText = employerOrganizationCategoryText;
+	}
+
+	public String getDemoSamlAttributeEmployerOri() {
+		return demoSamlAttributeEmployerOri;
+	}
+
+	public void setDemoSamlAttributeEmployerOri(String demoSamlAttributeEmployerOri) {
+		this.demoSamlAttributeEmployerOri = demoSamlAttributeEmployerOri;
+	}
+
+	public String getDemoSamlAttributeEmailAddressText() {
+		return demoSamlAttributeEmailAddressText;
+	}
+
+	public void setDemoSamlAttributeEmailAddressText(String demoSamlAttributeEmailAddressText) {
+		this.demoSamlAttributeEmailAddressText = demoSamlAttributeEmailAddressText;
 	}
 
 }

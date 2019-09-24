@@ -20,6 +20,7 @@ package org.ojbc.web.portal.security;
 import java.util.Collection;
 import java.util.List;
 
+import org.ojbc.web.portal.audit.AuditUser;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -29,9 +30,13 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 
 	private static final long serialVersionUID = 1606369551188528192L;
 	private List<String> oris;
-	private String email;
 	private String federationId;
-	private String ori; 
+	private String firstName;
+	private String lastName;
+	private String emailAddress;
+	private String status;
+	private String organizationName;
+	private String agencyOri;
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -41,13 +46,16 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 	 */
 	public OsbiUser(String username, String password,
 			Collection<? extends GrantedAuthority> authorities, 
-			List<String> oris, String email, 
-			String federationId, String ori) {
+			List<String> oris, AuditUser auditUser) {
 		super(username, password, true, true, true, true, authorities);
 		this.setOris(oris);
-		this.setEmail(email);
-		this.setFederationId(federationId);
-		this.setOri(ori);
+		this.setEmailAddress(auditUser.getEmailAddress());
+		this.setFederationId(auditUser.getFederationId());
+		this.setAgencyOri(auditUser.getAgencyOri());
+		this.setFirstName(auditUser.getFirstName());
+		this.setLastName(auditUser.getLastName());
+		this.setStatus(auditUser.getStatus());
+		this.setOrganizationName(auditUser.getOrganizationName());
 	}
 
 	// ~ Methods
@@ -81,8 +89,13 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString()).append(" ");
 		sb.append("oris: ").append(oris).append("; ");
-		sb.append("email: ").append(email).append("; ");
-
+		sb.append("email: ").append(emailAddress).append("; ");
+		sb.append("agencyOri: ").append(agencyOri).append("; ");
+		sb.append("federationId: ").append(federationId).append("; ");
+		sb.append("firstName: ").append(firstName).append("; ");
+		sb.append("lastName: ").append(lastName).append("; ");
+		sb.append("status: ").append(status).append("; ");
+		sb.append("organizationName: ").append(organizationName).append("; ");
 		return sb.toString();
 	}
 
@@ -95,14 +108,6 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 		this.oris = oris;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getFederationId() {
 		return federationId;
 	}
@@ -111,12 +116,52 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 		this.federationId = federationId;
 	}
 
-	public String getOri() {
-		return ori;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setOri(String ori) {
-		this.ori = ori;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public String getAgencyOri() {
+		return agencyOri;
+	}
+
+	public void setAgencyOri(String agencyOri) {
+		this.agencyOri = agencyOri;
 	}
 
 }

@@ -26,10 +26,12 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.audit.AuditUser;
+import org.ojbc.web.portal.security.UserAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
@@ -138,6 +140,15 @@ public class RestCodeTableService implements CodeTableService{
 	@Override
 	public Map<String, String> getAgencies() {
 		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
+	}
+
+	@Override
+	public UserAttributes auditUserLoginReturnUserAttributes(AuditUser auditUser) {
+		return this.webClient.post().uri("/criminalhistory/audit-login/return-user-attributes")
+				.body(BodyInserters.fromObject(auditUser))
+				.retrieve()
+				.bodyToMono(UserAttributes.class)
+				.block();
 	}
 	
 }

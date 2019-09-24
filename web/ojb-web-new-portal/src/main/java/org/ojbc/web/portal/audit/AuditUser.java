@@ -27,7 +27,7 @@ public class AuditUser {
 	private String status;
 	private String organizationName;
 	private String agencyOri;
-
+	private String federationId;
 	
 	public String getFirstName() {
 		return firstName;
@@ -70,4 +70,10 @@ public class AuditUser {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
     }
+	public String getFederationId() {
+		return federationId;
+	}
+	public void setFederationId(String federationId) {
+		this.federationId = federationId;
+	}
 }

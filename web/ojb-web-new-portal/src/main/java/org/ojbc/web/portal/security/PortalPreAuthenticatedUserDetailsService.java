@@ -29,6 +29,8 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.audit.AuditUser;
+import org.ojbc.web.portal.services.CodeTableService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,6 +49,8 @@ public class PortalPreAuthenticatedUserDetailsService implements
 	
 	@Resource
 	AppProperties appProperties;
+	@Resource
+	CodeTableService codeTableService;
 
     private final Log log = LogFactory.getLog(this.getClass());
 	/**
@@ -100,34 +104,48 @@ public class PortalPreAuthenticatedUserDetailsService implements
         	grantedAuthorities.add(rolePortalUser);
         }
         
-        String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
         String employerOrganizationCategoryText = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText);
         
+        
+        AuditUser userInfo = getUserInfo(samlAssertion);
+        UserAttributes userAttributes = codeTableService.auditUserLoginReturnUserAttributes(userInfo);
+        
+        for (String roleName : userAttributes.getRoles()) {
+        	SimpleGrantedAuthority role = new SimpleGrantedAuthority(roleName);
+        	grantedAuthorities.add(role);
+        }
         switch (employerOrganizationCategoryText) {
-        	case "District Attorney": 
-            	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        		break; 
-        	case "Municipal Court": 
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        		break; 
-        	case "Criminal History Repository":
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        		break;
+        case "District Attorney": 
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+        	break; 
+        case "Municipal Court": 
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        	break; 
+        case "Criminal History Repository":
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        	break;
         }
         
-        if (appProperties.getFedIdsWithAuditPrivilege().contains(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId))) {
+        if (appProperties.getFedIdsWithAuditPrivilege().contains(userInfo.getFederationId())) {
         	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_AUDIT.name()) );
         }
-        
 
         //TODO call the rest service to get the list ORIs and access roles. 
-    	SimpleGrantedAuthority canSearch = new SimpleGrantedAuthority(Authorities.CAN_SEARCH.name());
-    	grantedAuthorities.add(canSearch);
     	
-    	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, Arrays.asList("OK072015A"), 
-    			"muniuser@search.org", SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId), ori );
+    	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, userAttributes.getOris(), userInfo);
 		
 		return osbiUser;
+	}
+
+	private AuditUser getUserInfo(Element samlAssertion) {
+		AuditUser userInfo = new AuditUser();
+		userInfo.setAgencyOri(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI));
+		userInfo.setFederationId(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId));
+		userInfo.setEmailAddress(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText));
+		userInfo.setFirstName(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.GivenName));
+		userInfo.setLastName(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.SurName));
+		userInfo.setOrganizationName(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName));
+		return userInfo;
 	}
 }

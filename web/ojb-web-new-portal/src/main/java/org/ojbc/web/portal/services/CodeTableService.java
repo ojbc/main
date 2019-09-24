@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.web.portal.audit.AuditUser;
+import org.ojbc.web.portal.security.UserAttributes;
 
 public interface CodeTableService {
 	public Map<String, String> getMuniDispositionCodeMap();
@@ -36,5 +37,6 @@ public interface CodeTableService {
 	public Map<String, String> getAgencies();
 	public Map<String, String> getAuditActivityTypes();
 	public List<AuditUser> getUsers();
+	public UserAttributes auditUserLoginReturnUserAttributes(AuditUser auditUser);
 	
 }
