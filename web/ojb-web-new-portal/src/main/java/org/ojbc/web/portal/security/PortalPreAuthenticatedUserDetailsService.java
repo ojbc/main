@@ -134,7 +134,7 @@ public class PortalPreAuthenticatedUserDetailsService implements
         //TODO call the rest service to get the list ORIs and access roles. 
     	
     	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, userAttributes.getOris(), userInfo);
-		
+		osbiUser.setEmployerOrganizationCategory(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText));
 		return osbiUser;
 	}
 

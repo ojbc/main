@@ -17,15 +17,13 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_DETAIL_SEARCH_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CHARGE_REFERRAL_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_REFERRAL_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_HIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_MODIFY_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ARREST_UNHIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_AUDIT_LOG_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_AUDIT_LOG_SEARCH_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CHARGE_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_DA_CHARGE_SEARCH_REQUEST_DOC;
@@ -54,9 +52,11 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICAT
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_HIDE_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_AUDIT_LOG_SEARCH_REQUEST_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_DA_CHARGE_SEARCH_REQUEST_DOC;
@@ -1254,9 +1254,16 @@ public class RequestMessageBuilderUtilities {
 //				</j:OrganizationORIIdentification>
 //			</j:OrganizationAugmentation>
 //		</j:ArrestAgency>
-        	
-        	if (arrestSearchRequest.getOris() != null && arrestSearchRequest.getOris().size() > 0) {
-        		for (String ori: arrestSearchRequest.getOris()) {
+        	if (arrestSearchRequest.getUserSelectedOris() != null && arrestSearchRequest.getUserSelectedOris().size() > 0) {
+        		for (String ori: arrestSearchRequest.getUserSelectedOris()) {
+        			Element arrestAgency = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgency");
+        			Element organizationAugmentation = XmlUtils.appendElement(arrestAgency, NS_JXDM_60, "OrganizationAugmentation");
+        			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_60, "OrganizationORIIdentification");
+        			XmlUtils.appendTextElement(organizationORIIdentification, NS_NC_40, "IdentificationID", ori);
+        		}
+        	}
+        	else if (arrestSearchRequest.getAuthorizedOris() != null && arrestSearchRequest.getAuthorizedOris().size() > 0) {
+        		for (String ori: arrestSearchRequest.getAuthorizedOris()) {
         			Element arrestAgency = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestAgency");
         			Element organizationAugmentation = XmlUtils.appendElement(arrestAgency, NS_JXDM_60, "OrganizationAugmentation");
         			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_60, "OrganizationORIIdentification");

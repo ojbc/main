@@ -55,7 +55,8 @@ public class ArrestSearchRequest {
     private String otn;
     
     private String arrestIdentification;
-    private List<String> oris;
+    private List<String> userSelectedOris;
+    private List<String> authorizedOris;
     
     private ArrestType arrestType; 
     private Boolean arrestWithDeferredDispositions; 
@@ -226,11 +227,19 @@ public class ArrestSearchRequest {
 		}
 	}
 
-	public List<String> getOris() {
-		return oris;
+	public List<String> getUserSelectedOris() {
+		return userSelectedOris;
 	}
 
-	public void setOris(List<String> oris) {
-		this.oris = oris;
+	public void setUserSelectedOris(List<String> userSelectedOris) {
+		this.userSelectedOris = userSelectedOris;
+	}
+
+	public List<String> getAuthorizedOris() {
+		return authorizedOris;
+	}
+
+	public void setAuthorizedOris(List<String> authorizedOris) {
+		this.authorizedOris = authorizedOris;
 	}
 }

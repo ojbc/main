@@ -179,7 +179,7 @@
                     	   requestData[_csrf_param_name] = _csrf_token;
                          xhr = $.post(context + "muniArrests/referArrest",requestData,function(data) {
                            $("#referralModal .close").click();
-                           $('#portalContent').html(data); 
+                           $('#searchResultsList').replaceWith(data); 
                          }).fail(ojbc.displayFailMessage);
                       } 
                     });
@@ -193,7 +193,8 @@
  	        /*]]>*/
 
 	        $(function(){
-	            
+	            $(".chosen-select").chosen(); 
+
               $('#arrestDateRangeStartDate').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });

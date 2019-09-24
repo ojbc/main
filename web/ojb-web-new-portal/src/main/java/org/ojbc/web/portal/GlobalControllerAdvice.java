@@ -16,16 +16,24 @@
  */
 package org.ojbc.web.portal;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
+import org.ojbc.web.portal.security.OsbiUser;
 import org.ojbc.web.portal.services.CodeTableService;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
+@SessionAttributes({"agencyOriMapping", "authorizedOriMapping"})
 public class GlobalControllerAdvice {
 	
 	@SuppressWarnings("unused")
@@ -38,12 +46,27 @@ public class GlobalControllerAdvice {
 	CodeTableService codeTableService;
 
     @ModelAttribute
-    public void setupModelAttributes(Model model) {
+    public void setupModelAttributes(Model model, Authentication authentication) {
         model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
-		if (!model.containsAttribute("agencyOriMapping")) {
-			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
-		}
+        OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
+        model.addAttribute("osbiUser", osbiUser);
+        
+        if (!model.containsAttribute("agencyOriMapping")) {
+	        Map<String, String> agencyOriMapping = codeTableService.getAgencies();
+			model.addAttribute("agencyOriMapping", agencyOriMapping);
+			if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
+				model.addAttribute("authorizedOriMapping", agencyOriMapping);
+			}
+			else {
+				Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
+				for (String ori: osbiUser.getOris()) {
+					authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
+				}
+				model.addAttribute("authorizedOriMapping", authorizedOriMapping);
+			}
+        }
+        
 
     }
     

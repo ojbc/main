@@ -41,7 +41,13 @@ public class ArrestDetailSearchRequest {
     public ArrestDetailSearchRequest(ArrestSearchRequest arrestSearchRequest) {
     	this();
     	this.setArrestType(arrestSearchRequest.getArrestType());
-    	this.setOris(arrestSearchRequest.getOris());
+    	
+    	if (arrestSearchRequest.getUserSelectedOris() != null && !arrestSearchRequest.getUserSelectedOris().isEmpty()) {
+    		this.setOris(arrestSearchRequest.getUserSelectedOris());
+    	}
+    	else {
+    		this.setOris(arrestSearchRequest.getAuthorizedOris());
+    	}
     }
 	public String getArrestIdentification() {
 		return arrestIdentification;

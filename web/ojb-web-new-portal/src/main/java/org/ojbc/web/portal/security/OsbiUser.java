@@ -37,6 +37,7 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 	private String status;
 	private String organizationName;
 	private String agencyOri;
+	private String employerOrganizationCategory; 
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -162,6 +163,14 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 
 	public void setAgencyOri(String agencyOri) {
 		this.agencyOri = agencyOri;
+	}
+
+	public String getEmployerOrganizationCategory() {
+		return employerOrganizationCategory;
+	}
+
+	public void setEmployerOrganizationCategory(String employerOrganizationCategory) {
+		this.employerOrganizationCategory = employerOrganizationCategory;
 	}
 
 }

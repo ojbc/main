@@ -29,6 +29,7 @@
      <!-- Begin page content -->
      <form action="#" th:object="${arrestSearchRequest}" id="searchForm" method="post">
        <div th:fragment="arrestSearchFormContent">
+           <input type="hidden" th:field="*{authorizedOris}" />
            <div class="form-row">
              <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
              <div class="col-sm-3"><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></div>
@@ -57,6 +58,13 @@
            <div class="form-row">
              <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>
              <div class="col-sm-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
+             <label for="oris" class="col-1 col-form-label font-weight-bold text-right" th:if="${#maps.size(authorizedOriMapping) > 1}">Agency </label>
+             <div class="col-sm-4" th:if="${#maps.size(authorizedOriMapping) > 1}">
+			          <select th:field="*{userSelectedOris}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" data-placeholder="Please select all that apply...">
+			            <option value="" ></option>
+			            <option th:each="item: ${authorizedOriMapping}" th:value="${item.key}" th:text="${item.value}" />
+			          </select>
+             </div>
            </div>
            <div class="form-row">
              <div class="col-2"/>

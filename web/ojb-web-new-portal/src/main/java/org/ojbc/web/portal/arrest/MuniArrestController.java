@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.portal.AppProperties;
+import org.ojbc.web.portal.security.OsbiUser;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -118,7 +119,7 @@ public class MuniArrestController {
 	@GetMapping("")
 	public String defaultSearch(HttpServletRequest request, Map<String, Object> model) throws Throwable {
 		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
-		
+
 		if (arrestSearchRequest == null) {
 			arrestSearchRequest = new ArrestSearchRequest();
 			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
@@ -129,7 +130,8 @@ public class MuniArrestController {
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setArrestType(ArrestType.MUNI);
-			
+			OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
+			arrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
 			model.put("arrestSearchRequest", arrestSearchRequest);
 		}
 		log.info("runing defaultSearch with " + arrestSearchRequest );
@@ -331,7 +333,7 @@ public class MuniArrestController {
 		else {
 			ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 			getArrestSearchResults(request, arrestSearchRequest, model);
-			return "arrest/arrests::resultsList";
+			return "arrest/arrests::resultsPage";
 		}
 	}
 	
