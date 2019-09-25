@@ -43,7 +43,7 @@
 	</j:Arrest>
 	<chm-req-ext:ReferToAgency>
 		<!-- Either "OrganizationCategoryText" OR OrganizationAugmentation(ORI) for OSBI -->
-		<nc:OrganizationCategoryText>DA</nc:OrganizationCategoryText>
+		<nc:OrganizationCategoryText>District Attorney</nc:OrganizationCategoryText>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
 				<nc:IdentificationID>ORI1223322</nc:IdentificationID>
