@@ -36,7 +36,13 @@
 		    ]
 		     
 	});
-		
+	var reStyleButtonsBasedOnSelection = function() {
+			// Make the selected search button blue, and the others gray
+	        $('#subscriptionTopButtons .blueButton').addClass('grayButton').removeClass('blueButton');
+			$(this).removeClass('grayButton').addClass('blueButton');
+	};
+	$('#subscriptionTopButtons a').click (reStyleButtonsBasedOnSelection);
+			
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
 	
 	function getCheckedValues() {
@@ -54,6 +60,13 @@
 			return	'{' + checkedValues + '}';
 		}	  		
 	}
+
+	$('#advancedSearch').click (function() { 
+		$.get("#springUrl('/subscriptions/searchForm')", function(data) {	
+			$("#subscriptionsContent").html(data);
+		}).fail(ojbc.displayFailMessage);
+		return false;
+	});
 
 	$('#subscriptionButtons').on('click', '#validateLink',function() {
 		var checkedValues = getCheckedValues();	
@@ -198,11 +211,14 @@
     
         <p id="subscriptionResultsTitle">MANAGE SUBSCRIPTIONS</p>
                         
-        <div style="float:right;"><a id="addSubLink" class="grayButton" href="#"><span id="subImgSpan"></span>ADD SUBSCRIPTION</a></div>
+        <div style="float:right;" id="subscriptionTopButtons">
+        	<a id="addSubLink" class="grayButton sublink" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
+        	<a id="advancedSearch" class="grayButton sublink" href="#">ADVANCED SEARCH</a>
+    	</div>
         
     </div>
     
-    <div style="padding:10px">
+    <div style="padding:10px" id="subscriptionsContent">
 		#if($informationMessages && $informationMessages!='')
 			<span class="error">
 				$informationMessages
