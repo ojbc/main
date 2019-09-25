@@ -583,7 +583,7 @@ a.grayButton:hover {
 }
 
 
-#addSubLink {
+.sublink {
 	position: relative;
 	top: -17px;
 	left: -13px;

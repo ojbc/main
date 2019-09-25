@@ -257,6 +257,19 @@ public class SubscriptionsController {
 		
 		return "subscriptions/_subscriptionResults";
 	}
+	
+	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	        Map<String, Object> model) {
+		log.info("Presenting the search Form");
+		if (resetForm) {
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(false);
+			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		} 
+
+		return "subscriptions/_searchForm";
+	}
+    
 
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
 			SubscriptionSearchRequest subscriptionSearchRequest) {
