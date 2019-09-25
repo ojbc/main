@@ -24,28 +24,21 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Arrest>
-		<j:ArrestSubject>
-			<nc:RoleOfPerson structures:ref="Person_01" />
-		</j:ArrestSubject>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>A34567890</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<j:ArrestCharge>
+			<chsreq-ext:ChargePrimarySystemIdentification>
+				<nc:IdentificationID>C4567893</nc:IdentificationID>
+			</chsreq-ext:ChargePrimarySystemIdentification>
+			<chsreq-ext:ChargeHasDispositionIndicator>true</chsreq-ext:ChargeHasDispositionIndicator>
+		</j:ArrestCharge>
+		<j:ArrestCharge>
+			<chsreq-ext:ChargePrimarySystemIdentification>
+				<nc:IdentificationID>CC4567893</nc:IdentificationID>
+			</chsreq-ext:ChargePrimarySystemIdentification>
+			<chsreq-ext:ChargeHasDispositionIndicator>false</chsreq-ext:ChargeHasDispositionIndicator>
+		</j:ArrestCharge>
+		<chsreq-ext:IncludeHiddenArrestIndicator>false</chsreq-ext:IncludeHiddenArrestIndicator>
 	</j:Arrest>
-	<nc:Person structures:id="Person_01">
-		<nc:PersonName>
-			<nc:PersonGivenName>John</nc:PersonGivenName>
-			<nc:PersonSurName>Maloney</nc:PersonSurName>
-		</nc:PersonName>
-	</nc:Person>
-	<nc:Case>
-		<j:ActivityAugmentation>
-			<j:CaseNumberText>CN12345678</j:CaseNumberText>
-		</j:ActivityAugmentation>
-		<j:CaseAugmentation>
-			<j:CaseCourt>
-				<j:OrganizationAugmentation>
-					<j:OrganizationORIIdentification>
-						<nc:IdentificationID>ORI123456</nc:IdentificationID>
-					</j:OrganizationORIIdentification>
-				</j:OrganizationAugmentation>
-			</j:CaseCourt>
-		</j:CaseAugmentation>
-	</nc:Case>
 </adsreq-doc:ArrestDetailSearchRequest>

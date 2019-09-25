@@ -215,12 +215,12 @@
 			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestHideDate" type="nc:DateType" substitutionGroup="j:ArrestAugmentationPoint">
+	<xsd:element name="ChargeHideDate" type="nc:DateType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The date an arrest record is hidden.
+			<xsd:documentation>The date a charge record is hidden.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>
+	</xsd:element>	
 	<xsd:element name="DispositionSentenceAssociation" type="chsres-ext:DispositionSentenceAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>An association between a disposition and a sentence.
@@ -295,12 +295,6 @@
 	<xsd:element name="ArrestHiddenIndicator" type="niem-xs:boolean" substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if arrest is hidden; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ArrestHasChargeDispositionIndicator" type="niem-xs:boolean"
-		substitutionGroup="j:ArrestAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if one or more charges for an arrest has a disposition, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"
