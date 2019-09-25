@@ -226,9 +226,6 @@
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
 			</j:ArrestSubject>
-			<chsres-ext:ArrestHideDate>
-				<nc:Date>2018-06-02</nc:Date>
-			</chsres-ext:ArrestHideDate>
 			<chsres-ext:ArrestPrimarySystemIdentification>
 				<nc:IdentificationID>A3245667</nc:IdentificationID>
 			</chsres-ext:ArrestPrimarySystemIdentification>
