@@ -16,6 +16,7 @@
  */
 package org.ojbc.web.portal.arrest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -164,7 +165,14 @@ public class DaArrestController {
 		daArrestSearchRequest.setFirstNameSearchMetaData(); 
 		daArrestSearchRequest.setLastNameSearchMetaData();
 		String searchContent = arrestService.findArrests(daArrestSearchRequest, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
+		String authoritiesString = osbiUser.getAuthorities().stream()
+				.map(item->item.getAuthority()).collect(Collectors.joining(","));
+		params.put("authorities", authoritiesString);
+
+		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent, params);
 		model.put("arrestSearchResults", searchContent); 
 		model.put("arrestSearchContent", transformedResults); 
 		model.put("daArrestSearchRequest", daArrestSearchRequest);

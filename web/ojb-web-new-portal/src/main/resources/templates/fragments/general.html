@@ -55,15 +55,15 @@
 	            <li class="nav-item active">
 	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
 	            </li>
-	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_MUNI', 'AUTHZ_DA', 'AUTHZ_AUDIT') ">
+	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('CAN_SEARCH', 'CAN_LOOKUP_ARREST') ">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tools</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a sec:authorize="hasAuthority('AUTHZ_MUNI')" class="dropdown-item muniArrest" href="#" id="muniArrest">Municipal Arrests</a>
-	                <a sec:authorize="hasAuthority('AUTHZ_DA')" class="dropdown-item daArrest" href="#" id="daArrest">DA Arrests</a>
-	                <a class="dropdown-item" href="#" id="arrestLookup">Arrest Lookup</a>
+	                <a sec:authorize="hasAuthority('AUTHZ_MUNI') && hasAuthority('CAN_SEARCH')" class="dropdown-item muniArrest" href="#" id="muniArrest">Municipal Arrests</a>
+	                <a sec:authorize="hasAuthority('AUTHZ_DA') && hasAuthority('CAN_SEARCH')" class="dropdown-item daArrest" href="#" id="daArrest">DA Arrests</a>
+	                <a sec:authorize="hasAuthority('CAN_LOOKUP_ARREST')" class="dropdown-item" href="#" id="arrestLookup">Arrest Lookup</a>
 	              </div>
 	            </li>
-	            <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('AUTHZ_AUDIT') ">
+	            <li class="nav-item dropdown" sec:authorize="hasAuthority('AUTHZ_AUDIT') && hasAuthority('CAN_VIEW_ADMIN_REPORTS')">
 	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
 	              <div class="dropdown-menu" aria-labelledby="dropdown09">
 	                <a class="dropdown-item auditLogs" href="#" id="auditLogs">Audit Logs</a>

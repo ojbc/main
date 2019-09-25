@@ -78,78 +78,59 @@
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
             /*]]>*/
-              $(function(){
-            	    $('[data-toggle="popover"]').popover(); 
-                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
+            $(function(){
+          	    $('[data-toggle="popover"]').popover(); 
+                $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-                  var table = $('#searchResultsTable').DataTable({
-                	    responsive: true, 
-                	    fixedHeader: { header: true },
-                      "columnDefs": [
-                          { "orderable": false, "targets": 6 },
-                          {
-                              "targets":[2, 4], 
-                              "type":"date"
-                          },
-                        ]
-                  });
-                  
-                  $('[data-toggle="tooltip"]').tooltip({
-                      trigger : 'hover'
-                  });   
+                var table = $('#searchResultsTable').DataTable({
+              	    responsive: true, 
+              	    fixedHeader: { header: true },
+                    "columnDefs": [
+                        { "orderable": false, "targets": 6 },
+                        {
+                            "targets":[2, 4], 
+                            "type":"date"
+                        },
+                      ]
+                });
+                
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger : 'hover'
+                });   
  
                   
-                  $('#searchResultsTable').on('click', 'a.editArrest',function() {
-                	  var selectedRow = $(this).closest("tr"); 
-                		var chargeIds = selectedRow.find(".chargeIds").text();  
-                    xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
-                      $('#portalContent').html(data);
+                $('#searchResultsTable').on('click', 'a.editArrest',function() {
+              	  var selectedRow = $(this).closest("tr"); 
+              		var chargeIds = selectedRow.find(".chargeIds").text();  
+                  xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
+                    $('#portalContent').html(data);
+                  }).fail(ojbc.displayFailMessage);
+                });
+                $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
+               	  var arrestId = $(this).closest("tr").attr("id"); 
+                    bootpopup({
+                        title: "", 
+                        size: "large",
+                        showclose: false,
+                        content: [
+                              { p: {text: "Hiding an arrest will remove it from your list for 30 days. You will still be able to search for this arrest.  "}},
+                              { p: {text: "Do you want to hide this arrest?"}}
+                              ], 
+                        cancel: function() {},
+                        ok: function(data, array, event) {  
+                      	  xhr = $.get( context +"muniArrests/" + arrestId + "/hide", function(data) {
+                                $("#searchResultsList").replaceWith(data);
+                              }).fail(ojbc.displayFailMessage); 
+                        },
+                    });
+                });
+                $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+               	  var arrestId = $(this).closest("tr").attr("id"); 
+                    xhr = $.get( context +"muniArrests/" + arrestId + "/unhide", function(data) {
+                        $("#searchResultsList").replaceWith(data);
                     }).fail(ojbc.displayFailMessage);
-                  });
-                  $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
-	                	  var arrestId = $(this).closest("tr").attr("id"); 
-                      bootpopup({
-                          title: "", 
-                          size: "large",
-                          showclose: false,
-                          content: [
-                                { p: {text: "Hiding an arrest will remove it from your list for 30 days. You will still be able to search for this arrest.  "}},
-                                { p: {text: "Do you want to hide this arrest?"}}
-                                ], 
-                          cancel: function() {},
-                          ok: function(data, array, event) {  
-                        	  xhr = $.get( context +"muniArrests/" + arrestId + "/hide", function(data) {
-                                  $("#searchResultsList").replaceWith(data);
-                                }).fail(ojbc.displayFailMessage); 
-                          },
-                      });
-                  });
-                  $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
-	                	  var arrestId = $(this).closest("tr").attr("id"); 
-                      xhr = $.get( context +"muniArrests/" + arrestId + "/unhide", function(data) {
-                          $("#searchResultsList").replaceWith(data);
-                      }).fail(ojbc.displayFailMessage);
-                  });
-/*                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
-                      var arrestId = $(this).closest("tr").attr("id"); 
-                      var chargeIds = selectedRow.find(".chargeIds").text();  
-                      bootpopup({
-                          title: "", 
-                          size: "large",
-                          showclose: false,
-                          content: [
-                                { p: {text: "Referring an arrest to the DA will permanently remove the arrest from the municipality’s charge list.  If both the DA and municipal court refer this arrest, the disposition will be updated to ‘NO CHARGES FILED’ in OSBI’s criminal history records.  "}},
-                                { p: {text: "Do you want to refer this arrest to the DA?"}}
-                                ], 
-                          cancel: function() {},
-                          ok: function(data, array, event) {  
-                            xhr = $.get( context +"muniArrests/" + arrestId  + "/refer", function(data) {
-                              $("#searchResultsList").replaceWith(data);
-                            }).fail(ojbc.displayFailMessage); 
-                          },
-                      });
-                  });
- */                  
+                });
+                  
                 $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
               	  var selectedRow = $(this).closest("tr"); 
                   var arrestId = selectedRow.attr("id"); 

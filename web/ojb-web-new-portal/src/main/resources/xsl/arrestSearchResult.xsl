@@ -28,6 +28,7 @@
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd"
 	exclude-result-prefixes="#all">
 
@@ -35,6 +36,7 @@
 	<xsl:output method="html" encoding="UTF-8" />
 	
 	<xsl:param name="resultType">MUNI</xsl:param>
+	<xsl:param name="authorities"></xsl:param>
 	<xsl:template match="/chsres-doc:CriminalHistorySearchResults">
 	
 	  <xsl:variable name="accessDenialReasons" select="srm:SearchResultsMetadata/iad:InformationAccessDenial" />
@@ -125,9 +127,11 @@
 				</span>
 			</td>
 			<td align="right" width="120px">
-			  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">
-  				<i class="fas fa-edit fa-2x"></i>
- 				</a>
+			  <xsl:if test="contains($authorities, 'CAN_EDIT')">
+				  <a href="#" class="editArrest" style="margin-right:3px" title="Edit" data-toggle="tooltip">
+	  				<i class="fas fa-edit fa-2x"></i>
+	 				</a>
+ 				</xsl:if>
  				<xsl:choose>
 	 				<xsl:when test="j:Arrest/chsres-ext:ArrestHiddenIndicator = 'true'">
             <a href="#" class="unhideArrest" style="margin-right:3px" title="Unhide" data-toggle="tooltip">
@@ -135,18 +139,22 @@
             </a>
 					</xsl:when>
 					<xsl:otherwise>
-            <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
-              <i class="fas fa-eye-slash fa-2x"></i>
-            </a>
+				    <xsl:if test="contains($authorities, 'CAN_HIDE')">
+	            <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
+	              <i class="fas fa-eye-slash fa-2x"></i>
+	            </a>
+            </xsl:if>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:element name="a">
-				  <xsl:attribute name="href">#</xsl:attribute>
-				  <xsl:attribute name="class">referArrest</xsl:attribute>
-				  <xsl:attribute name="title">Refer the arrest</xsl:attribute>
-          <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
-				  <i class="fas fa-share-square fa-2x"></i>
-				</xsl:element>
+        <xsl:if test="contains($authorities, 'CAN_REFER')">
+					<xsl:element name="a">
+					  <xsl:attribute name="href">#</xsl:attribute>
+					  <xsl:attribute name="class">referArrest</xsl:attribute>
+					  <xsl:attribute name="title">Refer the arrest</xsl:attribute>
+	          <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
+					  <i class="fas fa-share-square fa-2x"></i>
+					</xsl:element>
+				</xsl:if>
 			</td>
 		</tr>
 	</xsl:template>

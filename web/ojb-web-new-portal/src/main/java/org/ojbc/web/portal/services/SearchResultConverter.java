@@ -80,19 +80,18 @@ public class SearchResultConverter implements ApplicationContextAware {
         return convertXml(searchContent, dispositionSearchResultXsl, null);
     }
     
-    public String convertMuniArrestSearchResult(String searchContent) {
+    public String convertMuniArrestSearchResult(String searchContent, Map<String, Object> paramsMap) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
-    	return convertXml(searchContent, arrestSearchResultXsl, null);
+    	return convertXml(searchContent, arrestSearchResultXsl, paramsMap);
     }
     
-    public String convertDaArrestSearchResult(String searchContent) {
+    public String convertDaArrestSearchResult(String searchContent, Map<String, Object> paramsMap) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
     	
-    	Map<String, Object>  paramsMap = new HashMap<>();
     	paramsMap.put("resultType", "DA");
     	return convertXml(searchContent, arrestSearchResultXsl, paramsMap);
     }
