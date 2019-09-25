@@ -43,7 +43,7 @@
 	               <div class="col-10">
 	                 <H5>ARREST DETAIL</h5>
 	               </div>
-	               <div class="col-2" style="text-align:right;"> 
+	               <div class="col-2" style="text-align:right;" sec:authorize="hasAuthority('CAN_SUBMIT')"> 
 	                 <button type="button" class="btn-primary" id="presentArrest">Submit Arrest</button>
 	               </div> 
               </div>
@@ -614,7 +614,7 @@
             });
 	      </script>
 	      <div id="saveDispositionButtons" style="display:none;">
-	          <button type="button" class="btn btn-primary" id="saveDisposition">Save</button>
+	          <button type="button" class="btn btn-primary" id="saveDisposition" sec:authorize="hasAuthority('CAN_SAVE')">Save</button>
 	          <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
 	      </div>
 	      <div id="expungeDispositionButtons" style="display:none;">

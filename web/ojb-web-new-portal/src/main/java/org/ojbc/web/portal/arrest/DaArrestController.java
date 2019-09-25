@@ -166,16 +166,20 @@ public class DaArrestController {
 		daArrestSearchRequest.setLastNameSearchMetaData();
 		String searchContent = arrestService.findArrests(daArrestSearchRequest, samlService.getSamlAssertion(request));
 		
+		Map<String, Object> params = getAuthoritiesParam(model);
+		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent, params);
+		model.put("arrestSearchResults", searchContent); 
+		model.put("arrestSearchContent", transformedResults); 
+		model.put("daArrestSearchRequest", daArrestSearchRequest);
+	}
+
+	private Map<String, Object> getAuthoritiesParam(Map<String, Object> model) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
 		String authoritiesString = osbiUser.getAuthorities().stream()
 				.map(item->item.getAuthority()).collect(Collectors.joining(","));
 		params.put("authorities", authoritiesString);
-
-		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent, params);
-		model.put("arrestSearchResults", searchContent); 
-		model.put("arrestSearchContent", transformedResults); 
-		model.put("daArrestSearchRequest", daArrestSearchRequest);
+		return params;
 	}
 	
 	@GetMapping("/{arrestId}/charges/{chargeIds}")
@@ -232,7 +236,9 @@ public class DaArrestController {
 			Map<String, Object> model) throws Throwable {
 		model.put("arrestDetailSearchRequest", arrestDetailSearchRequest);
 		String searchContent = arrestService.getArrest(arrestDetailSearchRequest, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
+		
+		Map<String, Object> params = getAuthoritiesParam(model);
+		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent, params);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
 	}

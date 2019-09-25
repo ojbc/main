@@ -96,11 +96,11 @@ public class SearchResultConverter implements ApplicationContextAware {
     	return convertXml(searchContent, arrestSearchResultXsl, paramsMap);
     }
     
-    public String convertArrestDetail(String searchContent) {
+    public String convertArrestDetail(String searchContent, Map<String, Object> params) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
-    	return convertXml(searchContent, arrestDetailXsl, null);
+    	return convertXml(searchContent, arrestDetailXsl, params);
     }
     
 	public String convertArrestSummary(String arrrestDetail) {
@@ -110,11 +110,11 @@ public class SearchResultConverter implements ApplicationContextAware {
 		return convertXml(arrrestDetail, arrestSummaryXsl, null);
 	}
 
-    public String convertDaArrestDetail(String searchContent) {
+    public String convertDaArrestDetail(String searchContent, Map<String, Object> params) {
     	if (StringUtils.isBlank(searchContent)){
     		return "";
     	}
-    	return convertXml(searchContent, daArrestDetailXsl, null);
+    	return convertXml(searchContent, daArrestDetailXsl, params);
     }
     
 	public String convertAuditSearchResult(String searchContent) {

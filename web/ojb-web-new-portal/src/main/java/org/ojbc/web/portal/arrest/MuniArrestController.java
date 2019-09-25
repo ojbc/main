@@ -219,9 +219,19 @@ public class MuniArrestController {
 			Map<String, Object> model) throws Throwable {
 		model.put("arrestDetailSearchRequest", arrestDetailSearchRequest);
 		String searchContent = arrestService.getArrest(arrestDetailSearchRequest, samlService.getSamlAssertion(request));
-		String transformedResults = searchResultConverter.convertDaArrestDetail(searchContent);
+		Map<String, Object> params = getAuthoritiesParam(model);
+		String transformedResults = searchResultConverter.convertArrestDetail(searchContent, params);
 		model.put("arrestDetail", searchContent); 
 		model.put("arrestDetailTransformed", transformedResults);
+	}
+	
+	private Map<String, Object> getAuthoritiesParam(Map<String, Object> model) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
+		String authoritiesString = osbiUser.getAuthorities().stream()
+				.map(item->item.getAuthority()).collect(Collectors.joining(","));
+		params.put("authorities", authoritiesString);
+		return params;
 	}
 	
 	@GetMapping("/dispositionForm")

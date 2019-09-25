@@ -34,6 +34,8 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	
+	<xsl:param name="authorities"></xsl:param>
+	
 	<xsl:template match="/chsres-doc:CriminalHistorySearchResults/chsres-ext:CriminalHistorySearchResult">
 		  <xsl:call-template name="arrests"/>
 	</xsl:template>
@@ -139,16 +141,20 @@
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
         <xsl:if test="not(j:ChargeDisposition)">
-          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
-            <i class="fas fa-times-circle fa-lg"></i>
-          </a>
-          <xsl:element name="a">
-            <xsl:attribute name="href">#</xsl:attribute>
-            <xsl:attribute name="class">referCharge pl-2</xsl:attribute>
-            <xsl:attribute name="title">refer the charge</xsl:attribute>
-            <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
-            <i class="fas fa-share-square fa-lg"></i>
-          </xsl:element>
+          <xsl:if test="contains($authorities, 'CAN_DECLINE')">
+	          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
+	            <i class="fas fa-times-circle fa-lg"></i>
+	          </a>
+          </xsl:if>
+          <xsl:if test="contains($authorities, 'CAN_REFER')">
+	          <xsl:element name="a">
+	            <xsl:attribute name="href">#</xsl:attribute>
+	            <xsl:attribute name="class">referCharge pl-2</xsl:attribute>
+	            <xsl:attribute name="title">refer the charge</xsl:attribute>
+	            <xsl:attribute name="data-toggle">tooltip</xsl:attribute>
+	            <i class="fas fa-share-square fa-lg"></i>
+	          </xsl:element>
+          </xsl:if>
         </xsl:if>
       </div>
       <div class="collapse hscroll" data-parent="#accordion">
@@ -208,7 +214,7 @@
 			          <xsl:apply-templates select="j:ChargeDisposition"/>
 			        </tbody>
               <tfoot>
-              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326'])">			          				          
+              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326']) and contains($authorities, 'CAN_SAVE')">			          				          
 		              <tr>
 							      <td style="vertical-align:top; white-space: nowrap" >
 							        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
@@ -251,15 +257,17 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
-        <xsl:if test ="not(chsres-ext:DispositionCodeText = '326')">
+        <xsl:if test ="not(chsres-ext:DispositionCodeText = '326') and contains($authorities, 'CAN_EDIT')">
 	        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover" >
     	      <i class="fas fa-edit fa-lg"></i>
         	</a>
         </xsl:if>
-        <a href="#" class="deleteDisposition" data-content="delete" data-toggle="popover" data-trigger="hover">
-          <i class="fas fa-trash-alt fa-lg"></i>
-        </a>
-        <xsl:if test="chsres-ext:ChargeDispositionCategoryCode = 'deferred'">
+        <xsl:if test="contains($authorities, 'CAN_DELETE')">
+	        <a href="#" class="deleteDisposition" data-content="delete" data-toggle="popover" data-trigger="hover">
+	          <i class="fas fa-trash-alt fa-lg"></i>
+	        </a>
+        </xsl:if>
+        <xsl:if test="chsres-ext:ChargeDispositionCategoryCode = 'deferred' and contains($authorities, 'CAN_EXPUNGE')">
           <a href="#" class="expungeDisposition mx-1"  data-content="expunge" data-toggle="popover" data-trigger="hover" style="margin-left:3px">
              <i class="fas fa-calendar-times fa-lg" ></i>
           </a>
