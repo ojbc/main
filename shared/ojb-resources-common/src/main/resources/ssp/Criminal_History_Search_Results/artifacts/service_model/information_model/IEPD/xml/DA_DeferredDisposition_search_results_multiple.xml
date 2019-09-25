@@ -244,6 +244,9 @@
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>	
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -330,6 +333,9 @@
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
