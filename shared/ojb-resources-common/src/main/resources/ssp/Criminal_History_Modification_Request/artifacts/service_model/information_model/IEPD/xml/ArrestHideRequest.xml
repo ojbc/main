@@ -28,6 +28,16 @@
 			<nc:IdentificationID>1004233</nc:IdentificationID>
 			<nc:IdentificationSourceText>System</nc:IdentificationSourceText>
 		</j:ArrestAgencyRecordIdentification>
+		<j:ArrestCharge>
+			<j:ChargeIdentification>
+				<nc:IdentificationID>C123456</nc:IdentificationID>
+			</j:ChargeIdentification>
+		</j:ArrestCharge>
+		<j:ArrestCharge>
+			<j:ChargeIdentification>
+				<nc:IdentificationID>C123456789</nc:IdentificationID>
+			</j:ChargeIdentification>
+		</j:ArrestCharge>
 		<chm-req-ext:ArrestHideDate>
 			<nc:Date>2018-07-12</nc:Date>
 		</chm-req-ext:ArrestHideDate>
