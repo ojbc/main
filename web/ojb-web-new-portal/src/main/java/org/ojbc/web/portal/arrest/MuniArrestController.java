@@ -208,15 +208,6 @@ public class MuniArrestController {
 		return "arrest/arrests::resultsList";
 	}
 	
-	@GetMapping("/{id}/refer")
-	public String referArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		arrestService.referArrestToDa(id, samlService.getSamlAssertion(request));
-		
-		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
-		getArrestSearchResults(request, arrestSearchrequest, model);
-		return "arrest/arrests::resultsList";
-	}
-	
 	@GetMapping("/summary")
 	public @ResponseBody String presentArrest(Map<String, Object> model) throws Throwable {
 		String arrrestDetail = (String) model.get("arrestDetail");
