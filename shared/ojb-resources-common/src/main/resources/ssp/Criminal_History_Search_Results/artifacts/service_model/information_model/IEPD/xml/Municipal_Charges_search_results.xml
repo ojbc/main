@@ -82,6 +82,9 @@
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>				
 				<chsres-ext:ChargeOwnerAgency>
 					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
 				</chsres-ext:ChargeOwnerAgency>
@@ -118,6 +121,9 @@
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>				
 				<chsres-ext:ChargeOwnerAgency>
 					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
 				</chsres-ext:ChargeOwnerAgency>
