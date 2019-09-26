@@ -89,6 +89,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -252,7 +253,8 @@ public class SubscriptionsController {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(false);
+		subscriptionSearchRequest.setOwnerFederatedId((String) request.getAttribute("principal"));
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 		return "subscriptions/_subscriptionResults";
@@ -271,6 +273,23 @@ public class SubscriptionsController {
 	}
     
 
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public String advancedSearch(HttpServletRequest request,	
+			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
+	        BindingResult errors,
+	        Map<String, Object> model, Authentication authentication) {	
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "subscriptions/_searchForm";
+		}
+					
+		Element samlElement = samlService.getSamlAssertion(request);
+		subscriptionSearchRequest.setOwnerFederatedId((String) request.getAttribute("principal"));
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		
+		return "subscriptions/_subscriptionResults";
+	}
+	
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
 			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
