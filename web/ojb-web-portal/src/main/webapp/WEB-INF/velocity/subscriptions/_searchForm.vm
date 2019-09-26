@@ -35,7 +35,7 @@
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#advancedSearchForm').serialize();
-	  	       	xhr = $.post("#springUrl('/subscriptions/admin/search')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/subscriptions/search')",formData,function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
