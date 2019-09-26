@@ -96,15 +96,7 @@
 		<camel:route id="processSubscriptionSearchRoute">
 			<camel:from uri="direct:processSubscriptionSearch"/>
 			<camel:log message="processing subscription search" />
-			<camel:choice>
-				<camel:when>
-					<camel:xpath>/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator='true'</camel:xpath>
-					<camel:to uri="direct:processSubscriptionSearchRequest"></camel:to>
-				</camel:when>
-				<camel:otherwise>
-					<camel:to uri="direct:processSubscriptionSearchByOwner"></camel:to>
-				</camel:otherwise>
-			</camel:choice>
+			<camel:to uri="direct:processSubscriptionSearchRequest"></camel:to>
 		</camel:route>
 		 
 		<camel:route id="processSubscriptionSearchRequest">			
