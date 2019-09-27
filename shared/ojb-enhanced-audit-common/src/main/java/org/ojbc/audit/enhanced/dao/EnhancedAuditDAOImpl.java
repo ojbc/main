@@ -284,13 +284,27 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         
         UserInfo userInfo = printResults.getUserInfo();
         
-        Integer userInfoPk = saveUserInfo(userInfo);
+        Integer userInfoPk = null;
+        
+		//Look up user info here
+		List<UserInfo> userInfoEntries = retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		else
+		{	
+			userInfoPk = saveUserInfo(userInfo);
+		}
         
         final String PRINT_RESULTS_INSERT="INSERT into PRINT_RESULTS "
         		+ "(SYSTEM_NAME, DESCRIPTION, MESSAGE_ID, SID, USER_INFO_ID) "
         		+ "values (?, ?, ?, ?, ?)";
         
 
+        final Integer userInfoPkFinal = userInfoPk;
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -301,7 +315,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(printResults.getDescription(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(printResults.getMessageId(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(printResults.getSid(), ps, 4);
-        	            DaoUtils.setPreparedStatementVariable(userInfoPk, ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(userInfoPkFinal, ps, 5);
         	            
         	            return ps;
         	        }

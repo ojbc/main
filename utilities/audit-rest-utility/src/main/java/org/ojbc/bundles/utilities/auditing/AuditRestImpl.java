@@ -72,9 +72,21 @@ public class AuditRestImpl implements AuditInterface {
 
 	@Override
 	public Response auditUserLogin(UserInfo userInfo) {
-		log.info("Audit user login info: " + userInfo.toString());
+		log.info("Auditing user login info: " + userInfo.toString());
 		
-		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		Integer userInfoPk = null;
+		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		else
+		{	
+			userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		}	
 		
 		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGIN_ACTION);
 		
@@ -83,9 +95,21 @@ public class AuditRestImpl implements AuditInterface {
 
 	@Override
 	public Response auditUserLogout(UserInfo userInfo) {
-		log.info("Audit user logout info: " + userInfo.toString());
+		log.info("Auditing user logout info: " + userInfo.toString());
 		
-		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		Integer userInfoPk = null;
+		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		else
+		{	
+			userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		}
 		
 		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGOUT_ACTION);
 		
@@ -97,7 +121,19 @@ public class AuditRestImpl implements AuditInterface {
 			UserAcknowledgement userAcknowledgement) {
 		log.info("Audit user acknowledgement: " + userAcknowledgement.toString());
 		
-		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userAcknowledgement.getUserInfo());
+		Integer userInfoPk = null;
+		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userAcknowledgement.getUserInfo().getFederationId());
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		else
+		{	
+			userInfoPk = enhancedAuditDao.saveUserInfo(userAcknowledgement.getUserInfo());
+		}		
 	
 		userAcknowledgement.getUserInfo().setUserInfoId(userInfoPk);
 		
