@@ -106,7 +106,8 @@
 			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest"/>
 			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
 		</camel:route>		
-		
+
+		<!-- this route is not used any more. TODO may remove it after deployed and tested hw-20190927-->		
 		<camel:route id="processSubscriptionSearchByOwner">			
 			<camel:from uri="direct:processSubscriptionSearchByOwner"/>
 			<camel:setHeader headerName="subscriptionSearchResultCount"><camel:simple>bean:subscriptionSearchQueryDAO?method=countSubscriptionsInSearch</camel:simple></camel:setHeader>
