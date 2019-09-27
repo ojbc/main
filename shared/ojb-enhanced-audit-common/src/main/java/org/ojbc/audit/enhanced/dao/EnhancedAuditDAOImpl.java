@@ -1033,6 +1033,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		List<UserInfo> userInfo = jdbcTemplate.query(USER_INFO_SELECT, new UserInfoRowMapper(), userInfoPk);
 		return DataAccessUtils.singleResult(userInfo);	
 	}	
+	
+	@Override
+	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId) {
+		final String USER_INFO_SELECT="SELECT * FROM USER_INFO WHERE FEDERATION_ID = ? order by USER_INFO_ID desc";
+		
+		List<UserInfo> userInfoList = jdbcTemplate.query(USER_INFO_SELECT, new UserInfoRowMapper(), federationId);
+		return userInfoList;	
+	}	
 
 	@Override
 	public List<FederalRapbackNotification> retrieveFederalNotifications(
