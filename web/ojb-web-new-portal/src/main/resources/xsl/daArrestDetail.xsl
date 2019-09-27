@@ -35,11 +35,11 @@
 	<xsl:output method="html" encoding="UTF-8" />
   <xsl:param name="authorities"></xsl:param>
 	
-	<xsl:template match="/chsres-doc:CriminalHistorySearchResults/chsres-ext:CriminalHistorySearchResult">
-		  <xsl:call-template name="arrests"/>
-	</xsl:template>
-
-	<xsl:template name="arrests">
+	 <xsl:template match="/chsres-doc:CriminalHistorySearchResults" >
+    <xsl:apply-templates select="chsres-ext:CriminalHistorySearchResult"></xsl:apply-templates>
+  </xsl:template>
+	
+	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
 	    <div class="chargeDropDown d-none">
         <xsl:for-each select="j:Arrest/j:ArrestCharge">
           <xsl:element name="option">
