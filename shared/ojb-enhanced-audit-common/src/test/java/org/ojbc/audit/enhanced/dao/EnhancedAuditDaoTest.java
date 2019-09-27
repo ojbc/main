@@ -16,9 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,8 +38,8 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
-import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -154,6 +152,22 @@ public class EnhancedAuditDaoTest {
 		UserInfo userInfoFromDatabase = enhancedAuditDao.retrieveUserInfoFromId(userInfoPk);
 		
 		log.debug("User Info From Database: " + userInfoFromDatabase.toString());
+		
+		assertEquals("Employer Name", userInfoFromDatabase.getEmployerName());
+		assertEquals("Sub Unit", userInfoFromDatabase.getEmployerSubunitName());
+		assertEquals("Fed ID", userInfoFromDatabase.getFederationId());
+		assertEquals("IDP", userInfoFromDatabase.getIdentityProviderId());
+		assertEquals("email", userInfoFromDatabase.getUserEmailAddress());
+		assertEquals("first", userInfoFromDatabase.getUserFirstName());
+		assertEquals("last", userInfoFromDatabase.getUserLastName());
+		
+		
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfoFromDatabase.getFederationId());
+		
+		assertNotNull(userInfoEntries);
+		assertTrue(userInfoEntries.size() > 0);
+		
+		userInfoFromDatabase = userInfoEntries.get(0);
 		
 		assertEquals("Employer Name", userInfoFromDatabase.getEmployerName());
 		assertEquals("Sub Unit", userInfoFromDatabase.getEmployerSubunitName());

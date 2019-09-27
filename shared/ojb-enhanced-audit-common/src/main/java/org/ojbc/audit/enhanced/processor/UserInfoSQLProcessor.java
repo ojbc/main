@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
+import java.util.List;
+
 import javax.security.auth.x500.X500Principal;
 
 import org.apache.camel.Exchange;
@@ -62,7 +64,17 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 	
 			}
 			
-			userInfoPk = enhancedAuditDAO.saveUserInfo(userInfo);
+			//Look up user info here
+			List<UserInfo> userInfoEntries = enhancedAuditDAO.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+			
+			if (userInfoEntries != null && userInfoEntries.size() > 0)
+			{
+				userInfoPk = userInfoEntries.get(0).getUserInfoId();
+			}
+			else
+			{	
+				userInfoPk = enhancedAuditDAO.saveUserInfo(userInfo);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
