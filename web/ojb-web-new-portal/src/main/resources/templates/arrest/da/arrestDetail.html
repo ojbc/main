@@ -154,9 +154,12 @@
                             	   if (dispoCodeMapping.hasOwnProperty(data)){
                             		   return dispoCodeMapping[data];
                             	   }
-                            	   else{
-	                                 return data;
-                            	   }
+                                 else if (data==='329'){
+                                   return 'COURT DISPOSITION UNKNOWN';
+                                 }
+                                 else{
+                                   return data;
+                                 }
                              }
                         },
                         {

@@ -214,7 +214,7 @@
 			          <xsl:apply-templates select="j:ChargeDisposition"/>
 			        </tbody>
               <tfoot>
-              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326']) and contains($authorities, 'CAN_SAVE')">			          				          
+              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326']) and not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '329']) and contains($authorities, 'CAN_SAVE')">			          				          
 		              <tr>
 							      <td style="vertical-align:top; white-space: nowrap" >
 							        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
