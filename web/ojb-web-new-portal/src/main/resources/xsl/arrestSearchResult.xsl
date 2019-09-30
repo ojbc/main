@@ -125,6 +125,12 @@
 				<span class="chargeIds d-none">
 				  <xsl:value-of select="string-join(j:Arrest/j:ArrestCharge/j:ChargeIdentification/nc:IdentificationID, ',')"/>
 				</span>
+				<span class="unhideableChargeIds d-none">
+				  <xsl:value-of select="string-join(j:Arrest/j:ArrestCharge[chsres-ext:ChargeHiddenIndicator = 'true']/j:ChargeIdentification/nc:IdentificationID, ',')"/>
+				</span>
+				<span class="hideableChargeIds d-none">
+				  <xsl:value-of select="string-join(j:Arrest/j:ArrestCharge[chsres-ext:ChargeHiddenIndicator = 'false']/j:ChargeIdentification/nc:IdentificationID, ',')"/>
+				</span>
 			</td>
 			<td align="right" width="120px">
 			  <xsl:if test="contains($authorities, 'CAN_EDIT')">
@@ -132,20 +138,16 @@
 	  				<i class="fas fa-edit fa-2x"></i>
 	 				</a>
  				</xsl:if>
- 				<xsl:choose>
-	 				<xsl:when test="j:Arrest/chsres-ext:ArrestHiddenIndicator = 'true'">
-            <a href="#" class="unhideArrest" style="margin-right:3px" title="Unhide" data-toggle="tooltip">
-              <i class="fas fa-eye fa-2x"></i>
-            </a>
-					</xsl:when>
-					<xsl:otherwise>
-				    <xsl:if test="contains($authorities, 'CAN_HIDE')">
-	            <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
-	              <i class="fas fa-eye-slash fa-2x"></i>
-	            </a>
-            </xsl:if>
-					</xsl:otherwise>
-				</xsl:choose>
+ 				<xsl:if test="j:Arrest/j:ArrestCharge/chsres-ext:ChargeHiddenIndicator = 'true'">
+           <a href="#" class="unhideArrest" style="margin-right:3px" title="Unhide" data-toggle="tooltip">
+             <i class="fas fa-eye fa-2x"></i>
+           </a>
+				</xsl:if>
+        <xsl:if test="j:Arrest/j:ArrestCharge/chsres-ext:ChargeHiddenIndicator = 'false' and contains($authorities, 'CAN_HIDE')">
+          <a href="#" class="hideArrest" style="margin-right:3px" title="Hide" data-toggle="tooltip">
+            <i class="fas fa-eye-slash fa-2x"></i>
+          </a>
+        </xsl:if>
         <xsl:if test="contains($authorities, 'CAN_REFER')">
 					<xsl:element name="a">
 					  <xsl:attribute name="href">#</xsl:attribute>

@@ -93,6 +93,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XSI;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -1706,7 +1707,7 @@ public class RequestMessageBuilderUtilities {
 	}
 
 
-	public static Document createArrestHideRequest(String id) throws Exception {
+	public static Document createArrestHideRequest(String id, List<String> chargeIds) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_HIDE_REQUEST_DOC, 
         		NS_PREFIX_ARREST_HIDE_REQUEST_DOC + ":ArrestHideRequest");
@@ -1718,6 +1719,12 @@ public class RequestMessageBuilderUtilities {
 		XmlUtils.appendTextElement(arrestHideDate, NS_NC_40, "Date", LocalDate.now().toString());
 		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
         
+        for (String chargeId : chargeIds) {
+            Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+	        Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
+	        XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
+        }
+
         return document;
 	}
 

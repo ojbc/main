@@ -204,9 +204,10 @@ public class DaArrestController {
 		return "arrest/da/arrests::resultsList";
 	}
 	
-	@GetMapping("/{id}/hide")
-	public String hideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		arrestService.hideArrest(id, samlService.getSamlAssertion(request));
+	@GetMapping("/{id}/charges/{chargeIds}/hide")
+	public String hideArrest(HttpServletRequest request, @PathVariable String id, 
+			@PathVariable List<String> chargeIds, Map<String, Object> model) throws Throwable {
+		arrestService.hideArrest(id, chargeIds, samlService.getSamlAssertion(request));
 		
 		ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest"); 
 		getArrestSearchResults(request, daArrestSearchRequest, model);

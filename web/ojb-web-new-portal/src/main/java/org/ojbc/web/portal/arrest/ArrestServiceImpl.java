@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.arrest;
 
+import java.util.List;
+
 import org.ojbc.processor.arrest.modify.ArrestFinalizeRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestHideRequestProcessor;
 import org.ojbc.processor.arrest.modify.ArrestModifyRequestProcessor;
@@ -83,8 +85,8 @@ public class ArrestServiceImpl implements ArrestService {
 		return arrestModifyRequestProcessor.invokeRequest(disposition, samlToken);
 	}
 	@Override
-	public String hideArrest(String id, Element samlToken) throws Throwable {
-		return arrestHideRequestProcessor.invokeRequest(id, samlToken);
+	public String hideArrest(String id, List<String> chargeIds, Element samlToken) throws Throwable {
+		return arrestHideRequestProcessor.invokeRequest(id, chargeIds, samlToken);
 	}
 
 	@Override

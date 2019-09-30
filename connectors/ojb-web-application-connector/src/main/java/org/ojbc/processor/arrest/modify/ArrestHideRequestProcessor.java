@@ -18,6 +18,8 @@ package org.ojbc.processor.arrest.modify;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -48,14 +50,14 @@ public class ArrestHideRequestProcessor extends RequestResponseProcessor impleme
 	
 	private OJBSamlMap OJBSamlMap;
 	
-	public String invokeRequest(String id, Element samlToken) throws Throwable {
+	public String invokeRequest(String id, List<String> chargeIds, Element samlToken) throws Throwable {
 		if (samlToken == null)
 		{
 			throw new Exception("No SAML token provided. Unable to perform query.");
 		}	
 		
 		//POJO to XML Request
-		Document arrestHideRequestPayload = RequestMessageBuilderUtilities.createArrestHideRequest(id);
+		Document arrestHideRequestPayload = RequestMessageBuilderUtilities.createArrestHideRequest(id, chargeIds);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

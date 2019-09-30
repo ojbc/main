@@ -107,7 +107,9 @@
                       }).fail(ojbc.displayFailMessage);
                   });
                   $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
-	                	  var arrestId = $(this).closest("tr").attr("id"); 
+                      var selectedRow = $(this).closest("tr"); 
+                      var arrestId = selectedRow.attr("id"); 
+                      var chargeIds = selectedRow.find(".hideableChargeIds").text();
                       bootpopup({
                           title: "", 
                           size: "large",
@@ -118,7 +120,7 @@
                                 ], 
                           cancel: function() {},
                           ok: function(data, array, event) {  
-                              xhr = $.get( context +"daArrests/" + arrestId + "/hide", function(data) {
+                              xhr = $.get( context +"daArrests/" + arrestId + "/charges/" + chargeIds + "/hide", function(data) {
                                   $("#searchResultsList").replaceWith(data);
                                 }).fail(ojbc.displayFailMessage);
                           },

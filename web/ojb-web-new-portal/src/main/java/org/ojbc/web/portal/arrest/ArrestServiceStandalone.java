@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.arrest;
 
+import java.util.List;
+
 import org.ojbc.web.portal.util.WebUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,7 +40,7 @@ public class ArrestServiceStandalone implements ArrestService {
 	}
 
 	@Override
-	public String hideArrest(String id, Element samlToken) throws Throwable {
+	public String hideArrest(String id, List<String> chargeIds, Element samlToken) throws Throwable {
 		// TODO Auto-generated method stub
 		return null;
 	}
