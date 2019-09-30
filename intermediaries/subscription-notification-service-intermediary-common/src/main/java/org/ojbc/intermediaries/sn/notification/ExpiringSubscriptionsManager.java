@@ -56,6 +56,7 @@ public class ExpiringSubscriptionsManager {
 		for (String subscriptionOwner : uniqueSubscriptionOwners)
 		{
 			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+			subscriptionSearchRequest.setAdminSearch(true);
 			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
 			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
 			
@@ -115,6 +116,7 @@ public class ExpiringSubscriptionsManager {
 		for (String subscriptionOwner : uniqueSubscriptionOwners)
 		{
 			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+			subscriptionSearchRequest.setAdminSearch(true);
 			subscriptionSearchRequest.setOwnerFederatedId(subscriptionOwner);
 			subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
 			subscriptionSearchRequest.setActive(true);

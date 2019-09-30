@@ -35,14 +35,19 @@
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#advancedSearchForm').serialize();
-	  	       	xhr = $.post("#springUrl('/subscriptions/admin/adminAdvancedsearch')",formData,function(data) {
-			       $("#subsAdminContent").html(data);
+	  	       	xhr = $.post("#springUrl('/subscriptions/search')",formData,function(data) {
+	  	       	  if (data.indexOf("id='advancedSearchForm'") > 0){
+		       	  	$('#subscriptionsContent').html(data);
+		       	  }
+		       	  else{
+			       	$("#portalContent").html(data);
+		       	  }
 		        }).fail(ojbc.displayFailMessage);
 			});
 		
 	        $('#advanceSearchClearButton').click (function(event){
-			  $.get("#springUrl('/subscriptions/admin/adminSearchForm?resetForm=true')", function(data) {
-			    $('#subsAdminContent').html(data);
+			  $.get("#springUrl('/subscriptions/searchForm?resetForm=true')", function(data) {
+			    $('#subscriptionsContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)
 	      	});
@@ -74,22 +79,7 @@
 	#springFormHiddenInput("subscriptionSearchRequest.adminSearch")
   		<table>
   			<tr>
-  				<td>
-			        <p class="searchSubHeader"> OWNER</p>
-			        <div>#springFormInput("subscriptionSearchRequest.ownerFirstName" "placeholder='First Name'") </div>
-			        <div>#springFormInput("subscriptionSearchRequest.ownerLastName" "placeholder='Last Name'")</div>
-			        <div>#springFormInput("subscriptionSearchRequest.ownerOri" "placeholder='ORI'")</div>
-			        
-					<div class="labelText">
-						<p class="searchSubHeader"> SUBSCRIPTION PURPOSE</p>
-						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategories" $subscriptionPurposeMap " &nbsp;" "")
-					</div>    				        
-					<div class="labelText">
-						<p class="searchSubHeader"> SUBSCRIPTION STATUS</p>
-						#springFormCheckboxes("subscriptionSearchRequest.status" $subscriptionStatusMap " &nbsp;" "")
-					</div>    				        
-	        	</td>
-  				<td>
+  				<td style="padding-left:1em; ">
 			        <p class="searchSubHeader"> SUBJECT</p>
 			        <div>#springFormInput("subscriptionSearchRequest.subjectFirstName" "placeholder='First Name'")</div>
 			        <div>#springFormInput("subscriptionSearchRequest.subjectLastName" "placeholder='Last Name'")</div>
@@ -99,6 +89,10 @@
 			        <div>#springFormInput("subscriptionSearchRequest.ucn" "placeholder='UCN'")
 			        	#springShowErrors( "<br/>" "error" ) 
 			        </div>
+					<div class="labelText">
+						<p class="searchSubHeader"> SUBSCRIPTION PURPOSE</p>
+						#springFormCheckboxes("subscriptionSearchRequest.subscriptionCategories" $subscriptionPurposeMap " &nbsp;" "")
+					</div>    				        
 	        	</td>
         	<tr>
         </table>

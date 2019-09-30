@@ -26,6 +26,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import junit.framework.Assert;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -152,6 +156,22 @@ public class EnhancedAuditDaoTest {
 		UserInfo userInfoFromDatabase = enhancedAuditDao.retrieveUserInfoFromId(userInfoPk);
 		
 		log.debug("User Info From Database: " + userInfoFromDatabase.toString());
+		
+		assertEquals("Employer Name", userInfoFromDatabase.getEmployerName());
+		assertEquals("Sub Unit", userInfoFromDatabase.getEmployerSubunitName());
+		assertEquals("Fed ID", userInfoFromDatabase.getFederationId());
+		assertEquals("IDP", userInfoFromDatabase.getIdentityProviderId());
+		assertEquals("email", userInfoFromDatabase.getUserEmailAddress());
+		assertEquals("first", userInfoFromDatabase.getUserFirstName());
+		assertEquals("last", userInfoFromDatabase.getUserLastName());
+		
+		
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfoFromDatabase.getFederationId());
+		
+		assertNotNull(userInfoEntries);
+		assertTrue(userInfoEntries.size() > 0);
+		
+		userInfoFromDatabase = userInfoEntries.get(0);
 		
 		assertEquals("Employer Name", userInfoFromDatabase.getEmployerName());
 		assertEquals("Sub Unit", userInfoFromDatabase.getEmployerSubunitName());

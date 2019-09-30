@@ -29,7 +29,7 @@
 		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn):not(.dropdown-content a)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#advancedAdminSearch').click (function() { 
-			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/searchForm')")
+			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/adminSearchForm')")
 	    });
 	    
     	$('#expiringSubscriptions').click (function() { 

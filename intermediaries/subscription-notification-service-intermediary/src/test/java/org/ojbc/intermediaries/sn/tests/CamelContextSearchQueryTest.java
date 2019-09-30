@@ -61,10 +61,13 @@ import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificationTest {
 
 	public static final String CXF_OPERATION_NAME_SEARCH = "SubmitSubscriptionSearchRequest";

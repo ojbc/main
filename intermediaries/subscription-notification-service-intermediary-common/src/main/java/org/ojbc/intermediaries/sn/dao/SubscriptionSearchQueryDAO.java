@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -951,6 +952,14 @@ public class SubscriptionSearchQueryDAO {
     	return entryList.toArray();
     }
 
+    static void addToParamsMap(Map<String, Object> params, Map<String, String> subjectIdentifiers) {
+    	int i = 0;
+    	for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
+    		params.put("identifierName" + i, entry.getKey());
+    		params.put("identifierValueName" + i, entry.getValue());
+    	}
+    }
+    
     static String buildCriteriaSql(int subjectIdsCount) {
     	StringBuffer sql = new StringBuffer();
     	
@@ -961,6 +970,22 @@ public class SubscriptionSearchQueryDAO {
     			sql.append(" and s.id in");
     		}
     		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ");
+    	}
+    	
+    	return sql.toString();
+    }
+    
+    static String buildNamedCriteriaSql(int subjectIdsCount) {
+    	StringBuffer sql = new StringBuffer();
+    	
+    	sql.append(" s.id in ");
+    	
+    	for (int i = 0; i < subjectIdsCount; i++) {
+    		if (i > 0) {
+    			sql.append(" and s.id in");
+    		}
+    		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName= :identifierName" + i 
+    				+ " and upper(identifierValue) = upper(:identifierValueName" + i + "))  ");
     	}
     	
     	return sql.toString();
@@ -1071,72 +1096,66 @@ public class SubscriptionSearchQueryDAO {
 
 	public List<Subscription> findBySubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest) {
         
-        List<String> criteriaList = new ArrayList<String>();
-        
         StringBuffer staticCriteria = new StringBuffer();
-
+        Map<String, Object> paramMap = new HashMap<String, Object>(); 
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getSubscribingSystemIdentifier()))
         {
-        	criteriaList.add(subscriptionSearchRequest.getSubscribingSystemIdentifier().trim());
-        	staticCriteria.append(" and upper(SUBSCRIBINGSYSTEMIDENTIFIER) = upper(?)");
+        	paramMap.put("subscribingSystemIdentifier", subscriptionSearchRequest.getSubscribingSystemIdentifier().trim());
+        	staticCriteria.append(" and upper(SUBSCRIBINGSYSTEMIDENTIFIER) = upper(:subscribingSystemIdentifier) ");
         }	
         
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFederatedId()))
         {
-        	criteriaList.add(subscriptionSearchRequest.getOwnerFederatedId().trim());
-        	staticCriteria.append(" and upper(so.federation_id) = upper(?)");
+        	paramMap.put("ownerFederatedId", subscriptionSearchRequest.getOwnerFederatedId().trim());
+        	staticCriteria.append(" and upper(so.federation_id) = upper(:ownerFederatedId) ");
         }	
         
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()))
         {
-        	criteriaList.add(subscriptionSearchRequest.getOwnerFirstName().trim());
-        	staticCriteria.append(" and upper(so.first_name) like concat(upper(?), '%') ");
+        	paramMap.put("firstName", subscriptionSearchRequest.getOwnerFirstName().trim());
+        	staticCriteria.append(" and upper(so.first_name) like concat(upper(:firstName), '%') ");
         }	
         
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName()))
         {
-        	criteriaList.add(subscriptionSearchRequest.getOwnerLastName().trim());
-        	staticCriteria.append(" and upper(so.last_name) like concat(upper(?), '%') ");
+        	paramMap.put("lastName", subscriptionSearchRequest.getOwnerLastName().trim());
+        	staticCriteria.append(" and upper(so.last_name) like concat(upper(:lastName), '%') ");
         }
         
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerOri()))
         {
-        	criteriaList.add(subscriptionSearchRequest.getOwnerOri().trim());
-        	staticCriteria.append(" and upper(ap.agency_ori) = upper(?) ");
+        	paramMap.put("ownerOri", subscriptionSearchRequest.getOwnerOri().trim());
+        	staticCriteria.append(" and upper(ap.agency_ori) = upper(:ownerOri) ");
         }	
         
         if (BooleanUtils.isTrue(subscriptionSearchRequest.getActive())){
-        	criteriaList.add("1");
-        	staticCriteria.append(" and active = ? ");
+        	paramMap.put("isActive", "1");
+        	staticCriteria.append(" and active = :isActive ");
         }
         
         if (subscriptionSearchRequest.getSubscriptionCategories().size() > 0){
-        	staticCriteria.append( " and ( ");
-        	for (int i=0 ; i < subscriptionSearchRequest.getSubscriptionCategories().size(); i++){
-	        	criteriaList.add(subscriptionSearchRequest.getSubscriptionCategories().get(i));
-	        	
-	        	if (i > 0){
-	        		staticCriteria.append(" or "); 
-	        	}
-	        	staticCriteria.append(" s.SUBSCRIPTION_CATEGORY_CODE = ? ");
-        	}
-        	staticCriteria.append( " ) ");
+        	paramMap.put("subscriptionCategories", new HashSet<String>(subscriptionSearchRequest.getSubscriptionCategories()));
+        	staticCriteria.append(" and s.SUBSCRIPTION_CATEGORY_CODE in ( :subscriptionCategories )");
+        }
+        else if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())){
+        	paramMap.put("civilSubscriptionCategories", new HashSet<String>(SubscriptionCategoryCode.getCivilCodes()));
+        	staticCriteria.append(" and ( s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategories ) ) ");
         }
 
-        Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
-
         Map<String, String> subjectIdentifiers = subscriptionSearchRequest.getSubjectIdentifiers();
-        criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
+        addToParamsMap(paramMap, subjectIdentifiers);
 
         String queryString = BASE_QUERY_STRING + staticCriteria.toString() ; 
         
         if (subjectIdentifiers.size() > 0 ){
-            queryString += " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
+            queryString += " and " + SubscriptionSearchQueryDAO.buildNamedCriteriaSql(subjectIdentifiers.size());
         }
         
         queryString+= " order by s.timestamp desc ";
         
-        List<Subscription> ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
+        log.info("queryString: " + queryString);
+        log.info("paramMap: " + paramMap);
+        List<Subscription> ret = this.jdbcTemplateNamedParameter.query(queryString, paramMap, resultSetExtractor);
 
         if (BooleanUtils.isFalse(subscriptionSearchRequest.getActive())){
         	ret = ret.stream()

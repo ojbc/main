@@ -29,7 +29,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant-issue-reporting-service-connector">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ojbc-application-monitor">
 	
 		<endpoint id="mailEndpoint" uri="${mailEndpoint}" />
 			
@@ -63,18 +63,41 @@
 		           
 		           <camel:log message="Exception: ${exception.message}"/>
 		           
-		           <!-- Send Alert -->
-		           
-		           <camel:to uri="direct:sendAlert"/>
-		           
+		           <camel:to uri="direct:checkForAlert"/>
+
 		       </doCatch>
 			</doTry>			
 			
 		</camel:route>	
+
+		<camel:route>
+		   <camel:from uri="direct:checkForAlert"/>
+		   	
+           <camel:to uri="bean:applicationMonitorRetryProcess?method=sendAlertCamel"/>
+			
+		   <camel:choice>
+		      <camel:when>
+		      	   <camel:simple>${in.headers.sendAlert} == 'true'</camel:simple>
+		           <!-- Send Alert -->
+		           <camel:to uri="direct:sendAlert"/>
+		      </camel:when>
+		      <camel:otherwise>
+		      		
+		      		<camel:delay>
+		      			<constant>{{delay}}</constant>
+		      		</camel:delay>
+		      		
+					<camel:to uri="direct:checkWebServiceEndpoint"/>		      		
+		      </camel:otherwise>
+           </camel:choice>			
+		
+		</camel:route>
 		
 		<camel:route id="sendAlertRoute">
 		
 			<camel:from uri="direct:sendAlert"/> 
+			
+			<camel:log message="Sending alert"/>
 
 	       	<camel:setHeader headerName="from">
 	    		<constant>{{from}}</constant>
@@ -113,6 +136,6 @@
       </property>      
     </bean>	
 
-	
+	<bean id="applicationMonitorRetryProcess" class="org.ojbc.application.monitor.ApplicationMonitorRetryProcess"/>
 	
 </beans>

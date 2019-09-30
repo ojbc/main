@@ -104,6 +104,8 @@ public interface EnhancedAuditDAO {
 	
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
+	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId);
+	
 	public Integer retrieveSystemToSearchIDFromURI(String uri);
 	
 	public Integer retrieveSystemToSearchIDFromSystemName(String systemName);

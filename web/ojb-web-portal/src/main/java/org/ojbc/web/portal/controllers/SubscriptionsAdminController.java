@@ -87,8 +87,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	    return "subscriptions/admin/_adminLandingPage";
 	}
     
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
-	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	@RequestMapping(value = "adminSearchForm", method = RequestMethod.GET)
+	public String adminSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
 		log.info("Presenting the search Form");
 		if (resetForm) {
@@ -99,8 +99,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/_searchForm";
 	}
     
-	@RequestMapping(value = "search", method = RequestMethod.POST)
-	public String advancedSearch(HttpServletRequest request,	
+	@RequestMapping(value = "adminAdvancedsearch", method = RequestMethod.POST)
+	public String adminAdvancedSearch(HttpServletRequest request,	
 			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
 	        Map<String, Object> model) {	

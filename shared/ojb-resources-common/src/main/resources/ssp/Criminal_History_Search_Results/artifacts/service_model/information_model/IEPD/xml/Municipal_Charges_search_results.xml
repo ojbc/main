@@ -23,7 +23,8 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0 ../xsd/criminal_history_search_results.xsd ">
 	<chsres-ext:CriminalHistorySearchResult>
 		<j:Subject structures:id="Subject_01">
@@ -48,7 +49,6 @@
 			<nc:ActivityDate>
 				<nc:Date>2018-05-29</nc:Date>
 			</nc:ActivityDate>
-			<!-- NEW 9/9/19 -->
 			<j:ArrestAgency>
 				<nc:OrganizationName>Oklahoma PD</nc:OrganizationName>
 				<j:OrganizationAugmentation>
@@ -81,13 +81,13 @@
 				<chsres-ext:ChargePrimarySystemIdentification>
 					<nc:IdentificationID>C4567893</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
-				<!-- NEW 9/9/19 -->
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
-				<!-- NEW 9/9/19 -->
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>				
 				<chsres-ext:ChargeOwnerAgency>
 					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
 				</chsres-ext:ChargeOwnerAgency>
-				<!-- NEW 9/9/19 -->
 				<chsres-ext:ChargeAssignedAgency>
 					<j:OrganizationAugmentation>
 						<j:OrganizationORIIdentification>
@@ -121,6 +121,9 @@
 					<nc:IdentificationID>C13245</nc:IdentificationID>
 				</chsres-ext:ChargePrimarySystemIdentification>
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
+				<chsres-ext:ChargeHideDate>
+					<nc:Date>2018-12-29</nc:Date>
+				</chsres-ext:ChargeHideDate>				
 				<chsres-ext:ChargeOwnerAgency>
 					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
 				</chsres-ext:ChargeOwnerAgency>
@@ -135,9 +138,6 @@
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
 			</j:ArrestSubject>
-			<chsres-ext:ArrestHideDate>
-				<nc:Date>2018-06-02</nc:Date>
-			</chsres-ext:ArrestHideDate>
 			<chsres-ext:ArrestPrimarySystemIdentification>
 				<nc:IdentificationID>A3245667</nc:IdentificationID>
 			</chsres-ext:ArrestPrimarySystemIdentification>
@@ -150,4 +150,13 @@
 		</intel:SystemIdentification>
 		<chsres-ext:SearchResultCategoryText>Criminal History</chsres-ext:SearchResultCategoryText>
 	</chsres-ext:CriminalHistorySearchResult>
+	<srm:SearchResultsMetadata>
+		<srm:TotalAuthorizedSearchResultsQuantity>8</srm:TotalAuthorizedSearchResultsQuantity>
+		<srer:SearchErrors>
+			<nc:SystemName>System Name</nc:SystemName>
+			<srer:SearchResultsExceedThresholdError>
+				<srer:SearchResultsRecordCount>12</srer:SearchResultsRecordCount>
+			</srer:SearchResultsExceedThresholdError>
+		</srer:SearchErrors>
+	</srm:SearchResultsMetadata>
 </chsres-doc:CriminalHistorySearchResults>
