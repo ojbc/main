@@ -957,6 +957,7 @@ public class SubscriptionSearchQueryDAO {
     	for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
     		params.put("identifierName" + i, entry.getKey());
     		params.put("identifierValueName" + i, entry.getValue());
+    		i ++;
     	}
     }
     
