@@ -48,6 +48,8 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -1239,4 +1241,58 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return rowsUpdated;
 	}
 
+	@Override
+	public Integer saveNsorDemographics(NsorDemographics nsorDemographics) {
+        log.debug("Inserting row into NSOR_DEMOGRAPHICS table : " + nsorDemographics.toString());
+
+        final String NSOR_DEMOGRAPHICS_INSERT="insert into NSOR_DEMOGRAPHICS "
+        		+ "(TRANSACTION_NUMBER, DEMOGRAPHICS_FILE, "
+        		+ " RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(NSOR_DEMOGRAPHICS_INSERT, 
+        	                		new String[] {"NSOR_DEMOGRAPHICS_ID"});
+        	            ps.setString(1, nsorDemographics.getTransactionNumber());
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(nsorDemographics.getDemographicsFile())));
+        	            ps.setInt(3, nsorDemographics.getResultsSender().ordinal()+1);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public Integer saveNsorSearchResult(NsorSearchResult nsorSearchResult) {
+        log.debug("Inserting row into NSOR_SEARCH_RESULT table : " + nsorSearchResult.toString());
+
+        final String NSOR_SEARCH_RESULT_INSERT="insert into NSOR_SEARCH_RESULT "
+        		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
+        		+ " RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(NSOR_SEARCH_RESULT_INSERT, 
+        	                		new String[] {"NSOR_SEARCH_RESULT_ID"});
+        	            ps.setString(1, nsorSearchResult.getTransactionNumber());
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(nsorSearchResult.getSearchResultFile())));
+        	            ps.setInt(3, nsorSearchResult.getResultsSender().ordinal()+1);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+	
 }
