@@ -127,8 +127,10 @@
                       });
                   });
                   $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
-	                	  var arrestId = $(this).closest("tr").attr("id"); 
-                      xhr = $.get( context +"daArrests/" + arrestId + "/unhide", function(data) {
+                      var selectedRow = $(this).closest("tr"); 
+                      var arrestId = selectedRow.attr("id"); 
+                      var chargeIds = selectedRow.find(".unhideableChargeIds").text();
+                      xhr = $.get( context +"daArrests/" + arrestId + "/charges/" + chargeIds + "/unhide", function(data) {
                           $("#searchResultsList").replaceWith(data);
                       }).fail(ojbc.displayFailMessage);
                   });

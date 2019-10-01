@@ -115,8 +115,8 @@ public class ArrestServiceImpl implements ArrestService {
 	}
 
 	@Override
-	public String unhideArrest(String id, Element samlToken) throws Throwable {
-		return arrestUnhideRequestProcessor.invokeRequest(id, samlToken);
+	public String unhideArrest(String id, List<String> chargeIds, Element samlToken) throws Throwable {
+		return arrestUnhideRequestProcessor.invokeRequest(id, chargeIds, samlToken);
 	}
 
 	@Override

@@ -195,9 +195,10 @@ public class DaArrestController {
 		return "arrest/da/arrestDetail::arrestDetail";
 	}
 
-	@GetMapping("/{id}/unhide")
-	public String unhideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		arrestService.unhideArrest(id, samlService.getSamlAssertion(request));
+	@GetMapping("/{id}/charges/{chargeIds}/unhide")
+	public String unhideArrest(HttpServletRequest request, @PathVariable String id, 
+			@PathVariable List<String> chargeIds, Map<String, Object> model) throws Throwable {
+		arrestService.unhideArrest(id, chargeIds, samlService.getSamlAssertion(request));
 		
 		ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest"); 
 		getArrestSearchResults(request, daArrestSearchRequest, model);

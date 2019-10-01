@@ -1716,14 +1716,14 @@ public class RequestMessageBuilderUtilities {
         
         Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
 		Element arrestHideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideDate");
+		for (String chargeId : chargeIds) {
+			Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+			Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
+			XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
+		}
 		XmlUtils.appendTextElement(arrestHideDate, NS_NC_40, "Date", LocalDate.now().toString());
 		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestHideIndicator", "true");
         
-        for (String chargeId : chargeIds) {
-            Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
-	        Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
-	        XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
-        }
 
         return document;
 	}
@@ -1893,7 +1893,7 @@ public class RequestMessageBuilderUtilities {
 //				<chm-req-ext:ArrestUnhideIndicator>true</chm-req-ext:ArrestUnhideIndicator>
 //			</j:Arrest>
 //		</auhr-req-doc:ArrestUnhideRequest>
-	public static Document createArrestUnhideRequest(String id) throws Exception {
+	public static Document createArrestUnhideRequest(String id, List<String> chargeIds ) throws Exception {
         Document document = OJBCXMLUtils.createDocument();  
         Element rootElement = document.createElementNS(NS_ARREST_UNHIDE_REQUEST_DOC, 
         		NS_PREFIX_ARREST_UNHIDE_REQUEST_DOC + ":ArrestUnhideRequest");
@@ -1901,6 +1901,12 @@ public class RequestMessageBuilderUtilities {
         		NS_ARREST_UNHIDE_REQUEST_DOC);
         Element arrest = createArrestModifyRequestArrestElement(id, document, rootElement);
         
+		for (String chargeId : chargeIds) {
+			Element arrestChargeElement = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
+			Element chargeIdentification = XmlUtils.appendElement(arrestChargeElement, NS_JXDM_60, "ChargeIdentification");
+			XmlUtils.appendTextElement(chargeIdentification, NS_NC_40, "IdentificationID", chargeId);
+		}
+
 		Element arrestUnhideDate = XmlUtils.appendElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideDate");
 		XmlUtils.appendTextElement(arrestUnhideDate, NS_NC_40, "Date", LocalDate.now().toString());
 		XmlUtils.appendTextElement(arrest, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "ArrestUnhideIndicator", "true");

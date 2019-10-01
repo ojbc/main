@@ -200,9 +200,10 @@ public class MuniArrestController {
 		return "arrest/arrests::resultsPage";
 	}
 	
-	@GetMapping("/{id}/unhide")
-	public String unhideArrest(HttpServletRequest request, @PathVariable String id, Map<String, Object> model) throws Throwable {
-		arrestService.unhideArrest(id, samlService.getSamlAssertion(request));
+	@GetMapping("/{id}/charges/{chargeIds}/unhide")
+	public String unhideArrest(HttpServletRequest request, @PathVariable String id, 
+			@PathVariable List<String> chargeIds, Map<String, Object> model) throws Throwable {
+		arrestService.unhideArrest(id, chargeIds, samlService.getSamlAssertion(request));
 		
 		ArrestSearchRequest arrestSearchrequest = (ArrestSearchRequest) model.get("arrestSearchRequest"); 
 		getArrestSearchResults(request, arrestSearchrequest, model);
