@@ -26,6 +26,8 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -45,6 +47,8 @@ public interface RapbackDAO {
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
 	public List<CivilInitialResults> getCivilInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
+	public Integer saveNsorDemographics(final NsorDemographics nsorDemographics);
+	public Integer saveNsorSearchResult(final NsorSearchResult nsorSearchResult);
 	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
 	public Subject getSubject(Integer id);

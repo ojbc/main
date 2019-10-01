@@ -30,6 +30,8 @@ import org.ojbc.adapters.rapbackdatastore.RapbackIllegalStateException;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
 	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
-
+	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-RESULT-TO-HIJIS";
+	
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
     private String databaseResendFolder; 
@@ -76,18 +79,22 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			return; 
 		}
 		
-		Node rootNode = XmlUtils.xPathNodeSearch(report, 
+		Node civilRootNode = XmlUtils.xPathNodeSearch(report, 
 				"/pidresults:PersonFederalIdentificationResults[ident-ext:CivilIdentificationReasonCode]|"
 				+ "/pidresults:PersonStateIdentificationResults[ident-ext:CivilIdentificationReasonCode]");
-		
-		if (rootNode != null){
-			processCivilInitialResultsReport(rootNode, transactionNumber);
+
+		Node criminalRootNode = XmlUtils.xPathNodeSearch(report, 
+				"/pidresults:PersonFederalIdentificationResults[ident-ext:CriminalIdentificationReasonCode]|"
+						+ "/pidresults:PersonStateIdentificationResults[ident-ext:CriminalIdentificationReasonCode]");
+
+		if (civilRootNode != null)
+		{
+			processCivilInitialResultsReport(civilRootNode, transactionNumber, transactionCategoryText);
 		}
-		else{
-			rootNode = XmlUtils.xPathNodeSearch(report, 
-					"/pidresults:PersonFederalIdentificationResults[ident-ext:CriminalIdentificationReasonCode]|"
-							+ "/pidresults:PersonStateIdentificationResults[ident-ext:CriminalIdentificationReasonCode]");
-			processCriminalInitialResultsReport(rootNode, transactionNumber); 		
+		
+		if (criminalRootNode != null)
+		{
+			processCriminalInitialResultsReport(criminalRootNode, transactionNumber); 		
 		}
 	}
 
@@ -117,7 +124,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	}
 
-	private void processCivilInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
+	private void processCivilInitialResultsReport(Node rootNode, String transactionNumber, String transactionCategoryText) throws Exception {
 		
 		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
 			if (isOrigNistQueued( inputFolder, transactionNumber ) || isOrigNistQueued(databaseResendFolder, transactionNumber)){
@@ -129,7 +136,69 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		
 		updateSubject(rootNode, transactionNumber);
-		processCivilInitialResults(rootNode, transactionNumber);  
+		  
+		
+		if (NSOR_RESULT_TO_HIJIS.equals(transactionCategoryText))
+		{
+			log.info("Processing NSOR Result to HIJIS message.");
+			saveNsorDocument(rootNode, transactionNumber);
+		}
+		else
+		{
+			processCivilInitialResults(rootNode, transactionNumber);	
+		}
+
+	}
+
+	private void saveNsorDocument(Node rootNode, String transactionNumber) throws Exception {
+		//Save ext:NationalSexOffenderRegistryDemographicsDocument or ext:NationalSexOffenderRegistrySearchResultDocument
+		
+		Node nsorDemographicsElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument");
+		Node nsorSearchResultElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument");
+		
+		if (nsorDemographicsElement != null)
+		{
+			NsorDemographics nsorDemographics = new NsorDemographics();
+			
+			//Make Model
+			if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
+				nsorDemographics.setResultsSender(ResultSender.FBI);
+			}
+			else{
+				nsorDemographics.setResultsSender(ResultSender.State);
+			}			
+			
+			nsorDemographics.setTransactionNumber(transactionNumber);
+			
+			nsorDemographics.setDemographicsFile(
+					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument"));
+			
+			rapbackDAO.saveNsorDemographics(nsorDemographics);
+
+		}	
+
+		if (nsorSearchResultElement != null)
+		{
+			NsorSearchResult nsorSearchResult = new NsorSearchResult();
+			
+			//Make Model
+			if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
+				nsorSearchResult.setResultsSender(ResultSender.FBI);
+			}
+			else{
+				nsorSearchResult.setResultsSender(ResultSender.State);
+			}			
+			
+			nsorSearchResult.setTransactionNumber(transactionNumber);
+			
+			nsorSearchResult.setSearchResultFile(
+					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument"));
+			
+			rapbackDAO.saveNsorSearchResult(nsorSearchResult);
+			
+		}	
+		
+		
 	}
 
 	private void processCivilInitialResults(Node rootNode, String transactionNumber) throws Exception, IOException {
