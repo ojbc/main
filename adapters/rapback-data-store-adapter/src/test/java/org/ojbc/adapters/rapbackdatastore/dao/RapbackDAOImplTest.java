@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -288,7 +289,12 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveNsorDemographics(nsorDemographics);
 		assertNotNull(pkId);
-
+		
+		List<NsorDemographics> nsorDemographicsList = rapbackDAO.getNsorDemographics(TRANSACTION_NUMBER + "5");
+		assertEquals(1, nsorDemographicsList.size());
+		assertEquals(TRANSACTION_NUMBER + "5", nsorDemographicsList.get(0).getTransactionNumber());
+		assertTrue(Arrays.equals("Demographics File Info".getBytes(), nsorDemographicsList.get(0).getDemographicsFile()));
+		
 		NsorSearchResult nsorSearchResult = new NsorSearchResult();
 		nsorSearchResult.setTransactionNumber(TRANSACTION_NUMBER + "5");
 		nsorSearchResult.setSearchResultFile("Search Results File Info".getBytes());
@@ -296,6 +302,12 @@ public class RapbackDAOImplTest {
 
 		pkId = rapbackDAO.saveNsorSearchResult(nsorSearchResult);
 		assertNotNull(pkId);
+		
+		List<NsorSearchResult> nsorSearchResults = rapbackDAO.getNsorSearchResults(TRANSACTION_NUMBER + "5");
+		assertEquals(1, nsorSearchResults.size());
+		assertEquals(TRANSACTION_NUMBER + "5", nsorSearchResults.get(0).getTransactionNumber());
+		assertTrue(Arrays.equals("Search Results File Info".getBytes(), nsorSearchResults.get(0).getSearchResultFile()));
+
 	}
 
 	@Test

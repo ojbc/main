@@ -60,7 +60,11 @@ public interface RapbackDAO {
 			IdentificationResultSearchRequest searchRequest);
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token,
 			IdentificationResultSearchRequest searchRequest);
-	public String getIdentificationCategoryType(String transactionNumber); 
+	public String getIdentificationCategoryType(String transactionNumber);
+	
+	public List<NsorDemographics> getNsorDemographics(String transactionNumber);
+	public List<NsorSearchResult> getNsorSearchResults(String transactionNumber);
+	
 	public Boolean isExistingTransactionNumber(String transactionNumber); 
 	public void updateIdentificationCategory(String transactionNumber, String identificationCategory);
 	
