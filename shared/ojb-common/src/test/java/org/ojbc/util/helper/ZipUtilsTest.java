@@ -58,6 +58,10 @@ public class ZipUtilsTest {
 		printCompressedHexString("Match");
 		printCompressedHexString("FBI Subsequent results.");
 		printCompressedHexString("State Subsequent results.");
+		printCompressedHexString("NSOR Demographics");
+		printCompressedHexString("NSOR Demographics 1");
+		printCompressedHexString("NSOR Search Results");
+		printCompressedHexString("NSOR Search Results 1");
 		
 		
 //		String fbiCriminalHistory = FileUtils.readFileToString(new File("src/test/resources/testData/fbi_criminal_history.txt"));
