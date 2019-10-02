@@ -37,6 +37,8 @@ public class AbstractIdentificationResultsQueryProcessor extends AbstractSearchQ
 		FBIIdentificationSearchResultDocument,
 		StateCriminalHistoryRecordDocument,
 		FBIIdentityHistorySummaryDocument,
+		NationalSexOffenderRegistryDemographicsDocument,
+		NationalSexOffenderRegistrySearchResultDocument,
 		DocumentBinary,
 		Base64BinaryObject,
 	}
@@ -45,7 +47,9 @@ public class AbstractIdentificationResultsQueryProcessor extends AbstractSearchQ
 		fbiSearchResultDocument, 
 		fbiIdentityHistorySummaryDocument,
 		stateCriminalHistoryRecordDocument,
-		stateSearchResultDocument
+		stateSearchResultDocument,
+		nationalSexOffenderRegistryDemographicsDocument,
+		nationalSexOffenderRegistrySearchResultDocument
 	}
 
 	protected final Log log = LogFactory.getLog(this.getClass());

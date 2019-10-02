@@ -147,4 +147,19 @@
          <oirq-res-ext:Base64BinaryObject>U3RhdGVDaXZpbFJhcFNoZWV0Mg==</oirq-res-ext:Base64BinaryObject>
       </nc30:DocumentBinary>
    </oirq-res-ext:StateCriminalHistoryRecordDocument>
+   <oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument s30:id="nationalSexOffenderRegistryDemographicsDocument_001">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>TlNPUiBEZW1vZ3JhcGhpY3M=</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
+   </oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument>
+   <oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument s30:id="nationalSexOffenderRegistrySearchResultDocument_001">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>TlNPUiBTZWFyY2ggUmVzdWx0cw==</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
+   </oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument>
+   <oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument s30:id="nationalSexOffenderRegistrySearchResultDocument_002">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>TlNPUiBTZWFyY2ggUmVzdWx0cyAx</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
+   </oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument>
 </oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults>

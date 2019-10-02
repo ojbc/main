@@ -48,6 +48,8 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
@@ -165,8 +167,10 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     		
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
-        	createNsorDocumentElement(transactionNumber, rootElement);
         }
+        
+    	createNsorDocumentElement(transactionNumber, rootElement);
+
 	}
 
 	private void createNsorDocumentElement(
@@ -184,8 +188,43 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 //			</nc:DocumentBinary>
 //		</oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument>
 		
+		List<NsorDemographics> nsorDemographics = rapbackDAO.getNsorDemographics(transactionNumber);
+
+		int i = 0;
+		QueryResponseElementName queryResponseElementName;
+		DocumentId documentId;
 		
-		//TODO Add mappings here
+		queryResponseElementName = QueryResponseElementName.NationalSexOffenderRegistryDemographicsDocument;
+		documentId = DocumentId.nationalSexOffenderRegistryDemographicsDocument;
+		
+		for (NsorDemographics nsorDemographic : nsorDemographics)
+		{
+			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+			appendDocumentElement(rootElement, 
+					queryResponseElementName, 
+					documentIdString,
+					nsorDemographic.getDemographicsFile());
+			
+			i++;
+		}	
+		
+		List<NsorSearchResult> nsorSearchResults = rapbackDAO.getNsorSearchResults(transactionNumber);
+		
+		queryResponseElementName = QueryResponseElementName.NationalSexOffenderRegistrySearchResultDocument;
+		documentId = DocumentId.nationalSexOffenderRegistrySearchResultDocument;
+		i = 0;
+		
+		for (NsorSearchResult nsorSearchResult : nsorSearchResults)
+		{
+			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+			appendDocumentElement(rootElement, 
+					queryResponseElementName, 
+					documentIdString,
+					nsorSearchResult.getSearchResultFile());
+			
+			i++;
+		}	
+
 		
 	}
 
