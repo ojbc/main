@@ -165,7 +165,28 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     		
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
+        	createNsorDocumentElement(transactionNumber, rootElement);
         }
+	}
+
+	private void createNsorDocumentElement(
+			String transactionNumber, Element rootElement) {
+		
+//		<!-- NSOR Documents -->
+//		<oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument structures:id="Doc_07">
+//			<nc:DocumentBinary>
+//				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+//			</nc:DocumentBinary>
+//		</oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument>
+//		<oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument structures:id="Doc_08">
+//			<nc:DocumentBinary>
+//				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+//			</nc:DocumentBinary>
+//		</oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument>
+		
+		
+		//TODO Add mappings here
+		
 	}
 
 	private void appdendStatusElement(Element parentElement, IdentificationTransaction identificationTransaction, String extNamespace) {
