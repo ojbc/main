@@ -17,7 +17,6 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<!-- 11/19/15 msj -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0"
@@ -55,6 +54,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -72,6 +72,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -89,6 +90,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -107,6 +109,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -178,12 +181,16 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeHasDispositionIndicator" type="niem-xs:boolean"
-		substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeHasDispositionIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a charges has a disposition, false otherwise.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
+	<xsd:element name="IncludeOnlyAdminOwnedChargesIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a returned charge is owned by Admin; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="SearchQualifierCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="chsreq-ext:SearchQualifierCodeSimpleType">
