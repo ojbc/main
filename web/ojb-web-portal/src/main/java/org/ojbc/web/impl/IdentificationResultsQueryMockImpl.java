@@ -17,6 +17,7 @@
 package org.ojbc.web.impl;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -51,6 +52,14 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 			identificationResultsQueryResponse.setStateSearchResultFile("Match");
 			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Rap Sheet"));
 			identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Identity History Summary"));
+			
+			//To conditionally return a random boolean
+			if (getRandomBoolean())
+			{	
+				identificationResultsQueryResponse.setNsorDemographicsDocuments(Arrays.asList("NSOR Demographics", "NSOR Demographics 1"));
+				identificationResultsQueryResponse.setNsorSearchResultsDocuments(Arrays.asList("NSOR Search Results", "NSOR Search Results 1"));
+			}
+			
 		}
 		else {
 			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Subsequent Results"));
@@ -59,5 +68,9 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 		return identificationResultsQueryResponse;
 	}
 
+	public boolean getRandomBoolean() {
+	    Random random = new Random();
+	    return random.nextBoolean();
+	}
 	
 }
