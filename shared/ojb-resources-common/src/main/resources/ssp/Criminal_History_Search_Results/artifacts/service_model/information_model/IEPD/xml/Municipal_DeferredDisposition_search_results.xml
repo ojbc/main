@@ -69,16 +69,6 @@
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -146,21 +136,20 @@
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
-				</chsres-ext:ChargeHideDate>				
+				</chsres-ext:ChargeHideDate>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 				<j:ChargeDisposition>
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -227,7 +216,16 @@
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
-				</chsres-ext:ChargeHideDate>				
+				</chsres-ext:ChargeHideDate>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />

@@ -69,16 +69,6 @@
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF PARAPHERNALIA</j:ChargeDescriptionText>
 				<j:ChargeDisposition structures:id="Dispo_01">
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: District Attorney</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -122,16 +112,6 @@
 					<chsres-ext:DispositionChargeCountQuantity>3</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
 				<j:ChargeDisposition structures:id="Dispo_02">
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: District Attorney</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -246,21 +226,20 @@
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
-				</chsres-ext:ChargeHideDate>	
+				</chsres-ext:ChargeHideDate>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationCategoryText>DA</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Millville District Attorney</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
 				<j:ChargeDisposition structures:id="Dispo_03">
-					<nc:DispositionEntity>
-						<nc:EntityOrganization>
-							<nc:OrganizationName>Charge Owner: District Attorney</nc:OrganizationName>
-							<j:OrganizationAugmentation>
-								<j:OrganizationORIIdentification>
-									<nc:IdentificationID>Charge Owner ORI</nc:IdentificationID>
-								</j:OrganizationORIIdentification>
-							</j:OrganizationAugmentation>
-						</nc:EntityOrganization>
-					</nc:DispositionEntity>
 					<nc:DispositionDate>
 						<nc:Date>2017-12-29</nc:Date>
 					</nc:DispositionDate>
@@ -336,6 +315,15 @@
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
 				</chsres-ext:ChargeHideDate>
+				<chsres-ext:ChargeOwnerAgency>
+					<nc:OrganizationCategoryText>DA</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Millville District Attorney</nc:OrganizationName>
+					<j:OrganizationAugmentation>
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
+						</j:OrganizationORIIdentification>
+					</j:OrganizationAugmentation>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />

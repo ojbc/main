@@ -84,17 +84,16 @@
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
-				</chsres-ext:ChargeHideDate>				
+				</chsres-ext:ChargeHideDate>
 				<chsres-ext:ChargeOwnerAgency>
-					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
-				</chsres-ext:ChargeOwnerAgency>
-				<chsres-ext:ChargeAssignedAgency>
+					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
 					<j:OrganizationAugmentation>
 						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
 						</j:OrganizationORIIdentification>
 					</j:OrganizationAugmentation>
-				</chsres-ext:ChargeAssignedAgency>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestCharge>
 				<j:ChargeDescriptionText>POSSESSION OF MARIJUANA</j:ChargeDescriptionText>
@@ -123,17 +122,16 @@
 				<chsres-ext:ChargeReviewedIndicator>true</chsres-ext:ChargeReviewedIndicator>
 				<chsres-ext:ChargeHideDate>
 					<nc:Date>2018-12-29</nc:Date>
-				</chsres-ext:ChargeHideDate>				
+				</chsres-ext:ChargeHideDate>
 				<chsres-ext:ChargeOwnerAgency>
-					<nc:OrganizationName>Charge Owner: Municipal Court</nc:OrganizationName>
-				</chsres-ext:ChargeOwnerAgency>
-				<chsres-ext:ChargeAssignedAgency>
+					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
+					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
 					<j:OrganizationAugmentation>
 						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>Charge Assigned ORI</nc:IdentificationID>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
 						</j:OrganizationORIIdentification>
 					</j:OrganizationAugmentation>
-				</chsres-ext:ChargeAssignedAgency>
+				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
 			<j:ArrestSubject>
 				<nc:RoleOfPerson structures:ref="Subject_01" />
