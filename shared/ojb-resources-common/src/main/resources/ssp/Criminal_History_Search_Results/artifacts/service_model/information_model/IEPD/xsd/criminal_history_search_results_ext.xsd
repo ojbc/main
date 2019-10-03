@@ -139,7 +139,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DispositionProvisionCodeDescriptionText" type="nc:TextType" substitutionGroup="nc:DispositionAugmentationPoint">
+	<xsd:element name="DispositionProvisionCodeDescriptionText" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code description for a disposition provision code.
 			</xsd:documentation>
@@ -178,20 +179,11 @@
 			<xsd:documentation>A type of general offense identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeOwnerAgency" type="nc:OrganizationType"
-		substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeOwnerAgency" type="nc:OrganizationType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The agency who is responsible for a charge at the time of disposing of a charge.</xsd:documentation>
+			<xsd:documentation>The agency who is responsible for a charge.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
-	<xsd:element name="ChargeAssignedAgency" type="nc:OrganizationType"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The agency who is responsible for a charge modification.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>	
-	
-	
+	</xsd:element>
 	<xsd:element name="RecordCategoryIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
@@ -220,7 +212,7 @@
 			<xsd:documentation>The date a charge record is hidden.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="DispositionSentenceAssociation" type="chsres-ext:DispositionSentenceAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>An association between a disposition and a sentence.
@@ -278,7 +270,7 @@
 			<xsd:documentation>True if a charge has been reviewed; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="ChargeModificationDescriptionCodeText" type="nc:TextType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
@@ -303,7 +295,7 @@
 			<xsd:documentation>A number of disposition charges.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>
+	</xsd:element>	
 	<xsd:element name="ChargeDispositionCategoryCode" type="chsres-ext:ChargeDispositionCategoryCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>

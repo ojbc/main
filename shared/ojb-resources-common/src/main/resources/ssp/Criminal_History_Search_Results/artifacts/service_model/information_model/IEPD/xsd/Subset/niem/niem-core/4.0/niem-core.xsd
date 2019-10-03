@@ -173,6 +173,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:OrganizationCategoryAbstract" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -385,6 +386,16 @@
   <xs:element name="OrganizationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for OrganizationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationCategoryAbstract" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional type of organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationCategoryText" type="nc:TextType" substitutionGroup="nc:OrganizationCategoryAbstract">
+    <xs:annotation>
+      <xs:documentation>A kind or functional type of organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationIdentification" type="nc:IdentificationType" nillable="true">
