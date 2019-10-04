@@ -159,7 +159,7 @@ public class SamlServiceImpl implements SamlService{
 //            customAttributes.put(SamlAttribute.FederationId, "");
             customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
 //                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
-            customAttributes.put(SamlAttribute.EmployerORI, appProperties.getDemoSamlAttributeEmailAddressText());
+            customAttributes.put(SamlAttribute.EmployerORI, appProperties.getDemoSamlAttributeEmployerOri());
             customAttributes.put(SamlAttribute.EmailAddressText, appProperties.getDemoSamlAttributeEmailAddressText());
             //customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
             customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator, "true");

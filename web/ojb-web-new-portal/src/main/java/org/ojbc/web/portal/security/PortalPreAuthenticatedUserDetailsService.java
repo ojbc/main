@@ -124,6 +124,7 @@ public class PortalPreAuthenticatedUserDetailsService implements
         case "Criminal History Repository":
         	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
         	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+        	userAttributes.getOris().clear();
         	break;
         }
         
