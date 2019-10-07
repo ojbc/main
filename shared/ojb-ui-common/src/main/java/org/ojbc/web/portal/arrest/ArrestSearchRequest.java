@@ -61,6 +61,7 @@ public class ArrestSearchRequest {
     private ArrestType arrestType; 
     private Boolean arrestWithDeferredDispositions; 
     private Boolean includeHiddenArrestIndicator; 
+    private Boolean includeOnlyAdminOwnedCharges; 
     
     public ArrestSearchRequest() {
     	super();
@@ -241,5 +242,13 @@ public class ArrestSearchRequest {
 
 	public void setAuthorizedOris(List<String> authorizedOris) {
 		this.authorizedOris = authorizedOris;
+	}
+
+	public Boolean getIncludeOnlyAdminOwnedCharges() {
+		return includeOnlyAdminOwnedCharges;
+	}
+
+	public void setIncludeOnlyAdminOwnedCharges(Boolean includeOnlyAdminOwnedCharges) {
+		this.includeOnlyAdminOwnedCharges = includeOnlyAdminOwnedCharges;
 	}
 }

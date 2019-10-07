@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
-@SessionAttributes({"agencyOriMapping", "authorizedOriMapping"})
+@SessionAttributes({"agencyOriMapping", "authorizedOriMapping", "osbiUser"})
 public class GlobalControllerAdvice {
 	
 	@SuppressWarnings("unused")

@@ -1227,6 +1227,9 @@ public class RequestMessageBuilderUtilities {
         rootElement.setAttribute("xmlns:" + NS_PREFIX_XSI, NS_XSI);
         document.appendChild(rootElement);
 
+        XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeOnlyAdminOwnedChargesIndicator", 
+			BooleanUtils.toString(arrestSearchRequest.getIncludeOnlyAdminOwnedCharges(), "true", "false", "false"));
+ 
         if (arrestSearchRequest.isNotEmpty()) {
         	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
         	
