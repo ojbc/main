@@ -67,6 +67,17 @@
 				<li id="FBI Initial Results">
 					<a href="#fbiInitialResultTab">FBI Initial Results</a>
 				</li>
+				
+				#if(
+					(($identificationResultsQueryResponse.nsorDemographicsDocuments) && ($identificationResultsQueryResponse.nsorDemographicsDocuments.size() > 0)) 
+					||
+					(($identificationResultsQueryResponse.nsorSearchResultsDocuments) && ($identificationResultsQueryResponse.nsorSearchResultsDocuments.size() > 0))
+				   ) 
+					<li id="NSOR Results">
+						<a href="#nsorResultTab">NSOR Results</a>
+					</li>
+				#end
+				
 				<button id="printButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
 			</ul>
 
@@ -88,6 +99,15 @@
 					<div class="rapsheet"><pre>$item</pre></div>
 				#end
 			</div>
+			<div id="nsorResultTab">
+				#foreach($item in $identificationResultsQueryResponse.nsorDemographicsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+				#foreach($item in $identificationResultsQueryResponse.nsorSearchResultsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>			
+			
 		</div>
         
     </body>

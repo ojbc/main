@@ -48,6 +48,8 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -1239,4 +1241,132 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return rowsUpdated;
 	}
 
+	@Override
+	public Integer saveNsorDemographics(NsorDemographics nsorDemographics) {
+        log.debug("Inserting row into NSOR_DEMOGRAPHICS table : " + nsorDemographics.toString());
+
+        final String NSOR_DEMOGRAPHICS_INSERT="insert into NSOR_DEMOGRAPHICS "
+        		+ "(TRANSACTION_NUMBER, DEMOGRAPHICS_FILE, "
+        		+ " RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(NSOR_DEMOGRAPHICS_INSERT, 
+        	                		new String[] {"NSOR_DEMOGRAPHICS_ID"});
+        	            ps.setString(1, nsorDemographics.getTransactionNumber());
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(nsorDemographics.getDemographicsFile())));
+        	            ps.setInt(3, nsorDemographics.getResultsSender().ordinal()+1);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public Integer saveNsorSearchResult(NsorSearchResult nsorSearchResult) {
+        log.debug("Inserting row into NSOR_SEARCH_RESULT table : " + nsorSearchResult.toString());
+
+        final String NSOR_SEARCH_RESULT_INSERT="insert into NSOR_SEARCH_RESULT "
+        		+ "(TRANSACTION_NUMBER, SEARCH_RESULT_FILE, "
+        		+ " RESULTS_SENDER_ID) "
+        		+ "values (?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(NSOR_SEARCH_RESULT_INSERT, 
+        	                		new String[] {"NSOR_SEARCH_RESULT_ID"});
+        	            ps.setString(1, nsorSearchResult.getTransactionNumber());
+						ps.setBlob(2, new SerialBlob(ZipUtils.zip(nsorSearchResult.getSearchResultFile())));
+        	            ps.setInt(3, nsorSearchResult.getResultsSender().ordinal()+1);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public List<NsorDemographics> getNsorDemographics(String transactionNumber) {
+		final String NSOR_DEMOGRAPHICS_SELECT = "SELECT * from NSOR_DEMOGRAPHICS where TRANSACTION_NUMBER = ?";
+		
+		List<NsorDemographics> nsorDemographics = 
+				jdbcTemplate.query(NSOR_DEMOGRAPHICS_SELECT, 
+						new NsorDemographicsRowMapper(), transactionNumber);
+
+		return nsorDemographics;
+	}
+
+	@Override
+	public List<NsorSearchResult> getNsorSearchResults(String transactionNumber) {
+		
+		final String NSOR_DEMOGRAPHICS_SELECT = "SELECT * from NSOR_SEARCH_RESULT where TRANSACTION_NUMBER = ?";
+		
+		List<NsorSearchResult> nsorSearchResults = 
+				jdbcTemplate.query(NSOR_DEMOGRAPHICS_SELECT, 
+						new NsorSearchResultsRowMapper(), transactionNumber);
+
+		return nsorSearchResults;
+	}
+	
+	private final class NsorDemographicsRowMapper implements
+		RowMapper<NsorDemographics> {
+		
+		public NsorDemographics mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+		
+			NsorDemographics nsorDemographicResult = new NsorDemographics();
+			
+			nsorDemographicResult.setId(rs.getInt("NSOR_DEMOGRAPHICS_ID"));
+			nsorDemographicResult.setTransactionNumber(rs.getString("transaction_number"));
+			nsorDemographicResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
+			
+			try{
+				nsorDemographicResult.setDemographicsFile(ZipUtils.unzip(rs.getBytes("DEMOGRAPHICS_FILE")));
+			}
+			catch(Exception e){
+				log.error("Got exception extracting the search result file for " + 
+						nsorDemographicResult.getTransactionNumber(), e);
+			}
+			nsorDemographicResult.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
+			
+			return nsorDemographicResult;
+		}
+	}
+	
+	private final class NsorSearchResultsRowMapper implements
+		RowMapper<NsorSearchResult> {
+		
+		public NsorSearchResult mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+		
+			NsorSearchResult nsorSearchResult = new NsorSearchResult();
+			
+			nsorSearchResult.setId(rs.getInt("NSOR_SEARCH_RESULT_ID"));
+			nsorSearchResult.setTransactionNumber(rs.getString("transaction_number"));
+			nsorSearchResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") - 1]);
+			
+			try{
+				nsorSearchResult.setSearchResultFile(ZipUtils.unzip(rs.getBytes("search_result_file")));
+			}
+			catch(Exception e){
+				log.error("Got exception extracting the search result file for " + 
+						nsorSearchResult.getTransactionNumber(), e);
+			}
+			nsorSearchResult.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
+			
+			return nsorSearchResult;
+		}
+	}
+	
+	
 }

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -46,6 +47,8 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsU
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
@@ -266,6 +269,45 @@ public class RapbackDAOImplTest {
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
+	}
+	
+	@Test
+	public void testSaveNsorInfo() throws Exception {
+		
+		saveIdentificationTransaction(TRANSACTION_NUMBER + "5");
+		
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER + "5"); 
+		
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject());		
+		
+		NsorDemographics nsorDemographics = new NsorDemographics();
+		nsorDemographics.setTransactionNumber(TRANSACTION_NUMBER + "5");
+		nsorDemographics.setDemographicsFile("Demographics File Info".getBytes());
+		nsorDemographics.setResultsSender(ResultSender.FBI);
+		
+		Integer pkId = rapbackDAO.saveNsorDemographics(nsorDemographics);
+		assertNotNull(pkId);
+		
+		List<NsorDemographics> nsorDemographicsList = rapbackDAO.getNsorDemographics(TRANSACTION_NUMBER + "5");
+		assertEquals(1, nsorDemographicsList.size());
+		assertEquals(TRANSACTION_NUMBER + "5", nsorDemographicsList.get(0).getTransactionNumber());
+		assertTrue(Arrays.equals("Demographics File Info".getBytes(), nsorDemographicsList.get(0).getDemographicsFile()));
+		
+		NsorSearchResult nsorSearchResult = new NsorSearchResult();
+		nsorSearchResult.setTransactionNumber(TRANSACTION_NUMBER + "5");
+		nsorSearchResult.setSearchResultFile("Search Results File Info".getBytes());
+		nsorSearchResult.setResultsSender(ResultSender.FBI);
+
+		pkId = rapbackDAO.saveNsorSearchResult(nsorSearchResult);
+		assertNotNull(pkId);
+		
+		List<NsorSearchResult> nsorSearchResults = rapbackDAO.getNsorSearchResults(TRANSACTION_NUMBER + "5");
+		assertEquals(1, nsorSearchResults.size());
+		assertEquals(TRANSACTION_NUMBER + "5", nsorSearchResults.get(0).getTransactionNumber());
+		assertTrue(Arrays.equals("Search Results File Info".getBytes(), nsorSearchResults.get(0).getSearchResultFile()));
+
 	}
 
 	@Test

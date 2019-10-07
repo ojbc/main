@@ -190,6 +190,20 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 						+ "oirq-res-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(
 				fbiIdentityHistorySummaryDocuments);
+		
+		List<String> nsorDemograhicsDocuments = getDocuments(body,
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+						+ "oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
+		identificationResultsQueryResponse.setNsorDemographicsDocuments(
+				nsorDemograhicsDocuments);
+
+		List<String> nsorSearchResultsDocuments = getDocuments(body,
+				"/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/"
+						+ "oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
+		identificationResultsQueryResponse.setNsorSearchResultsDocuments(
+				nsorSearchResultsDocuments);
+
+		
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
 		return identificationResultsQueryResponse;
 	}
