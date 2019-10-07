@@ -282,7 +282,7 @@ public class DaArrestController {
 	}
 	
 	@PostMapping("/charges/decline")
-	public String delineCharge(HttpServletRequest request,  ArrestCharge arrestCharge,
+	public String declineCharge(HttpServletRequest request,  ArrestCharge arrestCharge,
 			Map<String, Object> model) throws Throwable {
 		log.debug("decline charge: " + arrestCharge);
 		arrestCharge.setArrestType(ArrestType.DA);
