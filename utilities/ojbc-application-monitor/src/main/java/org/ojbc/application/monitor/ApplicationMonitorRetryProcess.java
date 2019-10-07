@@ -49,6 +49,7 @@ public class ApplicationMonitorRetryProcess {
 		if (currentRetries > maxRetries)
 		{
 			sendAlert = true;
+			currentRetries = 0;
 		}
 		
 		return sendAlert;
