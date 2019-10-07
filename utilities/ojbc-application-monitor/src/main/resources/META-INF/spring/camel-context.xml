@@ -66,6 +66,9 @@
 		           <camel:to uri="direct:checkForAlert"/>
 
 		       </doCatch>
+		       
+		       <camel:to uri="bean:applicationMonitorRetryProcess?method=resetRetries"/>
+		       
 			</doTry>			
 			
 		</camel:route>	
