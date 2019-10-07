@@ -135,7 +135,13 @@
 	  <xsl:variable name="chargeId" select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
 	  
 	  <div class="card">
-      <div class="card-header">
+      <div>
+        <xsl:attribute name="class">
+          card-header
+          <xsl:if test="chsres-ext:ChargeReferralCountQuantity[number() > 1]">
+            <xsl:text> bg-warning</xsl:text>
+          </xsl:if>
+        </xsl:attribute>
         <a class="card-link" data-toggle="collapse">
            <xsl:attribute name="href">
               <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>

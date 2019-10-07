@@ -101,6 +101,11 @@
 		  <xsl:attribute name="id">
          <xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
+      <xsl:if test="exists(j:Arrest/j:ArrestCharge/chsres-ext:ChargeReferralCountQuantity[number() > 1])">
+	      <xsl:attribute name="class">
+	         <xsl:text>bg-warning</xsl:text>
+	      </xsl:attribute>
+      </xsl:if>
 		  
 			<td>
 				<xsl:value-of select="j:Subject[@structures:id=../j:Arrest/j:ArrestSubject/nc:RoleOfPerson/@structures:ref]/j:SubjectIdentification/nc:IdentificationID"></xsl:value-of>

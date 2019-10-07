@@ -79,7 +79,7 @@
                   OTN is used to link the filing/disposition record to the OSBI Criminal History File.  OTN consists of nine numbers and a letter. (E.G. 001234567R)">
                 <i class="fas fa-info-circle"></i></a>
 						</th>
-            <th>DATE OF ARREST
+            <th>ARREST DATE
               <a href="#" data-toggle="popover" data-trigger="hover" 
                 data-content="The date on which the arrest occurred, as provided on the fingerprint card.">
                 <i class="fas fa-info-circle"></i></a>
@@ -132,7 +132,13 @@
 	   <xsl:variable name="chargeId" select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
 	   
 	   <div class="card">
-      <div class="card-header">
+      <div>
+        <xsl:attribute name="class">
+          card-header
+          <xsl:if test="chsres-ext:ChargeReferralCountQuantity[number() > 1]">
+            <xsl:text> bg-warning</xsl:text>
+          </xsl:if>
+        </xsl:attribute>
         <a class="card-link" data-toggle="collapse">
            <xsl:attribute name="href">
               <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
