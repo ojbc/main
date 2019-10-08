@@ -123,10 +123,10 @@ public class MuniArrestController {
 
 		if (arrestSearchRequest == null) {
 			arrestSearchRequest = new ArrestSearchRequest();
-			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
 //			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
 			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
-			arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(90));
+			arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
 			arrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
 			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
 			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);

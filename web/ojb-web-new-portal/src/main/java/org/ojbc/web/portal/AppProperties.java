@@ -49,6 +49,7 @@ public class AppProperties {
 	private Boolean allowQueriesWithoutSAMLToken = true; 
 	private Boolean inactivityTimeout=true;
 	private Integer inactivityTimeoutInSeconds = 1800; 
+	private Integer arrestSearchDateRange = 30; 
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
@@ -313,6 +314,14 @@ public class AppProperties {
 
 	public void setDemoSamlAttributeEmailAddressText(String demoSamlAttributeEmailAddressText) {
 		this.demoSamlAttributeEmailAddressText = demoSamlAttributeEmailAddressText;
+	}
+
+	public Integer getArrestSearchDateRange() {
+		return arrestSearchDateRange;
+	}
+
+	public void setArrestSearchDateRange(Integer arrestSearchDateRange) {
+		this.arrestSearchDateRange = arrestSearchDateRange;
 	}
 
 }

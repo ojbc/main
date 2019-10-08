@@ -15,6 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.web.portal.arrest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.LocalDate;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.security.OsbiUser;
@@ -141,6 +141,10 @@ public class DaArrestController {
 		
 		if (daArrestSearchRequest == null) {
 			daArrestSearchRequest = new ArrestSearchRequest(ArrestType.DA);
+			daArrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+			daArrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+			daArrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
+
 			OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
 			daArrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
 			model.put("daArrestSearchRequest", daArrestSearchRequest);

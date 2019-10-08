@@ -65,7 +65,7 @@ public class ArrestSearchRequest {
     
     public ArrestSearchRequest() {
     	super();
-		this.setArrestDateRangeStartDate(LocalDate.now().minusDays(90));
+		this.setArrestDateRangeStartDate(LocalDate.now().minusDays(30));
 //		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
 		this.setArrestDateRangeEndDate(LocalDate.now());
 		this.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
