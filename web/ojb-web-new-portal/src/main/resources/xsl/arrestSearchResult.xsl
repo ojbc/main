@@ -48,6 +48,15 @@
     <xsl:apply-templates select="$tooManyResultsErrors" />
     
     <xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
+      <xsl:variable name="containedResultCount">
+        <xsl:value-of select="count(chsres-ext:CriminalHistorySearchResult)"></xsl:value-of>
+      </xsl:variable>
+      <xsl:if test="$containedResultCount &lt; srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity/number()">
+        <div class="alert alert-info alert-dismissible fade show">
+          The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
+          entries are loaded. Please refine your search with more search criteria.
+        </div>
+      </xsl:if>
 		  <xsl:call-template name="arrests"/>
 		</xsl:if>
 	</xsl:template>
