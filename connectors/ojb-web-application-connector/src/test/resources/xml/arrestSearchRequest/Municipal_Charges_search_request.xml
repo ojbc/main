@@ -18,6 +18,7 @@
 
 -->
 <mcreq-doc:MunicipalChargesSearchRequest xmlns:mcreq-doc="http://ojbc.org/IEPD/Exchange/MunicipalChargesSearchRequest/1.0" xmlns:chsreq-ext="http://ojbc.org/IEPD/Extensions/CriminalHistorySearchRequestExtension/1.0" xmlns:jxdm60="http://release.niem.gov/niem/domains/jxdm/6.0/" xmlns:nc40="http://release.niem.gov/niem/niem-core/4.0/" xmlns:s40="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator>false</chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator>
     <jxdm60:Arrest>
         <nc40:ActivityIdentification>
             <nc40:IdentificationID>A123456</nc40:IdentificationID>
