@@ -147,6 +147,12 @@ public class MessageProcessor {
 	public void prepareNewExchangeResponseMessage(Exchange exchange) throws Exception
 	{
 		String requestID = (String)exchange.getIn().getHeader("federatedQueryRequestGUID");
+		
+		if (StringUtils.isBlank(requestID))
+		{
+			requestID = (String)exchange.getProperty("federatedQueryRequestGUID");
+		}	
+
 		log.debug("Federeated Query Request ID: " + requestID);
 
     	//Create a new map with WS Addressing message properties that we want to override
