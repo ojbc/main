@@ -32,10 +32,9 @@
         <nav aria-label="breadcrumb">
              <ol class="breadcrumb">
              <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-             <li class="breadcrumb-item active" aria-current="page">DA Arrest Search Results</li>
+             <li class="breadcrumb-item active" aria-current="page">State Charges</li>
            </ol>
         </nav>
-        <h3>Arrest Search Results</h3>
         <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="searchForm" method="post">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
         </form>
