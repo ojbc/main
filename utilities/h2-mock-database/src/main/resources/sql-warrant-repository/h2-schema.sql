@@ -69,11 +69,11 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE PersonDOBAdditional (
-                PersonDOBAdditionalID IDENTITY NOT NULL,
+                PersonAdditionalID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 DOBAdditional DATE,
                 SENT VARCHAR(1) NOT NULL,
-                CONSTRAINT PersonDOBAdditional_pk PRIMARY KEY (PersonDOBAdditionalID)
+                CONSTRAINT PersonDOBAdditional_pk PRIMARY KEY (PersonAdditionalID)
 );
 
 CREATE TABLE Vehicle (
@@ -108,11 +108,11 @@ CREATE TABLE PersonIDAdditional (
 
 
 CREATE TABLE PersonSMTAdditional (
-                PersonSMTAdditionalID IDENTITY NOT NULL,
+                PersonSMTSupplementalID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 PersonScarsMarksTattoos VARCHAR(3),
                 SENT VARCHAR(1) NOT NULL,
-                CONSTRAINT PersonSMTAdditional_pk PRIMARY KEY (PersonSMTAdditionalID)
+                CONSTRAINT PersonSMTAdditional_pk PRIMARY KEY (PersonSMTSupplementalID)
 );
 COMMENT ON COLUMN PersonSMTAdditional.PersonScarsMarksTattoos IS 'Maximum of 3 characters.';
 
