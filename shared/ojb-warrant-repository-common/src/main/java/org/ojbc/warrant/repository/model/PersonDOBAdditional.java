@@ -23,21 +23,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class PersonDOBAdditional {
 
-	private Integer personDOBAdditionalID;
+	private Integer personAdditionalID;
 
 	private Integer personID;
 	
 	private LocalDate dobAdditional;
 
 	private String sent;
-
-	public Integer getPersonDOBAdditionalID() {
-		return personDOBAdditionalID;
-	}
-
-	public void setPersonDOBAdditionalID(Integer personDOBAdditionalID) {
-		this.personDOBAdditionalID = personDOBAdditionalID;
-	}
 
 	public Integer getPersonID() {
 		return personID;
@@ -67,4 +59,12 @@ public class PersonDOBAdditional {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
     }
+
+	public Integer getPersonAdditionalID() {
+		return personAdditionalID;
+	}
+
+	public void setPersonAdditionalID(Integer personAdditionalID) {
+		this.personAdditionalID = personAdditionalID;
+	}
 }
