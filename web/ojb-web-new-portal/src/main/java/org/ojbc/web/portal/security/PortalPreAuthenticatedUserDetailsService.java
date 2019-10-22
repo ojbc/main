@@ -114,7 +114,7 @@ public class PortalPreAuthenticatedUserDetailsService implements
         	SimpleGrantedAuthority role = new SimpleGrantedAuthority(roleName);
         	grantedAuthorities.add(role);
         }
-        switch (employerOrganizationCategoryText) {
+        switch (StringUtils.trimToEmpty(employerOrganizationCategoryText)) {
         case "District Attorney": 
         	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
         	break; 
