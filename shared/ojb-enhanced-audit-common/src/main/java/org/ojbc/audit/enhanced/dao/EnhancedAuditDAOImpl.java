@@ -568,17 +568,22 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			FirearmsQueryResponse firearmsQueryResponse) {
 		log.debug("Inserting row into FIREARMS_QUERY_RESULTS table : " + firearmsQueryResponse.toString());
 		
-        final String FIREARMS_QUERY_RESULTS_INSERT="INSERT into CRIMINAL_HISTORY_QUERY_RESULTS "  
-        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String FIREARMS_QUERY_RESULTS_INSERT="INSERT into FIREARMS_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, MESSAGE_ID, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT) "
+        		+ "values (?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(FIREARMS_QUERY_RESULTS_INSERT, new String[] {"CRIMINAL_HISTORY_QUERY_RESULTS_ID"});
-        	            //DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getFirstName(), ps, 1);
+        	                connection.prepareStatement(FIREARMS_QUERY_RESULTS_INSERT, new String[] {"FIREARMS_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getMessageId(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.isQueryResultsTimeoutIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.isQueryResultsErrorIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getQueryResultsErrorText(), ps, 6);
         	            
         	            return ps;
         	        }
