@@ -17,35 +17,47 @@
 package org.ojbc.audit.enhanced.processor;
 
 import org.apache.camel.Body;
-import org.apache.camel.Header;
+import org.apache.camel.Exchange;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.w3c.dom.Document;
 
-public class PersonSearchResponseNullObjectProcessor extends AbstractPersonSearchResponseProcessor{
+public class FirearmsSearchRequestNullObjectProcessor extends AbstractFirearmsSearchRequestProcessor {
 
-	private static final Log log = LogFactory.getLog(PersonSearchResponseNullObjectProcessor.class);
+	private static final Log log = LogFactory.getLog(FirearmsSearchRequestNullObjectProcessor.class);
 	
-	@Override
-	public void auditPersonSearchResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID) {
-		
+	private UserInfoNullObjectProcessor userInfoProcessor;
+	
+	public void auditFirearmsSearchRequest(Exchange exchange, @Body Document document)
+	{
 		try {
 			
-			PersonSearchResult personSearchResult = processPersonSearchResponse(document);
+			if (userInfoProcessor == null)
+			{
+				userInfoProcessor = new UserInfoNullObjectProcessor();
+			}	
 			
-			log.info("Message ID: " + messageID);		
-			log.info(personSearchResult.toString());
+			userInfoProcessor.auditUserInfo(exchange);
+			
+			FirearmsSearchRequest firearmSearchRequest = processFirearmsSearchRequest(document);
+			
+			log.info(firearmSearchRequest.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search response: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit firearms search request: " + ExceptionUtils.getStackTrace(e));
 		}
-		
 		
 	}
 
-	
-	
+	public UserInfoNullObjectProcessor getUserInfoProcessor() {
+		return userInfoProcessor;
+	}
+
+	public void setUserInfoProcessor(UserInfoNullObjectProcessor userInfoProcessor) {
+		this.userInfoProcessor = userInfoProcessor;
+	}
+		
 }
