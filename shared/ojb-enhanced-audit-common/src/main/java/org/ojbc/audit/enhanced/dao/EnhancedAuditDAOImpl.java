@@ -36,21 +36,21 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
-import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
@@ -727,6 +727,37 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 
 	@Override
+	public Integer saveFirearmSearchResult(
+			FirearmSearchResult firearmSearchResult) {
+        log.debug("Inserting row into FIREARMS_SEARCH_RESULTS table : " + firearmSearchResult);
+        
+        final String PERSON_SEARCH_RESULT_INSERT="INSERT into FIREARMS_SEARCH_RESULTS "
+        		+ "(FIREARMS_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"FIREARMS_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getFirearmSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+	
+	@Override
 	public Integer saveIdentificationSearchRequest(
 			IdentificationSearchRequest identificationSearchRequest) {
 		
@@ -831,7 +862,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
         log.debug("Inserting row into PERSON_SEARCH_REQUEST table : " + personSearchRequest);
         
-        final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into PERSON_SEARCH_REQUEST "
+        final String PERSON_SEARCH_REQUEST_INSERT="INSERT into PERSON_SEARCH_REQUEST "
         		+ "(DOB_START_DATE, RACE, EYE_COLOR,HAIR_COLOR,DRIVERS_LICENSE_NUMBER,DOB_END_DATE,ON_BEHALF_OF,FIRST_NAME_QUALIFIER_CODE_ID,SID,MIDDLE_NAME,"
         		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID, SSN, HEIGHT, HEIGHT_MIN, HEIGHT_MAX) "
         		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?,?)";
@@ -842,7 +873,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(FEDERAL_RAPBACK_SUBSCRIPTION_INSERT, new String[] {"PERSON_SEARCH_REQUEST_ID"});
+        	                connection.prepareStatement(PERSON_SEARCH_REQUEST_INSERT, new String[] {"PERSON_SEARCH_REQUEST_ID"});
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDobFrom(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getRaceCode(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getEyeCode(), ps, 3);
@@ -967,11 +998,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	
 	@Override
 	public Integer retrievePersonSearchIDfromMessageID(String messageId) {
-		final String SUBSCRIPTION_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		final String SQL_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
 		
 		Integer ret = null;
 		
-		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SQL_SELECT, new PersonSearchRequestRowMapper(), messageId);
 		
 		if (personSearchRequests == null)
 		{
@@ -989,6 +1020,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}	
 
 		return ret;
+	}
+	
+	@Override
+	public Integer retrieveFirearmSearchIDfromMessageID(String messageId) {
+		final String SQL_SELECT="SELECT * FROM FIREARMS_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<FirearmsSearchRequest> firearmSearchRequests = jdbcTemplate.query(SQL_SELECT, new FirearmSearchRequestRowMapper(), messageId);
+		
+		if (firearmSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve firearm search request ID");
+		}
+		
+		if (firearmSearchRequests.size() == 0 ||  firearmSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than firearm search request, size: " + firearmSearchRequests.size());
+		}
+		
+		if (firearmSearchRequests.size() == 1)
+		{
+			ret = firearmSearchRequests.get(0).getFirearmSearchRequestID();
+		}	
+
+		return ret;	
 	}
 	
 	@Override
@@ -1581,6 +1638,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class FirearmSearchRequestRowMapper implements RowMapper<FirearmsSearchRequest> {
+		public FirearmsSearchRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			FirearmsSearchRequest firearmsSearchRequest = buildFirearmSearchRequest(rs);
+			return firearmsSearchRequest;
+		}
+
+		private FirearmsSearchRequest buildFirearmSearchRequest(
+				ResultSet rs) throws SQLException{
+
+			FirearmsSearchRequest firearmsSearchRequest = new FirearmsSearchRequest();
+			
+			firearmsSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			firearmsSearchRequest.setFirearmSearchRequestID(rs.getInt("FIREARMS_SEARCH_REQUEST_ID"));
+			
+			return firearmsSearchRequest;
+		}
+	}	
+	
 	private final class IdentificationSearchRequestRowMapper implements RowMapper<IdentificationSearchRequest> {
 		public IdentificationSearchRequest mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
@@ -1811,5 +1887,68 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
+
+	@Override
+	public Integer saveFirearmsSearchRequest(
+			FirearmsSearchRequest firearmsSearchRequest) {
+
+		log.debug("Inserting rows into FIREARMS_SEARCH_REQUEST table : " + firearmsSearchRequest.toString());
+		
+        final String FIREARMS_SEARCH_REQUEST_INSERT="INSERT into FIREARMS_SEARCH_REQUEST "
+        		+ "(SERIAL_NUMBER, SERIAL_NUMBER_QUALIFIER_CODE_ID, MAKE, MODEL, REGISTRATION_NUMBER, CURRENT_REGISTRATIONS_ONLY, FIREARMS_TYPE, USER_INFO_ID, PURPOSE, ON_BEHALF_OF, MESSAGE_ID) "
+        		+ "values (?,?,?,?,?,?,?,?,?,?,?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FIREARMS_SEARCH_REQUEST_INSERT, new String[] {"FIREARMS_SEARCH_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getSerialNumber(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getSerialNumberQualifierCodeId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getMake(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getModel(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getRegistrationNumber(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.isCurrentRegistrationsOnly(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getFirearmsType(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getUserInfofk(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getPurpose(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getOnBehalfOf(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchRequest.getMessageId(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	  	
+
+	}
+
+	@Override
+	public Integer saveFirearmsSystemToSearch(Integer firearmsSearchPk,
+			Integer systemsToSearchPk) {
+        log.debug("Inserting rows into FIREARMS_SYSTEMS_TO_SEARCH table : " + systemsToSearchPk.toString());
+        
+        final String FIREARMS_SYSTEMS_TO_SEARCH_INSERT="INSERT into FIREARMS_SYSTEMS_TO_SEARCH "
+        		+ "(FIREARMS_SEARCH_REQUEST_ID, SYSTEMS_TO_SEARCH_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FIREARMS_SYSTEMS_TO_SEARCH_INSERT, new String[] {"USER_INFO_ID"});
+        	            DaoUtils.setPreparedStatementVariable(firearmsSearchPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	  	
+    }
 
 }

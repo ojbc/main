@@ -21,26 +21,26 @@ import org.apache.camel.Header;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.w3c.dom.Document;
 
-public class PersonSearchResponseNullObjectProcessor extends AbstractPersonSearchResponseProcessor{
+public class FirearmsSearchResponseNullObjectProcessor extends AbstractFirearmSearchResponseProcessor{
 
-	private static final Log log = LogFactory.getLog(PersonSearchResponseNullObjectProcessor.class);
+	private static final Log log = LogFactory.getLog(FirearmsSearchResponseNullObjectProcessor.class);
 	
 	@Override
-	public void auditPersonSearchResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID) {
+	public void auditFirearmSearchResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID) {
 		
 		try {
 			
-			PersonSearchResult personSearchResult = processPersonSearchResponse(document);
+			FirearmSearchResult firearmSearchResult = processFirearmSearchResponse(document);
 			
 			log.info("Message ID: " + messageID);		
-			log.info(personSearchResult.toString());
+			log.info(firearmSearchResult.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search response: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit firearm search response: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 		

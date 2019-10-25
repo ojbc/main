@@ -23,12 +23,14 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
-import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -72,6 +74,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	
+	public Integer saveFirearmsSearchRequest(FirearmsSearchRequest firearmsSearchRequest);
+	
 	public Integer saveVehicleSearchRequest(VehicleSearchRequest vehicleSearchRequest);
 	
 	public Integer saveIncidentSearchRequest(IncidentSearchRequest incidentSearchRequest);
@@ -91,6 +95,8 @@ public interface EnhancedAuditDAO {
 	public Integer savePersonQueryWarrantResponse(PersonQueryWarrantResponse personQueryWarrantResponse);
 	
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
+	
+	public Integer saveFirearmSearchResult(FirearmSearchResult firearmSearchResult);
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
@@ -114,6 +120,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
 	
+	public Integer saveFirearmsSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+	
 	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk, Integer systemsToSearchPk);
 	
 	public Integer saveVehicleSystemToSearch(Integer vehicleSearchPk, Integer systemsToSearchPk);
@@ -123,6 +131,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveIdentificationReasonCode(Integer identificationSearchReasonCodeId, Integer identificationSearchRequestId);
 
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
 	
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
 	

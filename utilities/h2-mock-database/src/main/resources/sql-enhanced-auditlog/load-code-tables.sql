@@ -20,6 +20,7 @@ insert into SEARCH_QUALIFIER_CODES(CODE_NAME) values ('exact');
 
 insert into SYSTEMS_TO_SEARCH(SYSTEM_NAME, SYSTEM_URI) values ('system1','{system1}URI');
 insert into SYSTEMS_TO_SEARCH(SYSTEM_NAME, SYSTEM_URI) values ('system2','{system2}URI');
+insert into SYSTEMS_TO_SEARCH(SYSTEM_NAME, SYSTEM_URI) values ('system3','{system3}URI');
 
 insert into IDENTIFICATION_SEARCH_REASON_CODE(IDENTIFICATION_REASON_CODE_DESCRIPTION) values ('reason1');
 insert into IDENTIFICATION_SEARCH_REASON_CODE(IDENTIFICATION_REASON_CODE_DESCRIPTION) values ('reason2');
