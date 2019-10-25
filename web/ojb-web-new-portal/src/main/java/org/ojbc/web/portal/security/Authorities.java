@@ -17,5 +17,5 @@
 package org.ojbc.web.portal.security;
 
 public enum Authorities {
-    AUTHZ_PORTAL, AUTHZ_MUNI, AUTHZ_DA, AUTHZ_AUDIT, CAN_SEARCH; 
+    AUTHZ_PORTAL, AUTHZ_MUNI, AUTHZ_DA, CAN_SEARCH; 
 }

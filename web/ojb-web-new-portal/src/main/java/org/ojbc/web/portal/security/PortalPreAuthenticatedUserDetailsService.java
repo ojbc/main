@@ -128,10 +128,6 @@ public class PortalPreAuthenticatedUserDetailsService implements
         	break;
         }
         
-        if (appProperties.getFedIdsWithAuditPrivilege().contains(userInfo.getFederationId())) {
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_AUDIT.name()) );
-        }
-
         //TODO call the rest service to get the list ORIs and access roles. 
     	
     	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, userAttributes.getOris(), userInfo);

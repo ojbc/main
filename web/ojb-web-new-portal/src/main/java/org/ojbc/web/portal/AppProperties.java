@@ -44,7 +44,6 @@ public class AppProperties {
 	private List<String> dispoCodesRequiringSentence;
 	private List<String> dispoCodesRequiringAmendedCharge;
 	private List<String> dispoCodesNotRequiringChargeSeverity;
-	private List<String> fedIdsWithAuditPrivilege;
 
 	private Boolean allowQueriesWithoutSAMLToken = true; 
 	private Boolean inactivityTimeout=true;
@@ -94,8 +93,6 @@ public class AppProperties {
 		daCaseTypeCodeMapping.put("T", "Traffic");
 		daCaseTypeCodeMapping.put("W", "Wildlife");
 		daCaseTypeCodeMapping.put("Y", "Youth");
-		
-		setFedIdsWithAuditPrivilege(Arrays.asList("HIJIS:IDP:HCJDC:USER:demouser"));
 		
 		Map<String, String> generalOffenseCodeMapping = new HashMap<String, String>();
 		generalOffenseCodeMapping.put("A", "Attempted");
@@ -213,14 +210,6 @@ public class AppProperties {
 
 	public void setDaCaseTypeCodeMapping(Map<String, String> daCaseTypeCodeMapping) {
 		this.daCaseTypeCodeMapping = daCaseTypeCodeMapping;
-	}
-
-	public List<String> getFedIdsWithAuditPrivilege() {
-		return fedIdsWithAuditPrivilege;
-	}
-
-	public void setFedIdsWithAuditPrivilege(List<String> fedIdsWithAuditPrivilege) {
-		this.fedIdsWithAuditPrivilege = fedIdsWithAuditPrivilege;
 	}
 
 	public String getSubmitArrestConfirmationMessage() {
