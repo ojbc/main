@@ -44,6 +44,8 @@ public class FirearmsSearchRequestSQLProcessor extends AbstractFirearmsSearchReq
 			
 			FirearmsSearchRequest firearmsSearchRequest = processFirearmsSearchRequest(document);
 			
+			log.info("Firearms Search Request: " + firearmsSearchRequest);
+			
 			firearmsSearchRequest.setUserInfofk(userInfoPk);
 			
             if (StringUtils.isNotEmpty(firearmsSearchRequest.getSerialNumberQualifierCode())) {

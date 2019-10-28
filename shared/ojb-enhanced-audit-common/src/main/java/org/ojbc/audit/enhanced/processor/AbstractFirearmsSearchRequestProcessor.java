@@ -53,6 +53,10 @@ public abstract class AbstractFirearmsSearchRequestProcessor {
 				firearmsSearchRequest.setSerialNumber(serialNumber);
 			}
 			
+			String firearmsType = XmlUtils.xPathStringSearch(firearmNode, "nc:FirearmCategoryCode");
+			if(StringUtils.isNotBlank(firearmsType)){
+				firearmsSearchRequest.setFirearmsType(firearmsType);
+			}
 			
 			String firearmMake = XmlUtils.xPathStringSearch(firearmNode, "firearm-search-req-ext:FirearmMakeText");			
 			if(StringUtils.isNotBlank(firearmMake)){
