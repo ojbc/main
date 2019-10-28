@@ -87,6 +87,7 @@ public class TestFirearmSearchProcessor {
 		assertEquals("John Doe", firearmsSearchRequest.getOnBehalfOf());
 		assertEquals("Criminal Justice", firearmsSearchRequest.getPurpose());
 		assertEquals("Remington", firearmsSearchRequest.getMake());
+		assertEquals("R", firearmsSearchRequest.getFirearmsType());
 		assertEquals("Model", firearmsSearchRequest.getModel());
 		assertEquals("Registration Number", firearmsSearchRequest.getRegistrationNumber());
 		assertEquals("123476576", firearmsSearchRequest.getSerialNumber());
