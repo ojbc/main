@@ -71,6 +71,16 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="queryRequestSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+	
 	<bean id="emailFormatter" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="emailFormatter" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
