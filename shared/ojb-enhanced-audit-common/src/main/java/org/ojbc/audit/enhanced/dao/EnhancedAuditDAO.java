@@ -38,10 +38,12 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.util.sn.SubscriptionSearchRequest;
 
 
 public interface EnhancedAuditDAO {
@@ -73,6 +75,10 @@ public interface EnhancedAuditDAO {
 	public Integer saveFederalRapbackNotification(FederalRapbackNotification federalRapbackNotification);
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
+	
+	public Integer saveSubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest);
+	
+	public Integer saveSubscriptionSearchResult(SubscriptionSearchResult subscriptionSearchResult);
 	
 	public Integer saveFirearmsSearchRequest(FirearmsSearchRequest firearmsSearchRequest);
 	
@@ -120,6 +126,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
 	
+	public Integer saveSubscriptionCategoryCodes(Integer subscriptionSearchRequestPk, Integer subscriptionReasonCodePk);
+	
 	public Integer saveFirearmsSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
 	
 	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk, Integer systemsToSearchPk);
@@ -133,6 +141,8 @@ public interface EnhancedAuditDAO {
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId);
 	
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
 	
@@ -157,4 +167,6 @@ public interface EnhancedAuditDAO {
 	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction);
 	
 	public void updateSubscriptionActionWithResponse(SubscriptionAction subscriptionAction);
+	
+	public Integer retrieveSubReasonCodeIdFromCode(String subscriptionReasonCode);
 }
