@@ -163,7 +163,7 @@
 					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
