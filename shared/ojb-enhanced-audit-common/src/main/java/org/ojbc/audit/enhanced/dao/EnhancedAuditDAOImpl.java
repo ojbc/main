@@ -53,12 +53,15 @@ import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionReasonCode;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.util.helper.DaoUtils;
+import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
@@ -82,6 +85,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	private Map<String, Integer> systemsToSearchByURI= new HashMap<String, Integer>();
 	
 	private Map<String, Integer> systemsToSearchByName= new HashMap<String, Integer>();
+	
+	private Map<String, Integer> subscriptionReasonCodes= new HashMap<String, Integer>();
 	
 	private Map<String, Integer> identificationReasonCodes= new HashMap<String, Integer>();
 	
@@ -107,6 +112,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return id;
 	}
 
+	@Override
+	public Integer retrieveSubReasonCodeIdFromCode(String subscriptionReasonCodeString) {
+		if (systemsToSearchByName.isEmpty())
+		{	
+			final String SELECT_STATEMENT="SELECT * from SUBSCRIPTION_REASON_CODE";
+	
+			List<SubscriptionReasonCode> subscriptionReasonCodeList = jdbcTemplate.query(SELECT_STATEMENT, new SubscriptionReasonCodeRowMapper());
+			
+			for (SubscriptionReasonCode subscriptionReasonCode : subscriptionReasonCodeList)
+			{
+				subscriptionReasonCodes.put(subscriptionReasonCode.getSubscritionReasonCode(), subscriptionReasonCode.getSubscriptionReasonCodeId());
+			}	
+		}	
+		
+		Integer id = subscriptionReasonCodes.get(subscriptionReasonCodeString);
+		
+		return id;	
+	}
+	
 	@Override
 	public Integer retrieveSystemToSearchIDFromSystemName(String systemName) {
 		
@@ -727,6 +751,36 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 
 	@Override
+	public Integer saveSubscriptionSearchResult(
+			SubscriptionSearchResult subscriptionSearchResult) {
+        log.debug("Inserting row into SUBSCRIPTION_SEARCH_RESULTS table : " + subscriptionSearchResult);
+        
+        final String SUBSCRIPTION_SEARCH_RESULT_INSERT="INSERT into SUBSCRIPTION_SEARCH_RESULTS "
+        		+ "(SEARCH_RESULTS_TIMEOUT_INDICATOR, SEARCH_RESULTS_COUNT, SUBSCRIPTION_SEARCH_REQUEST_ID, SEARCH_RESULTS_ERROR_INDICATOR, SEARCH_RESULTS_ERROR_TEXT, SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(SUBSCRIPTION_SEARCH_RESULT_INSERT, new String[] {"SUBSCRIPTION_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSearchResultsTimeoutIndicator(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSearchResultsCount(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSubscriptionSearchRequestId(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSearchResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSearchResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 6);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
 	public Integer saveFirearmSearchResult(
 			FirearmSearchResult firearmSearchResult) {
         log.debug("Inserting row into FIREARMS_SEARCH_RESULTS table : " + firearmSearchResult);
@@ -855,6 +909,39 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
+	
+	@Override
+	public Integer saveSubscriptionSearchRequest(
+			SubscriptionSearchRequest subscriptionSearchRequest) {
+		
+        log.debug("Inserting row into SUBSCRIPTION_SEARCH_REQUEST table : " + subscriptionSearchRequest);
+        
+        final String SUBSCRIPTION_SEARCH_REQUEST_INSERT="INSERT into SUBSCRIPTION_SEARCH_REQUEST "
+        		+ "(MESSAGE_ID, FIRST_NAME, LAST_NAME, SID, FBI_ID, USER_INFO_ID, ACTIVE_SUBSCRIPTIONS_INDICATOR, ADMIN_SEARCH_REQUEST_INDICATOR) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(SUBSCRIPTION_SEARCH_REQUEST_INSERT, new String[] {"SUBSCRIPTION_SEARCH_REQUEST_INSERT_ID"});
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getSubjectFirstName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getSubjectLastName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getSid(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getUcn(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getUserInfoFk(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getActive(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getAdminSearch(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();			
+	}	
 	
 	@Override
 	public Integer savePersonSearchRequest(
@@ -1043,6 +1130,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		if (firearmSearchRequests.size() == 1)
 		{
 			ret = firearmSearchRequests.get(0).getFirearmSearchRequestID();
+		}	
+
+		return ret;	
+	}
+	
+	@Override
+	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId) {
+		final String SQL_SELECT="SELECT * FROM SUBSCRIPTION_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<SubscriptionSearchRequest> subscriptionSearchRequests = jdbcTemplate.query(SQL_SELECT, new SubscriptionSearchRequestRowMapper(), messageId);
+		
+		if (subscriptionSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve subscription search request ID");
+		}
+		
+		if (subscriptionSearchRequests.size() == 0 ||  subscriptionSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than firearm search request, size: " + subscriptionSearchRequests.size());
+		}
+		
+		if (subscriptionSearchRequests.size() == 1)
+		{
+			ret = subscriptionSearchRequests.get(0).getSubscriptionSearchRequestPk();
 		}	
 
 		return ret;	
@@ -1598,6 +1711,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 
+	private final class SubscriptionReasonCodeRowMapper implements RowMapper<SubscriptionReasonCode> {
+		public SubscriptionReasonCode mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			SubscriptionReasonCode subscriptionReasonCode = buildSubscriptionReasonCode(rs);
+			return subscriptionReasonCode;
+		}
+
+		private SubscriptionReasonCode buildSubscriptionReasonCode(
+				ResultSet rs) throws SQLException{
+
+			SubscriptionReasonCode subscriptionReasonCode = new SubscriptionReasonCode();
+			
+			subscriptionReasonCode.setSubscriptionReasonCodeId(rs.getInt("SUBSCRIPTION_REASON_CODE_ID"));
+			subscriptionReasonCode.setSubscritionReasonCode(rs.getString("SUBSCRIPTION_REASON_CODE"));
+			
+			return subscriptionReasonCode;
+		}
+	}
+
 	
 	private final class SystemsToSearchRowMapper implements RowMapper<SystemsToSearch> {
 		public SystemsToSearch mapRow(ResultSet rs, int rowNum)
@@ -1616,6 +1748,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			systemsToSearch.setSystemUri(rs.getString("SYSTEM_URI"));
 			
 			return systemsToSearch;
+		}
+	}
+	
+	private final class SubscriptionSearchRequestRowMapper implements RowMapper<SubscriptionSearchRequest> {
+		public SubscriptionSearchRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			SubscriptionSearchRequest subscriptionSearchRequest = buildSubscriptionSearchRequest(rs);
+			return subscriptionSearchRequest;
+		}
+
+		private SubscriptionSearchRequest buildSubscriptionSearchRequest(
+				ResultSet rs) throws SQLException{
+
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+			
+			subscriptionSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			subscriptionSearchRequest.setSubscriptionSearchRequestPk(rs.getInt("SUBSCRIPTION_SEARCH_REQUEST_ID"));
+			
+			return subscriptionSearchRequest;
 		}
 	}
 	
@@ -1950,5 +2101,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	  	
     }
+
+	@Override
+	public Integer saveSubscriptionCategoryCodes(
+			Integer subscriptionSearchRequestPk,
+			Integer subscriptionReasonCodePk) {
+        log.debug("Inserting rows into SUBSCRIPTION_REASON_CODE_JOINER table : " + subscriptionSearchRequestPk.toString());
+        
+        final String FIREARMS_SYSTEMS_TO_SEARCH_INSERT="INSERT into SUBSCRIPTION_REASON_CODE_JOINER "
+        		+ "(SUBSCRIPTION_SEARCH_REQUEST_ID, SUBSCRIPTION_REASON_CODE_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FIREARMS_SYSTEMS_TO_SEARCH_INSERT, new String[] {"USER_INFO_ID"});
+        	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequestPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionReasonCodePk, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	  	
+     }
 
 }
