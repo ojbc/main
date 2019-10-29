@@ -51,7 +51,10 @@
 					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
-						<camel:to uri="bean:subscriptionSearchRequestSQLLoggingProcessor?method=auditSubscriptionSearchRequest"/>
+					
+						<camel:log message="Enhanced audit logging of subscription request."/>
+						
+						<camel:to uri="bean:subscriptionSearchRequestSQLProcessor?method=auditSubscriptionSearchRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
