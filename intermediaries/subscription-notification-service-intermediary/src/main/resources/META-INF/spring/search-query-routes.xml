@@ -41,7 +41,28 @@
 		
 			<camel:from	uri="subscriptionSearchRequestServiceEndpoint" />
 			
+			<!--  Perform some generic message processing --> 
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
 			<camel:to uri="direct:logRoute"/>	
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+					
+						<camel:log message="Enhanced audit logging of subscription request."/>
+						
+						<camel:to uri="bean:subscriptionSearchRequestSQLProcessor?method=auditSubscriptionSearchRequest"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
 			
 			<camel:choice>
 				<camel:when>
@@ -52,10 +73,6 @@
 					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:otherwise>
 			</camel:choice>
-			
-			
-			<!--  Perform some generic message processing --> 
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
 			<camel:doTry>
 				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
@@ -75,6 +92,21 @@
 			</camel:doTry>	
 
 			<camel:to uri="direct:logRoute"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:subscriptionSearchResponseSQLProcessor?method=auditSubscriptionSearchResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
@@ -96,7 +128,7 @@
 		<camel:route id="processSubscriptionSearchRoute">
 			<camel:from uri="direct:processSubscriptionSearch"/>
 			<camel:log message="processing subscription search" />
-			<camel:to uri="direct:processSubscriptionSearchRequest"></camel:to>
+			<camel:to uri="direct:processSubscriptionSearchRequest"/>
 		</camel:route>
 		 
 		<camel:route id="processSubscriptionSearchRequest">			
@@ -106,35 +138,6 @@
 			<camel:to uri="bean:subscriptionSearchQueryProcessor?method=searchBySubscripitonSearchRequest"/>
 			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
 		</camel:route>		
-
-		<!-- this route is not used any more. TODO may remove it after deployed and tested hw-20190927-->		
-		<camel:route id="processSubscriptionSearchByOwner">			
-			<camel:from uri="direct:processSubscriptionSearchByOwner"/>
-			<camel:setHeader headerName="subscriptionSearchResultCount"><camel:simple>bean:subscriptionSearchQueryDAO?method=countSubscriptionsInSearch</camel:simple></camel:setHeader>
-			
-			<camel:log message="Subscription Search Results Count: ${in.headers.subscriptionSearchResultCount}"/>
-			
-			<camel:setHeader headerName="maxSubscriptionsCount">
-	            <simple>{{maxSubscriptionsCount}}</simple>
-	        </camel:setHeader>
-			
-			<camel:log message="Max subscription count (configurable): ${in.header.maxSubscriptionsCount}"/>
-			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.header.subscriptionSearchResultCount} > ${in.header.maxSubscriptionsCount}</camel:simple>
-					<camel:log message="The search returned too many records."/>
-					<camel:to uri="bean:subscriptionSearchErrorProcessor?method=returnTooManyRecordsError"/>
-				</camel:when>
-				<camel:otherwise>
-					<camel:to uri="bean:subscriptionSearchQueryDAO?method=searchForSubscriptionsBySubscriptionOwner"/>	
-					<camel:to uri="bean:subscriptionSearchQueryProcessor?method=buildSubscriptionSearchResponseDoc"/>
-				</camel:otherwise>
-			</camel:choice>
-			
-			<camel:log message="This is the subscription search response: ${body}" loggingLevel="DEBUG"/>
-		
-		</camel:route>
 
 		<camel:route id="subscriptionQueryRoute">
 		
@@ -146,6 +149,21 @@
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
@@ -188,6 +206,21 @@
  					<camel:to uri="bean:subscriptionQueryErrorProcessor?method=returnSubscriptionQueryError"/> 
 				</camel:doCatch>
 			</camel:doTry>	
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>

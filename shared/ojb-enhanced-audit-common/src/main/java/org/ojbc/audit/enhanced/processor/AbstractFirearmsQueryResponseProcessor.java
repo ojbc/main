@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -36,13 +35,28 @@ public abstract class AbstractFirearmsQueryResponseProcessor {
 	{
 		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
 
-//		String givenName = XmlUtils.xPathStringSearch(document, "/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonName/nc:PersonGivenName");
-//		
-//		if (StringUtils.isNotBlank(givenName))
-//		{
-//			personQueryCriminalHistoryResponse.setFirstName(givenName);
-//		}	
-
+		//Check for error and access denied
+		//We use // for xpath because two potential query responses are potentially sent by the service
+		String accessDeniedIndicator = XmlUtils.xPathStringSearch(document, "//iad:InformationAccessDenial/iad:InformationAccessDenialIndicator");
+		
+		if (StringUtils.isNotBlank(accessDeniedIndicator) && accessDeniedIndicator.equals("true"))
+		{
+			firearmsQueryResponse.setQueryResultsAccessDeniedIndicator(true);
+			
+			String queryResultsErrorText = XmlUtils.xPathStringSearch(document, "//iad:InformationAccessDenial/iad:InformationAccessDenialReasonText");
+			firearmsQueryResponse.setQueryResultsErrorText(queryResultsErrorText);
+			
+			String systemName = XmlUtils.xPathStringSearch(document, "//iad:InformationAccessDenial/iad:InformationAccessDenyingSystemNameText");
+			firearmsQueryResponse.setSystemName(systemName);
+		}	
+		
+		String firearmsRegistrationErrorText = XmlUtils.xPathStringSearch(document, "//qrm:QueryResultsMetadata/qrer:QueryRequestError/qrer:ErrorText");
+	
+		if (StringUtils.isNotBlank(firearmsRegistrationErrorText))
+		{
+			firearmsQueryResponse.setQueryResultsErrorIndicator(true);
+			firearmsQueryResponse.setQueryResultsErrorText(firearmsRegistrationErrorText);
+		}	
 		
         return firearmsQueryResponse;
 	}

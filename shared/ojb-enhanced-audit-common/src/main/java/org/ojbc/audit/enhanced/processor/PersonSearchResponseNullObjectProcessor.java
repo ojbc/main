@@ -40,7 +40,7 @@ public class PersonSearchResponseNullObjectProcessor extends AbstractPersonSearc
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit person search response: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 		

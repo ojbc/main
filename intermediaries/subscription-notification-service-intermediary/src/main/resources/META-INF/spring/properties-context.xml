@@ -55,6 +55,7 @@
 	   <prop key="smtpServerName">${publishSubscribe.smtpServerName}</prop>
 	   <prop key="bcc">${publishSubscribe.bcc}</prop>
 	   <prop key="dbAuditLog">${publishSubscribe.dbAuditLog}</prop>
+	   <prop key="dbEnhancedAuditLog">${publishSubscribe.dbEnhancedAuditLog}</prop>
   	</util:properties>
   	
 </beans>

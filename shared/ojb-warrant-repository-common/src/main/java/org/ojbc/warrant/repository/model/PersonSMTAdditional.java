@@ -21,7 +21,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class PersonSMTAdditional {
 
-	private Integer personSMTAdditionalID;
+	private Integer personSMTSupplementalID;
 	
 	private Integer personID;
 	
@@ -53,16 +53,16 @@ public class PersonSMTAdditional {
 		this.sent = sent;
 	}
 
-	public Integer getPersonSMTAdditionalID() {
-		return personSMTAdditionalID;
-	}
-
-	public void setPersonSMTAdditionalID(Integer personSMTAdditionalID) {
-		this.personSMTAdditionalID = personSMTAdditionalID;
-	}
-
 	@Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
     }
+
+	public Integer getPersonSMTSupplementalID() {
+		return personSMTSupplementalID;
+	}
+
+	public void setPersonSMTSupplementalID(Integer personSMTSupplementalID) {
+		this.personSMTSupplementalID = personSMTSupplementalID;
+	}
 }

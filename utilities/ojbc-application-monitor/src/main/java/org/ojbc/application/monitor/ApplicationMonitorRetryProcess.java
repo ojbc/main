@@ -24,7 +24,7 @@ public class ApplicationMonitorRetryProcess {
 
 	private final Log log = LogFactory.getLog( ApplicationMonitorRetryProcess.class );
 	
-	private int maxRetries=2; 
+	private int maxRetries=3; 
 
 	private int currentRetries= 0;
 	
@@ -49,8 +49,14 @@ public class ApplicationMonitorRetryProcess {
 		if (currentRetries > maxRetries)
 		{
 			sendAlert = true;
+			currentRetries = 0;
 		}
 		
 		return sendAlert;
+	}
+	
+	public void resetRetries()
+	{
+		currentRetries = 0;
 	}
 }

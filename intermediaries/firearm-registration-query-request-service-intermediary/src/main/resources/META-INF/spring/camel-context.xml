@@ -175,6 +175,12 @@
 		<camel:route>
 			<camel:from uri="firearmRegistrationQueryResultsHandlerServiceEndpoint"/>
 			
+			<camel:log message="Entering Firearm Query Results Handler"></camel:log>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequest</constant>
+			</camel:setHeader>
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.firearms.dbAuditLog} == 'true'</camel:simple>
@@ -190,11 +196,21 @@
 				</camel:when>
 			</camel:choice>
 			
-			<camel:log message="Entering Firearm Query Results Handler"></camel:log>
-			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequest</constant>
-			</camel:setHeader>
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.firearms.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryResponseSQLLoggingProcessor?method=auditFirearmsQueryResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>		
+						
 			<camel:log message="Calling Aggregator" />
 			<camel:to uri="direct:aggregateFederatedQuery" />
 		</camel:route>
