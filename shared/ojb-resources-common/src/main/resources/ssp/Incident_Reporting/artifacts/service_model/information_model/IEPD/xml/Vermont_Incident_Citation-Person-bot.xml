@@ -17,11 +17,14 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
+<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0 ../xsd/Structured_Payloads/OJBC/traffic_stop_codes.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -421,6 +424,17 @@
 							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 						</lexs:StructuredPayloadMetadata>
 						<inc-ext:IncidentReport>
+							
+							<!-- ADD INCIDENT CASE NUMBER JD 2019-10-16 -->
+							<inc-ext:Incident>
+								<inc-ext:IncidentCase>
+									<nc:ActivityIdentification>
+										<nc:IdentificationID>1234</nc:IdentificationID>
+									</nc:ActivityIdentification>
+								</inc-ext:IncidentCase>
+							<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01" />
+							</inc-ext:Incident>
+							
 							<inc-ext:Offense>
 								<inc-ext:OffenseViolatedStatute>
 									<j:StatuteCodeIdentification>
@@ -463,6 +477,10 @@
 								<lexslib:SameAsDigestReference lexslib:ref="OFFICER_01" />
 							</inc-ext:EnforcementOfficial>
 							<inc-ext:Person>
+							
+							<!-- ADD PERSON CATEGORY TEXT JD 2019-10-16 -->
+							<inc-ext:PersonCategoryCodeText>M</inc-ext:PersonCategoryCodeText>
+							
 								<inc-ext:PersonFishAndWildlifeLicenseIdentification>
 									<nc:IdentificationID>12345678</nc:IdentificationID>
 								</inc-ext:PersonFishAndWildlifeLicenseIdentification>
@@ -506,10 +524,19 @@
 								<inc-ext:CivilReliefActOtherIndicator>true</inc-ext:CivilReliefActOtherIndicator>
 								<inc-ext:CivilReliefActOtherText>Text</inc-ext:CivilReliefActOtherText>
 								<inc-ext:EnforcementOfficialNotesText>Officer Notes</inc-ext:EnforcementOfficialNotesText>
-								<ojb-ts-codes:TrafficStopReasonCode>M</ojb-ts-codes:TrafficStopReasonCode>
-								<ojb-ts-codes:TrafficStopSearchCategoryCode>SPC</ojb-ts-codes:TrafficStopSearchCategoryCode>
-								<ojb-ts-codes:TrafficStopContrabandCode>C</ojb-ts-codes:TrafficStopContrabandCode>
-								<ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode>
+								
+								<!-- ADD TRAFFIC STOP TEXT ELEMENTS JD 2019-10-16 -->
+								<!--  ojb-ts-codes:TrafficStopReasonText>M</ojb-ts-codes:TrafficStopReasonText-->
+								<!--  ojb-ts-codes:TrafficStopSearchCategoryText>SPC</ojb-ts-codes:TrafficStopSearchCategoryText-->
+								<!--  ojb-ts-codes:TrafficStopContrabandText>C</ojb-ts-codes:TrafficStopContrabandText-->
+								<!--  ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode-->
+								
+								<inc-ext:TrafficStopReasonText>M</inc-ext:TrafficStopReasonText>
+								<inc-ext:TrafficStopSearchCategoryText>SPC</inc-ext:TrafficStopSearchCategoryText>
+								<inc-ext:TrafficStopContrabandText>C</inc-ext:TrafficStopContrabandText>
+								<inc-ext:TrafficStopOutcomeText>A</inc-ext:TrafficStopOutcomeText>
+								
+								
 								<ojb-ts-codes:IncidentWeatherConditionCode>Raining</ojb-ts-codes:IncidentWeatherConditionCode>
 								<ojb-ts-codes:IncidentHighwayConditionCode>Wet</ojb-ts-codes:IncidentHighwayConditionCode>
 								<ojb-ts-codes:IncidentTrafficConditionCode>Light</ojb-ts-codes:IncidentTrafficConditionCode>
