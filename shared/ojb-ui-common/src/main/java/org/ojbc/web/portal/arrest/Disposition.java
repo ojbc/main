@@ -41,7 +41,6 @@ public class Disposition {
 	private String arrestOri;
 
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
-	@NotNull
 	@PastOrPresent 
 	private LocalDate dispositionDate; 
 	

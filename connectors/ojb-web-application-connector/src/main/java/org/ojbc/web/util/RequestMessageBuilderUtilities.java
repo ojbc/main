@@ -1557,8 +1557,11 @@ public class RequestMessageBuilderUtilities {
         
         Element arrestCharge = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestCharge");
         Element chargeDisposition = XmlUtils.appendElement(arrestCharge, NS_JXDM_60, "ChargeDisposition");
-        Element dispositionDate = XmlUtils.appendElement(chargeDisposition, NS_NC_40, "DispositionDate"); 
-        XmlUtils.appendTextElement(dispositionDate, NS_NC_40, "Date", disposition.getDispositionDate().toString());
+        
+        if (disposition.getDispositionDate() != null) {
+	        Element dispositionDate = XmlUtils.appendElement(chargeDisposition, NS_NC_40, "DispositionDate"); 
+	        XmlUtils.appendTextElement(dispositionDate, NS_NC_40, "Date", disposition.getDispositionDate().toString());
+        }
         
         if (StringUtils.isNotBlank(disposition.getDispositionIdentification())) {
         	Element dispositionIdentification = 

@@ -452,7 +452,7 @@
                        var dispositionDateString = $("#dispositionDate").val();
                        var dispositionDate = date_regex.test(dispositionDateString)? new Date(dispositionDateString):null;
                        var arrestDate = new Date($("#arrestDate").text());
-                       if (dispositionDate < arrestDate){
+                       if (dispositionDate != null && dispositionDate < arrestDate){
                     	   dispositionDateWarning = true; 
                        }
                 	 }
