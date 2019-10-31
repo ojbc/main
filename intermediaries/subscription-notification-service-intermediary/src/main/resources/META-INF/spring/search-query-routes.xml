@@ -143,6 +143,9 @@
 		
 			<camel:from	uri="subscriptionQueryRequestServiceEndpoint" />
 			
+			<!--  Perform some generic message processing --> 
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
@@ -183,9 +186,6 @@
 				</camel:otherwise>
 			</camel:choice>
 			
-			<!--  Perform some generic message processing --> 
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
 			<camel:doTry>
 				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
 				
@@ -212,7 +212,7 @@
 					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
-						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						<camel:to uri="bean:subscriptionQueryResponseSQLLoggingProcessor?method=auditSubscriptionQueryResponse"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>

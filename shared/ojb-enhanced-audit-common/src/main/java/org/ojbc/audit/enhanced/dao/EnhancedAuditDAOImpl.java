@@ -53,6 +53,7 @@ import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionReasonCode;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
@@ -2128,5 +2129,39 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	  	
      }
+
+	@Override
+	public Integer saveSubscriptionQueryResponse(
+			SubscriptionQueryResponse subscriptionQueryResponse) {
+
+        log.debug("Inserting row into SUBSCRIPTION_QUERY_RESULTS table : " + subscriptionQueryResponse);
+        
+        final String SUBSCRIPTION_QUERY_RESULTS_INSERT="INSERT into SUBSCRIPTION_QUERY_RESULTS "
+        		+ "(QUERY_RESULTS_ERROR_INDICATOR, QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_ACCESS_DENIED, QUERY_RESULTS_ERROR_TEXT, FBI_SUBSCRIPTION_ID, MESSAGE_ID, QUERY_RESULTS_TIMEOUT_INDICATOR, SUBSCRIPTION_QUALIFIER_ID)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(SUBSCRIPTION_QUERY_RESULTS_INSERT, new String[] {"SUBSCRIPTION_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getQueryResultsErrorIndicator(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getQueryRequestId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getSystemName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getFbiSubscriptionId(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getMessageId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getQueryResultsTimeoutIndicator(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(subscriptionQueryResponse.getSubscriptionQualifierId(), ps, 9);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
 
 }
