@@ -38,6 +38,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
@@ -79,6 +80,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveSubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest);
 	
 	public Integer saveSubscriptionSearchResult(SubscriptionSearchResult subscriptionSearchResult);
+	
+	public Integer saveSubscriptionQueryResponse(SubscriptionQueryResponse subscriptionQueryResponse);
 	
 	public Integer saveFirearmsSearchRequest(FirearmsSearchRequest firearmsSearchRequest);
 	
