@@ -132,7 +132,7 @@ public class MuniArrestController {
 	private ArrestSearchRequest initializeArrestSearchRequest(Map<String, Object> model) {
 		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
 		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
-		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
+//		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
 		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
 		arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
 		arrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
