@@ -122,24 +122,29 @@ public class MuniArrestController {
 		ArrestSearchRequest arrestSearchRequest = (ArrestSearchRequest) model.get("arrestSearchRequest");
 
 		if (arrestSearchRequest == null) {
-			arrestSearchRequest = new ArrestSearchRequest();
-			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
-//			arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
-			arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
-			arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
-			arrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
-			arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
-			arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
-			arrestSearchRequest.setArrestType(ArrestType.MUNI);
-			OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
-			arrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
-			model.put("arrestSearchRequest", arrestSearchRequest);
+			arrestSearchRequest = initializeArrestSearchRequest(model);
 		}
 		log.info("runing defaultSearch with " + arrestSearchRequest );
 		getArrestSearchResults(request, arrestSearchRequest, model);
 		return "arrest/arrests::resultsPage";
 	}
 
+	private ArrestSearchRequest initializeArrestSearchRequest(Map<String, Object> model) {
+		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
+		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+		arrestSearchRequest.setArrestDateRangeStartDate(LocalDate.of(2018, 2, 1));
+		arrestSearchRequest.setArrestDateRangeEndDate(LocalDate.now());
+		arrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+		arrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
+		arrestSearchRequest.setFirstNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		arrestSearchRequest.setLastNameSearchMetadata(SearchFieldMetadata.StartsWith);
+		arrestSearchRequest.setArrestType(ArrestType.MUNI);
+		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
+		arrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
+		model.put("arrestSearchRequest", arrestSearchRequest);
+		return arrestSearchRequest;
+	}
+	
 	@PostMapping("/advancedSearch")
 	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute ArrestSearchRequest arrestSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {

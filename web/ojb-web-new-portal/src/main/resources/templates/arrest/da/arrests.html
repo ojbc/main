@@ -223,6 +223,11 @@
              	  }).fail();
               });
               
+              $('#reset').click (function(){
+                $('.chosen-select').chosen('destroy');
+                $('.chosen-select').prop("selectedIndex", -1);
+                $('.chosen-select').chosen();
+              });
             }); 
 	
 	        </script>
