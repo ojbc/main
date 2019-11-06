@@ -35,7 +35,7 @@
              <li class="breadcrumb-item active" aria-current="page">Municipal Charges</li>
            </ol>
         </nav>
-        <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post">
+        <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post" th:fragment="arrestSearchForm">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"></div>
         </form>
         <hr/>
@@ -81,17 +81,21 @@
           	    $('[data-toggle="popover"]').popover(); 
           	    
                 $.fn.dataTable.moment( 'MM/DD/YYYY' );
-
-                var table = $('#searchResultsTable').DataTable({
-              	    responsive: true, 
-              	    fixedHeader: { header: true },
-                    "columnDefs": [
-                        { "orderable": false, "targets": 6 },
-                        {
-                            "targets":[2, 4], 
-                            "type":"date"
-                        },
-                      ]
+                
+                if ($.fn.dataTable.isDataTable( '#searchResultsTable' ) ) {
+                  $('#searchResultsTable').DataTable().destroy();
+                }
+               
+	              var table = $('#searchResultsTable').DataTable({
+             	    responsive: true, 
+             	    fixedHeader: { header: true },
+                   "columnDefs": [
+                       { "orderable": false, "targets": 6 },
+                       {
+                           "targets":[2, 4], 
+                           "type":"date"
+                       },
+                     ]
                 });
                 
                 $('[data-toggle="tooltip"]').tooltip({
@@ -175,6 +179,8 @@
  		    <script th:inline="javascript">
 	        /*<![CDATA[*/
             var context = [[@{/}]];
+            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
  	        /*]]>*/
 
 	        $(function(){
@@ -191,25 +197,26 @@
               });
               $('.date').mask('99/99/9999');
               
-              $('#searchForm input').keypress(function (e) {
+              $('#portalContent').on('keypress', '#searchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
             	    return false;    
             	  }
             	});
               
-              $('#submit').click (function(){
+              $('#portalContent').on('click', '#submit', function(){
                 var formData = $('#searchForm').serialize();
-                 
+                formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "muniArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
              	  }).fail();
               });
               
-              $('#reset').click (function(){
-            	  $('.chosen-select').chosen('destroy');
-            	  $('.chosen-select').prop("selectedIndex", -1);
-            	  $('.chosen-select').chosen();
+              $('#portalContent').on('click', '#reset', function(){
+            	  xhr = $.get(context + "muniArrests/resetSearchForm", function(data) {
+            		  $('#searchForm').replaceWith(data);
+                  $('.chosen-select').chosen();
+                }).fail();
               });
               
             }); 

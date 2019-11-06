@@ -140,19 +140,30 @@ public class DaArrestController {
 		ArrestSearchRequest daArrestSearchRequest = (ArrestSearchRequest) model.get("daArrestSearchRequest");
 		
 		if (daArrestSearchRequest == null) {
-			daArrestSearchRequest = new ArrestSearchRequest(ArrestType.DA);
-			daArrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
-			daArrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
-			daArrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
-
-			OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
-			daArrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
-			model.put("daArrestSearchRequest", daArrestSearchRequest);
+			daArrestSearchRequest = initializeArrestSearchRequest(model);
 		}
 		getArrestSearchResults(request, daArrestSearchRequest, model);
 		return "arrest/da/arrests::resultsPage";
 	}
 
+	private ArrestSearchRequest initializeArrestSearchRequest(Map<String, Object> model) {
+		ArrestSearchRequest daArrestSearchRequest;
+		daArrestSearchRequest = new ArrestSearchRequest(ArrestType.DA);
+		daArrestSearchRequest.setArrestDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+		daArrestSearchRequest.setDispositionDateRangeStartDate(LocalDate.now().minusDays(appProperties.getArrestSearchDateRange()));
+		daArrestSearchRequest.setDispositionDateRangeEndDate(LocalDate.now());
+
+		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
+		daArrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
+		model.put("daArrestSearchRequest", daArrestSearchRequest);
+		return daArrestSearchRequest;
+	}
+
+	@GetMapping("resetSearchForm")
+	public String resetSearchForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
+		initializeArrestSearchRequest(model);
+		return "arrest/da/arrests::daArrestSearchForm";
+	}
 	@PostMapping("/advancedSearch")
 	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute ArrestSearchRequest daArrestSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {

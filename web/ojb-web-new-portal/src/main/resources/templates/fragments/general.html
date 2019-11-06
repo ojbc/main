@@ -143,16 +143,12 @@
     		  });
 	    	  
 	    	  $('body').on('click', 'a.daArrest', function() {   
-                $(this).parent().toggleClass('show');
-
 	              xhr = $.get(context + 'daArrests', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
 	              return false; 
 	          });
 	          $('body').on('click', 'a.muniArrest', function() {   
-                $(this).parent().toggleClass('show');
-
 	              xhr = $.get(context + 'muniArrests', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);
@@ -160,8 +156,6 @@
 	          });
 	          
 	          $('#arrestLookup').click(function() {   
-                $(this).parent().toggleClass('show');
-
 	              xhr = $.get(context + 'arrests/lookupForm', function(data) {
 	                 $('#portalContent').html(data); 
 	               }).fail(ojbc.displayFailMessage);

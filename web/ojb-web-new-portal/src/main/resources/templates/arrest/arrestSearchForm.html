@@ -28,71 +28,71 @@
 	<body>
      <!-- Begin page content -->
      <form action="#" th:object="${arrestSearchRequest}" id="searchForm" method="post">
-       <div th:fragment="arrestSearchFormContent">
-           <input type="hidden" th:field="*{authorizedOris}" />
-           <div class="form-row">
-             <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
-             <div class="col-sm-3"><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></div>
-             <label class="col-1 col-form-label font-weight-bold text-right">To </label>
-             <div class="col-sm-3">
-                <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/>
-		            <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</div>
-             </div>
+        <div th:fragment="arrestSearchFormContent">
+          <input type="hidden" th:field="*{authorizedOris}"/>
+          <div class="form-row">
+            <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
+            <div class="col-sm-3"><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></div>
+            <label class="col-1 col-form-label font-weight-bold text-right">To </label>
+            <div class="col-sm-3">
+               <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/>
+	            <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</div>
+            </div>
+          </div>
+          <div class="form-row">
+           <label for="lastName" class="col-2 col-form-label font-weight-bold text-right">Last Name </label>
+           <div class="col-sm-3">
+             <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
            </div>
-           <div class="form-row">
-	           <label for="lastName" class="col-2 col-form-label font-weight-bold text-right">Last Name </label>
-	           <div class="col-sm-3">
-	             <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
-	           </div>
-	           <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
-	           <div class="col-sm-3">
-	              <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
-	           </div>
+           <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
+           <div class="col-sm-3">
+              <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
            </div>
-           <div class="form-row">
-             <label for="ssn" class="col-2 col-form-label font-weight-bold text-right">SSN </label>
-             <div class="col-sm-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
-             <label for="dob" class="col-1 col-form-label font-weight-bold text-right">DOB </label>
-             <div class="col-sm-3"><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></div>
+          </div>
+          <div class="form-row">
+            <label for="ssn" class="col-2 col-form-label font-weight-bold text-right">SSN </label>
+            <div class="col-sm-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
+            <label for="dob" class="col-1 col-form-label font-weight-bold text-right">DOB </label>
+            <div class="col-sm-3"><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></div>
+          </div>
+          <div class="form-row">
+            <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>
+            <div class="col-sm-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
+            <label for="oris" class="col-1 col-form-label font-weight-bold text-right" th:if="${#maps.size(authorizedOriMapping) > 1}">Agency </label>
+            <div class="col-sm-4" th:if="${#maps.size(authorizedOriMapping) > 1}">
+		          <select th:field="*{userSelectedOris}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" 
+		             data-placeholder="Please select all that apply...">
+		            <option th:each="item: ${authorizedOriMapping}" th:value="${item.key}" th:text="${item.value}" />
+		          </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-2"/>
+            <div class="col-sm-3">
+               <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
+               <span class="font-weight-bold ">Arrests With Deferred Dispositions</span> 
+            </div>
+            <div class="col-1"/>
+            <div class="col-sm-3">
+               <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
+               <span class="font-weight-bold ">Include Hidden Arrests</span>
+            </div>
+          </div>
+          <div class="form-row mt-2" th:if="${osbiUser.employerOrganizationCategory == 'Criminal History Repository'}">
+            <div class="col-2"/>
+            <div class="col-sm-3">
+               <input type="checkbox" th:field="*{includeOnlyAdminOwnedCharges}" th:value="${includeOnlyAdminOwnedCharges}"/>
+               <span class="font-weight-bold ">Include Only Admin Owned Charges</span> 
+            </div>
+          </div>
+          <div class="form-row mt-2">
+            <div class="col-2"/>
+            <div class="col-sm-3">
+                <button type="button" class="btn-primary" id="submit">Search</button>
+                <button type="button" class="btn-secondary" id="reset">Reset</button>
            </div>
-           <div class="form-row">
-             <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>
-             <div class="col-sm-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
-             <label for="oris" class="col-1 col-form-label font-weight-bold text-right" th:if="${#maps.size(authorizedOriMapping) > 1}">Agency </label>
-             <div class="col-sm-4" th:if="${#maps.size(authorizedOriMapping) > 1}">
-			          <select th:field="*{userSelectedOris}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" 
-			             data-placeholder="Please select all that apply...">
-			            <option th:each="item: ${authorizedOriMapping}" th:value="${item.key}" th:text="${item.value}" />
-			          </select>
-             </div>
-           </div>
-           <div class="form-row">
-             <div class="col-2"/>
-             <div class="col-sm-3">
-                <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
-                <span class="font-weight-bold ">Arrests With Deferred Dispositions</span> 
-             </div>
-             <div class="col-1"/>
-             <div class="col-sm-3">
-                <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
-                <span class="font-weight-bold ">Include Hidden Arrests</span>
-             </div>
-           </div>
-           <div class="form-row mt-2" th:if="${osbiUser.employerOrganizationCategory == 'Criminal History Repository'}">
-             <div class="col-2"/>
-             <div class="col-sm-3">
-                <input type="checkbox" th:field="*{includeOnlyAdminOwnedCharges}" th:value="${includeOnlyAdminOwnedCharges}"/>
-                <span class="font-weight-bold ">Include Only Admin Owned Charges</span> 
-             </div>
-           </div>
-           <div class="form-row mt-2">
-             <div class="col-2"/>
-             <div class="col-sm-3">
-                 <button type="button" class="btn-primary" id="submit">Search</button>
-                 <button type="reset" class="btn-secondary" id="reset">Reset</button>
-	           </div>
-           </div>
-       </div>
+          </div>
+        </div>
       </form>
 	</body>
 </html>

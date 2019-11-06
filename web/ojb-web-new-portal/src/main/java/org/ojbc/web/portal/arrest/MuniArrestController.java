@@ -128,6 +128,12 @@ public class MuniArrestController {
 		getArrestSearchResults(request, arrestSearchRequest, model);
 		return "arrest/arrests::resultsPage";
 	}
+	
+	@GetMapping("resetSearchForm")
+	public String resetSearchForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
+		initializeArrestSearchRequest(model);
+		return "arrest/arrests::arrestSearchForm";
+	}
 
 	private ArrestSearchRequest initializeArrestSearchRequest(Map<String, Object> model) {
 		ArrestSearchRequest arrestSearchRequest = new ArrestSearchRequest();
@@ -141,6 +147,7 @@ public class MuniArrestController {
 		arrestSearchRequest.setArrestType(ArrestType.MUNI);
 		OsbiUser osbiUser = (OsbiUser) model.get("osbiUser");
 		arrestSearchRequest.setAuthorizedOris(osbiUser.getOris());
+		log.info("reset the search request to " + arrestSearchRequest);
 		model.put("arrestSearchRequest", arrestSearchRequest);
 		return arrestSearchRequest;
 	}

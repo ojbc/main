@@ -35,7 +35,7 @@
              <li class="breadcrumb-item active" aria-current="page">State Charges</li>
            </ol>
         </nav>
-        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="searchForm" method="post">
+        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="searchForm" method="post" th:fragment="daArrestSearchForm">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
         </form>
         <hr/>
@@ -81,7 +81,11 @@
                   $('[data-toggle="popover"]').popover(); 
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-                  var table = $('#searchResultsTable').DataTable({
+                  if ( $.fn.dataTable.isDataTable( '#searchResultsTable' ) ) {
+                      $('#searchResultsTable').DataTable().destroy();
+                  }
+                   
+	                var table = $('#searchResultsTable').DataTable({
                 	    responsive: true,
                 	    fixedHeader: {header: true},
                       "columnDefs": [
@@ -93,7 +97,7 @@
 
                         ]
                   });
-                  
+	                
                   $('[data-toggle="tooltip"]').tooltip({
                       trigger : 'hover'
                   });   
@@ -193,6 +197,8 @@
  		    <script th:inline="javascript">
 	        /*<![CDATA[*/
             var context = [[@{/}]];
+            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
  	        /*]]>*/
 
 	        $(function(){
@@ -208,25 +214,26 @@
               });
               $('.date').mask('99/99/9999');
               
-              $('#searchForm input').keypress(function (e) {
+              $('#portalContent').on('keypress', '#searchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
             	    return false;    
             	  }
             	});
               
-              $('#submit').click (function(){
+              $('#portalContent').on('click', '#submit', function(){
                 var formData = $('#searchForm').serialize();
-                 
+                formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
              	  }).fail();
               });
               
-              $('#reset').click (function(){
-                $('.chosen-select').chosen('destroy');
-                $('.chosen-select').prop("selectedIndex", -1);
-                $('.chosen-select').chosen();
+              $('#portalContent').on('click', '#reset', function(){
+                  xhr = $.get(context + "daArrests/resetSearchForm", function(data) {
+                    $('#searchForm').replaceWith(data);
+                    $('.chosen-select').chosen();
+                  }).fail();
               });
             }); 
 	
