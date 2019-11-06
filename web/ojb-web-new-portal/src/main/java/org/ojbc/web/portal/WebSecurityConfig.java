@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers("/muniArrests/**").hasAuthority("AUTHZ_MUNI")
 		    .antMatchers("/daArrests/**").hasAuthority("AUTHZ_DA")
 		    .antMatchers("/arrests/**").hasAnyAuthority("AUTHZ_DA", "AUTHZ_MUNI")
-		    .antMatchers("/audit/**").hasAnyAuthority("AUTHZ_AUDIT")
+		    .antMatchers("/audit/**").hasAnyAuthority("CAN_VIEW_ADMIN_REPORTS")
 		    .anyRequest().authenticated()
 		    .and()
 	    	.logout().logoutUrl("/logout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()

@@ -285,7 +285,7 @@
                          $('#submitArrestModal').css('overflow-y', 'auto');
                       },
                       yes: function(data, array, event) { 
-                     	  requestData[_csrf_param_name] = _csrf_token;
+                     	   requestData[_csrf_param_name] = _csrf_token;
                          xhr = $.post( context +"muniArrests/finalize", $.param(requestData), function(data) {
                          	 $("#submitArrestModal .close").click(); 
                             $("#portalContent").html(data);
