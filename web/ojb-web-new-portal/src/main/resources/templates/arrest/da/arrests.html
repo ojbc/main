@@ -41,7 +41,7 @@
         <hr/>
         
         <div id="searchResultsList" th:fragment="resultsList" >
-	        <p th:utext="${arrestSearchContent}" ></p>
+	        <p th:utext="${daArrestSearchContent}" ></p>
           <div id="modalDiv">
             <!-- The Modal -->
             <div class="modal ojbc-modal" id="referralModal" aria-hidden="true">
@@ -88,6 +88,7 @@
 	                var table = $('#searchResultsTable').DataTable({
                 	    responsive: true,
                 	    fixedHeader: {header: true},
+                      order: [ [ 4, "desc" ] ],
                       "columnDefs": [
                           { "orderable": false, "targets": 6 },
                           {

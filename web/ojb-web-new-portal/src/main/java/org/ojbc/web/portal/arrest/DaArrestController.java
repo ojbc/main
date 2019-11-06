@@ -184,7 +184,7 @@ public class DaArrestController {
 		Map<String, Object> params = getAuthoritiesParam(model);
 		String transformedResults = searchResultConverter.convertDaArrestSearchResult(searchContent, params);
 		model.put("arrestSearchResults", searchContent); 
-		model.put("arrestSearchContent", transformedResults); 
+		model.put("daArrestSearchContent", transformedResults); 
 		model.put("daArrestSearchRequest", daArrestSearchRequest);
 	}
 

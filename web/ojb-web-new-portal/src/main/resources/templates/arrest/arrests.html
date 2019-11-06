@@ -89,7 +89,8 @@
 	              var table = $('#searchResultsTable').DataTable({
              	    responsive: true, 
              	    fixedHeader: { header: true },
-                   "columnDefs": [
+             	    order: [ [ 4, "desc" ] ],
+                  columnDefs: [
                        { "orderable": false, "targets": 6 },
                        {
                            "targets":[2, 4], 
