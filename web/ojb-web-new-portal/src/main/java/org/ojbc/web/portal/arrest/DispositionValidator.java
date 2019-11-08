@@ -105,6 +105,17 @@ public class DispositionValidator implements Validator {
         			errors.rejectValue("amendedChargeSeverityCode", null, "required by the dispo code");
         		}
         	}
+        	
+        	if ( ("F".equals(disposition.getChargeSeverityCode()) || "F".equals(disposition.getAmendedChargeSeverityCode())) && 
+        			Arrays.asList("T", "W").contains(disposition.getCaseType())) {
+        		if ("F".equals(disposition.getChargeSeverityCode())) {
+        			errors.rejectValue("chargeSeverityCode", null, "invalid for the case type");
+        		}
+        		
+        		if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
+        			errors.rejectValue("amendedChargeSeverityCode", null, "invalid for the case type");
+        		}
+        	}
         }
     }
 
