@@ -74,14 +74,27 @@ public class DispositionValidator implements Validator {
         	
     		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(disposition.getCaseType(), 
     				disposition.getYear(), disposition.getCaseNumber());
-    		if (isCourtCaseNumberPartsReady && "M".equals(disposition.getCaseType()) ) {
-    			if ("F".equals(disposition.getChargeSeverityCode())) {
-    				errors.rejectValue("chargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
-    			}
-    			if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
-    				errors.rejectValue("amendedChargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
-    			}
-    		}
+//    		if (isCourtCaseNumberPartsReady && "M".equals(disposition.getCaseType()) ) {
+//    			if ("F".equals(disposition.getChargeSeverityCode())) {
+//    				errors.rejectValue("chargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
+//    			}
+//    			if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
+//    				errors.rejectValue("amendedChargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
+//    			}
+//    		}
+    		
+        	if ( isCourtCaseNumberPartsReady && 
+        			("F".equals(disposition.getChargeSeverityCode()) || "F".equals(disposition.getAmendedChargeSeverityCode())) 
+        			&& !"F".equals(disposition.getCaseType())) {
+        		if ("F".equals(disposition.getChargeSeverityCode())) {
+        			errors.rejectValue("chargeSeverityCode", null, "may not be Felony when case type is not Felony");
+        		}
+        		
+        		if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
+        			errors.rejectValue("amendedChargeSeverityCode", null, "may not be Felony when case type is not Felony");
+        		}
+        	}
+
         }
         
         validateJailSuspendedDeferredDays(disposition, errors);
@@ -103,17 +116,6 @@ public class DispositionValidator implements Validator {
         		
         		if (StringUtils.isNotBlank(disposition.getAmendedCharge()) && StringUtils.isBlank(disposition.getAmendedChargeSeverityCode())) {
         			errors.rejectValue("amendedChargeSeverityCode", null, "required by the dispo code");
-        		}
-        	}
-        	
-        	if ( ("F".equals(disposition.getChargeSeverityCode()) || "F".equals(disposition.getAmendedChargeSeverityCode())) && 
-        			Arrays.asList("T", "W").contains(disposition.getCaseType())) {
-        		if ("F".equals(disposition.getChargeSeverityCode())) {
-        			errors.rejectValue("chargeSeverityCode", null, "invalid for the case type");
-        		}
-        		
-        		if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
-        			errors.rejectValue("amendedChargeSeverityCode", null, "invalid for the case type");
         		}
         	}
         }
