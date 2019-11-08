@@ -81,11 +81,12 @@
 			<td colspan="2" height="25" class="blank" />
 		</tr>
 		<xsl:if test="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID[. !=''] and //j:StatuteDescriptionText">
+		<!-- 07F201900802 -->
 			<xsl:variable name="ccID" select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID" />
 			<xsl:variable name="county" select="substring($ccID,1,2)" />
 			<xsl:variable name="caseType" select="substring($ccID,3,1)" />
-			<xsl:variable name="year" select="substring($ccID,4,2)" />
-			<xsl:variable name="caseNum" select="tokenize($ccID,'0')[last()]" />
+			<xsl:variable name="year" select="substring($ccID,6,2)" />
+			<xsl:variable name="caseNum" select="number(substring($ccID,8,5))" />
 			<tr>
 				<td class="dispositionLabel">CASE NUMBER:</td>
 				<td>
