@@ -19,8 +19,6 @@ package org.ojbc.util.camel.security.saml;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
-import org.ojbc.util.camel.security.saml.OJBSamlMap;
-import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.w3c.dom.Element;
 
@@ -46,6 +44,18 @@ public class SAMLGeneratedTokenProcessor {
 	private String defaultRSASignatureAlgorithm;
 	
 	private Map<SamlAttribute, String> customAttributes;
+	
+	public void addGeneratedSAMLTokenToExchangeWithAttributes(Exchange exchange, Map<SamlAttribute, String> customAttributesFromInvocation) throws Exception
+	{
+		Element assertion = samlAssertionBuilder.createSamlAssertionElement(issuerString, inResponseTo, recipient, audienceRestriction, authenticationMethod, defaultCanonicalizationAlgorithm, defaultRSASignatureAlgorithm, customAttributesFromInvocation);
+		
+		//Set the token header so that CXF can retrieve this on the outbound call
+		String tokenID = exchange.getExchangeId();
+		exchange.getIn().setHeader("tokenID", tokenID);
+		
+		ojbSamlMap.putToken(exchange.getExchangeId(), assertion);
+	}
+
 	
 	public void addGeneratedSAMLTokenToExchange(Exchange exchange) throws Exception
 	{

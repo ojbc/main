@@ -24,6 +24,7 @@ public class FirearmsQueryResponse {
 	private String messageId;
 	private boolean queryResultsTimeoutIndicator;
 	private boolean queryResultsErrorIndicator;
+	private boolean queryResultsAccessDeniedIndicator;
 	private String queryResultsErrorText;
 	
 	public Integer getFirearmsQueryResponseId() {
@@ -67,6 +68,13 @@ public class FirearmsQueryResponse {
 	}
 	public void setQueryResultsErrorText(String queryResultsErrorText) {
 		this.queryResultsErrorText = queryResultsErrorText;
+	}
+	public boolean isQueryResultsAccessDeniedIndicator() {
+		return queryResultsAccessDeniedIndicator;
+	}
+	public void setQueryResultsAccessDeniedIndicator(
+			boolean queryResultsAccessDeniedIndicator) {
+		this.queryResultsAccessDeniedIndicator = queryResultsAccessDeniedIndicator;
 	}
 	
 	

@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.subscription;
+package org.ojbc.util.sn;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,6 +48,9 @@ public class SubscriptionSearchRequest implements Serializable{
 	private Map<String, String> subjectIdentifiers;
 	private boolean includeExpiredSubscriptions;
 	private String subscribingSystemIdentifier;
+	private Integer userInfoFk;
+	private Integer subscriptionSearchRequestPk;
+	private String messageId;
 	
 	public SubscriptionSearchRequest(){
 		super();
@@ -178,6 +181,30 @@ public class SubscriptionSearchRequest implements Serializable{
 
 	public void setSubscribingSystemIdentifier(String subscribingSystemIdentifier) {
 		this.subscribingSystemIdentifier = subscribingSystemIdentifier;
+	}
+
+	public Integer getUserInfoFk() {
+		return userInfoFk;
+	}
+
+	public void setUserInfoFk(Integer userInfoFk) {
+		this.userInfoFk = userInfoFk;
+	}
+
+	public String getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+
+	public Integer getSubscriptionSearchRequestPk() {
+		return subscriptionSearchRequestPk;
+	}
+
+	public void setSubscriptionSearchRequestPk(Integer subscriptionSearchRequestPk) {
+		this.subscriptionSearchRequestPk = subscriptionSearchRequestPk;
 	}
 
 }

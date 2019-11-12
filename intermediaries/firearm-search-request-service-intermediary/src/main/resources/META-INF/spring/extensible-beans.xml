@@ -34,6 +34,26 @@
 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 		</constructor-arg>
 	</bean>
+	
+	<bean id="firearmsSearchRequestSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="firearmsSearchRequestSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearms-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.FirearmsSearchRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>
+	
+	<bean id="firearmsSearchResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="firearmsSearchResponseSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearms-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.FirearmsSearchResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
 
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />
