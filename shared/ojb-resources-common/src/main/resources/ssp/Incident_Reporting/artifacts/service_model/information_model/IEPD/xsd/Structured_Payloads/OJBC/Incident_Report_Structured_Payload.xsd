@@ -474,10 +474,10 @@
 					<xsd:element ref="inc-ext:TrafficStopSearchCategory" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopContraband" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopOutcome" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentWeatherCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentHighwayCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentTrafficCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentLightingCondition" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentWeatherCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentHighwayCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentTrafficCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentLightingCondition" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:SpeedMeasurementDeviceTest" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
@@ -1153,7 +1153,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DrivingOffensePoints" type="niem-xsd:nonNegativeInteger">
+	<xsd:element name="DrivingOffensePoints" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>Number of points associated with the offense.
 			</xsd:documentation>
