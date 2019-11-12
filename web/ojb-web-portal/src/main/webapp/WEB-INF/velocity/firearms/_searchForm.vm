@@ -35,7 +35,7 @@
                         alert("There are errors in your inputs, please correct them and try again");
                     }else {
                     	ojbc.clearPlaceholders();
-                        var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
+                        var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     
     		  	       	xhr=$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
     				        $('#portalContent').html(data);

@@ -1168,6 +1168,7 @@ public class SubscriptionsController {
 		Element samlAssertion = samlService.getSamlAssertion(request);
 
 		DetailsRequest subscriptionQueryRequest = new DetailsRequest(identificationID, admin);
+		subscriptionQueryRequest.setIdentificationSourceText("Subscriptions");
 
 		String subQueryResponse = subConfig.getSubscriptionQueryBean().invokeRequest(
 				subscriptionQueryRequest, getFederatedQueryId(), samlAssertion);

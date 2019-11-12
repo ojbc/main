@@ -1,0 +1,52 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<SubscriptionSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+    xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:ssreq="http://ojbc.org/IEPD/Exchange/SubscriptionSearchRequest/1.0"
+    xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0">
+    <ssreq-ext:SubscribedEntity>
+        <nc:IdentificationID>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</nc:IdentificationID>
+    </ssreq-ext:SubscribedEntity>
+    <ssreq-ext:AdminSearchRequestIndicator>false</ssreq-ext:AdminSearchRequestIndicator>
+    <ssreq-ext:RequestActiveSubscriptionsIndicator>true</ssreq-ext:RequestActiveSubscriptionsIndicator>
+    <ssreq-ext:SubscribedEntity>
+        <ssreq-ext:SubscribedEntityFederatedIdentification>
+            <nc:IdentificationID>STATE:IDP:AG:USER:yogesh@search.org</nc:IdentificationID>
+        </ssreq-ext:SubscribedEntityFederatedIdentification>
+    </ssreq-ext:SubscribedEntity>
+    <ssreq-ext:FBISubscription>
+        <ssreq-ext:SubscriptionSubject>
+            <nc:PersonName>
+                <nc:PersonGivenName>first</nc:PersonGivenName>
+                <nc:PersonSurName>last</nc:PersonSurName>
+            </nc:PersonName>
+            <jxdm41:PersonAugmentation>
+                <jxdm41:PersonFBIIdentification>
+                    <nc:IdentificationID>UCN</nc:IdentificationID>
+                </jxdm41:PersonFBIIdentification>
+                <jxdm41:PersonStateFingerprintIdentification>
+                    <nc:IdentificationID>sid</nc:IdentificationID>
+                </jxdm41:PersonStateFingerprintIdentification>
+            </jxdm41:PersonAugmentation>
+        </ssreq-ext:SubscriptionSubject>
+        <ssreq-ext:CriminalSubscriptionReasonCode>CS</ssreq-ext:CriminalSubscriptionReasonCode>
+        <ssreq-ext:CriminalSubscriptionReasonCode>CI</ssreq-ext:CriminalSubscriptionReasonCode>
+    </ssreq-ext:FBISubscription>
+</SubscriptionSearchRequest>

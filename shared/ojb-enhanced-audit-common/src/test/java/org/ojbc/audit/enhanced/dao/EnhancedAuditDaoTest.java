@@ -36,6 +36,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
@@ -427,6 +428,15 @@ public class EnhancedAuditDaoTest {
 		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
 		
 		assertNotNull(identificationQueryResponsePk);
+		
+		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
+		
+		firearmsQueryResponse.setQueryRequestId(queryPk);
+		firearmsQueryResponse.setMessageId("123456");
+		firearmsQueryResponse.setSystemName("Firearms System");
+		
+		Integer firearmsQueryResponsePk = enhancedAuditDao.saveFirearmsQueryResponse(firearmsQueryResponse);
+		assertNotNull(firearmsQueryResponsePk);
 		
 	}
 	

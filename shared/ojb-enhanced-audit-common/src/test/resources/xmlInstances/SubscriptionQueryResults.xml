@@ -1,0 +1,164 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<sqr:SubscriptionQueryResults xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+    xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+    xmlns:ssr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchResults/1.0"
+    xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2">
+    <sqr-ext:SubscriptionQueryResult>
+        <sqr-ext:Subscription s:id="S001">
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2018-03-22</nc:Date>
+                </nc:StartDate>
+                <nc:EndDate>
+                    <nc:Date>2023-03-22</nc:Date>
+                </nc:EndDate>
+            </nc:ActivityDateRange>
+            <sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
+            <sqr-ext:SubscriptionQualifierIdentification>
+                <nc:IdentificationID>99999999</nc:IdentificationID>
+            </sqr-ext:SubscriptionQualifierIdentification>
+            <sqr-ext:SubscriptionCreationDate>
+                <nc:Date>2018-03-22</nc:Date>
+            </sqr-ext:SubscriptionCreationDate>
+            <sqr-ext:SubscriptionLastUpdatedDate>
+                <nc:Date>2019-10-02</nc:Date>
+            </sqr-ext:SubscriptionLastUpdatedDate>
+            <sqr-ext:SubscriptionRelatedCaseIdentification>
+                <nc:IdentificationID>8888888</nc:IdentificationID>
+            </sqr-ext:SubscriptionRelatedCaseIdentification>
+            <sqr-ext:FBISubscription s:id="FBI001">
+                <nc:ActivityDateRange>
+                    <nc:StartDate>
+                        <nc:Date>2018-03-22</nc:Date>
+                    </nc:StartDate>
+                    <nc:EndDate>
+                        <nc:Date>2023-03-22</nc:Date>
+                    </nc:EndDate>
+                </nc:ActivityDateRange>
+                <sqr-ext:SubscriptionFBIIdentification>
+                    <nc:IdentificationID>7777777</nc:IdentificationID>
+                </sqr-ext:SubscriptionFBIIdentification>
+                <sqr-ext:CriminalSubscriptionReasonCode>CS</sqr-ext:CriminalSubscriptionReasonCode>
+                <sqr-ext:RapBackSubscriptionTermCode/>
+                <sqr-ext:RapBackActivityNotificationFormatCode>3</sqr-ext:RapBackActivityNotificationFormatCode>
+                <sqr-ext:RapBackInStateOptOutIndicator>true</sqr-ext:RapBackInStateOptOutIndicator>
+                <jxdm41:PersonFBIIdentification>
+                    <nc:IdentificationID>66666</nc:IdentificationID>
+                </jxdm41:PersonFBIIdentification>
+            </sqr-ext:FBISubscription>
+            <sqr-ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P001"/>
+            </sqr-ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+                >{http://ojbc.org/wsn/topics}:person/rapback</wsn-br:Topic>
+            <sqr-ext:SubscribedEntity s:id="SE001">
+                <nc:EntityPerson>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>first</nc:PersonGivenName>
+                        <nc:PersonSurName>last</nc:PersonSurName>
+                    </nc:PersonName>
+                </nc:EntityPerson>
+            </sqr-ext:SubscribedEntity>
+            <sqr-ext:SubscriptionOriginator>
+                <sqr-ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>STATE:IDP:USER:email@email.org</nc:IdentificationID>
+                </sqr-ext:SubscriptionOriginatorIdentification>
+            </sqr-ext:SubscriptionOriginator>
+            <sqr-ext:SubscriptionValidation>
+                <sqr-ext:SubscriptionValidationDueDate>
+                    <nc:Date>2023-03-22</nc:Date>
+                </sqr-ext:SubscriptionValidationDueDate>
+                <sqr-ext:SubscriptionValidatedDate>
+                    <nc:Date>2018-03-22</nc:Date>
+                </sqr-ext:SubscriptionValidatedDate>
+            </sqr-ext:SubscriptionValidation>
+            <sqr-ext:SubscriptionGracePeriod>
+                <sqr-ext:SubscriptionGracePeriodDateRange>
+                    <nc:StartDate>
+                        <nc:Date>2023-03-23</nc:Date>
+                    </nc:StartDate>
+                    <nc:EndDate>
+                        <nc:Date>2023-03-23</nc:Date>
+                    </nc:EndDate>
+                </sqr-ext:SubscriptionGracePeriodDateRange>
+            </sqr-ext:SubscriptionGracePeriod>
+            <sqr-ext:CriminalSubscriptionReasonCode>CS</sqr-ext:CriminalSubscriptionReasonCode>
+            <sqr-ext:TriggeringEvents>
+                <sqr-ext:FederalTriggeringEventCode>ARREST</sqr-ext:FederalTriggeringEventCode>
+            </sqr-ext:TriggeringEvents>
+        </sqr-ext:Subscription>
+        <sqr-ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</sqr-ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>10</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </sqr-ext:SubscriptionQueryResult>
+    <sqr-ext:Person s:id="P001">
+        <nc:PersonBirthDate>
+            <nc:Date>1975-01-02</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonFullName>full name</nc:PersonFullName>
+            <nc:PersonGivenName>given</nc:PersonGivenName>
+            <nc:PersonSurName>sur</nc:PersonSurName>
+        </nc:PersonName>
+        <jxdm41:PersonAugmentation>
+            <jxdm41:PersonFBIIdentification>
+                <nc:IdentificationID>99999999</nc:IdentificationID>
+            </jxdm41:PersonFBIIdentification>
+            <jxdm41:PersonStateFingerprintIdentification>
+                <nc:IdentificationID>5555555</nc:IdentificationID>
+            </jxdm41:PersonStateFingerprintIdentification>
+        </jxdm41:PersonAugmentation>
+    </sqr-ext:Person>
+    <jxdm41:Organization s:id="SO001">
+        <nc:OrganizationName>HCJDC</nc:OrganizationName>
+        <jxdm41:OrganizationAugmentation>
+            <jxdm41:OrganizationORIIdentification>
+                <nc:IdentificationID>ORI123</nc:IdentificationID>
+            </jxdm41:OrganizationORIIdentification>
+        </jxdm41:OrganizationAugmentation>
+    </jxdm41:Organization>
+    <nc:ContactInformation s:id="S001CE001">
+        <nc:ContactEmailID>email@email.com</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <nc:ContactInformation s:id="SE001CE001">
+        <nc:ContactEmailID>email@email.com</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <sqr-ext:SubscriptionContactInformationAssociation>
+        <sqr-ext:SubscriptionReference s:ref="S001"/>
+        <nc:ContactInformationReference s:ref="S001CE001"/>
+    </sqr-ext:SubscriptionContactInformationAssociation>
+    <sqr-ext:SubscribedEntityOrganizationAssociation>
+        <sqr-ext:SubscribedEntityReference s:ref="SE001"/>
+        <nc:OrganizationReference s:ref="SO001"/>
+    </sqr-ext:SubscribedEntityOrganizationAssociation>
+    <sqr-ext:SubscribedEntityContactInformationAssociation>
+        <sqr-ext:SubscribedEntityReference s:ref="SE001"/>
+        <nc:ContactInformationReference s:ref="SE001CE001"/>
+    </sqr-ext:SubscribedEntityContactInformationAssociation>
+    <ssr-ext:StateSubscriptionFBISubscriptionAssociation>
+        <ssr-ext:StateSubscriptionReference s:ref="S001"/>
+        <ssr-ext:FBISubscriptionReference s:ref="FBI001"/>
+    </ssr-ext:StateSubscriptionFBISubscriptionAssociation>
+</sqr:SubscriptionQueryResults>
