@@ -74,14 +74,6 @@ public class DispositionValidator implements Validator {
         	
     		boolean isCourtCaseNumberPartsReady = StringUtils.isNoneBlank(disposition.getCaseType(), 
     				disposition.getYear(), disposition.getCaseNumber());
-//    		if (isCourtCaseNumberPartsReady && "M".equals(disposition.getCaseType()) ) {
-//    			if ("F".equals(disposition.getChargeSeverityCode())) {
-//    				errors.rejectValue("chargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
-//    			}
-//    			if ("F".equals(disposition.getAmendedChargeSeverityCode())) {
-//    				errors.rejectValue("amendedChargeSeverityCode", null, "may not be Felony when case type is Misdemeanor");
-//    			}
-//    		}
     		
         	if ( isCourtCaseNumberPartsReady && 
         			("F".equals(disposition.getChargeSeverityCode()) || "F".equals(disposition.getAmendedChargeSeverityCode())) 
