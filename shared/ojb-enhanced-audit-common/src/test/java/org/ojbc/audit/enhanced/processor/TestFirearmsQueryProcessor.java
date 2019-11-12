@@ -40,9 +40,9 @@ import org.w3c.dom.Document;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
-public class TesFirearmsQueryProcessor {
+public class TestFirearmsQueryProcessor {
 
-	private static final Log log = LogFactory.getLog(TesFirearmsQueryProcessor.class);
+	private static final Log log = LogFactory.getLog(TestFirearmsQueryProcessor.class);
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
@@ -83,6 +83,19 @@ public class TesFirearmsQueryProcessor {
 
 		assertEquals("Error Text", firearmsQueryResponseError.getQueryResultsErrorText());
 		assertEquals(true, firearmsQueryResponseError.isQueryResultsErrorIndicator());
+		
+        inputFile = new File("src/test/resources/xmlInstances/FirearmsQueryResult.xml");
+
+        document = db.parse(inputFile);
+		
+        firearmsQueryResponseError = firearmsQueryResponseProcessor.processFirearmsQueryResponse(document);
+
+		assertEquals("FIRST", firearmsQueryResponseError.getFirstName());
+		assertEquals("B", firearmsQueryResponseError.getMiddleName());
+		assertEquals("LAST", firearmsQueryResponseError.getLastName());
+		assertEquals("county", firearmsQueryResponseError.getCounty());
+		assertEquals("1111", firearmsQueryResponseError.getRegistrationNumber());
+		
 
 	}
 	
