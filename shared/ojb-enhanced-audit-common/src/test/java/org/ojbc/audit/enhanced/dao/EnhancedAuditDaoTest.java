@@ -434,6 +434,11 @@ public class EnhancedAuditDaoTest {
 		firearmsQueryResponse.setQueryRequestId(queryPk);
 		firearmsQueryResponse.setMessageId("123456");
 		firearmsQueryResponse.setSystemName("Firearms System");
+		firearmsQueryResponse.setCounty("county");
+		firearmsQueryResponse.setFirstName("first");
+		firearmsQueryResponse.setMiddleName("middle");
+		firearmsQueryResponse.setLastName("last");
+		firearmsQueryResponse.setRegistrationNumber("reg number");
 		
 		Integer firearmsQueryResponsePk = enhancedAuditDao.saveFirearmsQueryResponse(firearmsQueryResponse);
 		assertNotNull(firearmsQueryResponsePk);

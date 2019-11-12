@@ -16,6 +16,9 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class FirearmsQueryResponse {
 
 	private Integer firearmsQueryResponseId;
@@ -26,6 +29,11 @@ public class FirearmsQueryResponse {
 	private boolean queryResultsErrorIndicator;
 	private boolean queryResultsAccessDeniedIndicator;
 	private String queryResultsErrorText;
+	private String firstName;
+	private String lastName;
+	private String middleName;
+	private String county;
+	private String registrationNumber;
 	
 	public Integer getFirearmsQueryResponseId() {
 		return firearmsQueryResponseId;
@@ -76,6 +84,39 @@ public class FirearmsQueryResponse {
 			boolean queryResultsAccessDeniedIndicator) {
 		this.queryResultsAccessDeniedIndicator = queryResultsAccessDeniedIndicator;
 	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	public String getCounty() {
+		return county;
+	}
+	public void setCounty(String county) {
+		this.county = county;
+	}
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
 	
+	public String toString(){
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }	
 	
 }

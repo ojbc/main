@@ -594,8 +594,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Inserting row into FIREARMS_QUERY_RESULTS table : " + firearmsQueryResponse.toString());
 		
         final String FIREARMS_QUERY_RESULTS_INSERT="INSERT into FIREARMS_QUERY_RESULTS "  
-        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, MESSAGE_ID, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT) "
-        		+ "values (?, ?, ?, ?, ?, ?)";
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, MESSAGE_ID, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, REGISTRATION_NUMBER, LAST_NAME, MIDDLE_NAME, FIRST_NAME, COUNTY) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -609,6 +609,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.isQueryResultsTimeoutIndicator(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.isQueryResultsErrorIndicator(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getQueryResultsErrorText(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getRegistrationNumber(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getLastName(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getMiddleName(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getFirstName(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getCounty(), ps, 11);
         	            
         	            return ps;
         	        }
