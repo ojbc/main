@@ -93,6 +93,11 @@ public abstract class AbstractFirearmsQueryResponseProcessor {
 			firearmsQueryResponse.setRegistrationNumber(registrationNumber);
 		}	
 		
+		if (StringUtils.isBlank(firearmsQueryResponse.getSystemName()))
+		{
+			firearmsQueryResponse.setSystemName("Firearms");
+		}	
+		
         return firearmsQueryResponse;
 	}
 
