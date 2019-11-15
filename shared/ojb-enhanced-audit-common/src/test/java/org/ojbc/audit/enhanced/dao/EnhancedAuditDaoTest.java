@@ -16,7 +16,10 @@
  */
 package org.ojbc.audit.enhanced.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,6 +53,8 @@ import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -537,6 +542,36 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(userLoginPk);
 		
+		UserAuthenticationSearchRequest userAuthenticationSearchRequest = new UserAuthenticationSearchRequest();
+		
+		userAuthenticationSearchRequest.setStartTime(LocalDateTime.now().minusDays(1));
+		userAuthenticationSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(userAuthenticationSearchRequest);
+		verifyUserAuthenticationResponse(userAuthenticationSearchResponses);
+
+		userAuthenticationSearchRequest = new UserAuthenticationSearchRequest();
+		userAuthenticationSearchRequest.setFirstName("first");
+		userAuthenticationSearchRequest.setLastName("last");
+		userAuthenticationSearchRequest.setEmailAddress("email");
+		userAuthenticationSearchRequest.setEmployerOri("employer ori");
+		userAuthenticationSearchRequest.setFirstName("first");
+		userAuthenticationSearchRequest.setUserAction("login");
+		
+	}
+
+	private void verifyUserAuthenticationResponse(
+			List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses) {
+		assertEquals(1, userAuthenticationSearchResponses.size());
+		assertEquals("Employer Name", userAuthenticationSearchResponses.get(0).getEmployerName());
+		assertEquals("employer ori", userAuthenticationSearchResponses.get(0).getEmployerOri());
+		assertEquals("Sub Unit", userAuthenticationSearchResponses.get(0).getEmployerSubunitName());
+		assertEquals("Fed ID", userAuthenticationSearchResponses.get(0).getFederationId());
+		assertEquals("IDP", userAuthenticationSearchResponses.get(0).getIdentityProviderId());
+		assertEquals("login", userAuthenticationSearchResponses.get(0).getUserAction());
+		assertEquals("email", userAuthenticationSearchResponses.get(0).getUserEmailAddress());
+		assertEquals("first", userAuthenticationSearchResponses.get(0).getUserFirstName());
+		assertEquals("last", userAuthenticationSearchResponses.get(0).getUserLastName());
 	}	
 	
 	@Test

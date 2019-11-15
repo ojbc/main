@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-enhanced-audit-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.11</version>
+	<version>1.0.12</version>
 
 	<name>OJB :: ojb-enhanced-audit-common :: shared</name>
 	<url>http://www.search.org</url>

@@ -44,6 +44,8 @@ import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 
 
@@ -114,12 +116,14 @@ public interface EnhancedAuditDAO {
 	public List<UserAcknowledgement> retrieveUserAcknowledgement(String federationId);
 	
 	public Integer saveUserAuthentication(Integer userInfoPk, String action);
-	
-	public Integer savePrintResults(PrintResults printResults);
-	
+
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
 	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId);
+	
+	public List<UserAuthenticationSearchResponse> retrieveUserAuthentication(UserAuthenticationSearchRequest userAuthenticationSearchRequest);
+
+	public Integer savePrintResults(PrintResults printResults);
 	
 	public Integer retrieveSystemToSearchIDFromURI(String uri);
 	

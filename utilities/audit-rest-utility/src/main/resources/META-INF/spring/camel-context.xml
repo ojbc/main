@@ -105,10 +105,22 @@
 					<simple>${header.operationName} == 'auditUserAcknowledgement'</simple>
 					<to uri="direct:auditUserAcknowledgement" />
 				</when>
-				
+
+				<when>
+					<simple>${header.operationName} == 'retrieveUserAuthentications'</simple>
+					<to uri="direct:retrieveUserAuthentications" />
+				</when>
 				
 			</choice>
 		</route>
+		
+		<route id="directRetrieveUserAuthentications">
+			<from uri="direct:retrieveUserAuthentications" />
+			
+			<camel:log message="Return User Authentications"/>
+			
+			<bean ref="auditRestImpl" method="retrieveUserAuthentications" />
+		</route>	
 		
 		<route id="directReturnFederalRapbackSubscriptionDetail">
 			<from uri="direct:returnFederalRapbackSubscriptionDetail" />

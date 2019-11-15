@@ -36,6 +36,8 @@ import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
@@ -296,5 +298,16 @@ public class AuditRestImpl implements AuditInterface {
 		}	
 		
 		return federalRapbackSubscriptionDetail;
+	}
+
+	@Override
+	public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(
+			UserAuthenticationSearchRequest authenticationSearchRequest) {
+
+		log.info("User Authentication Search Request: " + authenticationSearchRequest.toString());
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(authenticationSearchRequest);
+		
+		return userAuthenticationSearchResponses;
 	}
 }
