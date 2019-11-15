@@ -21,7 +21,7 @@
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
-	<ident-ext:TransactionCategoryText>NSOR-RESULT-TO-HIJIS</ident-ext:TransactionCategoryText>
+	<ident-ext:TransactionCategoryText>NSOR-TO-HIJIS</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
