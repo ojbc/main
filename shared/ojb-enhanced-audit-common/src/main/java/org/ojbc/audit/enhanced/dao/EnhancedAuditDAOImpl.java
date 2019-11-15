@@ -61,6 +61,9 @@ import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResposeRowMapper;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2167,6 +2170,64 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    keyHolder);
 
          return keyHolder.getKey().intValue();	
+	}
+
+	@Override
+	public List<UserAuthenticationSearchResponse> retrieveUserAuthentication(UserAuthenticationSearchRequest searchRequest) {
+
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		StringBuffer sqlStatement = new StringBuffer();
+		
+		sqlStatement.append("select * from USER_LOGIN ul, USER_INFO ui where ui.USER_INFO_ID = ul.USER_INFO_ID ");
+		
+		if (StringUtils.isNotBlank(searchRequest.getFirstName()))
+		{
+			sqlStatement.append(" and ui.USER_FIRST_NAME = ?");
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getLastName()))
+		{
+			sqlStatement.append(" and ui.USER_LAST_NAME = ?");
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getEmailAddress()))
+		{
+			sqlStatement.append(" and ui.USER_EMAIL_ADDRESS = ?");
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getEmployerOri()))
+		{
+			sqlStatement.append(" and ui.EMPLOYER_ORI = ?");
+		}	
+
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() != null)
+		{
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			
+			if (searchRequest.getStartTime() != null)
+			{
+				
+				String startDateString = searchRequest.getStartTime().format(formatter);
+				sqlStatement.append(" and ul.TIMESTAMP > '" + startDateString + "'");
+			}	
+	
+			if (searchRequest.getEndTime() != null)
+			{
+				String endDateString = searchRequest.getEndTime().format(formatter);
+				sqlStatement.append(" and ul.TIMESTAMP < '" + endDateString + "'");
+				
+			}	
+		}
+		
+		log.info("User authentication select statement: " + sqlStatement.toString());
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResposeRowMapper());
+		
+		return userAuthenticationSearchResponses;
 	}
 
 }
