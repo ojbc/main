@@ -58,35 +58,35 @@ public abstract class AbstractFirearmsQueryResponseProcessor {
 			firearmsQueryResponse.setQueryResultsErrorText(firearmsRegistrationErrorText);
 		}	
 		
-		String personGivenName = XmlUtils.xPathStringSearch(document, "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonGivenName");
+		String personGivenName = XmlUtils.xPathStringSearch(document, "//nc:Person/nc:PersonName/nc:PersonGivenName");
 		
 		if (StringUtils.isNotBlank(personGivenName))
 		{
 			firearmsQueryResponse.setFirstName(personGivenName);
 		}	
 		
-		String personMiddleName = XmlUtils.xPathStringSearch(document, "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonMiddleName");
+		String personMiddleName = XmlUtils.xPathStringSearch(document, "//nc:Person/nc:PersonName/nc:PersonMiddleName");
 		
 		if (StringUtils.isNotBlank(personMiddleName))
 		{
 			firearmsQueryResponse.setMiddleName(personMiddleName);
 		}	
 		
-		String personSurName = XmlUtils.xPathStringSearch(document, "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonSurName");
+		String personSurName = XmlUtils.xPathStringSearch(document, "//nc:Person/nc:PersonName/nc:PersonSurName");
 		
 		if (StringUtils.isNotBlank(personSurName))
 		{
 			firearmsQueryResponse.setLastName(personSurName);
 		}		
 		
-		String countyName = XmlUtils.xPathStringSearch(document, "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration/nc:LocationCountyName");
+		String countyName = XmlUtils.xPathStringSearch(document, "//firearm-ext:ItemRegistration/nc:LocationCountyName");
 		
 		if (StringUtils.isNotBlank(countyName))
 		{
 			firearmsQueryResponse.setCounty(countyName);
 		}		
 		
-		String registrationNumber = XmlUtils.xPathStringSearch(document, "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration/nc:RegistrationIdentification/nc:IdentificationID");
+		String registrationNumber = XmlUtils.xPathStringSearch(document, "//firearm-ext:ItemRegistration/nc:RegistrationIdentification/nc:IdentificationID");
 		
 		if (StringUtils.isNotBlank(registrationNumber))
 		{
