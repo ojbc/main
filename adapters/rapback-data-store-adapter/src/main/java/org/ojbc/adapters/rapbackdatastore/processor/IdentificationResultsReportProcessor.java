@@ -46,7 +46,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
 	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
-	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-TO-HIJIS";
+	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-RESULT-TO-HIJIS";
 	
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
