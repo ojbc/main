@@ -203,18 +203,7 @@
  	        /*]]>*/
 
 	        $(function(){
-	            $(".chosen-select").chosen(); 
-              $('#arrestDateRangeStartDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('#arrestDateRangeEndDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('#dob').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('.date').mask('99/99/9999');
-              
+	        	  initSearchForm();
               $('#portalContent').on('keypress', '#searchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
@@ -233,10 +222,24 @@
               $('#portalContent').on('click', '#reset', function(){
                   xhr = $.get(context + "daArrests/resetSearchForm", function(data) {
                     $('#searchForm').replaceWith(data);
-                    $('.chosen-select').chosen();
+                    initSearchForm();
                   }).fail();
               });
             }); 
+ 	        
+            function initSearchForm(){
+                $(".chosen-select").chosen(); 
+                $('#arrestDateRangeStartDate').datepicker({
+                      uiLibrary: 'bootstrap4', size: 'small'
+                });
+                $('#arrestDateRangeEndDate').datepicker({
+                      uiLibrary: 'bootstrap4', size: 'small'
+                });
+                $('#dob').datepicker({
+                      uiLibrary: 'bootstrap4', size: 'small'
+                });
+                $('.date').mask('99/99/9999');
+            }
 	
 	        </script>
 	    </div>
