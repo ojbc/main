@@ -76,6 +76,12 @@ public class AuditController {
 		return "audit/auditLogs::resultsPage";
 	}
 
+	@GetMapping("resetSearchForm")
+	public String resetSearchForm(HttpServletRequest request, Map<String, Object> model) throws Throwable {
+		model.put("auditSearchRequest", new AuditSearchRequest());
+		return "audit/auditSearchForm::auditSearchForm";
+	}
+
 	@PostMapping("/auditLogs")
 	public String findAuditLogs(HttpServletRequest request, AuditSearchRequest auditSearchRequest, Map<String, Object> model) throws Throwable {
 		

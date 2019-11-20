@@ -128,23 +128,15 @@
 
             /*]]>*/
              $(function(){
-                 $('.date').mask('99/99/9999');
-                 $('#auditDateRangeStartDate').datepicker({
-                     uiLibrary: 'bootstrap4', size: 'small'
-                 });
-                 $('#auditDateRangeEndDate').datepicker({
-                     uiLibrary: 'bootstrap4', size: 'small'
-                 });
-                 $(".chosen-select").chosen(); 
-                 $('#searchForm input').keypress(function (e) {
-                   
-                 if (e.which == 13) {
-                     $('#submit').click();
-                     return false;    
-                   }
+            	   initSearchForm();
+                 $('#portalContent').on('keypress', '#searchForm input', function(e){
+	                 if (e.which == 13) {
+	                     $('#submit').click();
+	                     return false;    
+	                   }
                  });
                  
-                 $('#submit').click (function(){
+                 $('#portalContent').on('click', '#submit', function(){
                    var requestData = {
                        'auditDateRangeStartDate': $('#auditDateRangeStartDate').val(),
                        'auditDateRangeEndDate': $('#auditDateRangeEndDate').val(),
@@ -161,8 +153,26 @@
                      $('#searchResultsList').replaceWith(data);
                    }).fail();
                  });
+                 
+                 $('#portalContent').on('click', '#reset', function(){
+                     xhr = $.get(context + "audit/resetSearchForm", function(data) {
+                       $('#searchForm').replaceWith(data);
+                       initSearchForm();
+                     }).fail();
+                 });
 
              });
+            
+            function initSearchForm(){
+                $('.date').mask('99/99/9999');
+                $('#auditDateRangeStartDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+                });
+                $('#auditDateRangeEndDate').datepicker({
+                    uiLibrary: 'bootstrap4', size: 'small'
+                });
+                $(".chosen-select").chosen(); 
+            }
         </script>
 	    </div>
 	
