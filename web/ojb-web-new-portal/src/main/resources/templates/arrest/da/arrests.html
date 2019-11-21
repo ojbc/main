@@ -35,7 +35,7 @@
              <li class="breadcrumb-item active" aria-current="page">State Charges</li>
            </ol>
         </nav>
-        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="searchForm" method="post" th:fragment="daArrestSearchForm">
+        <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="daSearchForm" method="post" th:fragment="daArrestSearchForm">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
         </form>
         <hr/>
@@ -81,36 +81,37 @@
                   $('[data-toggle="popover"]').popover(); 
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-                  if ( $.fn.dataTable.isDataTable( '#searchResultsTable' ) ) {
-                      $('#searchResultsTable').DataTable().destroy();
+                  if ( $.fn.dataTable.isDataTable( '#daSearchResultsTable' ) ) {
+                	  daSearchResultsTable = $('#daSearchResultsTable').DataTable();
                   }
-                   
-	                var table = $('#searchResultsTable').DataTable({
-                	    responsive: true,
-                	    fixedHeader: {header: true},
-                      order: [ [ 4, "desc" ] ],
-                      "columnDefs": [
-                          { "orderable": false, "targets": 6 },
-                          {
-                              "targets":[2, 4], 
-                              "type":"date"
-                          },
-
-                        ]
-                  });
-	                
+                  else{
+                	  $('#daSearchResultsTable').DataTable({
+	                	    responsive: true,
+	                	    fixedHeader: {header: true},
+	                      order: [ [ 4, "desc" ] ],
+	                      "columnDefs": [
+	                          { "orderable": false, "targets": 6 },
+	                          {
+	                              "targets":[2, 4], 
+	                              "type":"date"
+	                          },
+	
+	                        ]
+	                  });
+                  }
+                  	                
                   $('[data-toggle="tooltip"]').tooltip({
                       trigger : 'hover'
                   });   
                   
-                  $('#searchResultsTable').on('click', 'a.editArrest',function() {
+                  $('#daSearchResultsTable').on('click', 'a.editArrest',function() {
                       var selectedRow = $(this).closest("tr"); 
                       var chargeIds = selectedRow.find(".chargeIds").text();  
                       xhr = $.get( context +"daArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
                         $('#portalContent').html(data);
                       }).fail(ojbc.displayFailMessage);
                   });
-                  $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
+                  $('#daSearchResultsTable tbody').on('click', 'a.hideArrest',function() {
                       var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".hideableChargeIds").text();
@@ -130,7 +131,7 @@
                           },
                       });
                   });
-                  $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+                  $('#daSearchResultsTable tbody').on('click', 'a.unhideArrest',function() {
                       var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".unhideableChargeIds").text();
@@ -138,7 +139,7 @@
                           $("#searchResultsList").replaceWith(data);
                       }).fail(ojbc.displayFailMessage);
                   });
-/*                   $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
+/*                   $('#daSearchResultsTable tbody').on('click', 'a.referArrest',function() {
                       var arrestId = $(this).closest("tr").attr("id");
                       var chargeIds = selectedRow.find(".chargeIds").text();  
                       bootpopup({
@@ -158,7 +159,7 @@
                       });
                   }); 
  */
-                  $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
+                  $('#daSearchResultsTable tbody').on('click', 'a.referArrest',function() {
                       var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".chargeIds").text();  
@@ -204,7 +205,7 @@
 
 	        $(function(){
 	        	  initSearchForm();
-              $('#portalContent').on('keypress', '#searchForm input',function (e) {
+              $('#portalContent').on('keypress', '#daSearchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
             	    return false;    
@@ -212,7 +213,7 @@
             	});
               
               $('#portalContent').on('click', '#submit', function(){
-                var formData = $('#searchForm').serialize();
+                var formData = $('#daSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
@@ -221,7 +222,7 @@
               
               $('#portalContent').on('click', '#reset', function(){
                   xhr = $.get(context + "daArrests/resetSearchForm", function(data) {
-                    $('#searchForm').replaceWith(data);
+                    $('#daSearchForm').replaceWith(data);
                     initSearchForm();
                   }).fail();
               });

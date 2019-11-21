@@ -35,7 +35,7 @@
              <li class="breadcrumb-item active" aria-current="page">Municipal Charges</li>
            </ol>
         </nav>
-        <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="searchForm" method="post" th:fragment="arrestSearchForm">
+        <form action="#" th:action="@{/muniArrests/advancedSearch}" th:object="${arrestSearchRequest}" id="muniSearchForm" method="post" th:fragment="arrestSearchForm">
 	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"></div>
         </form>
         <hr/>
@@ -82,36 +82,37 @@
           	    
                 $.fn.dataTable.moment( 'MM/DD/YYYY' );
                 
-                if ($.fn.dataTable.isDataTable( '#searchResultsTable' ) ) {
-                  $('#searchResultsTable').DataTable().destroy();
+                if ( $.fn.dataTable.isDataTable( '#muniSearchResultsTable' ) ) {
+                  table = $('#muniSearchResultsTable').DataTable();
                 }
-               
-	              var table = $('#searchResultsTable').DataTable({
-             	    responsive: true, 
-             	    fixedHeader: { header: true },
-             	    order: [ [ 4, "desc" ] ],
-                  columnDefs: [
-                       { "orderable": false, "targets": 6 },
-                       {
-                           "targets":[2, 4], 
-                           "type":"date"
-                       },
-                     ]
-                });
+                else {
+	                table = $('#muniSearchResultsTable').DataTable({
+	             	    responsive: true, 
+	             	    fixedHeader: { header: true },
+	             	    order: [ [ 4, "desc" ] ],
+	                  columnDefs: [
+	                       { "orderable": false, "targets": 6 },
+	                       {
+	                           "targets":[2, 4], 
+	                           "type":"date"
+	                       },
+	                     ]
+	                });
+                }
                 
                 $('[data-toggle="tooltip"]').tooltip({
                     trigger : 'hover'
                 });   
  
                   
-                $('#searchResultsTable').on('click', 'a.editArrest',function() {
+                $('#muniSearchResultsTable').on('click', 'a.editArrest',function() {
               	  var selectedRow = $(this).closest("tr"); 
               		var chargeIds = selectedRow.find(".chargeIds").text();  
                   xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
                     $('#portalContent').html(data);
                   }).fail(ojbc.displayFailMessage);
                 });
-                $('#searchResultsTable tbody').on('click', 'a.hideArrest',function() {
+                $('#muniSearchResultsTable tbody').on('click', 'a.hideArrest',function() {
                   var selectedRow = $(this).closest("tr"); 
                	  var arrestId = selectedRow.attr("id"); 
                	  var chargeIds = selectedRow.find(".hideableChargeIds").text();
@@ -131,7 +132,7 @@
                         },
                     });
                 });
-                $('#searchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+                $('#muniSearchResultsTable tbody').on('click', 'a.unhideArrest',function() {
                     var selectedRow = $(this).closest("tr"); 
                     var arrestId = selectedRow.attr("id"); 
                     var chargeIds = selectedRow.find(".unhideableChargeIds").text();
@@ -140,7 +141,7 @@
                     }).fail(ojbc.displayFailMessage);
                 });
                   
-                $('#searchResultsTable tbody').on('click', 'a.referArrest',function() {
+                $('#muniSearchResultsTable tbody').on('click', 'a.referArrest',function() {
               	  var selectedRow = $(this).closest("tr"); 
                   var arrestId = selectedRow.attr("id"); 
                   var chargeIds = selectedRow.find(".chargeIds").text();  
@@ -186,7 +187,7 @@
 
 	        $(function(){
 	        	  initSearchForm();
-              $('#portalContent').on('keypress', '#searchForm input',function (e) {
+              $('#portalContent').on('keypress', '#muniSearchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
             	    return false;    
@@ -194,7 +195,7 @@
             	});
               
               $('#portalContent').on('click', '#submit', function(){
-                var formData = $('#searchForm').serialize();
+                var formData = $('#muniSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "muniArrests/advancedSearch",formData,function(data) {
               	  $('#searchResultsList').replaceWith(data);
@@ -203,7 +204,7 @@
               
               $('#portalContent').on('click', '#reset', function(){
             	  xhr = $.get(context + "muniArrests/resetSearchForm", function(data) {
-            		  $('#searchForm').replaceWith(data);
+            		  $('#muniSearchForm').replaceWith(data);
             		  initSearchForm();
                 }).fail();
               });

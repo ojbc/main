@@ -62,7 +62,15 @@
 	</xsl:template>
 
 	<xsl:template name="arrests">
-			<table class="table table-striped table-bordered" style="width:100%" id="searchResultsTable">
+	   <xsl:element name="table">
+	     <xsl:attribute name="class">table table-striped table-bordered</xsl:attribute>
+	     <xsl:attribute name="style">width:100%</xsl:attribute>
+	     <xsl:attribute name="id">
+	       <xsl:choose>
+	         <xsl:when test="$resultType eq 'MUNI'">muniSearchResultsTable</xsl:when>
+	         <xsl:otherwise>daSearchResultsTable</xsl:otherwise>
+	       </xsl:choose>
+	     </xsl:attribute>
 				<thead>
 					<tr>
 						<th>OTN
@@ -102,7 +110,7 @@
 				<tbody>
 					<xsl:apply-templates select="chsres-ext:CriminalHistorySearchResult"/>
 				</tbody>
-			</table>
+			</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="chsres-ext:CriminalHistorySearchResult">
