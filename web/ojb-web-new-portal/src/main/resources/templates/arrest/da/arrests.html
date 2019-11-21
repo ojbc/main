@@ -212,7 +212,7 @@
             	  }
             	});
               
-              $('#portalContent').on('click', '#submit', function(){
+              $('#portalContent').on('click', '#daSearchForm #submit', function(){
                 var formData = $('#daSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
@@ -220,7 +220,7 @@
              	  }).fail();
               });
               
-              $('#portalContent').on('click', '#reset', function(){
+              $('#portalContent').on('click', '#daSearchForm #reset', function(){
                   xhr = $.get(context + "daArrests/resetSearchForm", function(data) {
                     $('#daSearchForm').replaceWith(data);
                     initSearchForm();
