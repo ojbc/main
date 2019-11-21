@@ -39,7 +39,7 @@
         <form action="#" th:replace="audit/auditSearchForm.html :: auditSearchForm"/>
         <hr/>
         
-        <div id="searchResultsList" th:fragment="resultsList" >
+        <div id="auditSearchResultsList" th:fragment="resultsList" >
           <p th:utext="${auditSearchContent}" ></p>
           <script th:inline="javascript">
               $(function(){
@@ -129,7 +129,7 @@
             /*]]>*/
              $(function(){
             	   initSearchForm();
-                 $('#portalContent').on('keypress', '#searchForm input', function(e){
+                 $('#portalContent').on('keypress', '#auditSearchForm input', function(e){
 	                 if (e.which == 13) {
 	                     $('#submit').click();
 	                     return false;    
@@ -150,13 +150,13 @@
                    };
                    requestData[_csrf_param_name] = _csrf_token;
                    xhr = $.post(context + "audit/auditLogs",requestData,function(data) {
-                     $('#searchResultsList').replaceWith(data);
+                     $('#auditSearchResultsList').replaceWith(data);
                    }).fail();
                  });
                  
                  $('#portalContent').on('click', '#reset', function(){
                      xhr = $.get(context + "audit/resetSearchForm", function(data) {
-                       $('#searchForm').replaceWith(data);
+                       $('#auditSearchForm').replaceWith(data);
                        initSearchForm();
                      }).fail();
                  });
