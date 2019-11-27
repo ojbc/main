@@ -65,7 +65,8 @@ public interface RapbackDAO {
 	public List<NsorDemographics> getNsorDemographics(String transactionNumber);
 	public List<NsorSearchResult> getNsorSearchResults(String transactionNumber);
 	
-	public Boolean isExistingTransactionNumber(String transactionNumber); 
+	public Boolean isExistingTransactionNumber(String transactionNumber);
+	public Boolean isExistingNsorTransaction(String transactionNumber);
 	public void updateIdentificationCategory(String transactionNumber, String identificationCategory);
 	
 	public void updateSubject(Subject subject);

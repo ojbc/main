@@ -196,17 +196,20 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		
 		queryResponseElementName = QueryResponseElementName.NationalSexOffenderRegistryDemographicsDocument;
 		documentId = DocumentId.nationalSexOffenderRegistryDemographicsDocument;
-		
-		for (NsorDemographics nsorDemographic : nsorDemographics)
-		{
-			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
-			appendDocumentElement(rootElement, 
-					queryResponseElementName, 
-					documentIdString,
-					nsorDemographic.getDemographicsFile());
-			
-			i++;
-		}	
+
+		if (nsorDemographics != null)
+		{	
+			for (NsorDemographics nsorDemographic : nsorDemographics)
+			{
+				String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+				appendDocumentElement(rootElement, 
+						queryResponseElementName, 
+						documentIdString,
+						nsorDemographic.getDemographicsFile());
+				
+				i++;
+			}	
+		}
 		
 		List<NsorSearchResult> nsorSearchResults = rapbackDAO.getNsorSearchResults(transactionNumber);
 		
@@ -214,17 +217,19 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		documentId = DocumentId.nationalSexOffenderRegistrySearchResultDocument;
 		i = 0;
 		
-		for (NsorSearchResult nsorSearchResult : nsorSearchResults)
-		{
-			String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
-			appendDocumentElement(rootElement, 
-					queryResponseElementName, 
-					documentIdString,
-					nsorSearchResult.getSearchResultFile());
-			
-			i++;
-		}	
-
+		if (nsorSearchResults != null)
+		{	
+			for (NsorSearchResult nsorSearchResult : nsorSearchResults)
+			{
+				String documentIdString = documentId.name() + "_" + StringUtils.leftPad(String.valueOf(i+1), 3, '0');
+				appendDocumentElement(rootElement, 
+						queryResponseElementName, 
+						documentIdString,
+						nsorSearchResult.getSearchResultFile());
+				
+				i++;
+			}	
+		}
 		
 	}
 
