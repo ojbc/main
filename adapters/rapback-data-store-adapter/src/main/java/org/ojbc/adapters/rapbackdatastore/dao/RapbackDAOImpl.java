@@ -1140,6 +1140,17 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
+	public Boolean isExistingNsorTransaction(String transactionNumber) {
+		if (StringUtils.isBlank(transactionNumber)) return false; 
+		
+		final String sql = "SELECT count(*)>0 FROM NSOR_DEMOGRAPHICS t WHERE t.transaction_number = ?";
+		
+		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
+		
+		return existing;	
+	}
+	
+	@Override
 	public List<CivilInitialResults> getCivilInitialResults(
 			String transactionNumber, ResultSender resultSender) {
 		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, "
