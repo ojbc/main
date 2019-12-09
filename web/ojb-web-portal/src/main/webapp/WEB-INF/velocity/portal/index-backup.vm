@@ -1,0 +1,139 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+#parse("common/_header.vm")
+<script>
+
+	var idleTime;
+	
+	$(function(){
+	   
+		#if( $inactivityTimeout )
+	        reloadPage();
+	        $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+	            clearTimeout(idleTime);
+	            reloadPage();
+	        });
+        #end
+        
+		$("#demogFilterInfo").hide();
+		
+	 	$(document).ajaxStart(function(){
+	 	     		
+	 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){
+	 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())
+	 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())
+				$("#modalIframeSpinner").show();
+	
+	 		}
+	 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){
+	 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())
+	 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())
+				$("#modalIframeSpinner").show();
+	 		}
+	 		else{
+	     		var loadingDiv =  $("#loadingAjaxPane");
+	     		var portalContentDiv = $("#portalContent");
+				
+	     		loadingDiv.height(portalContentDiv.height());
+	     		loadingDiv.width(portalContentDiv.width());
+	     		
+	          	$("#loadingAjaxPane").show();          	
+	 		}     		     	
+	      }).ajaxStop(function() {
+	    	  $("#loadingAjaxPane").hide();                
+	      	  $("#modalIframeSpinner").hide();
+	      });
+	      
+		#if( $sensitiveInfoAlert )      
+		    $("#dialog-warning").dialog({
+		      modal: true,
+		      width: 500,
+	          closeOnEscape: false,
+		      buttons: {
+		        Ok: function() {
+	        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
+					})
+					
+					$( this ).dialog( "close" );
+		        }
+		      },
+		      open: function (e, ui) {
+	        	$(".ui-dialog-titlebar-close").hide();
+	    	  }
+		    });
+	    #end
+	});
+
+	#foreach($entry in $stateSpecificHomePage.entrySet())
+	 	#set($homePage="$entry.getValue()")
+	#end
+	  
+	#if($homePage=="landingPage")
+	
+		$("#searchBarButtonDiv").hide();
+		$.get("#springUrl('/portal/landingPage')", function(data) {
+			$('#portalContent').html(data);
+		}).fail(function(data) {$('#portalContent').html(data); });
+	
+	#elseif($homePage=="query")
+	
+		$.get("#springUrl('/people/searchForm')", function(data) {
+			$('#portalContent').html(data);
+		}).fail(function(data) {$('#portalContent').html(data); });
+	
+	#elseif($homePage=="subscriptions")
+	
+		$("#searchBarButtonDiv").hide();
+	
+		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+		
+			$('#portalContent').html(data);	
+													
+			$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+				    	
+    			$('#filterColumn').html(data);
+    			$('#filterColumn').css('visibility', 'visible');
+    			 
+    		}).fail(ojbc.displayFailMessage);
+															      
+		}).fail(ojbc.displayFailMessage);	
+	#end
+	
+	function reloadPage() {
+	    clearTimeout(idleTime);
+	    idleTime = setTimeout(function () {
+	        window.location.assign("#springUrl('/portal/performLogout')");
+	    }, $inactivityTimeoutInSeconds * 1000);
+	}
+	
+</script>
+<div>
+	<div id="loadingAjaxPane" ></div>
+	<div id="portalContent"></div>
+</div>
+
+#if( $sensitiveInfoAlert )
+	<div class="hidden">
+		<div id="dialog-warning" title="NOTICE TO USERS">
+			<p id="dialog-warning-p">  
+				<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;"></span>
+				$sensitiveInfoAlertMessage
+			</p>
+		</div>
+	</div>
+#end
+#parse("common/_footer.vm")
