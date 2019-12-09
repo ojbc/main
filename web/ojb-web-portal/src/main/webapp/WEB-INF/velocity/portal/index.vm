@@ -1,139 +1,77 @@
-#*
- * Unless explicitly acquired and licensed from Licensor under another license, the contents of
- * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
- * versions as allowed by the RPL, and You may not copy or use this file in either source code
- * or executable form, except in compliance with the terms and conditions of the RPL
- *
- * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
- * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
- * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
- * governing rights and limitations under the RPL.
- *
- * http://opensource.org/licenses/RPL-1.5
- *
- * Copyright 2012-2017 Open Justice Broker Consortium
- *#
-#parse("common/_header.vm")
-<script>
-
-	var idleTime;
-	
-	$(function(){
-	   
-		#if( $inactivityTimeout )
-	        reloadPage();
-	        $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
-	            clearTimeout(idleTime);
-	            reloadPage();
-	        });
-        #end
-        
-		$("#demogFilterInfo").hide();
-		
-	 	$(document).ajaxStart(function(){
-	 	     		
-	 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){
-	 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())
-	 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())
-				$("#modalIframeSpinner").show();
-	
-	 		}
-	 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){
-	 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())
-	 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())
-				$("#modalIframeSpinner").show();
-	 		}
-	 		else{
-	     		var loadingDiv =  $("#loadingAjaxPane");
-	     		var portalContentDiv = $("#portalContent");
-				
-	     		loadingDiv.height(portalContentDiv.height());
-	     		loadingDiv.width(portalContentDiv.width());
-	     		
-	          	$("#loadingAjaxPane").show();          	
-	 		}     		     	
-	      }).ajaxStop(function() {
-	    	  $("#loadingAjaxPane").hide();                
-	      	  $("#modalIframeSpinner").hide();
-	      });
-	      
-		#if( $sensitiveInfoAlert )      
-		    $("#dialog-warning").dialog({
-		      modal: true,
-		      width: 500,
-	          closeOnEscape: false,
-		      buttons: {
-		        Ok: function() {
-	        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
-					})
-					
-					$( this ).dialog( "close" );
-		        }
-		      },
-		      open: function (e, ui) {
-	        	$(".ui-dialog-titlebar-close").hide();
-	    	  }
-		    });
-	    #end
-	});
-
-	#foreach($entry in $stateSpecificHomePage.entrySet())
-	 	#set($homePage="$entry.getValue()")
-	#end
-	  
-	#if($homePage=="landingPage")
-	
-		$("#searchBarButtonDiv").hide();
-		$.get("#springUrl('/portal/landingPage')", function(data) {
-			$('#portalContent').html(data);
-		}).fail(function(data) {$('#portalContent').html(data); });
-	
-	#elseif($homePage=="query")
-	
-		$.get("#springUrl('/people/searchForm')", function(data) {
-			$('#portalContent').html(data);
-		}).fail(function(data) {$('#portalContent').html(data); });
-	
-	#elseif($homePage=="subscriptions")
-	
-		$("#searchBarButtonDiv").hide();
-	
-		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
-		
-			$('#portalContent').html(data);	
-													
-			$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
-				    	
-    			$('#filterColumn').html(data);
-    			$('#filterColumn').css('visibility', 'visible');
-    			 
-    		}).fail(ojbc.displayFailMessage);
-															      
-		}).fail(ojbc.displayFailMessage);	
-	#end
-	
-	function reloadPage() {
-	    clearTimeout(idleTime);
-	    idleTime = setTimeout(function () {
-	        window.location.assign("#springUrl('/portal/performLogout')");
-	    }, $inactivityTimeoutInSeconds * 1000);
-	}
-	
-</script>
-<div>
-	<div id="loadingAjaxPane" ></div>
-	<div id="portalContent"></div>
-</div>
-
-#if( $sensitiveInfoAlert )
-	<div class="hidden">
-		<div id="dialog-warning" title="NOTICE TO USERS">
-			<p id="dialog-warning-p">  
-				<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;"></span>
-				$sensitiveInfoAlertMessage
-			</p>
-		</div>
-	</div>
-#end
-#parse("common/_footer.vm")
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]> <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+<html>
+	<head>
+		#parse("common/_head.vm")
+	</head>
+	<body data-spy="scroll" data-target=".navbar">
+		<header>
+	        <div class="banner mt-5 pt-1">
+	          <div class="text-white pl-3">
+	            <img src="#springUrl('/static/images/banner/oklahoma_logo.png')" height="75px" /> 
+	            <span class="initials align-bottom" aria-hidden="true">NIBRS</span>
+	            <span class="fullname align-middle">Record of NIBRS Submissions</span>
+	          </div>
+	        </div>
+	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+	          <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <div class="collapse navbar-collapse" id="navbarCollapse">
+	          <ul class="navbar-nav mr-auto text-white">
+	            <li class="nav-item active">
+	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="#" id="incidents">Incidents</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link uploadToValidate" href="#" id="upload">Validate/Upload</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link uploadToValidate" href="#" id="errors">Errors</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="#" id="submitToFbi">Submit to FBI</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="#" id="summaryReportInputForm">Summary Reports</a>
+	            </li>
+	          </ul>
+	          
+	          <ul class="navbar-nav flex-row ml-md-auto d-md-flex" sec:authorize="isAuthenticated()">
+              <li class="nav-item dropdown">
+	              <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          <i class="fas fa-user-circle fa-lg"></i>
+		            </a>
+			          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+			            <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></span></a>
+			            <div class="dropdown-divider"></div>
+			            <a class="dropdown-item" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
+			          </div>
+              </li>
+            </ul>
+	        </div>
+	      </nav>
+		</header>
+	    <!-- Begin page content -->
+	    
+	    <div class="container-fluid small">
+		    <div id="loadingAjaxPane"></div>
+		    <div id="portalContent">
+		      <div>Welcome to the new portal</div>
+		    </div>
+	    </div>
+		<footer class="footer">
+			<div class="container" align="center">
+				<span class="text-muted small">OJBC Portal Footer</span>
+			</div>
+		</footer>	
+		<!-- /.container -->
+		#parse("common/_javascripts.vm")
+	</body>
+</html>
