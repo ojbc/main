@@ -44,6 +44,7 @@ import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
@@ -121,6 +122,8 @@ public interface EnhancedAuditDAO {
 	
 	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId);
 	
+	public List<UserInfo> retrieveAllUsers();
+	
 	public List<UserAuthenticationSearchResponse> retrieveUserAuthentication(UserAuthenticationSearchRequest userAuthenticationSearchRequest);
 
 	public Integer savePrintResults(PrintResults printResults);
@@ -176,4 +179,12 @@ public interface EnhancedAuditDAO {
 	public void updateSubscriptionActionWithResponse(SubscriptionAction subscriptionAction);
 	
 	public Integer retrieveSubReasonCodeIdFromCode(String subscriptionReasonCode);
+	
+	public List<PersonSearchRequest> retrievePersonSearchRequest (AuditSearchRequest personAuditSearchRequest);
+	
+	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest (AuditSearchRequest firearmAuditSearchRequest);
+	
+	public List<VehicleSearchRequest> retrieveVehicleSearchRequest (AuditSearchRequest vehicleSearchRequest);
+	
+	public List<IncidentSearchRequest> retrieveIncidentSearchRequest (AuditSearchRequest incidentAuditSearchRequest);
 }

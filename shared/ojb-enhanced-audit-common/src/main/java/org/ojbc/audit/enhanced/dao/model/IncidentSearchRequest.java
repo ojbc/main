@@ -17,6 +17,7 @@
 package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -45,6 +46,8 @@ public class IncidentSearchRequest {
 	private String categoryType;
 	
 	private String incidentNumber;
+	
+	private LocalDateTime timestamp;
 
 	public Integer getIncidentSearchRequestID() {
 		return incidentSearchRequestID;
@@ -136,6 +139,14 @@ public class IncidentSearchRequest {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }

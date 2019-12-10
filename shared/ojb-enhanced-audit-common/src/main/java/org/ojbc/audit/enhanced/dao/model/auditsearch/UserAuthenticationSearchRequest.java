@@ -16,25 +16,11 @@
  */
 package org.ojbc.audit.enhanced.dao.model.auditsearch;
 
-import java.time.LocalDateTime;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
-import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
-
-public class UserAuthenticationSearchRequest {
+public class UserAuthenticationSearchRequest extends AuditSearchRequest{
 
 	private String userAction;
 	
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime startTime;
-
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime endTime;
-
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -45,18 +31,6 @@ public class UserAuthenticationSearchRequest {
 	}
 	public void setUserAction(String userAction) {
 		this.userAction = userAction;
-	}
-	public LocalDateTime getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(LocalDateTime startTime) {
-		this.startTime = startTime;
-	}
-	public LocalDateTime getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(LocalDateTime endTime) {
-		this.endTime = endTime;
 	}
 	public String getFirstName() {
 		return firstName;
