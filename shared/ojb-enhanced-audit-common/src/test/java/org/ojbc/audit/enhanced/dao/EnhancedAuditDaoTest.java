@@ -53,6 +53,7 @@ import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.springframework.test.annotation.DirtiesContext;
@@ -112,15 +113,10 @@ public class EnhancedAuditDaoTest {
 		psr.setHeightMax(75);
 		psr.setSsn("999-99-9999");
 		
-		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
-		List<String> systemsToSearch=new ArrayList<String>();
-		
-		systemsToSearch.add("system1");
-		systemsToSearch.add("system2");
-		
-		psr.setSystemsToSearch(null);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 1);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 2);
 		
 		Integer psrIdFromRetreive = enhancedAuditDao.retrievePersonSearchIDfromMessageID("123456");
 		
@@ -129,6 +125,16 @@ public class EnhancedAuditDaoTest {
 		
 		assertEquals(psrIdFromSave, psrIdFromRetreive);
 		
+		AuditSearchRequest personAuditSearchRequest = new AuditSearchRequest();
+		
+		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(personAuditSearchRequest);
+		
+		//Additional assertions in processor test
+		assertEquals(1, personSearchRequests.size());
+					
 		PersonSearchResult psResult = new PersonSearchResult();
 		
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
@@ -182,6 +188,10 @@ public class EnhancedAuditDaoTest {
 		assertEquals("email", userInfoFromDatabase.getUserEmailAddress());
 		assertEquals("first", userInfoFromDatabase.getUserFirstName());
 		assertEquals("last", userInfoFromDatabase.getUserLastName());
+		
+		userInfoEntries = enhancedAuditDao.retrieveAllUsers();
+		
+		assertTrue(userInfoEntries.size() > 0);
 		
 	}
 

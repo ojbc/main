@@ -16,6 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -41,6 +42,8 @@ public class VehicleSearchRequest {
 	private Integer userInfofk;
 	
 	private String messageId;
+	
+	private LocalDateTime timestamp;
 	
 	public String getVehicleColor() {
 		return vehicleColor;
@@ -122,6 +125,12 @@ public class VehicleSearchRequest {
 	}
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }

@@ -19,6 +19,8 @@ package org.ojbc.audit.enhanced.processor;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +41,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -119,7 +123,26 @@ public class TestFirearmSearchProcessor {
         document = db.parse(inputFile);
 		
         firearmsSearchResponseSQLProcessor.auditFirearmSearchResponse(document, "123456");
-
+        
+		AuditSearchRequest firearmAuditSearchRequest = new AuditSearchRequest();
+		
+		firearmAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		firearmAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+        
+		List<FirearmsSearchRequest> firearmSearchRequests = enhancedAuditDao.retrieveFirearmSearchRequest(firearmAuditSearchRequest);
+		assertEquals(1, firearmSearchRequests.size());
+		
+		//Add assertions here
+		assertEquals("R", firearmSearchRequests.get(0).getFirearmsType());
+		assertEquals("Remington", firearmSearchRequests.get(0).getMake());
+		assertEquals("Model", firearmSearchRequests.get(0).getModel());
+		assertEquals("John Doe", firearmSearchRequests.get(0).getOnBehalfOf());
+		assertEquals("Criminal Justice", firearmSearchRequests.get(0).getPurpose());
+		assertEquals("Registration Number", firearmSearchRequests.get(0).getRegistrationNumber());
+		assertEquals("123476576", firearmSearchRequests.get(0).getSerialNumber());
+		assertEquals(3, firearmSearchRequests.get(0).getSystemsToSearch().size());
+		//TODO: Search Qualifier Code
+		
         inputFile = new File("src/test/resources/xmlInstances/Error-FirearmSearchResults.xml");
 
         document = db.parse(inputFile);
@@ -131,7 +154,7 @@ public class TestFirearmSearchProcessor {
         document = db.parse(inputFile);
 		
         firearmsSearchResponseSQLProcessor.auditFirearmSearchResponse(document, "123456");
-
+        
 	}
 	
 }
