@@ -297,12 +297,16 @@
                  
                  $('.dispositionsTable').on('click', 'a.addDisposition',function() {
                     var chargeId = $(this).closest("table").attr("id");
+                    var chargeOri = $(this).closest('div.card').find("span.chargeOri").html();
+                    var chargeAgencyName = $(this).closest('div.card').find("span.chargeAgencyName").html();
                     console.log($("#dispositionForm").serialize());
                     xhr = $.get( context +"muniArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId, 
                         arrestOri:$('#arrestOri').text(),
-                        arrestDate: $('#arrestDate').text() }, function(data) {
+                        arrestDate: $('#arrestDate').text(), 
+                        chargeOri: chargeOri, 
+                        chargeAgencyName:chargeAgencyName}, function(data) {
                     	$('#dispositionModal .modal-body').html(data);
                       $("#arrestChargeIdentification").append($(".chargeDropDown").html());
                       $('#arrestChargeIdentification').val(chargeId);
@@ -316,6 +320,8 @@
                 	 var chargeId = $(this).closest("table").attr("id");
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
                 	 console.log(rowData);
+                   var chargeOri = $(this).closest('div.card').find("span.chargeOri").html();
+                   var chargeAgencyName = $(this).closest('div.card').find("span.chargeAgencyName").html();
                    
                 	 xhr = $.get( context +"muniArrests/dispositionForm", {
 	                       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
@@ -340,7 +346,9 @@
 	                       alternateSentences:rowData[16],
 	                       reasonForDismissal:rowData[17],
 	                       provisionCode:rowData[18], 
-                         arrestDate: $('#arrestDate').text()},  function(data) {
+                         arrestDate: $('#arrestDate').text(),
+                         chargeOri: chargeOri, 
+                         chargeAgencyName:chargeAgencyName},  function(data) {
                       $('#dispositionModal .modal-body').html(data);
                       $("#arrestChargeIdentification").append($(".chargeDropDown").html());
                       $('#arrestChargeIdentification').val(chargeId);

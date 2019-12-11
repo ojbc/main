@@ -130,7 +130,8 @@
 	
 	<xsl:template match="j:ArrestCharge">
 	   <xsl:variable name="chargeId" select="normalize-space(j:ChargeIdentification/nc:IdentificationID)"/>
-	   
+ 	   <xsl:variable name="chargeOri" select="normalize-space(chsres-ext:ChargeOwnerAgency/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID)"/>
+	   <xsl:variable name="chargeAgencyName" select="normalize-space(chsres-ext:ChargeOwnerAgency/nc:OrganizationName)"/>
 	   <div class="card">
       <div>
         <xsl:attribute name="class">
@@ -145,6 +146,8 @@
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
+        <span class='chargeOri d-none'><xsl:value-of select='$chargeOri'/></span>
+        <span class='chargeAgencyName d-none'><xsl:value-of select='$chargeAgencyName'/></span>
         <xsl:if test="not(j:ChargeDisposition)">
           <xsl:if test="contains($authorities, 'CAN_DECLINE')">
 	          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">

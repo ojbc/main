@@ -39,6 +39,10 @@ public class Disposition {
 	private String arrestChargeIdentification;
 	private String dispositionIdentification;
 	private String arrestOri;
+	
+	private String chargeOri; 
+	private String chargeAgencyName; 
+	private String muniCourtName; 
 
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@PastOrPresent(message = "Cannot be a future date") 
@@ -390,5 +394,32 @@ public class Disposition {
 				&& StringUtils.isNotBlank(arrestOri)) {
 			this.setCounty(StringUtils.substring(arrestOri, 2,4));
 		}
+	}
+	public String getChargeOri() {
+		return chargeOri;
+	}
+	public void setChargeOri(String chargeOri) {
+		this.chargeOri = chargeOri;
+	}
+	public String getChargeAgencyName() {
+		return chargeAgencyName;
+	}
+	public void setChargeAgencyName(String chargeAgencyName) {
+		this.chargeAgencyName = chargeAgencyName;
+		
+		if (dispositionType == ArrestType.MUNI && StringUtils.isNotBlank(chargeAgencyName) ) {
+			if (chargeAgencyName.contains("PD ")) {
+				muniCourtName = StringUtils.appendIfMissing(StringUtils.substringAfter(chargeAgencyName, "PD "), " MUNICIPAL");
+			}
+			else {
+				muniCourtName = chargeAgencyName; 
+			}
+		}
+	}
+	public String getMuniCourtName() {
+		return muniCourtName;
+	}
+	public void setMuniCourtName(String muniCourtName) {
+		this.muniCourtName = muniCourtName;
 	}
 }    

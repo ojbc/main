@@ -39,6 +39,10 @@
           <select th:field="*{arrestChargeIdentification}" class="form-control chosen-select" th:errorclass="is-invalid">
           </select>
         </div>
+        <div class="col-md-6 mb-2">
+          <label>Court Name</label>
+          <input type="text" th:field="*{muniCourtName}" class="form-control form-control-sm" readonly/>
+        </div>
       </div>
       <div class="form-row">
           <div class="col-md-3 mb-2">
