@@ -43,6 +43,7 @@ public class Disposition {
 	private String chargeOri; 
 	private String chargeAgencyName; 
 	private String muniCourtName; 
+	private String daCourtName; 
 
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@PastOrPresent(message = "Cannot be a future date") 
@@ -421,5 +422,11 @@ public class Disposition {
 	}
 	public void setMuniCourtName(String muniCourtName) {
 		this.muniCourtName = muniCourtName;
+	}
+	public String getDaCourtName() {
+		return daCourtName;
+	}
+	public void setDaCourtName(String daCourtName) {
+		this.daCourtName = daCourtName;
 	}
 }    

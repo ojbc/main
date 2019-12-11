@@ -30,6 +30,7 @@ import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,11 +104,17 @@ public class SearchResultConverter implements ApplicationContextAware {
     	return convertXml(searchContent, arrestDetailXsl, params);
     }
     
-	public String convertArrestSummary(String arrrestDetail) {
+	public String convertArrestSummary(String arrrestDetail, ArrestType arrestType) {
 		if (StringUtils.isBlank(arrrestDetail)){
 			return "";
 		}
-		return convertXml(arrrestDetail, arrestSummaryXsl, null);
+		
+		Map<String, Object> paramsMap = null;
+		if (arrestType == ArrestType.DA) {
+			paramsMap = new HashMap<>();
+			paramsMap.put("resultType", "DA");
+		}
+		return convertXml(arrrestDetail, arrestSummaryXsl, paramsMap);
 	}
 
     public String convertDaArrestDetail(String searchContent, Map<String, Object> params) {

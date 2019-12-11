@@ -245,7 +245,7 @@ public class DaArrestController {
 	@GetMapping("/summary")
 	public @ResponseBody String presentArrest(Map<String, Object> model) throws Throwable {
 		String arrrestDetail = (String) model.get("arrestDetail");
-		String transformedArrestSummary = searchResultConverter.convertArrestSummary(arrrestDetail);
+		String transformedArrestSummary = searchResultConverter.convertArrestSummary(arrrestDetail, ArrestType.DA);
 		return transformedArrestSummary;
 	}
 	

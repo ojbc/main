@@ -317,11 +317,13 @@
             	   
                  $('.dispositionsTable').on('click', 'a.addDisposition',function() {
                     var chargeId = $(this).closest("table").attr("id");
+                    var countyName = $(this).closest('div.card').find("span.countyName").html();
                     xhr = $.get( context +"daArrests/dispositionForm", {
                         arrestIdentification: $('#searchResultsTable').attr('arrestId'),
                         arrestChargeIdentification:chargeId, 
                         arrestOri:$('#arrestOri').text(),
-                        arrestDate: $('#arrestDate').text() },  
+                        arrestDate: $('#arrestDate').text(), 
+                        daCourtName: countyName},  
                         function(data) {
 		                    	$('#dispositionModal .modal-body').html(data);
 		                    	$("#arrestChargeIdentification").append($(".chargeDropDown").html());
@@ -339,7 +341,8 @@
                 	 console.log(rowData);
                 	 console.log(rowData[4]);
                 	 console.log(rowData[5]);
-                	 
+                   var countyName = $(this).closest('div.card').find("span.countyName").html();
+
                 	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
                    xhr = $.get( context +"daArrests/dispositionForm", {
 		                	       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
@@ -369,7 +372,8 @@
 		                	       alternateSentences:rowData[21],
 		                	       reasonForDismissal:rowData[22],
 		                	       provisionCode:rowData[23], 
-		                	       arrestDate: $('#arrestDate').text()
+		                	       arrestDate: $('#arrestDate').text(),
+		                	       daCourtName: countyName
                      		   },
                      		   function(data) {
 				                      $('#dispositionModal .modal-body').html(data);

@@ -148,6 +148,7 @@
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
         </a>
+        <span class='countyName d-none'><xsl:value-of select='normalize-space(chsres-ext:ChargeOwnerAgency/j:OrganizationAugmentation/j:OrganizationJurisdiction/nc:LocationCountyName)'/></span>
         <xsl:if test="not(j:ChargeDisposition)">
           <xsl:if test="contains($authorities, 'CAN_DECLINE')">
 	          <a href="#" class="declineCharge pl-3" style="margin-right:3px" data-content="decline the charge" data-toggle="popover" data-trigger="hover">
