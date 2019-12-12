@@ -187,10 +187,10 @@
                    Prison Days cannot exceed 359.  360 prison days = 1 prison year.  Each month = 30 days. 6 months = 180 days.  ">
                  <i class="fas fa-info-circle"></i></a><br>
             <label>Years</label>
-            <input type="number" min="1" max="100" th:field="*{prisonYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="100" th:field="*{prisonYears}" width="1" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{prisonYears}" class="invalid-feedback">Prison years error message</div>
             <label>Days</label>
-            <input type="number" min="1" max="359" th:field="*{prisonDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="359" th:field="*{prisonDays}" width="3" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('prisonDays')}" th:errors="*{prisonDays}" class="invalid-feedback">Prison days error message</div>
           </div>
           <div class="col-md-3 pb-1 mb-3 border-bottom border-top border-right">
@@ -199,10 +199,10 @@
                data-content="Jail is served in County Jail.  Years can be blank or 1, Days cannot exceed 359.  Each month = 30 days. 6 months = 180 days.  ">
                <i class="fas fa-info-circle"></i></a></label><br>
             <label>Years</label>
-            <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="100" th:field="*{jailYears}" width="1" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
             <label>Days</label>
-            <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
           </div>
           <div class="col-md-3 mb-3 pb-1 border-bottom border-top border-right">
@@ -224,10 +224,10 @@
               <i class="fas fa-info-circle"></i></a>
             </label> <br>
             <label>Years</label>
-            <input type="number" min="1" max="100" th:field="*{deferredYears}" width="1" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="100" th:field="*{deferredYears}" width="1" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
             <label>Days</label>
-            <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+            <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
             <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
           </div>
         </div>
@@ -238,7 +238,7 @@
                   data-content="Concurrent sentences run at the same time; Consecutive sentences run one after another.  ">
                   <i class="fas fa-info-circle"></i></a>
             </label>
-            <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid">
+            <select th:field="*{provisionCode}" class="form-control chosen-select" th:errorclass="is-invalid" disabled>
               <option value="" >Please select ...</option>
               <option th:each="item: ${daProvisionCodeMapping}" th:value="${item.key}" th:text="${item.value}" />
             </select>
@@ -325,6 +325,7 @@
 					}
 	     	   
 					toggleSentenceInfo();
+			    toggleProvisionCode();
 					
 					if ($('#jailYears').val() > 0){
 					 	$('#suspendedYears').prop('disabled', false); 
@@ -433,6 +434,10 @@
                  }
               }
           });
+          
+          $("#dispositionForm").on("change", ".provision-prerequisite", function(){
+              toggleProvisionCode();
+          });
 					
 		  	  $("#dispositionForm").on("change", "#dispositionCode", function(){
 		          if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
@@ -481,6 +486,17 @@
             }
 	      }
 	      
+        function toggleProvisionCode(){
+              var $provisionPrerequisiteInputs = $('.provision-prerequisite');
+              if ($provisionPrerequisiteInputs.filter(function(){ return this.value.trim(); }).length){
+                $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
+              }
+              else{
+                $('#provisionCode').val('');
+                $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
+              }
+        }
+	        
         function toggleSentenceInfo(){
            var dispoCodesWithoutSentence = ['301', '302', '305', '306', '307', '314', '320', '331', '377', 
                 '390', '398', '505', '510', '511', '524', '530', '537','539', '540', '541','542'];
@@ -509,8 +525,6 @@
                 $('#restitution').prop('disabled', true);
                 $('#alternateSentences').empty();
                 $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
-                $('#provisionCode').val('');
-                $('#provisionCode').prop('disabled', true).trigger("chosen:updated");
           }
           else{
                 $('#fineAmount').prop('disabled', false);
@@ -523,7 +537,6 @@
                 toggleDefferredYearsDays();
                 $('#restitution').prop('disabled', false);
                 $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
-                $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
           }
         }
     </script>
