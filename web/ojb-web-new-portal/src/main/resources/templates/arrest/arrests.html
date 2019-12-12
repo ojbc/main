@@ -78,8 +78,7 @@
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
             /*]]>*/
             $(function(){
-          	    $('[data-toggle="popover"]').popover(); 
-          	    
+          	    $('[data-toggle="popover"]').prop('tabIndex', -1).popover(); 
                 $.fn.dataTable.moment( 'MM/DD/YYYY' );
                 
                 if ( $.fn.dataTable.isDataTable( '#muniSearchResultsTable' ) ) {
@@ -216,7 +215,7 @@
 
 	              $('#arrestDateRangeStartDate').datepicker({
 	                    uiLibrary: 'bootstrap4', size: 'small'
-	              });
+	              }).focus();
 	              $('#arrestDateRangeEndDate').datepicker({
 	                    uiLibrary: 'bootstrap4', size: 'small'
 	              });

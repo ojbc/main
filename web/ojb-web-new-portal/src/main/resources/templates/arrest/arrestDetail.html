@@ -118,6 +118,7 @@
             	   $('.date').mask('99/99/9999');
             	   $('.money').mask('000,000,000,000,000', {reverse: true});
             	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
+            	   $( "a[data-toggle='popover']" ).prop('tabIndex', -1);
             	   
                  $("#searchResultsTable").DataTable({
                      responsive: true, 

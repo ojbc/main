@@ -231,13 +231,15 @@
     </form>
     <script th:inline="javascript">
 	      $(function(){
-	    	  $('[data-toggle="popover"]').popover();
+	    	  $('[data-toggle="popover"]').prop('tabIndex', -1).popover();
           $("#dispositionForm").on("focus", "#dispositionDate", function(){
               $('#dispositionDate').datepicker({
                   uiLibrary: 'bootstrap4', size: 'small'
                });
           });
-	    	  $(".chosen-select").chosen();  
+	    	  $(".chosen-select").chosen(); 
+          $("#arrestChargeIdentification").trigger('chosen:activate');
+
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					

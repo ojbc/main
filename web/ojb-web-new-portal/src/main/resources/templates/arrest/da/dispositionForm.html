@@ -37,7 +37,7 @@
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label>Charge at Arrest</label>
-          <select th:field="*{arrestChargeIdentification}" class="form-control chosen-select" th:errorclass="is-invalid">
+          <select th:field="*{arrestChargeIdentification}" class="form-control chosen-select" th:errorclass="is-invalid" autofocus>
           </select>
         </div>
         <div class="col-md-6 mb-2">
@@ -292,13 +292,14 @@
 		    /*]]>*/
 
 	      $(function(){
-	    	  $('[data-toggle="popover"]').popover();
+	    	  $('[data-toggle="popover"]').prop('tabIndex', -1).popover();
 	    	  $(".chosen-select").chosen(); 
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 			    $('#county').mask('99');
 			    $('#year').mask('9999');
 			    $('#caseNumber').mask('99999');
+			    $("#arrestChargeIdentification").trigger('chosen:activate');
 					
 					$("#dispositionForm").on("focus", "#dispositionDate", function(){
 		          $('#dispositionDate').datepicker({

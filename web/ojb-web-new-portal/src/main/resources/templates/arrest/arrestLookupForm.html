@@ -44,7 +44,7 @@
 	     <form action="#" id="arrestLookupForm" method="post" >
 	       <div class="form-row">
 					  <div class="form-group input-group col-8" id="otnDiv">
-					    <input type="text" class="form-control" id="otn" placeholder="OTN" required autofocus>
+					    <input type="text" class="form-control" id="otn" placeholder="OTN" required autofocus="autofocus">
 					    <div class="invalid-feedback">Please provide a valid OTN</div>
 	            <div id="arrestLookUpResponse"></div>
 					  </div>
@@ -62,7 +62,9 @@
           /*]]>*/
 
           $(function(){
-        	    $('[data-toggle="popover"]').popover();
+        	    $('[data-toggle="popover"]').prop('tabIndex', -1).popover();
+        	    $("#otn").focus();
+        	    
               $('#arrestLookupForm input').keypress(function (e) {
                 if (e.which == 13) {
                   $('#submit').click();
@@ -96,7 +98,7 @@
               });
 
               $('#reset').click (function(){
-            	  $("#otn").val("").removeClass("is-valid is-invalid");
+            	  $("#otn").val("").removeClass("is-valid is-invalid").focus();
                 $('#arrestLookUpResponse').removeClass().html("");
               });
            });

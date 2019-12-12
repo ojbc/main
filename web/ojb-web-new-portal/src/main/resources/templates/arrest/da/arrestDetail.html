@@ -115,7 +115,7 @@
 			       var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
          	   var dispoTables = [];
              $(function(){
-            	   $('[data-toggle="popover"]').popover(); 
+            	   $('[data-toggle="popover"]').prop('tabIndex', -1).popover(); 
             	   $('.date').mask('99/99/9999');
             	   $('.money').mask('000,000,000,000,000', {reverse: true});
             	   $.fn.dataTable.moment( 'MM/DD/YYYY' );
