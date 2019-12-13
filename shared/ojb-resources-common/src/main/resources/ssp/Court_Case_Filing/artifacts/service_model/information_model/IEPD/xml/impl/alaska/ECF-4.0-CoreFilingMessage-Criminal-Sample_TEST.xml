@@ -192,7 +192,7 @@
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<ojb-crim-ext:FilingLeadDocument s:id="_123456ABC.app.doc">
 		<nc:DocumentBinary>
-			<ojb-crim-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojb-crim-ext:Base64BinaryObject>
+			<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
 		</nc:DocumentBinary>
 		<nc:DocumentCategoryDescriptionText>DocumentCategoryDescriptionText</nc:DocumentCategoryDescriptionText>
 		<nc:DocumentCreationDate>
