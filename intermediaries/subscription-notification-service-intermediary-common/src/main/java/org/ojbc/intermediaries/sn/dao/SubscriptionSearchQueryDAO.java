@@ -588,7 +588,7 @@ public class SubscriptionSearchQueryDAO {
     	
     	String subscriptionCategoryCode = request.getReasonCategoryCode();
     	
-    	if (ret != null & subscriptionCategoryCode != null)
+    	if (ret != null & subscriptionCategoryCode != null && fbiSubscriptionMember)
     	{	
     		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
     		{	
