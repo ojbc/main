@@ -38,7 +38,7 @@
 	 exclude-result-prefixes="s30 niem-xs nc30 j50 cdr-report-doc cdr-report-ext xs" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:param name="topic">{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate</xsl:param>
-	<xsl:param name="systemId">{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</xsl:param>
+	<xsl:param name="systemIdCourtDisposition">{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</xsl:param>
 	<xsl:template match="/">
 		<xsl:apply-templates select="cdr-report-doc:CourtDispositionRecordingReport"/>
 	</xsl:template>
@@ -78,7 +78,7 @@
 					<notification:NotificationMessage>
 						<notificationExt:NotifyingCourtDispositionUpdate>
 							<notificationExt:NotifyingActivityReportingSystemNameText>
-								<xsl:value-of select="$systemId"/>
+								<xsl:value-of select="$systemIdCourtDisposition"/>
 							</notificationExt:NotifyingActivityReportingSystemNameText>
 							<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
 							<cdu:CourtDispositionUpdate>

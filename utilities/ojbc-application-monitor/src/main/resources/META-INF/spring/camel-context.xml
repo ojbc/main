@@ -66,6 +66,9 @@
 		           <camel:to uri="direct:checkForAlert"/>
 
 		       </doCatch>
+		       
+		       <camel:to uri="bean:applicationMonitorRetryProcess?method=resetRetries"/>
+		       
 			</doTry>			
 			
 		</camel:route>	
@@ -111,12 +114,39 @@
 	    		<constant>{{subject}}</constant>
 	    	</camel:setHeader>
 
-			<camel:setBody>
-				<constant>{{emailMessagebody}}</constant>
-			</camel:setBody>
-				    	
-	    	<to uri="mailEndpoint" />
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:emailMessageBodyEIP} != ''</camel:simple>
+					
+					<camel:setHeader headerName="CamelExecCommandArgs">
+						<camel:simple>{{emailMessageBodyArgs}}</camel:simple>
+					</camel:setHeader>
+					
+					<recipientList>
+		            	<simple>{{emailMessageBodyEIP}}</simple>
+		        	</recipientList>
+		        	
+		        	<camel:convertBodyTo type="java.lang.String"/>
+		        	
+		        	<camel:setHeader headerName="commandOutput">
+		        		<camel:simple>${body}</camel:simple>
+		        	</camel:setHeader>
+		        	
+		        	<camel:setBody>
+						<simple>${properties:emailMessagebody}\n\nTraceroute:\n\n ${in.headers.commandOutput}</simple>
+					</camel:setBody>
+		        	
+				</camel:when>
+				<camel:otherwise>
+					<camel:setBody>
+						<constant>{{emailMessagebody}}</constant>
+					</camel:setBody>
+				</camel:otherwise>
+			</camel:choice>				
 			
+			<camel:removeHeader headerName="commandOutput"/>    
+				
+	    	<to uri="mailEndpoint" />
 		
 		</camel:route>		
 

@@ -381,6 +381,7 @@
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
 					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonCategoryCodeText" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0" />
@@ -473,10 +474,10 @@
 					<xsd:element ref="inc-ext:TrafficStopSearchCategory" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopContraband" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopOutcome" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentWeatherCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentHighwayCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentTrafficCondition" minOccurs="0" />
-					<xsd:element ref="inc-ext:IncidentLightingCondition" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentWeatherCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentHighwayCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentTrafficCondition" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentLightingCondition" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:SpeedMeasurementDeviceTest" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
@@ -976,6 +977,12 @@
 	</xsd:element>
 	<xsd:element name="RecordCategoryText" type="nc:TextType" />
 	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType" />
+	<xsd:element name="PersonCategoryCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>An association for a person with a category .
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonDNACollectionRequiredIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True of DNA must be collected for the person, false otherwise.
@@ -1146,7 +1153,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DrivingOffensePoints" type="niem-xsd:nonNegativeInteger">
+	<xsd:element name="DrivingOffensePoints" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>Number of points associated with the offense.
 			</xsd:documentation>
@@ -1232,7 +1239,7 @@
 	</xsd:element>
 	<xsd:element name="TrafficStopContraband" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A data concept for a traffic stop search category.
+			<xsd:documentation>A data concept for a traffic stop contraband found.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -1398,7 +1405,7 @@
 			<xsd:documentation>A text code for a county.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="IncidentCallReceivedCodeText" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>A text code for how an incident call was received.</xsd:documentation>
@@ -1419,13 +1426,37 @@
 			<xsd:documentation>A record number assigned to a person name.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-		<xsd:element name="OrganizationCodeText" type="niem-xsd:string">
+	<xsd:element name="OrganizationCodeText" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>A text code assigned to an organization.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonMiscellaneousRecordIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="TrafficStopReasonText" type="nc:TextType" substitutionGroup="inc-ext:TrafficStopReason">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a traffic stop reason.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrafficStopSearchCategoryText" type="nc:TextType"
+		substitutionGroup="inc-ext:TrafficStopSearchCategory">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a traffic stop search type.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrafficStopContrabandText" type="nc:TextType" substitutionGroup="inc-ext:TrafficStopContraband">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a traffic stop contraband found.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrafficStopOutcomeText" type="nc:TextType" substitutionGroup="inc-ext:TrafficStopOutcome">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a traffic stop outcome.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonMiscellaneousRecordIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
 			</xsd:documentation>

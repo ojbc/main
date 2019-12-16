@@ -36,6 +36,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
@@ -50,6 +51,9 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -107,15 +111,10 @@ public class EnhancedAuditDaoTest {
 		psr.setHeightMax(75);
 		psr.setSsn("999-99-9999");
 		
-		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
-		List<String> systemsToSearch=new ArrayList<String>();
-		
-		systemsToSearch.add("system1");
-		systemsToSearch.add("system2");
-		
-		psr.setSystemsToSearch(null);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 1);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 2);
 		
 		Integer psrIdFromRetreive = enhancedAuditDao.retrievePersonSearchIDfromMessageID("123456");
 		
@@ -124,6 +123,16 @@ public class EnhancedAuditDaoTest {
 		
 		assertEquals(psrIdFromSave, psrIdFromRetreive);
 		
+		AuditSearchRequest personAuditSearchRequest = new AuditSearchRequest();
+		
+		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(personAuditSearchRequest);
+		
+		//Additional assertions in processor test
+		assertEquals(1, personSearchRequests.size());
+					
 		PersonSearchResult psResult = new PersonSearchResult();
 		
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
@@ -177,6 +186,10 @@ public class EnhancedAuditDaoTest {
 		assertEquals("email", userInfoFromDatabase.getUserEmailAddress());
 		assertEquals("first", userInfoFromDatabase.getUserFirstName());
 		assertEquals("last", userInfoFromDatabase.getUserLastName());
+		
+		userInfoEntries = enhancedAuditDao.retrieveAllUsers();
+		
+		assertTrue(userInfoEntries.size() > 0);
 		
 	}
 
@@ -429,6 +442,20 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(identificationQueryResponsePk);
 		
+		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
+		
+		firearmsQueryResponse.setQueryRequestId(queryPk);
+		firearmsQueryResponse.setMessageId("123456");
+		firearmsQueryResponse.setSystemName("Firearms System");
+		firearmsQueryResponse.setCounty("county");
+		firearmsQueryResponse.setFirstName("first");
+		firearmsQueryResponse.setMiddleName("middle");
+		firearmsQueryResponse.setLastName("last");
+		firearmsQueryResponse.setRegistrationNumber("reg number");
+		
+		Integer firearmsQueryResponsePk = enhancedAuditDao.saveFirearmsQueryResponse(firearmsQueryResponse);
+		assertNotNull(firearmsQueryResponsePk);
+		
 	}
 	
 	@Test
@@ -523,6 +550,36 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(userLoginPk);
 		
+		UserAuthenticationSearchRequest userAuthenticationSearchRequest = new UserAuthenticationSearchRequest();
+		
+		userAuthenticationSearchRequest.setStartTime(LocalDateTime.now().minusDays(1));
+		userAuthenticationSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(userAuthenticationSearchRequest);
+		verifyUserAuthenticationResponse(userAuthenticationSearchResponses);
+
+		userAuthenticationSearchRequest = new UserAuthenticationSearchRequest();
+		userAuthenticationSearchRequest.setFirstName("first");
+		userAuthenticationSearchRequest.setLastName("last");
+		userAuthenticationSearchRequest.setEmailAddress("email");
+		userAuthenticationSearchRequest.setEmployerOri("employer ori");
+		userAuthenticationSearchRequest.setFirstName("first");
+		userAuthenticationSearchRequest.setUserAction("login");
+		
+	}
+
+	private void verifyUserAuthenticationResponse(
+			List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses) {
+		assertEquals(1, userAuthenticationSearchResponses.size());
+		assertEquals("Employer Name", userAuthenticationSearchResponses.get(0).getEmployerName());
+		assertEquals("employer ori", userAuthenticationSearchResponses.get(0).getEmployerOri());
+		assertEquals("Sub Unit", userAuthenticationSearchResponses.get(0).getEmployerSubunitName());
+		assertEquals("Fed ID", userAuthenticationSearchResponses.get(0).getFederationId());
+		assertEquals("IDP", userAuthenticationSearchResponses.get(0).getIdentityProviderId());
+		assertEquals("login", userAuthenticationSearchResponses.get(0).getUserAction());
+		assertEquals("email", userAuthenticationSearchResponses.get(0).getUserEmailAddress());
+		assertEquals("first", userAuthenticationSearchResponses.get(0).getUserFirstName());
+		assertEquals("last", userAuthenticationSearchResponses.get(0).getUserLastName());
 	}	
 	
 	@Test

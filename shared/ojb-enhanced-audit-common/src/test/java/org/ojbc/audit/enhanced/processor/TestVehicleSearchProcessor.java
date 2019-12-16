@@ -19,6 +19,8 @@ package org.ojbc.audit.enhanced.processor;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
@@ -111,7 +114,24 @@ public class TestVehicleSearchProcessor {
 		
 		vehicleSearchRequestProcessor.auditVehicleSearchRequest(senderExchange, document);
 		
-		//TODO: Add vehicle search response testing here
+		AuditSearchRequest auditSearchRequest = new AuditSearchRequest();
+		
+		auditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		auditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<VehicleSearchRequest> vehicleSearchRequests = enhancedAuditDao.retrieveVehicleSearchRequest(auditSearchRequest);
+		assertEquals(1, vehicleSearchRequests.size());
+		
+		assertEquals("BLK", vehicleSearchRequest.getVehicleColor());
+		assertEquals("Titan", vehicleSearchRequest.getVehicleModel());
+		assertEquals("Nissan", vehicleSearchRequest.getVehicleMake());
+		assertEquals("ABC123", vehicleSearchRequest.getVehicleLicensePlate());
+		assertEquals("1234567890ABCDEFGH", vehicleSearchRequest.getVehicleIdentificationNumber());
+		assertEquals("2005", vehicleSearchRequest.getVehicleYearRangeStart());
+		assertEquals("2009", vehicleSearchRequest.getVehicleYearRangeEnd());
+		assertEquals("Criminal Justice", vehicleSearchRequest.getPurpose());
+		assertEquals("John Doe", vehicleSearchRequest.getOnBehalfOf());
+		
 	}
 	
 }

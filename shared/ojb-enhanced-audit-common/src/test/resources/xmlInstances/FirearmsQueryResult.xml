@@ -1,0 +1,148 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<exchange:PersonFirearmRegistrationQueryResults
+    xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+    xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+    xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0">
+    <nc:Person s:id="Person0">
+        <nc:PersonBirthDate>
+            <nc:Date>1955-11-22</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonBirthLocation>
+            <nc:LocationAddress>
+                <nc:StructuredAddress>
+                    <nc:LocationCityName/>
+                    <nc:LocationStateName>CA</nc:LocationStateName>
+                </nc:StructuredAddress>
+            </nc:LocationAddress>
+        </nc:PersonBirthLocation>
+        <nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
+        <nc:PersonComplexionText>FAR</nc:PersonComplexionText>
+        <nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+        <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+        <nc:PersonHeightMeasure>
+            <nc:MeasureText>603</nc:MeasureText>
+        </nc:PersonHeightMeasure>
+        <nc:PersonName>
+            <nc:PersonGivenName>FIRST</nc:PersonGivenName>
+            <nc:PersonMiddleName>B</nc:PersonMiddleName>
+            <nc:PersonSurName>LAST</nc:PersonSurName>
+        </nc:PersonName>
+        <nc:PersonRaceCode>W</nc:PersonRaceCode>
+        <nc:PersonSexCode>M</nc:PersonSexCode>
+        <nc:PersonSSNIdentification>
+            <nc:IdentificationID>999999999</nc:IdentificationID>
+        </nc:PersonSSNIdentification>
+        <nc:PersonStateIdentification>
+            <nc:IdentificationID/>
+        </nc:PersonStateIdentification>
+        <nc:PersonWeightMeasure>
+            <nc:MeasureText>190</nc:MeasureText>
+        </nc:PersonWeightMeasure>
+    </nc:Person>
+    <firearm-ext:Firearm s:id="Firearm0">
+        <nc:ItemSerialIdentification>
+            <nc:IdentificationID>98765</nc:IdentificationID>
+        </nc:ItemSerialIdentification>
+        <nc:ItemModelName/>
+        <nc:FirearmCategoryCode>S</nc:FirearmCategoryCode>
+        <nc:FirearmCategoryDescriptionCode>O</nc:FirearmCategoryDescriptionCode>
+        <nc:FirearmBarrelLengthMeasure>
+            <nc:MeasureText>0.0</nc:MeasureText>
+            <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+        </nc:FirearmBarrelLengthMeasure>
+        <nc:FirearmCaliberText>20</nc:FirearmCaliberText>
+        <firearm-ext:FirearmMakeText>BRO</firearm-ext:FirearmMakeText>
+    </firearm-ext:Firearm>
+    <firearm-ext:ItemRegistration s:id="Registration0">
+        <nc:RegistrationIdentification>
+            <nc:IdentificationID>1111</nc:IdentificationID>
+        </nc:RegistrationIdentification>
+        <nc:LocationCountyName>county</nc:LocationCountyName>
+        <nc:RegistrationEffectiveDate>
+            <nc:Date>2000-01-04</nc:Date>
+        </nc:RegistrationEffectiveDate>
+        <firearm-ext:AgeAtRegistration>
+            <nc:MeasureText>58</nc:MeasureText>
+        </firearm-ext:AgeAtRegistration>
+        <firearm-ext:PermitNumber>22222</firearm-ext:PermitNumber>
+        <firearm-ext:RegistrationStatus>
+            <nc:StatusDate>
+                <nc:Date>2011-06-02</nc:Date>
+            </nc:StatusDate>
+            <firearm-ext:FirearmRegistrationStatusText>A</firearm-ext:FirearmRegistrationStatusText>
+        </firearm-ext:RegistrationStatus>
+        <firearm-ext:RegistrationNotesText>notes</firearm-ext:RegistrationNotesText>
+    </firearm-ext:ItemRegistration>
+    <nc:Location s:id="Location0">
+        <nc:LocationAddress>
+            <nc:StructuredAddress>
+                <nc:AddressDeliveryPointText>222 street</nc:AddressDeliveryPointText>
+                <nc:LocationCityName>city</nc:LocationCityName>
+                <nc:LocationStateName>AK</nc:LocationStateName>
+                <nc:LocationPostalCode>99999</nc:LocationPostalCode>
+            </nc:StructuredAddress>
+        </nc:LocationAddress>
+    </nc:Location>
+    <nc:ContactInformation s:id="Contact0">
+        <nc:ContactTelephoneNumber>
+            <nc:FullTelephoneNumber>
+                <nc:TelephoneNumberFullID>(999) 888-7777</nc:TelephoneNumberFullID>
+            </nc:FullTelephoneNumber>
+        </nc:ContactTelephoneNumber>
+    </nc:ContactInformation>
+    <nc:ContactInformation s:id="Contact1">
+        <nc:ContactTelephoneNumber>
+            <nc:FullTelephoneNumber>
+                <nc:TelephoneNumberFullID/>
+            </nc:FullTelephoneNumber>
+        </nc:ContactTelephoneNumber>
+        <nc:ContactEntity>
+            <nc:EntityOrganization>
+                <nc:OrganizationLocation>
+                    <nc:LocationAddress>
+                        <nc:AddressFullText/>
+                    </nc:LocationAddress>
+                </nc:OrganizationLocation>
+            </nc:EntityOrganization>
+        </nc:ContactEntity>
+    </nc:ContactInformation>
+    <nc:PropertyRegistrationAssociation>
+        <nc:ItemRegistrationReference s:ref="Registration0"/>
+        <nc:ItemReference s:ref="Firearm0"/>
+        <nc:ItemRegistrationHolderReference s:ref="Person0"/>
+    </nc:PropertyRegistrationAssociation>
+    <nc:ResidenceAssociation>
+        <nc:PersonReference s:ref="Person0"/>
+        <nc:LocationReference s:ref="Location0"/>
+    </nc:ResidenceAssociation>
+    <nc:PersonContactInformationAssociation>
+        <nc:PersonReference s:ref="Person0"/>
+        <nc:ContactInformationReference s:ref="Contact0"/>
+    </nc:PersonContactInformationAssociation>
+    <nc:PersonEmploymentAssociation>
+        <nc:EmployeeReference s:ref="Person0"/>
+        <nc:EmployeeOccupationText>RETIRED </nc:EmployeeOccupationText>
+    </nc:PersonEmploymentAssociation>
+    <nc:EmployeeContactInformationAssociation>
+        <nc:PersonReference s:ref="Person0"/>
+        <nc:ContactInformationReference s:ref="Contact1"/>
+    </nc:EmployeeContactInformationAssociation>
+</exchange:PersonFirearmRegistrationQueryResults>

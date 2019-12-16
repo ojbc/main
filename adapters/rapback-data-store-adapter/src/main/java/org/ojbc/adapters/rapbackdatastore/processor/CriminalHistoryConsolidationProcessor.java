@@ -54,6 +54,9 @@ public class CriminalHistoryConsolidationProcessor {
     @Resource
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
 
+    @Value("${rapbackDatastoreAdapter.emailSubjectPrefix:}")
+    private String emailSubjectPrefix;
+    
     @Value("${rapbackDatastoreAdapter.federalSubscriptions:true}")
     private boolean federalSubscriptionsEnabled;
 
@@ -663,48 +666,48 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("criminalHistoryExpungementReport"))
 		{
-			emailSubject = "Rap Back: SID Deletion by HCJDC";
+			emailSubject = emailSubjectPrefix + "Rap Back: SID Deletion by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryConsolidationReport"))
 		{
-			emailSubject = "Rap Back: SID Consolidation by HCJDC";
+			emailSubject = emailSubjectPrefix + "Rap Back: SID Consolidation by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryIdentifierUpdateReport"))
 		{
-			emailSubject = "Rap Back: SID Update by HCJDC";
+			emailSubject = emailSubjectPrefix + "Rap Back: SID Update by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportSIDExpungementToAgency"))
 		{
-			emailSubject = "Agency Notification: SID Expungement for: " + currentIdentifier;
+			emailSubject = emailSubjectPrefix + "Agency Notification: SID Expungement for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNMismatchToAgency"))
 		{
-			emailSubject = "Agency Notification: UCN mismatch during SID consolidation for: " + currentIdentifier;
+			emailSubject = emailSubjectPrefix + "Agency Notification: UCN mismatch during SID consolidation for: " + currentIdentifier;
 		}	
 		
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToAgency"))
 		{
-			emailSubject = "Rap Back: Federal Subscription Created: " + currentIdentifier;
+			emailSubject = emailSubjectPrefix + "Rap Back: Federal Subscription Created: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToUser"))
 		{
-			emailSubject = "Rap Back: Federal Subscription Created: " + currentIdentifier;
+			emailSubject = emailSubjectPrefix + "Rap Back: Federal Subscription Created: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNMmatchToUser"))
 		{
 			if (StringUtils.isNotBlank(currentIdentifier))
 			{	
-				emailSubject = "UCN update occurred for: " + currentIdentifier;
+				emailSubject = emailSubjectPrefix + "UCN update occurred for: " + currentIdentifier;
 			}
 			else
 			{
-				emailSubject = "UCN update occurred";
+				emailSubject = emailSubjectPrefix + "UCN update occurred";
 			}	
 		}	
 		
@@ -748,22 +751,22 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("reportUCNConsolidationToAgency"))
 		{
-			emailSubject = "Rap Back: UCN Consolidation by FBI: " + currentUcn;
+			emailSubject = emailSubjectPrefix + "Rap Back: UCN Consolidation by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNConsolidationToUser"))
 		{
-			emailSubject = "Rap Back: UCN Consolidation by FBI: " + currentUcn;
+			emailSubject = emailSubjectPrefix +"Rap Back: UCN Consolidation by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNExpungementToAgency"))
 		{
-			emailSubject = "Rap Back: UCN Deleted by FBI: " + currentUcn;
+			emailSubject = emailSubjectPrefix +"Rap Back: UCN Deleted by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNExpungementToUser"))
 		{
-			emailSubject = "Rap Back: UCN Deleted by FBI: " + currentUcn;
+			emailSubject = emailSubjectPrefix +"Rap Back: UCN Deleted by FBI: " + currentUcn;
 		}	
 
 		return emailSubject;

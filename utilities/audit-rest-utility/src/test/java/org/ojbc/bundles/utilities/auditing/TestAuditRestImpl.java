@@ -40,10 +40,14 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
@@ -199,7 +203,44 @@ public class TestAuditRestImpl {
 		assertEquals("first", userInfoResults.getUserFirstName());
 		assertEquals("last", userInfoResults.getUserLastName());
 		
-	}
+		final String uriLogout = "http://localhost:9898/auditServer/audit/userLogout";
+		
+		userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("employer");
+		userInfo.setEmployerSubunitName("sub");
+		userInfo.setFederationId("fed");
+		userInfo.setIdentityProviderId("idpID");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		
+		userInfoResults = restTemplate.postForObject(uriLogout, userInfo, UserInfo.class);
+		
+		logger.info(userInfoResults.toString());
+		
+		assertEquals("employer", userInfoResults.getEmployerName());
+		assertEquals("sub", userInfoResults.getEmployerSubunitName());
+		assertEquals("fed", userInfoResults.getFederationId());
+		assertEquals("idpID", userInfoResults.getIdentityProviderId());
+		assertEquals("email", userInfoResults.getUserEmailAddress());
+		assertEquals("first", userInfoResults.getUserFirstName());
+		assertEquals("last", userInfoResults.getUserLastName());
+		
+		final String uriRetreive = "http://localhost:9898/auditServer/audit/retrieveUserAuthentications";
+		
+		UserAuthenticationSearchRequest authenticationSearchRequest = new UserAuthenticationSearchRequest();
+		
+		authenticationSearchRequest.setStartTime(LocalDateTime.now().minusDays(1));
+		authenticationSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = restTemplate.postForObject(uriRetreive, authenticationSearchRequest, List.class);
+		
+		logger.info(userAuthenticationSearchResponses.toString());
+		
+		assertEquals(2, userAuthenticationSearchResponses.size());
+		
+	}	
 
 	private UserInfo getExampleUserInfo() {
 		
@@ -216,35 +257,6 @@ public class TestAuditRestImpl {
 		
 		return userInfo;
 	}
-	
-	@Test
-	public void testAuditRestUserLogout() throws Exception
-	{
-		final String uri = "http://localhost:9898/auditServer/audit/userLogout";
-		
-		UserInfo userInfo = new UserInfo();
-		
-		userInfo.setEmployerName("employer");
-		userInfo.setEmployerSubunitName("sub");
-		userInfo.setFederationId("fed");
-		userInfo.setIdentityProviderId("idpID");
-		userInfo.setUserEmailAddress("email");
-		userInfo.setUserFirstName("first");
-		userInfo.setUserLastName("last");
-		
-		UserInfo userInfoResults = restTemplate.postForObject(uri, userInfo, UserInfo.class);
-		
-		logger.info(userInfoResults.toString());
-		
-		assertEquals("employer", userInfoResults.getEmployerName());
-		assertEquals("sub", userInfoResults.getEmployerSubunitName());
-		assertEquals("fed", userInfoResults.getFederationId());
-		assertEquals("idpID", userInfoResults.getIdentityProviderId());
-		assertEquals("email", userInfoResults.getUserEmailAddress());
-		assertEquals("first", userInfoResults.getUserFirstName());
-		assertEquals("last", userInfoResults.getUserLastName());
-		
-	}	
 	
 	@Test
 	public void testSearchForFederalRapbackSubscriptionsByStateSubscriptionId() throws Exception
@@ -687,5 +699,60 @@ public class TestAuditRestImpl {
 		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
 		assertEquals(false, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
 		assertEquals("There was an error creating the subscription.", federalRapbackSubscriptionDetail.getFbiSubscriptionErrorText());
+	}
+	
+	@Test
+	public void testAuditRetrievePersonSearchRequest()
+	{
+		UserInfo userInfo = getExampleUserInfo();
+		
+		PersonSearchRequest psr = new PersonSearchRequest();
+		
+		LocalDate dobTo = LocalDate.now();
+		LocalDate dobFrom = dobTo.minusYears(20);
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		
+		psr.setDobFrom(dobFrom);
+		psr.setDobTo(dobTo);
+		psr.setDriverLicenseId("DL123");
+		psr.setDriverLiscenseIssuer("WI");
+		psr.setEyeCode("BLK");
+		psr.setHairCode("BRN");
+		psr.setFbiNumber("FBI123");
+		psr.setFirstName("first");
+		psr.setFirstNameQualifier(1);
+		psr.setLastName("last");
+		psr.setLastNameQualifier(1);
+		psr.setMessageId("123456");
+		psr.setMiddleName("middle");
+		psr.setOnBehalfOf("onbehalf");
+		psr.setPurpose("purpose");
+		psr.setRaceCode("race");
+		psr.setSsn("123-45-7890");
+		psr.setStateId("state");
+		psr.setUserInfofk(userInfoPk);
+		psr.setHeight(60);
+		psr.setHeightMin(50);
+		psr.setHeightMax(75);
+		psr.setSsn("999-99-9999");
+		
+		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
+		
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 1);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 2);
+
+		String uri = "http://localhost:9898/auditServer/audit/retrievePersonSearchRequest";
+
+		AuditSearchRequest personAuditSearchRequest = new AuditSearchRequest();
+		
+		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<PersonSearchRequest> personSearchRequests = restTemplate.postForObject(uri, personAuditSearchRequest, List.class);
+		
+		assertEquals(1, personSearchRequests.size());
+		
+		//additional assertions in enhanced audit project
 	}
 }

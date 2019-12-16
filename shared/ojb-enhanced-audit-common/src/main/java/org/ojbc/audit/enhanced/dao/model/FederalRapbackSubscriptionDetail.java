@@ -18,6 +18,9 @@ package org.ojbc.audit.enhanced.dao.model;
 
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * This class will return these details on a state subscription: 
  * 
@@ -88,18 +91,8 @@ public class FederalRapbackSubscriptionDetail {
 	}
 	
 	@Override
-	public String toString() {
-		return "FederalRapbackSubscriptionDetail [fbiSubscriptionSent="
-				+ fbiSubscriptionSent + ", fbiSubscriptionCreated="
-				+ fbiSubscriptionCreated + ", fbiSubscriptionErrorText="
-				+ fbiSubscriptionErrorText + ", fbiRapbackMaintenanceSent="
-				+ fbiRapbackMaintenanceSent
-				+ ", fbiRapbackMaintenanceConfirmed="
-				+ fbiRapbackMaintenanceConfirmed
-				+ ", fbiRapbackMaintenanceErrorText="
-				+ fbiRapbackMaintenanceErrorText
-				+ ", federalRapbackSubscriptions="
-				+ federalRapbackSubscriptions + "]";
-	}
+	public String toString(){
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 
 }

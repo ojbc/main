@@ -22,42 +22,41 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.w3c.dom.Document;
 
-public class FirearmsQueryResponseSQLProcessor extends AbstractPersonQueryCriminalHistoryResponseProcessor{
+public class FirearmsQueryResponseSQLProcessor extends AbstractFirearmsQueryResponseProcessor{
 
 	private static final Log log = LogFactory.getLog(FirearmsQueryResponseSQLProcessor.class);
 	
 	private EnhancedAuditDAO enhancedAuditDAO;
 	
 	@Override
-	public void auditPersonQueryCriminalHistoryResponseResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID) {
+	public void auditFirearmsQueryResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID) {
 		
 		try {
 			
-			PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = new PersonQueryCriminalHistoryResponse();
+			FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
 			
-			personQueryCriminalHistoryResponse = processPersonQueryCriminalHistoryResponse(document);
+			firearmsQueryResponse = processFirearmsQueryResponse(document);
 			
-			personQueryCriminalHistoryResponse.setMessageId(messageID);
+			firearmsQueryResponse.setMessageId(messageID);
 			
 			Integer personQueryPk = enhancedAuditDAO.retrievePersonQueryIDfromMessageID(messageID);
 			
 			if (personQueryPk != null)
 			{
-				personQueryCriminalHistoryResponse.setQueryRequestId(personQueryPk);
+				firearmsQueryResponse.setQueryRequestId(personQueryPk);
 			}	
 			
-			enhancedAuditDAO.savePersonQueryCriminalHistoryResponse(personQueryCriminalHistoryResponse);
+			enhancedAuditDAO.saveFirearmsQueryResponse(firearmsQueryResponse);
 			
-			log.info(personQueryCriminalHistoryResponse.toString());
+			log.info(firearmsQueryResponse.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit firearms query response: " + ExceptionUtils.getStackTrace(e));
 		}
-		
 		
 	}
 

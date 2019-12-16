@@ -23,12 +23,14 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
-import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -36,10 +38,16 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.util.sn.SubscriptionSearchRequest;
 
 
 public interface EnhancedAuditDAO {
@@ -72,6 +80,14 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	
+	public Integer saveSubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest);
+	
+	public Integer saveSubscriptionSearchResult(SubscriptionSearchResult subscriptionSearchResult);
+	
+	public Integer saveSubscriptionQueryResponse(SubscriptionQueryResponse subscriptionQueryResponse);
+	
+	public Integer saveFirearmsSearchRequest(FirearmsSearchRequest firearmsSearchRequest);
+	
 	public Integer saveVehicleSearchRequest(VehicleSearchRequest vehicleSearchRequest);
 	
 	public Integer saveIncidentSearchRequest(IncidentSearchRequest incidentSearchRequest);
@@ -92,6 +108,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
 	
+	public Integer saveFirearmSearchResult(FirearmSearchResult firearmSearchResult);
+	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
 	public Integer saveuserAcknowledgement(UserAcknowledgement userAcknowledgement);
@@ -99,12 +117,16 @@ public interface EnhancedAuditDAO {
 	public List<UserAcknowledgement> retrieveUserAcknowledgement(String federationId);
 	
 	public Integer saveUserAuthentication(Integer userInfoPk, String action);
-	
-	public Integer savePrintResults(PrintResults printResults);
-	
+
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
 	public List<UserInfo> retrieveUserInfoFromFederationId(String federationId);
+	
+	public List<UserInfo> retrieveAllUsers();
+	
+	public List<UserAuthenticationSearchResponse> retrieveUserAuthentication(UserAuthenticationSearchRequest userAuthenticationSearchRequest);
+
+	public Integer savePrintResults(PrintResults printResults);
 	
 	public Integer retrieveSystemToSearchIDFromURI(String uri);
 	
@@ -113,6 +135,10 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+	
+	public Integer saveSubscriptionCategoryCodes(Integer subscriptionSearchRequestPk, Integer subscriptionReasonCodePk);
+	
+	public Integer saveFirearmsSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
 	
 	public Integer saveIncidentSystemToSearch(Integer incidentSearchPk, Integer systemsToSearchPk);
 	
@@ -123,6 +149,10 @@ public interface EnhancedAuditDAO {
 	public Integer saveIdentificationReasonCode(Integer identificationSearchReasonCodeId, Integer identificationSearchRequestId);
 
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId);
 	
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
 	
@@ -147,4 +177,14 @@ public interface EnhancedAuditDAO {
 	public Integer saveSubscriptionAction(SubscriptionAction subscriptionAction);
 	
 	public void updateSubscriptionActionWithResponse(SubscriptionAction subscriptionAction);
+	
+	public Integer retrieveSubReasonCodeIdFromCode(String subscriptionReasonCode);
+	
+	public List<PersonSearchRequest> retrievePersonSearchRequest (AuditSearchRequest personAuditSearchRequest);
+	
+	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest (AuditSearchRequest firearmAuditSearchRequest);
+	
+	public List<VehicleSearchRequest> retrieveVehicleSearchRequest (AuditSearchRequest vehicleSearchRequest);
+	
+	public List<IncidentSearchRequest> retrieveIncidentSearchRequest (AuditSearchRequest incidentAuditSearchRequest);
 }

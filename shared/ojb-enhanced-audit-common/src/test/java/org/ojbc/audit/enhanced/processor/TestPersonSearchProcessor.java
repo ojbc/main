@@ -19,6 +19,8 @@ package org.ojbc.audit.enhanced.processor;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -38,7 +40,9 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
@@ -118,6 +122,34 @@ public class TestPersonSearchProcessor {
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", "123456");
 		
 		personSearchRequestProcessor.auditPersonSearchRequest(senderExchange, document);
+		
+		AuditSearchRequest personAuditSearchRequest = new AuditSearchRequest();
+		
+		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+        
+		List<PersonSearchRequest> personAuditSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(personAuditSearchRequest);
+		assertEquals(1, personAuditSearchRequests.size());
+		
+		assertEquals("Frank", personAuditSearchRequests.get(0).getFirstName());
+		assertEquals("1990-05-30", personAuditSearchRequests.get(0).getDobFrom().toString());
+		assertEquals("2000-05-30", personAuditSearchRequests.get(0).getDobTo().toString());
+		assertEquals("D123456789", personAuditSearchRequests.get(0).getDriverLicenseId());
+		assertEquals("BLU", personAuditSearchRequests.get(0).getEyeCode());
+		assertEquals("FBI12345", personAuditSearchRequests.get(0).getFbiNumber());
+		assertEquals("M", personAuditSearchRequests.get(0).getGenderCode());
+		assertEquals("BLK", personAuditSearchRequests.get(0).getHairCode());
+		assertEquals(new Integer(50), personAuditSearchRequests.get(0).getHeightMin());
+		assertEquals(new Integer(75), personAuditSearchRequests.get(0).getHeightMax());
+		assertEquals("Smith", personAuditSearchRequests.get(0).getLastName());
+		assertEquals("123456", personAuditSearchRequests.get(0).getMessageId());
+		assertEquals("f", personAuditSearchRequests.get(0).getMiddleName());
+		assertEquals("On Behalf Of", personAuditSearchRequests.get(0).getOnBehalfOf());
+		assertEquals("This is the purpose", personAuditSearchRequests.get(0).getPurpose());
+		assertEquals("I", personAuditSearchRequests.get(0).getRaceCode());
+		assertEquals("123456789", personAuditSearchRequests.get(0).getSsn());
+		assertEquals("A123456789", personAuditSearchRequests.get(0).getStateId());
+		assertEquals(2, personAuditSearchRequests.get(0).getSystemsToSearch().size());
 		
 		PersonSearchResponseSQLProcessor personSearchResponseSQLProcessor = new PersonSearchResponseSQLProcessor();
 		

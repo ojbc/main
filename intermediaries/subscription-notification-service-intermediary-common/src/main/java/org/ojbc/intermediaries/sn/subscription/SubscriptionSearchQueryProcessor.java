@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,11 +38,12 @@ import org.joda.time.Interval;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
+import org.ojbc.util.sn.SubscriptionSearchRequest;
+import org.ojbc.util.sn.SubscriptionSearchRequestUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcessor{
     private static final Log log = LogFactory.getLog(SubscriptionMessageProcessor.class);
@@ -57,99 +57,11 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
     }
     
     public Document searchBySubscripitonSearchRequest(@Body Document request) throws Exception{
-    	SubscriptionSearchRequest subscriptionSearchRequest = parseSubscriptionSearchRequest(request);
+    	SubscriptionSearchRequest subscriptionSearchRequest = SubscriptionSearchRequestUtils.parseSubscriptionSearchRequest(request);
     	List<Subscription> subscriptions = subscriptionSearchQueryDAO.findBySubscriptionSearchRequest(subscriptionSearchRequest);
     	return buildSubscriptionSearchResponseDoc(subscriptions); 
     }
     
-    private SubscriptionSearchRequest parseSubscriptionSearchRequest(
-			Document request) throws Exception {
-    	SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
-    	String adminSearchIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:AdminSearchRequestIndicator");
-    	subscriptionSearchRequest.setAdminSearch(BooleanUtils.toBooleanObject(adminSearchIndicator));
-    	
-    	String requestActiveSubscriptionsIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestActiveSubscriptionsIndicator");
-    	String requestInactiveSubscriptionsIndicator = XmlUtils.xPathStringSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:RequestInactiveSubscriptionsIndicator");
-    	
-    	if (!Objects.equals(BooleanUtils.toBoolean(requestActiveSubscriptionsIndicator), 
-    			BooleanUtils.toBoolean(requestInactiveSubscriptionsIndicator))){
-    		
-    		if(BooleanUtils.toBoolean(requestActiveSubscriptionsIndicator)){
-    			subscriptionSearchRequest.setActive(true);
-    		}
-    		
-    		if(BooleanUtils.toBoolean(requestInactiveSubscriptionsIndicator)){
-    			subscriptionSearchRequest.setActive(false);
-    		}
-    	}
-    	
-    	if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getActive())){
-    		subscriptionSearchRequest.setIncludeExpiredSubscriptions(true);
-    	}
-    	
-    	String ownerFirstName = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
-    	subscriptionSearchRequest.setOwnerFirstName(ownerFirstName);
-    	
-    	String ownerLastName = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
-    	subscriptionSearchRequest.setOwnerLastName(ownerLastName);
-    	
-    	String ownerFederatedId = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/ssreq-ext:SubscribedEntityFederatedIdentification/nc:IdentificationID");
-    	subscriptionSearchRequest.setOwnerFederatedId(ownerFederatedId);
-    	
-    	String ownerOri = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/jxdm41:Organization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
-    	subscriptionSearchRequest.setOwnerOri(ownerOri);
-    	
-    	String subjectFirstName = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/nc:PersonName/nc:PersonGivenName");
-    	subscriptionSearchRequest.setSubjectFirstName(subjectFirstName);
-    	if (StringUtils.isNotBlank(subjectFirstName)){
-    		subscriptionSearchRequest.getSubjectIdentifiers().put("firstName", subjectFirstName);
-    	}
-    	
-    	String subjectLastName = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/nc:PersonName/nc:PersonSurName");
-    	subscriptionSearchRequest.setSubjectLastName(subjectLastName);
-    	if (StringUtils.isNotBlank(subjectLastName)){
-    		subscriptionSearchRequest.getSubjectIdentifiers().put("lastName", subjectLastName);
-    	}
-    	
-    	String ucn = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
-    	subscriptionSearchRequest.setUcn(ucn);
-    	
-    	if (StringUtils.isNotBlank(ucn)){
-    		subscriptionSearchRequest.getSubjectIdentifiers().put("FBI_ID", ucn);
-    	}
-    	
-    	String sid = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:SubscriptionSubject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-    	subscriptionSearchRequest.setSid(sid);
-    	if(StringUtils.isNotBlank(sid)){
-    		subscriptionSearchRequest.getSubjectIdentifiers().put("SID", sid);
-    	}
-    	
-    	NodeList reasonCodeNodeList = XmlUtils.xPathNodeListSearch(request, "/ssreq:SubscriptionSearchRequest/ssreq-ext:FBISubscription/ssreq-ext:CriminalSubscriptionReasonCode");
-		if (reasonCodeNodeList != null && reasonCodeNodeList.getLength() > 0){
-			for (int i = 0; i < reasonCodeNodeList.getLength(); i++) {
-                Element reasonCodeElement = (Element) reasonCodeNodeList.item(i);
-				if (StringUtils.isNotBlank(reasonCodeElement.getTextContent())){
-					subscriptionSearchRequest.getSubscriptionCategories().add(reasonCodeElement.getTextContent());
-				}
-	        }
-		}
-		
-		String subscribingSystemIdentifier = XmlUtils.xPathStringSearch(request, 
-    			"/ssreq:SubscriptionSearchRequest/ssreq-ext:SubscribedEntity/nc:IdentificationID");
-    	subscriptionSearchRequest.setSubscribingSystemIdentifier(subscribingSystemIdentifier);
-
-    	log.info("Parsed subscriptionSearchRequest " + subscriptionSearchRequest);
-		return subscriptionSearchRequest;
-	}
-
 	/**
      * Convert the POJO to the equivalent XML document
      */

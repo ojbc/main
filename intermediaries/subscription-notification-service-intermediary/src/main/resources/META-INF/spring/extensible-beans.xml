@@ -52,7 +52,43 @@
 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 		</constructor-arg>
 	</bean>
+	
+	<bean id="subscriptionSearchRequestSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="subscriptionSearchRequestSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.SubscriptionSearchRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
 
+	<bean id="subscriptionSearchResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="subscriptionSearchResponseSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.SubscriptionSearchResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
+
+	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="queryRequestSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+
+	<bean id="subscriptionQueryResponseSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="subscriptionQueryResponseSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.SubscriptionQueryResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
+	
 	<bean id="emailFormatter" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="emailFormatter" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />

@@ -19,6 +19,8 @@ package org.ojbc.audit.enhanced.processor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +41,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
@@ -108,8 +112,16 @@ public class TestIncidentSearchProcessor {
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", "123456");
 		
 		incidentSearchRequestProcessor.auditIncidentSearchRequest(senderExchange, document);
+
+		//Test audit search request here
+		AuditSearchRequest auditSearchRequest = new AuditSearchRequest();
 		
-		//TODO: Add incident search response testing here
+		auditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		auditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<IncidentSearchRequest> incidentSearchRequests = enhancedAuditDao.retrieveIncidentSearchRequest(auditSearchRequest);
+		assertEquals(1, incidentSearchRequests.size());
+		
 	}
 	
 }
