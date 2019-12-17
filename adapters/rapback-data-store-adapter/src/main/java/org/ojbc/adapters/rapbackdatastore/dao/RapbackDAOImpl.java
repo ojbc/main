@@ -890,6 +890,8 @@ public class RapbackDAOImpl implements RapbackDAO {
                 	agencyProfile.setAgencyOri(rs.getString("agency_ori"));
                 	agencyProfile.setFbiSubscriptionQualified(rs.getBoolean("fbi_subscription_qualification"));
                 	agencyProfile.setStateSubscriptionQualified(rs.getBoolean("state_subscription_qualification"));
+                	agencyProfile.setFirearmsSubscriptionQualification(rs.getBoolean("FIREARMS_SUBSCRIPTION_QUALIFICATION"));
+                	agencyProfile.setCjEmploymentSubscriptionQualification(rs.getBoolean("CJ_EMPLOYMENT_SUBSCRIPTION_QUALIFICATION"));
 
                 	List<String> emails = new ArrayList<String>();
                 	String email = rs.getString("agency_email");

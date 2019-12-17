@@ -77,6 +77,8 @@
       </jxdm50:OrganizationAugmentation>
       <oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>false</oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>
       <oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator>false</oirs-res-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator>false</oirs-res-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator>
       <oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
          <oirs-res-ext:FederalTriggeringEventCode>ARREST</oirs-res-ext:FederalTriggeringEventCode>
          <oirs-res-ext:FederalTriggeringEventCode>DEATH</oirs-res-ext:FederalTriggeringEventCode>
