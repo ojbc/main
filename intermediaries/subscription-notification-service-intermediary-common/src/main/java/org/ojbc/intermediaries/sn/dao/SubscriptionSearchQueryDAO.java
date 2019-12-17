@@ -79,14 +79,13 @@ public class SubscriptionSearchQueryDAO {
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
-			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
-			+ "		notification_mechanism nm, "
-			+ "		subscription_subject_identifier si, "
-			+ "		subscription_owner so, "
-			+ "		agency_profile ap "
+			+ "FROM subscription s "
+			+ "LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "	
+			+ "     notification_mechanism nm, 	subscription_subject_identifier si, "		
+			+ "     subscription_owner so  "
+			+ "LEFT JOIN agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
 			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id "
-			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID"
-			+ " and ap.AGENCY_ID = so.AGENCY_ID";
+			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID";
 	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     
@@ -589,7 +588,7 @@ public class SubscriptionSearchQueryDAO {
     	
     	String subscriptionCategoryCode = request.getReasonCategoryCode();
     	
-    	if (ret != null & subscriptionCategoryCode != null)
+    	if (ret != null & subscriptionCategoryCode != null && fbiSubscriptionMember)
     	{	
     		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
     		{	

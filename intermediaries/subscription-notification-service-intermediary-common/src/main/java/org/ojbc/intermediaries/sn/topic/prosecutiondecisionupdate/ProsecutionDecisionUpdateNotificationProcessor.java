@@ -37,23 +37,23 @@ public class ProsecutionDecisionUpdateNotificationProcessor extends Notification
 	@Override
 	protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception{
 		
-		CourtDispositionUpdateNotificationRequest courtDispositionUpdateNotificationRequest = new CourtDispositionUpdateNotificationRequest(msg); 
+		ProsecutionDecisionUpdateNotificationRequest prosecutionDecisionUpdateNotificationRequest = new ProsecutionDecisionUpdateNotificationRequest(msg); 
 		
-		Map<String, String> allowedSubjectIdentifiers = courtDispositionUpdateNotificationRequest.getSubjectIdentifiers();
+		Map<String, String> allowedSubjectIdentifiers = prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers();
 
 		Map<String, String> finalSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, activeSubjectIdentifiers);	
-		courtDispositionUpdateNotificationRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
+		prosecutionDecisionUpdateNotificationRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
 		
 		if (alternateConfiguredSubjectIdentifiers != null)
 		{
 			for (List<String> alternateConfiguredSubjectIdentifier : alternateConfiguredSubjectIdentifiers)
 			{
 				Map<String, String> finalAlternateSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, alternateConfiguredSubjectIdentifier);
-				courtDispositionUpdateNotificationRequest.getAlternateSubjectIdentifiers().add(finalAlternateSubjectIdentifiers);
+				prosecutionDecisionUpdateNotificationRequest.getAlternateSubjectIdentifiers().add(finalAlternateSubjectIdentifiers);
 			}	
 		}	
 		
-		return courtDispositionUpdateNotificationRequest;
+		return prosecutionDecisionUpdateNotificationRequest;
 	}
 
 	public List<String> getActiveSubjectIdentifiers() {
