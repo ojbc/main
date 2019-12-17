@@ -17,10 +17,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ojb-crim-doc:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
-	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+<ojb-crim-doc:CoreFilingMessage
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0 ../../../xsd/Criminal_Case-doc.xsd">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>123456ABC</nc:IdentificationID>
@@ -44,7 +47,7 @@
 	<ecf:SendingMDELocationID>
 		<nc:IdentificationID>91</nc:IdentificationID>
 	</ecf:SendingMDELocationID>
-	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID   </ecf:SendingMDEProfileCode>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
 	<ojb-crim-ext:CriminalCase>
 		<nc:CaseTitleText>State vs. John Doe</nc:CaseTitleText>
 		<nc:CaseTrackingID>123456ABC</nc:CaseTrackingID>
@@ -78,10 +81,8 @@
 					</nc:PersonName>
 					<nc:PersonOtherIdentification>
 						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
-						<nc:IdentificationCategoryText>DriverLicense
-						</nc:IdentificationCategoryText>
+						<nc:IdentificationCategoryText>DriverLicense</nc:IdentificationCategoryText>
 					</nc:PersonOtherIdentification>
-					<nc:PersonPhysicalFeature />
 					<nc:PersonRaceText>W</nc:PersonRaceText>
 					<nc:PersonSexCode>M</nc:PersonSexCode>
 					<nc:PersonTaxIdentification>
@@ -111,8 +112,7 @@
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>455</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
-				<j:StatuteDescriptionText>Resisting Law Enforcement
-				</j:StatuteDescriptionText>
+				<j:StatuteDescriptionText>Resisting Law Enforcement</j:StatuteDescriptionText>
 				<j:StatuteOffenseIdentification>
 					<nc:IdentificationID>5-44-3-3(a)(1)</nc:IdentificationID>
 				</j:StatuteOffenseIdentification>
@@ -122,8 +122,7 @@
 					<nc:Date>2008-07-07</nc:Date>
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
-			<criminal:ChargeAmendedIndicator>false
-			</criminal:ChargeAmendedIndicator>
+			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
 		</criminal:CaseCharge>
 		<criminal:CaseCharge>
 			<j:ChargeSequenceID>
@@ -133,8 +132,7 @@
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>1279</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
-				<j:StatuteDescriptionText>Driving While Suspended
-				</j:StatuteDescriptionText>
+				<j:StatuteDescriptionText>Driving While Suspended</j:StatuteDescriptionText>
 				<j:StatuteOffenseIdentification>
 					<nc:IdentificationID>9-24-19-2</nc:IdentificationID>
 				</j:StatuteOffenseIdentification>
@@ -144,8 +142,7 @@
 					<nc:Date>2008-07-07</nc:Date>
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
-			<criminal:ChargeAmendedIndicator>false
-			</criminal:ChargeAmendedIndicator>
+			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
 		</criminal:CaseCharge>
 		<criminal:CaseCharge>
 			<j:ChargeSequenceID>
@@ -155,8 +152,7 @@
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>1287</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
-				<j:StatuteDescriptionText>9-30-5-2(a): Operating a Vehicle While Intoxicated
-				</j:StatuteDescriptionText>
+				<j:StatuteDescriptionText>9-30-5-2(a): Operating a Vehicle While Intoxicated</j:StatuteDescriptionText>
 				<j:StatuteOffenseIdentification>
 					<nc:IdentificationID>9-30-5-2(a)</nc:IdentificationID>
 				</j:StatuteOffenseIdentification>
@@ -166,8 +162,7 @@
 					<nc:Date>2008-07-07</nc:Date>
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
-			<criminal:ChargeAmendedIndicator>false
-			</criminal:ChargeAmendedIndicator>
+			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
 		</criminal:CaseCharge>
 		<criminal:CaseCharge>
 			<j:ChargeSequenceID>
@@ -177,22 +172,20 @@
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>1140</nc:IdentificationID>
 				</j:StatuteCodeIdentification>
-				<j:StatuteDescriptionText>Operating a Vehicle with an ACE of .15 or More
-				</j:StatuteDescriptionText>
+				<j:StatuteDescriptionText>Operating a Vehicle with an ACE of .15 or More</j:StatuteDescriptionText>
 			</j:ChargeStatute>
 			<criminal:ChargeOffense>
 				<nc:ActivityDate>
 					<nc:Date>2008-07-07</nc:Date>
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
-			<criminal:ChargeAmendedIndicator>false
-			</criminal:ChargeAmendedIndicator>
+			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
 		</criminal:CaseCharge>
 	</ojb-crim-ext:CriminalCase>
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<ojb-crim-ext:FilingLeadDocument s:id="_123456ABC.app.doc">
 		<nc:DocumentBinary>
-			<ojb-crim-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojb-crim-ext:Base64BinaryObject>
+			<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
 		</nc:DocumentBinary>
 		<nc:DocumentCategoryDescriptionText>DocumentCategoryDescriptionText</nc:DocumentCategoryDescriptionText>
 		<nc:DocumentCreationDate>

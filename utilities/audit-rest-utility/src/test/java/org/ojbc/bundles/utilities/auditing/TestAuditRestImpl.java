@@ -40,10 +40,12 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.util.model.rapback.AgencyProfile;
@@ -697,5 +699,60 @@ public class TestAuditRestImpl {
 		assertEquals(true, federalRapbackSubscriptionDetail.isFbiSubscriptionSent());
 		assertEquals(false, federalRapbackSubscriptionDetail.isFbiSubscriptionCreated());
 		assertEquals("There was an error creating the subscription.", federalRapbackSubscriptionDetail.getFbiSubscriptionErrorText());
+	}
+	
+	@Test
+	public void testAuditRetrievePersonSearchRequest()
+	{
+		UserInfo userInfo = getExampleUserInfo();
+		
+		PersonSearchRequest psr = new PersonSearchRequest();
+		
+		LocalDate dobTo = LocalDate.now();
+		LocalDate dobFrom = dobTo.minusYears(20);
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		
+		psr.setDobFrom(dobFrom);
+		psr.setDobTo(dobTo);
+		psr.setDriverLicenseId("DL123");
+		psr.setDriverLiscenseIssuer("WI");
+		psr.setEyeCode("BLK");
+		psr.setHairCode("BRN");
+		psr.setFbiNumber("FBI123");
+		psr.setFirstName("first");
+		psr.setFirstNameQualifier(1);
+		psr.setLastName("last");
+		psr.setLastNameQualifier(1);
+		psr.setMessageId("123456");
+		psr.setMiddleName("middle");
+		psr.setOnBehalfOf("onbehalf");
+		psr.setPurpose("purpose");
+		psr.setRaceCode("race");
+		psr.setSsn("123-45-7890");
+		psr.setStateId("state");
+		psr.setUserInfofk(userInfoPk);
+		psr.setHeight(60);
+		psr.setHeightMin(50);
+		psr.setHeightMax(75);
+		psr.setSsn("999-99-9999");
+		
+		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
+		
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 1);
+		enhancedAuditDao.savePersonSystemToSearch(psrIdFromSave, 2);
+
+		String uri = "http://localhost:9898/auditServer/audit/retrievePersonSearchRequest";
+
+		AuditSearchRequest personAuditSearchRequest = new AuditSearchRequest();
+		
+		personAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		personAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<PersonSearchRequest> personSearchRequests = restTemplate.postForObject(uri, personAuditSearchRequest, List.class);
+		
+		assertEquals(1, personSearchRequests.size());
+		
+		//additional assertions in enhanced audit project
 	}
 }
