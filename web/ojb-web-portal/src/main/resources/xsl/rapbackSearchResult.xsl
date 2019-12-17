@@ -112,7 +112,8 @@
 			<td>
 				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) !='Available for Subscription' 
 					or (following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
-							and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription))">
+							and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator = 'true')
+							and ( oirsr-ext:CivilIdentificationReasonCode != 'J' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator = 'true'))">
 					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 				</xsl:if>
 			</td>
@@ -132,7 +133,8 @@
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
 		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
 		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
-			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription)">
+			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator = 'true')
+			and ( oirsr-ext:CivilIdentificationReasonCode != 'J' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator = 'true')">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
@@ -176,7 +178,9 @@
 			</xsl:choose>
 		</xsl:variable>
 		
-		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
+		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' 
+			and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'
+			and ( oirsr-ext:CivilIdentificationReasonCode != 'J' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator = 'true')">
 			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
