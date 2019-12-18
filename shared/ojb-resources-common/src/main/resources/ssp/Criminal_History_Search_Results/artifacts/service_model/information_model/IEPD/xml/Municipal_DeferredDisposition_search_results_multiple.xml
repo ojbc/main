@@ -138,6 +138,9 @@
 					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
 					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
 					<j:OrganizationAugmentation>
+						<j:OrganizationJurisdiction>
+							<nc:LocationCountyName>COUNTY</nc:LocationCountyName>
+						</j:OrganizationJurisdiction>					
 						<j:OrganizationORIIdentification>
 							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
 						</j:OrganizationORIIdentification>
@@ -223,6 +226,9 @@
 					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
 					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
 					<j:OrganizationAugmentation>
+						<j:OrganizationJurisdiction>
+							<nc:LocationCountyName>COUNTY</nc:LocationCountyName>
+						</j:OrganizationJurisdiction>					
 						<j:OrganizationORIIdentification>
 							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
 						</j:OrganizationORIIdentification>
@@ -246,6 +252,9 @@
 					<nc:OrganizationCategoryText>MUNI</nc:OrganizationCategoryText>
 					<nc:OrganizationName>Oswego Municipal Court</nc:OrganizationName>
 					<j:OrganizationAugmentation>
+						<j:OrganizationJurisdiction>
+							<nc:LocationCountyName>COUNTY</nc:LocationCountyName>
+						</j:OrganizationJurisdiction>					
 						<j:OrganizationORIIdentification>
 							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
 						</j:OrganizationORIIdentification>
