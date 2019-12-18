@@ -390,6 +390,12 @@
 			<xsd:documentation>True if organization is authorized to create federal subscriptions.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator" type="niem-xs:boolean" nillable="true"
+		substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if organization is authorized to create federal subscriptions.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="OrganizationAuthorizedTriggeringEvents" type="oirs-res-ext:TriggeringEventsType" nillable="true"
 		substitutionGroup="nc:OrganizationAugmentationPoint">
 		<xsd:annotation>
