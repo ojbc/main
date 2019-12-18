@@ -231,12 +231,12 @@
 					<nc:OrganizationCategoryText>DA</nc:OrganizationCategoryText>
 					<nc:OrganizationName>Millville District Attorney</nc:OrganizationName>
 					<j:OrganizationAugmentation>
-						<j:OrganizationORIIdentification>
-							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
-						</j:OrganizationORIIdentification>
 						<j:OrganizationJurisdiction>
 							<nc:LocationCountyName>COUNTY</nc:LocationCountyName>
 						</j:OrganizationJurisdiction>						
+						<j:OrganizationORIIdentification>
+							<nc:IdentificationID>ORI12345678</nc:IdentificationID>
+						</j:OrganizationORIIdentification>					
 					</j:OrganizationAugmentation>
 				</chsres-ext:ChargeOwnerAgency>
 			</j:ArrestCharge>
