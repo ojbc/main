@@ -37,6 +37,7 @@
 	<xsl:param name="policyUrlUserName" />
 	<xsl:param name="policyUrlPassword" />
 	<xsl:param name="helpDeskContactInfo" />
+	<xsl:param name="actionUrl" />
 	
 	<xsl:template match="/">
 		<xsl:apply-templates select=
@@ -47,20 +48,25 @@
 	</xsl:template>
 
 	<xsl:template match="ac-p:PolicyBasedAccessControlDecisionContext">
-		You need to acknowledge all of the following policies to be able to access the website. 
-		<xsl:if test="$policyUrlUserName !='' and $policyUrlPassword != ''">
-			<br/>Please use username "<xsl:value-of select="$policyUrlUserName"/>" 
-			and password "<xsl:value-of select="$policyUrlPassword"/>" to view the policies.  	
-		</xsl:if>
-		<ul>
+						  
+	    <p class="card-text">You need to acknowledge all of the following policies to be able to access the website.
+	    	<xsl:if test="$policyUrlUserName !='' and $policyUrlPassword != ''">
+				<br/>Please use username "<xsl:value-of select="$policyUrlUserName"/>" 
+				and password "<xsl:value-of select="$policyUrlPassword"/>" to view the policies.  	
+			</xsl:if>
+	    </p>
+		<ul class="list-group">
 			<xsl:apply-templates select="ac-p:Policy"/>
 		</ul>
 		<form name="acknowledgePolicies"  method="POST" id="acknowledgePoliciesForm">
-			<input name="acknowledgeAll" id="acknowledgeAll" type="submit" value="Acknowledge All" class="blueButton"/>
+			<xsl:attribute name="action">
+				<xsl:value-of select="$actionUrl"></xsl:value-of>
+			</xsl:attribute>
+			<input type="submit" value="Acknowledge All" class="btn btn-primary mt-3"/>
 		</form>
 	</xsl:template>
 	<xsl:template match="ac-p:Policy">
-		<li>
+		<li class="list-group-item">
 			<xsl:element name="a">
 				<xsl:attribute name="href">
 					<xsl:value-of select="ac-p:PolicyLocationURL"></xsl:value-of>

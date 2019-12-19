@@ -27,11 +27,7 @@
 	<body>
 		<header>
 	        <div class="banner pt-1">
-	          <div class="text-white pl-3">
-	            <img src="#springUrl('/static/images/banner/oklahoma_logo.png')" height="75px" /> 
-	            <span class="initials align-bottom" aria-hidden="true">OJBC</span>
-	            <span class="fullname align-middle">Query Demonstration</span>
-	          </div>
+	        	#parse("common/_stateBanner.vm")
 	        </div>
 		</header>	
 		<div id="mainContent">

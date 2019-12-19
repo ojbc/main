@@ -35,10 +35,10 @@
 	 			<div class="jumbotron">
 					<div class="card">
 					  <div class="card-header font-weight-bold">
-					    Access is denied
+					    UNABLE TO PROCESS REQUEST
 					  </div>
-					  <div class="card-body">
-					  	$accessControlResponse
+					  <div class="card-body text-danger">
+					  	A server-side error occurred. If problem persists, contact your IT department.
 					  </div>
 					</div>
 				</div>
@@ -52,5 +52,4 @@
 		<!-- /.container -->
 		#parse("common/_javascripts.vm")
 	</body>
-	
 </html>
