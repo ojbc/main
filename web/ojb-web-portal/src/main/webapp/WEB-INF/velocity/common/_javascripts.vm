@@ -32,7 +32,3 @@
 	<script src="#springUrl('/static/js/secondaryOptionsDisplay.js')"></script>
 	<script src="#springUrl('/static/js/formValidation.js')"></script>
 #end
-
-#if( $customStyleCssPath != "" )
-    <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
-#end

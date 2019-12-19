@@ -9,53 +9,7 @@
 		#parse("common/_head.vm")
 	</head>
 	<body data-spy="scroll" data-target=".navbar">
-		<header>
-	        <div class="banner mt-5 pt-1">
-	          <div class="text-white pl-3">
-	            <img src="#springUrl('/static/images/banner/oklahoma_logo.png')" height="75px" /> 
-	            <span class="initials align-bottom" aria-hidden="true">OJBC</span>
-	            <span class="fullname align-middle">Query Demonstration</span>
-	          </div>
-	        </div>
-	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-	          <span class="navbar-toggler-icon"></span>
-	        </button>
-	        <div class="collapse navbar-collapse" id="navbarCollapse">
-	          <ul class="navbar-nav mr-auto text-white">
-		        <li class="nav-item active">
-		          <a class="nav-link" href="#springUrl('/portal')" id="home">Home <span class="sr-only">(current)</span></a>
-		        </li>
-				#foreach($entry in $leftMenuLinks.entrySet())
-					#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
-						&& $entry.getKey() != "queryLink" && $entry.getKey() != "adminLink" 
-						|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
-						|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
-						|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
-						|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY")
-						|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
-				        <li class="nav-item">
-						  <a class="nav-link" id="$entry.getKey()" href="#">$leftMenuLinkTitles[$entry.getKey()] </a> 
-				        </li>
-					#end		
-				#end		
-	          </ul>
-	          
-	          <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-              	<li class="nav-item dropdown">
-	              <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				          <i class="fas fa-user-circle fa-lg"></i>
-		            </a>
-			          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-			            <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong>$!currentUserName</strong></span></a>
-			            <div class="dropdown-divider"></div>
-			            <a class="dropdown-item" href="#springUrl('/portal/performLogout')"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
-			          </div>
-              	</li>
-        	  </ul>
-	        </div>
-	      </nav>
-		</header>
+		#parse("common/_header.vm")
 	    <!-- Begin page content -->
 	    
 	    <div class="container-fluid small">

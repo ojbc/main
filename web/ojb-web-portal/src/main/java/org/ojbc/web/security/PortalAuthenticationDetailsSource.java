@@ -89,6 +89,15 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${enableEnhancedAudit:false}")
     Boolean enableEnhancedAudit;
 
+    @Value("${bannerPath:/static/images/banner/Banner.png}")
+    String bannerPath;
+
+    @Value("${themePath:/static/css/style.css}")
+    String themePath;
+    
+    @Value("${customStyleCssPath:}")
+    String customStyleCssPath;
+
 	@Resource
 	RestEnhancedAuditClient restEnhancedAuditClient;
 
@@ -105,6 +114,8 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
+        context.setAttribute("themePath", themePath);
+        context.setAttribute("customStyleCssPath", customStyleCssPath);
         
         if (samlAssertion == null)
         {

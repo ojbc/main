@@ -16,10 +16,23 @@
  *#
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
+#if( $request.getAttribute('themePath') != "" )
+	<link rel="stylesheet" type="text/css" href="#springUrl($request.getAttribute('themePath'))">
+#end
+#if( $themePath != "" )
+	<link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
+#end
 <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
 <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/colReorder.dataTables.css')" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery.lwMultiSelect.css')">
 <link href="#springUrl('/static/css/jquerysctipttop.css')" rel="stylesheet" type="text/css">
+#if( $request.getAttribute('customStyleCssPath') != "" )
+    <link rel="stylesheet" type="text/css" href="#springUrl($request.getAttribute('customStyleCssPath'))">
+#end
+#if( $customStyleCssPath != "" )
+    <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
+#end
+<link rel="shortcut icon" href="#">
+
 <title>OJBC Portal</title>

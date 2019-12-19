@@ -81,4 +81,18 @@ public class GlobalControllerAdvice {
 		return "/error/500";
 	}
     
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+    public String handle405Exception(HttpServletRequest request, Exception ex){
+    	
+    	log.error("Got exception when processing the request", ex); 
+    	return "/error/405";
+    }
+    
+//    @ResponseStatus(value=HttpStatus.METHOD_NOT_ALLOWED, reason="Method Not Allowed")
+//    public String handle405Exception(HttpServletRequest request, Exception ex){
+//    	
+//    	log.error("Got exception when processing the request", ex); 
+//    	return "/error/500";
+//    }
+    
 }
