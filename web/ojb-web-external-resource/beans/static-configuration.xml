@@ -193,7 +193,6 @@
 	</util:map>
 
 	<util:map id="leftMenuLinks">
-		<entry key="homeLink" value="#" />
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />

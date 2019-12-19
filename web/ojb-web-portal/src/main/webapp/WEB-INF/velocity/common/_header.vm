@@ -31,35 +31,33 @@
         <li class="nav-item active">
           <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="incidents">Incidents</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link uploadToValidate" href="#" id="upload">Validate/Upload</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link uploadToValidate" href="#" id="errors">Errors</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="submitToFbi">Submit to FBI</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="summaryReportInputForm">Summary Reports</a>
-        </li>
+		#foreach($entry in $leftMenuLinks.entrySet())
+			#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
+				&& $entry.getKey() != "queryLink" && $entry.getKey() != "adminLink" 
+				|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
+				|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
+				|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
+				|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY")
+				|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
+		        <li class="nav-item">
+				  <a class="nav-link" id="$entry.getKey()" href="#">$leftMenuLinkTitles[$entry.getKey()] </a> 
+		        </li>
+			#end		
+		#end		
       </ul>
       
       <ul class="navbar-nav flex-row ml-md-auto d-md-flex" sec:authorize="isAuthenticated()">
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <i class="fas fa-user-circle fa-lg"></i>
-            </a>
-	          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-	            <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></span></a>
-	            <div class="dropdown-divider"></div>
-	            <a class="dropdown-item" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
-		          </div>
+	      <li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  <i class="fas fa-user-circle fa-lg"></i>
+			</a>
+			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				<a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></span></a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
+			</div>
           </li>
-        </ul>
-        </div>
-      </nav>
-  </header>
+	  </ul>
+    </div>
+  </nav>
+</header>

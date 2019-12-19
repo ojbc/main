@@ -85,7 +85,6 @@ public class PortalController implements ApplicationContextAware {
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
 	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
 	
-	public static final String HOME_LINK_ID = "homeLink";
 	public static final String STATE_LINK_ID = "stateGovLink";
     public static final String QUERY_LINK_ID = "queryLink";
 	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
@@ -98,7 +97,6 @@ public class PortalController implements ApplicationContextAware {
     public static final String FAQ_LINK_ID = "faqLink";
     public static final String SUGGESTIONFORM_LINK_ID = "suggestionFormLink";
 		
-	public static final String HOME_LINK_TITLE = "Home";
 	public static final String STATE_LINK_TITLE = "State.gov";
     public static final String QUERY_LINK_TITLE = "Query";
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
@@ -588,7 +586,6 @@ public class PortalController implements ApplicationContextAware {
 		
 		if(leftMenuLinkTitles == null){			
 			leftMenuLinkTitles = new HashMap<String, String>();
-			leftMenuLinkTitles.put(HOME_LINK_ID, HOME_LINK_TITLE);
 			leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
 			leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
 			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
