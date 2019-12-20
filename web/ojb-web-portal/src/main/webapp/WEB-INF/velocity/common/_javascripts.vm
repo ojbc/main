@@ -14,10 +14,14 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+<script src="#springUrl('/webjars/popper.js/1.14.3/umd/popper.min.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/datatables/1.10.19/js/jquery.dataTables.min.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/datatables/1.10.19/js/dataTables.bootstrap4.min.js')"></script>
+<script type="text/javascript" th:src="#springUrl('/webjars/datatables-fixedheader/3.1.4/js/dataTables.fixedHeader.js')"></script>
+<script type="text/javascript" th:src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>
+<script type="text/javascript" th:src="#springUrl('/webjars/font-awesome/5.2.0/js/all.js')"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 <!--<script type="text/javascript" src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
@@ -25,6 +29,8 @@
 
 
 <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
+<script type="text/javascript" src="#springUrl('/static/js/plugins/bootpopup.js')"></script> 
+
 <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
 <script src="#springUrl('/static/js/jquery.lwMultiSelect.js')"></script>
 
