@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
-@SessionAttributes({"showPrintButton"})
+@SessionAttributes({"showPrintButton", "sensitiveInfoAlert" })
 public class GlobalControllerAdvice {
 	
 	private final Log log = LogFactory.getLog(this.getClass());
