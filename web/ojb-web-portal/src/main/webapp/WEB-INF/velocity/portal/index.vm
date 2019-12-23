@@ -45,18 +45,18 @@
 				
 			 	$(document).ajaxStart(function(){
 			 	     		
-			 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){
-			 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())
-			 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())
-						$("#modalIframeSpinner").show();
-			
-			 		}
-			 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){
-			 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())
-			 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())
-						$("#modalIframeSpinner").show();
-			 		}
-			 		else{
+<!--			 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){-->	
+<!--			 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())-->	
+<!--			 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())-->	
+<!--						$("#modalIframeSpinner").show();-->	
+<!--			-->	
+<!--			 		}-->	
+<!--			 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){-->	
+<!--			 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())-->	
+<!--			 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())-->	
+<!--						$("#modalIframeSpinner").show();-->	
+<!--			 		}-->	
+<!--			 		else{ -->
 			     		var loadingDiv =  $("#loadingAjaxPane");
 			     		var portalContentDiv = $("#portalContent");
 						
@@ -64,7 +64,7 @@
 			     		loadingDiv.width(portalContentDiv.width());
 			     		
 			          	$("#loadingAjaxPane").show();          	
-			 		}     		     	
+<!--			 		}     	-->	     	
 			      }).ajaxStop(function() {
 			    	  $("#loadingAjaxPane").hide();                
 			      	  $("#modalIframeSpinner").hide();

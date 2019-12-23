@@ -246,7 +246,10 @@ public class PortalController implements ApplicationContextAware {
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
-		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
+		
+		if (model.get("sensitiveInfoAlert") == null) {
+			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
+		}
 		
     	putUserSignoutUrlAndSamlAssertionIntoModel(request, model);
 	}
@@ -375,6 +378,7 @@ public class PortalController implements ApplicationContextAware {
     
     @RequestMapping(value="negateSenstiveInfoAlert", method=RequestMethod.POST)
     public @ResponseBody String negateSenstiveInfoAlert( Map<String, Object> model ){
+    	log.info("negate sensitiveInfoAlert: " + model.get("sensitiveInfoAlert")); 
         model.put("sensitiveInfoAlert", false); 
         return "success";
     }

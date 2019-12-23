@@ -214,9 +214,9 @@ function bootpopup(options) {
 			switch(item) {
 			case "close": btnClass = "btn-primary"; btnText = "Close"; break;
 			case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
-			case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
+			case "cancel": btnClass = "btn-light"; btnText = "Cancel"; break;
 			case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
-			case "no": btnClass = "btn-default"; btnText = "No"; break;
+			case "no": btnClass = "btn-light"; btnText = "No"; break;
 			}
 
 			var button = $("<button></button>", {

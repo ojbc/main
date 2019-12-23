@@ -26,7 +26,7 @@
 	    <div class="collapse navbar-collapse" id="navbarCollapse">
 	      <ul class="navbar-nav mr-auto text-white">
 	        <li class="nav-item active">
-	          <a class="nav-link" href="#springUrl('/portal')" id="home">Home <span class="sr-only">(current)</span></a>
+	          <a class="nav-link" href="#springUrl('/portal/index')" id="home">Home <span class="sr-only">(current)</span></a>
 	        </li>
 			#foreach($entry in $leftMenuLinks.entrySet())
 				#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
