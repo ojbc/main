@@ -63,7 +63,7 @@
 	</xsl:template>
 
 	<xsl:template name="rapbacks">
-			<table class="searchResultsTable display" id="searchResultsTable">
+			<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th>NAME</th>

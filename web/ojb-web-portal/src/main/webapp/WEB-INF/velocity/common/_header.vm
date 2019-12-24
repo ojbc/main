@@ -16,7 +16,7 @@
  *#
 <header>
 	<header>
-	    <div class="banner mt-5 pt-1">
+	    <div class="banner mt-5 pt-4">
         	#parse("common/_stateBanner.vm")
 	    </div>
 	  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">

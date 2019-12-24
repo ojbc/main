@@ -378,7 +378,6 @@ public class PortalController implements ApplicationContextAware {
     
     @RequestMapping(value="negateSenstiveInfoAlert", method=RequestMethod.POST)
     public @ResponseBody String negateSenstiveInfoAlert( Map<String, Object> model ){
-    	log.info("negate sensitiveInfoAlert: " + model.get("sensitiveInfoAlert")); 
         model.put("sensitiveInfoAlert", false); 
         return "success";
     }

@@ -68,10 +68,10 @@
 		<fontawesome.version>5.2.0</fontawesome.version>
 		<bootstrap.version>4.3.1</bootstrap.version>
 		<jquery.version>3.3.1</jquery.version>
-		<datatables.version>1.10.19</datatables.version>
+		<datatables.version>1.10.20</datatables.version>
 		<datatables.fixedheader.version>3.1.4</datatables.fixedheader.version>
 		<datatables.responsive.version>2.2.3</datatables.responsive.version>
-		<popper.version>1.14.4</popper.version>
+		<popper.version>1.14.7</popper.version>
 		
 		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
@@ -277,7 +277,7 @@
 		    <version>${jquery.version}</version>
 		</dependency>
 	    <dependency>
-	      <groupId>org.webjars.npm</groupId>
+	      <groupId>org.webjars</groupId>
 	      <artifactId>popper.js</artifactId>
 	      <version>${popper.version}</version>
 	    </dependency>

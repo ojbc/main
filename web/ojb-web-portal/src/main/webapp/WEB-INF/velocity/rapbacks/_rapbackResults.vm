@@ -51,7 +51,6 @@
 	);
 	
 	$(function() {
-		$( document ).tooltip();
 		$('#searchBarButtonDiv').hide();
 		$.fn.dataTable.moment( 'MM/DD/YYYY' );
 		
@@ -76,7 +75,7 @@
 				]
 	        };
 		
-			var oTable = $("#searchResultsTable").DataTable( optTable);
+			var oTable = $("#searchResultsTable").DataTable(optTable);
 			
 			$('#filterColumn').on("change", '#rapbacksFilter', function() {
     	    	oTable.draw();
@@ -474,14 +473,14 @@
     
 </div>
 
-<div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
+<div id="dialog-confirm-authorization" title="Are you authorized?" class="d-none">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>
 </div>
-<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
+<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="d-none">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
   You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
 </div>
-<div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:auto; height:auto">
+<div id="dialog-confirm-validate" title="Are you authorized?" class="d-none" style="width:auto; height:auto">
 	<div style="margin:7px;padding:7px;">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
 		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
