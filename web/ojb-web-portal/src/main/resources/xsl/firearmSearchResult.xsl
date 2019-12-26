@@ -179,7 +179,16 @@
                 	</xsl:choose>
                 </td>
                 <td><xsl:value-of select="fa-ext:Firearm/nc:FirearmCategoryDescriptionCode" /></td>
-                <td><xsl:value-of select="fa-ext:ItemRegistration/nc:LocationCountyName" /></td>
+                <td>
+                	<xsl:choose>
+                		<xsl:when test="normalize-space(fa-ext:ItemRegistration/nc:LocationCountyName) != ''">
+                			<xsl:value-of select="fa-ext:ItemRegistration/nc:LocationCountyName" />
+                		</xsl:when>
+                		<xsl:otherwise>
+                			<xsl:value-of select="intel:SystemIdentifier/intel:SystemName" />
+                		</xsl:otherwise>
+                	</xsl:choose>
+                </td>
                 
                 <td class="hidden">
                 
