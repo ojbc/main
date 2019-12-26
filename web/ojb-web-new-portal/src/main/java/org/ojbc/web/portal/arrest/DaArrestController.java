@@ -165,14 +165,20 @@ public class DaArrestController {
 		return "arrest/da/arrests::daArrestSearchForm";
 	}
 	@PostMapping("/advancedSearch")
-	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute ArrestSearchRequest daArrestSearchRequest, BindingResult bindingResult, 
+	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute("daArrestSearchRequest") ArrestSearchRequest daArrestSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		
+		if (bindingResult.hasErrors()) {
+			log.info("has binding errors");
+			log.info(bindingResult.getAllErrors());
+			return "arrest/da/arrests::daArrestSearchForm";
+		}
 		log.info("daArrestSearchRequest:" + daArrestSearchRequest );
+
 		daArrestSearchRequest.setArrestType(ArrestType.DA);
 		
 		getArrestSearchResults(request, daArrestSearchRequest, model);
-		return "arrest/da/arrests::resultsList";
+		return "arrest/da/arrests::resultsPage";
 	}
 
 	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest daArrestSearchRequest,

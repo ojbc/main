@@ -155,10 +155,15 @@ public class MuniArrestController {
 	@PostMapping("/advancedSearch")
 	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute ArrestSearchRequest arrestSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
-		
+		if (bindingResult.hasErrors()) {
+			log.info("has binding errors");
+			log.info(bindingResult.getAllErrors());
+			return "arrest/arrests::arrestSearchForm";
+		}
+
 		log.info("arrestSearchRequest:" + arrestSearchRequest );
 		getArrestSearchResults(request, arrestSearchRequest, model);
-		return "arrest/arrests::resultsList";
+		return "arrest/arrests::resultsPage";
 	}
 
 	private void getArrestSearchResults(HttpServletRequest request, ArrestSearchRequest arrestSearchRequest,

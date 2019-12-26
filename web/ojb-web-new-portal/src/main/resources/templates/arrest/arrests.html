@@ -197,7 +197,13 @@
                 var formData = $('#muniSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "muniArrests/advancedSearch",formData,function(data) {
-              	  $('#searchResultsList').replaceWith(data);
+                	if (data.includes('div id="searchResultsList"')){
+                		$('#portalContent').html(data);
+                	}
+                	else{
+                		$('#muniSearchForm').replaceWith(data);
+                    initSearchForm();
+                	}
              	  }).fail();
               });
               

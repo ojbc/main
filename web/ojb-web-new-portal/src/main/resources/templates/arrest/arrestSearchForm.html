@@ -32,11 +32,14 @@
           <input type="hidden" th:field="*{authorizedOris}"/>
           <div class="form-row">
             <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
-            <div class="col-sm-3"><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From" autofocus="autofocus"/></div>
+            <div class="col-sm-3 form-group">
+              <input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From" autofocus="autofocus" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}" class="invalid-feedback d-block">Arrest Date error message</div>
+            </div>
             <label class="col-1 col-form-label font-weight-bold text-right">To </label>
-            <div class="col-sm-3">
-               <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/>
-	            <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</div>
+            <div class="col-sm-3 form-group">
+               <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To" th:errorclass="is-invalid"/>
+	             <div th:if="${#fields.hasErrors('arrestDateRangeEndDate')}" th:errors="*{arrestDateRangeEndDate}" class="invalid-feedback d-block">Arrest Date error message</div>
             </div>
           </div>
           <div class="form-row">
@@ -53,7 +56,10 @@
             <label for="ssn" class="col-2 col-form-label font-weight-bold text-right">SSN </label>
             <div class="col-sm-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
             <label for="dob" class="col-1 col-form-label font-weight-bold text-right">DOB </label>
-            <div class="col-sm-3"><input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth"/></div>
+            <div class="col-sm-3 form-group">
+              <input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth" th:errorclass="is-invalid"/>
+              <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" class="invalid-feedback d-block">Arrest Date error message</div>
+            </div>
           </div>
           <div class="form-row">
             <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>

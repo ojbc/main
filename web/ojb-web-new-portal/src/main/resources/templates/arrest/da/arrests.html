@@ -216,7 +216,14 @@
                 var formData = $('#daSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
-              	  $('#searchResultsList').replaceWith(data);
+                	console.log("data:"  + data);
+                  if (data.includes('div id="searchResultsList"')){
+                	  $('#portalContent').html(data);
+                  }
+                  else{
+                    $('#daSearchForm').replaceWith(data);
+                    initSearchForm();
+                  }
              	  }).fail();
               });
               
