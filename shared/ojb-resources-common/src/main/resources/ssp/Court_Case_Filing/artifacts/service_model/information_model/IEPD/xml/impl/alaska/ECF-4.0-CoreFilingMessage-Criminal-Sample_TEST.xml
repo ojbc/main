@@ -83,6 +83,10 @@
 						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
 						<nc:IdentificationCategoryText>DriverLicense</nc:IdentificationCategoryText>
 					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>A54678</nc:IdentificationID>
+						<nc:IdentificationCategoryText>ASPIN</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
 					<nc:PersonRaceText>W</nc:PersonRaceText>
 					<nc:PersonSexCode>M</nc:PersonSexCode>
 					<nc:PersonTaxIdentification>
@@ -104,7 +108,7 @@
 				</nc:ContactInformation>
 			</ecf:CaseParticipant>
 		</ecf:CaseAugmentation>
-		<criminal:CaseCharge>
+		<ojb-crim-ext:CaseCharge>
 			<j:ChargeSequenceID>
 				<nc:IdentificationID>1</nc:IdentificationID>
 			</j:ChargeSequenceID>
@@ -123,8 +127,9 @@
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
-		</criminal:CaseCharge>
-		<criminal:CaseCharge>
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>false</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
+		<ojb-crim-ext:CaseCharge>
 			<j:ChargeSequenceID>
 				<nc:IdentificationID>2</nc:IdentificationID>
 			</j:ChargeSequenceID>
@@ -143,8 +148,9 @@
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
-		</criminal:CaseCharge>
-		<criminal:CaseCharge>
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>false</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
+		<ojb-crim-ext:CaseCharge>
 			<j:ChargeSequenceID>
 				<nc:IdentificationID>3</nc:IdentificationID>
 			</j:ChargeSequenceID>
@@ -163,8 +169,9 @@
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
-		</criminal:CaseCharge>
-		<criminal:CaseCharge>
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>false</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
+		<ojb-crim-ext:CaseCharge>
 			<j:ChargeSequenceID>
 				<nc:IdentificationID>4</nc:IdentificationID>
 			</j:ChargeSequenceID>
@@ -180,7 +187,8 @@
 				</nc:ActivityDate>
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
-		</criminal:CaseCharge>
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>false</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
 	</ojb-crim-ext:CriminalCase>
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<ojb-crim-ext:FilingLeadDocument s:id="_123456ABC.app.doc">
