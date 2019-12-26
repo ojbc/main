@@ -90,7 +90,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ArrestType">
-		<xsd:annotatio-----------------------------------------------------*
+		<xsd:annotation>
 			<xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
