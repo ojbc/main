@@ -488,7 +488,7 @@
 	      
         function toggleProvisionCode(){
               var $provisionPrerequisiteInputs = $('.provision-prerequisite');
-              if ($provisionPrerequisiteInputs.filter(function(){ return this.value.trim(); }).length){
+              if ($provisionPrerequisiteInputs.filter(function(){ return $(this).val() > 0; }).length){
                 $('#provisionCode').prop('disabled', false).trigger("chosen:updated");
               }
               else{
