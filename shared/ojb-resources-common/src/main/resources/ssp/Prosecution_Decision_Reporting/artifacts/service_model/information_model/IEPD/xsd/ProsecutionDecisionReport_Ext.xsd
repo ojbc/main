@@ -419,17 +419,17 @@
 			<xsd:documentation>An agency case identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CommercialVehicleOffenseCodeText" type="niem-xs:string"
-		substitutionGroup="j:OffenseAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Code text value for a commercial vehicle offense.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="ChargeModifierText" type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information for a charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CommercialVehicleOffenseCodeText" type="niem-xs:string"
+		substitutionGroup="j:OffenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text value for a commercial vehicle offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="ConstructionZoneIndicator" type="niem-xs:boolean" substitutionGroup="j:OffenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an offense occurs in a construction zone; false otherwise.</xsd:documentation>
