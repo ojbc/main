@@ -85,7 +85,7 @@
 					</nc:PersonOtherIdentification>
 					<nc:PersonOtherIdentification>
 						<nc:IdentificationID>A54678</nc:IdentificationID>
-						<nc:IdentificationCategoryText>ASPIN</nc:IdentificationCategoryText>
+						<nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
 					</nc:PersonOtherIdentification>
 					<nc:PersonRaceText>W</nc:PersonRaceText>
 					<nc:PersonSexCode>M</nc:PersonSexCode>
