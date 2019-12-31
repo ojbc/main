@@ -20,6 +20,7 @@
 <xsd:schema xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:payment="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" version="4.0">
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="../common/ECF-4.0-CommonTypes.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" schemaLocation="ECF-4.0-PaymentMessage.xsd"/>
+	<!--  xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="http://docs.oasis-open.org/ubl/cs-UBL-2.0/xsd/common/UBL-CommonAggregateComponents-2.0.xsd"/ -->
 	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="http://docs.oasis-open.org/ubl/cs-UBL-2.0/xsd/common/UBL-CommonAggregateComponents-2.0.xsd"/>
 	<xsd:element name="PaymentReceiptMessage" type="payment:PaymentMessageType">
 		<xsd:annotation>
