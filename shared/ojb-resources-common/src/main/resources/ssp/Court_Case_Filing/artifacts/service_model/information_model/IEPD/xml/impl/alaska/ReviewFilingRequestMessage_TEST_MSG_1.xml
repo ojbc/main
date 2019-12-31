@@ -29,10 +29,7 @@
 	<ecf:SendingMDELocationID>
 		<nc:IdentificationID>https://invalidsendingmdelocationid/1e6caec3-a7bd-46bf-83eb-7d19eef04d2c</nc:IdentificationID>
 	</ecf:SendingMDELocationID>
-	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0   </ecf:SendingMDEProfileCode>
-	<!-- core:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
-		xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" 
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" -->
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
 	<core:CoreFilingMessage>
 		<nc:DocumentIdentification>
 			<nc:IdentificationID>123456ABC</nc:IdentificationID>
@@ -204,6 +201,40 @@
 			</criminal:CaseCharge>
 		</criminal:CriminalCase>
 		<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+		<core:FilingLeadDocument s:id="_123456ABC.app.doc">
+			<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+			<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
+			<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+			<ecf:DocumentMetadata>
+				<j:RegisterActionDescriptionText />
+				<ecf:FilingAttorneyID />
+				<ecf:FilingPartyID />
+			</ecf:DocumentMetadata>
+			<ecf:DocumentRendition>
+				<ecf:DocumentRenditionMetadata>
+					<ecf:DocumentAttachment s:id="Attachment1">
+						<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+						<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
+					</ecf:DocumentAttachment>
+				</ecf:DocumentRenditionMetadata>
+			</ecf:DocumentRendition>
+		</core:FilingLeadDocument>
+		<core:FilingLeadDocument>
+			<ecf:DocumentMetadata>
+				<j:RegisterActionDescriptionText />
+				<ecf:FilingAttorneyID />
+				<ecf:FilingPartyID />
+			</ecf:DocumentMetadata>
+			<ecf:DocumentRendition>
+				<ecf:DocumentRenditionMetadata>
+					<ecf:DocumentAttachment>
+						<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+					</ecf:DocumentAttachment>
+				</ecf:DocumentRenditionMetadata>
+			</ecf:DocumentRendition>
+		</core:FilingLeadDocument>
 		<core:FilingLeadDocument>
 			<ecf:DocumentMetadata>
 				<j:RegisterActionDescriptionText />
@@ -216,6 +247,33 @@
 				</ecf:DocumentRenditionMetadata>
 			</ecf:DocumentRendition>
 		</core:FilingLeadDocument>
+		<core:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+			<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+			<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
+			<nc:DocumentFileControlID>123456</nc:DocumentFileControlID>
+			<nc:DocumentIdentification>
+				<nc:IdentificationID>_123456ABC.inf.doc</nc:IdentificationID>
+				<nc:IdentificationCategoryText>DOCUMENTTYPE</nc:IdentificationCategoryText>
+			</nc:DocumentIdentification>
+			<nc:DocumentSequenceID>1</nc:DocumentSequenceID>
+			<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+			<ecf:DocumentMetadata>
+				<j:RegisterActionDescriptionText />
+				<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
+				<ecf:FilingAttorneyID />
+				<ecf:FilingPartyID />
+			</ecf:DocumentMetadata>
+			<ecf:DocumentRendition>
+				<ecf:DocumentRenditionMetadata>
+					<ecf:DocumentAttachment s:id="Attachment2">
+						<nc:BinaryDescriptionText>application/msword</nc:BinaryDescriptionText>
+						<nc:BinaryFormatStandardName>BFSN</nc:BinaryFormatStandardName>
+						<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
+					</ecf:DocumentAttachment>
+				</ecf:DocumentRenditionMetadata>
+			</ecf:DocumentRendition>
+		</core:FilingConnectedDocument>
 	</core:CoreFilingMessage>
 	<pay:PaymentMessage>
 		<pay:PayerName></pay:PayerName>
