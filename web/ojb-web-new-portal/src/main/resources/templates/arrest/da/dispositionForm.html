@@ -325,10 +325,10 @@
 					 $('#reasonForDismissal').prop('disabled', false).trigger("chosen:updated");
 					}
 	     	   
-					toggleSentenceInfo();
-			    toggleProvisionCode();
 			    toggleAlternateSentenceFineCostsOption();
 			    toggleAlternateSentenceRestitutionOption();
+					toggleSentenceInfo();
+			    toggleProvisionCode();
 					
 					if ($('#jailYears').val() > 0){
 					 	$('#suspendedYears').prop('disabled', false); 
@@ -534,7 +534,7 @@
                 $('#deferredDays').prop('disabled', true);
                 $('#restitution').val('');
                 $('#restitution').prop('disabled', true);
-                $('#alternateSentences').empty();
+                $('#alternateSentences option').removeAttr('selected');
                 $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
           }
           else{
@@ -547,7 +547,9 @@
                 $('#suspendedDays').prop('disabled', false);
                 toggleDefferredYearsDays();
                 $('#restitution').prop('disabled', false);
-                $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
+                $('#alternateSentences').prop('disabled', false);
+                toggleAlternateSentenceFineCostsOption();
+                toggleAlternateSentenceRestitutionOption();
           }
         }
         
