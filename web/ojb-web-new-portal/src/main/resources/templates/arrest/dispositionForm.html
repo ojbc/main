@@ -134,7 +134,7 @@
                data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
+          <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control provision-prerequisite jail-time" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -143,7 +143,7 @@
                data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control provision-prerequisite" th:errorclass="is-invalid"/>
+          <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control provision-prerequisite jail-time" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -152,7 +152,7 @@
                data-content="Suspended time cannot be greater than Jail time. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control" th:errorclass="is-invalid" disabled/>
+          <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control suspended-time" th:errorclass="is-invalid" disabled/>
           <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -161,7 +161,7 @@
                data-content="Suspended time cannot be greater than Jail time. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control" th:errorclass="is-invalid"/>
+          <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control suspended-time"  th:errorclass="is-invalid" disabled/>
           <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -272,8 +272,6 @@
           });
           
 					if ($('#jailYears').val() > 0){
-					 	$('#suspendedYears').prop('disabled', false); 
-            $('#suspendedDays').prop('disabled', false);
             $('#jailDays').val(''); 
             $('#jailDays').prop('disabled', true); 
             $('#deferredYears').val(''); 
@@ -283,13 +281,13 @@
 					}
 					
 					if ($('#jailDays').val() > 0){
-            $('#suspendedDays').prop('disabled', false); 
-            $('#suspendedYears').prop('disabled', true); 
             $('#deferredYears').val(''); 
             $('#deferredDays').val(''); 
             $('#deferredYears').prop('disabled', true); 
             $('#deferredDays').prop('disabled', true); 
 					}
+					
+					toggleSuspendedInputs();
 					
 			    if ($('#deferredYears').val() > 0){
              $('#deferredDays').prop('disabled', true); 
@@ -297,19 +295,17 @@
 					
           $("#dispositionForm").on("change", "#jailYears", function(){
               if ($('#jailYears').val() > '0'){
-                  $('#suspendedYears').prop('disabled', false); 
-                  $('#suspendedDays').prop('disabled', false); 
                   $('#jailDays').val(''); 
                   $('#jailDays').prop('disabled', true); 
+                  toggleSuspendedInputs();
                   $('#deferredYears').val(''); 
                   $('#deferredDays').val(''); 
                   $('#deferredYears').prop('disabled', true); 
-                  $('#deferredDays').prop('disabled', true); 
+                  $('#deferredDays').prop('disabled', true);
               }
               else{
-              	  $('#jailDays').prop('disabled', false); 
-                  $('#suspendedYears').val(''); 
-                  $('#suspendedYears').prop('disabled', true); 
+              	  $('#jailDays').prop('disabled', false);
+              	  toggleSuspendedInputs();
                   toggleDefferredYearsDays();              }
           });
 					
@@ -337,6 +333,16 @@
               }
               else{
                   $('#deferredDays').prop('disabled', false); 
+              }
+          });
+					
+          $("#dispositionForm").on("change", "#suspendedYears", function(){
+              if ($('#suspendedYears').val() > 0){
+                  $('#suspendedDays').val(''); 
+                  $('#suspendedDays').prop('disabled', true); 
+              }
+              else{
+                  $('#suspendedDays').prop('disabled', false); 
               }
           });
 					
@@ -398,6 +404,32 @@
 	            }
 	      }
 	      
+	      function toggleSuspendedInputs(){
+            var $jailTimeInputs = $('.jail-time');
+            if ($jailTimeInputs.filter(function(){
+            		  return $(this).val() > 0;
+            	}).length){
+            	   if ($("jailDays").val() > 0){
+	            	   $('#suspendedDays').prop('disabled', false);
+            	   }
+            	   else{
+	            	   $('#suspendedYears').prop('disabled', false); 
+                   if ($('#suspendedYears').val() > 0){
+                       $('#suspendedDays').prop('disabled', true); 
+                   }
+                   else{
+                       $('#suspendedDays').prop('disabled', false);
+                   }
+            	   }
+            }
+            else{
+            	  $('#suspendedYears').val('');
+                $('#suspendedYears').prop('disabled', true); 
+                $('#suspendedDays').val('');
+                $('#suspendedDays').prop('disabled', true); 
+            }
+	      }
+	      
 	      function toggleSentenceInfo(){
 	          var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
 
@@ -428,7 +460,6 @@
                 $('#fineSuspended').prop('disabled', false);
                 $('#jailYears').prop('disabled', false);
                 $('#jailDays').prop('disabled', false);
-                $('#suspendedDays').prop('disabled', false);
                 toggleDefferredYearsDays();
                 $('#restitution').prop('disabled', false);
                 $('#alternateSentences').prop('disabled', false);
