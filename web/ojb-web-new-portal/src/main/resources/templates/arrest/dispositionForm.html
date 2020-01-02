@@ -199,7 +199,7 @@
           </label>
           <select th:field="*{alternateSentences}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" data-placeholder="Please select all that apply...">
             <option value="" ></option>
-            <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}" />
+            <option th:each="item: ${muniAlternateSentenceMapping}" th:value="${item.key}" th:text="${item.value}"/>
           </select>
           <div th:if="${#fields.hasErrors('alternateSentences')}" th:errors="*{alternateSentences}" class="invalid-feedback">Alternate sentence error message</div>
         </div>		
@@ -260,7 +260,17 @@
 	     	  
 					toggleSentenceInfo();
 					toggleProvisionCode();
+					toggleAlternateSentenceFineCostsOption();
+					toggleAlternateSentenceRestitutionOption();
 					
+          $("#dispositionForm").on("change", "#fineAmount", function(){
+            toggleAlternateSentenceFineCostsOption();
+          });
+			             
+          $("#dispositionForm").on("change", "#restitution", function(){
+            toggleAlternateSentenceRestitutionOption();
+          });
+          
 					if ($('#jailYears').val() > 0){
 					 	$('#suspendedYears').prop('disabled', false); 
             $('#suspendedDays').prop('disabled', false);
@@ -281,9 +291,9 @@
             $('#deferredDays').prop('disabled', true); 
 					}
 					
-			if ($('#deferredYears').val() > 0){
-            $('#deferredDays').prop('disabled', true); 
-            }
+			    if ($('#deferredYears').val() > 0){
+             $('#deferredDays').prop('disabled', true); 
+          }
 					
           $("#dispositionForm").on("change", "#jailYears", function(){
               if ($('#jailYears').val() > '0'){
@@ -410,7 +420,7 @@
                 $('#deferredDays').prop('disabled', true);
                 $('#restitution').val('');
                 $('#restitution').prop('disabled', true);
-                $('#alternateSentences').empty();
+                $('#alternateSentences').val('');
                 $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
           }
           else{
@@ -424,6 +434,28 @@
                 $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
           }
 
+      }
+	      
+      function toggleAlternateSentenceFineCostsOption(){
+          if ($("#fineAmount").val() > 0){
+              $('#alternateSentences option[value="62"]').prop('disabled', true);
+              $('#alternateSentences option[value="64"]').prop('disabled', true).trigger("chosen:updated");
+          }
+          else{
+              $('#alternateSentences option[value="62"]').prop('disabled', false);
+              $('#alternateSentences option[value="64"]').prop('disabled', false).trigger("chosen:updated");
+          }
+      }
+      
+      function toggleAlternateSentenceRestitutionOption(){
+          if ($("#restitution").val() > 0){
+              $('#alternateSentences option[value="37"]').prop('disabled', true);
+              $('#alternateSentences option[value="38"]').prop('disabled', true).trigger("chosen:updated");
+          }
+          else{
+              $('#alternateSentences option[value="37"]').prop('disabled', false);
+              $('#alternateSentences option[value="38"]').prop('disabled', false).trigger("chosen:updated");
+          }
       }
     </script>
   </div>
