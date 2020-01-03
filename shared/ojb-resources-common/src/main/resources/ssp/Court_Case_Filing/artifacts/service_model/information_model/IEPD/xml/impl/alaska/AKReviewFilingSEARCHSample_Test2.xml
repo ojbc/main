@@ -1,0 +1,257 @@
+<!--
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+    http://opensource.org/licenses/RPL-1.5
+    Copyright 2012-2017 Open Justice Broker Consortium
+-->
+<ReviewFilingRequestMessage
+	xmlns="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:pay="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0"
+	xmlns:p1="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0 ../../../xsd/ReviewFilingRequestMessage.xsd">
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://invalidsendingmdelocationid/1e6caec3-a7bd-46bf-83eb-7d19eef04d2c</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<core:CoreFilingMessage>
+		<nc:DocumentSubmitter>
+			<ecf:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonGivenName>Ryan</nc:PersonGivenName>
+					<nc:PersonSurName>Foley</nc:PersonSurName>
+					<nc:PersonFullName>Ryan Foley</nc:PersonFullName>
+				</nc:PersonName>
+				<nc:PersonOtherIdentification>
+					<nc:IdentificationID>ImageSoft, Inc.</nc:IdentificationID>
+					<nc:IdentificationCategoryText>COMPANYNAME</nc:IdentificationCategoryText>
+				</nc:PersonOtherIdentification>
+				<nc:PersonStateIdentification>
+					<nc:IdentificationID>Go Bucks!</nc:IdentificationID>
+					<nc:IdentificationCategoryText>BARNUMBER</nc:IdentificationCategoryText>
+					<nc:IdentificationSourceText>AK</nc:IdentificationSourceText>
+				</nc:PersonStateIdentification>
+				<ecf:PersonAugmentation>
+					<nc:ContactInformation>
+						<nc:ContactMailingAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText>25900 W. 11 Mile Rd. Suite 100</nc:StreetFullText>
+								</nc:LocationStreet>
+								<nc:LocationCityName>Southfield</nc:LocationCityName>
+								<nc:LocationStateUSPostalServiceCode>MI</nc:LocationStateUSPostalServiceCode>
+								<nc:LocationPostalCode>48034</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:ContactMailingAddress>
+						<nc:ContactInformationDescriptionText>WORK</nc:ContactInformationDescriptionText>
+					</nc:ContactInformation>
+					<nc:ContactInformation>
+						<nc:ContactTelephoneNumber>
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>2499488100</nc:TelephoneNumberFullID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+						<nc:ContactInformationDescriptionText>WORK</nc:ContactInformationDescriptionText>
+					</nc:ContactInformation>
+					<nc:ContactInformation>
+						<nc:ContactEmailID>rfoley@imagesoftinc.com</nc:ContactEmailID>
+						<nc:ContactInformationDescriptionText>WORK</nc:ContactInformationDescriptionText>
+					</nc:ContactInformation>
+				</ecf:PersonAugmentation>
+			</ecf:EntityPerson>
+		</nc:DocumentSubmitter>
+		<ecf:SendingMDELocationID>
+			<nc:IdentificationID>https://unittest.truefiling.com/ImageSoft.FilingAssembly.Receiver.SOAP/FilingAssemblyReceiver.svc</nc:IdentificationID>
+		</ecf:SendingMDELocationID>
+		<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+		<CriminalCase xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0">
+			<nc:CaseCategoryText>CRDF3HO</nc:CaseCategoryText>
+			<j:CaseAugmentation>
+				<j:CaseCourt>
+					<nc:OrganizationIdentification>
+						<nc:IdentificationID>55DA5B11-2BC4-4881-ABD1-B0DFDB506BB1</nc:IdentificationID>
+					</nc:OrganizationIdentification>
+				</j:CaseCourt>
+			</j:CaseAugmentation>
+			<ecf:CaseAugmentation>
+				<ecf:CaseOfficial>
+					<nc:RoleOfPersonReference s:ref="Attorney1" />
+					<j:CaseOfficialRoleText>LEAD</j:CaseOfficialRoleText>
+					<ecf:CaseRepresentedPartyReference s:ref="Party0" />
+				</ecf:CaseOfficial>
+				<ecf:CaseOtherEntityAttorney>
+					<nc:RoleOfPersonReference s:ref="Attorney2" />
+					<ecf:CaseRepresentedPartyReference s:ref="Party0" />
+				</ecf:CaseOtherEntityAttorney>
+				<ecf:CaseParticipant>
+					<ecf:EntityPerson s:id="Attorney1">
+						<nc:PersonOtherIdentification>
+							<nc:IdentificationID>90909</nc:IdentificationID>
+							<nc:IdentificationCategoryText>BARNUMBER</nc:IdentificationCategoryText>
+						</nc:PersonOtherIdentification>
+					</ecf:EntityPerson>
+					<ecf:CaseParticipantRoleCode>ATTY</ecf:CaseParticipantRoleCode>
+				</ecf:CaseParticipant>
+				<ecf:CaseParticipant>
+					<ecf:EntityPerson s:id="Attorney2">
+						<nc:PersonOtherIdentification>
+							<nc:IdentificationID>90910</nc:IdentificationID>
+							<nc:IdentificationCategoryText>BARNUMBER</nc:IdentificationCategoryText>
+						</nc:PersonOtherIdentification>
+					</ecf:EntityPerson>
+					<ecf:CaseParticipantRoleCode>ATTY</ecf:CaseParticipantRoleCode>
+				</ecf:CaseParticipant>
+				<ecf:CaseParticipant>
+					<ecf:EntityPerson s:id="Party0">
+						<nc:PersonBirthDate>
+							<nc:Date>1980-01-01</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Tim</nc:PersonGivenName>
+							<nc:PersonSurName>Elliott</nc:PersonSurName>
+						</nc:PersonName>
+						<ecf:PersonAugmentation>
+							<nc:ContactInformation>
+								<nc:ContactTelephoneNumber>
+									<nc:FullTelephoneNumber>
+										<nc:TelephoneNumberFullID>9727133770</nc:TelephoneNumberFullID>
+									</nc:FullTelephoneNumber>
+								</nc:ContactTelephoneNumber>
+								<nc:ContactEmailID>timelliot@sample.com</nc:ContactEmailID>
+								<nc:ContactMailingAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>4438 Hayhurst Lane</nc:StreetFullText>
+										</nc:LocationStreet>
+										<nc:LocationCityName>Troy</nc:LocationCityName>
+										<nc:LocationStateName>MI</nc:LocationStateName>
+										<nc:LocationPostalCode>48083</nc:LocationPostalCode>
+									</nc:StructuredAddress>
+								</nc:ContactMailingAddress>
+							</nc:ContactInformation>
+						</ecf:PersonAugmentation>
+					</ecf:EntityPerson>
+					<ecf:CaseParticipantRoleCode>PLNT</ecf:CaseParticipantRoleCode>
+				</ecf:CaseParticipant>
+				<ecf:CaseParticipant>
+					<ecf:EntityPerson s:id="Party1">
+						<nc:PersonName>
+							<nc:PersonGivenName>Grace</nc:PersonGivenName>
+							<nc:PersonSurName>Bell</nc:PersonSurName>
+						</nc:PersonName>
+						<ecf:PersonAugmentation>
+							<nc:ContactInformation>
+								<nc:ContactTelephoneNumber>
+									<nc:FullTelephoneNumber>
+										<nc:TelephoneNumberFullID>9727133771</nc:TelephoneNumberFullID>
+									</nc:FullTelephoneNumber>
+								</nc:ContactTelephoneNumber>
+								<nc:ContactEmailID>jane.doe@someemail.com</nc:ContactEmailID>
+								<nc:ContactMailingAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>1168 Cunningham Court</nc:StreetFullText>
+										</nc:LocationStreet>
+										<nc:LocationCityName>Troy</nc:LocationCityName>
+										<nc:LocationStateName>MI</nc:LocationStateName>
+										<nc:LocationPostalCode>48083</nc:LocationPostalCode>
+									</nc:StructuredAddress>
+								</nc:ContactMailingAddress>
+							</nc:ContactInformation>
+						</ecf:PersonAugmentation>
+					</ecf:EntityPerson>
+					<ecf:CaseParticipantRoleCode>DEF</ecf:CaseParticipantRoleCode>
+				</ecf:CaseParticipant>
+				<ecf:PersonAssociation>
+					<nc:PersonReference s:ref="Party1" />
+					<nc:PersonReference s:ref="Party0" />
+				</ecf:PersonAssociation>
+			</ecf:CaseAugmentation>
+			<CaseCharge>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<ChargeOffense>
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>888</nc:IdentificationID>
+						<nc:IdentificationCategoryText>OFFENSE_REPORT_CONTROL_NUMBER</nc:IdentificationCategoryText>
+					</nc:ActivityIdentification>
+					<nc:ActivityDate>
+						<nc:DateTime>2014-12-20T00:00:00.0</nc:DateTime>
+					</nc:ActivityDate>
+					<!--<nc:ActivityDateRange> <nc:StartDate> <nc:DateTime>2014-12-20T13:15:00.0</nc:DateTime> </nc:StartDate> <nc:EndDate> <nc:DateTime>2014-12-20T13:45:00.0</nc:DateTime> 
+						</nc:EndDate> </nc:ActivityDateRange> -->
+				</ChargeOffense>
+				<ChargeAmendedIndicator>false</ChargeAmendedIndicator>
+			</CaseCharge>
+			<CaseCharge>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>2</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<ChargeOffense>
+					<nc:ActivityIdentification>
+						<nc:IdentificationID>888</nc:IdentificationID>
+						<nc:IdentificationCategoryText>OFFENSE_REPORT_CONTROL_NUMBER</nc:IdentificationCategoryText>
+					</nc:ActivityIdentification>
+					<nc:ActivityDate>
+						<nc:DateTime>2014-12-20T00:00:00.0</nc:DateTime>
+					</nc:ActivityDate>
+					<!--<nc:ActivityDateRange> <nc:StartDate> <nc:DateTime>2014-12-20T13:15:00.0</nc:DateTime> </nc:StartDate> <nc:EndDate> <nc:DateTime>2014-12-20T13:45:00.0</nc:DateTime> 
+						</nc:EndDate> </nc:ActivityDateRange> -->
+				</ChargeOffense>
+				<ChargeAmendedIndicator>false</ChargeAmendedIndicator>
+			</CaseCharge>
+		</CriminalCase>
+		<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+		<core:FilingLeadDocument>
+			<ecf:DocumentMetadata>
+				<j:RegisterActionDescriptionText />
+				<ecf:FilingAttorneyID />
+				<ecf:FilingPartyID />
+			</ecf:DocumentMetadata>
+			<ecf:DocumentRendition>
+				<ecf:DocumentRenditionMetadata>
+					<ecf:DocumentAttachment />
+				</ecf:DocumentRenditionMetadata>
+			</ecf:DocumentRendition>
+		</core:FilingLeadDocument>
+	</core:CoreFilingMessage>
+	<pay:PaymentMessage>
+		<pay:FeeExceptionReasonCode />
+		<pay:FeeExceptionSupportingText />
+		<pay:PayerName />
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReasonCode>CASEINITIATION</cbc:AllowanceChargeReasonCode>
+			<cbc:Amount currencyID="USD">200.00</cbc:Amount>
+			<cac:TaxCategory>
+				<cbc:Percent>.0625</cbc:Percent>
+				<cac:TaxScheme />
+			</cac:TaxCategory>
+			<cac:TaxTotal>
+				<cbc:TaxAmount currencyID="USD">12.50</cbc:TaxAmount>
+			</cac:TaxTotal>
+		</cac:AllowanceCharge>
+		<cac:Address>
+		</cac:Address>
+		<cac:Payment>
+			<cbc:ID>string</cbc:ID>
+			<cbc:PaidAmount currencyID="USD">212.50</cbc:PaidAmount>
+			<cbc:PaidDate>2014-05-27</cbc:PaidDate>
+			<cbc:PaidTime>16:17:49.0Z</cbc:PaidTime>
+		</cac:Payment>
+	</pay:PaymentMessage>
+</ReviewFilingRequestMessage>
