@@ -138,6 +138,24 @@ public class DispositionValidator implements Validator {
     			+ Optional.ofNullable(disposition.getSuspendedDays()).map(i->i.intValue()).orElse(0);
     	int deferredDays = Optional.ofNullable(disposition.getDeferredYears()).map(i->i*360).orElse(0)
     			+ Optional.ofNullable(disposition.getDeferredDays()).map(i->i.intValue()).orElse(0);
+    	
+    	if (suspendedDays > 0 && deferredDays > 0) {
+    		if (deferredDays > 360) {
+    			errors.rejectValue("deferredYears", null, "may not coexist with suspended time");
+    			errors.rejectValue("deferredDays", null, "may not coexist with suspended time");
+    		}
+    		else if (deferredDays == 360) {
+    			errors.rejectValue("deferredYears", null, "may not coexist with suspended time");
+    		}
+    		else {
+    			errors.rejectValue("deferredDays", null, "may not coexist with suspended time");
+    		}
+    	}
+    	
+    	if (jailDays == 0 && prisonDays == 0 && deferredDays == 0 && StringUtils.isNotBlank(disposition.getProvisionCode())) {
+    		errors.rejectValue("provisionCode", null, "may not enter when jail/prison/deferred time is empty");
+    	}
+    	
     	if (disposition.getDispositionType() == ArrestType.MUNI) {
     		if (jailDays > 360) {
     			errors.rejectValue("jailYears", null, "may not be greater than 1");
@@ -150,9 +168,7 @@ public class DispositionValidator implements Validator {
     		if (deferredDays > 360) {
     			errors.rejectValue("deferredYears", null, "may not be greater than 1");
     		}
-    	}
-    	
-    	if (disposition.getDispositionType() == ArrestType.MUNI) {
+    		
 	    	if (suspendedDays > jailDays) {
 	    		if (ArrayUtils.hasPositiveValue(disposition.getSuspendedDays())) {
 	    			errors.rejectValue("suspendedDays", null, "may not be greater than Jail time");
