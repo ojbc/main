@@ -297,7 +297,6 @@
               if ($('#jailYears').val() > '0'){
                   $('#jailDays').val(''); 
                   $('#jailDays').prop('disabled', true); 
-                  toggleSuspendedInputs();
                   $('#deferredYears').val(''); 
                   $('#deferredDays').val(''); 
                   $('#deferredYears').prop('disabled', true); 
@@ -305,8 +304,9 @@
               }
               else{
               	  $('#jailDays').prop('disabled', false);
-              	  toggleSuspendedInputs();
-                  toggleDefferredYearsDays();              }
+                  toggleDefferredYearsDays();              
+              }
+           	  toggleSuspendedInputs();
           });
 					
           $("#dispositionForm").on("change", ".provision-prerequisite", function(){
