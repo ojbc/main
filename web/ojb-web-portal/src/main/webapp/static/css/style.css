@@ -152,3 +152,813 @@ header span.fullname {
   text-decoration: none;
   background-color: #808080;
 }
+
+/************* from the old style.css   ******/
+
+/*************************** Search Content **************/
+#searchForm {
+	margin: 0;
+}
+
+#searchTabs .searchSubHeader {
+	font-size: 12px;
+	color: #898989;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+/* #searchTabs #advanceSearch\.personDateOfBirthRangeStart,#searchTabs #advanceSearch\.personDateOfBirthRangeEnd {
+	width: 129px;
+}
+
+#searchTabs #advanceSearch\.incidentDateRangeStart,#searchTabs #advanceSearch\.incidentDateRangeEnd {
+	width: 129px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.vehicleYearRangeStart,#searchTabs #advanceSearch\.vehicleYearRangeEnd {
+	width: 129px;
+}
+
+.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeStart,.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeEnd
+{
+	width: 119px;
+}
+
+#searchTabs #advanceSearch\.personDateOfBirthRangeEnd,#searchTabs #advanceSearch\.incidentDateRangeEnd  {
+	margin-left: -20px;
+}
+
+#searchTabs #advanceSearch\.firearmSerialNumber {
+	width: 178px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.firearmType {
+	margin-top: 12px;
+}
+
+.ui-datepicker-trigger {
+	position: relative;
+	left: -42px;
+	top: 4px;
+}
+
+#searchTabs #ageRangeStart,
+#searchTabs #ageRangeEnd,
+#searchTabs #heightInFeet,
+#searchTabs #heightInInches,
+#searchTabs #heightTolerance,
+#searchTabs #weightTolerance,
+#demogFilterInfo #filterAgeRangeStart,
+#demogFilterInfo #filterAgeRangeEnd,
+#demogFilterInfo #filterHeightInFeet,
+#demogFilterInfo #filterHeightInInches,
+#demogFilterInfo #filterHeightTolerance,
+#demogFilterInfo #filterWeightTolerance
+	{
+	width: 20px;
+	margin-right: 1px;
+}
+
+#searchTabs #advanceSearch\.personWeight,
+#demogFilterInfo #filterWeight {
+	margin-right: 1px;
+	width: 40px;
+}
+
+.ie9 #searchTabs #advanceSearch\.personWeight {
+	width: 25px;
+}
+
+.ui-widget-header {
+	background: url('../images/Backgrounds/bg-tabs-header.png') repeat-x;
+	border: none;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.ui-tabs-anchor {
+	border-radius: 0;
+	height: 15px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#incidentDetailTabs .ui-tabs-anchor {
+	height: 17px;
+	font-size: 10px;
+}
+
+#searchTabs #advancedSearchTab,#searchTabs #simpleSearchTab {
+	overflow: visible;
+	width: 827px;
+}
+
+.searchCancelSection {
+	width: 872px;
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	height: 37px;
+	margin: 0px;
+	position: relative;
+	left: -21px;
+	bottom: -22px;
+	padding: 13px 0 0 9px;
+}
+
+#simpleSearchForm .searchCancelSection{
+	left: -27px !important;
+}
+
+.ie9 .searchCancelSection {
+	bottom: -23px;
+}
+
+.ie8 .searchCancelSection {
+    width: 871px;
+}
+
+.ie8 #advancedSearchTab .searchCancelSection {
+	left: -29px;
+}
+
+
+#search-tab-title {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button {
+	font-size: 11px;
+}
+
+.ui-widget {
+	font-size:small;
+}
+*************************** Tabs ********************************
+#searchTabs #simpleSearchTab p {
+	font-size: 12px;
+	color: #898989;
+}
+
+#searchTabs #simpleSearchTab {
+	padding: 17px 24px;
+}
+
+#searchTabs  .ui-tabs-nav li {
+	float: right;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	color: #777777;
+	margin: 1px 0 0 0;
+	border-radius: 0;
+}
+
+#searchTabs .ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
+	color: #777777;
+}
+
+#searchTabs .ui-tabs .ui-tabs-nav {
+	margin: -4px;
+}
+
+******************** Search results ******************************
+#searchResultsContainer {
+	background-color: #fafafa;
+}
+
+#searchResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+.ie9 #searchResultsHeader, .ie8 #searchResultsHeader {
+	margin-top: -12px;
+}
+
+#search-results-title {
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+	top: 13px;
+	left: 13px;
+}
+
+#searchResultsHeader a {
+	position: relative;
+	top: -15px;
+	left: -12px;
+}
+
+.searchResultsTable {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	background-color: #ffffff;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.searchResultsTable .buttonColumn {
+	width: 118px;
+	vertical-align: middle; 
+}
+
+.searchResultsTable .editButtonColumn {
+	width: 60px;
+	vertical-align: middle;
+}
+
+.searchResultsTable td,.searchResultsTable th {
+	border: 1px solid #ebebeb;
+	padding-left:5.5px!important;
+	padding-right:5.5px!important;
+}
+
+************************** Modal Dialog ************************
+.ui-dialog {
+	padding: 0;
+	background: none;
+	background-color: #fafafa;
+	position: relative;
+}
+
+.ui-dialog-titlebar .ui-button {
+	top: 16px;
+}
+
+.ui-dialog-title {
+	position: relative;
+	top: 2px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.ui-widget-overlay {
+	opacity: 0.5;
+	background-color: black;
+	background-image: none;
+}
+
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+.ui-dialog-title,.ui-button-text {
+	font-size: small;
+	color: #777777;
+	font-weight: bold!important;
+	text-transform: uppercase;
+}
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+#dialog-warning p{
+	font-size:small!important;
+	padding-left:1em;
+	padding-right:1em;	
+}
+
+#incidentDetailTabs {
+	border: 1px solid #ebebeb;
+	border-radius: 0;
+	width: 758px;
+	margin-top: 15px;
+}
+
+
+*********************  Subscriptions Modal Dialog **************************
+
+#subscriptionForm {
+	margin: 10;
+}
+
+#addSubscriptionDialog #editSubscriptionDialog{
+	background-color: #ffffff;
+	border: solid 1px #ebebeb;	
+}
+
+#addSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#editSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm input{
+	height: 15px;
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px 6px 6px 6px;
+	padding: 6px;
+	font-size: 12px;
+}
+#subscriptionForm textarea{
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px;
+	padding: 4px;
+	font-size: 12px;
+}
+
+#subscriptionForm select {
+	margin: 6px;
+	padding: 4px;
+	height: 30px;
+	width: 220px; 
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	font-size: 12px;
+	color: #898989;
+}
+
+#subscriptionModalButtonBar {
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	width: 100%;
+	height: 45px;
+	margin: 6px;
+	position: relative;
+	padding: 0 0 0 9px;
+	margin: 0px;
+	bottom: 0px;
+}
+
+#subModalButtonDiv {
+	position: relative;
+	top:6px;
+	float:left;
+	margin: 9px 6px 0 0;
+}
+
+#triggeringEventsDiv {
+	padding-left: 12px; 
+	font-size: 12px;
+}
+
+#idLookupImg {
+	background:url('../images/Search Form/icon-search-gray.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	position:relative;
+	top:4px;
+}
+
+#idLookupImg:hover {
+	background: url('../images/Search Form/icon-search.png') no-repeat center;
+}
+
+
+***************************Modal Styling ***********************
+#personInformationInModal {
+	padding: 0 8px;
+	width: 98%;
+}
+
+.bigPersonImage {
+	background: url("../images/Search Detail/photo-placeholder.jpg") no-repeat;
+	width: 180px;
+	height: 172px;
+}
+
+.personMugshot {
+    max-width: 180px;
+    max-height: 250px;
+}
+
+.detailsTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.detailsTable .detailsFullName {
+	font-size: 18px;
+	vertical-align: bottom;
+	font-weight: bold;
+}
+
+.detailsTable tr {
+	background-color: #ffffff;
+}
+
+.detailsTable tr.incidentSelected, 
+.detailsTable tr.selected {
+	background-color: #edf2f8;
+}
+
+.detailsTable tr.incidentHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
+.detailsTable tr.custodyDetailHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
+.detailsTable td {
+	border: 1px solid #ebebeb;
+	height: 32px;
+	padding: 0 10px;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+td.detailsTitle {
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+td.detailsLabel {
+	color: #777777;
+	background-color: #fafafa;
+	font-weight: bold;
+	font-weight: bold;
+}
+
+#criminalHistoryTd {
+	padding: 0px;
+}
+
+#criminalHistory table {
+	width: 100%;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#criminalHistory td {
+	vertical-align: top;
+	padding: 10px 10px;
+	border: 0;
+}
+
+#criminalHistory td.detailsLabel {
+	width: 25%;
+}
+
+#criminalHistoryCyclesHolderTD{
+	padding: 0;
+}
+
+#criminalHistoryCycles {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles td {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles .smallLabel {
+	color: #9f9f9f;
+}
+
+#criminalHistoryCycles p{
+	margin:0;
+}
+
+#criminalHistoryCycles .sectionTitle {
+	color: #999999;
+	font-weight: bold;
+	text-decoration: underline;
+	margin-top: 1em;
+}
+
+.ui-accordion .ui-accordion-content {
+	padding: 0;
+	
+}
+
+
+
+#incidentDetailTabs {
+	font-family: Arial, Helvetica, sans serif;
+	font-size: 12px;
+	
+}
+
+.ui-accordion .ui-accordion-header {
+	font-weight: bold;
+	border-radius: 0;
+	margin: 0;
+	padding: 5px 0 5px 12px;
+	height: 21px;
+	color: #777;
+	background-image: url('../images/Backgrounds/bg-accordion-header.png') ;
+	background-repeat: repeat-x;
+	
+}
+
+.ui-accordion .ui-accordion-header:hover {
+	background: none;
+	background-color: #ccdff6;
+	
+}
+
+.ui-accordion .ui-state-active {
+	color:white;
+	background-image: url('../images/Backgrounds/bg-accordion-header-active.png') ;
+}
+
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	float: right;
+	left: -7px;
+	top: 10px;
+	position: relative;
+}
+
+ 
+  #incidentDetailTabs  div.ui-tabs-panel {
+	padding: 1em 0;
+}
+
+#incidentDetailTabs table {
+	font-size: 12px; 
+	width: 100%;
+	border-spacing: 10px 0;
+	
+}
+#incidentDetailTabs .incidentLabel{
+	color: #777;	
+}
+
+#incidentDetailTabs #narrativeTab {
+	padding: 10px;
+}
+
+#warrantsHolderTD, .padding0 {
+	padding: 0;
+}
+
+#firearmRegistrationsHolderTD {
+	padding: 0;
+}
+
+******************** Mock content ******************************
+#stateBanner {
+	width: 882px;
+	height: 118px;
+	text-align: center;
+}
+
+*********************** Data Table ***************************
+
+.dataTables_wrapper{
+	font-size: small
+}
+
+#subscriptionButtons{
+	padding-left: 1em;
+}
+***********************Button Bar************************
+.full {
+	width: 100%;
+}
+
+.title {
+	letter-spacing: -.065em;
+}
+
+.spacer {
+	padding: 25px 0;
+}
+
+.buttonBarItem > input {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 2rem;
+	margin: 0 -2rem -2rem 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: auto;
+	opacity: 0.001;
+}
+
+.buttonBar {
+	display: table;
+	table-layout: fixed;
+	white-space: no-wrap;
+	
+	margin: 0;
+	padding: 0;
+}
+
+.buttonBarItem {
+	display: table-cell;
+	width: auto;
+	border-radius: 0;
+}
+
+.button,
+.buttonBarButton {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	background-clip: padding-box;
+ 	color: inherit;
+	vertical-align: top;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font: inherit;
+	cursor: default;
+	user-select: none;
+}
+
+.buttonBarButton {
+	padding: 0 1.25rem;
+ 	border: 1px solid #cbcbcb;
+	Important inheritance to manipulate border radius from parent
+	border-radius: inherit;
+	background-color: #e5e9e8;
+	-webkit-box-shadow: inset 0 1px #fff;
+	box-shadow: inset 0 1px #fff;
+	color: #454545;
+text-shadow: 0 1px #fff;
+	line-height: 2rem;	
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	
+}
+
+:checked + .buttonBarButton,
+.buttonBarButton:active,
+.buttonBarButton.active,
+.buttonBarButton.is-active {
+	background: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: #d3d7d7;
+	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+	box-shadow: inset 0 1px rgba(0,0,0,0.12);
+}
+
+.buttonBarItem:disabled,
+.buttonBarItem.is-disabled {
+	opacity: 0.3;
+	cursor: default;
+	pointer-events: none;
+}
+
+.buttonBarButton:focus {
+	border: 1px solid #0940fd;
+	-webkit-box-shadow: 0 0 0 2px #6fb5f1;
+	box-shadow: 0 0 0 2px #6fb5f1;
+	z-index: 1;
+}
+
+*********************** Misc ****************************
+#portalContent{
+	width: 100%;
+}
+
+.hidden{
+	display:none; 
+}
+
+.hint{
+	color:gray; 
+	font-size: small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.subscriptionHint{
+	color:gray; 
+	font-size: x-small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.detailList{
+	font-size:small; 
+}
+
+.ui-tooltip-content {
+    font-size:small;
+    font-family:Calibri;
+}
+
+#courtCaseDetailTabs li {
+	margin-right: 0 !important; 
+	margin-left:0!important;
+}
+#courtCaseDetailTabs > ul li { 
+	white-space:normal; 
+	height: 50px; 
+	width: 9.4%; }
+
+#courtCaseDetailTabs > ul li:last-child{
+	width:12%; 
+	border-right:0;}
+ 
+#courtCaseDetailTabs li a,
+#custodyDetailTabs li a {
+	font-size: 11px!important; 
+	white-space:normal;} 
+
+.detailTable{
+	width: 100%;
+	font-size: 12px;
+}	
+
+.detailTable th{
+	text-align: left;} 
+.detailTable th label{
+	color:gray; } 
+.detailDataTable {
+	font-size: 11px;
+}	
+
+.detailDataTable thead th{
+	font-weight: bold;
+}
+
+*********************** Suggestion Form ****************************	
+	
+.defaultTextArea {
+     display: block;
+     width: 400px;
+     height: 150px;
+     padding: 8px;
+     border: 1px solid #cccccc;
+     line-height: 130%;
+     font-size: 13px;
+}
+
+#advancedSearchForm input{
+	text-transform: uppercase;
+}
+
+***********************Slider custom-handle****************************
+ #custom-handle {
+   width: 3em;
+   height: 1.6em;
+   top: 50%;
+   margin-top: -.8em;
+   text-align: center;
+   line-height: 1.6em;
+ }
+ 
+
+.print-only {
+	display: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  Set the fixed height of the footer here
+  height: 60px;
+  line-height: 60px; Vertically center the text there
+  background-color: #f5f5f5;
+  background-color: #000000;
+  color:white;
+}
+
+ */
