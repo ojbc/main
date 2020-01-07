@@ -471,12 +471,12 @@
 	      
       function toggleAlternateSentenceFineCostsOption(){
           if ($("#fineAmount").val() > 0){
-              $('#alternateSentences option[value="62"]').prop('disabled', true);
-              $('#alternateSentences option[value="64"]').prop('disabled', true).trigger("chosen:updated");
+              $('#alternateSentences option[value="28"]').prop('disabled', true);
+              $('#alternateSentences option[value="30"]').prop('disabled', true).trigger("chosen:updated");
           }
           else{
-              $('#alternateSentences option[value="62"]').prop('disabled', false);
-              $('#alternateSentences option[value="64"]').prop('disabled', false).trigger("chosen:updated");
+              $('#alternateSentences option[value="28"]').prop('disabled', false);
+              $('#alternateSentences option[value="30"]').prop('disabled', false).trigger("chosen:updated");
           }
       }
       
@@ -490,6 +490,7 @@
               $('#alternateSentences option[value="38"]').prop('disabled', false).trigger("chosen:updated");
           }
       }
+	        
     </script>
   </div>
 	</body>
