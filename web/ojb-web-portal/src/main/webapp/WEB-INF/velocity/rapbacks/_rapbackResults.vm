@@ -200,41 +200,14 @@
 		    });   		
     	
     	});
-    	
+    	    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
     		clearErrorMessage();
             var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .8;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
+            xhr = $.get( url,  function(data) {
+        	  $('#initalResultsModal .modal-body').html(data);
+              $('#initalResultsModal').modal('show');
+            }).fail(ojbc.displayFailMessage);
 
             return false;
         });
@@ -484,5 +457,22 @@
 		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
 	</div>
 </div>
+
+<!-- Submit arrest Modal -->
+<div class="modal fade ojbc-modal" id="initalResultsModal" tabindex="-1" role="dialog" aria-labelledby="initalResultsModalTitle" aria-hidden="true">
+  <div class="modalIframeSpinner" ></div>
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="initalResultsModalContent">
+	        ...
+	      </div>
+    </div>
+  </div>
+</div>				    
 
 

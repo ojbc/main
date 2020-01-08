@@ -14,34 +14,61 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-base.css')">
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-1.10.0.custom.min.css')" />
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print-tabs.css')" media="print">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
-        
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-    </head>
-    <body id="searchDetailsFrame">
+		<div class="container mt-1">
+
+			<ul class="nav nav-tabs">
+				<li id="State Initial Results" class="nav-item">
+					<a href="#stateInitialResultTab" class="nav-link active" data-toggle="tab">State Initial Results</a>
+				</li>
+				<li id="FBI Initial Results" class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#fbiInitialResultTab">FBI Initial Results</a>
+				</li>
+				
+				#if(
+					(($identificationResultsQueryResponse.nsorDemographicsDocuments) && ($identificationResultsQueryResponse.nsorDemographicsDocuments.size() > 0)) 
+					||
+					(($identificationResultsQueryResponse.nsorSearchResultsDocuments) && ($identificationResultsQueryResponse.nsorSearchResultsDocuments.size() > 0))
+				   ) 
+					<li class="nav-item" id="NSOR Results">
+						<a class="nav-link" data-toggle="tab" href="#nsorResultTab">NSOR Results</a>
+					</li>
+				#end
+				
+				<button id="printButton" class="btn btn-primary btn-sm flex-row ml-md-auto d-md-flex" 
+					messageId="$identificationResultsQueryResponse.messageId">Print</button>
+			</ul>
+
+			<div class="tab-content">
+				<div id="stateInitialResultTab" class="container tab-pane active">
+					<!--A better way of checking String is not null or empty--> 
+					<!-- http://wiki.apache.org/velocity/CheckingForNull -->
+					#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
+	   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
+					#end
+					#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
+						<div class="rapsheet"><pre>$item</pre></div>
+					#end
+				</div>
+				<div id="fbiInitialResultTab" class="container tab-pane fade">
+					#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
+						<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+					#end
+					#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
+						<div class="rapsheet"><pre>$item</pre></div>
+					#end
+				</div>
+				<div id="nsorResultTab" class="container tab-pane fade">
+					#foreach($item in $identificationResultsQueryResponse.nsorDemographicsDocuments)
+						<div class="rapsheet"><pre>$item</pre></div>
+					#end
+					#foreach($item in $identificationResultsQueryResponse.nsorSearchResultsDocuments)
+						<div class="rapsheet"><pre>$item</pre></div>
+					#end
+				</div>			
+			</div>			
+		</div>
         <script type="text/javascript">
 			$(function () {
-				$('#tabs').tabs({
-					create: function( event, ui ) {
-						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 20);
-					},
-					activate: function( event, ui ) {
-						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 20);
-					}
-				});
-				
-				$("#printButton").button();
-				
 				$("#printButton").on("click", function(){
 
 					var activeTabIdx = $('#tabs').tabs('option','active');
@@ -57,58 +84,4 @@
 				}); 
 			});
 		</script>
-
-		<div id="tabs">
-
-			<ul>
-				<li id="State Initial Results">
-					<a href="#stateInitialResultTab">State Initial Results</a>
-				</li>
-				<li id="FBI Initial Results">
-					<a href="#fbiInitialResultTab">FBI Initial Results</a>
-				</li>
-				
-				#if(
-					(($identificationResultsQueryResponse.nsorDemographicsDocuments) && ($identificationResultsQueryResponse.nsorDemographicsDocuments.size() > 0)) 
-					||
-					(($identificationResultsQueryResponse.nsorSearchResultsDocuments) && ($identificationResultsQueryResponse.nsorSearchResultsDocuments.size() > 0))
-				   ) 
-					<li id="NSOR Results">
-						<a href="#nsorResultTab">NSOR Results</a>
-					</li>
-				#end
-				
-				<button id="printButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
-			</ul>
-
-			<div id="stateInitialResultTab">
-				<!--A better way of checking String is not null or empty--> 
-				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
-				#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
-   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
-				#end
-				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
-					<div class="rapsheet"><pre>$item</pre></div>
-				#end
-			</div>
-			<div id="fbiInitialResultTab">
-				#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
-					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
-				#end
-				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
-					<div class="rapsheet"><pre>$item</pre></div>
-				#end
-			</div>
-			<div id="nsorResultTab">
-				#foreach($item in $identificationResultsQueryResponse.nsorDemographicsDocuments)
-					<div class="rapsheet"><pre>$item</pre></div>
-				#end
-				#foreach($item in $identificationResultsQueryResponse.nsorSearchResultsDocuments)
-					<div class="rapsheet"><pre>$item</pre></div>
-				#end
-			</div>			
-			
-		</div>
-        
-    </body>
-</html>
+		
