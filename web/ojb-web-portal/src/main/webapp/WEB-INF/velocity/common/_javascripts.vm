@@ -14,10 +14,10 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+<script src="#springUrl('/webjars/jquery/3.4.1/jquery.min.js')"></script>
 <script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
-<script type="text/javascript" src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
-<script type="text/javascript" src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
+<script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+<script src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
 <script type="text/javascript" src="#springUrl('/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js')"></script>
 <script type="text/javascript" th:src="#springUrl('/webjars/datatables-fixedheader/3.1.4/js/dataTables.fixedHeader.js')"></script>
 <script type="text/javascript" th:src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>

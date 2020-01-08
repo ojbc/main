@@ -61,7 +61,7 @@
   </script>
   
 	<div class="card" id="searchTabs">
-		<div class="card-header container-fluid">
+		<div class="card-header">
 		  <div class="row ml-1 h-100">
 		    <div class="my-auto font-weight-bold">
 		      ADVANCED SEARCH: RAP BACK
@@ -76,7 +76,7 @@
 	                #end
 	            #end
 				<input type="hidden" name="${status.expression}" value="ADVANCED" />
-				<div class="container"> 
+				<div> 
 	    	  		<div class="row">
 		  				<div class="col">
 						    <div class="form-group">
