@@ -207,13 +207,13 @@
 			<i class="fa fa-eye fa-lg"></i>
 		</a>
 		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
-					class="blueIcon getStateRapsheet hidden"></a>
+					class="blueIcon getStateRapsheet d-none"></a>
 		<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 			<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 				</xsl:attribute>
-				<i class="fa fa-bell fa-lg"></i>
+				<i class="fas fa-bell fa-lg"></i>
 			</a>
 			<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 				class="blueIcon subsequentResults hidden">
