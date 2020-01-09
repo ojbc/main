@@ -102,6 +102,97 @@ main{
   z-index: 10000;
 }
 
+.blueButton {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueIcon {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 4px 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueButton:hover:enabled, .blueIcon:hover:enabled {
+	color: #777777;
+}
+
+.blueButton:disabled, .blueIcon:disabled {
+	background-image: url('../images/Backgrounds/bg-button-blue-d.jpg');
+}
+
+.grayButton {
+	background-image: url('../images/Backgrounds/bg-button-gray.jpg');
+	background-repeat: repeat-x;
+	background-color: #ebebeb;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #777777;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.grayButton:hover {
+	color: #ffffff;
+}
+
+.blueButton:hover:enabled,.grayButton:hover:enabled {
+	cursor: pointer;
+}
+
+a.blueButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #ffffff;
+	white-space: nowrap;
+}
+
+a.blueButton:hover {
+	color: #777777;
+}
+
+a.grayButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #777777;
+	white-space: nowrap;
+}
+
+a.grayButton:hover {
+	color: #ffffff;
+}
+
 table.dispositionsTable td.dataTables_empty {
     text-align: left;    
 }
@@ -962,3 +1053,27 @@ text-shadow: 0 1px #fff;
 }
 
  */
+ 
+ .ui-dialog-title,.ui-button-text {
+	font-size: small;
+	color: #777777;
+	font-weight: bold!important;
+	text-transform: uppercase;
+}
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+#dialog-warning p{
+	font-size:small!important;
+	padding-left:1em;
+	padding-right:1em;	
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button {
+	font-size: 11px;
+}
+
+.ui-widget {
+	font-size:small!important;
+}

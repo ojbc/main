@@ -176,12 +176,16 @@
 			var row = $(this).parent().parent();
 			var id = $(this).attr("id");
 			var reasonCode = $(this).attr("data-reason-code"); 		    
-		    $( "#dialog-confirm-validate" ).dialog({
+		    $( "#dialog-confirm-validate" ).removeClass('d-none').dialog({
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
+			      height: "auto",
+ 			      width: 400,
 			      modal: true,
 			      buttons: {
 			        "Validate": function() {
+			        	$( this ).dialog( "close" );
+			        	
 			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
 							if (data === 'success'){
 								refreshSearchResultsTable("Validation Successful");	
@@ -191,7 +195,6 @@
 							}	
 						}).fail(ojbc.displayFailMessage);
 						
-				        $( this ).dialog( "close" );
 			        },
 			        "Close": function() {
 	            		$( this ).dialog( "close" );
@@ -202,15 +205,54 @@
     	});
     	    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+    		event.preventDefault();
     		clearErrorMessage();
             var url = this.href;
-            xhr = $.get( url,  function(data) {
-        	  $('#initalResultsModal .modal-body').html(data);
-              $('#initalResultsModal').modal('show');
-            }).fail(ojbc.displayFailMessage);
+            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+			var dlgWidth = $(document).width() * .8;
+			var dlgHeight = $(window).height() * .8;
+            dialog.dialog({
+                width: dlgWidth,
+                height: dlgHeight,
+                close: function(event, ui) {
+                    $('#modalIframe').attr('src', '');
+                    dialog.remove();
+                },
+                open: function(event,ui){
+					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+					$("#modalIframeSpinner").width($("#modalIframe").width());
+					$("#modalIframeSpinner").show();
 
+		     		$("#modalIframe").load( function() {
+		     			//alert("Load event fired");
+						$("#modalIframeSpinner").hide();				
+												
+					});
+		     		
+                 	$('#modalIframe').attr('src', url);		     		
+
+                },
+                position: {
+                           my: "center",
+                           at: "center",
+                           of: window
+                          },
+                modal: true
+            });
             return false;
         });
+    	    	
+#*    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+    	*	clearErrorMessage();
+        *    var url = this.href;
+        *    xhr = $.get( url,  function(data) {
+        *	  $('#initalResultsModal .modal-body').html(data);
+        *      $('#initalResultsModal').modal('show');
+        *    }).fail(ojbc.displayFailMessage);
+	*
+        *    return false;
+        *});
+        *#
     	
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
     		clearErrorMessage();
@@ -256,7 +298,7 @@
     		var subsequentResultButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).dialog({
+		    $( "#dialog-confirm-authorization" ).removeClass('d-none').dialog({
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      width:400,
@@ -264,10 +306,9 @@
 			      modal: true,
 			      buttons: {
 			        "Yes": function() {
+			        	$( this ).dialog( "close" );
 			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
-			        	
 			        	subsequentResultButton.click();
-				        $( this ).dialog( "close" );
 			        },
 			        "No": function() {
 			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
@@ -276,7 +317,8 @@
 		            		 $( this ).dialog( "close" );
 		            	}
 		            	else{
-						    $( "#dialog-confirm-unsubscribe" ).dialog({
+		            		$( this ).dialog( "close" );
+						    $( "#dialog-confirm-unsubscribe" ).removeClass('d-none').dialog({
 						    	 position: { my: "center center", at: "center center", of: row },
 							     resizable: true,
 							     width:500,
@@ -292,7 +334,7 @@
 		            				 }
 		            			 }
 							});		            		
-	            			$( this ).dialog( "close" );
+	            			
 		            	}
 			        }
 			     }
@@ -305,7 +347,7 @@
     		var viewRapsheetButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).dialog({
+		    $( "#dialog-confirm-authorization" ).removeClass('d-none').dialog({
 		    	  position: { my: "center center", at: "center center", of: row },
 			      resizable: true,
 			      width:400,
@@ -325,7 +367,7 @@
 		            		 $( this ).dialog( "close" );
 		            	}
 		            	else{
-						    $( "#dialog-confirm-unsubscribe" ).dialog({
+						    $( "#dialog-confirm-unsubscribe" ).removeClass('d-none').dialog({
 						    	 position: { my: "center center", at: "center center", of: row },
 							     resizable: true,
 							     width:500,
@@ -450,9 +492,9 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
   You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
 </div>
-<div id="dialog-confirm-validate" title="Are you authorized?" class="d-none" style="width:auto; height:auto">
+<div id="dialog-confirm-validate" title="Are you authorized?" style="width:auto; height:auto" class="d-none">
 	<div style="margin:7px;padding:7px;">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
 		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
 		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
 	</div>
@@ -464,6 +506,7 @@
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
+	      	<h5 class="modal-title" id="initalResultsModalTitle">IDENTIFICATION INITIAL RESULTS</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>

@@ -1,0 +1,87 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ 
+	<div class="container mt-1">
+
+		<ul class="nav nav-tabs">
+			<li id="State Initial Results" class="nav-item">
+				<a href="#stateInitialResultTab" class="nav-link active" data-toggle="tab">State Initial Results</a>
+			</li>
+			<li id="FBI Initial Results" class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#fbiInitialResultTab">FBI Initial Results</a>
+			</li>
+			
+			#if(
+				(($identificationResultsQueryResponse.nsorDemographicsDocuments) && ($identificationResultsQueryResponse.nsorDemographicsDocuments.size() > 0)) 
+				||
+				(($identificationResultsQueryResponse.nsorSearchResultsDocuments) && ($identificationResultsQueryResponse.nsorSearchResultsDocuments.size() > 0))
+			   ) 
+				<li class="nav-item" id="NSOR Results">
+					<a class="nav-link" data-toggle="tab" href="#nsorResultTab">NSOR Results</a>
+				</li>
+			#end
+			
+			<button id="printButton" class="btn btn-primary btn-sm flex-row ml-md-auto d-md-flex" 
+				messageId="$identificationResultsQueryResponse.messageId">Print</button>
+		</ul>
+
+		<div class="tab-content">
+			<div id="stateInitialResultTab" class="container tab-pane active">
+				<!--A better way of checking String is not null or empty--> 
+				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
+				#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
+   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
+				#end
+				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>
+			<div id="fbiInitialResultTab" class="container tab-pane fade">
+				#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
+					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+				#end
+				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>
+			<div id="nsorResultTab" class="container tab-pane fade">
+				#foreach($item in $identificationResultsQueryResponse.nsorDemographicsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+				#foreach($item in $identificationResultsQueryResponse.nsorSearchResultsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>			
+		</div>			
+	</div>
+    <script type="text/javascript">
+		$(function () {
+			$("#printButton").on("click", function(){
+
+				var activeTabIdx = $('#tabs').tabs('option','active');
+
+				// ID OF ACTIVE TAB
+				// make sure to change #tabs to your selector for tabs
+				var selector = '#tabs > ul > li';
+				var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+				
+				$.post("#springUrl('/rapbacks/auditPrintResults')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+
+				window.print();
+			}); 
+		});
+	</script>
