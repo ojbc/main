@@ -1077,3 +1077,7 @@ text-shadow: 0 1px #fff;
 .ui-widget {
 	font-size:small!important;
 }
+
+.ui-dialog{
+	z-index:2000!important;
+}
