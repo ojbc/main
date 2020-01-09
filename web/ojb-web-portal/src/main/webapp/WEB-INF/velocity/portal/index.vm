@@ -19,6 +19,17 @@
 		    </div>
 	    </div>
 	    
+	    #if( $sensitiveInfoAlert )
+			<div class="d-none">
+				<div id="dialog-warning" title="NOTICE TO USERS">
+					<p id="dialog-warning-p">  
+						<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;"></span>
+						$sensitiveInfoAlertMessage
+					</p>
+				</div>
+			</div>
+		#end
+	    
 		<footer class="footer">
 			<div class="container" align="center">
 				<span class="text-muted small">OJBC Portal Footer</span>
@@ -40,6 +51,11 @@
 			            reloadPage();
 			        });
 		        #end
+		        
+		    	$(".navbar-nav .nav-link").on("click", function(){
+		    	  $(this).parent().siblings().removeClass('show');
+		    	  $(this).parent().addClass('active').siblings().removeClass('active');
+	    		});
 		        
 				$("#demogFilterInfo").hide();
 				
@@ -70,21 +86,25 @@
 			      	  $("#modalIframeSpinner").hide();
 			      });
 			      
-				#if( $sensitiveInfoAlert )
-					 bootpopup({
-                       title: "NOTICE TO USERS", 
-                       showclose: false,
-                       content: [
-                             { p: {text: "$sensitiveInfoAlertMessage"}},
-                             ], 
-                       cancel: function() {},
-                       ok: function(data, array, event) {  
+				#if( $sensitiveInfoAlert )      
+				    $("#dialog-warning").dialog({
+				      modal: true,
+				      width: 500,
+			          closeOnEscape: false,
+				      buttons: {
+				        Ok: function() {
 			        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
-							}).fail(ojbc.displayFailMessage);
-                       },
-                     });
+							})
+							
+							$( this ).dialog( "close" );
+				        }
+				      },
+				      open: function (e, ui) {
+			        	$(".ui-dialog-titlebar-close").hide();
+			    	  }
+				    });
 			    #end
-			    
+	    			    
 			    $('#homeLink').click (function() {		 
 					 		     
 				    #set($homePage=$stateSpecificHomePage['thisHomePage'])
