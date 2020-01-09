@@ -36,6 +36,6 @@
 	    <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
 	#end
 	<link rel="shortcut icon" href="#">
-	<link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+	<link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
 	
 	<title>OJBC Portal</title>
