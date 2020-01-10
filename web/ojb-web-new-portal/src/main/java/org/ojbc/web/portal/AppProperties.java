@@ -18,6 +18,7 @@ package org.ojbc.web.portal;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,14 +30,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("portal")
 public class AppProperties {
 
-	private Map<String, String> dispoCodeMapping = new HashMap<>();
-	private Map<String, String> muniFiledChargeCodeMapping = new HashMap<>();
-	private Map<String, String> muniAmendedChargeCodeMapping = new HashMap<>();
-	private Map<String, String> muniAlternateSentenceMapping = new HashMap<>();
-	private Map<String, String> muniReasonForDismissalMapping = new HashMap<>();
-	private Map<String, String> provisionCodeMapping = new HashMap<>();
-	private Map<String, String> chargeSeverityCodeMapping = new HashMap<>();
-	private Map<String, String> daCaseTypeCodeMapping = new HashMap<>();
+	private Map<String, String> dispoCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> muniFiledChargeCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> muniAmendedChargeCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> muniAlternateSentenceMapping = new LinkedHashMap<>();
+	private Map<String, String> muniReasonForDismissalMapping = new LinkedHashMap<>();
+	private Map<String, String> provisionCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> chargeSeverityCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> daCaseTypeCodeMapping = new LinkedHashMap<>();
 	private Map<String, String> daGeneralOffenseCodeMapping;
 	private Map<String, String> daGeneralOffenseDescMapping; 
 	private String restServiceBaseUrl = "http://localhost:9898";
@@ -94,7 +95,7 @@ public class AppProperties {
 		daCaseTypeCodeMapping.put("W", "Wildlife");
 		daCaseTypeCodeMapping.put("Y", "Youth");
 		
-		Map<String, String> generalOffenseCodeMapping = new HashMap<String, String>();
+		Map<String, String> generalOffenseCodeMapping = new LinkedHashMap<String, String>();
 		generalOffenseCodeMapping.put("A", "Attempted");
 		generalOffenseCodeMapping.put("V", "After Felony Conviction");
 		setDaGeneralOffenseCodeMapping(generalOffenseCodeMapping);
