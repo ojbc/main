@@ -527,7 +527,7 @@
                 $('#accordion').on('click', 'a.declineCharge',function() {
                     var requestData = {
                          'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
-                         'arrestChargeIdentification': $(this).prev(".card-link").attr("href").slice(7),
+                         'arrestChargeIdentification':$(this).siblings(".card-link").attr("href").slice(7),
                          'arrestChargeDescription': $(this).prev(".card-link").text()
                     };
                     

@@ -257,7 +257,7 @@
                 	 });
                  });
             	   
-                 $('#portalContent').on('click', '#presentArrest',function() {
+                 $('#portalContent').off('click', '#presentArrest').on('click', '#presentArrest',function() {
                      xhr = $.get( context +"daArrests/summary", function(data) {
                        $('#submitArrestModalContent').html(data);
                        var dispositionTableCount = $(".dispositionsTable").length;
@@ -272,7 +272,7 @@
                      }).fail(ojbc.displayFailMessage);
                   }); 
                   
-                  $('#submitArrestModal').on('click', '#confirmSubmitArrest',function() {
+                  $('#submitArrestModal').off('click', '#confirmSubmitArrest').on('click', '#confirmSubmitArrest',function() {
                      chargeIds = []; 
                      $(".dispositionsTable:not(:has(.dataTables_empty))").each(function(){
                        chargeIds.push($(this).attr("id"));
@@ -315,7 +315,7 @@
                      });
                   }); 
             	   
-                 $('.dispositionsTable').on('click', 'a.addDisposition',function() {
+                 $('.dispositionsTable').off('click', 'a.addDisposition').on('click', 'a.addDisposition',function() {
                     var chargeId = $(this).closest("table").attr("id");
                     var countyName = $(this).closest('div.card').find("span.countyName").html();
                     xhr = $.get( context +"daArrests/dispositionForm", {
@@ -334,7 +334,7 @@
  	                      }).fail(ojbc.displayFailMessage);
                  }); 
                  
-                 $('.dispositionsTable tbody').on('click', 'a.editDisposition',function() {
+                 $('.dispositionsTable tbody').off('click', 'a.editDisposition').on('click', 'a.editDisposition',function() {
                 	 var chargeId = $(this).closest("table").attr("id");
                 	 console.log("chargeId:" + chargeId);
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
@@ -385,7 +385,7 @@
 				                   }).fail(ojbc.displayFailMessage);
                  });
                  
-                 $('.dispositionsTable tbody').on('click', 'a.expungeDisposition',function() {
+                 $('.dispositionsTable tbody').off('click', 'a.expungeDisposition').on('click', 'a.expungeDisposition',function() {
                      var chargeId = $(this).closest("table").attr("id");
                      var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
 
@@ -552,7 +552,7 @@
                     }).fail(ojbc.displayFailMessage);
               }
                  
-              $('.dispositionsTable tbody').on('click', 'a.deleteDisposition',function() {
+              $('.dispositionsTable tbody').off('click', 'a.deleteDisposition').on('click', 'a.deleteDisposition',function() {
              	 var requestData = {
                     'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
                     'arrestChargeIdentification': $(this).closest("table").attr("id"),
@@ -577,10 +577,10 @@
                 });
               });
               
-              $('#accordion').on('click', 'a.declineCharge',function() {
+              $('#accordion').off('click', 'a.declineCharge').on('click', 'a.declineCharge',function() {
                 var requestData = {
                      'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
-                     'arrestChargeIdentification': $(this).prev(".card-link").attr("href").slice(7),
+                     'arrestChargeIdentification': $(this).siblings(".card-link").attr("href").slice(7),
                      'arrestChargeDescription': $(this).prev(".card-link").text()
                 };
                 
@@ -602,7 +602,7 @@
                 });
               });
               
-              $('#accordion').on('click', 'a.referCharge',function() {
+              $('#accordion').off('click', 'a.referCharge').on('click', 'a.referCharge',function() {
                   var chargeId = $(this).siblings(".card-link").attr("href").slice(7);
                   var chargeDescription = $(this).siblings(".card-link").text();
 
