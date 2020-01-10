@@ -104,15 +104,15 @@
                       trigger : 'hover'
                   });   
                   
-                  $('#daSearchResultsTable').on('click', 'a.editArrest',function() {
+                  $('#daSearchResultsTable').off('click', 'a.editArrest').on('click', 'a.editArrest',function(event) {
                       var selectedRow = $(this).closest("tr"); 
                       var chargeIds = selectedRow.find(".chargeIds").text();  
                       xhr = $.get( context +"daArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
                         $('#portalContent').html(data);
                       }).fail(ojbc.displayFailMessage);
                   });
-                  $('#daSearchResultsTable tbody').on('click', 'a.hideArrest',function() {
-                      var selectedRow = $(this).closest("tr"); 
+                  $('#daSearchResultsTable tbody').off('click', 'a.hideArrest').on('click', 'a.hideArrest',function(event) {
+                	    var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".hideableChargeIds").text();
                       bootpopup({
@@ -131,7 +131,7 @@
                           },
                       });
                   });
-                  $('#daSearchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+                  $('#daSearchResultsTable tbody').off('click', 'a.unhideArrest').on('click', 'a.unhideArrest',function(event) {
                       var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".unhideableChargeIds").text();
@@ -159,7 +159,7 @@
                       });
                   }); 
  */
-                  $('#daSearchResultsTable tbody').on('click', 'a.referArrest',function() {
+                  $('#daSearchResultsTable tbody').off('click', 'a.referArrest').on('click', 'a.referArrest',function(event) {
                       var selectedRow = $(this).closest("tr"); 
                       var arrestId = selectedRow.attr("id"); 
                       var chargeIds = selectedRow.find(".chargeIds").text();  
@@ -174,7 +174,8 @@
                       }).fail(ojbc.displayFailMessage);
                     });
                       
-                    $('#referralModal').on('click', '#submitReferral', function(){
+                    $('#referralModal').on('click', '#submitReferral', function(event){
+                    	$(this).off(event); 
                       var requestData = {
                          'arrestIdentification': $('#arrestIdentification').val(),
                          'arrestChargeIds': $('#arrestChargeIds').val(),
@@ -205,14 +206,14 @@
 
 	        $(function(){
 	        	  initSearchForm();
-              $('#portalContent').on('keypress', '#daSearchForm input',function (e) {
+              $('#portalContent').off('keypress', '#daSearchForm input').on('keypress', '#daSearchForm input',function (e) {
             	  if (e.which == 13) {
             	    $('#submit').click();
             	    return false;    
             	  }
             	});
               
-              $('#portalContent').on('click', '#daSearchForm #submit', function(){
+              $('#portalContent').off('click', '#daSearchForm #submit').on('click', '#daSearchForm #submit', function(event){
                 var formData = $('#daSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "daArrests/advancedSearch",formData,function(data) {
@@ -227,7 +228,7 @@
              	  }).fail();
               });
               
-              $('#portalContent').on('click', '#daSearchForm #reset', function(){
+              $('#portalContent').off('click', '#daSearchForm #reset').on('click', '#daSearchForm #reset', function(event){
                   xhr = $.get(context + "daArrests/resetSearchForm", function(data) {
                     $('#daSearchForm').replaceWith(data);
                     initSearchForm();

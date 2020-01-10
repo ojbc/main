@@ -104,14 +104,14 @@
                 });   
  
                   
-                $('#muniSearchResultsTable').on('click', 'a.editArrest',function() {
+                $('#muniSearchResultsTable').off('click', 'a.editArrest').on('click', 'a.editArrest',function(event) {
               	  var selectedRow = $(this).closest("tr"); 
               		var chargeIds = selectedRow.find(".chargeIds").text();  
                   xhr = $.get( context +"muniArrests/" + $(this).closest("tr").attr("id") + "/charges/" + chargeIds, function(data) {
                     $('#portalContent').html(data);
                   }).fail(ojbc.displayFailMessage);
                 });
-                $('#muniSearchResultsTable tbody').on('click', 'a.hideArrest',function() {
+                $('#muniSearchResultsTable tbody').off('click', 'a.hideArrest').on('click', 'a.hideArrest',function(event) {
                   var selectedRow = $(this).closest("tr"); 
                	  var arrestId = selectedRow.attr("id"); 
                	  var chargeIds = selectedRow.find(".hideableChargeIds").text();
@@ -131,7 +131,8 @@
                         },
                     });
                 });
-                $('#muniSearchResultsTable tbody').on('click', 'a.unhideArrest',function() {
+                $('#muniSearchResultsTable tbody').off('click', 'a.unhideArrest').on('click', 'a.unhideArrest',function(event) {
+                	  $(this).off(event);
                     var selectedRow = $(this).closest("tr"); 
                     var arrestId = selectedRow.attr("id"); 
                     var chargeIds = selectedRow.find(".unhideableChargeIds").text();
@@ -140,7 +141,8 @@
                     }).fail(ojbc.displayFailMessage);
                 });
                   
-                $('#muniSearchResultsTable tbody').on('click', 'a.referArrest',function() {
+                $('#muniSearchResultsTable tbody').off('click', 'a.referArrest').on('click', 'a.referArrest',function(event) {
+                	$(this).off(event);
               	  var selectedRow = $(this).closest("tr"); 
                   var arrestId = selectedRow.attr("id"); 
                   var chargeIds = selectedRow.find(".chargeIds").text();  
@@ -155,7 +157,8 @@
                   }).fail(ojbc.displayFailMessage);
                 });
                   
-                $('#referralModal').on('click', '#submitReferral', function(){
+                $('#referralModal').one('click', '#submitReferral', function(event){
+                	$(this).off(event);
                   var requestData = {
                      'arrestIdentification': $('#arrestIdentification').val(),
                      'arrestChargeIds': $('#arrestChargeIds').val(),
@@ -186,14 +189,14 @@
 
 	        $(function(){
 	        	  initSearchForm();
-              $('#portalContent').on('keypress', '#muniSearchForm input',function (e) {
-            	  if (e.which == 13) {
+              $('#portalContent').off('keypress', '#muniSearchForm input').on('keypress', '#muniSearchForm input',function (event) {
+            	  if (event.which == 13) {
             	    $('#submit').click();
             	    return false;    
             	  }
             	});
               
-              $('#portalContent').on('click', '#muniSearchForm #submit', function(){
+              $('#portalContent').off('click', '#muniSearchForm #submit').on('click', '#muniSearchForm #submit', function(event){
                 var formData = $('#muniSearchForm').serialize();
                 formData = formData + '&'+_csrf_param_name+'='+_csrf_token;
                 xhr = $.post(context + "muniArrests/advancedSearch",formData,function(data) {
@@ -207,7 +210,7 @@
              	  }).fail();
               });
               
-              $('#portalContent').on('click', '#muniSearchForm #reset', function(){
+              $('#portalContent').off('click', '#muniSearchForm #reset').on('click', '#muniSearchForm #reset', function(){
             	  xhr = $.get(context + "muniArrests/resetSearchForm", function(data) {
             		  $('#muniSearchForm').replaceWith(data);
             		  initSearchForm();
