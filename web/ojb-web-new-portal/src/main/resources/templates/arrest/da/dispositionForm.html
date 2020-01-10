@@ -493,11 +493,14 @@
 
 
         });
-	      
+        var dispoCodesWithoutSentence = ['301', '302', '305', '306', '307', '314', '320', '331', '377', 
+            '390', '398', '505', '510', '511', '524', '530', '537','539', '540', '541','542'];
+
 	      function toggleDefferredYearsDays(){
 	          var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
 
-            if (dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())
+            if (dispoCodesWithoutSentence.includes($('#dispositionCode').val()) 
+            		|| dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())
             		|| $('#suspendedYears').val() > 0 
             		|| $('#suspendedDays').val() > 0){
                 $('#deferredYears').val('');
@@ -523,8 +526,6 @@
         }
 	        
         function toggleSentenceInfo(){
-           var dispoCodesWithoutSentence = ['301', '302', '305', '306', '307', '314', '320', '331', '377', 
-                '390', '398', '505', '510', '511', '524', '530', '537','539', '540', '541','542'];
            if (dispoCodesWithoutSentence.includes($('#dispositionCode').val())){
                 $('#fineAmount').val('');
                 $('#fineAmount').prop('disabled', true);
@@ -560,6 +561,7 @@
                 $('#prisonDays').prop('disabled', false);
                 $('#restitution').prop('disabled', false);
                 $('#alternateSentences').prop('disabled', false);
+                toggleDefferredYearsDays();
                 toggleAlternateSentenceFineCostsOption();
                 toggleAlternateSentenceRestitutionOption();
           }
