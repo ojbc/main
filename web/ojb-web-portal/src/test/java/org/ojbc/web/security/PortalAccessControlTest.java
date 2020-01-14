@@ -71,8 +71,6 @@ public class PortalAccessControlTest {
     @Value("${webapplication.allowQueriesWithoutSAMLToken:false}")
     private boolean allowQueriesWithoutSAMLToken;
     
-    @Autowired
-    private MockHttpServletRequest request;
     private MockMvc mockMvc;
 
     private final String SECURED_URI = "/portal/index";
@@ -115,8 +113,7 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
             .andExpect(status().isOk()).andReturn();
         
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
-                + "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>" )); 
         
     }
     
@@ -135,8 +132,7 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
                 .andExpect(status().isOk()).andReturn();
         
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
-                + "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
         
     }
     
@@ -165,8 +161,7 @@ public class PortalAccessControlTest {
         result = mockMvc.perform(get("/403")
             .requestAttr("accessControlResponse", request.getAttribute("accessControlResponse")))
             .andExpect(status().isOk()).andReturn(); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<input name=\"acknowledgeAll\""
-                + " id=\"acknowledgeAll\" type=\"submit\" value=\"Acknowledge All\" class=\"blueButton\">")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<input type=\"submit\" value=\"Acknowledge All\" class=\"btn btn-primary mt-3\">")); 
     }
     
     @Test
@@ -211,16 +206,11 @@ public class PortalAccessControlTest {
         MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
             .andExpect(status().isOk()).andReturn();
         
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
-                + "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
-        		+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
-        		+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
-        		+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"adminLink\" class=\"leftMenuLink\" "
-        		+ "href=\"#\" target=\"_blank\"><div></div>Admin </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"adminLink\" href=\"#\">Admin </a>")); 
     }
     
     @Test
@@ -237,14 +227,10 @@ public class PortalAccessControlTest {
     	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
     			.andExpect(status().isOk()).andReturn();
     	
-    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
-    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
-    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
-    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
     	
     }
     
@@ -263,14 +249,10 @@ public class PortalAccessControlTest {
     	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
     			.andExpect(status().isOk()).andReturn();
     	
-    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
-    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
-    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
-    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
-    			+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
     	
     }
     
