@@ -53,6 +53,7 @@
 	$(function() {
 		$('#searchBarButtonDiv').hide();
 		$.fn.dataTable.moment( 'MM/DD/YYYY' );
+		$('[data-toggle="tooltip"]').tooltip();
 		
 		if ($("#searchResultsTable")){
 			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
