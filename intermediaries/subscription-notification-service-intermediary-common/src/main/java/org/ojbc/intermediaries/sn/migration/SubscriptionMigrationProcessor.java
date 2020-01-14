@@ -89,7 +89,11 @@ public class SubscriptionMigrationProcessor {
 				for (String line : lines)
 				{
 					String[] entries = line.split(",");
-					emailAddressToORILookupMap.put(entries[0], entries[1]);					
+					
+					if (StringUtils.isNotBlank(entries[0]) && StringUtils.isNotBlank(entries[1]))
+					{	
+						emailAddressToORILookupMap.put(entries[0].toLowerCase(), entries[1]);
+					}
 				}	
 			}	
 		}	
@@ -142,9 +146,9 @@ public class SubscriptionMigrationProcessor {
 		else if (StringUtils.isNotBlank(subscription.getOwnerEmailAddress()))
 		{
 			//look up ORI here	
-			if (emailAddressToORILookupMap.containsKey(subscription.getOwnerEmailAddress()))
+			if (emailAddressToORILookupMap.containsKey(subscription.getOwnerEmailAddress().toLowerCase()))
 			{
-				ex.getIn().setHeader("subscriptionOwnerOri", emailAddressToORILookupMap.get(subscription.getOwnerEmailAddress()));
+				ex.getIn().setHeader("subscriptionOwnerOri", emailAddressToORILookupMap.get(subscription.getOwnerEmailAddress().toLowerCase()));
 			}	
 		}	
 		
