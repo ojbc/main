@@ -42,6 +42,7 @@ public class SubscriptionSAMLTokenProcessor {
 		String samlFirstName = null;
 		String samlLastName = null;
 		String samlEmployerOri = null;
+		String samlEmployerAgencyName = null;
 		
 		try
 		{
@@ -106,6 +107,15 @@ public class SubscriptionSAMLTokenProcessor {
 						samlEmployerOri = attributeValueAsString;
 					}
 
+					if (attributeName.equals("gfipm:2.0:user:EmployerName"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("ORI in SAML Token: " + attributeValueAsString);
+						
+						samlEmployerAgencyName = attributeValueAsString;
+					}
+
 					
 				}	
 				
@@ -134,6 +144,11 @@ public class SubscriptionSAMLTokenProcessor {
 			if (StringUtils.isNotEmpty(samlEmployerOri))
 			{	
 				exchange.getIn().setHeader("saml_EmployerOri", samlEmployerOri);
+			}
+
+			if (StringUtils.isNotEmpty(samlEmployerAgencyName))
+			{	
+				exchange.getIn().setHeader("saml_EmployerAgencyName", samlEmployerOri);
 			}
 
 		}	
