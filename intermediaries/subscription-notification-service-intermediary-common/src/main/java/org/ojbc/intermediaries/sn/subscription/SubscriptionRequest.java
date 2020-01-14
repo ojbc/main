@@ -71,6 +71,7 @@ public abstract class SubscriptionRequest {
 	private String subscriptionOwnerFirstName;
 	private String subscriptionOwnerLastName;
 	private String subscriptionOwnerOri;
+	private String subscriptionOwnerAgencyName;
 	private String ori;
 	private String transactionNumber; 
 	
@@ -174,6 +175,7 @@ public abstract class SubscriptionRequest {
 		subscriptionOwnerFirstName = (String) message.getHeader("subscriptionOwnerFirstName");
 		subscriptionOwnerLastName = (String) message.getHeader("subscriptionOwnerLastName");
 		subscriptionOwnerOri = (String) message.getHeader("subscriptionOwnerOri");
+		subscriptionOwnerAgencyName = (String) message.getHeader("subscriptionOwnerAgencyName");
 		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 		// subscriptionProperties intentionally left out - should be populated by derived class
@@ -326,6 +328,14 @@ public abstract class SubscriptionRequest {
 
 	public void setTransactionNumber(String transactionNumber) {
 		this.transactionNumber = transactionNumber;
+	}
+
+	public String getSubscriptionOwnerAgencyName() {
+		return subscriptionOwnerAgencyName;
+	}
+
+	public void setSubscriptionOwnerAgencyName(String subscriptionOwnerAgencyName) {
+		this.subscriptionOwnerAgencyName = subscriptionOwnerAgencyName;
 	}
 
 

@@ -30,7 +30,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor;
+import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
@@ -43,16 +45,44 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
 @DirtiesContext
 public class TestSubscriptionMigrationProcessor {
     
-    @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestSubscriptionMigrationProcessor.class);
 	
 	@Autowired
     private SubscriptionMigrationProcessor subscriptionMigrationProcessor;
+	
+	@Autowired
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+
+    @Test
+    public void testProcessAgencyProfileORIEntry() throws Exception {
+    
+    	List<AgencyProfile> agencyProfiles = subscriptionSearchQueryDAO.returnAllAgencies();
+    	
+    	assertEquals(3, agencyProfiles.size());
+    	
+    	subscriptionMigrationProcessor.setDefaultAgencyProfileState("VT");
+    	
+    	String csvLine1 = "DATA_YEAR,ORI,LEGACY_ORI,COVERED_BY_LEGACY_ORI,DIRECT_CONTRIBUTOR_FLAG,DORMANT_FLAG,DORMANT_YEAR,REPORTING_TYPE,UCR_AGENCY_NAME,NCIC_AGENCY_NAME,PUB_AGENCY_NAME,PUB_AGENCY_UNIT,AGENCY_STATUS,STATE_ID,STATE_NAME,STATE_ABBR,STATE_POSTAL_ABBR,DIVISION_CODE,DIVISION_NAME,REGION_CODE,REGION_NAME,REGION_DESC,AGENCY_TYPE_NAME,POPULATION,SUBMITTING_AGENCY_ID,SAI,SUBMITTING_AGENCY_NAME,SUBURBAN_AREA_FLAG,POPULATION_GROUP_ID,POPULATION_GROUP_CODE,POPULATION_GROUP_DESC,PARENT_POP_GROUP_CODE,PARENT_POP_GROUP_DESC,MIP_FLAG,POP_SORT_ORDER,SUMMARY_RAPE_DEF,PE_REPORTED_FLAG,PE_MALE_OFFICER_COUNT,PE_FEMALE_OFFICER_COUNT,PE_MALE_CIVILIAN_COUNT,PE_FEMALE_CIVILIAN_COUNT,NIBRS_CERT_DATE,NIBRS_START_DATE,NIBRS_LEOKA_START_DATE,NIBRS_CT_START_DATE,NIBRS_MULTI_BIAS_START_DATE,NIBRS_OFF_ETH_START_DATE,COVERED_FLAG,COUNTY_NAME,MSA_NAME,MSA_SORT_ORDER,PUBLISHABLE_FLAG,CITY_NAME,POPULATION_RANK,MIP_RANK,CAMPUS_ID,AGENCY_TYPE_ID,COUNTY_CODE,MSA_CODE,PE_PUBLISHABLE_FLAG,JUDICIAL_DIST_CODE,FID_CODE,DEPARTMENT_ID,ADDED_DATE,POPULATION_FAMILY_ID,FIELD_OFFICE_ID\r\n"; 
+    	subscriptionMigrationProcessor.processAgencyProfileORIEntry(csvLine1);
+    	
+    	String csvLine2 = "2018,AK0010100,AK001010,,N,N,,S,ANCHORAGE,ANCHORAGE PD,Anchorage,,A,1,Alaska,AK,AK,9,Pacific,4,West,Region IV,City,291992,23353,AKUCR0001,Department of Public Safety Criminal Records and Identification Bureau Uniform Crime Reporting Section,N,5,1C,\"Cities from 250,000 thru 499,999\",1,\"All cities 250,000 or over\",Y,1,R,Y,369,58,36,111,,,,,,,N,ANCHORAGE,\"Anchorage, AK\",\"anchorage, ak\",Y,Anchorage,114,112,,1,,,Y,020A,,,30-APR-91,2,5\r\n"; 
+    	subscriptionMigrationProcessor.processAgencyProfileORIEntry(csvLine2);
+
+    	String csvLine3 = "2018,VT0020500,VT0020500,VT0020400,N,N,,S,MANCHESTER VILLAGE,MANCHESTER VILLAGE,Manchester Village,,A,52,Vermont,VT,VT,1,New England,1,Northeast,Region I,City,740,23397,VTUCR0001,Department of Public Safety Vermont Criminal Information Center,N,11,7,\"Cities under 2,500\",7,\"Cities under 2,500\",N,2,,N,0,0,0,0,01-JAN-93,,,,,,Y,BENNINGTON,Non-MSA,zzzzzz,N,Manchester Village,10540,499,,1,,,,405A,,,30-APR-91,2,3\r\n"; 
+    	subscriptionMigrationProcessor.processAgencyProfileORIEntry(csvLine3);
+
+    	agencyProfiles = subscriptionSearchQueryDAO.returnAllAgencies();
+    	
+    	assertEquals(4, agencyProfiles.size());
+    	
+    	Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("VT0020500");
+    	assertNotNull(agencyPk);
+    }
 	
     @Test
     public void testSubscriptionMigration() throws Exception {
@@ -127,7 +157,7 @@ public class TestSubscriptionMigrationProcessor {
             	assertEquals("First.Person@local.gov", ex.getIn().getHeader("subscriptionOwnerEmailAddress"));
             	assertEquals("First", ex.getIn().getHeader("subscriptionOwnerFirstName"));
             	assertEquals("Person", ex.getIn().getHeader("subscriptionOwnerLastName"));
-            	assertEquals("defaultORI", ex.getIn().getHeader("subscriptionOwnerOri"));
+            	assertEquals("ORI1", ex.getIn().getHeader("subscriptionOwnerOri"));
             }
             
             if (entry.getKey().equals(100843))
@@ -136,12 +166,13 @@ public class TestSubscriptionMigrationProcessor {
             	assertEquals("Second.2.person@local.gov", ex.getIn().getHeader("subscriptionOwnerEmailAddress"));
             	assertEquals("Second", ex.getIn().getHeader("subscriptionOwnerFirstName"));
             	assertEquals("person", ex.getIn().getHeader("subscriptionOwnerLastName"));
-            	assertEquals("defaultORI", ex.getIn().getHeader("subscriptionOwnerOri"));
+            	assertEquals("ORI2", ex.getIn().getHeader("subscriptionOwnerOri"));
             	
             }	
         }
         
         List<Subscription> subscriptions = subscriptionMigrationProcessor.getCompleteSubscriptions();
+        assertEquals(2, subscriptions.size());
         
 	}
 

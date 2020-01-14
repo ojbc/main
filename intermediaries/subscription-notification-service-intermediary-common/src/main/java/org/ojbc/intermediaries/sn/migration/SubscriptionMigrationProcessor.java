@@ -16,6 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.migration;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,12 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
 
 public class SubscriptionMigrationProcessor {
@@ -39,7 +41,84 @@ public class SubscriptionMigrationProcessor {
 	
 	private Map<Integer, Subscription> subscriptionMap;
 	
+	private Map<String, String> emailAddressToORILookupMap;
+	
+	/**
+	 * All records will be assigned to this ORI if set
+	 */
 	private String defaultSubscriptionMigrationOri;
+	
+	/**
+	 * When loading agency profiles to the agency profile table, it will load for the state that is set here
+	 */
+	private String defaultAgencyProfileState;
+	
+	/**
+	 * Path to CSV file containing the email address / ORI. Used to populate emailAddressToORILookupMap
+	 */
+	private String pathToOriLookupFile;
+	
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+	/**
+	 * this is the prefix in the federation ID prior to the email address
+	 */
+	private String subscriptionOwnerPrefix;
+	
+	//This method will populate Agency Profile entries based on the ORI Universe File.csv
+	public void processAgencyProfileORIEntry (String csvExtractLine) throws Exception
+	{
+		//If we see this column header, this is a column header row not data row											
+		if (StringUtils.contains(csvExtractLine, "DATA_YEAR"))
+		{
+			log.info("Skipping header record");
+			
+			return;
+		}	
+
+		//populate agency map here if needed
+		if (StringUtils.isNotBlank(pathToOriLookupFile))
+		{
+			if (emailAddressToORILookupMap == null)
+			{	
+				emailAddressToORILookupMap  = new HashMap<String, String>();
+				
+				@SuppressWarnings("unchecked")
+				List<String> lines = FileUtils.readLines(new File(pathToOriLookupFile));
+				
+				for (String line : lines)
+				{
+					String[] entries = line.split(",");
+					emailAddressToORILookupMap.put(entries[0], entries[1]);					
+				}	
+			}	
+		}	
+		
+		
+        String[] values = csvExtractLine.split(",");
+
+        if (StringUtils.isNotBlank(defaultAgencyProfileState))
+        {
+        	String stateName = values[15];
+        	
+        	if (!defaultAgencyProfileState.equals(stateName))
+        	{
+        		log.info("Default agency name doesn't match entry: " + stateName);
+        		
+        		return;
+        	}	
+        }	
+        
+		String agencyOri = values[1];
+		String agencyName = values[8];
+		
+		if (StringUtils.isBlank(agencyName))
+		{
+			agencyName= values[9];
+		}	
+		
+		subscriptionSearchQueryDAO.saveAgencyProfileEntry(agencyOri, agencyName, false, true, false);
+	}
 	
 	public Document enrichMessageWithHeaders(Exchange ex, Subscription subscription) throws Exception
 	{
@@ -49,15 +128,26 @@ public class SubscriptionMigrationProcessor {
 		ex.getIn().setHeader("subscriptionOwnerLastName", subscription.getOwnerLastName());
 		
 		//We won't have ORI in all cases
-		
+		//Use it if we have it
 		if (StringUtils.isNotBlank(subscription.getOri()))
 		{
 			ex.getIn().setHeader("subscriptionOwnerOri", subscription.getOri());	
 		}	
-		else
+		//if a default ORI is set, use that
+		else if (StringUtils.isNotBlank(defaultSubscriptionMigrationOri))
 		{
 			ex.getIn().setHeader("subscriptionOwnerOri", defaultSubscriptionMigrationOri);
-		}
+		} 
+		//set the ORI based off a lookup
+		else if (StringUtils.isNotBlank(subscription.getOwnerEmailAddress()))
+		{
+			//look up ORI here	
+			if (emailAddressToORILookupMap.containsKey(subscription.getOwnerEmailAddress()))
+			{
+				ex.getIn().setHeader("subscriptionOwnerOri", emailAddressToORILookupMap.get(subscription.getOwnerEmailAddress()));
+			}	
+		}	
+		
 		
 		Document ret = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, null);
 		
@@ -118,7 +208,7 @@ public class SubscriptionMigrationProcessor {
             
 //    		<camel:setHeader headerName="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
 
-            String subscriptionOwnerEmailAddress = StringUtils.substringAfter(subscriptionOwner, "MAINE:IDP:SOM:USER:");
+            String subscriptionOwnerEmailAddress = StringUtils.substringAfter(subscriptionOwner, subscriptionOwnerPrefix);
             subscription.setOwnerEmailAddress(subscriptionOwnerEmailAddress);
             
         	String[] subscriptionOwnerNameValues = StringUtils.substringBefore(subscriptionOwnerEmailAddress, "@").split("\\.");
@@ -244,5 +334,44 @@ public class SubscriptionMigrationProcessor {
 		this.defaultSubscriptionMigrationOri = defaultSubscriptionMigrationOri;
 	}
 
-	
+	public String getDefaultAgencyProfileState() {
+		return defaultAgencyProfileState;
+	}
+
+	public void setDefaultAgencyProfileState(String defaultAgencyProfileState) {
+		this.defaultAgencyProfileState = defaultAgencyProfileState;
+	}
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+	public void setSubscriptionSearchQueryDAO(SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public Map<String, String> getEmailAddressToORILookupMap() {
+		return emailAddressToORILookupMap;
+	}
+
+	public void setEmailAddressToORILookupMap(Map<String, String> emailAddressToORILookupMap) {
+		this.emailAddressToORILookupMap = emailAddressToORILookupMap;
+	}
+
+	public String getPathToOriLookupFile() {
+		return pathToOriLookupFile;
+	}
+
+	public void setPathToOriLookupFile(String pathToOriLookupFile) {
+		this.pathToOriLookupFile = pathToOriLookupFile;
+	}
+
+	public String getSubscriptionOwnerPrefix() {
+		return subscriptionOwnerPrefix;
+	}
+
+	public void setSubscriptionOwnerPrefix(String subscriptionOwnerPrefix) {
+		this.subscriptionOwnerPrefix = subscriptionOwnerPrefix;
+	}
+
 }

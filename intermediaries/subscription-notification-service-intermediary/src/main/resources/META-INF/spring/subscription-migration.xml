@@ -56,7 +56,20 @@
 			</camel:split>
 		
 		</route> 
-	
+		
+		<route id="processAgencyProfileSeeding_Route">
+			<from uri="agencyProfileSeedingFileEndpoint"/>
+
+			<camel:log message="Input File received: ${in.headers.CamelFileName}"/>			
+		
+			<camel:split streaming="true">
+				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
+		
+				<camel:to uri="bean:subscriptionMigrationProcessor?method=processAgencyProfileORIEntry"/>	
+				
+			</camel:split>
+			
+		</route> 
 	</routeContext>
 		
 </beans>
