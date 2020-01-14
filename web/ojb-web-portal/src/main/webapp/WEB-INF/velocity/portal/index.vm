@@ -221,12 +221,6 @@
 			  				  				  					  					    			    	
 		    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
 						$('#portalContent').html(data);	
-					}).done(function(){
-						$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-										    	
-			    			$('#filterColumn').html(data);
-			    			$('#filterColumn').css('visibility', 'visible');
-			    		}).fail(ojbc.displayFailMessage);
 					}).fail(ojbc.displayFailMessage);
 									    
 					return false;
