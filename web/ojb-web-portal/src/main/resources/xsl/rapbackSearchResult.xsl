@@ -124,7 +124,7 @@
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
 				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
-					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-alt fa-lg"></i></a>
+					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results" data-toggle="tooltip"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
 		</tr>
 	</xsl:template>
@@ -133,14 +133,14 @@
 		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
 		<xsl:if test="following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForStateSubscriptionsIndicator = 'true'
 			and ( oirsr-ext:CivilIdentificationReasonCode != 'F' or $allowFirearmSubscription)">
-			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe" data-toggle="tooltip">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 				</xsl:attribute>
 				<i class="fa fa-rss fa-lg"/>
 			</a>
 		</xsl:if>
-		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive" data-toggle="tooltip">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
@@ -150,7 +150,7 @@
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="archived">
 		<xsl:variable name="orgId" select="oirsr-ext:IdentificationRequestingOrganization/@s:ref"/>
-		<a href="#" class="blueIcon unarchive" style="margin-right:3px" title="Unarchive">
+		<a href="#" class="blueIcon unarchive" style="margin-right:3px" title="Unarchive" data-toggle="tooltip">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
@@ -177,7 +177,7 @@
 		</xsl:variable>
 		
 		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'">
-			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
+			<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe" data-toggle="tooltip">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 				</xsl:attribute>
@@ -185,7 +185,7 @@
 			</a>
 		</xsl:if>
 		
-		<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate">
+		<a href="#" class="blueIcon validate" style="margin-right:3px" title="Validate" data-toggle="tooltip">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
@@ -194,13 +194,13 @@
 			</xsl:attribute>
 			<i class="fa fa-check-circle fa-lg"/>
 		</a>
-		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe">
+		<a href="#" class="blueIcon unsubscribe" style="margin-right:3px" title="Unsubscribe" data-toggle="tooltip">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-times-circle fa-lg"></i>
 		</a>
-		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="Refresh Rap Sheet">
+		<a href="#" class="blueIcon viewRapsheetConfirmation" style="margin-right:3px" title="Refresh Rap Sheet" data-toggle="tooltip">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
@@ -209,14 +209,14 @@
 		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
 					class="blueIcon getStateRapsheet d-none"></a>
 		<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
-			<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
+			<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results" data-toggle="tooltip">
 				<xsl:attribute name="id">
 					<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>
 				</xsl:attribute>
 				<i class="fas fa-bell fa-lg"></i>
 			</a>
 			<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
-				class="blueIcon subsequentResults hidden">
+				class="blueIcon subsequentResults d-none">
 			</a>
 		</xsl:if>
 		
