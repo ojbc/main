@@ -120,7 +120,7 @@
       </xsl:attribute>
       <xsl:if test="exists(j:Arrest/j:ArrestCharge/chsres-ext:ChargeReferralCountQuantity[number() > 1])">
 	      <xsl:attribute name="class">
-	         <xsl:text>bg-warning</xsl:text>
+	         <xsl:text>osbi-warning</xsl:text>
 	      </xsl:attribute>
       </xsl:if>
 		  

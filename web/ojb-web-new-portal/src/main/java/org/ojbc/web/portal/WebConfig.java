@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -36,7 +37,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver;
 public class WebConfig implements WebMvcConfigurer {
     @Autowired 
     AppProperties appProperties; 
-
+    
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")
     public ClassLoaderTemplateResolver templateResolver() {
@@ -115,5 +116,12 @@ public class WebConfig implements WebMvcConfigurer {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+          .addResourceHandler("/resources/**")
+          .addResourceLocations("/resources/","file:" + System.getProperty("web.external.resource.home") + "/");
     }
 }
