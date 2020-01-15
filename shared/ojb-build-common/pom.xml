@@ -92,11 +92,24 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.0</version>
 
 				<configuration>
 					<!-- Reference license on plugin classpath -->
 					<header>src/main/resources/ojb-license.txt</header>
+					<excludes>
+						<exclude>**/jquery-datatable/**</exclude>
+						<exclude>**/jquery-ui-themes-1.12.1/**</exclude>
+						<exclude>**/jquery-ui-1.12.1/**</exclude>
+						<exclude>**/jquery-ui/**</exclude>
+						<exclude>**/jquery.maskinput.js</exclude>
+						<exclude>**/bin/**</exclude>
+						<!-- note not excluding static/js/ojb-web-portal.js -->
+						<exclude>**/ebts-10.0-ws-specification/**</exclude>
+						<exclude>**/static/DataTables/**</exclude>
+						<exclude>**/static/bootstrap/**</exclude>
+						<exclude>**/static/jquery/**</exclude>
+					</excludes>
 					<includes>
 						<include>**/*.java</include>
 						<include>**/*.xml</include>
