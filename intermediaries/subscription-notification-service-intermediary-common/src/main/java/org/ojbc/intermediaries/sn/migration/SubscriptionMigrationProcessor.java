@@ -105,6 +105,8 @@ public class SubscriptionMigrationProcessor {
         {
         	String stateName = values[15];
         	
+        	log.info("State Name: " + stateName + ", default agency profile name: " + defaultAgencyProfileState);
+        	
         	if (!defaultAgencyProfileState.equals(stateName))
         	{
         		log.info("Default agency name doesn't match entry: " + stateName);
