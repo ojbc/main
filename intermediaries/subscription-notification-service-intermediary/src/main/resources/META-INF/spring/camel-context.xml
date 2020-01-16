@@ -481,6 +481,10 @@
 	
 	<bean id="subscriptionMigrationProcessor" class="org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor">
 		<property name="defaultSubscriptionMigrationOri" value="${defaultSubscriptionMigrationOri}"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionOwnerPrefix" value="${subscriptionOwnerPrefix}"></property>
+		<property name="pathToOriLookupFile" value="${pathToOriLookupFile}"/>		
+		<property name="defaultAgencyProfileState" value="${defaultAgencyProfileState}"/>
 	</bean>
 
 </beans>
