@@ -152,9 +152,10 @@ public abstract class SubscriptionRequest {
 		
 		if (!emailAddressValidatorResponse.isAreAllEmailAddressValid())
 		{
-			log.error("The request contains invalid email addresses.");
 			List<String> invalidEmailAddress = new ArrayList<String>();
 			invalidEmailAddress.addAll(emailAddressValidatorResponse.getInvalidEmailAddresses());
+
+			log.error("The request contains invalid email addresses." + invalidEmailAddress.toString());
 			
 			throw new InvalidEmailAddressesException("The request contains invalid email addresses.", invalidEmailAddress);
 		}	

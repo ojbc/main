@@ -44,12 +44,13 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<mysql-connector-version>5.1.17</mysql-connector-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<junit-version>4.8.1</junit-version>
 		<sn-intermediary-common-version>[2.0.10,)</sn-intermediary-common-version>
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
-		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
+		<h2-mock-database-version>[2.0.6,)</h2-mock-database-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<java-version>1.8</java-version>
@@ -160,6 +161,11 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
 			<version>${ojb-osgi-common-version}</version>
+		</dependency>
+		<dependency>
+	    	<groupId>mysql</groupId>
+	    	<artifactId>mysql-connector-java</artifactId>
+	    	<version>${mysql-connector-version}</version>
 		</dependency>
 
 		<!-- Test Dependencies -->
