@@ -76,29 +76,6 @@ public class SubscriptionMigrationProcessor {
 			return;
 		}	
 
-		//populate agency map here if needed
-		if (StringUtils.isNotBlank(pathToOriLookupFile))
-		{
-			if (emailAddressToORILookupMap == null)
-			{	
-				emailAddressToORILookupMap  = new HashMap<String, String>();
-				
-				@SuppressWarnings("unchecked")
-				List<String> lines = FileUtils.readLines(new File(pathToOriLookupFile));
-				
-				for (String line : lines)
-				{
-					String[] entries = line.split(",");
-					
-					if (StringUtils.isNotBlank(entries[0]) && StringUtils.isNotBlank(entries[1]))
-					{	
-						emailAddressToORILookupMap.put(entries[0].toLowerCase(), entries[1]);
-					}
-				}	
-			}	
-		}	
-		
-		
         String[] values = csvExtractLine.split(",");
 
         if (StringUtils.isNotBlank(defaultAgencyProfileState))
@@ -128,6 +105,28 @@ public class SubscriptionMigrationProcessor {
 	
 	public Document enrichMessageWithHeaders(Exchange ex, Subscription subscription) throws Exception
 	{
+		//populate agency map here if needed
+		{
+			if (emailAddressToORILookupMap == null)
+			{	
+				emailAddressToORILookupMap  = new HashMap<String, String>();
+				
+				@SuppressWarnings("unchecked")
+				List<String> lines = FileUtils.readLines(new File(pathToOriLookupFile));
+				
+				for (String line : lines)
+				{
+					String[] entries = line.split(",");
+					
+					if (StringUtils.isNotBlank(entries[0]) && StringUtils.isNotBlank(entries[1]))
+					{	
+						emailAddressToORILookupMap.put(entries[0].toLowerCase(), entries[1]);
+					}
+				}	
+			}	
+		}	
+		
+		
 		ex.getIn().setHeader("subscriptionOwner", subscription.getOwnerFederationId());
 		ex.getIn().setHeader("subscriptionOwnerEmailAddress", subscription.getOwnerEmailAddress());
 		ex.getIn().setHeader("subscriptionOwnerFirstName", subscription.getOwnerFirstName());
@@ -151,6 +150,10 @@ public class SubscriptionMigrationProcessor {
 			if (emailAddressToORILookupMap.containsKey(subscription.getOwnerEmailAddress().toLowerCase()))
 			{
 				ex.getIn().setHeader("subscriptionOwnerOri", emailAddressToORILookupMap.get(subscription.getOwnerEmailAddress().toLowerCase()));
+			}	
+			else
+			{
+				log.error("Unable to find ORI for email address: " + subscription.getOwnerEmailAddress().toLowerCase());
 			}	
 		}	
 		
@@ -219,18 +222,43 @@ public class SubscriptionMigrationProcessor {
             
         	String[] subscriptionOwnerNameValues = StringUtils.substringBefore(subscriptionOwnerEmailAddress, "@").split("\\.");
             
+        	//Example email address that are supported:
+        	//VJISS:IDP:DPS:USER:flname@local.gov
+        	//VJISS:IDP:DPS:USER:first_last@local.gov
+        	//VJISS:IDP:DPS:USER:first@local.gov
+        	//VJISS:IDP:DPS:USER:first.last@local.gov
+        	//VJISS:IDP:DPS:USER:first.m.last@local.gov
+
         	if (subscriptionOwnerNameValues != null)
         	{	
-        		subscription.setOwnerFirstName(subscriptionOwnerNameValues[0]);
-        		
         		if (subscriptionOwnerNameValues.length == 2)
         		{
+        			subscription.setOwnerFirstName(subscriptionOwnerNameValues[0]);
         			subscription.setOwnerLastName(subscriptionOwnerNameValues[1]);
         		}	
-        		else if (subscriptionOwnerNameValues.length == 3)
+        		
+        		if (subscriptionOwnerNameValues.length == 3)
         		{
+        			subscription.setOwnerFirstName(subscriptionOwnerNameValues[0]);
         			subscription.setOwnerLastName(subscriptionOwnerNameValues[2]);
-        		}	
+        		}
+        		
+        		if (subscriptionOwnerNameValues.length == 1 && subscriptionOwnerNameValues[0].contains("_"))
+        		{
+        			String[] names = StringUtils.split(subscriptionOwnerNameValues[0], "_");
+
+        			subscription.setOwnerFirstName(names[0]);
+        			subscription.setOwnerLastName(names[1]);
+        		}
+        		
+        		if (subscriptionOwnerNameValues.length == 1 && !subscriptionOwnerNameValues[0].contains("_"))
+        		{
+        			//These will have to be manually fixed. We set the same first name and last name
+        			subscription.setOwnerFirstName(subscriptionOwnerNameValues[0]);
+        			subscription.setOwnerLastName(subscriptionOwnerNameValues[0]);
+        		}
+        		
+        		
         	}
         	
 //    		<camel:setHeader headerName="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>

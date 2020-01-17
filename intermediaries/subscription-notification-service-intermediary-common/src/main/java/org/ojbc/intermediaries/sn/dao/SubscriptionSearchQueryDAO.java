@@ -688,6 +688,11 @@ public class SubscriptionSearchQueryDAO {
 		if (agencyPk == null)
 		{
 			log.error ("Unable to find agency ORI in the agency table. Will add ORI: " + agencyOri + ", and agency name: " + agencyName);
+		
+			if (StringUtils.isBlank(agencyName))
+			{
+				log.error("Need to acquire agency name for ORI: " + agencyOri);
+			}	
 			
 			saveAgencyProfileEntry(agencyOri, agencyName, false, true, false);
 
