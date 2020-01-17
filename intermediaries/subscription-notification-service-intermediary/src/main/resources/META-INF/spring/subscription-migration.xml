@@ -38,7 +38,16 @@
 			<camel:split streaming="true">
 				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
 		
-				<camel:to uri="bean:subscriptionMigrationProcessor?method=processSubscriptionCSVRecord"/>	
+				<camel:log message="Processing migration, CSV position ${property.CamelSplitIndex} of ${property.CamelSplitSize}" />
+		
+				<camel:doTry>
+					<camel:to uri="bean:subscriptionMigrationProcessor?method=processSubscriptionCSVRecord"/>
+					
+					<doCatch>
+			            <exception>java.lang.Exception</exception>
+			            <camel:log message="Exception processing record: ${exception.stacktrace}"/>
+			        </doCatch>
+				</camel:doTry>	
 				
 			</camel:split>
 			
@@ -47,11 +56,20 @@
 			<camel:split>
 				<camel:simple>${body}</camel:simple>
 			
+				<camel:log message="Processing subscriptions at position ${property.CamelSplitIndex} of ${property.CamelSplitSize}" />
 				<camel:log message="This is the split body: ${body}"/>
 				
-				<camel:to uri="bean:subscriptionMigrationProcessor?method=enrichMessageWithHeaders"/>
+				<camel:doTry>
+					<camel:to uri="bean:subscriptionMigrationProcessor?method=enrichMessageWithHeaders"/>
 				
-				<camel:to uri="direct:processSubscription"/>
+					<camel:to uri="direct:processSubscription"/>
+					
+					<doCatch>
+			            <exception>java.lang.Exception</exception>
+			            <camel:log message="Exception processing enriching and processing subscription: ${exception.stacktrace}"/>
+			        </doCatch>
+					
+				</camel:doTry>	
 				
 			</camel:split>
 		
