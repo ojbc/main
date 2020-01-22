@@ -373,17 +373,17 @@ header span.fullname {
 	position: relative;
 	bottom: -20px;
 	padding: 1em 0 0 1em;
+	margin-left: -1.4vw;
+  	padding-left: 1.4vw;
+  	margin-right: -1.4vw;
+  	padding-right: 1.4vw;
+}
+
+#simpleSearchForm .searchCancelSection{
 	margin-left: -1.7vw;
   	padding-left: 1.7vw;
   	margin-right: -1.7vw;
   	padding-right: 1.7vw;
-}
-
-#juvenileSearchForm .searchCancelSection{
-	margin-left: -1.5vw;
-  	padding-left: 1.5vw;
-  	margin-right: -1.5vw;
-  	padding-right: 1.5vw;
 }
 
 .ie9 .searchCancelSection {

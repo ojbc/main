@@ -34,12 +34,19 @@
 					|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
 					|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
 					|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
-					|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY")
 					|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
 			        <li class="nav-item">
 					  <a class="nav-link" id="$entry.getKey()" href="#">$leftMenuLinkTitles[$entry.getKey()] </a> 
 			        </li>
-				#end		
+		        #elseif($entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
+			        <li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$leftMenuLinkTitles[$entry.getKey()]</a>
+			        	<div class="dropdown-menu" aria-labelledby="dropdownQuery">
+			                $searchLinksHtml
+			            </div>
+			        </li>
+				#end
+						
 			#end		
 	      </ul>
 	      

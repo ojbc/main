@@ -191,10 +191,8 @@
 				    return false;							       	        	
 				})
 		
-				$('#queryLink').click (function() {
-						
-				    $('#searchBarButtonDiv').css("display", "block");
-						   
+				$('#peopleSearchLink').click (function() {
+					$(this).parent().toggleClass('show');
 					// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
 					$.post("#springUrl('/portal/leftBar')", function(data) {
 						    		    			
@@ -214,6 +212,18 @@
 				    					   
 				    return false;
 				});
+		    		 
+		    	$('#incidentSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+    			});
+    		 
+	        	$('#vehicleSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");
+    			});
+    		 
+	    		$('#firearmSearchLink').click (function() {
+    				return ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')");
+    			});
 		    		 
 				$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
 			  				  				  					  					    			    	
