@@ -193,6 +193,24 @@ a.grayButton:hover {
 	color: #ffffff;
 }
 
+.contentBox {
+	background-color: #e9e9e9;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	/* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa');
+	
+	
+}
+
+.horizontalDivide {
+	background: url('../images/horizontal-divide.png') repeat-x;
+	width: 250px;
+	height: 2px;
+}
+
 table.dispositionsTable td.dataTables_empty {
     text-align: left;    
 }
@@ -259,7 +277,7 @@ header span.fullname {
 	text-transform: uppercase;
 }
 
-/* #searchTabs #advanceSearch\.personDateOfBirthRangeStart,#searchTabs #advanceSearch\.personDateOfBirthRangeEnd {
+#searchTabs #advanceSearch\.personDateOfBirthRangeStart,#searchTabs #advanceSearch\.personDateOfBirthRangeEnd {
 	width: 129px;
 }
 
@@ -323,16 +341,15 @@ header span.fullname {
 	width: 25px;
 }
 
-.ui-widget-header {
+/*.ui-widget-header {
 	background: url('../images/Backgrounds/bg-tabs-header.png') repeat-x;
 	border: none;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
-}
+}*/
 
 .ui-tabs-anchor {
 	border-radius: 0;
-	height: 15px;
 	font-size: 12px;
 	color: #777777;
 	font-weight: bold;
@@ -347,30 +364,30 @@ header span.fullname {
 
 #searchTabs #advancedSearchTab,#searchTabs #simpleSearchTab {
 	overflow: visible;
-	width: 827px;
 }
 
 .searchCancelSection {
-	width: 872px;
 	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
-	height: 37px;
+	height: 42px;
 	margin: 0px;
 	position: relative;
-	left: -21px;
-	bottom: -22px;
-	padding: 13px 0 0 9px;
+	bottom: -20px;
+	padding: 1em 0 0 1em;
+	margin-left: -1.7vw;
+  	padding-left: 1.7vw;
+  	margin-right: -1.7vw;
+  	padding-right: 1.7vw;
 }
 
-#simpleSearchForm .searchCancelSection{
-	left: -27px !important;
+#juvenileSearchForm .searchCancelSection{
+	margin-left: -1.5vw;
+  	padding-left: 1.5vw;
+  	margin-right: -1.5vw;
+  	padding-right: 1.5vw;
 }
 
 .ie9 .searchCancelSection {
 	bottom: -23px;
-}
-
-.ie8 .searchCancelSection {
-    width: 871px;
 }
 
 .ie8 #advancedSearchTab .searchCancelSection {
@@ -414,7 +431,7 @@ header span.fullname {
 	margin: 1px 0 0 0;
 	border-radius: 0;
 }
-
+ 
 #searchTabs .ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
 	color: #777777;
 }
@@ -457,7 +474,7 @@ header span.fullname {
 	border-spacing: 0;
 	border-collapse: collapse;
 	font-size: 12px;
-	background-color: #ffffff;
+	/* background-color: #ffffff; */
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 30px;
@@ -480,8 +497,8 @@ header span.fullname {
 	padding-right:5.5px!important;
 }
 
-************************** Modal Dialog ************************
-.ui-dialog {
+/*************************** Modal Dialog *************************/
+/* .ui-dialog {
 	padding: 0;
 	background: none;
 	background-color: #fafafa;
@@ -510,7 +527,7 @@ header span.fullname {
 .ui-dialog .ui-dialog-content {
 	padding: 0;
 }
-
+ */
 .ui-dialog-title,.ui-button-text {
 	font-size: small;
 	color: #777777;
@@ -821,14 +838,14 @@ td.detailsLabel {
 	padding: 0;
 }
 
-******************** Mock content ******************************
+/********************* Mock content *******************************/
 #stateBanner {
 	width: 882px;
 	height: 118px;
 	text-align: center;
 }
 
-*********************** Data Table ***************************
+/************************ Data Table ****************************/
 
 .dataTables_wrapper{
 	font-size: small
@@ -854,8 +871,8 @@ td.detailsLabel {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 2rem;
-	margin: 0 -2rem -2rem 0;
-	overflow: hidden;
+/* 	margin: 0 -2rem -2rem 0;
+ */	overflow: hidden;
 	padding: 0;
 	position: absolute;
 	width: auto;
@@ -901,13 +918,13 @@ td.detailsLabel {
 .buttonBarButton {
 	padding: 0 1.25rem;
  	border: 1px solid #cbcbcb;
-	Important inheritance to manipulate border radius from parent
+	/* Important inheritance to manipulate border radius from parent */
 	border-radius: inherit;
-	background-color: #e5e9e8;
-	-webkit-box-shadow: inset 0 1px #fff;
+/* 	background-color: #e5e9e8;
+ */	-webkit-box-shadow: inset 0 1px #fff;
 	box-shadow: inset 0 1px #fff;
-	color: #454545;
-text-shadow: 0 1px #fff;
+/* 	color: #454545;
+text-shadow: 0 1px #fff; */
 	line-height: 2rem;	
 	background: url('../images/Backgrounds/bg-table-header.jpg');
 	background-repeat: repeat-x;
@@ -923,7 +940,7 @@ text-shadow: 0 1px #fff;
 .buttonBarButton.is-active {
 	background: url('../images/Backgrounds/bg-button-blue.jpg');
 	background-repeat: repeat-x;
-	background-color: #d3d7d7;
+	/* background-color: #d3d7d7; */
 	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
 	box-shadow: inset 0 1px rgba(0,0,0,0.12);
 }
@@ -942,7 +959,7 @@ text-shadow: 0 1px #fff;
 	z-index: 1;
 }
 
-*********************** Misc ****************************
+/************************ Misc *****************************/
 #portalContent{
 	width: 100%;
 }
@@ -1009,7 +1026,7 @@ text-shadow: 0 1px #fff;
 	font-weight: bold;
 }
 
-*********************** Suggestion Form ****************************	
+/************************ Suggestion Form *****************************/	
 	
 .defaultTextArea {
      display: block;
@@ -1025,7 +1042,7 @@ text-shadow: 0 1px #fff;
 	text-transform: uppercase;
 }
 
-***********************Slider custom-handle****************************
+/************************Slider custom-handle*****************************/
  #custom-handle {
    width: 3em;
    height: 1.6em;
@@ -1052,7 +1069,7 @@ text-shadow: 0 1px #fff;
   color:white;
 }
 
- */
+
  
  .ui-dialog-title,.ui-button-text {
 	font-size: small;

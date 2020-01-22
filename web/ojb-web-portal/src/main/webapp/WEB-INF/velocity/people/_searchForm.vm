@@ -22,7 +22,7 @@
  		  
     	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $( "#searchTabs" ).tabs({ active: index});
-    	    
+    	    $( "#tabs" ).tabs();
     	    switch(index){
 	            case 1:   
 	            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");
@@ -182,7 +182,7 @@
 <div id="sourceSystemsDisabled" style="display: none;">
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
-<div id="searchTabs" class="contentBox">
+<div id="searchTabs" class="contentBox small">
     <div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
     <ul>
         #if($showJuvenileSearchTab)
@@ -263,7 +263,7 @@
     					</td>
     	        	<tr>
     	        </table>
-    	        <div class="searchCancelSection" >
+    	        <div>
     	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
     	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
     	        </div>
@@ -273,4 +273,5 @@
   			#parse('people/_juvenileSearchTab.vm')
   		#end
   
+ 
 </div>
