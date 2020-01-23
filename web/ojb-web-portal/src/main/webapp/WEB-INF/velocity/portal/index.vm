@@ -30,8 +30,22 @@
 	    
 	    <div class="container-fluid small">
 		    <div id="loadingAjaxPane"></div>
-		    <div id="portalContent">
-		      <div>Welcome to the new portal</div>
+		    <div id="mainContent" class="row">
+			    <div id="filterColumn" class="col-2 d-none">
+			    		    
+			      #set($homePage=$stateSpecificHomePage['thisHomePage'])		    
+			      
+			      #if($homePage=="landingPage")
+	              	#parse("common/_landingLeftBar.vm")
+			      
+			      #elseif($homePage=="query")
+			         #parse("common/_leftBar.vm")
+			      #end
+			      
+			    </div>
+			    <div id="portalContent" class="col">
+			      <div>Welcome to the new portal</div>
+			    </div>
 		    </div>
 	    </div>
 	    
@@ -90,10 +104,10 @@
 <!--			 		}-->	
 <!--			 		else{ -->
 			     		var loadingDiv =  $("#loadingAjaxPane");
-			     		var portalContentDiv = $("#portalContent");
+			     		var mainContentDiv = $("#mainContent");
 						
-			     		loadingDiv.height(portalContentDiv.height());
-			     		loadingDiv.width(portalContentDiv.width());
+			     		loadingDiv.height(mainContentDiv.height());
+			     		loadingDiv.width(mainContentDiv.width());
 			     		
 			          	$("#loadingAjaxPane").show();          	
 <!--			 		}     	-->	     	
@@ -200,7 +214,7 @@
 		    			
 		    			$("#demogFilterInfo").hide();
 		    			
-		    			$('#filterColumn').css('visibility', 'visible');    				    			 
+		    			$('#filterColumn').removeClass('d-none');    				    			 
 		    			
 						$.get("#springUrl('/people/searchForm')", function(data) {		
 									
@@ -246,6 +260,7 @@
 				$('#rapbackLink').click(function() {	  
 			  				  				  					  					    			    	
 		    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
+		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 					}).fail(ojbc.displayFailMessage);
 									    

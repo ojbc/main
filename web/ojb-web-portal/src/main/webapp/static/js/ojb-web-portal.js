@@ -51,10 +51,10 @@ ojbc = {
 	},
 	showLoadingPane: function(){
  		var loadingDiv =  $("#loadingAjaxPane");
- 		var portalContentDiv = $("#portalContent");
+ 		var mainContentDiv = $("#mainContent");
 		
- 		loadingDiv.height(portalContentDiv.height());
- 		loadingDiv.width(portalContentDiv.width());
+ 		loadingDiv.height(mainContentDiv.height());
+ 		loadingDiv.width(mainContentDiv.width());
  		
       	$("#loadingAjaxPane").show();          	
 	},

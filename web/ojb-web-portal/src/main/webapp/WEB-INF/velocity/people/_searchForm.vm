@@ -75,6 +75,7 @@
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
 		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+		  			  $('#filterColumn').addClass('d-none');
 				      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});

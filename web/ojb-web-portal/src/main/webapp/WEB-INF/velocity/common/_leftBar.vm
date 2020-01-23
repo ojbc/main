@@ -70,37 +70,43 @@
         });
     		
     </script>
-    
-    #if( $showReasonsForSearch )
-		<p class="headerText">REASONS FOR SEARCH </p>
-		<p class="instructionalText"> Enter Search Criteria Here:</p>
-		
-		<select id="purposeSelect"> 
-			#foreach($entry in $searchPurposes.entrySet())
-				<option value="$entry.getKey()">$entry.getValue()</>
-			#end
-		</select>
-		<input id="onBehalfOf" type="text" />
-	#else
-		<div style="height:100px; width:100%; clear:both;"></div>
-	#end
-	
-	<div class="horizontalDivide"> </div>
-	<p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
-	<p class="instructionalText"> Select all that apply.</p>
-	<div id="sourceSystemsCheckBoxes">
-		<!-- This is a placeholder that will be filled in via the search forms -->
-	</div>
-	<div id="sourceSystemsCheckBoxesDisabled">
-		<!-- This is a placeholder that will be filled in via the search forms -->
-	</div>
-		
-	#if( $showDemographicsFilter )
-		<div class="horizontalDivide"> </div>	
-		<div id="demogFilterInfo">	
-			#parse("people/_searchFilter.vm")
+    #*
+    <div class="row">
+    *#
+	    #if( $showReasonsForSearch )
+	    	#*
+	    	<div class="col-2">
+	    	*#
+				<p class="headerText">REASONS FOR SEARCH </p>
+				<p class="instructionalText"> Enter Search Criteria Here:</p>
+				
+				<select id="purposeSelect" class="form-control form-control-sm"> 
+					#foreach($entry in $searchPurposes.entrySet())
+						<option value="$entry.getKey()" class="small">$entry.getValue()</>
+					#end
+				</select>
+				<input id="onBehalfOf" type="text" class="form-control form-control-sm"/>
+			#*
+			</div>
+			*#
+		#end
+		<div class="horizontalDivide"> </div>
+		#*
+	    <div class="col">
+	    *#
+			<p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
+			<p class="instructionalText"> Select all that apply.</p>
+			<div id="sourceSystemsCheckBoxes">
+				<!-- This is a placeholder that will be filled in via the search forms -->
+			</div>
+			<div id="sourceSystemsCheckBoxesDisabled">
+				<!-- This is a placeholder that will be filled in via the search forms -->
+			</div>
+		#*
 		</div>
-	#end
-	
+		*#
+	#*
+	</div>
+	*#
 </div>
 
