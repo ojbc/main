@@ -421,7 +421,8 @@ public class PortalController implements ApplicationContextAware {
 		StringBuilder links = new StringBuilder();
 
 		for(SearchProfile profile : getActiveSearchProfiles(authentication)) {
-			links.append("<a id='").append(getLinkId(profile)).append("' href='#' class='dropdown-item small'>");
+			links.append("<a id='").append(getLinkId(profile)).append("' href='#' class='dropdown-item small ")
+				.append(getLinkId(profile)).append("'>");
 			links.append(profile.getDisplayName());
 			links.append("</a>");
 		}

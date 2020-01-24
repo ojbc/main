@@ -205,7 +205,8 @@
 				    return false;							       	        	
 				})
 		
-				$('#peopleSearchLink').click (function() {
+				$('body').off('click','.peopleSearchLink').on('click','.peopleSearchLink',function() {
+
 					$(this).parent().toggleClass('show');
 					// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
 					$.post("#springUrl('/portal/leftBar')", function(data) {

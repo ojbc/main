@@ -171,6 +171,13 @@
 
   </script>
 <div>
-        $searchContent
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="peopleSearchLink">Person Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Person Search Results</li>
+		</ol>
+	</nav>
+    $searchContent
 </div>
 
