@@ -55,6 +55,7 @@
                     var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
 		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       		$('#filterColumn').addClass('d-none');
 				        $('#portalContent').html(data);
 			        }).fail(ojbc.displayFailMessage);
 			    }
@@ -66,8 +67,9 @@
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       		$('#filterColumn').addClass('d-none');
 				        $('#portalContent').html(data);
-				        }).fail(ojbc.displayFailMessage);
+			        }).fail(ojbc.displayFailMessage);
     		  	}
     		);
     			
