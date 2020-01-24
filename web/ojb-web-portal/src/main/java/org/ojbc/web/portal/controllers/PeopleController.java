@@ -60,7 +60,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/people/*")
-@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo"})
+@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo", "activeSearchTab"})
 public class PeopleController {
 	private final Log log = LogFactory.getLog(this.getClass());
 	public static final String PAGINATE_URL = "../people/paginate";
@@ -145,7 +145,9 @@ public class PeopleController {
 			model.put("personSearchCommand", userSession.getMostRecentSearch());
 		}
 
-		model.put("activeSearchTab", activeSearchTab);
+		if (resetForm || model.get("activeSearchTab") == null) {
+			model.put("activeSearchTab", activeSearchTab);
+		}
 
 		return personSearchForm;
 	}
