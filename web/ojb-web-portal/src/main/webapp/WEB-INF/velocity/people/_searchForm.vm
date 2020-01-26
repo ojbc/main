@@ -22,7 +22,6 @@
  		  
     	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $( "#searchTabs" ).tabs({ active: index});
-    	    $( "#tabs" ).tabs();
     	    switch(index){
 	            case 1:   
 	            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");

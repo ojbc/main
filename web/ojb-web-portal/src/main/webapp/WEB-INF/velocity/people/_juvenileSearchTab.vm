@@ -24,65 +24,88 @@
         
  		#springBind( "personSearchCommand.searchType" )
 		<input type="hidden" name="${status.expression}" value="JUVENILE" /><br>
-  		<table>
-  			<tr>
-  				<td>
-			        <p class="searchSubHeader"> NAME</p>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name'") </div>
-			        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
-			        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name'")</div>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name'")</div>
-			        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>
-			           
-			        <p class="searchSubHeader"> ALIAS</p>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.alias.givenName" "placeholder='First Name'") </div>
-			        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.alias.givenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
-			        <div>#springFormInput("personSearchCommand.advanceSearch.alias.middleName" "placeholder='Middle Name'")</div>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.alias.surName" "placeholder='Last Name'")</div>
-			        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.alias.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
+  		<div class='row'>
+  			<div class='col-6'>
+		        <p class="searchSubHeader"> NAME</p>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name' class='form-control form-control-sm'") </div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+		        <div class="radioButtonBar" > </div>   
+		        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name' class='form-control form-control-sm'")</div>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+		           
+		        <p class="searchSubHeader"> ALIAS</p>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.alias.givenName" "placeholder='First Name' class='form-control form-control-sm'") </div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.alias.givenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.alias.middleName" "placeholder='Middle Name' class='form-control form-control-sm'")</div>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.alias.surName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.alias.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+		        
+		        <div class="labelText" >
+		        	DOB Range: #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate' placeholder='From'")#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate ml-2' placeholder='End'")
+		        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
+                     #springShowErrors( "<br/>" "error" )
+		        </div>
+		        
+		        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "class='form-control form-control-sm chosen-select'" ) </div>
 			        
-			        <div class="labelText" >
-			        	DOB Range: #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate' placeholder='From'")#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate' placeholder='End'")
-			        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
-                         #springShowErrors( "<br/>" "error" )
-			        </div>
-			        
-			        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "" ) </div>
-			        
-	        	</td>
-	  			<td>
-			        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.placement" $placements "" ) </div>
-					<div>
-					   #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN' class='ssn'")<br/> 
-					   #springShowErrors( "<br/>" "error" )
-					</div>
-					<div>
-					   #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #'")<br/>
-					   #springShowErrors( "<br/>" "error" )
-					</div>
-					<div>
-					   #springFormInput("personSearchCommand.advanceSearch.address.address1" "placeholder='Address'")<br/>
-					   #springShowErrors( "<br/>" "error" )
-					</div>
-					<div>
-					   #springFormInput("personSearchCommand.advanceSearch.address.city" "placeholder='City'")<br/>
-					   #springShowErrors( "<br/>" "error" )
-					</div>
-			        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.address.stateCode" $states "" ) </div>
-					<div>
-					   #springFormInput("personSearchCommand.advanceSearch.address.zipCode" "placeholder='Zip Code' class='zipCode'")<br/>
-					   #springShowErrors( "<br/>" "error" )
-					</div>
-			  		  
-			        <p class="searchSubHeader"> PARENT</p>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.givenName" "placeholder='First Name'") </div>
-			        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.parentName.givenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
-			        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.middleName" "placeholder='Middle Name'")</div>
-			        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.surName" "placeholder='Last Name'")</div>
-			        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.parentName.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
-				</td>
-        	<tr>
-        </table>
+        	</div>
+	  		<div class='col-6'>
+		        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.placement" $placements "class='form-control form-control-sm chosen-select'" ) </div>
+				<div>
+				   #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN' class='ssn form-control form-control-sm'") 
+				   #springShowErrors( "" "error" )
+				</div>
+				<div>
+				   #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #' class='form-control form-control-sm'")
+				   #springShowErrors( "" "error" )
+				</div>
+				<div>
+				   #springFormInput("personSearchCommand.advanceSearch.address.address1" "placeholder='Address' class='form-control form-control-sm'")
+				   #springShowErrors( "" "error" )
+				</div>
+				<div>
+				   #springFormInput("personSearchCommand.advanceSearch.address.city" "placeholder='City' class='form-control form-control-sm'")
+				   #springShowErrors( "" "error" )
+				</div>
+		        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.address.stateCode" $states "class='form-control form-control-sm chosen-select'" ) </div>
+				<div>
+				   #springFormInput("personSearchCommand.advanceSearch.address.zipCode" "placeholder='Zip Code' class='zipCode form-control form-control-sm'")<br/>
+				   #springShowErrors( "" "error" )
+				</div>
+		  		  
+		        <p class="searchSubHeader"> PARENT</p>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.givenName" "placeholder='First Name' class='form-control form-control-sm'") </div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.parentName.givenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.middleName" "placeholder='Middle Name' class='form-control form-control-sm'")</div>
+		        <div>#springFormInput("personSearchCommand.advanceSearch.parentName.surName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
+				<div class="form-check-inline">
+				  <label class="form-check-label form-control-sm">
+				    #springFormRadioButtons("personSearchCommand.advanceSearch.parentName.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+				  </label>
+				</div>
+			</div>
+        </div>
         <div class="searchCancelSection" >
         	<a id="juvenileSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
         	<a id="juvenileSearchClearButton" class="grayButton"  >CLEAR</a>
