@@ -80,12 +80,20 @@
 				<p class="headerText">REASONS FOR SEARCH </p>
 				<p class="instructionalText"> Enter Search Criteria Here:</p>
 				
-				<select id="purposeSelect" class="form-control form-control-sm"> 
-					#foreach($entry in $searchPurposes.entrySet())
-						<option value="$entry.getKey()" class="small">$entry.getValue()</>
-					#end
-				</select>
-				<input id="onBehalfOf" type="text" class="form-control form-control-sm"/>
+				<div class='row'>
+					<div class='col-10'>
+						<select id="purposeSelect" class="form-control form-control-sm"> 
+							#foreach($entry in $searchPurposes.entrySet())
+								<option value="$entry.getKey()" class="small">$entry.getValue()</>
+							#end
+						</select>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-9'>
+						<input id="onBehalfOf" type="text" class="form-control form-control-sm"/>
+					</div>
+				</div>
 			#*
 			</div>
 			*#
