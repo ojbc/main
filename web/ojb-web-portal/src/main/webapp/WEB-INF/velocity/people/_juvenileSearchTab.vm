@@ -56,13 +56,17 @@
 				    #springFormRadioButtons("personSearchCommand.advanceSearch.alias.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
 				  </label>
 				</div>
-		        
-		        <div class="labelText" >
-		        	DOB Range: #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate' placeholder='From'")#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate ml-2' placeholder='End'")
-		        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
-                     #springShowErrors( "<br/>" "error" )
-		        </div>
-		        
+		          <div class="form-group row">
+				    <label for="advanceSearch.personDateOfBirthRangeStart" class="col-sm-2 col-form-label col-form-label-sm">DOB:</label>
+				    <div class="col-sm-4">
+			        	 #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate form-control form-control-sm' placeholder='From'")
+			        	 #springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
+	                     #springShowErrors( "<br/>" "error" )
+				    </div>
+				    <div class="col-sm-4">
+		        		 #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate form-control form-control-sm' placeholder='End'")
+				    </div>
+				  </div>
 		        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "class='form-control form-control-sm chosen-select'" ) </div>
 			        
         	</div>
