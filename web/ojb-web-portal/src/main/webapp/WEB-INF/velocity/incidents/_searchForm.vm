@@ -119,30 +119,31 @@
                 #end
             #end
      
-    	  		<table>
-    	  			<tr>
-    	  				<td>
-    				        <div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentCityTown" $cityTowns "" ) </div>
-    				        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "placeholder='Incident #'") </div>
-    				        
-    				        <div class="labelText" >
-    				        	Date Range: 
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
-    				        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
-    				        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
-                                 #springShowErrors( "<br/>" "error" )
-    				        </div>
-    		        	</td>
-    		  			<td>
-
-    		  				<div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentType" $incidentTypes "" ) </div>
-    					</td>
-    	        	<tr>
-    	        </table>
-    	        <div class="searchCancelSection" >
-    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-    	        </div>
+	  		<div class='row'>
+  				<div class='col-6'>
+			        <div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentCityTown" $cityTowns "class='form-control form-control-sm'" ) </div>
+			        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "placeholder='Incident #' class='form-control form-control-sm'") </div>
+			        
+					<div class="form-group row">
+						<label for="advanceSearch.incidentDateRangeStart" class="col-sm-3 col-form-label col-form-label-sm">Date Range</label>
+						<div class="col-sm-4">
+							 #springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='mdate datePicker' placeholder='From'")
+			        		 #springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
+						     #springShowErrors( "<br/>" "error" )
+						</div>
+						<div class="col-sm-4">
+							 #springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd"  "class='mdate datePicker' placeholder='To'")
+						</div>
+					</div>
+	        	</div>
+	  			<div class='col-6'>
+	  				<div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentType" $incidentTypes "class='form-control form-control-sm'" ) </div>
+				</div>
+	        </div>
+	        <div class="searchCancelSection" >
+	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+	        </div>
         </div>
     </form>
   

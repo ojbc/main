@@ -229,7 +229,23 @@
 				});
 		    		 
 		    	$('#incidentSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+					$(this).parent().toggleClass('show');
+					$.get("#springUrl('/incidents/searchForm')", function(data) {		
+								
+					      $('#portalContent').html(data);
+					      
+					})
+					.fail(ojbc.displayFailMessage)
+					.done(function(){
+						$.post("#springUrl('/portal/leftBar')", function(data) {
+						    		    			
+			    			$('#filterColumn').html(data);	 
+			    			
+			    			$('#filterColumn').removeClass('d-none');
+			    			
+						});	    				    				    			
+	    			});     				    			 
+    				return false;
     			});
     		 
 	        	$('#vehicleSearchLink').click (function() {
