@@ -207,9 +207,9 @@ public class PortalAccessControlTest {
             .andExpect(status().isOk()).andReturn();
         
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"adminLink\" href=\"#\">Admin </a>")); 
     }
     
@@ -228,9 +228,9 @@ public class PortalAccessControlTest {
     			.andExpect(status().isOk()).andReturn();
     	
         Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
     	
     }
     
@@ -250,9 +250,9 @@ public class PortalAccessControlTest {
     			.andExpect(status().isOk()).andReturn();
     	
         Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"subscriptionsLink\" href=\"#\">Subscriptions </a>")); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant <br>Rap Back </a>")); 
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal <br>Identification </a>")); 
-        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"queryLink\" href=\"#\">Query </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"rapbackLink\" href=\"#\">Applicant Rap Back </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link\" id=\"criminalIdLink\" href=\"#\">Criminal Identification </a>")); 
+        Assert.assertFalse(result.getResponse().getContentAsString().contains("<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"dropdownQuery\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Query</a>")); 
     	
     }
     

@@ -94,7 +94,7 @@ public class PortalControllerTest {
 	@Test
 	public void testIndex() throws Exception
 	{
-		String expectedSearchLinksHtml = "<a id=\"peopleSearchLink\" href=\"#\" class=\"blueButton\" style=\"border-bottom-right-radius: 0px; border-top-right-radius: 0px;\"><div  class=\"activeSearchLink\"></div>PERSON SEARCH</a><a id=\"incidentSearchLinkDisabled\" href=\"#\" class=\"grayButton\" style=\"border-radius: 0px 0px 0px 0px;\"><div ></div>INCIDENT SEARCH</a><a id=\"vehicleSearchLink\" href=\"#\" class=\"grayButton\" style=\"border-bottom-left-radius: 0px; border-top-left-radius: 0px;\"><div ></div>VEHICLE SEARCH</a>";
+		String expectedSearchLinksHtml = "<a id='peopleSearchLink' href='#' class='dropdown-item small peopleSearchLink'>Person Search</a><a id='incidentSearchLinkDisabled' href='#' class='dropdown-item small incidentSearchLinkDisabled'>Incident Search</a><a id='vehicleSearchLink' href='#' class='dropdown-item small vehicleSearchLink'>Vehicle Search</a>";
 		
 		unit.index(request, model, null);
 		assertThat((String) model.get("currentUserName"), is(PortalController.DEFAULT_USER_LOGON_MESSAGE));
