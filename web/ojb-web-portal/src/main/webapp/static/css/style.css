@@ -274,6 +274,10 @@ header span.fullname {
 	margin: 0;
 }
 
+#searchTabs .labelText, #filterForm .labelText, .radioButtonBar {
+	font-size: 12px;
+	color: #333333;
+}
 #searchTabs .searchSubHeader {
 	font-size: 12px;
 	color: #898989;
@@ -332,14 +336,14 @@ header span.fullname {
 #demogFilterInfo #filterHeightTolerance,
 #demogFilterInfo #filterWeightTolerance
 	{
-	width: 20px;
+	width: 3.5em;
 	margin-right: 1px;
 }
 
 #searchTabs #advanceSearch\.personWeight,
 #demogFilterInfo #filterWeight {
 	margin-right: 1px;
-	width: 40px;
+	width: 3.5em;
 }
 
 .ie9 #searchTabs #advanceSearch\.personWeight {
@@ -378,10 +382,10 @@ header span.fullname {
 	position: relative;
 	bottom: -20px;
 	padding: 1em 0 0 1em;
-	margin-left: -1.6vw;
-  	padding-left: 1.6vw;
-  	margin-right: -1.6vw;
-  	padding-right: 1.6vw;
+	margin-left: -1.5vw;
+  	padding-left: 1.5vw;
+  	margin-right: -1.5vw;
+  	padding-right: 1.5vw;
   	border-bottom-right-radius:4px;
   	border-bottom-left-radius:4px;
 }
@@ -1109,6 +1113,10 @@ input[type='text'] {
 	color: #898989;
 	margin: .75em 0 .75em 0;
 	height:28px;
+}
+
+input .shortDigit{
+	height:28px; 
 }
 
 #filterColumn input[type='text']:disabled {
