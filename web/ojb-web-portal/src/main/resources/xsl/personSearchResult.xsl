@@ -340,19 +340,27 @@
     </xsl:template>
     
     <xsl:template match="nc:PersonPhysicalFeature">
-		<p><xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/></p>
+		<div class="alert alert-warning" role="alert">
+			<xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.</span><br />
+		<div class="alert alert-warning" role="alert">
+			User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+		<div class="alert alert-warning" role="alert">
+  			System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</span><br />
+		<div class="alert alert-warning" role="alert">
+			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+		</div>
 	</xsl:template>
 	
 </xsl:stylesheet>
