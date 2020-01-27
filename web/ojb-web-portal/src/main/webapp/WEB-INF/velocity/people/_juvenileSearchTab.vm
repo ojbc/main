@@ -57,7 +57,7 @@
 				  </label>
 				</div>
 		          <div class="form-group row">
-				    <label for="advanceSearch.personDateOfBirthRangeStart" class="col-sm-2 col-form-label col-form-label-sm">DOB:</label>
+				    <label for="advanceSearch.personDateOfBirthRangeStart" class="col-sm-1 col-form-label col-form-label-sm">DOB</label>
 				    <div class="col-sm-4">
 			        	 #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate form-control form-control-sm' placeholder='From'")
 			        	 #springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")

@@ -30,7 +30,7 @@
 	    
 	    <div class="container-fluid small">
 		    <div id="loadingAjaxPane"></div>
-		    <div id="mainContent" class="row">
+		    <div id="mainContent" class="row ml-0 mr-0">
 			    <div id="filterColumn" class="col-3 d-none">
 			    		    
 			      #set($homePage=$stateSpecificHomePage['thisHomePage'])		    

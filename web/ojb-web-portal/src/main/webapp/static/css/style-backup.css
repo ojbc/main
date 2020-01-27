@@ -319,7 +319,6 @@ a.grayButton:hover {
 #filterColumn {
 	width: 239px;
 	height: 100%;
-	padding: 6px 0 0 14px;
 }
 
 #filterColumn input[type='text'] {
