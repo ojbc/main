@@ -81,7 +81,7 @@
 				<p class="instructionalText"> Enter Search Criteria Here:</p>
 				
 				<div class='row'>
-					<div class='col-10'>
+					<div class='col-12'>
 						<select id="purposeSelect" class="form-control form-control-sm"> 
 							#foreach($entry in $searchPurposes.entrySet())
 								<option value="$entry.getKey()" class="small">$entry.getValue()</>

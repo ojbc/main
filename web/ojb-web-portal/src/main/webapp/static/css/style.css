@@ -212,7 +212,6 @@ a.grayButton:hover {
 
 .horizontalDivide {
 	background: url('../images/horizontal-divide.png') repeat-x;
-	width: 250px;
 	height: 2px;
 }
 
@@ -1124,7 +1123,6 @@ input .shortDigit{
 }
 
 #filterColumn select {
-	width: 223px;
 	padding: 4px;
 	background: url('../images/select-gradiant.png') repeat-x;
 	border-radius: 2px;
@@ -1137,7 +1135,7 @@ input .shortDigit{
 }
 
 #filterColumn .horizontalDivide {
-	margin: 20px 0px 20px -13px;
+	margin: 20px 0px 20px 0px;
 }
 
 #filterColumn .headerText {
