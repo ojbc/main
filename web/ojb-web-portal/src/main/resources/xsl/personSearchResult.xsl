@@ -53,7 +53,7 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
    		<xsl:if test="exc:RecordLimitExceededIndicator='true'">
-   			<span class="error">Unable to perform Entity Resolution. The search returned too many records.</span>
+   			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
     	<xsl:choose>
@@ -340,9 +340,9 @@
     </xsl:template>
     
     <xsl:template match="nc:PersonPhysicalFeature">
-		<div class="alert alert-warning" role="alert">
+		<p>
 			<xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/>
-		</div>
+		</p>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
