@@ -319,7 +319,6 @@ header span.fullname {
 .ui-datepicker-trigger {
 	position: relative;
 	left: -42px;
-	top: 4px;
 }
 
 #searchTabs #ageRangeStart,
