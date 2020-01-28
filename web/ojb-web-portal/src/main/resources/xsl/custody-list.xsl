@@ -79,11 +79,9 @@
 																		
 									$('#custodyTable tr').removeClass("selected");
 									$(this).addClass("selected");
-									
-									var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
+									var divHeight = $('#searchDetailsFrame').height() - $('#personInformationInModal').height() - 12; 
+									var tempDiv = '<div id="modalIframeSpinner" style="height:' + divHeight + 'px;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
-									$("#modalIframeSpinner").height($("#custodyTable").height())	
-			 						$("#modalIframeSpinner").width($("#custodyTable").width())	
 									
 									$('#custodyDetailDataHolder').html(tempDiv);                                         
 								
