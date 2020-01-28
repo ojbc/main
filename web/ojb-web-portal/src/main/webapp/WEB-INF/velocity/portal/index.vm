@@ -228,24 +228,20 @@
 				    return false;
 				});
 		    		 
-		    	$('#incidentSearchLink').click (function() {
+		    	$('body').off('click','.incidentSearchLink').on('click', '.incidentSearchLink',function() {
 					$(this).parent().toggleClass('show');
-					$.get("#springUrl('/incidents/searchForm')", function(data) {		
-								
-					      $('#portalContent').html(data);
-					      
-					})
-					.fail(ojbc.displayFailMessage)
-					.done(function(){
-						$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post("#springUrl('/portal/leftBar')", function(data) {
 						    		    			
-			    			$('#filterColumn').html(data);	 
-			    			
-			    			$('#filterColumn').removeClass('d-none');
-			    			
-						});	    				    				    			
-	    			});     				    			 
-    				return false;
+		    			$('#filterColumn').html(data);	 
+		    			
+		    			$("#demogFilterInfo").hide();
+		    			
+		    			$('#filterColumn').removeClass('d-none');    				    			 
+		    			
+		    		}).fail(ojbc.displayFailMessage)
+		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')"));			    
+				    					   
+				    return false;
     			});
     		 
 	        	$('#vehicleSearchLink').click (function() {

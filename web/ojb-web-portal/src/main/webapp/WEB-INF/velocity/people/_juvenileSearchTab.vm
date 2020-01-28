@@ -18,7 +18,7 @@
     <form id='juvenileSearchForm' >
         #if($errors.hasGlobalErrors())
             #foreach( $globalError in $errors.globalErrors )
-                <div class="error"> $globalError.defaultMessage </div>
+                <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
             #end
         #end
         
