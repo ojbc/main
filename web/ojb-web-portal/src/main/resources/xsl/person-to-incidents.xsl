@@ -54,7 +54,7 @@
 		            </tr>
 		            <tr>
 			            <td>
-			            	<span class="error">There are no incidents associated with this person record.</span><br /> 
+			            	<div class="alert alert-warning" role="alert">There are no incidents associated with this person record.</div> 
 			            </td>
 		            </tr>
 		        </table>
@@ -156,6 +156,6 @@
 		</xsl:choose>
    </xsl:template>
     <xsl:template match="srer:SearchRequestError">
-    	<span class="error">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+    	<div class="alert alert-warning" role="alert">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></div>
     </xsl:template>
 </xsl:stylesheet>
