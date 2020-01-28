@@ -26,9 +26,10 @@
 																		
 									$('#custodyTable tr').removeClass("selected");
 									$(this).addClass("selected");
-									
-									var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"></div>';
+									var divHeight = $('#searchDetailsFrame').height() - $('#personInformationInModal').height() - 12; 
+									var tempDiv = '<div id="modalIframeSpinner" style="height:' + divHeight + 'px;width:100%"></div>';
 									// tempDiv for css spinner - replaced upon receipt of get data
+									
 									$('#custodyDetailDataHolder').html(tempDiv);                                         
 								
 									xhr = $.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
@@ -37,7 +38,8 @@
 				  						var modalIframe = $("#modalIframe", parent.document);
 				  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
 										
-									}).fail(ojbc.displayCustodyDetailFailMessage);
+									}).fail(ojbc.displayCustodyDetailFailMessage)
+									.done();
 								
 								}).hover(function () {
 										$(this).addClass("custodyDetailHover");
