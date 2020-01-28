@@ -53,33 +53,27 @@
    		</xsl:if>
 
     	
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-		        <table class="searchResultsTable display" id="searchResultsTable">
-		        	<thead>	
-				        <tr>
-		    				<th>ENTITY</th>
-			                <th>MAKE</th>
-			                <th>MODEL</th>
-			                <th>COLOR</th>
-			                <th>YEAR</th>
-			                <th>PLATE</th>
-			                <th>VIN</th>
-			                <th>SYSTEM</th>
-			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-			            </tr>
-		            </thead>
-		            <tbody>
-				        <xsl:apply-templates select="//ext:Entity"/>
-			        </tbody>
-		        </table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+        <table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
+        	<thead>	
+		        <tr>
+    				<th>ENTITY</th>
+	                <th>MAKE</th>
+	                <th>MODEL</th>
+	                <th>COLOR</th>
+	                <th>YEAR</th>
+	                <th>PLATE</th>
+	                <th>VIN</th>
+	                <th>SYSTEM</th>
+	                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	            </tr>
+            </thead>
+            <tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">
+			        <xsl:apply-templates select="//ext:Entity"/>
+		    	</xsl:if>
+	        </tbody>
+        </table>
+    	
     </xsl:template>
 
     <!-- this will print a "merge" on the results screen -->

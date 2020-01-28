@@ -43,18 +43,18 @@
 				
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/vehicles/searchForm')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
+				$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage);
+		});
 		
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 	  		$.get("#springUrl('/vehicles/searchForm?resetForm=true')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
+	  			$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+			}).fail(ojbc.displayFailMessage);
+		});
 				
 		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
             var url = this.href;
@@ -120,20 +120,25 @@
 	  
   </script>
 <div id="searchResultsContainer" class="contentBox" >
-    <div id="searchResultsHeader" > 
-        <p id="search-results-title">SEARCH RESULTS: VEHICLE</p>
-        <div style="float:right" >
-            <a id="returnToSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;" src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
-                RETURN TO SEARCH
-            </a>
-            <a id="newSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
-                NEW SEARCH
-            </a>
-        </div>
-    </div>
-    <div style="padding: 10px">
-        $searchContent
-    </div>
+	<div class="card">
+		<div class="card-header container-fluid">
+		  <div class="row ml-1 h-100">
+		    <div class="my-auto font-weight-bold">
+		      SEARCH RESULTS: VEHICLE
+		    </div>
+		    <div class="ml-auto mr-3">
+		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-secondary small">RETURN TO SEARCH</button>
+		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto small" >NEW SEARCH</button>
+		     </div>
+		  </div>
+		</div>
+		<div class="card-body">
+			#if($informationMessages && $informationMessages!='')
+				<div class="alert alert-danger" role="alert" id="informationMessages" >
+					$informationMessages
+				</div>
+			#end
+			$searchContent								
+		</div>
+	</div>
 </div>

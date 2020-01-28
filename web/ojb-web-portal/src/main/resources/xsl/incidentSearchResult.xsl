@@ -54,33 +54,26 @@
    			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
 
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-		        <table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">	
-		        	<thead>
-				        <tr>
-		    				<th>ENTITY</th>
-			                <th>TYPE/NATURE</th>
-			                <th>ROLE</th>
-			                <th>INCIDENT #</th>
-			                <th>AGENCY</th>
-			                <th>DATE</th>
-			                <th>LOCATION</th>
-			                <th>SYSTEM</th>
-			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-			            </tr>
-		            </thead>
-		            <tbody>
-				        <xsl:apply-templates select="exc:EntityContainer/ext:Entity"/>
-			        </tbody>
-		        </table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+        <table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">	
+        	<thead>
+		        <tr>
+    				<th>ENTITY</th>
+	                <th>TYPE/NATURE</th>
+	                <th>ROLE</th>
+	                <th>INCIDENT #</th>
+	                <th>AGENCY</th>
+	                <th>DATE</th>
+	                <th>LOCATION</th>
+	                <th>SYSTEM</th>
+	                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	            </tr>
+            </thead>
+            <tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">
+			        <xsl:apply-templates select="exc:EntityContainer/ext:Entity"/>
+		    	</xsl:if>
+	        </tbody>
+        </table>
     </xsl:template>
 
     <!-- this will print a "merge" on the results screen -->
