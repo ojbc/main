@@ -243,12 +243,32 @@
 				    return false;
     			});
     		 
-	        	$('#vehicleSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");
+				$('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
+					$(this).parent().toggleClass('show');
+					$.post("#springUrl('/portal/leftBar')", function(data) {
+						    		    			
+		    			$('#filterColumn').html(data);	 
+		    			
+		    			$("#demogFilterInfo").hide();
+		    			
+		    			$('#filterColumn').removeClass('d-none');    				    			 
+		    			
+		    		}).fail(ojbc.displayFailMessage)
+		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')"));
     			});
     		 
-	    		$('#firearmSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')");
+    		 	$('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
+					$(this).parent().toggleClass('show');
+					$.post("#springUrl('/portal/leftBar')", function(data) {
+						    		    			
+		    			$('#filterColumn').html(data);	 
+		    			
+		    			$("#demogFilterInfo").hide();
+		    			
+		    			$('#filterColumn').removeClass('d-none');    				    			 
+		    			
+		    		}).fail(ojbc.displayFailMessage)
+		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')"));
     			});
 		    		 
 				$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
