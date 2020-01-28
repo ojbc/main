@@ -54,7 +54,9 @@
                     var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
 		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
-		  	       		$('#filterColumn').addClass('d-none');
+		  	       	    if (!data.includes('id="advancedSearchTab"')){
+			  	       		$('#filterColumn').addClass('d-none');
+		  	       		}
 				        $('#portalContent').html(data);
 			        }).fail(ojbc.displayFailMessage);
 			    }
@@ -66,7 +68,9 @@
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
-		  	       		$('#filterColumn').addClass('d-none');
+		  	       	    if (!data.includes('id="advancedSearchTab"')){
+			  	       		$('#filterColumn').addClass('d-none');
+		  	       		}
 				        $('#portalContent').html(data);
 			        }).fail(ojbc.displayFailMessage);
     		  	}
@@ -76,8 +80,10 @@
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
 		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
-		  			  $('#filterColumn').addClass('d-none');
-				      $('#portalContent').html(data);
+					if (!data.includes('id="advancedSearchTab"')){
+						$('#filterColumn').addClass('d-none');
+					}
+				    $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});
     	  
@@ -198,7 +204,7 @@
   	    <form id='advancedSearchForm'>
             #if($errors.hasGlobalErrors())
                 #foreach( $globalError in $errors.globalErrors )
-                    <div class="error"> $globalError.defaultMessage </div>
+                    <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
                 #end
             #end
      

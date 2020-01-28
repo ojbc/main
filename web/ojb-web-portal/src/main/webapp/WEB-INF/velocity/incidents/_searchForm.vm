@@ -49,8 +49,11 @@
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     
     		  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
+    		  	       		if (!data.includes('id="advancedSearchTab"')){
+    		  	       			$('#filterColumn').addClass('d-none');
+    		  	       		}
     				        $('#portalContent').html(data);
-    				        }).fail(ojbc.displayFailMessage)
+				        }).fail(ojbc.displayFailMessage)
 				    }
     		  	}
     		)
@@ -115,7 +118,7 @@
      <div id="advancedSearchTab">
             #if($errors.hasGlobalErrors())
                 #foreach( $globalError in $errors.globalErrors )
-                    <div class="error"> $globalError.defaultMessage </div>
+                    <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
                 #end
             #end
      
@@ -124,17 +127,13 @@
 			        <div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentCityTown" $cityTowns "class='form-control form-control-sm'" ) </div>
 			        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "placeholder='Incident #' class='form-control form-control-sm'") </div>
 			        
-					<div class="form-group row">
-						<label for="advanceSearch.incidentDateRangeStart" class="col-sm-3 col-form-label col-form-label-sm">Date Range</label>
-						<div class="col-sm-4">
-							 #springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='mdate datePicker' placeholder='From'")
-			        		 #springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
-						     #springShowErrors( "<br/>" "error" )
-						</div>
-						<div class="col-sm-4">
-							 #springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd"  "class='mdate datePicker' placeholder='To'")
-						</div>
-					</div>
+			        <div class="labelText" >
+			        	Date Range: 
+			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
+			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
+			        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
+                         #springShowErrors( "<br/>" "error" )
+			        </div>
 	        	</div>
 	  			<div class='col-6'>
 	  				<div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentType" $incidentTypes "class='form-control form-control-sm'" ) </div>
