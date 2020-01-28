@@ -82,6 +82,9 @@
 									
 									var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
+									$("#modalIframeSpinner").height($("#custodyTable").height())	
+			 						$("#modalIframeSpinner").width($("#custodyTable").width())	
+									
 									$('#custodyDetailDataHolder').html(tempDiv);                                         
 								
 									xhr = $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
@@ -90,7 +93,8 @@
 				  						var modalIframe = $("#modalIframe", parent.document);
 				  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
 										
-									}).fail(ojbc.displayCustodyDetailFailMessage);
+									}).fail(ojbc.displayCustodyDetailFailMessage)
+									.done();
 								
 								}).hover(function () {
 										$(this).addClass("custodyDetailHover");

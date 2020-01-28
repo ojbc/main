@@ -32,6 +32,11 @@
     </head>
  	<script type="text/javascript">
 	  	$(function() {
+			$( document ).ajaxStart(function() {
+				$( "#modalIframeSpinner" ).show();
+			}).ajaxStop(function() {
+	      	  	$("#modalIframeSpinner").hide();
+			});
 	  	
 	  		if ($.trim(window.parent.$("#personInformationInModal").html())!=''){
 				if ($("#buttonPane").length){
@@ -50,6 +55,10 @@
 	  			$("#modalIframeSpinner").show();
   			});
   			  			
+			$( document ).ajaxStart(function() {
+			  $( "#loading" ).show();
+			});
+				
 			$("#printButton").on("click", function(){
 				window.print();
 			}); 
