@@ -59,7 +59,7 @@
 	</xsl:template>
 
 	<xsl:template name="rapbacks">
-			<table class="searchResultsTable display" id="searchResultsTable">
+			<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th>NAME</th>
@@ -113,25 +113,22 @@
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			User does not meet privilege requirements to access
 			<xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />. To request access, contact your IT department.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System Name: <xsl:value-of select="nc:SystemName" />, 
 			Error: <xsl:value-of select="srer:ErrorText" />
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System <xsl:value-of select="../nc:SystemName" /> returned too many records, please refine your criteria.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 </xsl:stylesheet>

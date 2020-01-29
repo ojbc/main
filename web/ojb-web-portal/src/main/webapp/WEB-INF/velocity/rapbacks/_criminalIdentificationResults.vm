@@ -167,31 +167,37 @@
 	
 	
 <div id="searchResultsContainer" class="contentBox">
+	<div class="card">
+		<div class="card-header container-fluid">
+		  <div class="row ml-1 h-100">
+		    <div class="my-auto font-weight-bold">
+		      MANAGE CRIMINAL IDENTIFICATION
+		    </div>
+		    <div class="ml-auto mr-3">
+		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-secondary small">RETURN TO SEARCH</button>
+		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto small" >NEW SEARCH</button>
+		     </div>
+		  </div>
+		</div>
+		<div class="card-body">
+			<div class="breadcrumb" id="filterColumn">
+				<div id="checkbox-subsequentReuslts" class="col-3">
+					<input type="checkbox" name="hasRapBackNotifications" id="hasRapBackNotifications" value="hasRapBackNotifications"><span class="fieldText pl-2" >Only Show Rap Back Notifications</span>
+				</div>
+				<div id="checkbox-show-archived-only" class="col-3">
+					<input type="checkbox" name="showArchivedOnly" id="showArchivedOnly" value="showArchivedOnly"><span class="fieldText pl-2" >Show Archived Only</span>
+				</div>
+			</div>
+		
+			#if($informationMessages && $informationMessages!='')
+				<div class="alert alert-warning" role="alert" id="informationMessages" >
+					$informationMessages
+				</div>
+			#end
+			$searchContent								
+		</div>
+	</div>
 
-    <div id="searchResultsHeader"> 
-        <p id="search-results-title">MANAGE CRIMINAL IDENTIFICATION</p>
-        <div style="float:right" >
-            <a id="returnToSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
-                RETURN TO SEARCH
-            </a>
-            <a id="newSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
-                NEW SEARCH
-            </a>
-        </div>
-        
-    </div>
-    
-    <div style="padding:10px">
-		#if($informationMessages && $informationMessages!='')
-			<span class="error">
-				$informationMessages
-			</span><br/>
-		#end
-		$searchContent								
-    </div>
-    
 </div>
 
 
