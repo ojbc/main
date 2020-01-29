@@ -85,6 +85,7 @@
 		    	$(".navbar-nav .nav-link").on("click", function(){
 		    	  $(this).parent().siblings().removeClass('show');
 		    	  $(this).parent().addClass('active').siblings().removeClass('active');
+		    	  $('.dropdown-menu:not(this ~ .dropdown-menu)').removeClass('show');
 	    		});
 		        
 				$("#demogFilterInfo").hide();
@@ -301,15 +302,9 @@
 				
 				$('#criminalIdLink').click(function() {	  
 		    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationDefaultSearch')", function(data) {
-		    		
+		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 													
-					}).done(function(){
-					    $.post("#springUrl('/portal/criminalIdentificationLeftBar')", function(data) {
-							    	
-			    			$('#filterColumn').html(data);
-			    			$('#filterColumn').css('visibility', 'visible');
-			    		}).fail(ojbc.displayFailMessage);
 					}).fail(ojbc.displayFailMessage);
 									    
 					return false;
