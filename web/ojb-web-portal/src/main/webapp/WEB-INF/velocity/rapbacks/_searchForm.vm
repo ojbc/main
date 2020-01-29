@@ -20,6 +20,16 @@
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
  		  ojbc.handleEsc();
+		    $( ".datePicker" ).datepicker({
+		       showOn: "both",
+		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		       buttonImageOnly: true,
+		       shortYearCutoff: "+10",
+		       dateFormat: 'mm/dd/yy',
+		       onClose: function(dateText, inst) {
+		  		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+		       }
+		    });
 		    
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
@@ -76,7 +86,6 @@
 	                #end
 	            #end
 				<input type="hidden" name="${status.expression}" value="ADVANCED" />
-				<div> 
 	    	  		<div class="row">
 		  				<div class="col">
 						    <div class="form-group">
@@ -119,10 +128,9 @@
 						  	  #springShowErrors( "<br/>" "error" ) 
 						    </div>
 					        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN' class='form-control form-control-sm'")</div>
-			        	</div>
-	    	        </div>
-    	        </div>
-		    </form>
+			            </div>
+	    	       </div>
+		     </form>
 		</div>
 		<div class="card-footer text-muted">
         	<a id="advanceSearchSubmitButton" class="btn btn-sm btn-primary text-white small" >SEARCH</a>

@@ -84,38 +84,46 @@
                     <div class="error"> $globalError.defaultMessage </div>
                 #end
             #end
-			<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
-    	  		<table>
-    	  			<tr>
-    	  				<td>
-    				        <p class="searchSubHeader"> NAME</p>
-    				        <div>#springFormInput("criminalIdentificationSearchRequest.firstName" "placeholder='First Name'") </div>
-    				        <div>#springFormInput("criminalIdentificationSearchRequest.lastName" "placeholder='Last Name'")</div>
-    				        <div>#springFormInput("criminalIdentificationSearchRequest.otn" "placeholder='OTN'")</div>
-    				        
-   				        	<div class="labelText" >
-    				        	<p class="searchSubHeader">Reported Date </p>
-    				        	 From: #springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
-    				        		&nbsp;To:&nbsp;#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
-    				        		#springBind("criminalIdentificationSearchRequest.reportedDateStartDate")
-                                #springShowErrors( "<br/>" "error" )
-    				        </div>
-							
-							<div class="labelText">
-								<p class="searchSubHeader"> Identification Result Status</p>
-								#springFormCheckboxes("criminalIdentificationSearchRequest.identificationTransactionStatus" $criminalIdentificationStatusCodeMap " " "")
-							</div>    				        
-							<div class="labelText">
-								<p class="searchSubHeader"> Criminal Identification Reason Code</p>
-								#springFormCheckboxes("criminalIdentificationSearchRequest.criminalIdentificationReasonCodes" $criminalIdentificationReasonCodeMap "<br>" "")
-							</div>    				        
-    		        	</td>
-    	        	<tr>
-    	        </table>
-    	        <div class="searchCancelSection" >
-    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-    	        </div>
-		    </form>
-        </div>
+			<input type="hidden" name="${status.expression}" value="ADVANCED" />
+	  		<div class='row'>
+  				<div class='col-5'>
+				    <p class="searchSubHeader"> NAME</p>
+			        <div>#springFormInput("criminalIdentificationSearchRequest.firstName" "placeholder='First Name' class='form-control form-control-sm'") </div>
+			        <div>#springFormInput("criminalIdentificationSearchRequest.lastName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
+			        <div>#springFormInput("criminalIdentificationSearchRequest.otn" "placeholder='OTN' class='form-control form-control-sm'")</div>
+				        
+		        	<div class="labelText" >
+			        	<p class="searchSubHeader">Reported Date </p>
+			        	 From: #springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
+			        		&nbsp;To:&nbsp;#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
+			        		#springBind("criminalIdentificationSearchRequest.reportedDateStartDate")
+                        #springShowErrors( "<br/>" "error" )
+			        </div>
+		        </div>
+				<div class='col-5'>
+					<div class="labelText">
+						<p class="searchSubHeader"> Identification Result Status</p>
+						
+						<div class="form-check-inline">
+					  		<label class="form-check-label form-control-sm">
+					    		#springFormCheckboxes("criminalIdentificationSearchRequest.identificationTransactionStatus" $criminalIdentificationStatusCodeMap "" "class='form-check-input'" )
+					  		</label>
+						</div>
+					</div>    				        
+					<div class="labelText">
+						<p class="searchSubHeader"> Criminal Identification Reason Code</p>
+						<div class="form-check-inline">
+					  		<label class="form-check-label form-control-sm">
+					    		#springFormCheckboxes("criminalIdentificationSearchRequest.criminalIdentificationReasonCodes" $criminalIdentificationReasonCodeMap "" "class='form-check-input'" )
+					  		</label>
+						</div>
+					</div>    				        
+		        </div>
+	        </div>
+	        <div class="searchCancelSection" >
+	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+	        </div>
+	    </form>
+    </div>
 </div>

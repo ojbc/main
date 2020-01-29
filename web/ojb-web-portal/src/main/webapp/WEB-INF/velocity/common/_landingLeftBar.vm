@@ -16,7 +16,7 @@
  *#
 <div id = "landingLeftBarDiv">
      <ul>
-          #foreach($entry in $leftBarLinks.entrySet())
+      #foreach($entry in $leftBarLinks.entrySet())
 	    <li>
 	      <a id="$entry.getKey()" class="leftBarLink" href="$entry.getValue()" target="_blank"><div></div>$entry.getKey()</a>
 	    </li>

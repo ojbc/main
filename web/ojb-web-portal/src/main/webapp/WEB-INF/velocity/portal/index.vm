@@ -291,7 +291,6 @@
 				});
 		    		 
 				$('#rapbackLink').click(function() {	  
-			  				  				  					  					    			    	
 		    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
@@ -311,9 +310,7 @@
 				});
 				
 				$('#faqLink').click (function() {	  
-				  		
-				    $('#searchBarButtonDiv').css("display", "none");
-				    $('#filterColumn').css('visibility', 'visible');
+				    $('#filterColumn').removeClass('d-none');
 		
 					//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
 				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
