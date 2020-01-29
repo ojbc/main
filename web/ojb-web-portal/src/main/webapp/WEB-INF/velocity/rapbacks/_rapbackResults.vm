@@ -78,20 +78,20 @@
 		
 			var oTable = $("#searchResultsTable").DataTable(optTable);
 			
-			$('#filterColumn').on("change", '#rapbacksFilter', function() {
+			$('#portalContent').on("change", '#rapbacksFilter', function() {
     	    	oTable.draw();
     		} );
 	  		
-			$('#filterColumn').on("click", '#clearFilterButton', function() {
+			$('#portalContent').on("click", '#clearFilterButton', function() {
 				$('#rapbacksFilter').val('');
 	        	oTable.draw();
 	    	} );
     	
-			$('#filterColumn').on("change", '#hasRapBackNotifications', function() {
+			$('#portalContent').on("change", '#hasRapBackNotifications', function() {
 	        	oTable.draw();
 	    	} );
     	
-			$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			$('#portalContent').on("change", '#showArchivedOnly', function() {
 				if ($('#showArchivedOnly').is(":checked")){
 					$('#rapbacksFilter').val('');
 				}

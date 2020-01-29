@@ -68,14 +68,14 @@
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
 
-		$('#filterColumn').on("change", '#showArchivedOnly', function() {
+		$('#portalContent').on("change", '#showArchivedOnly', function() {
 			if ($('#showArchivedOnly').is(":checked")){
 				$('#hideArchived').attr('checked', false);
 			}
         	oTable.draw();
     	} );
 
-		$('#filterColumn').on("change", '#hideArchived', function() {
+		$('#portalContent').on("change", '#hideArchived', function() {
 			if ($('#hideArchived').is(":checked")){
 				$('#showArchivedOnly').attr('checked', false);
 			}
