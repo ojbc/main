@@ -492,7 +492,6 @@
 			$rapbackSearchContent								
 		</div>
 	</div>
-    
 </div>
 
 <div id="dialog-confirm-authorization" title="Are you authorized?" class="d-none">
