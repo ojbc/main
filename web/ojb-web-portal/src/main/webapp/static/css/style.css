@@ -414,6 +414,51 @@ header span.fullname {
 .ui-widget {
 	font-size:small;
 }
+/********************** subscriptions *********************/
+
+#subscriptionResultsContainer {
+	background-color: #fafafa;
+}
+
+#subscriptionResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+#subscriptionResultsTitle {
+	font-size: .9375em;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+	left: 13px;
+}
+
+
+.sublink {
+	position: relative;
+	top: 9px;
+	left: -13px;
+}
+
+#subImgSpan {
+	background:url('../images/Subscriptions/icon-add.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0 5px -3px 0;
+}
+
+	
+#addSubLink:hover #subImgSpan{
+	background: url('../images/Subscriptions/icon-add-white.png') no-repeat center;
+}
+
+#subFormDiv {
+	width:230px;
+	height:440px;
+}
+
 *************************** Tabs ********************************
 #searchTabs #simpleSearchTab p {
 	font-size: 12px;
