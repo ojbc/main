@@ -78,7 +78,7 @@
 
 		var row = $(this).parent();		    
 	    $( "#dialog-confirm-validate" ).dialog({
-	    	  position: { my: "center center", at: "center center", of: row },
+	    	  position: { my: "center center", at: "center center", of: window },
 		      resizable: true,
 		      modal: true,
 		      buttons: {
@@ -221,16 +221,19 @@
     
     <div style="padding:10px" id="subscriptionsContent">
 		#if($informationMessages && $informationMessages!='')
-			<span class="error">
+			<div class="alert alert-danger fade in alert-dismissible show">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>    
 				$informationMessages
-			</span><br/>
+			</div>
 		#end
 		$subscriptionsContent								
     </div>
     
     <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
   		<div style="margin:7px;padding:7px;">
-  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
+  			<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
   			<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
   			<p>If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
   		</div>
