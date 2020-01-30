@@ -62,10 +62,13 @@
 				<xsl:value-of select="count(ext:SubscriptionSearchResult)"></xsl:value-of>
 			</xsl:variable>
 			<xsl:if test="$containedResultCount &lt; number(srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity)">
-				<span class="hint">
+				<div class="alert alert-info fade in alert-dismissible show">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true" style="font-size:20px">×</span>
+					</button>    
 					The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
 					entries are loaded. Please refine your search with the ADVANCED SEARCH.
-				</span>
+				</div>
 			</xsl:if>
 			<xsl:call-template name="Subscriptions"/>
 			<span id="subscriptionButtons">
@@ -78,7 +81,7 @@
 	</xsl:template>
 
 	<xsl:template name="Subscriptions">
-			<table class="searchResultsTable display" id="searchResultsTable">
+			<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th></th><!-- For the checkboxes -->
@@ -251,26 +254,23 @@
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			User does not meet privilege requirements to access
 			<xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />. To request access, contact your IT department.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System Name: <xsl:value-of select="intel:SystemName" />, 
 			Error: <xsl:value-of select="srer:ErrorText" />
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="nc:Date" mode="endDate">

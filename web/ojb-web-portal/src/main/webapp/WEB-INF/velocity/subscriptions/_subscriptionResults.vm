@@ -208,14 +208,15 @@
 <div id="subscriptionResultsContainer" class="contentBox">
 
     <div id="subscriptionResultsHeader"> 
-    
-        <p id="subscriptionResultsTitle">MANAGE SUBSCRIPTIONS</p>
-                        
-        <div style="float:right;" id="subscriptionTopButtons">
-        	<a id="addSubLink" class="grayButton sublink" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
-        	<a id="advancedSearch" class="grayButton sublink" href="#">ADVANCED SEARCH</a>
-    	</div>
-        
+	    <div class="row ml-1 h-100">
+			<div class="my-auto font-weight-bold" id="subscriptionResultsTitle">
+			  MANAGE SUBSCRIPTIONS
+			</div>
+			<div class="ml-auto mr-3" id="subscriptionTopButtons">
+	        	<a id="addSubLink" class="grayButton sublink" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
+	        	<a id="advancedSearch" class="grayButton sublink" href="#">ADVANCED SEARCH</a>
+			</div>
+		</div>
     </div>
     
     <div style="padding:10px" id="subscriptionsContent">
