@@ -53,7 +53,7 @@
 			<div class="d-none">
 				<div id="dialog-warning" title="NOTICE TO USERS">
 					<p id="dialog-warning-p">  
-						<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 0 0;"></span>
+						<i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>
 						$sensitiveInfoAlertMessage
 					</p>
 				</div>
