@@ -272,7 +272,7 @@
 		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')"));
     			});
 		    		 
-				$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
+				$('body').off("click", "#subscriptionsLink").on("click", "#subscriptionsLink", function() {	  
 			  				  				  					  					    			    	
 					xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
 						$('#portalContent').html(data);
