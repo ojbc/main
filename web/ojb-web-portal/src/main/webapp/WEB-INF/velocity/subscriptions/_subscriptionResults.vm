@@ -143,9 +143,8 @@
 			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/> ').appendTo('body');
 			 vSubDialog.dialog({                    
 	                position: { my: "center bottom", at: "center top", of: row, collision:"none fit"},
-//	                position: { my: "center center", at: "center center", of: window, collision:"none fit"},
 	                modal:true,
-					resizable:true,
+					resizable:false,
 			        open:function(event,ui){
 			        	$('#editSubscriptionDialog').html(data);
 			        	centerDialog('editSubscriptionDialog');
@@ -173,13 +172,14 @@
     			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
     			 
     			 vSubDialog.dialog({                    
-						position: { my: "center bottom", at: "center top", of: $('#portalContent'), collision: "fit fit" },
+						position: { my: "center bottom", at: "center top", of: $("#mainContent")},
 		                modal:true,
 				        maxWidth:480,
 				        maxHeight:dlgHeight,
 				        resizable:false,
 				        open:function(event,ui){							        							        	
 				        	$('#addSubscriptionDialog').html(data);
+				        	centerDialog('addSubscriptionDialog');
 				        	$('#modalIframeSpinner').hide();
 				        },
 				        close: function(event, ui){
