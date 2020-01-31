@@ -108,9 +108,9 @@
 		</td>
 		<td>		
 			#if( ${isStartDateEditable} )
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
+				#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='enabledDatePicker' placeholder='From'")
 			#else
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
+				#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
 			#end					
 		</td>
 	</tr>
@@ -120,9 +120,9 @@
 		</td>
 		<td>
 			#if( ${isEndDateEditable} )
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='enabledDatePicker' placeholder='End Date'")
 			#else
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
 			#end	
 		</td>
 	</tr>

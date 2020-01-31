@@ -67,10 +67,10 @@
 				<td style="padding-left: 1em;">
 					<p class="searchSubHeader"> Notification Date Range</p>
 			        <div class="labelText" >
-			        	From: #springFormInput("rapbackNotificationDateRange.startDate" "style='width:110px' class='mdate datePicker' placeholder='Start Date'") #springShowErrors( "<br/>" "error" )
+			        	From: #springFormInput("rapbackNotificationDateRange.startDate" "style='width:120px' class='mdate datePicker' placeholder='Start Date'") #springShowErrors( "<br/>" "error" )
 		        	</div> 
 			        <div class="labelText" >
-			        	To: #springFormInput("rapbackNotificationDateRange.endDate"  "style='width:110px' class='mdate datePicker' class='datePicker' placeholder='End Date'") #springShowErrors( "<br/>" "error" )
+			        	To: #springFormInput("rapbackNotificationDateRange.endDate"  "style='width:120px' class='mdate datePicker' class='datePicker' placeholder='End Date'") #springShowErrors( "<br/>" "error" )
 			        </div>
 	        	</td>
 	    	<tr>
