@@ -622,16 +622,12 @@ header span.fullname {
 }
 
 #subscriptionForm input{
-	height: 15px;
 	width: 200px;
-	background: url('../images/input-gradiant.png') repeat-x;
-	border-radius: 2px;
-	border: 1px solid #d9d9d9;
-	color: #898989;
-	margin: 6px 6px 6px 6px;
+	margin: 6px;
 	padding: 6px;
-	font-size: 12px;
+	font-size:12px;
 }
+
 #subscriptionForm textarea{
 	width: 200px;
 	background: url('../images/input-gradiant.png') repeat-x;
