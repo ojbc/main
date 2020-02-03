@@ -118,6 +118,8 @@
 			<camel:filter>
 				<camel:simple>${in.headers.operationName} == 'SubmitWarrantSupplementalModificationRequest'</camel:simple>
 				
+				<camel:log message="Warrant supplemental modification request: ${body}"/>
+				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 							
 			  	<camel:setHeader headerName="operationName">
