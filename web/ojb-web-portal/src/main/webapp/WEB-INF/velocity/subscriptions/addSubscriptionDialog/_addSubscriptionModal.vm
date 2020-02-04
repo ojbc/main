@@ -216,7 +216,7 @@
 	  	var subTypeTxt = $("#topic option:selected").text().trim();
 	  			
 		if(subTypeTxt === 'Arrest'){						
-			$(".ui-dialog").width("240");
+			$(".ui-dialog").width("250");
 			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
@@ -236,7 +236,7 @@
 	  		).fail(ojbc.displayFailMessage);				
 															
 		}else if(subTypeTxt === 'Incident'){		
-			$(".ui-dialog").width("240");
+			$(".ui-dialog").width("250");
 			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
@@ -245,7 +245,7 @@
 	  		).fail(ojbc.displayFailMessage);
 	  		
 	  	}else if(subTypeTxt === 'ATN Assignment'){
-			$(".ui-dialog").width("240");
+			$(".ui-dialog").width("250");
 			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
 	  			function(data){		  			
