@@ -30,8 +30,8 @@
 	  	  		$(".ui-dialog").height("auto");
 	  	  		$("#subFormDiv").height("auto");
 				$("#topic").after('<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span>');
-	  	  	}	  	  		
-
+	  	  	}
+	  	  	
     		$('#editSubModalSaveLink').click(
     			function(){
     			    			    			       			    						
@@ -68,9 +68,9 @@
     			}
     		)
     		
-	  });	
-	
-		  		  		  
+	  });
+	  
+	  	
 	function saveChCycleSubscription(){
 						  					  		
 		var firstName = $('#firstName').val();			  	
@@ -212,9 +212,6 @@
 	  
 </script>
 
-
-
-<!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
 <div style="width:auto;height:auto;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 		<div>
