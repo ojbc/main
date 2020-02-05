@@ -1169,6 +1169,7 @@ input .shortDigit{
 }
 
 #filterColumn select {
+	height:28px;
 	padding: 4px;
 	background: url('../images/select-gradiant.png') repeat-x;
 	border-radius: 2px;

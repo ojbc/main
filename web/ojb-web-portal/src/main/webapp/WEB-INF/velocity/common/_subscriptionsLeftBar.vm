@@ -14,73 +14,69 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<div id="subscriptionsLeftBarDiv">
-
-	<script type="text/javascript">
-	
-		$(function(){
+	#set($showSubFilter=$subscriptionFilterProperties['displaySubscriptionFilter'])		    
+	  
+	#if($showSubFilter=="true")
+		<script type="text/javascript">
 		
-			$('#subResultsFilterButton').click(function() {	
-																		
-				validateLinkExists = $("#validateLink").length > 0; 
-				var formData = $('#filterSubscriptionForm').serialize();
-								             	
-		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
-		  			formData,	  		
-		  			function(data) {	
-		  				if (validateLinkExists){	  			
-    						$('#portalContent').html(data);
-    					}
-    					else{
-    						$("#subsAdminContent").html(data);	
-    					}	        									         					        				      
-					}
-				).fail(ojbc.displayFailMessage);				
+			$(function(){
+			
+				$('#subResultsFilterButton').click(function() {	
+																			
+					validateLinkExists = $("#validateLink").length > 0; 
+					var formData = $('#filterSubscriptionForm').serialize();
+									             	
+			  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
+			  			formData,	  		
+			  			function(data) {	
+			  				if (validateLinkExists){	  			
+	    						$('#portalContent').html(data);
+	    					}
+	    					else{
+	    						$("#subsAdminContent").html(data);	
+	    					}	        									         					        				      
+						}
+					).fail(ojbc.displayFailMessage);				
+				});
+				
+				
+				$('#subResultsFilterClearButton').click (function() {	
+	
+					var formData = 'subscriptionStatus=All';
+					validateLinkExists = $("#validateLink").length > 0;
+									             	
+			  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
+			  			formData,	  		
+			  			function(data) {		  			
+			  				if (validateLinkExists){	  			
+	    						$('#portalContent').html(data);
+	    					}
+	    					else{
+	    						$("#subsAdminContent").html(data);	
+	    					}	        									         					        				      
+							$('#subscriptionStatus').val('All');
+						}
+					).fail(ojbc.displayFailMessage);
+				});
+				
 			});
-			
-			
-			$('#subResultsFilterClearButton').click (function() {	
-
-				var formData = 'subscriptionStatus=All';
-				validateLinkExists = $("#validateLink").length > 0;
-								             	
-		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
-		  			formData,	  		
-		  			function(data) {		  			
-		  				if (validateLinkExists){	  			
-    						$('#portalContent').html(data);
-    					}
-    					else{
-    						$("#subsAdminContent").html(data);	
-    					}	        									         					        				      
-						$('#subscriptionStatus').val('All');
-					}
-				).fail(ojbc.displayFailMessage);
-			});
-			
-		});
-	            
-	</script>   
+		            
+		</script>   
     
         
-  #set($showSubFilter=$subscriptionFilterProperties['displaySubscriptionFilter'])		    
-  
-  #if($showSubFilter=="true")
-  		
-	<form id="filterSubscriptionForm">
-			  	  
-		<p class="headerText">SUBSCRIPTIONS FILTER</p>
-		<p class="instructionalText"> Enter Filter Criteria Here:</p>			
-
-		<div>
-			#springFormSingleSelect("subscriptionFilterCommand.subscriptionStatus" $subscriptionFilterValueToLabelMap "")
-		</div>					
-		 	    	        
-	</form>
-	
-	<input type="button" id="subResultsFilterButton" style="margin:4px" class="blueButton" value="FILTER RESULTS"></input>
-	<input type="button" id="subResultsFilterClearButton" style="margin:4px" class="blueButton" value="CLEAR"></input>
-  
-  #end 		    
+		<div class="breadcrumb mt-2" id="filterColumn">
+			<form id="filterSubscriptionForm">
+				<div class='row'>
+					<div class="col-5 headerText">SUBSCRIPTIONS FILTER</div>
+					<div class="col-2">
+						#springFormSingleSelect("subscriptionFilterCommand.subscriptionStatus" $subscriptionFilterValueToLabelMap "")
+					</div>
+					<div class="col-5 pt-1">					
+						<a href="#" id="subResultsFilterButton" style="margin:4px" class="blueButton">FILTER RESULTS</a><a href="#" id="subResultsFilterClearButton" style="margin:4px" class="blueButton">CLEAR</a>
+					</div>
+				</div>
+			</form>
+			
+		</div>
+	#end 		    
 		      
-</div>
