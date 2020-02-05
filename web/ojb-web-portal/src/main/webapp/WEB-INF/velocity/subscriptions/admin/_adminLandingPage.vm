@@ -224,39 +224,44 @@
 
 .show {display:block;}
 </style>
-<div id="searchResultsContainer" class="contentBox">
+<div id="subscriptionResultsContainer" class="contentBox">
 
-    <div id="searchResultsHeader"> 
-        <p id="search-results-title">SUBSCRIPTIONS ADMIN</p>
-        <div id="adminButtons" style="float:right" >
-            <a id="advancedAdminSearch" class="grayButton" >
-                ADVANCED SEARCH
-            </a>
-            <a id="activeErrorsSearch" class="grayButton" >
-                ERRORS
-            </a>
-            <a id="notifications" class="grayButton" >
-                Notifications
-            </a>
-         	<div class="dropdown">
-				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
-				<div id="myDropdown" class="dropdown-content">
-				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
-				    <a id="expiredSubscriptions">Expired Subscriptions</a>
+    <div id="subscriptionResultsHeader"> 
+    	<div class="row ml-1 h-100">
+	        <div class="my-auto font-weight-bold pb-4" id="search-results-title">SUBSCRIPTIONS ADMIN</div>
+	        <div id="adminButtons" class="ml-auto mr-3 mt-1 pt-2">
+	            <a id="advancedAdminSearch" class="grayButton" >
+	                ADVANCED SEARCH
+	            </a>
+	            <a id="activeErrorsSearch" class="grayButton" >
+	                ERRORS
+	            </a>
+	            <a id="notifications" class="grayButton" >
+	                Notifications
+	            </a>
+	         	<div class="dropdown">
+					<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
+					<div id="myDropdown" class="dropdown-content">
+					    <a id="expiringSubscriptions">Expiring Subscriptions</a>
+					    <a id="expiredSubscriptions">Expired Subscriptions</a>
+					</div>
 				</div>
-			</div>
-            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
-                MODIFY OWNER INFO
-            </a>
+	            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
+	                MODIFY OWNER INFO
+	            </a>
+	        </div>
         </div>
-        
     </div>
     
     <div style="padding:10px" id="subsAdminContent">
+    	#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<span class="error" id="informationMessages" >
+			<div class="alert alert-danger fade in alert-dismissible show" id="informationMessages" >
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>    
 				$informationMessages
-			</span><br/>
+			</div>
 		#end
 		
 		$subscriptionsContent 
