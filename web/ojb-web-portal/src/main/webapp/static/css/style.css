@@ -388,7 +388,8 @@ header span.fullname {
   	border-bottom-left-radius:4px;
 }
 
-#subscriptionsContent .searchCancelSection{
+#subscriptionsContent .searchCancelSection,
+#subsAdminContent .searchCancelSection{
 	margin-left: -.75vw;
   	padding-left: .75vw;
   	margin-right: -.75vw;
