@@ -209,7 +209,7 @@
 			</div>
 		</div>
     </div>
-    
+    #parse("common/_subscriptionsLeftBar.vm")
     <div style="padding:10px" id="subscriptionsContent">
 		#if($informationMessages && $informationMessages!='')
 			<div class="alert alert-danger fade in alert-dismissible show">

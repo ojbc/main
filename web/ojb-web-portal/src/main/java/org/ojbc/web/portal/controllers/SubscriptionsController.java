@@ -187,6 +187,9 @@ public class SubscriptionsController {
     Map<String, String> subscriptionFilterProperties;
 		
 	@Resource
+	Map<String, String> subscriptionFilterValueToLabelMap;
+	
+	@Resource
 	UserSession userSession;
 	
 	@Resource
@@ -223,6 +226,11 @@ public class SubscriptionsController {
 	private Map<String, String> subscriptionStatusMap = new HashMap<String, String>();
 	private Map<String, String> subscriptionPurposeMap = new HashMap<String, String>();
 
+	@ModelAttribute("subscriptionFilterValueToLabelMap")
+	public Map<String, String> getSubscriptionFilterValueToLabelMap(){
+		return subscriptionFilterValueToLabelMap;
+	}
+
 	@ModelAttribute
     public void setupFormModelAttributes(Model model) {
 		
@@ -245,6 +253,7 @@ public class SubscriptionsController {
         model.addAttribute("sidRegexForAddSubscription", sidRegexForAddSubscription);
         model.addAttribute("sidRegexValidationErrorMessage", sidRegexValidationErrorMessage);
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
+        model.addAttribute("subscriptionFilterCommand", new SubscriptionFilterCommand());
     }
     
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
