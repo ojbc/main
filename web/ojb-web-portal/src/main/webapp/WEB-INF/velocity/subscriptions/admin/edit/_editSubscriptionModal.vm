@@ -235,9 +235,8 @@
 		</div>	  
 	#end
 	<form id="subscriptionForm">  	
-		<div>
-			<span class="subscriptionHint">Topic:</span>
-			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "disabled='disabled'")
+		<div class='mt-3'>
+			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "disabled='disabled' title='topic'")
 			#springFormHiddenInput("subscription.topic")		
 		</div>			
 							
