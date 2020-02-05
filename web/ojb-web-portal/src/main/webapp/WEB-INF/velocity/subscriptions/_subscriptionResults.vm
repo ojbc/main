@@ -209,8 +209,9 @@
 			</div>
 		</div>
     </div>
-    #parse("common/_subscriptionsLeftBar.vm")
+    
     <div style="padding:10px" id="subscriptionsContent">
+    	#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
 			<div class="alert alert-danger fade in alert-dismissible show">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
