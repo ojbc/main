@@ -34,6 +34,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
+import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.LocalDatePropertyEditor;
 import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
 import org.ojbc.web.portal.validators.subscriptions.RapbackNotificationDateRangeValidator;
@@ -310,6 +311,8 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		model.addAttribute("notificationSystemNameMap", notificationSystemNameMap); 
 		
 		model.addAttribute("validationThreshold", validationThreshold);
+        model.addAttribute("subscriptionFilterCommand", new SubscriptionFilterCommand());
+
 	}
     
 

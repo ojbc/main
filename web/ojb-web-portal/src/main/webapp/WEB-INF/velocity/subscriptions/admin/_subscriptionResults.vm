@@ -122,10 +122,14 @@
 </script>
 	
 <div style="padding:10px">
+	#parse("common/_subscriptionsLeftBar.vm")
 	#if($informationMessages && $informationMessages!='')
-		<span class="error">
+		<div class="alert alert-danger fade in alert-dismissible show">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<i class="fas fa-times" aria-hidden="true"></i>
+			</button>    
 			$informationMessages
-		</span><br/>
+		</div>
 	#end
 	$subscriptionsContent								
 </div>

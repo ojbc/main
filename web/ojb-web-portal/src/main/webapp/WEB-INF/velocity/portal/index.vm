@@ -142,7 +142,7 @@
 				    #if($homePage=="landingPage")
 				    
 						$('#searchBarButtonDiv').css("display", "none");
-				    	$('#filterColumn').css('visibility', 'visible');
+				    	$('#filterColumn').removeClass('d-none');    				    			 
 				    
 				    	//TODO likely needs refactor(2 jquery ajax asynch calls in a row)
 						ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
@@ -159,7 +159,7 @@
 			    			
 			    			$("#demogFilterInfo").hide();
 			    			
-			    			$('#filterColumn').css('visibility', 'visible');    				    			 
+			    			$('#filterColumn').removeClass('d-none');    				    			 
 			    			
 							$.get("#springUrl('/people/searchForm')", function(data) {		
 										
@@ -172,16 +172,8 @@
 			    	#elseif($homePage=="subscriptions")
 			    	
 			    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
-			    		
+			    			$('#filterColumn').addClass('d-none');
 							$('#portalContent').html(data);	
-																	
-							$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
-								    	
-				    			$('#filterColumn').html(data);
-				    			$('#filterColumn').css('visibility', 'visible');
-				    			 
-				    		}).fail(ojbc.displayFailMessage);
-																			      
 						}).fail(ojbc.displayFailMessage);								    
 			    			    			    		
 				    #else
@@ -275,6 +267,7 @@
 				$('body').off("click", "#subscriptionsLink").on("click", "#subscriptionsLink", function() {	  
 			  				  				  					  					    			    	
 					xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+						$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);
 					}).fail(ojbc.displayFailMessage);
 					
@@ -329,13 +322,8 @@
 				    $('#searchBarButtonDiv').css("display", "none");
 		
 		    		xhr = $.get("#springUrl('/subscriptions/admin/landingPage')", function(data) {
+		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
-					}).done(function(){
-						$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
-										    	
-			    			$('#filterColumn').html(data);
-			    			$('#filterColumn').css('visibility', 'visible');
-			    		}).fail(ojbc.displayFailMessage);
 					}).fail(ojbc.displayFailMessage);
 									    					    
 				    return false;
