@@ -607,6 +607,7 @@ header span.fullname {
 
 #subscriptionForm {
 	margin: 10;
+	font-size: 12px;
 }
 
 #addSubscriptionDialog #editSubscriptionDialog{
@@ -823,9 +824,7 @@ td.detailsLabel {
 
 .ui-accordion .ui-accordion-content {
 	padding: 0;
-	
 }
-
 
 
 #incidentDetailTabs {
@@ -839,7 +838,6 @@ td.detailsLabel {
 	border-radius: 0;
 	margin: 0;
 	padding: 5px 0 5px 12px;
-	height: 21px;
 	color: #777;
 	background-image: url('../images/Backgrounds/bg-accordion-header.png') ;
 	background-repeat: repeat-x;
@@ -1030,7 +1028,7 @@ text-shadow: 0 1px #fff; */
 
 .subscriptionHint{
 	color:gray; 
-	font-size: x-small; 
+	font-size: 12px; 
 	font-weight: bold; 
 	padding: 1em;
 }
