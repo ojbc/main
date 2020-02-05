@@ -388,6 +388,14 @@ header span.fullname {
   	border-bottom-left-radius:4px;
 }
 
+#subscriptionsContent .searchCancelSection{
+	margin-left: -.75vw;
+  	padding-left: .75vw;
+  	margin-right: -.75vw;
+  	padding-right: .75vw;
+	
+}
+
 .ie9 .searchCancelSection {
 	bottom: -23px;
 }
