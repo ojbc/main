@@ -71,8 +71,7 @@
 	<span id="subscriptionButtons">
 		<a id="searchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>SEARCH</a>
 	</span>    				
-	<h4>Notifications</h4>
-	<table class="searchResultsTable display" id="searchResultsTable">
+	<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
 		<thead>
 			<tr>
 				<th>SUBJECT</th>
