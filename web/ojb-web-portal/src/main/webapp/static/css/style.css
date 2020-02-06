@@ -513,8 +513,7 @@ header span.fullname {
 	font-weight: bold;
 	text-transform: uppercase;
 	position: relative;
-	top: 13px;
-	left: 13px;
+	padding-left: 13px;
 }
 
 #searchResultsHeader a {
@@ -1237,4 +1236,9 @@ input .shortDigit{
 	font-size:.75rem;
 	color: #333333;
 	margin: .75em 0 .75em 0;
+}
+
+.btn-group-sm>.btn,  
+.btn-sm{
+	font-size:.75rem!important;
 }

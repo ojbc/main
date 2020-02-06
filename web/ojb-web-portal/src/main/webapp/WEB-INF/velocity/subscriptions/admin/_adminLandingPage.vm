@@ -224,7 +224,7 @@
 
     <div id="subscriptionResultsHeader"> 
     	<div class="row ml-1 h-100">
-	        <div class="my-auto font-weight-bold pb-4" id="search-results-title">SUBSCRIPTIONS ADMIN</div>
+	        <div class="my-auto font-weight-bold" id="search-results-title">SUBSCRIPTIONS ADMIN</div>
 	        <div id="adminButtons" class="ml-auto mr-3 mt-1 pt-2">
 	            <a id="advancedAdminSearch" class="grayButton" >
 	                ADVANCED SEARCH
