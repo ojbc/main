@@ -192,8 +192,7 @@
 				// but rather they may be using a different help id (which is not listened to here)
 				$('#helpLink').click (function() {  
 											
-					$('#searchBarButtonDiv').css("display", "none");
-				    $('#filterColumn').css('visibility', 'visible');
+				    $('#filterColumn').removeClass('d-none');
 		
 				    ojbc.populateLeftBarContentFromUrl("#springUrl('/help/helpLeftBar')");
 		
@@ -301,7 +300,6 @@
 				$('#faqLink').click (function() {	  
 				    $('#filterColumn').removeClass('d-none');
 		
-					//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
 				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
 		
 				    ojbc.populatePortalContentFromUrl("#springUrl('/portal/faq')");
