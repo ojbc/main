@@ -36,7 +36,7 @@
 					|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
 					|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
 			        <li class="nav-item">
-					  <a class="nav-link" id="$entry.getKey()" href="#">$leftMenuLinkTitles[$entry.getKey()] </a> 
+					  <a class="nav-link" id="$entry.getKey()" href="$entry.getValue()">$leftMenuLinkTitles[$entry.getKey()] </a> 
 			        </li>
 		        #elseif($entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
 			        <li class="nav-item dropdown">
