@@ -42,8 +42,8 @@
 		<a id="exportToExcel" href="#springUrl('/subscriptions/admin/exportExpiredSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
 		<a id="returnToSearchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>RETURN</a>
 	</span>    				
-	<h4>Expired Subscriptions</h4>
-	<table class="searchResultsTable display" id="searchResultsTable">
+	<h5>Expired Subscriptions</h5>
+	<table class="searchResultsTable table table-striped table-bordered mt-3" id="searchResultsTable">
 		<thead>
 			<tr>
 				<th>AGENCY</th>
