@@ -62,8 +62,8 @@
 </script>
 	
 <div style="padding:10px">
-	<h4>Federal Rapback Subscription Errors</h4>
-	<table class="searchResultsTable display" id="searchResultsTable">
+	<h5>Federal Rapback Subscription Errors</h5>
+	<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
 		<thead>
 			<tr>
 				<th>STATE SUBSCRIPTION ID</th>
