@@ -680,9 +680,8 @@ header span.fullname {
 
 #subModalButtonDiv {
 	position: relative;
-	top:6px;
 	float:left;
-	margin: 9px 6px 0 0;
+	margin: 10px 6px 0 0;
 }
 
 #triggeringEventsDiv {
