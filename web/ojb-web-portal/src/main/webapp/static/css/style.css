@@ -389,7 +389,8 @@ header span.fullname {
 }
 
 #subscriptionsContent .searchCancelSection,
-#subsAdminContent .searchCancelSection{
+#subsAdminContent .searchCancelSection, 
+#subscriptionResultsContainer .searchCancelSection{
 	margin-left: -.75vw;
   	padding-left: .75vw;
   	margin-right: -.75vw;
