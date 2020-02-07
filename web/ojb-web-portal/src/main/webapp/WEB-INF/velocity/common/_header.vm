@@ -14,7 +14,6 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<header>
 	<header>
 	    <div class="banner mt-5 pt-4">
         	#parse("common/_stateBanner.vm")
@@ -65,4 +64,3 @@
 	    </div>
 	  </nav>
 	</header>
-</header>
