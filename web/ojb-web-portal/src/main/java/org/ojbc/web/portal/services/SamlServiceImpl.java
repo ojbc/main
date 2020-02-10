@@ -149,7 +149,7 @@ public class SamlServiceImpl implements SamlService{
             customAttributes.put(SamlAttribute.SupervisoryRoleIndicator, "true");
 //            customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
-            
+            customAttributes.put(SamlAttribute.EmailAddressText, "haiqi@search.org"); 
             if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
         		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
             }
