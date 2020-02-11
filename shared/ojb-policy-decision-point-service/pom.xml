@@ -288,7 +288,7 @@
          <repository>
               <id>balana-repository</id>
               <name>Balana Repository</name>
-              <url>http://maven.wso2.org/nexus/content/repositories/releases</url>
+              <url>https://maven.wso2.org/nexus/content/repositories/releases</url>
               <layout>default</layout>
               <snapshots>
                       <enabled>true</enabled>
