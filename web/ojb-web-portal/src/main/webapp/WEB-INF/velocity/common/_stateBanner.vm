@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
 <div class="text-white pl-3 mb-3">
-	<img src="#springUrl('/static/images/banner/oklahoma_logo.png')" height="75px" /> 
+	<img src="#springUrl($bannerPath)" height="75px" /> 
 	<span class="initials align-bottom" aria-hidden="true">OJBC</span>
 	<span class="fullname align-middle">Query Demonstration</span>
 </div>
