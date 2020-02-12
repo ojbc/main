@@ -120,7 +120,6 @@
 	<xsl:template match="nc30:Person"/>
 	
 	<xsl:template match="cs-res-ext:CustodySearchResult">
-		
 		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest</xsl:text></xsl:variable>
 		<tr systemName="Custody Detail" 
 			identificationSourceText="{$systemSource}">
@@ -138,12 +137,12 @@
 		</tr>		
 	</xsl:template>
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="nc:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+		<div class="alert alert-warning" role="alert">System Name: <xsl:value-of select="nc:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></div>
 	</xsl:template>
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">Access to System <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /> Denied. Denied Reason: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
+		<div class="alert alert-warning" role="alert">Access to System <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /> Denied. Denied Reason: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></div>
 	</xsl:template>
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">System <xsl:value-of select="preceding-sibling::nc:SystemName" /> returned too many records. Record count <xsl:value-of select="srer:SearchResultsRecordCount"/></span><br />
+		<div class="alert alert-warning" role="alert">System <xsl:value-of select="preceding-sibling::nc:SystemName" /> returned too many records. Record count <xsl:value-of select="srer:SearchResultsRecordCount"/></div>
 	</xsl:template>
 </xsl:stylesheet>
