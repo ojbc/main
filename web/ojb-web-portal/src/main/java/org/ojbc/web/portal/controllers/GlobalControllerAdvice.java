@@ -36,6 +36,12 @@ public class GlobalControllerAdvice {
     @Value("${bannerPath:/static/images/banner/Banner.png}")
     String bannerPath;
 
+    @Value("${bannerInitial:OJBC}")
+    String bannerInitial;
+    
+    @Value("${bannerFullname:Federated Query}")
+    String bannerFullname;
+    
     @Value("${themePath:/static/css/style.css}")
     String themePath;
     
@@ -63,6 +69,8 @@ public class GlobalControllerAdvice {
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
+        model.addAttribute("bannerInitial", bannerInitial);
+        model.addAttribute("bannerFullname", bannerFullname);
         model.addAttribute("themePath", themePath);
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
         model.addAttribute("singleClickForDetail", singleClickForDetail);
