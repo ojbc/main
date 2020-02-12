@@ -16,6 +16,6 @@
  *#
 <div class="text-white pl-3 mb-3">
 	<img src="#springUrl($bannerPath)" height="75px" /> 
-	<span class="initials align-bottom" aria-hidden="true">OJBC</span>
-	<span class="fullname align-middle">Query Demonstration</span>
+	<span class="initials align-bottom" aria-hidden="true">$bannerInitial</span>
+	<span class="fullname align-middle">$bannerFullname</span>
 </div>
