@@ -58,6 +58,16 @@
 			</bean>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map map-class="java.util.HashMap">
+		        <entry key="${federatedQuery.incidentReport.presentPersonQueryResultsWebApplicationEndpoint}" value="presentIncidentReportResultsServiceEndpoint"/>
+		  	</util:map>
+		</constructor-arg>
+	</bean>	
 
 	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
