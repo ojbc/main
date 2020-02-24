@@ -79,14 +79,13 @@ public class SubscriptionSearchQueryDAO {
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
-			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
-			+ "		notification_mechanism nm, "
-			+ "		subscription_subject_identifier si, "
-			+ "		subscription_owner so, "
-			+ "		agency_profile ap "
+			+ "FROM subscription s "
+			+ "LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "	
+			+ "     notification_mechanism nm, 	subscription_subject_identifier si, "		
+			+ "     subscription_owner so  "
+			+ "LEFT JOIN agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
 			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id "
-			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID"
-			+ " and ap.AGENCY_ID = so.AGENCY_ID";
+			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID";
 	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     
@@ -589,7 +588,7 @@ public class SubscriptionSearchQueryDAO {
     	
     	String subscriptionCategoryCode = request.getReasonCategoryCode();
     	
-    	if (ret != null & subscriptionCategoryCode != null)
+    	if (ret != null & subscriptionCategoryCode != null && fbiSubscriptionMember)
     	{	
     		if (subscriptionCategoryCode.equals(SubscriptionNotificationConstants.FIREARMS) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.NON_CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.CRIMINAL_JUSTICE_EMPLOYMENT) || subscriptionCategoryCode.equals(SubscriptionNotificationConstants.SECURITY_CLEARANCE_INFORMATION_ACT))
     		{	
@@ -680,7 +679,7 @@ public class SubscriptionSearchQueryDAO {
         });
 	}
 
-	Number saveSubscriptionOwner(String firstName, String lastName, String emailAddress, String federationId, String agencyOri) throws Exception {
+	Number saveSubscriptionOwner(String firstName, String lastName, String emailAddress, String federationId, String agencyOri, String agencyName) throws Exception {
 		
 		log.info("Inserting row into subscription owner table");
 		
@@ -688,7 +687,16 @@ public class SubscriptionSearchQueryDAO {
 		
 		if (agencyPk == null)
 		{
-			throw new IllegalStateException("Unable to find agency ORI in the agency table.");
+			log.error ("Unable to find agency ORI in the agency table. Will add ORI: " + agencyOri + ", and agency name: " + agencyName);
+		
+			if (StringUtils.isBlank(agencyName))
+			{
+				log.error("Need to acquire agency name for ORI: " + agencyOri);
+			}	
+			
+			saveAgencyProfileEntry(agencyOri, agencyName, false, true, false);
+
+			agencyPk = returnAgencyPkFromORI(agencyOri);
 		}	
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -702,11 +710,27 @@ public class SubscriptionSearchQueryDAO {
 		return keyHolder.getKey();
 	}
 
-	Integer returnAgencyPkFromORI(String ori)
+	public void saveAgencyProfileEntry(String agencyOri, String agencyName, boolean fbiSubscriptionQualification, boolean stateSubscriptionQualification, boolean civilAgencyIndicator) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		this.jdbcTemplate.update(
+			buildPreparedInsertStatementCreator(
+		        "insert into AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION , STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR) "
+		        + "	values (?,?,?,?,?) ", new Object[] {
+		        		agencyOri, agencyName, fbiSubscriptionQualification, stateSubscriptionQualification, civilAgencyIndicator
+		        }), keyHolder);
+	}
+
+	public Integer returnAgencyPkFromORI(String ori)
 	{
     	String sql = "SELECT AGENCY_ID from AGENCY_PROFILE where AGENCY_ORI=?";
     	
-    	Integer agencyProfilePk = jdbcTemplate.queryForObject(sql, new Object[] {ori}, Integer.class);
+    	Integer agencyProfilePk;
+		try {
+			agencyProfilePk = jdbcTemplate.queryForObject(sql, new Object[] {ori}, Integer.class);
+		} catch (DataAccessException e) {
+			log.info("Unable to retrieve agency PK from ORI : " + ori);
+			agencyProfilePk = null;
+		}
 		
 		return agencyProfilePk;
     	
@@ -748,7 +772,7 @@ public class SubscriptionSearchQueryDAO {
 		if (subscriptionOwnerPk == null)
 		{
 			try {
-				Number subscriptionOwnerNumber = saveSubscriptionOwner(request.getSubscriptionOwnerFirstName(), request.getSubscriptionOwnerLastName(), request.getSubscriptionOwnerEmailAddress(), request.getSubscriptionOwner(), request.getSubscriptionOwnerOri());
+				Number subscriptionOwnerNumber = saveSubscriptionOwner(request.getSubscriptionOwnerFirstName(), request.getSubscriptionOwnerLastName(), request.getSubscriptionOwnerEmailAddress(), request.getSubscriptionOwner(), request.getSubscriptionOwnerOri(), request.getSubscriptionOwnerAgencyName());
 				subscriptionOwnerPk = subscriptionOwnerNumber.intValue();
 				
 			} catch (Exception e) {

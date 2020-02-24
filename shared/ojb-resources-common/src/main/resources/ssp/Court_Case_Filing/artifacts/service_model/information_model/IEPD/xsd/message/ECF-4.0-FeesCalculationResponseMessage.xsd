@@ -29,7 +29,8 @@
 	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="../common/ECF-4.0-CommonTypes.xsd"/>
-	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="http://docs.oasis-open.org/ubl/cs-UBL-2.0/xsd/common/UBL-CommonAggregateComponents-2.0.xsd"/>
+	<!--  xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="http://docs.oasis-open.org/ubl/cs-UBL-2.0/xsd/common/UBL-CommonAggregateComponents-2.0.xsd"/ -->
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="../common/UBL-CommonAggregateComponents-2.0.xsd"/>	
 	<xsd:complexType name="FeesCalculationResponseMessageType">
 		<xsd:annotation>
 			<xsd:documentation>The response to a FeesCalculationQueryMessage, which may either be "0" indicating no fee is due, a currency amount indicating the fee due upon filing, or "unknown" indicating that the court's case management information system is unable to calculate the fee for the proposed filing. </xsd:documentation>

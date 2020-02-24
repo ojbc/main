@@ -80,6 +80,10 @@
 
 				<camel:setHeader headerName="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
 				<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}"/>
+
+				<camel:setHeader headerName="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
+				<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}"/>
+
 				
 
 				<camel:to uri="direct:processSubscription"/>

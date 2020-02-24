@@ -32,7 +32,9 @@
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-update-reporting-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map>
-				<entry key="systemId" value="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" />
+				<entry key="systemIdCourtDisposition" value="Maine CHRI Court Disposition" />
+				<entry key="systemIdCycleTracking" value="Maine CHRI Cycle Tracking" />
+				<entry key="systemIdProsecutionDecision" value="Maine CHRI Prosecution Decision" />
 			</util:map>		
 		</constructor-arg>
 	</bean>		

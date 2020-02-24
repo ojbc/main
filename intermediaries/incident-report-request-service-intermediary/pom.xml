@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-report-request-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<name>OJB :: incident-report-request-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 

@@ -31,11 +31,16 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -309,5 +314,48 @@ public class AuditRestImpl implements AuditInterface {
 		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(authenticationSearchRequest);
 		
 		return userAuthenticationSearchResponses;
+	}
+
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest) {
+		
+		log.info("Person Audit Search Request: " + auditSearchRequest.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(auditSearchRequest);
+		
+		return personSearchRequests;
+
+	}
+
+	@Override
+	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest) {
+		
+		log.info("Firearm Audit Search Request: " + auditSearchRequest.toString());
+		
+		List<FirearmsSearchRequest> firearmsSearchRequests = enhancedAuditDao.retrieveFirearmSearchRequest(auditSearchRequest);
+		
+		return firearmsSearchRequests;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest) {
+		
+		log.info("Vehicle Audit Search Request: " + auditSearchRequest.toString());
+		
+		List<VehicleSearchRequest> vehicleSearchRequests = enhancedAuditDao.retrieveVehicleSearchRequest(auditSearchRequest);
+		
+		return vehicleSearchRequests;
+
+	}
+
+	@Override
+	public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest) {
+		
+		log.info("Incident Audit Search Request: " + auditSearchRequest.toString());
+		
+		List<IncidentSearchRequest> incidentSearchRequests = enhancedAuditDao.retrieveIncidentSearchRequest(auditSearchRequest);
+		
+		return incidentSearchRequests;
+
 	}
 }

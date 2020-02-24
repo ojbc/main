@@ -315,6 +315,12 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 					entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedForFederalSubscriptionsIndicator");
 			federalSubscriptionsIndicator.setTextContent(BooleanUtils.toStringTrueFalse(agencyProfile.getFbiSubscriptionQualified()));
 			
+			XmlUtils.appendTextElement(entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+					"OrganizationAuthorizedForFirearmsSubscriptionsIndicator", 
+					BooleanUtils.toStringTrueFalse(agencyProfile.getFirearmsSubscriptionQualification()));
+			XmlUtils.appendTextElement(entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+					"OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator", 
+					BooleanUtils.toStringTrueFalse(agencyProfile.getCjEmploymentSubscriptionQualification()));
 			if (agencyProfile.getTriggeringEventCodes().size()>0){
 				Element organizationAuthorizedTriggeringEvents = XmlUtils.appendElement(
 						entityOrganization, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "OrganizationAuthorizedTriggeringEvents");
