@@ -83,7 +83,7 @@ public class ProsecutionDecisionUpdateNotificationRequest extends NotificationRe
 	@Override
 	protected String getNotifyingSystemNameXPath() {
 		// Add this to IEPD if required in notification message
-		return  "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCourtDispositionUpdate";
+		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingProsecutionDecisionUpdate/notfm-ext:NotifyingActivityReportingSystemNameText";
 	}
 
 	@Override

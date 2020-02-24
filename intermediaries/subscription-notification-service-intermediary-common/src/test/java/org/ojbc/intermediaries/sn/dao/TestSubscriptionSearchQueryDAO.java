@@ -200,13 +200,20 @@ public class TestSubscriptionSearchQueryDAO {
 		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("1234567890");
 		assertEquals(new Integer(1), agencyPk);
 		
-		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "1234567890");
+		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "1234567890", "Bill Employer Agency Name");
 		
 		assertNotNull(subNumber);
 		
 		Integer subOwner = subscriptionSearchQueryDAO.returnSubscriptionOwnerFromFederationId("BillUniqueFederationId");
 		assertNotNull(subOwner);
+
+		subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bob", "Johnson", "bill@bradley.com", "BobUniqueFederationId", "98789878", "Bill Employer Agency Name 2");
 		
+		assertNotNull(subNumber);
+		
+		subOwner = subscriptionSearchQueryDAO.returnSubscriptionOwnerFromFederationId("BobUniqueFederationId");
+		assertNotNull(subOwner);
+
 	}
 	
 	@Test

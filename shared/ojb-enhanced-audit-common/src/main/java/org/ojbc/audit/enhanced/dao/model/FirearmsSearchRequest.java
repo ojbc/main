@@ -16,6 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -50,6 +51,8 @@ public class FirearmsSearchRequest {
 	private String messageId;
 	
 	private Integer userInfofk;
+	
+	private LocalDateTime timestamp;
 	
 	public Integer getFirearmSearchRequestID() {
 		return firearmSearchRequestID;
@@ -165,6 +168,14 @@ public class FirearmsSearchRequest {
 
 	public void setSerialNumberQualifierCodeId(Integer serialNumberQualifierCodeId) {
 		this.serialNumberQualifierCodeId = serialNumberQualifierCodeId;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

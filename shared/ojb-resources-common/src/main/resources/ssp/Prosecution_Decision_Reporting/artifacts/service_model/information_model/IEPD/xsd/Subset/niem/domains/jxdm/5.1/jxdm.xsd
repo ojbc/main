@@ -409,6 +409,7 @@
         <xs:sequence>
           <xs:element ref="j:OffenseCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:OffenseViolatedStatute" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -885,6 +886,11 @@
   <xs:element name="OffenseArrestAssociation" type="j:OffenseArrestAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A relationship between an offense and the arrest of a subject alleged to have committed the offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OffenseType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OffenseCategory" abstract="true">

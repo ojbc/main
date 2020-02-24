@@ -61,9 +61,14 @@ import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResposeRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1094,11 +1099,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	
 	@Override
 	public Integer retrievePersonSearchIDfromMessageID(String messageId) {
-		final String SQL_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select psr.*, sss.SYSTEM_NAME from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = pss.SYSTEMS_TO_SEARCH_ID and MESSAGE_ID = ?");
 		
 		Integer ret = null;
 		
-		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SQL_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new PersonSearchRequestRowMapper(), messageId);
 		
 		if (personSearchRequests == null)
 		{
@@ -1120,11 +1128,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	
 	@Override
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId) {
-		final String SQL_SELECT="SELECT * FROM FIREARMS_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select fsr.*, sss.SYSTEM_NAME from firearms_search_request fsr, FIREARMS_SYSTEMS_TO_SEARCH fss, SYSTEMS_TO_SEARCH sss where fsr.FIREARMS_SEARCH_REQUEST_ID = fss.FIREARMS_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = fss.SYSTEMS_TO_SEARCH_ID and fsr.MESSAGE_ID = ?");
 		
 		Integer ret = null;
 		
-		List<FirearmsSearchRequest> firearmSearchRequests = jdbcTemplate.query(SQL_SELECT, new FirearmSearchRequestRowMapper(), messageId);
+		List<FirearmsSearchRequest> firearmSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new FirearmSearchRequestRowMapper(), messageId);
 		
 		if (firearmSearchRequests == null)
 		{
@@ -1779,44 +1790,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
-	private final class PersonSearchRequestRowMapper implements RowMapper<PersonSearchRequest> {
-		public PersonSearchRequest mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			PersonSearchRequest personSearchRequest = buildPersonSearchRequest(rs);
-			return personSearchRequest;
-		}
-
-		private PersonSearchRequest buildPersonSearchRequest(
-				ResultSet rs) throws SQLException{
-
-			PersonSearchRequest personSearchRequest = new PersonSearchRequest();
-			
-			personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
-			personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
-			
-			return personSearchRequest;
-		}
-	}
-	
-	private final class FirearmSearchRequestRowMapper implements RowMapper<FirearmsSearchRequest> {
-		public FirearmsSearchRequest mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			FirearmsSearchRequest firearmsSearchRequest = buildFirearmSearchRequest(rs);
-			return firearmsSearchRequest;
-		}
-
-		private FirearmsSearchRequest buildFirearmSearchRequest(
-				ResultSet rs) throws SQLException{
-
-			FirearmsSearchRequest firearmsSearchRequest = new FirearmsSearchRequest();
-			
-			firearmsSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
-			firearmsSearchRequest.setFirearmSearchRequestID(rs.getInt("FIREARMS_SEARCH_REQUEST_ID"));
-			
-			return firearmsSearchRequest;
-		}
-	}	
-	
 	private final class IdentificationSearchRequestRowMapper implements RowMapper<IdentificationSearchRequest> {
 		public IdentificationSearchRequest mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
@@ -2204,6 +2177,18 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			sqlStatement.append(" and ui.EMPLOYER_ORI = ?");
 		}	
 
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "ul");
+		
+		log.info("User authentication select statement: " + sqlStatement.toString());
+		
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResposeRowMapper());
+		
+		return userAuthenticationSearchResponses;
+	}
+
+	private void setUserAuditSearchDateConstraints(
+			AuditSearchRequest searchRequest,
+			StringBuffer sqlStatement, String alias) {
 		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() != null)
 		{
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -2212,22 +2197,123 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			{
 				
 				String startDateString = searchRequest.getStartTime().format(formatter);
-				sqlStatement.append(" and ul.TIMESTAMP > '" + startDateString + "'");
+				sqlStatement.append(" and " + alias + ".TIMESTAMP > '" + startDateString + "'");
 			}	
 	
 			if (searchRequest.getEndTime() != null)
 			{
 				String endDateString = searchRequest.getEndTime().format(formatter);
-				sqlStatement.append(" and ul.TIMESTAMP < '" + endDateString + "'");
+				sqlStatement.append(" and " + alias + ".TIMESTAMP < '" + endDateString + "'");
 				
 			}	
 		}
+	}
+
+	@Override
+	public List<UserInfo> retrieveAllUsers() {
+		final String USER_INFO_SELECT = "SELECT * FROM USER_INFO order by USER_LAST_NAME asc";
+
+		List<UserInfo> userInfoList = jdbcTemplate.query(USER_INFO_SELECT,
+				new UserInfoRowMapper());
+
+		return userInfoList;
+	}
+
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequest(
+			AuditSearchRequest searchRequest) {
 		
-		log.info("User authentication select statement: " + sqlStatement.toString());
+		StringBuffer sqlStatement = new StringBuffer(); 
 		
-		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResposeRowMapper());
+		sqlStatement.append("select psr.*, sss.SYSTEM_NAME from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = pss.SYSTEMS_TO_SEARCH_ID ");
 		
-		return userAuthenticationSearchResponses;
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "psr");
+		
+		sqlStatement.append(" order by timestamp desc");
+		
+		log.info(sqlStatement.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new PersonSearchRequestRowMapper());
+		
+		return personSearchRequests;
+	}
+
+	@Override
+	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(
+			AuditSearchRequest searchRequest) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select fsr.*, sss.SYSTEM_NAME from firearms_search_request fsr, FIREARMS_SYSTEMS_TO_SEARCH fss, SYSTEMS_TO_SEARCH sss where fsr.FIREARMS_SEARCH_REQUEST_ID = fss.FIREARMS_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = fss.SYSTEMS_TO_SEARCH_ID ");
+		
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "fsr");
+		
+		sqlStatement.append(" order by timestamp desc limit 500");
+		
+		log.info(sqlStatement.toString());
+		
+		List<FirearmsSearchRequest> firearmsSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new FirearmSearchRequestRowMapper());
+		
+		return firearmsSearchRequests;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveVehicleSearchRequest(
+			AuditSearchRequest vehicleSearchRequest) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select vsr.*, sss.SYSTEM_NAME from vehicle_search_request vsr, VEHICLE_SYSTEMS_TO_SEARCH vss, SYSTEMS_TO_SEARCH sss where vsr.VEHICLE_SEARCH_REQUEST_ID = vss.VEHICLE_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = vss.SYSTEMS_TO_SEARCH_ID ");
+		
+		if (vehicleSearchRequest.getStartTime() != null && vehicleSearchRequest.getEndTime() == null)
+		{
+			vehicleSearchRequest.setEndTime(vehicleSearchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(vehicleSearchRequest, sqlStatement, "vsr");
+		
+		sqlStatement.append(" order by vsr.timestamp desc limit 500");
+		
+		log.info(sqlStatement.toString());
+		
+		List<VehicleSearchRequest> vehicleSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new VehicleSearchRequestRowMapper());
+		
+		return vehicleSearchRequests;
+	}
+
+	@Override
+	public List<IncidentSearchRequest> retrieveIncidentSearchRequest(
+			AuditSearchRequest incidentAuditSearchRequest) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select isr.*, sss.SYSTEM_NAME from INCIDENT_SEARCH_REQUEST isr, INCIDENT_SYSTEMS_TO_SEARCH iss, SYSTEMS_TO_SEARCH sss where isr.INCIDENT_SEARCH_REQUEST_ID = iss.INCIDENT_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = iss.SYSTEMS_TO_SEARCH_ID ");
+		
+		if (incidentAuditSearchRequest.getStartTime() != null && incidentAuditSearchRequest.getEndTime() == null)
+		{
+			incidentAuditSearchRequest.setEndTime(incidentAuditSearchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(incidentAuditSearchRequest, sqlStatement, "isr");
+		
+		sqlStatement.append(" order by isr.timestamp desc limit 500");
+		
+		log.info(sqlStatement.toString());
+		
+		List<IncidentSearchRequest> incidentSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new IncidentSearchRequestRowMapper());
+		
+		return incidentSearchRequests;	
 	}
 
 }

@@ -424,12 +424,34 @@
 				<!-- This line remove the OJBWrapper element that the aggregator adds -->
 				<camel:setBody><xpath>//isr:IncidentPersonSearchResults</xpath></camel:setBody>
 
-				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+				<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+	
+				<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
 				
-				<camel:setHeader headerName="operationName"><constant>SubmitIncidentPersonSearchResults</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant></camel:setHeader>
-			
-				<camel:to uri="presentIncidentSearchResultsServiceEndpoint"/>
+				<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+					
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+				
+						<camel:setHeader headerName="operationName"><constant>SubmitIncidentPersonSearchResults</constant></camel:setHeader>	
+						<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant></camel:setHeader>
+						
+						<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+						
+						<camel:log message="About to send incident person search result to ${in.headers.recipientListReplyToEndpoint}" />			
+	
+						<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
+									
+						<camel:recipientList>
+							<camel:header>recipientListReplyToEndpoint</camel:header>
+						</camel:recipientList>
+					</camel:when>
+					<camel:otherwise>
+						<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+					</camel:otherwise>		
+				</camel:choice>	
+				
 			</camel:filter>
 
 			<camel:filter>
@@ -439,12 +461,33 @@
 				<!-- This line remove the OJBWrapper element that the aggregator adds -->
 				<camel:setBody><xpath>//isr:IncidentVehicleSearchResults</xpath></camel:setBody>
 
-				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+				<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+	
+				<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
 				
-				<camel:setHeader headerName="operationName"><constant>SubmitIncidentVehicleSearchResults</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant></camel:setHeader>
-			
-				<camel:to uri="presentIncidentSearchResultsServiceEndpoint"/>
+				<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+					
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+				
+						<camel:setHeader headerName="operationName"><constant>SubmitIncidentVehicleSearchResults</constant></camel:setHeader>	
+						<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant></camel:setHeader>
+						
+						<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+						
+						<camel:log message="About to send incident person search result to ${in.headers.recipientListReplyToEndpoint}" />			
+	
+						<camel:log message="Reply to portal: ${body}" loggingLevel="DEBUG"/>
+									
+						<camel:recipientList>
+							<camel:header>recipientListReplyToEndpoint</camel:header>
+						</camel:recipientList>
+					</camel:when>
+					<camel:otherwise>
+						<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+					</camel:otherwise>		
+				</camel:choice>					
 			</camel:filter>
 
 		</camel:route>
