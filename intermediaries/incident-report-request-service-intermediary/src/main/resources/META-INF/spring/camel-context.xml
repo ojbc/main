@@ -117,6 +117,10 @@
 				<camel:xpath resultType="java.lang.String">//ext:SourceSystemNameText</camel:xpath>
 			</camel:setHeader>
 
+			<!-- Add the reply to address to the map using the federated query guid as the key -->
+			<camel:to 
+				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+
 			<!-- Call method to populate federated query map and create federatedQueryRecipientListHeader (comma seperated camel endpoint list)-->
 			<camel:to
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
