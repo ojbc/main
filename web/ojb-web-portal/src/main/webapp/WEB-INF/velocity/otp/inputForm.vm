@@ -59,9 +59,8 @@
 	        	#parse("common/_stateBanner.vm")
 		    </div>
     	</header>
-    	<div id="pageRoot" class="container-fluid">
+    	<div id="pageRoot" class="container pt-2">
 	        <div id="mainContent">
-			     
 			    <div id="searchContent">
 			    	<div id = "accordion"> 
 						<h3>OJBC One-Time Password Authentication</h3>
@@ -95,10 +94,10 @@
 									</tr>
 									<tr>
 										<td>
-												<br/>
-												<br/>
-												<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Submit OTP"/>SUBMIT OTP</a>
-												<p style="float: right; margin:0;padding:0;"><a id="requestOtpSubmitButton" href="#" alt="Request OTP">Request New OTP</a></p>
+											<br/>
+											<br/>
+											<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Submit OTP"/>SUBMIT OTP</a>
+											<a id="requestOtpSubmitButton" href="#" alt="Request OTP" class="ml-2 blueButton">Request New OTP</a>
 										</td>
 									</tr>
 								</table>	
