@@ -87,7 +87,7 @@
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
 
-<div class="card" id="searchTabs">
+<div class="card">
 	<div class="card-header">
 		<div class="pl-0" id="search-results-title">
 	    	ADVANCED SEARCH: VEHICLE
@@ -103,28 +103,28 @@
 	 
 	  		<div class='row'>
 	  			<div class='col-6'>
-				        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "class='form-control form-control-sm'" ) </div>
-				        
-				        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model' class='form-control form-control-sm'") </div>
-				        
-				        <div class="labelText" >
-				        	Year Range: 
-				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
-				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
-				        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
-	                         #springShowErrors( "<br/>" "error" )
-				        </div>
+			        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "class='form-control form-control-sm'" ) </div>
+			        
+			        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model' class='form-control form-control-sm'") </div>
+			        
+			        <div class="labelText" >
+			        	Year Range: 
+			        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
+			        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
+			        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
+                         #springShowErrors( "<br/>" "error" )
+			        </div>
 		        </div>
 	  			<div class='col-6'>
-		  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "class='form-control form-control-sm'" ) </div>
-				  		<div>
-				  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #' class='form-control form-control-sm'")
-				  		    #springShowErrors( "<br/>" "error" )
-				  		</div>
-				  		<div>
-				  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN' class='form-control form-control-sm'")
-				  		    #springShowErrors( "<br/>" "error" )
-				  		</div>        			  		
+	  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "class='form-control form-control-sm'" ) </div>
+			  		<div>
+			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #' class='form-control form-control-sm'")
+			  		    #springShowErrors( "<br/>" "error" )
+			  		</div>
+			  		<div>
+			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN' class='form-control form-control-sm'")
+			  		    #springShowErrors( "<br/>" "error" )
+			  		</div>        			  		
 	        	</div>
 	        </div>
 	    </form>
