@@ -27,8 +27,6 @@
                 }
             });
     
-            $( "#searchTabs" ).tabs({ active: 0});
-    	    
     		$('#advanceSearchSubmitButton').click (function(){
                 var isValidate=$("#searchForm").valid();
                 if(!isValidate){
@@ -89,9 +87,11 @@
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
 
-<div class="card contentBox" id="searchTabs">
-	<div class="card-header" id="search-results-title">
-	    ADVANCED SEARCH: VEHICLE
+<div class="card" id="searchTabs">
+	<div class="card-header">
+		<div class="pl-0" id="search-results-title">
+	    	ADVANCED SEARCH: VEHICLE
+	    </div>
 	</div>
 	<div class="card-body" id="advancedSearchTab">
 	    <form id='searchForm' >
