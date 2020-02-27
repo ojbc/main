@@ -15,80 +15,76 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
  <script type="text/javascript">
-	  $(function() {
+	$(function() {
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
 		  ojbc.handlePlaceholders(); 
     	  
     	  $('#searchForm').validate({
-                rules: {
-                 
-                }
-            });
+            rules: {
+             
+            }
+          });
     
-            $( "#searchTabs" ).tabs({ active: 0});
-    	    
-    		$('#advanceSearchSubmitButton').click(function(){
-                var isValidate=$("#searchForm").valid();
-                if(!isValidate){
-                    alert("There are errors in your inputs, please correct them and try again");
-                }else {
-                	ojbc.clearPlaceholders();
-                    var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+		$('#advanceSearchSubmitButton').click(function(){
+            var isValidate=$("#searchForm").valid();
+            if(!isValidate){
+                alert("There are errors in your inputs, please correct them and try again");
+            }else {
+            	ojbc.clearPlaceholders();
+                var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+            
+	  	       	xhr=$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
+	  	       		if (!data.includes('id="advancedSearchTab"')){
+	  	       			$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage)
+		    }
+	  	});
+		
+		$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+		$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+		
+		$('#sourceSystemsCheckBoxes input').each (function(){
+        	this.checked = true
+            }
+        );
+        
+        #foreach($selectedSourceSystem in $firearmSearchCommand.advanceSearch.sourceSystems)
+            $("#sourceSystemsCheckBoxes input[value='$selectedSourceSystem']").prop('checked',true);
+        #end
+        
+        $('#advanceSearchClearButton').click (function(event){
+              
+              ojbc.clearSearchPurposeFields();
+              $.get("#springUrl('/firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+                $('#portalContent').html(data);
                 
-		  	       	xhr=$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
-		  	       		if (!data.includes('id="advancedSearchTab"')){
-		  	       			$('#filterColumn').addClass('d-none');
-		  	       		}
-				        $('#portalContent').html(data);
-			        }).fail(ojbc.displayFailMessage)
-			    }
-		  	});
-    		
-			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
-			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
-			
-			$('#sourceSystemsCheckBoxes input').each (function(){
-	        	this.checked = true
-	            }
-	        );
-	        
-	        #foreach($selectedSourceSystem in $firearmSearchCommand.advanceSearch.sourceSystems)
-	            $("#sourceSystemsCheckBoxes input[value='$selectedSourceSystem']").prop('checked',true);
-	        #end
-	        
-            $('#advanceSearchClearButton').click (function(event){
-                  
-                  ojbc.clearSearchPurposeFields();
-                  $.get("#springUrl('/firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
-                    $('#portalContent').html(data);
-                    
-                  }).fail(ojbc.displayFailMessage)
-              });
+              }).fail(ojbc.displayFailMessage)
+          });
 
 
-			//This allows the input fields on the search form to submit form with enter key
-			$('#advancedSearchTab input').keyup(function(e) {
-			    if (e.keyCode == 13) {
-			        $('#advanceSearchSubmitButton').click();
-			    }
-			});
+		//This allows the input fields on the search form to submit form with enter key
+		$('#advancedSearchTab input').keyup(function(e) {
+		    if (e.keyCode == 13) {
+		        $('#advanceSearchSubmitButton').click();
+		    }
+		});
 
-			//This allows the select fields on the search form to submit form with enter key			
-			$('#advancedSearchTab select').keyup(function(e) {
-			    if (e.keyCode == 13) {
-			        $('#advanceSearchSubmitButton').click();
-			    }
-			});	
+		//This allows the select fields on the search form to submit form with enter key			
+		$('#advancedSearchTab select').keyup(function(e) {
+		    if (e.keyCode == 13) {
+		        $('#advanceSearchSubmitButton').click();
+		    }
+		});	
 
-    	    $('#demogFilterInfo').hide();
-    		$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
-    		$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
-			$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
-   				
-       				    	    
-	  });
-  </script>
+	    $('#demogFilterInfo').hide();
+		$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+		$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
+		$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
+	});
+</script>
   
 <div id="sourceSystems" style="display: none;">
 	#parse('common/_systemsToQuery.vm')
@@ -96,13 +92,15 @@
 <div id="sourceSystemsDisabled" style="display: none;">
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
-<div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">ADVANCED SEARCH: FIREARM</div>
-    <ul>
-        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
-    </ul>
-    <form id='searchForm' >
-	    <div id="advancedSearchTab">
+
+<div class="card">
+	<div class="card-header">
+		<div class="pl-0" id="search-results-title">
+	    	ADVANCED SEARCH: FIREARM
+	    </div>
+	</div>
+	<div class="card-body" id="advancedSearchTab">
+	    <form id='searchForm' >
 	        #if($errors.hasGlobalErrors())
 	            #foreach( $globalError in $errors.globalErrors )
 	                <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
@@ -140,12 +138,10 @@
 			  		</div>  
 				</div>
 	        </div>
-	        <div class="searchCancelSection" >
-	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-	        </div>
-	    </div>
-	</form>
-  
-  
+		</form>
+	</div>
+	<div class="card-footer text-muted">
+    	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+    	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+	</div>
 </div>
