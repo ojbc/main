@@ -76,7 +76,7 @@
 							#end	
 							
 							#if($otpInfoMessageError)
-								<div class="text-danger">$otpInfoMessageError</div>
+								<div class="error">$otpInfoMessageError</div>
 							#end
 							<div class="mt-5">	
 								<a id="submitOtpButton" href="#" class="blueButton" >SUBMIT OTP</a>

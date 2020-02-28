@@ -14,21 +14,24 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-	<div id="simpleSearchTab">
-	    <form id='simpleSearchForm'>
-     		#springBind( "personSearchCommand.searchType" )
-			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
-	        <div class='row'>
-	            <div class='col-4'>   
-			        <p class="instructionalText"> Enter search criteria below </p>
-	                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)' class='form-control form-control-sm'" ) <br/>
-	                #springShowErrors( "<br/>" "error" )
+	<div class="tab-pane active" role="tabpanel" id="simpleSearchTab">
+		<div class="card">
+		  <div class="card-body">
+		    <form id='simpleSearchForm'>
+	     		#springBind( "personSearchCommand.searchType" )
+				<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
+		        <div class='row'>
+		            <div class='col-4'>   
+				        <p class="instructionalText"> Enter search criteria below </p>
+		                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)' class='form-control form-control-sm'" ) <br/>
+		                #springShowErrors( "<br/>" "error pl-2" )
+		             </div>
 	             </div>
-             </div>
-	            
-	         <div class="searchCancelSection">
-	            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-	            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
-	        </div>
-        </form>
+	        </form>
+		  </div>
+		  <div class="card-footer text-muted">
+            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
+		  </div>
+		</div>
      </div>

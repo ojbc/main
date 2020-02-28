@@ -98,7 +98,7 @@
 				        		<lable class="labelText">From:</label> #springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate form-control-sm' style='width: 25%;'" )
 				        		&nbsp;To:&nbsp;#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate form-control-sm' style='width: 25%;'")
 				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
-                            	#springShowErrors( "<br/>" "error" )
+                            	#springShowErrors( "<br/>" "error pl-2" )
 					        </div>
 							<label class="searchSubHeader">Identification Result Status</label>
 							<div class="form-check-inline">
@@ -111,11 +111,11 @@
 						    <label class="searchSubHeader">IDENTIFIERS</label>
 						    <div class="form-group">
 						       #springFormInput("rapbackSearchRequest.sid" "placeholder='SID #' class='form-control form-control-sm'")
-						       #springShowErrors( "<br/>" "error" )
+						       #springShowErrors( "<br/>" "error pl-2" )
 						    </div>
 						    <div class="form-group">
 						  	  #springFormInput("rapbackSearchRequest.ucn" "placeholder='UCN #' class='form-control form-control-sm'")
-						  	  #springShowErrors( "<br/>" "error" ) 
+						  	  #springShowErrors( "<br/>" "error pl-2" ) 
 						    </div>
 					        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN' class='form-control form-control-sm'")</div>
 							<label class="searchSubHeader mt-2">Civil Identification Reason Code</label>

@@ -131,7 +131,7 @@
 			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
 			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
 			        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
-                         #springShowErrors( "<br/>" "error" )
+                         #springShowErrors( "<br/>" "error pl-2" )
 			        </div>
 	        	</div>
 	  			<div class='col-6'>
