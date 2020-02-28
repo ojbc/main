@@ -95,7 +95,7 @@
 		        	<lable class="labelText">From:</label> #springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
 		        		&nbsp;To:&nbsp;#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
 		        		#springBind("criminalIdentificationSearchRequest.reportedDateStartDate")
-                    #springShowErrors( "<br/>" "error" )
+                    #springShowErrors( "<br/>" "error pl-2" )
 		        </div>
 				<div class='col-5'>
 					<p class="searchSubHeader"> Identification Result Status</p>

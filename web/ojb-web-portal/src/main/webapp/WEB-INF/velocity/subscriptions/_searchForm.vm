@@ -83,10 +83,10 @@
 		        <div>#springFormInput("subscriptionSearchRequest.subjectFirstName" "placeholder='First Name' class='form-control form-control-sm'")</div>
 		        <div>#springFormInput("subscriptionSearchRequest.subjectLastName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
 		        <div>#springFormInput("subscriptionSearchRequest.sid" "placeholder='SID' class='form-control form-control-sm'")
-		        	#springShowErrors( "<br/>" "error" ) 
+		        	#springShowErrors( "<br/>" "error pl-2" ) 
 		        </div>
 		        <div>#springFormInput("subscriptionSearchRequest.ucn" "placeholder='UCN' class='form-control form-control-sm'")
-		        	#springShowErrors( "<br/>" "error" ) 
+		        	#springShowErrors( "<br/>" "error pl-2" ) 
 		        </div>
 				<div class="labelText">
 					<p class="searchSubHeader"> SUBSCRIPTION PURPOSE</p>

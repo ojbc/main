@@ -1241,3 +1241,19 @@ input .shortDigit{
 .btn-sm{
 	font-size:.75rem!important;
 }
+
+.nav-tabs .nav-item{
+	font-size: 12px;
+    font-weight: bold;
+}
+
+.tab-pane .card{
+	border-top: none;
+	border-top-left-radius:unset; 
+	border-top-right-radius:unset; 
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
