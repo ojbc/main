@@ -132,8 +132,8 @@
 	     		
 	     		$("#modalIframe").load( function() {
 	     			//alert("Load event fired");
-					$("#modalIframeSpinner").hide();				
-					$(this).css('height', $(this).contents()[0].find("body").height() + 16);
+					$("#modalIframeSpinner").hide();
+					$(this).css('height', $("body").height());  
 				});
 				
              	$('#modalIframe').attr('src', url);		
