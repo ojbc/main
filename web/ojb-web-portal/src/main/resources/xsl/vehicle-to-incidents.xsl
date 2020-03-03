@@ -63,6 +63,11 @@
     		<xsl:otherwise>
 		        <script type="text/javascript">
 		            $(function () {
+						$( document ).ajaxStart(function() {
+							$( "#modalIframeSpinner" ).show();
+						}).ajaxStop(function() {
+				      	  	$("#modalIframeSpinner").hide();
+						});
 		                $('#incidentsSummary tr.clickableIncident').click(function () {
 		                
 		                    var systemName =$(this).attr('systemName');

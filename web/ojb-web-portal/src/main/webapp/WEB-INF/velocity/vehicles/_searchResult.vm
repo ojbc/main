@@ -82,7 +82,7 @@
 						if (incidentsSummary.val() != null) {
 							$(this).css('height', incidentsSummary.height() + 200);
 						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
+							$(this).css('height', $("body").height());
 						}
 					});
 		     		
