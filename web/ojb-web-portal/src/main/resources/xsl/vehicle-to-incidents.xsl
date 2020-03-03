@@ -67,7 +67,7 @@
 		                
 		                    var systemName =$(this).attr('systemName');
 		                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-		                    var identificationID = $(this).attr('identificationID');
+		                    var identificationID = encodeURI($(this).attr('identificationID'));
 		                    
 		                    
 		                    $('#incidentsSummary tr').removeClass("incidentSelected");
