@@ -32,15 +32,15 @@
 		</header>	
 		<div id="mainContent">
 		 	<div id="content" class="container">
-	 			<div class="jumbotron">
-					<div class="card">
-					  <div class="card-header font-weight-bold">
-					    Access is denied
-					  </div>
-					  <div class="card-body">
-					  	$accessControlResponse
-					  </div>
-					</div>
+				<div class="card">
+				  <div class="card-header">
+				  	<div class="pl-0" id="search-results-title">
+				    	Access is denied
+				    </div>
+				  </div>
+				  <div class="card-body small">
+				  	$accessControlResponse
+				  </div>
 				</div>
 			</div>
 		</div>

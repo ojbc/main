@@ -161,7 +161,7 @@ public class PortalAccessControlTest {
         result = mockMvc.perform(get("/403")
             .requestAttr("accessControlResponse", request.getAttribute("accessControlResponse")))
             .andExpect(status().isOk()).andReturn(); 
-        Assert.assertTrue(result.getResponse().getContentAsString().contains("<input type=\"submit\" value=\"Acknowledge All\" class=\"btn btn-primary mt-3\">")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<input type=\"submit\" value=\"Acknowledge All\" class=\"blueButton mt-3\">")); 
     }
     
     @Test
