@@ -80,7 +80,7 @@
 							#end
 							<div class="mt-5">	
 								<a id="submitOtpButton" href="#" class="blueButton" >SUBMIT OTP</a>
-								<a id="requestOtpSubmitButton" href="#" alt="Request OTP" class="ml-2 blueButton">Request New OTP</a>
+								<a id="requestOtpSubmitButton" href="#" alt="Request OTP" class="ml-2 blueButton">REQUEST NEW OTP</a>
 							</div> 
 						</form>
 					</div>
