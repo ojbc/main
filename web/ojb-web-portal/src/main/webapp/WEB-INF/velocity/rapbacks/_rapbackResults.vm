@@ -205,7 +205,7 @@
     	
     	});
     	    	
-    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+ #**   	$('#searchResultsTable').on('click', 'a.initialResults',function() {
     		event.preventDefault();
     		clearErrorMessage();
             var url = this.href;
@@ -241,9 +241,32 @@
                 modal: true
             });
             return false;
+        }); *#
+        
+    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+    		clearErrorMessage();
+            var url = this.href;
+            $('#modalIframe').attr('src', url);	
+          	$('#initialResultsModal').modal('show');
+     		$("#modalIframe").load( function() {
+     			//alert("Load event fired");
+				$("#modalIframeSpinner").hide();				
+										
+			});
+
+            return false;
         });
-    	    	
-#*    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
+        
+        $('#initialResultsModal').on('shown.bs.modal', function (){
+			$("#modalIframeSpinner").height($(".modal-body").height()-32);
+			$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
+			$("#modalIframeSpinner").show();
+        }); 
+
+		$('#initalResultsModal').on('click', '#initalResultsModalCloseButton', function(){
+    		$('#modalIframe').attr('src', '');
+		});    	    	
+#**    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
     	*	clearErrorMessage();
         *    var url = this.href;
         *    xhr = $.get( url,  function(data) {
@@ -509,21 +532,20 @@
 	</div>
 </div>
 
-<!-- Submit arrest Modal -->
-<div class="modal fade ojbc-modal" id="initalResultsModal" tabindex="-1" role="dialog" aria-labelledby="initalResultsModalTitle" aria-hidden="true">
-  <div class="modalIframeSpinner" ></div>
-	  <div class="modal-dialog modal-lg" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	      	<h5 class="modal-title" id="initalResultsModalTitle">IDENTIFICATION INITIAL RESULTS</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body" id="initalResultsModalContent">
-	        ...
-	      </div>
-    </div>
+<div class="modal fade ojbc-modal" id="initialResultsModal" tabindex="-1" role="dialog" aria-labelledby="initialResultsModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title" id="initalResultsModalTitle">IDENTIFICATION INITIAL RESULTS</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="initalResultsModalCloseButton">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body" id="initalResultsModalContent">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
   </div>
 </div>				    
 

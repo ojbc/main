@@ -507,7 +507,7 @@ header span.fullname {
 	margin-top: -12px;
 }
 
-#search-results-title, #bootpopup-title {
+#search-results-title, #bootpopup-title, .modal-title {
 	font-size: 12px;
 	color: #777777;
 	font-weight: bold;
