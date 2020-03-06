@@ -49,17 +49,6 @@
 		    </div>
 	    </div>
 	    
-	    #if( $sensitiveInfoAlert )
-			<div class="d-none">
-				<div id="dialog-warning" title="NOTICE TO USERS">
-					<p id="dialog-warning-p">  
-						<i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>
-						$sensitiveInfoAlertMessage
-					</p>
-				</div>
-			</div>
-		#end
-	    
 		<footer class="footer">
 			<div class="container" align="center">
 				<span class="text-muted small">OJBC Portal Footer</span>
@@ -121,24 +110,20 @@
 			      	  $("#modalIframeSpinner").hide();
 			      });
 			      
-				#if( $sensitiveInfoAlert )      
-				    $("#dialog-warning").dialog({
-				      modal: true,
-				      width: 500,
-			          closeOnEscape: false,
-				      buttons: {
-				        Ok: function() {
+			    #if( $sensitiveInfoAlert )
+					 bootpopup({
+                       title: "NOTICE TO USERS", 
+                       showclose: false,
+                       content: [
+                             '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i> $sensitiveInfoAlertMessage </p>'
+                             ], 
+                       ok: function(data, array, event) {  
 			        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
-							})
-							
-							$( this ).dialog( "close" );
-				        }
-				      },
-				      open: function (e, ui) {
-			        	$(".ui-dialog-titlebar-close").hide();
-			    	  }
-				    });
+							}).fail(ojbc.displayFailMessage);
+                       },
+                     });
 			    #end
+			    
 	    			    
 			    $('#homeLink').click (function() {		 
 					 		     

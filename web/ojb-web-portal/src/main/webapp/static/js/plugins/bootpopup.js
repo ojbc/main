@@ -92,7 +92,7 @@ function bootpopup(options) {
 
 	this.create = function() {
 		// Option for modal dialog size
-		var classModalDialog = "modal-dialog";
+		var classModalDialog = "modal-dialog modal-dialog-centered";
 		if(this.options.size == "large") classModalDialog += " modal-lg";
 		if(this.options.size == "small") classModalDialog += " modal-sm";
 
@@ -107,7 +107,7 @@ function bootpopup(options) {
 		this.header = $('<div class="modal-header"></div>');
 		if(this.options.showclose)	// Close button
 			this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-		this.header.append('<h5 class="modal-title" id="bootpopup-title">' + this.options.title + '</h5>');
+		this.header.append('<div class="modal-title" id="bootpopup-title">' + this.options.title + '</div>');
 		this.content.append(this.header);
 
 		// Body
@@ -213,7 +213,7 @@ function bootpopup(options) {
 
 			switch(item) {
 			case "close": btnClass = "btn-primary btn-sm"; btnText = "Close"; break;
-			case "ok": btnClass = "btn-primary btn-sm"; btnText = "OK"; break;
+			case "ok": btnClass = "blueButton"; btnText = "OK"; break;
 			case "cancel": btnClass = "btn-light btn-sm"; btnText = "Cancel"; break;
 			case "yes": btnClass = "btn-primary btn-sm"; btnText = "Yes"; break;
 			case "no": btnClass = "btn-light btn-sm"; btnText = "No"; break;
