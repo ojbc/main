@@ -122,8 +122,8 @@
 		      SEARCH RESULTS: FIREARM
 		    </div>
 		    <div class="ml-auto mr-3">
-		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-secondary small">RETURN TO SEARCH</button>
-		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto small" >NEW SEARCH</button>
+		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-secondary">RETURN TO SEARCH</button>
+		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto" >NEW SEARCH</button>
 		     </div>
 		  </div>
 		</div>
