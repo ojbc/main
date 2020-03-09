@@ -155,17 +155,6 @@
 			}
     	}
     	
-    	function showDetailModal(url){
-    		clearErrorMessage();
-            $('#modalIframe').attr('src', url);	
-          	$('#detailModal').modal('show');
-     		$("#modalIframe").load( function() {
-     			//alert("Load event fired");
-				$("#modalIframeSpinner").hide();				
-										
-			});
-    	}
-    	
     	function refreshSearchResultsTable(message){
     		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
 				$('#portalContent').html(data);
@@ -218,26 +207,14 @@
     	    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
           	$('#detailModal .modal-title').html('IDENTIFICATION INITIAL RESULTS');
-			showDetailModal(this.href);
+			ojbc.showDetailModal(this.href);
 			return false;
 			
         });
         
-        $('#detailModal').on('shown.bs.modal', function (){
-			$("#modalIframeSpinner").height($(".modal-body").height()-32);
-			$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
-			$("#modalIframeSpinner").show();
-        }); 
-
-		$('#detailModal').on('hidden.bs.modal', function(){
-    		$('#modalIframe').attr('src', 'about:blank');
-    		$("#modalIframeSpinner").height(123);
-    		$("#modalIframe").height(123);
-		});    	    	
-    	
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
           	$('#detailModal .modal-title').html('IDENTIFICATION RAP SHEETS');
-			showDetailModal(this.href);
+			ojbc.showDetailModal(this.href);
 			return false;
         });
             	
@@ -347,7 +324,7 @@
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
           	$('#detailModal .modal-title').html('IDENTIFICATION SUBSEQUENT RESULTS');
-			showDetailModal(this.href);
+			ojbc.showDetailModal(this.href);
 			return false;
         });
     	
@@ -445,5 +422,6 @@
 	</div>
   </div>
 </div>				    
+
 
 

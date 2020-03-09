@@ -112,42 +112,11 @@
     	}
     	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .8;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            return false;
+          	$('#detailModal .modal-title').html('IDENTIFICATION INITIAL RESULTS');
+			ojbc.showDetailModal(this.href);
+			return false;
         });
-    	
+        
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/rapbacks/criminalIdentificationSearchForm')",function(data) {
 	  			$('#portalContent').html(data);
@@ -200,6 +169,22 @@
 
 </div>
 
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>				    
 
 
 

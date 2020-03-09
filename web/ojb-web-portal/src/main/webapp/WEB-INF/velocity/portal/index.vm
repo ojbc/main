@@ -314,10 +314,9 @@
 									    					    
 				    return false;
 				})
-    		 
 			    
 			});
-		
+			
 			#foreach($entry in $stateSpecificHomePage.entrySet())
 			 	#set($homePage="$entry.getValue()")
 			#end
