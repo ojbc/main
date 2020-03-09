@@ -263,20 +263,9 @@
 			$("#modalIframeSpinner").show();
         }); 
 
-		$('#initalResultsModal').on('click', '#initalResultsModalCloseButton', function(){
-    		$('#modalIframe').attr('src', '');
+		$('#initialResultsModal').on('hidden.bs.modal', function(){
+    		$('#modalIframe').attr('src', 'about:blank');
 		});    	    	
-#**    	$('#searchResultsTable').on('click', 'a.initialResults',function() {
-    	*	clearErrorMessage();
-        *    var url = this.href;
-        *    xhr = $.get( url,  function(data) {
-        *	  $('#initalResultsModal .modal-body').html(data);
-        *      $('#initalResultsModal').modal('show');
-        *    }).fail(ojbc.displayFailMessage);
-	*
-        *    return false;
-        *});
-        *#
     	
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
     		clearErrorMessage();
