@@ -205,44 +205,6 @@
     	
     	});
     	    	
- #**   	$('#searchResultsTable').on('click', 'a.initialResults',function() {
-    		event.preventDefault();
-    		clearErrorMessage();
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .8;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-            return false;
-        }); *#
-        
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
     		clearErrorMessage();
             var url = this.href;
@@ -257,14 +219,18 @@
             return false;
         });
         
+        var modalIframeSpinnerHeight = 123;
         $('#initialResultsModal').on('shown.bs.modal', function (){
-			$("#modalIframeSpinner").height($(".modal-body").height()-32);
+        	modalIframeSpinnerHeight = $(".modal-body").height()-32; 
+			$("#modalIframeSpinner").height(modalIframeSpinnerHeight);
 			$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
 			$("#modalIframeSpinner").show();
         }); 
 
 		$('#initialResultsModal').on('hidden.bs.modal', function(){
     		$('#modalIframe').attr('src', 'about:blank');
+    		$("#modalIframeSpinner").height(modalIframeSpinnerHeight);
+    		$("#modalIframe").height(modalIframeSpinnerHeight);
 		});    	    	
     	
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
@@ -525,14 +491,14 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 	<div class="modal-content">
 	  <div class="modal-header">
-	  	<h5 class="modal-title" id="initalResultsModalTitle">IDENTIFICATION INITIAL RESULTS</h5>
-	    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="initalResultsModalCloseButton">
+	  	<h5 class="modal-title">IDENTIFICATION INITIAL RESULTS</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	      <span aria-hidden="true">&times;</span>
 	    </button>
 	  </div>
-	  <div class="modal-body" id="initalResultsModalContent">
+	  <div class="modal-body">
 	  	<div id="modalIframeSpinner"/>
-	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" />
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
       </div>
 	</div>
   </div>
