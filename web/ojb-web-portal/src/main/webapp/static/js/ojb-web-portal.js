@@ -50,6 +50,10 @@ $(function() {
 		$("#modalIframe").height(123);
 	});    	    	
 
+	$('#portalContent').unbind('click', '#searchResultsTable tbody tr').on('click', '#searchResultsTable tbody tr',function() {
+		$('#searchResultsTable tbody tr').removeClass("selected");
+	    $(this).addClass("selected");
+	}); 
 });
 
 ojbc = {
@@ -264,6 +268,10 @@ ojbc = {
         $('#modalIframe').attr('src', url);	
       	$('#detailModal').modal('show');
  		$("#modalIframe").load( function() {
+ 			var iframeHeight = $("#modalIframe")[0].contentWindow.document.body.scrollHeight; 
+ 			if (iframeHeight > 123){
+ 	 			$(this).height(iframeHeight+'px' );
+ 			}
 			$("#modalIframeSpinner").hide();				
 									
 		});

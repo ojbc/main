@@ -50,64 +50,20 @@
 		  	}
 		);
 		
+		$('#searchResultsTable').on('click', 'a.viewDetails',function() {
+            var url = encodeURI(this.href);
+            var title = $(this).attr('searchName');
+          	$('#detailModal .modal-title').html(title);
+			ojbc.showDetailModal(url);
+			return false;
+        });
+        
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 	  		$.get("#springUrl('/firearms/searchForm?resetForm=true')",function(data) {
-	  			  $('#filterColumn').removeClass('d-none'); 
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
-				
-		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .9;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-						if (incidentsSummary.val() != null) {
-							$(this).css('height', incidentsSummary.height() + 200);
-						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						}
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var persionDataDiv = $('div#'+appendPersonDataDivId);
-            if(persionDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                $("#personInformationInModal").show();
-            }
-            return false;
+				$('#filterColumn').removeClass('d-none'); 
+				$('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage);
         });
         
 	  });
@@ -137,3 +93,21 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>
+
