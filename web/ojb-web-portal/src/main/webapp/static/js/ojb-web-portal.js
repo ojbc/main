@@ -37,6 +37,19 @@ $(function() {
 		   $("#modalIframeSpinner").hide();
 	   }
    });
+   
+   $('#portalContent').unbind('shown.bs.modal', '#detailModal').on('shown.bs.modal', '#detailModal', function (){
+		$("#modalIframeSpinner").height($(".modal-body").height()-32);
+		$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
+		$("#modalIframeSpinner").show();
+   }); 
+
+	$('#portalContent').unbind('hidden.bs.modal', '#detailModal').on('hidden.bs.modal', '#detailModal', function(){
+		$('#modalIframe').attr('src', 'about:blank');
+		$("#modalIframeSpinner").height(123);
+		$("#modalIframe").height(123);
+	});    	    	
+
 });
 
 ojbc = {
@@ -244,6 +257,23 @@ ojbc = {
 		$('#filterPersonRaceCode').prop('selectedIndex',0);					
 		$('#filterPersonEyeColor').prop('selectedIndex',0);					
 		$('#filterPersonHairColor').prop('selectedIndex',0);
+	},
+	
+	showDetailModal : function(url){
+		ojbc.clearErrorMessage();
+        $('#modalIframe').attr('src', url);	
+      	$('#detailModal').modal('show');
+ 		$("#modalIframe").load( function() {
+			$("#modalIframeSpinner").hide();				
+									
+		});
+	},
+	
+	clearErrorMessage : function(){
+		if ( $( "#informationMessages" ).length ) {
+		    $( "#informationMessages" ).html('');
+		}
 	}
 	
+
 }
