@@ -31,7 +31,11 @@
 			    sortable: false
 			} ]
   		});
-	  
+  		
+	  	$('.modal-dialog').draggable({
+        	handle: ".modal-header"
+      	});
+	  	
 	  	#if($singleClickForDetail){
 			$("#searchResultsTable").on('click', 'tbody tr', function(){
 				$(this).find("a.viewDetails").click();

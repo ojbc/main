@@ -53,7 +53,12 @@ $(function() {
 	$('#portalContent').unbind('click', '#searchResultsTable tbody tr').on('click', '#searchResultsTable tbody tr',function() {
 		$('#searchResultsTable tbody tr').removeClass("selected");
 	    $(this).addClass("selected");
-	}); 
+	});
+	
+  	$('.modal-dialog').draggable({
+    	handle: ".modal-header"
+  	});
+	
 });
 
 ojbc = {

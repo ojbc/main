@@ -67,6 +67,10 @@
         };
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
+		
+	  	$('.modal-dialog').draggable({
+        	handle: ".modal-header"
+      	});
 
 		$('#portalContent').on("change", '#showArchivedOnly', function() {
 			if ($('#showArchivedOnly').is(":checked")){
