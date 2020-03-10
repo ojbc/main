@@ -59,7 +59,7 @@
 			    }).fail(ojbc.displayFailMessage)
 		  	}
 		)
-		
+#*
 		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
             var url = encodeURI(this.href);
             var title = $(this).attr('searchName');
@@ -110,6 +110,19 @@
             }
             return false;
         });
+       *#
+       
+        $('#searchResultsTable').on('click', 'a.viewDetails',function() {
+            var url = encodeURI(this.href);
+            var title = $(this).attr('searchName');
+          	$('#detailModal .modal-title').html(title);
+			ojbc.showDetailModal(url);
+			return false;
+        });
+        
+		$('.modal-dialog').draggable({
+			handle: ".modal-header"
+		});
         
 	  });
 	  
@@ -137,4 +150,20 @@
 			$searchContent								
 		</div>
 	</div>
+</div>
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
 </div>
