@@ -50,8 +50,8 @@ $(function() {
 		$("#modalIframe").height(123);
 	});    	    	
 
-	$('#portalContent').unbind('click', '#searchResultsTable tbody tr').on('click', '#searchResultsTable tbody tr',function() {
-		$('#searchResultsTable tbody tr').removeClass("selected");
+	$('#portalContent').unbind('click', '.searchResultsTable tbody tr').on('click', '.searchResultsTable tbody tr',function() {
+		$(this).siblings().removeClass("selected");
 	    $(this).addClass("selected");
 	});
 	
@@ -268,17 +268,16 @@ ojbc = {
 		$('#filterPersonHairColor').prop('selectedIndex',0);
 	},
 	
-	showDetailModal : function(url){
+	showDetailModal : function(url, heightIncrement = 0){
 		ojbc.clearErrorMessage();
         $('#modalIframe').attr('src', url);	
       	$('#detailModal').modal('show');
  		$("#modalIframe").load( function() {
- 			var iframeHeight = $("#modalIframe")[0].contentWindow.document.body.scrollHeight; 
+ 			var iframeHeight = $('iframe').contents().height() + heightIncrement; 
  			if (iframeHeight > 123){
- 	 			$(this).height(iframeHeight+'px' );
+ 				$(this).css('height', iframeHeight);
  			}
 			$("#modalIframeSpinner").hide();				
-									
 		});
 	},
 	

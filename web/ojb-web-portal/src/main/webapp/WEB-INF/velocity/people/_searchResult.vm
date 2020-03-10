@@ -14,8 +14,8 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
- <script type="text/javascript">
-	  $(function() {
+<script type="text/javascript">
+	$(function() {
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
@@ -107,68 +107,44 @@
 			});
 		} 
 		#end
+ 
+		$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
+			var url = encodeURI(this.href);
+			var title = $(this).attr('searchName');
+			$('#detailModal .modal-title').html(title);
+			
+			var appendPersonDataDivId = $(this).attr('appendpersondata');
+			console.log("appendPersonDataDivId: "  + appendPersonDataDivId);
+			var personDataDiv = $('div#'+appendPersonDataDivId);
+			
+			console.log("personDataDiv.text().length: "  + personDataDiv.text().length);
+			#*console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); *#
+			if(personDataDiv.text().length > 0){
+				$( "<div id='personInformationInModal'/>" ).insertAfter($('#modalIframeSpinner'));
+			    $('#personInformationInModal').html($('div#'+appendPersonDataDivId).html());
+			}
+			
+			console.log("about to call showDetailModal");    
+			ojbc.showDetailModal(url, 250);
+			console.log("iframeHeight after shown: "
+			+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
+			
+			return false;
+		});
 		
-	 	$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var searchCategory = $(this).parent().prev().prev().text(); 
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" id="modalContainer"><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .95;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                maxHeight:dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-                
-				/*console.log("spinning");*/
-				$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-				$("#modalIframeSpinner").width($("#modalIframe").width());
-				$("#modalIframeSpinner").show();
-	     		
-	     		$("#modalIframe").load( function() {
-	     			//alert("Load event fired");
-					$("#modalIframeSpinner").hide();
-					$(this).css('height', $("body").height() + 200);
-				});
-				
-             	$('#modalIframe').attr('src', url);		
-	
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
+		if($("#search-results-title").text().indexOf("PERSON") > 0) {
+			$('#demogFilterInfo').show();
+			$('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
+			$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
+			$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
+		}
+			
+		$('.modal-dialog').draggable({
+			handle: ".modal-header"
+		});
 
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var personDataDiv = $('div#'+appendPersonDataDivId);
-            if(personDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                //$("#personInformationInModal").show();
-            }
-            return false;
-        });
-        
-	  });
-	  
- 		
-	  if($("#search-results-title").text().indexOf("PERSON") > 0) {
-	    $('#demogFilterInfo').show();
-        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
-		$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
-    	$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
-	    
-	  }	
-
-  </script>
+  });
+</script>
 <div>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
@@ -179,6 +155,7 @@
 	</nav>
     $searchContent
 </div>
+
 
 <div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
