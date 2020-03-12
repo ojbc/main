@@ -37,6 +37,7 @@
 	});
 	
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");
+	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
 	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
 		var checkedValues = getCheckedValues();	
