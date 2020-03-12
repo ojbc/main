@@ -1257,3 +1257,18 @@ input .shortDigit{
 	color: red;
 	font-size: 12px;
 }
+
+.customSelect{
+	color:#495057;
+	height: calc(1.5em + .5rem + 2px);
+	font-size: .75rem !important;
+	font-weight: 400;
+	border: 1px solid #ced4da;
+	background-clip: padding-box;
+	border-radius: .2rem;
+	border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

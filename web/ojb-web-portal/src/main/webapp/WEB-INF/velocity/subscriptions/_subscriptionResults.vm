@@ -44,6 +44,7 @@
 	$('#subscriptionTopButtons a').click (reStyleButtonsBasedOnSelection);
 			
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
 	function getCheckedValues() {
 	
@@ -197,32 +198,32 @@
 	
 	
 <div id="subscriptionResultsContainer" class="contentBox">
-
-    <div id="subscriptionResultsHeader"> 
-	    <div class="row ml-1 h-100">
-			<div class="my-auto font-weight-bold" id="subscriptionResultsTitle">
-			  MANAGE SUBSCRIPTIONS
-			</div>
-			<div class="ml-auto mr-3" id="subscriptionTopButtons">
+	<div class="card"> 
+		<div class="card-header container-fluid">
+		  <div class="row ml-1 h-100">
+		    <div class="my-auto font-weight-bold" id="search-results-title">
+		      MANAGE SUBSCRIPTIONS
+		    </div>
+		    <div class="ml-auto mb-3">
 	        	<a id="addSubLink" class="grayButton sublink" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
 	        	<a id="advancedSearch" class="grayButton sublink" href="#">ADVANCED SEARCH</a>
 			</div>
+		  </div>
 		</div>
-    </div>
-    
-    <div style="padding:10px" id="subscriptionsContent">
-    	#parse("common/_subscriptionsLeftBar.vm")
-		#if($informationMessages && $informationMessages!='')
-			<div class="alert alert-danger fade in alert-dismissible show">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<i class="fas fa-times" aria-hidden="true"></i>
-				</button>    
-				$informationMessages
-			</div>
-		#end
-		$subscriptionsContent								
-    </div>
-    
+		<div class="card-body" id="subscriptionsContent">
+	    	#parse("common/_subscriptionsLeftBar.vm")
+			#if($informationMessages && $informationMessages!='')
+				<div class="alert alert-danger fade in alert-dismissible show">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<i class="fas fa-times" aria-hidden="true"></i>
+					</button>    
+					$informationMessages
+				</div>
+			#end
+			$subscriptionsContent								
+		</div>
+	</div>
+
     <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
   		<div style="margin:7px;padding:7px;">
   			<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
