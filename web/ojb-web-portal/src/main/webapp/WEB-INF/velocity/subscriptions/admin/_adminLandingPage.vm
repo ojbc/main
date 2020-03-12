@@ -28,7 +28,7 @@
 	
 		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn):not(.dropdown-content a)').click (reStyleButtonsBasedOnSelection);
 		
-    	$('#advancedAdminSearch').click (function() { 
+    	$('#portalContent').on('click', '#advancedAdminSearch', function() { 
 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/adminSearchForm')")
 	    });
 	    
@@ -221,37 +221,38 @@
 
 .show {display:block;}
 </style>
-<div id="subscriptionResultsContainer" class="contentBox">
 
-    <div id="subscriptionResultsHeader"> 
-    	<div class="row ml-1 h-100">
-	        <div class="my-auto font-weight-bold" id="search-results-title">SUBSCRIPTIONS ADMIN</div>
-	        <div id="adminButtons" class="ml-auto mr-3 mt-1 pt-2">
-	            <a id="advancedAdminSearch" class="grayButton" >
-	                ADVANCED SEARCH
-	            </a>
-	            <a id="activeErrorsSearch" class="grayButton" >
-	                ERRORS
-	            </a>
-	            <a id="notifications" class="grayButton" >
-	                Notifications
-	            </a>
-	         	<div class="dropdown">
-					<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
-					<div id="myDropdown" class="dropdown-content">
-					    <a id="expiringSubscriptions">Expiring Subscriptions</a>
-					    <a id="expiredSubscriptions">Expired Subscriptions</a>
-					</div>
+<div class="card"> 
+	<div class="card-header container-fluid">
+	  <div class="row ml-1 h-100">
+	    <div class="my-auto" id="search-results-title">
+	      SUBSCRIPTIONS ADMIN
+	    </div>
+        <div id="adminButtons" class="ml-auto mr-3">
+            <a id="advancedAdminSearch" class="grayButton" >
+                ADVANCED SEARCH
+            </a>
+            <a id="activeErrorsSearch" class="grayButton" >
+                ERRORS
+            </a>
+            <a id="notifications" class="grayButton" >
+                Notifications
+            </a>
+         	<div class="dropdown">
+				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
+				<div id="myDropdown" class="dropdown-content">
+				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
+				    <a id="expiredSubscriptions">Expired Subscriptions</a>
 				</div>
-	            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
-	                MODIFY OWNER INFO
-	            </a>
-	        </div>
+			</div>
+            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
+                MODIFY OWNER INFO
+            </a>
         </div>
-    </div>
-    
-    <div style="padding:10px" id="subsAdminContent">
-    	#parse("common/_subscriptionsLeftBar.vm")
+	  </div>
+	</div>
+	<div class="card-body" id="subsAdminContent">
+		#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
 			<div class="alert alert-danger fade in alert-dismissible show" id="informationMessages" >
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -262,6 +263,5 @@
 		#end
 		
 		$subscriptionsContent 
-    </div>
-    
+	</div>
 </div>
