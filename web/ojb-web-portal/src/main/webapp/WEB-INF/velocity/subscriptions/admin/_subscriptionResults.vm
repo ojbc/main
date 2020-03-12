@@ -117,15 +117,16 @@
     
 </script>
 	
-<div style="padding:10px">
+<div class="card-body" id="subscriptionsContent">
 	#parse("common/_subscriptionsLeftBar.vm")
 	#if($informationMessages && $informationMessages!='')
-		<div class="alert alert-danger fade in alert-dismissible show">
+		<div class="alert alert-danger fade in alert-dismissible show" id="informationMessages" >
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<i class="fas fa-times" aria-hidden="true"></i>
 			</button>    
 			$informationMessages
 		</div>
 	#end
-	$subscriptionsContent								
+	
+	$subscriptionsContent 
 </div>
