@@ -218,9 +218,8 @@
 		    			$("#demogFilterInfo").hide();
 		    			
 		    			$('#filterColumn').removeClass('d-none');    				    			 
-		    			
-		    		}).fail(ojbc.displayFailMessage)
-		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')"));			    
+		    			ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+		    		}).fail(ojbc.displayFailMessage);			    
 				    					   
 				    return false;
     			});
@@ -228,29 +227,21 @@
 				$('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
 					$(this).parent().toggleClass('show');
 					$.post("#springUrl('/portal/leftBar')", function(data) {
-						    		    			
+						console.log("vehicle left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
-		    			
-		    			$("#demogFilterInfo").hide();
-		    			
-		    			$('#filterColumn').removeClass('d-none');    				    			 
-		    			
-		    		}).fail(ojbc.displayFailMessage)
-		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')"));
+		    			$('#filterColumn').removeClass('d-none');    
+		    			ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");				    			 
+		    		}).fail(ojbc.displayFailMessage);
     			});
     		 
     		 	$('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
 					$(this).parent().toggleClass('show');
 					$.post("#springUrl('/portal/leftBar')", function(data) {
-						    		    			
+						console.log("firearm left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
-		    			
-		    			$("#demogFilterInfo").hide();
-		    			
-		    			$('#filterColumn').removeClass('d-none');    				    			 
-		    			
-		    		}).fail(ojbc.displayFailMessage)
-		    		.done(ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')"));
+		    			$('#filterColumn').removeClass('d-none');    
+		    			ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')")				    			 
+		    		}).fail(ojbc.displayFailMessage);
     			});
 		    		 
 				$('body').off("click", "#subscriptionsLink").on("click", "#subscriptionsLink", function() {	  
