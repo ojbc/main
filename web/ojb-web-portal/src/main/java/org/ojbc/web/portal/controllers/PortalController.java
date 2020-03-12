@@ -131,9 +131,6 @@ public class PortalController implements ApplicationContextAware {
 	String sensitiveInfoAlertMessage;
 	
 	@Resource
-	Map<String, String> systemsToQuery_people;
-	
-	@Resource
 	Map<String, String> races;
 
 	@Resource
@@ -366,10 +363,9 @@ public class PortalController implements ApplicationContextAware {
     	return "common/_criminalIdentificationLeftBar";
     }
     
-    @RequestMapping(value="leftBar", method=RequestMethod.POST)
+	@RequestMapping(value="leftBar", method=RequestMethod.POST)
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
-    	
     	model.put("showReasonsForSearch", showReasonsForSearch);
     	model.put("showDemographicsFilter", showDemographicsFilter);
     	
@@ -504,11 +500,6 @@ public class PortalController implements ApplicationContextAware {
         return sensitiveInfoAlertMessage;
     }
     
-	@ModelAttribute("systemsToQuery")
-	public Map<String, String> getSystemsToQuery() {
-		return systemsToQuery_people;
-	}
-	
 	@ModelAttribute("races")
 	public Map<String, String> getRaces() {
 		return races;
