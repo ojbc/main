@@ -198,7 +198,7 @@
 </script>
 	
 	
-<div class="card" id="subscriptionsCard"> 
+<div class="card" id="subscriptionResultsContainer"> 
 	<div class="card-header container-fluid">
 	  <div class="row ml-1 h-100">
 	    <div class="my-auto" id="search-results-title">
