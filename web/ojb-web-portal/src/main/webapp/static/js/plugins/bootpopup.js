@@ -105,9 +105,9 @@ function bootpopup(options) {
 
 		// Header
 		this.header = $('<div class="modal-header"></div>');
+		this.header.append('<div class="modal-title" id="bootpopup-title">' + this.options.title + '</div>');
 		if(this.options.showclose)	// Close button
 			this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-		this.header.append('<div class="modal-title" id="bootpopup-title">' + this.options.title + '</div>');
 		this.content.append(this.header);
 
 		// Body
@@ -213,7 +213,7 @@ function bootpopup(options) {
 
 			switch(item) {
 			case "close": btnClass = "btn-primary btn-sm"; btnText = "Close"; break;
-			case "ok": btnClass = "blueButton"; btnText = "OK"; break;
+			case "ok": btnClass = "btn-primary btn-sm"; btnText = "OK"; break;
 			case "cancel": btnClass = "btn-light btn-sm"; btnText = "Cancel"; break;
 			case "yes": btnClass = "btn-primary btn-sm"; btnText = "Yes"; break;
 			case "no": btnClass = "btn-light btn-sm"; btnText = "No"; break;
