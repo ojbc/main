@@ -79,8 +79,8 @@
 								<div class="error">$otpInfoMessageError</div>
 							#end
 							<div class="mt-5">	
-								<a id="submitOtpButton" href="#" class="blueButton" >SUBMIT OTP</a>
-								<a id="requestOtpSubmitButton" href="#" alt="Request OTP" class="ml-2 blueButton">REQUEST NEW OTP</a>
+								<button id="submitOtpButton" class="btn btn-sm btn-primary" >SUBMIT OTP</button>
+								<button id="requestOtpSubmitButton" alt="Request OTP" class="ml-1 btn btn-sm btn-secondary">REQUEST NEW OTP</button>
 							</div> 
 						</form>
 					</div>

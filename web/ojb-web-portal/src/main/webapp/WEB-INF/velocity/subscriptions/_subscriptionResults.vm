@@ -74,7 +74,7 @@
 		var checkedValues = getCheckedValues();	
 																																	
 		if( !checkedValues ){
-			alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected');
 			return false;
 		}
 
@@ -110,7 +110,7 @@
 		var checkedValues = getCheckedValues();	
 		
 		if(!checkedValues){
-			alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected');
 			return false;
 		}
 		
