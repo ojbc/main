@@ -78,31 +78,29 @@
 			return false;
 		}
 
-		var row = $(this).parent();	
-			    
-	    $( "#dialog-confirm-validate" ).dialog({
-	    	  position: { my: "center center", at: "center center", of: window },
-		      resizable: true,
-		      modal: true,
-		      buttons: {
-		        "Validate": function() {
-					var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
-				
-					//call spring controller and refresh the current page with the subscription search results returned				 
-					$.post(urlRequest, function(data) {										
-					      $('#portalContent').html(data);					      
-						}
-					).fail(ojbc.displayFailMessage);
-					
-			        $( this ).dialog( "close" );
-		        },
-		        "Close": function() {
-	            		 $( this ).dialog( "close" );
-            	}
-		     }
-	    });   		
-		    				    
+		var row = $(this).parent();
 			
+		bootpopup({
+		    title: "Are you authorized?", 
+		    size: "large",
+		    showclose: false,
+		    content: [
+	    		  '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>',
+		          { p: {text: 'If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Yes". '}},
+		          { p: {text: "If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription."}}
+		          ], 
+		    cancel: function() {},
+		    yes: function(data, array, event) {  
+				var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
+			
+				//call spring controller and refresh the current page with the subscription search results returned				 
+				$.post(urlRequest, function(data) {										
+				      $('#portalContent').html(data);					      
+					}
+				).fail(ojbc.displayFailMessage);
+		    },
+		});
+			    
 		return false;
 	});	  
 	
@@ -110,30 +108,24 @@
 		var checkedValues = getCheckedValues();	
 		
 		if(!checkedValues){
-			bootpopup.alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected', '');
 			return false;
 		}
 		
 		//console.log("checkedValues: " + checkedValues);
 								
-		var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-		
-		if(confirmUnsubscribe == true){
-																		
-			var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-			
-			//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-			$.get(urlRequest, function(data) {										
-			      $('#portalContent').html(data);					      
-				}
-			).fail(ojbc.displayFailMessage);
+        bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+		    if(ans){
+				var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
 				
+				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+				$.get(urlRequest, function(data) {										
+				      $('#portalContent').html(data);					      
+					}
+				).fail(ojbc.displayFailMessage);
+			} 
 			return false;
-													 																		 
-		}else{
-		  return false;
-		}
-		
+		}); 
     });
 	
 	// listener for click on any editSubscriptionLink button
@@ -213,7 +205,7 @@
 	<div class="card-body" id="subscriptionsContent">
     	#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<div class="alert alert-danger fade in alert-dismissible show">
+			<div class="alert alert-info fade in alert-dismissible show">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<i class="fas fa-times" aria-hidden="true"></i>
 				</button>    
@@ -221,14 +213,6 @@
 			</div>
 		#end
 		$subscriptionsContent								
-	</div>
-</div>
-
-<div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
-	<div style="margin:7px;padding:7px;">
-		<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
-		<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
-		<p>If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
 	</div>
 </div>
     
