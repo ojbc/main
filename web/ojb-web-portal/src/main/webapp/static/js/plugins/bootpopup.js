@@ -214,7 +214,7 @@ function bootpopup(options) {
 			switch(item) {
 			case "close": btnClass = "btn-primary btn-sm"; btnText = "Close"; break;
 			case "ok": btnClass = "btn-primary btn-sm"; btnText = "OK"; break;
-			case "cancel": btnClass = "btn-light btn-sm"; btnText = "Cancel"; break;
+			case "cancel": btnClass = "btn-secondary btn-sm"; btnText = "Cancel"; break;
 			case "yes": btnClass = "btn-primary btn-sm"; btnText = "Yes"; break;
 			case "no": btnClass = "btn-light btn-sm"; btnText = "No"; break;
 			}
