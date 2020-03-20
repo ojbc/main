@@ -44,11 +44,14 @@
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
 		<camel:routeContextRef ref="fbiRoutes" />
 		<camel:routeContextRef ref="notificationRoutes" />
+		<camel:routeContextRef ref="subscriptionMigration" />
   
 		<endpoint id="smtpEndpoint"
-			uri="${publishSubscribe.smtpServerProtocol}://${publishSubscribe.smtpServerName}:${publishSubscribe.smtpServerPort}/?password=${publishSubscribe.emailPassword}&amp;from=${publishSubscribe.emailFromAddress}&amp;username=${publishSubscribe.emailUserID}&amp;contentType=text/html" />
+			uri="${publishSubscribe.smtpFullUrl}" />
 		<endpoint id="notificationNonwhitelistFileDrop" uri="file:///${publishSubscribe.notificationNonwhitelistDrop}" />
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint" uri="file:///${publishSubscribe.criminalHistoryConsolidationFileDrop}/failed" />
+		<endpoint id="subscriptionMigrationFileEndpoint" uri="file:///${publishSubscribe.subscriptionMigrationFileDrop}/subscriptionMigration/input" />
+		<endpoint id="agencyProfileSeedingFileEndpoint" uri="file:///${publishSubscribe.subscriptionMigrationFileDrop}/agencyProfileSeeding/input" />
         
 		<camel:route>
     
@@ -474,6 +477,14 @@
 	<bean id="subscriptionAuditProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionAuditProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
 		<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>
+	</bean>
+	
+	<bean id="subscriptionMigrationProcessor" class="org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor">
+		<property name="defaultSubscriptionMigrationOri" value="${defaultSubscriptionMigrationOri}"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionOwnerPrefix" value="${subscriptionOwnerPrefix}"></property>
+		<property name="pathToOriLookupFile" value="${pathToOriLookupFile}"/>		
+		<property name="defaultAgencyProfileState" value="${defaultAgencyProfileState}"/>
 	</bean>
 
 </beans>

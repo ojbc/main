@@ -402,6 +402,10 @@
 			<xsd:documentation>Demographics information used to search the FBI's National Sex Offender Registry (NSOR).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
+	<xsd:element name="NationalSexOffenderRegistryAdditionalResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:NationalSexOffenderRegistryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Additional results from the FBI for a sex offender.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>

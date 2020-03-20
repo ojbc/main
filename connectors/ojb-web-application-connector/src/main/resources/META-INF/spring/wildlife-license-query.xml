@@ -48,7 +48,7 @@
        <!-- Wildlife License Request Service, hosted by OJB -->
 	    <cxf:cxfEndpoint 
 	        id="personQueryRequestWildlifeLicenseService"
-	        address="${webapplication.personQuery.personQueryWildlifeLicenseEndpoint:}"
+	        address="${webapplication.personQuery.personQueryWildlifeLicenseEndpoint}"
 	        wsdlURL="classpath:ssp/Wildlife_License_Query_Request/schema/SIP_WS_1.2/Wildlife_License_Query_Request_Service.wsdl"
         	serviceName="ojbc:Wildlife-License-Query-Request-ServiceService"
         	endpointName="ojbc:Wildlife-License-Query-Request-Secure-Service"
@@ -64,7 +64,7 @@
        
 	    <!-- Wildlife License Request and Response Endpoints -->
 	   <bean id="wildlifeLicensingRequestProcessor" class="org.ojbc.processor.person.query.WildlifeLicensingRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryWildlifeLicenseReplyToEndpoint:}</value></property>
+	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryWildlifeLicenseReplyToEndpoint}</value></property>
 	   		<property name="wildlifeLicensingMessageProcessor" ref="wildlifeLicensingMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="wildlifeLicenseRequestResponseMap"/>
 	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>

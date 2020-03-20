@@ -46,7 +46,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
 	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
-	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-RESULT-TO-HIJIS";
+	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-TO-HIJIS";
+	private static final String INCOMING_QXS_RAP = "INCOMING-QXS-RAP";
 	
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
     
@@ -126,6 +127,25 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private void processCivilInitialResultsReport(Node rootNode, String transactionNumber, String transactionCategoryText) throws Exception {
 		
+		//Check for transaction category code
+		//Check for NSOR previous result
+		//Save and exit
+		
+		if (INCOMING_QXS_RAP.equals(transactionCategoryText))
+		{
+			if (rapbackDAO.isExistingNsorTransaction(transactionNumber))
+			{	
+				saveNsorDocument(rootNode, transactionNumber);
+			}
+			else
+			{
+				throw new Exception("Unable to save QXS Rap with additional details. No existing transaction exists.");
+			}
+			
+			return;
+		}
+
+		
 		if (!rapbackDAO.isExistingTransactionNumber(transactionNumber)){
 			if (isOrigNistQueued( inputFolder, transactionNumber ) || isOrigNistQueued(databaseResendFolder, transactionNumber)){
 				throw new RapbackIllegalStateException("Inappropriate time to process the result"); 
@@ -153,8 +173,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	private void saveNsorDocument(Node rootNode, String transactionNumber) throws Exception {
 		//Save ext:NationalSexOffenderRegistryDemographicsDocument or ext:NationalSexOffenderRegistrySearchResultDocument
 		
-		Node nsorDemographicsElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument");
-		Node nsorSearchResultElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument");
+		Node  nsorSearchResultElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument");
+		Node nsorDemographicsElement = XmlUtils.xPathNodeSearch(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument");
 		
 		if (nsorDemographicsElement != null)
 		{
@@ -171,7 +191,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			nsorDemographics.setTransactionNumber(transactionNumber);
 			
 			nsorDemographics.setDemographicsFile(
-					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument"));
+					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistryDemographicsDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 			
 			rapbackDAO.saveNsorDemographics(nsorDemographics);
 
@@ -192,7 +212,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			nsorSearchResult.setTransactionNumber(transactionNumber);
 			
 			nsorSearchResult.setSearchResultFile(
-					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument"));
+					getBinaryData(rootNode, "/pidresults:PersonFederalIdentificationResults/ident-ext:NationalSexOffenderRegistrySearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 			
 			rapbackDAO.saveNsorSearchResult(nsorSearchResult);
 			

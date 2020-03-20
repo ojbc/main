@@ -30,6 +30,8 @@ public class AgencyProfile implements Serializable{
 	private String agencyName;
 	private Boolean fbiSubscriptionQualified;
 	private Boolean stateSubscriptionQualified;
+	private Boolean firearmsSubscriptionQualification; 
+	private Boolean cjEmploymentSubscriptionQualification; 
 	
 	private List<String> emails; 
 	private List<String> triggeringEventCodes; 
@@ -96,6 +98,24 @@ public class AgencyProfile implements Serializable{
 
 	public void setTriggeringEventCodes(List<String> triggeringEventCodes) {
 		this.triggeringEventCodes = triggeringEventCodes;
+	}
+
+	public Boolean getFirearmsSubscriptionQualification() {
+		return firearmsSubscriptionQualification;
+	}
+
+	public void setFirearmsSubscriptionQualification(
+			Boolean firearmsSubscriptionQualification) {
+		this.firearmsSubscriptionQualification = firearmsSubscriptionQualification;
+	}
+
+	public Boolean getCjEmploymentSubscriptionQualification() {
+		return cjEmploymentSubscriptionQualification;
+	}
+
+	public void setCjEmploymentSubscriptionQualification(
+			Boolean cjEmploymentSubscriptionQualification) {
+		this.cjEmploymentSubscriptionQualification = cjEmploymentSubscriptionQualification;
 	}
 
 }

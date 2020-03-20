@@ -119,6 +119,8 @@
       </jxdm50:OrganizationAugmentation>
       <oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForStateSubscriptionsIndicator>
       <oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForFirearmsSubscriptionsIndicator>
+      <oirs-res-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator>true</oirs-res-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator>
       <oirs-res-ext:OrganizationAuthorizedTriggeringEvents>
          <oirs-res-ext:FederalTriggeringEventCode>ARREST</oirs-res-ext:FederalTriggeringEventCode>
          <oirs-res-ext:FederalTriggeringEventCode>DISPOSITION</oirs-res-ext:FederalTriggeringEventCode>

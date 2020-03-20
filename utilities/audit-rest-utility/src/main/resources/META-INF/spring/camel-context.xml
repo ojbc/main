@@ -105,10 +105,75 @@
 					<simple>${header.operationName} == 'auditUserAcknowledgement'</simple>
 					<to uri="direct:auditUserAcknowledgement" />
 				</when>
-				
+
+				<when>
+					<simple>${header.operationName} == 'retrieveUserAuthentications'</simple>
+					<to uri="direct:retrieveUserAuthentications" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrievePersonSearchRequest'</simple>
+					<to uri="direct:retrievePersonSearchRequest" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveFirearmSearchRequest'</simple>
+					<to uri="direct:retrieveFirearmSearchRequest" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveVehicleSearchRequest'</simple>
+					<to uri="direct:retrieveVehicleSearchRequest" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveIncidentSearchRequest'</simple>
+					<to uri="direct:retrieveIncidentSearchRequest" />
+				</when>
 				
 			</choice>
 		</route>
+
+		<route id="directRetrievePersonSearchRequest">
+			<from uri="direct:retrievePersonSearchRequest" />
+			
+			<camel:log message="Return Person Search Request"/>
+			
+			<bean ref="auditRestImpl" method="retrievePersonSearchRequest" />
+		</route>	
+
+		<route id="directRetrieveFirearmSearchRequest">
+			<from uri="direct:retrieveFirearmSearchRequest" />
+			
+			<camel:log message="Return Firearm Search Request"/>
+			
+			<bean ref="auditRestImpl" method="retrieveFirearmSearchRequest" />
+		</route>	
+
+		<route id="directRetrieveVehicleSearchRequest">
+			<from uri="direct:retrieveVehicleSearchRequest" />
+			
+			<camel:log message="Return Vehicle Search Requests"/>
+			
+			<bean ref="auditRestImpl" method="retrieveVehicleSearchRequest" />
+		</route>	
+
+		<route id="directRetrieveIncidentSearchRequest">
+			<from uri="direct:retrieveIncidentSearchRequest" />
+			
+			<camel:log message="Return Incident Search Requests"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIncidentSearchRequest" />
+		</route>	
+		
+		
+		<route id="directRetrieveUserAuthentications">
+			<from uri="direct:retrieveUserAuthentications" />
+			
+			<camel:log message="Return User Authentications"/>
+			
+			<bean ref="auditRestImpl" method="retrieveUserAuthentications" />
+		</route>	
 		
 		<route id="directReturnFederalRapbackSubscriptionDetail">
 			<from uri="direct:returnFederalRapbackSubscriptionDetail" />

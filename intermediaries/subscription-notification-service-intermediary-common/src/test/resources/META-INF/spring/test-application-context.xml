@@ -27,6 +27,14 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
+	<bean id="subscriptionMigrationProcessor" class="org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor">
+<!-- 		<property name="defaultSubscriptionMigrationOri" value="defaultORI"/> -->
+		<property name="defaultAgencyProfileState" value="VT"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionOwnerPrefix" value="MAINE:IDP:SOM:USER:"></property>
+		<property name="pathToOriLookupFile" value="src/test/resources/csv/subscriptionMigration/email_address_to_ori.csv"/>		
+	</bean>
+
     <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
         <property name="dataSource" ref="dataSource"/>
 		<property name="fbiSubscriptionMember" value="true"/>

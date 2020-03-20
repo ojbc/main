@@ -125,4 +125,9 @@
 			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument>
+	<oirq-res-ext:NationalSexOffenderRegistryAdditionalResultDocument structures:id="Doc_10">
+		<nc:DocumentBinary>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</oirq-res-ext:NationalSexOffenderRegistryAdditionalResultDocument>
 </oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults>

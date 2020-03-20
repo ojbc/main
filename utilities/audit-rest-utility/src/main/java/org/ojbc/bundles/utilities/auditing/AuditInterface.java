@@ -31,11 +31,18 @@ import javax.ws.rs.core.Response;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
@@ -123,5 +130,38 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FederalRapbackSubscription> retrieveFederalRapbackSubscriptionErrors();
+   
+   @POST
+   @Path("/retrieveUserAuthentications")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(UserAuthenticationSearchRequest authenticationSearchRequest);
+   
+   
+   @POST
+   @Path("/retrievePersonSearchRequest")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest);
+
+   @POST
+   @Path("/retrieveFirearmSearchRequest")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest);
+   
+   @POST
+   @Path("/retrieveVehicleSearchRequest")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest);
+
+   @POST
+   @Path("/retrieveIncidentSearchRequest")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest);
+
+
 
 }
