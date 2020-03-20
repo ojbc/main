@@ -17,6 +17,7 @@
 package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -77,6 +78,8 @@ public class PersonSearchRequest {
 	private Integer heightMin;
 	
 	private Integer heightMax;
+	
+	private LocalDateTime timestamp;
 	
 	public String getFirstName() {
 		return firstName;
@@ -296,6 +299,14 @@ public class PersonSearchRequest {
 
 	public void setHeightMin(Integer heightMin) {
 		this.heightMin = heightMin;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

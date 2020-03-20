@@ -40,7 +40,7 @@
     
     <xsl:output indent="yes" method="xml"/>
     <xsl:param name="topic">{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment</xsl:param>
-    <xsl:param name="systemId">{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</xsl:param>
+    <xsl:param name="systemIdCycleTracking">{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</xsl:param>
     
     <xsl:template match="/">
             <xsl:apply-templates select="/exc:CycleTrackingIdentifierAssignmentReport"/>
@@ -82,9 +82,7 @@
                         <notification:NotificationMessage> 
                             <notificationExt:NotifyingCriminalHistoryUpdate>
                             	<xsl:attribute name="s:id"><xsl:value-of select="generate-id()"/></xsl:attribute>                            	                            	
-                            	<notificationExt:NotifyingActivityReportingSystemNameText>
-                            		<xsl:value-of select="$systemId"/>
-                            	</notificationExt:NotifyingActivityReportingSystemNameText>                            	
+                            	<notificationExt:NotifyingActivityReportingSystemNameText><xsl:value-of select="$systemIdCycleTracking"/></notificationExt:NotifyingActivityReportingSystemNameText>                            	
                             	<xsl:apply-templates select="ext:CycleTrackingIdentifierAssignment"/>
                             </notificationExt:NotifyingCriminalHistoryUpdate>
                             <xsl:apply-templates select="ext:CycleTrackingIdentifierAssignment/j50:Subject/nc30:RoleOfPerson[@s30:ref]" mode="activityInvolvedPerson"/>

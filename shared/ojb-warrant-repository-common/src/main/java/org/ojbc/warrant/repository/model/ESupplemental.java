@@ -24,11 +24,22 @@ public class ESupplemental {
 	//Table name where esupplemental came from
 	private String supplementalType;
 	
-	//Value of Esupplemental, for example a Scar/Mark/Tattoo
+	//Value of Esupplemental, used for Scar/Mark/Tattoo, SSN, DOB, operator license number
 	private String supplementalValue;
 	
-	//Value of Esupplemental additional value, for example an operating license state
-	private String supplementalSecondaryValue;
+	//Used for OLN additional
+	private String operatorLicenseState;
+	
+	//Fields below are used for person altnernate names
+	private String firstName;
+	
+	private String middleName;
+	
+	private String lastName;
+
+	private String nameSuffix;
+	
+	private String fullPersonName;
 	
 	//PK from this table
 	private Integer identifier;
@@ -67,17 +78,57 @@ public class ESupplemental {
 		this.personPk = personPk;
 	}
 
-	public String getSupplementalSecondaryValue() {
-		return supplementalSecondaryValue;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setSupplementalSecondaryValue(String supplementalSecondaryValue) {
-		this.supplementalSecondaryValue = supplementalSecondaryValue;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFullPersonName() {
+		return fullPersonName;
+	}
+
+	public void setFullPersonName(String fullPersonName) {
+		this.fullPersonName = fullPersonName;
+	}
+
+	public String getOperatorLicenseState() {
+		return operatorLicenseState;
+	}
+
+	public void setOperatorLicenseState(String operatorLicenseState) {
+		this.operatorLicenseState = operatorLicenseState;
 	}
 
 	@Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
     }
-	
+
+	public String getNameSuffix() {
+		return nameSuffix;
+	}
+
+	public void setNameSuffix(String nameSuffix) {
+		this.nameSuffix = nameSuffix;
+	}
+
 }

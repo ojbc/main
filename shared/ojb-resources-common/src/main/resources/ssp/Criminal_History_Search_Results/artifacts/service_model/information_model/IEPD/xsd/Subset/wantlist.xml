@@ -51,6 +51,7 @@
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Disposition" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:EntityOrganization" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:LocationCountyName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Obligation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ObligationDueAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:OrganizationCategoryText" w:isReference="false" w:nillable="false"/>
@@ -137,6 +138,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:OrganizationJurisdiction"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:OrganizationORIIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -226,6 +229,10 @@
   <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:JurisdictionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LocationCountyAbstract"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ObligationType" w:isRequested="true">
     <w:ElementInType w:name="nc:ObligationDueAbstract"

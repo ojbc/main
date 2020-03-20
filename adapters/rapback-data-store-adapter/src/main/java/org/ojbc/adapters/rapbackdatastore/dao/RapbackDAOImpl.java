@@ -890,6 +890,8 @@ public class RapbackDAOImpl implements RapbackDAO {
                 	agencyProfile.setAgencyOri(rs.getString("agency_ori"));
                 	agencyProfile.setFbiSubscriptionQualified(rs.getBoolean("fbi_subscription_qualification"));
                 	agencyProfile.setStateSubscriptionQualified(rs.getBoolean("state_subscription_qualification"));
+                	agencyProfile.setFirearmsSubscriptionQualification(rs.getBoolean("FIREARMS_SUBSCRIPTION_QUALIFICATION"));
+                	agencyProfile.setCjEmploymentSubscriptionQualification(rs.getBoolean("CJ_EMPLOYMENT_SUBSCRIPTION_QUALIFICATION"));
 
                 	List<String> emails = new ArrayList<String>();
                 	String email = rs.getString("agency_email");
@@ -1139,6 +1141,17 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return existing;
 	}
 
+	@Override
+	public Boolean isExistingNsorTransaction(String transactionNumber) {
+		if (StringUtils.isBlank(transactionNumber)) return false; 
+		
+		final String sql = "SELECT count(*)>0 FROM NSOR_DEMOGRAPHICS t WHERE t.transaction_number = ?";
+		
+		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
+		
+		return existing;	
+	}
+	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(
 			String transactionNumber, ResultSender resultSender) {
