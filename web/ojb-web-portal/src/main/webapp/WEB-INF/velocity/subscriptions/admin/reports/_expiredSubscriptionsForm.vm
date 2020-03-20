@@ -89,8 +89,8 @@
 	    	</div>
 	    </div>
     <div class="mx-2 mt-4">
-    	<a id="submitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> Get Report</a>
-    	<a id="clearButton" class="grayButton"  >CLEAR</a>
+    	<button id="submitButton" class="btn btn-sm btn-primary" >GET REPORT</button>
+    	<button id="clearButton" class="btn btn-sm btn-secondary"  >CLEAR</button>
     </div>
     </form>
 </div>
