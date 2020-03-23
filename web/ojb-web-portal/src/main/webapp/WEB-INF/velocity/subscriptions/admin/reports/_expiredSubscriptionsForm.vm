@@ -89,8 +89,8 @@
 	    	</div>
 	    </div>
     <div class="mx-2 mt-4">
-    	<button id="submitButton" class="btn btn-sm btn-primary" >GET REPORT</button>
-    	<button id="clearButton" class="btn btn-sm btn-secondary"  >CLEAR</button>
+    	<a id="submitButton" class="btn btn-primary btn-sm" href="#" role="button">GET REPORT</a>
+    	<a id="clearButton" class="btn btn-secondary btn-sm" href="#" role="button">CLEAR</a>
     </div>
     </form>
 </div>
