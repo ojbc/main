@@ -155,7 +155,7 @@
   		
   		return false;		  					  					  		                                                     
  	});   		 
-
+#*
 	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
@@ -186,23 +186,23 @@
   		return false;			  					  		                                                      
   	}); 
     
-#*	
+*#	
 	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
 		// are used by the html in the modal velocity template file
 		var dlgHeight = $(window).height() * .9;
   		$.post("#springUrl('/subscriptions/addSubscription')", 
-  			function(data){			  			
-  							  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');
-    			 $('#addSubscriptionDialog .modal-body').html('<div id="modalIframeSpinner"/>' + data);			    			
-    			 $('#addSubscriptionDialog').modal('show');
-  			}
-  		).fail(ojbc.displayFailMessage);
+  			function(data){
+  			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+			$('#subscriptionModal .modal-title').html('Edit Subsciption');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal .modal-footer').html('');
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);
   		return false;			  					  		                                                      
   	}); 
-*#
+
   });
   
 </script>
