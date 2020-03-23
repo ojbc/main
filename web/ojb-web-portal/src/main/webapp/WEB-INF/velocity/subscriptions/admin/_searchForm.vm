@@ -101,8 +101,8 @@
         	</div>
         </div>
         <div class="mx-2 mt-4">
-        	<button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary" >SEARCH</button>
-        	<button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+        	<a id="advanceSearchSubmitButton" class="btn btn-primary btn-sm" href="#" role="button">SEARCH</a>
+        	<a id="advanceSearchClearButton" class="btn btn-secondary btn-sm" href="#" role="button">CLEAR</a>
         </div>
     </form>
 </div>
