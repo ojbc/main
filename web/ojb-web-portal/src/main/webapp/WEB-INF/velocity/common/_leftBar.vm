@@ -18,55 +18,6 @@
     <script type="text/javascript">
         $(function(){
             ojbc.initializeInputWithDefaultValue('#onBehalfOf','On behalf of');
-        
-            $("#filterForm").validate({
-                rules: {
-                    "filterAgeRangeStart": {
-                        digits: true
-                    },
-                    "filterAgeRangeEnd": {
-                        digits: true
-                    },
-                    "filterHeightInFeet": {
-                        digits: true
-                    },
-                    "filterHeightInInches": {
-                        digits: true
-                    },
-                    "filterHeightTolerance": {
-                        digits: true
-                    },
-                    "filterWeight": {
-                        digits: true
-                    },
-                    "filterWeightTolerance": {
-                        digits: true
-                    }
-                }
-            });   
-            
-        
-	       	// following to allow 'new' button returning on ajax to be assigned to this handler
-	       	$('#demogFilterInfo').on('click', '#filterSearchResults', function(){
-				$('#demogErrors').html("");    			
-				var isValidate=$("#filterForm").valid();
-				
-	            if(!isValidate){
-	                alert("There are errors in your inputs, please correct them and try again");
-	            }else {    			
-			
-	         	var form = $("#filterForm").serialize();
-		  		xhr = $.post("#springUrl('/people/filter')",form,function(data) {
-			  			if (data.indexOf("DEMOGRAPHICS") > 40 && data.indexOf("DEMOGRAPHICS") < 60) {
-			  				$('#demogFilterInfo').html(data); 	    		  				
-			  			}
-			  			else
-			  			{
-					       	$('#portalContent').html(data);	    				         
-				       } 				       
-				    }).fail(ojbc.displayFailMessage)
-				 }
-		  	});
         });
     		
     </script>
