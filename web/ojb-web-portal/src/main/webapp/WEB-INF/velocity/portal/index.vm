@@ -86,9 +86,9 @@
 						$("#modalIframeSpinner").show();	
 				
 			 		}	
-			 		else if ($("#editSubscriptionDialog").dialog("isOpen") === true){	
-			 			$("#modalIframeSpinner").height($("#editSubscriptionDialog").height())	
-			 			$("#modalIframeSpinner").width($("#editSubscriptionDialog").width())	
+			 		else if ($('#subscriptionModal').hasClass('show')){	
+			 			$("#modalIframeSpinner").height($("#subscriptionModal .modal-content").height())	
+			 			$("#modalIframeSpinner").width($("#subscriptionModal .modal-content").width())	
 						$("#modalIframeSpinner").show();
 			 		}	
 			 		else{
@@ -350,7 +350,7 @@
 			    }, $inactivityTimeoutInSeconds * 1000);
 			}
 			
-		</script>
+      </script>
 		
 	</body>
 </html>

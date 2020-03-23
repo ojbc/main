@@ -16,6 +16,7 @@
  *#
 <script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+<script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
 <script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
 <script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
 <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
@@ -33,7 +34,6 @@
 <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
 <script type="text/javascript" src="#springUrl('/static/js/plugins/bootpopup.js')"></script> 
 
-<script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
 <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
 <script src="#springUrl('/static/js/jquery.lwMultiSelect.js')"></script>
 

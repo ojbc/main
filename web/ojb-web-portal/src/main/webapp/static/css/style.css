@@ -513,7 +513,6 @@ header span.fullname {
 	font-weight: bold;
 	text-transform: uppercase;
 	position: relative;
-	padding-left: 13px;
 }
 
 #searchResultsHeader a {
@@ -666,10 +665,10 @@ header span.fullname {
 	height: 45px;
 	position: relative;
 	padding: 0 0 0 9px;
-	margin-left: -1.5vw;
-  	padding-left: 1.5vw;
-  	margin-right: -1.5vw;
-  	padding-right: 1.5vw;
+	margin-left: -1vw;
+  	padding-left: 1vw;
+  	margin-right: -1vw;
+  	padding-right: 1vw;
   	margin-bottom: -1vw;
   	padding-bottom: 1vw;
   	border-bottom-right-radius:4px;

@@ -64,7 +64,7 @@
     		
     		$('#editSubModalCancelLink').click(
     			function(){
-    				$("#editSubscriptionDialog").dialog('close');
+    				$("#subscriptionModal").modal('hide');;
     			}
     		)
     		
@@ -185,14 +185,13 @@
 				$.each(errorsArray, function( index, value ) {												
 				  displayMessage += '\n ' + value;																											
 				});
-				
-				alert(displayMessage);				                            
+				bootpopup.alert(displayMessage, 'Error');				                            
 			}else{				
 			  if(warningsArray != null && warningsArray != ''){
 				    $.each(warningsArray, function( index, value ) {												
 				    	displayMessage += '\n ' + value;																											
 				  	});
-				  	alert(displayMessage);
+				  	bootpopup.alert(displayMessage, 'Warning');
 			   }				
 			   refreshAfterSaveSubscription();
 			}		  	  
@@ -200,7 +199,7 @@
 	  	 
 	  function refreshAfterSaveSubscription(){
 	  
-		$("#editSubscriptionDialog").dialog('close');
+		$("#subscriptionModal").modal('hide');
 		
 		// redisplay subscription results having the new subscription 
 		$.post("#springUrl('/subscriptions/subscriptionResults')", 
@@ -234,9 +233,3 @@
 	</form>
 </div>
   
-<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
- 	<div id="subModalButtonDiv">
-        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-    </div>            
-</div>	  
