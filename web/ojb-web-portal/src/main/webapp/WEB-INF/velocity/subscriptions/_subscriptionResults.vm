@@ -127,34 +127,35 @@
 			return false;
 		}); 
     });
-	
+		
 	// listener for click on any editSubscriptionLink button
-	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-		var editMvcUrl = encodeURI(this);
-		var dlgHeight = $(window).height() * .9;
-		var row = $(this).closest("tr");	    		    			
+	$('#searchResultsTable').on('click', '.viewDetails',function(event) {
+		event.preventDefault();
+		var editMvcUrl = encodeURI(this.href);
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+		var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
+		if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+		}
+		else{
+			$('#subscriptionModal .modal-dialog').removeClass('modal-sm'); 
+		}
+		
   		$.get(editMvcUrl, function(data){
-			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/> ').appendTo('body');
-        	 
-			 vSubDialog.dialog({  
-			 		position: { my: "center center", at: "center center", of: window},                  
-	                modal:true,
-					resizable:false,
-					create:function(){
-			        	 $('#editSubscriptionDialog').html(data);
-					},
-			        close: function(event, ui){
-			        	$(this).dialog("close");
-			        	$('#editSubscriptionDialog').remove();
-			        }    	                                  
-                }).css({height:"auto", overflow:"auto"}); 			  						  				  				
+			$('#subscriptionModal .modal-title').html('Edit Subsciption');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal .modal-footer').html(
+  				' <button id="editSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+  				' <button id="editSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+  			$('#subscriptionModal').modal('show');
   		}).fail(ojbc.displayFailMessage);	
   		
-  		//prevent default browser navigation to link<a> href url, because we're using the url 
-  		// as a spring mvc call
   		return false;		  					  					  		                                                     
  	});   		 
-    
+
 	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
@@ -184,7 +185,24 @@
   		).fail(ojbc.displayFailMessage);
   		return false;			  					  		                                                      
   	}); 
-
+    
+#*	
+	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
+		// call the spring controller method we need by this GET URL request,
+		// that method populates the mvc model map with objects needed that 
+		// are used by the html in the modal velocity template file
+		var dlgHeight = $(window).height() * .9;
+  		$.post("#springUrl('/subscriptions/addSubscription')", 
+  			function(data){			  			
+  							  			
+    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');
+    			 $('#addSubscriptionDialog .modal-body').html('<div id="modalIframeSpinner"/>' + data);			    			
+    			 $('#addSubscriptionDialog').modal('show');
+  			}
+  		).fail(ojbc.displayFailMessage);
+  		return false;			  					  		                                                      
+  	}); 
+*#
   });
   
 </script>
@@ -215,4 +233,23 @@
 		$subscriptionsContent								
 	</div>
 </div>
+
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">Edit Subsciption</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    
     
