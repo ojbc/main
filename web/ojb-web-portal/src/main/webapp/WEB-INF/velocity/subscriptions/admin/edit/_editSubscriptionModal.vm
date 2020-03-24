@@ -18,17 +18,23 @@
  <script type="text/javascript">
 	  $(function() {	
 	  	  		
-			if(!${initializationSucceeded}){
+			if('${initializationSucceeded}' !== 'true'){
 			
-				$("#editSubscriptionDialog").dialog('close');
-				alert('Failed retrieving subscription for edit window');
+				$("#subscriptionModal").modal('hide');
+				bootpopup.alert('Failed retrieving subscription for edit window', "ERROR");
 				return;
 			}	  	  		
 	  	  		
 	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
-	  	  		$(".ui-dialog").width("800");
-				$(".ui-dialog-title").append( '<br/><span class="subscriptionTitleHint" style="padding:0">OWNER: $subscription.ownerFirstName $subscription.ownerLastName/$subscription.ownerEmailAddress</span>');
-	  	  	}	  	  		
+				$('#subscriptionModal .modal-title').html( 'EDIT SUBSCIPTION<br/><span class="subscriptionTitleHint" style="padding:0">OWNER: $subscription.ownerFirstName $subscription.ownerLastName/$subscription.ownerEmailAddress</span>');
+	  	  	}
+	  	  	else{
+	  	  		$('#subscriptionModal .modal-title').html( 'EDIT SUBSCIPTION');
+	  	  	}
+	  	  	
+	  	  	if( '${subscription.active}'  === 'true'){
+	        	$('#subscriptionModal .modal-footer').html('<a id="editSubModalCancelLink" class="btn btn-secondary btn-sm" href="#" role="button">CANCEL</a><a id="editSubModalSaveLink" class="btn btn-primary btn-sm" href="#" role="button">SAVE</a>');
+  	  		}
 
     		$('#editSubModalSaveLink').click(
     			function(){
@@ -62,7 +68,7 @@
     		
     		$('#editSubModalCancelLink').click(
     			function(){
-    				$("#editSubscriptionDialog").dialog('close');
+    				$("#subscriptionModal").modal('hide');
     			}
     		)
     		
@@ -184,13 +190,13 @@
 				  displayMessage += '\n ' + value;																											
 				});
 				
-				alert(displayMessage);				                            
+				bootpopup.alert(displayMessage, "ERROR");				                            
 			}else{				
 			  if(warningsArray != null && warningsArray != ''){
 				    $.each(warningsArray, function( index, value ) {												
 				    	displayMessage += '\n ' + value;																											
 				  	});
-				  	alert(displayMessage);
+				  	bootpopup.alert(displayMessage, "WARNING");
 			   }				
 			   refreshAfterSaveSubscription();
 			}		  	  
@@ -198,7 +204,7 @@
 	  	 
 	  function refreshAfterSaveSubscription(){
 	  
-		$("#editSubscriptionDialog").dialog('close');
+		$("#subscriptionModal").modal('hide');
 		
 		// redisplay subscription results having the new subscription 
 		if ('$editSourcePage' === 'RBN'){
@@ -224,18 +230,9 @@
 	  
 </script>
 
-<div style="display:none;" id="modalIframeSpinner"></div>
-<div style="width:auto;" id="subFormDiv">
-	#if( ${subscription.active} )
-		<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
-		 	<div id="subModalButtonDiv">
-		        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-		        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-		    </div>            
-		</div>	  
-	#end
+<div style="width:auto; height:auto" id="subFormDiv">
 	<form id="subscriptionForm">  	
-		<div class='mt-3'>
+		<div>
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "disabled='disabled' title='topic'")
 			#springFormHiddenInput("subscription.topic")		
 		</div>			
