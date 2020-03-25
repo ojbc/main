@@ -62,7 +62,7 @@
 			<xsl:attribute name="action">
 				<xsl:value-of select="$actionUrl"></xsl:value-of>
 			</xsl:attribute>
-			<input type="submit" value="Acknowledge All" class="blueButton mt-3"/>
+			<input type="submit" value="Acknowledge All" class="btn btn-primary btn-sm mt-3"/>
 		</form>
 	</xsl:template>
 	<xsl:template match="ac-p:Policy">
