@@ -227,47 +227,31 @@
     		var subsequentResultButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).removeClass('d-none').dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      width:400,
-			      height:200,
-			      modal: true,
-			      buttons: {
-			        "Yes": function() {
-			        	$( this ).dialog( "close" );
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
-			        	subsequentResultButton.click();
-			        },
-			        "No": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
-
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
-		            		 $( this ).dialog( "close" );
-		            	}
-		            	else{
-		            		$( this ).dialog( "close" );
-						    $( "#dialog-confirm-unsubscribe" ).removeClass('d-none').dialog({
-						    	 position: { my: "center center", at: "center center", of: row },
-							     resizable: true,
-							     width:500,
-							     height:150,
-							     modal: true,
-							     buttons: {
-							         "Continue": function() {
-							              unsubscribe(subscriptionId);
-								          $( this ).dialog( "close" );
-							         },
-		            				 "Cancel" : function(){
-		            					  $( this ).dialog( "close" );
-		            				 }
-		            			 }
-							});		            		
-	            			
-		            	}
-			        }
-			     }
-		    });   		
+    		
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
+			    ],
+			    yes: function(data,e) { 			        	
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        subsequentResultButton.click();
+ 				},
+			    no: function(data) {
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
+	            		bootpopup({
+						    title: "Unsubscribe?",
+						    content: [
+						        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>'
+						    ],
+						    cancel: function(data) {},
+						    ok: function(data,e) { unsubscribe(subscriptionId); }
+						});
+			    	}
+			    }
+			});
+    		
     	});
     	
     	$('#searchResultsTable').on('click', 'a.viewRapsheetConfirmation',function() {
@@ -277,53 +261,36 @@
     		var viewRapsheetButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).removeClass('d-none').dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      width:400,
-			      height:200,
-			      modal: true,
-			      buttons: {
-			        "Yes": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
-			        	
-			        	viewRapsheetButton.click();
-				        $( this ).dialog( "close" );
-			        },
-			        "No": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
-
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
-		            		 $( this ).dialog( "close" );
-		            	}
-		            	else{
-						    $( "#dialog-confirm-unsubscribe" ).removeClass('d-none').dialog({
-						    	 position: { my: "center center", at: "center center", of: row },
-							     resizable: true,
-							     width:500,
-							     height:150,
-							     modal: true,
-							     buttons: {
-							         "Continue": function() {
-							              unsubscribe(subscriptionId);
-								          $( this ).dialog( "close" );
-							         },
-		            				 "Cancel" : function(){
-		            					  $( this ).dialog( "close" );
-		            				 }
-		            			 }
-							});		            		
-	            			$( this ).dialog( "close" );
-		            	}
-			        }
-			     }
-		    });   		
+    		
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
+			    ],
+			    yes: function(data,e) { 			        	
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        viewRapsheetButton.click();
+ 				},
+			    no: function(data) {
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
+	            		bootpopup({
+						    title: "Unsubscribe?",
+						    content: [
+						        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>',
+						        { p: {text: "Insert image info here:"}},
+						    ],
+						    cancel: function(data) {},
+						    ok: function(data,e) { unsubscribe(subscriptionId); }
+						});
+			    	}
+			    }
+			});
     	});
     	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
           	$('#detailModal .modal-title').html('IDENTIFICATION SUBSEQUENT RESULTS');
 			ojbc.showDetailModal(this.href);
-			return false;
         });
     	
 		function unsubscribe(id){
@@ -389,13 +356,6 @@
 	</div>
 </div>
 
-<div id="dialog-confirm-authorization" title="Are you authorized?" class="d-none">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>
-</div>
-<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="d-none">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-  You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
-</div>
 <div id="dialog-confirm-validate" title="Are you authorized?" style="width:auto; height:auto" class="d-none">
 	<div style="margin:7px;padding:7px;">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>

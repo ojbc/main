@@ -42,6 +42,7 @@ $(function() {
 		$("#modalIframeSpinner").height($(".modal-body").height()-32);
 		$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
 		$("#modalIframeSpinner").show();
+		$('body').addClass('modal-open'); 
    }); 
 
 	$('#portalContent').unbind('hidden.bs.modal', '#detailModal').on('hidden.bs.modal', '#detailModal', function(){
