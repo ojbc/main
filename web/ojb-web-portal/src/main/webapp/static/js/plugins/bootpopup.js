@@ -97,7 +97,7 @@ function bootpopup(options) {
 		if(this.options.size == "small") classModalDialog += " modal-sm";
 
 		// Create HTML elements for modal dialog
-		this.modal = $('<div class="modal fade small" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
+		this.modal = $('<div class="modal fade small" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title" aria-hidden="true"></div>');
 		this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
 		this.content = $('<div class="modal-content"></div>');
 		this.dialog.append(this.content);
