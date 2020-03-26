@@ -179,33 +179,26 @@
     		clearErrorMessage();
 			var row = $(this).parent().parent();
 			var id = $(this).attr("id");
-			var reasonCode = $(this).attr("data-reason-code"); 		    
-		    $( "#dialog-confirm-validate" ).removeClass('d-none').dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      height: "auto",
- 			      width: 400,
-			      modal: true,
-			      buttons: {
-			        "Validate": function() {
-			        	$( this ).dialog( "close" );
-			        	
-			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
-							if (data === 'success'){
-								refreshSearchResultsTable("Validation Successful");	
-							}
-							else{
-								showErrorMessage(data);
-							}	
-						}).fail(ojbc.displayFailMessage);
-						
-			        },
-			        "Close": function() {
-	            		$( this ).dialog( "close" );
-	            	}
-			     }
-		    });   		
-    	
+			var reasonCode = $(this).attr("data-reason-code"); 	
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>',
+			        { p: {text: 'If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". '}},
+			        { p: {text: "If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription."}}
+			    ],
+			    validate: function(data,e) { 			        	
+		    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
+						if (data === 'success'){
+							refreshSearchResultsTable("Validation Successful");	
+						}
+						else{
+							showErrorMessage(data);
+						}	
+					}).fail(ojbc.displayFailMessage);
+ 				},
+			    cancel: function(data) {}
+			});
     	});
     	    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
@@ -353,14 +346,6 @@
 			#end
 			$rapbackSearchContent								
 		</div>
-	</div>
-</div>
-
-<div id="dialog-confirm-validate" title="Are you authorized?" style="width:auto; height:auto" class="d-none">
-	<div style="margin:7px;padding:7px;">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
-		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
-		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
 	</div>
 </div>
 
