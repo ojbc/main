@@ -160,7 +160,6 @@
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
 		// are used by the html in the modal velocity template file
-		var dlgHeight = $(window).height() * .9;
   		$.post("#springUrl('/subscriptions/addSubscription')", 
   			function(data){
   			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 

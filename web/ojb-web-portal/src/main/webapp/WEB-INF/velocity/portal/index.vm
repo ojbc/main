@@ -80,13 +80,7 @@
 				$("#demogFilterInfo").hide();
 				
 			 	$(document).ajaxStart(function(){
-			 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){	
-			 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())	
-			 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())	
-						$("#modalIframeSpinner").show();	
-				
-			 		}	
-			 		else if ($('#subscriptionModal').hasClass('show')){	
+					if ($('#subscriptionModal').hasClass('show')){	
 			 			$("#modalIframeSpinner").height($("#subscriptionModal .modal-content").height())	
 			 			$("#modalIframeSpinner").width($("#subscriptionModal .modal-content").width())	
 						$("#modalIframeSpinner").show();

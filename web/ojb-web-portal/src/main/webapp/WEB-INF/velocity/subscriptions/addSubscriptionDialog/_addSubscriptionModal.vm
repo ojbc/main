@@ -164,7 +164,6 @@
 			   }	
 			   if (sourcePage === 'personSearch')
 			   {		
-			   		$("#addSubscriptionDialog").dialog('close');
 					bootpopup.alert("Your subscription was saved successfully. Click the subscriptions link to view it.", "INFO");
 			   }
 			   else
