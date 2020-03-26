@@ -49,6 +49,7 @@ function bootpopup(options) {
 		ok: function() {},
 		cancel: function() {},
 		yes: function() {},
+		validate: function() {},
 		no: function() {},
 		complete: function() {},
 		submit: function(e) {
@@ -63,7 +64,7 @@ function bootpopup(options) {
 			if(key in this.options)
 				this.options[key] = options[key];
 			// If an event for a button is given, show the respective button
-			if(["close", "ok", "cancel", "yes", "no"].indexOf(key) >= 0)
+			if(["close", "ok", "cancel", "yes", "no", "validate"].indexOf(key) >= 0)
 				buttons.push(key);
 		}
 		// Copy news buttons to this.options.buttons
@@ -216,7 +217,8 @@ function bootpopup(options) {
 			case "ok": btnClass = "btn-primary btn-sm"; btnText = "OK"; break;
 			case "cancel": btnClass = "btn-secondary btn-sm"; btnText = "Cancel"; break;
 			case "yes": btnClass = "btn-primary btn-sm"; btnText = "Yes"; break;
-			case "no": btnClass = "btn-light btn-sm"; btnText = "No"; break;
+			case "validate": btnClass = "btn-primary btn-sm"; btnText = "Validate"; break;
+			case "no": btnClass = "btn-secondary btn-sm"; btnText = "No"; break;
 			}
 
 			var button = $("<button></button>", {
@@ -238,6 +240,7 @@ function bootpopup(options) {
 			switch(item) {
 			case "close": this.btnClose = button; break;
 			case "ok": this.btnOk = button; break;
+			case "validate": this.btnValidate = button; break;
 			case "cancel": this.btnCancel = button; break;
 			case "yes": this.btnYes = button; break;
 			case "no": this.btnNo = button; break;
@@ -302,6 +305,7 @@ function bootpopup(options) {
 	this.submit = function() { this.callback("submit"); };
 	this.close = function() { this.callback("close"); };
 	this.ok = function() { this.callback("ok"); };
+	this.validate = function() { this.callback("validate"); };
 	this.cancel = function() { this.callback("cancel"); };
 	this.yes = function() { this.callback("yes"); };
 	this.no = function() { this.callback("no"); };

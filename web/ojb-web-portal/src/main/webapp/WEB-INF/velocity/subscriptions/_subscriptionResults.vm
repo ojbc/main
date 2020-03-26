@@ -86,11 +86,11 @@
 		    showclose: false,
 		    content: [
 	    		  '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>',
-		          { p: {text: 'If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Yes". '}},
+		          { p: {text: 'If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate". '}},
 		          { p: {text: "If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription."}}
 		          ], 
 		    cancel: function() {},
-		    yes: function(data, array, event) {  
+		    validate: function(data, array, event) {  
 				var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
 			
 				//call spring controller and refresh the current page with the subscription search results returned				 
