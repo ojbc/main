@@ -94,28 +94,23 @@
 			var checkedValues = getCheckedValues();	
 			
 			if(!checkedValues){
-				alert('No subscriptions selected');
+				bootpopup.alert('No subscriptions selected', 'ERROR');
 				return false;
 			}
 			
 			//console.log("checkedValues: " + checkedValues);
-									
-			var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-			
-			if(confirmUnsubscribe == true){
-																			
-				var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-				
-				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-				$.get(urlRequest, function(data) {										
-				      $("#subsAdminContent").html(data);					      
-				}).fail(ojbc.displayFailMessage);
+
+			bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+			    if(ans){
+					var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
 					
+					//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+					$.get(urlRequest, function(data) {										
+					      $("#subsAdminContent").html(data);					      
+					}).fail(ojbc.displayFailMessage);
+				} 
 				return false;
-														 																		 
-			}else{
-			  return false;
-			}
+			}); 
 			
 	    });
 		
@@ -249,7 +244,12 @@
 	<div class="card-body" id="subsAdminContent">
 		#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<div class="alert alert-danger fade in alert-dismissible show" id="informationMessages" >
+			#if ($informationMessages == 'Operation Successful')
+				#set( $divClass = "alert alert-success fade in alert-dismissible show" )
+			#else
+				#set( $divClass = "alert alert-danger fade in alert-dismissible show" )
+			#end
+			<div class="$divClass" id="informationMessages" >
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<i class="fas fa-times" aria-hidden="true"></i>
 				</button>    

@@ -108,7 +108,7 @@
 		var checkedValues = getCheckedValues();	
 		
 		if(!checkedValues){
-			bootpopup.alert('No subscriptions selected', '');
+			bootpopup.alert('No subscriptions selected', 'ERROR');
 			return false;
 		}
 		
@@ -192,7 +192,12 @@
 	<div class="card-body" id="subscriptionsContent">
     	#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<div class="alert alert-info fade in alert-dismissible show">
+			#if ($informationMessages == 'Operation Successful')
+				#set( $divClass = "alert alert-success fade in alert-dismissible show" )
+			#else
+				#set( $divClass = "alert alert-danger fade in alert-dismissible show" )
+			#end
+			<div class="$divClass" id="informationMessages" >
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<i class="fas fa-times" aria-hidden="true"></i>
 				</button>    
