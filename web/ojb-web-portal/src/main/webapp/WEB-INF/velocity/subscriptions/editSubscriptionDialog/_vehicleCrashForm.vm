@@ -20,7 +20,7 @@
     		
     		$('#idLookupLink').click(
     			function(){
-    				alert('Coming Soon');
+    				bootpopup.alert('Coming Soon', 'INFO');
     			}
     		)
     		    	  		    			

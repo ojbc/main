@@ -69,7 +69,7 @@
 						}
 																	  						
 					}else{
-						alert('Requested SID not found');
+						bootpopup.alert('Requested SID not found', 'ERROR');
 						$("#fbiId").val("");
 						$("#fbiIdString").html("No FBI UCN found")
 					}
@@ -79,7 +79,7 @@
 	  			}
   			).fail(ojbc.displayFailMessage);
 		}else{
-			alert('$sidRegexValidationErrorMessage');
+			bootpopup.alert('$sidRegexValidationErrorMessage', 'ERROR');
 			$('#fullName').html(nameHtml);
 			$('#dateOfBirth').html(dateOfBirthDropdownHtml)
 			$("#fbiId").val("");
