@@ -46,7 +46,7 @@
 									});	  							  						
 									
 		  						}else{
-		  							alert('Unable to process requested SID');
+		  							bootpopup.alert('Unable to process requested SID', 'ERROR');
 		  						}
 		  						
 	  							//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
@@ -57,7 +57,7 @@
 				  			}
 			  			).fail(ojbc.displayFailMessage);
 		  			}else{
-		  				alert($("#sidRegexValidationErrorMessage").val());
+		  				bootpopup.alert($("#sidRegexValidationErrorMessage").val(), 'ERROR');
 		  			}		  				     			       				
 			});    		
     		    	      		    	  			    		    	  

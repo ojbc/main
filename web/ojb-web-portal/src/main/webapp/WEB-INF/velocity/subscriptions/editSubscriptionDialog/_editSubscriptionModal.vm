@@ -53,7 +53,7 @@
 						savePersonVehicleCrashSubscription();			
 						  				
 					}else{					
-						alert('Subscription type must be specified');
+						bootpopup.alert('Subscription type must be specified', 'ERROR');
 					} 			  				  					
     			}
     		)

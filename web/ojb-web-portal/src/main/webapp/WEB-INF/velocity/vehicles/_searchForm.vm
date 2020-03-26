@@ -21,27 +21,16 @@
           
 		  ojbc.handlePlaceholders(); 
     	  
-    	  $('#searchForm').validate({
-                rules: {
-                 
-                }
-            });
-    
     		$('#advanceSearchSubmitButton').click (function(){
-                var isValidate=$("#searchForm").valid();
-                if(!isValidate){
-                    alert("There are errors in your inputs, please correct them and try again");
-                }else {
-                	ojbc.clearPlaceholders();
-                    var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
-                
-		  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
-		  	       	    if (!data.includes('id="advancedSearchTab"')){
-			  	       		$('#filterColumn').addClass('d-none');
-		  	       		}
-				        $('#portalContent').html(data);
-			        }).fail(ojbc.displayFailMessage);
-			    }
+            	ojbc.clearPlaceholders();
+                var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
+            
+	  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
+	  	       	    if (!data.includes('id="advancedSearchTab"')){
+		  	       		$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
 		  	});
     		
 			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());

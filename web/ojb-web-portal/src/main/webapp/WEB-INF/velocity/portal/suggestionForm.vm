@@ -19,7 +19,7 @@
 	    $('#emailFormSubmitButton').click (function(){
 	        var isValidate=$("#reportForm").valid();
 	        if(!isValidate){
-	            alert("There are errors in your inputs, please correct them and try again");
+	            bootpopup.alert("There are errors in your inputs, please correct them and try again", "ERROR");
 	        }else {
 	            var formData = $("#reportForm").serialize();
 	

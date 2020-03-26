@@ -20,12 +20,6 @@
 	    $.ajaxSetup({ cache: false });
 	    ojbc.handlePlaceholders(); 
 	  
-	    $('#searchForm').validate({
-        	rules: {
-         
-        	}
-	  	});
-    
 		$( ".datePicker" ).datepicker({
 		   showOn: "both",
 		   buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
@@ -39,22 +33,16 @@
 		
 		$('#advanceSearchSubmitButton').click (
 			function(){
-		        var isValidate=$("#searchForm").valid();
-		        if(!isValidate){
-		            alert("There are errors in your inputs, please correct them and try again");
-		        }else {
-		        	ojbc.clearPlaceholders();
-		            var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
-		        
-		  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
-		  	       		if (!data.includes('id="advancedSearchTab"')){
-		  	       			$('#filterColumn').addClass('d-none');
-		  	       		}
-				        $('#portalContent').html(data);
-			        }).fail(ojbc.displayFailMessage)
-			    }
-		  	}
-		)
+	        	ojbc.clearPlaceholders();
+	            var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+	        
+	  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
+	  	       		if (!data.includes('id="advancedSearchTab"')){
+	  	       			$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage)
+		 });
 		
 		$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
 		$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());

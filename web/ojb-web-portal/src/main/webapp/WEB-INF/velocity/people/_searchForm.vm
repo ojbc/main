@@ -46,20 +46,15 @@
     	    });
     	    
     		$('#advanceSearchSubmitButton').click (function(){
-                var isValidate=$("#advancedSearchForm").valid();
-                if(!isValidate){
-                    alert("There are errors in your inputs, please correct them and try again");
-                }else {
-                	ojbc.clearPlaceholders();
-                    var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
-                
-		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
-		  	       	    if (!data.includes('id="advancedSearchTab"')){
-			  	       		$('#filterColumn').addClass('d-none');
-		  	       		}
-				        $('#portalContent').html(data);
-			        }).fail(ojbc.displayFailMessage);
-			    }
+            	ojbc.clearPlaceholders();
+                var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+            
+	  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+	  	       	    if (!data.includes('id="advancedSearchTab"')){
+		  	       		$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
     		});
 
     		$('#juvenileSearchSubmitButton').click (

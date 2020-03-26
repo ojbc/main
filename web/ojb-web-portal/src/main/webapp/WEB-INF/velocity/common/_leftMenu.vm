@@ -68,7 +68,7 @@
 				}).fail(ojbc.displayFailMessage);								    
 	    			    			    		
 		    #else
-				alert('Error: unknown page cannot be displayed');
+				bootpopup.alert('Error: unknown page cannot be displayed', 'ERROR');
 		    #end
 
 		    return false;

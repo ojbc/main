@@ -708,8 +708,8 @@
        
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
-		<entry key="Active" value="Active" />
 		<entry key="All" value="All" />
+		<entry key="Active" value="Active" />
 		<entry key="Inactive" value="Inactive" />
 		<entry key="Expiring" value="Expiring" />
 	</util:map>
