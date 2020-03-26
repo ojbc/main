@@ -164,7 +164,8 @@
 			   }	
 			   if (sourcePage === 'personSearch')
 			   {		
-					bootpopup.alert("Your subscription was saved successfully. Click the subscriptions link to view it.", "INFO");
+			   		$("#subscriptionModal").modal('hide');
+					bootpopup.alert("Your subscription was saved successfully. Click the subscriptions link to view it.", "SUCCESS");
 			   }
 			   else
 			   {			

@@ -145,7 +145,7 @@
 		}
 		
   		$.get(editMvcUrl, function(data){
-			$('#subscriptionModal .modal-title').html('Edit Subsciption');	  			
+			$('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');	  			
   			$('#subscriptionModal .modal-body').html(data);
   			$('#subscriptionModal .modal-footer').html(
   				' <button id="editSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
@@ -163,7 +163,7 @@
   		$.post("#springUrl('/subscriptions/addSubscription')", 
   			function(data){
   			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
-			$('#subscriptionModal .modal-title').html('Edit Subsciption');	  			
+			$('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');	  			
   			$('#subscriptionModal .modal-body').html(data);
   			$('#subscriptionModal .modal-footer').html('');
   			$('#subscriptionModal').modal('show');
