@@ -69,31 +69,15 @@
 			var sourcePage="personSearch";		
 
 	  		$.post("#springUrl('/subscriptions/addSubscription')", subscription,
-	  			function(data){			  			
-	  							  			
-	    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
-	    			 
-	    			 vSubDialog.dialog({                    
-			                position: {
-	                           my: "center",
-	                           at: "center",
-	                           of: window
-			                },
-			                modal:true,
-					        width:240,
-					        height:530,
-					        resizable:false,
-					        open:function(event,ui){							        							        	
-					        	$('#addSubscriptionDialog').html(data);
-					        	$('#modalIframeSpinner').hide();
-					        },
-					        close: function(event, ui){
-					        	$(this).dialog("close");
-					        	$('#addSubscriptionDialog').remove();
-					        }    	                                  
-	                    }); 			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);
+	  			function(data){
+	  			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+				$('#subscriptionModal .modal-title').html('ADD Subsciption');	  			
+	  			$('#subscriptionModal .modal-body').html(data);
+	  			$('#subscriptionModal .modal-footer').html('');
+	  			$('#subscriptionModal').modal('show');
+	  		}).fail(ojbc.displayFailMessage);
+	  		return false;			  					  		                                                      
+
 	  	}); 		
 
 		#if($singleClickForDetail){
@@ -178,7 +162,7 @@
 	<div class="modal-content">
 	  <div id="modalIframeSpinner"/>
 	  <div class="modal-header">
-	  	<h5 class="modal-title">Add Subsciption</h5>
+	  	<h5 class="modal-title">ADD SUBSCIPTION</h5>
 	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	      <span aria-hidden="true">&times;</span>
 	    </button>
@@ -191,4 +175,3 @@
 	</div>
   </div>
 </div>				    
-
