@@ -67,7 +67,7 @@
 			var subscription = "firstName=" +  firstName + "&lastName=" + lastName +  "&dob=" + dob + "&sid=" + sid + "&sourcePage=personSearch";
 			
 			var sourcePage="personSearch";		
-						
+
 	  		$.post("#springUrl('/subscriptions/addSubscription')", subscription,
 	  			function(data){			  			
 	  							  			
@@ -170,6 +170,24 @@
 	  	<div id="modalIframeSpinner"/>
 	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
       </div>
+	</div>
+  </div>
+</div>				    
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">Add Subsciption</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
 	</div>
   </div>
 </div>				    
