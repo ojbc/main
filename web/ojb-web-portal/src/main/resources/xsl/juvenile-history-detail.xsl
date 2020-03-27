@@ -99,7 +99,7 @@
 							<xsl:choose>
 								<xsl:when test="$isActiveTab">#</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText=',$identificationSourceText,'&amp;queryType=',$queryType, '&amp;searchResultCategory=','Juvenile History')"/>
+									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText=', encode-for-uri($identificationSourceText),'&amp;queryType=',$queryType, '&amp;searchResultCategory=','Juvenile History')"/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>

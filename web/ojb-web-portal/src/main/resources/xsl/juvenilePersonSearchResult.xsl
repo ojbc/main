@@ -39,6 +39,7 @@
 	<xsl:param name="hrefBase" />
 	<xsl:param name="purpose" />
 	<xsl:param name="onBehalfOf" />
+	<xsl:param name="showPersonSearchToSubscriptionButton" />
 
     <xsl:template match="/exc:EntityMergeResultMessage">
 		<xsl:variable name="totalCount" select="count(exc:MergedRecords/ext:MergedRecord)" />
@@ -52,46 +53,39 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
    		<xsl:if test="exc:RecordLimitExceededIndicator='true'">
-   			<span class="error">Unable to perform Entity Resolution. The search returned too many records.</span>
+   			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-	    		<table class="searchResultsTable display" id="personSearchResultsTable">
-	    			<thead>
-		    			<tr>
-		    				<th>ENTITY</th>
-		    				<th>NAME</th>
-		    				<th>COURT</th>
-		    				<th>ALIASES</th>
-		    				<th>DOB</th>
-		    				<th>GENDER</th>
-		    				<th>SSN</th>
-		    				<th>File Number</th>
-		    				<th>PLACEMENT</th>
-		    				<th>PARENT(S)</th>
-		    				<th>RACE</th>
-		    				<th>ETHNICITY</th>
-		    				<th>TRIBE</th>
-		    				<th>ADDRESS</th>
-		    				<th>CITY</th>
-		    				<th>STATE</th>
-		    				<th>ZIP</th>
-		    				<th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-		    			</tr>
-	    			</thead>
-	    			<tbody>
-	    				<xsl:apply-templates select="exc:EntityContainer/ext:Entity">
-	    				</xsl:apply-templates>
-	    			</tbody>
-	    		</table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+   		<table class="searchResultsTable table table-striped table-bordered" id="personSearchResultsTable">
+   			<thead>
+    			<tr>
+    				<th>ENTITY</th>
+    				<th>NAME</th>
+    				<th>COURT</th>
+    				<th>ALIASES</th>
+    				<th>DOB</th>
+    				<th>GENDER</th>
+    				<th>SSN</th>
+    				<th>File Number</th>
+    				<th>PLACEMENT</th>
+    				<th>PARENT(S)</th>
+    				<th>RACE</th>
+    				<th>ETHNICITY</th>
+    				<th>TRIBE</th>
+    				<th>ADDRESS</th>
+    				<th>CITY</th>
+    				<th>STATE</th>
+    				<th>ZIP</th>
+    				<th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+    			</tr>
+   			</thead>
+   			<tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">
+    				<xsl:apply-templates select="exc:EntityContainer/ext:Entity">
+    				</xsl:apply-templates>
+		    	</xsl:if>
+   			</tbody>
+   		</table>
     </xsl:template>
 
 	<!-- this will print a "merge" on the results screen -->
@@ -146,7 +140,7 @@
             		</xsl:if>
             	</td>
             	<td ><xsl:value-of select="$person/nc:PersonSexCode" /></td>
-            	<td style="width:30%;">
+            	<td>
             		<xsl:call-template name="formatSSN">
             			<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
             		</xsl:call-template>
@@ -184,15 +178,21 @@
     </xsl:template>
 
 	<xsl:template match="iad:InformationAccessDenial">
-		<div class="alert alert-warning" role="alert">User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.</div>
+		<div class="alert alert-warning" role="alert">
+			User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<div class="alert alert-warning" role="alert">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></div>
+		<div class="alert alert-warning" role="alert">
+  			System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<div class="alert alert-warning" role="alert">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</div>
+		<div class="alert alert-warning" role="alert">
+			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+		</div>
 	</xsl:template>
 	
 </xsl:stylesheet>

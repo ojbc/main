@@ -18,18 +18,15 @@
 	  $(function() {
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
-          
-		  ojbc.handlePlaceholders(); 
-		  
-    	  var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
-    	  
-    	  $( "#searchTabs" ).tabs({ active: index});
-    	    
-    	  switch(index){
-	          case 0:  
-	                $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
-	                break; 
-              default:
+ 		  ojbc.handlePlaceholders(); 
+ 		  
+    	    var index = $('#personSearchTabs a[href="#${activeSearchTab}"]').parent().index();
+    	    $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
+    	    switch(index){
+	            case 1:   
+	            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");
+	            	break; 
+                default:
 	                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
 	                break; 
 	      }        	  	    
@@ -52,10 +49,12 @@
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
 		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       		if (!data.includes('id="simpleSearchTab"')){
+		  	       			$('#filterColumn').addClass('d-none');
+	  	       			}
 				        $('#portalContent').html(data);
-				        }).fail(ojbc.displayFailMessage)
-    		  	}
-    		)
+				    }).fail(ojbc.displayFailMessage)
+    		});
 
     	    $("a[href='\\#juvenileSearchTab']").click (
                 function(){
@@ -104,7 +103,10 @@
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
 		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
-				      $('#portalContent').html(data);
+	  	       		if (!data.includes('id="simpleSearchTab"')){
+	  	       			$('#filterColumn').addClass('d-none');
+  	       			}
+			        $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});
     	  
@@ -141,14 +143,20 @@
 <div id="sourceSystemsDisabled" style="display: none;">
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
-<div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">PERSON SEARCH</div>
-    <ul>
-        <li><a href="#juvenileSearchTab">ADVANCED SEARCH</a></li>
-        <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
-    </ul>
-	#parse('people/_simpleSearchTab.vm')
-	#parse('people/_juvenileSearchTab.vm')
-  
-  
+
+<div id="searchTabs" class="py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+        	<div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
+            <ul class="nav nav-tabs small justify-content-end" role="tablist" id="personSearchTabs">
+		        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#simpleSearchTab">SIMPLE SEARCH</a></li>
+	        	<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#juvenileSearchTab">JUVENILE SEARCH</a></li>
+            </ul>
+            <div class="tab-content">
+            	#parse('people/_simpleSearchTab.vm')
+            	
+				#parse('people/_juvenileSearchTab.vm')
+            </div>
+        </div>
+    </div>
 </div>
