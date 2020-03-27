@@ -55,63 +55,10 @@
 			$('#filterColumn').removeClass('d-none');    				    			 
 			
 	  		$.get("#springUrl('/incidents/searchForm?resetForm=true')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
-#*
-		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .4;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-						if (incidentsSummary.val() != null) {
-							$(this).css('height', incidentsSummary.height() + 200);
-						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						}
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var persionDataDiv = $('div#'+appendPersonDataDivId);
-            if(persionDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                $("#personInformationInModal").show();
-            }
-            return false;
-        });
-       *#
-       
+		      $('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage)
+		});
+		
         $('#searchResultsTable').on('click', 'a.viewDetails',function() {
             var url = encodeURI(this.href);
             var title = $(this).attr('searchName');
