@@ -35,7 +35,6 @@
 		return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notificationsSearchForm')")
     });
     
-	// listener for click on any editSubscriptionLink button
 	$('#searchResultsTable').on('click', 'tbody tr',function(event) {
 		event.preventDefault();
  		var subscriptionId = $(this).attr("title");
