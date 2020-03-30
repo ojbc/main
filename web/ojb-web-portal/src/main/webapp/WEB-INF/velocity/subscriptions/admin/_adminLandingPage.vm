@@ -22,29 +22,28 @@
   	
     	var reStyleButtonsBasedOnSelection = function() {
     			// Make the selected search button blue, and the others gray
-    	        $('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-				$(this).removeClass('grayButton').addClass('blueButton');
+    	        $('#adminButtons a.active').removeClass('active');
+    	        $('#reportsButton').removeClass('active');
+				$(this).addClass('active');
     	};
 	
-		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn):not(.dropdown-content a)').click (reStyleButtonsBasedOnSelection);
+		$('#adminButtons a:not(.active)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#portalContent').on('click', '#advancedAdminSearch', function() { 
 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/adminSearchForm')")
 	    });
 	    
-    	$('#expiringSubscriptions').click (function() { 
-    		$('.dropdown-content').removeClass("show");
-    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
-    		
+    	$('#expiringSubscriptions').click (function() {
+    		$(this).parent().toggle(); 
+    		$('#adminButtons a.active').removeClass('active');
+    		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
     	$('#expiredSubscriptions').click (function() { 
-    		$('.dropdown-content').removeClass("show");
-    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
-    		
+    		$(this).parent().toggle();
+    		$('#adminButtons a.active').removeClass('active');
+    		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
 	    });
 	    
@@ -170,75 +169,36 @@
 	}
 </script>
 
-<style>
-.dropbtn {
-}
-
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    padding:0; margin:0; 
-}
-
-.dropdown-content {
-	padding-top: 6px;
-	padding-left:6px;
-    display: none;
-    font-size:small !important;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 180px;
-    overflow: auto;
-    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a:first-child{
-	padding-top: 18px; 
-}
- 
-.dropdown-content a {
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd}
-
-.show {display:block;}
-</style>
-
 <div class="card"> 
 	<div class="card-header container-fluid">
 	  <div class="row ml-1 h-100">
 	    <div class="my-auto" id="search-results-title">
 	      SUBSCRIPTIONS ADMIN
 	    </div>
-        <div id="adminButtons" class="ml-auto mr-3">
-            <a id="advancedAdminSearch" class="grayButton" >
-                ADVANCED SEARCH
-            </a>
-            <a id="activeErrorsSearch" class="grayButton" >
+		<div class="btn-group btn-group-toggle ml-auto mr-3" role="group" aria-label="adminButtons" id="adminButtons" data-toggle="buttons">
+	        <a id="advancedAdminSearch" class="btn btn-secondary btn-sm" href="#" role="button">
+	            ADVANCED SEARCH
+	        </a>
+            <a id="activeErrorsSearch" class="btn btn-secondary btn-sm" href="#" role="button">
                 ERRORS
             </a>
-            <a id="notifications" class="grayButton" >
-                Notifications
+            <a id="notifications" class="btn btn-secondary btn-sm" href="#" role="button">
+                NOTIFICATIONS
             </a>
-         	<div class="dropdown">
-				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
-				<div id="myDropdown" class="dropdown-content">
-				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
-				    <a id="expiredSubscriptions">Expired Subscriptions</a>
-				</div>
+			<div class="btn-group" role="group">
+				<button id="reportsButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  REPORTS
+				</button>
+				<div class="dropdown-menu" aria-labelledby="reportsButton">
+				  <a class="dropdown-item small" href="#" id="expiringSubscriptions">Expiring Subscriptions</a>
+				  <a class="dropdown-item small" href="#" id="expiredSubscriptions">Expired Subscriptions</a>
+			    </div>
 			</div>
-            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
+			<a id="modifySubsOwnerInfo" class="btn btn-secondary btn-sm" disabled href="#" role="button" tabindex=-1>
                 MODIFY OWNER INFO
             </a>
-        </div>
+			
+		</div>
 	  </div>
 	</div>
 	<div class="card-body" id="subsAdminContent">
