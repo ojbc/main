@@ -194,6 +194,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commonsIo.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${httpcomponents.version}</version>
@@ -204,12 +210,6 @@
 			<groupId>org.subethamail</groupId>
 			<artifactId>subethasmtp</artifactId>
 			<version>${wiser.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commonsIo.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
