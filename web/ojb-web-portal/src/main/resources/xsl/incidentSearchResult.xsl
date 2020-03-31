@@ -54,7 +54,7 @@
    			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
 
-        <table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">	
+        <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">	
         	<thead>
 		        <tr>
     				<th>ENTITY</th>
@@ -65,7 +65,7 @@
 	                <th>DATE</th>
 	                <th>LOCATION</th>
 	                <th>SYSTEM</th>
-	                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	                <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 	            </tr>
             </thead>
             <tbody>
@@ -139,11 +139,11 @@
                 </td>
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Incident</xsl:text></xsl:variable>
                     <a href="{concat('../incidents/incidentDetails?identificationID=','{',$incident/ext1:IncidentCategoryCode,'}',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=Incident System&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$incidentId)}"
                         >DETAILS</a>

@@ -20,10 +20,11 @@
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
 	  
-	  	$("#searchResultsTable").DataTable({
+	  	var oTable = $("#searchResultsTable").DataTable({
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
-    		 stateSave: true, 
+    		 stateSave: true,
+    		 responsive: true, 
     		 colReorder: true,
 			 "columnDefs": [{
 		            targets: [ 8 ],
@@ -31,6 +32,8 @@
 		            sortable: false
 		        } ]
   		});
+  		
+  		new $.fn.dataTable.FixedHeader( oTable );
 	  
 	  	#if($singleClickForDetail){
 			$("#searchResultsTable").on('click', 'tbody tr', function(){

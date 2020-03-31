@@ -544,41 +544,9 @@ header span.fullname {
 
 .searchResultsTable td,.searchResultsTable th {
 	border: 1px solid #ebebeb;
-	padding-left:5.5px;
-	padding-right:5.5px!important;
 }
 
 /*************************** Modal Dialog *************************/
-/* .ui-dialog {
-	padding: 0;
-	background: none;
-	background-color: #fafafa;
-	position: relative;
-}
-
-.ui-dialog-titlebar .ui-button {
-	top: 16px;
-}
-
-.ui-dialog-title {
-	position: relative;
-	top: 2px;
-	font-size: 12px;
-	color: #777777;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.ui-widget-overlay {
-	opacity: 0.5;
-	background-color: black;
-	background-image: none;
-}
-
-.ui-dialog .ui-dialog-content {
-	padding: 0;
-}
- */
 .ui-dialog-title,.ui-button-text {
 	font-size: small;
 	color: #777777;
