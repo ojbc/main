@@ -21,15 +21,18 @@
 	    $.ajaxSetup({ cache: false });
 	    
 	  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
-  		$("#personSearchResultsTable").DataTable({
+  		var oTable = $("#personSearchResultsTable").DataTable({
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
-  			 stateSave: true, 
+  			 stateSave: true,
+  			 responsive: true, 
   			 colReorder: true,
 			 "columnDefs": [ 
 			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}
 		 	 ]
   		});
+  		
+  		new $.fn.dataTable.FixedHeader( oTable );
   		
        	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
 			ojbc.clearSearchResultsFilterFields();

@@ -56,7 +56,7 @@
    			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
-   		<table class="searchResultsTable table table-striped table-bordered" id="personSearchResultsTable">
+   		<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchResultsTable">
    			<thead>
     			<tr>
     				<th>ENTITY</th>
@@ -125,15 +125,15 @@
             <xsl:variable name="person" select="ext1:Person"/>    
             <xsl:variable name="personName" select="$person/nc:PersonName[1]"/>
             <tr>
-            	<td style="width:5%;"><xsl:value-of select="$entityCount"/></td>
-                <td style="width:15%;">
+            	<td><xsl:value-of select="$entityCount"/></td>
+                <td>
                     <b>
                     <xsl:value-of select="concat($personName/nc:PersonSurName, ', ',$personName/nc:PersonGivenName, ' ',$personName/nc:PersonMiddleName )" />
                     </b>
                 </td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID" /></td>
-                <td style="width:10%;">
+                <td>
                     <xsl:call-template name="formatSSN">
                     	<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
                     </xsl:call-template>
@@ -152,14 +152,14 @@
                 	<xsl:apply-templates select="$person/nc:PersonBirthDate[1]/nc:Date" mode="formatDateAsMMDDYYYY"/>
                 </td>
                 <td ><xsl:value-of select="ext1:SearchResultCategoryText" /></td>
-                <td style="width:15%;"><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
+                <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
 
                 
                 <td class="hidden">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
                     <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType, '&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$personId)}"
                         >DETAILS</a>
