@@ -21,9 +21,10 @@
 <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
 <script src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
 <script type="text/javascript" src="#springUrl('/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js')"></script>
-<script type="text/javascript" th:src="#springUrl('/webjars/datatables-fixedheader/3.1.4/js/dataTables.fixedHeader.js')"></script>
-<script type="text/javascript" th:src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>
-<script type="text/javascript" th:src="#springUrl('/webjars/font-awesome/5.12.0/js/all.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/datatables-fixedheader/3.1.4/js/dataTables.fixedHeader.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/responsive.bootstrap4.js')"></script>
+<script type="text/javascript" src="#springUrl('/webjars/font-awesome/5.12.0/js/all.js')"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> 
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>

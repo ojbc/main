@@ -63,7 +63,7 @@
 	</xsl:template>
 
 	<xsl:template name="rapbacks">
-			<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
+			<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th>NAME</th>
@@ -96,14 +96,14 @@
 			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
-			<td width="60px">
+			<td>
 				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>	
-			<td width="60px">
+			<td>
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
-			<td width="60px">
+			<td>
 				<xsl:if test="$validationDueDate &lt; current-date() + $rapbackValidationButtonShowingPeriod * xs:dayTimeDuration('P1D')">
 					<xsl:attribute name="style">color:red</xsl:attribute>
 				</xsl:if>
@@ -117,7 +117,7 @@
 					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
 				</xsl:if>
 			</td>
-			<td width="60px">
+			<td>
 				<xsl:apply-templates select="oirsr-ext:LatestNotificationDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td align="right" style="white-space: nowrap;">

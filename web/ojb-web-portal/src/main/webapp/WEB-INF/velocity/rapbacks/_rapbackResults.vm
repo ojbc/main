@@ -65,7 +65,8 @@
 				"pagingType": "full_numbers",
 				"pageLength": 50,
 				stateSave: true,
-				colReorder: true, 
+				colReorder: true,
+				responsive: true,  
 				"order": [[ 1, "asc" ]],
 				"language": {
 	        		"emptyTable": "No rapback record available"
@@ -80,6 +81,8 @@
 	        };
 		
 			var oTable = $("#searchResultsTable").DataTable(optTable);
+			
+			new $.fn.dataTable.FixedHeader( oTable );
 			
 			$('#portalContent').on("change", '#rapbacksFilter', function() {
     	    	oTable.draw();
