@@ -114,7 +114,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage", "subscriptionFilterCommand"})
 public class SubscriptionsController {
 	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
 	private static final String FBI_SUBSCRIPTION_UPDATE_REQUEST_PROCESSING = "State subscription updated.  FBI subscription update request pending.";
@@ -253,7 +253,6 @@ public class SubscriptionsController {
         model.addAttribute("sidRegexForAddSubscription", sidRegexForAddSubscription);
         model.addAttribute("sidRegexValidationErrorMessage", sidRegexValidationErrorMessage);
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
-        model.addAttribute("subscriptionFilterCommand", new SubscriptionFilterCommand());
     }
     
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
@@ -265,6 +264,7 @@ public class SubscriptionsController {
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(false);
 		subscriptionSearchRequest.setOwnerFederatedId((String) request.getAttribute("principal"));
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+        model.put("subscriptionFilterCommand", new SubscriptionFilterCommand());
 		
 		return "subscriptions/_subscriptionResults";
 	}
@@ -325,13 +325,7 @@ public class SubscriptionsController {
 			@PathVariable("showValidationButton") Boolean showValidationButton,
 			BindingResult errors, Map<String, Object> model) {
 		
-		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
-		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
-
-		logger.info("inside filter() for status: " + subscriptionStatus);
-		
 		String filterInput;
-
 		//we do not wish to re-filter on filtered results - we always filter on results from a non-filtered search
 		if(userSession.getSavedMostRecentSubscriptionSearchResult() == null){
 			userSession.setSavedMostRecentSubscriptionSearchResult(userSession.getMostRecentSubscriptionSearchResult());
@@ -339,6 +333,29 @@ public class SubscriptionsController {
 		}else{
 			filterInput = userSession.getSavedMostRecentSubscriptionSearchResult();
 		}
+		
+		String filteredResults = filterResults(filterInput, subscriptionFilterCommand, model);
+		//saving filtered results allows pagination to function:
+		userSession.setMostRecentSearchResult(filteredResults);	
+
+		logger.debug("Filtered Result: \n" + filteredResults);
+				
+		//transform the filtered xml results into html		
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
+		convertSubscriptionSearchResults(model, "", filteredResults, subscriptionSearchRequest);
+		if (showValidationButton){
+			return "subscriptions/_subscriptionResults";
+		}
+		else{
+			return "subscriptions/admin/_subscriptionResults";
+		}
+	}
+
+	private String filterResults(String filterInput, SubscriptionFilterCommand subscriptionFilterCommand, 
+			Map<String, Object> model) {
+		String subscriptionStatus = subscriptionFilterCommand.getSubscriptionStatus();
+
+		logger.info("inside filter() for status: " + subscriptionStatus);
 						
 		// filter xml with parameters passed in
 		subscriptionFilterCommand.setCurrentDate(new Date());
@@ -347,26 +364,14 @@ public class SubscriptionsController {
 		int iValidationDueWarningDays = Integer.parseInt(sValidationDueWarningDays);
 		
 		subscriptionFilterCommand.setValidationDueWarningDays(iValidationDueWarningDays);
+		model.put("subscriptionFilterCommand", subscriptionFilterCommand);
 		
 		logger.info("Using subscriptionFilterCommand: " + subscriptionFilterCommand);
 		
 		logger.info("\n * filterInput = \n" + filterInput);
 		
-		String sFilteredSubResults = searchResultConverter.filterXml(filterInput, subscriptionFilterCommand);
+		return searchResultConverter.filterXml(filterInput, subscriptionFilterCommand);
 		
-		//saving filtered results allows pagination to function:
-		userSession.setMostRecentSearchResult(sFilteredSubResults);	
-
-		logger.info("Filtered Result: \n" + sFilteredSubResults);
-				
-		//transform the filtered xml results into html		
-		convertSubscriptionSearchResults(model, "", sFilteredSubResults, subscriptionSearchRequest);
-		if (showValidationButton){
-			return "subscriptions/_subscriptionResults";
-		}
-		else{
-			return "subscriptions/admin/_subscriptionResults";
-		}
 	}
 	
 	/**
@@ -1432,9 +1437,12 @@ public class SubscriptionsController {
 			logger.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
 			informationMessage = "Failed retrieving subscriptions";
 		}
-								
-		convertSubscriptionSearchResults(model, informationMessage, rawResults,
+		SubscriptionFilterCommand subscriptionFilterCommand = (SubscriptionFilterCommand) model.get("subscriptionFilterCommand");
+		String filteredResults = filterResults(rawResults, subscriptionFilterCommand, model);
+		logger.info("Filtered Result: \n" + filteredResults);								
+		convertSubscriptionSearchResults(model, informationMessage, filteredResults,
 				subscriptionSearchRequest);		
+		
 	}
 
 	private void convertSubscriptionSearchResults(Map<String, Object> model,
