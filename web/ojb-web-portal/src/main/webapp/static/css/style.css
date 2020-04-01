@@ -539,7 +539,6 @@ header span.fullname {
 
 .searchResultsTable .editButtonColumn {
 	width: 60px;
-	vertical-align: middle;
 }
 
 .searchResultsTable td,.searchResultsTable th {
