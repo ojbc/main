@@ -27,6 +27,11 @@ public class SubscriptionFilterCommand {
 	
 	private Date currentDate;
 	
+	public SubscriptionFilterCommand() {
+		super();
+		subscriptionStatus = "All";
+	}
+	
 	public String getSubscriptionStatus() {
 		return subscriptionStatus;
 	}

@@ -41,8 +41,9 @@
 						}
 					).fail(ojbc.displayFailMessage);				
 				});
+				
 			});
-		            
+					            
 		</script>   
     
         <label id="subscriptionStatusFilter">
