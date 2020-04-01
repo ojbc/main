@@ -73,7 +73,7 @@
                           <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
     				  <th>ACTION</th>
                           </xsl:if>
-    			    <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+    			    <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
     			</tr>
    			</thead>
    			<tbody>
@@ -155,7 +155,7 @@
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
 
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
                     <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType, '&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
