@@ -85,19 +85,20 @@
             #end
 			<input type="hidden" name="${status.expression}" value="ADVANCED" />
 	  		<div class='row'>
-  				<div class='col-5'>
+  				<div class='col'>
 				    <p class="searchSubHeader"> NAME</p>
 			        <div>#springFormInput("criminalIdentificationSearchRequest.firstName" "placeholder='First Name' class='form-control form-control-sm'") </div>
 			        <div>#springFormInput("criminalIdentificationSearchRequest.lastName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
 			        <div>#springFormInput("criminalIdentificationSearchRequest.otn" "placeholder='OTN' class='form-control form-control-sm'")</div>
 				        
-		        	<p class="searchSubHeader mt-4">Reported Date </p>
-		        	<lable class="labelText">From:</label> #springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
-		        		&nbsp;To:&nbsp;#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
+		        	<p class="searchSubHeader mt-4">Reported Date Range</p>
+		        	<div class="form-group">
+		        		#springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' placeholder='FROM'" )
+		        		#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' placeholder='TO'")
 		        		#springBind("criminalIdentificationSearchRequest.reportedDateStartDate")
-                    #springShowErrors( "<br/>" "error pl-2" )
+	        		</div>
 		        </div>
-				<div class='col-5'>
+				<div class='col'>
 					<p class="searchSubHeader"> Identification Result Status</p>
 					
 					<div class="form-check-inline">
