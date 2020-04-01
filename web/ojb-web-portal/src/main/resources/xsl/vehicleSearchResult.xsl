@@ -53,7 +53,7 @@
    		</xsl:if>
 
     	
-        <table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
+        <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
         	<thead>	
 		        <tr>
     				<th>ENTITY</th>
@@ -64,7 +64,7 @@
 	                <th>PLATE</th>
 	                <th>VIN</th>
 	                <th>SYSTEM</th>
-	                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	                <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 	            </tr>
             </thead>
             <tbody>
@@ -125,11 +125,11 @@
                 <td><xsl:value-of select="$vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="veh-ext:SourceSystemNameText"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Vehicle</xsl:text></xsl:variable>
                     <a href="{concat('../vehicles/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'_vehicle&amp;identificationSourceText=',$systemSource,'&amp;queryType=',$queryType)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('vehicleInformation-',$vehicleId)}"
                         >DETAILS</a>

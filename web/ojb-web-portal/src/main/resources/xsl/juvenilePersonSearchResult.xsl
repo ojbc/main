@@ -56,7 +56,7 @@
    			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
-   		<table class="searchResultsTable table table-striped table-bordered" id="personSearchResultsTable">
+   		<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchResultsTable">
    			<thead>
     			<tr>
     				<th>ENTITY</th>
@@ -76,7 +76,7 @@
     				<th>CITY</th>
     				<th>STATE</th>
     				<th>ZIP</th>
-    				<th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+    				<th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
     			</tr>
    			</thead>
    			<tbody>
@@ -165,11 +165,11 @@
             	<td><xsl:value-of select="nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName"/></td>
             	<td><xsl:value-of select="nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStateFIPS5-2AlphaCode"/></td>
             	<td><xsl:value-of select="nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationPostalCode"/></td>
-            	<td class="hidden">
+            	<td class="d-none">
             		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
             		<xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
             		<a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType,'&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                             appendPersonData="{concat('personalInformation-',$personId)}"
                         >DETAILS</a>
                 </td>

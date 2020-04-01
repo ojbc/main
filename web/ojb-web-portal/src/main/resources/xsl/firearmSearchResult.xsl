@@ -53,10 +53,10 @@
    			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
-    	<table class="searchResultsTable table table-striped table-bordered" id="searchResultsTable">
+    	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
     		<thead>	
 		        <tr>
-    				<th>E</th>
+    				<th>ENTITY</th>
 	                <th>REG #</th>
 	                <th>NAME</th>
 	                <th>SER #</th>
@@ -68,7 +68,7 @@
 	                <th>STATUS</th>
 	                <th>ACTION</th>
 	                <th>COUNTY</th>
-	                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	                <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 	            </tr>
             </thead>
             <tbody>
@@ -183,13 +183,13 @@
                 	</xsl:choose>
                 </td>
                 
-                <td class="hidden">
+                <td class="d-none">
                 
                 	<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(fa-ext:SourceSystemNameText)"/></xsl:variable>
                 	                    
 					<!-- TODO use Identification ID for detail query rather than registration ID -->                    
                     <a href="{concat('../firearms/searchDetails?identificationID=', intel:SystemIdentifier/nc:IdentificationID, '&amp;systemName=Firearm Reg.&amp;identificationSourceText=',$systemSource)}" 
-                        class="blueButton viewDetails" searchName='Firearm Registration Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='Firearm Registration Detail' 
                         
                             appendPersonData="{concat('firearmInformation-',$firearmId)}"
                         >DETAILS</a>
