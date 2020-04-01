@@ -18,7 +18,7 @@
  
   $(function() {
   	$('#searchBarButtonDiv').hide();    	
-  		
+  	$('[data-toggle="tooltip"]').tooltip();	
   	$.fn.dataTable.moment( 'MM/DD/YYYY' );
 	var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],

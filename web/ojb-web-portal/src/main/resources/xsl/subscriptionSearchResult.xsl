@@ -73,9 +73,9 @@
 			<xsl:call-template name="Subscriptions"/>
 			<span id="subscriptionButtons">
 				<xsl:if test="$validateSubscriptionButton='true'">
-					<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
+					<a id="validateLink" href="#" class="btn btn-primary btn-sm viewDetails mr-2" role="button" title="Validate" data-toggle="tooltip"><i class="fa fa-check-circle fa-lg"/></a>
 				</xsl:if>
-				<a id="unsubscribeLink" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>UNSUBSCRIBE</a>
+				<a id="unsubscribeLink" href="#" class="btn btn-primary btn-sm viewDetails" role="button" title="Unsubscribe" data-toggle="tooltip"><i class="fa fa-times-circle fa-lg"></i></a>
 			</span>    				
 		</xsl:if>
 	</xsl:template>
@@ -142,7 +142,7 @@
 				<!-- note value in json format, so ui can parse it -->
 				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}", "validationDueDate":"{$validationDueDate}"}}'/>
 			</td>				
-			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
+			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}" class="btn btn-primary btn-sm viewDetails" id="editSubscriptionLink{$subscriptionID}" title="Edit" data-toggle="tooltip"><i class="fas fa-edit fa-lg"></i></a></td>
 			<td>
 				<xsl:choose>
 					<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
