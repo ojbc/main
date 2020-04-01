@@ -91,14 +91,13 @@
 						        #springFormInput("rapbackSearchRequest.firstName" "placeholder='FIRST NAME' class='form-control form-control-sm'")
 					        </div>
 					        <div class="form-group">
-						        	#springFormInput("rapbackSearchRequest.lastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
+						        #springFormInput("rapbackSearchRequest.lastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
 						    </div>
-			        		<label class="searchSubHeader">Reported Date </label>
+			        		<label class="searchSubHeader">Reported Date Range</label>
 					        <div class="form-group">
-				        		<lable class="labelText">From:</label> #springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate form-control-sm' style='width: 25%;'" )
-				        		&nbsp;To:&nbsp;#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate form-control-sm' style='width: 25%;'")
+				        		#springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
+				        		#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
 				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
-                            	#springShowErrors( "<br/>" "error pl-2" )
 					        </div>
 							<label class="searchSubHeader">Identification Result Status</label>
 							<div class="form-check-inline">
