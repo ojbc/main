@@ -34,14 +34,14 @@
 	    });
 	    
     	$('#expiringSubscriptions').click (function() {
-    		$(this).parent().toggle(); 
+    		$('#reportsButton').dropdown("toggle");;
     		$('#adminButtons a.active').removeClass('active');
     		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
     	$('#expiredSubscriptions').click (function() { 
-    		$(this).parent().toggle();
+    		$('#reportsButton').dropdown("toggle");;
     		$('#adminButtons a.active').removeClass('active');
     		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
@@ -55,11 +55,12 @@
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notifications')")
 	    });
 	    
-	    $("#searchResultsTable").DataTable({
+	    var oTable = $("#searchResultsTable").DataTable({
 			 "order": [[ 3, "asc" ]],
 			 "pagingType": "full_numbers",
 			 "pageLength": 25,
 			 stateSave: true,
+			 responsive: true, 
 			 colReorder: true,
 			 "language": {
 	      		"emptyTable": "No subscriptions found"
@@ -70,7 +71,8 @@
 				      null, null,null, null, null, null, null, null, null
 			    ] 
 		});
-	
+		new $.fn.dataTable.FixedHeader( oTable );
+		
 		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
 		$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 

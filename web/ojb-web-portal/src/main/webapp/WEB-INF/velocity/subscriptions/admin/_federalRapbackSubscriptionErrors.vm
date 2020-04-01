@@ -19,17 +19,20 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var oTable = $("#searchResultsTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true,
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No Federal Rapback Subscription Errors found"
     	 } 
 	});
 	
-	$('#searchResultsTable').on('click', 'tbody tr',function(event) {
+	new $.fn.dataTable.FixedHeader( oTable );
+	
+	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
 		event.preventDefault();
  		var subscriptionId = $(this).find("td").first().text();
  		var editMvcUrl = encodeURI("#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors");

@@ -20,11 +20,12 @@
   	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No subscriptions found"
@@ -35,6 +36,8 @@
 			      null, null,null, null, null, null, null, null, null
 		    ] 
 	});
+	
+	new $.fn.dataTable.FixedHeader( table );
 	
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");
 	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
