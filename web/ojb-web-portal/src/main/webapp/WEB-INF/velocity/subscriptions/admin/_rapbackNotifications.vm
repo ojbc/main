@@ -19,15 +19,18 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var oTable = $("#searchResultsTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No Federal Rapback Notifications found"
     	 } 
 	});
+	
+	new $.fn.dataTable.FixedHeader( oTable );
 	
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  
 	
@@ -35,7 +38,7 @@
 		return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notificationsSearchForm')")
     });
     
-	$('#searchResultsTable').on('click', 'tbody tr',function(event) {
+	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
 		event.preventDefault();
  		var subscriptionId = $(this).attr("title");
  		var editMvcUrl = encodeURI("#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=RBN");

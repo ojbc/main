@@ -19,12 +19,15 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var oTable = $("#searchResultsTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true
 	});
+	
+	new $.fn.dataTable.FixedHeader( oTable );
 	
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  
 	

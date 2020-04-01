@@ -25,6 +25,7 @@
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No subscriptions found"
@@ -36,6 +37,9 @@
 		    ]
 		     
 	});
+	
+	new $.fn.dataTable.FixedHeader( table );
+	
 	var reStyleButtonsBasedOnSelection = function() {
 			// Make the selected search button blue, and the others gray
 	        $('#subscriptionTopButtons .blueButton').addClass('grayButton').removeClass('blueButton');

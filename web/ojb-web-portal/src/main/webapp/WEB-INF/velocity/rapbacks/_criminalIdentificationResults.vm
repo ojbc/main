@@ -54,7 +54,8 @@
 			"pagingType": "full_numbers",
 			"pageLength": 50,
 			"order": [[ 1, "asc" ]],
-			stateSave: true, 
+			stateSave: true,
+			responsive: true, 
 			colReorder: true,
 			"language": {
         		"emptyTable": "No criminal identification record available"
@@ -67,6 +68,8 @@
         };
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
+		
+		new $.fn.dataTable.FixedHeader( oTable );
 		
 	  	$('.modal-dialog').draggable({
         	handle: ".modal-header"
