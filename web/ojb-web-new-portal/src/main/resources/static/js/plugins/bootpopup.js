@@ -92,7 +92,7 @@ function bootpopup(options) {
 
 	this.create = function() {
 		// Option for modal dialog size
-		var classModalDialog = "modal-dialog";
+		var classModalDialog = "modal-dialog modal-dialog-centered";
 		if(this.options.size == "large") classModalDialog += " modal-lg";
 		if(this.options.size == "small") classModalDialog += " modal-sm";
 
