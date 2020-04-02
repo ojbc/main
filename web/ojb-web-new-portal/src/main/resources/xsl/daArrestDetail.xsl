@@ -147,6 +147,9 @@
               <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
            </xsl:attribute>
            <xsl:value-of select="j:ChargeDescriptionText"/>
+           <xsl:if test="(j:ChargeDisposition[chsres-ext:DispositionCodeText = '390']) or (j:ChargeDisposition[chsres-ext:DispositionCodeText = '329'])">
+              <xsl:text>  (CHARGE DECLINED)</xsl:text>
+           </xsl:if>
         </a>
         <span class='countyName d-none'><xsl:value-of select='normalize-space(chsres-ext:ChargeOwnerAgency/j:OrganizationAugmentation/j:OrganizationJurisdiction/nc:LocationCountyName)'/></span>
         <xsl:if test="not(j:ChargeDisposition)">
