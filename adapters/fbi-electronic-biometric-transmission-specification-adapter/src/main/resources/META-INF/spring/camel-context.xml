@@ -663,6 +663,7 @@
 	
 	<bean id="fbiEmailErrorProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEmailErrorProcessor">
 		<property name="toEmailAddress" value="${fbiEbtsAdapter.errorToAddress}"/>
+		<property name="emailSubjectPrefix" value="${fbiEbtsAdapter.emailSubjectPrefix}"/>
 	</bean>	
 		
 	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>

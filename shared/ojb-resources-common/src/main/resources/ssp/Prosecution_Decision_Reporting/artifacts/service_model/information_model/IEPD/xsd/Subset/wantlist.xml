@@ -461,6 +461,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:OffenseViolatedStatute"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OffenseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"

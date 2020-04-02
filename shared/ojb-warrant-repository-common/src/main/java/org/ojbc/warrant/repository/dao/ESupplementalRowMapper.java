@@ -31,14 +31,43 @@ public class ESupplementalRowMapper implements RowMapper<ESupplemental> {
 		ESupplemental eSupplemental = new ESupplemental();
 		
 		eSupplemental.setIdentifier(rs.getInt("pkid"));
-		eSupplemental.setSupplementalValue(rs.getString("supplementalValue"));
 		eSupplemental.setSupplementalType(rs.getString("supplementalType"));
-		
-		if (hasColumn(rs, "supplementalSecondaryValue"))
+
+		if (hasColumn(rs, "supplementalValue"))
 		{
-			eSupplemental.setSupplementalSecondaryValue(rs.getString("supplementalSecondaryValue"));
+			eSupplemental.setSupplementalValue(rs.getString("supplementalValue"));
+		}
+			
+		if (hasColumn(rs, "operatorLicenseState"))
+		{
+			eSupplemental.setOperatorLicenseState(rs.getString("operatorLicenseState"));
 		}	
-		
+
+		if (hasColumn(rs, "firstName"))
+		{
+			eSupplemental.setFirstName(rs.getString("firstName"));
+		}	
+
+		if (hasColumn(rs, "middleName"))
+		{
+			eSupplemental.setMiddleName(rs.getString("middleName"));
+		}	
+
+		if (hasColumn(rs, "lastName"))
+		{
+			eSupplemental.setLastName(rs.getString("lastName"));
+		}	
+
+		if (hasColumn(rs, "nameSuffix"))
+		{
+			eSupplemental.setNameSuffix(rs.getString("nameSuffix"));
+		}	
+
+		if (hasColumn(rs, "fullPersonName"))
+		{
+			eSupplemental.setFullPersonName(rs.getString("fullPersonName"));
+		}	
+
 		return eSupplemental;
 	}
 

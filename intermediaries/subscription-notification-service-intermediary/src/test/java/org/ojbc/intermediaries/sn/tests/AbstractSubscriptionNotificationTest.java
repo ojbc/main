@@ -42,7 +42,8 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml",
+		"classpath:META-INF/spring/subscription-migration.xml"
 }) 
 public abstract class AbstractSubscriptionNotificationTest {
 

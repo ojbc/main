@@ -107,6 +107,10 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>
+			
+			<camel:setHeader headerName="CamelDestinationOverrideUrl">
+				<simple>${in.headers.WSAddressingReplyTo}</simple>
+			</camel:setHeader>	
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
@@ -221,6 +225,10 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>			
+			
+			<camel:setHeader headerName="CamelDestinationOverrideUrl">
+				<simple>${in.headers.WSAddressingReplyTo}</simple>
+			</camel:setHeader>	
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>

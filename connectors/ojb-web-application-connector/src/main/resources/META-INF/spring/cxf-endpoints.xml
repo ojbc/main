@@ -896,7 +896,7 @@
 				<sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
 					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.keystoreLocation}" />
 				</sec:keyManagers>
-        <sec:clientAuthentication want="false"
+        <sec:clientAuthentication want="false" 
 					required="false" />
 			</httpj:tlsServerParameters>
 		</httpj:engine>

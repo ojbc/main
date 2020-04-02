@@ -44,6 +44,7 @@
        "
 		profile="wildlife-license-query"       
        >
+       
        <!-- Wildlife License Request Service, hosted by OJB -->
 	    <cxf:cxfEndpoint 
 	        id="personQueryRequestWildlifeLicenseService"

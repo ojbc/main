@@ -37,6 +37,8 @@ public class FbiEmailErrorProcessor {
 	
 	private String toEmailAddress;
 	
+	private String emailSubjectPrefix;
+	
 	public void createErrorEmail(Exchange in) throws Exception
 	{
 		Document doc = in.getIn().getBody(Document.class);
@@ -47,7 +49,7 @@ public class FbiEmailErrorProcessor {
 		
 		logger.info("Error Text:" + transactionStatusText);
 		
-		in.getIn().setHeader("subject", EMAIL_SUBJECT_LINE);
+		in.getIn().setHeader("subject", emailSubjectPrefix + " " + EMAIL_SUBJECT_LINE);
 		in.getIn().setHeader("to", toEmailAddress);
 		
 		String messageBody = SUBSCRIPTION_ERROR_EMAIL_TEMPLATE;
@@ -65,6 +67,14 @@ public class FbiEmailErrorProcessor {
 
 	public void setToEmailAddress(String toEmailAddress) {
 		this.toEmailAddress = toEmailAddress;
+	}
+
+	public String getEmailSubjectPrefix() {
+		return emailSubjectPrefix;
+	}
+
+	public void setEmailSubjectPrefix(String emailSubjectPrefix) {
+		this.emailSubjectPrefix = emailSubjectPrefix;
 	}
 	
 }

@@ -48,7 +48,7 @@
 		
 	  	<!-- Person to Incident Search Request and Response Endpoints -->
 	   <bean id="personVehicleToIncidentSearchRequestProcessor" class="org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.personSearch.incidentSearchRequestReplyToEndpoint}</value></property>
+	   		<property name="replyToAddress"><value>${webapplication.personSearch.personVehicleToIncidentSearchReplyToEndpoint}</value></property>
 	   		<property name="personToIncidentMessageProcessor" ref="personToIncidentMessageProcessor"/>
 	   		<property name="vehicleToIncidentMessageProcessor" ref="vehicleToIncidentMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="personVehicleToIncidentRequestResponseMap"/>
