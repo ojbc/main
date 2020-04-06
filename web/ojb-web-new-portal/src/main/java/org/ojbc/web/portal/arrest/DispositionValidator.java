@@ -95,7 +95,11 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("dispositionCode", null, "the dispo code requires sentence info");
         }
         
-        if (appProperties.getDispoCodesRequiringAmendedCharge().contains(disposition.getDispositionCode()) && StringUtils.isBlank(disposition.getAmendedCharge())) {
+        if (StringUtils.isBlank(disposition.getFiledCharge()) && StringUtils.isBlank(disposition.getFiledChargeLiteral())) {
+        	errors.rejectValue("filedCharge", null, "may not be blank");
+        }
+        if (appProperties.getDispoCodesRequiringAmendedCharge().contains(disposition.getDispositionCode()) 
+        		&& StringUtils.isBlank(disposition.getAmendedCharge()) && StringUtils.isBlank(disposition.getAmendedChargeLiteral())) {
         	errors.rejectValue("amendedCharge", null, "required by the dispo code");
         }
         

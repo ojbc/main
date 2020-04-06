@@ -61,11 +61,12 @@ public class Disposition {
 	private String dispositionDescription;
     private String courtCaseNumber;
     
-    @NotBlank
     private String filedCharge;
     private String filedChargeDescription; 
+    private String filedChargeLiteral; 
     private String amendedCharge;
     private String amendedChargeDescription; 
+    private String amendedChargeLiteral;
     private String chargeSeverityCode;
     private String amendedChargeSeverityCode;
     private String generalOffenseCode;
@@ -428,5 +429,17 @@ public class Disposition {
 	}
 	public void setDaCourtName(String daCourtName) {
 		this.daCourtName = daCourtName;
+	}
+	public String getFiledChargeLiteral() {
+		return filedChargeLiteral;
+	}
+	public void setFiledChargeLiteral(String filedChargeLiteral) {
+		this.filedChargeLiteral = filedChargeLiteral;
+	}
+	public String getAmendedChargeLiteral() {
+		return amendedChargeLiteral;
+	}
+	public void setAmendedChargeLiteral(String amendedChargeLiteral) {
+		this.amendedChargeLiteral = amendedChargeLiteral;
 	}
 }    

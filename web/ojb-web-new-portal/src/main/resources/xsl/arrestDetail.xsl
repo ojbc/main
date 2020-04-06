@@ -184,6 +184,8 @@
 			        <col/>
 			        <col/>
 			        <col/>
+			        <col/>
+			        <col/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
 			        <colgroup span="2"/>
@@ -199,7 +201,9 @@
 			            <th rowspan="2">DISPO</th>
 			            <th rowspan="2">COUNTS</th>
 			            <th rowspan="2">COURT CASE #</th>
+			            <th rowspan="2">FILED CHARGE LITERAL</th>
 			            <th rowspan="2">FILED CHARGE</th>
+			            <th rowspan="2">AMENDED CHARGE LITERAL</th>
 			            <th rowspan="2">AMENDED CHARGE</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">FINE</th>
 			            <th scope="colgroup" colspan="2" style="text-align:middle">JAIL</th>
@@ -232,6 +236,8 @@
 							          <i class="fas fa-plus-square fa-lg"></i>
 							        </a>
 							      </td>
+							      <td/>
+							      <td/>
 							      <td/>
 							      <td/>
 							      <td/>
@@ -291,16 +297,15 @@
       <td><xsl:value-of select="chsres-ext:DispositionChargeCountQuantity"/></td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID"/>
+		  </td>
+		  <td>
+		    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
 		  </td> 
 		  <td>
-		  	<xsl:choose>
-		  	  <xsl:when test="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText">
-		    	<xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
-		      </xsl:when>
-		      <xsl:otherwise>
-				    <xsl:value-of select="chsres-ext:FiledCharge/j:ChargeDescriptionText"/>
-		      </xsl:otherwise>
-		    </xsl:choose>
+	    	<xsl:value-of select="chsres-ext:FiledCharge/chsres-ext:ChargeMunicipalCodeText"/>
+		  </td>
+		  <td>
+		    <xsl:value-of select="chsres-ext:AmendedCharge/j:ChargeDescriptionText"/>
 		  </td>
 		  <td>
 		    <xsl:value-of select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeText"/>

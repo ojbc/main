@@ -1569,9 +1569,12 @@ public class RequestMessageBuilderUtilities {
         	XmlUtils.appendTextElement(dispositionIdentification, NS_NC_40, "IdentificationID", disposition.getDispositionIdentification());
         }
         
-        if (StringUtils.isNotBlank(disposition.getAmendedCharge())) {
+        if (StringUtils.isNotBlank(disposition.getAmendedCharge()) || StringUtils.isNotBlank(disposition.getAmendedChargeLiteral())) {
         	Element amendedCharge = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "AmendedCharge");
         	
+        	if (StringUtils.isNotBlank(disposition.getAmendedChargeLiteral())) {
+        		XmlUtils.appendTextElement(amendedCharge, NS_JXDM_60, "ChargeDescriptionText", disposition.getAmendedChargeLiteral());
+        	}
         	if (disposition.getDispositionType() == ArrestType.MUNI) {
 	        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
 	        			"ChargeMunicipalCodeText", disposition.getAmendedCharge());
@@ -1587,6 +1590,9 @@ public class RequestMessageBuilderUtilities {
         
     	Element filedCharge = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "FiledCharge");
     	
+    	if (StringUtils.isNotBlank(disposition.getFiledChargeLiteral())) {
+    		XmlUtils.appendTextElement(filedCharge, NS_JXDM_60, "ChargeDescriptionText", disposition.getFiledChargeLiteral());
+    	}
     	if (disposition.getDispositionType() == ArrestType.MUNI) {
 	    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
 	    			"ChargeMunicipalCodeText", disposition.getFiledCharge());
