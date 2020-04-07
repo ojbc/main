@@ -163,7 +163,7 @@
                              }
                         },
                         {
-                             "targets": [6],
+                             "targets": [7],
                              "render": function ( data, type, row, meta ) {
                             	   if (filedChargeCodeMapping.hasOwnProperty(data)){
                             		   return filedChargeCodeMapping[data];
@@ -174,7 +174,7 @@
                              }
                         },
                         {
-                            "targets": [7],
+                            "targets": [8],
                             "render": function ( data, type, row, meta ) {
                                 if (chargeSeverityCodeMapping.hasOwnProperty(data)){
                                   return chargeSeverityCodeMapping[data];
@@ -185,7 +185,7 @@
                             }
                         },
                         {
-                             "targets": [8],
+                             "targets": [10],
                              "render": function ( data, type, row, meta ) {
                             	   if (amendedChargeCodeMapping.hasOwnProperty(data)){
                             		   return amendedChargeCodeMapping[data];
@@ -196,7 +196,7 @@
                              }
                         },
                         {
-                             "targets": [9],
+                             "targets": [11],
                              "render": function ( data, type, row, meta ) {
                             	   if (chargeSeverityCodeMapping.hasOwnProperty(data)){
                             		   return chargeSeverityCodeMapping[data];
@@ -207,7 +207,7 @@
                              }
                         },
                         {
-                             "targets": [21],
+                             "targets": [23],
                              "render": function ( data, type, row, meta ) {
                            		   var presented = "";
                            		   data.split(",").forEach(function(entry){
@@ -224,7 +224,7 @@
                              }
                         },
                         {
-                             "targets": [22],
+                             "targets": [24],
                              "render": function ( data, type, row, meta ) {
                             	   if (reasonsForDismissalMapping.hasOwnProperty(data)){
                             		   return reasonsForDismissalMapping[data];
@@ -235,7 +235,7 @@
                              }
                         },
                         {
-                             "targets": [23],
+                             "targets": [25],
                              "render": function ( data, type, row, meta ) {
                             	   if (daProvisionCodeMapping.hasOwnProperty(data)){
                             		   return daProvisionCodeMapping[data];
@@ -246,7 +246,7 @@
                              }
                         },
                 			  {
-                		      "targets": [10, 11, 20],
+                		      "targets": [12, 13, 22],
                 		      "render": $.fn.dataTable.render.number( ',', '.', 0, '$' )
                 		    }
                 		  ]/* , 
@@ -354,24 +354,26 @@
 		                	       courtCaseNumber:rowData[4], 
 	                           arrestOri:$('#arrestOri').text(),
 		                	       generalOffenseCode:daGeneralOffenseDescMapping[rowData[5]], 
-		                	       filedCharge:rowData[6], 
-		                	       chargeSeverityCode:rowData[7],
-		                	       amendedCharge:rowData[8], 
-		                	       amendedChargeSeverityCode:rowData[9],
-		                	       fineAmount:rowData[10].split('.', 1).toString(),
-		                	       fineSuspended:rowData[11].split('.', 1).toString(), 
-		                	       jailYears:rowData[12], 
-		                	       jailDays:rowData[13], 
-		                	       prisonYears:rowData[14], 
-		                	       prisonDays:rowData[15], 
-		                	       suspendedYears:rowData[16], 
-		                	       suspendedDays:rowData[17], 
-		                	       deferredYears:rowData[18],
-		                	       deferredDays:rowData[19],
-		                	       restitution:rowData[20].split('.', 1).toString(),
-		                	       alternateSentences:rowData[21],
-		                	       reasonForDismissal:rowData[22],
-		                	       provisionCode:rowData[23], 
+		                	       filedChargeLiteral:rowData[6], 
+		                	       filedCharge:rowData[7], 
+		                	       chargeSeverityCode:rowData[8],
+		                	       amendedChargeLiteral:rowData[9], 
+		                	       amendedCharge:rowData[10], 
+		                	       amendedChargeSeverityCode:rowData[11],
+		                	       fineAmount:rowData[12].split('.', 1).toString(),
+		                	       fineSuspended:rowData[13].split('.', 1).toString(), 
+		                	       jailYears:rowData[14], 
+		                	       jailDays:rowData[15], 
+		                	       prisonYears:rowData[16], 
+		                	       prisonDays:rowData[17], 
+		                	       suspendedYears:rowData[18], 
+		                	       suspendedDays:rowData[19], 
+		                	       deferredYears:rowData[20],
+		                	       deferredDays:rowData[21],
+		                	       restitution:rowData[22].split('.', 1).toString(),
+		                	       alternateSentences:rowData[23],
+		                	       reasonForDismissal:rowData[24],
+		                	       provisionCode:rowData[25], 
 		                	       arrestDate: $('#arrestDate').text(),
 		                	       daCourtName: countyName
                      		   },
