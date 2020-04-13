@@ -22,8 +22,9 @@
  		$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   		oTable = $("#personSearchResultsTable").DataTable({
+  			 pagingType: "full_numbers",
+  			 pageLength: 50,
   			 stateSave: true,
-  			 paging:false,
   			 fixedHeader:true,
   			 responsive: true, 
 			 "columnDefs": [ 
