@@ -19,7 +19,11 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
- 		  
+			if (oTable !== undefined && oTable.fixedHeader !== undefined){
+				oTable.fixedHeader.disable();
+				oTable.destroy();
+			}    	    	
+ 		  	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
     	    var index = $('#personSearchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
     	    switch(index){
@@ -33,7 +37,7 @@
 	                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
 	                break; 
 	       }        	  	    
-    	    	
+
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",

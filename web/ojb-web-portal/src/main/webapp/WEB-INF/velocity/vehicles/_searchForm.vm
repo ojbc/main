@@ -16,10 +16,15 @@
  *#
  <script type="text/javascript">
 	  $(function() {
-	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
-          $.ajaxSetup({ cache: false });
+	      	//to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          	$.ajaxSetup({ cache: false });
           
-		  ojbc.handlePlaceholders(); 
+			if (oTable !== undefined && oTable.fixedHeader !== undefined){
+				console.log("oTable: " + oTable); 
+				oTable.fixedHeader.disable();
+				oTable.destroy();
+			}    	    	
+		  	ojbc.handlePlaceholders(); 
     	  
     		$('#advanceSearchSubmitButton').click (function(){
             	ojbc.clearPlaceholders();

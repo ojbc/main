@@ -19,20 +19,17 @@
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
-	    
+ 		$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
-  		var oTable = $("#personSearchResultsTable").DataTable({
-  			 "pagingType": "full_numbers",
-  			 "pageLength": 50,
+  		oTable = $("#personSearchResultsTable").DataTable({
   			 stateSave: true,
+  			 paging:false,
+  			 fixedHeader:true,
   			 responsive: true, 
-  			 colReorder: true,
 			 "columnDefs": [ 
 			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}
 		 	 ]
   		});
-  		
-  		new $.fn.dataTable.FixedHeader( oTable );
   		
        	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
 			ojbc.clearSearchResultsFilterFields();

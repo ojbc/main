@@ -15,10 +15,10 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
 	<header>
-	    <div class="banner mt-5">
+	    <div class="banner mt-5" id="banner">
         	#parse("common/_stateBanner.vm")
 	    </div>
-	  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top small">
+	  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top small fh-fixedHeader">
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" 
 	    	data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
