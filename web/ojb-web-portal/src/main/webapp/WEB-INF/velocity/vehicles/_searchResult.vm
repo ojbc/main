@@ -22,6 +22,9 @@
 	   	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  
 	  	oTable = $("#searchResultsTable").dataTable({
+			pagingType: "full_numbers",
+			pageLength: 50,
+			stateSave: true,
   			responsive: true,
 			"columnDefs": [{
 				targets: [ 8 ],
