@@ -59,7 +59,7 @@
 		#parse("common/_javascripts.vm")
 		
 		<script>
-
+			var oTable;
 			var idleTime;
 			
 			$(function(){
@@ -240,6 +240,10 @@
 		    		 
 				$('body').off("click", "#subscriptionsLink").on("click", "#subscriptionsLink", function() {	  
 			  				  				  					  					    			    	
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 					xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
 						$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);
@@ -249,6 +253,10 @@
 				});
 		    		 
 				$('#rapbackLink').click(function() {	  
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 		    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
@@ -258,6 +266,10 @@
 				});
 				
 				$('#criminalIdLink').click(function() {	  
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 		    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationDefaultSearch')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
@@ -268,6 +280,10 @@
 				});
 				
 				$('#faqLink').click (function() {	  
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 				    $('#filterColumn').removeClass('d-none');
 		
 				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
@@ -279,6 +295,10 @@
 		    		 
 				$('#suggestionFormLink').click (function() {	    
 					
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 				    $('#filterColumn').removeClass('d-none');
 		
 				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
@@ -290,6 +310,10 @@
 		    		 
 				$('#adminLink').click (function() {	    
 						
+					if (oTable !== undefined && oTable.fixedHeader !== undefined){
+						oTable.fixedHeader.disable();
+						oTable.destroy();
+					}    	    	
 				    $('#searchBarButtonDiv').css("display", "none");
 		
 		    		xhr = $.get("#springUrl('/subscriptions/admin/landingPage')", function(data) {

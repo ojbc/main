@@ -20,6 +20,10 @@
 	    $.ajaxSetup({ cache: false });
 	    ojbc.handlePlaceholders(); 
 	  
+		if (oTable !== undefined && oTable.fixedHeader !== undefined){
+			oTable.fixedHeader.disable();
+			oTable.destroy();
+		}    	    	
 		$( ".datePicker" ).datepicker({
 		   showOn: "both",
 		   buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",

@@ -17,7 +17,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
 	<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css')" />
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/font-awesome/5.12.0/css/all.css')" />
 	<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
