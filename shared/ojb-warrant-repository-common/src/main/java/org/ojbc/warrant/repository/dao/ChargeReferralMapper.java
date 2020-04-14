@@ -18,6 +18,8 @@ package org.ojbc.warrant.repository.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +44,11 @@ public class ChargeReferralMapper implements RowMapper<ChargeReferralReport> {
 
 		Person person = new Person();
 		person.setPersonID(rs.getInt("PersonID"));
-		chargeReferralReport.setPerson(person);
+		
+		List<Person> people = new ArrayList<Person>();
+		people.add(person);
+		
+		chargeReferralReport.setPersons(people);
 		
 		try {
 			chargeReferralReport.setWarrantId(rs.getInt("WarrantID"));
