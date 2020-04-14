@@ -16,6 +16,8 @@
  */
 package org.ojbc.warrant.repository.model;
 
+import java.util.List;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -25,18 +27,10 @@ public class ChargeReferralReport {
 	
 	private ChargeReferral chargeReferral;
 	
-	private Person person;
+	private List<Person> persons;
 	
 	private Integer warrantId;
 	
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
 	public ChargeReferral getChargeReferral() {
 		return chargeReferral;
 	}
@@ -59,6 +53,14 @@ public class ChargeReferralReport {
 
 	public void setOfficer(Officer officer) {
 		this.officer = officer;
+	}
+
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
 	}
 
 	@Override
