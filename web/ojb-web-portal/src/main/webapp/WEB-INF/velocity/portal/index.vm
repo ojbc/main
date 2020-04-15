@@ -71,10 +71,17 @@
 			        });
 		        #end
 		        
+		        $('.modal-dialog').draggable({
+					handle: ".modal-header"
+				});
+        
+		        
 		    	$(".navbar-nav .nav-link").on("click", function(){
 		    	  $(this).parent().siblings().removeClass('show');
 		    	  $(this).parent().addClass('active').siblings().removeClass('active');
 		    	  $('.dropdown-menu:not(this ~ .dropdown-menu)').removeClass('show');
+		    	  console.log("index.vm");
+		    	  $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	    		});
 		        
 				$("#demogFilterInfo").hide();

@@ -829,21 +829,21 @@ td.detailsLabel {
 }
 
  
-  #incidentDetailTabs  div.ui-tabs-panel {
+#incidentDetailTabs  div.ui-tabs-panel{
 	padding: 1em 0;
 }
 
-#incidentDetailTabs table {
+#incidentDetailTabs table, #incidentDetailTabContent table {
 	font-size: 12px; 
 	width: 100%;
 	border-spacing: 10px 0;
 	
 }
-#incidentDetailTabs .incidentLabel{
+#incidentDetailTabs .incidentLabel, #incidentDetailTabContent .incidentLabel{
 	color: #777;	
 }
 
-#incidentDetailTabs #narrativeTab {
+#incidentDetailTabs #narrativeTab, #incidentDetailTabContent #narrative {
 	padding: 10px;
 }
 

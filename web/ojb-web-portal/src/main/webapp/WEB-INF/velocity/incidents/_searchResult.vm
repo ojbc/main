@@ -19,7 +19,6 @@
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
-	   	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  
 	  	oTable = $("#searchResultsTable").DataTable({
   			 pagingType: "full_numbers",
@@ -69,10 +68,6 @@
 			ojbc.showDetailModal(url);
 			return false;
         });
-        
-		$('.modal-dialog').draggable({
-			handle: ".modal-header"
-		});
         
 	  });
 	  
