@@ -50,7 +50,7 @@
 		<bootstrap.version>4.3.1</bootstrap.version>
 		<fontawesome.version>5.2.0</fontawesome.version>
 		<datatables.version>1.10.20</datatables.version>
-		<datatables.fixedheader.version>3.1.4</datatables.fixedheader.version>
+		<datatables.fixedheader.version>3.1.6</datatables.fixedheader.version>
 		<datatables.responsive.version>2.2.3</datatables.responsive.version>
 		<jquery.version>3.3.1</jquery.version>
 		<popper.version>1.14.3</popper.version>

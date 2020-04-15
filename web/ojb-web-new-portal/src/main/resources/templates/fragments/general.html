@@ -26,7 +26,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
 <!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
@@ -47,7 +47,7 @@
             <span class="fullname align-middle">Record of Arrest and Prosecution Update Portal</span>
           </div>
         </div>
-	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" sec:authorize="isAuthenticated()">
+	      <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top fh-fixedHeader" sec:authorize="isAuthenticated()">
 	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 	          <span class="navbar-toggler-icon"></span>
 	        </button>
@@ -104,7 +104,7 @@
 		  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 		  <script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/webjars/datatables-fixedheader/3.1.4/js/dataTables.fixedHeader.js}"></script>
+	    <script type="text/javascript" th:src="@{/webjars/datatables-fixedheader/3.1.6/js/dataTables.fixedHeader.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/font-awesome/5.2.0/js/all.js}"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
