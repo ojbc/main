@@ -18,11 +18,11 @@
 -->
 <script type="text/javascript">
 		            $(function () {
-		    			$( document ).ajaxStart(function() {
-		    				$( "#modalIframeSpinner" ).show();
-		    			}).ajaxStop(function() {
-		    	      	  	$("#modalIframeSpinner").hide();
-		    			});
+						$( document ).ajaxStart(function() {
+							$( "#modalIframeSpinner" ).show();
+						}).ajaxStop(function() {
+				      	  	$("#modalIframeSpinner").hide();
+						});
 		                $('#incidentsSummary tr.clickableIncident').click(function () {
 		                
 		                    var systemName =$(this).attr('systemName');
@@ -47,26 +47,28 @@
 		                     $(this).removeClass("incidentHover");
 		                });
 		            });
-		        </script><table id="incidentsSummary" class="detailsTable">
-   <tr>
-      <td class="detailsTitle">TYPE/NATURE</td>
-      <td class="detailsTitle">ROLE</td>
-      <td class="detailsTitle">INCIDENT #</td>
-      <td class="detailsTitle">AGENCY</td>
-      <td class="detailsTitle">DATE</td>
-      <td class="detailsTitle">LOCATION</td>
-   </tr>
-   	
-   <tr class="clickableIncident" systemName="Incident System" identificationSourceText="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest" identificationID="{Law}0903">
-      <td>Law</td>
-      <td>Vehicle Crashed</td>
-      <td>12345</td>
-      <td>PD 1</td>
-      <td>04-01-2012</td>
-      <td>101 Main Street 4B Burlington, VT
-         					00000
-      </td>
-   </tr>
-   
-</table>
+		        </script><div class="table-responsive p-0 m-0">
+   <table id="incidentsSummary" class="detailsTable table">
+      <tr>
+         <td class="detailsTitle">TYPE/NATURE</td>
+         <td class="detailsTitle">ROLE</td>
+         <td class="detailsTitle">INCIDENT #</td>
+         <td class="detailsTitle">AGENCY</td>
+         <td class="detailsTitle">DATE</td>
+         <td class="detailsTitle">LOCATION</td>
+      </tr>
+      	
+      <tr class="clickableIncident" systemName="Incident System" identificationSourceText="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest" identificationID="{Law}0903">
+         <td>Law</td>
+         <td>Vehicle Crashed</td>
+         <td>12345</td>
+         <td>PD 1</td>
+         <td>04-01-2012</td>
+         <td>101 Main Street 4B Burlington, VT
+            					 00000
+         </td>
+      </tr>
+      
+   </table>
+</div>
 <div id="incidentDetailTabsHolder" style="height:200px;overflow:scroll;"></div>

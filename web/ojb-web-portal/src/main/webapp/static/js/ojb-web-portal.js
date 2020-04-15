@@ -56,10 +56,6 @@ $(function() {
 	    $(this).addClass("selected");
 	});
 	
-  	$('.modal-dialog').draggable({
-    	handle: ".modal-header"
-  	});
-	
   	$("#navbarCollapse").on('show.bs.collapse', function() {
   	    $('a.nav-link:not(.dropdown-toggle)').click(function() {
   	        $("#navbarCollapse").collapse('hide');

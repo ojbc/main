@@ -151,69 +151,64 @@
     <xsl:template name="vehicleInformationDetail" >
         <xsl:param name="vehicleSearchResult"/>
         <xsl:variable name="expirationDate" select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"/>
-        <table style="width:100%">
-            <tr>
-                <td style="vertical-align: top;"></td>
-                <td> 
-                    <table class="detailsTable">
-                        <tr>
-                            <td class="detailsLabel">CATEGORY</td>
-                            <td><!-- category goes here --></td>
-                            <td class="detailsLabel">VIN</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
-                            <td class="detailsLabel">PLATE TYPE</td>
-                            <td>
-                            	<xsl:choose>
-                            		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode[. != '']">
-                            			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode" />
-                            		</xsl:when>
-                            		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText[. != '']">
-                            			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText" />
-                            		</xsl:when>
-                            	</xsl:choose>
-                            	
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">MODEL YEAR</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelYearDate" /></td>
-                            <td class="detailsLabel">MAKE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" />
-                            <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemMakeName" /></td>
-                            <td class="detailsLabel">MODEL</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelName" /></td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">TYPE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemCategoryText" /></td>
-                            <td class="detailsLabel">COLOR</td>
-                            <td>
-                            	<xsl:call-template name="formatVehicleColor" >
-                            		<xsl:with-param name="vehicleColorCode" select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleColorPrimaryCode"/>
-                            	</xsl:call-template>
-                            	 <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceColorPrimaryText" />
-                           	</td>
-                           	<td class="detailsLabel">DOORS</td>
-                           	<td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleDoorQuantity" /></td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">PLATE #</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"/></td>
-                            <td class="detailsLabel">LICENSE STATE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/j:IdentificationJurisdictionUSPostalServiceCode"/></td>
-                            <td class="detailsLabel">LICENSE EXPIRES</td>
-                            <td>
-                            	<xsl:if test="$expirationDate != ''">
-	                            	<xsl:call-template name="formatDate">
-	                            		<xsl:with-param name="date" select="$expirationDate"/>
-	                            	</xsl:call-template>
-                            	</xsl:if>
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-            </tr>
-        </table>
+        <div class="table-responsive">
+          <table class="detailsTable table">
+              <tr>
+                  <td class="detailsLabel">CATEGORY</td>
+                  <td><!-- category goes here --></td>
+                  <td class="detailsLabel">VIN</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
+                  <td class="detailsLabel">PLATE TYPE</td>
+                  <td>
+                  	<xsl:choose>
+                  		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode[. != '']">
+                  			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode" />
+                  		</xsl:when>
+                  		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText[. != '']">
+                  			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText" />
+                  		</xsl:when>
+                  	</xsl:choose>
+                  	
+                  </td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">MODEL YEAR</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelYearDate" /></td>
+                  <td class="detailsLabel">MAKE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" />
+                  <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemMakeName" /></td>
+                  <td class="detailsLabel">MODEL</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelName" /></td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">TYPE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemCategoryText" /></td>
+                  <td class="detailsLabel">COLOR</td>
+                  <td>
+                  	<xsl:call-template name="formatVehicleColor" >
+                  		<xsl:with-param name="vehicleColorCode" select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleColorPrimaryCode"/>
+                  	</xsl:call-template>
+                  	 <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceColorPrimaryText" />
+                 	</td>
+                 	<td class="detailsLabel">DOORS</td>
+                 	<td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleDoorQuantity" /></td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">PLATE #</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"/></td>
+                  <td class="detailsLabel">LICENSE STATE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/j:IdentificationJurisdictionUSPostalServiceCode"/></td>
+                  <td class="detailsLabel">LICENSE EXPIRES</td>
+                  <td>
+                  	<xsl:if test="$expirationDate != ''">
+                   	<xsl:call-template name="formatDate">
+                   		<xsl:with-param name="date" select="$expirationDate"/>
+                   	</xsl:call-template>
+                  	</xsl:if>
+                  </td>
+              </tr>
+          </table>
+        </div>
     
     </xsl:template>
     
