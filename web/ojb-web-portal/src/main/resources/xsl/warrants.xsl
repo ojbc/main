@@ -40,14 +40,12 @@
     		<xsl:apply-templates select="$accessDenied"/>
     	</xsl:when>
     	<xsl:otherwise>
-	    	<table style="width:100%">
-	            <tr>
-	                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-	                <td> 
-	                    <xsl:apply-templates /> 
-	                </td>                
-	            </tr>
-	        </table>
+	    	<div class="row">
+               <div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>
+               <div class="col-12 col-sm-9 table-responsive">  
+                   <xsl:apply-templates /> 
+               </div>                
+	        </div>
 	        <table class="detailsTable"> 
 	             <tr>
 	                <td colspan="8" class="detailsTitle">WARRANTS</td>
@@ -118,7 +116,7 @@
     </xsl:template>
 	
     <xsl:template match="warrant:Warrants/warrant-ext:eBWResults" >
-        <table class="detailsTable">
+        <table class="detailsTable table">
             <tr>
                 <td colspan="8" class="detailsFullName">
                 <xsl:value-of select="concat(jxdm:Person/nc:PersonName/nc:PersonSurName,', ',jxdm:Person/nc:PersonName/nc:PersonGivenName,' ',jxdm:Person/nc:PersonName/nc:PersonMiddleName)" />
