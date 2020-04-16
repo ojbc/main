@@ -186,11 +186,10 @@
 
     <xsl:template name="personInformationDetail" >
         <xsl:param name="personSearchResult"/>
-        <table style="width:100%">
-            <tr>
-                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-                <td> 
-                    <table class="detailsTable">
+        	<div class="row">
+                <div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>
+                <div class="col-12 col-sm-9 table-responsive"> 
+                    <table class="detailsTable table">
                         <tr>
                             <td class="detailsLabel">FULL NAME </td>
                             <td><xsl:value-of select="concat($personSearchResult/ext1:Person/nc:PersonName/nc:PersonGivenName,' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonMiddleName, ' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonSurName)" /></td>
@@ -316,10 +315,8 @@
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID"/></td>
                         </tr>
                     </table>
-                </td>                
-            </tr>
-        </table>
-    
+                </div>                
+        	</div>
     </xsl:template>
     
     <xsl:template match="nc:ContactInformation" mode="homePhone">
