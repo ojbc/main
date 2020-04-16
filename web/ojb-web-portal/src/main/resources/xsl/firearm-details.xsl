@@ -48,7 +48,7 @@
    
      <xsl:template match="nc:Person">
     	<xsl:variable name="pid" select="@s:id"/>
-        <table class="detailsTable">
+        <table class="detailsTable table">
             <tr>
                 <td colspan="8" class="detailsTitle">REGISTRANT INFORMATION</td>
             </tr>
@@ -219,8 +219,8 @@
 				</xsl:choose>
 			</h3>
 		</xsl:if>
-		<div>
-			<table class="detailsTable">
+		<div class="table-responsive">
+			<table class="detailsTable table">
 				<tr>
 					<td colspan="8" class="detailsTitle">REGISTRATION INFORMATION</td>
 				</tr>
