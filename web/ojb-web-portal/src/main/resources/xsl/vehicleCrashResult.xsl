@@ -53,6 +53,19 @@
 					select="qrm:QueryResultsMetadata/iad:InformationAccessDenial" />
 			</xsl:when>
 			<xsl:otherwise>
+				<script type="text/javascript"> 
+					$(function () {
+						$("#vihicleCrashDetail").accordion({ 
+							heightStyle: "content",
+							active: false,
+							collapsible: true, 
+							activate: function( event, ui ) { 
+								var modalIframe = $("#modalIframe", parent.document);
+								modalIframe.height(modalIframe.contents().find("body").height() + 16); 
+							}
+						}); 
+					}); 
+				</script>
 				<div id="vihicleCrashDetail">
 					<xsl:apply-templates select="vcq-res-ext:VehicleCrashReport" />
 				</div>
@@ -69,40 +82,32 @@
 			mode="witness" />
 	</xsl:template>
 	<xsl:template match="j:IncidentAugmentation" mode="witness">
-		<div class="card">
-			<div class="card-header" id="damagedItemsHeading">
-		      <h5 class="mb-0">
-		        <button class="btn btn-link p-0" data-toggle="collapse" data-target="#witness" aria-expanded="true" aria-controls="witness">
-		          Witness
-		        </button>
-		      </h5>
-  			</div> 
-			<div id="witness" class="collapse table-responsive" aria-labelledby="witnessHeading" data-parent="#vihicleCrashDetail">
-				<table class="table">
-					<xsl:for-each select="j:IncidentWitness/nc:RoleOfPerson">
-						<xsl:variable name="witnessId">
-							<xsl:value-of select="@structures:ref" />
-						</xsl:variable>
-						<xsl:variable name="witnessLocationId">
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:PersonResidenceAssociation[nc:Person/@structures:ref = $witnessId]/nc:Location/@structures:ref" />
-						</xsl:variable>
-						<tr>
-							<td class="detailsLabel">Name</td>
-							<td>
-								<xsl:apply-templates
-									select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$witnessId]/nc:PersonName"
-									mode="firstNameFirst" />
-							</td>
-							<td class="detailsLabel">Address</td>
-							<td>
-								<xsl:apply-templates
-									select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Location[@structures:id=$witnessLocationId]/nc:Address" />
-							</td>
-						</tr>
-					</xsl:for-each>
-				</table>
-			</div>
+		<h3>Witness</h3>
+		<div class="table-responsive">
+			<table class="table">
+				<xsl:for-each select="j:IncidentWitness/nc:RoleOfPerson">
+					<xsl:variable name="witnessId">
+						<xsl:value-of select="@structures:ref" />
+					</xsl:variable>
+					<xsl:variable name="witnessLocationId">
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:PersonResidenceAssociation[nc:Person/@structures:ref = $witnessId]/nc:Location/@structures:ref" />
+					</xsl:variable>
+					<tr>
+						<td class="detailsLabel">Name</td>
+						<td>
+							<xsl:apply-templates
+								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$witnessId]/nc:PersonName"
+								mode="firstNameFirst" />
+						</td>
+						<td class="detailsLabel">Address</td>
+						<td>
+							<xsl:apply-templates
+								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Location[@structures:id=$witnessLocationId]/nc:Address" />
+						</td>
+					</tr>
+				</xsl:for-each>
+			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="nc:Address">
@@ -114,40 +119,32 @@
 		<xsl:value-of select="nc:LocationPostalCode"></xsl:value-of>
 	</xsl:template>
 	<xsl:template match="j:CrashWorkZone">
-		<div class="card">
-			<div class="card-header" id="workZoneHeading">
-		      <h5 class="mb-0">
-		        <button class="btn btn-link p-0" data-toggle="collapse" data-target="#workZone" aria-expanded="true" aria-controls="workZone">
-		          Work Zone
-		        </button>
-		      </h5>
-  			</div> 
-			<div id="workZone" class="collapse table-responsive" aria-labelledby="workZoneHeading" data-parent="#vihicleCrashDetail">
-				<table class="table">
-					<tr>
-						<td class="detailsLabel">In Work Zone</td>
-						<td>
-							<xsl:value-of
-								select="me-crash-codes:InOrNearWorkZoneCodeText" />
-						</td>
-						<td class="detailsLabel">Law Enforcement Present</td>
-						<td>
-							<xsl:value-of
-								select="me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Workers Present</td>
-						<td>
-							<xsl:value-of select="me-crash-codes:WorkZoneWorkersPresentCodeText" />
-						</td>
-						<td class="detailsLabel">Presence Code</td>
-						<td>
-							<xsl:value-of select="me-crash-codes:InOrNearWorkZoneCodeText"></xsl:value-of>
-						</td>
-					</tr>
-				</table>
-			</div>
+		<h3>Work Zone</h3>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<td class="detailsLabel">In Work Zone</td>
+					<td>
+						<xsl:value-of
+							select="me-crash-codes:InOrNearWorkZoneCodeText" />
+					</td>
+					<td class="detailsLabel">Law Enforcement Present</td>
+					<td>
+						<xsl:value-of
+							select="me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Workers Present</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:WorkZoneWorkersPresentCodeText" />
+					</td>
+					<td class="detailsLabel">Presence Code</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:InOrNearWorkZoneCodeText"></xsl:value-of>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="j:CrashVehicle">
@@ -171,153 +168,145 @@
 		<xsl:variable name="driverLicenseId">
 			<xsl:value-of select="j:CrashDriver/j:DriverLicense/@structures:ref" />
 		</xsl:variable>
-		<div class="card">
-			<div class="card-header" id="crashVehicleHeading">
-		      <h5 class="mb-0">
-		        <button class="btn btn-link p-0" data-toggle="collapse" data-target="#crashVehicle" aria-expanded="true" aria-controls="crashVehicle">
-		          Crash Vehicle
-		        </button>
-		      </h5>
-  			</div> 
-			<div id="crashVehicle" class="collapse table-responsive" aria-labelledby="crashVehicleHeading" data-parent="#vihicleCrashDetail">
-				<table class="table">
-					<tr>
-						<td class="detailsLabel">Make</td>
-						<td colspan="3">
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemMakeName"></xsl:value-of>
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Year</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemModelYearDate"></xsl:value-of>
-						</td>
-						<td class="detailsLabel">VIN</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:VehicleIdentification/nc:IdentificationID" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Color</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ConveyanceColorPrimaryText" />
-						</td>
-						<td class="detailsLabel">Unit</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/vcq-res-ext:VehicleUnitIdentification" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Plate Number</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationID" />
-						</td>
-						<td class="detailsLabel">Plate Jurisdiction</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationJurisdiction/j:LocationStateNCICLISCode" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Insurance Policy #</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsurancePolicyIdentification/nc:IdentificationID" />
-						</td>
-						<td class="detailsLabel">Insurance Carrier</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsuranceCarrierName" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Hit and Run?</td>
-						<td>
-							<xsl:apply-templates select="vcq-res-ext:HitRunIndicator"
-								mode="formatBooleanAsYesNo" />
-						</td>
-						<td class="detailsLabel">Extent of Damage</td>
-						<td>
-							<xsl:value-of select="me-crash-codes:VehicleDamageExtentCodeText"></xsl:value-of>
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Posted Speed</td>
-						<td>
-							<xsl:value-of select="me-crash-codes:PostedSpeedLimitCodeText" />
-						</td>
-						<td class="detailsLabel">Hazmat</td>
-						<td>
-							<xsl:apply-templates select="vcq-res-ext:HazmatPlacardIndicator"
-								mode="formatBooleanAsYesNo" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Driver Name</td>
-						<td>
-							<xsl:apply-templates
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/nc:PersonName"
-								mode="firstNameFirst" />
-						</td>
-						<td class="detailsLabel">Driver License #</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/j:PersonAugmentation/j:DriverLicense/j:DriverLicenseIdentification/nc:IdentificationID" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Alcohol Test Type</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:AlcoholTestCategoryCodeText" />
-						</td>
-						<td class="detailsLabel">Alcohol Test Result</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/j:PersonBloodAlcoholContentAssociation[nc:Person/@structures:ref = $driverId]/j:PersonBloodAlcoholContentNumberText" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Drug Test Type</td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestCategoryCodeText" />
-						</td>
-						<td class="detailsLabel">Drug Test Result </td>
-						<td>
-							<xsl:value-of
-								select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestResultCodeText" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Vehicle Occupants</td>
-						<td>
-							<xsl:apply-templates select="j:CrashVehicleOccupant" />
-						</td>
-						<td class="detailsLabel">School Bus</td>
-						<td>
-							<xsl:variable name="busCode">
-								<xsl:value-of select="../j:CrashSchoolBusRelatedCode"></xsl:value-of>
-							</xsl:variable>
-							<xsl:if test="$busCode='0'">
-								<xsl:value-of select="'No'" />
-							</xsl:if>
-							<xsl:if test="$busCode='1'">
-								<xsl:value-of select="'Yes, School Bus Directly Involved'" />
-							</xsl:if>
-							<xsl:if test="$busCode='2'">
-								<xsl:value-of select="'Yes, School Bus Indirectly Involved'" />
-							</xsl:if>
-						</td>
-					</tr>
-				</table>
-			</div>
+		<h3>Crash Vehicle</h3>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<td class="detailsLabel">Make</td>
+					<td colspan="3">
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemMakeName"></xsl:value-of>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Year</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemModelYearDate"></xsl:value-of>
+					</td>
+					<td class="detailsLabel">VIN</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:VehicleIdentification/nc:IdentificationID" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Color</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ConveyanceColorPrimaryText" />
+					</td>
+					<td class="detailsLabel">Unit</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/vcq-res-ext:VehicleUnitIdentification" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Plate Number</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationID" />
+					</td>
+					<td class="detailsLabel">Plate Jurisdiction</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationJurisdiction/j:LocationStateNCICLISCode" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Insurance Policy #</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsurancePolicyIdentification/nc:IdentificationID" />
+					</td>
+					<td class="detailsLabel">Insurance Carrier</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsuranceCarrierName" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Hit and Run?</td>
+					<td>
+						<xsl:apply-templates select="vcq-res-ext:HitRunIndicator"
+							mode="formatBooleanAsYesNo" />
+					</td>
+					<td class="detailsLabel">Extent of Damage</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:VehicleDamageExtentCodeText"></xsl:value-of>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Posted Speed</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:PostedSpeedLimitCodeText" />
+					</td>
+					<td class="detailsLabel">Hazmat</td>
+					<td>
+						<xsl:apply-templates select="vcq-res-ext:HazmatPlacardIndicator"
+							mode="formatBooleanAsYesNo" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Driver Name</td>
+					<td>
+						<xsl:apply-templates
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/nc:PersonName"
+							mode="firstNameFirst" />
+					</td>
+					<td class="detailsLabel">Driver License #</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/j:PersonAugmentation/j:DriverLicense/j:DriverLicenseIdentification/nc:IdentificationID" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Alcohol Test Type</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:AlcoholTestCategoryCodeText" />
+					</td>
+					<td class="detailsLabel">Alcohol Test Result</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/j:PersonBloodAlcoholContentAssociation[nc:Person/@structures:ref = $driverId]/j:PersonBloodAlcoholContentNumberText" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Drug Test Type</td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestCategoryCodeText" />
+					</td>
+					<td class="detailsLabel">Drug Test Result </td>
+					<td>
+						<xsl:value-of
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestResultCodeText" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Vehicle Occupants</td>
+					<td>
+						<xsl:apply-templates select="j:CrashVehicleOccupant" />
+					</td>
+					<td class="detailsLabel">School Bus</td>
+					<td>
+						<xsl:variable name="busCode">
+							<xsl:value-of select="../j:CrashSchoolBusRelatedCode"></xsl:value-of>
+						</xsl:variable>
+						<xsl:if test="$busCode='0'">
+							<xsl:value-of select="'No'" />
+						</xsl:if>
+						<xsl:if test="$busCode='1'">
+							<xsl:value-of select="'Yes, School Bus Directly Involved'" />
+						</xsl:if>
+						<xsl:if test="$busCode='2'">
+							<xsl:value-of select="'Yes, School Bus Indirectly Involved'" />
+						</xsl:if>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="j:CrashVehicleOccupant">
@@ -335,19 +324,11 @@
 		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="j:IncidentAugmentation" mode="damagedItem">
-		<div class="card">
-			<div class="card-header" id="damagedItemsHeading">
-		      <h5 class="mb-0">
-		        <button class="btn btn-link p-0" data-toggle="collapse" data-target="#damagedItems" aria-expanded="true" aria-controls="damagedItems">
-		          Damaged Item(s)
-		        </button>
-		      </h5>
-  			</div> 
-			<div id="damagedItems" class="collapse table-responsive" aria-labelledby="damagedItemsHeading" data-parent="#vihicleCrashDetail">
-				<table class="table">
-					<xsl:apply-templates select="j:IncidentDamagedItem" />
-				</table>
-			</div>
+		<h3>Damaged Item(s)</h3>
+		<div class="table-responsive">
+			<table class="table">
+				<xsl:apply-templates select="j:IncidentDamagedItem" />
+			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="j:IncidentDamagedItem">
@@ -383,62 +364,54 @@
 		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="j:Crash" mode="crashDetail">
-		<div class="card">
-			<div class="card-header" id="crashDetailHeading">
-		      <h5 class="mb-0">
-		        <button class="btn btn-link p-0" data-toggle="collapse" data-target="#crashDetail" aria-expanded="true" aria-controls="crashDetail">
-		          Crash Detail
-		        </button>
-		      </h5>
-  			</div> 
-			<div id="crashDetail" class="collapse show table-responsive" aria-labelledby="crashDetailHeading" data-parent="#vihicleCrashDetail">
-				<table class="table">
-					<tr>
-						<td class="detailsLabel">DATE</td>
-						<td>
-							<xsl:apply-templates select="nc:ActivityDate/nc:DateTime"
-								mode="formatDateTime" />
-						</td>
-						<td class="detailsLabel">Crash Report Number</td>
-						<td>
-							<xsl:value-of
-								select="parent::vcq-res-ext:VehicleCrashReport/nc:DocumentIdentification/nc:IdentificationID" />
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Reporting Officer/Badge ID</td>
-						<td>
-							<xsl:value-of
-								select="parent::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=ancestor::vcq-res-ext:VehicleCrashReport/j:Crash/j:IncidentAugmentation/j:IncidentReportingOfficial/nc:RoleOfPerson/@structures:ref]/nc:PersonName/nc:PersonFullName" />
-							/
-							<xsl:value-of
-								select="j:IncidentAugmentation/j:IncidentReportingOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID" />
-						</td>
-						<td class="detailsLabel">Reporting ORI</td>
-						<td>
-							<xsl:value-of
-								select="j:CrashInformationSource/j:OrganizationORIIdentification/nc:IdentificationID"></xsl:value-of>
-						</td>
-					</tr>
-					<tr>
-						<td class="detailsLabel">Location</td>
-						<td>
-							<xsl:value-of
-								select="nc:Location/nc:Address/me-crash-codes:CityOrTownCodeText" />
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="nc:Location/nc:AddressHighway/nc:HighwayFullText"></xsl:value-of>
-						</td>
-						<td class="detailsLabel">Coordinates</td>
-						<td>
-							<xsl:value-of
-								select="nc:Location/nc:Location2DGeospatialCoordinate/nc:GeographicCoordinateLatitude/nc:LatitudeDegreeValue" />
-							<xsl:text>, </xsl:text>
-							<xsl:value-of
-								select="nc:Location/nc:Location2DGeospatialCoordinate/nc:GeographicCoordinateLongitude/nc:LongitudeDegreeValue" />
-						</td>
-					</tr>
-				</table>
-			</div>
+		<h3>Crash Detail</h3>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<td class="detailsLabel">DATE</td>
+					<td>
+						<xsl:apply-templates select="nc:ActivityDate/nc:DateTime"
+							mode="formatDateTime" />
+					</td>
+					<td class="detailsLabel">Crash Report Number</td>
+					<td>
+						<xsl:value-of
+							select="parent::vcq-res-ext:VehicleCrashReport/nc:DocumentIdentification/nc:IdentificationID" />
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Reporting Officer/Badge ID</td>
+					<td>
+						<xsl:value-of
+							select="parent::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=ancestor::vcq-res-ext:VehicleCrashReport/j:Crash/j:IncidentAugmentation/j:IncidentReportingOfficial/nc:RoleOfPerson/@structures:ref]/nc:PersonName/nc:PersonFullName" />
+						/
+						<xsl:value-of
+							select="j:IncidentAugmentation/j:IncidentReportingOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID" />
+					</td>
+					<td class="detailsLabel">Reporting ORI</td>
+					<td>
+						<xsl:value-of
+							select="j:CrashInformationSource/j:OrganizationORIIdentification/nc:IdentificationID"></xsl:value-of>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Location</td>
+					<td>
+						<xsl:value-of
+							select="nc:Location/nc:Address/me-crash-codes:CityOrTownCodeText" />
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="nc:Location/nc:AddressHighway/nc:HighwayFullText"></xsl:value-of>
+					</td>
+					<td class="detailsLabel">Coordinates</td>
+					<td>
+						<xsl:value-of
+							select="nc:Location/nc:Location2DGeospatialCoordinate/nc:GeographicCoordinateLatitude/nc:LatitudeDegreeValue" />
+						<xsl:text>, </xsl:text>
+						<xsl:value-of
+							select="nc:Location/nc:Location2DGeospatialCoordinate/nc:GeographicCoordinateLongitude/nc:LongitudeDegreeValue" />
+					</td>
+				</tr>
+			</table>
 		</div>
 	</xsl:template>
 	<xsl:template match="qrer:QueryRequestError">

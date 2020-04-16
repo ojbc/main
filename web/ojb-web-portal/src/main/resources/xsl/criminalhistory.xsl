@@ -35,22 +35,20 @@
     <xsl:param name="chDisplaySupervisionTroCustodyHeaders"/>
 
     <xsl:template match="/">
-       <table>
-            <tr>
-            	<xsl:choose>
-            		<xsl:when test="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object">
-            			<td style="vertical-align: top;"><xsl:element name="img"><xsl:attribute name="id">imageHolder</xsl:attribute><xsl:attribute name="style">max-width: 180px;max-height: 250px;</xsl:attribute><xsl:attribute name="src">data:image/jpeg;base64,<xsl:value-of select="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object"/></xsl:attribute></xsl:element></td>
-            		</xsl:when>
-            		<xsl:otherwise>
-            			<td style="vertical-align: top;"><div class="bigPersonImage"></div></td>		
-            		</xsl:otherwise>
-            	</xsl:choose>
-            	
-            	<td> 
-                    <xsl:apply-templates /> 
-                </td>                
-            </tr>
-       </table>
+       <div class="row">
+           	<xsl:choose>
+           		<xsl:when test="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object">
+           			<div class="col-12 col-sm-3 align-top"><xsl:element name="img"><xsl:attribute name="id">imageHolder</xsl:attribute><xsl:attribute name="style">max-width: 180px;max-height: 250px;</xsl:attribute><xsl:attribute name="src">data:image/jpeg;base64,<xsl:value-of select="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object"/></xsl:attribute></xsl:element></div>
+           		</xsl:when>
+           		<xsl:otherwise>
+           			<div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>		
+           		</xsl:otherwise>
+           	</xsl:choose>
+           	
+           	<div class="col-12 col-sm-9 table-responsive"> 
+               <xsl:apply-templates /> 
+            </div>                
+       </div>
 	       
 	   <xsl:if test="$chDisplaySupervisionTroCustodyHeaders = 'true'">
 	       <table class="detailsTable">
@@ -228,7 +226,7 @@
     </xsl:template>
     
     <xsl:template match="ch-doc:CriminalHistory/ch-ext:RapSheet" >
-        <table class="detailsTable">
+        <table class="detailsTable table">
             <tr>
             	<td colspan="8" class="detailsFullName">
            			<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonName" mode="constructName"/> 
