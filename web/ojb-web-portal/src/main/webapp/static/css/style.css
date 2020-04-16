@@ -423,6 +423,7 @@ header span.fullname {
 
 .ui-widget {
 	font-size:small;
+	font-family: Arial, Helvetica, sans serif !important;
 }
 /********************** subscriptions *********************/
 
