@@ -34,74 +34,80 @@
 
 
     <xsl:template match="/">
-    	<xsl:choose>
-    		<xsl:when test="//srm:SearchResultsMetadata/srer:SearchRequestError">
-    			<table id="incidentsError" class="detailsTable">
-		            <tr>
-		                <td class="detailsTitle" >INCIDENTS ERROR</td>
-		            </tr>
-		            <tr>
-			            <td>
-			            	<xsl:apply-templates select="//srm:SearchResultsMetadata/srer:SearchRequestError" /> 
-			            </td>
-		            </tr>
-		        </table>
-    		</xsl:when>
-    		<xsl:when test="not(//srm:SearchResultsMetadata/srer:SearchRequestError) and count(exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult) = 0">
-    			<table id="incidentsError" class="detailsTable">
-		            <tr>
-		                <td class="detailsTitle" >NO ASSOCIATED INCIDENTS</td>
-		            </tr>
-		            <tr>
-			            <td>
-			            	<div class="alert alert-warning" role="alert">There are no incidents associated with this person record.</div> 
-			            </td>
-		            </tr>
-		        </table>
-    		</xsl:when>
-    		<xsl:otherwise>
-		        <script type="text/javascript">
-		            $(function () {
-		                $('#incidentsSummary tr.clickableIncident').click(function () {
-		                
-		                    var systemName =$(this).attr('systemName');
-		                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
-		                    var identificationID = encodeURI($(this).attr('identificationID'));
-		                    
-		                    
-		                    $('#incidentsSummary tr').removeClass("incidentSelected");
-		                    $(this).addClass("incidentSelected");
-		                    
-		                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
-		                    // tempDiv for css spinner - replaced upon receipt of get data
-		                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
-		                    
-		                    $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
-		                      $('#incidentDetailTabsHolder').html(data);
-		                    }).fail(ojbc.displayIncidentDetailFailMessage);
-		                    
-		                }).hover(function () {
-		                     $(this).addClass("incidentHover");
-		                }, function () {
-		                     $(this).removeClass("incidentHover");
-		                });
-		            });
-		        </script>
-		       
-		        <table id="incidentsSummary" class="detailsTable">
-		            <tr>
-		                <td class="detailsTitle" >TYPE/NATURE</td>
-		                <td class="detailsTitle">ROLE</td>
-		                <td class="detailsTitle">INCIDENT #</td>
-		                <td class="detailsTitle">AGENCY</td>
-		                <td class="detailsTitle">DATE</td>
-		                <td class="detailsTitle">LOCATION</td>
-		            </tr>
-		            <xsl:apply-templates /> 
-		        </table>
-		        <div id="incidentDetailTabsHolder" style="height:200px;overflow:scroll;"></div>   
-	        </xsl:otherwise>
-        </xsl:choose>
+    	<div class="table-responsive">
+	    	<xsl:choose>
+	    		<xsl:when test="//srm:SearchResultsMetadata/srer:SearchRequestError">
+	    			<table id="incidentsError" class="detailsTable table">
+			            <tr>
+			                <td class="detailsTitle" >INCIDENTS ERROR</td>
+			            </tr>
+			            <tr>
+				            <td>
+				            	<xsl:apply-templates select="//srm:SearchResultsMetadata/srer:SearchRequestError" /> 
+				            </td>
+			            </tr>
+			        </table>
+	    		</xsl:when>
+	    		<xsl:when test="not(//srm:SearchResultsMetadata/srer:SearchRequestError) and count(exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult) = 0">
+	    			<table id="incidentsError" class="detailsTable table">
+			            <tr>
+			                <td class="detailsTitle" >NO ASSOCIATED INCIDENTS</td>
+			            </tr>
+			            <tr>
+				            <td>
+				            	<div class="alert alert-warning" role="alert">There are no incidents associated with this person record.</div> 
+				            </td>
+			            </tr>
+			        </table>
+	    		</xsl:when>
+	    		<xsl:otherwise>
+			        <script type="text/javascript">
+			            $(function () {
+			                $('#incidentsSummary tr.clickableIncident').click(function () {
+			                
+			                    var systemName =$(this).attr('systemName');
+			                    var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
+			                    var identificationID = encodeURI($(this).attr('identificationID'));
+			                    
+			                    
+			                    $('#incidentsSummary tr').removeClass("incidentSelected");
+			                    $(this).addClass("incidentSelected");
+			                    
+			                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
+			                    // tempDiv for css spinner - replaced upon receipt of get data
+			                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
+			                    
+			                    $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+			                      $('#incidentDetailTabsHolder').html(data);
+			                    }).fail(ojbc.displayIncidentDetailFailMessage);
+			                    
+			                }).hover(function () {
+			                     $(this).addClass("incidentHover");
+			                }, function () {
+			                     $(this).removeClass("incidentHover");
+			                });
+			            });
+			        </script>
+			       
+			        <table id="incidentsSummary" class="detailsTable table">
+			        	<thead>
+				            <tr>
+				                <td class="detailsTitle">TYPE/NATURE</td>
+				                <td class="detailsTitle">ROLE</td>
+				                <td class="detailsTitle">INCIDENT #</td>
+				                <td class="detailsTitle">AGENCY</td>
+				                <td class="detailsTitle">DATE</td>
+				                <td class="detailsTitle">LOCATION</td>
+				            </tr>
+			            </thead>
+			            <tbody>
+			            	<xsl:apply-templates />
+			            </tbody> 
+			        </table>
+			        <div id="incidentDetailTabsHolder" style="height:200px;overflow:scroll;"></div>   
+		        </xsl:otherwise>
+	        </xsl:choose>
+        </div>
     </xsl:template>
     
     <xsl:template match="exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult" >
