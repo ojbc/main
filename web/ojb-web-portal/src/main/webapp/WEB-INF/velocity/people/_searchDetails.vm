@@ -16,6 +16,7 @@
  *#
 <html>
     <head>
+		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
@@ -27,6 +28,8 @@
         <script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
 		<script src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
         <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
+		<script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
+		<script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
         
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
     </head>
