@@ -30,14 +30,12 @@
 	<xsl:import href="_formatters.xsl" />
     <xsl:output method="html" encoding="UTF-8" />
     <xsl:template name="PersonFirearmRegistration">
-       <table style="width:100%">
-            <tr>
-                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-                <td> 
-                    <xsl:apply-templates select="/firearm:PersonFirearmRegistrationQueryResults/nc:Person"/> 
-                </td>                
-            </tr>
-        </table>
+       <div class="row">
+          <div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>
+          <div class="col-12 col-sm-9 table-responsive">
+              <xsl:apply-templates select="/firearm:PersonFirearmRegistrationQueryResults/nc:Person"/> 
+          </div>                
+        </div>
         <table class="detailsTable"> 
              <tr>
                 <td colspan="8" class="detailsTitle">FIREARM REGISTRATIONS</td>
