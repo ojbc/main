@@ -31,41 +31,41 @@
         <div th:fragment="arrestSearchFormContent">
           <input type="hidden" th:field="*{authorizedOris}"/>
           <div class="form-row">
-            <label class="col-2 col-form-label font-weight-bold text-right">Arrest Date </label>
-            <div class="col-sm-3 form-group">
+            <label class="col-4 col-lg-2 col-form-label font-weight-bold text-right">Arrest Date </label>
+            <div class="col-8 col-lg-3 form-group">
               <input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From" autofocus="autofocus" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('arrestDateRangeStartDate')}" th:errors="*{arrestDateRangeStartDate}" class="invalid-feedback d-block">Arrest Date error message</div>
             </div>
-            <label class="col-1 col-form-label font-weight-bold text-right">To </label>
-            <div class="col-sm-3 form-group">
+            <label class="col-4 col-lg-2 col-xl-1 col-form-label font-weight-bold text-right">To </label>
+            <div class="col-8 col-lg-3 form-group">
                <input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To" th:errorclass="is-invalid"/>
 	             <div th:if="${#fields.hasErrors('arrestDateRangeEndDate')}" th:errors="*{arrestDateRangeEndDate}" class="invalid-feedback d-block">Arrest Date error message</div>
             </div>
           </div>
           <div class="form-row">
-           <label for="lastName" class="col-2 col-form-label font-weight-bold text-right">Last Name </label>
-           <div class="col-sm-3">
+           <label for="lastName" class="col-4 col-lg-2 col-form-label font-weight-bold text-right">Last Name </label>
+           <div class="col-8 col-lg-3">
              <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
            </div>
-           <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
-           <div class="col-sm-3">
+           <label for="firstName" class="col-4 col-lg-2 col-xl-1 col-form-label font-weight-bold text-right">First Name </label>
+           <div class="col-8 col-lg-3">
               <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
            </div>
           </div>
           <div class="form-row">
-            <label for="ssn" class="col-2 col-form-label font-weight-bold text-right">SSN </label>
-            <div class="col-sm-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
-            <label for="dob" class="col-1 col-form-label font-weight-bold text-right">DOB </label>
-            <div class="col-sm-3 form-group">
+            <label for="ssn" class="col-4 col-lg-2 col-form-label font-weight-bold text-right">SSN </label>
+            <div class="col-8 col-lg-3"><input type="text" th:field="*{ssn}" width="250" placeholder="SSN"/></div>
+            <label for="dob" class="col-4 col-lg-2 col-xl-1 col-form-label font-weight-bold text-right">DOB </label>
+            <div class="col-8 col-lg-3 form-group">
               <input type="text" th:field="*{dob}" class="date" width="250" placeholder="Date of Birth" th:errorclass="is-invalid"/>
               <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" class="invalid-feedback d-block">Arrest Date error message</div>
             </div>
           </div>
           <div class="form-row">
-            <label for="otn" class="col-2 col-form-label font-weight-bold text-right">OTN </label>
-            <div class="col-sm-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
-            <label for="oris" class="col-1 col-form-label font-weight-bold text-right" th:if="${#maps.size(authorizedOriMapping) > 1}">Agency </label>
-            <div class="col-sm-4" th:if="${#maps.size(authorizedOriMapping) > 1}">
+            <label for="otn" class="col-4 col-lg-2 col-form-label font-weight-bold text-right">OTN </label>
+            <div class="col-8 col-lg-3"><input type="text" th:field="*{otn}" width="250" placeholder="OTN"/></div>
+            <label for="oris" class="col-2 col-sm-4 col-lg-2 col-xl-1 col-form-label font-weight-bold text-right" th:if="${#maps.size(authorizedOriMapping) > 1}">Agency </label>
+            <div class="col-10 col-sm-8 col-lg-4" th:if="${#maps.size(authorizedOriMapping) > 1}">
 		          <select th:field="*{userSelectedOris}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" 
 		             data-placeholder="Please select all that apply...">
 		            <option th:each="item: ${authorizedOriMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -73,27 +73,23 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="col-2"/>
-            <div class="col-sm-3">
+            <div class="col-8 col-lg-4 offset-lg-2 offset-4">
                <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
                <span class="font-weight-bold ">Arrests With Deferred Dispositions</span> 
             </div>
-            <div class="col-1"/>
-            <div class="col-sm-3">
+            <div class="col-lg-3 offset-lg-1 col-8 offset-4 offset-xl-0">
                <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
                <span class="font-weight-bold ">Include Hidden Arrests</span>
             </div>
           </div>
           <div class="form-row mt-2" th:if="${osbiUser.employerOrganizationCategory == 'Criminal History Repository'}">
-            <div class="col-2"/>
-            <div class="col-sm-3">
+            <div class="col-lg-4 offset-lg-2 col-8 offset-4">
                <input type="checkbox" th:field="*{includeOnlyAdminOwnedCharges}" th:value="${includeOnlyAdminOwnedCharges}"/>
                <span class="font-weight-bold ">Include Only Admin Owned Charges</span> 
             </div>
           </div>
           <div class="form-row mt-2">
-            <div class="col-2"/>
-            <div class="col-sm-3">
+            <div class="col-lg-3 offset-lg-2 col-8 offset-4">
                 <button type="button" class="btn-primary" id="submit">Search</button>
                 <button type="button" class="btn-secondary" id="reset">Reset</button>
            </div>
