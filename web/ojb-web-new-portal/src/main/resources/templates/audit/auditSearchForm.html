@@ -34,33 +34,33 @@
 	     
 	     <form action="#" th:object="${auditSearchRequest}" id="auditSearchForm" method="post" th:fragment="auditSearchForm">
          <div class="form-row">
-	          <label class="col-2 col-form-label font-weight-bold text-right">Audit Date </label>
-	          <div class="col-sm-3">
+	          <label class="col-4 col-lg-2 col-form-label font-weight-bold text-right">Audit Date </label>
+	          <div class="col-8 col-lg-3">
 	           <input type="text" th:field="*{auditDateRangeStartDate}" class="date" placeholder="From"/>
 	           <div th:if="${#fields.hasErrors('auditDateRangeStartDate')}" th:errors="*{auditDateRangeStartDate}">Audit Date error message</div>
 	          </div>
-            <label class="col-1 col-form-label font-weight-bold text-right">To </label>
-	          <div class="col-sm-3">
+            <label class="col-4 col-lg-1 col-form-label font-weight-bold text-right">To </label>
+	          <div class="col-8 col-lg-3">
 	              <input type="text" th:field="*{auditDateRangeEndDate}" class="date" placeholder="To"/>
 	          </div>
          </div>
          <div class="form-row">
-            <label for="lastName" class="col-2 col-form-label font-weight-bold text-right">Last Name </label>
-            <div class="col-sm-3">
+            <label for="lastName" class="col-4 col-lg-2 col-form-label font-weight-bold text-right">Last Name </label>
+            <div class="col-8 col-lg-3">
               <input type="text" th:field="*{lastName}" width="250" placeholder="Last Name"/>
               <input type="checkbox" th:field="*{lastNameExactMatch}" th:value="${lastNameExactMatch}" />
               <span class="align-bottom">Exact Match</span>
             </div>
-            <label for="firstName" class="col-1 col-form-label font-weight-bold text-right">First Name </label>
-            <div class="col-sm-3">
+            <label for="firstName" class="col-4 col-lg-1 col-form-label font-weight-bold text-right">First Name </label>
+            <div class="col-8 col-lg-3">
 	             <input type="text" th:field="*{firstName}" width="250" placeholder="First Name"/>
 	             <input type="checkbox" th:field="*{firstNameExactMatch}" th:value="${firstNameExactMatch}"/>
 	             <span class="align-bottom">Exact Match</span>
             </div>
           </div>
           <div class="form-row">
-            <label for="ori" class="col-2 col-form-label font-weight-bold text-right">Agency</label>
-            <div class="col-sm-7">
+            <label for="ori" class="col-lg-2 col-md-4 col-sm-2  col-4 col-form-label font-weight-bold text-right">Agency</label>
+            <div class="col-lg-5 col-md-8 col-sm-10 col-12">
 	            <select th:field="*{ori}" class="form-control chosen-select" th:errorclass="is-invalid">
                 <option value="" >Please select ...</option>
                 <option th:each="item: ${agencyOriMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -68,8 +68,8 @@
             </div>
           </div>
           <div class="form-row">
-            <label for="activityTypeId" class="col-2 col-form-label font-weight-bold text-right">Activity Type</label>
-            <div class="col-sm-7">
+            <label for="activityTypeId" class="col-lg-2 col-4 col-form-label font-weight-bold text-right">Activity Type</label>
+            <div class="col-lg-3 col-8">
             <select th:field="*{activityTypeId}" class="form-control chosen-select" th:errorclass="is-invalid">
                <option value="" >Please select ...</option>
                <option th:each="item: ${auditActivityTypeMapping}" th:value="${item.key}" th:text="${item.value}" />
@@ -77,8 +77,7 @@
             </div>
           </div>
           <div class="form-row mt-2">
-            <div class="col-2"/>
-            <div class="col-7">
+            <div class="col-lg-7 offset-lg-2 col-8 offset-4">
 	            <button type="button" class="btn-primary" id="submit">Search</button>
 	            <button type="reset" class="btn-secondary" id="reset">Reset</button>
             </div>
