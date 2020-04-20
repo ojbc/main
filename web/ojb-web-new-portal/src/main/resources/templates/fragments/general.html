@@ -143,6 +143,15 @@
 	    		  $(this).parent().addClass('active').siblings().removeClass('active');
     		  });
 	    	  
+    	    $("#navbarCollapse").on('shown.bs.collapse', function() {
+    	        $('a.nav-link:not(.dropdown-toggle)').click(function() {
+    	            $("#navbarCollapse").collapse('hide');
+    	        });
+    	        $('a.dropdown-item').click(function() {
+    	          $("#navbarCollapse").collapse('hide');
+    	        });
+    	    });
+
 	    	  $('body').on('click', 'a.daArrest', function() {   
 	              xhr = $.get(context + 'daArrests', function(data) {
 	                 $('#portalContent').html(data); 
