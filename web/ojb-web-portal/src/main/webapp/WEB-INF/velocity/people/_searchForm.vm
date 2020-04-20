@@ -24,19 +24,7 @@
 				oTable.destroy();
 			}    	    	
  		  	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
-    	    var index = $('#personSearchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
-    	    switch(index){
-	            case 1:   
-	            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");
-	            	break; 
-	            case 2:  
-	                $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
-	                break; 
-                default:
-	                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
-	                break; 
-	       }        	  	    
 
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
@@ -193,7 +181,6 @@
 <div id="searchTabs" class="py-3">
     <div class="row">
         <div class="col-12 mx-auto">
-        	<div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
             <ul class="nav nav-tabs small justify-content-end" role="tablist" id="personSearchTabs">
 		        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#simpleSearchTab">SIMPLE SEARCH</a></li>
 		        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#advancedSearchTab">ADVANCED SEARCH</a></li>
@@ -217,7 +204,7 @@
 					     		#springBind( "personSearchCommand.searchType" )
 								<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
 						  		<div class='row'>
-					  				<div class='col-6'>
+					  				<div class='col-12 col-md-6'>
 								        <p class="searchSubHeader"> NAME</p>
 								        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
 										<div class="form-check-inline">
@@ -256,7 +243,7 @@
 									        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "class='shortDigit'")+/-#springFormInput("personSearchCommand.weightTolerance" "class='shortDigit'")
 								        </div>
 						        	</div>
-						  			<div class='col-6'>
+						  			<div class='col-12 col-md-6'>
 								  		  <p class="searchSubHeader" >IDENTIFIERS</p>
 								  		  <div>
 								  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #' class='form-control form-control-sm'")

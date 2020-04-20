@@ -31,7 +31,7 @@
 	    <div class="container-fluid small">
 		    <div id="loadingAjaxPane"></div>
 		    <div id="mainContent" class="row ml-0 mr-0">
-			    <div id="filterColumn" class="col-2 d-none">
+			    <div id="filterColumn" class="col-12 col-xl-2 col-md-3 d-none">
 			    		    
 			      #set($homePage=$stateSpecificHomePage['thisHomePage'])		    
 			      
@@ -80,7 +80,6 @@
 		    	  $(this).parent().siblings().removeClass('show');
 		    	  $(this).parent().addClass('active').siblings().removeClass('active');
 		    	  $('.dropdown-menu:not(this ~ .dropdown-menu)').removeClass('show');
-		    	  console.log("index.vm");
 		    	  $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	    		});
 		        

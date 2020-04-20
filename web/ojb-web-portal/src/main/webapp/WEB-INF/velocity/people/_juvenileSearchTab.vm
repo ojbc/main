@@ -28,7 +28,7 @@
 		 		#springBind( "personSearchCommand.searchType" )
 				<input type="hidden" name="${status.expression}" value="JUVENILE" /><br>
 		  		<div class='row'>
-		  			<div class='col-6'>
+		  			<div class='col-12 col-md-6'>
 				        <p class="searchSubHeader"> NAME</p>
 				        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name' class='form-control form-control-sm'") </div>
 						<div class="form-check-inline">
@@ -67,7 +67,7 @@
 				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "class='form-control form-control-sm chosen-select'" ) </div>
 					        
 		        	</div>
-			  		<div class='col-6'>
+			  		<div class='col-12 col-md-6'>
 				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.placement" $placements "class='form-control form-control-sm chosen-select'" ) </div>
 						<div>
 						   #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN' class='ssn form-control form-control-sm'") 
