@@ -60,6 +60,7 @@ import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -2315,5 +2316,41 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return incidentSearchRequests;	
 	}
+
+	@Override
+	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
+		log.debug("Inserting row into VEHICLE_CRASH_QUERY_RESULTS table : " + vehicleCrashQueryResponse.toString());
+		
+//        final String VEHICLE_CRASH_QUERY_RESULTS_INSERT="INSERT into VEHICLE_CRASH_QUERY_RESULTS "  
+//        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+//        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(
+//        	    new PreparedStatementCreator() {
+//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//        	            PreparedStatement ps =
+//        	                connection.prepareStatement(VEHICLE_CRASH_QUERY_RESULTS_INSERT, new String[] {"VEHICLE_CRASH_QUERY_RESULTS_ID"});
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFirstName(), ps, 1);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMiddleName(), ps, 2);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getLastName(), ps, 3);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSid(), ps, 4);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFbiId(), ps, 5);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryRequestId(), ps, 6);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryResultsErrorText(), ps, 7);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsTimeoutIndicator(), ps, 8);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsErrorIndicator(), ps, 9);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSystemName(), ps, 10);
+//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMessageId(), ps, 11);
+//        	            
+//        	            return ps;
+//        	        }
+//        	    },
+//        	    keyHolder);
+
+//         return keyHolder.getKey().intValue();	 	
+		
+		return null;
+     }
 
 }

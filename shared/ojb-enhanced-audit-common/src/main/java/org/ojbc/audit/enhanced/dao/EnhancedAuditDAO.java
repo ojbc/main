@@ -43,6 +43,7 @@ import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -101,6 +102,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveQueryRequest(QueryRequest queryRequest);
 	
 	public Integer savePersonQueryCriminalHistoryResponse(PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse);
+	
+	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse);
 	
 	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
 	
