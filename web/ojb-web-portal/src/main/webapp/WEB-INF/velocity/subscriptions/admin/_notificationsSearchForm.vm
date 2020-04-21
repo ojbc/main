@@ -63,7 +63,7 @@
 	        #end
 	    #end
 		<div class='row'>
-			<div class='col-6 pl-4'>
+			<div class='col col-lg-6 pl-4'>
 				<p class="searchSubHeader"> Notification Date Range</p>
 		        <div class="labelText" >
 		        	#springFormInput("rapbackNotificationDateRange.startDate" "class='mdate datePicker' placeholder='Start Date'") #springShowErrors( "<br/>" "error pl-2" )

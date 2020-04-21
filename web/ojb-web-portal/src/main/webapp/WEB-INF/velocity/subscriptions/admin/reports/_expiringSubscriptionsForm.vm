@@ -78,7 +78,7 @@
 	        #end
 	    #end
 		<div class='row'>
-			<div class='col-4 pl-4'>
+			<div class='col col-lg-4 pl-4'>
 	        	<p class="searchSubHeader"> NUMBER OF DAYS BEFORE EXPIRATION</p>
 	        	<div id="slider">
 					<div id="custom-handle" class="ui-slider-handle"></div>

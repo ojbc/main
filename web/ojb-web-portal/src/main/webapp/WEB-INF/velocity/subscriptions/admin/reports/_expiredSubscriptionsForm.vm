@@ -78,7 +78,7 @@
 	        #end
 	    #end
 		<div class='row'>
-			<div class='col-4 pl-4' style="padding-left: 1em;">
+			<div class='col col-lg-4 pl-4' style="padding-left: 1em;">
 	        	<p class="searchSubHeader"> NUMBER OF DAYS PAST EXPIRATION</p>
 	        	<div id="slider">
 					<div id="custom-handle" class="ui-slider-handle"></div>
