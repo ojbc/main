@@ -73,7 +73,7 @@
     #end
 	#springFormHiddenInput("subscriptionSearchRequest.adminSearch")
   		<div class='row'>
-  			<div class='col-4 pl-4'>
+  			<div class='col col-lg-4 pl-4'>
 		        <p class="searchSubHeader"> OWNER</p>
 		        <div>#springFormInput("subscriptionSearchRequest.ownerFirstName" "placeholder='First Name' class='form-control form-control-sm'") </div>
 		        <div>#springFormInput("subscriptionSearchRequest.ownerLastName" "placeholder='Last Name' class='form-control form-control-sm'")</div>
@@ -88,7 +88,7 @@
 					#springFormCheckboxes("subscriptionSearchRequest.status" $subscriptionStatusMap " &nbsp;" "")
 				</div>    				        
         	</div>
-  			<div class='col-4 pl-4'>
+  			<div class='col col-lg-4 pl-4'>
 		        <p class="searchSubHeader"> SUBJECT</p>
 		        <div>#springFormInput("subscriptionSearchRequest.subjectFirstName" "placeholder='First Name' class='form-control form-control-sm'")</div>
 		        <div>#springFormInput("subscriptionSearchRequest.subjectLastName" "placeholder='Last Name' class='form-control form-control-sm'")</div>

@@ -334,10 +334,10 @@
 		</div>
 		<div class="card-body">
 			<div class="breadcrumb" id="filterColumn">
-				<div id="checkbox-subsequentReuslts" class="col-3">
+				<div id="checkbox-subsequentReuslts" class="col-12 col-lg-4 col-xl-3">
 					<input type="checkbox" name="hasRapBackNotifications" id="hasRapBackNotifications" value="hasRapBackNotifications"><span class="fieldText pl-2" >Only Show Rap Back Notifications</span>
 				</div>
-				<div id="checkbox-show-archived-only" class="col-3">
+				<div id="checkbox-show-archived-only" class="col">
 					<input type="checkbox" name="showArchivedOnly" id="showArchivedOnly" value="showArchivedOnly"><span class="fieldText pl-2" >Show Archived Only</span>
 				</div>
 			</div>
