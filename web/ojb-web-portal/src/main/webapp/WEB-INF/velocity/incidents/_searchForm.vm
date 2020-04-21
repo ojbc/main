@@ -114,21 +114,23 @@
             #end
      
 	  		<div class='row'>
-  				<div class='col-6'>
+  				<div class='col-12 col-sm-6'>
 			        <div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentCityTown" $cityTowns "class='form-control form-control-sm'" ) </div>
 			        <div>#springFormInput("incidentSearchCommand.advanceSearch.incidentNumber" "placeholder='Incident #' class='form-control form-control-sm'") </div>
-			        
-			        <div class="labelText" >
-			        	Date Range: 
-			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
-			        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
-			        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
-                         #springShowErrors( "<br/>" "error pl-2" )
-			        </div>
 	        	</div>
-	  			<div class='col-6'>
+	  			<div class='col'>
 	  				<div>#springFormSingleSelect("incidentSearchCommand.advanceSearch.incidentType" $incidentTypes "class='form-control form-control-sm'" ) </div>
 				</div>
+	        </div>
+	        <div class='row'>
+		        <div class="labelText col-12 col-xl-6" >
+		        	Date Range: 
+		        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeStart" "class='datePicker mdate' placeholder='From'")
+		        		#springFormInput("incidentSearchCommand.advanceSearch.incidentDateRangeEnd" "class='datePicker mdate' placeholder='To'")
+		        		#springBind("incidentSearchCommand.advanceSearch.incidentDateRangeStart")
+	                 #springShowErrors( "<br/>" "error pl-2" )
+		        </div>
+ 
 	        </div>
 	    </form>
 	</div>

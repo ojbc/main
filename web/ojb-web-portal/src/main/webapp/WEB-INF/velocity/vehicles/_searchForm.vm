@@ -96,30 +96,32 @@
 	        #end
 	 
 	  		<div class='row'>
-	  			<div class='col-6'>
+	  			<div class='col-12 col-sm-6'>
 			        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "class='form-control form-control-sm'" ) </div>
 			        
 			        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model' class='form-control form-control-sm'") </div>
 			        
-			        <div class="labelText" >
-			        	Year Range: 
-			        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
-			        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
-			        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
-                         #springShowErrors( "<br/>" "error pl-2" )
-			        </div>
 		        </div>
-	  			<div class='col-6'>
+	  			<div class='col'>
 	  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "class='form-control form-control-sm'" ) </div>
 			  		<div>
 			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #' class='form-control form-control-sm'")
 			  		    #springShowErrors( "<br/>" "error pl-2" )
 			  		</div>
-			  		<div>
-			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN' class='form-control form-control-sm'")
-			  		    #springShowErrors( "<br/>" "error pl-2" )
-			  		</div>        			  		
 	        	</div>
+	        </div>
+	        <div class='row'>
+		        <div class="labelText col-12 col-xl-6" >
+		        	Year Range: 
+		        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
+		        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
+		        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
+                     #springShowErrors( "<br/>" "error pl-2" )
+		        </div>
+		  		<div class="col col-sm-6">
+		  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN' class='form-control form-control-sm'")
+		  		    #springShowErrors( "<br/>" "error pl-2" )
+		  		</div>        			  		
 	        </div>
 	    </form>
 	</div>
