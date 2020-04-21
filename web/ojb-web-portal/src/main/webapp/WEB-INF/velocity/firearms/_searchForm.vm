@@ -101,13 +101,13 @@
 	            #end
 	        #end
 	     
-	  		<div class='row'>
-	  			<div class='col-6'>
+	     	<div class='row'>
+	     		<div class='col-12 col-xl-6'>
 			        <div class='row'>
-			        	<div class='col-4'>
+			        	<div class='col-5'>
 			        		#springFormInput("firearmSearchCommand.advanceSearch.firearmSerialNumber" "placeholder='Serial Number' class='form-control form-control-sm'")
 			        	</div>
-			        	<div class='col-8'>
+			        	<div class='col'>
 							<div class="form-check-inline">
 							  <label class="form-check-label form-control-sm mt-2 pt-2">
 							    #springFormRadioButtons("firearmSearchCommand.advanceSearch.firearmSerialNumberMetaData" {"Partial": "Includes", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
@@ -115,17 +115,19 @@
 							</div>
 			        	</div>
 			        </div>
-			        
+	     		</div>
+	     		<div class='col col-sm-6'>
+			        <div>#springFormInput("firearmSearchCommand.advanceSearch.firearmMake" "placeholder='Make' class='form-control form-control-sm'")</div>
+	     		</div>
+	     	</div>
+	  		<div class='row'>
+	  			<div class='col-12 col-sm-6'>
 			        <div>#springFormInput("firearmSearchCommand.advanceSearch.firearmRegistrationNumber" "placeholder='Registration Number' class='form-control form-control-sm'")</div>
 			        
 			        <div>#springFormSingleSelect("firearmSearchCommand.advanceSearch.firearmType" $types "class='form-control form-control-sm'" )</div>    				              			  		
 	        	</div>
-		        	
-		  		<div class='col-6'>
-			        <div>#springFormInput("firearmSearchCommand.advanceSearch.firearmMake" "placeholder='Make' class='form-control form-control-sm'")</div>
-
+		  		<div class='col'>
 			        <div>#springFormInput("firearmSearchCommand.advanceSearch.firearmModel" "placeholder='Model' class='form-control form-control-sm'")</div>
-			        
 			  		<div class="labelText">
 			  			#springFormCheckbox("firearmSearchCommand.advanceSearch.firearmCurrentRegOnly" "")
 			  			Current Registrations Only
