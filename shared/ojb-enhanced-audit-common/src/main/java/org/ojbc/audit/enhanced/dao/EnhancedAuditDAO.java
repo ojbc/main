@@ -19,6 +19,7 @@ package org.ojbc.audit.enhanced.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
@@ -104,6 +105,8 @@ public interface EnhancedAuditDAO {
 	public Integer savePersonQueryCriminalHistoryResponse(PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse);
 	
 	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse);
+	
+	public Integer saveCrashVehicle(CrashVehicle crashVehicle);
 	
 	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
 	

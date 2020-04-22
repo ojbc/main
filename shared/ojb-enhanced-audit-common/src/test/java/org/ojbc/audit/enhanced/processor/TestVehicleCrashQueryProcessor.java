@@ -77,6 +77,7 @@ public class TestVehicleCrashQueryProcessor {
 		
 		vehicleCrashResponseSQLProcessor.auditVehicleCrashResponse(document, "123456645");
 		
+		log.info("Test complete.");
 		
 	}
 	

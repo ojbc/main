@@ -22,6 +22,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.w3c.dom.Document;
 
@@ -49,9 +50,17 @@ public class VehicleCrashResponseSQLProcessor extends AbstractVehicleCrashQueryR
 				vehicleCrashQueryResponse.setQueryRequestId(vehicleQueryPk);
 			}	
 			
-			enhancedAuditDAO.saveVehicleQueryCrashResponse(vehicleCrashQueryResponse);
+			Integer vehicleCrashId = enhancedAuditDAO.saveVehicleQueryCrashResponse(vehicleCrashQueryResponse);
 			
-			log.info(vehicleCrashQueryResponse.toString());
+			if (vehicleCrashQueryResponse.getCrashVehicles() != null)
+			{	
+				for (CrashVehicle crashVehicle : vehicleCrashQueryResponse.getCrashVehicles())
+				{
+					crashVehicle.setVehicleCrashQueryResultsId(vehicleCrashId);
+					enhancedAuditDAO.saveCrashVehicle(crashVehicle);
+				}	
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

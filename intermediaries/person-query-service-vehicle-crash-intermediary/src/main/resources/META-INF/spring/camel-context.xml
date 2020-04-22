@@ -157,6 +157,14 @@
 		<camel:route>
 			<camel:from uri="personQueryVehicleCrashResultsEndpoint"/>
 			
+			<camel:log message="\n\n\n Entering Person Query Results Handler for Vehicle Crash ... \n\n\n"></camel:log>
+			
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash</constant>
+			</camel:setHeader>
+			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.vehicleCrash.dbAuditLog} == 'true'</camel:simple>
@@ -189,15 +197,6 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>			
-			
-			
-			<camel:log message="\n\n\n Entering Person Query Results Handler for Vehicle Crash ... \n\n\n"></camel:log>
-			
-			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash</constant>
-			</camel:setHeader>
-			
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
 			
 			<camel:log message="Calling Aggregator" />
 			
