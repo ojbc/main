@@ -32,6 +32,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
@@ -2321,36 +2322,56 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
 		log.debug("Inserting row into VEHICLE_CRASH_QUERY_RESULTS table : " + vehicleCrashQueryResponse.toString());
 		
-//        final String VEHICLE_CRASH_QUERY_RESULTS_INSERT="INSERT into VEHICLE_CRASH_QUERY_RESULTS "  
-//        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
-//        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(
-//        	    new PreparedStatementCreator() {
-//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//        	            PreparedStatement ps =
-//        	                connection.prepareStatement(VEHICLE_CRASH_QUERY_RESULTS_INSERT, new String[] {"VEHICLE_CRASH_QUERY_RESULTS_ID"});
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFirstName(), ps, 1);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMiddleName(), ps, 2);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getLastName(), ps, 3);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSid(), ps, 4);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFbiId(), ps, 5);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryRequestId(), ps, 6);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryResultsErrorText(), ps, 7);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsTimeoutIndicator(), ps, 8);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsErrorIndicator(), ps, 9);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSystemName(), ps, 10);
-//        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMessageId(), ps, 11);
-//        	            
-//        	            return ps;
-//        	        }
-//        	    },
-//        	    keyHolder);
+        final String VEHICLE_CRASH_QUERY_RESULTS_INSERT="INSERT into VEHICLE_CRASH_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_CRASH_QUERY_RESULTS_INSERT, new String[] {"VEHICLE_CRASH_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getQueryResultsErrorText(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.isQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.isQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getSystemName(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getMessageId(), ps, 6);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
 
-//         return keyHolder.getKey().intValue();	 	
+         return keyHolder.getKey().intValue();	 	
 		
-		return null;
      }
+
+	@Override
+	public Integer saveCrashVehicle(CrashVehicle crashVehicle) {
+		log.debug("Inserting row into CRASH_VEHICLE table : " + crashVehicle.toString());
+		
+        final String CRASH_VEHICLE_INSERT="INSERT into CRASH_VEHICLE "  
+        		+ "(VEHICLE_CRASH_QUERY_RESULTS_ID, VEHICLE_MAKE, VEHICLE_MODEL, VEHICLE_IDENTIFICATION_NUMBER) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(CRASH_VEHICLE_INSERT, new String[] {"CRASH_VEHICLE_ID"});
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleCrashQueryResultsId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleMake(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleModel(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleIdentificationNumber(), ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		}
 
 }

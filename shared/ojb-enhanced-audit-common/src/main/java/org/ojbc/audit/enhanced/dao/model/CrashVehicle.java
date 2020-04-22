@@ -21,6 +21,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class CrashVehicle {
 
+		private Integer vehicleCrashQueryResultsId;
+		
 		private String vehicleMake;
 		private String vehicleModel;
 		private String vehicleIdentificationNumber;
@@ -44,6 +46,14 @@ public class CrashVehicle {
 			this.vehicleIdentificationNumber = vehicleIdentificationNumber;
 		}
 		
+		public Integer getVehicleCrashQueryResultsId() {
+			return vehicleCrashQueryResultsId;
+		}
+		
+		public void setVehicleCrashQueryResultsId(Integer vehicleCrashQueryResultsId) {
+			this.vehicleCrashQueryResultsId = vehicleCrashQueryResultsId;
+		}
+
 		public String toString(){
 			return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 		}
