@@ -47,7 +47,7 @@
 	
 	<scm>
 	  <connection>https://github.com/ojbc/main</connection>
-	  <developerConnection>https://github.com/ojbc/main.git</developerConnection>
+	  <developerConnection>scm:git:https://github.com/ojbc/main.git</developerConnection>
 	  <url>https://github.com/ojbc/main</url>
 	</scm>	
 
