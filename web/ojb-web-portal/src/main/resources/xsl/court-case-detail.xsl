@@ -46,86 +46,87 @@
 	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults">
 		<script type="text/javascript">
 			$(function () {
-		 			$('#courtCaseDetailTabs').tabs({
-						activate: function( event, ui ) {
-							var modalIframe = $("#modalIframe", parent.document);
-							modalIframe.height(modalIframe.contents().find("body").height() + 16);
-						}
-					}); 
+					var modalIframe = $("#modalIframe", parent.document);
+					modalIframe.height(modalIframe.contents().find("body").height() + 16);
+					
+					$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+					})
 					
 					$('#criminalCaseTabs').tabs();
 					$('#partyTabs').tabs();
 					$('.detailDataTable').DataTable({
  						"dom": 'rt',
+ 						responsive: true, 
  						colReorder: true 
 					});
 			});
 		</script>
 
-		<div id="courtCaseDetailTabs">
-			<ul class="courtCaseDetailUl">
-				<li>
-					<a href="#criminalCaseTab">CRIMINAL CASE</a>
-				</li>
-				<li>
-					<a href="#partyTab">PARTY DETAIL</a>
-				</li>
-				<li>
-					<a href="#chargeTab">CHARGE SUMMARY</a>
-				</li>
-				<li>
-					<a href="#hearingTab">HEARING SUMMARY</a>
-				</li>
-				<li>
-					<a href="#roaListingTab">ROA LISTING</a>
-				</li>
-				<li>
-					<a href="#criminalWarrantTab">CRIMINAL WARRANT HISTORY</a>
-				</li>
-				<li>
-					<a href="#criminalBondTab">CRIMINAL BOND SUMMARY</a>
-				</li>
-				<li>
-					<a href="#victimTab">VICTIMS</a>
-				</li>
-				<li>
-					<a href="#defenseAttorneyTab">DEFENSE ATTORNEYS</a>
-				</li>
-				<li>
-					<a href="#prosecutorTab">PROSECUTORS</a>
-				</li>
-			</ul>
-
-			<div id="criminalCaseTab">
-				<p><xsl:apply-templates select="nc:Case" mode="criminalCase"/></p>	
-			</div>
-			<div id="partyTab">
-				<p><xsl:apply-templates select="." mode="party"/></p>	
-			</div>
-			<div id="chargeTab">
-				<p><xsl:apply-templates select="nc:Case" mode="chargeSummary"/></p>
-			</div>
-			<div id="hearingTab">
-				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="hearing"/></p>
-			</div>
-			<div id="roaListingTab">
-				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="ROA"/></p>
-			</div>
-			<div id="criminalWarrantTab">
-				<p><xsl:apply-templates select="." mode="warrants"/></p>
-			</div>
-			<div id="criminalBondTab">
-				<p><xsl:apply-templates select="." mode="bonds"/></p>
-			</div>
-			<div id="victimTab">
-				<p><xsl:apply-templates select="." mode="victims"/></p>
-			</div>
-			<div id="defenseAttorneyTab">
-				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseDefenseAttorney"></xsl:apply-templates></p>
-			</div>
-			<div id="prosecutorTab">
-				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="prosecutors"></xsl:apply-templates></p>
-			</div>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="criminalCaseTab" data-toggle="tab" href="#criminalCase" role="tab" aria-controls="criminalCase" aria-selected="true">CRIMINAL CASE</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="partyTab" data-toggle="tab" href="#party" role="tab" aria-controls="party" aria-selected="false">PARTY DETAIL</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="chargeTab" data-toggle="tab" href="#charge" role="tab" aria-controls="charge" aria-selected="false">CHARGE SUMMARY</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="hearingTab" data-toggle="tab" href="#hearing" role="tab" aria-controls="hearing" aria-selected="false">HEARING SUMMARY</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="roaListingTab" data-toggle="tab" href="#roaListing" role="tab" aria-controls="roaListing" aria-selected="false">ROA LISTING</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="criminalWarrantTab" data-toggle="tab" href="#criminalWarrant" role="tab" aria-controls="criminalWarrant" aria-selected="false">CRIMINAL WARRANT</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="criminalBondTab" data-toggle="tab" href="#criminalBond" role="tab" aria-controls="criminalBond" aria-selected="false">CRIMINAL BOND</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="victimTab" data-toggle="tab" href="#victim" role="tab" aria-controls="victim" aria-selected="false">VICTIMS</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="defenseAttorneyTab" data-toggle="tab" href="#defenseAttorney" role="tab" aria-controls="defenseAttorney" aria-selected="false">DEFENSE ATTORNEYS</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="prosecutorTab" data-toggle="tab" href="#prosecutor" role="tab" aria-controls="prosecutor" aria-selected="false">PROSECUTORS</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="criminalCase" role="tabpanel" aria-labelledby="criminalCaseTab">
+		  	<p><xsl:apply-templates select="nc:Case" mode="criminalCase"/></p>	
+		  </div>
+		  <div class="tab-pane fade" id="party" role="tabpanel" aria-labelledby="partyTab">
+		  	<p><xsl:apply-templates select="." mode="party"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="charge" role="tabpanel" aria-labelledby="chargeTab">
+		  	<p><xsl:apply-templates select="nc:Case" mode="chargeSummary"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="hearing" role="tabpanel" aria-labelledby="hearingTab">
+		  	<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="hearing"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="roaListing" role="tabpanel" aria-labelledby="roaListingTab">
+		  	<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="ROA"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="criminalWarrant" role="tabpanel" aria-labelledby="criminalWarrantTab">
+		  	<p><xsl:apply-templates select="." mode="warrants"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="criminalBond" role="tabpanel" aria-labelledby="criminalBondTab">
+		  	<p><xsl:apply-templates select="." mode="bonds"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="victim" role="tabpanel" aria-labelledby="victimTab">
+		  	<p><xsl:apply-templates select="." mode="victims"/></p>
+		  </div>
+		  <div class="tab-pane fade" id="defenseAttorney" role="tabpanel" aria-labelledby="defenseAttorneyTab">
+		  	<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseDefenseAttorney"></xsl:apply-templates></p>
+		  </div>
+		  <div class="tab-pane fade" id="prosecutor" role="tabpanel" aria-labelledby="prosecutorTab">
+		  	<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="prosecutors"></xsl:apply-templates></p>
+		  </div>
 		</div>
 	</xsl:template>
 	
@@ -134,7 +135,7 @@
 	</xsl:template>
 	
 	<xsl:template match="j:CaseAugmentation" mode="prosecutors">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Attorney Name</th>
@@ -157,7 +158,7 @@
 	</xsl:template>
 	
 	<xsl:template match="j:CaseDefenseAttorney">
-		<table class="detailTable">
+		<table class="detailTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<tr>
 				<th>
 					<label>Lead Attorney: </label>
@@ -168,7 +169,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="victims">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Victim Name</th>
@@ -195,7 +196,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="bonds">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Bond Type</th>
@@ -220,7 +221,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="warrants">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Warrant Number</th>
@@ -245,7 +246,7 @@
 	</xsl:template>
 	
 	<xsl:template match="j:CaseAugmentation" mode="ROA">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Court Event ID</th>
@@ -274,7 +275,7 @@
 	</xsl:template>
 	
 	<xsl:template match="j:CaseAugmentation" mode="hearing">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Hearing Type</th>
@@ -311,7 +312,7 @@
 	</xsl:template>
 	
 	<xsl:template match="nc:Case" mode="chargeSummary">
-		<table class="detailDataTable display">
+		<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>Charge</th>
@@ -332,7 +333,7 @@
 				
 				
 			</pre>
-			<table class="detailDataTable display">
+			<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 				<thead>
 					<tr>
 						<th>Amended Charge Count</th>
@@ -616,7 +617,7 @@
 			<pre>
 				
 			</pre>
-			<table class="detailDataTable display">
+			<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 				<thead>
 					<tr>
 						<th>Address Type</th>
@@ -637,7 +638,7 @@
 			<pre>
 				
 			</pre>
-			<table class="detailDataTable display">
+			<table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
 				<thead>
 					<tr>
 						<th>Telephone #</th>
