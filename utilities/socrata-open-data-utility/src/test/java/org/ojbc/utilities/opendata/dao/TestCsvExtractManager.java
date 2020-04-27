@@ -74,7 +74,7 @@ public class TestCsvExtractManager {
 		
 	    log.info("CSV File Name: " + csvFileName);
 	    
-	    assertTrue(StringUtils.contains(csvFileName, csvFileDirectory + "/Incident_Extract_2016"));
+	    assertTrue(StringUtils.contains(csvFileName, csvFileDirectory + "/Incident_Extract"));
 	    assertTrue(StringUtils.endsWith(csvFileName, ".csv"));
 		
 	    int lineNumber = 1;
