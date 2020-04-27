@@ -355,6 +355,7 @@ public class PeopleController {
 		            (PersonSearchDetailResponses) model.get("juvenileHistoryDetailResponses"); 
 		    if (juvenileHistoryDetailResponses != null) {
 		        searchContent = juvenileHistoryDetailResponses.getDetailResponse(detailsRequest); 
+		        Thread.sleep(500);
 		    }
 		    else {
 		        juvenileHistoryDetailResponses = new PersonSearchDetailResponses(detailsRequest); 
