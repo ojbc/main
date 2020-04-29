@@ -2417,7 +2417,7 @@
 				<ext1:SearchResultCategoryText>Vehicle Crash</ext1:SearchResultCategoryText>
 			</ext1:PersonSearchResult>
 		</ext:Entity>
-			<ext:Entity s:id="PSR027">
+		<ext:Entity s:id="PSR027">
 			<ext1:PersonSearchResult 
 				xmlns:ext1="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
 				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
@@ -2454,13 +2454,59 @@
 					<nc:PersonReference s:ref="P027" />
 					<nc:LocationReference s:ref="L027" />
 				</nc:ResidenceAssociation>
-				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License
 				</ext1:SourceSystemNameText>
 				<intel:SystemIdentifier>
 					<nc:IdentificationID>123459998393983983</nc:IdentificationID>
 					<intel:SystemName>Wildlife Licensing</intel:SystemName>
 				</intel:SystemIdentifier>
 				<ext1:SearchResultCategoryText>Wildlife Licensing</ext1:SearchResultCategoryText>
+			</ext1:PersonSearchResult>
+		</ext:Entity>
+		<ext:Entity s:id="PSR028">
+			<ext1:PersonSearchResult 
+				xmlns:ext1="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+				xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+				<ext1:Person s:id="P028">
+					<nc:PersonBirthDate>
+						<nc:Date>1962-04-15</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName>A.</nc:PersonMiddleName>
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+				<nc:PersonNameSuffixText>JR.</nc:PersonNameSuffixText>
+					</nc:PersonName>
+					<nc:PersonSSNIdentification>
+						<nc:IdentificationID>77788999</nc:IdentificationID>
+					</nc:PersonSSNIdentification>
+				</ext1:Person>
+				<nc:Location s:id="L028">
+					<nc:LocationAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+						<nc:StreetFullText>444 RALSTON RD</nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>BOX 222</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>WINTERPORT</nc:LocationCityName>
+					<nc:LocationStateFIPS5-2AlphaCode>ME</nc:LocationStateFIPS5-2AlphaCode>
+					<nc:LocationPostalCode>04496</nc:LocationPostalCode>
+					<nc:LocationPostalExtensionCode>3278</nc:LocationPostalExtensionCode>
+						</nc:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:Location>
+				<nc:ResidenceAssociation>
+					<nc:PersonReference s:ref="P028" />
+					<nc:LocationReference s:ref="L028" />
+				</nc:ResidenceAssociation>
+				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Professional_License_Query_Request_Service/1.0}Person-Query-Service---Professional-License
+				</ext1:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>123459998393983983</nc:IdentificationID>
+					<intel:SystemName>Professional Licensing</intel:SystemName>
+				</intel:SystemIdentifier>
+				<ext1:SearchResultCategoryText>Professional Licensing</ext1:SearchResultCategoryText>
 			</ext1:PersonSearchResult>
 		</ext:Entity>
 	</exc:EntityContainer>
@@ -2497,6 +2543,7 @@
 			<ext:OriginalRecordReference s:ref="PSR025" />
 			<ext:OriginalRecordReference s:ref="PSR026" />
 			<ext:OriginalRecordReference s:ref="PSR027" />
+			<ext:OriginalRecordReference s:ref="PSR028" />
 			<ext:MergeQuality>
 				<ext:StringDistanceStatistics>
 					<ext:AttributeXPath></ext:AttributeXPath>

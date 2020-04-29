@@ -18,8 +18,6 @@ package org.ojbc.web.impl;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +41,7 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	public String invokeRequest(DetailsRequest request, String federatedQueryID, Element samlToken) throws Exception {
 
 		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
-
+		Thread.sleep(500);
 		log.info("Identification Source text in request: " + requestIdSrcTxt);
 		log.info("Identification ID in request: " + request.getIdentificationID());
 		
@@ -107,8 +105,11 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 			// WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 			// "/sampleResponses/wildlifeLicensing/QueryResults-AccessDenied.xml"));
 			return WebUtils.returnStringFromFilePath(getClass()
-					.getResourceAsStream("/sampleResponses/wildlifeLicensing/WildlifeLicenseQueryResults.xml"));
-		}
+					.getResourceAsStream("/sampleResponses/wildlifeLicensing/wildlife.xml"));
+		} else if (OJBCWebServiceURIs.PROFESSIONAL_LICENSING.equals(requestIdSrcTxt)) {
+			return WebUtils.returnStringFromFilePath(getClass()
+					.getResourceAsStream("/sampleResponses/professionalLicensing/regulatoryLicenseResult.xml"));
+		} 
 		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
 	                throw new RuntimeException("Query type required for Juvenile queries");
