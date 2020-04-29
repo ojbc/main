@@ -29,18 +29,12 @@
 	<xsl:import href="_formatters.xsl" />
 	<xsl:output method="html" encoding="UTF-8" />
 	<xsl:template match="/">
-		<table class="detailsTable">
-			<tr>
-				<td colspan="8" class="detailsTitle"></td>
-			</tr>
-			<tr>
-				<td class="padding0">
-					<div id="warrants" style="overflow:auto; width:100%; height:auto">
-						<xsl:apply-templates select="rlq-res-doc:RegulatoryLicenseQueryResults" />
-					</div>
-				</td>
-			</tr>
-		</table>
+		<div class="card">
+		  	<div class="card-header"/>
+			<div class="card-body detailsTable" id="warrants">
+				<xsl:apply-templates select="rlq-res-doc:RegulatoryLicenseQueryResults" />
+			</div>
+	  	</div>
 	</xsl:template>
 	<xsl:template match="rlq-res-doc:RegulatoryLicenseQueryResults">
 		<xsl:choose>
