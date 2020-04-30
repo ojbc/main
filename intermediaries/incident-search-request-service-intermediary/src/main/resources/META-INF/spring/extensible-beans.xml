@@ -76,6 +76,8 @@
 			<util:map>
 		        <entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsEndpoint}" value="presentMergeNotificationServiceResultsEndpoint"/>
 		        <entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationEndpoint}" value="presentIncidentSearchResultsServiceEndpoint"/>
+		        <entry key="${federatedQuery.incidentSearch.presentMergeNotificationResultsContainerEndpoint}" value="presentMergeNotificationServiceResultsEndpoint"/>
+		        <entry key="${federatedQuery.incidentSearch.incidentSearchResultsWebApplicationContainerEndpoint}" value="presentIncidentSearchResultsServiceEndpoint"/>
 	   		</util:map>
 		</constructor-arg>
 	</bean>	
