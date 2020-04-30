@@ -307,6 +307,7 @@ public class SubscriptionsController {
 		}			
 		logger.debug("Subscription results raw xml:\n" + rawResults);
 		model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		log.info("subscription Search results: " + rawResults);
 		convertSubscriptionSearchResults(model, informationMessage, rawResults, subscriptionSearchRequest);
 	}
 

@@ -37,6 +37,25 @@ $(function() {
 		   $("#modalIframeSpinner").hide();
 	   }
    });
+   
+   /*
+    * Assuming the name is in the format of "firstName lastName"
+    */
+   function getLastName(name) {
+       return name.slice(name.lastIndexOf(' ') + 1);;
+   }
+
+   jQuery.fn.dataTableExt.oSort['name-asc'] = function (a, b) {
+       var x = getLastName(a);
+       var y = getLastName(b);
+       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+   };
+
+   jQuery.fn.dataTableExt.oSort['name-desc'] = function (a, b) {
+       var x = getLastName(a);
+       var y = getLastName(b);
+       return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+   };
 });
 
 ojbc = {
