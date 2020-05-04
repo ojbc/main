@@ -76,6 +76,19 @@
 					<camel:to uri="direct:processPersonQueryRequestCriminalHistory"/>
 				</camel:when>
 				
+				<!-- This is using the FBI service spec so no transform is required. TODO: Develop OJB SSP and transform accordingly -->
+				<camel:when>
+					<camel:xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode = 'RBRPT'</camel:xpath>
+				
+					<camel:log message="Message is Report Subscription List, RBRPT"/>
+				
+					<camel:setHeader headerName="operationName">
+						<constant>ReportSubscriptionList</constant>
+					</camel:setHeader>		
+					
+					<camel:to uri="direct:processFbiEbtsRequest"/>
+				</camel:when>				
+				
 				<camel:otherwise>
 					<camel:to uri="direct:processFbiEbtsRequest"/>
 				</camel:otherwise>
