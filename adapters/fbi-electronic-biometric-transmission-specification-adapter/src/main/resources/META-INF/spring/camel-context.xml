@@ -89,7 +89,9 @@
 
 		<endpoint id="fbiIdentitySummaryResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/responses"/>
 
-		<endpoint id="fbiNotificationsDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications"/>	
+		<endpoint id="fbiNotificationsDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiNotifications"/>
+		
+		<endpoint id="fbiSubscriptionListDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptionList"/>	
 		
 		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>				
 		
@@ -164,11 +166,18 @@
 					</camel:otherwise>			
 				</camel:choice>
 			  </camel:when>
+			  
+			  <camel:when>
+			  	<simple>${header.operationName} == 'ReportSubscriptionList'</simple>
+			  	
+			  	<camel:log message="Report Subscription List operation invoked"/>
+			  </camel:when>
+			  
 			</camel:choice>  
 			
 			<camel:choice>
 			  <camel:when>
-			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
+			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe' or ${header.operationName} == 'ReportSubscriptionList'</simple>			  	
 				
 			  	<to uri="direct:processOperation"/>
 			  </camel:when>
@@ -255,6 +264,12 @@
 					
 					<camel:to uri="direct:processRBRN"/>
 				</when>
+				<when>
+					<simple>${header.trxCatCode} == 'RBRPTR'</simple>
+					
+					<camel:to uri="direct:processRBRPTR"/>
+				</when>
+
 				<when>
 					<simple>${header.trxCatCode} == 'RBN'</simple>
 					
@@ -401,6 +416,37 @@
 			<camel:stop/>
 			
 		</route>
+		
+		<route id="processRBRPTRRoute">
+			<camel:from uri="direct:processRBRPTR"/>
+			
+			<camel:log message="Processing RBRPTR messaage"/>
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Rapback_Subscription_Report_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="pathToNotificationFile">
+				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptionList/$simple{in.headers.CamelFileName}</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiSubscriptionListDir"/>
+			
+			<camel:setBody>
+				<camel:xpath resultType="java.lang.String">//ebts:RecordRapBackSubscriptionListText/text()</camel:xpath>
+			</camel:setBody>
+
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Rapback_Subscription_Report_Response_${date:now:yyyy-MM-dd}.csv</camel:simple>
+			</camel:setHeader>
+			
+			<camel:wireTap copy="true" uri="fbiSubscriptionListDir"/>
+
+			<camel:log message="RBRPTR processing complete."/>
+			
+			<camel:stop/>
+			
+		</route>		
 		
 		<route id="processSubscriptionErrorResponseRoute">
 		
