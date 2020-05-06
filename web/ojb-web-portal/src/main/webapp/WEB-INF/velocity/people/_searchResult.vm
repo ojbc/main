@@ -105,7 +105,9 @@
 			console.log("personDataDiv.text().length: "  + personDataDiv.text().length);
 			#*console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); *#
 			if(personDataDiv.text().length > 0){
-				$( "<div id='personInformationInModal'/>" ).insertAfter($('#modalIframeSpinner'));
+				if($("#personInformationInModal").length === 0 ){
+					$( "<div id='personInformationInModal'/>" ).insertAfter($('#detailModal .modal-body #modalIframeSpinner'));
+				}
 			    $('#personInformationInModal').html($('div#'+appendPersonDataDivId).html());
 			}
 			
@@ -153,6 +155,7 @@
 	  </div>
 	  <div class="modal-body">
 	  	<div id="modalIframeSpinner"/>
+	  	<div id='personInformationInModal'/>
 	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
       </div>
 	</div>
