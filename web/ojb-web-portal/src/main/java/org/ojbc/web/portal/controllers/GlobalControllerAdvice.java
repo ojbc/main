@@ -66,6 +66,9 @@ public class GlobalControllerAdvice {
     @Value("${inactivityTimeoutInSeconds:1800}")
     String inactivityTimeoutInSeconds;
     
+    @Value("${footerText}")
+    String footerText;
+    
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
@@ -79,6 +82,7 @@ public class GlobalControllerAdvice {
         model.addAttribute("showSignOutButton", showSignOutButton);
         model.addAttribute("showPrintButton", showPrintButton);
         model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
+        model.addAttribute("footerText", footerText);
     }
     
     @ExceptionHandler(Exception.class)
