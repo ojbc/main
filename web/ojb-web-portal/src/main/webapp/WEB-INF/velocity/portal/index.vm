@@ -32,16 +32,6 @@
 		    <div id="loadingAjaxPane"></div>
 		    <div id="mainContent" class="row ml-0 mr-0">
 			    <div id="filterColumn" class="col-12 col-xl-2 col-md-3 d-none">
-			    		    
-			      #set($homePage=$stateSpecificHomePage['thisHomePage'])		    
-			      
-			      #if($homePage=="landingPage")
-	              	#parse("common/_landingLeftBar.vm")
-			      
-			      #elseif($homePage=="query")
-			         #parse("common/_leftBar.vm")
-			      #end
-			      
 			    </div>
 			    <div id="portalContent" class="col">
 			      <div>Welcome to the new portal</div>
@@ -63,6 +53,7 @@
 			var idleTime;
 			
 			$(function(){
+				showHomepage();
 				#if( $inactivityTimeout )
 			        reloadPage();
 			        $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
@@ -125,7 +116,7 @@
 			    #end
 			    
 	    			    
-			    $('#homeLink').click (function() {		 
+			    $('#home').click (function() {		 
 					 		     
 				    #set($homePage=$stateSpecificHomePage['thisHomePage'])
 				      
@@ -140,23 +131,15 @@
 				    
 				    #elseif($homePage=="query")	
 				    	 
-						$('#searchBarButtonDiv').css("display", "block");
-				    		    
 						// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
 						$.post("#springUrl('/portal/leftBar')", function(data) {
-							    		    			
 			    			$('#filterColumn').html(data);	 
-			    			
 			    			$("#demogFilterInfo").hide();
-			    			
 			    			$('#filterColumn').removeClass('d-none');    				    			 
 			    			
 							$.get("#springUrl('/people/searchForm')", function(data) {		
-										
 							      $('#portalContent').html(data);
-							      
 							}).fail(ojbc.displayFailMessage);	    				    				    			
-			    			
 			    		}).fail(ojbc.displayFailMessage);	
 			    		
 			    	#elseif($homePage=="subscriptions")
@@ -374,6 +357,42 @@
 			    }, $inactivityTimeoutInSeconds * 1000);
 			}
 			
+			function showHomepage(){
+			    #set($homePage=$stateSpecificHomePage['thisHomePage'])
+			      
+			    #if($homePage=="landingPage")
+			    
+					$('#searchBarButtonDiv').css("display", "none");
+			    	$('#filterColumn').removeClass('d-none');    				    			 
+			    
+			    	//TODO likely needs refactor(2 jquery ajax asynch calls in a row)
+					ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
+			    	ojbc.populatePortalContentFromUrl("#springUrl('/portal/landingPage')");
+			    
+			    #elseif($homePage=="query")	
+			    	 
+					// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
+					$.post("#springUrl('/portal/leftBar')", function(data) {
+		    			$('#filterColumn').html(data);	 
+		    			$("#demogFilterInfo").hide();
+		    			$('#filterColumn').removeClass('d-none');    				    			 
+		    			
+						$.get("#springUrl('/people/searchForm')", function(data) {		
+						      $('#portalContent').html(data);
+						}).fail(ojbc.displayFailMessage);	    				    				    			
+		    		}).fail(ojbc.displayFailMessage);	
+		    		
+		    	#elseif($homePage=="subscriptions")
+		    	
+		    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+		    			$('#filterColumn').addClass('d-none');
+						$('#portalContent').html(data);	
+					}).fail(ojbc.displayFailMessage);								    
+		    			    			    		
+			    #else
+					alert('Error: unknown page cannot be displayed');
+			    #end
+			}
       </script>
 		
 	</body>
