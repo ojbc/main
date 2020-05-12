@@ -1,0 +1,419 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<exchange:DispositionReport xmlns:codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0"
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:exchange="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../../../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/CHRI/3.0 ../../../xsd/impl/maine/chri_codes_3.0.xsd">
+	<nc:Case>
+		<j:CaseAugmentation>
+			<j:CaseCourtEvent s:metadata="DM02">
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-07-21</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-07-21</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventSequenceID>3</j:CourtEventSequenceID>
+				<ext:CaseIdentification>
+					<nc:IdentificationID>CARSCCR200200001</nc:IdentificationID>
+				</ext:CaseIdentification>
+				<ext:OrganizationORIIdentification>
+					<nc:IdentificationID>ME002085J</nc:IdentificationID>
+				</ext:OrganizationORIIdentification>
+			</j:CaseCourtEvent>
+			<j:CaseCourtEvent s:metadata="DM01">
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-08-21</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-08-22</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-08-21</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>2</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>2</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-08-22</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-09-04</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>3</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>3</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-09-04</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventSequenceID>6</j:CourtEventSequenceID>
+				<ext:CaseIdentification>
+					<nc:IdentificationID>CARSCCR200200001</nc:IdentificationID>
+				</ext:CaseIdentification>
+				<ext:OrganizationORIIdentification>
+					<nc:IdentificationID>ME002085J</nc:IdentificationID>
+				</ext:OrganizationORIIdentification>
+			</j:CaseCourtEvent>
+			<j:CaseCourtEvent s:metadata="DM01">
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-09-16</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-09-16</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventSequenceID>13</j:CourtEventSequenceID>
+				<ext:CaseIdentification>
+					<nc:IdentificationID>CARSCCR200200001</nc:IdentificationID>
+				</ext:CaseIdentification>
+				<ext:OrganizationORIIdentification>
+					<nc:IdentificationID>ME002085J</nc:IdentificationID>
+				</ext:OrganizationORIIdentification>
+			</j:CaseCourtEvent>
+			<j:CaseCourtEvent s:id="d1e83" s:metadata="DM01">
+				<codes:EventCategoryCode>FILING</codes:EventCategoryCode>
+				<codes:EventSubCategoryCode>HEARING</codes:EventSubCategoryCode>
+				<codes:EventStatusCode>ADJUDGED</codes:EventStatusCode>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-09-16</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>1</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>1</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-09-16</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-09-17</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>2</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>2</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-09-17</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventAction s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>2002-09-04</nc:Date>
+					</nc:ActivityDate>
+					<codes:EventActionCode>AFFIRMED</codes:EventActionCode>
+					<ext:EventActionSequenceID>3</ext:EventActionSequenceID>
+					<ext:EventActionOrderNumber>3</ext:EventActionOrderNumber>
+					<ext:EventActionEnteredDate>
+						<nc:Date>2002-09-04</nc:Date>
+					</ext:EventActionEnteredDate>
+				</j:CourtEventAction>
+				<j:CourtEventSequenceID>14</j:CourtEventSequenceID>
+				<ext:CaseIdentification>
+					<nc:IdentificationID>CARSCCR200200001</nc:IdentificationID>
+				</ext:CaseIdentification>
+				<ext:OrganizationORIIdentification>
+					<nc:IdentificationID>ME002085J</nc:IdentificationID>
+				</ext:OrganizationORIIdentification>
+			</j:CaseCourtEvent>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person s:metadata="DM01" s:id="d1e13">
+		<nc:PersonBirthDate>
+			<nc:Date>1982-11-20</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+			<nc:PersonMiddleName>Q</nc:PersonMiddleName>
+			<nc:PersonSurName>DOE</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+	<j:Charge s:metadata="DM01" s:id="d1e5">
+		<j:ChargeDescriptionText>Intentionally, knowingly or recklessly causing bodily injury to another; victim under age 6 and actor over age
+				18</j:ChargeDescriptionText>
+		<j:ChargeEnhancingFactor>
+			<codes:ChargeEnhancementCode>ATTEMPT</codes:ChargeEnhancementCode>
+			<codes:ChargeEnhancementCode>CONSPIRACY</codes:ChargeEnhancementCode>
+			<codes:ChargeEnhancementCode>SOLICITATION</codes:ChargeEnhancementCode>
+			<codes:ChargeEnhancementCode>FIREARM OR DANGEROUS WEAPON</codes:ChargeEnhancementCode>
+			<codes:ChargeEnhancementCode>OTHER</codes:ChargeEnhancementCode>
+		</j:ChargeEnhancingFactor>
+		<j:ChargeSentence s:id="d1e1" s:metadata="DM01">
+			<j:SupervisionFineAmount s:metadata="DM01">
+				<nc:Amount>100.00</nc:Amount>
+				<ext:AmountEnteredDate>
+					<nc:Date>1970-01-01</nc:Date>
+				</ext:AmountEnteredDate>
+				<ext:AmountOverride>10.00</ext:AmountOverride>
+			</j:SupervisionFineAmount>
+			<ext:SentenceAugmentation>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityName>Probation</nc:ActivityName>
+					<j:TermDuration>P3Y0M0DT0H</j:TermDuration>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>PROBATION PARTIALLY REVOKED PROBATION REVOCATION CONTINUED</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityName>LicenseSuspension</nc:ActivityName>
+					<j:TermDuration>P0Y6M0DT0H</j:TermDuration>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>LICENSE SUSPENSION</codes:SentenceTermCategoryCode>
+						<ext:RegistrationSuspendedIndicator>true</ext:RegistrationSuspendedIndicator>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityName>AdministrativeRelease</nc:ActivityName>
+					<j:TermDuration>P0Y0M0DT0H</j:TermDuration>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityName>Imprisonment</nc:ActivityName>
+					<j:TermDuration>P0Y9M0DT0H</j:TermDuration>
+					<j:TermLifeIndicator>false</j:TermLifeIndicator>
+					<ext:SentenceSuspendedTimeRemainder>ALL BUT 0 years 0 months 0 days 0 hours</ext:SentenceSuspendedTimeRemainder>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:AllSuspendedIndicator>false</ext:AllSuspendedIndicator>
+					<ext:JuvenileSentenceAgePeriod>20</ext:JuvenileSentenceAgePeriod>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>INCARCERATED</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>PublicService</nc:ActivityName>
+					<j:TermDuration>P1MT100H</j:TermDuration>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>PUBLIC SERVICE</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>JAIL BOARD</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>JUVENILE DETENTION</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>JUVENILE DETENTION FACILITY</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>PROBATION</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>PROBATION CONVERTED TO ADMINISTRATIVE RELEASE</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>
+			</ext:SentenceAugmentation>
+			<ext:SentenceAugmentation s:metadata="DM01">
+				<ext:EnteredDate>
+					<nc:Date>1970-01-01</nc:Date>
+				</ext:EnteredDate>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV CUSTODY TO MOTHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - FATHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - GUARDIAN</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - MOTHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY FATHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY GUARDIAN</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY MOTHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+			</ext:SentenceAugmentation>
+			<ext:SentenceAugmentation s:metadata="DM01">
+				<ext:EnteredDate>
+					<nc:Date>1970-01-01</nc:Date>
+				</ext:EnteredDate>
+				<j:SentenceCondition>
+					<ext:ConditionAugmentation>
+						<codes:SentenceConditionLiteralCode>REFRAIN FROM CRIMINAL CONDUCT</codes:SentenceConditionLiteralCode>
+					</ext:ConditionAugmentation>
+				</j:SentenceCondition>
+				<j:SentenceCondition>
+					<nc:ConditionDisciplinaryAction>
+						<nc:DisciplinaryActionFee>
+							<nc:ObligationDueAmount>
+								<nc:Amount>100.00</nc:Amount>
+							</nc:ObligationDueAmount>
+						</nc:DisciplinaryActionFee>
+					</nc:ConditionDisciplinaryAction>
+					<ext:ConditionAugmentation>
+						<codes:SentenceConditionLiteralCode>PAY DOC SUPERVISION FEE</codes:SentenceConditionLiteralCode>
+					</ext:ConditionAugmentation>
+				</j:SentenceCondition>
+				<j:SentenceCondition>
+					<nc:ActivityDescriptionText>COMPLETE GED</nc:ActivityDescriptionText>
+					<ext:ConditionAugmentation>
+						<codes:SentenceConditionLiteralCode>OTHER REQUIREMENT</codes:SentenceConditionLiteralCode>
+					</ext:ConditionAugmentation>
+				</j:SentenceCondition>
+				<j:SentenceCondition>
+					<ext:ConditionAugmentation>
+						<ext:NoContactPerson>
+							<nc:PersonName>
+								<nc:PersonGivenName>JANE</nc:PersonGivenName>
+								<nc:PersonMiddleName>A</nc:PersonMiddleName>
+								<nc:PersonSurName>DOE</nc:PersonSurName>
+							</nc:PersonName>
+						</ext:NoContactPerson>
+						<ext:NoContactSequenceID>1</ext:NoContactSequenceID>
+						<ext:NoContactNote>AND FAMILY OF</ext:NoContactNote>
+					</ext:ConditionAugmentation>
+					<ext:ConditionAugmentation>
+						<ext:NoContactPerson>
+							<nc:PersonBirthDate>
+								<nc:Date>2002-12-25</nc:Date>
+							</nc:PersonBirthDate>
+							<nc:PersonName>
+								<nc:PersonGivenName>JILL</nc:PersonGivenName>
+								<nc:PersonMiddleName>B</nc:PersonMiddleName>
+								<nc:PersonSurName>DOE</nc:PersonSurName>
+							</nc:PersonName>
+						</ext:NoContactPerson>
+						<ext:NoContactSequenceID>2</ext:NoContactSequenceID>
+					</ext:ConditionAugmentation>
+				</j:SentenceCondition>
+			</ext:SentenceAugmentation>
+			<ext:SentenceAugmentation s:metadata="DM01">
+				<ext:SentenceRestitution>
+					<nc:DisciplinaryActionRestitution>
+						<nc:ObligationDueAmount>
+							<nc:Amount>1000.00</nc:Amount>
+							<ext:AmountEnteredDate>
+								<nc:Date>1970-01-01</nc:Date>
+							</ext:AmountEnteredDate>
+						</nc:ObligationDueAmount>
+					</nc:DisciplinaryActionRestitution>
+				</ext:SentenceRestitution>
+			</ext:SentenceAugmentation>
+		</j:ChargeSentence>
+		<j:ChargeSequenceID>1</j:ChargeSequenceID>
+		<j:ChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>4255</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+			<j:StatuteOffenseIdentification>
+				<nc:IdentificationID>17-A - 207 - 1 -  -  -  -  - 1 - 1</nc:IdentificationID>
+			</j:StatuteOffenseIdentification>
+			<ext:StatuteClassCodeText>C</ext:StatuteClassCodeText>
+		</j:ChargeStatute>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>001</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+		<ext:ChargeClassCodeText>B</ext:ChargeClassCodeText>
+		<ext:ChargeAugmentation>
+			<ext:ChargeUniversalTrackingNumber>AOCSsr20021</ext:ChargeUniversalTrackingNumber>
+			<ext:ArrestTrackingNumber>123456A</ext:ArrestTrackingNumber>
+			<ext:ChargeOffenseDate>
+				<nc:Date>2002-06-03</nc:Date>
+			</ext:ChargeOffenseDate>
+		</ext:ChargeAugmentation>
+	</j:Charge>
+	<j:PersonChargeAssociation>
+		<nc:Person s:ref="d1e13" />
+		<j:Charge s:ref="d1e5" />
+	</j:PersonChargeAssociation>
+	<ext:CourtEventSentenceAssociation>
+		<j:CaseCourtEvent s:ref="d1e83" />
+		<j:ChargeSentence s:ref="d1e1" />
+	</ext:CourtEventSentenceAssociation>
+	<ext:DispositionMetadata s:id="DM01">
+		<ext:SealedIndicator>false</ext:SealedIndicator>
+	</ext:DispositionMetadata>
+	<ext:DispositionMetadata s:id="DM02">
+		<ext:SealedIndicator>true</ext:SealedIndicator>
+	</ext:DispositionMetadata>
+</exchange:DispositionReport>
