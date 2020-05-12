@@ -101,6 +101,13 @@
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
 		</wir-ext:WarrantAugmentation>
+		<wir-ext:CourtOrderEnteringAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>EA3647864</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</wir-ext:CourtOrderEnteringAgency>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonAgeDescriptionText>Age</nc:PersonAgeDescriptionText>
