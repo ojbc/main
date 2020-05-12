@@ -229,6 +229,10 @@
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE; NO SENTENCE IMPOSED" />
+			<!-- >ADDED 05/12/20 -->
+			<xsd:enumeration value="JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER" />
+			<xsd:enumeration value="JUVENILE DETENTION FACILITY" />
+			<xsd:enumeration value="PROBATION CONVERTED TO ADMINISTRATIVE RELEASE" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="SentenceTermCategoryCodeType">
