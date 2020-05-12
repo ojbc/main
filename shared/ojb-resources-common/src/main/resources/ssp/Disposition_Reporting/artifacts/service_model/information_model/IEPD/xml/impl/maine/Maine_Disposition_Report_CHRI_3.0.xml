@@ -250,6 +250,42 @@
 						<codes:SentenceTermCategoryCode>PUBLIC SERVICE</codes:SentenceTermCategoryCode>
 					</ext:SentenceTermAugmentation>
 				</j:SentenceTerm>
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>JAIL BOARD</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>	
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>JUVENILE DETENTION</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>JUVENILE DETENTION FACILITY</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>					
+				<j:SentenceTerm s:metadata="DM01">
+					<nc:ActivityDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</nc:ActivityDate>
+					<nc:ActivityName>PROBATION</nc:ActivityName>
+					<ext:TermEnteredDate>
+						<nc:Date>1970-01-01</nc:Date>
+					</ext:TermEnteredDate>
+					<ext:SentenceTermAugmentation>
+						<codes:SentenceTermCategoryCode>PROBATION CONVERTED TO ADMINISTRATIVE RELEASE</codes:SentenceTermCategoryCode>
+					</ext:SentenceTermAugmentation>
+				</j:SentenceTerm>								
 			</ext:SentenceAugmentation>
 			<ext:SentenceAugmentation s:metadata="DM01">
 				<ext:EnteredDate>
