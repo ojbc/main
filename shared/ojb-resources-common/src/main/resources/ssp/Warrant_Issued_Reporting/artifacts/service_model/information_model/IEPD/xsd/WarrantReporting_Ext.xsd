@@ -43,6 +43,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="wir-ext:IssuingAgency" minOccurs="0" maxOccurs="unbounded"  />
 					<xsd:element ref="nc:Case" />
 					<xsd:element ref="j:Warrant" />
 					<xsd:element ref="nc:Person" />
@@ -270,10 +271,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CourtOrderEnteringAgency" type="nc:OrganizationType"
-		substitutionGroup="j:WarrantAugmentationPoint">
+	<xsd:element name="IssuingAgency" type="nc:OrganizationType">
 		<xsd:annotation>
-			<xsd:documentation>An agency responsible for entering a court order.
+			<xsd:documentation>An agency responsible for issuing a court order.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>	
