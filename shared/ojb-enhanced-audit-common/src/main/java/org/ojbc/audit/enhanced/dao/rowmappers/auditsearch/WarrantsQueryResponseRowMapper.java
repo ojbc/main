@@ -19,9 +19,8 @@ package org.ojbc.audit.enhanced.dao.rowmappers.auditsearch;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class WarrantsQueryResponseRowMapper implements RowMapper<PersonQueryWarrantResponse> {
@@ -41,9 +40,9 @@ public class WarrantsQueryResponseRowMapper implements RowMapper<PersonQueryWarr
 		personQueryWarrantResponse.setQueryResultsErrorText(rs.getString("QUERY_RESULTS_ERROR_TEXT"));
 		personQueryWarrantResponse.setQueryResultsTimeoutIndicator(rs.getBoolean("QUERY_RESULTS_TIMEOUT_INDICATOR"));
 		personQueryWarrantResponse.setSystemName(rs.getString("SYSTEM_NAME"));
-		
-		//TODO: Include timestamp here
+		personQueryWarrantResponse.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 		
 		return personQueryWarrantResponse;
 	}
+	
 }

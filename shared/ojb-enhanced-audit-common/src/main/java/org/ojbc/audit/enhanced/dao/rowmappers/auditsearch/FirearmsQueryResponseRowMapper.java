@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class FirearmsQueryResponseRowMapper implements RowMapper<FirearmsQueryResponse> {
@@ -39,9 +40,9 @@ public class FirearmsQueryResponseRowMapper implements RowMapper<FirearmsQueryRe
 		firearmsQueryResponse.setQueryResultsErrorText(rs.getString("QUERY_RESULTS_ERROR_TEXT"));
 		firearmsQueryResponse.setQueryResultsTimeoutIndicator(rs.getBoolean("QUERY_RESULTS_TIMEOUT_INDICATOR"));
 		firearmsQueryResponse.setSystemName(rs.getString("SYSTEM_NAME"));
-		
-		//TODO: Include timestamp here
+		firearmsQueryResponse.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 		
 		return firearmsQueryResponse;
 	}
+	
 }

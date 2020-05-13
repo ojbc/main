@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class UserAuthenticationResponseRowMapper implements RowMapper<UserAuthenticationSearchResponse> {
@@ -36,7 +37,8 @@ public class UserAuthenticationResponseRowMapper implements RowMapper<UserAuthen
 		userAuthenticationSearchResponse.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
 		userAuthenticationSearchResponse.setUserFirstName(rs.getString("USER_FIRST_NAME"));
 		userAuthenticationSearchResponse.setUserLastName(rs.getString("USER_LAST_NAME"));
-		
+		userAuthenticationSearchResponse.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+
 		return userAuthenticationSearchResponse;
 	}
 }
