@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -33,6 +35,7 @@ public class PersonQueryWarrantResponse {
 	private String sid;
 	private String systemName;
 	private String messageId;
+	private LocalDateTime timestamp;
 	
 	public Integer getQueryRequestId() {
 		return queryRequestId;
@@ -110,5 +113,11 @@ public class PersonQueryWarrantResponse {
 	public void setQueryResultsAccessDeniedIndicator(
 			boolean queryResultsAccessDeniedIndicator) {
 		this.queryResultsAccessDeniedIndicator = queryResultsAccessDeniedIndicator;
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 }

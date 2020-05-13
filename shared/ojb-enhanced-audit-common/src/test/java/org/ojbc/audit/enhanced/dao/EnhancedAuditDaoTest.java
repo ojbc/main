@@ -434,6 +434,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("middle", personQueryCriminalHistoryResponseFromDatabase.getMiddleName());
 		assertEquals("SID123456", personQueryCriminalHistoryResponseFromDatabase.getSid());
 		assertEquals("Criminal History", personQueryCriminalHistoryResponseFromDatabase.getSystemName());
+		assertNotNull(personQueryCriminalHistoryResponseFromDatabase.getTimestamp());
 		
 		IdentificationQueryResponse identificationQueryResponse = new IdentificationQueryResponse();
 		
@@ -475,7 +476,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Firearms System", firearmsQueryResponseFromDatabase.getSystemName());
 		assertEquals("county", firearmsQueryResponseFromDatabase.getCounty());
 		assertEquals("reg number", firearmsQueryResponseFromDatabase.getRegistrationNumber());
-
+		assertNotNull(firearmsQueryResponseFromDatabase.getTimestamp());
 		
 		PersonQueryWarrantResponse personQueryWarrantResponse = new PersonQueryWarrantResponse();
 		
@@ -498,6 +499,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("middle", personQueryWarrantResponseFromDatabase.getMiddleName());
 		assertEquals("SID", personQueryWarrantResponseFromDatabase.getSid());
 		assertEquals("Warrants", personQueryWarrantResponseFromDatabase.getSystemName());
+		assertNotNull(personQueryWarrantResponseFromDatabase.getTimestamp());
 		
 		
 		AuditSearchRequest auditSearchRequest = new AuditSearchRequest();
@@ -510,7 +512,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("123", queryRequests.get(0).getIdentificationId());
 		assertEquals("Source", queryRequests.get(0).getIdentificationSourceText());
 		assertEquals("123456", queryRequests.get(0).getMessageId());
-		
+		assertNotNull(queryRequests.get(0).getTimestamp());
 	}
 	
 	@Test
