@@ -261,7 +261,7 @@
 					<ext:SentenceTermAugmentation>
 						<codes:SentenceTermCategoryCode>JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER</codes:SentenceTermCategoryCode>
 					</ext:SentenceTermAugmentation>
-				</j:SentenceTerm>	
+				</j:SentenceTerm>
 				<j:SentenceTerm s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>1970-01-01</nc:Date>
@@ -273,7 +273,7 @@
 					<ext:SentenceTermAugmentation>
 						<codes:SentenceTermCategoryCode>JUVENILE DETENTION FACILITY</codes:SentenceTermCategoryCode>
 					</ext:SentenceTermAugmentation>
-				</j:SentenceTerm>					
+				</j:SentenceTerm>
 				<j:SentenceTerm s:metadata="DM01">
 					<nc:ActivityDate>
 						<nc:Date>1970-01-01</nc:Date>
@@ -285,25 +285,32 @@
 					<ext:SentenceTermAugmentation>
 						<codes:SentenceTermCategoryCode>PROBATION CONVERTED TO ADMINISTRATIVE RELEASE</codes:SentenceTermCategoryCode>
 					</ext:SentenceTermAugmentation>
-				</j:SentenceTerm>								
+				</j:SentenceTerm>
 			</ext:SentenceAugmentation>
 			<ext:SentenceAugmentation s:metadata="DM01">
 				<ext:EnteredDate>
 					<nc:Date>1970-01-01</nc:Date>
 				</ext:EnteredDate>
 				<ext:SentenceInformationOption>
-					<codes:SentenceInformationOptionCode>UNCONDITIONAL DISCHARGE</codes:SentenceInformationOptionCode>
+					<codes:SentenceInformationOptionCode>JV CUSTODY TO MOTHER</codes:SentenceInformationOptionCode>
 				</ext:SentenceInformationOption>
 				<ext:SentenceInformationOption>
-					<codes:SentenceInformationOptionCode>DNA TESTING</codes:SentenceInformationOptionCode>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - FATHER</codes:SentenceInformationOptionCode>
 				</ext:SentenceInformationOption>
 				<ext:SentenceInformationOption>
-					<codes:SentenceInformationOptionCode>JV INSURANCE PAYMENT AMOUNT</codes:SentenceInformationOptionCode>
-					<nc:Amount>100.00</nc:Amount>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - GUARDIAN</codes:SentenceInformationOptionCode>
 				</ext:SentenceInformationOption>
 				<ext:SentenceInformationOption>
-					<codes:SentenceInformationOptionCode>JV SUPPORT PAYMENT FREQUENCY</codes:SentenceInformationOptionCode>
-					<ext:SentenceInformationOptionText>MONTHLY</ext:SentenceInformationOptionText>
+					<codes:SentenceInformationOptionCode>JV INSURANCE REQUIREMENT - MOTHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY FATHER</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY GUARDIAN</codes:SentenceInformationOptionCode>
+				</ext:SentenceInformationOption>
+				<ext:SentenceInformationOption>
+					<codes:SentenceInformationOptionCode>JV SUPPORT BY MOTHER</codes:SentenceInformationOptionCode>
 				</ext:SentenceInformationOption>
 			</ext:SentenceAugmentation>
 			<ext:SentenceAugmentation s:metadata="DM01">
