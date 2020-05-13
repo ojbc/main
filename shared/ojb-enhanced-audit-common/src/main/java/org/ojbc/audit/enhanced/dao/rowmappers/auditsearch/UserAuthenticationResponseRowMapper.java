@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.springframework.jdbc.core.RowMapper;
 
-public class UserAuthenticationResposeRowMapper implements RowMapper<UserAuthenticationSearchResponse> {
+public class UserAuthenticationResponseRowMapper implements RowMapper<UserAuthenticationSearchResponse> {
 	public UserAuthenticationSearchResponse mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
 		UserAuthenticationSearchResponse userAuthenticationSearchResponse = new UserAuthenticationSearchResponse();
