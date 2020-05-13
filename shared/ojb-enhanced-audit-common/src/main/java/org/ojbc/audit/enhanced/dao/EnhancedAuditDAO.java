@@ -193,4 +193,12 @@ public interface EnhancedAuditDAO {
 	public List<VehicleSearchRequest> retrieveVehicleSearchRequest (AuditSearchRequest vehicleSearchRequest);
 	
 	public List<IncidentSearchRequest> retrieveIncidentSearchRequest (AuditSearchRequest incidentAuditSearchRequest);
+	
+	public List<QueryRequest> retrieveQueryRequest (AuditSearchRequest incidentAuditSearchRequest);
+	
+	public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId);
+	
+	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId);
+	
+	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
 }

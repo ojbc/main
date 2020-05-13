@@ -45,6 +45,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
@@ -423,8 +424,16 @@ public class EnhancedAuditDaoTest {
 		personQueryCriminalHistoryResponse.setSid("SID123456");
 		
 		Integer queryResponsePk = enhancedAuditDao.savePersonQueryCriminalHistoryResponse(personQueryCriminalHistoryResponse);
-		
 		assertNotNull(queryResponsePk);
+		
+		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponseFromDatabase = enhancedAuditDao.retrieveCriminalHistoryQueryDetail(queryPk);
+		assertEquals("12345", personQueryCriminalHistoryResponseFromDatabase.getFbiId());
+		assertEquals("first", personQueryCriminalHistoryResponseFromDatabase.getFirstName());
+		assertEquals("last", personQueryCriminalHistoryResponseFromDatabase.getLastName());
+		assertEquals("123456", personQueryCriminalHistoryResponseFromDatabase.getMessageId());
+		assertEquals("middle", personQueryCriminalHistoryResponseFromDatabase.getMiddleName());
+		assertEquals("SID123456", personQueryCriminalHistoryResponseFromDatabase.getSid());
+		assertEquals("Criminal History", personQueryCriminalHistoryResponseFromDatabase.getSystemName());
 		
 		IdentificationQueryResponse identificationQueryResponse = new IdentificationQueryResponse();
 		
@@ -457,6 +466,50 @@ public class EnhancedAuditDaoTest {
 		
 		Integer firearmsQueryResponsePk = enhancedAuditDao.saveFirearmsQueryResponse(firearmsQueryResponse);
 		assertNotNull(firearmsQueryResponsePk);
+		
+		FirearmsQueryResponse firearmsQueryResponseFromDatabase = enhancedAuditDao.retrieveFirearmQueryDetail(queryPk);
+		assertEquals("123456", firearmsQueryResponseFromDatabase.getMessageId());
+		assertEquals("first", firearmsQueryResponseFromDatabase.getFirstName());
+		assertEquals("last", firearmsQueryResponseFromDatabase.getLastName());
+		assertEquals("middle", firearmsQueryResponseFromDatabase.getMiddleName());
+		assertEquals("Firearms System", firearmsQueryResponseFromDatabase.getSystemName());
+		assertEquals("county", firearmsQueryResponseFromDatabase.getCounty());
+		assertEquals("reg number", firearmsQueryResponseFromDatabase.getRegistrationNumber());
+
+		
+		PersonQueryWarrantResponse personQueryWarrantResponse = new PersonQueryWarrantResponse();
+		
+		personQueryWarrantResponse.setQueryRequestId(queryPk);
+		personQueryWarrantResponse.setFbiId("FBIID");
+		personQueryWarrantResponse.setFirstName("first");
+		personQueryWarrantResponse.setLastName("last");
+		personQueryWarrantResponse.setMessageId("123456");
+		personQueryWarrantResponse.setMiddleName("middle");
+		personQueryWarrantResponse.setSid("SID");
+		personQueryWarrantResponse.setSystemName("Warrants");
+		
+		enhancedAuditDao.savePersonQueryWarrantResponse(personQueryWarrantResponse);
+		
+		PersonQueryWarrantResponse personQueryWarrantResponseFromDatabase = enhancedAuditDao.retrieveWarrantQueryDetail(queryPk);
+		assertEquals("FBIID", personQueryWarrantResponseFromDatabase.getFbiId());
+		assertEquals("first", personQueryWarrantResponseFromDatabase.getFirstName());
+		assertEquals("last", personQueryWarrantResponseFromDatabase.getLastName());
+		assertEquals("123456", personQueryWarrantResponseFromDatabase.getMessageId());
+		assertEquals("middle", personQueryWarrantResponseFromDatabase.getMiddleName());
+		assertEquals("SID", personQueryWarrantResponseFromDatabase.getSid());
+		assertEquals("Warrants", personQueryWarrantResponseFromDatabase.getSystemName());
+		
+		
+		AuditSearchRequest auditSearchRequest = new AuditSearchRequest();
+		
+		List<QueryRequest> queryRequests = enhancedAuditDao.retrieveQueryRequest(auditSearchRequest);
+		
+		assertNotNull(queryRequests);
+		assertEquals(1, queryRequests.size());
+		assertEquals(new Integer(1), queryRequests.get(0).getQueryRequestId());
+		assertEquals("123", queryRequests.get(0).getIdentificationId());
+		assertEquals("Source", queryRequests.get(0).getIdentificationSourceText());
+		assertEquals("123456", queryRequests.get(0).getMessageId());
 		
 	}
 	
@@ -792,5 +845,6 @@ public class EnhancedAuditDaoTest {
 		assertNotNull(notificationSentWithTriggeringEvent.getTriggeringEvents());
 		
 	}
+	
 }
 
