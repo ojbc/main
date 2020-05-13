@@ -184,6 +184,36 @@
 			<xsd:documentation>The agency who is responsible for a charge.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DrugCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MentalHealthCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeferredDispositionIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FiledChargesIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InProcessIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ExpiredIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>ADD DEFINITION</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="RecordCategoryIdentification" type="nc:IdentificationType"
 		substitutionGroup="j:ArrestAugmentationPoint">
 		<xsd:annotation>
@@ -295,7 +325,7 @@
 			<xsd:documentation>A number of disposition charges.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="ChargeDispositionCategoryCode" type="chsres-ext:ChargeDispositionCategoryCodeType"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>
