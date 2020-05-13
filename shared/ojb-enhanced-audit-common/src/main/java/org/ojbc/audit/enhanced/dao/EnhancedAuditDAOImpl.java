@@ -66,11 +66,15 @@ import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
-import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResposeRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2183,7 +2187,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		log.info("User authentication select statement: " + sqlStatement.toString());
 		
-		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResposeRowMapper());
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResponseRowMapper());
 		
 		return userAuthenticationSearchResponses;
 	}
@@ -2372,6 +2376,53 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    },
         	    keyHolder);
 
-         return keyHolder.getKey().intValue();		}
+         return keyHolder.getKey().intValue();		
+	}
+
+	@Override
+	public List<QueryRequest> retrieveQueryRequest(AuditSearchRequest searchRequest) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select qr.* from query_request qr where qr.identification_id != '' ");
+		
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "qr");
+		
+		sqlStatement.append(" order by timestamp desc limit 500");
+		
+		log.info(sqlStatement.toString());
+		
+		List<QueryRequest> queryRequests = jdbcTemplate.query(sqlStatement.toString(), new QueryRequestRowMapper());
+		
+		return queryRequests;	
+	}
+
+	@Override
+	public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId) {
+		final String CRIMINAL_HISTORY_SELECT="SELECT * from CRIMINAL_HISTORY_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<PersonQueryCriminalHistoryResponse> personQueryCriminalHistoryResponses = jdbcTemplate.query(CRIMINAL_HISTORY_SELECT, new CriminalHistoryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(personQueryCriminalHistoryResponses);			
+	}
+
+	@Override
+	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId) {
+		final String FIREARMS_QUERY_SELECT="SELECT * from FIREARMS_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<FirearmsQueryResponse> firearmsQueryResponses = jdbcTemplate.query(FIREARMS_QUERY_SELECT, new FirearmsQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(firearmsQueryResponses);			
+	}
+
+	@Override
+	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId) {
+		final String WARRANTS_QUERY_SELECT="SELECT * from WARRANT_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<PersonQueryWarrantResponse> personQueryWarrantResponse = jdbcTemplate.query(WARRANTS_QUERY_SELECT, new WarrantsQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(personQueryWarrantResponse);			
+	}
 
 }
