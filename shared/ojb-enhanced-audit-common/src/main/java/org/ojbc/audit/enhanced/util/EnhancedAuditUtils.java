@@ -14,31 +14,20 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.audit.enhanced.dao.model.auditsearch;
+package org.ojbc.audit.enhanced.util;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.ojbc.audit.enhanced.dao.model.UserInfo;
+public class EnhancedAuditUtils {
 
-public class UserAuthenticationSearchResponse extends UserInfo {
-
-	private String userAction;
-	private LocalDateTime timestamp;
-
-	public String getUserAction() {
-		return userAction;
+	public static LocalDateTime toLocalDateTime(Timestamp timestamp) {
+		return timestamp == null ? null : timestamp.toLocalDateTime();
 	}
 
-	public void setUserAction(String userAction) {
-		this.userAction = userAction;
-	}
-
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-	
+	public static LocalDate toLocalDate(Date date){
+		return date == null? null : date.toLocalDate();
+	}	
 }

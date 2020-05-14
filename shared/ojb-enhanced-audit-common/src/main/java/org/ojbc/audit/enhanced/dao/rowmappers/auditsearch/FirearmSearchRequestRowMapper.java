@@ -18,14 +18,13 @@ package org.ojbc.audit.enhanced.dao.rowmappers.auditsearch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -60,7 +59,7 @@ public class FirearmSearchRequestRowMapper implements
 				firearmsSearchRequest.setRegistrationNumber(rs.getString("REGISTRATION_NUMBER"));
 				firearmsSearchRequest.setSerialNumber(rs.getString("SERIAL_NUMBER"));
 				firearmsSearchRequest.setSerialNumberQualifierCodeId(rs.getInt("SERIAL_NUMBER_QUALIFIER_CODE_ID"));
-				firearmsSearchRequest.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+				firearmsSearchRequest.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 				firearmsSearchRequest.setFirearmsType(rs.getString("FIREARMS_TYPE"));
 				firearmsSearchRequest.setUserInfofk(rs.getInt("USER_INFO_ID"));
 				
@@ -86,7 +85,4 @@ public class FirearmSearchRequestRowMapper implements
 				map.values());
 	}
 
-	private LocalDateTime toLocalDateTime(Timestamp timestamp) {
-		return timestamp == null ? null : timestamp.toLocalDateTime();
-	}
 }

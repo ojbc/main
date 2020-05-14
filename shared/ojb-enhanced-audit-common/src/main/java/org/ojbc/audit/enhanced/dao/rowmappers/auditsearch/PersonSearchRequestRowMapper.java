@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -80,6 +81,7 @@ public class PersonSearchRequestRowMapper implements
 				personSearchRequest.setSsn(rs.getString("SSN"));
 				personSearchRequest.setStateId(rs.getString("SID"));
 				personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+				personSearchRequest.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 				
 				//TODO: figure out how to map these fields
 				//personSearchRequest.setLastNameQualifierCode(rs.getString(""));
@@ -106,4 +108,5 @@ public class PersonSearchRequestRowMapper implements
 		return (List<PersonSearchRequest>) new ArrayList<PersonSearchRequest>(
 				map.values());
 	}
+	
 }

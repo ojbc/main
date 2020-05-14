@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class QueryRequestRowMapper implements RowMapper<QueryRequest> {
@@ -33,8 +34,9 @@ public class QueryRequestRowMapper implements RowMapper<QueryRequest> {
 		queryRequest.setIdentificationSourceText(rs.getString("SYSTEM_NAME"));
 		queryRequest.setIdentificationId(rs.getString("IDENTIFICATION_ID"));
 		
-		//TODO: Include timestamp here
+		queryRequest.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 		
 		return queryRequest;
 	}
+
 }

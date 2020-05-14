@@ -16,18 +16,15 @@
  */
 package org.ojbc.audit.enhanced.dao.rowmappers.auditsearch;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -55,11 +52,11 @@ public class IncidentSearchRequestRowMapper implements
 
 				incidentSearchRequest.setIncidentNumber(rs.getString("INCIDENT_NUMBER"));
 				incidentSearchRequest.setCityTown(rs.getString("CITY_TOWN"));
-				incidentSearchRequest.setStartDate(toLocalDate(rs.getDate("INCIDENT_START_DATE")));
-				incidentSearchRequest.setEndDate(toLocalDate(rs.getDate("INCIDENT_END_DATE")));
+				incidentSearchRequest.setStartDate(EnhancedAuditUtils.toLocalDate(rs.getDate("INCIDENT_START_DATE")));
+				incidentSearchRequest.setEndDate(EnhancedAuditUtils.toLocalDate(rs.getDate("INCIDENT_END_DATE")));
 				incidentSearchRequest.setOnBehalfOf(rs.getString("ON_BEHALF_OF"));
 				incidentSearchRequest.setPurpose(rs.getString("PURPOSE"));
-				incidentSearchRequest.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+				incidentSearchRequest.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 				incidentSearchRequest.setUserInfofk(rs.getInt("USER_INFO_ID"));
 				
 				List<String> sourceSystems = incidentSearchRequest
@@ -84,11 +81,4 @@ public class IncidentSearchRequestRowMapper implements
 				map.values());
 	}
 
-	private LocalDateTime toLocalDateTime(Timestamp timestamp) {
-		return timestamp == null ? null : timestamp.toLocalDateTime();
-	}
-	
-	private LocalDate toLocalDate(Date date){
-		return date == null? null : date.toLocalDate();
-	}	
 }

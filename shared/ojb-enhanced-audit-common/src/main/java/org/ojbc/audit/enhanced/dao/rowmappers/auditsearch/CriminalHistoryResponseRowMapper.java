@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 public class CriminalHistoryResponseRowMapper implements RowMapper<PersonQueryCriminalHistoryResponse> {
@@ -39,9 +40,9 @@ public class CriminalHistoryResponseRowMapper implements RowMapper<PersonQueryCr
 		personQueryCriminalHistoryResponse.setQueryResultsTimeoutIndicator(rs.getBoolean("QUERY_RESULTS_TIMEOUT_INDICATOR"));
 		personQueryCriminalHistoryResponse.setSid(rs.getString("SID"));
 		personQueryCriminalHistoryResponse.setSystemName(rs.getString("SYSTEM_NAME"));
-		
-		//TODO: Include timestamp here
+		personQueryCriminalHistoryResponse.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("timestamp")));
 		
 		return personQueryCriminalHistoryResponse;
 	}
+	
 }

@@ -18,14 +18,13 @@ package org.ojbc.audit.enhanced.dao.rowmappers.auditsearch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -61,7 +60,7 @@ public class VehicleSearchRequestRowMapper implements
 				vehicleSearchRequest.setVehicleYearRangeStart(rs.getString("YEAR_RANGE_START"));
 				vehicleSearchRequest.setVehicleYearRangeStart(rs.getString("YEAR_RANGE_END"));
 
-				vehicleSearchRequest.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+				vehicleSearchRequest.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 				
 				List<String> sourceSystems = vehicleSearchRequest.getSourceSystemsList();
 				
@@ -91,7 +90,4 @@ public class VehicleSearchRequestRowMapper implements
 
 	}
 	
-	private LocalDateTime toLocalDateTime(Timestamp timestamp){
-		return timestamp == null? null : timestamp.toLocalDateTime();
-	}
 }
