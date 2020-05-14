@@ -199,6 +199,7 @@
 		<entry key="rapbackLink" value="#" />
 		<entry key="criminalIdLink" value="#" />
 		<entry key="adminLink" value="#" />
+		<entry key="auditLink" value="#" />
 
 		<!-- Use this entry if you are using the provided help templates from ojb-web-external-resource -->
 		<entry key="helpLink" value="#" />

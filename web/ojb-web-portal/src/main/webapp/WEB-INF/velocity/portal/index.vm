@@ -254,6 +254,15 @@
 					return false;
 				});
 				
+				$('#auditLink').click(function() {	  
+		    		xhr = $.get("#springUrl('/auditLogs/searchForm')",function(data) {
+		    			$('#filterColumn').addClass('d-none');
+	  					$('#portalContent').html(data);
+	    			}).fail(ojbc.displayFailMessage)
+									    
+					return false;
+				});
+				
 				$('#criminalIdLink').click(function() {	  
 					if (oTable !== undefined && oTable.fixedHeader !== undefined){
 						oTable.fixedHeader.disable();
