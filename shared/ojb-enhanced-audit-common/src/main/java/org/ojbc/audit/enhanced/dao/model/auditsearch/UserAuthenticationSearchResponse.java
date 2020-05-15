@@ -18,11 +18,18 @@ package org.ojbc.audit.enhanced.dao.model.auditsearch;
 
 import java.time.LocalDateTime;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class UserAuthenticationSearchResponse extends UserInfo {
 
 	private String userAction;
+	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 
 	public String getUserAction() {
