@@ -16,11 +16,13 @@
  */
 package org.ojbc.audit.enhanced.dao.model.auditsearch;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 public class UserAuthenticationSearchRequest extends AuditSearchRequest{
 
 	private String userAction;
-	
+	 
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
@@ -55,6 +57,10 @@ public class UserAuthenticationSearchRequest extends AuditSearchRequest{
 	}
 	public void setEmployerOri(String employerOri) {
 		this.employerOri = employerOri;
+	}
+	
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 }

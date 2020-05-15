@@ -90,7 +90,7 @@ public class AuditSearchRequest {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-		this.endTime = OJBCDateUtils.toLocalDateTime(endDate); 
+		this.endTime = OJBCDateUtils.toEndLocalDateTime(endDate); 
 	}
 	
 }
