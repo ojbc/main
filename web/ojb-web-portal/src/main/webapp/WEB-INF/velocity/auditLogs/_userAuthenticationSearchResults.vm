@@ -1,0 +1,108 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+ 
+  $(function() {
+  	$('#searchBarButtonDiv').hide();    		
+  	
+    var oTable = $("#searchResultsTable").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 responsive: true, 
+		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No User Authentication Logs Found"
+    	 } 
+	});
+	
+	new $.fn.dataTable.FixedHeader( oTable );
+	
+	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
+		event.preventDefault();
+ 		var subscriptionId = $(this).attr("title");
+ 		var editMvcUrl = encodeURI("#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=RBN");
+ 		
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+  		$.get(editMvcUrl, function(data){
+			$('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);	
+  		
+  		return false;		  					  					  		                                                     
+ 	}); 
+ 	  		 
+  });
+    
+</script>
+	
+<div style="padding:10px">
+	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
+		<thead>
+			<tr>
+				<th>USER ACTION</th>
+				<th>FIRST NAME</th>
+				<th>LAST NAME</th>
+				<th>EMAIL</th>
+				<th>EMPLOYER ORI</th>
+				<th>EMPLOYER NAME</th>
+				<th>EMPLOYER SUBUNIT NAME</th>
+				<th>FEDERATION ID</th>
+				<th>IDENTITY PROVIDER</th>
+				<th>TIMESTAMP</th>
+			</tr>
+		</thead>
+		<tbody>
+	        #foreach($userAuthenticationSearchResponse in $userAuthenticationSearchResponses)
+		        <tr title='$!userAuthenticationSearchResponse.userInfoId'>
+		        	<td>$!userAuthenticationSearchResponse.userAction</td>
+		        	<td>$!userAuthenticationSearchResponse.userFirstName</td>
+		        	<td>$!userAuthenticationSearchResponse.userLastName</td>
+		        	<td>$!userAuthenticationSearchResponse.userEmailAddress</td>
+		        	<td>$!userAuthenticationSearchResponse.employerOri</td>
+		        	<td>$!userAuthenticationSearchResponse.employerName</td>
+		        	<td>$!userAuthenticationSearchResponse.employerSubunitName</td>
+		        	<td>$!userAuthenticationSearchResponse.federationId</td>
+		        	<td>$!userAuthenticationSearchResponse.identityProviderId</td>
+		        	<td>$!userAuthenticationSearchResponse.timestamp.format($dateTimeformatter)</td>
+	        	</tr>
+	        #end
+		</tbody>
+	</table> 								
+</div>
+<div class="modal fade ojbc-modal" id="auditLogsModal" tabindex="-1" role="dialog" aria-labelledby="auditLogsModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">User Activity Detail</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    

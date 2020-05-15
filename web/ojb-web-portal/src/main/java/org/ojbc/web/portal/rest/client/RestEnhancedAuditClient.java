@@ -18,13 +18,23 @@
 
 package org.ojbc.web.portal.rest.client;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -80,6 +90,18 @@ public class RestEnhancedAuditClient {
 		
 	}
 
+	public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(UserAuthenticationSearchRequest authenticationSearchRequest) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<UserAuthenticationSearchRequest> entity = new HttpEntity<UserAuthenticationSearchRequest>(authenticationSearchRequest, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveUserAuthentications";
+
+		ResponseEntity<List<UserAuthenticationSearchResponse>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<UserAuthenticationSearchResponse>>() {});
+		
+		return response.getBody();
+	}
+	
 	public Log getLog() {
 		return log;
 	}
