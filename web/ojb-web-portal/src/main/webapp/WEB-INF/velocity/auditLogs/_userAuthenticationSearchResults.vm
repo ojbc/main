@@ -64,9 +64,6 @@
 				<th>EMAIL</th>
 				<th>EMPLOYER ORI</th>
 				<th>EMPLOYER NAME</th>
-				<th>EMPLOYER SUBUNIT NAME</th>
-				<th>FEDERATION ID</th>
-				<th>IDENTITY PROVIDER</th>
 				<th>TIMESTAMP</th>
 			</tr>
 		</thead>
@@ -79,9 +76,6 @@
 		        	<td>$!userAuthenticationSearchResponse.userEmailAddress</td>
 		        	<td>$!userAuthenticationSearchResponse.employerOri</td>
 		        	<td>$!userAuthenticationSearchResponse.employerName</td>
-		        	<td>$!userAuthenticationSearchResponse.employerSubunitName</td>
-		        	<td>$!userAuthenticationSearchResponse.federationId</td>
-		        	<td>$!userAuthenticationSearchResponse.identityProviderId</td>
 		        	<td>$!userAuthenticationSearchResponse.timestamp.format($dateTimeformatter)</td>
 	        	</tr>
 	        #end
