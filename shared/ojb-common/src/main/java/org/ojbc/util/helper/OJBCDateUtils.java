@@ -131,4 +131,7 @@ public final class OJBCDateUtils {
 	public static LocalDateTime toLocalDateTime(Date date){
 		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime() : null;  
 	}
+	public static LocalDateTime toEndLocalDateTime(Date date){
+		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plusDays(1) : null;  
+	}
 }
