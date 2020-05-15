@@ -55,6 +55,14 @@
 </script>
 	
 <div style="padding:10px">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="auditLink">User Authentication Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">User Authentication Search Results</li>
+		</ol>
+	</nav>
+
 	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
 		<thead>
 			<tr>

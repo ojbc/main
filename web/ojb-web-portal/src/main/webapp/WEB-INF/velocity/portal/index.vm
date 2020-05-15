@@ -254,7 +254,7 @@
 					return false;
 				});
 				
-				$('#auditLink').click(function() {	  
+				$('body').off('click','.auditLink').on('click','.auditLink',function() {
 		    		xhr = $.get("#springUrl('/auditLogs/searchForm')",function(data) {
 		    			$('#filterColumn').addClass('d-none');
 	  					$('#portalContent').html(data);
