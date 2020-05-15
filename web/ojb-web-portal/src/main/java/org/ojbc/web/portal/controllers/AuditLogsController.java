@@ -16,74 +16,31 @@
  */
 package org.ojbc.web.portal.controllers;
 
-import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
-import static org.ojbc.web.OjbcWebConstants.RAPBACK_TOPIC_SUB_TYPE;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-import org.ojbc.audit.enhanced.dao.model.PrintResults;
-import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
-import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
-import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.helper.OJBCDateUtils;
-import org.ojbc.util.model.rapback.IdentificationResultCategory;
-import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
-import org.ojbc.util.model.rapback.IdentificationTransactionState;
-import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.util.xml.subscription.Subscription;
-import org.ojbc.util.xml.subscription.Unsubscription;
-import org.ojbc.web.OJBCWebServiceURIs;
-import org.ojbc.web.OjbcWebConstants;
-import org.ojbc.web.SubscriptionInterface;
-import org.ojbc.web.model.SimpleServiceResponse;
-import org.ojbc.web.model.identificationresult.search.CivilIdentificationReasonCode;
-import org.ojbc.web.model.identificationresult.search.CriminalIdentificationReasonCode;
-import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
-import org.ojbc.web.model.person.query.DetailsRequest;
-import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
-import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
-import org.ojbc.web.portal.services.SamlService;
-import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.security.DocumentUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import com.google.common.base.Objects;
 
 @Controller
 @Profile({"audit-search","standalone"})
@@ -91,7 +48,7 @@ import com.google.common.base.Objects;
 @RequestMapping("/auditLogs")
 public class AuditLogsController {
 	
-	private Log logger = LogFactory.getLog(this.getClass());
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	PeopleControllerConfigInterface peopleQueryConfig;
@@ -128,6 +85,21 @@ public class AuditLogsController {
 		} 
 
 		return "auditLogs/_searchForm";
+	}
+	
+	@RequestMapping("/userLoginSearch")
+	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		if (bindingResult.hasErrors()) {
+			log.info("has binding errors");
+			log.info(bindingResult.getAllErrors());
+			return "auditLogs/_searchForm";
+		}
+
+		log.info("userAuthenticationSearchRequest:" + userAuthenticationSearchRequest );
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = restEnhancedAuditClient.retrieveUserAuthentications(userAuthenticationSearchRequest);
+		model.put("userAuthenticationSearchResponses", userAuthenticationSearchResponses); 
+		return "auditLogs/_userAuthenticationSearchResults";
 	}
 
 }

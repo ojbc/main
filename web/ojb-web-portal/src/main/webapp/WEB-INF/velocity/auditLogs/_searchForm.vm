@@ -25,9 +25,9 @@
 		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
 		       buttonImageOnly: true,
 		       shortYearCutoff: "+10",
-		       dateFormat: 'yyyy-mm-dd',
+		       dateFormat: 'mm/dd/yyyy',
 		       onClose: function(dateText, inst) {
-		  		$(this).datepicker('option', 'dateFormat', 'yyyy-mm-dd');      
+		  		$(this).datepicker('option', 'dateFormat', 'mm/dd/yyyy');      
 		       }
 		    });
 		    
