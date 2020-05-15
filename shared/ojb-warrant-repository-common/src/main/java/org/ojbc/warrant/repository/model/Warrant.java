@@ -32,6 +32,7 @@ public class Warrant {
     private String warrantEntryType;
     private String courtAgencyORI;
     private String lawEnforcementORI;
+    private String enteringORI;
     private String courtDocketNumber;
     private String ocaComplaintNumber;
     private String operator;
@@ -225,5 +226,11 @@ public class Warrant {
 	}
 	public void setExtradite(Boolean extradite) {
 		this.extradite = extradite;
+	}
+	public String getEnteringORI() {
+		return enteringORI;
+	}
+	public void setEnteringORI(String enteringORI) {
+		this.enteringORI = enteringORI;
 	}
 }
