@@ -112,11 +112,7 @@
 						    </div>
 						    <label class="searchSubHeader">USER ACTION</label>
 							<div class="form-group">
-								<select class="form-control form-control-sm" id="userAuthenticationSearchRequest.userAction" name="userAuthenticationSearchRequest.userAction">
-									<option value=''>User Action</option>
-								    <option value='login'>Login</option>
-								    <option value='logout'>Logout</option>
-							    </select>
+								#springFormSingleSelect("userAuthenticationSearchRequest.userAction" $userActionMap, "class='form-control form-control-sm'")
 							</div>
 			            </div>
 	    	       </div>

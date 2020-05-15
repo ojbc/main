@@ -17,6 +17,7 @@
 package org.ojbc.web.portal.controllers;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +67,12 @@ public class AuditLogsController {
     public void addModelAttributes(Model model) {
     	UserAuthenticationSearchRequest userAuthenticationSearchRequest = initUserAuthenticationSearchRequest();
     	model.addAttribute("userAuthenticationSearchRequest", userAuthenticationSearchRequest);
+    	
+    	Map<String, String> userActionMap = new HashMap<>(); 
+    	userActionMap.put("", "User Action"); 
+    	userActionMap.put("login", "Login"); 
+    	userActionMap.put("logout", "Logout"); 
+    	model.addAttribute("userActionMap", userActionMap); 
 	}
 
 	private UserAuthenticationSearchRequest initUserAuthenticationSearchRequest() {
