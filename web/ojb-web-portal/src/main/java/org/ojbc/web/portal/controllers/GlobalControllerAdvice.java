@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -69,6 +71,8 @@ public class GlobalControllerAdvice {
     @Value("${footerText}")
     String footerText;
     
+    private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
@@ -81,6 +85,7 @@ public class GlobalControllerAdvice {
         model.addAttribute("inactivityTimeout", inactivityTimeout);
         model.addAttribute("showSignOutButton", showSignOutButton);
         model.addAttribute("showPrintButton", showPrintButton);
+        model.addAttribute("dateTimeformatter", dateTimeformatter);
         model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
         model.addAttribute("footerText", footerText);
     }
