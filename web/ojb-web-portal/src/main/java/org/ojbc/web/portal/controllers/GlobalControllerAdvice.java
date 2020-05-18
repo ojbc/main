@@ -16,17 +16,22 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
@@ -90,14 +95,6 @@ public class GlobalControllerAdvice {
         model.addAttribute("footerText", footerText);
     }
     
-    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Internal Server Error")
-	public String handleAllException(HttpServletRequest request, Exception ex){
-		
-		log.error("Got exception when processing the request", ex); 
-		return "/error/500";
-	}
-    
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
     public String handle405Exception(HttpServletRequest request, Exception ex){
     	
@@ -105,6 +102,31 @@ public class GlobalControllerAdvice {
     	return "/error/405";
     }
     
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {    
+        String acceptHeader = request.getHeader("Accept");
+        log.error("Got exception when processing the request", e); 
+       
+        String returnString = "A server-side error occurred. If problem persists, contact your IT department.";
+        // If Accept header exists, check if it expects a response of type json, otherwise just return text/html
+        // Use apache commons lang3 to escape json values
+        if(acceptHeader.contains("application/json")) {
+            // return as JSON
+            String jsonString = 
+                    "{\"success\": false, \"message\": \"" + returnString + "\" }";
+//            String jsonString = 
+//                    "{\"success\": false, \"message\": \"" + StringEscapeUtils.escapeJson(e.getMessage()) + "\" }";
+        
+            return jsonString;
+        } else {
+            //return as HTML
+            response.setContentType("text/html");
+//            return response.toString();
+            return returnString;
+        }
+    }    
 //    @ResponseStatus(value=HttpStatus.METHOD_NOT_ALLOWED, reason="Method Not Allowed")
 //    public String handle405Exception(HttpServletRequest request, Exception ex){
 //    	

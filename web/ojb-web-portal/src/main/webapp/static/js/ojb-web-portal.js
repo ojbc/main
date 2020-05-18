@@ -207,11 +207,7 @@ ojbc = {
 	 
 	displayFailMessage : function(jqXHR, textStatus, errorThrown) {
     	if (jqXHR.status == 500) {
-			var exceptionPart = "<b>exception</b>";
-	    	var excStartIndex = jqXHR.responseText.indexOf(exceptionPart) + exceptionPart.length;
-	    	var excEndIndex = jqXHR.responseText.indexOf('<b>root cause</b>');
-	    	var errorHeader = "<span class='error'>A server-side error occurred while processing your request. Details below:</span>";
-	    	$('#portalContent').html(errorHeader + jqXHR.responseText.substring(excStartIndex,excEndIndex));
+    		bootpopup.alert(jqXHR.responseText, 'UNABLE TO PROCESS REQUEST');
     	} else if (jqXHR.status == 0) {
     		// Likely that the SAML assertion timed out -- force reload of the page
     		// Do not reload the if the user aborted the ajax request
@@ -221,7 +217,7 @@ ojbc = {
     			window.location.reload();
     		}
     	} else {
-    		$('#portalContent').html("<span class='error'>Unable to talk to Server.  Please try again later.</span>");
+    		bootpopup.alert('Unable to talk to Server.  Please try again later.', 'ERROR');
     	}
 	},
 	
