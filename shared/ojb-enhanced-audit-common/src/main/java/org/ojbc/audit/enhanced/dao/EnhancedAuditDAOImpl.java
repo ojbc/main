@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestR
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
 import org.ojbc.util.helper.DaoUtils;
@@ -2161,33 +2163,56 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		StringBuffer sqlStatement = new StringBuffer();
 		
+		ArrayList<String> criteriaArrayList = new ArrayList<String>();
+		
 		sqlStatement.append("select * from USER_LOGIN ul, USER_INFO ui where ui.USER_INFO_ID = ul.USER_INFO_ID ");
 		
 		if (StringUtils.isNotBlank(searchRequest.getFirstName()))
 		{
 			sqlStatement.append(" and ui.USER_FIRST_NAME = ?");
+			criteriaArrayList.add(searchRequest.getFirstName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getLastName()))
 		{
 			sqlStatement.append(" and ui.USER_LAST_NAME = ?");
+			criteriaArrayList.add(searchRequest.getLastName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getEmailAddress()))
 		{
 			sqlStatement.append(" and ui.USER_EMAIL_ADDRESS = ?");
+			criteriaArrayList.add(searchRequest.getEmailAddress());
+			
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getEmployerOri()))
 		{
 			sqlStatement.append(" and ui.EMPLOYER_ORI = ?");
+			criteriaArrayList.add(searchRequest.getEmployerOri());
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getUserAction()))
+		{
+			sqlStatement.append(" and ul.ACTION = ?");
+			criteriaArrayList.add(searchRequest.getUserAction());
 		}	
 
 		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "ul");
 		
 		log.info("User authentication select statement: " + sqlStatement.toString());
 		
-		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResponseRowMapper());
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = null;
+		
+		if (criteriaArrayList.size() > 0)
+		{	
+			Object[] criteriaArray = criteriaArrayList.toArray();
+			userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), criteriaArray, new UserAuthenticationResponseRowMapper());
+		}
+		else
+		{
+			userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResponseRowMapper());
+		}
 		
 		return userAuthenticationSearchResponses;
 	}
@@ -2423,6 +2448,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<PersonQueryWarrantResponse> personQueryWarrantResponse = jdbcTemplate.query(WARRANTS_QUERY_SELECT, new WarrantsQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(personQueryWarrantResponse);			
+	}
+
+	@Override
+	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId) {
+		final String VEHICLE_CRASH_QUERY_SELECT="SELECT * from VEHICLE_CRASH_QUERY_RESULTS vcq, CRASH_VEHICLE cv where "
+				+ " cv.VEHICLE_CRASH_QUERY_RESULTS_ID = vcq.VEHICLE_CRASH_QUERY_RESULTS_ID and "
+				+ " vcq.QUERY_REQUEST_ID = ?";
+		
+		List<VehicleCrashQueryResponse> vehicleCrashQueryResponses = jdbcTemplate.query(VEHICLE_CRASH_QUERY_SELECT, new VehicleCrashQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(vehicleCrashQueryResponses);	
 	}
 
 }

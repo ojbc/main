@@ -35,6 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
@@ -53,6 +54,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -501,6 +503,44 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Warrants", personQueryWarrantResponseFromDatabase.getSystemName());
 		assertNotNull(personQueryWarrantResponseFromDatabase.getTimestamp());
 		
+		VehicleCrashQueryResponse vehicleCrashQueryResponse = new VehicleCrashQueryResponse();
+		
+		vehicleCrashQueryResponse.setQueryRequestId(queryPk);
+		vehicleCrashQueryResponse.setMessageId("12345");
+		vehicleCrashQueryResponse.setSystemName("System Name");
+		
+		Integer vehicleCrashQueryResponsePk = enhancedAuditDao.saveVehicleQueryCrashResponse(vehicleCrashQueryResponse);
+		
+		CrashVehicle vehicle1 = new CrashVehicle();
+		vehicle1.setVehicleIdentificationNumber("vin1");
+		vehicle1.setVehicleMake("make1");
+		vehicle1.setVehicleModel("model1");
+		vehicle1.setVehicleCrashQueryResultsId(vehicleCrashQueryResponsePk);
+		
+		CrashVehicle vehicle2 = new CrashVehicle();
+		vehicle2.setVehicleIdentificationNumber("vin2");
+		vehicle2.setVehicleMake("make2");
+		vehicle2.setVehicleModel("model2");		
+		vehicle2.setVehicleCrashQueryResultsId(vehicleCrashQueryResponsePk);
+		
+		enhancedAuditDao.saveCrashVehicle(vehicle1);
+		enhancedAuditDao.saveCrashVehicle(vehicle2);
+		
+		VehicleCrashQueryResponse vehicleCrashQueryResponseFromDatabase = enhancedAuditDao.retrieveVehicleCrashQueryResultsDetail(queryPk);
+		assertEquals(2, vehicleCrashQueryResponseFromDatabase.getCrashVehicles().size());
+		
+		assertEquals("vin1", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(0).getVehicleIdentificationNumber());
+		assertEquals("vin2", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(1).getVehicleIdentificationNumber());
+
+		assertEquals("make1", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(0).getVehicleMake());
+		assertEquals("make2", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(1).getVehicleMake());
+
+		assertEquals("model1", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(0).getVehicleModel());
+		assertEquals("model2", vehicleCrashQueryResponseFromDatabase.getCrashVehicles().get(1).getVehicleModel());
+
+		
+		assertEquals("12345", vehicleCrashQueryResponseFromDatabase.getMessageId());
+		assertEquals("System Name", vehicleCrashQueryResponseFromDatabase.getSystemName());
 		
 		AuditSearchRequest auditSearchRequest = new AuditSearchRequest();
 		
@@ -623,6 +663,12 @@ public class EnhancedAuditDaoTest {
 		userAuthenticationSearchRequest.setFirstName("first");
 		userAuthenticationSearchRequest.setUserAction("login");
 		
+		userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(userAuthenticationSearchRequest);
+		verifyUserAuthenticationResponse(userAuthenticationSearchResponses);
+		
+		userAuthenticationSearchRequest.setUserAction("logout");
+		userAuthenticationSearchResponses = enhancedAuditDao.retrieveUserAuthentication(userAuthenticationSearchRequest);
+		assertEquals(0, userAuthenticationSearchResponses.size());
 	}
 
 	private void verifyUserAuthenticationResponse(
