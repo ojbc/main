@@ -16,6 +16,7 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -23,12 +24,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class VehicleCrashQueryResponse {
 
+	private Integer vehicleCrashQueryResultsId;
 	private Integer queryRequestId;
 	private String queryResultsErrorText;
 	private boolean queryResultsTimeoutIndicator;
 	private boolean queryResultsErrorIndicator;
 	private String systemName;
 	private String messageId;
+	private LocalDateTime timestamp;
 
 	private List<CrashVehicle> crashVehicles;
 	
@@ -78,6 +81,18 @@ public class VehicleCrashQueryResponse {
 	}
 	public void setCrashVehicles(List<CrashVehicle> crashVehicles) {
 		this.crashVehicles = crashVehicles;
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+	public Integer getVehicleCrashQueryResultsId() {
+		return vehicleCrashQueryResultsId;
+	}
+	public void setVehicleCrashQueryResultsId(Integer vehicleCrashQueryResultsId) {
+		this.vehicleCrashQueryResultsId = vehicleCrashQueryResultsId;
 	}
 	
 }
