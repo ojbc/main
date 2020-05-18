@@ -201,4 +201,6 @@ public interface EnhancedAuditDAO {
 	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId);
 	
 	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
+	
+	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
 }
