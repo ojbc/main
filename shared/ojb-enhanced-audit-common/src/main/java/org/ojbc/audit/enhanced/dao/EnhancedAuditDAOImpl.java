@@ -2169,19 +2169,19 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (StringUtils.isNotBlank(searchRequest.getFirstName()))
 		{
-			sqlStatement.append(" and ui.USER_FIRST_NAME = ?");
+			sqlStatement.append(" and upper(ui.USER_FIRST_NAME) like concat(upper(?), '%')");
 			criteriaArrayList.add(searchRequest.getFirstName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getLastName()))
 		{
-			sqlStatement.append(" and ui.USER_LAST_NAME = ?");
+			sqlStatement.append(" and upper(ui.USER_LAST_NAME) like concat(upper(?), '%')");
 			criteriaArrayList.add(searchRequest.getLastName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getEmailAddress()))
 		{
-			sqlStatement.append(" and ui.USER_EMAIL_ADDRESS = ?");
+			sqlStatement.append(" and upper(ui.USER_EMAIL_ADDRESS) like concat(upper(?), '%')");
 			criteriaArrayList.add(searchRequest.getEmailAddress());
 			
 		}	

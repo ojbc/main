@@ -28,6 +28,7 @@ public class UserAuthenticationResponseRowMapper implements RowMapper<UserAuthen
 			throws SQLException {
 		UserAuthenticationSearchResponse userAuthenticationSearchResponse = new UserAuthenticationSearchResponse();
 		
+		userAuthenticationSearchResponse.setUserInfoId(rs.getInt("USER_INFO_ID"));
 		userAuthenticationSearchResponse.setEmployerName(rs.getString("EMPLOYER_NAME"));
 		userAuthenticationSearchResponse.setEmployerOri(rs.getString("EMPLOYER_ORI"));
 		userAuthenticationSearchResponse.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
