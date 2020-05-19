@@ -65,8 +65,11 @@ public class AuditLogsController {
 
     @ModelAttribute
     public void addModelAttributes(Model model) {
-    	UserAuthenticationSearchRequest userAuthenticationSearchRequest = initUserAuthenticationSearchRequest();
-    	model.addAttribute("userAuthenticationSearchRequest", userAuthenticationSearchRequest);
+    	
+    	if (!model.containsAttribute("userAuthenticationSearchRequest")) {
+	    	UserAuthenticationSearchRequest userAuthenticationSearchRequest = initUserAuthenticationSearchRequest();
+	    	model.addAttribute("userAuthenticationSearchRequest", userAuthenticationSearchRequest);
+    	}
     	
     	Map<String, String> userActionMap = new HashMap<>(); 
     	userActionMap.put("", "User Action"); 
@@ -105,6 +108,7 @@ public class AuditLogsController {
 
 		log.info("userAuthenticationSearchRequest:" + userAuthenticationSearchRequest );
 		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = restEnhancedAuditClient.retrieveUserAuthentications(userAuthenticationSearchRequest);
+		model.put("userAuthenticationSearchRequest", userAuthenticationSearchRequest);
 		model.put("userAuthenticationSearchResponses", userAuthenticationSearchResponses); 
 		return "auditLogs/_userAuthenticationSearchResults";
 	}
