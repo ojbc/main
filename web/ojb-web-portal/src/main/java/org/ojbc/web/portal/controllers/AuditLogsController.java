@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
@@ -113,5 +116,27 @@ public class AuditLogsController {
 		return "auditLogs/_userAuthenticationSearchResults";
 	}
 
+	@RequestMapping("/userActivities" )
+	public String userActivitiesSearch(HttpServletRequest request, @RequestParam Integer userInfoId, 
+			Map<String, Object> model) throws Throwable {
+		
+		UserAuthenticationSearchRequest userAuthenticationSearchRequest = (UserAuthenticationSearchRequest) model.get("userAuthenticationSearchRequest");
+		@SuppressWarnings("unchecked")
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = (List<UserAuthenticationSearchResponse>) model.get("userAuthenticationSearchResponses");
+
+		UserAuthenticationSearchResponse userAuthenticationSearchResponse = userAuthenticationSearchResponses
+				.stream().filter(i-> Objects.equals(i.getUserInfoId(), userInfoId)).findFirst().orElse(null);
+		model.put("userAuthenticationSearchResponse", userAuthenticationSearchResponse);
+		
+		AuditSearchRequest auditSearchRequest = new AuditSearchRequest(); 
+		auditSearchRequest.setEndTime(userAuthenticationSearchRequest.getEndTime());
+		auditSearchRequest.setStartTime(userAuthenticationSearchRequest.getStartTime());
+		auditSearchRequest.setUserInfoId(userInfoId);
+		
+		List<PersonSearchRequest> personSearchRequests = restEnhancedAuditClient.retrievePersonSearchRequest(auditSearchRequest);
+		model.put("personSearchRequests", personSearchRequests); 
+		return "auditLogs/_userAcitivities";
+	}
+	
 }
 
