@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -26,6 +28,8 @@ public class QueryRequest {
 	private String identificationSourceText;
 	private Integer userInfofk;
 	private String messageId;
+	
+	private LocalDateTime timestamp;
 	
 	public String getIdentificationId() {
 		return identificationId;
@@ -60,6 +64,12 @@ public class QueryRequest {
 	}
 	public void setQueryRequestId(Integer queryRequestId) {
 		this.queryRequestId = queryRequestId;
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }

@@ -149,10 +149,6 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" />
 		<entry key="Mental Health/Firearms Prohibition"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" />
-		<entry key="Wildlife Licensing"
-			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
-		<entry key="Professional Licensing"
-			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
@@ -160,6 +156,10 @@
 			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Disabled-System" />
 		<entry key="Disabled System2"
 			value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Disabled-System2" />
+		<entry key="Wildlife Licensing"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
+		<entry key="Professional Licensing"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">

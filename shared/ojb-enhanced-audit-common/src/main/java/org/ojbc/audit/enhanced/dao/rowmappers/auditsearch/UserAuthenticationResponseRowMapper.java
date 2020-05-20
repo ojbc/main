@@ -20,13 +20,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 
-public class UserAuthenticationResposeRowMapper implements RowMapper<UserAuthenticationSearchResponse> {
+public class UserAuthenticationResponseRowMapper implements RowMapper<UserAuthenticationSearchResponse> {
 	public UserAuthenticationSearchResponse mapRow(ResultSet rs, int rowNum)
 			throws SQLException {
 		UserAuthenticationSearchResponse userAuthenticationSearchResponse = new UserAuthenticationSearchResponse();
 		
+		userAuthenticationSearchResponse.setUserInfoId(rs.getInt("USER_INFO_ID"));
 		userAuthenticationSearchResponse.setEmployerName(rs.getString("EMPLOYER_NAME"));
 		userAuthenticationSearchResponse.setEmployerOri(rs.getString("EMPLOYER_ORI"));
 		userAuthenticationSearchResponse.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
@@ -36,7 +38,8 @@ public class UserAuthenticationResposeRowMapper implements RowMapper<UserAuthent
 		userAuthenticationSearchResponse.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
 		userAuthenticationSearchResponse.setUserFirstName(rs.getString("USER_FIRST_NAME"));
 		userAuthenticationSearchResponse.setUserLastName(rs.getString("USER_LAST_NAME"));
-		
+		userAuthenticationSearchResponse.setTimestamp(EnhancedAuditUtils.toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
+
 		return userAuthenticationSearchResponse;
 	}
 }

@@ -120,7 +120,18 @@ public final class OJBCDateUtils {
 				Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
 	}
 	
+	public static Date toDate(LocalDateTime localDateTime){
+		return localDateTime != null ? 
+				Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()) : null;
+	}
+	
 	public static LocalDate toLocalDate(Date date){
 		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;  
+	}
+	public static LocalDateTime toLocalDateTime(Date date){
+		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime() : null;  
+	}
+	public static LocalDateTime toEndLocalDateTime(Date date){
+		return date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().plusDays(1) : null;  
 	}
 }

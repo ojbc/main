@@ -38,6 +38,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -110,6 +111,7 @@ public class TestIdentficationRecordingFailedResponse {
 	
 	@Test
 	@DirtiesContext
+	@Ignore
 	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
 		civilRecordingRequestSuccessResponseSentToFailedFolder(); 

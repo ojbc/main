@@ -17,21 +17,35 @@
 package org.ojbc.audit.enhanced.dao.model.auditsearch;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class AuditSearchRequest {
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime startTime;
-
+	
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime endTime;
+	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	@JsonIgnore
+	private Date startDate;
+	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	@JsonIgnore
+	private Date endDate;
+
 	
 	private Integer userInfoId;
 
@@ -41,6 +55,7 @@ public class AuditSearchRequest {
 
 	public void setStartTime(LocalDateTime startTime) {
 		this.startTime = startTime;
+		this.startDate = OJBCDateUtils.toDate(startTime);
 	}
 
 	public LocalDateTime getEndTime() {
@@ -49,6 +64,7 @@ public class AuditSearchRequest {
 
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
+		this.endDate = OJBCDateUtils.toDate(endTime);
 	}
 
 	public Integer getUserInfoId() {
@@ -57,6 +73,24 @@ public class AuditSearchRequest {
 
 	public void setUserInfoId(Integer userInfoId) {
 		this.userInfoId = userInfoId;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+		this.startTime = OJBCDateUtils.toLocalDateTime(startDate); 
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+		this.endTime = OJBCDateUtils.toEndLocalDateTime(endDate); 
 	}
 	
 }

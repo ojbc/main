@@ -31,14 +31,19 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -357,5 +362,50 @@ public class AuditRestImpl implements AuditInterface {
 		
 		return incidentSearchRequests;
 
+	}
+
+	@Override
+	public List<QueryRequest> retrieveQueryRequest(AuditSearchRequest auditSearchRequest) {
+		log.info("Query Audit Search Request: " + auditSearchRequest.toString());
+		
+		List<QueryRequest> queryRequests = enhancedAuditDao.retrieveQueryRequest(auditSearchRequest);
+		
+		return queryRequests;	
+	}
+
+	@Override
+	public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Criminal History Detail for: " + queryRequestId.toString());
+		
+		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = enhancedAuditDao.retrieveCriminalHistoryQueryDetail(queryRequestId);
+		
+		return personQueryCriminalHistoryResponse;	
+	}
+
+	@Override
+	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Criminal History Detail for: " + queryRequestId.toString());
+		
+		FirearmsQueryResponse firearmsQueryResponse = enhancedAuditDao.retrieveFirearmQueryDetail(queryRequestId);
+		
+		return firearmsQueryResponse;	
+	}
+
+	@Override
+	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Criminal History Detail for: " + queryRequestId.toString());
+		
+		PersonQueryWarrantResponse personQueryWarrantResponse = enhancedAuditDao.retrieveWarrantQueryDetail(queryRequestId);
+		
+		return personQueryWarrantResponse;	
+	}
+
+	@Override
+	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId) {
+		log.info("Retrieve Vehicle Crash Query Response for: " + queryRequestId.toString());
+		
+		VehicleCrashQueryResponse vehicleCrashQueryResponse = enhancedAuditDao.retrieveVehicleCrashQueryResultsDetail(queryRequestId);
+		
+		return vehicleCrashQueryResponse;		
 	}
 }
