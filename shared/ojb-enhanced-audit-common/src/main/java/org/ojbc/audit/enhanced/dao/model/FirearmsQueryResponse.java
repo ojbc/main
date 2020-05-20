@@ -16,6 +16,8 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -34,6 +36,7 @@ public class FirearmsQueryResponse {
 	private String middleName;
 	private String county;
 	private String registrationNumber;
+	private LocalDateTime timestamp;
 	
 	public Integer getFirearmsQueryResponseId() {
 		return firearmsQueryResponseId;
@@ -117,6 +120,12 @@ public class FirearmsQueryResponse {
 	
 	public String toString(){
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }	
+    }
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}	
 	
 }

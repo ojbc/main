@@ -65,6 +65,12 @@
 			 "language": {
 	      		"emptyTable": "No subscriptions found"
 	    	 }, 
+		     columnDefs: [
+	           {
+	               "targets":[3], 
+	               "type":"name"
+	           },
+	         ],
 		     "aoColumns": [
 			      { "bSortable": false, "bSearchable":false },
 			      { "bSortable": false, "bSearchable":false },

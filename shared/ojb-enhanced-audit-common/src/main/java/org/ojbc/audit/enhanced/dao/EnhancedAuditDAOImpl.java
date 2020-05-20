@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
@@ -60,15 +62,21 @@ import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
-import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResposeRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2155,33 +2163,56 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		StringBuffer sqlStatement = new StringBuffer();
 		
+		ArrayList<String> criteriaArrayList = new ArrayList<String>();
+		
 		sqlStatement.append("select * from USER_LOGIN ul, USER_INFO ui where ui.USER_INFO_ID = ul.USER_INFO_ID ");
 		
 		if (StringUtils.isNotBlank(searchRequest.getFirstName()))
 		{
-			sqlStatement.append(" and ui.USER_FIRST_NAME = ?");
+			sqlStatement.append(" and upper(ui.USER_FIRST_NAME) like concat(upper(?), '%')");
+			criteriaArrayList.add(searchRequest.getFirstName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getLastName()))
 		{
-			sqlStatement.append(" and ui.USER_LAST_NAME = ?");
+			sqlStatement.append(" and upper(ui.USER_LAST_NAME) like concat(upper(?), '%')");
+			criteriaArrayList.add(searchRequest.getLastName());
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getEmailAddress()))
 		{
-			sqlStatement.append(" and ui.USER_EMAIL_ADDRESS = ?");
+			sqlStatement.append(" and upper(ui.USER_EMAIL_ADDRESS) like concat(upper(?), '%')");
+			criteriaArrayList.add(searchRequest.getEmailAddress());
+			
 		}	
 
 		if (StringUtils.isNotBlank(searchRequest.getEmployerOri()))
 		{
 			sqlStatement.append(" and ui.EMPLOYER_ORI = ?");
+			criteriaArrayList.add(searchRequest.getEmployerOri());
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getUserAction()))
+		{
+			sqlStatement.append(" and ul.ACTION = ?");
+			criteriaArrayList.add(searchRequest.getUserAction());
 		}	
 
 		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "ul");
 		
 		log.info("User authentication select statement: " + sqlStatement.toString());
 		
-		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResposeRowMapper());
+		List<UserAuthenticationSearchResponse> userAuthenticationSearchResponses = null;
+		
+		if (criteriaArrayList.size() > 0)
+		{	
+			Object[] criteriaArray = criteriaArrayList.toArray();
+			userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), criteriaArray, new UserAuthenticationResponseRowMapper());
+		}
+		else
+		{
+			userAuthenticationSearchResponses = jdbcTemplate.query(sqlStatement.toString(), new UserAuthenticationResponseRowMapper());
+		}
 		
 		return userAuthenticationSearchResponses;
 	}
@@ -2314,6 +2345,119 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		List<IncidentSearchRequest> incidentSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new IncidentSearchRequestRowMapper());
 		
 		return incidentSearchRequests;	
+	}
+
+	@Override
+	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
+		log.debug("Inserting row into VEHICLE_CRASH_QUERY_RESULTS table : " + vehicleCrashQueryResponse.toString());
+		
+        final String VEHICLE_CRASH_QUERY_RESULTS_INSERT="INSERT into VEHICLE_CRASH_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_CRASH_QUERY_RESULTS_INSERT, new String[] {"VEHICLE_CRASH_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getQueryResultsErrorText(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.isQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.isQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getSystemName(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(vehicleCrashQueryResponse.getMessageId(), ps, 6);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	 	
+		
+     }
+
+	@Override
+	public Integer saveCrashVehicle(CrashVehicle crashVehicle) {
+		log.debug("Inserting row into CRASH_VEHICLE table : " + crashVehicle.toString());
+		
+        final String CRASH_VEHICLE_INSERT="INSERT into CRASH_VEHICLE "  
+        		+ "(VEHICLE_CRASH_QUERY_RESULTS_ID, VEHICLE_MAKE, VEHICLE_MODEL, VEHICLE_IDENTIFICATION_NUMBER) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(CRASH_VEHICLE_INSERT, new String[] {"CRASH_VEHICLE_ID"});
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleCrashQueryResultsId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleMake(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleModel(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(crashVehicle.getVehicleIdentificationNumber(), ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+	}
+
+	@Override
+	public List<QueryRequest> retrieveQueryRequest(AuditSearchRequest searchRequest) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select qr.* from query_request qr where qr.identification_id != '' ");
+		
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "qr");
+		
+		sqlStatement.append(" order by timestamp desc limit 500");
+		
+		log.info(sqlStatement.toString());
+		
+		List<QueryRequest> queryRequests = jdbcTemplate.query(sqlStatement.toString(), new QueryRequestRowMapper());
+		
+		return queryRequests;	
+	}
+
+	@Override
+	public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId) {
+		final String CRIMINAL_HISTORY_SELECT="SELECT * from CRIMINAL_HISTORY_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<PersonQueryCriminalHistoryResponse> personQueryCriminalHistoryResponses = jdbcTemplate.query(CRIMINAL_HISTORY_SELECT, new CriminalHistoryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(personQueryCriminalHistoryResponses);			
+	}
+
+	@Override
+	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId) {
+		final String FIREARMS_QUERY_SELECT="SELECT * from FIREARMS_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<FirearmsQueryResponse> firearmsQueryResponses = jdbcTemplate.query(FIREARMS_QUERY_SELECT, new FirearmsQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(firearmsQueryResponses);			
+	}
+
+	@Override
+	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId) {
+		final String WARRANTS_QUERY_SELECT="SELECT * from WARRANT_QUERY_RESULTS where QUERY_REQUEST_ID = ?";
+		
+		List<PersonQueryWarrantResponse> personQueryWarrantResponse = jdbcTemplate.query(WARRANTS_QUERY_SELECT, new WarrantsQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(personQueryWarrantResponse);			
+	}
+
+	@Override
+	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId) {
+		final String VEHICLE_CRASH_QUERY_SELECT="SELECT * from VEHICLE_CRASH_QUERY_RESULTS vcq, CRASH_VEHICLE cv where "
+				+ " cv.VEHICLE_CRASH_QUERY_RESULTS_ID = vcq.VEHICLE_CRASH_QUERY_RESULTS_ID and "
+				+ " vcq.QUERY_REQUEST_ID = ?";
+		
+		List<VehicleCrashQueryResponse> vehicleCrashQueryResponses = jdbcTemplate.query(VEHICLE_CRASH_QUERY_SELECT, new VehicleCrashQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(vehicleCrashQueryResponses);	
 	}
 
 }

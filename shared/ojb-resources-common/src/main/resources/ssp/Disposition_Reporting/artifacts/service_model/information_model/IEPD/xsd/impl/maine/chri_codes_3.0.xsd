@@ -56,6 +56,12 @@
 			<xsd:enumeration value="JV SUPPORT BY FATHER" />
 			<xsd:enumeration value="JV SUPPORT BY GUARDIAN" />
 			<xsd:enumeration value="JV SUPPORT BY MOTHER" />
+<!-- ADDED 05/12/20  -->		
+			<xsd:enumeration value="JV CUSTODY TO PARENT" />
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - PARENT" />
+			<xsd:enumeration value="JV SUPPORT BY PARENT" />
+<!-- ADDED 05/12/20  -->	
+
 			<xsd:enumeration value="PARTICIPATE IN DEEP" />
 			<xsd:enumeration value="SEX OFFENDER REGISTRATION" />
 			<xsd:enumeration value="SEXUAL OFFENDER" />
@@ -229,6 +235,10 @@
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED; ADMINISTRATIVE RELEASE TERMINATED; NO SENTENCE IMPOSED" />
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE; NO SENTENCE IMPOSED" />
+			<!-- >ADDED 05/12/20 -->
+			<xsd:enumeration value="JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER" />
+			<xsd:enumeration value="JUVENILE DETENTION FACILITY" />
+			<xsd:enumeration value="PROBATION CONVERTED TO ADMINISTRATIVE RELEASE" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="SentenceTermCategoryCodeType">
