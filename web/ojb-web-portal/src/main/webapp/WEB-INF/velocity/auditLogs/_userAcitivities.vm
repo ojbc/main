@@ -18,8 +18,6 @@
  
   $(function() {
   	    		
-    $("#userDetailTable").DataTable();
-  	
     var oTable = $("#personSearchRequestTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
@@ -33,6 +31,12 @@
 	
 	new $.fn.dataTable.FixedHeader( oTable );
 	
+	$('.userAuthenticationSearchResults').click (function(){
+       	xhr = $.get("#springUrl('/auditLogs/userAuthenticationSearchResults')",function(data) {
+	        $('#portalContent').html(data);
+        }).fail(ojbc.displayFailMessage);
+	});
+	
   });
     
 </script>
@@ -42,7 +46,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="auditLink">User Authentication Search Form</a></li>
-			<li class="breadcrumb-item"><a href="#" class="userAuthenticationSearchResults">User Authentication Search Results</li>
+			<li class="breadcrumb-item"><a href="#" class="userAuthenticationSearchResults">User Authentication Search Results</a></li>
 			<li class="breadcrumb-item active" aria-current="page">User Activities</li>
 		</ol>
 	</nav>
@@ -50,20 +54,24 @@
 	<table class="table table-striped table-bordered" style="width:100%" id="userDetailTable">
 		<thead>
 			<tr>
+            	<th>USER ACTION</th>
             	<th>FIRST NAME</th>
     	        <th>LAST NAME</th>
 	            <th>EMAIL</th>
 	            <th>EMPLOYER ORI</th>
 	            <th>EMPLOYER NAME</th>
+	            <th>TIMESTAMP</th>
             </tr>
 		</thead>
 		<tbody>
 			<tr>
+				<td>$!userAuthenticationSearchResponse.userAction</td> 
 				<td>$!userAuthenticationSearchResponse.userFirstName</td> 
 				<td>$!userAuthenticationSearchResponse.userLastName</td>
 				<td>$!userAuthenticationSearchResponse.userEmailAddress</td>
 				<td>$!userAuthenticationSearchResponse.employerOri</td>
 				<td>$!userAuthenticationSearchResponse.employerName</td>
+				<td>$!userAuthenticationSearchResponse.timestamp.format($dateTimeformatter)</td>
             </tr>
 		</tbody>
 	</table>
