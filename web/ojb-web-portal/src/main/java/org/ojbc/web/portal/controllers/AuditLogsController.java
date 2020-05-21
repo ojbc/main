@@ -100,7 +100,7 @@ public class AuditLogsController {
 		return "auditLogs/_searchForm";
 	}
 	
-	@RequestMapping("/userLoginSearch")
+	@RequestMapping(value="/userLoginSearch", method=RequestMethod.POST)
 	public String advancedSearch(HttpServletRequest request, @Valid @ModelAttribute UserAuthenticationSearchRequest userAuthenticationSearchRequest, BindingResult bindingResult, 
 			Map<String, Object> model) throws Throwable {
 		if (bindingResult.hasErrors()) {
@@ -116,6 +116,12 @@ public class AuditLogsController {
 		return "auditLogs/_userAuthenticationSearchResults";
 	}
 
+	@RequestMapping(value="/userAuthenticationSearchResults")
+	public String getUserAuthenticationSearchResults(HttpServletRequest request,  
+			Map<String, Object> model) throws Throwable {
+		return "auditLogs/_userAuthenticationSearchResults";
+	}
+	
 	@RequestMapping("/userActivities" )
 	public String userActivitiesSearch(HttpServletRequest request, @RequestParam Integer userInfoId, 
 			Map<String, Object> model) throws Throwable {
