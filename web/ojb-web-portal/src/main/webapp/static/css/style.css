@@ -866,7 +866,7 @@ td.detailsLabel {
 /************************ Data Table ****************************/
 
 .dataTables_wrapper{
-	font-size: small
+	font-size: 12px;
 }
 
 #subscriptionButtons{
@@ -1238,4 +1238,17 @@ input .shortDigit{
     border-bottom-right-radius: 0.2rem;
     border-bottom-left-radius: 0.2rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.card .card-header{
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.card .card-header .btn-link{
+	font-size: small;
+	font-weight: bold;
+	text-transform: uppercase;
 }
