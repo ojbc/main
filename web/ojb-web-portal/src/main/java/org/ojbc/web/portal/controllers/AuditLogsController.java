@@ -28,6 +28,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -48,7 +49,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @Profile({"audit-search","standalone"})
-@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses"})
+@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest"})
 @RequestMapping("/auditLogs")
 public class AuditLogsController {
 	
@@ -139,9 +140,21 @@ public class AuditLogsController {
 		auditSearchRequest.setStartTime(userAuthenticationSearchRequest.getStartTime());
 		auditSearchRequest.setUserInfoId(userInfoId);
 		
+		model.put("auditSearchRequest", auditSearchRequest);
 		List<PersonSearchRequest> personSearchRequests = restEnhancedAuditClient.retrievePersonSearchRequest(auditSearchRequest);
 		model.put("personSearchRequests", personSearchRequests); 
 		return "auditLogs/_userAcitivities";
+	}
+	
+	@RequestMapping("/incidentSearchRequests" )
+	public String getIncidentSearchRequests(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getIncidentSearchRequests");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<IncidentSearchRequest> incidentSearchRequests = restEnhancedAuditClient.retrieveIncidentSearchRequest(auditSearchRequest);
+		model.put("incidentSearchRequests", incidentSearchRequests); 
+		
+		return "auditLogs/_userIncidentSearchRequests";
 	}
 	
 }

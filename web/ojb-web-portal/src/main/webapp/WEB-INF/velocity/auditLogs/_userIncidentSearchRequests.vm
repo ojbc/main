@@ -1,0 +1,61 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+ 
+  $(function() {
+  	    		
+    var incidentSearchRequestTable = $("#incidentSearchRequestTable").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 responsive: true, 
+		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No Incident Search Request Logs Found"
+    	 } 
+	});
+	
+	new $.fn.dataTable.FixedHeader( incidentSearchRequestTable );
+	
+  });
+    
+</script>
+	
+<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="incidentSearchRequestTable">
+	<thead>
+		<tr>
+			<th>START DATE</th>
+			<th>END DATE</th>
+			<th>CITY TOWN</th>
+			<th>CATEGORY TYPE</th>
+			<th>INCIDENT NUMBER</th>
+			<th>TIMESTAMP</th>
+		</tr>
+	</thead>
+	<tbody>
+        #foreach($incidentSearchRequest in $incidentSearchRequests)
+	        <tr title='$!incidentSearchRequest.incidentSearchRequestId'>
+	        	<td>$!incidentSearchRequest.startDate</td>
+	        	<td>$!incidentSearchRequest.endDate</td>
+	        	<td>$!incidentSearchRequest.cityTown</td>
+	        	<td>$!incidentSearchRequest.categoryType</td>
+	        	<td>$!incidentSearchRequest.incidentNumber</td>
+	        	<td>$!incidentSearchRequest.timestamp.format($dateTimeformatter)</td>
+        	</tr>
+        #end
+	</tbody>
+</table> 								

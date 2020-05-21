@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
@@ -112,6 +113,18 @@ public class RestEnhancedAuditClient {
 		String uri = restServiceBaseUrl + "auditServer/audit/retrievePersonSearchRequest";
 		
 		ResponseEntity<List<PersonSearchRequest>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<PersonSearchRequest>>() {});
+		
+		return response.getBody();
+	}
+	
+	public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<AuditSearchRequest> entity = new HttpEntity<AuditSearchRequest>(auditSearchRequest, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveIncidentSearchRequest";
+		
+		ResponseEntity<List<IncidentSearchRequest>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<IncidentSearchRequest>>() {});
 		
 		return response.getBody();
 	}
