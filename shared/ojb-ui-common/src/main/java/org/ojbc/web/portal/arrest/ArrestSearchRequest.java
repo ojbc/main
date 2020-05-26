@@ -142,7 +142,8 @@ public class ArrestSearchRequest {
 		return this.getArrestDateRangeEndDate() == null &&
 				this.getArrestDateRangeStartDate() == null && 
 				StringUtils.isBlank(this.getArrestIdentification()) && 
-				this.getDob() == null && 
+				this.getDob() == null &&
+				(this.getUserSelectedOris() == null || this.getUserSelectedOris().isEmpty()) && 
 				StringUtils.isBlank(this.getFirstName()) && 
 				StringUtils.isBlank(this.getLastName()) && 
 				StringUtils.isBlank(this.getSsn()) && 

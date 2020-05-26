@@ -107,7 +107,7 @@ public class AppProperties {
 		
 		getDaPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");
 		getDaPendingChargesMapping().put("filedCharges", "Filed Charges");
-		getDaPendingChargesMapping().put("MentalHealthCourt", "Sentenced to Mental Health Court");
+		getDaPendingChargesMapping().put("mentalHealthCourt", "Sentenced to Mental Health Court");
 		getDaPendingChargesMapping().put("drugCourt", "Sentenced to Drug Court");
 	}
 

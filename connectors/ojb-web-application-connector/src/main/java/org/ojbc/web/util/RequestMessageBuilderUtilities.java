@@ -1229,7 +1229,27 @@ public class RequestMessageBuilderUtilities {
 
         XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeOnlyAdminOwnedChargesIndicator", 
 			BooleanUtils.toString(arrestSearchRequest.getIncludeOnlyAdminOwnedCharges(), "true", "false", "false"));
- 
+
+        if (arrestSearchRequest.getPendingChargeIndicators() != null && arrestSearchRequest.getPendingChargeIndicators().size()>0){
+        	for (String indicator: arrestSearchRequest.getPendingChargeIndicators()) {
+        		switch (indicator) {
+        		case "deferredDisposition":
+        	        XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeDeferredDispositionIndicator", "true");
+        			break; 
+        		case "filedCharges": 
+        	        XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeFiledChargesIndicator", "true");
+        			break;
+        		case "mentalHealthCourt": 
+        	        XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeMentalHealthCourtIndicator", "true");
+        			break;
+        		case "drugCourt": 
+        			XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeDrugCourtIndicator", "true");
+        			break;
+    			default:
+        		}
+        	}
+        }
+        
         if (arrestSearchRequest.isNotEmpty()) {
         	Element arrest = XmlUtils.appendElement(rootElement, NS_JXDM_60, "Arrest");
         	
@@ -1274,6 +1294,7 @@ public class RequestMessageBuilderUtilities {
         			XmlUtils.appendTextElement(organizationORIIdentification, NS_NC_40, "IdentificationID", ori);
         		}
         	}
+        	
         	if (arrestSearchRequest.isSubjectInfoNotEmpty()) {
         		Element arrestSubject = XmlUtils.appendElement(arrest, NS_JXDM_60, "ArrestSubject"); 
         		XmlUtils.addAttribute(arrestSubject, NS_STRUCTURES_40, "ref", "Subject_01");
