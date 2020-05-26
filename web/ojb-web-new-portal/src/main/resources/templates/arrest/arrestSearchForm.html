@@ -72,23 +72,26 @@
 		          </select>
             </div>
           </div>
+          <div class="form-row mt-2" th:if="${osbiUser.employerOrganizationCategory == 'Criminal History Repository'}">
+            <label for="pendingChargeIndicators" class="col-2 col-sm-4 col-lg-3 col-xl-2 col-form-label font-weight-bold text-right">Pending Charges </label>
+            <div class="col-10 col-sm-8 col-lg-3">
+              <select th:field="*{pendingChargeIndicators}" class="form-control chosen-select" multiple="multiple" th:errorclass="is-invalid" 
+                 data-placeholder="Please select all that apply...">
+                <option th:each="item: ${pendingChargesMapping}" th:value="${item.key}" th:text="${item.value}" />
+              </select>
+            </div>
+          </div>
           <div class="form-row">
             <div class="col-8 col-lg-4 offset-lg-2 offset-4">
-               <input type="checkbox" th:field="*{arrestWithDeferredDispositions}" th:value="${arrestWithDeferredDispositions}" />
-               <span class="font-weight-bold ">Arrests With Deferred Dispositions</span> 
-            </div>
-            <div class="col-lg-3 offset-lg-1 col-8 offset-4 offset-xl-0">
                <input type="checkbox" th:field="*{includeHiddenArrestIndicator}" th:value="${includeHiddenArrestIndicator}" />
                <span class="font-weight-bold ">Include Hidden Arrests</span>
             </div>
-          </div>
-          <div class="form-row mt-2" th:if="${osbiUser.employerOrganizationCategory == 'Criminal History Repository'}">
-            <div class="col-lg-4 offset-lg-2 col-8 offset-4">
+            <div class="col-lg-3 offset-lg-1 col-8 offset-4 offset-xl-0">
                <input type="checkbox" th:field="*{includeOnlyAdminOwnedCharges}" th:value="${includeOnlyAdminOwnedCharges}"/>
                <span class="font-weight-bold ">Include Only Admin Owned Charges</span> 
             </div>
           </div>
-          <div class="form-row mt-2">
+          <div class="form-row mt-3">
             <div class="col-lg-3 offset-lg-2 col-8 offset-4">
                 <button type="button" class="btn-primary" id="submit">Search</button>
                 <button type="button" class="btn-secondary" id="reset">Reset</button>

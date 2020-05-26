@@ -57,6 +57,7 @@ public class ArrestSearchRequest {
     private String arrestIdentification;
     private List<String> userSelectedOris;
     private List<String> authorizedOris;
+    private List<String> pendingChargeIndicators;
     
     private ArrestType arrestType; 
     private Boolean arrestWithDeferredDispositions; 
@@ -250,5 +251,13 @@ public class ArrestSearchRequest {
 
 	public void setIncludeOnlyAdminOwnedCharges(Boolean includeOnlyAdminOwnedCharges) {
 		this.includeOnlyAdminOwnedCharges = includeOnlyAdminOwnedCharges;
+	}
+
+	public List<String> getPendingChargeIndicators() {
+		return pendingChargeIndicators;
+	}
+
+	public void setPendingChargeIndicators(List<String> pendingChargeIndicators) {
+		this.pendingChargeIndicators = pendingChargeIndicators;
 	}
 }

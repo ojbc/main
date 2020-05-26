@@ -128,6 +128,7 @@ public class DaArrestController {
 			model.addAttribute("yearList", yearList);
 		}
 		
+		model.addAttribute("pendingChargesMapping", appProperties.getDaPendingChargesMapping());
     }
     
 	@InitBinder("disposition")

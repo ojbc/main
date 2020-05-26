@@ -109,6 +109,7 @@ public class MuniArrestController {
 			model.addAttribute("submitArrestConfirmationMessage", appProperties.getSubmitArrestConfirmationMessage());
 		}
 		
+		model.addAttribute("pendingChargesMapping", appProperties.getMuniPendingChargesMapping());
     	log.info("All ModelAtrributes are added.");
     }
     

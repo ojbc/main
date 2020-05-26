@@ -38,6 +38,8 @@ public class AppProperties {
 	private Map<String, String> provisionCodeMapping = new LinkedHashMap<>();
 	private Map<String, String> chargeSeverityCodeMapping = new LinkedHashMap<>();
 	private Map<String, String> daCaseTypeCodeMapping = new LinkedHashMap<>();
+	private Map<String, String> muniPendingChargesMapping = new LinkedHashMap<>();
+	private Map<String, String> daPendingChargesMapping = new LinkedHashMap<>();
 	private Map<String, String> daGeneralOffenseCodeMapping;
 	private Map<String, String> daGeneralOffenseDescMapping; 
 	private String restServiceBaseUrl = "http://localhost:9898";
@@ -99,6 +101,14 @@ public class AppProperties {
 		generalOffenseCodeMapping.put("A", "Attempted");
 		generalOffenseCodeMapping.put("V", "After Felony Conviction");
 		setDaGeneralOffenseCodeMapping(generalOffenseCodeMapping);
+		
+		getMuniPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");
+		getMuniPendingChargesMapping().put("filedCharges", "Filed Charges");
+		
+		getDaPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");
+		getDaPendingChargesMapping().put("filedCharges", "Filed Charges");
+		getDaPendingChargesMapping().put("MentalHealthCourt", "Sentenced to Mental Health Court");
+		getDaPendingChargesMapping().put("drugCourt", "Sentenced to Drug Court");
 	}
 
 	public Map<String, String> getDispoCodeMapping() {
@@ -312,6 +322,22 @@ public class AppProperties {
 
 	public void setArrestSearchDateRange(Integer arrestSearchDateRange) {
 		this.arrestSearchDateRange = arrestSearchDateRange;
+	}
+
+	public Map<String, String> getMuniPendingChargesMapping() {
+		return muniPendingChargesMapping;
+	}
+
+	public void setMuniPendingChargesMapping(Map<String, String> muniPendingChargesMapping) {
+		this.muniPendingChargesMapping = muniPendingChargesMapping;
+	}
+
+	public Map<String, String> getDaPendingChargesMapping() {
+		return daPendingChargesMapping;
+	}
+
+	public void setDaPendingChargesMapping(Map<String, String> daPendingChargesMapping) {
+		this.daPendingChargesMapping = daPendingChargesMapping;
 	}
 
 }
