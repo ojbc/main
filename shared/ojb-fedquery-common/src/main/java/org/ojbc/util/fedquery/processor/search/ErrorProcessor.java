@@ -135,7 +135,7 @@ public class ErrorProcessor {
 		
 		if (isPersonOp)
 		{	
-			sb.append("</exchange:PersonFirearmRegistrationQueryResults");	
+			sb.append("</exchange:PersonFirearmRegistrationQueryResults>");	
 		}
 
 		return sb.toString();

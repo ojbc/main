@@ -55,6 +55,10 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDrugCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeMentalHealthCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDeferredDispositionIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeFiledChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -73,6 +77,10 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDrugCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeMentalHealthCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDeferredDispositionIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeFiledChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -91,6 +99,10 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDrugCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeMentalHealthCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDeferredDispositionIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeFiledChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -110,6 +122,10 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="chsreq-ext:IncludeOnlyAdminOwnedChargesIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDrugCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeMentalHealthCourtIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeDeferredDispositionIndicator" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="chsreq-ext:IncludeFiledChargesIndicator" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
@@ -189,6 +205,26 @@
 	<xsd:element name="IncludeOnlyAdminOwnedChargesIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a returned charge is owned by Admin; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncludeDrugCourtIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a returned charge is includes Drug Court; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncludeMentalHealthCourtIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a returned charge is includes Mental Health Court; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncludeDeferredDispositionIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a returned charge is includes Deferred Disposition; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncludeFiledChargesIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a returned charge is includes Filed Charges; false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="SearchQualifierCodeType">

@@ -53,12 +53,30 @@
 		<camel:route>
 			<camel:from uri="personQueryVehicleCrashRequestServiceEndpoint" />
 			
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.vehicleCrash.dbAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.vehicleCrash.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
@@ -139,6 +157,14 @@
 		<camel:route>
 			<camel:from uri="personQueryVehicleCrashResultsEndpoint"/>
 			
+			<camel:log message="\n\n\n Entering Person Query Results Handler for Vehicle Crash ... \n\n\n"></camel:log>
+			
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash</constant>
+			</camel:setHeader>
+			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.vehicleCrash.dbAuditLog} == 'true'</camel:simple>
@@ -154,13 +180,23 @@
 				</camel:when>
 			</camel:choice>
 			
-			<camel:log message="\n\n\n Entering Person Query Results Handler for Vehicle Crash ... \n\n\n"></camel:log>
-			
-			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash</constant>
-			</camel:setHeader>
-			
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.vehicleCrash.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						
+						<camel:log message="Enhanced auditing vehicle crash response."/>
+						
+						<camel:to uri="bean:vehicleCrashQueryResponseSQLProcessor?method=auditVehicleCrashResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
 			
 			<camel:log message="Calling Aggregator" />
 			

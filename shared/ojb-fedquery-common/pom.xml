@@ -22,7 +22,7 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>3.0.0</version> 
+	<version>3.0.1</version> 
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
 	<url>http://www.ojbc.org</url>
 

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<vcq-res-doc:VehicleCrashQueryResults xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                                      xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
+                                      xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+                                      xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+                                      xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+                                      xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+                                      xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0"
+                                      xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                      xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+                                      xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <vcq-res-ext:VehicleCrashReport>
+      <nc:DocumentCreationDate>
+         <nc:DateTime>2015-01-03T00:00:00-05:00</nc:DateTime>
+      </nc:DocumentCreationDate>
+      <nc:DocumentIdentification>
+         <nc:IdentificationID>17-999999</nc:IdentificationID>
+      </nc:DocumentIdentification>
+      <vcq-res-ext:DocumentApprovedDate>
+         <nc:DateTime>2017-01-03T00:00:00-05:00</nc:DateTime>
+      </vcq-res-ext:DocumentApprovedDate>
+      <j:Crash structures:id="d23e12">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-12-30T00:00:00-05:00</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ActivityAugmentation>
+            <j:Narrative>
+               <nc:CommentText>NARRATIVE</nc:CommentText>
+            </j:Narrative>
+         </j:ActivityAugmentation>
+         <j:IncidentAugmentation>
+            <j:IncidentReportingOfficial>
+               <nc:RoleOfPerson structures:ref="d23e9"/>
+               <j:EnforcementOfficialBadgeIdentification>
+                  <nc:IdentificationID>3333</nc:IdentificationID>
+               </j:EnforcementOfficialBadgeIdentification>
+            </j:IncidentReportingOfficial>
+         </j:IncidentAugmentation>
+         <j:CrashInformationSource>
+            <j:OrganizationORIIdentification>
+               <nc:IdentificationID>ST987898</nc:IdentificationID>
+            </j:OrganizationORIIdentification>
+            <me-crash-codes:ReportingAgencyCodeText>POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
+         </j:CrashInformationSource>
+         <j:CrashWorkZone>
+            <me-crash-codes:InOrNearWorkZoneCodeText>No</me-crash-codes:InOrNearWorkZoneCodeText>
+         </j:CrashWorkZone>
+         <j:CrashVehicle>
+            <nc:RoleOfItem structures:ref="d23e91"/>
+            <j:CrashDriver>
+               <nc:RoleOfPerson structures:ref="d23e159"/>
+               <me-crash-codes:CrashDriverDistractionCodeText>Not Distracted</me-crash-codes:CrashDriverDistractionCodeText>
+            </j:CrashDriver>
+            <j:CrashVehicleOccupant>
+               <nc:RoleOfPerson structures:ref="d23e159"/>
+            </j:CrashVehicleOccupant>
+            <j:LocationRoadway>
+               <me-crash-codes:RoadwayGradeCodeText>On Grade</me-crash-codes:RoadwayGradeCodeText>
+            </j:LocationRoadway>
+            <me-crash-codes:CrashVehicleCategoryCodeText>Medium/Heavy Trucks (More than 10,000 lbs)</me-crash-codes:CrashVehicleCategoryCodeText>
+            <j:TravelDirectionBeforeCrashCode>3</j:TravelDirectionBeforeCrashCode>
+            <j:VehicleContributingCircumstancesCode>1</j:VehicleContributingCircumstancesCode>
+            <me-crash-codes:VehicleDamageExtentCodeText>Functional Damage</me-crash-codes:VehicleDamageExtentCodeText>
+            <me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>No Passing Zone</me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>
+            <vcq-res-ext:HazmatPlacardIndicator>false</vcq-res-ext:HazmatPlacardIndicator>
+            <me-crash-codes:PostedSpeedLimitCodeText>40 Mph</me-crash-codes:PostedSpeedLimitCodeText>
+            <vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
+            <vcq-res-ext:ExemptVehicleIndicator>true</vcq-res-ext:ExemptVehicleIndicator>
+         </j:CrashVehicle>
+         <nc:Location structures:id="d23e24">
+            <nc:Address>
+               <me-crash-codes:CityOrTownCodeText>Cumberland</me-crash-codes:CityOrTownCodeText>
+            </nc:Address>
+            <nc:AddressHighway>
+               <nc:HighwayFullText>SOME ROAD</nc:HighwayFullText>
+            </nc:AddressHighway>
+            <vcq-res-ext:NearestIntersectingStreetFullText>OTHER WAY</vcq-res-ext:NearestIntersectingStreetFullText>
+            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>150</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+            <me-crash-codes:DirectionFromNearestIntersectionCodeText>East</me-crash-codes:DirectionFromNearestIntersectionCodeText>
+            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>Feet</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>
+         </nc:Location>
+         <me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>Weather Conditions</me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>
+         <me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>Physical Obstructions</me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>
+         <me-crash-codes:CrashFirstHarmfulEventLocationCodeText>On Roadway</me-crash-codes:CrashFirstHarmfulEventLocationCodeText>
+         <j:CrashLightConditionCode>5</j:CrashLightConditionCode>
+         <j:CrashRoadContributingCircumstancesCode>1</j:CrashRoadContributingCircumstancesCode>
+         <j:CrashRoadSurfaceConditionCode>3</j:CrashRoadSurfaceConditionCode>
+         <j:CrashSchoolBusRelatedCode>0</j:CrashSchoolBusRelatedCode>
+         <me-crash-codes:CrashWeatherConditionCodeText>Snow</me-crash-codes:CrashWeatherConditionCodeText>
+         <me-crash-codes:TrafficControlDeviceOperationalCodeText>Yes</me-crash-codes:TrafficControlDeviceOperationalCodeText>
+         <vcq-res-ext:SceneArrivalDateTime>
+            <nc:DateTime>2017-01-03T00:00:00-05:00</nc:DateTime>
+         </vcq-res-ext:SceneArrivalDateTime>
+      </j:Crash>
+      <nc:Person structures:id="d23e9">
+         <nc:PersonName>
+            <nc:PersonFullName>LT OFFICER</nc:PersonFullName>
+         </nc:PersonName>
+      </nc:Person>
+      <nc:Person structures:id="d23e144">
+         <nc:PersonName>
+            <nc:PersonSurName>TOWN OF CUMBERLAND</nc:PersonSurName>
+         </nc:PersonName>
+         <me-crash-codes:PersonCategoryCodeText>Owner</me-crash-codes:PersonCategoryCodeText>
+      </nc:Person>
+      <nc:Person structures:id="d23e159">
+         <nc:PersonBirthDate>
+            <nc:Date>1980-07-18</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>GIVEN</nc:PersonGivenName>
+            <nc:PersonMiddleName>E</nc:PersonMiddleName>
+            <nc:PersonSurName>SMITH</nc:PersonSurName>
+         </nc:PersonName>
+         <j:PersonSexCode>M</j:PersonSexCode>
+         <j:PersonAugmentation>
+            <j:DriverLicense>
+               <j:DriverLicenseIdentification>
+                  <nc:IdentificationID>9878987</nc:IdentificationID>
+                  <nc:IdentificationJurisdiction>
+                     <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+                  </nc:IdentificationJurisdiction>
+               </j:DriverLicenseIdentification>
+               <j:DriverLicenseRestriction>
+                  <me-crash-codes:DriverLicenseRestrictionCodeText>Corrective Lenses</me-crash-codes:DriverLicenseRestrictionCodeText>
+               </j:DriverLicenseRestriction>
+               <me-crash-codes:DriverLicenseStatusCodeText>Active</me-crash-codes:DriverLicenseStatusCodeText>
+               <me-crash-codes:DriverLicenseClassCodeText>B</me-crash-codes:DriverLicenseClassCodeText>
+            </j:DriverLicense>
+         </j:PersonAugmentation>
+         <me-crash-codes:AlcoholTestCategoryCodeText>Test Not Given</me-crash-codes:AlcoholTestCategoryCodeText>
+         <me-crash-codes:DrugTestCategoryCodeText>Test Not Given</me-crash-codes:DrugTestCategoryCodeText>
+         <me-crash-codes:PersonCategoryCodeText>Driver</me-crash-codes:PersonCategoryCodeText>
+      </nc:Person>
+      <nc:Person structures:id="d23e74">
+         <nc:PersonOtherIdentification>
+            <nc:IdentificationID>LT OFFICER 2</nc:IdentificationID>
+         </nc:PersonOtherIdentification>
+      </nc:Person>
+      <nc:Location structures:id="d23e151">
+         <nc:Address>
+            <nc:LocationStreet>
+               <nc:StreetFullText>290 ROAD</nc:StreetFullText>
+            </nc:LocationStreet>
+            <nc:LocationCityName>CITY</nc:LocationCityName>
+            <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+         </nc:Address>
+      </nc:Location>
+      <nc:Location structures:id="d23e170">
+         <nc:Address>
+            <nc:LocationStreet>
+               <nc:StreetFullText>12 TREE LANE</nc:StreetFullText>
+            </nc:LocationStreet>
+            <nc:LocationCityName>CITY</nc:LocationCityName>
+            <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+         </nc:Address>
+      </nc:Location>
+      <nc:Vehicle structures:id="d23e91">
+         <nc:ConveyanceColorPrimaryText>Red</nc:ConveyanceColorPrimaryText>
+         <nc:ItemMakeName>INTERNATIONAL</nc:ItemMakeName>
+         <nc:ItemModelYearDate>2014</nc:ItemModelYearDate>
+         <nc:VehicleIdentification>
+            <nc:IdentificationID>999998888</nc:IdentificationID>
+         </nc:VehicleIdentification>
+         <vcq-res-ext:VehicleUnitIdentification>
+            <nc:IdentificationID>1</nc:IdentificationID>
+         </vcq-res-ext:VehicleUnitIdentification>
+      </nc:Vehicle>
+      <j:ConveyanceRegistration structures:id="d23e102">
+         <j:ConveyanceRegistrationPlateIdentification>
+            <nc:IdentificationID>444-555</nc:IdentificationID>
+            <nc:IdentificationJurisdiction>
+               <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+            </nc:IdentificationJurisdiction>
+         </j:ConveyanceRegistrationPlateIdentification>
+      </j:ConveyanceRegistration>
+      <nc:Insurance structures:id="d23e108">
+         <nc:InsurancePolicyIdentification>
+            <nc:IdentificationID>8888-09</nc:IdentificationID>
+         </nc:InsurancePolicyIdentification>
+         <nc:InsuranceCarrierName>CARRIER</nc:InsuranceCarrierName>
+      </nc:Insurance>
+      <j:ActivityInformationApproverAssociation>
+         <nc:Activity structures:ref="d23e12"/>
+         <nc:Person structures:ref="d23e74"/>
+      </j:ActivityInformationApproverAssociation>
+      <nc:ItemInsuranceAssociation>
+         <nc:Insurance structures:ref="d23e108"/>
+         <nc:Item structures:ref="d23e91"/>
+      </nc:ItemInsuranceAssociation>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d23e144"/>
+         <nc:Location structures:ref="d23e151"/>
+      </nc:PersonResidenceAssociation>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d23e159"/>
+         <nc:Location structures:ref="d23e170"/>
+      </nc:PersonResidenceAssociation>
+      <j:ConveyanceRegistrationAssociation>
+         <j:ItemRegistration structures:ref="d23e102"/>
+         <nc:Item structures:ref="d23e91"/>
+      </j:ConveyanceRegistrationAssociation>
+   </vcq-res-ext:VehicleCrashReport>
+</vcq-res-doc:VehicleCrashQueryResults>
+ 

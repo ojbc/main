@@ -19,6 +19,7 @@ package org.ojbc.audit.enhanced.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
@@ -43,6 +44,7 @@ import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.ojbc.audit.enhanced.dao.model.TriggeringEvents;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -101,6 +103,10 @@ public interface EnhancedAuditDAO {
 	public Integer saveQueryRequest(QueryRequest queryRequest);
 	
 	public Integer savePersonQueryCriminalHistoryResponse(PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse);
+	
+	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse);
+	
+	public Integer saveCrashVehicle(CrashVehicle crashVehicle);
 	
 	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
 	
@@ -187,4 +193,14 @@ public interface EnhancedAuditDAO {
 	public List<VehicleSearchRequest> retrieveVehicleSearchRequest (AuditSearchRequest vehicleSearchRequest);
 	
 	public List<IncidentSearchRequest> retrieveIncidentSearchRequest (AuditSearchRequest incidentAuditSearchRequest);
+	
+	public List<QueryRequest> retrieveQueryRequest (AuditSearchRequest incidentAuditSearchRequest);
+	
+	public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId);
+	
+	public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId);
+	
+	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
+	
+	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
 }

@@ -28,6 +28,12 @@
 	<version>1.0.2</version>
 	<name>OJB :: socrata-open-data-utility :: utilities</name>
 	<url>http://www.ojbc.org</url>
+	
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-utilities-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>	
 
 	<properties>
 		<camel-version>2.14.4</camel-version>
