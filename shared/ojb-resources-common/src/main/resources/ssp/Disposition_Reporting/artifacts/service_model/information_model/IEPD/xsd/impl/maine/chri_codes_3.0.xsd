@@ -58,10 +58,17 @@
 			<xsd:enumeration value="JV SUPPORT BY MOTHER" />
 <!-- ADDED 05/12/20  -->		
 			<xsd:enumeration value="JV CUSTODY TO PARENT" />
+			<xsd:enumeration value="JV CUSTODY TO PARENTS" />	
+			<xsd:enumeration value="JV CUSTODY TO GUARDIAN" />					
 			<xsd:enumeration value="JV INSURANCE REQUIREMENT - PARENT" />
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - PARENTS" />
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - GUARDIAN" />			
+			<xsd:enumeration value="JV INSURANCE REQUIREMENT - OTHER" />			
 			<xsd:enumeration value="JV SUPPORT BY PARENT" />
+			<xsd:enumeration value="JV SUPPORT BY PARENTS" />	
+			<xsd:enumeration value="JV SUPPORT BY GUARDIAN" />					
+			<xsd:enumeration value="JV SUPPORT BY OTHER" />								
 <!-- ADDED 05/12/20  -->	
-
 			<xsd:enumeration value="PARTICIPATE IN DEEP" />
 			<xsd:enumeration value="SEX OFFENDER REGISTRATION" />
 			<xsd:enumeration value="SEXUAL OFFENDER" />
