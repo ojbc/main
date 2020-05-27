@@ -143,6 +143,12 @@
 						<br/>
 					</xsl:if>
 					<xsl:value-of select="."/>
+					<xsl:if test="parent::j:ArrestCharge/chsres-ext:InProcessIndicator = 'true'">
+					   <xsl:text>(IN PROCESS)</xsl:text>
+					</xsl:if>
+					<xsl:if test="parent::j:ArrestCharge/chsres-ext:ExpiredIndicator = 'true'">
+						<xsl:text> (EXPIRED)</xsl:text>
+					</xsl:if>
 				</xsl:for-each>
 				<span class="chargeIds d-none">
 				  <xsl:value-of select="string-join(j:Arrest/j:ArrestCharge/j:ChargeIdentification/nc:IdentificationID, ',')"/>
