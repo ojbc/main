@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -155,6 +156,17 @@ public class AuditLogsController {
 		model.put("incidentSearchRequests", incidentSearchRequests); 
 		
 		return "auditLogs/_userIncidentSearchRequests";
+	}
+	
+	@RequestMapping("/queryRequests" )
+	public String getQueryRequests(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getQueryRequests");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<QueryRequest> queryRequests = restEnhancedAuditClient.retrieveQueryRequest(auditSearchRequest);
+		model.put("queryRequests", queryRequests); 
+		
+		return "auditLogs/_queryRequests";
 	}
 	
 }
