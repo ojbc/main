@@ -20,6 +20,10 @@ import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class QueryRequest {
 
@@ -29,6 +33,8 @@ public class QueryRequest {
 	private Integer userInfofk;
 	private String messageId;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 	
 	public String getIdentificationId() {
