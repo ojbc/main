@@ -131,8 +131,75 @@
 					<to uri="direct:retrieveIncidentSearchRequest" />
 				</when>
 				
+				<when>
+					<simple>${header.operationName} == 'retrieveQueryRequest'</simple>
+					<to uri="direct:retrieveQueryRequest" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveCriminalHistoryQueryDetail'</simple>
+					<to uri="direct:retrieveCriminalHistoryQueryDetail" />
+				</when>								
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveFirearmQueryDetail'</simple>
+					<to uri="direct:retrieveFirearmQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveWarrantQueryDetail'</simple>
+					<to uri="direct:retrieveWarrantQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveVehicleCrashQueryResultsDetail'</simple>
+					<to uri="direct:retrieveVehicleCrashQueryResultsDetail" />
+				</when>												
+				
 			</choice>
 		</route>
+		
+		<route id="directRetrieveVehicleCrashQueryResultsDetail">
+			<from uri="direct:retrieveVehicleCrashQueryResultsDetail" />
+			
+			<camel:log message="Return Vehicle Crash Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveVehicleCrashQueryResultsDetail" />
+		</route>		
+		
+		
+		<route id="directRetrieveCriminalHistoryQueryDetail">
+			<from uri="direct:retrieveCriminalHistoryQueryDetail" />
+			
+			<camel:log message="Return Criminal History Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveCriminalHistoryQueryDetail" />
+		</route>		
+		
+		
+		<route id="directRetrieveFirearmQueryDetail">
+			<from uri="direct:retrieveFirearmQueryDetail" />
+			
+			<camel:log message="Return Firearm Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveFirearmQueryDetail" />
+		</route>		
+		
+		<route id="directRetrieveWarrantQueryDetail">
+			<from uri="direct:retrieveWarrantQueryDetail" />
+			
+			<camel:log message="Return Warrant Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveWarrantQueryDetail" />
+		</route>			
+		
+		<route id="directRetrieveQueryRequest">
+			<from uri="direct:retrieveQueryRequest" />
+			
+			<camel:log message="Return Query Request"/>
+			
+			<bean ref="auditRestImpl" method="retrieveQueryRequest" />
+		</route>			
 
 		<route id="directRetrievePersonSearchRequest">
 			<from uri="direct:retrievePersonSearchRequest" />
