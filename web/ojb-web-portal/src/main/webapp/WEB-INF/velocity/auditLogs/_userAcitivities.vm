@@ -70,15 +70,42 @@
 		oTable.destroy();
 	});
 	
-	$('.ajaxTab').on('show.bs.tab', function () {
-		oTable.fixedHeader.disable();
-		oTable.destroy();
+	$('.ajaxTab').on('shown.bs.tab', function () {
   		var tabPaneId = $(this).attr("aria-controls");
   		var tabPane = $("#" + tabPaneId);
        	xhr = $.get("#springUrl('/auditLogs/queryRequests')",function(data) {
 	        tabPane.html(data);
+		    oTable = $("#queryRequestsTable").DataTable({
+				 "pagingType": "full_numbers",
+				 "pageLength": 25,
+				 stateSave: true,
+				 responsive: true, 
+				 fixedHeader: true,
+				 "language": {
+		      		"emptyTable": "No User Query Requests Found"
+		    	 } 
+			});
         }).fail(ojbc.displayFailMessage);
   		
+	})
+	
+	$('.nav-tabs [data-toggle="tab"]').on('hidden.bs.tab', function () {
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	})
+	
+	$('.nav-tabs .nav-item:first-child').on('shown.bs.tab', function () {
+		table = $('.collapse.show .card-body table');
+		oTable = table.DataTable({
+			 "pagingType": "full_numbers",
+			 "pageLength": 25,
+			 stateSave: true,
+			 responsive: true, 
+			 fixedHeader: true,
+			 "language": {
+	      		"emptyTable": "No Data Entry Found"
+	    	 } 
+		});
 	})
 	
   });

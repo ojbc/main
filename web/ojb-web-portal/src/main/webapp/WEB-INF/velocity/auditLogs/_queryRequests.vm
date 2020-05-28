@@ -17,36 +17,6 @@
  <script type="text/javascript">
  
   $(function() {
-  	$('#searchBarButtonDiv').hide();    		
-  	
-    var oTable = $("#queryRequestsTable").DataTable({
-		 "pagingType": "full_numbers",
-		 "pageLength": 25,
-		 stateSave: true,
-		 responsive: true, 
-		 colReorder: true,
-		 "language": {
-      		"emptyTable": "No User Query Requests Found"
-    	 } 
-	});
-	
-	new $.fn.dataTable.FixedHeader( oTable );
-	
-	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
-		event.preventDefault();
- 		var userInfoId = $(this).attr("title");
- 		var userActivitiesUrl = encodeURI("#springUrl('/auditLogs/userActivities?userInfoId=')"+ userInfoId);
- 		
-		var row = $(this).closest('tr'); 
-		row.siblings().removeClass("selected");
-	    row.addClass("selected");
-		
-  		$.get(userActivitiesUrl, function(data){
-  			$('#portalContent').html(data);
-  		}).fail(ojbc.displayFailMessage);	
-  		
-  		return false;		  					  					  		                                                     
- 	}); 
  	  		 
   });
     
