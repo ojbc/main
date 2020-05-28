@@ -19,23 +19,20 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-    var oTable = $("#searchResultsTable").DataTable({
+    var oTable = $("#queryRequestsTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
 		 responsive: true, 
 		 colReorder: true,
 		 "language": {
-      		"emptyTable": "No User Authentication Logs Found"
+      		"emptyTable": "No User Query Requests Found"
     	 } 
 	});
 	
 	new $.fn.dataTable.FixedHeader( oTable );
 	
 	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
-		oTable.fixedHeader.disable();
-		oTable.destroy();
-	
 		event.preventDefault();
  		var userInfoId = $(this).attr("title");
  		var userActivitiesUrl = encodeURI("#springUrl('/auditLogs/userActivities?userInfoId=')"+ userInfoId);
@@ -56,36 +53,23 @@
 </script>
 	
 <div style="padding:10px">
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
-			<li class="breadcrumb-item"><a href="#" class="auditLink">User Authentication Search Form</a></li>
-			<li class="breadcrumb-item active" aria-current="page">User Authentication Search Results</li>
-		</ol>
-	</nav>
 
-	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
+	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="queryRequestsTable">
 		<thead>
 			<tr>
-				<th>USER ACTION</th>
-				<th>FIRST NAME</th>
-				<th>LAST NAME</th>
-				<th>EMAIL</th>
-				<th>EMPLOYER ORI</th>
-				<th>EMPLOYER NAME</th>
+				<th>IDENTIFICATION ID</th>
+				<th>IDENTIFICATION SOURCE TEXT</th>
+				<th>MESSAGE ID</th>
 				<th>TIMESTAMP</th>
 			</tr>
 		</thead>
 		<tbody>
-	        #foreach($userAuthenticationSearchResponse in $userAuthenticationSearchResponses)
-		        <tr title='$!userAuthenticationSearchResponse.userInfoId'>
-		        	<td>$!userAuthenticationSearchResponse.userAction</td>
-		        	<td>$!userAuthenticationSearchResponse.userFirstName</td>
-		        	<td>$!userAuthenticationSearchResponse.userLastName</td>
-		        	<td>$!userAuthenticationSearchResponse.userEmailAddress</td>
-		        	<td>$!userAuthenticationSearchResponse.employerOri</td>
-		        	<td>$!userAuthenticationSearchResponse.employerName</td>
-		        	<td>$!userAuthenticationSearchResponse.timestamp.format($dateTimeformatter)</td>
+	        #foreach($queryRequest in $queryRequests)
+		        <tr title='$!queryRequest.queryRequestId'>
+		        	<td>$!queryRequest.identificationId</td>
+		        	<td>$!queryRequest.identificationSourceText</td>
+		        	<td>$!queryRequest.messageId</td>
+		        	<td>$!queryRequest.timestamp.format($dateTimeformatter)</td>
 	        	</tr>
 	        #end
 		</tbody>

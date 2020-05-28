@@ -17,21 +17,23 @@
  <script type="text/javascript">
  
   $(function() {
-  	    		
-    var oTable = $("#personSearchRequestTable").DataTable({
+  	
+    oTable = $("#personSearchRequestTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
 		 responsive: true, 
 		 colReorder: true,
+		 fixedHeader: true, 
 		 "language": {
       		"emptyTable": "No Person Search Request Logs Found"
     	 } 
 	});
 	
-	new $.fn.dataTable.FixedHeader( oTable );
-	
 	$('.userAuthenticationSearchResults').click (function(){
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	
        	xhr = $.get("#springUrl('/auditLogs/userAuthenticationSearchResults')",function(data) {
 	        $('#portalContent').html(data);
         }).fail(ojbc.displayFailMessage);
@@ -47,7 +49,30 @@
   		
 	})
 	
+	$('#collapseOne').on('shown.bs.collapse', function () {
+		
+	    oTable = $("#personSearchRequestTable").DataTable({
+			 "pagingType": "full_numbers",
+			 "pageLength": 25,
+			 stateSave: true,
+			 responsive: true, 
+			 colReorder: true,
+			 fixedHeader: true, 
+			 "language": {
+	      		"emptyTable": "No Person Search Request Logs Found"
+	    	 } 
+		});
+		
+	})
+	
+	$('#collapseOne').on('hidden.bs.collapse', function () {
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	});
+	
 	$('.ajaxTab').on('show.bs.tab', function () {
+		oTable.fixedHeader.disable();
+		oTable.destroy();
   		var tabPaneId = $(this).attr("aria-controls");
   		var tabPane = $("#" + tabPaneId);
        	xhr = $.get("#springUrl('/auditLogs/queryRequests')",function(data) {
