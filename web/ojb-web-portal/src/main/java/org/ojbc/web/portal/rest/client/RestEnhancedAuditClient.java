@@ -20,14 +20,23 @@ package org.ojbc.web.portal.rest.client;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -142,6 +151,56 @@ public class RestEnhancedAuditClient {
 		return response.getBody();
 	}
 	
+	
+   public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveCriminalHistoryQueryDetail";
+		
+		ResponseEntity<PersonQueryCriminalHistoryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<PersonQueryCriminalHistoryResponse>() {});
+		
+		return response.getBody();
+   }
+
+   public FirearmsQueryResponse retrieveFirearmQueryDetail(Integer queryRequestId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveFirearmQueryDetail";
+		
+		ResponseEntity<FirearmsQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<FirearmsQueryResponse>() {});
+		
+		return response.getBody();
+   }
+
+   public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveWarrantQueryDetail";
+		
+		ResponseEntity<PersonQueryWarrantResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<PersonQueryWarrantResponse>() {});
+		
+		return response.getBody();
+   }
+	   
+   public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveVehicleCrashQueryResultsDetail";
+		
+		ResponseEntity<VehicleCrashQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<VehicleCrashQueryResponse>() {});
+		
+		return response.getBody();
+   }
+	   
+
 	public Log getLog() {
 		return log;
 	}

@@ -26,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
@@ -67,6 +68,9 @@ public class AuditLogsController {
 	
     @Value("${auditSearchDateRange:30}")
     Integer auditSearchDateRange;
+    
+    @Value("#{propertySplitter.map('${auditQuerySourceSystemMap}', '^')}")
+    Map<String, String> auditQuerySourceSystemMap;
 
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -81,6 +85,7 @@ public class AuditLogsController {
     	userActionMap.put("login", "Login"); 
     	userActionMap.put("logout", "Logout"); 
     	model.addAttribute("userActionMap", userActionMap); 
+    	log.info("auditQuerySourceSystemMap: " + auditQuerySourceSystemMap);
 	}
 
 	private UserAuthenticationSearchRequest initUserAuthenticationSearchRequest() {
@@ -167,6 +172,27 @@ public class AuditLogsController {
 		model.put("queryRequests", queryRequests); 
 		
 		return "auditLogs/_queryRequests";
+	}
+	
+	@RequestMapping(value="/personQueryResponse", method=RequestMethod.POST )
+	public String getPersonQueryResponse(HttpServletRequest request, 
+			@RequestParam("queryRequestId") Integer queryRequestId, 
+			@RequestParam("identificationSourceText") String identificationSourceText,
+			Map<String, Object> model) throws Throwable {
+		log.info("in getQueryRequests");
+		
+		String system = auditQuerySourceSystemMap.get(identificationSourceText); 
+		switch (system) {
+		case "incident": 
+			throw new NotImplementedException();
+		case "criminalHistory": 
+			return "auditLogs/_personQueryCriminalHistoryResponse";
+		case "vehicleCrash": 
+			return "auditLogs/_vehicleCrashQueryResponse";
+		default:
+			throw new IllegalArgumentException("Invalid identification Source Text"); 
+		}
+		
 	}
 	
 }

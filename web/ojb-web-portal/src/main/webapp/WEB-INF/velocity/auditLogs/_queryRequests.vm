@@ -17,7 +17,29 @@
  <script type="text/javascript">
  
   $(function() {
- 	  		 
+	$('#queryRequestsTable').on('dblclick', 'tbody tr',function(event) {
+		event.preventDefault();
+ 		var queryRequestId = $(this).attr("title");
+ 		var rowData = oTable.row($(this)).data(); 
+ 		var identificationSourceText = rowData[1]; 
+ 		var requestData = {
+            'queryRequestId': $(this).attr("title"),
+            'identificationSourceText': identificationSourceText
+        };
+ 		
+ 		
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+ 		var personQueryResponseUrl = encodeURI("#springUrl('/auditLogs/personQueryResponse')");
+  		$.post( personQueryResponseUrl, $.param(requestData), function(data) {
+			$('#personQueryResponseModalContent').html(data);
+			$('#personQueryResponseModal').modal('show');
+     	}).fail(ojbc.displayFailMessage); ;	
+  		
+  		return false;		  					  					  		                                                     
+ 	}); 
   });
     
 </script>
@@ -45,3 +67,19 @@
 		</tbody>
 	</table> 								
 </div>
+
+<div class="modal fade ojbc-modal" id="personQueryResponseModal" tabindex="-1" role="dialog" aria-labelledby="personQueryResponseModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="personQueryResponseModalTitle">PERSON QUERY RESPONSE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="personQueryResponseModalContent">
+        ...
+      </div>
+    </div>
+  </div>
+</div>				    
