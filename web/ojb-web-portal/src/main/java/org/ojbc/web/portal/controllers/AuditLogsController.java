@@ -30,8 +30,10 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -186,8 +188,14 @@ public class AuditLogsController {
 		case "incident": 
 			throw new NotImplementedException();
 		case "criminalHistory": 
+			PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = restEnhancedAuditClient.retrieveCriminalHistoryQueryDetail(queryRequestId); 
+			model.put("personQueryCriminalHistoryResponse", personQueryCriminalHistoryResponse); 
+			log.info("personQueryCriminalHistoryResponse: "+ personQueryCriminalHistoryResponse);
 			return "auditLogs/_personQueryCriminalHistoryResponse";
 		case "vehicleCrash": 
+			VehicleCrashQueryResponse vehicleCrashQueryResponse = restEnhancedAuditClient.retrieveVehicleCrashQueryResultsDetail(queryRequestId); 
+			model.put("vehicleCrashQueryResponse", vehicleCrashQueryResponse); 
+			log.info("vehicleCrashQueryResponse: "+ vehicleCrashQueryResponse);
 			return "auditLogs/_vehicleCrashQueryResponse";
 		default:
 			throw new IllegalArgumentException("Invalid identification Source Text"); 
