@@ -21,5 +21,64 @@
   });
     
 </script>
-	
-<div>VehicleCrashQueryResponse</div>
+	#if($vehicleCrashQueryResponse)
+		
+		<table class="table table-striped table-bordered" width="100%">
+			<tbody>
+				<tr>
+					<th scope="row">QUERY RESULTS ERROR TEXT</th> 
+					<td>$!vehicleCrashQueryResponse.queryResultsErrorText</d> 
+				</tr> 
+				<tr>
+					<th scope="row">QUERY RESULTS TIMEOUT INDICATOR</th> 
+					<td>$!vehicleCrashQueryResponse.queryResultsTimeoutIndicator</d> 
+				</tr> 
+				<tr>
+					<th scope="row">QUERY RESULTS ERROR INDICATOR</th> 
+					<td>$!vehicleCrashQueryResponse.queryResultsErrorIndicator</d> 
+				</tr> 
+				<tr>
+					<th scope="row">SYSTEM NAME</th> 
+					<td>$!vehicleCrashQueryResponse.systemName</d> 
+				</tr> 
+				<tr>
+					<th scope="row">MESSAGE ID</th> 
+					<td>$!vehicleCrashQueryResponse.messageId</d> 
+				</tr> 
+				<tr>
+					<th scope="row">TIME STAMP</th> 
+					<td>$!vehicleCrashQueryResponse.timestamp</d> 
+				</tr> 
+			</tbody> 
+		</table> 
+		<div class="card border-top rounded-top">
+		  <div class="card-header">
+		    CRASH VEHICLES
+		  </div>
+		  <div class="card-body">
+			<table class="table table-striped table-bordered" width="100%">
+				<thead>
+					<tr>
+						<th scope="col">VEHICLE Make</th> 
+						<th scope="col">VEHICLE Model</th> 
+						<th scope="col">VEHICLE IDENTIFICATION NUMBER</th> 
+					</tr> 
+				</thead>
+				<tbody>
+					#foreach($crashVehicle in $vehicleCrashQueryResponse.crashVehicles)
+						<tr>
+							<td>$!crashVehicle.vehicleMake</d> 
+							<td>$!crashVehicle.vehicleModel</d> 
+							<td>$!crashVehicle.vehicleIdentificationNumber</d> 
+						</tr>
+					#end 
+				</tbody> 
+			</table> 
+		  </div>
+	    </div>
+		
+	#else
+		<div class="alert alert-primary" role="alert">
+  			No vehicle crash query response logs found. 	
+		</div>
+	#end
