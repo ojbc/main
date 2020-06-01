@@ -203,4 +203,6 @@ public interface EnhancedAuditDAO {
 	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
 	
 	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
+	
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
 }

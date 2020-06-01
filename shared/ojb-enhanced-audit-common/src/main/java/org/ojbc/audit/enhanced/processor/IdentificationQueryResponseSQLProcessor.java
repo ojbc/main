@@ -40,8 +40,6 @@ public class IdentificationQueryResponseSQLProcessor extends AbstractIdentificat
 			
 			Integer identificationQueryRequestId = enhancedAuditDAO.retrievePersonQueryIDfromMessageID(messageID);
 			
-			identificationQueryResponse.setMessageId(messageID);
-			
 			if (identificationQueryRequestId != null)
 			{
 				identificationQueryResponse.setQueryRequestId(identificationQueryRequestId);
