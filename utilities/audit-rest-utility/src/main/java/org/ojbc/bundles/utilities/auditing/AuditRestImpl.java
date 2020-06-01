@@ -42,6 +42,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -417,5 +418,14 @@ public class AuditRestImpl implements AuditInterface {
 		IdentificationQueryResponse identificationQueryResponse = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryRequestId);
 		
 		return identificationQueryResponse;
+	}
+
+	@Override
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId) {
+		log.info("Retrieve Subscription Query Response for: " + queryRequestId.toString());
+		
+		SubscriptionQueryResponse subscriptionQueryResponse = enhancedAuditDao.retrieveSubscriptionQueryResults(queryRequestId);
+		
+		return subscriptionQueryResponse;
 	}
 }
