@@ -443,7 +443,6 @@ public class EnhancedAuditDaoTest {
 		identificationQueryResponse.setQueryRequestId(queryPk);
 		identificationQueryResponse.setFbiId("123");
 		identificationQueryResponse.setIdDate(LocalDate.now());
-		identificationQueryResponse.setMessageId("123456");
 		identificationQueryResponse.setOca("oca");
 		identificationQueryResponse.setOri("ori");
 		identificationQueryResponse.setOtn("otn");
@@ -455,6 +454,18 @@ public class EnhancedAuditDaoTest {
 		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
 		
 		assertNotNull(identificationQueryResponsePk);
+		
+		IdentificationQueryResponse identificationQueryResponseFromDatabase = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryPk);
+		
+		assertEquals("123",identificationQueryResponseFromDatabase.getFbiId());
+		assertEquals(LocalDate.now(),identificationQueryResponseFromDatabase.getIdDate());
+		assertEquals("oca",identificationQueryResponseFromDatabase.getOca());
+		assertEquals("ori",identificationQueryResponseFromDatabase.getOri());
+		assertEquals("otn",identificationQueryResponseFromDatabase.getOtn());
+		assertEquals("first",identificationQueryResponseFromDatabase.getPersonFirstName());
+		assertEquals("middle",identificationQueryResponseFromDatabase.getPersonMiddleName());
+		assertEquals("last",identificationQueryResponseFromDatabase.getPersonLastName());
+		assertEquals("A123",identificationQueryResponseFromDatabase.getSid());
 		
 		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
 		

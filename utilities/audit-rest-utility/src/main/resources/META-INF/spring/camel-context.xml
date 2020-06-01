@@ -155,9 +155,23 @@
 					<simple>${header.operationName} == 'retrieveVehicleCrashQueryResultsDetail'</simple>
 					<to uri="direct:retrieveVehicleCrashQueryResultsDetail" />
 				</when>												
+
+				<when>
+					<simple>${header.operationName} == 'retrieveIdentificationResultsQueryDetail'</simple>
+					<to uri="direct:retrieveIdentificationResultsQueryDetail" />
+				</when>												
 				
 			</choice>
 		</route>
+		
+		
+		<route id="directRetrieveIdentificationResultsQueryDetail">
+			<from uri="direct:retrieveIdentificationResultsQueryDetail" />
+			
+			<camel:log message="Return Identification Results Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIdentificationResultsQueryDetail" />
+		</route>		
 		
 		<route id="directRetrieveVehicleCrashQueryResultsDetail">
 			<from uri="direct:retrieveVehicleCrashQueryResultsDetail" />

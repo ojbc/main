@@ -33,6 +33,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
@@ -407,5 +408,14 @@ public class AuditRestImpl implements AuditInterface {
 		VehicleCrashQueryResponse vehicleCrashQueryResponse = enhancedAuditDao.retrieveVehicleCrashQueryResultsDetail(queryRequestId);
 		
 		return vehicleCrashQueryResponse;		
+	}
+
+	@Override
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Identification Query Response for: " + queryRequestId.toString());
+		
+		IdentificationQueryResponse identificationQueryResponse = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryRequestId);
+		
+		return identificationQueryResponse;
 	}
 }

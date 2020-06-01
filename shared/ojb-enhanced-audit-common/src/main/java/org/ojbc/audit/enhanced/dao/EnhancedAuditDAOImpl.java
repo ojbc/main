@@ -70,6 +70,7 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRes
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
@@ -2458,6 +2459,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<VehicleCrashQueryResponse> vehicleCrashQueryResponses = jdbcTemplate.query(VEHICLE_CRASH_QUERY_SELECT, new VehicleCrashQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(vehicleCrashQueryResponses);	
+	}
+
+	@Override
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId) {
+		final String IDENTIFICATION_RESULTS_QUERY_SELECT="SELECT * from IDENTIFICATION_RESULTS_QUERY_DETAIL where QUERY_REQUEST_ID = ? ";
+		
+		List<IdentificationQueryResponse> identificationQueryResponses = jdbcTemplate.query(IDENTIFICATION_RESULTS_QUERY_SELECT, new IdentificationQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(identificationQueryResponses);			
 	}
 
 }
