@@ -42,6 +42,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -203,6 +204,12 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveSubscriptionQueryResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
 
    
 }

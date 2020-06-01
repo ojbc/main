@@ -74,6 +74,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryRes
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
@@ -2467,6 +2468,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<IdentificationQueryResponse> identificationQueryResponses = jdbcTemplate.query(IDENTIFICATION_RESULTS_QUERY_SELECT, new IdentificationQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(identificationQueryResponses);			
+	}
+
+	@Override
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId) {
+		final String SUBSCRIPTION_QUERY_SELECT="SELECT * from SUBSCRIPTION_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<SubscriptionQueryResponse> subscriptionQueryResponses = jdbcTemplate.query(SUBSCRIPTION_QUERY_SELECT, new SubscriptionQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(subscriptionQueryResponses);			
 	}
 
 }

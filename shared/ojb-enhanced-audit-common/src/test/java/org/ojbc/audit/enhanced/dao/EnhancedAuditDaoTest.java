@@ -52,6 +52,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -413,6 +414,23 @@ public class EnhancedAuditDaoTest {
 		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
 		
 		assertNotNull(queryPk);
+		
+		SubscriptionQueryResponse subscriptionQueryResponse = new SubscriptionQueryResponse();
+		
+		subscriptionQueryResponse.setFbiSubscriptionId("FBI");
+		subscriptionQueryResponse.setMessageId("12345");
+		subscriptionQueryResponse.setQueryRequestId(queryPk);
+		subscriptionQueryResponse.setSubscriptionQualifierId("321");
+		subscriptionQueryResponse.setSystemName("Subscriptions");
+		
+		enhancedAuditDao.saveSubscriptionQueryResponse(subscriptionQueryResponse);
+		
+		SubscriptionQueryResponse subscriptionQueryResponseFromDatabase = enhancedAuditDao.retrieveSubscriptionQueryResults(queryPk);
+		
+		assertEquals("FBI", subscriptionQueryResponseFromDatabase.getFbiSubscriptionId());
+		assertEquals("12345", subscriptionQueryResponseFromDatabase.getMessageId());
+		assertEquals("321", subscriptionQueryResponseFromDatabase.getSubscriptionQualifierId());
+		assertEquals("Subscriptions", subscriptionQueryResponseFromDatabase.getSystemName());
 		
 		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = new PersonQueryCriminalHistoryResponse();
 		

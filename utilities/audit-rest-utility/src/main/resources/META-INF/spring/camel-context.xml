@@ -161,9 +161,21 @@
 					<to uri="direct:retrieveIdentificationResultsQueryDetail" />
 				</when>												
 				
+				<when>
+					<simple>${header.operationName} == 'retrieveSubscriptionQueryResultsDetail'</simple>
+					<to uri="direct:retrieveSubscriptionQueryResultsDetail" />
+				</when>					
+				
 			</choice>
 		</route>
 		
+		<route id="directRetrieveSubscriptionQueryResultsDetail">
+			<from uri="direct:retrieveSubscriptionQueryResultsDetail" />
+			
+			<camel:log message="Return Subscription Query Results Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveSubscriptionQueryResultsDetail" />
+		</route>			
 		
 		<route id="directRetrieveIdentificationResultsQueryDetail">
 			<from uri="direct:retrieveIdentificationResultsQueryDetail" />

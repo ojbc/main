@@ -205,4 +205,7 @@ public interface EnhancedAuditDAO {
 	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
 	
 	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
+	
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
+	
 }
