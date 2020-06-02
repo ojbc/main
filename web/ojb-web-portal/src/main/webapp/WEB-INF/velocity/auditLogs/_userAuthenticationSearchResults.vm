@@ -17,7 +17,10 @@
  <script type="text/javascript">
  
   $(function() {
-  	$('#searchBarButtonDiv').hide();    		
+	if (oTable !== undefined && oTable.fixedHeader !== undefined){
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	}    	    	
   	
     var oTable = $("#searchResultsTable").DataTable({
 		 "pagingType": "full_numbers",
