@@ -150,6 +150,11 @@
 					<simple>${header.operationName} == 'retrieveWarrantQueryDetail'</simple>
 					<to uri="direct:retrieveWarrantQueryDetail" />
 				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveProfessionalLicensingQueryDetail'</simple>
+					<to uri="direct:retrieveProfessionalLicensingQueryDetail" />
+				</when>
 				
 				<when>
 					<simple>${header.operationName} == 'retrieveVehicleCrashQueryResultsDetail'</simple>
@@ -173,6 +178,14 @@
 				
 			</choice>
 		</route>
+
+		<route id="directRetrieveProfessionalLicensingQueryDetail">
+			<from uri="direct:retrieveProfessionalLicensingQueryDetail" />
+			
+			<camel:log message="Return Professional licensing query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveProfessionalLicensingQueryDetail" />
+		</route>			
 
 		<route id="directRetrieveUserPrintRequests">
 			<from uri="direct:retrieveUserPrintRequests" />
