@@ -17,6 +17,10 @@
  <script type="text/javascript">
  
   $(function() {
+	if (oTable !== undefined && oTable.fixedHeader !== undefined){
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	}    	    	
   	
     oTable = $("#personSearchRequestTable").DataTable({
 		 "pagingType": "full_numbers",
@@ -49,9 +53,11 @@
   		
 	})
 	
-	$('#collapseOne').on('shown.bs.collapse', function () {
+	$('.ajaxContent').on('shown.bs.collapse', function () {
 		
-	    oTable = $("#personSearchRequestTable").DataTable({
+		table = $(this).find('.card-body table');
+		console.log("table:" + table);
+	    oTable = table.DataTable({
 			 "pagingType": "full_numbers",
 			 "pageLength": 25,
 			 stateSave: true,
@@ -59,13 +65,13 @@
 			 colReorder: true,
 			 fixedHeader: true, 
 			 "language": {
-	      		"emptyTable": "No Person Search Request Logs Found"
+	      		"emptyTable": "No Search Request Logs Found"
 	    	 } 
 		});
 		
 	})
 	
-	$('#collapseOne').on('hidden.bs.collapse', function () {
+	$('.collapse').on('hidden.bs.collapse', function () {
 		oTable.fixedHeader.disable();
 		oTable.destroy();
 	});
@@ -90,22 +96,30 @@
 	})
 	
 	$('.nav-tabs [data-toggle="tab"]').on('hidden.bs.tab', function () {
-		oTable.fixedHeader.disable();
-		oTable.destroy();
+		if (oTable !== undefined){
+			if ( oTable.fixedHeader !== undefined){
+				oTable.fixedHeader.disable();
+			}
+			oTable.destroy();
+		}    	    	
 	})
 	
 	$('.nav-tabs .nav-item:first-child').on('shown.bs.tab', function () {
+	
 		table = $('.collapse.show .card-body table');
-		oTable = table.DataTable({
-			 "pagingType": "full_numbers",
-			 "pageLength": 25,
-			 stateSave: true,
-			 responsive: true, 
-			 fixedHeader: true,
-			 "language": {
-	      		"emptyTable": "No Data Entry Found"
-	    	 } 
-		});
+		
+		if (table){
+			oTable = table.DataTable({
+				 "pagingType": "full_numbers",
+				 "pageLength": 25,
+				 stateSave: true,
+				 responsive: true, 
+				 fixedHeader: true,
+				 "language": {
+		      		"emptyTable": "No Data Entry Found"
+		    	 } 
+			});
+		}
 	})
 	
   });
@@ -163,36 +177,15 @@
 			<div id="accordion" class="small">
 			  <div class="card">
 			    <div class="card-header" id="headingOne">
-			        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        <button class="btn btn-link" data-toggle="collapse" data-target="#personSearchRequests" aria-expanded="true" aria-controls="personSearchRequests">
 			          PERSON SEARCH REQUEST
 			        </button>
 			      </h5>
 			    </div>
 			
-			    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+			    <div id="personSearchRequests" class="collapse ajaxContent show" aria-labelledby="headingOne" data-parent="#accordion">
 			      <div class="card-body">
-					<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchRequestTable">
-						<thead>
-							<tr>
-								<th>FIRST NAME</th>
-								<th>FIRSTNAME QUALIFIER</th>
-								<th>LAST NAME</th>
-								<th>LAST NAME QUALIFIER</th>
-								<th>TIMESTAMP</th>
-							</tr>
-						</thead>
-						<tbody>
-					        #foreach($personSearchRequest in $personSearchRequests)
-						        <tr title='$!personSearchRequest.personSearchRequestId'>
-						        	<td>$!personSearchRequest.firstName</td>
-						        	<td>$!personSearchRequest.firstNameQualifierCode</td>
-						        	<td>$!personSearchRequest.lastName</td>
-						        	<td>$!personSearchRequest.lastNameQualifierCode</td>
-						        	<td>$!personSearchRequest.timestamp.format($dateTimeformatter)</td>
-					        	</tr>
-					        #end
-						</tbody>
-					</table> 								
+		      		#parse("auditLogs/_userPersonSearchRequests.vm")
 			      </div>
 			    </div>
 			  </div>

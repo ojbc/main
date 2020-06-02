@@ -14,26 +14,24 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="incidentSearchRequestTable">
+ <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchRequestTable">
 	<thead>
 		<tr>
-			<th>START DATE</th>
-			<th>END DATE</th>
-			<th>CITY TOWN</th>
-			<th>CATEGORY TYPE</th>
-			<th>INCIDENT NUMBER</th>
+			<th>FIRST NAME</th>
+			<th>FIRSTNAME QUALIFIER</th>
+			<th>LAST NAME</th>
+			<th>LAST NAME QUALIFIER</th>
 			<th>TIMESTAMP</th>
 		</tr>
 	</thead>
 	<tbody>
-        #foreach($incidentSearchRequest in $incidentSearchRequests)
-	        <tr title='$!incidentSearchRequest.incidentSearchRequestId'>
-	        	<td>$!incidentSearchRequest.startDate</td>
-	        	<td>$!incidentSearchRequest.endDate</td>
-	        	<td>$!incidentSearchRequest.cityTown</td>
-	        	<td>$!incidentSearchRequest.categoryType</td>
-	        	<td>$!incidentSearchRequest.incidentNumber</td>
-	        	<td>$!incidentSearchRequest.timestamp.format($dateTimeformatter)</td>
+        #foreach($personSearchRequest in $personSearchRequests)
+	        <tr title='$!personSearchRequest.personSearchRequestId'>
+	        	<td>$!personSearchRequest.firstName</td>
+	        	<td>$!personSearchRequest.firstNameQualifierCode</td>
+	        	<td>$!personSearchRequest.lastName</td>
+	        	<td>$!personSearchRequest.lastNameQualifierCode</td>
+	        	<td>$!personSearchRequest.timestamp.format($dateTimeformatter)</td>
         	</tr>
         #end
 	</tbody>

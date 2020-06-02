@@ -165,6 +165,17 @@ public class AuditLogsController {
 		return "auditLogs/_userIncidentSearchRequests";
 	}
 	
+	@RequestMapping("/personSearchRequests" )
+	public String getPersonSearchRequests(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getIncidentSearchRequests");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<PersonSearchRequest> personSearchRequests = restEnhancedAuditClient.retrievePersonSearchRequest(auditSearchRequest);
+		model.put("personSearchRequests", personSearchRequests); 
+		
+		return "auditLogs/_userPersonSearchRequests";
+	}
+	
 	@RequestMapping("/queryRequests" )
 	public String getQueryRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
