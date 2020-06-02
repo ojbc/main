@@ -14,6 +14,24 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
+ <script type="text/javascript">
+ 
+  $(function() {
+    oTable = $("#incidentSearchRequestTable").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+	 	 fixedHeader: true, 
+		 responsive: true, 
+		 colReorder: true,
+		 "language": {
+      		"emptyTable": "No Incident Search Request Logs Found"
+    	 } 
+	});
+  });
+    
+</script>
+	
 <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="incidentSearchRequestTable">
 	<thead>
 		<tr>

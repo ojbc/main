@@ -14,17 +14,32 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
+ <script type="text/javascript">
+	$(function() {
+		oTable = $("#firearmSearchRequestTable").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 responsive: true, 
+		 fixedHeader: true, 
+		 colReorder: true,
+		 "language": {
+			"emptyTable": "No Search Request Logs Found"
+			 } 
+		});
+	});
+</script>
  <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="firearmSearchRequestTable">
 	<thead>
 		<tr>
 			<th>SERIAL NUMBER</th>
-			<th>SERIAL NUMBER QUALIFIER</th>
 			<th>SYSTEMS TO SEARCH</th>
 			<th>REGISTRATION NUMBER</th>
 			<th>MODEL</th>
 			<th>MAKE</th>
 			<th>FIREARMS TYPE</th>
 			<th>CURRENT REGISTRATIONS ONLY</th>
+			<th>SERIAL NUMBER QUALIFIER</th>
 			<th>PURPOSE</th>
 			<th>ON BEHALF OF</th>
 			<th>MESSAGE ID</th>
@@ -35,13 +50,13 @@
         #foreach($firearmSearchRequest in $firearmSearchRequests)
 	        <tr title='$!firearmSearchRequest.firearmSearchRequestID'>
 	        	<td>$!firearmSearchRequest.serialNumber</td>
-	        	<td>$!firearmSearchRequest.serialNumberQualifierCode</td>
 	        	<td>$!firearmSearchRequest.systemsToSearch</td>
 	        	<td>$!firearmSearchRequest.registrationNumber</td>
 	        	<td>$!firearmSearchRequest.model</td>
 	        	<td>$!firearmSearchRequest.make</td>
 	        	<td>$!firearmSearchRequest.firearmsType</td>
 	        	<td>$!firearmSearchRequest.currentRegistrationsOnly</td>
+	        	<td>$!firearmSearchRequest.serialNumberQualifierCode</td>
 	        	<td>$!firearmSearchRequest.purpose</td>
 	        	<td>$!firearmSearchRequest.onBehalfOf</td>
 	        	<td>$!firearmSearchRequest.messageId</td>

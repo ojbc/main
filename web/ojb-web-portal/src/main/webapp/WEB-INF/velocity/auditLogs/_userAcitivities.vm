@@ -22,18 +22,6 @@
 		oTable.destroy();
 	}    	    	
   	
-    oTable = $("#personSearchRequestTable").DataTable({
-		 "pagingType": "full_numbers",
-		 "pageLength": 25,
-		 stateSave: true,
-		 responsive: true, 
-		 colReorder: true,
-		 fixedHeader: true, 
-		 "language": {
-      		"emptyTable": "No Person Search Request Logs Found"
-    	 } 
-	});
-	
 	$('.userAuthenticationSearchResults').click (function(){
 		oTable.fixedHeader.disable();
 		oTable.destroy();
@@ -53,25 +41,8 @@
   		
 	})
 	
-	$('.ajaxContent').on('shown.bs.collapse', function () {
-		
-		table = $(this).find('.card-body table');
-		console.log("table:" + table);
-	    oTable = table.DataTable({
-			 "pagingType": "full_numbers",
-			 "pageLength": 25,
-			 stateSave: true,
-			 responsive: true, 
-			 colReorder: true,
-			 fixedHeader: true, 
-			 "language": {
-	      		"emptyTable": "No Search Request Logs Found"
-	    	 } 
-		});
-		
-	})
 	
-	$('.collapse').on('hidden.bs.collapse', function () {
+	$('.collapse').on('hide.bs.collapse', function () {
 		oTable.fixedHeader.disable();
 		oTable.destroy();
 	});
