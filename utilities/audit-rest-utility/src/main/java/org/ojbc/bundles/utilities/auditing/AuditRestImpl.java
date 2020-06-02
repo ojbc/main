@@ -33,6 +33,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
@@ -41,6 +42,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -407,5 +409,32 @@ public class AuditRestImpl implements AuditInterface {
 		VehicleCrashQueryResponse vehicleCrashQueryResponse = enhancedAuditDao.retrieveVehicleCrashQueryResultsDetail(queryRequestId);
 		
 		return vehicleCrashQueryResponse;		
+	}
+
+	@Override
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Identification Query Response for: " + queryRequestId.toString());
+		
+		IdentificationQueryResponse identificationQueryResponse = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryRequestId);
+		
+		return identificationQueryResponse;
+	}
+
+	@Override
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId) {
+		log.info("Retrieve Subscription Query Response for: " + queryRequestId.toString());
+		
+		SubscriptionQueryResponse subscriptionQueryResponse = enhancedAuditDao.retrieveSubscriptionQueryResults(queryRequestId);
+		
+		return subscriptionQueryResponse;
+	}
+
+	@Override
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId) {
+		log.info("Retrieve User Print Requests for: " + userInfoId.toString());
+		
+		List<PrintResults> printResults = enhancedAuditDao.retrieveUserPrintRequests(userInfoId);
+		
+		return printResults;
 	}
 }

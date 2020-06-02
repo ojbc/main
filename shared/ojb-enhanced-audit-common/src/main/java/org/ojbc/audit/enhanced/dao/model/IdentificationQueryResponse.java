@@ -17,9 +17,14 @@
 package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class IdentificationQueryResponse {
 
@@ -32,8 +37,10 @@ public class IdentificationQueryResponse {
 	private String fbiId;
 	private LocalDate idDate;
 	private String otn;
-	private String messageId;
 	private Integer queryRequestId;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime timestamp;
 	
 	public String getPersonFirstName() {
 		return personFirstName;
@@ -86,12 +93,6 @@ public class IdentificationQueryResponse {
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
-	public String getMessageId() {
-		return messageId;
-	}
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
-	}
 	public Integer getQueryRequestId() {
 		return queryRequestId;
 	}
@@ -103,5 +104,11 @@ public class IdentificationQueryResponse {
 	}
 	public void setOri(String ori) {
 		this.ori = ori;
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 }
