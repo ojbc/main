@@ -208,4 +208,5 @@ public interface EnhancedAuditDAO {
 	
 	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
 	
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
 }

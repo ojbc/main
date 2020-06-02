@@ -79,6 +79,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResp
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1855,13 +1856,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setDescription(rs.getString("DESCRIPTION"));
 			printResults.setSid(rs.getString("SID"));
 			
-			UserInfo userInfo = new UserInfo();
-			
-			UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
-			
-			userInfo = userInfoRowMapper.buildUserInfo(rs);
-			
-			printResults.setUserInfo(userInfo);
+			if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
+			{	
+				UserInfo userInfo = new UserInfo();
+				
+				UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+				
+				userInfo = userInfoRowMapper.buildUserInfo(rs);
+				
+				printResults.setUserInfo(userInfo);
+			}
 			
 			return printResults;
 		}
@@ -2476,6 +2480,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<SubscriptionQueryResponse> subscriptionQueryResponses = jdbcTemplate.query(SUBSCRIPTION_QUERY_SELECT, new SubscriptionQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(subscriptionQueryResponses);			
+	}
+
+	@Override
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId) {
+		final String PRINT_RESULTS_SELECT="SELECT * FROM PRINT_RESULTS WHERE USER_INFO_ID = ?";
+		
+		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), userInfoId);
+		return printResults;		
 	}
 
 }

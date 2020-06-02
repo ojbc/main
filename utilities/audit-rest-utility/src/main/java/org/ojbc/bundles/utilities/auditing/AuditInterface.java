@@ -143,8 +143,13 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(UserAuthenticationSearchRequest authenticationSearchRequest);
-   
-   
+
+   @POST
+   @Path("/retrieveUserPrintRequests")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
+
    @POST
    @Path("/retrievePersonSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)

@@ -665,6 +665,20 @@ public class EnhancedAuditDaoTest {
 		assertEquals("last", printResultsResponse.getUserInfo().getUserLastName());
 		assertEquals("employer ori", printResultsResponse.getUserInfo().getEmployerOri());		
 		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		Integer userInfoPk = null;
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		
+		List<PrintResults> printResultsByUserId = enhancedAuditDao.retrieveUserPrintRequests(userInfoPk);
+		
+		assertEquals(1, printResultsByUserId.size());
+		
 	}	
 
 	@Test

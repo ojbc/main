@@ -428,4 +428,13 @@ public class AuditRestImpl implements AuditInterface {
 		
 		return subscriptionQueryResponse;
 	}
+
+	@Override
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId) {
+		log.info("Retrieve User Print Requests for: " + userInfoId.toString());
+		
+		List<PrintResults> printResults = enhancedAuditDao.retrieveUserPrintRequests(userInfoId);
+		
+		return printResults;
+	}
 }
