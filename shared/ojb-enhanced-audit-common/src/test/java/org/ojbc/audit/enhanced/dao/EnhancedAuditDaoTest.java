@@ -52,6 +52,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -414,6 +415,23 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(queryPk);
 		
+		SubscriptionQueryResponse subscriptionQueryResponse = new SubscriptionQueryResponse();
+		
+		subscriptionQueryResponse.setFbiSubscriptionId("FBI");
+		subscriptionQueryResponse.setMessageId("12345");
+		subscriptionQueryResponse.setQueryRequestId(queryPk);
+		subscriptionQueryResponse.setSubscriptionQualifierId("321");
+		subscriptionQueryResponse.setSystemName("Subscriptions");
+		
+		enhancedAuditDao.saveSubscriptionQueryResponse(subscriptionQueryResponse);
+		
+		SubscriptionQueryResponse subscriptionQueryResponseFromDatabase = enhancedAuditDao.retrieveSubscriptionQueryResults(queryPk);
+		
+		assertEquals("FBI", subscriptionQueryResponseFromDatabase.getFbiSubscriptionId());
+		assertEquals("12345", subscriptionQueryResponseFromDatabase.getMessageId());
+		assertEquals("321", subscriptionQueryResponseFromDatabase.getSubscriptionQualifierId());
+		assertEquals("Subscriptions", subscriptionQueryResponseFromDatabase.getSystemName());
+		
 		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = new PersonQueryCriminalHistoryResponse();
 		
 		personQueryCriminalHistoryResponse.setQueryRequestId(queryPk);
@@ -443,7 +461,6 @@ public class EnhancedAuditDaoTest {
 		identificationQueryResponse.setQueryRequestId(queryPk);
 		identificationQueryResponse.setFbiId("123");
 		identificationQueryResponse.setIdDate(LocalDate.now());
-		identificationQueryResponse.setMessageId("123456");
 		identificationQueryResponse.setOca("oca");
 		identificationQueryResponse.setOri("ori");
 		identificationQueryResponse.setOtn("otn");
@@ -455,6 +472,18 @@ public class EnhancedAuditDaoTest {
 		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
 		
 		assertNotNull(identificationQueryResponsePk);
+		
+		IdentificationQueryResponse identificationQueryResponseFromDatabase = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryPk);
+		
+		assertEquals("123",identificationQueryResponseFromDatabase.getFbiId());
+		assertEquals(LocalDate.now(),identificationQueryResponseFromDatabase.getIdDate());
+		assertEquals("oca",identificationQueryResponseFromDatabase.getOca());
+		assertEquals("ori",identificationQueryResponseFromDatabase.getOri());
+		assertEquals("otn",identificationQueryResponseFromDatabase.getOtn());
+		assertEquals("first",identificationQueryResponseFromDatabase.getPersonFirstName());
+		assertEquals("middle",identificationQueryResponseFromDatabase.getPersonMiddleName());
+		assertEquals("last",identificationQueryResponseFromDatabase.getPersonLastName());
+		assertEquals("A123",identificationQueryResponseFromDatabase.getSid());
 		
 		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
 		
@@ -635,6 +664,20 @@ public class EnhancedAuditDaoTest {
 		assertEquals("first", printResultsResponse.getUserInfo().getUserFirstName());
 		assertEquals("last", printResultsResponse.getUserInfo().getUserLastName());
 		assertEquals("employer ori", printResultsResponse.getUserInfo().getEmployerOri());		
+		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		Integer userInfoPk = null;
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		
+		List<PrintResults> printResultsByUserId = enhancedAuditDao.retrieveUserPrintRequests(userInfoPk);
+		
+		assertEquals(1, printResultsByUserId.size());
 		
 	}	
 

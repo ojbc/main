@@ -155,9 +155,49 @@
 					<simple>${header.operationName} == 'retrieveVehicleCrashQueryResultsDetail'</simple>
 					<to uri="direct:retrieveVehicleCrashQueryResultsDetail" />
 				</when>												
+
+				<when>
+					<simple>${header.operationName} == 'retrieveIdentificationResultsQueryDetail'</simple>
+					<to uri="direct:retrieveIdentificationResultsQueryDetail" />
+				</when>												
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveSubscriptionQueryResultsDetail'</simple>
+					<to uri="direct:retrieveSubscriptionQueryResultsDetail" />
+				</when>					
+
+				<when>
+					<simple>${header.operationName} == 'retrieveUserPrintRequests'</simple>
+					<to uri="direct:retrieveUserPrintRequests" />
+				</when>					
 				
 			</choice>
 		</route>
+
+		<route id="directRetrieveUserPrintRequests">
+			<from uri="direct:retrieveUserPrintRequests" />
+			
+			<camel:log message="Return User Print Requests"/>
+			
+			<bean ref="auditRestImpl" method="retrieveUserPrintRequests" />
+		</route>			
+
+		
+		<route id="directRetrieveSubscriptionQueryResultsDetail">
+			<from uri="direct:retrieveSubscriptionQueryResultsDetail" />
+			
+			<camel:log message="Return Subscription Query Results Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveSubscriptionQueryResults" />
+		</route>			
+		
+		<route id="directRetrieveIdentificationResultsQueryDetail">
+			<from uri="direct:retrieveIdentificationResultsQueryDetail" />
+			
+			<camel:log message="Return Identification Results Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIdentificationResultsQueryDetail" />
+		</route>		
 		
 		<route id="directRetrieveVehicleCrashQueryResultsDetail">
 			<from uri="direct:retrieveVehicleCrashQueryResultsDetail" />
