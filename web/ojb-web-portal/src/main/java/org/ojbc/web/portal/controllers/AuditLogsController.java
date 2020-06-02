@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -174,6 +175,17 @@ public class AuditLogsController {
 		model.put("personSearchRequests", personSearchRequests); 
 		
 		return "auditLogs/_userPersonSearchRequests";
+	}
+	
+	@RequestMapping("/firearmSearchRequests" )
+	public String getFirearmSearchRequests(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getIncidentSearchRequests");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<FirearmsSearchRequest> firearmSearchRequests = restEnhancedAuditClient.retrieveFirearmSearchRequest(auditSearchRequest);
+		model.put("firearmSearchRequests", firearmSearchRequests); 
+		
+		return "auditLogs/_userFirearmSearchRequests";
 	}
 	
 	@RequestMapping("/queryRequests" )
