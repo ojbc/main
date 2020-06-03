@@ -52,6 +52,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
@@ -73,6 +74,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseR
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
@@ -2354,6 +2356,44 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 
 	@Override
+	public Integer saveProfessionalLicensingQueryResponse(
+			ProfessionalLicensingQueryResponse professionalLicensingQueryResponse) {
+		log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + professionalLicensingQueryResponse.toString());
+		
+        final String PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT="INSERT into PROFESSIONAL_LICENSING_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " ISSUE_DATE, EXPIRATION_DATE,LICENSE_NUMBER,LICENSE_TYPE, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT, new String[] {"PROFESSIONAL_LICENSING_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getIssueDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getExpirationDate(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseNumber(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseType(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getMessageId(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	   
+		
+	}
+	
+	@Override
 	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
 		log.debug("Inserting row into VEHICLE_CRASH_QUERY_RESULTS table : " + vehicleCrashQueryResponse.toString());
 		
@@ -2488,6 +2528,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), userInfoId);
 		return printResults;		
+	}
+
+	@Override
+	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryResponse(Integer queryRequestId) {
+		final String PROFESSSIONAL_LICENSING_QUERY_SELECT="SELECT * from PROFESSIONAL_LICENSING_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<ProfessionalLicensingQueryResponse> professionalLicensingQueryResponses = jdbcTemplate.query(PROFESSSIONAL_LICENSING_QUERY_SELECT, new ProfessionalLicenseQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(professionalLicensingQueryResponses);		
 	}
 
 }
