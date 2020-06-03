@@ -97,6 +97,13 @@ public abstract class AbstractProfessionalLicensingQueryResponseProcessor {
     		}	
     	}	    	
 		
+    	String systemName = XmlUtils.xPathStringSearch(document, "/rlq-res-doc:RegulatoryLicenseQueryResults/rlq-res-ext:RegulatoryLicenseQueryResult/intel40:SystemIdentification/nc40:SystemName");
+    			
+		if (StringUtils.isNotBlank(systemName))
+		{
+			professionalLicensingQueryResponse.setSystemName(systemName);
+		}    			
+    	
         return professionalLicensingQueryResponse;
 	}
 

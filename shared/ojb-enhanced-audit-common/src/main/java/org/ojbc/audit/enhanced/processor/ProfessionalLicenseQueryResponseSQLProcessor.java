@@ -40,6 +40,8 @@ public class ProfessionalLicenseQueryResponseSQLProcessor extends AbstractProfes
 			
 			professionalLicensingQueryResponse = processProfessionalLicensingQueryResponse(document);
 			
+			professionalLicensingQueryResponse.setMessageId(messageID);
+			
 			Integer personQueryPk = enhancedAuditDAO.retrievePersonQueryIDfromMessageID(messageID);
 			
 			if (personQueryPk != null)
