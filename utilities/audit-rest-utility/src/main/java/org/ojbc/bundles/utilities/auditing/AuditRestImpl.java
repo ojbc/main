@@ -40,6 +40,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
@@ -436,5 +437,14 @@ public class AuditRestImpl implements AuditInterface {
 		List<PrintResults> printResults = enhancedAuditDao.retrieveUserPrintRequests(userInfoId);
 		
 		return printResults;
+	}
+
+	@Override
+	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Professional Licensing Query Response for: " + queryRequestId.toString());
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = enhancedAuditDao.retrieveProfessionalLicensingQueryResponse(queryRequestId);
+		
+		return professionalLicensingQueryResponse;
 	}
 }

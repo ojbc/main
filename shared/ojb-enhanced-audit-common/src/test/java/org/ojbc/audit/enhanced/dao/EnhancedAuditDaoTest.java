@@ -50,6 +50,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
@@ -414,6 +415,26 @@ public class EnhancedAuditDaoTest {
 		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
 		
 		assertNotNull(queryPk);
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = new ProfessionalLicensingQueryResponse();
+		
+		professionalLicensingQueryResponse.setLicenseNumber("123");
+		professionalLicensingQueryResponse.setLicenseType("pro license");
+		professionalLicensingQueryResponse.setQueryRequestId(queryPk);
+		professionalLicensingQueryResponse.setIssueDate(LocalDate.now().minusDays(7));
+		professionalLicensingQueryResponse.setExpirationDate(LocalDate.now());
+		professionalLicensingQueryResponse.setMessageId("123456");
+		
+		enhancedAuditDao.saveProfessionalLicensingQueryResponse(professionalLicensingQueryResponse);
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponseFromDatabase = enhancedAuditDao.retrieveProfessionalLicensingQueryResponse(queryPk);
+		
+		assertEquals("123", professionalLicensingQueryResponseFromDatabase.getLicenseNumber());
+		assertEquals("pro license", professionalLicensingQueryResponseFromDatabase.getLicenseType());
+		assertEquals(LocalDate.now().minusDays(7), professionalLicensingQueryResponseFromDatabase.getIssueDate());
+		assertEquals(LocalDate.now(), professionalLicensingQueryResponseFromDatabase.getExpirationDate());
+		assertEquals("123456", professionalLicensingQueryResponseFromDatabase.getMessageId());
+		
 		
 		SubscriptionQueryResponse subscriptionQueryResponse = new SubscriptionQueryResponse();
 		
