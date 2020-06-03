@@ -35,6 +35,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -180,12 +181,23 @@ public class AuditLogsController {
 	@RequestMapping("/firearmSearchRequests" )
 	public String getFirearmSearchRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
-		log.info("in getIncidentSearchRequests");
+		log.info("in firearmSearchRequests");
 		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
 		List<FirearmsSearchRequest> firearmSearchRequests = restEnhancedAuditClient.retrieveFirearmSearchRequest(auditSearchRequest);
 		model.put("firearmSearchRequests", firearmSearchRequests); 
 		
 		return "auditLogs/_userFirearmSearchRequests";
+	}
+	
+	@RequestMapping("/vehicleSearchRequests" )
+	public String getVehicleSearchRequests(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in vehicleSearchRequests");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<VehicleSearchRequest> vehicleSearchRequests = restEnhancedAuditClient.retrieveVehicleSearchRequest(auditSearchRequest);
+		model.put("vehicleSearchRequests", vehicleSearchRequests); 
+		
+		return "auditLogs/_userVehicleSearchRequests";
 	}
 	
 	@RequestMapping("/queryRequests" )
