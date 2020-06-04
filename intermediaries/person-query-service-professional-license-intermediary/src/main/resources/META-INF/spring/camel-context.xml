@@ -154,6 +154,8 @@
 		<camel:route>
 			<camel:from uri="personQueryProfessionalLicenseResultsEndpoint"/>
 			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.professionalLicense.dbAuditLog} == 'true'</camel:simple>
@@ -171,7 +173,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:professionalLicenseQueryResponseSQLProcessor?method=auditProfessionalLicenseQueryResponse"/>
