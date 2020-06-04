@@ -53,7 +53,6 @@
 	        	<td>$!vehicleSearchRequest.sourceSystemsList</td>
 	        	<td>$!vehicleSearchRequest.vehicleModel</td>
 	        	<td>$!vehicleSearchRequest.vehicleMake</td>
-	        	<td>$!vehicleSearchRequest.make</td>
 	        	<td>$!vehicleSearchRequest.vehicleLicensePlate</td>
 	        	<td>$!vehicleSearchRequest.vehicleIdentificationNumber</td>
 	        	<td>$!vehicleSearchRequest.vehicleYearRangeStart</td>
