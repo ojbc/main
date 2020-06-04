@@ -176,8 +176,22 @@
 					<to uri="direct:retrieveUserPrintRequests" />
 				</when>					
 				
+				<when>
+					<simple>${header.operationName} == 'retrieveIncidentReportQueryDetail'</simple>
+					<to uri="direct:retrieveIncidentReportQueryDetail" />
+				</when>					
+				
 			</choice>
 		</route>
+		
+		<route id="directRetrieveIncidentReportQueryDetail">
+			<from uri="direct:retrieveIncidentReportQueryDetail" />
+			
+			<camel:log message="Return Incident Report query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIncidentReportQueryDetail" />
+		</route>			
+		
 
 		<route id="directRetrieveProfessionalLicensingQueryDetail">
 			<from uri="direct:retrieveProfessionalLicensingQueryDetail" />
