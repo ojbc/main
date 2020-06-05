@@ -52,16 +52,6 @@
   		var tabPane = $("#" + tabPaneId);
        	xhr = $.get("#springUrl('/auditLogs/queryRequests')",function(data) {
 	        tabPane.html(data);
-		    oTable = $("#queryRequestsTable").DataTable({
-				 "pagingType": "full_numbers",
-				 "pageLength": 25,
-				 stateSave: true,
-				 responsive: true, 
-				 fixedHeader: true,
-				 "language": {
-		      		"emptyTable": "No User Query Requests Found"
-		    	 } 
-			});
         }).fail(ojbc.displayFailMessage);
   		
 	})
@@ -75,9 +65,9 @@
 		}    	    	
 	})
 	
-	$('.nav-tabs .nav-item:first-child').on('shown.bs.tab', function () {
+	$('.nav-tabs .nav-item').on('shown.bs.tab', function () {
 	
-		table = $('.collapse.show .card-body table');
+		table = $(".tab-pane.active").find('.collapse.show .card-body table');
 		
 		if (table){
 			oTable = table.DataTable({

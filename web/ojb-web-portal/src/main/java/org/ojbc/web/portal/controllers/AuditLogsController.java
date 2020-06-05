@@ -17,16 +17,19 @@
 package org.ojbc.web.portal.controllers;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
@@ -55,7 +58,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @Profile({"audit-search","standalone"})
-@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest"})
+@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest", "clickableQueryRequestListMap", "nonClickableQueryRequestListMap", "queryRequestAccordionHeaderMap"})
 @RequestMapping("/auditLogs")
 public class AuditLogsController {
 	
@@ -75,6 +78,13 @@ public class AuditLogsController {
     
     @Value("#{propertySplitter.map('${auditQuerySourceSystemMap}', '^')}")
     Map<String, String> auditQuerySourceSystemMap;
+    
+    @Value("#{propertySplitter.map('${nonClickableSourceSystemMap}', '^')}")
+    Map<String, String> nonClickableSourceSystemMap;
+    
+    Map<String, List<QueryRequest>> clickableQueryRequestListMap;
+    Map<String, List<QueryRequest>> nonClickableQueryRequestListMap;
+    Map<String, String> queryRequestAccordionHeaderMap;
 
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -88,8 +98,21 @@ public class AuditLogsController {
     	userActionMap.put("", "User Action"); 
     	userActionMap.put("login", "Login"); 
     	userActionMap.put("logout", "Logout"); 
-    	model.addAttribute("userActionMap", userActionMap); 
-    	log.info("auditQuerySourceSystemMap: " + auditQuerySourceSystemMap);
+    	model.addAttribute("userActionMap", userActionMap);
+    	
+    	
+    	if (!model.containsAttribute("queryRequestAccordionHeaderMap")) {
+    		queryRequestAccordionHeaderMap = new HashMap<String, String>(); 
+    		queryRequestAccordionHeaderMap.put("incident", "INCIDENT"); 
+    		queryRequestAccordionHeaderMap.put("criminalHistory", "CRIMINAL HISTORY"); 
+    		queryRequestAccordionHeaderMap.put("vehicleCrash", "VEHICLE CRASH"); 
+    		queryRequestAccordionHeaderMap.put("professionalLicense", "PROFESSIONAL LICENSE"); 
+    		queryRequestAccordionHeaderMap.put("wildlifeLicense", "WILDLIFE LICENSE"); 
+    		queryRequestAccordionHeaderMap.put("personToincidentQuery", "PERSON TO INCIDENT"); 
+    		queryRequestAccordionHeaderMap.put("custody", "CUSTODY"); 
+    		model.addAttribute("queryRequestAccordionHeaderMap", queryRequestAccordionHeaderMap);
+    	}
+    	
 	}
 
 	private UserAuthenticationSearchRequest initUserAuthenticationSearchRequest() {
@@ -206,9 +229,59 @@ public class AuditLogsController {
 		log.info("in getQueryRequests");
 		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
 		List<QueryRequest> queryRequests = restEnhancedAuditClient.retrieveQueryRequest(auditSearchRequest);
+
+		List<String> sourceTexts = queryRequests.stream()
+				.map(QueryRequest::getIdentificationSourceText)
+				.distinct()
+				.collect(Collectors.toList()); 
+		clickableQueryRequestListMap = new HashMap<>();
+		nonClickableQueryRequestListMap = new HashMap<>(); 
+		
+		log.info("sourceTexts: " + sourceTexts);
+		sourceTexts.forEach(this::populateQueryListMaps);
+		
+		queryRequests.forEach(this::pouplateQueryListMap);
+		
 		model.put("queryRequests", queryRequests); 
+		model.put("clickableQueryRequestListMap", clickableQueryRequestListMap);
+		model.put("nonClickableQueryRequestListMap", nonClickableQueryRequestListMap);
 		
 		return "auditLogs/_queryRequests";
+	}
+
+	private void pouplateQueryListMap(QueryRequest queryRequest) {
+		String systemName = auditQuerySourceSystemMap.get(queryRequest.getIdentificationSourceText()); 
+		if (StringUtils.isNotBlank(systemName)) {
+			List<QueryRequest> queryRequestsByKey = clickableQueryRequestListMap.get(systemName); 
+			queryRequestsByKey.add(queryRequest); 
+		}
+		else {
+			systemName = nonClickableSourceSystemMap.get(queryRequest.getIdentificationSourceText());
+			
+			if (StringUtils.isNotBlank(systemName)) {
+				List<QueryRequest> queryRequestsByKey = nonClickableQueryRequestListMap.get(systemName); 
+				queryRequestsByKey.add(queryRequest); 
+			}
+		}
+	}
+	
+	
+	private void populateQueryListMaps(String sourceText) {
+		
+		String systemName = auditQuerySourceSystemMap.get(sourceText); 
+		
+		if (StringUtils.isNotBlank(systemName)) {
+			clickableQueryRequestListMap.put(systemName, new ArrayList<>());
+		}
+		else {
+			systemName = nonClickableSourceSystemMap.get(sourceText);
+			if (StringUtils.isNotBlank(systemName)) {
+				nonClickableQueryRequestListMap.put(systemName, new ArrayList<>()); 
+			}
+			else {
+				log.warn("Did not find the source text, " + sourceText + " in the predefined clickableQueryRequestListMap and nonClickableQueryRequestListMap");
+			}
+		}
 	}
 	
 	@RequestMapping(value="/personQueryResponse", method=RequestMethod.POST )
