@@ -17,7 +17,17 @@
  <script type="text/javascript">
  
   $(function() {
-	$('#queryRequestsTable').on('dblclick', 'tbody tr',function(event) {
+    oTable = $(".queryRequestsTable").first().DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 fixedHeader: true,
+		 "language": {
+      		"emptyTable": "No User Query Requests Found"
+    	 } 
+	});
+  
+	$('.queryRequestsTable').on('dblclick', 'tr.clickable',function(event) {
 		event.preventDefault();
  		var queryRequestId = $(this).attr("title");
  		var rowData = oTable.row($(this)).data(); 
@@ -40,32 +50,114 @@
   		
   		return false;		  					  					  		                                                     
  	}); 
+ 	
+	$('#queryRequestAccordion .collapse').on('show.bs.collapse', function () {
+		table = $(this).find('.card-body table');
+		
+		if (table && !$.fn.dataTable.isDataTable( table ) ){
+			oTable = table.DataTable({
+				 "pagingType": "full_numbers",
+				 "pageLength": 25,
+				 stateSave: true,
+				 fixedHeader: true,
+				 "language": {
+		      		"emptyTable": "No Data Entry Found"
+		    	 } 
+			});
+		}
+  		
+	})
+	
+	$('#queryRequestAccordion .collapse').on('hide.bs.collapse', function () {
+		oTable.fixedHeader.disable();
+		oTable.destroy();
+	});
+	
+ 	
   });
     
 </script>
 	
 <div style="padding:10px">
-
-	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="queryRequestsTable">
-		<thead>
-			<tr>
-				<th>IDENTIFICATION ID</th>
-				<th>IDENTIFICATION SOURCE TEXT</th>
-				<th>MESSAGE ID</th>
-				<th>TIMESTAMP</th>
-			</tr>
-		</thead>
-		<tbody>
-	        #foreach($queryRequest in $queryRequests)
-		        <tr title='$!queryRequest.queryRequestId'>
-		        	<td>$!queryRequest.identificationId</td>
-		        	<td>$!queryRequest.identificationSourceText</td>
-		        	<td>$!queryRequest.messageId</td>
-		        	<td>$!queryRequest.timestamp.format($dateTimeformatter)</td>
-	        	</tr>
-	        #end
-		</tbody>
-	</table> 								
+	<div id="queryRequestAccordion">
+		#foreach($entry in $clickableQueryRequestListMap.entrySet())		
+		  <div class="card">
+		    <div class="card-header" id="heading$entry.getKey()">
+		        <button class="btn btn-link" data-toggle="collapse" data-target="#$entry.getKey()" aria-expanded="true" aria-controls="$entry.getKey()">
+		          $queryRequestAccordionHeaderMap.get($$entry.getKey())
+		        </button>
+		      </h5>
+		    </div>
+		
+			#if ($foreach.index != 0)
+		    	<div id="$entry.getKey()" class="collapse" aria-labelledby="$entry.getKey()" data-parent="#queryRequestAccordion">
+		    #else
+		    	<div id="$entry.getKey()" class="collapse show" aria-labelledby="$entry.getKey()" data-parent="#queryRequestAccordion">
+		    #end
+		      <div class="card-body">
+		      	<div class="alert alert-info" role="alert">
+  					Double click on the rows to retrieve query response.
+				</div>
+				<table class="searchResultsTable table table-striped table-bordered queryRequestsTable" style="width:100%">
+					<thead>
+						<tr>
+							<th>IDENTIFICATION</th>
+							<th>IDENTIFICATION SOURCE TEXT</th>
+							<th>TIMESTAMP</th>
+							<th>MESSAGE ID</th>
+						</tr>
+					</thead>
+					<tbody>
+				        #foreach($queryRequest in $entry.getValue())
+					        <tr title='$!queryRequest.queryRequestId' class="clickable">
+					        	<td>$!queryRequest.identificationId</td>
+					        	<td>$!queryRequest.identificationSourceText</td>
+					        	<td>$!queryRequest.timestamp.format($dateTimeformatter)</td>
+					        	<td>$!queryRequest.messageId</td>
+				        	</tr>
+				        #end
+					</tbody>
+				</table> 								
+		      </div>
+		    </div>
+		  </div>
+		#end
+		#foreach($entry in $nonClickableQueryRequestListMap.entrySet())		
+		  <div class="card">
+		    <div class="card-header" id="heading$entry.getKey()">
+		        <button class="btn btn-link" data-toggle="collapse" data-target="#$entry.getKey()" aria-expanded="true" aria-controls="$entry.getKey()">
+		          $queryRequestAccordionHeaderMap.get($$entry.getKey())
+		        </button>
+		      </h5>
+		    </div>
+		
+		    <div id="$entry.getKey()" class="collapse" aria-labelledby="$entry.getKey()" data-parent="#queryRequestAccordion">
+		      <div class="card-body">
+				<table class="searchResultsTable table table-striped table-bordered queryRequestsTable" style="width:100%">
+					<thead>
+						<tr>
+							<th>IDENTIFICATION</th>
+							<th>IDENTIFICATION SOURCE TEXT</th>
+							<th>TIMESTAMP</th>
+							<th>MESSAGE ID</th>
+						</tr>
+					</thead>
+					<tbody>
+				        #foreach($queryRequest in $entry.getValue())
+					        <tr title='$!queryRequest.queryRequestId'>
+					        	<td>$!queryRequest.identificationId</td>
+					        	<td>$!queryRequest.identificationSourceText</td>
+					        	<td>$!queryRequest.timestamp.format($dateTimeformatter)</td>
+					        	<td>$!queryRequest.messageId</td>
+				        	</tr>
+				        #end
+					</tbody>
+				</table> 								
+		      </div>
+		    </div>
+		  </div>
+		#end
+	</div>
 </div>
 
 <div class="modal fade ojbc-modal" id="personQueryResponseModal" tabindex="-1" role="dialog" aria-labelledby="personQueryResponseModalTitle" aria-hidden="true">
