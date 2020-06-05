@@ -216,6 +216,7 @@
 			|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
 			|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
 			|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY")
+			|| $entry.getKey() == "auditLink" && $sec.allGranted("AUTHZ_ADMIN")
 			|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
 			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a> 
 		#end		
