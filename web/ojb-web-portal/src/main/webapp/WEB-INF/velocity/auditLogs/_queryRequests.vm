@@ -26,6 +26,15 @@
       		"emptyTable": "No User Query Requests Found"
     	 } 
 	});
+	
+	$(".queryRequestsTable:not(:first)").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 "language": {
+      		"emptyTable": "No User Query Requests Found"
+    	 } 
+	});
   
 	$('.queryRequestsTable').on('dblclick', 'tr.clickable',function(event) {
 		event.preventDefault();
@@ -50,30 +59,7 @@
   		
   		return false;		  					  					  		                                                     
  	}); 
- 	
-	$('#queryRequestAccordion .collapse').on('show.bs.collapse', function () {
-		table = $(this).find('.card-body table');
-		
-		if (table && !$.fn.dataTable.isDataTable( table ) ){
-			oTable = table.DataTable({
-				 "pagingType": "full_numbers",
-				 "pageLength": 25,
-				 stateSave: true,
-				 fixedHeader: true,
-				 "language": {
-		      		"emptyTable": "No Data Entry Found"
-		    	 } 
-			});
-		}
-  		
-	})
-	
-	$('#queryRequestAccordion .collapse').on('hide.bs.collapse', function () {
-		oTable.fixedHeader.disable();
-		oTable.destroy();
-	});
-	
- 	
+ 		
   });
     
 </script>
