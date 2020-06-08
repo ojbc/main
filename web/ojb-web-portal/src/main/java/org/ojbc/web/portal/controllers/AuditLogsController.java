@@ -31,10 +31,12 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
@@ -313,6 +315,16 @@ public class AuditLogsController {
 			model.put("professionalLicensingQueryResponse", professionalLicensingQueryResponse); 
 			log.info("professionalLicensingQueryResponse: "+ professionalLicensingQueryResponse);
 			return "auditLogs/_professionalLicensingQueryResponse";
+		case "firearm": 
+			FirearmsQueryResponse firearmsQueryResponse = restEnhancedAuditClient.retrieveFirearmQueryDetail(queryRequestId); 
+			model.put("firearmsQueryResponse", firearmsQueryResponse); 
+			log.info("firearmsQueryResponse: "+ firearmsQueryResponse);
+			return "auditLogs/_firearmsQueryResponse";
+		case "warrant": 
+			PersonQueryWarrantResponse personQueryWarrantResponse = restEnhancedAuditClient.retrieveWarrantQueryDetail(queryRequestId); 
+			model.put("personQueryWarrantResponse", personQueryWarrantResponse); 
+			log.info("personQueryWarrantResponse: "+ personQueryWarrantResponse);
+			return "auditLogs/_personQueryWarrantResponse";
 		default:
 			throw new IllegalArgumentException("Invalid identification Source Text"); 
 		}
