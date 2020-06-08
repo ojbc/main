@@ -47,11 +47,11 @@
 
 	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
 
-	<bean id="personQueryCriminalHistoryResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="personQueryCriminalHistoryResponseSQLProcessor" />
+	<bean id="wildlifeQueryResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="wildlifeQueryResponseSQLProcessor" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-query-service-wildlife-license-intermediary-context" />
 		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.audit.enhanced.processor.PersonQueryCriminalHistoryResponseNullObjectProcessor"/>
+			<bean class="org.ojbc.audit.enhanced.processor.WildlifeQueryResponseNullObjectProcessor"/>
 		</constructor-arg>
 	</bean>
 
