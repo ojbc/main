@@ -23,24 +23,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.ojbc.util.rest.jackson.LocalDateDeserializer;
-import org.ojbc.util.rest.jackson.LocalDateSerializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
-public class ProfessionalLicensingQueryResponse {
+public class IncidentReportQueryResponse {
 
 	private String messageId;
-	private String licenseNumber;
-	private String licenseType;
 	
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate issueDate;
-
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate expirationDate;
+	private String incidentNumber;
 	
 	private Boolean queryResultsErrorIndicator;
 	private Integer queryRequestId;
@@ -96,31 +86,6 @@ public class ProfessionalLicensingQueryResponse {
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
-	public String getLicenseNumber() {
-		return licenseNumber;
-	}
-	public void setLicenseNumber(String licenseNumber) {
-		this.licenseNumber = licenseNumber;
-	}
-	public String getLicenseType() {
-		return licenseType;
-	}
-	public void setLicenseType(String licenseType) {
-		this.licenseType = licenseType;
-	}
-	public LocalDate getIssueDate() {
-		return issueDate;
-	}
-	public void setIssueDate(LocalDate issueDate) {
-		this.issueDate = issueDate;
-	}
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-	public void setExpirationDate(LocalDate expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-	
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -130,6 +95,12 @@ public class ProfessionalLicensingQueryResponse {
 	}
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
+	}
+	public String getIncidentNumber() {
+		return incidentNumber;
+	}
+	public void setIncidentNumber(String incidentNumber) {
+		this.incidentNumber = incidentNumber;
 	}
 
 }
