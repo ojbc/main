@@ -24,6 +24,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateSerializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
 import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
@@ -45,8 +47,12 @@ public class PersonSearchRequest {
 	
 	private String lastNameQualifierCode;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobFrom;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobTo;
 	
 	private String ssn;
