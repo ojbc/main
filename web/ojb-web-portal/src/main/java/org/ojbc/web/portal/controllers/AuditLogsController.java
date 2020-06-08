@@ -36,6 +36,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
@@ -287,12 +288,11 @@ public class AuditLogsController {
 	@RequestMapping(value="/personQueryResponse", method=RequestMethod.POST )
 	public String getPersonQueryResponse(HttpServletRequest request, 
 			@RequestParam("queryRequestId") Integer queryRequestId, 
-			@RequestParam("identificationSourceText") String identificationSourceText,
+			@RequestParam("systemName") String systemName,
 			Map<String, Object> model) throws Throwable {
 		log.info("in getQueryRequests");
 		
-		String system = auditQuerySourceSystemMap.get(identificationSourceText); 
-		switch (system) {
+		switch (systemName) {
 		case "incident": 
 			throw new NotImplementedException();
 		case "criminalHistory": 
@@ -305,6 +305,11 @@ public class AuditLogsController {
 			model.put("vehicleCrashQueryResponse", vehicleCrashQueryResponse); 
 			log.info("vehicleCrashQueryResponse: "+ vehicleCrashQueryResponse);
 			return "auditLogs/_vehicleCrashQueryResponse";
+		case "professionalLicense": 
+			ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = restEnhancedAuditClient.retrieveProfessionalLicensingQueryDetail(queryRequestId); 
+			model.put("professionalLicensingQueryResponse", professionalLicensingQueryResponse); 
+			log.info("professionalLicensingQueryResponse: "+ professionalLicensingQueryResponse);
+			return "auditLogs/_professionalLicensingQueryResponse";
 		default:
 			throw new IllegalArgumentException("Invalid identification Source Text"); 
 		}
