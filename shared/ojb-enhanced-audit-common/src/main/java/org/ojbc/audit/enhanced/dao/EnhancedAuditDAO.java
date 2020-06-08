@@ -48,6 +48,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -111,6 +112,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveCrashVehicle(CrashVehicle crashVehicle);
 	
 	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
+	
+	public Integer saveWildlifeQueryResponse(WildlifeQueryResponse wildlifeQueryResponse);
 	
 	public Integer saveProfessionalLicensingQueryResponse(ProfessionalLicensingQueryResponse professionalLicensingQueryResponse);
 	
@@ -217,6 +220,8 @@ public interface EnhancedAuditDAO {
 	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryResponse (Integer queryRequestId);
 	
 	public IncidentReportQueryResponse retrieveIncidentReportQueryResponse(Integer queryRequestId);
+	
+	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId);
 	
 	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
 }
