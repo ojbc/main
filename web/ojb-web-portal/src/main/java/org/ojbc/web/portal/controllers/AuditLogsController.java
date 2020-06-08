@@ -113,6 +113,8 @@ public class AuditLogsController {
     		queryRequestAccordionHeaderMap.put("wildlifeLicense", "WILDLIFE LICENSE"); 
     		queryRequestAccordionHeaderMap.put("personToincidentQuery", "PERSON TO INCIDENT"); 
     		queryRequestAccordionHeaderMap.put("custody", "CUSTODY"); 
+    		queryRequestAccordionHeaderMap.put("warrant", "WARRANT"); 
+    		queryRequestAccordionHeaderMap.put("firearm", "FIREARM"); 
     		model.addAttribute("queryRequestAccordionHeaderMap", queryRequestAccordionHeaderMap);
     	}
     	
@@ -235,6 +237,8 @@ public class AuditLogsController {
 
 		List<String> sourceTexts = queryRequests.stream()
 				.map(QueryRequest::getIdentificationSourceText)
+				.filter(Objects::nonNull)
+				.map(StringUtils::trimToEmpty)
 				.distinct()
 				.collect(Collectors.toList()); 
 		clickableQueryRequestListMap = new HashMap<>();
