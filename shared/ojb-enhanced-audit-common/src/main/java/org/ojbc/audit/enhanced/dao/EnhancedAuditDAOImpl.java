@@ -66,6 +66,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -83,6 +84,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResp
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WildlifeQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
@@ -2389,7 +2391,41 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	   
 	}
+	
+	@Override
+	public Integer saveWildlifeQueryResponse(WildlifeQueryResponse wildlifeQueryResponse) {
 
+		log.debug("Inserting row into WILDLIFE_QUERY_RESULTS table : " + wildlifeQueryResponse.toString());
+		
+        final String WILDLIFE_QUERY_RESULTS_INSERT="INSERT into WILDLIFE_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " RESIDENCE_CITY, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(WILDLIFE_QUERY_RESULTS_INSERT, new String[] {"WILDLIFE_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getResidenceCity(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getMessageId(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
 	@Override
 	public Integer saveProfessionalLicensingQueryResponse(
 			ProfessionalLicensingQueryResponse professionalLicensingQueryResponse) {
@@ -2579,6 +2615,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<IncidentReportQueryResponse> incidentReportQueryResponses = jdbcTemplate.query(INCIDENT_REPORT_QUERY_SELECT, new IncidentReportQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(incidentReportQueryResponses);		
+	}
+
+	@Override
+	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId) {
+		final String WILDLIFE_QUERY_SELECT="SELECT * from WILDLIFE_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<WildlifeQueryResponse> WildlifeQueryResponse = jdbcTemplate.query(WILDLIFE_QUERY_SELECT, new WildlifeQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(WildlifeQueryResponse);		
 	}
 
 }

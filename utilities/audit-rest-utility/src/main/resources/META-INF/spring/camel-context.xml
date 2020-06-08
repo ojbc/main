@@ -180,9 +180,21 @@
 					<simple>${header.operationName} == 'retrieveIncidentReportQueryDetail'</simple>
 					<to uri="direct:retrieveIncidentReportQueryDetail" />
 				</when>					
-				
+
+				<when>
+					<simple>${header.operationName} == 'retrieveWildlifeQueryDetail'</simple>
+					<to uri="direct:retrieveWildlifeQueryDetail" />
+				</when>						
 			</choice>
 		</route>
+		
+		<route id="directRetrieveWildlifeQueryDetail">
+			<from uri="direct:retrieveWildlifeQueryDetail" />
+			
+			<camel:log message="Return wildlife query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveWildlifeQueryDetail" />
+		</route>			
 		
 		<route id="directRetrieveIncidentReportQueryDetail">
 			<from uri="direct:retrieveIncidentReportQueryDetail" />
