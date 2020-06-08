@@ -43,6 +43,7 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
@@ -415,6 +416,22 @@ public class EnhancedAuditDaoTest {
 		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
 		
 		assertNotNull(queryPk);
+		
+		IncidentReportQueryResponse incidentReportQueryResponse = new IncidentReportQueryResponse();
+		
+		incidentReportQueryResponse.setIncidentNumber("INC234");
+		incidentReportQueryResponse.setMessageId("49878");
+		incidentReportQueryResponse.setSystemName("System Name");
+		incidentReportQueryResponse.setQueryRequestId(queryPk);
+		
+		enhancedAuditDao.saveIncidentReportQueryResponse(incidentReportQueryResponse);
+		
+		IncidentReportQueryResponse incidentReportQueryResponseFromDatabase = enhancedAuditDao.retrieveIncidentReportQueryResponse(queryPk);
+		
+		assertEquals("INC234", incidentReportQueryResponseFromDatabase.getIncidentNumber());
+		assertEquals("49878", incidentReportQueryResponseFromDatabase.getMessageId());
+		assertEquals("System Name", incidentReportQueryResponseFromDatabase.getSystemName());
+				
 		
 		ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = new ProfessionalLicensingQueryResponse();
 		

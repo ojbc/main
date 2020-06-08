@@ -159,7 +159,24 @@
 		<!-- Incident Results Handler Route -->
 		<camel:route>
 			<camel:from	uri="incidentReportResultsFederatedServiceEndpoint" />
+			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
 				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:incidentReportQueryResponseSQLProcessor?method=auditIncidentReportQueryResponseResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>		
+							
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.incidentReport.dbAuditLog} == 'true'</camel:simple>

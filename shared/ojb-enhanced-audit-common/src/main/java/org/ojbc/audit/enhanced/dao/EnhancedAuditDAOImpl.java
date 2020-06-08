@@ -45,6 +45,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
@@ -72,6 +73,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryRespons
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentReportQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQueryResponseRowMapper;
@@ -2356,6 +2358,39 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 
 	@Override
+	public Integer saveIncidentReportQueryResponse(IncidentReportQueryResponse incidentReportQueryResponse) {
+		log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + incidentReportQueryResponse.toString());
+		
+        final String INCIDENT_REPORT_QUERY_RESULTS_INSERT="INSERT into INCIDENT_REPORT_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " INCIDENT_REPORT_NUMBER, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_REPORT_QUERY_RESULTS_INSERT, new String[] {"INCIDENT_REPORT_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getIncidentNumber(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getMessageId(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	   
+	}
+
+	@Override
 	public Integer saveProfessionalLicensingQueryResponse(
 			ProfessionalLicensingQueryResponse professionalLicensingQueryResponse) {
 		log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + professionalLicensingQueryResponse.toString());
@@ -2536,6 +2571,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<ProfessionalLicensingQueryResponse> professionalLicensingQueryResponses = jdbcTemplate.query(PROFESSSIONAL_LICENSING_QUERY_SELECT, new ProfessionalLicenseQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(professionalLicensingQueryResponses);		
+	}
+
+	@Override
+	public IncidentReportQueryResponse retrieveIncidentReportQueryResponse(Integer queryRequestId) {
+		final String INCIDENT_REPORT_QUERY_SELECT="SELECT * from INCIDENT_REPORT_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<IncidentReportQueryResponse> incidentReportQueryResponses = jdbcTemplate.query(INCIDENT_REPORT_QUERY_SELECT, new IncidentReportQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(incidentReportQueryResponses);		
 	}
 
 }
