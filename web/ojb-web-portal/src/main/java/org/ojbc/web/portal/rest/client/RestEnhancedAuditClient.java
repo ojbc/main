@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -234,7 +235,18 @@ public class RestEnhancedAuditClient {
 	   return response.getBody();
    }
    
-
+   public IncidentReportQueryResponse retrieveIncidentReportQueryDetail(Integer queryRequestId) {
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.setContentType(MediaType.APPLICATION_JSON);
+	   HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+	   
+	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveIncidentReportQueryDetail";
+	   
+	   ResponseEntity<IncidentReportQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<IncidentReportQueryResponse>() {});
+	   
+	   return response.getBody();
+   }
+   
 	public Log getLog() {
 		return log;
 	}

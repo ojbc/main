@@ -28,11 +28,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -294,7 +294,10 @@ public class AuditLogsController {
 		
 		switch (systemName) {
 		case "incident": 
-			throw new NotImplementedException();
+			IncidentReportQueryResponse incidentReportQueryResponse = restEnhancedAuditClient.retrieveIncidentReportQueryDetail(queryRequestId); 
+			model.put("incidentReportQueryResponse", incidentReportQueryResponse); 
+			log.info("incidentReportQueryResponse: "+ incidentReportQueryResponse);
+			return "auditLogs/_incidentReportQueryResponse";
 		case "criminalHistory": 
 			PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = restEnhancedAuditClient.retrieveCriminalHistoryQueryDetail(queryRequestId); 
 			model.put("personQueryCriminalHistoryResponse", personQueryCriminalHistoryResponse); 
