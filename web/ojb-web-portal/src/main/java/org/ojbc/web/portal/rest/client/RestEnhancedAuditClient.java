@@ -29,6 +29,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
@@ -221,6 +222,18 @@ public class RestEnhancedAuditClient {
 		return response.getBody();
    }
 	   
+   public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryDetail(Integer queryRequestId) {
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.setContentType(MediaType.APPLICATION_JSON);
+	   HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+	   
+	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveProfessionalLicensingQueryDetail";
+	   
+	   ResponseEntity<ProfessionalLicensingQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<ProfessionalLicensingQueryResponse>() {});
+	   
+	   return response.getBody();
+   }
+   
 
 	public Log getLog() {
 		return log;

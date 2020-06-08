@@ -39,11 +39,10 @@
 	$('.queryRequestsTable').on('dblclick', 'tr.clickable',function(event) {
 		event.preventDefault();
  		var queryRequestId = $(this).attr("title");
- 		var rowData = oTable.row($(this)).data(); 
- 		var identificationSourceText = rowData[1]; 
+ 		var systemName = $(this).closest(".collapse").attr("id");
  		var requestData = {
             'queryRequestId': $(this).attr("title"),
-            'identificationSourceText': identificationSourceText
+            'systemName': systemName
         };
  		
  		
