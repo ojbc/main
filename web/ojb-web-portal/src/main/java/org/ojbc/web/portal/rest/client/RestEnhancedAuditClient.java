@@ -36,6 +36,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -231,6 +232,18 @@ public class RestEnhancedAuditClient {
 	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveProfessionalLicensingQueryDetail";
 	   
 	   ResponseEntity<ProfessionalLicensingQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<ProfessionalLicensingQueryResponse>() {});
+	   
+	   return response.getBody();
+   }
+   
+   public WildlifeQueryResponse retrieveWildlifeQueryDetail(Integer queryRequestId) {
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.setContentType(MediaType.APPLICATION_JSON);
+	   HttpEntity<Integer> entity = new HttpEntity<Integer>(queryRequestId, headers);
+	   
+	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveWildlifeQueryDetail";
+	   
+	   ResponseEntity<WildlifeQueryResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<WildlifeQueryResponse>() {});
 	   
 	   return response.getBody();
    }
