@@ -102,8 +102,8 @@
 			//console.log("appendPersonDataDivId: "  + appendPersonDataDivId);
 			var personDataDiv = $('div#'+appendPersonDataDivId);
 			
-			//console.log("personDataDiv.text().length: "  + personDataDiv.text().length);
-			#*console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); *#
+			//console.log("personDataDiv.text().length: "  + personDataDiv.text().length); 
+			//console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); 
 			if(personDataDiv.text().length > 0){
 				if($("#personInformationInModal").length === 0 ){
 					$( "<div id='personInformationInModal'/>" ).insertAfter($('#detailModal .modal-body #modalIframeSpinner'));
@@ -111,10 +111,11 @@
 			    $('#personInformationInModal').html($('div#'+appendPersonDataDivId).html());
 			}
 			
-			//console.log("about to call showDetailModal");    
+			//console.log("about to call showDetailModal"); 
 			ojbc.showDetailModal(url, 250);
-			//console.log("iframeHeight after shown: "
-			+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
+			#* console.log("iframeHeight after shown: "
+				+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
+			*# 
 			
 			return false;
 		});

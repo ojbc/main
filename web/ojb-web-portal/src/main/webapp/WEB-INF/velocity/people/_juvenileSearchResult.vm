@@ -83,8 +83,9 @@
 			
 			//console.log("about to call showDetailModal");    
 			ojbc.showDetailModal(url, 250);
-			//console.log("iframeHeight after shown: "
-			+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
+			#* 
+			console.log("iframeHeight after shown: "
+			+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); *# 
 			
 			return false;
 		});
