@@ -69,7 +69,7 @@
 		  <div class="card">
 		    <div class="card-header" id="heading$entry.getKey()">
 		        <button class="btn btn-link" data-toggle="collapse" data-target="#$entry.getKey()" aria-expanded="true" aria-controls="$entry.getKey()">
-		          $queryRequestAccordionHeaderMap.get($$entry.getKey())
+		          $queryRequestAccordionHeaderMap.get($entry.getKey())
 		        </button>
 		      </h5>
 		    </div>

@@ -62,7 +62,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @Profile({"audit-search","standalone"})
-@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest", "clickableQueryRequestListMap", "nonClickableQueryRequestListMap", "queryRequestAccordionHeaderMap"})
+@SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest", 
+	"clickableQueryRequestListMap", "nonClickableQueryRequestListMap", "queryRequestAccordionHeaderMap", 
+	"searchRequestAccordionHeaderMap", "enabledSearchProfiles"})
 @RequestMapping("/auditLogs")
 public class AuditLogsController {
 	
@@ -77,6 +79,9 @@ public class AuditLogsController {
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
 	
+	@Resource
+	Map<String, String> searchProfilesEnabled;
+	
     @Value("${auditSearchDateRange:30}")
     Integer auditSearchDateRange;
     
@@ -89,6 +94,8 @@ public class AuditLogsController {
     Map<String, List<QueryRequest>> clickableQueryRequestListMap;
     Map<String, List<QueryRequest>> nonClickableQueryRequestListMap;
     Map<String, String> queryRequestAccordionHeaderMap;
+    Map<String, String> searchRequestAccordionHeaderMap;
+    List<String> enabledSearchProfiles;
 
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -117,6 +124,24 @@ public class AuditLogsController {
     		queryRequestAccordionHeaderMap.put("warrant", "WARRANT"); 
     		queryRequestAccordionHeaderMap.put("firearm", "FIREARM"); 
     		model.addAttribute("queryRequestAccordionHeaderMap", queryRequestAccordionHeaderMap);
+    	}
+    	
+    	if (!model.containsAttribute("searchRequestAccordionHeaderMap")) {
+    		searchRequestAccordionHeaderMap = new HashMap<String, String>(); 
+    		searchRequestAccordionHeaderMap.put("people", "PERSON SEARCH REQUEST"); 
+    		searchRequestAccordionHeaderMap.put("incident", "INCIDENT SEARCH REQUEST"); 
+    		searchRequestAccordionHeaderMap.put("firearm", "FIREARM SEARCH REQUEST"); 
+    		searchRequestAccordionHeaderMap.put("vehicle", "VEHICLE SEARCH REQUEST"); 
+    		model.addAttribute("searchRequestAccordionHeaderMap", searchRequestAccordionHeaderMap);
+    	}
+    	
+    	if (!model.containsAttribute("enabledSearchProfiles")) {
+    		enabledSearchProfiles = searchProfilesEnabled.entrySet()
+    				.stream()
+    				.filter(entry->entry.getValue().equals("enabled"))
+    				.map(entry->entry.getKey())
+    				.collect(Collectors.toList());
+    		model.addAttribute("enabledSearchProfiles", enabledSearchProfiles);
     	}
     	
 	}
@@ -185,7 +210,7 @@ public class AuditLogsController {
 		return "auditLogs/_userAcitivities";
 	}
 	
-	@RequestMapping("/incidentSearchRequests" )
+	@RequestMapping("/incident" )
 	public String getIncidentSearchRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getIncidentSearchRequests");
@@ -196,7 +221,7 @@ public class AuditLogsController {
 		return "auditLogs/_userIncidentSearchRequests";
 	}
 	
-	@RequestMapping("/personSearchRequests" )
+	@RequestMapping("/people" )
 	public String getPersonSearchRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in getIncidentSearchRequests");
@@ -207,7 +232,7 @@ public class AuditLogsController {
 		return "auditLogs/_userPersonSearchRequests";
 	}
 	
-	@RequestMapping("/firearmSearchRequests" )
+	@RequestMapping("/firearm" )
 	public String getFirearmSearchRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in firearmSearchRequests");
@@ -218,7 +243,7 @@ public class AuditLogsController {
 		return "auditLogs/_userFirearmSearchRequests";
 	}
 	
-	@RequestMapping("/vehicleSearchRequests" )
+	@RequestMapping("/vehicle" )
 	public String getVehicleSearchRequests(HttpServletRequest request, 
 			Map<String, Object> model) throws Throwable {
 		log.info("in vehicleSearchRequests");
