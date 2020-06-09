@@ -22,13 +22,23 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateSerializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class IncidentSearchRequest {
 
 	private Integer incidentSearchRequestID;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate startDate;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate endDate;
 	
 	private List<String> systemsToSearch;
@@ -47,6 +57,8 @@ public class IncidentSearchRequest {
 	
 	private String incidentNumber;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 
 	public Integer getIncidentSearchRequestID() {
