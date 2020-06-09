@@ -49,6 +49,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -456,5 +457,14 @@ public class AuditRestImpl implements AuditInterface {
 		IncidentReportQueryResponse incidentReportQueryResponse = enhancedAuditDao.retrieveIncidentReportQueryResponse(queryRequestId);
 		
 		return incidentReportQueryResponse;	
+	}
+
+	@Override
+	public WildlifeQueryResponse retrieveWildlifeQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Wildlife Query Response for: " + queryRequestId.toString());
+		
+		WildlifeQueryResponse wildlifeQueryResponse = enhancedAuditDao.retrieveWildlifeQueryResponse(queryRequestId);
+		
+		return wildlifeQueryResponse;	
 	}
 }

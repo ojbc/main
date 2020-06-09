@@ -59,6 +59,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -452,6 +453,21 @@ public class EnhancedAuditDaoTest {
 		assertEquals(LocalDate.now(), professionalLicensingQueryResponseFromDatabase.getExpirationDate());
 		assertEquals("123456", professionalLicensingQueryResponseFromDatabase.getMessageId());
 		
+		//Wildlife query response
+		WildlifeQueryResponse wildlifeQueryResponse = new WildlifeQueryResponse();
+		
+		wildlifeQueryResponse.setQueryRequestId(queryPk);
+		wildlifeQueryResponse.setMessageId("123456");
+		wildlifeQueryResponse.setResidenceCity("chicago");
+		
+		enhancedAuditDao.saveWildlifeQueryResponse(wildlifeQueryResponse);
+		
+		WildlifeQueryResponse wildlifeQueryResponseResponseFromDatabase = enhancedAuditDao.retrieveWildlifeQueryResponse(queryPk);
+		
+		assertEquals("123456", wildlifeQueryResponseResponseFromDatabase.getMessageId());
+		assertEquals("chicago", wildlifeQueryResponseResponseFromDatabase.getResidenceCity());
+		
+		//End Wildlife query response
 		
 		SubscriptionQueryResponse subscriptionQueryResponse = new SubscriptionQueryResponse();
 		
