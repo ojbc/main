@@ -42,6 +42,7 @@ import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -319,6 +320,11 @@ public class AuditLogsController {
 			model.put("professionalLicensingQueryResponse", professionalLicensingQueryResponse); 
 			log.info("professionalLicensingQueryResponse: "+ professionalLicensingQueryResponse);
 			return "auditLogs/_professionalLicensingQueryResponse";
+		case "wildlifeLicense": 
+			WildlifeQueryResponse wildlifeQueryResponse = restEnhancedAuditClient.retrieveWildlifeQueryDetail(queryRequestId); 
+			model.put("wildlifeQueryResponse", wildlifeQueryResponse); 
+			log.info("wildlifeQueryResponse: "+ wildlifeQueryResponse);
+			return "auditLogs/_wildlifeQueryResponse";
 		case "firearm": 
 			FirearmsQueryResponse firearmsQueryResponse = restEnhancedAuditClient.retrieveFirearmQueryDetail(queryRequestId); 
 			model.put("firearmsQueryResponse", firearmsQueryResponse); 
