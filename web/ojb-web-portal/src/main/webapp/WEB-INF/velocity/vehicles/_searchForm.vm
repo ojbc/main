@@ -20,7 +20,7 @@
           	$.ajaxSetup({ cache: false });
           
 			if (oTable !== undefined && oTable.fixedHeader !== undefined){
-				console.log("oTable: " + oTable); 
+				//console.log("oTable: " + oTable); 
 				oTable.fixedHeader.disable();
 				oTable.destroy();
 			}    	    	

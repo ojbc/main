@@ -26,8 +26,8 @@
 																			
 					validateLinkExists = $("#validateLink").length > 0; 
 					var formData = $('#filterSubscriptionForm').serialize();
-					console.log("formData:" + formData); 
-					console.log("validateLinkExists:" + validateLinkExists); 
+					//console.log("formData:" + formData); 
+					//console.log("validateLinkExists:" + validateLinkExists); 
 									             	
 			  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
 			  			{subscriptionStatus: $('#subscriptionStatus').val()},	  		

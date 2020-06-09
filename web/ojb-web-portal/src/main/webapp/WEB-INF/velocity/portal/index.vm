@@ -210,7 +210,7 @@
 				$('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
 					$(this).parent().toggleClass('show');
 					$.post("#springUrl('/portal/leftBar')", function(data) {
-						console.log("vehicle left bar: " + data); 
+						//console.log("vehicle left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
 		    			$('#filterColumn').removeClass('d-none');    
 		    			ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");				    			 
@@ -220,7 +220,7 @@
     		 	$('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
 					$(this).parent().toggleClass('show');
 					$.post("#springUrl('/portal/leftBar')", function(data) {
-						console.log("firearm left bar: " + data); 
+						//console.log("firearm left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
 		    			$('#filterColumn').removeClass('d-none');    
 		    			ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')")				    			 

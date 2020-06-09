@@ -138,7 +138,7 @@
 			}
 			
 	  		$.get(editMvcUrl, function(data){
-	  			console.log("data" + data); 
+	  			//console.log("data" + data); 
 	  			$('#subscriptionModal .modal-body').html(data);
 	  			$('#subscriptionModal').modal('show');
 	  		}).fail(ojbc.displayFailMessage);	
