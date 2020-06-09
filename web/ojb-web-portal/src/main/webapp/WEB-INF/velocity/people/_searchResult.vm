@@ -99,10 +99,10 @@
 			$('#detailModal .modal-title').html(title);
 			
 			var appendPersonDataDivId = $(this).attr('appendpersondata');
-			console.log("appendPersonDataDivId: "  + appendPersonDataDivId);
+			//console.log("appendPersonDataDivId: "  + appendPersonDataDivId);
 			var personDataDiv = $('div#'+appendPersonDataDivId);
 			
-			console.log("personDataDiv.text().length: "  + personDataDiv.text().length);
+			//console.log("personDataDiv.text().length: "  + personDataDiv.text().length);
 			#*console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); *#
 			if(personDataDiv.text().length > 0){
 				if($("#personInformationInModal").length === 0 ){
@@ -111,9 +111,9 @@
 			    $('#personInformationInModal').html($('div#'+appendPersonDataDivId).html());
 			}
 			
-			console.log("about to call showDetailModal");    
+			//console.log("about to call showDetailModal");    
 			ojbc.showDetailModal(url, 250);
-			console.log("iframeHeight after shown: "
+			//console.log("iframeHeight after shown: "
 			+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
 			
 			return false;

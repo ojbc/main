@@ -56,7 +56,7 @@
 			return false;
 		}
 		
-		console.log("checkedValues: " + checkedValues);
+		//console.log("checkedValues: " + checkedValues);
 								
 		bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
 		    if(ans){

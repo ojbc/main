@@ -32,7 +32,7 @@
 			$('#submitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#notificationsSearchForm').serialize();
-	        	console.log(formData);
+	        	//console.log(formData);
 	  	       	xhr = $.post("#springUrl('/subscriptions/admin/notifications')",formData, function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
