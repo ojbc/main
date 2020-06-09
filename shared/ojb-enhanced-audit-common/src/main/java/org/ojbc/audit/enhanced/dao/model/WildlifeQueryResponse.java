@@ -16,7 +16,6 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
