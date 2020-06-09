@@ -136,59 +136,37 @@
 		<div class="tab-content" id="nav-tabContent">
 		  <div class="tab-pane fade show active" id="nav-searchRequests" role="tabpanel" aria-labelledby="nav-home-tab">
 			<div id="accordion" class="small">
-			  <div class="card">
-			    <div class="card-header" id="headingOne">
-			        <button class="btn btn-link" data-toggle="collapse" data-target="#personSearchRequests" aria-expanded="true" aria-controls="personSearchRequests">
-			          PERSON SEARCH REQUEST
-			        </button>
-			      </h5>
-			    </div>
-			
-			    <div id="personSearchRequests" class="collapse ajaxContent show " aria-labelledby="headingOne" data-parent="#accordion">
-			      <div class="card-body">
-		      		#parse("auditLogs/_userPersonSearchRequests.vm")
-			      </div>
-			    </div>
-			  </div>
-			  <div class="card">
-			    <div class="card-header" id="headingIncidentSearchRequests">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#incidentSearchRequests" aria-expanded="false" aria-controls="incidentSearchRequests">
-			          INCIDENT SEARCH REQUEST
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="incidentSearchRequests" class="collapse ajaxContent" aria-labelledby="headingIncidentSearchRequests" data-parent="#accordion">
-			      <div class="card-body">
-			      </div>
-			    </div>
-			  </div>
-			  <div class="card">
-			    <div class="card-header" id="headingFirearmSearchRequests">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#firearmSearchRequests" aria-expanded="false" aria-controls="firearmSearchRequests">
-			          FIREARM SEARCH REQUEST
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="firearmSearchRequests" class="collapse ajaxContent" aria-labelledby="headingThree" data-parent="#accordion">
-			      <div class="card-body">
-			      </div>
-			    </div>
-			  </div>
-			  <div class="card">
-			    <div class="card-header" id="headingVehicleSearchRequests">
-			      <h5 class="mb-0">
-			        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#vehicleSearchRequests" aria-expanded="false" aria-controls="vehicleSearchRequests">
-			          VEHICLE SEARCH REQUEST
-			        </button>
-			      </h5>
-			    </div>
-			    <div id="vehicleSearchRequests" class="collapse ajaxContent" aria-labelledby="headingThree" data-parent="#accordion">
-			      <div class="card-body">
-			      </div>
-			    </div>
-			  </div>
+				<div class="card">
+					<div class="card-header" id="heading-people">
+					    <button class="btn btn-link" data-toggle="collapse" data-target="#people" aria-expanded="true" aria-controls="people">
+					      PERSON SEARCH REQUEST
+					    </button>
+					  </h5>
+					</div>
+					
+					<div id="people" class="collapse ajaxContent show " aria-labelledby="heading-people" data-parent="#accordion">
+					  <div class="card-body">
+						#parse("auditLogs/_userPersonSearchRequests.vm")
+					  </div>
+					</div>
+				</div>
+				#foreach($searchProfile in $enabledSearchProfiles)	
+					#if ($foreach.index > 0)
+						<div class="card">
+							<div class="card-header" id="heading-$searchProfile">
+							  <h5 class="mb-0">
+							    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#$searchProfile" aria-expanded="false" aria-controls="$searchProfile">
+							      $searchRequestAccordionHeaderMap.get($searchProfile)
+							    </button>
+							  </h5>
+							</div>
+							<div id="$searchProfile" class="collapse ajaxContent" aria-labelledby="heading-$searchProfile" data-parent="#accordion">
+								<div class="card-body">
+								</div>
+							</div>
+						</div>
+					#end
+				#end
 			</div>
 		  </div>
 		  <div class="tab-pane fade" id="nav-queryRequests" role="tabpanel" aria-labelledby="nav-queryRequests-tab">
