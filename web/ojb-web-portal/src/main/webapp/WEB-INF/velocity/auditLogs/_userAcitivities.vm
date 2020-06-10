@@ -50,7 +50,8 @@
 	$('.ajaxTab').on('shown.bs.tab', function () {
   		var tabPaneId = $(this).attr("aria-controls");
   		var tabPane = $("#" + tabPaneId);
-       	xhr = $.get("#springUrl('/auditLogs/queryRequests')",function(data) {
+  		var tabName =  tabPaneId.slice(4);
+       	xhr = $.get("#springUrl('/auditLogs/')" + tabName,function(data) {
 	        tabPane.html(data);
         }).fail(ojbc.displayFailMessage);
   		
@@ -131,6 +132,7 @@
 		  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 		    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-searchRequests" role="tab" aria-controls="nav-searchRequests" aria-selected="true">SEARCH REQUESTS</a>
 		    <a class="nav-item nav-link ajaxTab" id="nav-queryRequests-tab" data-toggle="tab" href="#nav-queryRequests" role="tab" aria-controls="nav-queryRequests" aria-selected="false">QUERY REQUESTS</a>
+		    <a class="nav-item nav-link ajaxTab" id="nav-printResults-tab" data-toggle="tab" href="#nav-printResults" role="tab" aria-controls="nav-printResults" aria-selected="false">PRINT RESULTS</a>
 		  </div>
 		</nav>
 		<div class="tab-content" id="nav-tabContent">
@@ -171,6 +173,9 @@
 		  </div>
 		  <div class="tab-pane fade" id="nav-queryRequests" role="tabpanel" aria-labelledby="nav-queryRequests-tab">
 		  	query requests
+		  </div>
+		  <div class="tab-pane fade" id="nav-printResults" role="tabpanel" aria-labelledby="nav-printResults-tab">
+		  	print results
 		  </div>
 		</div>
 	  </div>

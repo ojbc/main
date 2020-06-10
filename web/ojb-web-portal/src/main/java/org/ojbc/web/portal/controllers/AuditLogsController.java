@@ -38,6 +38,7 @@ import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
@@ -283,6 +284,18 @@ public class AuditLogsController {
 		return "auditLogs/_queryRequests";
 	}
 
+	@RequestMapping("/printResults" )
+	public String getPrintResults(HttpServletRequest request, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getPrintResults");
+		AuditSearchRequest auditSearchRequest = (AuditSearchRequest) model.get("auditSearchRequest");		
+		List<PrintResults> printResults = restEnhancedAuditClient.retrieveUserPrintRequests(auditSearchRequest);
+		
+		model.put("printResults", printResults); 
+		
+		return "auditLogs/_printResults";
+	}
+	
 	private void pouplateQueryListMap(QueryRequest queryRequest) {
 		String systemName = auditQuerySourceSystemMap.get(queryRequest.getIdentificationSourceText()); 
 		if (StringUtils.isNotBlank(systemName)) {

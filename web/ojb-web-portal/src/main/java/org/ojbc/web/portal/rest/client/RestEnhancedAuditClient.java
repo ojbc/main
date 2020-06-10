@@ -259,6 +259,19 @@ public class RestEnhancedAuditClient {
 	   
 	   return response.getBody();
    }
+
+   public List<PrintResults> retrieveUserPrintRequests(AuditSearchRequest auditSearchRequest) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Integer> entity = new HttpEntity<Integer>(auditSearchRequest.getUserInfoId(), headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrieveUserPrintRequests";
+		
+		ResponseEntity<List<PrintResults>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<PrintResults>>() {});
+		
+		return response.getBody();
+	}
+	
    
 	public Log getLog() {
 		return log;
