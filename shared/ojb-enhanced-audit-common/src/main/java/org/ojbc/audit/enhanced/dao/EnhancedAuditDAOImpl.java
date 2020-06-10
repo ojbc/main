@@ -2250,6 +2250,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 				
 			}	
 		}
+		
+		if (searchRequest.getUserInfoId() != null)
+		{
+			sqlStatement.append(" and " + alias + ".USER_INFO_ID ='" + searchRequest.getUserInfoId() + "'");
+		}	
 	}
 
 	@Override
