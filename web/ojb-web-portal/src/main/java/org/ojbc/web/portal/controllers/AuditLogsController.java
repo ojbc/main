@@ -120,6 +120,7 @@ public class AuditLogsController {
     		queryRequestAccordionHeaderMap.put("professionalLicense", "PROFESSIONAL LICENSE"); 
     		queryRequestAccordionHeaderMap.put("wildlifeLicense", "WILDLIFE LICENSE"); 
     		queryRequestAccordionHeaderMap.put("personToincidentQuery", "PERSON TO INCIDENT"); 
+    		queryRequestAccordionHeaderMap.put("personToVehicleQuery", "PERSON TO VEHICLE"); 
     		queryRequestAccordionHeaderMap.put("custody", "CUSTODY"); 
     		queryRequestAccordionHeaderMap.put("warrant", "WARRANT"); 
     		queryRequestAccordionHeaderMap.put("firearm", "FIREARM"); 
