@@ -224,4 +224,13 @@ public interface EnhancedAuditDAO {
 	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId);
 	
 	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
+	
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);
+
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
+
+	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+
+	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+	
 }

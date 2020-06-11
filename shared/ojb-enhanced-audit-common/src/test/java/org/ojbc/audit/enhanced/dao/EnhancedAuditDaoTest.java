@@ -158,6 +158,16 @@ public class EnhancedAuditDaoTest {
 		Integer psresultIdFromSave = enhancedAuditDao.savePersonSearchResult(psResult);
 		
 		assertNotNull(psresultIdFromSave);
+		
+		List<PersonSearchResult> personSearchResults = enhancedAuditDao.retrievePersonSearchResults(psrIdFromSave);
+		assertEquals(1, personSearchResults.size());
+		
+		log.info(personSearchResults.get(0).toString());
+		
+		assertEquals(new Integer(5), personSearchResults.get(0).getSearchResultsCount());
+		assertEquals("{system1}URI", personSearchResults.get(0).getSystemName());
+		assertEquals("search results error text", personSearchResults.get(0).getSearchResultsErrorText());
+		assertTrue( personSearchResults.get(0).getSearchResultsAccessDeniedIndicator());
 	}
 	
 
