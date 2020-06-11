@@ -1861,6 +1861,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
 			printResults.setDescription(rs.getString("DESCRIPTION"));
 			printResults.setSid(rs.getString("SID"));
+			printResults.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 			
 			if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
 			{	
