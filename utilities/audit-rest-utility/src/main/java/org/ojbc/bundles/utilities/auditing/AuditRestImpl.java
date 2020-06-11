@@ -473,7 +473,10 @@ public class AuditRestImpl implements AuditInterface {
 	@Override
 	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId) {
 		log.info("Retrieve Person Search Responses for: " + personSearchRequestId.toString());
-		return null;
+		
+		List<PersonSearchResult> personSearchResults = enhancedAuditDao.retrievePersonSearchResults(personSearchRequestId);
+		
+		return personSearchResults;
 	}
 
 	@Override
