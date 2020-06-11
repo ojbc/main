@@ -31,7 +31,7 @@
   <groupId>org.ojbc.bundles.utilities</groupId>
   <artifactId>audit-rest-utility</artifactId>
   <packaging>bundle</packaging>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   
   <name>OJB :: audit-rest-utility :: utilities</name>
   <url>http://www.search.org</url>

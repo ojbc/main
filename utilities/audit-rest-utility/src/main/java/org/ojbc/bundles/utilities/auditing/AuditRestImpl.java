@@ -31,6 +31,7 @@ import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -40,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
@@ -466,5 +468,35 @@ public class AuditRestImpl implements AuditInterface {
 		WildlifeQueryResponse wildlifeQueryResponse = enhancedAuditDao.retrieveWildlifeQueryResponse(queryRequestId);
 		
 		return wildlifeQueryResponse;	
+	}
+
+	@Override
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId) {
+		log.info("Retrieve Person Search Responses for: " + personSearchRequestId.toString());
+		return null;
+	}
+
+	@Override
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
+		log.info("Retrieve Firearms Search Responses for: " + firearmSearchRequestId.toString());
+		return null;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+		// TODO Auto-generated method stub
+		
+		log.info("Not yet implemented");
+		
+		return null;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		// TODO Auto-generated method stub
+		
+		log.info("Not yet implemented");
+		
+		return null;
 	}
 }
