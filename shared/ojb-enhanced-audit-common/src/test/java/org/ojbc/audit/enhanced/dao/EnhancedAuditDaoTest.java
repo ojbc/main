@@ -165,7 +165,8 @@ public class EnhancedAuditDaoTest {
 		log.info(personSearchResults.get(0).toString());
 		
 		assertEquals(new Integer(5), personSearchResults.get(0).getSearchResultsCount());
-		assertEquals("{system1}URI", personSearchResults.get(0).getSystemName());
+		assertEquals("system1", personSearchResults.get(0).getSystemName());
+		assertEquals("{system1}URI", personSearchResults.get(0).getSystemURI());
 		assertEquals("search results error text", personSearchResults.get(0).getSearchResultsErrorText());
 		assertTrue( personSearchResults.get(0).getSearchResultsAccessDeniedIndicator());
 	}
