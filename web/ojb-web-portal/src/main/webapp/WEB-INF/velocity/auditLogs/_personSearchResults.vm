@@ -17,39 +17,35 @@
  <script type="text/javascript">
  
   $(function() {
-    oTable = $("#printResultsTable").DataTable({
-		 "pagingType": "full_numbers",
-		 "pageLength": 25,
-		 stateSave: true,
-		 fixedHeader: true,
-		 "language": {
-      		"emptyTable": "No User Print Results Logs Found"
-    	 } 
-	});
-	
   });
     
 </script>
 	
 <div style="padding:10px">
-	<table class="searchResultsTable table table-striped table-bordered" style="width:100%" id="printResultsTable">
+	<table class="searchResultsTable table table-striped table-bordered" style="width:100%" id="personSearchResultsTable">
 		<thead>
 			<tr>
 				<th>SYSTEM NAME</th>
-				<th>DESCRIPTION</th>
-				<th>SID</th>
+				<th>RESULTS COUNT</th>
+				<th>ERROR INDICATOR</th>
+				<th>ERROR TEXT</th>
+				<th>TIMEOUT INDICATOR</th>
+				<th>ACCESS DENIED INDICATOR</th>
 				<th>TIMESTAMP</th>
 				<th>MESSAGE ID</th>
 			</tr>
 		</thead>
 		<tbody>
-	        #foreach($printResult in $printResults)
-		        <tr title='$!printResult.printResultsId'>
-		        	<td>$!printResult.systemName</td>
-		        	<td>$!printResult.description</td>
-		        	<td>$!printResult.sid</td>
-		        	<td>$!printResult.timestamp.format($dateTimeformatter)</td>
-		        	<td>$!printResult.messageId</td>
+	        #foreach($personSearchResult in $personSearchResults)
+		        <tr title='$!personSearchResults.personSearchResultssId'>
+		        	<td>$!personSearchResult.systemName</td>
+		        	<td>$!personSearchResult.searchResultsCount</td>
+		        	<td>$!personSearchResult.searchResultsErrorIndicator</td>
+		        	<td>$!personSearchResult.searchResultsErrorText</td>
+		        	<td>$!personSearchResult.searchResultsTimeoutIndicator</td>
+		        	<td>$!personSearchResult.searchResultsAccessDeniedIndicator</td>
+		        	<td>$!personSearchResult.timestamp.format($dateTimeformatter)</td>
+		        	<td>$!personSearchResult.messageId</td>
 	        	</tr>
 	        #end
 		</tbody>
