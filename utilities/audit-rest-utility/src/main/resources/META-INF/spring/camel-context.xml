@@ -184,9 +184,24 @@
 				<when>
 					<simple>${header.operationName} == 'retrieveWildlifeQueryDetail'</simple>
 					<to uri="direct:retrieveWildlifeQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrievePersonSearchResults'</simple>
+					<to uri="direct:retrievePersonSearchResults" />
 				</when>						
+										
 			</choice>
 		</route>
+		
+		
+		<route id="directRetrievePersonSearchResults">
+			<from uri="direct:retrievePersonSearchResults" />
+			
+			<camel:log message="Return person search results"/>
+			
+			<bean ref="auditRestImpl" method="retrievePersonSearchResults" />
+		</route>			
 		
 		<route id="directRetrieveWildlifeQueryDetail">
 			<from uri="direct:retrieveWildlifeQueryDetail" />

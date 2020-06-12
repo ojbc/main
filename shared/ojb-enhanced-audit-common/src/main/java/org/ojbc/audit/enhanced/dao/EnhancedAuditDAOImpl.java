@@ -77,6 +77,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryRes
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentReportQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryResponseRowMapper;
@@ -1861,6 +1862,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
 			printResults.setDescription(rs.getString("DESCRIPTION"));
 			printResults.setSid(rs.getString("SID"));
+			printResults.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 			
 			if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
 			{	
@@ -2628,6 +2630,45 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<WildlifeQueryResponse> WildlifeQueryResponse = jdbcTemplate.query(WILDLIFE_QUERY_SELECT, new WildlifeQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(WildlifeQueryResponse);		
+	}
+
+	@Override
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId) {
+
+		final String PERSON_SEARCH_RESPONSE_SELECT="SELECT psr.person_search_request_id, psr.search_results_count, sss.system_name, sss.system_uri, psr.search_results_error_indicator, " + 
+				"psr.search_results_access_denied_indicator, psr.search_results_error_text, psr.search_results_timeout_indicator, psr.timestamp " + 
+				"FROM person_search_results psr, SYSTEMS_TO_SEARCH sss " + 
+				"where " + 
+				"person_search_request_id = ? and " + 
+				"psr.systems_to_search_id = sss.systems_to_search_id";
+		
+		List<PersonSearchResult> personSearchResults = jdbcTemplate.query(PERSON_SEARCH_RESPONSE_SELECT, new PersonSearchResultRowMapper(), personSearchRequestId);
+
+		return personSearchResults;
+	}
+
+	@Override
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+		// TODO Auto-generated method stub
+		
+		log.info("Not yet implemented");
+		
+		return null;
+	}
+
+	@Override
+	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		// TODO Auto-generated method stub
+		
+		log.info("Not yet implemented");
+		
+		return null;
 	}
 
 }
