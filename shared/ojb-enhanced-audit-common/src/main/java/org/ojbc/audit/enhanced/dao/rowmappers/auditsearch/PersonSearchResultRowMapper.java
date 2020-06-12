@@ -31,7 +31,7 @@ public class PersonSearchResultRowMapper implements RowMapper<PersonSearchResult
 		personSearchResult.setPersonSearchRequestId(rs.getInt("person_search_request_id"));
 		personSearchResult.setSearchResultsCount(rs.getInt("search_results_count"));
 		personSearchResult.setSystemName(rs.getString("SYSTEM_NAME"));
-		personSearchResult.setSystemName(rs.getString("system_uri"));
+		personSearchResult.setSystemURI(rs.getString("system_uri"));
 		personSearchResult.setSearchResultsAccessDeniedIndicator(rs.getBoolean("search_results_access_denied_indicator"));
 		personSearchResult.setSearchResultsTimeoutIndicator(rs.getBoolean("search_results_timeout_indicator"));
 		personSearchResult.setSearchResultsErrorIndicator(rs.getBoolean("search_results_error_indicator"));
