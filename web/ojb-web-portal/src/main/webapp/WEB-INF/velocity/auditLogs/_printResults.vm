@@ -38,6 +38,7 @@
 				<th>SYSTEM NAME</th>
 				<th>DESCRIPTION</th>
 				<th>SID</th>
+				<th>TIMESTAMP</th>
 				<th>MESSAGE ID</th>
 			</tr>
 		</thead>
@@ -47,6 +48,7 @@
 		        	<td>$!printResult.systemName</td>
 		        	<td>$!printResult.description</td>
 		        	<td>$!printResult.sid</td>
+		        	<td>$!queryRequest.timestamp.format($dateTimeformatter)</td>
 		        	<td>$!printResult.messageId</td>
 	        	</tr>
 	        #end
