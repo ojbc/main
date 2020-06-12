@@ -16,6 +16,13 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
+
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
+
 public class PrintResults {
 
 	private Integer printResultsId;
@@ -24,6 +31,10 @@ public class PrintResults {
 	private String description;
 	private UserInfo userInfo;
 	private String sid;
+	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime timestamp;
 	
 	public Integer getPrintResultsId() {
 		return printResultsId;
@@ -60,6 +71,12 @@ public class PrintResults {
 	}
 	public void setSid(String sid) {
 		this.sid = sid;
+	}
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }

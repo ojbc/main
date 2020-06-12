@@ -31,6 +31,7 @@ import javax.ws.rs.core.Response;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
@@ -40,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
@@ -160,23 +162,49 @@ public interface AuditInterface {
    public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
+   @Path("/retrievePersonSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);
+
+   @POST
    @Path("/retrieveFirearmSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest);
-   
+
+   @POST
+   @Path("/retrieveFirearmSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
+
    @POST
    @Path("/retrieveVehicleSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest);
 
+   //TODO: Need to persist vehicle search results
+   @POST
+   @Path("/retrieveVehicleSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+   
    @POST
    @Path("/retrieveIncidentSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest);
 
+   //TODO: Need to persist incident search results
+   @POST
+   @Path("/retrieveIncidentSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+   
    @POST
    @Path("/retrieveQueryRequest")
    @Produces(MediaType.APPLICATION_JSON)
