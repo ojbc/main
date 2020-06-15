@@ -2361,4 +2361,5 @@
   <w:Type w:name="niem-xsd:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xsd:decimal" w:isRequested="true"/>
   <w:Type w:name="xsd:boolean" w:isRequested="true"/>
+  <w:Type w:name="xsd:nonNegativeInteger" w:isRequested="true"/>
 </w:WantList>
