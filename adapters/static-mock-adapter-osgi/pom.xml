@@ -40,7 +40,7 @@
 		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
 		<jodatime-version>2.2</jodatime-version>
-		<spring-version>3.2.11.RELEASE</spring-version> <!-- Needs to be in sync with what's in the current version of SMX -->
+		<spring-version>4.3.19.RELEASE</spring-version> <!-- Needs to be in sync with what's in the current version of SMX -->
 		<commons-math-version>3.2</commons-math-version>
 		<ojbc-resources-version>1.0.0</ojbc-resources-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
