@@ -72,6 +72,7 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchReq
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentReportQueryResponseRowMapper;
@@ -2649,8 +2650,17 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 	@Override
 	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		final String FIREARMS_SEARCH_RESPONSE_SELECT="SELECT fsr.FIREARMS_SEARCH_REQUEST_ID, fsr.search_results_count, sss.system_name, sss.system_uri, fsr.search_results_error_indicator, " + 
+				"fsr.search_results_access_denied_indicator, fsr.search_results_error_text, fsr.search_results_timeout_indicator, fsr.timestamp " + 
+				"FROM FIREARMS_SEARCH_RESULTS fsr, SYSTEMS_TO_SEARCH sss " + 
+				"where " + 
+				"fsr.firearms_search_request_id = ? and " + 
+				"fsr.systems_to_search_id = sss.systems_to_search_id";
+		
+		List<FirearmSearchResult> firearmSearchResults = jdbcTemplate.query(FIREARMS_SEARCH_RESPONSE_SELECT, new FirearmSearchResultRowMapper(), firearmSearchRequestId);
+
+		return firearmSearchResults;		
 	}
 
 	@Override

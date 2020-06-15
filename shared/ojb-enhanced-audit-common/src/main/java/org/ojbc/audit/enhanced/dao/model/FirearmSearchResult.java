@@ -16,8 +16,14 @@
  */
 package org.ojbc.audit.enhanced.dao.model;
 
+import java.time.LocalDateTime;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class FirearmSearchResult {
 
@@ -25,6 +31,7 @@ public class FirearmSearchResult {
 	private Integer systemSearchResultID;
 	private String systemSearchResultURI;
 	private String systemName;
+	private String systemURI;
 	private Boolean searchResultsErrorIndicator;
 	private Integer firearmSearchResultsId;
 	private String searchResultsErrorText;
@@ -32,6 +39,10 @@ public class FirearmSearchResult {
 	private Boolean searchResultsAccessDeniedIndicator;
 	private String searchResultsAccessDeniedText;
 	private Integer searchResultsCount;
+	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime timestamp;
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -126,6 +137,22 @@ public class FirearmSearchResult {
 
 	public void setSearchResultsCount(Integer searchResultsCount) {
 		this.searchResultsCount = searchResultsCount;
+	}
+
+	public String getSystemURI() {
+		return systemURI;
+	}
+
+	public void setSystemURI(String systemURI) {
+		this.systemURI = systemURI;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }
