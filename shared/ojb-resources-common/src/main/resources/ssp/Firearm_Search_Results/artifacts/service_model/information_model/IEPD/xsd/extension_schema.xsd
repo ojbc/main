@@ -17,22 +17,22 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd"/>
-<!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="impl/hawaii/hawaii-statewide-firearm-codes.xsd"/> -->
-<!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="impl/demostate/demostate-firearm-codes.xsd"/> -->
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+		schemaLocation="search-results-metadata.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1"
+		schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
+	<!-- <xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" schemaLocation="impl/hawaii/hawaii-statewide-firearm-codes.xsd"/> -->
+	<!-- <xsd:import namespace="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0" schemaLocation="impl/demostate/demostate-firearm-codes.xsd"/> -->
 	<xsd:complexType name="FirearmSearchResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a Firearm.</xsd:documentation>
@@ -40,8 +40,45 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="firearm-search-resp-ext:FirearmSearchResult" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmSystemResponseSummary" minOccurs="0" />
+					<xsd:element ref="firearm-search-resp-ext:FirearmSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FirearmSystemResponseSummary" type="firearm-search-resp-ext:FirearmSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of the firearm system response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FirearmSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of the firearm system response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="firearm-search-resp-ext:FirearmSystem" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FirearmSystem" type="firearm-search-resp-ext:FirearmSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A firearm system.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FirearmSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a firearm system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="firearm-search-resp-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmResultCountQuantity" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -58,13 +95,13 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="firearm-search-resp-ext:Firearm"/>
-					<xsd:element ref="firearm-search-resp-ext:ItemRegistration"/>
-					<xsd:element ref="nc:PropertyRegistrationAssociation"/>
+					<xsd:element ref="nc:Person" />
+					<xsd:element ref="firearm-search-resp-ext:Firearm" />
+					<xsd:element ref="firearm-search-resp-ext:ItemRegistration" />
+					<xsd:element ref="nc:PropertyRegistrationAssociation" />
 					<xsd:element ref="firearm-search-resp-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
-					<xsd:element ref="firearm-search-resp-ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentifier" minOccurs="0" />
+					<xsd:element ref="firearm-search-resp-ext:SearchResultCategoryText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -73,9 +110,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:FirearmType">
 				<xsd:sequence>
-					<xsd:element ref="firearm-search-resp-ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="firearm-search-resp-ext:FirearmStatus" minOccurs="0"/>
-					<xsd:element ref="firearm-search-resp-ext:FirearmCategoryText" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmMakeRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="firearm-search-resp-ext:FirearmStatus" minOccurs="0" />
+					<xsd:element ref="firearm-search-resp-ext:FirearmCategoryText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -84,7 +121,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:StatusType">
 				<xsd:sequence>
-					<xsd:element ref="firearm-search-resp-ext:FirearmStatusRepresentation" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmStatusRepresentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -114,7 +151,8 @@
 			<xsd:documentation>A head element for ways to represent the status of a firearm registration.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmRegistrationStatusText" type="nc:TextType" substitutionGroup="firearm-search-resp-ext:FirearmRegistrationStatusRepresentation">
+	<xsd:element name="FirearmRegistrationStatusText" type="nc:TextType"
+		substitutionGroup="firearm-search-resp-ext:FirearmRegistrationStatusRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>The status of a firearm registration.</xsd:documentation>
 		</xsd:annotation>
@@ -123,8 +161,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ItemRegistrationType">
 				<xsd:sequence>
-					<xsd:element ref="firearm-search-resp-ext:RegistrationStatus" minOccurs="0"/>
-					<xsd:element ref="firearm-search-resp-ext:RegistrationNotesText" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:RegistrationStatus" minOccurs="0" />
+					<xsd:element ref="firearm-search-resp-ext:RegistrationNotesText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -133,29 +171,27 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:StatusType">
 				<xsd:sequence>
-					<xsd:element ref="firearm-search-resp-ext:FirearmRegistrationStatusRepresentation" minOccurs="0"/>
+					<xsd:element ref="firearm-search-resp-ext:FirearmRegistrationStatusRepresentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="Firearm" type="firearm-search-resp-ext:FirearmType">
 		<xsd:annotation>
-			<xsd:documentation>
-				Firearm.
+			<xsd:documentation> Firearm.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ItemRegistration" type="firearm-search-resp-ext:ItemRegistrationType">
 		<xsd:annotation>
-			<xsd:documentation>
-				A Item Registration.
+			<xsd:documentation> A Item Registration.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmStatusText" type="nc:TextType" substitutionGroup="firearm-search-resp-ext:FirearmStatusRepresentation">
+	<xsd:element name="FirearmStatusText" type="nc:TextType"
+		substitutionGroup="firearm-search-resp-ext:FirearmStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>
-				Status of the firearm (stolen, lost, etc).
+			<xsd:documentation> Status of the firearm (stolen, lost, etc).
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -166,7 +202,8 @@
 	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.
+			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be
+				queried.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -178,12 +215,18 @@
 	</xsd:element>
 	<xsd:element name="FirearmMakeRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A placeholder for the make of a firearm. </xsd:documentation>
+			<xsd:documentation>A placeholder for the make of a firearm.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FirearmMakeText" type="nc:TextType" substitutionGroup="firearm-search-resp-ext:FirearmMakeRepresentation">
+	<xsd:element name="FirearmMakeText" type="nc:TextType"
+		substitutionGroup="firearm-search-resp-ext:FirearmMakeRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A text representation of a make of a firearm. </xsd:documentation>
+			<xsd:documentation>A text representation of a make of a firearm.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmResultCountQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of firearm result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
