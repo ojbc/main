@@ -482,7 +482,10 @@ public class AuditRestImpl implements AuditInterface {
 	@Override
 	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
 		log.info("Retrieve Firearms Search Responses for: " + firearmSearchRequestId.toString());
-		return null;
+		
+		List<FirearmSearchResult> firearmSearchResults = enhancedAuditDao.retrieveFirearmSearchResults(firearmSearchRequestId);
+		
+		return firearmSearchResults;
 	}
 
 	@Override
