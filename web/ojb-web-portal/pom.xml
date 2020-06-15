@@ -74,7 +74,7 @@
 		<complier.version>3.0</complier.version>
 		<maven.site.version>3.0</maven.site.version>
 		<maven.war.version>2.4</maven.war.version>
-		<guava-version>23.5-jre</guava-version>
+		<guava-version>24.1.1-jre</guava-version>
 	</properties>
 
 	<dependencies>
