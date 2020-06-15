@@ -40,7 +40,9 @@ import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
@@ -82,6 +84,77 @@ public class EnhancedAuditDaoTest {
 	public void init(){
 	
 		Assert.assertNotNull(enhancedAuditDao);
+	}
+	
+	@Test
+	public void testFirearmSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		FirearmsSearchRequest fsr = new FirearmsSearchRequest();
+		
+		fsr.setMessageId("123456");
+		fsr.setOnBehalfOf("onbehalf");
+		fsr.setPurpose("purpose");
+		fsr.setUserInfofk(userInfoPk);
+		fsr.setCurrentRegistrationsOnly(true);
+		fsr.setFirearmsType("handgun");
+		fsr.setMake("glock");
+		fsr.setModel("9mm");
+		fsr.setRegistrationNumber("123");
+		fsr.setSerialNumber("432");
+		
+		Integer fsrIdFromSave = enhancedAuditDao.saveFirearmsSearchRequest(fsr);
+		
+		enhancedAuditDao.saveFirearmsSystemToSearch(fsrIdFromSave, 1);
+		enhancedAuditDao.saveFirearmsSystemToSearch(fsrIdFromSave, 2);
+		
+		Integer fsrIdFromRetreive = enhancedAuditDao.retrieveFirearmSearchIDfromMessageID("123456");
+		
+		log.info("ID from save: " + fsrIdFromSave);
+		log.info("ID from retreive: " + fsrIdFromRetreive);
+		
+		assertEquals(fsrIdFromSave, fsrIdFromRetreive);
+		
+		AuditSearchRequest firearmsAuditSearchRequest = new AuditSearchRequest();
+		
+		firearmsAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		firearmsAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<FirearmsSearchRequest> firearmsSearchRequests = enhancedAuditDao.retrieveFirearmSearchRequest(firearmsAuditSearchRequest);
+		
+		//Additional assertions in processor test
+		assertEquals(1, firearmsSearchRequests.size());
+					
+		FirearmSearchResult fsResult = new FirearmSearchResult();
+		
+		fsResult.setFirearmSearchRequestId(fsrIdFromRetreive);
+		fsResult.setSearchResultsCount(5);
+		fsResult.setSystemSearchResultURI("{system1}URI");
+		fsResult.setSearchResultsAccessDeniedText("Access Denied text");
+		fsResult.setSearchResultsAccessDeniedIndicator(true);
+		fsResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(fsResult.getSystemSearchResultURI());
+		
+		fsResult.setSystemSearchResultID(systemToSearchID);
+		
+		Integer fsresultIdFromSave = enhancedAuditDao.saveFirearmSearchResult(fsResult);
+		
+		assertNotNull(fsresultIdFromSave);
+		
+		List<FirearmSearchResult> firearmSearchResult = enhancedAuditDao.retrieveFirearmSearchResults(fsrIdFromSave);
+		assertEquals(1, firearmSearchResult.size());
+		
+		log.info(firearmSearchResult.get(0).toString());
+		
+		assertEquals(new Integer(5), firearmSearchResult.get(0).getSearchResultsCount());
+		assertEquals("system1", firearmSearchResult.get(0).getSystemName());
+		assertEquals("{system1}URI", firearmSearchResult.get(0).getSystemURI());
+		assertEquals("search results error text", firearmSearchResult.get(0).getSearchResultsErrorText());
+		assertTrue( firearmSearchResult.get(0).getSearchResultsAccessDeniedIndicator());
 	}
 	
 	@Test
