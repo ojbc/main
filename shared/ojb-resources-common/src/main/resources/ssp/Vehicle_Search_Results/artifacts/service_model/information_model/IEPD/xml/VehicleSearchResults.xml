@@ -19,12 +19,25 @@
 -->
 <vsres-doc:VehicleSearchResults
 	xmlns:vsres-doc="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0"
-	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
-	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<vsres-ext:VehicleSystemResponseSummary>
+		<vsres-ext:VehicleSystem>
+			<intel:SystemName>Vehicle System 1</intel:SystemName>
+			<vsres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Vehicle_Search_Request_Service/Vehicle/1.0}Submit-Vehicle-Search---Vehicle
+			</vsres-ext:SourceSystemNameText>
+			<vsres-ext:VehicleResultCountQuantity>1</vsres-ext:VehicleResultCountQuantity>
+		</vsres-ext:VehicleSystem>
+		<vsres-ext:VehicleSystem>
+			<intel:SystemName>Vehicle System 2</intel:SystemName>
+			<vsres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Vehicle_Search_Request_Service/Vehicle/1.0}Submit-Vehicle-Search---Vehicle2
+			</vsres-ext:SourceSystemNameText>
+			<vsres-ext:VehicleResultCountQuantity>1</vsres-ext:VehicleResultCountQuantity>
+		</vsres-ext:VehicleSystem>
+	</vsres-ext:VehicleSystemResponseSummary>
 	<vsres-ext:VehicleSearchResult>
 		<vsres-ext:Vehicle>
 			<nc:ItemCategoryText>Passenger Vehicle</nc:ItemCategoryText>
@@ -48,10 +61,10 @@
 			</nc:ConveyanceRegistration>
 			<vsres-ext:VehicleMakeCode>Nissan</vsres-ext:VehicleMakeCode>
 		</vsres-ext:Vehicle>
-		<vsres-ext:SourceSystemNameText>System 1</vsres-ext:SourceSystemNameText>
+		<vsres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Vehicle_Search_Request_Service/Vehicle/1.0}Submit-Vehicle-Search---Vehicle</vsres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
-			<nc:IdentificationID>1234</nc:IdentificationID>
-			<intel:SystemName>System 1</intel:SystemName>
+			<nc:IdentificationID>1200</nc:IdentificationID>
+			<intel:SystemName>Vehicle System 1</intel:SystemName>
 		</intel:SystemIdentifier>
 	</vsres-ext:VehicleSearchResult>
 	<vsres-ext:VehicleSearchResult>
@@ -75,10 +88,10 @@
 			</nc:ConveyanceRegistration>
 			<vsres-ext:VehicleMakeCode>Nissan</vsres-ext:VehicleMakeCode>
 		</vsres-ext:Vehicle>
-		<vsres-ext:SourceSystemNameText>System 2</vsres-ext:SourceSystemNameText>
+		<vsres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Vehicle_Search_Request_Service/Vehicle/1.0}Submit-Vehicle-Search---Vehicle-2</vsres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>1234</nc:IdentificationID>
-			<intel:SystemName>System 2</intel:SystemName>
+			<intel:SystemName>Vehicle System 2</intel:SystemName>
 		</intel:SystemIdentifier>
 	</vsres-ext:VehicleSearchResult>
 </vsres-doc:VehicleSearchResults>
