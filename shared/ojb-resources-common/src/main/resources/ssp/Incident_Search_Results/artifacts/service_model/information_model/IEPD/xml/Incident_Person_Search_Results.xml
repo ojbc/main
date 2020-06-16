@@ -20,12 +20,23 @@
 <isres-doc:IncidentPersonSearchResults
 	xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
 	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/impl/demostate/LocationCodes.xsd">
+	<isres-ext:IncidentPersonSystemResponseSummary>
+		<isres-ext:IncidentPersonSystem>
+			<intel:SystemName>System 1</intel:SystemName>
+			<isres-ext:SourceSystemNameText>Incident Person System 1</isres-ext:SourceSystemNameText>
+			<isres-ext:IncidentPersonResultCountQuantity>1</isres-ext:IncidentPersonResultCountQuantity>
+		</isres-ext:IncidentPersonSystem>
+		<isres-ext:IncidentPersonSystem>
+			<intel:SystemName>System 2</intel:SystemName>
+			<isres-ext:SourceSystemNameText>Incident Person System 2</isres-ext:SourceSystemNameText>
+			<isres-ext:IncidentPersonResultCountQuantity>1</isres-ext:IncidentPersonResultCountQuantity>
+		</isres-ext:IncidentPersonSystem>
+	</isres-ext:IncidentPersonSystemResponseSummary>
 	<isres-ext:IncidentPersonSearchResult>
 		<isres-ext:Incident s:id="I001">
 			<nc:ActivityIdentification>
@@ -64,7 +75,7 @@
 			<nc:ActivityReference s:ref="I001" />
 			<nc:LocationReference s:ref="L001" />
 		</j:ActivityLocationAssociation>
-		<isres-ext:SourceSystemNameText>System 1</isres-ext:SourceSystemNameText>
+		<isres-ext:SourceSystemNameText>Incident Person System 1</isres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>0903</nc:IdentificationID>
 			<intel:SystemName>System 1</intel:SystemName>
@@ -72,49 +83,49 @@
 		<isres-ext:IncidentInvolvedPersonInvolvementDescriptionText>Person was at scene of the crime</isres-ext:IncidentInvolvedPersonInvolvementDescriptionText>
 	</isres-ext:IncidentPersonSearchResult>
 	<isres-ext:IncidentPersonSearchResult>
-			<isres-ext:Incident s:id="I002">
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</nc:ActivityIdentification>
-				<nc:ActivityDate>
-					<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
-				</nc:ActivityDate>
-				<isres-ext:IncidentCategoryCode>Law</isres-ext:IncidentCategoryCode>
-			</isres-ext:Incident>
-			<nc:Location s:id="L002">
-				<nc:LocationAddress>
-					<isres-ext:StructuredAddress>
-						<nc:LocationStreet>
-							<nc:StreetFullText>101 Main Street</nc:StreetFullText>
-							<nc:StreetNumberText>101</nc:StreetNumberText>
-							<nc:StreetName>Main Street</nc:StreetName>
-						</nc:LocationStreet>
-						<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
-						<nc:LocationCityName>Burlington</nc:LocationCityName>
-						<nc:LocationStateUSPostalServiceCode>VT
-						</nc:LocationStateUSPostalServiceCode>
-						<nc:LocationPostalCode>00000</nc:LocationPostalCode>
-						<incident-location-codes-demostate:LocationCityTownCode>Brattleboro</incident-location-codes-demostate:LocationCityTownCode>
-					</isres-ext:StructuredAddress>
+		<isres-ext:Incident s:id="I002">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:DateTime>2012-04-01T12:00:00</nc:DateTime>
+			</nc:ActivityDate>
+			<isres-ext:IncidentCategoryCode>Law</isres-ext:IncidentCategoryCode>
+		</isres-ext:Incident>
+		<nc:Location s:id="L002">
+			<nc:LocationAddress>
+				<isres-ext:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>101 Main Street</nc:StreetFullText>
+						<nc:StreetNumberText>101</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Burlington</nc:LocationCityName>
+					<nc:LocationStateUSPostalServiceCode>VT
+					</nc:LocationStateUSPostalServiceCode>
+					<nc:LocationPostalCode>00000</nc:LocationPostalCode>
+					<incident-location-codes-demostate:LocationCityTownCode>Brattleboro</incident-location-codes-demostate:LocationCityTownCode>
+				</isres-ext:StructuredAddress>
 			</nc:LocationAddress>
-			</nc:Location>
-			<nc:Organization s:id="O002">
-				<nc:OrganizationName>PD 2</nc:OrganizationName>
-			</nc:Organization>
-			<nc:ActivityReportingOrganizationAssociation>
-				<nc:ActivityReference s:ref="I002" />
-				<nc:OrganizationReference s:ref="O002" />
-			</nc:ActivityReportingOrganizationAssociation>
-			<j:ActivityLocationAssociation>
-				<nc:ActivityReference s:ref="I002" />
-				<nc:LocationReference s:ref="L002" />
-			</j:ActivityLocationAssociation>
-			<isres-ext:SourceSystemNameText>System 2</isres-ext:SourceSystemNameText>
-			<intel:SystemIdentifier>
+		</nc:Location>
+		<nc:Organization s:id="O002">
+			<nc:OrganizationName>PD 2</nc:OrganizationName>
+		</nc:Organization>
+		<nc:ActivityReportingOrganizationAssociation>
+			<nc:ActivityReference s:ref="I002" />
+			<nc:OrganizationReference s:ref="O002" />
+		</nc:ActivityReportingOrganizationAssociation>
+		<j:ActivityLocationAssociation>
+			<nc:ActivityReference s:ref="I002" />
+			<nc:LocationReference s:ref="L002" />
+		</j:ActivityLocationAssociation>
+		<isres-ext:SourceSystemNameText>Incident Person System 2</isres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
 			<nc:IdentificationID>0903889888</nc:IdentificationID>
 			<intel:SystemName>System 2</intel:SystemName>
 		</intel:SystemIdentifier>
-			<isres-ext:IncidentInvolvedPersonInvolvementDescriptionText>Person witnessed incident
+		<isres-ext:IncidentInvolvedPersonInvolvementDescriptionText>Person witnessed incident
 			</isres-ext:IncidentInvolvedPersonInvolvementDescriptionText>
 	</isres-ext:IncidentPersonSearchResult>
 </isres-doc:IncidentPersonSearchResults>

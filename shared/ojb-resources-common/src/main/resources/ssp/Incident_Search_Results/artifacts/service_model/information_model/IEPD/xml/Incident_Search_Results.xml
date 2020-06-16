@@ -19,15 +19,24 @@
 -->
 <isres-doc:IncidentSearchResults
 	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/impl/demostate/LocationCodes.xsd">
+	<isres-ext:IncidentSystemResponseSummary>
+		<isres-ext:IncidentSystem>
+			<intel:SystemName>System 1</intel:SystemName>
+			<isres-ext:SourceSystemNameText>Incident System 1</isres-ext:SourceSystemNameText>
+			<isres-ext:IncidentResultCountQuantity>1</isres-ext:IncidentResultCountQuantity>
+		</isres-ext:IncidentSystem>
+		<isres-ext:IncidentSystem>
+			<intel:SystemName>System 2</intel:SystemName>
+			<isres-ext:SourceSystemNameText>Incident System 2</isres-ext:SourceSystemNameText>
+			<isres-ext:IncidentResultCountQuantity>1</isres-ext:IncidentResultCountQuantity>
+		</isres-ext:IncidentSystem>
+	</isres-ext:IncidentSystemResponseSummary>
 	<isres-ext:IncidentSearchResult>
 		<isres-ext:Incident s:id="I001">
 			<nc:ActivityIdentification>
@@ -65,7 +74,7 @@
 			<nc:ActivityReference s:ref="I001" />
 			<nc:LocationReference s:ref="L001" />
 		</j:ActivityLocationAssociation>
-		<isres-ext:SourceSystemNameText>System 1</isres-ext:SourceSystemNameText>
+		<isres-ext:SourceSystemNameText>Incident System 1</isres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>0903889888</nc:IdentificationID>
 			<intel:SystemName>System 1</intel:SystemName>
@@ -83,7 +92,7 @@
 		</isres-ext:Incident>
 		<nc:Location s:id="L002">
 			<nc:LocationAddress>
-	<isres-ext:StructuredAddress>
+				<isres-ext:StructuredAddress>
 					<nc:LocationStreet>
 						<nc:StreetNumberText>101</nc:StreetNumberText>
 						<nc:StreetName>Main Street</nc:StreetName>
@@ -95,7 +104,7 @@
 					<nc:LocationPostalCode>00000</nc:LocationPostalCode>
 					<incident-location-codes-demostate:LocationCityTownCode>Brattleboro</incident-location-codes-demostate:LocationCityTownCode>
 				</isres-ext:StructuredAddress>
-</nc:LocationAddress>
+			</nc:LocationAddress>
 		</nc:Location>
 		<nc:Organization s:id="O002">
 			<nc:OrganizationName>PD 2</nc:OrganizationName>
@@ -108,7 +117,7 @@
 			<nc:ActivityReference s:ref="I002" />
 			<nc:LocationReference s:ref="L002" />
 		</j:ActivityLocationAssociation>
-		<isres-ext:SourceSystemNameText>System 2</isres-ext:SourceSystemNameText>
+		<isres-ext:SourceSystemNameText>Incident System 2</isres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>09038</nc:IdentificationID>
 			<intel:SystemName>System 2</intel:SystemName>
