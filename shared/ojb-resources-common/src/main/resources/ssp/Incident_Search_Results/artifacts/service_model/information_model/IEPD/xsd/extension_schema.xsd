@@ -17,29 +17,24 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-	elementFormDefault="qualified"
-	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:locationCodes="http://ojbc.org/IEPD/Extensions/VermontLocationCodes/1.0" 
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0" elementFormDefault="qualified"
+	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:locationCodes="http://ojbc.org/IEPD/Extensions/VermontLocationCodes/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
-		schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1"
 		schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" schemaLocation="search-request-error-reporting.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+		schemaLocation="search-request-error-reporting.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+		schemaLocation="search-results-metadata.xsd" />
 	<xsd:complexType name="IncidentSearchResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a collection of incidents.
@@ -48,71 +43,174 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="isres-ext:IncidentSearchResult" minOccurs="0"
-						maxOccurs="unbounded" />
-					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+					<xsd:element ref="isres-ext:IncidentSystemResponseSummary" minOccurs="0" />
+					<xsd:element ref="isres-ext:IncidentSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentPersonSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a collection of incidents related
-				to a specific person of interest.
+			<xsd:documentation>A data type for a collection of incidents related to a specific person of interest.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="isres-ext:IncidentPersonSearchResult"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+					<xsd:element ref="isres-ext:IncidentPersonSystemResponseSummary" minOccurs="0" />
+					<xsd:element ref="isres-ext:IncidentPersonSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentVehicleSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a collection of incidents related
-				to a specific person of interest.
+			<xsd:documentation>A data type for a collection of incidents related to a specific person of interest.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="isres-ext:IncidentVehicleSearchResult"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+					<xsd:element ref="isres-ext:IncidentVehicleSystemResponseSummary" minOccurs="0" />
+					<xsd:element ref="isres-ext:IncidentVehicleSearchResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentSystemResponseSummary" type="isres-ext:IncidentSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of the incident system response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of the incident system response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="isres-ext:IncidentSystem" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentSystem" type="isres-ext:IncidentSystemType">
+		<xsd:annotation>
+			<xsd:documentation>An incident system.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an incident system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:IncidentResultCountQuantity" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentPersonSystemResponseSummary" type="isres-ext:IncidentPersonSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of the incident person system response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentPersonSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of the incident person system response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="isres-ext:IncidentPersonSystem" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentPersonSystem" type="isres-ext:IncidentPersonSystemType">
+		<xsd:annotation>
+			<xsd:documentation>An incident person system.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentPersonSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an incident person system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:IncidentPersonResultCountQuantity" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentVehicleSystemResponseSummary" type="isres-ext:IncidentVehicleSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of the incident vehicle system response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentVehicleSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of the incident vehicle system response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="isres-ext:IncidentVehicleSystem" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentVehicleSystem" type="isres-ext:IncidentVehicleSystemType">
+		<xsd:annotation>
+			<xsd:documentation>An incident vehicle system.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IncidentVehicleSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an incident vehicle system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="isres-ext:IncidentVehicleResultCountQuantity" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="IncidentSearchResult" type="isres-ext:IncidentSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A set of details about an
-				incident.
+			<xsd:documentation>A set of details about an incident.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentPersonSearchResult" type="isres-ext:IncidentPersonSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A set of details about an
-				incident related to a
-				specific person of interest..</xsd:documentation>
+			<xsd:documentation>A set of details about an incident related to a specific person of interest..
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentVehicleSearchResult" type="isres-ext:IncidentVehicleSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A set of details about an
-				incident related to a
-				specific vehicle of interest..</xsd:documentation>
+			<xsd:documentation>A set of details about an incident related to a specific vehicle of interest..
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IncidentSearchResultType">
 		<!-- Need to add incident role as well as nature -->
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details about an
-				incident.</xsd:documentation>
+			<xsd:documentation>A data type for a set of details about an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
@@ -120,42 +218,36 @@
 					<xsd:element ref="isres-ext:Incident" />
 					<xsd:element ref="nc:Location" minOccurs="0" />
 					<xsd:element ref="nc:Organization" minOccurs="0" />
-					<xsd:element ref="nc:ActivityReportingOrganizationAssociation"
-						minOccurs="0" />
-					<xsd:element ref="j:ActivityLocationAssociation"
-						minOccurs="0" />
-					<xsd:element ref="isres-ext:SourceSystemNameText" minOccurs="0"
-						maxOccurs="1" />
-					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
+					<xsd:element ref="nc:ActivityReportingOrganizationAssociation" minOccurs="0" />
+					<xsd:element ref="j:ActivityLocationAssociation" minOccurs="0" />
+					<xsd:element ref="isres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="intel:SystemIdentifier" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentPersonSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details about an
-				incident related to a specific person of interest.
-				</xsd:documentation>
+			<xsd:documentation>A data type for a set of details about an incident related to a specific person of interest.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="isres-ext:IncidentSearchResultType">
 				<xsd:sequence>
-					<xsd:element ref="isres-ext:IncidentInvolvedPersonInvolvementDescriptionText" minOccurs="0"/>
+					<xsd:element ref="isres-ext:IncidentInvolvedPersonInvolvementDescriptionText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentVehicleSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details about an
-				incident related to a specific vehicle of interest.
-				</xsd:documentation>
+			<xsd:documentation>A data type for a set of details about an incident related to a specific vehicle of interest.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="isres-ext:IncidentSearchResultType">
 				<xsd:sequence>
-					<xsd:element
-						ref="isres-ext:IncidentInvolvedVehicleInvolvementDescriptionText" minOccurs="0"/>
+					<xsd:element ref="isres-ext:IncidentInvolvedVehicleInvolvementDescriptionText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -186,9 +278,8 @@
 	</xsd:complexType>
 	<xsd:complexType name="IncidentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an occurrence or an event that
-				may
-				require a response.</xsd:documentation>
+			<xsd:documentation>A data type for an occurrence or an event that may require a response.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:IncidentType">
@@ -198,24 +289,22 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentInvolvedPersonInvolvementDescriptionText"
-		type="nc:TextType">
+	<xsd:element name="IncidentInvolvedPersonInvolvementDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description of a person's relationship to an
-				incident.</xsd:documentation>
+			<xsd:documentation>A description of a person's relationship to an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentInvolvedVehicleInvolvementDescriptionText"
-		type="nc:TextType">
+	<xsd:element name="IncidentInvolvedVehicleInvolvementDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description of a vehicle's relationship to an
-				incident.</xsd:documentation>
+			<xsd:documentation>A description of a vehicle's relationship to an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Incident" type="isres-ext:IncidentType">
 		<xsd:annotation>
-			<xsd:documentation>An occurrence or an event that may require a
-				response.</xsd:documentation>
+			<xsd:documentation>An occurrence or an event that may require a response.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
@@ -268,4 +357,19 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:element name="IncidentResultCountQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of incident result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentPersonResultCountQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of incident person result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentVehicleResultCountQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of incident vehicle result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
