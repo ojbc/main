@@ -223,7 +223,7 @@
 					<camel:simple>${properties:federatedQuery.vehicleSearch.dbEnancedAuditLog} == 'true'</camel:simple>
 					
 					<camel:doTry>
-						<camel:log message="This is a place holder to audit the search response"/>
+						<camel:to uri="bean:vehicleSearchResponseSQLProcessor?method=auditVehicleSearchResponse"/>
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
