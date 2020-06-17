@@ -66,6 +66,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -2664,7 +2665,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 
 	@Override
-	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
 		// TODO Auto-generated method stub
 		
 		log.info("Not yet implemented");
@@ -2678,6 +2679,12 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		log.info("Not yet implemented");
 		
+		return null;
+	}
+
+	@Override
+	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
