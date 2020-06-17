@@ -38,8 +38,8 @@
 			row.siblings().removeClass("selected");
 		    row.addClass("selected");
 			
-	 		var personQueryResponseUrl = encodeURI("#springUrl('/auditLogs/personSearchResults')");
-	  		$.post( personQueryResponseUrl, $.param(requestData), function(data) {
+	 		var personSearchResponseUrl = encodeURI("#springUrl('/auditLogs/personSearchResults')");
+	  		$.post( personSearchResponseUrl, $.param(requestData), function(data) {
 				$('#personSearchResultModalContent').html(data);
 				$('#personSearchResultModal').modal('show');
 			    $("#personSearchResultsTable").DataTable({

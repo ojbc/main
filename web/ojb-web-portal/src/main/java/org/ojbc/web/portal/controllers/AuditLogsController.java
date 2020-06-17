@@ -31,6 +31,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
@@ -307,6 +308,18 @@ public class AuditLogsController {
 		model.put("personSearchResults", personSearchResults); 
 		
 		return "auditLogs/_personSearchResults";
+	}
+	
+	@RequestMapping("/firearmSearchResults" )
+	public String getFirearmSearchResults(HttpServletRequest request, 
+			@RequestParam("firearmSearchRequestId") Integer firearmSearchRequestId, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getPrintResults");
+		List<FirearmSearchResult> firearmSearchResults = restEnhancedAuditClient.retrieveFirearmSearchResults(firearmSearchRequestId);
+		
+		model.put("firearmSearchResults", firearmSearchResults); 
+		
+		return "auditLogs/_firearmSearchResults";
 	}
 	
 	private void pouplateQueryListMap(QueryRequest queryRequest) {
