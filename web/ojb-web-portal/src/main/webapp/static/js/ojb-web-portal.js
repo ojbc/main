@@ -288,7 +288,8 @@ ojbc = {
 		$('#filterPersonHairColor').prop('selectedIndex',0);
 	},
 	
-	showDetailModal : function(url, heightIncrement = 0){
+	showDetailModal : function(url, heightIncrement){
+		heightIncrement = heightIncrement || 0;
 		ojbc.clearErrorMessage();
         $('#modalIframe').attr('src', url);	
       	$('#detailModal').modal('show');

@@ -41,7 +41,7 @@
 	            var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
 	        
 	  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
-	  	       		if (!data.includes('id="advancedSearchTab"')){
+	  	       		if (data.indexOf('id="advancedSearchTab"') === -1){
 	  	       			$('#filterColumn').addClass('d-none');
 	  	       		}
 			        $('#portalContent').html(data);
