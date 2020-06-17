@@ -51,6 +51,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -489,12 +490,12 @@ public class AuditRestImpl implements AuditInterface {
 	}
 
 	@Override
-	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
-		// TODO Auto-generated method stub
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+		log.info("Retrieve Vehicle Search Responses for: " + vehicleSearchRequestId.toString());
 		
-		log.info("Not yet implemented");
+		List<VehicleSearchResult> vehicleSearchResults = enhancedAuditDao.retrieveVehicleSearchResults(vehicleSearchRequestId);
 		
-		return null;
+		return vehicleSearchResults;
 	}
 
 	@Override

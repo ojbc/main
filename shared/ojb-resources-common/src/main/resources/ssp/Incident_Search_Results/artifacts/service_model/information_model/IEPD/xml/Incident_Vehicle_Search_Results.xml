@@ -20,12 +20,18 @@
 <isres-doc:IncidentVehicleSearchResults
 	xmlns:incident-location-codes-demostate="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0"
 	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
-	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:isres-ext="http://ojbc.org/IEPD/Extensions/IncidentSearchResults/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0 ../xsd/impl/demostate/LocationCodes.xsd">
+	<isres-ext:IncidentVehicleSystemResponseSummary>
+		<isres-ext:IncidentVehicleSystem>
+			<intel:SystemName>System 1</intel:SystemName>
+			<isres-ext:SourceSystemNameText>Incident Vehicle System 1</isres-ext:SourceSystemNameText>
+			<isres-ext:IncidentVehicleResultCountQuantity>1</isres-ext:IncidentVehicleResultCountQuantity>
+		</isres-ext:IncidentVehicleSystem>
+	</isres-ext:IncidentVehicleSystemResponseSummary>
 	<isres-ext:IncidentVehicleSearchResult>
 		<isres-ext:Incident s:id="I001">
 			<nc:ActivityIdentification>
@@ -63,7 +69,7 @@
 			<nc:ActivityReference s:ref="I001" />
 			<nc:LocationReference s:ref="L001" />
 		</j:ActivityLocationAssociation>
-		<isres-ext:SourceSystemNameText>System 1</isres-ext:SourceSystemNameText>
+		<isres-ext:SourceSystemNameText>Incident Vehicle System 1</isres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>0903</nc:IdentificationID>
 			<intel:SystemName>System 1</intel:SystemName>
