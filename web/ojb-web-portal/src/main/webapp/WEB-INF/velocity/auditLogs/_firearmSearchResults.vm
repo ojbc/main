@@ -22,7 +22,7 @@
 </script>
 	
 <div style="padding:10px">
-	<table class="searchResultsTable table table-striped table-bordered" style="width:100%" id="personSearchResultsTable">
+	<table class="searchResultsTable table table-striped table-bordered" style="width:100%" id="firearmSearchResultsTable">
 		<thead>
 			<tr>
 				<th>SYSTEM NAME</th>
@@ -36,16 +36,16 @@
 			</tr>
 		</thead>
 		<tbody>
-	        #foreach($personSearchResult in $personSearchResults)
-		        <tr title='$!personSearchResults.personSearchResultsId'>
-		        	<td>$!personSearchResult.systemName</td>
-		        	<td>$!personSearchResult.searchResultsCount</td>
-		        	<td>$!personSearchResult.searchResultsErrorIndicator</td>
-		        	<td>$!personSearchResult.searchResultsErrorText</td>
-		        	<td>$!personSearchResult.searchResultsTimeoutIndicator</td>
-		        	<td>$!personSearchResult.searchResultsAccessDeniedIndicator</td>
-		        	<td>$!personSearchResult.timestamp.format($dateTimeformatter)</td>
-		        	<td>$!personSearchResult.messageId</td>
+	        #foreach($firearmSearchResult in $firearmSearchResults)
+		        <tr title='$!firearmSearchResult.firearmSearchResultsId'>
+		        	<td>$!firearmSearchResult.systemName</td>
+		        	<td>$!firearmSearchResult.searchResultsCount</td>
+		        	<td>$!firearmSearchResult.searchResultsErrorIndicator</td>
+		        	<td>$!firearmSearchResult.searchResultsErrorText</td>
+		        	<td>$!firearmSearchResult.searchResultsTimeoutIndicator</td>
+		        	<td>$!firearmSearchResult.searchResultsAccessDeniedIndicator</td>
+		        	<td>$!firearmSearchResult.timestamp.format($dateTimeformatter)</td>
+		        	<td>$!firearmSearchResult.messageId</td>
 	        	</tr>
 	        #end
 		</tbody>
