@@ -48,7 +48,7 @@
 		<script type="text/javascript">
 			$(function () {
 				
-				$("#modalContainer", parent.document).animate({
+				$("#detailModal .modal-body", parent.document).animate({
         			scrollTop: $("#details").offset().top
     			}, 400);
     							

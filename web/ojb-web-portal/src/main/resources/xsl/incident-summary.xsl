@@ -36,7 +36,7 @@
 	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
 		<script type="text/javascript"> $(function () { $('#incidentDetailTabs').tabs({ activate: function( event, ui ) { var modalIframe =
 			$("#modalIframe", parent.document); modalIframe.height(modalIframe.contents().find("body").height() + 16); } });
-			$("#modalContainer", parent.document).animate({ scrollTop: $("#incidentTab").offset().top }, 400); }); 
+			$("#detailModal .modal-body", parent.document).animate({ scrollTop: $("#incidentTab").offset().top }, 400); }); 
 		</script>
 		<div id="incidentDetailTabs">
 			<ul>
