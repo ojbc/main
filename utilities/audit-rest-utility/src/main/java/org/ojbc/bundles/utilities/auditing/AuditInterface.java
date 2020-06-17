@@ -186,7 +186,6 @@ public interface AuditInterface {
    @Consumes(MediaType.APPLICATION_JSON)
    public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest);
 
-   //TODO: Need to persist vehicle search results
    @POST
    @Path("/retrieveVehicleSearchResults")
    @Produces(MediaType.APPLICATION_JSON)
