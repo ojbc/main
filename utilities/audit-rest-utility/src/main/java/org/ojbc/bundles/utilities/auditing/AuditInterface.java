@@ -51,6 +51,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -190,7 +191,7 @@ public interface AuditInterface {
    @Path("/retrieveVehicleSearchResults")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+   public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
    
    @POST
    @Path("/retrieveIncidentSearchRequest")

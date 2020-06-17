@@ -48,6 +48,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -124,6 +125,8 @@ public interface EnhancedAuditDAO {
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
 	
 	public Integer saveFirearmSearchResult(FirearmSearchResult firearmSearchResult);
+	
+	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult);
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
@@ -229,7 +232,7 @@ public interface EnhancedAuditDAO {
 
 	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
 
-	public List<VehicleSearchRequest> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
 
 	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
 	
