@@ -31,7 +31,7 @@
                 var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
             
 	  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
-	  	       	    if (!data.includes('id="advancedSearchTab"')){
+	  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
 		  	       		$('#filterColumn').addClass('d-none');
 	  	       		}
 			        $('#portalContent').html(data);
