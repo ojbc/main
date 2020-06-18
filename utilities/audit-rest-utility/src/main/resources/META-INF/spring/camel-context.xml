@@ -194,12 +194,25 @@
 				<when>
 					<simple>${header.operationName} == 'retrieveFirearmSearchResults'</simple>
 					<to uri="direct:retrieveFirearmSearchResults" />
-				</when>						
+				</when>		
+
+				<when>
+					<simple>${header.operationName} == 'retrieveVehicleSearchResults'</simple>
+					<to uri="direct:retrieveVehicleSearchResults" />
+				</when>		
 										
 			</choice>
 		</route>
 		
-		<route id="directFirearmSearchResults">
+		<route id="directRetrieveVehicleSearchResults">
+			<from uri="direct:retrieveVehicleSearchResults" />
+			
+			<camel:log message="Return vehicle search results"/>
+			
+			<bean ref="auditRestImpl" method="retrieveVehicleSearchResults" />
+		</route>			
+		
+		<route id="directRetrieveFirearmSearchResults">
 			<from uri="direct:retrieveFirearmSearchResults" />
 			
 			<camel:log message="Return firearm search results"/>
