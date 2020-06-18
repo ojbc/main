@@ -45,6 +45,7 @@ import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -302,7 +303,7 @@ public class AuditLogsController {
 	public String getPersonSearchResults(HttpServletRequest request, 
 			@RequestParam("personSearchRequestId") Integer personSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
-		log.info("in getPrintResults");
+		log.info("in getPersonSearchResults");
 		List<PersonSearchResult> personSearchResults = restEnhancedAuditClient.retrievePersonSearchResults(personSearchRequestId);
 		
 		model.put("personSearchResults", personSearchResults); 
@@ -314,12 +315,24 @@ public class AuditLogsController {
 	public String getFirearmSearchResults(HttpServletRequest request, 
 			@RequestParam("firearmSearchRequestId") Integer firearmSearchRequestId, 
 			Map<String, Object> model) throws Throwable {
-		log.info("in getPrintResults");
+		log.info("in getFirearmSearchResults");
 		List<FirearmSearchResult> firearmSearchResults = restEnhancedAuditClient.retrieveFirearmSearchResults(firearmSearchRequestId);
 		
 		model.put("firearmSearchResults", firearmSearchResults); 
 		
 		return "auditLogs/_firearmSearchResults";
+	}
+	
+	@RequestMapping("/vehicleSearchResults" )
+	public String getVehicleSearchResults(HttpServletRequest request, 
+			@RequestParam("vehicleSearchRequestId") Integer vehicleSearchRequestId, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getVehicleSearchResults");
+		List<VehicleSearchResult> vehicleSearchResults = restEnhancedAuditClient.retrieveVehicleSearchResults(vehicleSearchRequestId);
+		
+		model.put("vehicleSearchResults", vehicleSearchResults); 
+		
+		return "auditLogs/_vehicleSearchResults";
 	}
 	
 	private void pouplateQueryListMap(QueryRequest queryRequest) {
