@@ -168,6 +168,8 @@ public interface EnhancedAuditDAO {
 
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
+	public Integer retrieveVehicleSearchIDfromMessageID(String messageId);
+	
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
 	
 	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId);

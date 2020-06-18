@@ -86,6 +86,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryRespo
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WildlifeQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
@@ -783,6 +784,36 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
+	
+	@Override
+	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult) {
+        log.debug("Inserting row into VEHICLE_SEARCH_RESULTS table : " + vehicleSearchResult);
+        
+        final String VEHICLE_SEARCH_RESULT_INSERT="INSERT into VEHICLE_SEARCH_RESULTS "
+        		+ "(VEHICLE_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_SEARCH_RESULT_INSERT, new String[] {"VEHICLE_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getVehicleSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+   }	
 
 	@Override
 	public Integer saveSubscriptionSearchResult(
@@ -1145,6 +1176,35 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 		return ret;
 	}
+	
+	@Override
+	public Integer retrieveVehicleSearchIDfromMessageID(String messageId) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select vsr.*, sss.SYSTEM_NAME from vehicle_search_request vsr, VEHICLE_SYSTEMS_TO_SEARCH vss, SYSTEMS_TO_SEARCH sss where vsr.VEHICLE_SEARCH_REQUEST_ID = vss.VEHICLE_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = vss.SYSTEMS_TO_SEARCH_ID and MESSAGE_ID = ?");
+		
+		Integer ret = null;
+		
+		List<VehicleSearchRequest> vehicleSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new VehicleSearchRequestRowMapper(), messageId);
+		
+		if (vehicleSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve vehicle search request ID");
+		}
+		
+		if (vehicleSearchRequests.size() == 0 ||  vehicleSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person search request, size: " + vehicleSearchRequests.size());
+		}
+		
+		if (vehicleSearchRequests.size() == 1)
+		{
+			ret = vehicleSearchRequests.get(0).getVehicleSearchRequestID();
+		}	
+
+		return ret;
+	}	
 	
 	@Override
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId) {
@@ -2666,11 +2726,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 	@Override
 	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
-		// TODO Auto-generated method stub
+		final String VEHICLE_SEARCH_RESPONSE_SELECT="SELECT vsr.vehicle_search_request_id, vsr.search_results_count, sss.system_name, sss.system_uri, vsr.search_results_error_indicator, " + 
+				"vsr.search_results_access_denied_indicator, vsr.search_results_error_text, vsr.search_results_timeout_indicator, vsr.timestamp " + 
+				"FROM vehicle_search_results vsr, SYSTEMS_TO_SEARCH sss " + 
+				"where " + 
+				"vehicle_search_request_id = ? and " + 
+				"vsr.systems_to_search_id = sss.systems_to_search_id";
 		
-		log.info("Not yet implemented");
-		
-		return null;
+		List<VehicleSearchResult> vehicleSearchResults = jdbcTemplate.query(VEHICLE_SEARCH_RESPONSE_SELECT, new VehicleSearchResultRowMapper(), vehicleSearchRequestId);
+
+		return vehicleSearchResults;
 	}
 
 	@Override
@@ -2679,12 +2744,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		log.info("Not yet implemented");
 		
-		return null;
-	}
-
-	@Override
-	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

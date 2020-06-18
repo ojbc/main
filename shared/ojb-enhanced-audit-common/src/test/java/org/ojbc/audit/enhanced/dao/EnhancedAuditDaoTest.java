@@ -61,6 +61,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -981,6 +982,34 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(vehiclePk);
 		
+		VehicleSearchResult vsResult = new VehicleSearchResult();
+		
+		vsResult.setVehicleSearchRequestId(vehiclePk);
+		vsResult.setSearchResultsCount(5);
+		vsResult.setSystemSearchResultURI("{system1}URI");
+		vsResult.setSearchResultsAccessDeniedText("Access Denied text");
+		vsResult.setSearchResultsAccessDeniedIndicator(true);
+		vsResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(vsResult.getSystemSearchResultURI());
+		
+		vsResult.setSystemSearchResultID(systemToSearchID);
+		
+		Integer vsresultIdFromSave = enhancedAuditDao.saveVehicleSearchResult(vsResult);
+		
+		assertNotNull(vsresultIdFromSave);
+		
+		List<VehicleSearchResult> vehicleSearchResults = enhancedAuditDao.retrieveVehicleSearchResults(vsresultIdFromSave);
+		assertEquals(1, vehicleSearchResults.size());
+		
+		log.info(vehicleSearchResults.get(0).toString());
+		
+		assertEquals(new Integer(5), vehicleSearchResults.get(0).getSearchResultsCount());
+		assertEquals("system1", vehicleSearchResults.get(0).getSystemName());
+		assertEquals("{system1}URI", vehicleSearchResults.get(0).getSystemURI());
+		assertEquals("search results error text", vehicleSearchResults.get(0).getSearchResultsErrorText());
+		assertTrue( vehicleSearchResults.get(0).getSearchResultsAccessDeniedIndicator());
+
 	}
 
 	@Test
