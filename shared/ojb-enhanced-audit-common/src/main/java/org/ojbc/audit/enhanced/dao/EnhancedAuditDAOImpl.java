@@ -2699,10 +2699,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 		final String PERSON_SEARCH_RESPONSE_SELECT="SELECT psr.person_search_request_id, psr.search_results_count, sss.system_name, sss.system_uri, psr.search_results_error_indicator, " + 
 				"psr.search_results_access_denied_indicator, psr.search_results_error_text, psr.search_results_timeout_indicator, psr.timestamp " + 
-				"FROM person_search_results psr, SYSTEMS_TO_SEARCH sss " + 
+				"FROM person_search_results psr left join SYSTEMS_TO_SEARCH sss  on psr.systems_to_search_id = sss.systems_to_search_id " + 
 				"where " + 
-				"person_search_request_id = ? and " + 
-				"psr.systems_to_search_id = sss.systems_to_search_id";
+				"person_search_request_id = ? ";
 		
 		List<PersonSearchResult> personSearchResults = jdbcTemplate.query(PERSON_SEARCH_RESPONSE_SELECT, new PersonSearchResultRowMapper(), personSearchRequestId);
 
@@ -2714,10 +2713,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 		final String FIREARMS_SEARCH_RESPONSE_SELECT="SELECT fsr.FIREARMS_SEARCH_REQUEST_ID, fsr.search_results_count, sss.system_name, sss.system_uri, fsr.search_results_error_indicator, " + 
 				"fsr.search_results_access_denied_indicator, fsr.search_results_error_text, fsr.search_results_timeout_indicator, fsr.timestamp " + 
-				"FROM FIREARMS_SEARCH_RESULTS fsr, SYSTEMS_TO_SEARCH sss " + 
+				"FROM FIREARMS_SEARCH_RESULTS fsr left join SYSTEMS_TO_SEARCH sss  on fsr.systems_to_search_id = sss.systems_to_search_id " + 
 				"where " + 
-				"fsr.firearms_search_request_id = ? and " + 
-				"fsr.systems_to_search_id = sss.systems_to_search_id";
+				"fsr.firearms_search_request_id = ? ";
 		
 		List<FirearmSearchResult> firearmSearchResults = jdbcTemplate.query(FIREARMS_SEARCH_RESPONSE_SELECT, new FirearmSearchResultRowMapper(), firearmSearchRequestId);
 
@@ -2728,10 +2726,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
 		final String VEHICLE_SEARCH_RESPONSE_SELECT="SELECT vsr.vehicle_search_request_id, vsr.search_results_count, sss.system_name, sss.system_uri, vsr.search_results_error_indicator, " + 
 				"vsr.search_results_access_denied_indicator, vsr.search_results_error_text, vsr.search_results_timeout_indicator, vsr.timestamp " + 
-				"FROM vehicle_search_results vsr, SYSTEMS_TO_SEARCH sss " + 
+				"FROM vehicle_search_results vsr  left join SYSTEMS_TO_SEARCH sss  on vsr.systems_to_search_id = sss.systems_to_search_id " + 
 				"where " + 
-				"vehicle_search_request_id = ? and " + 
-				"vsr.systems_to_search_id = sss.systems_to_search_id";
+				"vehicle_search_request_id = ? ";
 		
 		List<VehicleSearchResult> vehicleSearchResults = jdbcTemplate.query(VEHICLE_SEARCH_RESPONSE_SELECT, new VehicleSearchResultRowMapper(), vehicleSearchRequestId);
 
