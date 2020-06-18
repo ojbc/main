@@ -27,6 +27,36 @@
 			"emptyTable": "No Vehicle Search Request Logs Found"
 			 } 
 		});
+		
+		$('#vehicleSearchRequestTable').on('dblclick', 'tbody tr',function(event) {
+			event.preventDefault();
+	 		var requestData = {
+	            'vehicleSearchRequestId': $(this).attr("title"),
+	        };
+	 		
+			var row = $(this).closest('tr'); 
+			row.siblings().removeClass("selected");
+		    row.addClass("selected");
+			
+	 		var vehicleSearchResponseUrl = encodeURI("#springUrl('/auditLogs/vehicleSearchResults')");
+	  		$.post( vehicleSearchResponseUrl, $.param(requestData), function(data) {
+				$('#vehicleSearchResultModalContent').html(data);
+				$('#vehicleSearchResultModal').modal('show');
+			    $("#vehicleSearchResultsTable").DataTable({
+					 "pagingType": "full_numbers",
+					 "pageLength": 25,
+					 responsive: true,
+					 stateSave: true,
+					 "language": {
+			      		"emptyTable": "No Vehicle Search Results Logs Found"
+			    	 } 
+				});
+				
+	     	}).fail(ojbc.displayFailMessage); ;	
+	  		
+	  		return false;		  					  					  		                                                     
+	 	}); 
+ 		
 	});
 </script>
  <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="vehicleSearchRequestTable">
@@ -65,3 +95,20 @@
         #end
 	</tbody>
 </table> 								
+
+<div class="modal fade ojbc-modal" id="vehicleSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="vehicleSearchResultModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="vehicleSearchResultModalTitle">VEHICLE SEARCH RESULTS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="vehicleSearchResultModalContent">
+        ...
+      </div>
+    </div>
+  </div>
+</div>				    
+						

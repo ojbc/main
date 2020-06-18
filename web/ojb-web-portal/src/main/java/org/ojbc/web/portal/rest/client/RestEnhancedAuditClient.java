@@ -38,6 +38,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
@@ -294,6 +295,18 @@ public class RestEnhancedAuditClient {
 	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveFirearmSearchResults";
 	   
 	   ResponseEntity<List<FirearmSearchResult>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<FirearmSearchResult>>() {});
+	   
+	   return response.getBody();
+   }
+   
+   public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.setContentType(MediaType.APPLICATION_JSON);
+	   HttpEntity<Integer> entity = new HttpEntity<Integer>(vehicleSearchRequestId, headers);
+	   
+	   String uri = restServiceBaseUrl + "auditServer/audit/retrieveVehicleSearchResults";
+	   
+	   ResponseEntity<List<VehicleSearchResult>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<VehicleSearchResult>>() {});
 	   
 	   return response.getBody();
    }
