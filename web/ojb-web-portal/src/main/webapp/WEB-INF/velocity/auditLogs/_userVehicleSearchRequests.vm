@@ -78,7 +78,7 @@
 	</thead>
 	<tbody>
         #foreach($vehicleSearchRequest in $vehicleSearchRequests)
-	        <tr title='$!vehicleSearchRequest.vehicleSearchRequestID'>
+	        <tr title='$!vehicleSearchRequest.vehicleSearchRequestId'>
 	        	<td>$!vehicleSearchRequest.vehicleColor</td>
 	        	<td>$!vehicleSearchRequest.sourceSystemsList</td>
 	        	<td>$!vehicleSearchRequest.vehicleModel</td>

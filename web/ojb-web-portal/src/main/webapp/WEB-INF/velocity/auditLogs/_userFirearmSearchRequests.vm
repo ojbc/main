@@ -77,7 +77,7 @@
 	</thead>
 	<tbody>
         #foreach($firearmSearchRequest in $firearmSearchRequests)
-	        <tr title='$!firearmSearchRequest.firearmSearchRequestID'>
+	        <tr title='$!firearmSearchRequest.firearmSearchRequestId'>
 	        	<td>$!firearmSearchRequest.serialNumber</td>
 	        	<td>$!firearmSearchRequest.systemsToSearch</td>
 	        	<td>$!firearmSearchRequest.registrationNumber</td>
