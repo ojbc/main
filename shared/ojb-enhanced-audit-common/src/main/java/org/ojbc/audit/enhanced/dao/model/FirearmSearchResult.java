@@ -28,7 +28,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 public class FirearmSearchResult {
 
 	private Integer firearmSearchRequestId;
-	private Integer systemSearchResultID;
+	private Integer systemSearchResultId;
 	private String systemSearchResultURI;
 	private String systemName;
 	private String systemURI;
@@ -56,12 +56,12 @@ public class FirearmSearchResult {
 		this.firearmSearchRequestId = firearmSearchRequestId;
 	}
 
-	public Integer getSystemSearchResultID() {
-		return systemSearchResultID;
+	public Integer getSystemSearchResultId() {
+		return systemSearchResultId;
 	}
 
-	public void setSystemSearchResultID(Integer systemSearchResultID) {
-		this.systemSearchResultID = systemSearchResultID;
+	public void setSystemSearchResultId(Integer systemSearchResultId) {
+		this.systemSearchResultId = systemSearchResultId;
 	}
 
 	public String getSystemSearchResultURI() {

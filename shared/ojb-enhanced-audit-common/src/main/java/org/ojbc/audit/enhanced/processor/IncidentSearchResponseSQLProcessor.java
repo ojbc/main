@@ -42,7 +42,7 @@ public class IncidentSearchResponseSQLProcessor extends AbstractIncidentSearchRe
 			
 			if (systemToSearchPK != null)
 			{
-				incidentSearchResult.setSystemSearchResultID(systemToSearchPK);
+				incidentSearchResult.setSystemSearchResultId(systemToSearchPK);
 			}	
 			else
 			{
@@ -50,7 +50,7 @@ public class IncidentSearchResponseSQLProcessor extends AbstractIncidentSearchRe
 				
 				if (systemToSearchPK != null)
 				{
-					incidentSearchResult.setSystemSearchResultID(systemToSearchPK);
+					incidentSearchResult.setSystemSearchResultId(systemToSearchPK);
 				}	
 
 			}	

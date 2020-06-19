@@ -74,7 +74,7 @@ public class IncidentSearchRequestRowMapper implements
 				incidentSearchRequest.getSystemsToSearch().add(systemName);
 			}
 
-			incidentSearchRequest.setIncidentSearchRequestID(id);
+			incidentSearchRequest.setIncidentSearchRequestId(id);
 		}
 
 		return (List<IncidentSearchRequest>) new ArrayList<IncidentSearchRequest>(

@@ -31,7 +31,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class IncidentSearchRequest {
 
-	private Integer incidentSearchRequestID;
+	private Integer incidentSearchRequestId;
 	
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -61,12 +61,12 @@ public class IncidentSearchRequest {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 
-	public Integer getIncidentSearchRequestID() {
-		return incidentSearchRequestID;
+	public Integer getIncidentSearchRequestId() {
+		return incidentSearchRequestId;
 	}
 
-	public void setIncidentSearchRequestID(Integer incidentSearchRequestID) {
-		this.incidentSearchRequestID = incidentSearchRequestID;
+	public void setIncidentSearchRequestId(Integer incidentSearchRequestId) {
+		this.incidentSearchRequestId = incidentSearchRequestId;
 	}
 
 	public LocalDate getStartDate() {

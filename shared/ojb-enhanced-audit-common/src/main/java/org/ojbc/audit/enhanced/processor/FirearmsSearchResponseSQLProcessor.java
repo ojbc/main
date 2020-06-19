@@ -42,7 +42,7 @@ public class FirearmsSearchResponseSQLProcessor extends AbstractFirearmSearchRes
 			
 			if (systemToSearchPK != null)
 			{
-				firearmSearchResult.setSystemSearchResultID(systemToSearchPK);
+				firearmSearchResult.setSystemSearchResultId(systemToSearchPK);
 			}	
 			else
 			{
@@ -50,7 +50,7 @@ public class FirearmsSearchResponseSQLProcessor extends AbstractFirearmSearchRes
 				
 				if (systemToSearchPK != null)
 				{
-					firearmSearchResult.setSystemSearchResultID(systemToSearchPK);
+					firearmSearchResult.setSystemSearchResultId(systemToSearchPK);
 				}	
 
 			}	
