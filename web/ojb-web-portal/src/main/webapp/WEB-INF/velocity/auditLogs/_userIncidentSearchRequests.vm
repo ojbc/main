@@ -75,7 +75,7 @@
 	</thead>
 	<tbody>
         #foreach($incidentSearchRequest in $incidentSearchRequests)
-	        <tr title='$!incidentSearchRequest.incidentSearchRequestID'>
+	        <tr title='$!incidentSearchRequest.incidentSearchRequestId'>
 	        	<td>$!incidentSearchRequest.startDate</td>
 	        	<td>$!incidentSearchRequest.endDate</td>
 	        	<td>$!incidentSearchRequest.cityTown</td>

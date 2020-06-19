@@ -92,7 +92,7 @@
 	</thead>
 	<tbody>
         #foreach($personSearchRequest in $personSearchRequests)
-	        <tr title='$!personSearchRequest.personSearchRequestID'>
+	        <tr title='$!personSearchRequest.personSearchRequestId'>
 	        	<td>$!personSearchRequest.firstName</td>
 	        	<td>$!personSearchRequest.lastName</td>
 	        	<td>$!personSearchRequest.systemsToSearch</td>
