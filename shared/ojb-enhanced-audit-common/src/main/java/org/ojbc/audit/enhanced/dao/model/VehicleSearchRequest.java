@@ -28,7 +28,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class VehicleSearchRequest {
 
-	private Integer vehicleSearchRequestID;
+	private Integer vehicleSearchRequestId;
 	
 	private String vehicleColor;
 	private String vehicleModel;
@@ -99,11 +99,11 @@ public class VehicleSearchRequest {
 	public void setSourceSystemsList(List<String> sourceSystemsList) {
 		this.sourceSystemsList = sourceSystemsList;
 	}
-	public Integer getVehicleSearchRequestID() {
-		return vehicleSearchRequestID;
+	public Integer getVehicleSearchRequestId() {
+		return vehicleSearchRequestId;
 	}
-	public void setVehicleSearchRequestID(Integer vehicleSearchRequestID) {
-		this.vehicleSearchRequestID = vehicleSearchRequestID;
+	public void setVehicleSearchRequestId(Integer vehicleSearchRequestId) {
+		this.vehicleSearchRequestId = vehicleSearchRequestId;
 	}
 	public String getPurpose() {
 		return purpose;

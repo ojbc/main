@@ -49,7 +49,7 @@ public class PersonSearchRequestRowMapper implements
 				personSearchRequest = new PersonSearchRequest();
 			
 				personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
-				personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
+				personSearchRequest.setPersonSearchRequestId(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
 				
 				if (rs.getDate("DOB_START_DATE") != null)
 				{	
@@ -102,7 +102,7 @@ public class PersonSearchRequestRowMapper implements
 				personSearchRequest.getSystemsToSearch().add(systemName);
 			}
 
-			personSearchRequest.setPersonSearchRequestID(id);
+			personSearchRequest.setPersonSearchRequestId(id);
 		}
 
 		return (List<PersonSearchRequest>) new ArrayList<PersonSearchRequest>(

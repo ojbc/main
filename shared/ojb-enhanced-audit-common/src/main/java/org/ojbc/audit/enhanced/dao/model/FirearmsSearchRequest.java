@@ -28,7 +28,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class FirearmsSearchRequest {
 
-	private Integer firearmSearchRequestID;
+	private Integer firearmSearchRequestId;
 	
 	private String serialNumber;
 	
@@ -60,12 +60,12 @@ public class FirearmsSearchRequest {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 	
-	public Integer getFirearmSearchRequestID() {
-		return firearmSearchRequestID;
+	public Integer getFirearmSearchRequestId() {
+		return firearmSearchRequestId;
 	}
 
-	public void setFirearmSearchRequestID(Integer firearmSearchRequestID) {
-		this.firearmSearchRequestID = firearmSearchRequestID;
+	public void setFirearmSearchRequestId(Integer firearmSearchRequestId) {
+		this.firearmSearchRequestId = firearmSearchRequestId;
 	}
 
 	public String getSerialNumber() {
