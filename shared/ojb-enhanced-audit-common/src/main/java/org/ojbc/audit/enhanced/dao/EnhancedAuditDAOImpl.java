@@ -47,6 +47,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -78,6 +79,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseR
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentReportQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQueryResponseRowMapper;
@@ -1176,6 +1178,35 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
 		return ret;
 	}
+	
+	@Override
+	public Integer retrieveIncidentSearchIDfromMessageID(String messageId) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select isr.*, sss.SYSTEM_NAME from incident_search_request isr, INCIDENT_SYSTEMS_TO_SEARCH iss, SYSTEMS_TO_SEARCH sss where isr.INCIDENT_SEARCH_REQUEST_ID = iss.INCIDENT_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = iss.SYSTEMS_TO_SEARCH_ID and MESSAGE_ID = ?");
+		
+		Integer ret = null;
+		
+		List<IncidentSearchRequest> incidentSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new IncidentSearchRequestRowMapper(), messageId);
+		
+		if (incidentSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve incident search request ID");
+		}
+		
+		if (incidentSearchRequests.size() == 0 ||  incidentSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than incident search request, size: " + incidentSearchRequests.size());
+		}
+		
+		if (incidentSearchRequests.size() == 1)
+		{
+			ret = incidentSearchRequests.get(0).getIncidentSearchRequestID();
+		}	
+
+		return ret;
+	}	
 	
 	@Override
 	public Integer retrieveVehicleSearchIDfromMessageID(String messageId) {
@@ -2735,13 +2766,48 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return vehicleSearchResults;
 	}
 
+
 	@Override
-	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
-		// TODO Auto-generated method stub
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		final String INCIDENT_SEARCH_RESPONSE_SELECT="SELECT isr.incident_search_request_id, isr.search_results_count, sss.system_name, sss.system_uri, isr.search_results_error_indicator, " + 
+				"isr.search_results_access_denied_indicator, isr.search_results_error_text, isr.search_results_timeout_indicator, isr.timestamp " + 
+				"FROM incident_search_results isr, SYSTEMS_TO_SEARCH sss " + 
+				"where " + 
+				"incident_search_request_id = ? and " + 
+				"isr.systems_to_search_id = sss.systems_to_search_id";
 		
-		log.info("Not yet implemented");
-		
-		return null;
+		List<IncidentSearchResult> incidentSearchResults = jdbcTemplate.query(INCIDENT_SEARCH_RESPONSE_SELECT, new IncidentSearchResultRowMapper(), incidentSearchRequestId);
+
+		return incidentSearchResults;	
 	}
 
+	@Override
+	public Integer saveIncidentSearchResult(IncidentSearchResult incidentSearchResult) {
+        log.debug("Inserting row into INCIDENT_SEARCH_RESULTS table : " + incidentSearchResult);
+        
+        final String INCIDENT_SEARCH_RESULT_INSERT="INSERT into INCIDENT_SEARCH_RESULTS "
+        		+ "(INCIDENT_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_SEARCH_RESULT_INSERT, new String[] {"INCIDENT_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getIncidentSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
 }

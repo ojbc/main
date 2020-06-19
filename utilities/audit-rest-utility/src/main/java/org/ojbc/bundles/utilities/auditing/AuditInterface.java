@@ -37,6 +37,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -198,12 +199,11 @@ public interface AuditInterface {
    @Consumes(MediaType.APPLICATION_JSON)
    public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest);
 
-   //TODO: Need to persist incident search results
    @POST
    @Path("/retrieveIncidentSearchResults")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+   public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
    
    @POST
    @Path("/retrieveQueryRequest")
