@@ -28,6 +28,36 @@
       		"emptyTable": "No Incident Search Request Logs Found"
     	 } 
 	});
+	
+	$('#incidentSearchRequestTable').on('dblclick', 'tbody tr',function(event) {
+		event.preventDefault();
+ 		var requestData = {
+            'incidentSearchRequestId': $(this).attr("title"),
+        };
+ 		
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+ 		var incidentSearchResponseUrl = encodeURI("#springUrl('/auditLogs/incidentSearchResults')");
+  		$.post( incidentSearchResponseUrl, $.param(requestData), function(data) {
+			$('#incidentSearchResultModalContent').html(data);
+			$('#incidentSearchResultModal').modal('show');
+		    $("#incidentSearchResultsTable").DataTable({
+				 "pagingType": "full_numbers",
+				 "pageLength": 25,
+				 responsive: true,
+				 stateSave: true,
+				 "language": {
+		      		"emptyTable": "No Incident Search Results Logs Found"
+		    	 } 
+			});
+			
+     	}).fail(ojbc.displayFailMessage); ;	
+  		
+  		return false;		  					  					  		                                                     
+ 	}); 
+ 		
   });
     
 </script>
@@ -45,7 +75,7 @@
 	</thead>
 	<tbody>
         #foreach($incidentSearchRequest in $incidentSearchRequests)
-	        <tr title='$!incidentSearchRequest.incidentSearchRequestId'>
+	        <tr title='$!incidentSearchRequest.incidentSearchRequestID'>
 	        	<td>$!incidentSearchRequest.startDate</td>
 	        	<td>$!incidentSearchRequest.endDate</td>
 	        	<td>$!incidentSearchRequest.cityTown</td>
@@ -55,4 +85,21 @@
         	</tr>
         #end
 	</tbody>
-</table> 								
+</table>
+ 				
+<div class="modal fade ojbc-modal" id="incidentSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="incidentSearchResultModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="incidentSearchResultModalTitle">INCIDENT SEARCH RESULTS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="incidentSearchResultModalContent">
+        ...
+      </div>
+    </div>
+  </div>
+</div>				    
+				
