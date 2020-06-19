@@ -31,7 +31,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class PersonSearchRequest {
 
-	private Integer personSearchRequestID;
+	private Integer personSearchRequestId;
 	
 	private String firstName;
 	
@@ -281,12 +281,12 @@ public class PersonSearchRequest {
 		this.lastNameQualifierCode = lastNameQualifierCode;
 	}
 
-	public Integer getPersonSearchRequestID() {
-		return personSearchRequestID;
+	public Integer getPersonSearchRequestId() {
+		return personSearchRequestId;
 	}
 
-	public void setPersonSearchRequestID(Integer personSearchRequestID) {
-		this.personSearchRequestID = personSearchRequestID;
+	public void setPersonSearchRequestId(Integer personSearchRequestId) {
+		this.personSearchRequestId = personSearchRequestId;
 	}
 
 	public Integer getHeight() {

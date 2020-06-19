@@ -772,7 +772,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"PERSON_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getPersonSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
@@ -802,7 +802,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(VEHICLE_SEARCH_RESULT_INSERT, new String[] {"VEHICLE_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getVehicleSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
@@ -863,7 +863,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"FIREARMS_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getFirearmSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
@@ -1173,7 +1173,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (personSearchRequests.size() == 1)
 		{
-			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+			ret = personSearchRequests.get(0).getPersonSearchRequestId();
 		}	
 
 		return ret;
@@ -1202,7 +1202,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (incidentSearchRequests.size() == 1)
 		{
-			ret = incidentSearchRequests.get(0).getIncidentSearchRequestID();
+			ret = incidentSearchRequests.get(0).getIncidentSearchRequestId();
 		}	
 
 		return ret;
@@ -1231,7 +1231,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (vehicleSearchRequests.size() == 1)
 		{
-			ret = vehicleSearchRequests.get(0).getVehicleSearchRequestID();
+			ret = vehicleSearchRequests.get(0).getVehicleSearchRequestId();
 		}	
 
 		return ret;
@@ -1260,7 +1260,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (firearmSearchRequests.size() == 1)
 		{
-			ret = firearmSearchRequests.get(0).getFirearmSearchRequestID();
+			ret = firearmSearchRequests.get(0).getFirearmSearchRequestId();
 		}	
 
 		return ret;	
@@ -1618,7 +1618,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getOriginalIdentifier(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getUpdatedIdentifier(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getTransactionType(), ps, 6);
-        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRecordRapBackActivityNotificationID(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRecordRapBackActivityNotificationId(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getNotificationRecievedTimestamp(), ps, 8);
         	            
         	            return ps;
@@ -2021,7 +2021,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			federalRapbackNotification.setPathToNotificationFile(rs.getString("PATH_TO_NOTIFICATION_FILE"));
 			federalRapbackNotification.setRapBackEventText(rs.getString("RAPBACK_EVENT_TEXT"));
 			federalRapbackNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
-			federalRapbackNotification.setRecordRapBackActivityNotificationID(rs.getString("RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID"));
+			federalRapbackNotification.setRecordRapBackActivityNotificationId(rs.getString("RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID"));
 			
 			return federalRapbackNotification;
 		}
@@ -2796,7 +2796,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(INCIDENT_SEARCH_RESULT_INSERT, new String[] {"INCIDENT_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getIncidentSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);

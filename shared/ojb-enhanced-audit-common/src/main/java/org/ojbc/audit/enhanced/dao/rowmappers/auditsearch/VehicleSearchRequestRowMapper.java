@@ -81,7 +81,7 @@ public class VehicleSearchRequestRowMapper implements
 				
 			}
 			
-			vehicleSearchRequest.setVehicleSearchRequestID(id);
+			vehicleSearchRequest.setVehicleSearchRequestId(id);
 		}
 		
 		

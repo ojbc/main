@@ -78,7 +78,7 @@ public class FirearmSearchRequestRowMapper implements
 				firearmsSearchRequest.getSystemsToSearch().add(systemName);
 			}
 
-			firearmsSearchRequest.setFirearmSearchRequestID(id);
+			firearmsSearchRequest.setFirearmSearchRequestId(id);
 		}
 
 		return (List<FirearmsSearchRequest>) new ArrayList<FirearmsSearchRequest>(

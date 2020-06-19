@@ -42,7 +42,7 @@ public class VehicleSearchResponseSQLProcessor extends AbstractVehicleSearchResp
 			
 			if (systemToSearchPK != null)
 			{
-				vehicleSearchResult.setSystemSearchResultID(systemToSearchPK);
+				vehicleSearchResult.setSystemSearchResultId(systemToSearchPK);
 			}	
 			else
 			{
@@ -50,7 +50,7 @@ public class VehicleSearchResponseSQLProcessor extends AbstractVehicleSearchResp
 				
 				if (systemToSearchPK != null)
 				{
-					vehicleSearchResult.setSystemSearchResultID(systemToSearchPK);
+					vehicleSearchResult.setSystemSearchResultId(systemToSearchPK);
 				}	
 
 			}	

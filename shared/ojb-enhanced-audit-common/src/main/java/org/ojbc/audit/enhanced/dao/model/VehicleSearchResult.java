@@ -28,7 +28,7 @@ import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 public class VehicleSearchResult {
 
 	private Integer vehicleSearchRequestId;
-	private Integer systemSearchResultID;
+	private Integer systemSearchResultId;
 	private String systemSearchResultURI;
 	private String systemName;
 	private String systemURI;
@@ -69,11 +69,11 @@ public class VehicleSearchResult {
 	public void setSearchResultsCount(Integer searchResultsCount) {
 		this.searchResultsCount = searchResultsCount;
 	}
-	public Integer getSystemSearchResultID() {
-		return systemSearchResultID;
+	public Integer getSystemSearchResultId() {
+		return systemSearchResultId;
 	}
-	public void setSystemSearchResultID(Integer systemSearchResultID) {
-		this.systemSearchResultID = systemSearchResultID;
+	public void setSystemSearchResultId(Integer systemSearchResultId) {
+		this.systemSearchResultId = systemSearchResultId;
 	}
 	public String getSystemSearchResultURI() {
 		return systemSearchResultURI;
