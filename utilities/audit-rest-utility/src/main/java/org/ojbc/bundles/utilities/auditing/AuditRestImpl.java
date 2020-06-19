@@ -37,6 +37,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -499,11 +500,11 @@ public class AuditRestImpl implements AuditInterface {
 	}
 
 	@Override
-	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
-		// TODO Auto-generated method stub
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		log.info("Retrieve Incident Search Responses for: " + incidentSearchRequestId.toString());
 		
-		log.info("Not yet implemented");
+		List<IncidentSearchResult> incidentSearchResults = enhancedAuditDao.retrieveIncidentSearchResults(incidentSearchRequestId);
 		
-		return null;
+		return incidentSearchResults;
 	}
 }

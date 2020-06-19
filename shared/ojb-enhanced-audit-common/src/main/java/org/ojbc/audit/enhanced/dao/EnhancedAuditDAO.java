@@ -32,6 +32,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -128,6 +129,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult);
 	
+	public Integer saveIncidentSearchResult(IncidentSearchResult incidentSearchResult);
+	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
 	public Integer saveuserAcknowledgement(UserAcknowledgement userAcknowledgement);
@@ -171,6 +174,8 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveVehicleSearchIDfromMessageID(String messageId);
 	
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveIncidentSearchIDfromMessageID(String messageId);
 	
 	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId);
 	
@@ -236,6 +241,6 @@ public interface EnhancedAuditDAO {
 
 	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
 
-	public List<VehicleSearchRequest> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
 	
 }
