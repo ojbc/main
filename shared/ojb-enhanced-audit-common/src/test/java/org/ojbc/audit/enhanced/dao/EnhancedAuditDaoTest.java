@@ -47,6 +47,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
@@ -1040,6 +1041,34 @@ public class EnhancedAuditDaoTest {
 		Integer incidentPk = enhancedAuditDao.saveIncidentSearchRequest(isr);
 		
 		assertNotNull(incidentPk);
+		
+		IncidentSearchResult isResult = new IncidentSearchResult();
+		
+		isResult.setIncidentSearchRequestId(incidentPk);
+		isResult.setSearchResultsCount(5);
+		isResult.setSystemSearchResultURI("{system1}URI");
+		isResult.setSearchResultsAccessDeniedText("Access Denied text");
+		isResult.setSearchResultsAccessDeniedIndicator(true);
+		isResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(isResult.getSystemSearchResultURI());
+		
+		isResult.setSystemSearchResultID(systemToSearchID);
+		
+		Integer isresultIdFromSave = enhancedAuditDao.saveIncidentSearchResult(isResult);
+		
+		assertNotNull(isresultIdFromSave);
+		
+		List<IncidentSearchResult> incidentSearchResult = enhancedAuditDao.retrieveIncidentSearchResults(isresultIdFromSave);
+		assertEquals(1, incidentSearchResult.size());
+		
+		log.info(incidentSearchResult.get(0).toString());
+		
+		assertEquals(new Integer(5), incidentSearchResult.get(0).getSearchResultsCount());
+		assertEquals("system1", incidentSearchResult.get(0).getSystemName());
+		assertEquals("{system1}URI", incidentSearchResult.get(0).getSystemURI());
+		assertEquals("search results error text", incidentSearchResult.get(0).getSearchResultsErrorText());
+		assertTrue( incidentSearchResult.get(0).getSearchResultsAccessDeniedIndicator());
 		
 	}
 
