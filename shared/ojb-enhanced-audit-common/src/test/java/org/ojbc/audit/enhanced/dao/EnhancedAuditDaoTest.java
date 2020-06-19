@@ -141,7 +141,7 @@ public class EnhancedAuditDaoTest {
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(fsResult.getSystemSearchResultURI());
 		
-		fsResult.setSystemSearchResultID(systemToSearchID);
+		fsResult.setSystemSearchResultId(systemToSearchID);
 		
 		Integer fsresultIdFromSave = enhancedAuditDao.saveFirearmSearchResult(fsResult);
 		
@@ -228,7 +228,7 @@ public class EnhancedAuditDaoTest {
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(psResult.getSystemSearchResultURI());
 		
-		psResult.setSystemSearchResultID(systemToSearchID);
+		psResult.setSystemSearchResultId(systemToSearchID);
 		
 		Integer psresultIdFromSave = enhancedAuditDao.savePersonSearchResult(psResult);
 		
@@ -456,7 +456,7 @@ public class EnhancedAuditDaoTest {
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State12345");
 		federalRapbackNotification.setTransactionType("UCN_Consolidation");
-		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
+		federalRapbackNotification.setRecordRapBackActivityNotificationId("7654");
 		
 		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
 		
@@ -473,7 +473,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
 		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
 		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
-		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationID());
+		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationId());
 		
 		federalNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId("State12345");
 
@@ -994,7 +994,7 @@ public class EnhancedAuditDaoTest {
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(vsResult.getSystemSearchResultURI());
 		
-		vsResult.setSystemSearchResultID(systemToSearchID);
+		vsResult.setSystemSearchResultId(systemToSearchID);
 		
 		Integer vsresultIdFromSave = enhancedAuditDao.saveVehicleSearchResult(vsResult);
 		
@@ -1053,7 +1053,7 @@ public class EnhancedAuditDaoTest {
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(isResult.getSystemSearchResultURI());
 		
-		isResult.setSystemSearchResultID(systemToSearchID);
+		isResult.setSystemSearchResultId(systemToSearchID);
 		
 		Integer isresultIdFromSave = enhancedAuditDao.saveIncidentSearchResult(isResult);
 		
