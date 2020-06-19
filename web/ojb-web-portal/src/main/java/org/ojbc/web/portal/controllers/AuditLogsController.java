@@ -36,6 +36,7 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -333,6 +334,18 @@ public class AuditLogsController {
 		model.put("vehicleSearchResults", vehicleSearchResults); 
 		
 		return "auditLogs/_vehicleSearchResults";
+	}
+	
+	@RequestMapping("/incidentSearchResults" )
+	public String getIncidentSearchResults(HttpServletRequest request, 
+			@RequestParam("incidentSearchRequestId") Integer incidentSearchRequestId, 
+			Map<String, Object> model) throws Throwable {
+		log.info("in getIncidentSearchResults");
+		List<IncidentSearchResult> incidentSearchResults = restEnhancedAuditClient.retrieveIncidentSearchResults(incidentSearchRequestId);
+		
+		model.put("incidentSearchResults", incidentSearchResults); 
+		
+		return "auditLogs/_incidentSearchResults";
 	}
 	
 	private void pouplateQueryListMap(QueryRequest queryRequest) {
