@@ -34,7 +34,6 @@
 					|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
 					|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
 					|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
-					|| $entry.getKey() == "auditLink" && $sec.allGranted("AUTHZ_ADMIN")
 					|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
 			        <li class="nav-item">
 					  <a class="nav-link $entry.getKey()" id="$entry.getKey()" href="$entry.getValue()">$leftMenuLinkTitles[$entry.getKey()] </a> 
@@ -44,6 +43,14 @@
 			        	<a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$leftMenuLinkTitles[$entry.getKey()]</a>
 			        	<div class="dropdown-menu" aria-labelledby="dropdownQuery">
 			                $searchLinksHtml
+			            </div>
+			        </li>
+		        #elseif($entry.getKey() == "auditLink" && $sec.allGranted("AUTHZ_ADMIN"))
+			        <li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$leftMenuLinkTitles[$entry.getKey()]</a>
+			        	<div class="dropdown-menu" aria-labelledby="dropdownAudit">
+			                <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a>
+			                <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a>
 			            </div>
 			        </li>
 				#end
