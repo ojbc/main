@@ -51,6 +51,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -206,6 +207,8 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSubReasonCodeIdFromCode(String subscriptionReasonCode);
 	
 	public List<PersonSearchRequest> retrievePersonSearchRequest (AuditSearchRequest personAuditSearchRequest);
+	
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson (AuditPersonSearchRequest personAuditSearchRequest);
 	
 	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest (AuditSearchRequest firearmAuditSearchRequest);
 	

@@ -54,6 +54,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -331,15 +332,24 @@ public class AuditRestImpl implements AuditInterface {
 	}
 
 	@Override
-	public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest) {
+	public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditPersonSearchRequest) {
 		
-		log.info("Person Audit Search Request: " + auditSearchRequest.toString());
+		log.info("Person Audit Search Request: " + auditPersonSearchRequest.toString());
 		
-		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(auditSearchRequest);
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(auditPersonSearchRequest);
 		
 		return personSearchRequests;
 
 	}
+	
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(AuditPersonSearchRequest auditPersonSearchRequest) {
+		log.info("Person Audit Search Request: " + auditPersonSearchRequest.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		
+		return personSearchRequests;	
+	}	
 
 	@Override
 	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest) {
@@ -507,4 +517,5 @@ public class AuditRestImpl implements AuditInterface {
 		
 		return incidentSearchResults;
 	}
+
 }

@@ -64,6 +64,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -216,7 +217,25 @@ public class EnhancedAuditDaoTest {
 		
 		//Additional assertions in processor test
 		assertEquals(1, personSearchRequests.size());
-					
+		
+		AuditPersonSearchRequest auditPersonSearchRequest = new AuditPersonSearchRequest();
+		
+		auditPersonSearchRequest.setPersonFirstName("first");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("fir*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("*fir*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("f*r*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
 		PersonSearchResult psResult = new PersonSearchResult();
 		
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
