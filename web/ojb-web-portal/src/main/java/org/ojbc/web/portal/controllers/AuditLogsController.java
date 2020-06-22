@@ -48,6 +48,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -110,6 +111,11 @@ public class AuditLogsController {
 	    	model.addAttribute("userAuthenticationSearchRequest", userAuthenticationSearchRequest);
     	}
     	
+    	if (!model.containsAttribute("auditPersonSearchRequest")) {
+    		AuditPersonSearchRequest auditPersonSearchRequest = initAuditPersonSearchRequest();
+    		model.addAttribute("auditPersonSearchRequest", auditPersonSearchRequest);
+    	}
+    	
     	Map<String, String> userActionMap = new HashMap<>(); 
     	userActionMap.put("", "User Action"); 
     	userActionMap.put("login", "Login"); 
@@ -159,6 +165,13 @@ public class AuditLogsController {
 		return userAuthenticationSearchRequest;
 	}
     
+	private AuditPersonSearchRequest initAuditPersonSearchRequest() {
+		AuditPersonSearchRequest auditPersonSearchRequest = new AuditPersonSearchRequest();
+		auditPersonSearchRequest.setEndTime(LocalDateTime.now());
+		auditPersonSearchRequest.setStartTime(LocalDateTime.now().minusDays(auditSearchDateRange));
+		return auditPersonSearchRequest;
+	}
+	
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        Map<String, Object> model) {
@@ -169,6 +182,18 @@ public class AuditLogsController {
 		} 
 
 		return "auditLogs/_searchForm";
+	}
+	
+	@RequestMapping(value = "personSearchLogsSearchForm", method = RequestMethod.GET)
+	public String personSearchLogsSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			Map<String, Object> model) {
+		
+		if (resetForm) {
+    		AuditPersonSearchRequest auditPersonSearchRequest = initAuditPersonSearchRequest();
+    		model.put("auditPersonSearchRequest", auditPersonSearchRequest);
+		} 
+		
+		return "auditLogs/_personSearchForm";
 	}
 	
 	@RequestMapping(value="/userLoginSearch", method=RequestMethod.POST)
