@@ -69,6 +69,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -2386,6 +2387,58 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return personSearchRequests;
 	}
+	
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(
+			AuditPersonSearchRequest searchRequest) {
+		
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select psr.*, sss.SYSTEM_NAME from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = pss.SYSTEMS_TO_SEARCH_ID ");
+		
+		if (StringUtils.isNotBlank(searchRequest.getPersonFirstName()))
+		{
+			setSearchTerm(searchRequest.getPersonFirstName(), "psr.FIRST_NAME", sqlStatement);
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getPersonMiddleName()))
+		{
+			setSearchTerm(searchRequest.getPersonMiddleName(), "psr.MIDDLE_NAME", sqlStatement);
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getPersonLastName()))
+		{
+			setSearchTerm(searchRequest.getPersonLastName(), "psr.LAST_NAME", sqlStatement);
+		}	
+		
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "psr");
+		
+		sqlStatement.append(" order by timestamp desc");
+		
+		log.info(sqlStatement.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new PersonSearchRequestRowMapper());
+		
+		return personSearchRequests;
+	}
+
+	private void setSearchTerm(String searchTermValue, String searchTerm, StringBuffer sqlStatement) {
+		
+		if (searchTermValue.contains("*"))
+		{
+			sqlStatement.append(" and " + searchTerm + " like '" + StringUtils.replace(searchTermValue, "*", "%") + "'"); 
+		}	
+		else
+		{
+			sqlStatement.append(" and " + searchTerm + " = '" + searchTermValue + "'"); 
+		}
+	}
 
 	@Override
 	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(
@@ -2810,4 +2863,5 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
+
 }
