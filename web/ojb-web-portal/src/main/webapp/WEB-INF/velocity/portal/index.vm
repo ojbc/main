@@ -250,7 +250,18 @@
 				});
 				
 				$('body').off('click','.userLoginAuditLink').on('click','.userLoginAuditLink',function() {
+					$(this).parent().toggleClass('show');
 		    		xhr = $.get("#springUrl('/auditLogs/searchForm')",function(data) {
+		    			$('#filterColumn').addClass('d-none');
+	  					$('#portalContent').html(data);
+	    			}).fail(ojbc.displayFailMessage)
+									    
+					return false;
+				});
+				
+				$('body').off('click','.personSearchAuditLink').on('click','.personSearchAuditLink',function() {
+					$(this).parent().toggleClass('show');
+		    		xhr = $.get("#springUrl('/auditLogs/personSearchLogsSearchForm')",function(data) {
 		    			$('#filterColumn').addClass('d-none');
 	  					$('#portalContent').html(data);
 	    			}).fail(ojbc.displayFailMessage)

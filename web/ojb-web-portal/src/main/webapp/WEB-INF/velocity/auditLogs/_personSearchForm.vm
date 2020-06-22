@@ -35,17 +35,17 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#advancedSearchForm').serialize();
 	        
-	  	       	xhr = $.post("#springUrl('/auditLogs/userLoginSearch')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/auditLogs/personSearchLogs')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
 		
 		   $("a[href='\\#advancedSearchTab']").click (function(){
-		       $("#search-tab-title").html("ADVANCED SEARCH: USER LOGIN SEARCH");
+		       $("#search-tab-title").html("ADVANCED SEARCH: PERSON SEARCH LOGS SEARCH");
 		   });
            
 	        $('#advanceSearchClearButton').click (function(event){
-			  $.get("#springUrl('/auditLogs/searchForm?resetForm=true')", function(data) {
+			  $.get("#springUrl('/auditLogs/personSearchForm?resetForm=true')", function(data) {
 			    $('#portalContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)
@@ -71,7 +71,7 @@
 	<div class="card" id="searchTabs">
 		<div class="card-header">
 			<div class="pl-0" id="search-results-title">
-		    	USER LOGIN SEARCH
+		    	PERSON SEARCH LOGS SEARCH
 		    </div>
 		</div>
 		<div class="card-body" id="advancedSearchTab">
@@ -83,36 +83,27 @@
 	            #end
 				<input type="hidden" name="${status.expression}" value="ADVANCED" />
 	    	  		<div class="row">
-		  				<div class="col">
+		  				<div class="col-6">
+					        <label class="searchSubHeader">PERSON SEARCH NAME</label>
+							<div class="alert alert-info" role="alert">
+					  			Use <red>*</red> any where in names for wild card search.  	
+							</div>
 						    <div class="form-group">
-						        <label class="searchSubHeader"> NAME</label>
-						        #springFormInput("userAuthenticationSearchRequest.firstName" "placeholder='FIRST NAME' class='form-control form-control-sm'")
+						        #springFormInput("auditPersonSearchRequest.personFirstName" "placeholder='FIRST NAME' class='form-control form-control-sm'")
 					        </div>
 					        <div class="form-group">
-						        #springFormInput("userAuthenticationSearchRequest.lastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
+						        #springFormInput("auditPersonSearchRequest.personMiddleName" "placeholder='MIDDLE NAME' class='form-control form-control-sm'")
+						    </div>
+					        <div class="form-group">
+						        #springFormInput("auditPersonSearchRequest.personLastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
 						    </div>
 			        		<label class="searchSubHeader">Action Date Range</label>
 					        <div class="form-group">
-				        		#springFormInput("userAuthenticationSearchRequest.startDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
-				        		#springFormInput("userAuthenticationSearchRequest.endDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
-				        		#springBind("userAuthenticationSearchRequest.startDate")
+				        		#springFormInput("auditPersonSearchRequest.startDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
+				        		#springFormInput("auditPersonSearchRequest.endDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
+				        		#springBind("auditPersonSearchRequest.startDate")
 					        </div>
 						</div>    				        
-			        	<div class="col">
-						    <label class="searchSubHeader">CONTACT</label>
-						    <div class="form-group">
-						       #springFormInput("userAuthenticationSearchRequest.emailAddress" "placeholder='name@email.com' type='email' class='form-control form-control-sm'")
-						       #springShowErrors( "<br/>" "error pl-2" )
-						    </div>
-						    <div class="form-group">
-						  	  #springFormInput("userAuthenticationSearchRequest.employerOri" "placeholder='Employer ORI' class='form-control form-control-sm'")
-						  	  #springShowErrors( "<br/>" "error pl-2" ) 
-						    </div>
-						    <label class="searchSubHeader">USER ACTION</label>
-							<div class="form-group">
-								#springFormSingleSelect("userAuthenticationSearchRequest.userAction" $userActionMap, "class='form-control form-control-sm'")
-							</div>
-			            </div>
 	    	       </div>
 		     </form>
 		</div>
