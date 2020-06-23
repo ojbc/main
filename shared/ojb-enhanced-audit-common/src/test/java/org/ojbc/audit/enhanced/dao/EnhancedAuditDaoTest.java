@@ -235,6 +235,8 @@ public class EnhancedAuditDaoTest {
 		auditPersonSearchRequest.setPersonFirstName("f*r*");
 		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
 		assertEquals(1, personSearchRequests.size());
+		
+		log.info(personSearchRequests);
 
 		PersonSearchResult psResult = new PersonSearchResult();
 		
