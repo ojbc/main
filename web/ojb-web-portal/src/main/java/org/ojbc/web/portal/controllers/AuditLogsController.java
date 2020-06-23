@@ -69,7 +69,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @Profile({"audit-search","standalone"})
 @SessionAttributes({ "userAuthenticationSearchRequest", "userAuthenticationSearchResponses", "auditSearchRequest", 
-	"clickableQueryRequestListMap", "nonClickableQueryRequestListMap", "queryRequestAccordionHeaderMap", 
+	"clickableQueryRequestListMap", "nonClickableQueryRequestListMap", "queryRequestAccordionHeaderMap", "auditPersonSearchRequest",
 	"searchRequestAccordionHeaderMap", "enabledSearchProfiles"})
 @RequestMapping("/auditLogs")
 public class AuditLogsController {
