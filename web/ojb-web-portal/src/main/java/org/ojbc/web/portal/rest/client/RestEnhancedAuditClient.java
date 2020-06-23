@@ -41,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
 import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -323,7 +324,19 @@ public class RestEnhancedAuditClient {
 	   
 	   return response.getBody();
    }
-   
+
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(AuditPersonSearchRequest auditSearchRequest) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<AuditPersonSearchRequest> entity = new HttpEntity<AuditPersonSearchRequest>(auditSearchRequest, headers);
+		
+		String uri = restServiceBaseUrl + "auditServer/audit/retrievePersonSearchRequestByPerson";
+		
+		ResponseEntity<List<PersonSearchRequest>> response = restTemplate.exchange(uri, HttpMethod.POST, entity, new ParameterizedTypeReference<List<PersonSearchRequest>>() {});
+		
+		return response.getBody();
+	}
+	
 	public Log getLog() {
 		return log;
 	}

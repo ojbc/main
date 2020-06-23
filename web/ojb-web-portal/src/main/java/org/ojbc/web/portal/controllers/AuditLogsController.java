@@ -212,6 +212,22 @@ public class AuditLogsController {
 		return "auditLogs/_userAuthenticationSearchResults";
 	}
 
+	@RequestMapping(value="/personSearchLogs", method=RequestMethod.POST)
+	public String getPersonSearchRequestLogs(HttpServletRequest request, @Valid @ModelAttribute AuditPersonSearchRequest auditPersonSearchRequest, BindingResult bindingResult, 
+			Map<String, Object> model) throws Throwable {
+		if (bindingResult.hasErrors()) {
+			log.info("has binding errors");
+			log.info(bindingResult.getAllErrors());
+			return "auditLogs/_personSearchForm";
+		}
+		
+		log.info("auditPersonSearchRequest:" + auditPersonSearchRequest );
+		List<PersonSearchRequest> personSearchRequests = restEnhancedAuditClient.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);;
+		model.put("auditPersonSearchRequest", auditPersonSearchRequest);
+		model.put("personSearchRequests", personSearchRequests); 
+		return "auditLogs/_userPersonSearchAcitivities";
+	}
+	
 	@RequestMapping(value="/userAuthenticationSearchResults")
 	public String getUserAuthenticationSearchResults(HttpServletRequest request,  
 			Map<String, Object> model) throws Throwable {
