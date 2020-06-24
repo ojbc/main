@@ -16,6 +16,9 @@
  */
 package org.ojbc.audit.enhanced.dao.model.auditsearch;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class AuditPersonSearchRequest extends AuditSearchRequest {
 
 	private String personFirstName;
@@ -39,6 +42,10 @@ public class AuditPersonSearchRequest extends AuditSearchRequest {
 	}
 	public void setPersonLastName(String personLastName) {
 		this.personLastName = personLastName;
+	}
+	
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 }
