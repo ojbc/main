@@ -1,0 +1,143 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+	$(function() {
+		oTable = $("#personSearchRequestTable").DataTable({
+		 "pagingType": "full_numbers",
+		 "pageLength": 25,
+		 stateSave: true,
+		 responsive: true, 
+		 fixedHeader: true, 
+		 colReorder: true,
+		 "language": {
+			"emptyTable": "No Search Request Logs Found"
+			 } 
+		});
+		
+		$('#personSearchRequestTable').on('dblclick', 'tbody tr',function(event) {
+			event.preventDefault();
+	 		var requestData = {
+	            'personSearchRequestId': $(this).attr("title"),
+	        };
+	 		
+			var row = $(this).closest('tr'); 
+			row.siblings().removeClass("selected");
+		    row.addClass("selected");
+			
+	 		var personSearchResponseUrl = encodeURI("#springUrl('/auditLogs/personSearchResults')");
+	  		$.post( personSearchResponseUrl, $.param(requestData), function(data) {
+				$('#personSearchResultModalContent').html(data);
+				$('#personSearchResultModal').modal('show');
+			    $("#personSearchResultsTable").DataTable({
+					 "pagingType": "full_numbers",
+					 "pageLength": 25,
+					 responsive: true,
+					 stateSave: true,
+					 "language": {
+			      		"emptyTable": "No Person Search Results Logs Found"
+			    	 } 
+				});
+				
+	     	}).fail(ojbc.displayFailMessage); ;	
+	  		
+	  		return false;		  					  					  		                                                     
+	 	}); 
+ 		
+	});
+</script>
+<div class="alert alert-info" role="alert">
+	Double click on the rows to retrieve person search results log.
+</div>
+ <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchRequestTable">
+	<thead>
+		<tr>
+			<th>USER NAME</th>
+			<th>USER EMPLOYER</th>
+			<th>FIRST NAME</th>
+			<th>LAST NAME</th>
+			<th>SYSTEMS TO SEARCH</th>
+			<th>TIMESTAMP</th>
+			<th>FIRSTNAME QUALIFIER</th>
+			<th>LAST NAME QUALIFIER</th>
+			<th>DOB FROM</th>
+			<th>DOB TO</th>
+			<th>SSN</th>
+			<th>DRIVER LICENSE</th>
+			<th>DRIVER LICENSE ISSUER</th>
+			<th>FBI NUMBER</th>
+			<th>STATE ID</th>
+			<th>RACE CODE</th>
+			<th>GENDER CODE</th>
+			<th>EYE CODE</th>
+			<th>HAIR CODE</th>
+			<th>HEIGHT</th>
+			<th>HEIGHT MIN</th>
+			<th>HEIGHT MAX</th>
+			<th>PURPOSE</th>
+			<th>ON BEHALF OF</th>
+			<th>MESSAGE ID</th>
+		</tr>
+	</thead>
+	<tbody>
+        #foreach($personSearchRequest in $personSearchRequests)
+	        <tr title='$!personSearchRequest.personSearchRequestId'>
+	        	<td>$!personSearchRequest.userInfo.userFirstName, $!personSearchRequest.userInfo.userLastName</td>
+	        	<td>$!personSearchRequest.userInfo.employerName</td>
+	        	<td>$!personSearchRequest.firstName</td>
+	        	<td>$!personSearchRequest.lastName</td>
+	        	<td>$!personSearchRequest.systemsToSearch</td>
+	        	<td>$!personSearchRequest.timestamp.format($dateTimeformatter)</td>
+	        	<td>$!personSearchRequest.firstNameQualifierCode</td>
+	        	<td>$!personSearchRequest.lastNameQualifierCode</td>
+	        	<td>$!personSearchRequest.dobFrom</td>
+	        	<td>$!personSearchRequest.dobTo</td>
+	        	<td>$!personSearchRequest.ssn</td>
+	        	<td>$!personSearchRequest.driverLicenseId</td>
+	        	<td>$!personSearchRequest.driverLiscenseIssuer</td>
+	        	<td>$!personSearchRequest.fbiNumber</td>
+	        	<td>$!personSearchRequest.stateId</td>
+	        	<td>$!personSearchRequest.raceCode</td>
+	        	<td>$!personSearchRequest.genderCode</td>
+	        	<td>$!personSearchRequest.eyeCode</td>
+	        	<td>$!personSearchRequest.hairCode</td>
+	        	<td>$!personSearchRequest.height</td>
+	        	<td>$!personSearchRequest.heightMin</td>
+	        	<td>$!personSearchRequest.heightMax</td>
+	        	<td>$!personSearchRequest.purpose</td>
+	        	<td>$!personSearchRequest.onBehalfOf</td>
+	        	<td>$!personSearchRequest.messageId</td>
+        	</tr>
+        #end
+	</tbody>
+</table> 		
+
+<div class="modal fade ojbc-modal" id="personSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="personSearchResultModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="personSearchResultModalTitle">PERSON SEARCH RESULTS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="personSearchResultModalContent">
+        ...
+      </div>
+    </div>
+  </div>
+</div>				    
+						

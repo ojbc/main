@@ -223,6 +223,7 @@ public class AuditLogsController {
 		
 		log.info("auditPersonSearchRequest:" + auditPersonSearchRequest );
 		List<PersonSearchRequest> personSearchRequests = restEnhancedAuditClient.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);;
+		log.info("personSearchRequests:" + personSearchRequests );
 		model.put("auditPersonSearchRequest", auditPersonSearchRequest);
 		model.put("personSearchRequests", personSearchRequests); 
 		return "auditLogs/_userPersonSearchAcitivities";
