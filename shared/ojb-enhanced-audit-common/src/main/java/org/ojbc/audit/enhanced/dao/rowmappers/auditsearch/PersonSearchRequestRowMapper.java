@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -95,6 +96,17 @@ public class PersonSearchRequestRowMapper implements
 					sourceSystems.add(systemName);
 					personSearchRequest.setSystemsToSearch(sourceSystems);
 				} 
+				
+				if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
+				{	
+					UserInfo userInfo = new UserInfo();
+					
+					UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+					
+					userInfo = userInfoRowMapper.buildUserInfo(rs);
+					
+					personSearchRequest.setUserInfo(userInfo);
+				}
 				
 				map.put(id, personSearchRequest);
 

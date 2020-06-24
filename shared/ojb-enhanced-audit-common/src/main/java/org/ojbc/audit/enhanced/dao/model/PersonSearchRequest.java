@@ -83,6 +83,8 @@ public class PersonSearchRequest {
 	
 	private Integer userInfofk;
 	
+	private UserInfo userInfo;
+	
 	private Integer height;
 	
 	private Integer heightMin;
@@ -319,6 +321,14 @@ public class PersonSearchRequest {
 
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 }
