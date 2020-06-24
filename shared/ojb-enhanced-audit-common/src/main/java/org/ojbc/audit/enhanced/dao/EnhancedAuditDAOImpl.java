@@ -87,6 +87,7 @@ import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQue
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserInfoRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchResultRowMapper;
@@ -1748,32 +1749,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return resultSize;
 	}
 	
-	private final class UserInfoRowMapper implements RowMapper<UserInfo> {
-		public UserInfo mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			UserInfo userInfo = buildUserInfo(rs);
-			return userInfo;
-		}
-
-		private UserInfo buildUserInfo(
-				ResultSet rs) throws SQLException{
-
-			UserInfo userInfo = new UserInfo();
-			
-			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
-			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
-			userInfo.setEmployerOri(rs.getString("EMPLOYER_ORI"));
-			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
-			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
-			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
-			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
-			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
-			userInfo.setFederationId(rs.getString("FEDERATION_ID"));
-			
-			return userInfo;
-		}
-	}	
-	
 	private final class FederalRapbackSubscriptionRowMapper implements RowMapper<FederalRapbackSubscription> {
 		public FederalRapbackSubscription mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
@@ -2394,8 +2369,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		StringBuffer sqlStatement = new StringBuffer(); 
 		
-		sqlStatement.append("select psr.*, sss.SYSTEM_NAME from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
+		sqlStatement.append("select psr.*, sss.SYSTEM_NAME, ui.* from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss, USER_INFO ui where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
 		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = pss.SYSTEMS_TO_SEARCH_ID ");
+		sqlStatement.append(" and ui.user_info_id = psr.user_info_id ");
 		
 		if (StringUtils.isNotBlank(searchRequest.getPersonFirstName()))
 		{
@@ -2419,7 +2395,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "psr");
 		
-		sqlStatement.append(" order by timestamp desc");
+		sqlStatement.append(" order by ui.user_last_name asc ");
 		
 		log.info(sqlStatement.toString());
 		
