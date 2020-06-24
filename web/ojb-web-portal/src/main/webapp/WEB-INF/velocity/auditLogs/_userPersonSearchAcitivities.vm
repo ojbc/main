@@ -60,7 +60,7 @@
 	    PERSON SEARCH REQUESTS
 	  </div>
 	  <div class="card-body">
-		#parse("auditLogs/_userPersonSearchRequests.vm")
+		#parse("auditLogs/_userPersonSearchRequestsWithUserInfo.vm")
 	  </div>
 	</div>
 </div>
