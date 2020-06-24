@@ -19,6 +19,8 @@ package org.ojbc.audit.enhanced.dao.model.auditsearch;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.helper.OJBCDateUtils;
@@ -91,6 +93,10 @@ public class AuditSearchRequest {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 		this.endTime = OJBCDateUtils.toEndLocalDateTime(endDate); 
+	}
+	
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
 }
