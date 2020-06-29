@@ -65,7 +65,7 @@
             var url = encodeURI(this.href);
             var title = $(this).attr('searchName');
           	$('#detailModal .modal-title').html(title);
-			ojbc.showDetailModal(url);
+			ojbc.showDetailModal(url, 250);
 			return false;
         });
         

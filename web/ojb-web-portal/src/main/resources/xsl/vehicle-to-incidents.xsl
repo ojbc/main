@@ -106,7 +106,7 @@
 			            <xsl:apply-templates /> 
 			        </table>
 		        </div>
-		        <div id="incidentDetailTabsHolder" style="height:200px;overflow:scroll;"></div>   
+		        <div id="incidentDetailTabsHolder" style="height:350px;overflow:scroll;"></div>   
 	        </xsl:otherwise>
         </xsl:choose> 
     </xsl:template>
