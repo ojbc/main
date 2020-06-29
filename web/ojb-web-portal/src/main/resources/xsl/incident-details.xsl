@@ -80,19 +80,19 @@
 			<div class="tab-pane fade show active p-3" id="details" role="tabpanel" aria-labelledby="details-tab">
 				<xsl:call-template name="detailsTab" />
 			</div>
-			<div class="tab-pane fade p-3" id="party" role="tabpanel" aria-labelledby="party-tab">
+			<div class="tab-pane fade p-3 h-100" id="party" role="tabpanel" aria-labelledby="party-tab">
 				<xsl:call-template name="partyTab" />
 			</div>
-			<div class="tab-pane fade p-3" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab"> 
+			<div class="tab-pane fade p-3 h-100" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab"> 
 				<xsl:call-template name="vehicleTab"/>
 			</div>
-			<div class="tab-pane fade p-3" id="property" role="tabpanel" aria-labelledby="property-tab">
+			<div class="tab-pane fade p-3 h-100" id="property" role="tabpanel" aria-labelledby="property-tab">
 				<xsl:call-template name="propertyTab" />
 			</div>
-			<div class="tab-pane fade p-3" id="chargeOffense" role="tabpanel" aria-labelledby="chargeOffense-tab">
+			<div class="tab-pane fade p-3 h-100" id="chargeOffense" role="tabpanel" aria-labelledby="chargeOffense-tab">
 				<xsl:call-template name="chargeOffenseTab" />				
 			</div>
-			<div class="tab-pane fade p-3 small" id="narrative" role="tabpanel" aria-labelledby="narrative-tab"> 
+			<div class="tab-pane fade p-3 small h-100" id="narrative" role="tabpanel" aria-labelledby="narrative-tab"> 
 				<xsl:call-template name="narrativeTab" />
 			</div>
 		</div>
