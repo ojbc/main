@@ -1252,3 +1252,9 @@ input .shortDigit{
 	font-weight: bold;
 	text-transform: uppercase;
 }
+
+.tab-pane{
+  height:auto;
+  overflow-y:scroll;
+  width:100%;
+}
