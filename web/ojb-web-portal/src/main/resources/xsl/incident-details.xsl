@@ -77,7 +77,7 @@
 		</ul>
 
 		<div class="tab-content" id="incidentDetailTabContent">
-			<div class="tab-pane fade show active p-3" id="details" role="tabpanel" aria-labelledby="details-tab">
+			<div class="tab-pane fade show active p-3 h-100" id="details" role="tabpanel" aria-labelledby="details-tab">
 				<xsl:call-template name="detailsTab" />
 			</div>
 			<div class="tab-pane fade p-3 h-100" id="party" role="tabpanel" aria-labelledby="party-tab">
