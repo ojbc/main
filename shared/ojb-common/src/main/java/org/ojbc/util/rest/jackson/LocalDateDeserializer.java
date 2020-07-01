@@ -19,6 +19,7 @@ package org.ojbc.util.rest.jackson;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
@@ -27,6 +28,8 @@ import org.codehaus.jackson.map.JsonDeserializer;
 public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
     @Override
     public LocalDate deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException, JsonProcessingException {
+    	
+    	if (StringUtils.isBlank(arg0.getText())) return null; 
         return LocalDate.parse(arg0.getText());
     }
 }

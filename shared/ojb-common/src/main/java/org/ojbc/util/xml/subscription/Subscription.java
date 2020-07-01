@@ -28,11 +28,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
+import org.ojbc.util.rest.jackson.LocalDateDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateSerializer;
 
 public class Subscription implements Serializable {
 	private static final long serialVersionUID = 7990280609495398189L;
 	
+	@JsonIgnore
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 	private String stateId;	
@@ -45,8 +50,12 @@ public class Subscription implements Serializable {
 	
 	private Boolean active; 
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate gracePeriodStartDate;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate gracePeriodEndDate; 
 	
 	//note f/l name only used for incident(not arrest)
@@ -54,18 +63,32 @@ public class Subscription implements Serializable {
 	
 	private String lastName;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private Date dateOfBirth;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private Date subscriptionStartDate;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private Date subscriptionEndDate;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate lastValidationDate;
 
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate validationDueDate;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate creationDate;
 
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate lastUpdatedDate;
 	
 	//Email notification recipients
@@ -92,6 +115,7 @@ public class Subscription implements Serializable {
 	
 	private String fbiSubscriptionID;
 	
+	@JsonIgnore
 	private FbiRapbackSubscription fbiRapbackSubscription; 
 	
 	private String ownerFederationId;
