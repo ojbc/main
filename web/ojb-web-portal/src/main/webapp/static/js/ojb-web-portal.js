@@ -306,7 +306,22 @@ ojbc = {
 		if ( $( "#informationMessages" ).length ) {
 		    $( "#informationMessages" ).html('');
 		}
-	}
+	},
 	
+	getCheckedValues: function() {
+		
+		var checkedValues = $('input:checkbox:checked').map(function() {
+			//console.log("value:" + this.value);
+		    return this.value;
+		}).get();
+		
+		if (!String(checkedValues)) {
+			return null; 
+		}
+		else {
+			return	'[' + checkedValues + ']';
+		}	  		
+	}
+
 
 }

@@ -18,6 +18,7 @@ package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
@@ -44,6 +45,8 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.tools.generic.DateTool;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
@@ -99,6 +102,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -1207,28 +1211,24 @@ public class SubscriptionsController {
 	 * @return
 	 * 		the subscription results page(refreshed after validate)
 	 */
-	@RequestMapping(value="validate", method = RequestMethod.POST)
+	@RequestMapping(value="validate", method = RequestMethod.POST, consumes = {"application/json"})
 	public String  validate(HttpServletRequest request, 
-			@RequestParam String subIdToSubDataJson, 
+			@RequestBody List<Subscription> subscriptions, 
 			Map<String, Object> model) {
 		
-		logger.info("Received subIdToSubDataJson: " + subIdToSubDataJson);
+		logger.info("Received subscriptions to validate: " + subscriptions);
 		
 		Element samlAssertion = samlService.getSamlAssertion(request);
 						
-		processValidateSubscription(request, subIdToSubDataJson, model, samlAssertion);
+		processValidateSubscription(request, subscriptions, model, samlAssertion);
 			
 		return "subscriptions/_subscriptionResults";
 	}
 	
 	
 
-	private void processValidateSubscription(HttpServletRequest request, String subIdToSubDataJson, 
+	private void processValidateSubscription(HttpServletRequest request, List<Subscription> subscriptions, 
 			Map<String, Object> model, Element samlAssertion) {		
-		
-		JSONObject subIdToSubDataJsonObjMap = new JSONObject(subIdToSubDataJson);
-		
-		String[] idJsonNames = JSONObject.getNames(subIdToSubDataJsonObjMap);
 		
 		// used to generated status message
 		List<String> validatedIdList = new ArrayList<String>();		
@@ -1236,21 +1236,19 @@ public class SubscriptionsController {
 		List<String> failedDueToValidationDateList = new ArrayList<String>();
 		
 		// call the validate operation for each id/topic parameter
-		for(String iSubId : idJsonNames){
+		for(Subscription subscription : subscriptions){
 			
-			JSONObject subIdToSubDataJsonObj = subIdToSubDataJsonObjMap.getJSONObject(iSubId);
 			
-			String iTopic = subIdToSubDataJsonObj.getString("topic");
-			String reasonCode = subIdToSubDataJsonObj.getString("reasonCode");
+			String iTopic = subscription.getTopic();
+			String reasonCode = subscription.getSubscriptionPurpose();
 			
 			if (RAPBACK_TOPIC_SUB_TYPE.equals(iTopic) && !SubscriptionCategoryCode.isCivilCategoryCode(reasonCode)){
 				
-				String vaidationDueDateString = subIdToSubDataJsonObj.getString("validationDueDate");
-				LocalDate validationDueDate = OJBCDateUtils.parseLocalDate(vaidationDueDateString); 
+				LocalDate validationDueDate = subscription.getValidationDueDate(); 
 				
 				if (validationDueDate != null && 
 						LocalDate.now().isBefore(validationDueDate.minusDays(validationThreshold))){
-					failedDueToValidationDateList.add(iSubId);
+					failedDueToValidationDateList.add(subscription.getSystemId());
 					continue; 
 				}
 			}
@@ -1258,29 +1256,29 @@ public class SubscriptionsController {
 						
 			try{
 				FaultableSoapResponse faultableSoapResponse = subConfig.getSubscriptionValidationBean().validate(
-						iSubId, iTopic, reasonCode, getFederatedQueryId(), samlAssertion);
+						subscription.getSystemId(), iTopic, reasonCode, getFederatedQueryId(), samlAssertion);
 				
 				//TODO see if we should check faultableSoapResponse exception attribute(if there is one)
 				if(faultableSoapResponse == null){
 					
-					failedIdList.add(iSubId);
-					logger.error("FAILED! to validate id: " + iSubId);
+					failedIdList.add(subscription.getSystemId());
+					logger.error("FAILED! to validate id: " + subscription.getSystemId());
 					continue;
 				}
 				
 				boolean isValidated = getValidIndicatorFromValidateResponse(faultableSoapResponse);
 				
-				logger.info("isValidated: " + isValidated + " - for id: " + iSubId);
+				logger.info("isValidated: " + isValidated + " - for id: " + subscription.getSystemId());
 
 				if(isValidated){
-					validatedIdList.add(iSubId);	
+					validatedIdList.add(subscription.getSystemId());	
 				}else{
-					failedIdList.add(iSubId);
+					failedIdList.add(subscription.getSystemId());
 				}														
 				
 			}catch(Exception e){				
-				failedIdList.add(iSubId);
-				logger.error("FAILED! to validate id: " + iSubId + ", " + e);
+				failedIdList.add(subscription.getSystemId());
+				logger.error("FAILED! to validate id: " + subscription.getSystemId() + ", " + e);
 			}														
 		}
 				
@@ -1368,39 +1366,34 @@ public class SubscriptionsController {
 	}
 
 
-	@RequestMapping(value = "unsubscribe", method = RequestMethod.GET)
-	public String unsubscribe(HttpServletRequest request, @RequestParam String subIdToSubDataJson, 
-			Map<String, Object> model) {
+	@RequestMapping(value = "unsubscribe", method = RequestMethod.POST, consumes = {"application/json"})
+	public String unsubscribe(HttpServletRequest request, @RequestBody List<Subscription> subscriptions, 
+			Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
 					
 		Element samlAssertion = samlService.getSamlAssertion(request);	
-					
-		logger.info("* Unsubscribe using json param: " + subIdToSubDataJson);
 		
-		JSONObject subIdToSubDataJsonObj = new JSONObject(subIdToSubDataJson);
+		logger.info("in unsubscribe");
+		logger.info("subscriptions to unsubscribe: " + subscriptions);
+//					
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		List<Subscription> subscriptions = objectMapper.readValue(subscriptionStrings, new TypeReference<List<Subscription>>(){});
 		
-		String[] subIdJsonNames = JSONObject.getNames(subIdToSubDataJsonObj);
-		
-		// collections for status message
 		List<String> successfulUnsubIdlist = new ArrayList<String>();		
 		List<String> failedUnsubIdList = new ArrayList<String>();
 		
-		for(String iId : subIdJsonNames){
+		for(Subscription subscription : subscriptions){
 								
-			JSONObject iSubDataJson = subIdToSubDataJsonObj.getJSONObject(iId);
-			
-			String iTopic = iSubDataJson.getString("topic");			
-			String reasonCode = iSubDataJson.getString("reasonCode");
-			
-			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode, null, null, null, null);
+			Unsubscription unsubscription = new Unsubscription(subscription.getSystemId(), 
+					subscription.getTopic(), subscription.getSubscriptionPurpose(), null, null, null, null);
 			
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlAssertion);
 				
-				successfulUnsubIdlist.add(iId);				
+				successfulUnsubIdlist.add(subscription.getSystemId());				
 				
 			}catch(Exception e){
 				
-				failedUnsubIdList.add(iId);	
+				failedUnsubIdList.add(subscription.getSystemId());	
 				e.printStackTrace();
 			}														
 		}

@@ -49,7 +49,7 @@
 	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
 	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
-		var checkedValues = getCheckedValues();	
+		var checkedValues = ojbc.getCheckedValues();	
 		
 		if(!checkedValues){
 			bootpopup.alert('No subscriptions selected', 'ERROR');
@@ -60,33 +60,26 @@
 								
 		bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
 		    if(ans){
-				var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
+				var urlRequest = encodeURI('../subscriptions/unsubscribe');					
 				
-				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-				$.get(urlRequest, function(data) {										
-				      $("#subsAdminContent").html(data);					      
-				}).fail(ojbc.displayFailMessage);
+				//call the unsubscribe operation and refresh the current page with the subscription search results returned
+				$.ajax({
+					url:urlRequest, 
+					type:"POST",
+  					data: checkedValues,
+  					contentType:"application/json; charset=utf-8",
+  					dataType:"html",
+  					success: function(data) {										
+				      $("#subsAdminContent").html(data);
+				    }, 
+				    error:ojbc.displayFailMessage 					      
+				});
 			} 
 			return false;
 		}); 
 		
     });
 		
-	function getCheckedValues() {
-	
-		var checkedValues = $('input:checkbox:checked').map(function() {
-			var id = JSON.parse(this.value).id;
-		    return '"' + id +'":' + this.value;
-		}).get();
-		
-		if (!String(checkedValues)) {
-			return null; 
-		}
-		else {
-			return	'{' + checkedValues + '}';
-		}	  		
-	}
-
 	// listener for click on any editSubscriptionLink button
 	$('#searchResultsTable').on('click', '.viewDetails',function(event) {
 		event.preventDefault();
