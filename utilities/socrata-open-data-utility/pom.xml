@@ -48,7 +48,7 @@
 		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
-		<mysql-connector-version>5.1.17</mysql-connector-version>
+		<mysql-connector-version>8.0.16</mysql-connector-version>
 		<jackson-version>2.4.1</jackson-version>
 		<guava-version>11.0.2</guava-version>
 		<java-version>1.8</java-version>
