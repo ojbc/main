@@ -310,7 +310,7 @@ ojbc = {
 	
 	getCheckedValues: function() {
 		
-		var checkedValues = $('input:checkbox:checked').map(function() {
+		var checkedValues = $('#searchResultsTable input:checkbox:checked').map(function() {
 			//console.log("value:" + this.value);
 		    return this.value;
 		}).get();
