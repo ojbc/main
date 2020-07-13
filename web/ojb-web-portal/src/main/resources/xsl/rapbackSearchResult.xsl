@@ -122,7 +122,10 @@
 			</td>
 			<td align="right" style="white-space: nowrap;">
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
-				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)']" mode="subscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State)' 
+					or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI)'
+					or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI Error)'
+					or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI Pending)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
 				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
 					class="btn btn-primary btn-sm initialResults" style="margin-right:3px" title="Initial Results" data-toggle="tooltip" role="button"><i class="fa fa-file-alt fa-lg"></i></a>
@@ -170,6 +173,12 @@
 				<xsl:otherwise>false</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:variable name="hasOnlyStateSubscription">
+			<xsl:choose>
+				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State)'">true</xsl:when>
+				<xsl:otherwise>false</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<xsl:variable name="hasFbiRapsheet">
 			<xsl:choose>
 				<xsl:when test="normalize-space(oirsr-ext:IdentificationResultStatusCode)='Subscribed(State/FBI)' 
@@ -178,7 +187,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		
-		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasFbiSubscription = 'false' 
+		<xsl:if test="oirsr-ext:CivilIdentificationReasonCode != 'F' and $hasOnlyStateSubscription = 'true' 
 			and following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForFederalSubscriptionsIndicator = 'true'
 			and ( oirsr-ext:CivilIdentificationReasonCode != 'J' or following-sibling::nc:EntityOrganization[@s:id=$orgId]/oirsr-ext:OrganizationAuthorizedForCjEmploymentSubscriptionsIndicator = 'true')">
 			<a href="#" class="btn btn-primary btn-sm subscribe" style="margin-right:3px" title="Subscribe" data-toggle="tooltip" role="button">
