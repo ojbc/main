@@ -19,6 +19,7 @@ package org.ojbc.audit.enhanced.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -119,6 +120,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveWildlifeQueryResponse(WildlifeQueryResponse wildlifeQueryResponse);
 	
 	public Integer saveProfessionalLicensingQueryResponse(ProfessionalLicensingQueryResponse professionalLicensingQueryResponse);
+	
+	public Integer saveCannabisLicensingQueryResponse(CannabisLicensingQueryResponse cannabisLicensingQueryResponse);
 	
 	public Integer saveIncidentReportQueryResponse(IncidentReportQueryResponse incidentReportQueryResponse);
 	

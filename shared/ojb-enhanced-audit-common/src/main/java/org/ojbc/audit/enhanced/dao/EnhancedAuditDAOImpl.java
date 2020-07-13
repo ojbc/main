@@ -33,6 +33,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -2592,6 +2593,46 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	   
 		
 	}
+	
+	@Override
+	public Integer saveCannabisLicensingQueryResponse(
+			CannabisLicensingQueryResponse cannabisLicensingQueryResponse) {
+		//log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + cannabisLicensingQueryResponse.toString());
+		
+//        final String PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT="INSERT into PROFESSIONAL_LICENSING_QUERY_RESULTS "  
+//        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+//        		+ " ISSUE_DATE, EXPIRATION_DATE,LICENSE_NUMBER,LICENSE_TYPE, MESSAGE_ID) "
+//        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        
+//        
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(
+//        	    new PreparedStatementCreator() {
+//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//        	            PreparedStatement ps =
+//        	                connection.prepareStatement(PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT, new String[] {"PROFESSIONAL_LICENSING_QUERY_RESULTS_ID"});
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryRequestId(), ps, 1);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getSystemName(), ps, 2);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getIssueDate(), ps, 7);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getExpirationDate(), ps, 8);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseNumber(), ps, 9);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseType(), ps, 10);
+//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getMessageId(), ps, 11);
+//        	            
+//        	            return ps;
+//        	        }
+//        	    },
+//        	    keyHolder);
+//
+//         return keyHolder.getKey().intValue();	  
+		
+		return null;
+		
+	}	
 	
 	@Override
 	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
