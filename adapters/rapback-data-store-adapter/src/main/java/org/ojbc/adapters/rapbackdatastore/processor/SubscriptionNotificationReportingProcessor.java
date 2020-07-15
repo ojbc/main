@@ -100,6 +100,19 @@ public class SubscriptionNotificationReportingProcessor {
 		else if (RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_UPDATE.equals(operationName)){
 			processFbiSubscriptionUpdateReport(report);
 		}
+		else if (RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_ERROR.equals(operationName)) {
+			processFbiSubscriptionErrorReport(report);
+		}
+		
+	}
+
+	private void processFbiSubscriptionErrorReport(Document report) throws Exception {
+		
+		String subscriptionIdString = XmlUtils.xPathStringSearch(report, "/fed_subcr-doc:FederalSubscriptionErrorReport/fed_subcr-ext:StateSubscriptionIdentification/nc30:IdentificationID");
+		
+		Integer subscriptionId = Integer.valueOf(subscriptionIdString);
+		
+		rapbackDAO.updateFbiSubscriptionStatus(subscriptionId, "ERROR");
 		
 	}
 
@@ -130,6 +143,12 @@ public class SubscriptionNotificationReportingProcessor {
 	private void processFbiSubscriptionCreationReport(Document report) throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = buildNewFbiSubscription(report);
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
+		
+		String subscriptionIdString = XmlUtils.xPathStringSearch(report, "/fed_subcr-doc:FederalSubscriptionCreationReport/fed_subcr-ext:RapBackSubscriptionData/fed_subcr-ext:StateSubscriptionIdentification/nc30:IdentificationID");
+		
+		Integer subscriptionId = Integer.valueOf(subscriptionIdString);
+		
+		rapbackDAO.updateFbiSubscriptionStatus(subscriptionId, "SUBSCRIBED");
 		
 		if (!fbiRapbackSubscription.getRapbackCategory().equals("CS") &&  !fbiRapbackSubscription.getRapbackCategory().equals("CI"))
 		{	

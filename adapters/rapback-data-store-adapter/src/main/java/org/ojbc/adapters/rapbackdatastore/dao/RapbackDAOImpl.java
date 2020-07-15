@@ -1331,6 +1331,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return nsorSearchResults;
 	}
 	
+    public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
+    {
+    	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
+    			+ "SET FBI_SUBSCRIPTION_STATUS=? WHERE subscription_id = ? ";
+    	
+    	this.jdbcTemplate.update(UPDATE_FBI_SUBSCRIPTION_STATUS, subscriptionId, status);
+    }	
+	
 	private final class NsorDemographicsRowMapper implements
 		RowMapper<NsorDemographics> {
 		
