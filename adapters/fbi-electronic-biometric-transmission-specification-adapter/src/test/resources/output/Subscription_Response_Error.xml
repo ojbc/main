@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fed_subcr_error:FederalSubscriptionErrorReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                              xmlns:fed_subcr_error="http://ojbc.org/IEPD/Exchange/FederalSubscriptionErrorReport/1.0"
+                                              xmlns:fed_subcr_error-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionErrorReportExtension/1.0"
+                                              xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+                                              xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                              xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">
+   <fed_subcr_error-ext:RapBackSubscriptionData>
+      <fed_subcr_error-ext:StateSubscriptionIdentification>
+         <nc30:IdentificationID/>
+      </fed_subcr_error-ext:StateSubscriptionIdentification>
+      <fed_subcr_error-ext:SubscribtionTransactionStatusText>L0041-The subject cycle cannot be updated due to inactive record status.</fed_subcr_error-ext:SubscribtionTransactionStatusText>
+      <fed_subcr_error-ext:SubscribingOrganization>
+         <jxdm50:OrganizationAugmentation>
+            <jxdm50:OrganizationORIIdentification>
+               <nc30:IdentificationID>HI002595Y</nc30:IdentificationID>
+            </jxdm50:OrganizationORIIdentification>
+         </jxdm50:OrganizationAugmentation>
+      </fed_subcr_error-ext:SubscribingOrganization>
+   </fed_subcr_error-ext:RapBackSubscriptionData>
+</fed_subcr_error:FederalSubscriptionErrorReport>
