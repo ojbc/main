@@ -381,6 +381,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
 		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
 		identificationTransaction.setAvailableForSubscriptionStartDate(toDateTime(rs.getTimestamp("Available_For_Subscription_Start_Date")));
+		identificationTransaction.setFbiSubscriptionStatus(rs.getString("FBI_SUBSCRIPTION_STATUS"));
 
 		if (hasColumn(rs, "subscription_id"))
 		{
@@ -472,7 +473,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -533,7 +534,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
+		sb.append( "SELECT t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = t.transaction_number) as having_subsequent_result, "
@@ -682,7 +683,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
-		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, t.creation_timestamp, "
+		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.* "
 				+ "FROM identification_transaction t "
@@ -1155,7 +1156,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(
 			String transactionNumber, ResultSender resultSender) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -1189,7 +1190,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<IdentificationTransaction> returnMatchingCivilIdentifications(String otn, String civilSid) {
 
-		String sql = "SELECT t.subscription_id,t.transaction_number, t.identification_category, t.creation_timestamp, " +
+		String sql = "SELECT t.subscription_id,t.transaction_number, t.identification_category, t.creation_timestamp, t.FBI_SUBSCRIPTION_STATUS, " +
 				" t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, t.subscription_id," + 
 				" s.*  " +
 				" FROM identification_transaction t " +
@@ -1336,7 +1337,7 @@ public class RapbackDAOImpl implements RapbackDAO {
     	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
     			+ "SET FBI_SUBSCRIPTION_STATUS=? WHERE subscription_id = ? ";
     	
-    	this.jdbcTemplate.update(UPDATE_FBI_SUBSCRIPTION_STATUS, subscriptionId, status);
+    	this.jdbcTemplate.update(UPDATE_FBI_SUBSCRIPTION_STATUS, status, subscriptionId);
     }	
 	
 	private final class NsorDemographicsRowMapper implements
