@@ -90,4 +90,5 @@ public interface RapbackDAO {
 	public List<String> getViewableIdentificationCategories(
 			SAMLTokenPrincipal token, String identificationCategoryType);
 
+    public void updateFbiSubscriptionStatus(Integer subscriptionId, String status);
 }
