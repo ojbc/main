@@ -439,16 +439,23 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 				identificationTransaction, oriOrgnizationIdMap);
 		
 		if (currentState == IdentificationTransactionState.Subscribed_State || 
-				currentState == IdentificationTransactionState.Subscribed_State_FBI){
+				currentState == IdentificationTransactionState.Subscribed_State_FBI|| 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI_Error ||
+				currentState == IdentificationTransactionState.Subscribed_State_FBI_Pending
+				){
 			appendSubscriptionElement(
 					organizationIdentificationResultsSearchResultElement, identificationTransaction.getSubscription());
 		}
-			appendSubsequentResultsAvailableIndicator(
-					organizationIdentificationResultsSearchResultElement,
-					identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		
+		appendSubsequentResultsAvailableIndicator(
+				organizationIdentificationResultsSearchResultElement,
+				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 			
 		if (currentState == IdentificationTransactionState.Subscribed_State || 
-				currentState == IdentificationTransactionState.Subscribed_State_FBI){
+				currentState == IdentificationTransactionState.Subscribed_State_FBI|| 
+				currentState == IdentificationTransactionState.Subscribed_State_FBI_Error ||
+				currentState == IdentificationTransactionState.Subscribed_State_FBI_Pending
+				){
 			appendDateElement(identificationTransaction.getLatestNotificationDate(), 
 					organizationIdentificationResultsSearchResultElement, 
 					"LatestNotificationDate", 
