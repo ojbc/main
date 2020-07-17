@@ -20,15 +20,14 @@ import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.bundles.adapters.fbi.ebts.util.FBIEbtsUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class FbiSubscriptionAuditProcessor {
 
@@ -195,6 +194,11 @@ public class FbiSubscriptionAuditProcessor {
 		
 	}
 
+	public String retrieveStateSubscriptionIDFromTransactionControlReferenceId(@Header("transactionControlReferenceIdentification") String transactionControlReferenceId)
+	{
+		return enhancedAuditDAO.retrieveStateSubscriptionIDFromTransactionControlReferenceId(transactionControlReferenceId);
+	}
+	
 	public EnhancedAuditDAO getEnhancedAuditDAO() {
 		return enhancedAuditDAO;
 	}

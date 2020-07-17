@@ -431,6 +431,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		
+		assertEquals("456", enhancedAuditDao.retrieveStateSubscriptionIDFromTransactionControlReferenceId("9999999"));
 	}
 	
 	
