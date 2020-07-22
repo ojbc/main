@@ -18,19 +18,19 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/MarijuanaLicenseQueryRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
-	xmlns:mlq-req-doc="http://ojbc.org/IEPD/Exchange/MarijuanaLicenseQueryRequest/1.0"
-	xmlns:mlq-req-ext="http://ojbc.org/IEPD/Extensions/MarijuanaLicenseQueryRequestExtension/1.0"
+	xmlns:clq-req-doc="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0"
+	xmlns:clq-req-ext="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/" schemaLocation="./Subset/niem/niem-core/4.0/niem-core.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="./Subset/niem/utility/structures/4.0/structures.xsd" />
-	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/MarijuanaLicenseQueryRequestExtension/1.0" schemaLocation="marijuana_license_query_request_ext.xsd" />
-	<!-- Root data element for the Marijuana License Query Request -->
-	<xsd:element name="MarijuanaLicenseQueryRequest" type="mlq-req-ext:MarijuanaLicenseQueryRequestType">
+	<xsd:import	namespace="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryRequestExtension/1.0" schemaLocation="cannabis_license_query_request_ext.xsd" />
+	<!-- Root data element for the Cannabis License Query Request -->
+	<xsd:element name="CannabisLicenseQueryRequest" type="clq-req-ext:CannabisLicenseQueryRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message to submit a marijuana license query request.</xsd:documentation>
+			<xsd:documentation>A message to submit a cannabis license query request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
