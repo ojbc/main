@@ -16,17 +16,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<mlq-req-doc:MarijuanaLicenseQueryRequest
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/MarijuanaLicenseQueryRequest/1.0 ../xsd/marijuana_license_query_request.xsd"
-	xmlns:mlq-req-doc="http://ojbc.org/IEPD/Exchange/MarijuanaLicenseQueryRequest/1.0"
-	xmlns:mlq-req-ext="http://ojbc.org/IEPD/Extensions/MarijuanaLicenseQueryRequestExtension/1.0"
+<clq-req-doc:CannabisLicenseQueryRequest
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0 ../xsd/cannabis_license_query_request.xsd"
+	xmlns:clq-req-doc="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0"
+	xmlns:clq-req-ext="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryRequestExtension/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person structures:id="Person_01">
 		<nc:PersonLicenseIdentification>
 			<nc:IdentificationID>MD12345</nc:IdentificationID>
-			<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Marijuana_License_Query_Request_Service/1.0}Person-Query-Service---Marijuana-License</nc:IdentificationSourceText>
+			<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Cannabis_License_Query_Request_Service/1.0}Person-Query-Service---Cannabis-License</nc:IdentificationSourceText>
 		</nc:PersonLicenseIdentification>
 	</nc:Person>
-</mlq-req-doc:MarijuanaLicenseQueryRequest>
+</clq-req-doc:CannabisLicenseQueryRequest>
