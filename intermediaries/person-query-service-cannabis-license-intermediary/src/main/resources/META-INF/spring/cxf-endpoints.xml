@@ -45,7 +45,7 @@
     <cxf:cxfEndpoint 
         id="personQueryCannabisLicenseRequestService"
         address="${personQuery.cannabisLicense.requestEndpoint}"
-		wsdlURL="classpath:ssp/Regulatory_License_Query_Request/schema/SIP_WS_1.2/Regulatory_License_Query_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Cannabis_License_Query_Request/schema/SIP_WS_1.2/Cannabis_License_Query_Request_Service.wsdl"
 		serviceName="ojbc:Regulatory_License_Query_Request_Service_Service" 
 		endpointName="ojbc:Regulatory_License_Query_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryRequestService/1.0">
@@ -64,7 +64,7 @@
     <cxf:cxfEndpoint 
         id="personQueryCannabisLicenseResultsService"
         address="${personQuery.cannabisLicenseResultsHandlerEndpoint}"
-		wsdlURL="classpath:ssp/Regulatory_License_Query_Results/schema/SIP_WS_1.2/Regulatory_License_Query_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
 		serviceName="ojbc:Regulatory_License_Query_Results_Service_Service" 
 		endpointName="ojbc:Regulatory_License_Query_Results_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryResultsService/1.0">
