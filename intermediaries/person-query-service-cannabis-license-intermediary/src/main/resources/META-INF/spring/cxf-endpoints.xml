@@ -46,9 +46,9 @@
         id="personQueryCannabisLicenseRequestService"
         address="${personQuery.cannabisLicense.requestEndpoint}"
 		wsdlURL="classpath:ssp/Cannabis_License_Query_Request/schema/SIP_WS_1.2/Cannabis_License_Query_Request_Service.wsdl"
-		serviceName="ojbc:Regulatory_License_Query_Request_Service_Service" 
-		endpointName="ojbc:Regulatory_License_Query_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryRequestService/1.0">
+		serviceName="ojbc:Cannabis_License_Query_Request_Service_Service" 
+		endpointName="ojbc:Cannabis_License_Query_Request_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryRequestService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="cannabisLicenseRequestKeystoreProperties" />
@@ -65,9 +65,9 @@
         id="personQueryCannabisLicenseResultsService"
         address="${personQuery.cannabisLicenseResultsHandlerEndpoint}"
 		wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
-		serviceName="ojbc:Regulatory_License_Query_Results_Service_Service" 
-		endpointName="ojbc:Regulatory_License_Query_Results_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryResultsService/1.0">
+		serviceName="ojbc:Cannabis_License_Query_Results_Service_Service" 
+		endpointName="ojbc:Cannabis_License_Query_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0">
      <cxf:features>
       <policy:policies>
         <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
@@ -84,10 +84,10 @@
     	Cannabis License Request Service Adapter, hosted by adapter, called by broker, address set dynamically 
     -->
 	<cxf:cxfEndpoint id="personQueryCannabisLicenseAdapterService"
-		wsdlURL="classpath:ssp/Regulatory_License_Query_Request/schema/SIP_WS_1.2/Regulatory_License_Query_Request_Service.wsdl"
-		serviceName="ojbc:Regulatory_License_Query_Request_Service_Service" 
-		endpointName="ojbc:Regulatory_License_Query_Request_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryRequestService/1.0">
+		wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
+		serviceName="ojbc:Cannabis_License_Query_Results_Service_Service" 
+		endpointName="ojbc:Cannabis_License_Query_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -102,10 +102,10 @@
     -->
     <cxf:cxfEndpoint id="presentPersonQueryResultsCannabisLicenseService"
         address="${personQuery.cannabisLicense.presentResultsEndpoint}"
-		wsdlURL="classpath:ssp/Regulatory_License_Query_Results/schema/SIP_WS_1.2/Regulatory_License_Query_Results_Service.wsdl"
-		serviceName="ojbc:Regulatory_License_Query_Results_Service_Service" 
-		endpointName="ojbc:Regulatory_License_Query_Results_Secure_Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/RegulatoryLicenseQueryResultsService/1.0">
+		wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
+		serviceName="ojbc:Cannabis_License_Query_Results_Service_Service" 
+		endpointName="ojbc:Cannabis_License_Query_Results_Secure_Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0">
         
      	<cxf:features>
 	      <policy:policies>
