@@ -206,6 +206,7 @@ public class IncidentsController {
 		else
 		{
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident detail.</span>");
+			Thread.sleep(500);
 		}
 
 	}
