@@ -331,18 +331,24 @@ public class PeopleController {
 		
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory)
-			throws Exception {
+	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory) throws Exception{
 		
 		if (searchResultCategory.equals("Incident") && (authentication == null || !SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)))
 		{
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident list.</span>"); 	
+			Thread.sleep(500);
 		}	
 		else
 		{	
-		    String convertedContent = getConvertedSearchResult(request, systemName,
-					detailsRequest, model);
-	         model.put("searchContent", convertedContent); 
+		    String convertedContent;
+			try {
+				convertedContent = getConvertedSearchResult(request, systemName,
+						detailsRequest, model);
+				model.put("searchContent", convertedContent); 
+			} catch (Exception e) {
+				Thread.sleep(500);
+				throw e; 
+			}
 		}
 	}
 
