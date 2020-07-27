@@ -37,6 +37,7 @@ public class OJBCWebServiceURIs {
 	public static final String VEHICLE_CRASH = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";
 	public static final String WILDLIFE_LICENSING = "{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License";
 	public static final String PROFESSIONAL_LICENSING = "{http://ojbc.org/Services/WSDL/Professional_License_Query_Request_Service/1.0}Person-Query-Service---Professional-License";
+	public static final String CANNABIS_LICENSING = "{http://ojbc.org/Services/WSDL/Cannabis_License_Query_Request_Service/1.0}Person-Query-Service-Cannabis-License";
 	public static final String FIREARMS_PURCHASE_PROHIBITION = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition";
 	public static final String FIREARMS_PURCHASE_PROHIBITION_QUERY = "{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0}SubmitFirearmPurchaseProhibitionQueryRequest";
 }

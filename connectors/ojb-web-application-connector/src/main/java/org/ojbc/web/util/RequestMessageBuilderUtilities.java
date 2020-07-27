@@ -141,6 +141,24 @@ public class RequestMessageBuilderUtilities {
 		return sb.toString();
 	}	
 	
+	public static String createCannabisLicenseProfessionalRequest(DetailsRequest detailsRequest)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("	<clq-req-doc:CannabisLicenseQueryRequest \n");
+		sb.append("		xmlns:clq-req-doc=\"http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0\" \n");
+		sb.append("		xmlns:nc=\"http://release.niem.gov/niem/niem-core/4.0/\"> \n");
+		sb.append("		<nc:Person> \n");
+		sb.append("			<nc:PersonLicenseIdentification> \n");
+		sb.append("				<nc:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc:IdentificationID> \n");
+		sb.append("				<nc:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText> \n");
+		sb.append("			</nc:PersonLicenseIdentification> \n");
+		sb.append("		</nc:Person> \n");
+		sb.append("	</clq-req-doc:CannabisLicenseQueryRequest> \n");
+		
+		return sb.toString();
+	}	
+	
 	public static String createPersonToIncidentQueryRequest(String identificationID, String identificationSourceText)
 	{
 		StringBuffer sb = new StringBuffer();
