@@ -1026,6 +1026,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CHARGE_REFERRAL_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferralRequest/1.0";
 	public static final String NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC ="cr-req-doc";
 	
+	public static final String NS_CANNABIS_QUERY_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryResults/1.0";
+	public static final String NS_PREFIX_CANNABIS_QUERY_RESULTS_DOC ="clq-res-doc";
+
+	public static final String NS_CANNABIS_QUERY_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryResults/1.0";
+	public static final String NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT ="clq-res-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -2031,6 +2037,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC, NS_CHARGE_REFERRAL_REQUEST_DOC);
 		uriToPrefixMap.put(NS_CHARGE_REFERRAL_REQUEST_DOC,NS_PREFIX_CHARGE_REFERRAL_REQUEST_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_CANNABIS_QUERY_RESULTS_DOC, NS_CANNABIS_QUERY_RESULTS_DOC);
+		uriToPrefixMap.put(NS_CANNABIS_QUERY_RESULTS_DOC,NS_PREFIX_CANNABIS_QUERY_RESULTS_DOC );
+
+		prefixToUriMap.put(NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT, NS_CANNABIS_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_CANNABIS_QUERY_RESULTS_EXT,NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT );
+		
 	}
 
 	@Override
