@@ -160,6 +160,8 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
 		<entry key="Professional Licensing"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
+		<entry key="Cannabis Licensing"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Marijuana-Licensing" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
