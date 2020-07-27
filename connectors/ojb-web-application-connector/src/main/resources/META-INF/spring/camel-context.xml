@@ -76,6 +76,19 @@
 	    	<camel:to uri="bean:professionalLicensingRequestProcessor?method=updateMapWithResponse"/>
 
 	    </camel:route>	  	    
+	    
+	    <!-- Cannabis License Response Listener -->
+	    <camel:route id="personQueryCannabisLicenseResultsServiceEndpointRoute" autoStartup="false">
+	    	<from uri="personQueryCannabisLicenseResultsServiceEndpoint"/>
+	    	<camel:log message="Received response message - Cannabis License: ${body}" loggingLevel="INFO"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:cannabisLicensingMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:cannabisLicensingRequestProcessor?method=updateMapWithResponse"/>
+
+	    </camel:route>	  	    	    
 	    	        
 	    <!-- Criminal History Response Listener -->
 	    <camel:route id="personQueryResultsHandlerCriminalHistoryServiceRoute" autoStartup="false">
