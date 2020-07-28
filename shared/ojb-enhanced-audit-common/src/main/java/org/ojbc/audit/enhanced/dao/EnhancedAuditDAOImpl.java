@@ -74,6 +74,7 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CannabisLicenseQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchResultRowMapper;
@@ -2597,40 +2598,37 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	@Override
 	public Integer saveCannabisLicensingQueryResponse(
 			CannabisLicensingQueryResponse cannabisLicensingQueryResponse) {
-		//log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + cannabisLicensingQueryResponse.toString());
 		
-//        final String PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT="INSERT into PROFESSIONAL_LICENSING_QUERY_RESULTS "  
-//        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
-//        		+ " ISSUE_DATE, EXPIRATION_DATE,LICENSE_NUMBER,LICENSE_TYPE, MESSAGE_ID) "
-//        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        
-//        
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(
-//        	    new PreparedStatementCreator() {
-//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//        	            PreparedStatement ps =
-//        	                connection.prepareStatement(PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT, new String[] {"PROFESSIONAL_LICENSING_QUERY_RESULTS_ID"});
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryRequestId(), ps, 1);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getSystemName(), ps, 2);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getIssueDate(), ps, 7);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getExpirationDate(), ps, 8);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseNumber(), ps, 9);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseType(), ps, 10);
-//        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getMessageId(), ps, 11);
-//        	            
-//        	            return ps;
-//        	        }
-//        	    },
-//        	    keyHolder);
-//
-//         return keyHolder.getKey().intValue();	  
+		log.debug("Inserting row into CANNABIS_LICENSING_QUERY_RESULTS table : " + cannabisLicensingQueryResponse.toString());
 		
-		return null;
+        final String CANNABIS_LICENSING_QUERY_RESULTS_INSERT="INSERT into CANNABIS_LICENSING_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " EXPIRATION_DATE,LICENSE_NUMBER,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(CANNABIS_LICENSING_QUERY_RESULTS_INSERT, new String[] {"CANNABIS_LICENSING_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getExpirationDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getLicenseNumber(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getMessageId(), ps, 9);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	  
 		
 	}	
 	
@@ -2761,6 +2759,14 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<SubscriptionQueryResponse> subscriptionQueryResponses = jdbcTemplate.query(SUBSCRIPTION_QUERY_SELECT, new SubscriptionQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(subscriptionQueryResponses);			
+	}
+	
+	@Override
+	public CannabisLicensingQueryResponse retrieveCannabisLicenseQueryResponse(Integer queryRequestId) {
+		final String CANNABIS_LICENSING_QUERY_SELECT="SELECT * from CANNABIS_LICENSING_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<CannabisLicensingQueryResponse> cannabisLicensingQueryResponses = jdbcTemplate.query(CANNABIS_LICENSING_QUERY_SELECT, new CannabisLicenseQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(cannabisLicensingQueryResponses);		
 	}
 
 	@Override
