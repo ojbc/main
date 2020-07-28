@@ -239,6 +239,8 @@ public interface EnhancedAuditDAO {
 	
 	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId);
 	
+	public CannabisLicensingQueryResponse retrieveCannabisLicenseQueryResponse(Integer queryRequestId);
+	
 	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
 	
 	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);

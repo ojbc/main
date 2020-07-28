@@ -32,12 +32,7 @@ public class CannabisLicensingQueryResponse {
 
 	private String messageId;
 	private String licenseNumber;
-	private String licenseType;
 	
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate issueDate;
-
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate expirationDate;
@@ -102,34 +97,23 @@ public class CannabisLicensingQueryResponse {
 	public void setLicenseNumber(String licenseNumber) {
 		this.licenseNumber = licenseNumber;
 	}
-	public String getLicenseType() {
-		return licenseType;
-	}
-	public void setLicenseType(String licenseType) {
-		this.licenseType = licenseType;
-	}
-	public LocalDate getIssueDate() {
-		return issueDate;
-	}
-	public void setIssueDate(LocalDate issueDate) {
-		this.issueDate = issueDate;
-	}
 	public LocalDate getExpirationDate() {
 		return expirationDate;
 	}
 	public void setExpirationDate(LocalDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-	
-	@Override
-	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-	}
 	public String getMessageId() {
 		return messageId;
 	}
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
+	}	
+	
+	@Override
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
+
 
 }
