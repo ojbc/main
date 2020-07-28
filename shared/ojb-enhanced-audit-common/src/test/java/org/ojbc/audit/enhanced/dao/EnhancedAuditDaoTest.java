@@ -35,6 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -744,6 +745,21 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Source", queryRequests.get(0).getIdentificationSourceText());
 		assertEquals("123456", queryRequests.get(0).getMessageId());
 		assertNotNull(queryRequests.get(0).getTimestamp());
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponse = new CannabisLicensingQueryResponse();
+		
+		cannabisLicensingQueryResponse.setLicenseNumber("123");
+		cannabisLicensingQueryResponse.setQueryRequestId(queryPk);
+		cannabisLicensingQueryResponse.setExpirationDate(LocalDate.now());
+		cannabisLicensingQueryResponse.setMessageId("123456");
+		
+		enhancedAuditDao.saveCannabisLicensingQueryResponse(cannabisLicensingQueryResponse);
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponseFromDatabase = enhancedAuditDao.retrieveCannabisLicenseQueryResponse(queryPk);
+				
+		assertEquals("123", cannabisLicensingQueryResponseFromDatabase.getLicenseNumber());
+		assertEquals(LocalDate.now(), cannabisLicensingQueryResponseFromDatabase.getExpirationDate());
+		assertEquals("123456", cannabisLicensingQueryResponseFromDatabase.getMessageId());
 	}
 	
 	@Test

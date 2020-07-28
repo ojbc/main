@@ -59,33 +59,14 @@ public abstract class AbstractCannabisLicensingQueryResponseProcessor {
 			cannabisLicensingQueryResponse.setQueryResultsErrorText(errorText);
 		}	
 		
-		String licenseNumber = XmlUtils.xPathStringSearch(document, "//rlq-res-ext:RegulatoryLicenseQueryResult/rlq-res-ext:RegulatoryLicense/rlq-res-ext:RegulatoryLicenseIdentification/nc40:IdentificationID");
+		String licenseNumber = XmlUtils.xPathStringSearch(document, "//clq-res-ext:CannabisLicenseQueryResult/clq-res-ext:CannabisLicense/clq-res-ext:LicenseIdentification");
 		
 		if (StringUtils.isNotBlank(licenseNumber))
 		{
 			cannabisLicensingQueryResponse.setLicenseNumber(licenseNumber);
 		}
 
-		String licenseType = XmlUtils.xPathStringSearch(document, "//rlq-res-ext:RegulatoryLicenseQueryResult/rlq-res-ext:RegulatoryLicense/rlq-res-ext:RegulatoryLicenseCategoryText");
-		
-		if (StringUtils.isNotBlank(licenseType))
-		{
-			cannabisLicensingQueryResponse.setLicenseType(licenseType);
-		}
-
-    	String issueDateString = XmlUtils.xPathStringSearch(document, "//rlq-res-ext:RegulatoryLicenseQueryResult/rlq-res-ext:RegulatoryLicense/rlq-res-ext:RegulatoryLicenseIssueDate/nc40:Date");
-    	
-    	if (StringUtils.isNotBlank(issueDateString))
-    	{
-    		LocalDate issueDate = LocalDate.parse(issueDateString);
-    		
-    		if (issueDate != null)
-    		{
-    			cannabisLicensingQueryResponse.setIssueDate(issueDate);
-    		}	
-    	}	
-    	
-    	String expirationDateString = XmlUtils.xPathStringSearch(document, "//rlq-res-ext:RegulatoryLicenseQueryResult/rlq-res-ext:RegulatoryLicense/rlq-res-ext:RegulatoryLicenseExpirationDate/nc40:Date");
+    	String expirationDateString = XmlUtils.xPathStringSearch(document, "//clq-res-ext:CannabisLicenseQueryResult/clq-res-ext:CannabisLicense/clq-res-ext:LicenseExpirationDate/nc40:Date");
     	
     	if (StringUtils.isNotBlank(expirationDateString))
     	{
@@ -97,7 +78,7 @@ public abstract class AbstractCannabisLicensingQueryResponseProcessor {
     		}	
     	}	    	
 		
-    	String systemName = XmlUtils.xPathStringSearch(document, "//rlq-res-ext:RegulatoryLicenseQueryResult/intel40:SystemIdentification/nc40:SystemName");
+    	String systemName = XmlUtils.xPathStringSearch(document, "//clq-res-ext:CannabisLicenseQueryResult/intel40:SystemIdentification/nc40:SystemName");
     			
 		if (StringUtils.isNotBlank(systemName))
 		{
