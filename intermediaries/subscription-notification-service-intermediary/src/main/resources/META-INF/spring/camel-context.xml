@@ -433,6 +433,23 @@
 			<camel:log message="Processing Unsubscription(Vehicle Crash" />
 			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
+		
+		<camel:route>
+			<from uri="direct:sendMessageToSubscriptionAdapter"/>
+			
+			<camel:filter>
+				<camel:simple>${in.header.operationName} == 'Validate'</camel:simple>
+				
+				<camel:to uri="subscriptionManagerAdapterServiceSecureEndpoint"/>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:simple>${in.header.operationName} == 'Subscribe'</camel:simple>
+				
+				<camel:to uri="notificationBrokerServiceAdapterSecureEndpoint"/>
+			</camel:filter>
+			
+		</camel:route>
 			
 	</camel:camelContext>
 

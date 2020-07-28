@@ -218,6 +218,12 @@
 						<camel:choice>
 							<camel:when>
 								<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+
+								<filter>
+								    <method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter"/>
+								    <to uri="direct:sendMessageToSubscriptionAdapter"/>
+								</filter>
+								
 								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
 							</camel:when>
 						</camel:choice>
