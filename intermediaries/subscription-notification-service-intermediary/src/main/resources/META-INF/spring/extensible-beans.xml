@@ -35,6 +35,14 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="sendToSubscriptionAdapterStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="sendToSubscriptionAdapterStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.dao.DefaultSendToSubscriptionAdapterStrategy" />
+		</constructor-arg>
+	</bean>	
+	
 	<bean id="jdbcTemplateAudit" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="jdbcTemplateAudit" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
