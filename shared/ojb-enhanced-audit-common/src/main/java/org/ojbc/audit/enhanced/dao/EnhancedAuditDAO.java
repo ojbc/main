@@ -249,4 +249,6 @@ public interface EnhancedAuditDAO {
 
 	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
 	
+	public String retrieveStateSubscriptionIDFromTransactionControlReferenceId(String transactionControlReferenceId);
+	
 }

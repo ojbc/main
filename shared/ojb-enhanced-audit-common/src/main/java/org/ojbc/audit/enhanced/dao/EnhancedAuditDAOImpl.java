@@ -2881,4 +2881,13 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	
 	}
 
+	@Override
+	public String retrieveStateSubscriptionIDFromTransactionControlReferenceId(String transactionControlReferenceId) {
+		final String SELECT_STATEMENT="select STATE_SUBSCRIPTION_ID from federal_rapback_subscription where transaction_control_reference_identification=? ";
+		
+		String stateSubscriptionId = jdbcTemplate.queryForObject(SELECT_STATEMENT, String.class, transactionControlReferenceId);
+		
+		return stateSubscriptionId;
+	}
+
 }

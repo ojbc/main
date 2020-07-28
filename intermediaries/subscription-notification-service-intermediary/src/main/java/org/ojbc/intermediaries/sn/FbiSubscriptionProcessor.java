@@ -184,6 +184,11 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 			exchange.getIn().setHeader("operationName", "Subscribe");
 			
 			appendSubscriptionId(subscriptionDoc, subscriptionId);
+			
+			log.info("No FBI Subscription, update FBI subscription status to pending for: " + subscriptionId);
+			
+			subscriptionSearchQueryDAO.updateFbiSubscriptionStatus(subscriptionId, "PENDING");
+			
 			return subscriptionDoc;			
 		}
 					
