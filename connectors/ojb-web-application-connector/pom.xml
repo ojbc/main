@@ -43,7 +43,7 @@
 		<ojb-fedquery-common-version>2.0.0</ojb-fedquery-common-version>
 		<ojb-camel-common>[2.0.0,)</ojb-camel-common>
 		<ojb-common-version>[3.0.2, )</ojb-common-version>
-		<ojb-resources-common-version>1.0.1</ojb-resources-common-version>
+		<ojb-resources-common-version>[1.0.5,)</ojb-resources-common-version>
 		<ojb-ui-common-version>[2.0.0, )</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[2.0.0,)</ojb-web-application-connector-extension-version>
 		<commons-lang-version>2.4</commons-lang-version>
