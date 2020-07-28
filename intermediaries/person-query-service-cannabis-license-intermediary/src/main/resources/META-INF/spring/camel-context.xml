@@ -252,7 +252,7 @@
             			<constant>SubmitCannabisLicenseQueryResults</constant>
             		</camel:setHeader>
 	        		<camel:setHeader headerName="operationNamespace">
-	        			<constant>http://ojbc.org/Services/WSDL/Cannabis_License_Query_Results_Service/1.0</constant>
+	        			<constant>http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0</constant>
 	        		</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			

@@ -107,7 +107,7 @@
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>
 
-	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify, called by this s/n intermediary -->
+	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify/Validate, called by this s/n intermediary -->
 	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
 		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
 		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
