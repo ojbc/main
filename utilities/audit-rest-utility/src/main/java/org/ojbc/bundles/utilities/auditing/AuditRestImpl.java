@@ -28,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
@@ -516,6 +517,16 @@ public class AuditRestImpl implements AuditInterface {
 		List<IncidentSearchResult> incidentSearchResults = enhancedAuditDao.retrieveIncidentSearchResults(incidentSearchRequestId);
 		
 		return incidentSearchResults;
+	}
+
+	@Override
+	public CannabisLicensingQueryResponse retrieveCannabisLicensingQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Cannabis License Query Response for: " + queryRequestId.toString());
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponse = enhancedAuditDao.retrieveCannabisLicenseQueryResponse(queryRequestId);
+		
+		return cannabisLicensingQueryResponse;	
+
 	}
 
 }
