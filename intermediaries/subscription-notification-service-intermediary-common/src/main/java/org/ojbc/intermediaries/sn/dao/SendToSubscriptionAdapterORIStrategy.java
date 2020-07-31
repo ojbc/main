@@ -20,29 +20,47 @@ import java.util.List;
 
 import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SendToSubscriptionAdapterORIStrategy implements SendToSubscriptionAdapterStrategy {
 
-	@Value("#{'${publishSubscribe.authorizedOrisForSubscriptionAdapter:}'.split(',')}")
 	public List<String> authorizedOrisForSubscriptionAdapter;
+	
+	private static final Log log = LogFactory.getLog(SendToSubscriptionAdapterORIStrategy.class);
 	
 	@Override
 	public boolean sendToAdapter(@Header("subscriptionOwnerOri") String ori) {
 
+		log.info("Authorized ORIs: " + authorizedOrisForSubscriptionAdapter.toString() + ", ORI in message: ##" + ori + "##" + "List size: " + authorizedOrisForSubscriptionAdapter.size());
+		
 		if (authorizedOrisForSubscriptionAdapter == null || StringUtils.isBlank(ori))
 		{
+			log.info("either ORI are null or ori is blank, return false");
+			
 			return false;
 		}	
 		
-		if (authorizedOrisForSubscriptionAdapter.contains(ori))
+		if (authorizedOrisForSubscriptionAdapter.contains(ori.trim()))
 		{
+			log.info("authorized ori in list, return true");
+			
 			return true;
 		}
 		else
 		{
+			log.info("authorized ori not in list, return false");
+			
 			return false;
 		}	
+	}
+
+	public List<String> getAuthorizedOrisForSubscriptionAdapter() {
+		return authorizedOrisForSubscriptionAdapter;
+	}
+
+	public void setAuthorizedOrisForSubscriptionAdapter(List<String> authorizedOrisForSubscriptionAdapter) {
+		this.authorizedOrisForSubscriptionAdapter = authorizedOrisForSubscriptionAdapter;
 	}
 
 }

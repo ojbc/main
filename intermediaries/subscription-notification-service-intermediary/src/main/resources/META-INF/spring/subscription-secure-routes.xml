@@ -46,6 +46,9 @@
 			
 			<!--  Perform some generic message processing --> 
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+		
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 			
 			<!-- perform auditing request here -->
 			<camel:setHeader headerName="subscriptionId">
@@ -117,6 +120,9 @@
 		<camel:route id="subscriptionManagerServiceSecureRoute">
 		
 			<camel:from	uri="subscriptionManagerServiceSecureEndpoint" />
+			
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 			
 			<camel:choice>
 				<camel:when>
@@ -221,6 +227,9 @@
 
 								<filter>
 								    <method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter"/>
+								    
+								    <camel:log message="About to send to subscription adapter as per strategy"/>
+								    
 								    <to uri="direct:sendMessageToSubscriptionAdapter"/>
 								</filter>
 								
