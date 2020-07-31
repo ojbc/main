@@ -328,20 +328,18 @@
 			
 			<camel:log message="Subscription ID from subscribe method: ${in.headers.subscriptionId}"/>					
 								
-			<camel:multicast>				
-				<camel:choice>
-					<camel:when>
-						<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
-						
-						<camel:log message="Process FBI subscription, processor returned true."/>
-						
-						<to uri="direct:processPotentialFbiSubscription"/>
-					</camel:when>			 				 							 																														 				
-				</camel:choice>				
-				<!-- this synchronous call is last because it modifies the message -->
-				<to uri="bean:org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil?method=createSubscribeResponse()" />
+			<camel:choice>
+				<camel:when>
+					<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
+					
+					<camel:log message="Process FBI subscription, processor returned true."/>
+					
+					<to uri="direct:processPotentialFbiSubscription"/>
+				</camel:when>			 				 							 																														 				
+			</camel:choice>				
+			<!-- this synchronous call is last because it modifies the message -->
+			<to uri="bean:org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil?method=createSubscribeResponse()" />
 														
-			</camel:multicast>						
 		</camel:route>		
 		
 		<camel:route>
@@ -440,12 +438,32 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Validate'</camel:simple>
 				
+				<camel:removeHeaders pattern="*" excludePattern="tokenID"/>
+				
+				<camel:setHeader headerName="operationName">
+		            <constant>Validate</constant>
+		        </camel:setHeader>
+	        
+	    	    <camel:setHeader headerName="operationNamespace">
+	        	    <constant>http://www.ojbc.org/SubscribeNotify/SubscriptionManager</constant>
+	        	</camel:setHeader>
+				
 				<camel:to uri="subscriptionManagerAdapterServiceSecureEndpoint"/>
 			</camel:filter>
 
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Subscribe'</camel:simple>
 				
+				<camel:removeHeaders pattern="*" excludePattern="tokenID"/>
+				
+				<camel:setHeader headerName="operationName">
+		            <constant>Subscribe</constant>
+	    	    </camel:setHeader>
+	        
+				<camel:setHeader headerName="operationNamespace">
+					<constant>http://docs.oasis-open.org/wsn/brw-2</constant>
+				</camel:setHeader>
+							
 				<camel:to uri="notificationBrokerServiceAdapterSecureEndpoint"/>
 			</camel:filter>
 			

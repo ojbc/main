@@ -155,11 +155,10 @@
 		endpointName="ojbc:SecureSubscriptionManager"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>    
     
@@ -172,11 +171,10 @@
 		endpointName="ojbc:SecureNotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
 		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>    
 
@@ -273,6 +271,16 @@
         </property>
 	</bean>
 
+	<!-- Used to retrieve and persist SAML tokens -->
+	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>	
+
+	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
 	
 	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>	 
 
