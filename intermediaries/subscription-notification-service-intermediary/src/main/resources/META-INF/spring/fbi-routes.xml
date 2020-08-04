@@ -34,6 +34,14 @@
 			<from uri="direct:processPotentialFbiSubscription"/>
 			<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
 			
+			<filter>
+				<method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter"/>
+				
+				<camel:log message="About to send to subscription adapter as per strategy"/>
+				
+				<camel:wireTap copy="true" uri="direct:sendMessageToSubscriptionAdapter"/>
+			</filter>
+			
 			<camel:to uri="direct:sentToFbiEbtsAdapter" />
 		
 		</route> 
