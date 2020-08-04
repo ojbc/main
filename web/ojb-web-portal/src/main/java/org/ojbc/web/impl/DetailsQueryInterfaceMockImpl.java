@@ -18,6 +18,8 @@ package org.ojbc.web.impl;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,14 +27,13 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
 @Service
 public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	
-	@Autowired(required = false)
+	@Resource(name = "searchURIToQueryURIMap")
 	private Map<String, String> searchURIToQueryURIMap;	
 	
 	private static final Log log = LogFactory.getLog( DetailsQueryInterfaceMockImpl.class );
@@ -109,6 +110,9 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 		} else if (OJBCWebServiceURIs.PROFESSIONAL_LICENSING.equals(requestIdSrcTxt)) {
 			return WebUtils.returnStringFromFilePath(getClass()
 					.getResourceAsStream("/sampleResponses/professionalLicensing/regulatoryLicenseResult.xml"));
+		} else if (OJBCWebServiceURIs.CANNABIS_LICENSING.equals(requestIdSrcTxt)) {
+			return WebUtils.returnStringFromFilePath(getClass()
+					.getResourceAsStream("/sampleResponses/cannabisLicensing/cannabis_license_query_results.xml"));
 		} 
 		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
