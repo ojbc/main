@@ -31,6 +31,8 @@
     xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
     exclude-result-prefixes="#all">
     <xsl:output method="html" encoding="UTF-8" />
+    
+	<xsl:param name="incidentTypesToDrillDown" />
 
 
     <xsl:template match="/">
@@ -112,10 +114,12 @@
     
     <xsl:template match="exchange:IncidentPersonSearchResults/ext:IncidentPersonSearchResult" >
         <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext:SourceSystemNameText)"/></xsl:variable>
-        <tr class="clickableIncident"
-            systemName="{intel:SystemIdentifier/intel:SystemName}"
+        <tr systemName="{intel:SystemIdentifier/intel:SystemName}"
             identificationSourceText="{$systemSource}"   
             >
+            <xsl:if test="contains($incidentTypesToDrillDown, ext:Incident/ext:IncidentCategoryCode)">
+            	<xsl:attribute name="class">clickableIncident</xsl:attribute>
+            </xsl:if>		    			    
             <xsl:attribute name="identificationID"><xsl:text>{</xsl:text><xsl:value-of select="ext:Incident/ext:IncidentCategoryCode"/><xsl:text>}</xsl:text><xsl:value-of select="intel:SystemIdentifier/nc:IdentificationID"/></xsl:attribute>
             
             <td><xsl:value-of select="ext:Incident/ext:IncidentCategoryCode"/></td>

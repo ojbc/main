@@ -35,15 +35,21 @@
   		});
   		
 	  	#if($singleClickForDetail){
-			$("#searchResultsTable").on('click', 'tbody tr', function(){
+			$("#searchResultsTable").on('click', 'tbody tr.clickableIncident', function(){
 				$(this).find("a.viewDetails").click();
 			});}
 		#else{
-			$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
+			$("#searchResultsTable").on('dblclick', 'tbody tr.clickableIncident', function(){
 				$(this).find("a.viewDetails").click();
 			});}
 		#end 
 		
+		$("#searchResultsTable tr.clickableIncident").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
+        
 		$('#returnToSearchSubmitButton').click (function(){
 			$('#filterColumn').removeClass('d-none');
 	  		$.get("#springUrl('/incidents/searchForm')",function(data) {

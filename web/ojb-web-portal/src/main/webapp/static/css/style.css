@@ -708,9 +708,11 @@ header span.fullname {
 	background-color: #edf2f8;
 }
 
+#searchResultsTable tr.incidentHover,
+.searchResultsTable tr.incidentHover,
 .detailsTable tr.incidentHover,
 .detailsTable tr.hover {
-	background-color: #ccdff6;
+	background-color: #ccdff6 !important;
 	cursor: pointer;
 }
 

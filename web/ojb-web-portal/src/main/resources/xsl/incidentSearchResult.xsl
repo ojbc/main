@@ -37,7 +37,7 @@
 	<xsl:param name="hrefBase" />
 	<xsl:param name="purpose" />
 	<xsl:param name="onBehalfOf" />
-
+	<xsl:param name="incidentTypesToDrillDown" />
 
     <xsl:template match="/exc:EntityMergeResultMessage">
     	<xsl:variable name="totalCount" select="count(exc:MergedRecords/ext:MergedRecord)" />
@@ -112,6 +112,10 @@
         <xsl:for-each select="/exc:EntityMergeResultMessage/exc:EntityContainer/ext:Entity[@s:id = $incidentId]/ext1:IncidentSearchResult">
             <xsl:variable name="incident" select="ext1:Incident"/>    
             <tr>
+            	<xsl:if test="contains($incidentTypesToDrillDown, $incident/ext1:IncidentCategoryCode)">
+            		<xsl:attribute name="class">clickableIncident</xsl:attribute>
+            	</xsl:if>		    			    
+            	
                 <td><xsl:value-of select="$entityCount"/></td>
                 <td><xsl:value-of select="$incident/ext1:IncidentCategoryCode" /></td>
                 <td><!-- Role goes here --></td>

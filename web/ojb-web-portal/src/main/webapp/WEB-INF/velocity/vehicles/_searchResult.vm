@@ -43,6 +43,12 @@
 				$(this).find("a.viewDetails").click();
 			});}
 		#end
+		
+ 		$("#searchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
 				
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/vehicles/searchForm')",function(data) {

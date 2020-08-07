@@ -337,7 +337,7 @@ public class PeopleController {
 		{
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident list.</span>"); 	
 			Thread.sleep(500);
-		}	
+		}
 		else
 		{	
 		    String convertedContent;

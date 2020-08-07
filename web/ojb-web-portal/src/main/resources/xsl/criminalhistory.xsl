@@ -50,7 +50,7 @@
             </div>                
        </div>
 	       
-	   <xsl:if test="$chDisplaySupervisionTroCustodyHeaders = 'true'">
+	   <xsl:if test="$chDisplaySupervisionTroCustodyHeaders">
 	       <table class="detailsTable">
 				<tr>
 					<td colspan="8" class="detailsTitle">

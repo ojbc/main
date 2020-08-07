@@ -52,7 +52,11 @@
   		}).fail(ojbc.displayFailMessage);	
   		
   		return false;		  					  					  		                                                     
- 	}); 
+ 	}).on('mouseenter', 'tbody tr', function(){
+         $(this).addClass("incidentHover");
+    }).on('mouseleave', 'tbody tr', function () {
+         $(this).removeClass("incidentHover");
+    });
  	  		 
   });
     
