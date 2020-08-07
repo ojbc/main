@@ -53,6 +53,7 @@
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>false</oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
       <oirs-res-ext:CriminalIdentificationReasonCode>CAR</oirs-res-ext:CriminalIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-10</nc30:Date>

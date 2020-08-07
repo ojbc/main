@@ -295,6 +295,7 @@ public class RapbackDAOImplGetMethodsTest {
 		assertThat(identificationTransaction.getOwnerAgencyName(), equalTo("Test Agency"));
 		assertNotNull(identificationTransaction.getSubscription());
 		assertThat(identificationTransaction.getHavingSubsequentResults(), equalTo(false));
+		assertThat(identificationTransaction.getHavingNsorFiveYearCheck(), equalTo(false));
 		Subject subject = civilInitialResults.get(0).getIdentificationTransaction().getSubject(); 
 		log.info("Subject: " + subject);
 		assertThat(subject.getFirstName(), equalTo("Test"));
