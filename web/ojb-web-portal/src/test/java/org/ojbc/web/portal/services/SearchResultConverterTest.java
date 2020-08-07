@@ -68,6 +68,9 @@ public class SearchResultConverterTest {
 		};
 		unit.incidentSearchResultXsl = unit.searchResultXsl;
 		unit.vehicleSearchResultXsl = unit.searchResultXsl;
+		unit.chDisplaySupervisionTroCustodyHeaders=false; 
+		unit.allowFirearmSubscription=true; 
+		unit.incidentTypesToDrillDown="Law,Traffic,Citation,Field Interview";
 		
 		unit.xsltTransformerService = xsltTransformerService;
 		unit.setApplicationContext(applicationContext);
@@ -145,7 +148,7 @@ public class SearchResultConverterTest {
 		
 		assertThat(getContentFromSAXSource(sourceXmlCaptor.getValue()), is("some search content"));
 		assertThat(getContentFromSAXSource(sourceXslCaptor.getValue()), is("someSystem xsl"));
-		assertThat(paramsCaptor.getValue(),nullValue());
+		assertThat(paramsCaptor.getValue().size(), is(2));
 	}
 
 

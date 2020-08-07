@@ -93,6 +93,9 @@ public class SearchResultConverter implements ApplicationContextAware {
     @Value("${allowFirearmSubscription:true}")
     Boolean allowFirearmSubscription;
     
+    @Value("${incidentTypesToDrillDown:Law,Traffic,Citation,Field Interview}")
+    String incidentTypesToDrillDown;
+    
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -117,6 +120,10 @@ public class SearchResultConverter implements ApplicationContextAware {
 	}
 	
 	public String convertIncidentSearchResult(String searchContent, Map<String, Object> params){
+		if (params == null) {
+			params = new HashMap<String, Object>();
+		}
+		params.put("incidentTypesToDrillDown", incidentTypesToDrillDown);
 		return convertXml(searchContent, incidentSearchResultXsl, params);
 	}
 	
@@ -137,14 +144,14 @@ public class SearchResultConverter implements ApplicationContextAware {
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) throws UnsupportedEncodingException {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("chDisplaySupervisionTroCustodyHeaders", chDisplaySupervisionTroCustodyHeaders);
+		params.put("incidentTypesToDrillDown", incidentTypesToDrillDown);
+		log.info("incidentTypesToDrillDown: " + incidentTypesToDrillDown );
 		
 		if (StringUtils.isNotBlank(activeAccordionId)) {
 	        params.put("activeAccordionId", activeAccordionId);
-	        return convertXml(searchContent, getResource(systemName), params);
 	    }
-	    else {
-	        return convertXml(searchContent, getResource(systemName), null);
-	    }
+		
+        return convertXml(searchContent, getResource(systemName), params);
 		
     }
 	

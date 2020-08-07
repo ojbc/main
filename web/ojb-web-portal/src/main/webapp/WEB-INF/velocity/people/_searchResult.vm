@@ -93,6 +93,12 @@
 		} 
 		#end
  
+ 		$("#personSearchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
+ 
 		$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
 			var url = encodeURI(this.href);
 			var title = $(this).attr('searchName');

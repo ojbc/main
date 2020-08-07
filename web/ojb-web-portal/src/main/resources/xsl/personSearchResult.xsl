@@ -70,9 +70,9 @@
     				<th>DOB</th>
     				<th>TYPE</th>
     				<th>SYSTEM</th>
-                          <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
+                    <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
     				  <th>ACTION</th>
-                          </xsl:if>
+                    </xsl:if>
     			    <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
     			</tr>
    			</thead>
