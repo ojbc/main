@@ -73,6 +73,7 @@
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0" />
 					<xsd:element ref="oirs-res-ext:SubscriptionReceivedFBINotificationIndicator" minOccurs="0" />
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0" />
+					<xsd:element ref="oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator" minOccurs="0" />					
 					<xsd:element ref="oirs-res-ext:LatestSubsequentResultDate" minOccurs="0" />
 					<xsd:element ref="oirs-res-ext:LatestNotificationDate" minOccurs="0" />
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0" />
@@ -292,6 +293,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="NsorFiveYearCheckResultsAvailableIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a given identification result has Nsor Five Year Check Results available, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="LatestSubsequentResultDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date of latest subsequent result.</xsd:documentation>
