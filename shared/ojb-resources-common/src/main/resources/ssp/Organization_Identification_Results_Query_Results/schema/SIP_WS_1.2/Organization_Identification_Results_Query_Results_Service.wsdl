@@ -22,6 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:oiirq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0"
 	xmlns:oisrq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0"
+	xmlns:oinfq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0"
 	name="Organization_Identification_Results_Query_Results_Service" targetNamespace="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
 	<wsdl:import
@@ -32,6 +33,7 @@
 			targetNamespace="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0">
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationInitialResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/InitialResultsQueryResults_schema.xsd"></xsd:import>
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/SubsequentResultsQueryResults_schema.xsd"></xsd:import>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/NsorQueryResults_schema.xsd"></xsd:import>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="Organization-Identification-Initial-Results-Query-Results">
@@ -40,6 +42,9 @@
 	<wsdl:message name="Organization-Identification-Subsequent-Results-Query-Results">
 		<wsdl:part element="oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults" name="Organization-Identification-Subsequent-Results-Query-Results" />
 	</wsdl:message>
+	<wsdl:message name="Organization-Identification-Nsor-Five-Year-Check-Query-Results">
+		<wsdl:part element="oinfq-res-doc:OrganizationIdentificationNsorQueryResults" name="Organization-Identification-Nsor-Five-Year-Check-Query-Results" />
+	</wsdl:message>
 	<wsdl:portType name="Organization_Identification_Results_Query_Results_Service">
 		<wsdl:operation name="SubmitOrganizationIdentificationInitialResultsQueryResults">
 			<wsdl:input message="tns:Organization-Identification-Initial-Results-Query-Results" />
@@ -47,6 +52,9 @@
 		<wsdl:operation name="SubmitOrganizationIdentificationSubsequentResultsQueryResults">
 			<wsdl:input message="tns:Organization-Identification-Subsequent-Results-Query-Results" />
 		</wsdl:operation>
+		<wsdl:operation name="SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults">
+			<wsdl:input message="tns:Organization-Identification-Nsor-Five-Year-Check-Query-Results" />
+		</wsdl:operation>		
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conformant binding -->
 	<wsdl:binding name="Organization_Identification_Results_Query_Results_Secure_ServiceSOAPBinding"
@@ -68,6 +76,13 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/OrganizationIdentificationNsorQueryResultsService/1.0/SubmitOrganizationIdentificationNsorQueryResults" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>		
 	</wsdl:binding>
 	<wsdl:service name="Organization_Identification_Results_Query_Results_Service_Service">
 		<wsdl:port binding="tns:Organization_Identification_Results_Query_Results_Secure_ServiceSOAPBinding"

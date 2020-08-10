@@ -81,6 +81,30 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="IdentificationNsorQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a message to submit organization identification results query results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:PersonIdentificationDate" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
+					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
+					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReasonRepresentation" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReportedDate" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SourceSystemNameText" minOccurs="0" />
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SearchResultCategoryText" minOccurs="0" />
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="SubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a subscription.</xsd:documentation>
@@ -382,6 +406,11 @@
 	<xsd:element name="FBIIdentityHistorySummaryDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>Federal criminal history record for a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NsorFiveYearCheckDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Nsor Five Year Caeck Document for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FBIIdentificationSearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
