@@ -399,6 +399,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		if (includeSubscription){
 			identificationTransaction.setLatestNotificationDate(toDateTime(rs.getTimestamp("latestNotificationDate")));
 			identificationTransaction.setHavingSubsequentResults(rs.getBoolean("having_subsequent_result"));
+			identificationTransaction.setHavingNsorFiveYearCheck(rs.getBoolean("having_nsor_5_year_check"));
 			Integer subscriptionId = rs.getInt("id"); 
 			
 			if (subscriptionId != null && subscriptionId > 0){
@@ -538,6 +539,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
 				+ "s.*, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = t.transaction_number) as having_subsequent_result, "
+				+ "(select count(*) > 0 from NSOR_FIVE_YEAR_CHECK nsor5year where nsor5year.transaction_number = t.transaction_number) as having_nsor_5_year_check, "
 				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.transaction_number = t.transaction_number and notification_indicator=true) as latestNotificationDate "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -750,6 +752,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			String transactionNumber) {
 		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.*, a.AGENCY_NAME, sub.*, fbi_sub.fbi_subscription_id, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.transaction_number = i.transaction_number) as having_subsequent_result, "
+				+ "(select count(*) > 0 from NSOR_FIVE_YEAR_CHECK nsor5year where nsor5year.transaction_number = i.transaction_number) as having_nsor_5_year_check, "
 				+ "(select max(subsq.report_timestamp) from subsequent_results subsq where subsq.transaction_number = i.transaction_number and notification_indicator=true) as latestNotificationDate "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = c.transaction_number "

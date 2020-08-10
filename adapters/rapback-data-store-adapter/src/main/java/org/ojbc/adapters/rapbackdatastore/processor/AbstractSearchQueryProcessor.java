@@ -168,6 +168,15 @@ public class AbstractSearchQueryProcessor {
 					XmlUtils.appendElement(parentElement, extNamespace, "SubsequentResultsAvailableIndicator");
 			subsequentResultsAvailableIndicator.setTextContent(BooleanUtils.toString(havingSubsequentResults, "true", "false", "false"));
 	}
+	
+	void appendNsorFiveYearhCheckIndicator(Element parentElement,
+			Boolean havingNsorFiveYearCheck, String extNamespace) {
+
+		Element nsorFiveYearCheckIndicator = 
+				XmlUtils.appendElement(parentElement, extNamespace, "NsorFiveYearCheckResultsAvailableIndicator");
+		nsorFiveYearCheckIndicator.setTextContent(BooleanUtils.toString(havingNsorFiveYearCheck, "true", "false", "false"));
+
+	}
 
 	void appendDateElement(DateTime dateObject, Element parentElement, 
 			String elementName, String wrapperElementNS) {

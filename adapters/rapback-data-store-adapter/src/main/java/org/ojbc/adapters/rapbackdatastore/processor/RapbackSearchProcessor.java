@@ -450,7 +450,11 @@ public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 		appendSubsequentResultsAvailableIndicator(
 				organizationIdentificationResultsSearchResultElement,
 				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
-			
+
+		appendNsorFiveYearhCheckIndicator(
+				organizationIdentificationResultsSearchResultElement,
+				identificationTransaction.getHavingNsorFiveYearCheck(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+
 		if (currentState == IdentificationTransactionState.Subscribed_State || 
 				currentState == IdentificationTransactionState.Subscribed_State_FBI|| 
 				currentState == IdentificationTransactionState.Subscribed_State_FBI_Error ||
