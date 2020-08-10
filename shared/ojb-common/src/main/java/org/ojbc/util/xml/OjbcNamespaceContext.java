@@ -1031,7 +1031,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_CANNABIS_QUERY_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryResults/1.0";
 	public static final String NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT ="clq-res-ext";
-	
+
+	public static final String NS_FED_SUBSCR_ERROR_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionErrorReportExtension/1.0";
+	public static final String NS_PREFIX_FED_SUBSCR_ERROR_EXT ="fed_subcr_error-ext";
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -2044,6 +2047,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT, NS_CANNABIS_QUERY_RESULTS_EXT);
 		uriToPrefixMap.put(NS_CANNABIS_QUERY_RESULTS_EXT,NS_PREFIX_CANNABIS_QUERY_RESULTS_EXT );
 		
+		prefixToUriMap.put(NS_PREFIX_FED_SUBSCR_ERROR_EXT, NS_FED_SUBSCR_ERROR_EXT);
+		uriToPrefixMap.put(NS_FED_SUBSCR_ERROR_EXT,NS_PREFIX_FED_SUBSCR_ERROR_EXT );
+
 	}
 
 	@Override

@@ -108,12 +108,11 @@ public class SubscriptionNotificationReportingProcessor {
 
 	private void processFbiSubscriptionErrorReport(Document report) throws Exception {
 		
-		String subscriptionIdString = XmlUtils.xPathStringSearch(report, "/fed_subcr-doc:FederalSubscriptionErrorReport/fed_subcr-ext:StateSubscriptionIdentification/nc30:IdentificationID");
-		
+		String subscriptionIdString = XmlUtils.xPathStringSearch(report, "//fed_subcr_error-ext:RapBackSubscriptionData/fed_subcr_error-ext:StateSubscriptionIdentification/nc30:IdentificationID");
+
 		Integer subscriptionId = Integer.valueOf(subscriptionIdString);
 		
 		rapbackDAO.updateFbiSubscriptionStatus(subscriptionId, "ERROR");
-		
 	}
 
 	@Transactional

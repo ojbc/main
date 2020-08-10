@@ -80,6 +80,7 @@
 			</oirs-res-ext:RapBackActivityNotificationIdentification>
 		</oirs-res-ext:Subscription>
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+		<oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>true</oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
 		<oirs-res-ext:AgencyCaseNumber>AC4567</oirs-res-ext:AgencyCaseNumber>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

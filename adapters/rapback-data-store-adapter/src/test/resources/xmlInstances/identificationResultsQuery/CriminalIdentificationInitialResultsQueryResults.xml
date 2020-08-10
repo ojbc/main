@@ -60,6 +60,7 @@
    <oirq-res-ext:IdentificationResultStatusCode>Available for Subscription</oirq-res-ext:IdentificationResultStatusCode>
    <oirq-res-ext:IdentificationRequestingOrganization s30:ref="ORG1"/>
    <oirq-res-ext:SubsequentResultsAvailableIndicator>false</oirq-res-ext:SubsequentResultsAvailableIndicator>
+   <oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>false</oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
    <oirq-res-ext:CriminalIdentificationReasonCode>CAR</oirq-res-ext:CriminalIdentificationReasonCode>
    <nc30:EntityOrganization s30:id="ORG1">
       <nc30:OrganizationIdentification>
@@ -110,6 +111,7 @@
    <oirq-res-ext:IdentificationResultStatusCode>Available for Subscription</oirq-res-ext:IdentificationResultStatusCode>
    <oirq-res-ext:IdentificationRequestingOrganization s30:ref="ORG1"/>
    <oirq-res-ext:SubsequentResultsAvailableIndicator>false</oirq-res-ext:SubsequentResultsAvailableIndicator>
+   <oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>false</oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
    <oirq-res-ext:CriminalIdentificationReasonCode>CAR</oirq-res-ext:CriminalIdentificationReasonCode>
    <nc30:EntityOrganization s30:id="ORG1">
       <nc30:OrganizationIdentification>

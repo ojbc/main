@@ -46,6 +46,7 @@ public class IdentificationTransaction implements Serializable{
 	
 	private DateTime latestNotificationDate;
 	private Boolean havingSubsequentResults;
+	private Boolean havingNsorFiveYearCheck;
 	private String fbiSubscriptionId; 
 	private String fbiSubscriptionStatus;
 
@@ -204,6 +205,14 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setFbiSubscriptionStatus(String fbiSubscriptionStatus) {
 		this.fbiSubscriptionStatus = fbiSubscriptionStatus;
+	}
+
+	public Boolean getHavingNsorFiveYearCheck() {
+		return havingNsorFiveYearCheck;
+	}
+
+	public void setHavingNsorFiveYearCheck(Boolean havingNsorFiveYearCheck) {
+		this.havingNsorFiveYearCheck = havingNsorFiveYearCheck;
 	}
 
 }
