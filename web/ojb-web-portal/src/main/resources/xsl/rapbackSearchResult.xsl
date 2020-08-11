@@ -207,6 +207,11 @@
 			</xsl:attribute>
 			<i class="fa fa-check-circle fa-lg"/>
 		</a>
+		
+		<xsl:if test="oirsr-ext:NsorFiveYearCheckResultsAvailableIndicator ='true'"> 
+			<a href="{string-join(('../rapbacks/nsorCheckResults', intel:SystemIdentification/nc:IdentificationID), '/')}" 
+				class="btn btn-primary btn-sm nsor5YearCheckResults" style="margin-right:3px" title="NSOR 5 Year Check Results" data-toggle="tooltip" role="button"><i class="far fa-calendar-check fa-lg"></i></a>
+		</xsl:if>
 		<a href="#" class="btn btn-primary btn-sm unsubscribe" style="margin-right:3px" title="Unsubscribe" data-toggle="tooltip" role="button">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(oirsr-ext:Subscription/oirsr-ext:SubscriptionIdentification/nc:IdentificationID)"/>

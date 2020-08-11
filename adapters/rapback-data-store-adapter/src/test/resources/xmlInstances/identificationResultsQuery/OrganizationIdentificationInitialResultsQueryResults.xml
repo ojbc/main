@@ -55,7 +55,7 @@
       </oirq-res-ext:IdentifiedPersonTrackingIdentification>
    </oirq-res-ext:IdentifiedPerson>
    <oirq-res-ext:IdentificationReportedDate>
-      <nc30:Date>2018-11-27</nc30:Date>
+      <nc30:Date>2020-08-11</nc30:Date>
    </oirq-res-ext:IdentificationReportedDate>
    <oirq-res-ext:IdentificationResultStatusCode>Available for Subscription</oirq-res-ext:IdentificationResultStatusCode>
    <oirq-res-ext:IdentificationRequestingOrganization s30:ref="ORG1"/>
@@ -116,7 +116,7 @@
       </oirq-res-ext:IdentifiedPersonTrackingIdentification>
    </oirq-res-ext:IdentifiedPerson>
    <oirq-res-ext:IdentificationReportedDate>
-      <nc30:Date>2018-11-27</nc30:Date>
+      <nc30:Date>2020-08-11</nc30:Date>
    </oirq-res-ext:IdentificationReportedDate>
    <oirq-res-ext:IdentificationResultStatusCode>Available for Subscription</oirq-res-ext:IdentificationResultStatusCode>
    <oirq-res-ext:IdentificationRequestingOrganization s30:ref="ORG1"/>
@@ -152,6 +152,11 @@
    <oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument s30:id="nationalSexOffenderRegistryDemographicsDocument_001">
       <nc30:DocumentBinary>
          <oirq-res-ext:Base64BinaryObject>TlNPUiBEZW1vZ3JhcGhpY3M=</oirq-res-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
+   </oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument>
+   <oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument s30:id="nationalSexOffenderRegistryDemographicsDocument_002">
+      <nc30:DocumentBinary>
+         <oirq-res-ext:Base64BinaryObject>TlNPUiBEZW1vZ3JhcGhpY3MgMQ==</oirq-res-ext:Base64BinaryObject>
       </nc30:DocumentBinary>
    </oirq-res-ext:NationalSexOffenderRegistryDemographicsDocument>
    <oirq-res-ext:NationalSexOffenderRegistrySearchResultDocument s30:id="nationalSexOffenderRegistrySearchResultDocument_001">

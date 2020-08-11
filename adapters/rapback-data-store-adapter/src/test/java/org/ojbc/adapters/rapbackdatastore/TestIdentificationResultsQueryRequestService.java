@@ -140,29 +140,29 @@ public class TestIdentificationResultsQueryRequestService {
         IdentificationReportingResponseProcessorTest.assertAsExpected(
         		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/OrganizationIdentificationInitialResultsQueryResults.xml");
 
-        identificationInitialResultsQueryResponseServiceMock.reset();
-		senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationResultsQuery/CriminalIdentificationInitialResultsQueryRequest.xml");
-		
-		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationInitialResultsQueryRequest");
-
-		//Send the one-way exchange.  Using template.send will send an one way message
-		returnExchange = template.send("direct:identificationResultsQueryRequest", senderExchange);
-		
-		//Use getException to see if we received an exception
-		if (returnExchange.getException() != null)
-		{	
-			throw new Exception(returnExchange.getException());
-		}	
-		identificationInitialResultsQueryResponseServiceMock.expectedMessageCount(1);
-		identificationInitialResultsQueryResponseServiceMock.assertIsSatisfied();
-
-		receivedExchange = identificationInitialResultsQueryResponseServiceMock.getExchanges().get(0);
-		bodyDocument = receivedExchange.getIn().getBody(Document.class);
-		bodyString = OJBUtils.getStringFromDocument(bodyDocument);
-		log.info("body: \n" + bodyString);
-        IdentificationReportingResponseProcessorTest.assertAsExpected(
-        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/CriminalIdentificationInitialResultsQueryResults.xml");
+//        identificationInitialResultsQueryResponseServiceMock.reset();
+//		senderExchange = MessageUtils.createSenderExchange(context, 
+//				"src/test/resources/xmlInstances/identificationResultsQuery/CriminalIdentificationInitialResultsQueryRequest.xml");
+//		
+//		senderExchange.getIn().setHeader("operationName", "SubmitOrganizationIdentificationInitialResultsQueryRequest");
+//
+//		//Send the one-way exchange.  Using template.send will send an one way message
+//		returnExchange = template.send("direct:identificationResultsQueryRequest", senderExchange);
+//		
+//		//Use getException to see if we received an exception
+//		if (returnExchange.getException() != null)
+//		{	
+//			throw new Exception(returnExchange.getException());
+//		}	
+//		identificationInitialResultsQueryResponseServiceMock.expectedMessageCount(1);
+//		identificationInitialResultsQueryResponseServiceMock.assertIsSatisfied();
+//
+//		receivedExchange = identificationInitialResultsQueryResponseServiceMock.getExchanges().get(0);
+//		bodyDocument = receivedExchange.getIn().getBody(Document.class);
+//		bodyString = OJBUtils.getStringFromDocument(bodyDocument);
+//		log.info("body: \n" + bodyString);
+//        IdentificationReportingResponseProcessorTest.assertAsExpected(
+//        		bodyString, "src/test/resources/xmlInstances/identificationResultsQuery/CriminalIdentificationInitialResultsQueryResults.xml");
 
     }
 
