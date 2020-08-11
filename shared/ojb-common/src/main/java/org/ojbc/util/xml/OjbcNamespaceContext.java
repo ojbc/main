@@ -1034,6 +1034,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_FED_SUBSCR_ERROR_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionErrorReportExtension/1.0";
 	public static final String NS_PREFIX_FED_SUBSCR_ERROR_EXT ="fed_subcr_error-ext";
+	
+	public static final String NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0";
+	public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC ="oinfq-res-doc";
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -2050,6 +2053,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_FED_SUBSCR_ERROR_EXT, NS_FED_SUBSCR_ERROR_EXT);
 		uriToPrefixMap.put(NS_FED_SUBSCR_ERROR_EXT,NS_PREFIX_FED_SUBSCR_ERROR_EXT );
 
+		prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC, NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC);
+		uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC,NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC );
 	}
 
 	@Override

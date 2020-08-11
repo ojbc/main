@@ -18,12 +18,13 @@
 
 -->
 <oinfq-res-doc:OrganizationIdentificationNsorQueryResults
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0 ../xsd/NsorQueryResults_schema.xsd"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oinfq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0"
-	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/">
-	<!--  oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>true</oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator-->
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:oinfq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0"
+	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/">
+	<oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>true</oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
 	<oirq-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirq-res-ext:SourceSystemNameText>
 	<intel:SystemIdentification>
 		<nc:IdentificationID>123456</nc:IdentificationID>
