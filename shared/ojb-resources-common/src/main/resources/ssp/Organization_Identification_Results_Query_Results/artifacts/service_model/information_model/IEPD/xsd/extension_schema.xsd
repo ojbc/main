@@ -88,18 +88,11 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="oirq-res-ext:PersonIdentificationDate" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
-					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
-					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
-					<xsd:element ref="oirq-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator" minOccurs="0" />
 					<xsd:element ref="oirq-res-ext:IdentificationReasonRepresentation" minOccurs="0" />
 					<xsd:element ref="oirq-res-ext:IdentificationReportedDate" minOccurs="0" />
 					<xsd:element ref="oirq-res-ext:SourceSystemNameText" minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
-					<xsd:element ref="oirq-res-ext:SearchResultCategoryText" minOccurs="0" />
-					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -307,6 +300,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="NsorFiveYearCheckResultsAvailableIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a Nsor Five Year Check Results are available, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="CivilIdentificationReasonCode" type="oirq-res-ext:CivilIdentificationReasonCodeType" substitutionGroup="oirq-res-ext:IdentificationReasonRepresentation" />
 	<xsd:complexType name="CivilIdentificationReasonCodeType">
 		<xsd:simpleContent>

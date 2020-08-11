@@ -445,7 +445,7 @@
 		        </camel:setHeader>
 	        
 	    	    <camel:setHeader headerName="operationNamespace">
-	        	    <constant>http://www.ojbc.org/SubscribeNotify/SubscriptionManager</constant>
+	        	    <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
 	        	</camel:setHeader>
 				
 				<camel:to uri="subscriptionManagerAdapterServiceSecureEndpoint"/>

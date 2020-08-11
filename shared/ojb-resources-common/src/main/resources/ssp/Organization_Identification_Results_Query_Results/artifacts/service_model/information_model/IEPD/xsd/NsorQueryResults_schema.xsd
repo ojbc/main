@@ -21,7 +21,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" schemaLocation="extension_schema.xsd"/>
 	<!-- Root data element for the Organization Identification Results - Subsequent Query Results -->
-	<xsd:element name="OrganizationIdentificationNsorQueryResults" type="oirq-res-ext:IdentificationSubsequentResultsQueryResultsType">
+	<xsd:element name="OrganizationIdentificationNsorQueryResults" type="oirq-res-ext:IdentificationNsorQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A collection of criminal history records that have been updated since the initial identification of a person.</xsd:documentation>
 		</xsd:annotation>
