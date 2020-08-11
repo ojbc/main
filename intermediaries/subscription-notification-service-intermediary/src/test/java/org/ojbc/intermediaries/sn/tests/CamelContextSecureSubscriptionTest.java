@@ -786,7 +786,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
 		{	
-			throw new Exception(returnExchange.getException());
+			log.error(returnExchange.getException());
 		}	
 
 		//Sleep while a response is generated
