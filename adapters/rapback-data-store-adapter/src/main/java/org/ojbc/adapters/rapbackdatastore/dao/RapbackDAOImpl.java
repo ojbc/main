@@ -49,6 +49,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsU
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorFiveYearCheck;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
@@ -1335,6 +1336,18 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return nsorSearchResults;
 	}
 	
+	@Override
+	public List<NsorFiveYearCheck> getNsorFiveYearChecks(String transactionNumber) {
+
+		final String NSOR_FIVE_YEAR_CHECK_SELECT = "SELECT * from NSOR_FIVE_YEAR_CHECK where TRANSACTION_NUMBER = ?";
+		
+		List<NsorFiveYearCheck> nsorFiveYearChecks = 
+				jdbcTemplate.query(NSOR_FIVE_YEAR_CHECK_SELECT, 
+						new NsorFiveYearCheckResultsRowMapper(), transactionNumber);
+
+		return nsorFiveYearChecks;
+	}	
+	
     public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
     {
     	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
@@ -1393,5 +1406,29 @@ public class RapbackDAOImpl implements RapbackDAO {
 		}
 	}
 	
+	private final class NsorFiveYearCheckResultsRowMapper implements
+	RowMapper<NsorFiveYearCheck> {
 	
+	public NsorFiveYearCheck mapRow(ResultSet rs, int rowNum)
+			throws SQLException {
+	
+		NsorFiveYearCheck nsorFiveYearCheck = new NsorFiveYearCheck();
+		
+		nsorFiveYearCheck.setId(rs.getInt("NSOR_FIVE_YEAR_CHECK_ID"));
+		nsorFiveYearCheck.setTransactionNumber(rs.getString("transaction_number"));
+		
+		try{
+			nsorFiveYearCheck.setResultsFile(ZipUtils.unzip(rs.getBytes("FIVE_YEAR_CHECK_FILE")));
+		}
+		catch(Exception e){
+			log.error("Got exception extracting the nsor five year check file for " + 
+					nsorFiveYearCheck.getTransactionNumber(), e);
+		}
+		nsorFiveYearCheck.setTimestamp(toDateTime(rs.getTimestamp("CREATION_TIMESTAMP")));
+		
+		return nsorFiveYearCheck;
+	}
+}
+	
+
 }
