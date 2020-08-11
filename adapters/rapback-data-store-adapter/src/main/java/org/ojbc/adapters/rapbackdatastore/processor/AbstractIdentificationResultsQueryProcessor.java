@@ -41,6 +41,8 @@ public class AbstractIdentificationResultsQueryProcessor extends AbstractSearchQ
 		NationalSexOffenderRegistrySearchResultDocument,
 		DocumentBinary,
 		Base64BinaryObject,
+		OrganizationIdentificationNsorQueryResults,
+		NsorFiveYearCheckDocument
 	}
 	
 	protected enum DocumentId{
