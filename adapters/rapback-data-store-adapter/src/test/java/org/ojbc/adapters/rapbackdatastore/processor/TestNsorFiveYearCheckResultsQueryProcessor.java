@@ -60,11 +60,21 @@ public class TestNsorFiveYearCheckResultsQueryProcessor {
     	
     	assertEquals("http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:SourceSystemNameText"));
     	
-    	assertEquals("PersonRecordID", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/intel30:SystemIdentification/nc30:IdentificationID"));
+    	assertEquals("000001820140729014008339990", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/intel30:SystemIdentification/nc30:IdentificationID"));
     	assertEquals("RapbackDataStore", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/intel30:SystemIdentification/nc30:SystemName"));
     	
-    	XmlUtils.printNode(reponse);
+
+    	assertEquals("1990-10-12", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonBirthDate/nc30:Date"));
+    	assertEquals("Test", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonName/nc30:PersonGivenName"));
+    	assertEquals("W", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonName/nc30:PersonMiddleName"));
+    	assertEquals("Jane", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonName/nc30:PersonSurName"));
+    	assertEquals("Test W Jane", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonName/nc30:PersonFullName"));
+
+    	assertEquals("ID12345", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/nc30:EntityOrganization/nc30:OrganizationIdentification/nc30:IdentificationID"));
     	
+    	assertEquals("Test Agency", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/nc30:EntityOrganization/nc30:OrganizationName"));
+    	
+    	assertEquals("68796860", XmlUtils.xPathStringSearch(reponse, "/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/nc30:EntityOrganization/jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID"));
     	
     }
 	
