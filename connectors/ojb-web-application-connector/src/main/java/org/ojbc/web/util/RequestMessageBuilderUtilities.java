@@ -17,6 +17,8 @@
 package org.ojbc.web.util;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_FBI_RECORD_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_FBI_RECORD_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_UA_REQUEST;
@@ -947,6 +949,20 @@ public class RequestMessageBuilderUtilities {
 		return document;
 	}
 
+	public static Document createNsorCheckResultsQueryRequest(String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC 
+                +":OrganizationIdentificationNsorQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC, 
+        		NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
+        
+		return document;
+	}	
+    
+
 	private static void buildIdentificationResultsQueryRequest(String transactionNumber, Element rootElement) {
 		rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);
         rootElement.setAttribute("xmlns:" + NS_PREFIX_NC_30, NS_NC_30);
@@ -1154,6 +1170,6 @@ public class RequestMessageBuilderUtilities {
         XmlUtils.appendTextElement(rapBackActivityNotificationIdentification, NS_NC, "IdentificationID", detailsRequest.getRapbackActivityNotificationId());
         
         return document;
-	}	
-    
+	}
+
 }

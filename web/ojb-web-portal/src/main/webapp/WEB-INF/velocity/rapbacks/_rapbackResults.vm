@@ -287,6 +287,13 @@
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
           	$('#detailModal .modal-title').html('IDENTIFICATION SUBSEQUENT RESULTS');
 			ojbc.showDetailModal(this.href);
+			return false; 
+        });
+        
+    	$('#searchResultsTable').on('click', 'a.nsor5YearCheckResults',function() {
+          	$('#detailModal .modal-title').html('IDENTIFICATION NSOR 5 YEAR CHECK RESULTS');
+			ojbc.showDetailModal(this.href);
+			return false; 
         });
     	
 		function unsubscribe(id){

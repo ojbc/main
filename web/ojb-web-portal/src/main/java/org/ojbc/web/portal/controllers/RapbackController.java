@@ -41,6 +41,7 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.rapback.IdentificationDetailQueryType;
 import org.ojbc.util.model.rapback.IdentificationResultCategory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
@@ -454,8 +455,21 @@ public class RapbackController {
 			@PathVariable("transactionNumber") String transactionNumber,
 			Map<String, Object> model) {
 		try {
-			processDetailRequest(request, sid, transactionNumber, true, model);
+			processDetailRequest(request, sid, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
 			return "rapbacks/_initialResultsDetails";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "common/_searchDetailsError";
+		}
+	}
+	
+	@RequestMapping(value = "nsorCheckResults/{transactionNumber}", method = RequestMethod.GET)
+	public String nsorCheckResults(HttpServletRequest request, 
+			@PathVariable("transactionNumber") String transactionNumber,
+			Map<String, Object> model) {
+		try {
+			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.NSORCheckResults, model);
+			return "rapbacks/_nsorFiveYearCheckResults";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
@@ -467,7 +481,7 @@ public class RapbackController {
 			@PathVariable("transactionNumber") String transactionNumber,
 			Map<String, Object> model) {
 		try {
-			processDetailRequest(request, null, transactionNumber, true, model);
+			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
 			return "rapbacks/_initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -596,7 +610,7 @@ public class RapbackController {
 	public String subsequentResults(HttpServletRequest request, @RequestParam String transactionNumber,
 			Map<String, Object> model) {
 		try {
-			processDetailRequest(request, null, transactionNumber, false, model);
+			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.SubsequentResults, model);
 			return "rapbacks/_subsequentResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -808,13 +822,13 @@ public class RapbackController {
 	}
 
 	private void processDetailRequest(HttpServletRequest request, String sid, String transactionNumber,
-			boolean initialResultsQuery, Map<String, Object> model)
+			IdentificationDetailQueryType identificationDetailQueryType, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);		
 		
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				config.getIdentificationResultsQueryBean().invokeIdentificationResultsQueryRequest(
-						transactionNumber, initialResultsQuery, samlAssertion);
+						transactionNumber, identificationDetailQueryType, samlAssertion);
 		identificationResultsQueryResponse.setSid(sid);
 		
 		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);

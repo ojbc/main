@@ -36,6 +36,7 @@ import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.rapback.IdentificationDetailQueryType;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.IdentificationResultsQueryInterface;
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
@@ -65,7 +66,7 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	
 	@Override
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber, boolean initialResultsQuery, Element samlToken) throws Exception {
+			String transactionNumber, IdentificationDetailQueryType identificationDetailQueryType, Element samlToken) throws Exception {
 		
 		if (StringUtils.isBlank(transactionNumber)){
 			throw new IllegalArgumentException("Transaction number should not be null or empty to perform initial results query."); 
@@ -79,10 +80,10 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 				samlToken = SAMLTokenUtils.createStaticAssertionAsElement("https://idp.ojbc-local.org:9443/idp/shibboleth", SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
 			}	
 		}
-		log.info("Processing initial results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
+		log.info("Processing query results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
 		
 		Exchange senderExchange = setRequestPayloadAndOperationName(transactionNumber,
-				initialResultsQuery);
+				identificationDetailQueryType);
 		
 		//Set reply to and WS-Addressing message ID
 		String federatedQueryID = getFederatedQueryId();
@@ -102,7 +103,7 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		
 		Exchange responseExchange = pollMapForResponseExchange(federatedQueryID);
 				
-		IdentificationResultsQueryResponse identificationResultsQueryResponse = retrieveResponse(responseExchange, initialResultsQuery);
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = retrieveResponse(responseExchange, identificationDetailQueryType);
 		
 		identificationResultsQueryResponse.setMessageId(federatedQueryID);
 		
@@ -110,14 +111,32 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	}
 
 	private IdentificationResultsQueryResponse retrieveResponse(
-			Exchange exchange, boolean initialResultsQuery) throws Exception {
-		if (initialResultsQuery){
+			Exchange exchange, IdentificationDetailQueryType identificationDetailQueryType) throws Exception {
+		switch(identificationDetailQueryType) {
+		case InitialResults: 
 			return retrieveInitialResultsQueryResponse(exchange);
+		case SubsequentResults: 
+			return retrieveSubsequentResultsQueryResponse(exchange);
+		case NSORCheckResults: 
+			return retrieveNsorCheckResultsQueryResponse(exchange);
 		}
+		return null;
 		
-		return retrieveSubsequentResultsQueryResponse(exchange);
 	}
 	
+	private IdentificationResultsQueryResponse retrieveNsorCheckResultsQueryResponse(Exchange exchange) throws Exception {
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
+				new IdentificationResultsQueryResponse();
+		Document body = OJBUtils.loadXMLFromString((String) exchange.getIn().getBody());
+		
+		List<String> nsorCheckResultsDocuments = getDocuments(body,
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/"
+				+ "oirq-res-ext:NsorFiveYearCheckDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
+		identificationResultsQueryResponse.setNsorCheckResultsDocuments(nsorCheckResultsDocuments);
+		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
+		return identificationResultsQueryResponse;
+	}
+
 	private IdentificationResultsQueryResponse retrieveSubsequentResultsQueryResponse(
 			Exchange exchange) throws Exception {
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
@@ -141,16 +160,21 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 
 
 	private Exchange setRequestPayloadAndOperationName(String transactionNumber,
-			boolean initialResultsQuery) throws Exception {
+			IdentificationDetailQueryType identificationDetailQueryType) throws Exception {
 		
-		Document identificationResultsQueryRequestPayload;
-		if (initialResultsQuery){
+		Document identificationResultsQueryRequestPayload = null;
+		switch(identificationDetailQueryType) {
+		case InitialResults:
 			identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationInitialResultsQueryRequest(transactionNumber);
 			messageProcessor.setOperationName("SubmitOrganizationIdentificationInitialResultsQueryRequest");
-		}
-		else{
+			break; 
+		case SubsequentResults: 
 			identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createIdentificationSubsequentResultsQueryRequest(transactionNumber);
 			messageProcessor.setOperationName("SubmitOrganizationIdentificationSubsequentResultsQueryRequest");
+			break; 
+		case NSORCheckResults: 
+			identificationResultsQueryRequestPayload = RequestMessageBuilderUtilities.createNsorCheckResultsQueryRequest(transactionNumber);
+			messageProcessor.setOperationName("SubmitOrganizationIdentificationNsorFiveYearCheckQueryRequest");
 		}
 		
 		//Create exchange
