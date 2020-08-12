@@ -27,6 +27,8 @@ import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorFiveYearCheck;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -88,6 +90,19 @@ public class NsorFiveYearchCheckResultsQueryProcessor extends AbstractIdentifica
 //    		<nc:SystemName>RapbackDataStore</nc:SystemName>
 //    	</intel:SystemIdentification>        
         
+		List<CivilInitialResults> civilInitialResults = 
+    			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
+		log.debug("CivilInitialResults: " + civilInitialResults.toString());
+
+		if (civilInitialResults != null)
+		{
+			CivilInitialResults summaryCivilInfo = civilInitialResults.get(0);
+						
+			appendIdentifiedPersonElement(rootElement, summaryCivilInfo.getIdentificationTransaction(), OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT); 
+			
+			summaryCivilInfo.getIdentificationTransaction().getOwnerAgencyName();
+		}	
+        
         XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, "oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator", "true");
         XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, "oirq-res-ext:SourceSystemNameText", "http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore");
         
@@ -96,6 +111,15 @@ public class NsorFiveYearchCheckResultsQueryProcessor extends AbstractIdentifica
 		XmlUtils.appendTextElement(SystemIdentification, OjbcNamespaceContext.NS_NC_30, "nc30:IdentificationID", transactionNumber);
 		XmlUtils.appendTextElement(SystemIdentification, OjbcNamespaceContext.NS_NC_30, "nc30:SystemName", "RapbackDataStore");        
         
+		if (civilInitialResults != null)
+		{
+			CivilInitialResults summaryCivilInfo = civilInitialResults.get(0);
+						
+			appendOrganizationInfo(rootElement, summaryCivilInfo.getIdentificationTransaction()); 
+		}
+		
+		
+		
         for (NsorFiveYearCheck nsorFiveYearCheck: nsorFiveYearChecks){
         	createNsorFiveYearCheckDocumentElement(nsorFiveYearCheck, rootElement, i);
         	i++;
@@ -130,6 +154,23 @@ public class NsorFiveYearchCheckResultsQueryProcessor extends AbstractIdentifica
         document.appendChild(rootElement);
 		return rootElement;
 	}
+	
+	private void appendOrganizationInfo(Element rootElement,
+			IdentificationTransaction identificationTransaction) {
+		
+			Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
+			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", "ORG1");
+			Element organizationIdentification = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationIdentification");
+			Element identificationOrgID = XmlUtils.appendElement(organizationIdentification, NS_NC_30, "IdentificationID");
+			identificationOrgID.setTextContent(identificationTransaction.getOwnerProgramOca());
+			Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
+			organizationName.setTextContent(identificationTransaction.getOwnerAgencyName());
+			Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
+			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(identificationTransaction.getOwnerOri());
+			
+	}	
 }
 
 
