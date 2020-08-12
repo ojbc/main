@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.model.rapback.IdentificationDetailQueryType;
 import org.ojbc.web.IdentificationResultsQueryInterface;
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -42,12 +43,13 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 	
 	@Override
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber,  boolean initialResultsQuery, Element samlToken) throws Exception {
+			String transactionNumber,  IdentificationDetailQueryType identificationDetailQueryType, Element samlToken) throws Exception {
 		
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				new IdentificationResultsQueryResponse();
 
-		if (initialResultsQuery){
+		switch (identificationDetailQueryType){
+		case InitialResults: 
 			identificationResultsQueryResponse.setFbiSearchResultFile("Match");
 			identificationResultsQueryResponse.setStateSearchResultFile("Match");
 			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Rap Sheet"));
@@ -59,11 +61,13 @@ public class IdentificationResultsQueryMockImpl implements IdentificationResults
 				identificationResultsQueryResponse.setNsorDemographicsDocuments(Arrays.asList("NSOR Demographics", "NSOR Demographics 1"));
 				identificationResultsQueryResponse.setNsorSearchResultsDocuments(Arrays.asList("NSOR Search Results", "NSOR Search Results 1"));
 			}
-			
-		}
-		else {
+			break; 
+		case SubsequentResults: 
 			identificationResultsQueryResponse.setStateCriminalHistoryRecordDocuments(Arrays.asList("State Subsequent Results"));
 			identificationResultsQueryResponse.setFbiIdentityHistorySummaryDocuments(Arrays.asList("FBI Subsequent Results"));
+			break; 
+		case NSORCheckResults: 
+			identificationResultsQueryResponse.setNsorCheckResultsDocuments(Arrays.asList("FBI NSOR Five Year Check Results"));
 		}
 		return identificationResultsQueryResponse;
 	}

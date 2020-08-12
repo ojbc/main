@@ -14,16 +14,12 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.web;
+package org.ojbc.util.model.rapback;
 
-import org.ojbc.util.model.rapback.IdentificationDetailQueryType;
-import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
-import org.w3c.dom.Element;
-
-public interface IdentificationResultsQueryInterface {
-
-	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber, IdentificationDetailQueryType identificationDetailQueryType,
-			Element samlToken) throws Exception;
-
+public enum IdentificationDetailQueryType {
+	InitialResults, SubsequentResults, NSORCheckResults; 
+	
+	public String toString(){
+		return this.name(); 
+	}
 }

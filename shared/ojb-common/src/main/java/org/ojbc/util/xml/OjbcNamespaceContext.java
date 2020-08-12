@@ -1038,6 +1038,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0";
 	public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC ="oinfq-res-doc";
 
+	public static final String NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryRequest/1.0";
+	public static final String NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC ="oinfq-req-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -2055,6 +2058,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC, NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC);
 		uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC,NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC );
+		
+		prefixToUriMap.put(NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC, NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC,NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC );
 	}
 
 	@Override

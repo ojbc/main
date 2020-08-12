@@ -29,6 +29,7 @@ public class IdentificationResultsQueryResponse {
 	private List<String> fbiIdentityHistorySummaryDocuments;
 	private List<String> nsorDemographicsDocuments;
 	private List<String> nsorSearchResultsDocuments;
+	private List<String> nsorCheckResultsDocuments;
 	private String messageId;
 	private String sid; 
 	
@@ -85,5 +86,11 @@ public class IdentificationResultsQueryResponse {
 	public void setNsorSearchResultsDocuments(
 			List<String> nsorSearchResultsDocuments) {
 		this.nsorSearchResultsDocuments = nsorSearchResultsDocuments;
+	}
+	public List<String> getNsorCheckResultsDocuments() {
+		return nsorCheckResultsDocuments;
+	}
+	public void setNsorCheckResultsDocuments(List<String> nsorCheckResultsDocuments) {
+		this.nsorCheckResultsDocuments = nsorCheckResultsDocuments;
 	}
 }
