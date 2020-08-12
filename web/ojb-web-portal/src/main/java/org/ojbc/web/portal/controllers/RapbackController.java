@@ -442,6 +442,8 @@ public class RapbackController {
 		List<String> identificationTransactionStatus = new ArrayList<String>();
 		identificationTransactionStatus.add(IdentificationTransactionState.Available_for_Subscription.toString());
 		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State.toString());
+		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State_FBI_Pending.toString());
+		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State_FBI_Error.toString());
 		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed_State_FBI.toString());
 		
 		searchRequest.setReportedDateEndLocalDate(LocalDate.now());
