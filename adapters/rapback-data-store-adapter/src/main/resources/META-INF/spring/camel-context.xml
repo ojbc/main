@@ -416,7 +416,7 @@
 					<to uri="direct:identificationSubsequentResultsQueryResponse" />
 				</camel:when>
 				<camel:when>
-					<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationNsorFiveYearCheckQueryRequest'</camel:simple>
 					<to uri="direct:identificationNsorFiveYearCheckQueryResponse" />
 				</camel:when>
 			</camel:choice>
