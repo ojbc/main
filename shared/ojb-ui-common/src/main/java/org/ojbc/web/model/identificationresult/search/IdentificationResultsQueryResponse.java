@@ -32,6 +32,10 @@ public class IdentificationResultsQueryResponse {
 	private List<String> nsorCheckResultsDocuments;
 	private String messageId;
 	private String sid; 
+	private String dob; 
+	private String personName; 
+	private String otn; 
+	private String agencyName; 
 	
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
@@ -92,5 +96,29 @@ public class IdentificationResultsQueryResponse {
 	}
 	public void setNsorCheckResultsDocuments(List<String> nsorCheckResultsDocuments) {
 		this.nsorCheckResultsDocuments = nsorCheckResultsDocuments;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public String getOtn() {
+		return otn;
+	}
+	public void setOtn(String otn) {
+		this.otn = otn;
+	}
+	public String getAgencyName() {
+		return agencyName;
+	}
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
+	}
+	public String getPersonName() {
+		return personName;
+	}
+	public void setPersonName(String personName) {
+		this.personName = personName;
 	}
 }

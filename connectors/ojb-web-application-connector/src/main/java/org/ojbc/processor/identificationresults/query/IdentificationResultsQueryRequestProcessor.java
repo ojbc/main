@@ -133,6 +133,19 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/"
 				+ "oirq-res-ext:NsorFiveYearCheckDocument/nc30:DocumentBinary/oirq-res-ext:Base64BinaryObject");
 		identificationResultsQueryResponse.setNsorCheckResultsDocuments(nsorCheckResultsDocuments);
+		
+		String dob = XmlUtils.xPathStringSearch(body.getDocumentElement(), 
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonBirthDate/nc30:Date");
+		identificationResultsQueryResponse.setDob(dob);
+		String personName = XmlUtils.xPathStringSearch(body.getDocumentElement(), 
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/nc30:PersonName/nc30:PersonFullName");
+		identificationResultsQueryResponse.setPersonName(personName);
+		String otn = XmlUtils.xPathStringSearch(body.getDocumentElement(), 
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:IdentifiedPerson/oirq-res-ext:IdentifiedPersonTrackingIdentification/nc30:IdentificationID");
+		identificationResultsQueryResponse.setOtn(otn);
+		String agencyName = XmlUtils.xPathStringSearch(body.getDocumentElement(), 
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/nc30:EntityOrganization/nc30:OrganizationName");
+		identificationResultsQueryResponse.setAgencyName(agencyName);
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
 		return identificationResultsQueryResponse;
 	}
