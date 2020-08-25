@@ -326,6 +326,26 @@
 								</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
+						<!-- ======================= Arrest Location ======================= -->
+						<lexsdigest:EntityLocation>
+							<nc:Location s:id="Arrest_Loc_1">
+								<nc:LocationAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+											<nc:StreetNumberText>123</nc:StreetNumberText>
+											<nc:StreetName>Maine Street</nc:StreetName>
+										</nc:LocationStreet>
+										<nc:AddressSecondaryUnitText />
+										<nc:LocationCityName>Detroit</nc:LocationCityName>
+										<nc:LocationStateName>MI</nc:LocationStateName>
+										<nc:LocationPostalCode>96733</nc:LocationPostalCode>
+									</nc:StructuredAddress>
+									<nc:AddressFullText>123 Main Street Detroit MI 96733
+									</nc:AddressFullText>
+								</nc:LocationAddress>
+							</nc:Location>
+						</lexsdigest:EntityLocation>
 						<!-- ======================= Incident Reporting Agency ======================= -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="Incident_Agency_1">
@@ -346,6 +366,10 @@
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
+							<j:ActivityLocationAssociation>
+								<nc:ActivityReference s:ref="Arrest_1" />
+								<nc:LocationReference s:ref="Arrest_Loc_1" />
+							</j:ActivityLocationAssociation>
 							<lexsdigest:ActivityResponsiblePersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Officer_P1" />
@@ -496,7 +520,13 @@
 							</inc-ext:Incident>
 							<inc-ext:Location>
 								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
+								<inc-ext:LocationTownshipCodeText>89</inc-ext:LocationTownshipCodeText>
 								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />
+							</inc-ext:Location>
+							<inc-ext:Location>
+								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
+								<inc-ext:LocationTownshipCodeText>89</inc-ext:LocationTownshipCodeText>
+								<lexslib:SameAsDigestReference lexslib:ref="Arrest_Loc_1" />
 							</inc-ext:Location>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
