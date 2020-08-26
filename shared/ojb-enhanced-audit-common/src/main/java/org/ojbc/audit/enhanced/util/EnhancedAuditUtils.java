@@ -17,6 +17,9 @@
 package org.ojbc.audit.enhanced.util;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,5 +32,16 @@ public class EnhancedAuditUtils {
 
 	public static LocalDate toLocalDate(Date date){
 		return date == null? null : date.toLocalDate();
-	}	
+	}
+	
+	public static boolean hasColumn(ResultSet rs, String columnName) throws SQLException {
+	    ResultSetMetaData rsmd = rs.getMetaData();
+	    int columns = rsmd.getColumnCount();
+	    for (int x = 1; x <= columns; x++) {
+	        if (columnName.toLowerCase().equals(rsmd.getColumnName(x).toLowerCase())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 }

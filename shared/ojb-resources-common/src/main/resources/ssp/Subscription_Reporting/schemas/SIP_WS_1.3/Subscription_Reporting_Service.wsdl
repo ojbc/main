@@ -17,21 +17,24 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
+	xmlns:fed_subcr_error="http://ojbc.org/IEPD/Exchange/FederalSubscriptionErrorReport/1.0"
 	xmlns:fed_subcr_upd-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0"
-	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0"
-	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:tns="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	targetNamespace="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
-	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
 	<wsdl:types>
 		<xsd:schema>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/federal_subscription_creation_report_schema.xsd"/>
-			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/federal_subscription_update_report_schema.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/federal_subscription_creation_report_schema.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/federal_subscription_update_report_schema.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/FederalSubscriptionErrorReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/federal_subscription_error_report_schema.xsd" />				
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="FederalSubscriptionCreationReport">
@@ -40,6 +43,9 @@
 	<wsdl:message name="FederalSubscriptionUpdateReport">
 		<wsdl:part name="FederalSubscriptionUpdateReport" element="fed_subcr_upd-doc:FederalSubscriptionUpdateReport" />
 	</wsdl:message>
+	<wsdl:message name="FederalSubscriptionErrorReport">
+		<wsdl:part name="FederalSubscriptionErrorReport" element="fed_subcr_error:FederalSubscriptionErrorReport" />
+	</wsdl:message>
 	<wsdl:portType name="Subscription-Report-Service">
 		<wsdl:operation name="ReportFederalSubscriptionCreation">
 			<wsdl:input name="FederalSubscriptionCreationReport" message="tns:FederalSubscriptionCreationReport" />
@@ -47,22 +53,31 @@
 		<wsdl:operation name="ReportFederalSubscriptionUpdate">
 			<wsdl:input name="FederalSubscriptionUpdateReport" message="tns:FederalSubscriptionUpdateReport" />
 		</wsdl:operation>
+		<wsdl:operation name="ReportFederalSubscriptionError">
+			<wsdl:input name="FederalSubscriptionErrorReport" message="tns:FederalSubscriptionErrorReport" />
+		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
 	<wsdl:binding name="Subscription-Reporting-Secure-ServiceSOAPBinding" type="tns:Subscription-Report-Service">
-		<soap:binding style="document"
-			transport="http://schemas.xmlsoap.org/soap/http" />
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
 		<wsdl:operation name="ReportFederalSubscriptionCreation">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0/ReportFederalSubscriptionCreation"
-				style="document" />
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0/ReportFederalSubscriptionCreation" style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
 		<wsdl:operation name="ReportFederalSubscriptionUpdate">
-			<soap:operation soapAction="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0/ReportFederalSubscriptionUpdate"
-				style="document" />
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0/ReportFederalSubscriptionUpdate" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportFederalSubscriptionError">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0/ReportFederalSubscriptionError" style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

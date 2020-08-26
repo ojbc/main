@@ -28,23 +28,34 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -141,8 +152,13 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<UserAuthenticationSearchResponse> retrieveUserAuthentications(UserAuthenticationSearchRequest authenticationSearchRequest);
-   
-   
+
+   @POST
+   @Path("/retrieveUserPrintRequests")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
+
    @POST
    @Path("/retrievePersonSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
@@ -150,11 +166,29 @@ public interface AuditInterface {
    public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
+   @Path("/retrievePersonSearchRequestByPerson")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(AuditPersonSearchRequest auditSearchRequest);
+
+   @POST
+   @Path("/retrievePersonSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);
+
+   @POST
    @Path("/retrieveFirearmSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest);
-   
+
+   @POST
+   @Path("/retrieveFirearmSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
+
    @POST
    @Path("/retrieveVehicleSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
@@ -162,11 +196,23 @@ public interface AuditInterface {
    public List<VehicleSearchRequest> retrieveVehicleSearchRequest(AuditSearchRequest auditSearchRequest);
 
    @POST
+   @Path("/retrieveVehicleSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+   
+   @POST
    @Path("/retrieveIncidentSearchRequest")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public List<IncidentSearchRequest> retrieveIncidentSearchRequest(AuditSearchRequest auditSearchRequest);
 
+   @POST
+   @Path("/retrieveIncidentSearchResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+   
    @POST
    @Path("/retrieveQueryRequest")
    @Produces(MediaType.APPLICATION_JSON)
@@ -178,6 +224,12 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public PersonQueryCriminalHistoryResponse retrieveCriminalHistoryQueryDetail(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveIncidentReportQueryDetail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public IncidentReportQueryResponse retrieveIncidentReportQueryDetail(Integer queryRequestId);
 
    @POST
    @Path("/retrieveFirearmQueryDetail")
@@ -196,6 +248,35 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
-   
+
+   @POST
+   @Path("/retrieveIdentificationResultsQueryDetail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveSubscriptionQueryResults")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveProfessionalLicensingQueryDetail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryDetail(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveCannabisLicensingQueryDetail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public CannabisLicensingQueryResponse retrieveCannabisLicensingQueryDetail(Integer queryRequestId);
+
+   @POST
+   @Path("/retrieveWildlifeQueryDetail")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public WildlifeQueryResponse retrieveWildlifeQueryDetail(Integer queryRequestId);
    
 }

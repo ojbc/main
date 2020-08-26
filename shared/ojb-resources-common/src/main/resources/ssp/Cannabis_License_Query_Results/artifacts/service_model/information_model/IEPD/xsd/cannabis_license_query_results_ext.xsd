@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:clq-res-ext="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryResults/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/appinfo/4.0/"
+		schemaLocation="Subset/niem/utility/appinfo/4.0/appinfo.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/4.0/"
+		schemaLocation="Subset/niem/utility/structures/4.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/4.0/" schemaLocation="Subset/niem/proxy/xsd/4.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/4.0/"
+		schemaLocation="Subset/niem/niem-core/4.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/6.0/"
+		schemaLocation="Subset/niem/domains/jxdm/6.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/4.0/"
+		schemaLocation="Subset/niem/domains/intelligence/4.0/intelligence.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+		schemaLocation="query-results-metadata.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+		schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:complexType name="CannabisLicenseQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for cannabis license query results.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="clq-res-ext:CannabisLicenseQueryResult" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CannabisLicenseQueryResultType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a cannabis license report.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:CannabisLicensee" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="clq-res-ext:CannabisLicense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="clq-res-ext:PersonCannabisLicenseAssociation" minOccurs="0" />
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:PersonCultivationLocationAssociation" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:PersonManufacturingLocationAssociation" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:PersonRetailLocationAssociation" minOccurs="0" />
+					<!-- xsd:element ref="clq-res-ext:SourceSystemNameText" minOccurs="0" /> <xsd:element ref="clq-res-ext:QueryResultCategoryText" 
+						minOccurs="0" / -->
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CannabisLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a cannabis license issued to a person granting privilege.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="clq-res-ext:LicenseType">
+				<xsd:sequence>
+					<xsd:element ref="clq-res-ext:LicenseEmployer" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:LicenseEmployee" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="LicenseEmployerType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a license employer.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="clq-res-ext:License" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="LicenseEmployeeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a license employee.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="clq-res-ext:License" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="LicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a regulated license issued to a person granting privilege.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="clq-res-ext:LicenseIdentification" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:LicenseCategoryText" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:LicenseExpirationDate" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:LicenseGrowerIndicator" minOccurs="0" />
+					<xsd:element ref="clq-res-ext:LicenseCardControlNumberID" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonCannabisLicenseAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a person and a cannabis license.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="clq-res-ext:CannabisLicense" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonCultivationLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a person and a location where that person cultivates.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonLocationAssociationType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonManufacturingLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a person and a location where that person manufactures.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonLocationAssociationType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonRetailLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between a person and a location where that person performs retail operations.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonLocationAssociationType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="CannabisLicense" type="clq-res-ext:CannabisLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A cannabis license issued to a person granting privilege.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A license identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseExpirationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A license expiration date.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseCardControlNumberID" type="niem-xs:string">
+		<xsd:annotation>
+			<xsd:documentation>A license car control id number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A kind of license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CannabisLicenseQueryResult" type="clq-res-ext:CannabisLicenseQueryResultType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of cannabis license information.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseGrowerIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is licensed to grow cannabis; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseEmployer" type="clq-res-ext:LicenseEmployerType">
+		<xsd:annotation>
+			<xsd:documentation>The employer associated with a license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseEmployee" type="clq-res-ext:LicenseEmployerType">
+		<xsd:annotation>
+			<xsd:documentation>The employee associated with a license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CannabisLicensee" type="nc:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A license for cannabis related activities.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="License" type="clq-res-ext:LicenseType">
+		<xsd:annotation>
+			<xsd:documentation>A license issued to a person granting privilege</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonCannabisLicenseAssociation" type="clq-res-ext:PersonCannabisLicenseAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a person and a cannabis license.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonCultivationLocationAssociation" type="clq-res-ext:PersonCultivationLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a person and a location where that person cultivates.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonManufacturingLocationAssociation"
+		type="clq-res-ext:PersonManufacturingLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a person and a location where that person manufactures.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonRetailLocationAssociation" type="clq-res-ext:PersonRetailLocationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a person and a location where that person retails.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- xsd:element name="SourceSystemNameText" type="nc:TextType"> <xsd:annotation> <xsd:documentation>The name of a system that returned 
+		the search result. This can be used to retrieve additional information about the person in the search result. </xsd:documentation> </xsd:annotation> 
+		</xsd:element -->
+	<xsd:element name="QueryResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

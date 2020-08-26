@@ -23,7 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.w3c.dom.Document;
 
 public class FirearmsSearchResponseSQLProcessor extends AbstractFirearmSearchResponseProcessor{
@@ -43,7 +42,7 @@ public class FirearmsSearchResponseSQLProcessor extends AbstractFirearmSearchRes
 			
 			if (systemToSearchPK != null)
 			{
-				firearmSearchResult.setSystemSearchResultID(systemToSearchPK);
+				firearmSearchResult.setSystemSearchResultId(systemToSearchPK);
 			}	
 			else
 			{
@@ -51,7 +50,7 @@ public class FirearmsSearchResponseSQLProcessor extends AbstractFirearmSearchRes
 				
 				if (systemToSearchPK != null)
 				{
-					firearmSearchResult.setSystemSearchResultID(systemToSearchPK);
+					firearmSearchResult.setSystemSearchResultId(systemToSearchPK);
 				}	
 
 			}	

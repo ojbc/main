@@ -20,11 +20,21 @@ public enum IdentificationTransactionState {
 	 * The ordinal of the enum is used in the code. DO NOT change the order 
 	 * of the instances. 
 	 */
-	Archived, Available_for_Subscription, Subscribed_State, Subscribed_State_FBI;
+	Archived, Available_for_Subscription, Subscribed_State, Subscribed_State_FBI, Subscribed_State_FBI_Pending, Subscribed_State_FBI_Error;
 	
 	public String toString(){
-		if (this==Subscribed_State) return "Subscribed(State)";
-		if (this==Subscribed_State_FBI) return "Subscribed(State/FBI)";
-		return name().replace('_', ' '); 
+		switch(this) {
+		case Subscribed_State:
+			return "Subscribed(State)"; 
+		case Subscribed_State_FBI: 
+			return "Subscribed(State/FBI)";
+		case Subscribed_State_FBI_Pending: 
+			return "Subscribed(State/FBI Pending)";
+		case Subscribed_State_FBI_Error: 
+			return "Subscribed(State/FBI Error)";
+		default : 
+			return name().replace('_', ' ');
+		}
+		 
 	}
 }

@@ -42,7 +42,7 @@ public class PersonSearchResponseSQLProcessor extends AbstractPersonSearchRespon
 			
 			if (systemToSearchPK != null)
 			{
-				personSearchResult.setSystemSearchResultID(systemToSearchPK);
+				personSearchResult.setSystemSearchResultId(systemToSearchPK);
 			}	
 			else
 			{
@@ -50,7 +50,7 @@ public class PersonSearchResponseSQLProcessor extends AbstractPersonSearchRespon
 				
 				if (systemToSearchPK != null)
 				{
-					personSearchResult.setSystemSearchResultID(systemToSearchPK);
+					personSearchResult.setSystemSearchResultId(systemToSearchPK);
 				}	
 
 			}	

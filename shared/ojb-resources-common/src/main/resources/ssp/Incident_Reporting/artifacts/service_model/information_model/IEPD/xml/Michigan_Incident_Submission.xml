@@ -490,7 +490,7 @@
 								</inc-ext:Bond>
 								<lexslib:SameAsDigestReference lexslib:ref="Warrant_1" />
 							</inc-ext:Warrant>
-							<inc-ext:IncidentDocument>
+							<IncidentDocument xmlns="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 								<nc:DocumentBinary>
 									<inc-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</inc-ext:Base64BinaryObject>
 								</nc:DocumentBinary>
@@ -507,7 +507,7 @@
 								<nc:DocumentAuthor>
 									<nc:EntityOrganizationReference s:ref="Arrest_Agency_1" />
 								</nc:DocumentAuthor>
-							</inc-ext:IncidentDocument>
+							</IncidentDocument>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>

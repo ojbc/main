@@ -47,7 +47,7 @@ public class FederalRapbackNotification {
 
 	private String transactionType;
 	
-	private String recordRapBackActivityNotificationID;
+	private String recordRapBackActivityNotificationId;
 	
 	private List<String> triggeringEvents;
 	
@@ -143,13 +143,13 @@ public class FederalRapbackNotification {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
-	public String getRecordRapBackActivityNotificationID() {
-		return recordRapBackActivityNotificationID;
+	public String getRecordRapBackActivityNotificationId() {
+		return recordRapBackActivityNotificationId;
 	}
 
-	public void setRecordRapBackActivityNotificationID(
-			String recordRapBackActivityNotificationID) {
-		this.recordRapBackActivityNotificationID = recordRapBackActivityNotificationID;
+	public void setRecordRapBackActivityNotificationId(
+			String recordRapBackActivityNotificationId) {
+		this.recordRapBackActivityNotificationId = recordRapBackActivityNotificationId;
 	}
 	
 }

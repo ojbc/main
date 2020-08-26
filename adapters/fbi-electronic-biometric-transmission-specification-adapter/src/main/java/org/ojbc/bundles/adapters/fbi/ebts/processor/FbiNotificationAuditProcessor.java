@@ -149,7 +149,7 @@ public class FbiNotificationAuditProcessor {
 //          <!-- RBNI 2.2041 -->
 //          <ebts:RecordRapBackActivityNotificationID>123456</ebts:RecordRapBackActivityNotificationID>
 			String recordRapBackActivityNotificationID = XmlUtils.xPathStringSearch(recordRapBackData, "ebts:RecordRapBackActivityNotificationID");
-			federalRapbackNotification.setRecordRapBackActivityNotificationID(recordRapBackActivityNotificationID);
+			federalRapbackNotification.setRecordRapBackActivityNotificationId(recordRapBackActivityNotificationID);
 			
 			logger.info("Federal rapback subscription request audit entry to save: " + federalRapbackNotification.toString());
 			

@@ -46,6 +46,14 @@
 	</bean>
 
 	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
+	
+	<bean id="incidentReportQueryResponseSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="incidentReportQueryResponseSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.incident-report-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.IncidentReportQueryResponseNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
 
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />

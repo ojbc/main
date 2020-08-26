@@ -120,6 +120,8 @@ public class MessageProcessor {
 		
 		senderExchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
 		
+		senderExchange.setProperty("tokenID", senderExchange.getProperty("tokenID"));
+		
         senderExchange.getIn().setBody(exchange.getIn().getBody());
         
 	    ProducerTemplate template = context.createProducerTemplate();

@@ -248,6 +248,11 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		appendSubsequentResultsAvailableIndicator(parentElement,
 				identificationTransaction.getHavingSubsequentResults(), 
 				extNamespace);
+
+		appendNsorFiveYearhCheckIndicator(parentElement,
+				identificationTransaction.getHavingNsorFiveYearCheck(), 
+				extNamespace);
+
 	}
 
 
