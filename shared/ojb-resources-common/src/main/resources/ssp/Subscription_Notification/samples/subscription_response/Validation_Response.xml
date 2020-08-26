@@ -17,15 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<b-2:ValidateResponse xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
-	xmlns:subvresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0" 
-	xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:bf2="http://docs.oasis-open.org/wsrf/bf-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:subfltrsp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Fault_Response/1.0"
-	xmlns:subfltrsp-ext="http://ojbc.org/IEPD/Extension/Subscription_Fault_Response/1.0"
-	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+<b-2:ValidateResponse 
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:subvresp-exch="http://ojbc.org/IEPD/Exchange/Subscription_Validation_Response/1.0"
+	xmlns:subresp-ext="http://ojbc.org/IEPD/Extension/Subscription_Response/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
 	<subvresp-exch:SubscriptionValidationResponseMessage>
   		<subresp-ext:SubscriptionValidatedIndicator>true</subresp-ext:SubscriptionValidatedIndicator>

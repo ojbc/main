@@ -19,6 +19,7 @@ package org.ojbc.audit.enhanced.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -30,13 +31,16 @@ import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
@@ -46,6 +50,9 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -110,11 +117,23 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
 	
+	public Integer saveWildlifeQueryResponse(WildlifeQueryResponse wildlifeQueryResponse);
+	
+	public Integer saveProfessionalLicensingQueryResponse(ProfessionalLicensingQueryResponse professionalLicensingQueryResponse);
+	
+	public Integer saveCannabisLicensingQueryResponse(CannabisLicensingQueryResponse cannabisLicensingQueryResponse);
+	
+	public Integer saveIncidentReportQueryResponse(IncidentReportQueryResponse incidentReportQueryResponse);
+	
 	public Integer savePersonQueryWarrantResponse(PersonQueryWarrantResponse personQueryWarrantResponse);
 	
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
 	
 	public Integer saveFirearmSearchResult(FirearmSearchResult firearmSearchResult);
+	
+	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult);
+	
+	public Integer saveIncidentSearchResult(IncidentSearchResult incidentSearchResult);
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
@@ -156,7 +175,11 @@ public interface EnhancedAuditDAO {
 
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
+	public Integer retrieveVehicleSearchIDfromMessageID(String messageId);
+	
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId);
+	
+	public Integer retrieveIncidentSearchIDfromMessageID(String messageId);
 	
 	public Integer retrieveSubscriptionSearchIDfromMessageID(String messageId);
 	
@@ -188,6 +211,8 @@ public interface EnhancedAuditDAO {
 	
 	public List<PersonSearchRequest> retrievePersonSearchRequest (AuditSearchRequest personAuditSearchRequest);
 	
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson (AuditPersonSearchRequest personAuditSearchRequest);
+	
 	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest (AuditSearchRequest firearmAuditSearchRequest);
 	
 	public List<VehicleSearchRequest> retrieveVehicleSearchRequest (AuditSearchRequest vehicleSearchRequest);
@@ -203,4 +228,29 @@ public interface EnhancedAuditDAO {
 	public PersonQueryWarrantResponse retrieveWarrantQueryDetail(Integer queryRequestId);
 	
 	public VehicleCrashQueryResponse retrieveVehicleCrashQueryResultsDetail(Integer queryRequestId);
+	
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId);
+	
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId);
+	
+	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryResponse (Integer queryRequestId);
+	
+	public IncidentReportQueryResponse retrieveIncidentReportQueryResponse(Integer queryRequestId);
+	
+	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId);
+	
+	public CannabisLicensingQueryResponse retrieveCannabisLicenseQueryResponse(Integer queryRequestId);
+	
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId);
+	
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId);
+
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId);
+
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId);
+
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId);
+	
+	public String retrieveStateSubscriptionIDFromTransactionControlReferenceId(String transactionControlReferenceId);
+	
 }

@@ -41,6 +41,9 @@
 	<camel:endpoint id="inputMessageDirEndpoint" 
 		uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />			
 
+	<camel:endpoint id="fbiEbtsSubscriptionManagementDirEndpoint" 
+		uri="file://{{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/fbiSubscriptionManagement/error&amp;move=processed/" />			
+
 	<!-- Test sending in sample fbi ngi response messages -->
 	<camel:endpoint id="ngiResponseTestInputDirEndpoint" 
 		uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
@@ -49,6 +52,19 @@
 	<camel:endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
 
 	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
+
+		<camel:route id="fbiEbtsSubscriptionManagementEndpointRoute">
+			<camel:from uri="fbiEbtsSubscriptionManagementDirEndpoint"/>
+			
+			<camel:log message="\n\n FBI EBTS Adapter received File-Drop FBI Subscription/Unsubscription inbound message \n\n" />
+			
+			<camel:to uri="xslt:xsl/SOAPWrapper.xsl"/>
+					
+			<camel:to uri="ngiUserServiceRequestEndpoint"/>
+						
+			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response: ${body} \n\n\n"/>					
+		
+		</camel:route>
 
 		<!--  for testing Subscribe, Criminal History Request by dropping message into adapter input directory -->
 		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">

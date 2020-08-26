@@ -18,66 +18,91 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:vsres-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" elementFormDefault="qualified"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-	xmlns:vehicleCodes="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:vehicleCodes="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0"
 	xmlns:me-sr-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/SearchResultVehicleCrashCodes/1.0"
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0"
-		schemaLocation="vehicle_codes.xsd" />
-	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/Maine/SearchResultVehicleCrashCodes/1.0"
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCodes/1.0" schemaLocation="vehicle_codes.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/SearchResultVehicleCrashCodes/1.0"
 		schemaLocation="./impl/maine/vehicle_crash_codes.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1"
 		schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
-		schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 		schemaLocation="search-results-metadata.xsd" />
 	<xsd:element name="VehicleSearchResults" type="vsres-ext:VehicleSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A set of details representing returned results
-				based on vehicle criteria.
+			<xsd:documentation>A set of details representing returned results based on vehicle criteria.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="VehicleSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type representing a set of results returned
-				based on vehicle criteria.
+			<xsd:documentation>A data type representing a set of results returned based on vehicle criteria.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="vsres-ext:VehicleSearchResult"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="vsres-ext:VehicleSystemResponseSummary" minOccurs="0" />
+					<xsd:element ref="vsres-ext:VehicleSearchResult" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="VehicleSystemResponseSummary" type="vsres-ext:VehicleSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of the vehicle system response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="VehicleSystemResponseSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of the vehicle system response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="vsres-ext:VehicleSystem" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="VehicleSystem" type="vsres-ext:VehicleSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A vehicle system.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="VehicleSystemType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a vehicle system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemName" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="vsres-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="vsres-ext:VehicleResultCountQuantity" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="VehicleSearchResultType">
 		<xsd:annotation>
-			<xsd:documentation>A data type representing a set of results returned
-				based on vehicle criteria.
+			<xsd:documentation>A data type representing a set of results returned based on vehicle criteria.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="vsres-ext:Vehicle" />
-					<xsd:element ref="vsres-ext:SourceSystemNameText"
-						minOccurs="0" />
+					<xsd:element ref="vsres-ext:SourceSystemNameText" minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -95,10 +120,8 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:ConveyanceRegistration" minOccurs="0" />
 					<xsd:element ref="vsres-ext:VehicleMakeCode" minOccurs="0" />
-					<xsd:element ref="me-sr-crash-codes:VehicleMakeCode"
-						minOccurs="0" />
-					<xsd:element ref="me-sr-crash-codes:VehicleCategoryCode"
-						minOccurs="0" />
+					<xsd:element ref="me-sr-crash-codes:VehicleMakeCode" minOccurs="0" />
+					<xsd:element ref="me-sr-crash-codes:VehicleCategoryCode" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -117,9 +140,13 @@
 	</xsd:element>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that returned the search
-				result.
+			<xsd:documentation>The name of a system that returned the search result.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleResultCountQuantity" type="xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of vehicle result.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

@@ -154,6 +154,8 @@
 		<camel:route>
 			<camel:from uri="personQueryProfessionalLicenseResultsEndpoint"/>
 			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.professionalLicense.dbAuditLog} == 'true'</camel:simple>
@@ -168,6 +170,21 @@
 					</camel:doTry>
 				</camel:when>
 			</camel:choice>
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:professionalLicenseQueryResponseSQLProcessor?method=auditProfessionalLicenseQueryResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>				
 			
 			<camel:log message="\n\n\n Entering Person Query Results Handler for Professional License ... \n\n\n"></camel:log>
 			

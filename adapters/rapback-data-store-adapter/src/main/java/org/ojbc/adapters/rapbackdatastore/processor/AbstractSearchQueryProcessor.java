@@ -138,11 +138,19 @@ public class AbstractSearchQueryProcessor {
 			Subscription subscription = identificationTransaction.getSubscription(); 
 			if (subscription != null && subscription.getActive() == Boolean.TRUE 
 					&& (subscription.getEndDate() == null || subscription.getEndDate().plusDays(1).isAfterNow())){
-				if (StringUtils.isNotBlank(identificationTransaction.getFbiSubscriptionId())){
+				if (StringUtils.isNotBlank(identificationTransaction.getFbiSubscriptionId()) 
+						&& "SUBSCRIBED".equals(identificationTransaction.getFbiSubscriptionStatus())){
 					return IdentificationTransactionState.Subscribed_State_FBI;
 				}
 				else {
-					return IdentificationTransactionState.Subscribed_State;
+					switch(StringUtils.trimToEmpty(identificationTransaction.getFbiSubscriptionStatus())) {
+					case "PENDING": 
+						return IdentificationTransactionState.Subscribed_State_FBI_Pending;
+					case "ERROR": 
+						return IdentificationTransactionState.Subscribed_State_FBI_Error;
+					default:
+						return IdentificationTransactionState.Subscribed_State;
+					}
 				}
 			}
 			else{
@@ -159,6 +167,15 @@ public class AbstractSearchQueryProcessor {
 			Element subsequentResultsAvailableIndicator = 
 					XmlUtils.appendElement(parentElement, extNamespace, "SubsequentResultsAvailableIndicator");
 			subsequentResultsAvailableIndicator.setTextContent(BooleanUtils.toString(havingSubsequentResults, "true", "false", "false"));
+	}
+	
+	void appendNsorFiveYearhCheckIndicator(Element parentElement,
+			Boolean havingNsorFiveYearCheck, String extNamespace) {
+
+		Element nsorFiveYearCheckIndicator = 
+				XmlUtils.appendElement(parentElement, extNamespace, "NsorFiveYearCheckResultsAvailableIndicator");
+		nsorFiveYearCheckIndicator.setTextContent(BooleanUtils.toString(havingNsorFiveYearCheck, "true", "false", "false"));
+
 	}
 
 	void appendDateElement(DateTime dateObject, Element parentElement, 

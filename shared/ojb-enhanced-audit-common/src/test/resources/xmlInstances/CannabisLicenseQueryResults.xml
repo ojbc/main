@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<clq-res-doc:CannabisLicenseQueryResults
+	xmlns:clq-res-doc="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryResults/1.0"
+	xmlns:clq-res-ext="http://ojbc.org/IEPD/Extensions/CannabisLicenseQueryResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:usps="http://release.niem.gov/niem/codes/usps_states/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryResults/1.0 ../xsd/cannabis_license_query_results.xsd ">
+	<clq-res-ext:CannabisLicenseQueryResult>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>4556789</nc:IdentificationID>
+			<nc:SystemName>SYSTEM NAME</nc:SystemName>
+		</intel:SystemIdentification>
+		<clq-res-ext:CannabisLicensee structures:id="cl_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1965-06-22</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>John</nc:PersonGivenName>
+				<nc:PersonMiddleName>W</nc:PersonMiddleName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+				<nc:PersonNameSuffixText>Sr</nc:PersonNameSuffixText>
+			</nc:PersonName>
+			<nc:PersonHomeContactInformation>
+				<nc:ContactMailingAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+						<nc:StreetFullText>Box 20110</nc:StreetFullText>
+						<nc:StreetFullText>string</nc:StreetFullText>
+						<nc:StreetFullText>string</nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Williamsville</nc:LocationCityName>
+					<nc:LocationState>
+						<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+					</nc:LocationState>
+					<nc:LocationPostalCode>13450</nc:LocationPostalCode>
+				</nc:ContactMailingAddress>
+			</nc:PersonHomeContactInformation>
+		</clq-res-ext:CannabisLicensee>
+		<clq-res-ext:CannabisLicense structures:id="license_01">
+			<clq-res-ext:LicenseIdentification>
+				<nc:IdentificationID>ML123456</nc:IdentificationID>
+			</clq-res-ext:LicenseIdentification>
+			<clq-res-ext:LicenseCategoryText>CANNABIS</clq-res-ext:LicenseCategoryText>
+			<clq-res-ext:LicenseExpirationDate>
+				<nc:Date>2022-01-01</nc:Date>
+			</clq-res-ext:LicenseExpirationDate>
+			<clq-res-ext:LicenseGrowerIndicator>true</clq-res-ext:LicenseGrowerIndicator>
+			<clq-res-ext:LicenseCardControlNumberID>C456789</clq-res-ext:LicenseCardControlNumberID>
+			<clq-res-ext:LicenseEmployer>
+				<nc:PersonName>
+					<nc:PersonFullName>Larry G. Hovis</nc:PersonFullName>
+				</nc:PersonName>
+				<clq-res-ext:License>
+					<clq-res-ext:LicenseIdentification>
+						<nc:IdentificationID>ML123456</nc:IdentificationID>
+					</clq-res-ext:LicenseIdentification>
+					<clq-res-ext:LicenseCategoryText>CANNABIS</clq-res-ext:LicenseCategoryText>
+				</clq-res-ext:License>
+			</clq-res-ext:LicenseEmployer>
+			<clq-res-ext:LicenseEmployee>
+				<nc:PersonName>
+					<nc:PersonFullName>Scott M. Johnston</nc:PersonFullName>
+				</nc:PersonName>
+				<clq-res-ext:License>
+					<clq-res-ext:LicenseIdentification>
+						<nc:IdentificationID>ML123456</nc:IdentificationID>
+					</clq-res-ext:LicenseIdentification>
+					<clq-res-ext:LicenseCategoryText>CANNABIS</clq-res-ext:LicenseCategoryText>
+				</clq-res-ext:License>
+			</clq-res-ext:LicenseEmployee>
+		</clq-res-ext:CannabisLicense>
+		<nc:Location structures:id="res_01">
+			<nc:Address>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+					<nc:StreetFullText>Box 20110</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Williamsville</nc:LocationCityName>
+				<nc:LocationState>
+					<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+				</nc:LocationState>
+				<nc:LocationPostalCode>13450</nc:LocationPostalCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Location structures:id="cul_01">
+			<nc:Address>
+				<nc:LocationStreet>
+					<nc:StreetFullText>3456 Aries Blvd</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Williamsville</nc:LocationCityName>
+				<nc:LocationState>
+					<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+				</nc:LocationState>
+				<nc:LocationPostalCode>13450</nc:LocationPostalCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Location structures:id="man_01">
+			<nc:Address>
+				<nc:LocationStreet>
+					<nc:StreetFullText>2792 Eastside Ave</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+					<nc:StreetFullText>string</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Homer</nc:LocationCityName>
+				<nc:LocationState>
+					<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+				</nc:LocationState>
+				<nc:LocationPostalCode>13266</nc:LocationPostalCode>
+			</nc:Address>
+		</nc:Location>
+		<clq-res-ext:PersonCannabisLicenseAssociation>
+			<nc:Person structures:ref="cl_01" />
+			<clq-res-ext:CannabisLicense structures:ref="license_01" />
+		</clq-res-ext:PersonCannabisLicenseAssociation>
+		<nc:PersonResidenceAssociation>
+			<nc:Person structures:ref="cl_01" />
+			<nc:Location structures:ref="res_01" />
+		</nc:PersonResidenceAssociation>
+		<clq-res-ext:PersonCultivationLocationAssociation>
+			<nc:Person structures:ref="cl_01" />
+			<nc:Location structures:ref="cul_01" />
+		</clq-res-ext:PersonCultivationLocationAssociation>
+		<clq-res-ext:PersonManufacturingLocationAssociation>
+			<nc:Person structures:ref="cl_01" />
+			<nc:Location structures:ref="man_01" />
+		</clq-res-ext:PersonManufacturingLocationAssociation>
+		<clq-res-ext:PersonRetailLocationAssociation>
+			<nc:Person structures:ref="cl_01" />
+			<nc:Location structures:ref="man_01" />
+		</clq-res-ext:PersonRetailLocationAssociation>
+	</clq-res-ext:CannabisLicenseQueryResult>
+</clq-res-doc:CannabisLicenseQueryResults>

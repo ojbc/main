@@ -217,6 +217,26 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
+	@Test
+	public void RapbackSubscriptionErrorResponseTransform() throws IOException, SAXException{
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Subscription_Response_Error.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("transactionElectronicRapSheetAsBase64", Base64.encode(rapsheetString.getBytes()));
+		
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RapBackSubscriptionErrorResponseToSubscriptionErrorReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/Subscription_Response_Error.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	}	
+	
 	
 	@Test
 	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{

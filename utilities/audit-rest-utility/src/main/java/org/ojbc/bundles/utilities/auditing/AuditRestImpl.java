@@ -28,23 +28,34 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -322,15 +333,24 @@ public class AuditRestImpl implements AuditInterface {
 	}
 
 	@Override
-	public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditSearchRequest) {
+	public List<PersonSearchRequest> retrievePersonSearchRequest(AuditSearchRequest auditPersonSearchRequest) {
 		
-		log.info("Person Audit Search Request: " + auditSearchRequest.toString());
+		log.info("Person Audit Search Request: " + auditPersonSearchRequest.toString());
 		
-		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(auditSearchRequest);
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequest(auditPersonSearchRequest);
 		
 		return personSearchRequests;
 
 	}
+	
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(AuditPersonSearchRequest auditPersonSearchRequest) {
+		log.info("Person Audit Search Request: " + auditPersonSearchRequest.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		
+		return personSearchRequests;	
+	}	
 
 	@Override
 	public List<FirearmsSearchRequest> retrieveFirearmSearchRequest(AuditSearchRequest auditSearchRequest) {
@@ -408,4 +428,105 @@ public class AuditRestImpl implements AuditInterface {
 		
 		return vehicleCrashQueryResponse;		
 	}
+
+	@Override
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Identification Query Response for: " + queryRequestId.toString());
+		
+		IdentificationQueryResponse identificationQueryResponse = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryRequestId);
+		
+		return identificationQueryResponse;
+	}
+
+	@Override
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId) {
+		log.info("Retrieve Subscription Query Response for: " + queryRequestId.toString());
+		
+		SubscriptionQueryResponse subscriptionQueryResponse = enhancedAuditDao.retrieveSubscriptionQueryResults(queryRequestId);
+		
+		return subscriptionQueryResponse;
+	}
+
+	@Override
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId) {
+		log.info("Retrieve User Print Requests for: " + userInfoId.toString());
+		
+		List<PrintResults> printResults = enhancedAuditDao.retrieveUserPrintRequests(userInfoId);
+		
+		return printResults;
+	}
+
+	@Override
+	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Professional Licensing Query Response for: " + queryRequestId.toString());
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = enhancedAuditDao.retrieveProfessionalLicensingQueryResponse(queryRequestId);
+		
+		return professionalLicensingQueryResponse;
+	}
+
+	@Override
+	public IncidentReportQueryResponse retrieveIncidentReportQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Incident Report Query Response for: " + queryRequestId.toString());
+		
+		IncidentReportQueryResponse incidentReportQueryResponse = enhancedAuditDao.retrieveIncidentReportQueryResponse(queryRequestId);
+		
+		return incidentReportQueryResponse;	
+	}
+
+	@Override
+	public WildlifeQueryResponse retrieveWildlifeQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Wildlife Query Response for: " + queryRequestId.toString());
+		
+		WildlifeQueryResponse wildlifeQueryResponse = enhancedAuditDao.retrieveWildlifeQueryResponse(queryRequestId);
+		
+		return wildlifeQueryResponse;	
+	}
+
+	@Override
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId) {
+		log.info("Retrieve Person Search Responses for: " + personSearchRequestId.toString());
+		
+		List<PersonSearchResult> personSearchResults = enhancedAuditDao.retrievePersonSearchResults(personSearchRequestId);
+		
+		return personSearchResults;
+	}
+
+	@Override
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
+		log.info("Retrieve Firearms Search Responses for: " + firearmSearchRequestId.toString());
+		
+		List<FirearmSearchResult> firearmSearchResults = enhancedAuditDao.retrieveFirearmSearchResults(firearmSearchRequestId);
+		
+		return firearmSearchResults;
+	}
+
+	@Override
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+		log.info("Retrieve Vehicle Search Responses for: " + vehicleSearchRequestId.toString());
+		
+		List<VehicleSearchResult> vehicleSearchResults = enhancedAuditDao.retrieveVehicleSearchResults(vehicleSearchRequestId);
+		
+		return vehicleSearchResults;
+	}
+
+	@Override
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		log.info("Retrieve Incident Search Responses for: " + incidentSearchRequestId.toString());
+		
+		List<IncidentSearchResult> incidentSearchResults = enhancedAuditDao.retrieveIncidentSearchResults(incidentSearchRequestId);
+		
+		return incidentSearchResults;
+	}
+
+	@Override
+	public CannabisLicensingQueryResponse retrieveCannabisLicensingQueryDetail(Integer queryRequestId) {
+		log.info("Retrieve Cannabis License Query Response for: " + queryRequestId.toString());
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponse = enhancedAuditDao.retrieveCannabisLicenseQueryResponse(queryRequestId);
+		
+		return cannabisLicensingQueryResponse;	
+
+	}
+
 }

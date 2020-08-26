@@ -131,8 +131,222 @@
 					<to uri="direct:retrieveIncidentSearchRequest" />
 				</when>
 				
+				<when>
+					<simple>${header.operationName} == 'retrieveQueryRequest'</simple>
+					<to uri="direct:retrieveQueryRequest" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveCriminalHistoryQueryDetail'</simple>
+					<to uri="direct:retrieveCriminalHistoryQueryDetail" />
+				</when>								
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveFirearmQueryDetail'</simple>
+					<to uri="direct:retrieveFirearmQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveWarrantQueryDetail'</simple>
+					<to uri="direct:retrieveWarrantQueryDetail" />
+				</when>
+
+				<when>
+					<simple>${header.operationName} == 'retrieveProfessionalLicensingQueryDetail'</simple>
+					<to uri="direct:retrieveProfessionalLicensingQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveVehicleCrashQueryResultsDetail'</simple>
+					<to uri="direct:retrieveVehicleCrashQueryResultsDetail" />
+				</when>												
+
+				<when>
+					<simple>${header.operationName} == 'retrieveIdentificationResultsQueryDetail'</simple>
+					<to uri="direct:retrieveIdentificationResultsQueryDetail" />
+				</when>												
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveSubscriptionQueryResultsDetail'</simple>
+					<to uri="direct:retrieveSubscriptionQueryResultsDetail" />
+				</when>					
+
+				<when>
+					<simple>${header.operationName} == 'retrieveUserPrintRequests'</simple>
+					<to uri="direct:retrieveUserPrintRequests" />
+				</when>					
+				
+				<when>
+					<simple>${header.operationName} == 'retrieveIncidentReportQueryDetail'</simple>
+					<to uri="direct:retrieveIncidentReportQueryDetail" />
+				</when>					
+
+				<when>
+					<simple>${header.operationName} == 'retrieveWildlifeQueryDetail'</simple>
+					<to uri="direct:retrieveWildlifeQueryDetail" />
+				</when>
+				
+				<when>
+					<simple>${header.operationName} == 'retrievePersonSearchResults'</simple>
+					<to uri="direct:retrievePersonSearchResults" />
+				</when>						
+
+				<when>
+					<simple>${header.operationName} == 'retrieveFirearmSearchResults'</simple>
+					<to uri="direct:retrieveFirearmSearchResults" />
+				</when>		
+
+				<when>
+					<simple>${header.operationName} == 'retrieveVehicleSearchResults'</simple>
+					<to uri="direct:retrieveVehicleSearchResults" />
+				</when>		
+
+				<when>
+					<simple>${header.operationName} == 'retrieveIncidentSearchResults'</simple>
+					<to uri="direct:retrieveIncidentSearchResults" />
+				</when>		
+
+				<when>
+					<simple>${header.operationName} == 'retrievePersonSearchRequestByPerson'</simple>
+					<to uri="direct:retrievePersonSearchRequestByPerson" />
+				</when>		
+										
 			</choice>
 		</route>
+		
+		<route id="directRetrievePersonSearchRequestByPerson">
+			<from uri="direct:retrievePersonSearchRequestByPerson" />
+			
+			<camel:log message="Return person search requests, by person search parameters"/>
+			
+			<bean ref="auditRestImpl" method="retrievePersonSearchRequestByPerson" />
+		</route>		
+
+		<route id="directRetrieveIncidentSearchResults">
+			<from uri="direct:retrieveIncidentSearchResults" />
+			
+			<camel:log message="Return Incident search results"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIncidentSearchResults" />
+		</route>			
+
+		
+		<route id="directRetrieveVehicleSearchResults">
+			<from uri="direct:retrieveVehicleSearchResults" />
+			
+			<camel:log message="Return vehicle search results"/>
+			
+			<bean ref="auditRestImpl" method="retrieveVehicleSearchResults" />
+		</route>			
+		
+		<route id="directRetrieveFirearmSearchResults">
+			<from uri="direct:retrieveFirearmSearchResults" />
+			
+			<camel:log message="Return firearm search results"/>
+			
+			<bean ref="auditRestImpl" method="retrieveFirearmSearchResults" />
+		</route>			
+		
+		
+		<route id="directRetrievePersonSearchResults">
+			<from uri="direct:retrievePersonSearchResults" />
+			
+			<camel:log message="Return person search results"/>
+			
+			<bean ref="auditRestImpl" method="retrievePersonSearchResults" />
+		</route>			
+		
+		<route id="directRetrieveWildlifeQueryDetail">
+			<from uri="direct:retrieveWildlifeQueryDetail" />
+			
+			<camel:log message="Return wildlife query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveWildlifeQueryDetail" />
+		</route>			
+		
+		<route id="directRetrieveIncidentReportQueryDetail">
+			<from uri="direct:retrieveIncidentReportQueryDetail" />
+			
+			<camel:log message="Return Incident Report query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIncidentReportQueryDetail" />
+		</route>			
+		
+
+		<route id="directRetrieveProfessionalLicensingQueryDetail">
+			<from uri="direct:retrieveProfessionalLicensingQueryDetail" />
+			
+			<camel:log message="Return Professional licensing query detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveProfessionalLicensingQueryDetail" />
+		</route>			
+
+		<route id="directRetrieveUserPrintRequests">
+			<from uri="direct:retrieveUserPrintRequests" />
+			
+			<camel:log message="Return User Print Requests"/>
+			
+			<bean ref="auditRestImpl" method="retrieveUserPrintRequests" />
+		</route>			
+
+		
+		<route id="directRetrieveSubscriptionQueryResultsDetail">
+			<from uri="direct:retrieveSubscriptionQueryResultsDetail" />
+			
+			<camel:log message="Return Subscription Query Results Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveSubscriptionQueryResults" />
+		</route>			
+		
+		<route id="directRetrieveIdentificationResultsQueryDetail">
+			<from uri="direct:retrieveIdentificationResultsQueryDetail" />
+			
+			<camel:log message="Return Identification Results Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveIdentificationResultsQueryDetail" />
+		</route>		
+		
+		<route id="directRetrieveVehicleCrashQueryResultsDetail">
+			<from uri="direct:retrieveVehicleCrashQueryResultsDetail" />
+			
+			<camel:log message="Return Vehicle Crash Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveVehicleCrashQueryResultsDetail" />
+		</route>		
+		
+		
+		<route id="directRetrieveCriminalHistoryQueryDetail">
+			<from uri="direct:retrieveCriminalHistoryQueryDetail" />
+			
+			<camel:log message="Return Criminal History Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveCriminalHistoryQueryDetail" />
+		</route>		
+		
+		
+		<route id="directRetrieveFirearmQueryDetail">
+			<from uri="direct:retrieveFirearmQueryDetail" />
+			
+			<camel:log message="Return Firearm Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveFirearmQueryDetail" />
+		</route>		
+		
+		<route id="directRetrieveWarrantQueryDetail">
+			<from uri="direct:retrieveWarrantQueryDetail" />
+			
+			<camel:log message="Return Warrant Query Detail"/>
+			
+			<bean ref="auditRestImpl" method="retrieveWarrantQueryDetail" />
+		</route>			
+		
+		<route id="directRetrieveQueryRequest">
+			<from uri="direct:retrieveQueryRequest" />
+			
+			<camel:log message="Return Query Request"/>
+			
+			<bean ref="auditRestImpl" method="retrieveQueryRequest" />
+		</route>			
 
 		<route id="directRetrievePersonSearchRequest">
 			<from uri="direct:retrievePersonSearchRequest" />

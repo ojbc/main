@@ -46,6 +46,9 @@
 			
 			<!--  Perform some generic message processing --> 
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+		
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 			
 			<!-- perform auditing request here -->
 			<camel:setHeader headerName="subscriptionId">
@@ -63,28 +66,7 @@
 			</camel:doTry>
 			
 			<camel:doTry>
-				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
-
-				<!-- These headers are used when saving the subscription to the database -->
-				<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
-
-				<camel:setHeader headerName="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}"/>
-				
-				<camel:setHeader headerName="subscriptionOwnerFirstName"><simple>${in.headers.saml_FirstName}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner first name: ${in.headers.subscriptionOwnerFirstName}"/>
-
-				<camel:setHeader headerName="subscriptionOwnerLastName"><simple>${in.headers.saml_LastName}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner last name: ${in.headers.subscriptionOwnerLastName}"/>
-
-				<camel:setHeader headerName="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}"/>
-
-				<camel:setHeader headerName="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
-				<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}"/>
-
-				
+				<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>
 
 				<camel:to uri="direct:processSubscription"/>
 
@@ -113,10 +95,38 @@
 			
 		</camel:route>
 		
+		<camel:route>
+			<camel:from uri="direct:setAndRetrieveSAMLHeaders"/>
+	
+			<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
+
+			<!-- These headers are used when saving the subscription to the database -->
+			<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
+
+			<camel:setHeader headerName="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}"/>
+			
+			<camel:setHeader headerName="subscriptionOwnerFirstName"><simple>${in.headers.saml_FirstName}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner first name: ${in.headers.subscriptionOwnerFirstName}"/>
+
+			<camel:setHeader headerName="subscriptionOwnerLastName"><simple>${in.headers.saml_LastName}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner last name: ${in.headers.subscriptionOwnerLastName}"/>
+
+			<camel:setHeader headerName="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}"/>
+
+			<camel:setHeader headerName="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
+			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}"/>
+		</camel:route>
+		
 		
 		<camel:route id="subscriptionManagerServiceSecureRoute">
 		
 			<camel:from	uri="subscriptionManagerServiceSecureEndpoint" />
+			
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 			
 			<camel:choice>
 				<camel:when>
@@ -143,11 +153,8 @@
 					</camel:doTry>					
 					
 					<camel:doTry>
-						<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
+						<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>
 		
-						<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
-						<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
-						
 						<camel:to uri="direct:processUnsubscription"/>
 		
 						<camel:doCatch >
@@ -206,6 +213,8 @@
 						
 					</camel:filter>	
 						
+					<camel:to uri="direct:setAndRetrieveSAMLHeaders"/>											
+						
 					<camel:doTry>
 					
 						<camel:setHeader headerName="subscription">
@@ -215,12 +224,37 @@
 							 <camel:method bean="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />   
 						</camel:setHeader>
 						<camel:log message="validationDueDateString is ${in.header.validationDueDateString}"/>
+						
 						<camel:choice>
 							<camel:when>
 								<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+
 								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
+								
 							</camel:when>
+							<camel:otherwise>
+								<camel:log message="Will not send subscription validation to FBI, no matching FBI subscription"/>
+							</camel:otherwise>
 						</camel:choice>
+						
+						<camel:filter>
+							<camel:simple>${in.headers.validationType} == 'civil'</camel:simple>
+							
+							<filter>
+							    <method ref="sendToSubscriptionAdapterStrategy" method="sendToAdapter"/>
+							    
+							    <camel:log message="About to send to subscription adapter as per strategy"/>
+							    
+							    <camel:doTry>
+							    	<camel:wireTap uri="direct:sendMessageToSubscriptionAdapter"/>
+							    	
+							    	<camel:doCatch>
+										<camel:exception>java.lang.Exception</camel:exception>
+										<camel:log message="Validation from subscription adapter threw exception, known issue" loggingLevel="ERROR"/>
+									</camel:doCatch>
+							    </camel:doTry>
+							</filter>							
+						</camel:filter>						
 						
 						<!-- Auditing will be perform as part of the validation -->					
 						<camel:to uri="bean:subscriptionValidationMessageProcessor?method=validateSubscription"/>

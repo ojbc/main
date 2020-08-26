@@ -893,12 +893,22 @@ public class SubscriptionSearchQueryDAO {
     }
     
     private void unsubscribeIdentificationTransaction(Integer subscriptionId){
+    	
+    	//We also set the FBI subscription status to null here since we have unsubscribed
     	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
-    			+ "SET available_for_subscription_start_date = ? WHERE subscription_id = ? ";
+    			+ "SET available_for_subscription_start_date = ?, FBI_SUBSCRIPTION_STATUS=null WHERE subscription_id = ? ";
     	
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
     }
-        
+    
+    public void updateFbiSubscriptionStatus(Integer subscriptionId, String status)
+    {
+    	final String UPDATE_FBI_SUBSCRIPTION_STATUS = "UPDATE identification_transaction "
+    			+ "SET FBI_SUBSCRIPTION_STATUS=? WHERE subscription_id = ? ";
+    	
+    	this.jdbcTemplate.update(UPDATE_FBI_SUBSCRIPTION_STATUS, status, subscriptionId);
+    }
+    
     public int unsubscribe(String subscriptionSystemId, String topic, Map<String, String> subjectIds, String systemName, String subscriptionOwner) {
 
         int returnCount;
