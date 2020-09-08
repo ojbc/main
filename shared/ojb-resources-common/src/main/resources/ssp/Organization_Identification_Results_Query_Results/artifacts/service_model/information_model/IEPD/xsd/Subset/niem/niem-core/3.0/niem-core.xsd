@@ -114,6 +114,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:DocumentCreationDate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -281,9 +282,19 @@
       <xs:documentation>A data concept for a representation of a date.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DateTime" type="niem-xs:dateTime" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A full date and time.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
     <xs:annotation>
       <xs:documentation>A binary encoding of the content of a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentCreationDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date a document was created.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EndDate" type="nc:DateType" nillable="true">
