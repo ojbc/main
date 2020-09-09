@@ -23,10 +23,11 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
-import org.apache.camel.Exchange;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorFiveYearCheck;
@@ -137,9 +138,33 @@ public class NsorFiveYearchCheckResultsQueryProcessor extends AbstractIdentifica
 		appendDocumentElement(parentElement, 
 				queryResponseElementName, 
 				documentIdString,
-				results);
+				results, nsorFiveYearCheck.getTimestamp());
 	}
 
+	protected void appendDocumentElement(Element parentElement, QueryResponseElementName elementName, String documentId, byte[] binaryData, DateTime documentCreationDate) {
+		Element element = 
+			XmlUtils.appendElement(parentElement, 
+					NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
+					elementName.name());
+		XmlUtils.addAttribute(element, NS_STRUCTURES_30, "id", documentId );
+		Element documentBinary = 
+			XmlUtils.appendElement(element, NS_NC_30, QueryResponseElementName.DocumentBinary.name());
+		Element base64BinaryObject = 
+				XmlUtils.appendElement(documentBinary, 
+						NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
+						QueryResponseElementName.Base64BinaryObject.name());
+		
+		base64BinaryObject.setTextContent(Base64.encodeBase64String(binaryData));
+
+		if (documentCreationDate != null)
+		{	
+			Element documentCreationDateElement = XmlUtils.appendElement(element, NS_NC_30, "DocumentCreationDate");
+			Element dateTimeElement = XmlUtils.appendElement(documentCreationDateElement, NS_NC_30, "DateTime");
+			
+			dateTimeElement.setTextContent(documentCreationDate.toString("yyyy-MM-dd'T'HH:mm:ss"));
+		}
+	}
+	
 	private Element createNsorFiveYearCheckQueryResponseRootElement(Document document) {
         Element rootElement = document.createElementNS(
         		NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_RESULTS_DOC,

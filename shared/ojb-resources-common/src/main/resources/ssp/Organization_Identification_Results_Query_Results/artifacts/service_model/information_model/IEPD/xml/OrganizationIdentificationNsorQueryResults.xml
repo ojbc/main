@@ -61,15 +61,24 @@
 		<nc:DocumentBinary>
 			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-22T14:02:00</nc:DateTime>
+		</nc:DocumentCreationDate>
 	</oirq-res-ext:NsorFiveYearCheckDocument>
 	<oirq-res-ext:NsorFiveYearCheckDocument structures:id="Doc_02">
 		<nc:DocumentBinary>
 			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-26T15:07:00</nc:DateTime>
+		</nc:DocumentCreationDate>
 	</oirq-res-ext:NsorFiveYearCheckDocument>
 	<oirq-res-ext:NsorFiveYearCheckDocument structures:id="Doc_05">
 		<nc:DocumentBinary>
 			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-31T15:07:00</nc:DateTime>
+		</nc:DocumentCreationDate>
 	</oirq-res-ext:NsorFiveYearCheckDocument>
 </oinfq-res-doc:OrganizationIdentificationNsorQueryResults>
