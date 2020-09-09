@@ -19,6 +19,7 @@ package org.ojbc.processor.identificationresults.query;
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,6 +147,10 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		String agencyName = XmlUtils.xPathStringSearch(body.getDocumentElement(), 
 				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/nc30:EntityOrganization/nc30:OrganizationName");
 		identificationResultsQueryResponse.setAgencyName(agencyName);
+		
+		String documentCreationDateTime = XmlUtils.xPathStringSearch(body, 
+				"/oinfq-res-doc:OrganizationIdentificationNsorQueryResults/oirq-res-ext:NsorFiveYearCheckDocument/nc30:DocumentCreationDate/nc30:DateTime");
+		identificationResultsQueryResponse.setDocumentCreationTimeStamp(LocalDateTime.parse(documentCreationDateTime));
 		log.debug("Identification Results Query Response: " + identificationResultsQueryResponse.toString());
 		return identificationResultsQueryResponse;
 	}

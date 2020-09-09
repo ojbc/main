@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.model.identificationresult.search;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -26,6 +28,7 @@ public class IdentificationResultsQueryResponse {
 	private String stateSearchResultFile; 
 	private List<String> stateCriminalHistoryRecordDocuments;
 	private String fbiSearchResultFile; 
+	private LocalDateTime documentCreationTimeStamp; 
 	private List<String> fbiIdentityHistorySummaryDocuments;
 	private List<String> nsorDemographicsDocuments;
 	private List<String> nsorSearchResultsDocuments;
@@ -36,6 +39,8 @@ public class IdentificationResultsQueryResponse {
 	private String personName; 
 	private String otn; 
 	private String agencyName; 
+	
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm a");
 	
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
@@ -120,5 +125,17 @@ public class IdentificationResultsQueryResponse {
 	}
 	public void setPersonName(String personName) {
 		this.personName = personName;
+	}
+	public LocalDateTime getDocumentCreationTimeStamp() {
+		return documentCreationTimeStamp;
+	}
+	public String getDocumentCreationTimeStampString() {
+		if (this.documentCreationTimeStamp != null) {
+			return this.documentCreationTimeStamp.format(formatter);
+		}
+		return "";
+	}
+	public void setDocumentCreationTimeStamp(LocalDateTime documentCreationTimeStamp) {
+		this.documentCreationTimeStamp = documentCreationTimeStamp;
 	}
 }
