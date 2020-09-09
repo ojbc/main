@@ -326,32 +326,22 @@
 								</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
-						<!-- ======================= Arrest Location ======================= -->
-						<lexsdigest:EntityLocation>
-							<nc:Location s:id="Arrest_Loc_1">
-								<nc:LocationAddress>
-									<nc:StructuredAddress>
-										<nc:LocationStreet>
-											<nc:StreetFullText>123 Main Street</nc:StreetFullText>
-											<nc:StreetNumberText>123</nc:StreetNumberText>
-											<nc:StreetName>Maine Street</nc:StreetName>
-										</nc:LocationStreet>
-										<nc:AddressSecondaryUnitText />
-										<nc:LocationCityName>Detroit</nc:LocationCityName>
-										<nc:LocationStateName>MI</nc:LocationStateName>
-										<nc:LocationPostalCode>96733</nc:LocationPostalCode>
-									</nc:StructuredAddress>
-									<nc:AddressFullText>123 Main Street Detroit MI 96733
-									</nc:AddressFullText>
-								</nc:LocationAddress>
-							</nc:Location>
-						</lexsdigest:EntityLocation>
 						<!-- ======================= Incident Reporting Agency ======================= -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="Incident_Agency_1">
 								<nc:OrganizationAbbreviationText>GCPD
 								</nc:OrganizationAbbreviationText>
 								<nc:OrganizationName>Genesee County Police Department
+								</nc:OrganizationName>
+							</nc:Organization>
+						</lexsdigest:EntityOrganization>
+						<!-- ======================= Prosecution Agency ======================= -->
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="Prosecution_Agency_1">
+								<nc:OrganizationAbbreviationText>GCPros
+								</nc:OrganizationAbbreviationText>
+								<nc:OrganizationCategoryText>Prosecutor</nc:OrganizationCategoryText>
+								<nc:OrganizationName>Genesee County Prosecution
 								</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
@@ -366,10 +356,6 @@
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
-							<j:ActivityLocationAssociation>
-								<nc:ActivityReference s:ref="Arrest_1" />
-								<nc:LocationReference s:ref="Arrest_Loc_1" />
-							</j:ActivityLocationAssociation>
 							<lexsdigest:ActivityResponsiblePersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Officer_P1" />
@@ -423,6 +409,10 @@
 								<nc:ActivityReference s:ref="Offense_1" />
 								<nc:PersonReference s:ref="Subject_P1" />
 							</lexsdigest:OffenseSubjectPersonAssociation>
+							<nc:ActivityInvolvedOrganizationAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:OrganizationReference s:ref="Prosecution_Agency_1" />
+							</nc:ActivityInvolvedOrganizationAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Witness_P1" />
@@ -499,6 +489,16 @@
 									<lexslib:SameAsDigestReference lexslib:ref="Res_Loc_1" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
+							<ndexia:Organization>
+								<j:OrganizationAugmentation>
+									<j:OrganizationORIIdentification>
+										<nc:IdentificationID>83655221</nc:IdentificationID>
+									</j:OrganizationORIIdentification>
+								</j:OrganizationAugmentation>
+								<ndexia:OrganizationAugmentation xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+									<lexslib:SameAsDigestReference lexslib:ref="Prosecution_Agency_1" />
+								</ndexia:OrganizationAugmentation>
+							</ndexia:Organization>
 						</ndexia:IncidentReport>
 					</lexs:StructuredPayload>
 					<lexs:StructuredPayload>
@@ -520,13 +520,7 @@
 							</inc-ext:Incident>
 							<inc-ext:Location>
 								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
-								<inc-ext:LocationTownshipCodeText>89</inc-ext:LocationTownshipCodeText>
 								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />
-							</inc-ext:Location>
-							<inc-ext:Location>
-								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
-								<inc-ext:LocationTownshipCodeText>89</inc-ext:LocationTownshipCodeText>
-								<lexslib:SameAsDigestReference lexslib:ref="Arrest_Loc_1" />
 							</inc-ext:Location>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>

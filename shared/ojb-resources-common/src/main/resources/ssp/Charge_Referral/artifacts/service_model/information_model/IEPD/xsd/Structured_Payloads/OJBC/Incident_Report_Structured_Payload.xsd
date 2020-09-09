@@ -195,7 +195,8 @@
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0" />
-					<xsd:element ref="inc-ext:LocationCountyCodeText" minOccurs="0" />					
+					<xsd:element ref="inc-ext:LocationCountyCodeText" minOccurs="0" />	
+					<xsd:element ref="inc-ext:LocationTownshipCodeText" minOccurs="0" />					
 					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -445,7 +446,13 @@
 			<xsd:documentation>A text code for a county.
 			</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>		
+	</xsd:element>
+	<xsd:element name="LocationTownshipCodeText" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>A text code for a town.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>				
 	<xsd:complexType name="IncidentCategoryCodeType">
 		<xsd:annotation>
 			<xsd:documentation>A data type to specify the kind of incident.

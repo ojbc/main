@@ -24,7 +24,14 @@
 	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<j:Warrant structures:id="Warrant_01">
+	<wir-ext:IssuingAgency>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>EA3647864</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</wir-ext:IssuingAgency>
+		<j:Warrant structures:id="Warrant_01">
 		<j:CourtOrderDesignatedSubject>
 			<nc:RoleOfPerson structures:ref="Person_01" />
 		</j:CourtOrderDesignatedSubject>

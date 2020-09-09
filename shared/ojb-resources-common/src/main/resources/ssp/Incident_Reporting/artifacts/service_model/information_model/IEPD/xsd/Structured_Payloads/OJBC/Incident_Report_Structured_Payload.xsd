@@ -111,6 +111,8 @@
 					<xsd:element ref="inc-ext:IncidentCallReceivedCodeText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:IncidentRecordSecurityIdentification" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:IncidentLongTermCallIdentification" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentCallerText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentNarrative" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -282,6 +284,7 @@
 					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:LocationAreaCodeText" minOccurs="0" />
 					<xsd:element ref="inc-ext:LocationCountyCodeText" minOccurs="0" />
+					<xsd:element ref="inc-ext:LocationTownshipCodeText" minOccurs="0" />					
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -593,6 +596,19 @@
 					<xsd:element ref="inc-ext:ScopeAlignmentTestPassIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:KnownDistanceTestPassIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:DisplayLightsTestPassIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a paper or electronic document.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:DocumentSequenceID" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1406,6 +1422,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="LocationTownshipCodeText" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>A text code for a town.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IncidentCallReceivedCodeText" type="niem-xsd:string">
 		<xsd:annotation>
 			<xsd:documentation>A text code for how an incident call was received.</xsd:documentation>
@@ -1419,6 +1441,21 @@
 	<xsd:element name="IncidentLongTermCallIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A long term call identification assigned to an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentCallerText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A person or organization that places an incident call.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
+	<xsd:element name="IncidentNarrative" type="inc-ext:DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A documented narrative associated with an incident.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentSequenceID" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>An identifier that determines the document order in a set of related documents.=.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonNameRecordNumber" type="niem-xsd:string">
