@@ -46,7 +46,7 @@
 			</ul>
  			<div id="nsor5YearCheckTab">
  				<div class="mx-auto mb-4">
- 					<p class="text-center">Date/Time: </p>
+ 					<p class="text-center">Date/Time: $identificationResultsQueryResponse.documentCreationTimeStampString</p>
  					<p class="text-center font-weight-bold"><u>Hawaii Criminal Justice Data Center</u><br><u>NSOR Search Results</u></p>
  					
  					<p class="text-center mt-3">Applicant <br> Response from NSOR</p> 

@@ -34,7 +34,7 @@
            {
                "targets":[3], 
                "type":"name"
-           },
+           }
          ],
 	     "aoColumns": [
 		      { "bSortable": false, "bSearchable":false },
