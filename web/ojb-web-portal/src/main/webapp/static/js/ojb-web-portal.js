@@ -21,7 +21,7 @@ jQuery(function() {
 });
 
 var ua = window.navigator.userAgent;
-var isIE = /MSIE|Trident|Edge\//.test(ua);
+var isIE = /MSIE|Trident/.test(ua);
 
 $(function() {
 	xhr = null;
