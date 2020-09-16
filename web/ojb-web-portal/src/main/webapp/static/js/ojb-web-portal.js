@@ -20,6 +20,9 @@ jQuery(function() {
    if('placeholder' in test) jQuery.support.placeholder = true;
 });
 
+var ua = window.navigator.userAgent;
+var isIE = /MSIE|Trident|Edge\//.test(ua);
+
 $(function() {
 	xhr = null;
 	$.ajaxSetup ({
@@ -292,14 +295,21 @@ ojbc = {
 		heightIncrement = heightIncrement || 0;
 		ojbc.clearErrorMessage();
         $('#modalIframe').attr('src', url);	
-      	$('#detailModal').modal('show');
  		$("#modalIframe").load( function() {
- 			var iframeHeight = $('iframe').contents().height() + heightIncrement; 
+ 			iframeHeight = $('iframe').contents().height() + heightIncrement;
  			if (iframeHeight > 123){
- 				$(this).css('height', iframeHeight);
+ 				if (isIE){
+	 				setTimeout(function(){
+	 					$('iframe').css('height', iframeHeight);
+	 				}, 300); 
+ 				}
+ 				else{
+ 					$('iframe').css('height', iframeHeight);
+ 				}
  			}
-			$("#modalIframeSpinner").hide();				
+ 			$("#modalIframeSpinner").hide();				
 		});
+      	$('#detailModal').modal('show');
 	},
 	
 	clearErrorMessage : function(){
