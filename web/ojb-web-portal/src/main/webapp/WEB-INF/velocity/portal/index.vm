@@ -80,14 +80,13 @@
 			 		else{
 			     		var loadingDiv =  $("#loadingAjaxPane");
 			     		var mainContentDiv = $("#mainContent");
-			     		
 			     		if($(".searchCancelSection").length > 0){
-			     			loadingDiv.height(mainContentDiv.height() + 20);
+				     		loadingDiv.css('height',mainContentDiv.height() + 20);
 			     		}
 			     		else{
-			     			loadingDiv.height(mainContentDiv.height());
+				     		loadingDiv.css('height',mainContentDiv.height());
 			     		}
-			     		loadingDiv.width(mainContentDiv.width());
+						loadingDiv.css('width', mainContentDiv.width());
 			     		
 			          	$("#loadingAjaxPane").show();          	
 			 		}   	
