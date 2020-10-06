@@ -79,36 +79,21 @@
 	  
  		
   </script>
-<div id="searchResultsContainer" class="contentBox" >
+  <div>
 	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb pb-0">
+		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="incidentSearchLink">Incident Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Incident Search Results</li>
 		</ol>
 	</nav>
-	<div class="card">
-		<div class="card-header container-fluid">
-		  <div class="row ml-1 h-100">
-		    <div class="my-auto font-weight-bold">
-		      SEARCH RESULTS: INCIDENT
-		    </div>
-		    <div class="ml-auto mr-3">
-		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-secondary small">RETURN TO SEARCH</button>
-		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto small" >NEW SEARCH</button>
-		    </div>
-		  </div>
+	#if($informationMessages && $informationMessages!='')
+		<div class="alert alert-danger" role="alert" id="informationMessages" >
+			$informationMessages
 		</div>
-		<div class="card-body">
-			#if($informationMessages && $informationMessages!='')
-				<div class="alert alert-danger" role="alert" id="informationMessages" >
-					$informationMessages
-				</div>
-			#end
-			$searchContent								
-		</div>
-	</div>
-</div>
+	#end
+	$searchContent
+  </div>								
 <div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
 	<div class="modal-content">
