@@ -17,10 +17,13 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -467,6 +470,14 @@
 								</j:ArrestCharge>
 								<lexslib:SameAsDigestReference lexslib:ref="Arrest_1" />
 							</inc-ext:Arrest>
+							<inc-ext:Victim>
+								<inc-ext:VictimCategoryCode>2</inc-ext:VictimCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Victim_P1" />
+							</inc-ext:Victim>
+							<inc-ext:Witness>
+								<inc-ext:WitnessCategoryCode>SO</inc-ext:WitnessCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Witness_P1" />
+							</inc-ext:Witness>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
 								<j:PersonAugmentation>

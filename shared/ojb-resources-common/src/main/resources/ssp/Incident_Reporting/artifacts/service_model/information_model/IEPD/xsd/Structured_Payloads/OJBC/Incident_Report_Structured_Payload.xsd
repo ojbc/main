@@ -59,6 +59,7 @@
 					<xsd:element ref="inc-ext:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:Victim" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Witness" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:EnforcementOfficial" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:RecordCategoryText" minOccurs="0" maxOccurs="unbounded" />
@@ -284,7 +285,7 @@
 					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:LocationAreaCodeText" minOccurs="0" />
 					<xsd:element ref="inc-ext:LocationCountyCodeText" minOccurs="0" />
-					<xsd:element ref="inc-ext:LocationTownshipCodeText" minOccurs="0" />					
+					<xsd:element ref="inc-ext:LocationTownshipCodeText" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -313,6 +314,21 @@
 			<xsd:extension base="j:VictimType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:VictimNarrativeText" minOccurs="0" />
+					<xsd:element ref="inc-ext:VictimCategory" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="WitnessType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a person who observes an incident.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:WitnessType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:WitnessCategory" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -722,6 +738,12 @@
 	<xsd:element name="Victim" type="inc-ext:VictimType">
 		<xsd:annotation>
 			<xsd:documentation>A person who suffers injury, loss, or death as a result of an incident.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Witness" type="inc-ext:WitnessType">
+		<xsd:annotation>
+			<xsd:documentation>A person who observes an incident.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -1447,7 +1469,7 @@
 		<xsd:annotation>
 			<xsd:documentation>A person or organization that places an incident call.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>	
+	</xsd:element>
 	<xsd:element name="IncidentNarrative" type="inc-ext:DocumentType">
 		<xsd:annotation>
 			<xsd:documentation>A documented narrative associated with an incident.</xsd:documentation>
@@ -1499,4 +1521,173 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="VictimCategory" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A kind of victim.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VictimCategoryCode" type="inc-ext:VictimCategoryCodeType" substitutionGroup="inc-ext:VictimCategory">
+		<xsd:annotation>
+			<xsd:documentation>A kind of victim.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="VictimCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of victim.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="inc-ext:VictimCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="VictimCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of witness.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Assault</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Regular</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Child</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation>Deceased</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Guardian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation>Police Officer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="7">
+				<xsd:annotation>
+					<xsd:documentation>Check</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="8">
+				<xsd:annotation>
+					<xsd:documentation>Business</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="9">
+				<xsd:annotation>
+					<xsd:documentation>Domestic Violence 0 - Disposition Witness</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="WitnessCategory" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A kind of witness.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WitnessCategoryCode" type="inc-ext:WitnessCategoryCodeType"
+		substitutionGroup="inc-ext:WitnessCategory">
+		<xsd:annotation>
+			<xsd:documentation>A kind of witness.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="WitnessCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of witness.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="inc-ext:WitnessCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="WitnessCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type to specify the kind of witness.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="EX">
+				<xsd:annotation>
+					<xsd:documentation>Expert</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EY">
+				<xsd:annotation>
+					<xsd:documentation>Eye Witness</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="IB">
+				<xsd:annotation>
+					<xsd:documentation>Identification Bureau</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="IN">
+				<xsd:annotation>
+					<xsd:documentation>Investigator</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ME">
+				<xsd:annotation>
+					<xsd:documentation>Medical</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OC">
+				<xsd:annotation>
+					<xsd:documentation>Officer In Charge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OT">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OW">
+				<xsd:annotation>
+					<xsd:documentation>OIC Signing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PO">
+				<xsd:annotation>
+					<xsd:documentation>Police Officer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SO">
+				<xsd:annotation>
+					<xsd:documentation>School Officer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SP">
+				<xsd:annotation>
+					<xsd:documentation>Special/Rebutta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SW">
+				<xsd:annotation>
+					<xsd:documentation>Supplemental Witness</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VI">
+				<xsd:annotation>
+					<xsd:documentation>Victim</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
