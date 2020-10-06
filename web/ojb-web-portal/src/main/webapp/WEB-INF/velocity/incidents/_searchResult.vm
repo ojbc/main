@@ -80,6 +80,13 @@
  		
   </script>
 <div id="searchResultsContainer" class="contentBox" >
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb pb-0">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="incidentSearchLink">Incident Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Incident Search Results</li>
+		</ol>
+	</nav>
 	<div class="card">
 		<div class="card-header container-fluid">
 		  <div class="row ml-1 h-100">
