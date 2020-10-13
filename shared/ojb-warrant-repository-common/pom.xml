@@ -33,7 +33,7 @@
 	</parent>
 
 	<properties>
-		<junit.version>4.10</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<commons.lang.version>2.4</commons.lang.version>
 		<spring.version>3.2.11.RELEASE</spring.version>	
 		<java-version>1.8</java-version>
