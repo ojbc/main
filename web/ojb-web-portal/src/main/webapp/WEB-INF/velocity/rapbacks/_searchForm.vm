@@ -24,7 +24,7 @@
 		       showOn: "both",
 		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
 		       buttonImageOnly: true,
-		       dateFormat: 'mm/dd/yy',
+		       dateFormat: 'mm/dd/yy'
 		    });
 		    
 			$('#advanceSearchSubmitButton').click (function(){
