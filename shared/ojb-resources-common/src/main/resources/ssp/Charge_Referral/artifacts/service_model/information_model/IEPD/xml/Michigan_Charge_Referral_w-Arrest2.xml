@@ -29,7 +29,7 @@
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
 				<lexs:PDMessageMetadata>
-					<lexs:LEXSVersion> </lexs:LEXSVersion>
+					<lexs:LEXSVersion />
 					<lexs:MessageDateTime>2011-07-22T01:01:01</lexs:MessageDateTime>
 					<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
 					<lexs:DataSensitivity>SBU</lexs:DataSensitivity>
@@ -421,6 +421,12 @@
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:PersonReference s:ref="Officer_P1" />
+								<nc:PersonActivityInvolvementText>Witness
+								</nc:PersonActivityInvolvementText>
+							</nc:ActivityInvolvedPersonAssociation>
+							<nc:ActivityInvolvedPersonAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Victim_P1" />
 								<nc:PersonActivityInvolvementText>Victim
 								</nc:PersonActivityInvolvementText>
@@ -529,6 +535,10 @@
 							<inc-ext:Witness>
 								<inc-ext:WitnessCategoryCode>SO</inc-ext:WitnessCategoryCode>
 								<lexslib:SameAsDigestReference lexslib:ref="Witness_P1" />
+							</inc-ext:Witness>
+							<inc-ext:Witness>
+								<inc-ext:WitnessCategoryCode>AR</inc-ext:WitnessCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Officer_P1" />
 							</inc-ext:Witness>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
