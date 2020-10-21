@@ -274,6 +274,22 @@
 								<j:WitnessAccountDescriptionText>Witness saw the crime take place.</j:WitnessAccountDescriptionText>
 							</j:Witness>
 						</lexsdigest:EntityPerson>
+						<!-- ======================= Witness ======================= -->
+						<lexsdigest:EntityPerson>
+							<lexsdigest:Person s:id="Witness_P2">
+								<nc:PersonName>
+									<nc:PersonGivenName>John</nc:PersonGivenName>
+									<nc:PersonSurName>Jones</nc:PersonSurName>
+									<nc:PersonNameSuffixText />
+								</nc:PersonName>
+							</lexsdigest:Person>
+							<j:EnforcementOfficial s:id="Officer_2">
+								<nc:RoleOfPersonReference s:ref="Witness_P2" />
+								<j:EnforcementOfficialBadgeIdentification>
+									<nc:IdentificationID>B12345</nc:IdentificationID>
+								</j:EnforcementOfficialBadgeIdentification>
+							</j:EnforcementOfficial>
+						</lexsdigest:EntityPerson>
 						<!-- ======================= Residential Location ======================= -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="Res_Loc_1">
@@ -375,17 +391,27 @@
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Officer_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+								<nc:PersonActivityInvolvementText>Arresting Officer</nc:PersonActivityInvolvementText>
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Witness_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+								<nc:PersonActivityInvolvementText>Witness</nc:PersonActivityInvolvementText>
+							</nc:ActivityInvolvedPersonAssociation>
+							<nc:ActivityInvolvedPersonAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:PersonReference s:ref="Witness_P2" />
+								<nc:PersonActivityInvolvementText>Witness</nc:PersonActivityInvolvementText>
+							</nc:ActivityInvolvedPersonAssociation>
+							<nc:ActivityInvolvedPersonAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:PersonReference s:ref="Officer_P1" />
+								<nc:PersonActivityInvolvementText>Witness</nc:PersonActivityInvolvementText>
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Victim_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+								<nc:PersonActivityInvolvementText>Victim</nc:PersonActivityInvolvementText>
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityReportingOrganizationAssociation>
 								<nc:ActivityReference s:ref="Arrest_1" />
@@ -477,6 +503,14 @@
 							<inc-ext:Witness>
 								<inc-ext:WitnessCategoryCode>SO</inc-ext:WitnessCategoryCode>
 								<lexslib:SameAsDigestReference lexslib:ref="Witness_P1" />
+							</inc-ext:Witness>
+							<inc-ext:Witness>
+								<inc-ext:WitnessCategoryCode>AS</inc-ext:WitnessCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Witness_P2" />
+							</inc-ext:Witness>
+							<inc-ext:Witness>
+								<inc-ext:WitnessCategoryCode>AR</inc-ext:WitnessCategoryCode>
+								<lexslib:SameAsDigestReference lexslib:ref="Officer_P1" />
 							</inc-ext:Witness>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
