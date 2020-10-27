@@ -51,9 +51,25 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
 			</wsdl:input>
 		</wsdl:operation>
 	</wsdl:binding>
+	
+	<!-- Secure Binding, no GFIPM -->
+	<wsdl:binding name="Charge-Referral-ServiceSSLSOAPBinding" type="tns:Charge-Referral-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SubmitChargeReferral">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0/SubmitChargeReferral" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>	
+	
 	<wsdl:service name="Charge-Referral-ServiceService">
 		<wsdl:port name="Charge-Referral-Service" binding="tns:Charge-Referral-ServiceSOAPBinding">
 			<soap:address location="http://localhost"/>
 		</wsdl:port>
+		<wsdl:port name="Charge-Referral-SSL-Service" binding="tns:Charge-Referral-ServiceSSLSOAPBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>		
 	</wsdl:service>
+	
 </wsdl:definitions>
