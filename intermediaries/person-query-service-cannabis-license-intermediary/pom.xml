@@ -252,7 +252,7 @@
 							org.h2.jdbcx,
 							*
 						</Import-Package>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>
