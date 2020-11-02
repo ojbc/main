@@ -92,6 +92,67 @@
 			<!-- Note, if updating license plugin config here, Ensure the second duplicate 
 				declaration is updated also in ojb-build-common project (Plugin declared twice 
 				to avoid cyclic dependency) -->
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>3.0</version>
+
+				<!-- Reference jar with license txt file on classpath -->
+				<dependencies>
+					<dependency>
+						<groupId>org.ojbc.build</groupId>
+						<artifactId>ojb-build-common</artifactId>
+						<version>1.0.0</version>
+					</dependency>
+				</dependencies>
+
+				<configuration>
+					<!-- Reference license on plugin classpath -->
+					<header>ojb-license.txt</header>
+					<aggregate>true</aggregate>
+					<excludes>
+						<exclude>**/jquery-datatable/**</exclude>
+						<exclude>**/jquery-ui-themes-1.12.1/**</exclude>
+						<exclude>**/jquery-ui-1.12.1/**</exclude>
+						<exclude>**/jquery-ui/**</exclude>
+						<exclude>**/jquery.maskinput.js</exclude>
+						<exclude>**/bin/**</exclude>
+						<!-- note not excluding static/js/ojb-web-portal.js -->
+						<exclude>**/ebts-10.0-ws-specification/**</exclude>
+						<exclude>**/static/DataTables/**</exclude>
+						<exclude>**/static/bootstrap/**</exclude>
+						<exclude>**/static/jquery/**</exclude>
+					</excludes>
+					<includes>
+						<include>**/*.java</include>
+						<include>**/*.xml</include>
+						<include>**/*.xslt</include>
+						<include>**/*.xsd</include>
+						<include>**/*.wsdl</include>
+						<include>**/*.xsl</include>
+						<include>**/*.xslt</include>
+						<include>**/*.vm</include>
+						<include>**/*.html</include>
+						<include>**/*.js</include>
+						<include>**/*.sql</include>
+						<include>**/*.css</include>
+					</includes>
+					<mapping>
+						<java>SLASHSTAR_STYLE</java>
+						<wsdl>XML_STYLE</wsdl>
+						<xslt>XML_STYLE</xslt>
+						<sql>SLASHSTAR_STYLE</sql>
+					</mapping>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- bind check goal to run on its default phase(validate) -->
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>		
 
 		</plugins>
 	</build>
@@ -181,7 +242,7 @@
 				          </goals>
 				        </execution>
 				      </executions>
-				    </plugin>					
+				    </plugin>							
 					
 				</plugins>
 			</build>
