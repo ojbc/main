@@ -225,7 +225,7 @@
 						</Import-Package>
 						<Export-Package>
 						</Export-Package>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>
