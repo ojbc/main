@@ -30,7 +30,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
 		<camel:endpoint id="chargeReferralReportingIntermediaryEndpoint"
 			uri="cxf:bean:chargeReferralReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}&amp;allowStreaming=false" />
@@ -114,6 +114,12 @@
 			
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 		
+	<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
+	    <property name="spoolDirectory" value="${java.io.tmpdir}/camelcache/#uuid#/"/>
+	    <property name="spoolThreshold" value="65536"/>
+	    <property name="spoolUsedHeapMemoryThreshold" value="70"/>
+	    <property name="anySpoolRules" value="true"/>
+	</bean>   		
 </beans>
 
 
