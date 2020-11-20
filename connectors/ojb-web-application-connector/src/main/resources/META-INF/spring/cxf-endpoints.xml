@@ -197,7 +197,7 @@
 	
 		<cxf:cxfEndpoint id="personQueryCannabisLicenseResultsService"
 			address="${webapplication.personQuery.personQueryResultsHandlerCannabisLicenseEndpoint}"
-			wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
+			wsdlURL="ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
 			serviceName="ojbc:Cannabis_License_Query_Results_Service_Service" 
 			endpointName="ojbc:Cannabis_License_Query_Results_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0">
