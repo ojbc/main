@@ -40,10 +40,7 @@
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
     	       buttonImageOnly: true,
     	       shortYearCutoff: "+10",
-    	       dateFormat: 'mm/dd/yy',
-      	       onClose: function(dateText, inst) {
-          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
-    	       }
+    	       dateFormat: 'mm/dd/yy'
     	    });
 	  });	
 
@@ -65,7 +62,7 @@
 			<label>DOB:</label>
 		</td>
 		<td>
-			#springFormInput("subscription.dateOfBirth" "style='width:110px' class='enabledDatePicker' placeholder='DOB'")
+			#springFormInput("subscription.dateOfBirth" "style='width:120px' class='enabledDatePicker' placeholder='DOB'")
 		</td>
 	</tr>
 
@@ -75,9 +72,9 @@
 		</td>
 		<td>
 			#if( ${isStartDateEditable} )
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
+				#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='enabledDatePicker' placeholder='From'")
 			#else
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")
+				#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")
 			#end
 		</td>
 	</tr>
@@ -88,9 +85,9 @@
 		</td>
 		<td>
 			#if( ${isEndDateEditable} )
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='No End Date'")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='enabledDatePicker' placeholder='No End Date'")
 			#else
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='No End Date' readonly='readonly' ")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='disabledDatePicker' placeholder='No End Date' readonly='readonly' ")
 			#end							
 		</td>
 	</tr>			

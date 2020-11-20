@@ -19,22 +19,32 @@
 -->
 <firearm-search-resp-doc:FirearmSearchResults
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:firearm-search-resp-doc="http://ojbc.org/IEPD/Exchange/FirearmSearchResults/1.0"
 	xmlns:firearm-search-resp-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchResults/1.0"
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<firearm-search-resp-ext:FirearmSystemResponseSummary>
+		<firearm-search-resp-ext:FirearmSystem>
+			<intel:SystemName>Name1</intel:SystemName>
+			<firearm-search-resp-ext:SourceSystemNameText>SystemURL1</firearm-search-resp-ext:SourceSystemNameText>
+			<firearm-search-resp-ext:FirearmResultCountQuantity>2</firearm-search-resp-ext:FirearmResultCountQuantity>
+		</firearm-search-resp-ext:FirearmSystem>
+		<firearm-search-resp-ext:FirearmSystem>
+			<intel:SystemName>Name2</intel:SystemName>
+			<firearm-search-resp-ext:SourceSystemNameText>SystemURL2</firearm-search-resp-ext:SourceSystemNameText>
+			<firearm-search-resp-ext:FirearmResultCountQuantity>0</firearm-search-resp-ext:FirearmResultCountQuantity>
+		</firearm-search-resp-ext:FirearmSystem>
+	</firearm-search-resp-ext:FirearmSystemResponseSummary>
 	<firearm-search-resp-ext:FirearmSearchResult s:id="FSR1">
 		<nc:Person s:id="REGISTRANT-1">
 			<nc:PersonName>
-					<nc:PersonGivenName>Joe</nc:PersonGivenName>
-					<nc:PersonMiddleName>J</nc:PersonMiddleName>
-					<nc:PersonSurName>Smith</nc:PersonSurName>
+				<nc:PersonGivenName>Joe</nc:PersonGivenName>
+				<nc:PersonMiddleName>J</nc:PersonMiddleName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
 		<firearm-search-resp-ext:Firearm s:id="FIREARM-1">
@@ -58,7 +68,7 @@
 			<nc:RegistrationIdentification>
 				<nc:IdentificationID>123456</nc:IdentificationID>
 			</nc:RegistrationIdentification>
-			<!--nc:LocationCountyName>Williams</nc:LocationCountyName-->
+			<!--nc:LocationCountyName>Williams</nc:LocationCountyName -->
 			<nc:RegistrationEffectiveDate>
 				<nc:Date>2008-09-07</nc:Date>
 			</nc:RegistrationEffectiveDate>
@@ -67,10 +77,9 @@
 		<nc:PropertyRegistrationAssociation>
 			<nc:ItemRegistrationReference s:ref="REGISTRATION-1" />
 			<nc:ItemReference s:ref="FIREARM-1" />
-			<nc:ItemRegistrationHolderReference
-				s:ref="REGISTRANT-1" />
+			<nc:ItemRegistrationHolderReference s:ref="REGISTRANT-1" />
 		</nc:PropertyRegistrationAssociation>
-		<firearm-search-resp-ext:SourceSystemNameText>Formal System Name Goes Here</firearm-search-resp-ext:SourceSystemNameText>
+		<firearm-search-resp-ext:SourceSystemNameText>System1</firearm-search-resp-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>123456</nc:IdentificationID>
 			<intel:SystemName>Maui Firearms</intel:SystemName>
@@ -101,7 +110,7 @@
 			<nc:RegistrationIdentification>
 				<nc:IdentificationID>1234567</nc:IdentificationID>
 			</nc:RegistrationIdentification>
-				<!--nc:LocationCountyName>Williams</nc:LocationCountyName-->
+			<!--nc:LocationCountyName>Williams</nc:LocationCountyName -->
 			<nc:RegistrationEffectiveDate>
 				<nc:Date>2008-09-07</nc:Date>
 			</nc:RegistrationEffectiveDate>
@@ -113,10 +122,9 @@
 		<nc:PropertyRegistrationAssociation>
 			<nc:ItemRegistrationReference s:ref="REGISTRATION-2" />
 			<nc:ItemReference s:ref="FIREARM-2" />
-			<nc:ItemRegistrationHolderReference
-				s:ref="REGISTRANT-2" />
+			<nc:ItemRegistrationHolderReference s:ref="REGISTRANT-2" />
 		</nc:PropertyRegistrationAssociation>
-		<firearm-search-resp-ext:SourceSystemNameText>Formal System Name Goes Here</firearm-search-resp-ext:SourceSystemNameText>
+		<firearm-search-resp-ext:SourceSystemNameText>System1</firearm-search-resp-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>1234567</nc:IdentificationID>
 			<intel:SystemName>Maui Firearms</intel:SystemName>

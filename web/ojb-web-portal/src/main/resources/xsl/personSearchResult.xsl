@@ -53,43 +53,37 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
    		<xsl:if test="exc:RecordLimitExceededIndicator='true'">
-   			<span class="error">Unable to perform Entity Resolution. The search returned too many records.</span>
+   			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
     	
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-	    		<table class="searchResultsTable display" id="personSearchResultsTable">
-	    			<thead>
-		    			<tr>
-		    				<th>ENTITY</th>
-		    				<th>NAME</th>
-		    				<th>FBI ID</th>
-		    				<th>SID</th>
-		    				<th>SSN</th>
-		    				<th>DL#</th>
-		    				<th>S</th>
-		    				<th>R</th>
-		    				<th>DOB</th>
-		    				<th>TYPE</th>
-		    				<th>SYSTEM</th>
-                            <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
-		    				  <th>ACTION</th>
-                            </xsl:if>
-		    			    <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-		    			</tr>
-	    			</thead>
-	    			<tbody>
-	    				<xsl:apply-templates select="exc:EntityContainer/ext:Entity">
-	    				</xsl:apply-templates>
-	    			</tbody>
-	    		</table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer >= 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+   		<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchResultsTable">
+   			<thead>
+    			<tr>
+    				<th>ENTITY</th>
+    				<th>NAME</th>
+    				<th>FBI ID</th>
+    				<th>SID</th>
+    				<th>SSN</th>
+    				<th>DL#</th>
+    				<th>S</th>
+    				<th>R</th>
+    				<th>DOB</th>
+    				<th>TYPE</th>
+    				<th>SYSTEM</th>
+                    <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
+    				  <th>ACTION</th>
+                    </xsl:if>
+    			    <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+    			</tr>
+   			</thead>
+   			<tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">	
+    				<xsl:apply-templates select="exc:EntityContainer/ext:Entity">
+    				</xsl:apply-templates>
+		    	</xsl:if>
+   			</tbody>
+  		</table>
+    	
     </xsl:template>
 
 	<!-- this will print a "merge" on the results screen -->
@@ -131,15 +125,15 @@
             <xsl:variable name="person" select="ext1:Person"/>    
             <xsl:variable name="personName" select="$person/nc:PersonName[1]"/>
             <tr>
-            	<td style="width:5%;"><xsl:value-of select="$entityCount"/></td>
-                <td style="width:15%;">
+            	<td><xsl:value-of select="$entityCount"/></td>
+                <td>
                     <b>
                     <xsl:value-of select="concat($personName/nc:PersonSurName, ', ',$personName/nc:PersonGivenName, ' ',$personName/nc:PersonMiddleName )" />
                     </b>
                 </td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID" /></td>
-                <td style="width:10%;">
+                <td>
                     <xsl:call-template name="formatSSN">
                     	<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
                     </xsl:call-template>
@@ -158,14 +152,14 @@
                 	<xsl:apply-templates select="$person/nc:PersonBirthDate[1]/nc:Date" mode="formatDateAsMMDDYYYY"/>
                 </td>
                 <td ><xsl:value-of select="ext1:SearchResultCategoryText" /></td>
-                <td style="width:15%;"><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
+                <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
 
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
                     <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType, '&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$personId)}"
                         >DETAILS</a>
@@ -192,11 +186,10 @@
 
     <xsl:template name="personInformationDetail" >
         <xsl:param name="personSearchResult"/>
-        <table style="width:100%">
-            <tr>
-                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-                <td> 
-                    <table class="detailsTable">
+        	<div class="row">
+                <div class="col-12 col-sm-3 align-top"><div class="bigPersonImage"></div></div>
+                <div class="col-12 col-sm-9 table-responsive"> 
+                    <table class="detailsTable table">
                         <tr>
                             <td class="detailsLabel">FULL NAME </td>
                             <td><xsl:value-of select="concat($personSearchResult/ext1:Person/nc:PersonName/nc:PersonGivenName,' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonMiddleName, ' ', $personSearchResult/ext1:Person/nc:PersonName/nc:PersonSurName)" /></td>
@@ -322,10 +315,8 @@
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID"/></td>
                         </tr>
                     </table>
-                </td>                
-            </tr>
-        </table>
-    
+                </div>                
+        	</div>
     </xsl:template>
     
     <xsl:template match="nc:ContactInformation" mode="homePhone">
@@ -340,19 +331,27 @@
     </xsl:template>
     
     <xsl:template match="nc:PersonPhysicalFeature">
-		<p><xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/></p>
+		<p>
+			<xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/>
+		</p>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.</span><br />
+		<div class="alert alert-warning" role="alert">
+			User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+		<div class="alert alert-warning" role="alert">
+  			System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</span><br />
+		<div class="alert alert-warning" role="alert">
+			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+		</div>
 	</xsl:template>
 	
 </xsl:stylesheet>

@@ -22,10 +22,16 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateSerializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class PersonSearchRequest {
 
-	private Integer personSearchRequestID;
+	private Integer personSearchRequestId;
 	
 	private String firstName;
 	
@@ -41,8 +47,12 @@ public class PersonSearchRequest {
 	
 	private String lastNameQualifierCode;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobFrom;
 	
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate dobTo;
 	
 	private String ssn;
@@ -73,12 +83,16 @@ public class PersonSearchRequest {
 	
 	private Integer userInfofk;
 	
+	private UserInfo userInfo;
+	
 	private Integer height;
 	
 	private Integer heightMin;
 	
 	private Integer heightMax;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 	
 	public String getFirstName() {
@@ -269,12 +283,12 @@ public class PersonSearchRequest {
 		this.lastNameQualifierCode = lastNameQualifierCode;
 	}
 
-	public Integer getPersonSearchRequestID() {
-		return personSearchRequestID;
+	public Integer getPersonSearchRequestId() {
+		return personSearchRequestId;
 	}
 
-	public void setPersonSearchRequestID(Integer personSearchRequestID) {
-		this.personSearchRequestID = personSearchRequestID;
+	public void setPersonSearchRequestId(Integer personSearchRequestId) {
+		this.personSearchRequestId = personSearchRequestId;
 	}
 
 	public Integer getHeight() {
@@ -307,6 +321,14 @@ public class PersonSearchRequest {
 
 	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 }

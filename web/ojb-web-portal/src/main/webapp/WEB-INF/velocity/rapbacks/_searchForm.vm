@@ -20,17 +20,11 @@
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
  		  ojbc.handleEsc();
-    	  $( "#searchTabs" ).tabs();
-    	  
 		    $( ".datePicker" ).datepicker({
 		       showOn: "both",
 		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
 		       buttonImageOnly: true,
-		       shortYearCutoff: "+10",
-		       dateFormat: 'mm/dd/yy',
-		       onClose: function(dateText, inst) {
-		  		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
-		       }
+		       dateFormat: 'mm/dd/yy'
 		    });
 		    
 			$('#advanceSearchSubmitButton').click (function(){
@@ -71,62 +65,67 @@
 	
 	  });
   </script>
-
-<div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">ADVANCED SEARCH: RAP BACK</div>
-    <ul>
-        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
-    </ul>
-    <div id="advancedSearchTab">
-  	    <form id='advancedSearchForm' >
-            #if($errors.hasGlobalErrors())
-                #foreach( $globalError in $errors.globalErrors )
-                    <div class="error"> $globalError.defaultMessage </div>
-                #end
-            #end
-			<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
-    	  		<table>
-    	  			<tr>
-    	  				<td>
-    				        <p class="searchSubHeader"> NAME</p>
-    				        <div>#springFormInput("rapbackSearchRequest.firstName" "placeholder='First Name'") </div>
-    				        <div>#springFormInput("rapbackSearchRequest.lastName" "placeholder='Last Name'")</div>
-    				        
-   				        	<div class="labelText" >
-    				        	<p class="searchSubHeader">Reported Date </p>
-    				        	 From: #springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
-    				        		&nbsp;To:&nbsp;#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
-    				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
-                                #springShowErrors( "<br/>" "error" )
-    				        </div>
-							
-							<div class="labelText">
-								<p class="searchSubHeader"> Identification Result Status</p>
-								#springFormCheckboxes("rapbackSearchRequest.identificationTransactionStatus" $identificationResultStatusCodeMap " " "")
-							</div>    				        
-							<div class="labelText">
-								<p class="searchSubHeader"> Civil Identification Reason Code</p>
-								#springFormCheckboxes("rapbackSearchRequest.civilIdentificationReasonCodes" $civilIdentificationReasonCodeMap "<br>" "")
-							</div>    				        
-    		        	</td>
-    		        	<td>
-						    <p class="searchSubHeader" >IDENTIFIERS</p>
-						    <div>
-						       #springFormInput("rapbackSearchRequest.sid" "placeholder='SID #'")
-						       #springShowErrors( "<br/>" "error" )
+  
+	<div class="card" id="searchTabs">
+		<div class="card-header">
+			<div class="pl-0" id="search-results-title">
+		    	ADVANCED SEARCH: RAP BACK
+		    </div>
+		</div>
+		<div class="card-body" id="advancedSearchTab">
+	  	    <form id='advancedSearchForm' >
+	            #if($errors.hasGlobalErrors())
+	                #foreach( $globalError in $errors.globalErrors )
+	                    <div class="error"> $globalError.defaultMessage </div>
+	                #end
+	            #end
+				<input type="hidden" name="${status.expression}" value="ADVANCED" />
+	    	  		<div class="row">
+		  				<div class="col">
+						    <div class="form-group">
+						        <label class="searchSubHeader"> NAME</label>
+						        #springFormInput("rapbackSearchRequest.firstName" "placeholder='FIRST NAME' class='form-control form-control-sm'")
+					        </div>
+					        <div class="form-group">
+						        #springFormInput("rapbackSearchRequest.lastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
 						    </div>
-						    <div>
-						  	  #springFormInput("rapbackSearchRequest.ucn" "placeholder='UCN #'")
-						  	  #springShowErrors( "<br/>" "error" ) 
+			        		<label class="searchSubHeader">Reported Date Range</label>
+					        <div class="form-group">
+				        		#springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
+				        		#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
+				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
+					        </div>
+							<label class="searchSubHeader">Identification Result Status</label>
+							<div class="form-check-inline">
+				  				<label class="form-check-label form-control-sm">
+									#springFormCheckboxes("rapbackSearchRequest.identificationTransactionStatus" $identificationResultStatusCodeMap " " "")
+								</label>
+							</div>
+						</div>    				        
+			        	<div class="col">
+						    <label class="searchSubHeader">IDENTIFIERS</label>
+						    <div class="form-group">
+						       #springFormInput("rapbackSearchRequest.sid" "placeholder='SID #' class='form-control form-control-sm'")
+						       #springShowErrors( "<br/>" "error pl-2" )
 						    </div>
-    				        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN'")</div>
-    		        	</td>
-    	        	<tr>
-    	        </table>
-    	        <div class="searchCancelSection" >
-    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-    	        </div>
-		    </form>
-        </div>
-</div>
+						    <div class="form-group">
+						  	  #springFormInput("rapbackSearchRequest.ucn" "placeholder='UCN #' class='form-control form-control-sm'")
+						  	  #springShowErrors( "<br/>" "error pl-2" ) 
+						    </div>
+					        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN' class='form-control form-control-sm'")</div>
+							<label class="searchSubHeader mt-2">Civil Identification Reason Code</label>
+					        <div class="form-group">
+								<label class="form-check-label form-control-sm">
+									#springFormCheckboxes("rapbackSearchRequest.civilIdentificationReasonCodes" $civilIdentificationReasonCodeMap "<br>" "")
+								</lavel>
+					        </div>
+			            </div>
+	    	       </div>
+		     </form>
+		</div>
+		<div class="card-footer text-muted">
+	    	<button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</a>
+	    	<button id="advanceSearchClearButton" class="btn btn-sm btn-secondary ml-1">CLEAR</a>
+  		</div>
+	</div>
+  

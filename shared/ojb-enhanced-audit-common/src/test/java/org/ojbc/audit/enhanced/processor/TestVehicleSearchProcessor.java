@@ -132,6 +132,34 @@ public class TestVehicleSearchProcessor {
 		assertEquals("Criminal Justice", vehicleSearchRequest.getPurpose());
 		assertEquals("John Doe", vehicleSearchRequest.getOnBehalfOf());
 		
+		VehicleSearchResponseNullObjectProcessor vehicleSearchResponseNullObjectProcessor = new VehicleSearchResponseNullObjectProcessor();
+		
+        inputFile = new File("src/test/resources/xmlInstances/VehicleSearchResults.xml");
+
+        document = db.parse(inputFile);
+		
+        vehicleSearchResponseNullObjectProcessor.auditVehicleSearchResponse(document, "123456");
+
+        inputFile = new File("src/test/resources/xmlInstances/Error-VehicleSearchResults.xml");
+
+        document = db.parse(inputFile);
+		
+        vehicleSearchResponseNullObjectProcessor.auditVehicleSearchResponse(document, "123456");
+        
+        inputFile = new File("src/test/resources/xmlInstances/Access-Denial-VehicleSearchResults.xml");
+
+        document = db.parse(inputFile);
+		
+        vehicleSearchResponseNullObjectProcessor.auditVehicleSearchResponse(document, "123456");
+		
+		VehicleSearchResponseSQLProcessor vehicleSearchResponseSQLProcessor = new VehicleSearchResponseSQLProcessor();
+		vehicleSearchResponseSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
+		
+        inputFile = new File("src/test/resources/xmlInstances/VehicleSearchResults.xml");
+        document = db.parse(inputFile);
+
+		vehicleSearchResponseSQLProcessor.auditVehicleSearchResponse(document, "123456");
+		
 	}
 	
 }

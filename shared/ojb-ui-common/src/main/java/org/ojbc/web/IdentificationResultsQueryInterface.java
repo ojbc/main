@@ -16,13 +16,14 @@
  */
 package org.ojbc.web;
 
+import org.ojbc.util.model.rapback.IdentificationDetailQueryType;
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.w3c.dom.Element;
 
 public interface IdentificationResultsQueryInterface {
 
 	public IdentificationResultsQueryResponse invokeIdentificationResultsQueryRequest(
-			String transactionNumber, boolean initialResultsQuery,
+			String transactionNumber, IdentificationDetailQueryType identificationDetailQueryType,
 			Element samlToken) throws Exception;
 
 }

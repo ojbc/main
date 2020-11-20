@@ -188,8 +188,29 @@
     <camel:endpoint id="auditSearchResultsHandlerServiceEndpoint"
       uri="cxf:bean:auditSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
       
+	    <!-- Cannabis License Query Endpoint -->
+		<camel:endpoint id="personQueryCannabisLicenseResultsServiceEndpoint"
+			uri="cxf:bean:personQueryCannabisLicenseResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
+	
+		<cxf:cxfEndpoint id="personQueryCannabisLicenseResultsService"
+			address="${webapplication.personQuery.personQueryResultsHandlerCannabisLicenseEndpoint}"
+			wsdlURL="classpath:ssp/Cannabis_License_Query_Results/schema/SIP_WS_1.2/Cannabis_License_Query_Results_Service.wsdl"
+			serviceName="ojbc:Cannabis_License_Query_Results_Service_Service" 
+			endpointName="ojbc:Cannabis_License_Query_Results_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/CannabisLicenseQueryResultsService/1.0">
+			 <cxf:features> 
+	 			<policy:policies> 
+	 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+	 					<wsam:Addressing> 
+	 						<wsp:Policy /> 
+	 					</wsam:Addressing> 
+	 				</wsp:Policy> 
+	 			</policy:policies> 
+	 		</cxf:features>	 
+		</cxf:cxfEndpoint>
 	
 	    <!-- 
 	    	Wildlife License results handler, hosted by Portal  

@@ -22,29 +22,28 @@
   	
     	var reStyleButtonsBasedOnSelection = function() {
     			// Make the selected search button blue, and the others gray
-    	        $('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-				$(this).removeClass('grayButton').addClass('blueButton');
+    	        $('#adminButtons a.active').removeClass('active');
+    	        $('#reportsButton').removeClass('active');
+				$(this).addClass('active');
     	};
 	
-		$('#adminButtons a:not(.ui-state-disabled):not(.dropbtn):not(.dropdown-content a)').click (reStyleButtonsBasedOnSelection);
+		$('#adminButtons a:not(.active)').click (reStyleButtonsBasedOnSelection);
 		
-    	$('#advancedAdminSearch').click (function() { 
+    	$('#portalContent').on('click', '#advancedAdminSearch', function() { 
 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/adminSearchForm')")
 	    });
 	    
-    	$('#expiringSubscriptions').click (function() { 
-    		$('.dropdown-content').removeClass("show");
-    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
-    		
+    	$('#expiringSubscriptions').click (function() {
+    		$('#reportsButton').dropdown("toggle");;
+    		$('#adminButtons a.active').removeClass('active');
+    		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
     	$('#expiredSubscriptions').click (function() { 
-    		$('.dropdown-content').removeClass("show");
-    		$('#adminButtons .blueButton').addClass('grayButton').removeClass('blueButton');
-			$('#reportsButton').removeClass('grayButton').addClass('blueButton');
-    		
+    		$('#reportsButton').dropdown("toggle");;
+    		$('#adminButtons a.active').removeClass('active');
+    		$('#reportsButton').addClass('active');
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
 	    });
 	    
@@ -56,11 +55,12 @@
  			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notifications')")
 	    });
 	    
-	    $("#searchResultsTable").DataTable({
+	    var oTable = $("#searchResultsTable").DataTable({
 			 "order": [[ 3, "asc" ]],
 			 "pagingType": "full_numbers",
 			 "pageLength": 25,
 			 stateSave: true,
+			 responsive: true, 
 			 colReorder: true,
 			 "language": {
 	      		"emptyTable": "No subscriptions found"
@@ -77,87 +77,66 @@
 				      null, null,null, null, null, null, null, null, null
 			    ] 
 		});
-	
-		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
-
-		function getCheckedValues() {
+		new $.fn.dataTable.FixedHeader( oTable );
 		
-			var checkedValues = $('input:checkbox:checked').map(function() {
-				var id = JSON.parse(this.value).id;
-			    return '"' + id +'":' + this.value;
-			}).get();
-			
-			if (!String(checkedValues)) {
-				return null; 
-			}
-			else {
-				return	'{' + checkedValues + '}';
-			}	  		
-		}
-	
+		$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+		$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
+
 		$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
-			var checkedValues = getCheckedValues();	
+			var checkedValues = ojbc.getCheckedValues();	
 			
 			if(!checkedValues){
-				alert('No subscriptions selected');
+				bootpopup.alert('No subscriptions selected', 'ERROR');
 				return false;
 			}
 			
 			//console.log("checkedValues: " + checkedValues);
-									
-			var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-			
-			if(confirmUnsubscribe == true){
-																			
-				var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-				
-				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-				$.get(urlRequest, function(data) {										
-				      $("#subsAdminContent").html(data);					      
-				}).fail(ojbc.displayFailMessage);
-					
+
+			bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+			    if(ans){
+					var urlRequest = encodeURI('../subscriptions/unsubscribe');					
+					$.ajax({
+						url:urlRequest, 
+						type:"POST",
+	  					data: checkedValues,
+	  					contentType:"application/json; charset=utf-8",
+	  					dataType:"html",
+	  					success: function(data) {										
+					      $("#subsAdminContent").html(data);
+					    }, 
+					    error:ojbc.displayFailMessage 					      
+					});
+				} 
 				return false;
-														 																		 
-			}else{
-			  return false;
-			}
+			}); 
 			
 	    });
 		
 		// listener for click on any editSubscriptionLink button
-		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-			var editMvcUrl = encodeURI(this + "&admin=true&editSourcePage=adminLanding");
-			var dlgHeight = $(window).height() * .9;
-				 	    		    			
-	  		$.get(editMvcUrl, 
-	  			function(data){			  			
-	    			 var vSubDialog = $('<div style="display:none;" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
-	    			 vSubDialog.dialog({                    
-			                position: {
-	                           my: "left top",
-	                           at: "left top",
-	                           of: $("#stateBanner")
-			                },
-			                modal:true,
-					        maxWidth:800,
-					        height:dlgHeight,
-					        open:function(event,ui){
-					        	$('#editSubscriptionDialog').html(data);
-					        },
-					        close: function(event, ui){
-					        	$(this).dialog("close");
-					        	$('#editSubscriptionDialog').remove();
-					        }    	                                  
-	                    }).css({height:dlgHeight, overflow:"auto"}); 			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);	
+		$('#searchResultsTable').on('click', '.viewDetails',function(event) {
+			event.preventDefault();
+			var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminLanding");
+			var row = $(this).closest('tr'); 
+			row.siblings().removeClass("selected");
+		    row.addClass("selected");
+			
+			var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
+			if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+				$('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+			}
+			else{
+				$('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+			}
+			
+	  		$.get(editMvcUrl, function(data){
+	  			//console.log("data" + data); 
+	  			$('#subscriptionModal .modal-body').html(data);
+	  			$('#subscriptionModal').modal('show');
+	  		}).fail(ojbc.displayFailMessage);	
 	  		
-	  		//prevent default browser navigation to link<a> href url, because we're using the url 
-	  		// as a spring mvc call
 	  		return false;		  					  					  		                                                     
 	 	});   		 
-	    
-	    
+
 	});
 	
 	adminPage = {
@@ -189,83 +168,74 @@
 	}
 </script>
 
-<style>
-.dropbtn {
-}
-
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    padding:0; margin:0; 
-}
-
-.dropdown-content {
-	padding-top: 6px;
-	padding-left:6px;
-    display: none;
-    font-size:small !important;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 180px;
-    overflow: auto;
-    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a:first-child{
-	padding-top: 18px; 
-}
- 
-.dropdown-content a {
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd}
-
-.show {display:block;}
-</style>
-<div id="searchResultsContainer" class="contentBox">
-
-    <div id="searchResultsHeader"> 
-        <p id="search-results-title">SUBSCRIPTIONS ADMIN</p>
-        <div id="adminButtons" style="float:right" >
-            <a id="advancedAdminSearch" class="grayButton" >
-                ADVANCED SEARCH
-            </a>
-            <a id="activeErrorsSearch" class="grayButton" >
+<div class="card"> 
+	<div class="card-header container-fluid">
+	  <div class="row ml-1 h-100">
+	    <div class="my-auto" id="search-results-title">
+	      SUBSCRIPTIONS ADMIN
+	    </div>
+		<div class="btn-group btn-group-toggle ml-auto mr-3" role="group" aria-label="adminButtons" id="adminButtons" data-toggle="buttons">
+	        <a id="advancedAdminSearch" class="btn btn-secondary btn-sm" href="#" role="button">
+	            ADVANCED SEARCH
+	        </a>
+            <a id="activeErrorsSearch" class="btn btn-secondary btn-sm" href="#" role="button">
                 ERRORS
             </a>
-            <a id="notifications" class="grayButton" >
-                Notifications
+            <a id="notifications" class="btn btn-secondary btn-sm" href="#" role="button">
+                NOTIFICATIONS
             </a>
-         	<div class="dropdown">
-				<a onclick="myFunction()" class="dropbtn grayButton" id="reportsButton">Reports</a>
-				<div id="myDropdown" class="dropdown-content">
-				    <a id="expiringSubscriptions">Expiring Subscriptions</a>
-				    <a id="expiredSubscriptions">Expired Subscriptions</a>
-				</div>
+			<div class="btn-group" role="group">
+				<button id="reportsButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  REPORTS
+				</button>
+				<div class="dropdown-menu" aria-labelledby="reportsButton">
+				  <a class="dropdown-item small" href="#" id="expiringSubscriptions">Expiring Subscriptions</a>
+				  <a class="dropdown-item small" href="#" id="expiredSubscriptions">Expired Subscriptions</a>
+			    </div>
 			</div>
-            <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
+			<a id="modifySubsOwnerInfo" class="btn btn-secondary btn-sm" disabled href="#" role="button" tabindex=-1>
                 MODIFY OWNER INFO
             </a>
-        </div>
-        
-    </div>
-    
-    <div style="padding:10px" id="subsAdminContent">
+			
+		</div>
+	  </div>
+	</div>
+	<div class="card-body" id="subsAdminContent">
+		#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<span class="error" id="informationMessages" >
+			#if ($informationMessages == 'Operation Successful')
+				#set( $divClass = "alert alert-success fade in alert-dismissible show" )
+			#else
+				#set( $divClass = "alert alert-danger fade in alert-dismissible show" )
+			#end
+			<div class="$divClass" id="informationMessages" >
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>    
 				$informationMessages
-			</span><br/>
+			</div>
 		#end
 		
 		$subscriptionsContent 
-    </div>
-    
+	</div>
 </div>
+
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">EDIT SUBSCIPTION</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    
+

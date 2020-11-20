@@ -33,6 +33,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
@@ -45,13 +46,16 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
@@ -64,19 +68,34 @@ import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CannabisLicenseQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.CriminalHistoryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.FirearmsQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IdentificationQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentReportQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.IncidentSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.PersonSearchResultRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.ProfessionalLicenseQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.QueryRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.SubscriptionQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserAuthenticationResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.UserInfoRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleCrashQueryResponseRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchRequestRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.VehicleSearchResultRowMapper;
 import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WarrantsQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.dao.rowmappers.auditsearch.WildlifeQueryResponseRowMapper;
+import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.util.sn.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -760,7 +779,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"PERSON_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getPersonSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
@@ -774,6 +793,36 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
 	}
+	
+	@Override
+	public Integer saveVehicleSearchResult(VehicleSearchResult vehicleSearchResult) {
+        log.debug("Inserting row into VEHICLE_SEARCH_RESULTS table : " + vehicleSearchResult);
+        
+        final String VEHICLE_SEARCH_RESULT_INSERT="INSERT into VEHICLE_SEARCH_RESULTS "
+        		+ "(VEHICLE_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(VEHICLE_SEARCH_RESULT_INSERT, new String[] {"VEHICLE_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getVehicleSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSystemSearchResultId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(vehicleSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+   }	
 
 	@Override
 	public Integer saveSubscriptionSearchResult(
@@ -821,7 +870,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"FIREARMS_SEARCH_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getFirearmSearchRequestId(), ps, 1);
-        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSystemSearchResultId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorIndicator(), ps, 3);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(firearmSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
@@ -1131,11 +1180,69 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (personSearchRequests.size() == 1)
 		{
-			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+			ret = personSearchRequests.get(0).getPersonSearchRequestId();
 		}	
 
 		return ret;
 	}
+	
+	@Override
+	public Integer retrieveIncidentSearchIDfromMessageID(String messageId) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select isr.*, sss.SYSTEM_NAME from incident_search_request isr, INCIDENT_SYSTEMS_TO_SEARCH iss, SYSTEMS_TO_SEARCH sss where isr.INCIDENT_SEARCH_REQUEST_ID = iss.INCIDENT_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = iss.SYSTEMS_TO_SEARCH_ID and MESSAGE_ID = ?");
+		
+		Integer ret = null;
+		
+		List<IncidentSearchRequest> incidentSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new IncidentSearchRequestRowMapper(), messageId);
+		
+		if (incidentSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve incident search request ID");
+		}
+		
+		if (incidentSearchRequests.size() == 0 ||  incidentSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than incident search request, size: " + incidentSearchRequests.size());
+		}
+		
+		if (incidentSearchRequests.size() == 1)
+		{
+			ret = incidentSearchRequests.get(0).getIncidentSearchRequestId();
+		}	
+
+		return ret;
+	}	
+	
+	@Override
+	public Integer retrieveVehicleSearchIDfromMessageID(String messageId) {
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select vsr.*, sss.SYSTEM_NAME from vehicle_search_request vsr, VEHICLE_SYSTEMS_TO_SEARCH vss, SYSTEMS_TO_SEARCH sss where vsr.VEHICLE_SEARCH_REQUEST_ID = vss.VEHICLE_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = vss.SYSTEMS_TO_SEARCH_ID and MESSAGE_ID = ?");
+		
+		Integer ret = null;
+		
+		List<VehicleSearchRequest> vehicleSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new VehicleSearchRequestRowMapper(), messageId);
+		
+		if (vehicleSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve vehicle search request ID");
+		}
+		
+		if (vehicleSearchRequests.size() == 0 ||  vehicleSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person search request, size: " + vehicleSearchRequests.size());
+		}
+		
+		if (vehicleSearchRequests.size() == 1)
+		{
+			ret = vehicleSearchRequests.get(0).getVehicleSearchRequestId();
+		}	
+
+		return ret;
+	}	
 	
 	@Override
 	public Integer retrieveFirearmSearchIDfromMessageID(String messageId) {
@@ -1160,7 +1267,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (firearmSearchRequests.size() == 1)
 		{
-			ret = firearmSearchRequests.get(0).getFirearmSearchRequestID();
+			ret = firearmSearchRequests.get(0).getFirearmSearchRequestId();
 		}	
 
 		return ret;	
@@ -1518,7 +1625,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getOriginalIdentifier(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getUpdatedIdentifier(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getTransactionType(), ps, 6);
-        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRecordRapBackActivityNotificationID(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getRecordRapBackActivityNotificationId(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(federalRapbackNotification.getNotificationRecievedTimestamp(), ps, 8);
         	            
         	            return ps;
@@ -1646,32 +1753,6 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return resultSize;
 	}
-	
-	private final class UserInfoRowMapper implements RowMapper<UserInfo> {
-		public UserInfo mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
-			UserInfo userInfo = buildUserInfo(rs);
-			return userInfo;
-		}
-
-		private UserInfo buildUserInfo(
-				ResultSet rs) throws SQLException{
-
-			UserInfo userInfo = new UserInfo();
-			
-			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
-			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
-			userInfo.setEmployerOri(rs.getString("EMPLOYER_ORI"));
-			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
-			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
-			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
-			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
-			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
-			userInfo.setFederationId(rs.getString("FEDERATION_ID"));
-			
-			return userInfo;
-		}
-	}	
 	
 	private final class FederalRapbackSubscriptionRowMapper implements RowMapper<FederalRapbackSubscription> {
 		public FederalRapbackSubscription mapRow(ResultSet rs, int rowNum)
@@ -1855,14 +1936,18 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
 			printResults.setDescription(rs.getString("DESCRIPTION"));
 			printResults.setSid(rs.getString("SID"));
+			printResults.setTimestamp(toLocalDateTime(rs.getTimestamp("TIMESTAMP")));
 			
-			UserInfo userInfo = new UserInfo();
-			
-			UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
-			
-			userInfo = userInfoRowMapper.buildUserInfo(rs);
-			
-			printResults.setUserInfo(userInfo);
+			if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
+			{	
+				UserInfo userInfo = new UserInfo();
+				
+				UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+				
+				userInfo = userInfoRowMapper.buildUserInfo(rs);
+				
+				printResults.setUserInfo(userInfo);
+			}
 			
 			return printResults;
 		}
@@ -1917,7 +2002,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			federalRapbackNotification.setPathToNotificationFile(rs.getString("PATH_TO_NOTIFICATION_FILE"));
 			federalRapbackNotification.setRapBackEventText(rs.getString("RAPBACK_EVENT_TEXT"));
 			federalRapbackNotification.setStateSubscriptionId(rs.getString("STATE_SUBSCRIPTION_ID"));
-			federalRapbackNotification.setRecordRapBackActivityNotificationID(rs.getString("RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID"));
+			federalRapbackNotification.setRecordRapBackActivityNotificationId(rs.getString("RECORD_RAPBACK_ACTIVITY_NOTIFICATION_ID"));
 			
 			return federalRapbackNotification;
 		}
@@ -2241,6 +2326,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 				
 			}	
 		}
+		
+		if (searchRequest.getUserInfoId() != null)
+		{
+			sqlStatement.append(" and " + alias + ".USER_INFO_ID ='" + searchRequest.getUserInfoId() + "'");
+		}	
 	}
 
 	@Override
@@ -2276,6 +2366,59 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new PersonSearchRequestRowMapper());
 		
 		return personSearchRequests;
+	}
+	
+	@Override
+	public List<PersonSearchRequest> retrievePersonSearchRequestByPerson(
+			AuditPersonSearchRequest searchRequest) {
+		
+		StringBuffer sqlStatement = new StringBuffer(); 
+		
+		sqlStatement.append("select psr.*, sss.SYSTEM_NAME, ui.* from person_search_request psr, PERSON_SYSTEMS_TO_SEARCH pss, SYSTEMS_TO_SEARCH sss, USER_INFO ui where psr.PERSON_SEARCH_REQUEST_ID = pss.PERSON_SEARCH_REQUEST_ID ");
+		sqlStatement.append(" and sss.SYSTEMS_TO_SEARCH_ID  = pss.SYSTEMS_TO_SEARCH_ID ");
+		sqlStatement.append(" and ui.user_info_id = psr.user_info_id ");
+		
+		if (StringUtils.isNotBlank(searchRequest.getPersonFirstName()))
+		{
+			setSearchTerm(searchRequest.getPersonFirstName(), "psr.FIRST_NAME", sqlStatement);
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getPersonMiddleName()))
+		{
+			setSearchTerm(searchRequest.getPersonMiddleName(), "psr.MIDDLE_NAME", sqlStatement);
+		}	
+
+		if (StringUtils.isNotBlank(searchRequest.getPersonLastName()))
+		{
+			setSearchTerm(searchRequest.getPersonLastName(), "psr.LAST_NAME", sqlStatement);
+		}	
+		
+		if (searchRequest.getStartTime() != null && searchRequest.getEndTime() == null)
+		{
+			searchRequest.setEndTime(searchRequest.getStartTime().plusDays(1));
+		}	
+		
+		setUserAuditSearchDateConstraints(searchRequest, sqlStatement, "psr");
+		
+		sqlStatement.append(" order by ui.user_last_name asc ");
+		
+		log.info(sqlStatement.toString());
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(sqlStatement.toString(), new PersonSearchRequestRowMapper());
+		
+		return personSearchRequests;
+	}
+
+	private void setSearchTerm(String searchTermValue, String searchTerm, StringBuffer sqlStatement) {
+		
+		if (searchTermValue.contains("*"))
+		{
+			sqlStatement.append(" and " + searchTerm + " like '" + StringUtils.replace(searchTermValue, "*", "%") + "'"); 
+		}	
+		else
+		{
+			sqlStatement.append(" and " + searchTerm + " = '" + searchTermValue + "'"); 
+		}
 	}
 
 	@Override
@@ -2350,6 +2493,148 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return incidentSearchRequests;	
 	}
 
+	@Override
+	public Integer saveIncidentReportQueryResponse(IncidentReportQueryResponse incidentReportQueryResponse) {
+		log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + incidentReportQueryResponse.toString());
+		
+        final String INCIDENT_REPORT_QUERY_RESULTS_INSERT="INSERT into INCIDENT_REPORT_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " INCIDENT_REPORT_NUMBER, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_REPORT_QUERY_RESULTS_INSERT, new String[] {"INCIDENT_REPORT_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getIncidentNumber(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(incidentReportQueryResponse.getMessageId(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	   
+	}
+	
+	@Override
+	public Integer saveWildlifeQueryResponse(WildlifeQueryResponse wildlifeQueryResponse) {
+
+		log.debug("Inserting row into WILDLIFE_QUERY_RESULTS table : " + wildlifeQueryResponse.toString());
+		
+        final String WILDLIFE_QUERY_RESULTS_INSERT="INSERT into WILDLIFE_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " RESIDENCE_CITY, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(WILDLIFE_QUERY_RESULTS_INSERT, new String[] {"WILDLIFE_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getResidenceCity(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(wildlifeQueryResponse.getMessageId(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
+	public Integer saveProfessionalLicensingQueryResponse(
+			ProfessionalLicensingQueryResponse professionalLicensingQueryResponse) {
+		log.debug("Inserting row into PROFESSIONAL_LICENSING_QUERY_RESULTS table : " + professionalLicensingQueryResponse.toString());
+		
+        final String PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT="INSERT into PROFESSIONAL_LICENSING_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " ISSUE_DATE, EXPIRATION_DATE,LICENSE_NUMBER,LICENSE_TYPE, MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PROFESSIONAL_LICENSE_QUERY_RESULTS_INSERT, new String[] {"PROFESSIONAL_LICENSING_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getIssueDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getExpirationDate(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseNumber(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getLicenseType(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(professionalLicensingQueryResponse.getMessageId(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	   
+		
+	}
+	
+	@Override
+	public Integer saveCannabisLicensingQueryResponse(
+			CannabisLicensingQueryResponse cannabisLicensingQueryResponse) {
+		
+		log.debug("Inserting row into CANNABIS_LICENSING_QUERY_RESULTS table : " + cannabisLicensingQueryResponse.toString());
+		
+        final String CANNABIS_LICENSING_QUERY_RESULTS_INSERT="INSERT into CANNABIS_LICENSING_QUERY_RESULTS "  
+        		+ "(QUERY_REQUEST_ID, SYSTEM_NAME, QUERY_RESULTS_TIMEOUT_INDICATOR, QUERY_RESULTS_ERROR_INDICATOR, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_ACCESS_DENIED, "
+        		+ " EXPIRATION_DATE,LICENSE_NUMBER,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(CANNABIS_LICENSING_QUERY_RESULTS_INSERT, new String[] {"CANNABIS_LICENSING_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getSystemName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsTimeoutIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsErrorIndicator(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsErrorText(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getQueryResultsAccessDeniedIndicator(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getExpirationDate(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getLicenseNumber(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(cannabisLicensingQueryResponse.getMessageId(), ps, 9);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	  
+		
+	}	
+	
 	@Override
 	public Integer saveVehicleQueryCrashResponse(VehicleCrashQueryResponse vehicleCrashQueryResponse) {
 		log.debug("Inserting row into VEHICLE_CRASH_QUERY_RESULTS table : " + vehicleCrashQueryResponse.toString());
@@ -2461,6 +2746,157 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<VehicleCrashQueryResponse> vehicleCrashQueryResponses = jdbcTemplate.query(VEHICLE_CRASH_QUERY_SELECT, new VehicleCrashQueryResponseRowMapper(), queryRequestId);
 		return DataAccessUtils.singleResult(vehicleCrashQueryResponses);	
+	}
+
+	@Override
+	public IdentificationQueryResponse retrieveIdentificationResultsQueryDetail(Integer queryRequestId) {
+		final String IDENTIFICATION_RESULTS_QUERY_SELECT="SELECT * from IDENTIFICATION_RESULTS_QUERY_DETAIL where QUERY_REQUEST_ID = ? ";
+		
+		List<IdentificationQueryResponse> identificationQueryResponses = jdbcTemplate.query(IDENTIFICATION_RESULTS_QUERY_SELECT, new IdentificationQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(identificationQueryResponses);			
+	}
+
+	@Override
+	public SubscriptionQueryResponse retrieveSubscriptionQueryResults(Integer queryRequestId) {
+		final String SUBSCRIPTION_QUERY_SELECT="SELECT * from SUBSCRIPTION_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<SubscriptionQueryResponse> subscriptionQueryResponses = jdbcTemplate.query(SUBSCRIPTION_QUERY_SELECT, new SubscriptionQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(subscriptionQueryResponses);			
+	}
+	
+	@Override
+	public CannabisLicensingQueryResponse retrieveCannabisLicenseQueryResponse(Integer queryRequestId) {
+		final String CANNABIS_LICENSING_QUERY_SELECT="SELECT * from CANNABIS_LICENSING_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<CannabisLicensingQueryResponse> cannabisLicensingQueryResponses = jdbcTemplate.query(CANNABIS_LICENSING_QUERY_SELECT, new CannabisLicenseQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(cannabisLicensingQueryResponses);		
+	}
+
+	@Override
+	public List<PrintResults> retrieveUserPrintRequests(Integer userInfoId) {
+		final String PRINT_RESULTS_SELECT="SELECT * FROM PRINT_RESULTS WHERE USER_INFO_ID = ?";
+		
+		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), userInfoId);
+		return printResults;		
+	}
+
+	@Override
+	public ProfessionalLicensingQueryResponse retrieveProfessionalLicensingQueryResponse(Integer queryRequestId) {
+		final String PROFESSSIONAL_LICENSING_QUERY_SELECT="SELECT * from PROFESSIONAL_LICENSING_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<ProfessionalLicensingQueryResponse> professionalLicensingQueryResponses = jdbcTemplate.query(PROFESSSIONAL_LICENSING_QUERY_SELECT, new ProfessionalLicenseQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(professionalLicensingQueryResponses);		
+	}
+
+	@Override
+	public IncidentReportQueryResponse retrieveIncidentReportQueryResponse(Integer queryRequestId) {
+		final String INCIDENT_REPORT_QUERY_SELECT="SELECT * from INCIDENT_REPORT_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<IncidentReportQueryResponse> incidentReportQueryResponses = jdbcTemplate.query(INCIDENT_REPORT_QUERY_SELECT, new IncidentReportQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(incidentReportQueryResponses);		
+	}
+
+	@Override
+	public WildlifeQueryResponse retrieveWildlifeQueryResponse(Integer queryRequestId) {
+		final String WILDLIFE_QUERY_SELECT="SELECT * from WILDLIFE_QUERY_RESULTS where QUERY_REQUEST_ID = ? ";
+		
+		List<WildlifeQueryResponse> WildlifeQueryResponse = jdbcTemplate.query(WILDLIFE_QUERY_SELECT, new WildlifeQueryResponseRowMapper(), queryRequestId);
+		return DataAccessUtils.singleResult(WildlifeQueryResponse);		
+	}
+
+	@Override
+	public List<PersonSearchResult> retrievePersonSearchResults(Integer personSearchRequestId) {
+
+		final String PERSON_SEARCH_RESPONSE_SELECT="SELECT psr.person_search_request_id, psr.search_results_count, sss.system_name, sss.system_uri, psr.search_results_error_indicator, " + 
+				"psr.search_results_access_denied_indicator, psr.search_results_error_text, psr.search_results_timeout_indicator, psr.timestamp " + 
+				"FROM person_search_results psr left join SYSTEMS_TO_SEARCH sss  on psr.systems_to_search_id = sss.systems_to_search_id " + 
+				"where " + 
+				"person_search_request_id = ? ";
+		
+		List<PersonSearchResult> personSearchResults = jdbcTemplate.query(PERSON_SEARCH_RESPONSE_SELECT, new PersonSearchResultRowMapper(), personSearchRequestId);
+
+		return personSearchResults;
+	}
+
+	@Override
+	public List<FirearmSearchResult> retrieveFirearmSearchResults(Integer firearmSearchRequestId) {
+
+		final String FIREARMS_SEARCH_RESPONSE_SELECT="SELECT fsr.FIREARMS_SEARCH_REQUEST_ID, fsr.search_results_count, sss.system_name, sss.system_uri, fsr.search_results_error_indicator, " + 
+				"fsr.search_results_access_denied_indicator, fsr.search_results_error_text, fsr.search_results_timeout_indicator, fsr.timestamp " + 
+				"FROM FIREARMS_SEARCH_RESULTS fsr left join SYSTEMS_TO_SEARCH sss  on fsr.systems_to_search_id = sss.systems_to_search_id " + 
+				"where " + 
+				"fsr.firearms_search_request_id = ? ";
+		
+		List<FirearmSearchResult> firearmSearchResults = jdbcTemplate.query(FIREARMS_SEARCH_RESPONSE_SELECT, new FirearmSearchResultRowMapper(), firearmSearchRequestId);
+
+		return firearmSearchResults;		
+	}
+
+	@Override
+	public List<VehicleSearchResult> retrieveVehicleSearchResults(Integer vehicleSearchRequestId) {
+		final String VEHICLE_SEARCH_RESPONSE_SELECT="SELECT vsr.vehicle_search_request_id, vsr.search_results_count, sss.system_name, sss.system_uri, vsr.search_results_error_indicator, " + 
+				"vsr.search_results_access_denied_indicator, vsr.search_results_error_text, vsr.search_results_timeout_indicator, vsr.timestamp " + 
+				"FROM vehicle_search_results vsr  left join SYSTEMS_TO_SEARCH sss  on vsr.systems_to_search_id = sss.systems_to_search_id " + 
+				"where " + 
+				"vehicle_search_request_id = ? ";
+		
+		List<VehicleSearchResult> vehicleSearchResults = jdbcTemplate.query(VEHICLE_SEARCH_RESPONSE_SELECT, new VehicleSearchResultRowMapper(), vehicleSearchRequestId);
+
+		return vehicleSearchResults;
+	}
+
+
+	@Override
+	public List<IncidentSearchResult> retrieveIncidentSearchResults(Integer incidentSearchRequestId) {
+		final String INCIDENT_SEARCH_RESPONSE_SELECT="SELECT isr.incident_search_request_id, isr.search_results_count, sss.system_name, sss.system_uri, isr.search_results_error_indicator, " + 
+				"isr.search_results_access_denied_indicator, isr.search_results_error_text, isr.search_results_timeout_indicator, isr.timestamp " + 
+				"FROM incident_search_results isr, SYSTEMS_TO_SEARCH sss " + 
+				"where " + 
+				"incident_search_request_id = ? and " + 
+				"isr.systems_to_search_id = sss.systems_to_search_id";
+		
+		List<IncidentSearchResult> incidentSearchResults = jdbcTemplate.query(INCIDENT_SEARCH_RESPONSE_SELECT, new IncidentSearchResultRowMapper(), incidentSearchRequestId);
+
+		return incidentSearchResults;	
+	}
+
+	@Override
+	public Integer saveIncidentSearchResult(IncidentSearchResult incidentSearchResult) {
+        log.debug("Inserting row into INCIDENT_SEARCH_RESULTS table : " + incidentSearchResult);
+        
+        final String INCIDENT_SEARCH_RESULT_INSERT="INSERT into INCIDENT_SEARCH_RESULTS "
+        		+ "(INCIDENT_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(INCIDENT_SEARCH_RESULT_INSERT, new String[] {"INCIDENT_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getIncidentSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSystemSearchResultId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(incidentSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+
+	@Override
+	public String retrieveStateSubscriptionIDFromTransactionControlReferenceId(String transactionControlReferenceId) {
+		final String SELECT_STATEMENT="select STATE_SUBSCRIPTION_ID from federal_rapback_subscription where transaction_control_reference_identification=? ";
+		
+		String stateSubscriptionId = jdbcTemplate.queryForObject(SELECT_STATEMENT, String.class, transactionControlReferenceId);
+		
+		return stateSubscriptionId;
 	}
 
 }

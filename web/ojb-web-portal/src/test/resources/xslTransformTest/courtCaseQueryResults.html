@@ -18,34 +18,36 @@
 -->
 <script type="text/javascript">
 			$(function () {
-		 			$('#courtCaseDetailTabs').tabs({
-						activate: function( event, ui ) {
-							var modalIframe = $("#modalIframe", parent.document);
-							modalIframe.height(modalIframe.contents().find("body").height() + 16);
-						}
-					}); 
+					var modalIframe = $("#modalIframe", parent.document);
+					modalIframe.height(modalIframe.contents().find("body").height() + 16);
+					
+					$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+					})
 					
 					$('#criminalCaseTabs').tabs();
 					$('#partyTabs').tabs();
 					$('.detailDataTable').DataTable({
  						"dom": 'rt',
- 						colReorder: true
+ 						responsive: true, 
+ 						colReorder: true 
 					});
 			});
-		</script><div id="courtCaseDetailTabs">
-   <ul class="courtCaseDetailUl">
-      <li><a href="#criminalCaseTab">CRIMINAL CASE</a></li>
-      <li><a href="#partyTab">PARTY DETAIL</a></li>
-      <li><a href="#chargeTab">CHARGE SUMMARY</a></li>
-      <li><a href="#hearingTab">HEARING SUMMARY</a></li>
-      <li><a href="#roaListingTab">ROA LISTING</a></li>
-      <li><a href="#criminalWarrantTab">CRIMINAL WARRANT HISTORY</a></li>
-      <li><a href="#criminalBondTab">CRIMINAL BOND SUMMARY</a></li>
-      <li><a href="#victimTab">VICTIMS</a></li>
-      <li><a href="#defenseAttorneyTab">DEFENSE ATTORNEYS</a></li>
-      <li><a href="#prosecutorTab">PROSECUTORS</a></li>
-   </ul>
-   <div id="criminalCaseTab">
+		</script><ul class="nav nav-tabs" id="myTab" role="tablist">
+   <li class="nav-item"><a class="nav-link active" id="criminalCaseTab" data-toggle="tab" href="#criminalCase" role="tab" aria-controls="criminalCase" aria-selected="true">CRIMINAL CASE</a></li>
+   <li class="nav-item"><a class="nav-link" id="partyTab" data-toggle="tab" href="#party" role="tab" aria-controls="party" aria-selected="false">PARTY DETAIL</a></li>
+   <li class="nav-item"><a class="nav-link" id="chargeTab" data-toggle="tab" href="#charge" role="tab" aria-controls="charge" aria-selected="false">CHARGE SUMMARY</a></li>
+   <li class="nav-item"><a class="nav-link" id="hearingTab" data-toggle="tab" href="#hearing" role="tab" aria-controls="hearing" aria-selected="false">HEARING SUMMARY</a></li>
+   <li class="nav-item"><a class="nav-link" id="roaListingTab" data-toggle="tab" href="#roaListing" role="tab" aria-controls="roaListing" aria-selected="false">ROA LISTING</a></li>
+   <li class="nav-item"><a class="nav-link" id="criminalWarrantTab" data-toggle="tab" href="#criminalWarrant" role="tab" aria-controls="criminalWarrant" aria-selected="false">CRIMINAL WARRANT</a></li>
+   <li class="nav-item"><a class="nav-link" id="criminalBondTab" data-toggle="tab" href="#criminalBond" role="tab" aria-controls="criminalBond" aria-selected="false">CRIMINAL BOND</a></li>
+   <li class="nav-item"><a class="nav-link" id="victimTab" data-toggle="tab" href="#victim" role="tab" aria-controls="victim" aria-selected="false">VICTIMS</a></li>
+   <li class="nav-item"><a class="nav-link" id="defenseAttorneyTab" data-toggle="tab" href="#defenseAttorney" role="tab" aria-controls="defenseAttorney" aria-selected="false">DEFENSE ATTORNEYS</a></li>
+   <li class="nav-item"><a class="nav-link" id="prosecutorTab" data-toggle="tab" href="#prosecutor" role="tab" aria-controls="prosecutor" aria-selected="false">PROSECUTORS</a></li>
+</ul>
+<div class="tab-content" id="myTabContent">
+   <div class="tab-pane fade show active" id="criminalCase" role="tabpanel" aria-labelledby="criminalCaseTab">
       <p>
          <div id="criminalCaseTabs">
             <ul>
@@ -141,7 +143,7 @@
          </div>
       </p>
    </div>
-   <div id="partyTab">
+   <div class="tab-pane fade" id="party" role="tabpanel" aria-labelledby="partyTab">
       <p>
          <div id="partyTabs">
             <ul>
@@ -201,7 +203,7 @@
                         <th colspan="2"><label>Juvenile: </label>true
                         </th>
                      </tr>
-                  </table><pre></pre><table class="detailDataTable display">
+                  </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
                      <thead>
                         <tr>
                            <th>Address Type</th>
@@ -222,7 +224,7 @@
                            <td>01103</td>
                         </tr>
                      </tbody>
-                  </table><pre></pre><table class="detailDataTable display">
+                  </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
                      <thead>
                         <tr>
                            <th>Telephone #</th>
@@ -297,9 +299,9 @@
          </div>
       </p>
    </div>
-   <div id="chargeTab">
+   <div class="tab-pane fade" id="charge" role="tabpanel" aria-labelledby="chargeTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Charge</th>
@@ -320,7 +322,7 @@
                   <td>03/20/1929</td>
                </tr>
             </tbody>
-         </table><pre></pre><table class="detailDataTable display">
+         </table><pre></pre><table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Amended Charge Count</th>
@@ -342,9 +344,9 @@
          </table>
       </p>
    </div>
-   <div id="hearingTab">
+   <div class="tab-pane fade" id="hearing" role="tabpanel" aria-labelledby="hearingTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Hearing Type</th>
@@ -376,9 +378,9 @@
          </table>
       </p>
    </div>
-   <div id="roaListingTab">
+   <div class="tab-pane fade" id="roaListing" role="tabpanel" aria-labelledby="roaListingTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Court Event ID</th>
@@ -402,9 +404,9 @@
          </table>
       </p>
    </div>
-   <div id="criminalWarrantTab">
+   <div class="tab-pane fade" id="criminalWarrant" role="tabpanel" aria-labelledby="criminalWarrantTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Warrant Number</th>
@@ -424,9 +426,9 @@
          </table>
       </p>
    </div>
-   <div id="criminalBondTab">
+   <div class="tab-pane fade" id="criminalBond" role="tabpanel" aria-labelledby="criminalBondTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Bond Type</th>
@@ -446,9 +448,9 @@
          </table>
       </p>
    </div>
-   <div id="victimTab">
+   <div class="tab-pane fade" id="victim" role="tabpanel" aria-labelledby="victimTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Victim Name</th>
@@ -468,9 +470,9 @@
          </table>
       </p>
    </div>
-   <div id="defenseAttorneyTab">
+   <div class="tab-pane fade" id="defenseAttorney" role="tabpanel" aria-labelledby="defenseAttorneyTab">
       <p>
-         <table class="detailTable">
+         <table class="detailTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <tr>
                <th><label>Lead Attorney: </label>Willie E Burnett
                </th>
@@ -478,9 +480,9 @@
          </table>
       </p>
    </div>
-   <div id="prosecutorTab">
+   <div class="tab-pane fade" id="prosecutor" role="tabpanel" aria-labelledby="prosecutorTab">
       <p>
-         <table class="detailDataTable display">
+         <table class="detailDataTable table table-striped table-bordered mt-2 nowrap" style="width:100%">
             <thead>
                <tr>
                   <th>Attorney Name</th>

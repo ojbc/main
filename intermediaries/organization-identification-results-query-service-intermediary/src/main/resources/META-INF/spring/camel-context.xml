@@ -86,7 +86,7 @@
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
 			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
-				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath>//intel:SystemIdentification/nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 
  			<camel:setHeader headerName="operationNamespace">
@@ -95,7 +95,7 @@
 	        
 			<!-- We only call one endpoint -->						
 			<camel:setHeader headerName="adapterURI">
-				<camel:xpath resultType="java.lang.String">/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath resultType="java.lang.String">//intel:SystemIdentification/nc30:SystemName</camel:xpath>
 			</camel:setHeader>
 			
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
@@ -117,7 +117,7 @@
 			<camel:log message="Timer started"/>
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>/oiirq-req-doc:OrganizationIdentificationInitialResultsQueryRequest/intel:SystemIdentification/nc30:SystemName|/oisrq-req-doc:OrganizationIdentificationSubsequentResultsQueryRequest/intel:SystemIdentification/nc30:SystemName</camel:xpath>
+				<camel:xpath>//intel:SystemIdentification/nc30:SystemName</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
 				<camel:recipientList>
@@ -212,12 +212,20 @@
 					            <constant>SubmitOrganizationIdentificationInitialResultsQueryResults</constant>
 					        </camel:setHeader>
 						</camel:when>
-						<camel:otherwise>
+						<camel:when>
+							<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults'</camel:simple>
+							<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+							<camel:setHeader headerName="operationName">
+					            <constant>SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults</constant>
+					        </camel:setHeader>
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationSubsequentResultsQueryResults'</camel:simple>
 							<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 							<camel:setHeader headerName="operationName">
 					            <constant>SubmitOrganizationIdentificationSubsequentResultsQueryResults</constant>
 					        </camel:setHeader>
-						</camel:otherwise>
+						</camel:when>
 					</camel:choice>
 			        
 			        <camel:setHeader headerName="operationNamespace">

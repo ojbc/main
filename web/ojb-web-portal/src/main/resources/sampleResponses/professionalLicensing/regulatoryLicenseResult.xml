@@ -1,0 +1,221 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<rlq-res-doc:RegulatoryLicenseQueryResults
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:rlq-res-doc="http://ojbc.org/IEPD/Exchange/RegulatoryLicenseQueryResults/1.0"
+	xmlns:rlq-res-ext="http://ojbc.org/IEPD/Extensions/RegulatoryLicenseQueryResults/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/6.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/4.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/4.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/4.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<rlq-res-ext:RegulatoryLicenseQueryResult>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>4556789</nc:IdentificationID>
+			<nc:SystemName>SYSTEM NAME</nc:SystemName>
+		</intel:SystemIdentification>
+		<rlq-res-ext:RegulatoryLicense>
+			<rlq-res-ext:RegulatoryLicenseIdentification>
+				<nc:IdentificationID>L1234565</nc:IdentificationID>
+			</rlq-res-ext:RegulatoryLicenseIdentification>
+			<rlq-res-ext:RegulatoryLicenseCategoryText>Nursing</rlq-res-ext:RegulatoryLicenseCategoryText>
+			<rlq-res-ext:RegulatoryLicenseAgency>
+				<nc:OrganizationName>St Josephs Hospital</nc:OrganizationName>
+			</rlq-res-ext:RegulatoryLicenseAgency>
+			<rlq-res-ext:RegulatoryLicenseDepartmentName>Pulmonary</rlq-res-ext:RegulatoryLicenseDepartmentName>
+			<rlq-res-ext:RegulatoryLicenseRegulatorName>Maine Department of Nursing</rlq-res-ext:RegulatoryLicenseRegulatorName>
+			<rlq-res-ext:RegulatoryLicenseFirstIssueDate>
+				<nc:Date>2015-01-06</nc:Date>
+			</rlq-res-ext:RegulatoryLicenseFirstIssueDate>
+			<rlq-res-ext:RegulatoryLicenseIssueDate>
+				<nc:Date>2015-01-06</nc:Date>
+			</rlq-res-ext:RegulatoryLicenseIssueDate>
+			<rlq-res-ext:RegulatoryLicenseExpirationDate>
+				<nc:Date>2020-07-16</nc:Date>
+			</rlq-res-ext:RegulatoryLicenseExpirationDate>
+			<rlq-res-ext:RegulatoryLicensePerson structures:ref="d1e17" />
+			<rlq-res-ext:PersonLicenseeID>
+				<nc:IdentificationID>PL234567</nc:IdentificationID>
+			</rlq-res-ext:PersonLicenseeID>
+			<rlq-res-ext:RegulatoryLicenseStatus>
+				<nc:StatusDescriptionText>In effect</nc:StatusDescriptionText>
+				<rlq-res-ext:SecondaryStatusDescriptionText>None</rlq-res-ext:SecondaryStatusDescriptionText>
+			</rlq-res-ext:RegulatoryLicenseStatus>
+			<rlq-res-ext:CurrentlyAuthorizedToPracticeIndicator>true</rlq-res-ext:CurrentlyAuthorizedToPracticeIndicator>
+		</rlq-res-ext:RegulatoryLicense>
+		<nc:Person structures:id="d1e17">
+			<nc:PersonBirthDate>
+				<nc:Date>2001-01-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Hannah</nc:PersonGivenName>
+				<nc:PersonMiddleName>J</nc:PersonMiddleName>
+				<nc:PersonSurName>Jones</nc:PersonSurName>
+				<nc:PersonNameSuffixText></nc:PersonNameSuffixText>
+			</nc:PersonName>
+			<nc:PersonHomeContactInformation>
+				<nc:ContactMailingAddress>
+					<nc:LocationStreet>
+						<nc:StreetFullText>1346 Fuller Drive</nc:StreetFullText>
+						<nc:StreetFullText></nc:StreetFullText>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Seahorn</nc:LocationCityName>
+					<nc:LocationState>
+						<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+					</nc:LocationState>
+					<nc:LocationCountry>
+						<nc:LocationCountryName>USA</nc:LocationCountryName>
+					</nc:LocationCountry>
+					<nc:LocationPostalCode>14321</nc:LocationPostalCode>
+				</nc:ContactMailingAddress>
+			</nc:PersonHomeContactInformation>
+		</nc:Person>
+		<nc:Location structures:id="d1e103">
+			<nc:Address>
+				<nc:LocationStreet>
+					<nc:StreetFullText>1346 Fuller Drive</nc:StreetFullText>
+					<nc:StreetFullText></nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Seahorn</nc:LocationCityName>
+				<nc:LocationState>
+					<nc:LocationStateUSPostalServiceCode>ME</nc:LocationStateUSPostalServiceCode>
+				</nc:LocationState>
+				<nc:LocationCountry>
+					<nc:LocationCountryName>USA</nc:LocationCountryName>
+				</nc:LocationCountry>
+				<nc:LocationPostalCode>14321</nc:LocationPostalCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Case structures:id="d1e133">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>C1290</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:DateRange>
+					<nc:StartDate>
+						<nc:Date>2016-06-12</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2018-09-01</nc:Date>
+					</nc:EndDate>
+				</nc:DateRange>
+			</nc:ActivityDate>
+			<rlq-res-ext:CaseComplaint>
+				<rlq-res-ext:ComplaintResolution>
+					<rlq-res-ext:ResolutionDate>
+						<nc:Date>2017-09-15</nc:Date>
+					</rlq-res-ext:ResolutionDate>
+					<rlq-res-ext:ResolutionDescriptionText>Continue to Practice</rlq-res-ext:ResolutionDescriptionText>
+				</rlq-res-ext:ComplaintResolution>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Patient Over Medication</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Patient Neglect</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Probation</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>342</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Interview in 3 months</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>365</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+			</rlq-res-ext:CaseComplaint>
+			<rlq-res-ext:CaseComplaint>
+				<rlq-res-ext:ComplaintResolution>
+					<rlq-res-ext:ResolutionDate>
+						<nc:Date>2017-11-06</nc:Date>
+					</rlq-res-ext:ResolutionDate>
+					<rlq-res-ext:ResolutionDescriptionText>Continue to Practice</rlq-res-ext:ResolutionDescriptionText>
+				</rlq-res-ext:ComplaintResolution>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Failure to complete weekly report</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Failure to complete monthly report</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>on leave</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>678</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Reprimanded</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>045</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+			</rlq-res-ext:CaseComplaint>
+		</nc:Case>
+		<nc:Case structures:id="d1e238">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>C463</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<nc:ActivityDate>
+				<nc:DateRange>
+					<nc:StartDate>
+						<nc:Date>2009-12-30</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2010-03-01</nc:Date>
+					</nc:EndDate>
+				</nc:DateRange>
+			</nc:ActivityDate>
+			<rlq-res-ext:CaseComplaint>
+				<rlq-res-ext:ComplaintResolution>
+					<rlq-res-ext:ResolutionDate>
+						<nc:Date>2001-01-01</nc:Date>
+					</rlq-res-ext:ResolutionDate>
+					<rlq-res-ext:ResolutionDescriptionText>On unpaid leave</rlq-res-ext:ResolutionDescriptionText>
+				</rlq-res-ext:ComplaintResolution>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Patient Overdosed</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Action</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>857</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+			</rlq-res-ext:CaseComplaint>
+			<rlq-res-ext:CaseComplaint>
+				<rlq-res-ext:ComplaintResolution>
+					<rlq-res-ext:ResolutionDate>
+						<nc:Date>2001-01-01</nc:Date>
+					</rlq-res-ext:ResolutionDate>
+					<rlq-res-ext:ResolutionDescriptionText>Resolution</rlq-res-ext:ResolutionDescriptionText>
+				</rlq-res-ext:ComplaintResolution>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Allegation 1</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAllegation>
+					<rlq-res-ext:AllegationDescriptionText>Allegation 2</rlq-res-ext:AllegationDescriptionText>
+				</rlq-res-ext:ComplaintAllegation>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Action 1</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>679</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+				<rlq-res-ext:ComplaintAction>
+					<rlq-res-ext:ActionDescriptionText>Action 2</rlq-res-ext:ActionDescriptionText>
+					<rlq-res-ext:ActionValueText>D678</rlq-res-ext:ActionValueText>
+				</rlq-res-ext:ComplaintAction>
+			</rlq-res-ext:CaseComplaint>
+		</nc:Case>
+		<nc:PersonResidenceAssociation>
+			<nc:Person structures:ref="d1e17" />
+			<nc:Location structures:ref="d1e103" />
+		</nc:PersonResidenceAssociation>
+	</rlq-res-ext:RegulatoryLicenseQueryResult>
+</rlq-res-doc:RegulatoryLicenseQueryResults>

@@ -39,6 +39,7 @@
 	
 	<!-- We should change this to require a SAML authentication role, if we can separate policy ack and portal roles, we can do this -->
     <sec:http security="none" pattern="/otp/**"/>
+    <sec:http security="none" pattern="/webjars/**"/>
     
 	<sec:http realm="Portal Realm" auto-config='true' entry-point-ref="preAuthenticatedProcessingFilterEntryPoint" 
 		create-session="ifRequired" disable-url-rewriting="true" access-decision-manager-ref="accessDecisionManager" use-expressions="true">

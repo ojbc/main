@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -49,7 +50,7 @@ public class PersonSearchRequestRowMapper implements
 				personSearchRequest = new PersonSearchRequest();
 			
 				personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
-				personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
+				personSearchRequest.setPersonSearchRequestId(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
 				
 				if (rs.getDate("DOB_START_DATE") != null)
 				{	
@@ -96,13 +97,24 @@ public class PersonSearchRequestRowMapper implements
 					personSearchRequest.setSystemsToSearch(sourceSystems);
 				} 
 				
+				if (EnhancedAuditUtils.hasColumn(rs, "USER_FIRST_NAME"))
+				{	
+					UserInfo userInfo = new UserInfo();
+					
+					UserInfoRowMapper userInfoRowMapper = new UserInfoRowMapper();
+					
+					userInfo = userInfoRowMapper.buildUserInfo(rs);
+					
+					personSearchRequest.setUserInfo(userInfo);
+				}
+				
 				map.put(id, personSearchRequest);
 
 			} else {
 				personSearchRequest.getSystemsToSearch().add(systemName);
 			}
 
-			personSearchRequest.setPersonSearchRequestID(id);
+			personSearchRequest.setPersonSearchRequestId(id);
 		}
 
 		return (List<PersonSearchRequest>) new ArrayList<PersonSearchRequest>(

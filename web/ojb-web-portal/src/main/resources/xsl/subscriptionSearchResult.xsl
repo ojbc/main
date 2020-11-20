@@ -62,23 +62,26 @@
 				<xsl:value-of select="count(ext:SubscriptionSearchResult)"></xsl:value-of>
 			</xsl:variable>
 			<xsl:if test="$containedResultCount &lt; number(srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity)">
-				<span class="hint">
+				<div class="alert alert-info fade in alert-dismissible show">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true" style="font-size:20px">×</span>
+					</button>    
 					The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
 					entries are loaded. Please refine your search with the ADVANCED SEARCH.
-				</span>
+				</div>
 			</xsl:if>
 			<xsl:call-template name="Subscriptions"/>
 			<span id="subscriptionButtons">
 				<xsl:if test="$validateSubscriptionButton='true'">
-					<a id="validateLink" href="#" class="blueButton viewDetails" style="margin-right:6px">VALIDATE</a>
+					<a id="validateLink" href="#" class="btn btn-primary btn-sm viewDetails mr-2" role="button" title="Validate" data-toggle="tooltip"><i class="fa fa-check-circle fa-lg"/></a>
 				</xsl:if>
-				<a id="unsubscribeLink" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>UNSUBSCRIBE</a>
+				<a id="unsubscribeLink" href="#" class="btn btn-primary btn-sm viewDetails" role="button" title="Unsubscribe" data-toggle="tooltip"><i class="fa fa-times-circle fa-lg"></i></a>
 			</span>    				
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="Subscriptions">
-			<table class="searchResultsTable display" id="searchResultsTable">
+			<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
 				<thead>
 					<tr>
 						<th></th><!-- For the checkboxes -->
@@ -137,9 +140,9 @@
 		<tr>
 			<td valign="middle">
 				<!-- note value in json format, so ui can parse it -->
-				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}", "validationDueDate":"{$validationDueDate}"}}'/>
+				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"systemId":"{$subscriptionID}","topic":"{$subscriptionTopic}","subscriptionPurpose":"{$reasonCode}", "validationDueDate":"{$validationDueDate}"}}'/>
 			</td>				
-			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
+			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}" class="btn btn-primary btn-sm viewDetails" id="editSubscriptionLink{$subscriptionID}" title="Edit" data-toggle="tooltip"><i class="fas fa-edit fa-lg"></i></a></td>
 			<td>
 				<xsl:choose>
 					<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
@@ -251,26 +254,23 @@
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			User does not meet privilege requirements to access
 			<xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />. To request access, contact your IT department.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System Name: <xsl:value-of select="intel:SystemName" />, 
 			Error: <xsl:value-of select="srer:ErrorText" />
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="nc:Date" mode="endDate">

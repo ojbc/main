@@ -14,4 +14,8 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<div id="stateBanner" class="contentBox"><img src="#springUrl($bannerPath)" alt="Mock State Banner" style="max-height:100%;"></div>
+<div class="text-white pl-3 mb-3 pb-1">
+	<img src="#springUrl($bannerPath)" height="73px" class="mr-2" /> 
+	<span class="initials align-bottom" aria-hidden="true">$bannerInitial</span>
+	<span class="fullname align-middle">$bannerFullname</span>
+</div>

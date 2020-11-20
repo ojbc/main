@@ -21,8 +21,8 @@
     	   //refresh when page displayed in case there's a default sub type value set already        
     	   refreshDisplayFromSubType();
     		    		
-    		$('#addSubModalSaveLink').click(
-    			function(){    			
+    		$('#subscriptionModal').off('click', '#addSubModalSaveLink')
+    			.on('click', '#addSubModalSaveLink', function(){    			
 				  					  					  					  	
 				  	var subTypeTxt = $('#topic option:selected').text().trim();
 									  						
@@ -47,16 +47,15 @@
 						savePersonVehicleCrashSubscription();
 					 
 					}else{
-						alert('Subscription type must be specified');
+						bootpopup.alert('Subscription type must be specified', 'ERROR');
 					}    			    			    											    				    						  				  					
     			}
     		)
     		
-    		$('#addSubModalCancelLink').click(
-    			function(){
-    				$("#addSubscriptionDialog").dialog('close');
-    			}
-    		)
+    		$('#subscriptionModal').off('click', '#addSubModalCancelLink')
+    			.on('click', '#addSubModalCancelLink', function(){
+				$("#subscriptionModal").modal('hide');
+    		});
 	  });	
 	  
 	  
@@ -155,18 +154,18 @@
 				  displayMessage += '\n ' + value;																											
 				});
 				
-				alert(displayMessage);				                            
+				bootpopup.alert(displayMessage, "ERROR");				                            
 			}else{				
 			  if(warningsArray != null && warningsArray != ''){
 				    $.each(warningsArray, function( index, value ) {												
 				    	displayMessage += '\n ' + value;																											
 				  	});
-				  	alert(displayMessage);
+				  	bootpopup.alert(displayMessage, "WARNING");
 			   }	
 			   if (sourcePage === 'personSearch')
 			   {		
-			   		$("#addSubscriptionDialog").dialog('close');
-					alert("Your subscription was saved successfully. Click the subscriptions link to view it.");
+			   		$("#subscriptionModal").modal('hide');
+					bootpopup.alert("Your subscription was saved successfully. Click the subscriptions link to view it.", "SUCCESS");
 			   }
 			   else
 			   {			
@@ -197,7 +196,7 @@
 	  
 	  function refreshAfterSaveSubscription(){
 	  
-  		$("#addSubscriptionDialog").dialog('close');
+  		$("#subscriptionModal").modal('hide');
   		
   		// redisplay subscription results having the new subscription 
   		ojbc.showLoadingPane();
@@ -215,64 +214,68 @@
 	  	
 	  	var subTypeTxt = $("#topic option:selected").text().trim();
 	  			
-		if(subTypeTxt === 'Arrest'){						
-			$(".ui-dialog").width("240");
+		if(subTypeTxt === 'Arrest'){
 			$("#ori").remove();
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm');
 	  		$.post("#springUrl('/subscriptions/arrestForm')", 
-	  			function(data){		  			
-	  				$('#subModalDynamicContents').html(data);			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);				
-		}else if(subTypeTxt === 'Rapback'){						
-			$(".ui-dialog").width("480");
-			$("#subFormDiv").height("auto");
-			$(".ui-dialog").height("auto");
-
+	  			function(data){
+	  			$('#subModalDynamicContents').html(data);
+				$("#subFormDiv").height("auto");	
+				$('#subscriptionModal .modal-footer').html(
+					' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+					' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	  		}).fail(ojbc.displayFailMessage);				
+		}else if(subTypeTxt === 'Rapback'){	
+			$('#subscriptionModal .modal-dialog').removeClass('modal-sm');					
 			$("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
-	  		$.post("#springUrl('/subscriptions/rapbackForm')", 
-	  			function(data){		  			
-	  				$('#subModalDynamicContents').html(data);			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);				
-															
+	  		$.post("#springUrl('/subscriptions/rapbackForm')", function(data){		  			
+	  			$('#subModalDynamicContents').html(data);		  						  				  				
+				$("#subFormDiv").height("auto");
+				$('#subscriptionModal .modal-footer').html(
+					' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+					' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	  		}).fail(ojbc.displayFailMessage);				
 		}else if(subTypeTxt === 'Incident'){		
-			$(".ui-dialog").width("240");
 			$("#ori").remove();
-	  		$.post("#springUrl('/subscriptions/incidentForm')", 
-	  			function(data){		  			
-	  				$('#subModalDynamicContents').html(data);			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm');	
+	  		$.post("#springUrl('/subscriptions/incidentForm')", function(data){	
+	  			$('#subModalDynamicContents').html(data);		  						  				  				
+				$("#subFormDiv").height("auto");
+				$('#subscriptionModal .modal-footer').html(
+					' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+					' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	  		}).fail(ojbc.displayFailMessage);
 	  		
 	  	}else if(subTypeTxt === 'ATN Assignment'){
-			$(".ui-dialog").width("240");
 			$("#ori").remove();
-	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
-	  			function(data){		  			
-	  				$('#subModalDynamicContents').html(data);			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);	  	
-	  						
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm');	
+	  		$.post("#springUrl('/subscriptions/chCycleForm')", function(data){		  			
+	  			$('#subModalDynamicContents').html(data);			  						  				  				
+				$("#subFormDiv").height("auto");
+				$('#subscriptionModal .modal-footer').html(
+					' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+					' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	  		}).fail(ojbc.displayFailMessage);	  	
 		}else if(subTypeTxt == 'Person Vehicle Crash'){
-	  	
-	  		$.post("#springUrl('/subscriptions/vehicleCrashForm')", 
-	  			function(data){		  			
-	  				$('#subModalDynamicContents').html(data);			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);	  	
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm');
+	  		$.post("#springUrl('/subscriptions/vehicleCrashForm')", function(data){		  			
+	  			$('#subModalDynamicContents').html(data);			  						  				  				
+				$("#subFormDiv").height("auto");	
+				$('#subscriptionModal .modal-footer').html(
+					' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+					' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	  		}).fail(ojbc.displayFailMessage);	  	
 	  						
 		}else{
 			$('#subModalDynamicContents').html('');
-		} 		
+		}
 	  }
 
 </script>
 
 
-<div style="display:none; width:240px;height:480px;" id="modalIframeSpinner"></div>
-
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:auto;height:470px;" id="subFormDiv">
+<div style="width:auto;height:320px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")	
@@ -283,10 +286,3 @@
 		<input type="hidden" id="sourcePage" name="sourcePage" value="${sourcePage}"/>	 	    	        
 	</form>
 </div>
-  
-<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
- 	<div id="subModalButtonDiv">
-        <a  id="addSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-        <a  id="addSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-    </div>            
-</div>	  

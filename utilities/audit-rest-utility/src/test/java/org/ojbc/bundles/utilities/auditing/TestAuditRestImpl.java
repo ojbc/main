@@ -448,7 +448,7 @@ public class TestAuditRestImpl {
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State12345");
 		federalRapbackNotification.setTransactionType("NOTIFICATION_MATCHING_SUBSCRIPTION");
-		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
+		federalRapbackNotification.setRecordRapBackActivityNotificationId("7654");
 		
 		Integer pk = enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
 		
@@ -480,7 +480,7 @@ public class TestAuditRestImpl {
 		assertEquals("State12345",federalRapbackNotificationFromService.get(0).getStateSubscriptionId());
 		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION",federalRapbackNotificationFromService.get(0).getTransactionType());
 		assertEquals(2, federalRapbackNotificationFromService.get(0).getTriggeringEvents().size());
-		assertEquals("7654",federalRapbackNotificationFromService.get(0).getRecordRapBackActivityNotificationID());
+		assertEquals("7654",federalRapbackNotificationFromService.get(0).getRecordRapBackActivityNotificationId());
 	}		
 	
 	@Test
@@ -535,7 +535,7 @@ public class TestAuditRestImpl {
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State123456789");
 		federalRapbackNotification.setTransactionType("NOTIFICATION_MATCHING_SUBSCRIPTION");
-		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
+		federalRapbackNotification.setRecordRapBackActivityNotificationId("7654");
 		
 		Integer pk = enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
 		
@@ -559,7 +559,7 @@ public class TestAuditRestImpl {
 		assertEquals("/tmp/path/toNotificationFile",federalRapbackNotificationFromRestService.getPathToNotificationFile());
 		assertEquals("Rapback event text",federalRapbackNotificationFromRestService.getRapBackEventText());
 		assertEquals("State123456789",federalRapbackNotificationFromRestService.getStateSubscriptionId());
-		assertEquals("7654",federalRapbackNotificationFromRestService.getRecordRapBackActivityNotificationID());
+		assertEquals("7654",federalRapbackNotificationFromRestService.getRecordRapBackActivityNotificationId());
 		assertEquals("NOTIFICATION_MATCHING_SUBSCRIPTION",federalRapbackNotificationFromRestService.getTransactionType());
 		assertEquals(2, federalRapbackNotificationFromRestService.getTriggeringEvents().size());
 		

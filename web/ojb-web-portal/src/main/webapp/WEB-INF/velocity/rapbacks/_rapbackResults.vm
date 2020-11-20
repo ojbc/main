@@ -51,9 +51,12 @@
 	);
 	
 	$(function() {
-		$( document ).tooltip();
 		$('#searchBarButtonDiv').hide();
 		$.fn.dataTable.moment( 'MM/DD/YYYY' );
+		$('[data-toggle="tooltip"]').tooltip();
+		$('.modal-dialog').draggable({
+        	handle: ".modal-header"
+      	});
 		
 		if ($("#searchResultsTable")){
 			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
@@ -62,7 +65,8 @@
 				"pagingType": "full_numbers",
 				"pageLength": 50,
 				stateSave: true,
-				colReorder: true, 
+				colReorder: true,
+				responsive: true,  
 				"order": [[ 1, "asc" ]],
 				"language": {
 	        		"emptyTable": "No rapback record available"
@@ -76,22 +80,24 @@
 				]
 	        };
 		
-			var oTable = $("#searchResultsTable").DataTable( optTable);
+			var oTable = $("#searchResultsTable").DataTable(optTable);
 			
-			$('#filterColumn').on("change", '#rapbacksFilter', function() {
+			new $.fn.dataTable.FixedHeader( oTable );
+			
+			$('#portalContent').on("change", '#rapbacksFilter', function() {
     	    	oTable.draw();
     		} );
 	  		
-			$('#filterColumn').on("click", '#clearFilterButton', function() {
+			$('#portalContent').on("click", '#clearFilterButton', function() {
 				$('#rapbacksFilter').val('');
 	        	oTable.draw();
 	    	} );
     	
-			$('#filterColumn').on("change", '#hasRapBackNotifications', function() {
+			$('#portalContent').on("change", '#hasRapBackNotifications', function() {
 	        	oTable.draw();
 	    	} );
     	
-			$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			$('#portalContent').on("change", '#showArchivedOnly', function() {
 				if ($('#showArchivedOnly').is(":checked")){
 					$('#rapbacksFilter').val('');
 				}
@@ -176,246 +182,120 @@
     		clearErrorMessage();
 			var row = $(this).parent().parent();
 			var id = $(this).attr("id");
-			var reasonCode = $(this).attr("data-reason-code"); 		    
-		    $( "#dialog-confirm-validate" ).dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      modal: true,
-			      buttons: {
-			        "Validate": function() {
-			    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
-							if (data === 'success'){
-								refreshSearchResultsTable("Validation Successful");	
-							}
-							else{
-								showErrorMessage(data);
-							}	
-						}).fail(ojbc.displayFailMessage);
-						
-				        $( this ).dialog( "close" );
-			        },
-			        "Close": function() {
-	            		$( this ).dialog( "close" );
-	            	}
-			     }
-		    });   		
-    	
+			var reasonCode = $(this).attr("data-reason-code"); 	
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>',
+			        { p: {text: 'If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". '}},
+			        { p: {text: "If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription."}}
+			    ],
+			    validate: function(data,e) { 			        	
+		    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
+						if (data === 'success'){
+							refreshSearchResultsTable("Validation Successful");	
+						}
+						else{
+							showErrorMessage(data);
+						}	
+					}).fail(ojbc.displayFailMessage);
+ 				},
+			    cancel: function(data) {}
+			});
     	});
-    	
+    	    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
-    		clearErrorMessage();
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .8;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            return false;
+          	$('#detailModal .modal-title').html('IDENTIFICATION INITIAL RESULTS');
+			ojbc.showDetailModal(this.href);
+			return false;
+			
         });
-    	
+        
     	$('#searchResultsTable').on('click', 'a.getStateRapsheet',function() {
-    		clearErrorMessage();
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Rap Sheets" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .85;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            return false;
+          	$('#detailModal .modal-title').html('IDENTIFICATION RAP SHEETS');
+			ojbc.showDetailModal(this.href);
+			return false;
         });
-    	
+            	
     	$('#searchResultsTable').on('click', 'a.subsequentResultConfirmation',function() {
     		clearErrorMessage();
     		var recordStatus = $(this).parent().prev().text();
     		var subsequentResultButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      width:400,
-			      height:200,
-			      modal: true,
-			      buttons: {
-			        "Yes": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
-			        	
-			        	subsequentResultButton.click();
-				        $( this ).dialog( "close" );
-			        },
-			        "No": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
-
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
-		            		 $( this ).dialog( "close" );
-		            	}
-		            	else{
-						    $( "#dialog-confirm-unsubscribe" ).dialog({
-						    	 position: { my: "center center", at: "center center", of: row },
-							     resizable: true,
-							     width:500,
-							     height:150,
-							     modal: true,
-							     buttons: {
-							         "Continue": function() {
-							              unsubscribe(subscriptionId);
-								          $( this ).dialog( "close" );
-							         },
-		            				 "Cancel" : function(){
-		            					  $( this ).dialog( "close" );
-		            				 }
-		            			 }
-							});		            		
-	            			$( this ).dialog( "close" );
-		            	}
-			        }
-			     }
-		    });   		
+    		
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
+			    ],
+			    yes: function(data,e) { 			        	
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        subsequentResultButton.click();
+ 				},
+			    no: function(data) {
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
+	            		bootpopup({
+						    title: "Unsubscribe?",
+						    content: [
+						        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>'
+						    ],
+						    cancel: function(data) {},
+						    ok: function(data,e) { unsubscribe(subscriptionId); }
+						});
+			    	}
+			    }
+			});
+    		
     	});
     	
     	$('#searchResultsTable').on('click', 'a.viewRapsheetConfirmation',function() {
     		clearErrorMessage();
+    		
     		var recordStatus = $(this).parent().prev().text();
     		var viewRapsheetButton = $(this).next();
     		var subscriptionId = $(this).attr("id");
     		var row = $(this).parent().parent();
-		    $( "#dialog-confirm-authorization" ).dialog({
-		    	  position: { my: "center center", at: "center center", of: row },
-			      resizable: true,
-			      width:400,
-			      height:200,
-			      modal: true,
-			      buttons: {
-			        "Yes": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
-			        	
-			        	viewRapsheetButton.click();
-				        $( this ).dialog( "close" );
-			        },
-			        "No": function() {
-			        	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
-
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
-		            		 $( this ).dialog( "close" );
-		            	}
-		            	else{
-						    $( "#dialog-confirm-unsubscribe" ).dialog({
-						    	 position: { my: "center center", at: "center center", of: row },
-							     resizable: true,
-							     width:500,
-							     height:150,
-							     modal: true,
-							     buttons: {
-							         "Continue": function() {
-							              unsubscribe(subscriptionId);
-								          $( this ).dialog( "close" );
-							         },
-		            				 "Cancel" : function(){
-		            					  $( this ).dialog( "close" );
-		            				 }
-		            			 }
-							});		            		
-	            			$( this ).dialog( "close" );
-		            	}
-			        }
-			     }
-		    });   		
+    		
+    		bootpopup({
+			    title: "Are you authorized?",
+			    content: [
+			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
+			    ],
+			    yes: function(data,e) { 			        	
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			        viewRapsheetButton.click();
+ 				},
+			    no: function(data) {
+			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
+	            		bootpopup({
+						    title: "Unsubscribe?",
+						    content: [
+						        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>',
+						        { p: {text: "Insert image info here:"}},
+						    ],
+						    cancel: function(data) {},
+						    ok: function(data,e) { unsubscribe(subscriptionId); }
+						});
+			    	}
+			    }
+			});
     	});
     	
-    	
     	$('#searchResultsTable').on('click', 'a.subsequentResults',function() {
-    		clearErrorMessage();
-            var url = this.href;
-            var dialog = $('<div style="display:none"  title="Identification Subsequent Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .8;
-			var dlgHeight = $(window).height() * .6;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						$(this).css('height', $(this).contents().find("body").height() + 16);
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            return false;
+          	$('#detailModal .modal-title').html('IDENTIFICATION SUBSEQUENT RESULTS');
+			ojbc.showDetailModal(this.href);
+			return false; 
         });
-
+        
+    	$('#searchResultsTable').on('click', 'a.nsor5YearCheckResults',function() {
+          	$('#detailModal .modal-title').html('IDENTIFICATION NSOR 5 YEAR CHECK RESULTS');
+			ojbc.showDetailModal(this.href);
+			return false; 
+        });
+    	
 		function unsubscribe(id){
     		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
 				if (data === 'success'){
@@ -447,46 +327,54 @@
 	
 	
 <div id="searchResultsContainer" class="contentBox">
-
-    <div id="searchResultsHeader"> 
-        <p id="search-results-title">MANAGE RAP BACK</p>
-        <div style="float:right" >
-            <a id="returnToSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
-                RETURN TO SEARCH
-            </a>
-            <a id="newSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
-                NEW SEARCH
-            </a>
-        </div>
-        
-    </div>
-    
-    <div style="padding:10px">
-		#if($informationMessages && $informationMessages!='')
-			<span class="error" id="informationMessages" >
-				$informationMessages
-			</span><br/>
-		#end
-		$rapbackSearchContent								
-    </div>
-    
-</div>
-
-<div id="dialog-confirm-authorization" title="Are you authorized?" class="hidden">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>
-</div>
-<div id="dialog-confirm-unsubscribe" title="Unsubscribe?" class="hidden">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-  You have indicated that you are no longer authorized to view criminal history for this individual; your subscription will now be cancelled.</p>
-</div>
-<div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:auto; height:auto">
-	<div style="margin:7px;padding:7px;">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual.</p>
-		<p>   If the individual is still employed by, licensed by, or volunteering with your agency you may select "Validate". </p>
-		<p>  If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription.</p>
+	<div class="card"> 
+		<div class="card-header container-fluid">
+		  <div class="row ml-1 h-100">
+		    <div class="my-auto font-weight-bold" id="search-results-title">
+		      MANAGE RAP BACK
+		    </div>
+		    <div class="ml-auto mr-3">
+		      <button id="returnToSearchSubmitButton" class="btn btn-sm btn-primary">RETURN TO SEARCH</button>
+		      <button id="newSearchSubmitButton" class="btn btn-sm btn-secondary ml-auto" >NEW SEARCH</button>
+		     </div>
+		  </div>
+		</div>
+		<div class="card-body">
+			<div class="breadcrumb" id="filterColumn">
+				<div id="checkbox-subsequentReuslts" class="col-12 col-lg-4 col-xl-3">
+					<input type="checkbox" name="hasRapBackNotifications" id="hasRapBackNotifications" value="hasRapBackNotifications"><span class="fieldText pl-2" >Only Show Rap Back Notifications</span>
+				</div>
+				<div id="checkbox-show-archived-only" class="col">
+					<input type="checkbox" name="showArchivedOnly" id="showArchivedOnly" value="showArchivedOnly"><span class="fieldText pl-2" >Show Archived Only</span>
+				</div>
+			</div>
+		
+			#if($informationMessages && $informationMessages!='')
+				<span class="error" id="informationMessages" >
+					$informationMessages
+				</span><br/>
+			#end
+			$rapbackSearchContent								
+		</div>
 	</div>
 </div>
+
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>				    
+
 
 

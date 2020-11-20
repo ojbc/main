@@ -32,27 +32,37 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackIdentityHistory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackRenewalNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.FirearmsSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IncidentSearchResult;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
+import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.UserAcknowledgement;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.VehicleSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.VehicleSearchResult;
+import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
@@ -76,6 +86,77 @@ public class EnhancedAuditDaoTest {
 	public void init(){
 	
 		assertNotNull(enhancedAuditDao);
+	}
+	
+	@Test
+	public void testFirearmSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
+		
+		FirearmsSearchRequest fsr = new FirearmsSearchRequest();
+		
+		fsr.setMessageId("123456");
+		fsr.setOnBehalfOf("onbehalf");
+		fsr.setPurpose("purpose");
+		fsr.setUserInfofk(userInfoPk);
+		fsr.setCurrentRegistrationsOnly(true);
+		fsr.setFirearmsType("handgun");
+		fsr.setMake("glock");
+		fsr.setModel("9mm");
+		fsr.setRegistrationNumber("123");
+		fsr.setSerialNumber("432");
+		
+		Integer fsrIdFromSave = enhancedAuditDao.saveFirearmsSearchRequest(fsr);
+		
+		enhancedAuditDao.saveFirearmsSystemToSearch(fsrIdFromSave, 1);
+		enhancedAuditDao.saveFirearmsSystemToSearch(fsrIdFromSave, 2);
+		
+		Integer fsrIdFromRetreive = enhancedAuditDao.retrieveFirearmSearchIDfromMessageID("123456");
+		
+		log.info("ID from save: " + fsrIdFromSave);
+		log.info("ID from retreive: " + fsrIdFromRetreive);
+		
+		assertEquals(fsrIdFromSave, fsrIdFromRetreive);
+		
+		AuditSearchRequest firearmsAuditSearchRequest = new AuditSearchRequest();
+		
+		firearmsAuditSearchRequest.setStartTime(LocalDateTime.now().minusHours(1));
+		firearmsAuditSearchRequest.setEndTime(LocalDateTime.now().plusHours(1));
+		
+		List<FirearmsSearchRequest> firearmsSearchRequests = enhancedAuditDao.retrieveFirearmSearchRequest(firearmsAuditSearchRequest);
+		
+		//Additional assertions in processor test
+		assertEquals(1, firearmsSearchRequests.size());
+					
+		FirearmSearchResult fsResult = new FirearmSearchResult();
+		
+		fsResult.setFirearmSearchRequestId(fsrIdFromRetreive);
+		fsResult.setSearchResultsCount(5);
+		fsResult.setSystemSearchResultURI("{system1}URI");
+		fsResult.setSearchResultsAccessDeniedText("Access Denied text");
+		fsResult.setSearchResultsAccessDeniedIndicator(true);
+		fsResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(fsResult.getSystemSearchResultURI());
+		
+		fsResult.setSystemSearchResultId(systemToSearchID);
+		
+		Integer fsresultIdFromSave = enhancedAuditDao.saveFirearmSearchResult(fsResult);
+		
+		assertNotNull(fsresultIdFromSave);
+		
+		List<FirearmSearchResult> firearmSearchResult = enhancedAuditDao.retrieveFirearmSearchResults(fsrIdFromSave);
+		assertEquals(1, firearmSearchResult.size());
+		
+		log.info(firearmSearchResult.get(0).toString());
+		
+		assertEquals(new Integer(5), firearmSearchResult.get(0).getSearchResultsCount());
+		assertEquals("system1", firearmSearchResult.get(0).getSystemName());
+		assertEquals("{system1}URI", firearmSearchResult.get(0).getSystemURI());
+		assertEquals("search results error text", firearmSearchResult.get(0).getSearchResultsErrorText());
+		assertTrue( firearmSearchResult.get(0).getSearchResultsAccessDeniedIndicator());
 	}
 	
 	@Test
@@ -135,7 +216,27 @@ public class EnhancedAuditDaoTest {
 		
 		//Additional assertions in processor test
 		assertEquals(1, personSearchRequests.size());
-					
+		
+		AuditPersonSearchRequest auditPersonSearchRequest = new AuditPersonSearchRequest();
+		
+		auditPersonSearchRequest.setPersonFirstName("first");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("fir*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("*fir*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+
+		auditPersonSearchRequest.setPersonFirstName("f*r*");
+		personSearchRequests = enhancedAuditDao.retrievePersonSearchRequestByPerson(auditPersonSearchRequest);
+		assertEquals(1, personSearchRequests.size());
+		
+		log.info(personSearchRequests);
+
 		PersonSearchResult psResult = new PersonSearchResult();
 		
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
@@ -147,11 +248,22 @@ public class EnhancedAuditDaoTest {
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(psResult.getSystemSearchResultURI());
 		
-		psResult.setSystemSearchResultID(systemToSearchID);
+		psResult.setSystemSearchResultId(systemToSearchID);
 		
 		Integer psresultIdFromSave = enhancedAuditDao.savePersonSearchResult(psResult);
 		
 		assertNotNull(psresultIdFromSave);
+		
+		List<PersonSearchResult> personSearchResults = enhancedAuditDao.retrievePersonSearchResults(psrIdFromSave);
+		assertEquals(1, personSearchResults.size());
+		
+		log.info(personSearchResults.get(0).toString());
+		
+		assertEquals(new Integer(5), personSearchResults.get(0).getSearchResultsCount());
+		assertEquals("system1", personSearchResults.get(0).getSystemName());
+		assertEquals("{system1}URI", personSearchResults.get(0).getSystemURI());
+		assertEquals("search results error text", personSearchResults.get(0).getSearchResultsErrorText());
+		assertTrue( personSearchResults.get(0).getSearchResultsAccessDeniedIndicator());
 	}
 	
 
@@ -318,6 +430,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("456", federalRapbackSubscriptionFromDatabase.getStateSubscriptionId());
 		assertEquals("CS", federalRapbackSubscriptionFromDatabase.getSubscriptonCategoryCode());
 		
+		assertEquals("456", enhancedAuditDao.retrieveStateSubscriptionIDFromTransactionControlReferenceId("9999999"));
 	}
 	
 	
@@ -364,7 +477,7 @@ public class EnhancedAuditDaoTest {
 		federalRapbackNotification.setRapBackEventText("Rapback event text");
 		federalRapbackNotification.setStateSubscriptionId("State12345");
 		federalRapbackNotification.setTransactionType("UCN_Consolidation");
-		federalRapbackNotification.setRecordRapBackActivityNotificationID("7654");
+		federalRapbackNotification.setRecordRapBackActivityNotificationId("7654");
 		
 		enhancedAuditDao.saveFederalRapbackNotification(federalRapbackNotification);
 		
@@ -381,7 +494,7 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Rapback event text",federalNotifications.get(0).getRapBackEventText());
 		assertEquals("State12345",federalNotifications.get(0).getStateSubscriptionId());
 		assertEquals("UCN_Consolidation",federalNotifications.get(0).getTransactionType());
-		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationID());
+		assertEquals("7654", federalNotifications.get(0).getRecordRapBackActivityNotificationId());
 		
 		federalNotifications = enhancedAuditDao.retrieveFederalNotificationsBySubscriptionId("State12345");
 
@@ -412,6 +525,74 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(queryPk);
 		
+		IncidentReportQueryResponse incidentReportQueryResponse = new IncidentReportQueryResponse();
+		
+		incidentReportQueryResponse.setIncidentNumber("INC234");
+		incidentReportQueryResponse.setMessageId("49878");
+		incidentReportQueryResponse.setSystemName("System Name");
+		incidentReportQueryResponse.setQueryRequestId(queryPk);
+		
+		enhancedAuditDao.saveIncidentReportQueryResponse(incidentReportQueryResponse);
+		
+		IncidentReportQueryResponse incidentReportQueryResponseFromDatabase = enhancedAuditDao.retrieveIncidentReportQueryResponse(queryPk);
+		
+		assertEquals("INC234", incidentReportQueryResponseFromDatabase.getIncidentNumber());
+		assertEquals("49878", incidentReportQueryResponseFromDatabase.getMessageId());
+		assertEquals("System Name", incidentReportQueryResponseFromDatabase.getSystemName());
+				
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponse = new ProfessionalLicensingQueryResponse();
+		
+		professionalLicensingQueryResponse.setLicenseNumber("123");
+		professionalLicensingQueryResponse.setLicenseType("pro license");
+		professionalLicensingQueryResponse.setQueryRequestId(queryPk);
+		professionalLicensingQueryResponse.setIssueDate(LocalDate.now().minusDays(7));
+		professionalLicensingQueryResponse.setExpirationDate(LocalDate.now());
+		professionalLicensingQueryResponse.setMessageId("123456");
+		
+		enhancedAuditDao.saveProfessionalLicensingQueryResponse(professionalLicensingQueryResponse);
+		
+		ProfessionalLicensingQueryResponse professionalLicensingQueryResponseFromDatabase = enhancedAuditDao.retrieveProfessionalLicensingQueryResponse(queryPk);
+		
+		assertEquals("123", professionalLicensingQueryResponseFromDatabase.getLicenseNumber());
+		assertEquals("pro license", professionalLicensingQueryResponseFromDatabase.getLicenseType());
+		assertEquals(LocalDate.now().minusDays(7), professionalLicensingQueryResponseFromDatabase.getIssueDate());
+		assertEquals(LocalDate.now(), professionalLicensingQueryResponseFromDatabase.getExpirationDate());
+		assertEquals("123456", professionalLicensingQueryResponseFromDatabase.getMessageId());
+		
+		//Wildlife query response
+		WildlifeQueryResponse wildlifeQueryResponse = new WildlifeQueryResponse();
+		
+		wildlifeQueryResponse.setQueryRequestId(queryPk);
+		wildlifeQueryResponse.setMessageId("123456");
+		wildlifeQueryResponse.setResidenceCity("chicago");
+		
+		enhancedAuditDao.saveWildlifeQueryResponse(wildlifeQueryResponse);
+		
+		WildlifeQueryResponse wildlifeQueryResponseResponseFromDatabase = enhancedAuditDao.retrieveWildlifeQueryResponse(queryPk);
+		
+		assertEquals("123456", wildlifeQueryResponseResponseFromDatabase.getMessageId());
+		assertEquals("chicago", wildlifeQueryResponseResponseFromDatabase.getResidenceCity());
+		
+		//End Wildlife query response
+		
+		SubscriptionQueryResponse subscriptionQueryResponse = new SubscriptionQueryResponse();
+		
+		subscriptionQueryResponse.setFbiSubscriptionId("FBI");
+		subscriptionQueryResponse.setMessageId("12345");
+		subscriptionQueryResponse.setQueryRequestId(queryPk);
+		subscriptionQueryResponse.setSubscriptionQualifierId("321");
+		subscriptionQueryResponse.setSystemName("Subscriptions");
+		
+		enhancedAuditDao.saveSubscriptionQueryResponse(subscriptionQueryResponse);
+		
+		SubscriptionQueryResponse subscriptionQueryResponseFromDatabase = enhancedAuditDao.retrieveSubscriptionQueryResults(queryPk);
+		
+		assertEquals("FBI", subscriptionQueryResponseFromDatabase.getFbiSubscriptionId());
+		assertEquals("12345", subscriptionQueryResponseFromDatabase.getMessageId());
+		assertEquals("321", subscriptionQueryResponseFromDatabase.getSubscriptionQualifierId());
+		assertEquals("Subscriptions", subscriptionQueryResponseFromDatabase.getSystemName());
+		
 		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = new PersonQueryCriminalHistoryResponse();
 		
 		personQueryCriminalHistoryResponse.setQueryRequestId(queryPk);
@@ -441,7 +622,6 @@ public class EnhancedAuditDaoTest {
 		identificationQueryResponse.setQueryRequestId(queryPk);
 		identificationQueryResponse.setFbiId("123");
 		identificationQueryResponse.setIdDate(LocalDate.now());
-		identificationQueryResponse.setMessageId("123456");
 		identificationQueryResponse.setOca("oca");
 		identificationQueryResponse.setOri("ori");
 		identificationQueryResponse.setOtn("otn");
@@ -453,6 +633,18 @@ public class EnhancedAuditDaoTest {
 		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
 		
 		assertNotNull(identificationQueryResponsePk);
+		
+		IdentificationQueryResponse identificationQueryResponseFromDatabase = enhancedAuditDao.retrieveIdentificationResultsQueryDetail(queryPk);
+		
+		assertEquals("123",identificationQueryResponseFromDatabase.getFbiId());
+		assertEquals(LocalDate.now(),identificationQueryResponseFromDatabase.getIdDate());
+		assertEquals("oca",identificationQueryResponseFromDatabase.getOca());
+		assertEquals("ori",identificationQueryResponseFromDatabase.getOri());
+		assertEquals("otn",identificationQueryResponseFromDatabase.getOtn());
+		assertEquals("first",identificationQueryResponseFromDatabase.getPersonFirstName());
+		assertEquals("middle",identificationQueryResponseFromDatabase.getPersonMiddleName());
+		assertEquals("last",identificationQueryResponseFromDatabase.getPersonLastName());
+		assertEquals("A123",identificationQueryResponseFromDatabase.getSid());
 		
 		FirearmsQueryResponse firearmsQueryResponse = new FirearmsQueryResponse();
 		
@@ -551,6 +743,21 @@ public class EnhancedAuditDaoTest {
 		assertEquals("Source", queryRequests.get(0).getIdentificationSourceText());
 		assertEquals("123456", queryRequests.get(0).getMessageId());
 		assertNotNull(queryRequests.get(0).getTimestamp());
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponse = new CannabisLicensingQueryResponse();
+		
+		cannabisLicensingQueryResponse.setLicenseNumber("123");
+		cannabisLicensingQueryResponse.setQueryRequestId(queryPk);
+		cannabisLicensingQueryResponse.setExpirationDate(LocalDate.now());
+		cannabisLicensingQueryResponse.setMessageId("123456");
+		
+		enhancedAuditDao.saveCannabisLicensingQueryResponse(cannabisLicensingQueryResponse);
+		
+		CannabisLicensingQueryResponse cannabisLicensingQueryResponseFromDatabase = enhancedAuditDao.retrieveCannabisLicenseQueryResponse(queryPk);
+				
+		assertEquals("123", cannabisLicensingQueryResponseFromDatabase.getLicenseNumber());
+		assertEquals(LocalDate.now(), cannabisLicensingQueryResponseFromDatabase.getExpirationDate());
+		assertEquals("123456", cannabisLicensingQueryResponseFromDatabase.getMessageId());
 	}
 	
 	@Test
@@ -633,6 +840,20 @@ public class EnhancedAuditDaoTest {
 		assertEquals("first", printResultsResponse.getUserInfo().getUserFirstName());
 		assertEquals("last", printResultsResponse.getUserInfo().getUserLastName());
 		assertEquals("employer ori", printResultsResponse.getUserInfo().getEmployerOri());		
+		
+		//Look up user info here
+		List<UserInfo> userInfoEntries = enhancedAuditDao.retrieveUserInfoFromFederationId(userInfo.getFederationId());
+		
+		Integer userInfoPk = null;
+		
+		if (userInfoEntries != null && userInfoEntries.size() > 0)
+		{
+			userInfoPk = userInfoEntries.get(0).getUserInfoId();
+		}
+		
+		List<PrintResults> printResultsByUserId = enhancedAuditDao.retrieveUserPrintRequests(userInfoPk);
+		
+		assertEquals(1, printResultsByUserId.size());
 		
 	}	
 
@@ -798,6 +1019,34 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(vehiclePk);
 		
+		VehicleSearchResult vsResult = new VehicleSearchResult();
+		
+		vsResult.setVehicleSearchRequestId(vehiclePk);
+		vsResult.setSearchResultsCount(5);
+		vsResult.setSystemSearchResultURI("{system1}URI");
+		vsResult.setSearchResultsAccessDeniedText("Access Denied text");
+		vsResult.setSearchResultsAccessDeniedIndicator(true);
+		vsResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(vsResult.getSystemSearchResultURI());
+		
+		vsResult.setSystemSearchResultId(systemToSearchID);
+		
+		Integer vsresultIdFromSave = enhancedAuditDao.saveVehicleSearchResult(vsResult);
+		
+		assertNotNull(vsresultIdFromSave);
+		
+		List<VehicleSearchResult> vehicleSearchResults = enhancedAuditDao.retrieveVehicleSearchResults(vsresultIdFromSave);
+		assertEquals(1, vehicleSearchResults.size());
+		
+		log.info(vehicleSearchResults.get(0).toString());
+		
+		assertEquals(new Integer(5), vehicleSearchResults.get(0).getSearchResultsCount());
+		assertEquals("system1", vehicleSearchResults.get(0).getSystemName());
+		assertEquals("{system1}URI", vehicleSearchResults.get(0).getSystemURI());
+		assertEquals("search results error text", vehicleSearchResults.get(0).getSearchResultsErrorText());
+		assertTrue( vehicleSearchResults.get(0).getSearchResultsAccessDeniedIndicator());
+
 	}
 
 	@Test
@@ -828,6 +1077,34 @@ public class EnhancedAuditDaoTest {
 		Integer incidentPk = enhancedAuditDao.saveIncidentSearchRequest(isr);
 		
 		assertNotNull(incidentPk);
+		
+		IncidentSearchResult isResult = new IncidentSearchResult();
+		
+		isResult.setIncidentSearchRequestId(incidentPk);
+		isResult.setSearchResultsCount(5);
+		isResult.setSystemSearchResultURI("{system1}URI");
+		isResult.setSearchResultsAccessDeniedText("Access Denied text");
+		isResult.setSearchResultsAccessDeniedIndicator(true);
+		isResult.setSearchResultsErrorText("search results error text");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(isResult.getSystemSearchResultURI());
+		
+		isResult.setSystemSearchResultId(systemToSearchID);
+		
+		Integer isresultIdFromSave = enhancedAuditDao.saveIncidentSearchResult(isResult);
+		
+		assertNotNull(isresultIdFromSave);
+		
+		List<IncidentSearchResult> incidentSearchResult = enhancedAuditDao.retrieveIncidentSearchResults(isresultIdFromSave);
+		assertEquals(1, incidentSearchResult.size());
+		
+		log.info(incidentSearchResult.get(0).toString());
+		
+		assertEquals(new Integer(5), incidentSearchResult.get(0).getSearchResultsCount());
+		assertEquals("system1", incidentSearchResult.get(0).getSystemName());
+		assertEquals("{system1}URI", incidentSearchResult.get(0).getSystemURI());
+		assertEquals("search results error text", incidentSearchResult.get(0).getSearchResultsErrorText());
+		assertTrue( incidentSearchResult.get(0).getSearchResultsAccessDeniedIndicator());
 		
 	}
 

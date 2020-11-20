@@ -37,7 +37,7 @@
 	<xsl:param name="hrefBase" />
 	<xsl:param name="purpose" />
 	<xsl:param name="onBehalfOf" />
-
+	<xsl:param name="incidentTypesToDrillDown" />
 
     <xsl:template match="/exc:EntityMergeResultMessage">
     	<xsl:variable name="totalCount" select="count(exc:MergedRecords/ext:MergedRecord)" />
@@ -51,36 +51,29 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
    		<xsl:if test="exc:RecordLimitExceededIndicator='true'">
-   			<span class="error">Unable to perform Entity Resolution. The search returned too many records.</span>
+   			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
 
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-		        <table class="searchResultsTable display" id="searchResultsTable">	
-		        	<thead>
-				        <tr>
-		    				<th>ENTITY</th>
-			                <th>TYPE/NATURE</th>
-			                <th>ROLE</th>
-			                <th>INCIDENT #</th>
-			                <th>AGENCY</th>
-			                <th>DATE</th>
-			                <th>LOCATION</th>
-			                <th>SYSTEM</th>
-			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-			            </tr>
-		            </thead>
-		            <tbody>
-				        <xsl:apply-templates select="exc:EntityContainer/ext:Entity"/>
-			        </tbody>
-		        </table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+        <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">	
+        	<thead>
+		        <tr>
+    				<th>ENTITY</th>
+	                <th>TYPE/NATURE</th>
+	                <th>ROLE</th>
+	                <th>INCIDENT #</th>
+	                <th>AGENCY</th>
+	                <th>DATE</th>
+	                <th>LOCATION</th>
+	                <th>SYSTEM</th>
+	                <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	            </tr>
+            </thead>
+            <tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">
+			        <xsl:apply-templates select="exc:EntityContainer/ext:Entity"/>
+		    	</xsl:if>
+	        </tbody>
+        </table>
     </xsl:template>
 
     <!-- this will print a "merge" on the results screen -->
@@ -119,6 +112,10 @@
         <xsl:for-each select="/exc:EntityMergeResultMessage/exc:EntityContainer/ext:Entity[@s:id = $incidentId]/ext1:IncidentSearchResult">
             <xsl:variable name="incident" select="ext1:Incident"/>    
             <tr>
+            	<xsl:if test="contains($incidentTypesToDrillDown, $incident/ext1:IncidentCategoryCode)">
+            		<xsl:attribute name="class">clickableIncident</xsl:attribute>
+            	</xsl:if>		    			    
+            	
                 <td><xsl:value-of select="$entityCount"/></td>
                 <td><xsl:value-of select="$incident/ext1:IncidentCategoryCode" /></td>
                 <td><!-- Role goes here --></td>
@@ -146,11 +143,11 @@
                 </td>
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Incident</xsl:text></xsl:variable>
                     <a href="{concat('../incidents/incidentDetails?identificationID=','{',$incident/ext1:IncidentCategoryCode,'}',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=Incident System&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$incidentId)}"
                         >DETAILS</a>

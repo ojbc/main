@@ -14,18 +14,19 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
- <script type="text/javascript">
-	  $(function() {
+<script type="text/javascript">
+	$(function() {
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
-	    
+ 		$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  	$.fn.dataTable.moment( 'MM/DD/YYYY' );
-  		$("#personSearchResultsTable").DataTable({
-  			 "pagingType": "full_numbers",
-  			 "pageLength": 50,
-  			 stateSave: true, 
-  			 colReorder: true,
+  		oTable = $("#personSearchResultsTable").DataTable({
+  			 pagingType: "full_numbers",
+  			 pageLength: 50,
+  			 stateSave: true,
+  			 fixedHeader:true,
+  			 responsive: true, 
 			 "columnDefs": [ 
 			 	{ targets: [ 0 ],  orderData: [ 0, 1 ]}
 		 	 ]
@@ -67,33 +68,17 @@
 			var subscription = "firstName=" +  firstName + "&lastName=" + lastName +  "&dob=" + dob + "&sid=" + sid + "&sourcePage=personSearch";
 			
 			var sourcePage="personSearch";		
-						
+
 	  		$.post("#springUrl('/subscriptions/addSubscription')", subscription,
-	  			function(data){			  			
-	  							  			
-	    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
-	    			 
-	    			 vSubDialog.dialog({                    
-			                position: {
-	                           my: "center",
-	                           at: "center",
-	                           of: window
-			                },
-			                modal:true,
-					        width:240,
-					        height:530,
-					        resizable:false,
-					        open:function(event,ui){							        							        	
-					        	$('#addSubscriptionDialog').html(data);
-					        	$('#modalIframeSpinner').hide();
-					        },
-					        close: function(event, ui){
-					        	$(this).dialog("close");
-					        	$('#addSubscriptionDialog').remove();
-					        }    	                                  
-	                    }); 			  						  				  				
-	  			}
-	  		).fail(ojbc.displayFailMessage);
+	  			function(data){
+	  			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+				$('#subscriptionModal .modal-title').html('ADD Subsciption');	  			
+	  			$('#subscriptionModal .modal-body').html(data);
+	  			$('#subscriptionModal .modal-footer').html('');
+	  			$('#subscriptionModal').modal('show');
+	  		}).fail(ojbc.displayFailMessage);
+	  		return false;			  					  		                                                      
+
 	  	}); 		
 
 		#if($singleClickForDetail){
@@ -107,70 +92,97 @@
 			});
 		} 
 		#end
-		
-	 	$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var searchCategory = $(this).parent().prev().prev().text(); 
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" id="modalContainer"><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .95;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                maxHeight:dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-                
-				/*console.log("spinning");*/
-				$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-				$("#modalIframeSpinner").width($("#modalIframe").width());
-				$("#modalIframeSpinner").show();
-	     		
-	     		$("#modalIframe").load( function() {
-	     			//alert("Load event fired");
-					$("#modalIframeSpinner").hide();				
-											
-					$(this).css('height', $(this).contents().find("body").height() + 16);
-				});
-				
-             	$('#modalIframe').attr('src', url);		
-	
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var personDataDiv = $('div#'+appendPersonDataDivId);
-            if(personDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                //$("#personInformationInModal").show();
-            }
-            return false;
+ 
+ 		$("#personSearchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
         });
-        
-	  });
-	  
- 		
-	  if($("#search-results-title").text().indexOf("PERSON") > 0) {
-	    $('#demogFilterInfo').show();
-        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
-		$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
-    	$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
-	    
-	  }	
+ 
+		$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
+			var url = encodeURI(this.href);
+			var title = $(this).attr('searchName');
+			$('#detailModal .modal-title').html(title);
+			
+			var appendPersonDataDivId = $(this).attr('appendpersondata');
+			//console.log("appendPersonDataDivId: "  + appendPersonDataDivId);
+			var personDataDiv = $('div#'+appendPersonDataDivId);
+			
+			//console.log("personDataDiv.text().length: "  + personDataDiv.text().length); 
+			//console.log("$('div#'+appendPersonDataDivId).html(): "  + $('div#'+appendPersonDataDivId).html()); 
+			if(personDataDiv.text().length > 0){
+				if($("#personInformationInModal").length === 0 ){
+					$( "<div id='personInformationInModal'/>" ).insertAfter($('#detailModal .modal-body #modalIframeSpinner'));
+				}
+			    $('#personInformationInModal').html($('div#'+appendPersonDataDivId).html());
+			}
+			
+			//console.log("about to call showDetailModal"); 
+			ojbc.showDetailModal(url, 250);
+			#* console.log("iframeHeight after shown: "
+				+ $("#modalIframe")[0].contentWindow.document.body.scrollHeight > 0? $("#modalIframe")[0].contentWindow.document.body.scrollHeight:0); 
+			*# 
+			
+			return false;
+		});
+		
+		if($("#search-results-title").text().indexOf("PERSON") > 0) {
+			$('#demogFilterInfo').show();
+			$('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
+			$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
+			$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
+		}
+			
+		$('.modal-dialog').draggable({
+			handle: ".modal-header"
+		});
 
-  </script>
+  });
+</script>
 <div>
-        $searchContent
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="peopleSearchLink">Person Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Person Search Results</li>
+		</ol>
+	</nav>
+    $searchContent
 </div>
 
+
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	  	<div id='personInformationInModal'/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>				    
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">ADD SUBSCIPTION</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    

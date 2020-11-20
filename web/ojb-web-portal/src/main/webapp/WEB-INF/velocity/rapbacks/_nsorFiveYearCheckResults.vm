@@ -1,0 +1,97 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css')" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
+        
+    	<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+        <script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+		<script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+		<script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
+		<script src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
+        <script src="#springUrl('/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js')"></script>
+        <script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>
+		<script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/responsive.bootstrap4.js')"></script>
+    </head>
+    <body id="searchDetailsFrame">
+ 		
+ 		<div id="tabs">
+
+			<ul>
+				<li id="nsor5YearCheckLink">
+					<a href="#nsor5YearCheckTab">FBI NSOR Check Results</a>
+				</li>
+				<button id="printButton" class="greyButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
+			</ul>
+ 			<div id="nsor5YearCheckTab">
+ 				<div class="mx-auto mb-4">
+ 					<p class="text-center">Date/Time: $identificationResultsQueryResponse.documentCreationTimeStampString</p>
+ 					<p class="text-center font-weight-bold"><u>Hawaii Criminal Justice Data Center</u><br><u>NSOR Search Results</u></p>
+ 					
+ 					<p class="text-center mt-3">Applicant <br> Response from NSOR</p> 
+ 					<p class="text-center">***The information furnished is based on the name(s) and date of birth provided, and is 
+ 						<br>NOT a result of a fingerprint comparison. There is no guarantee that the record 
+ 						<br>concerns the person in whom you are interested.***</p>
+ 					<p>Name (Master Name): $identificationResultsQueryResponse.personName</p> 	
+ 					<p>DOB: $identificationResultsQueryResponse.dob</p> 	
+ 					<p>OTN: $identificationResultsQueryResponse.otn</p> 	
+ 					<p>Agency: $identificationResultsQueryResponse.agencyName</p> 	
+ 				</div>
+ 				 
+				#foreach($item in $identificationResultsQueryResponse.nsorCheckResultsDocuments)
+					<hr/>
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>
+ 		</div>
+ 		
+	    <script type="text/javascript">
+			$(function () {
+				$('#tabs').tabs({
+					create: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					},
+					activate: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					}
+				});
+				
+				
+				$("#printButton").on("click", function(){
+					var activeTabIdx = $('#tabs').tabs('option','active');
+	
+					// ID OF ACTIVE TAB
+					// make sure to change #tabs to your selector for tabs
+					var selector = '#tabs > ul > li';
+					var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+						
+					$.post("#springUrl('/rapbacks/auditPrintResults')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+					window.print();
+				}); 
+			});
+		</script>
+	</body>
+</html>

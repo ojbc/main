@@ -48,6 +48,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_40;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ARREST_DETAIL_SEARCH_REQUEST_DOC;
@@ -79,6 +80,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_MUNICIPAL_PROSECU
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_40;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_RECORD_REPLICATION_REQUEST_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_RECORD_REPLICATION_REQUEST_EXT;
@@ -211,6 +213,24 @@ public class RequestMessageBuilderUtilities {
 		sb.append("			</nc:PersonLicenseIdentification> \n");
 		sb.append("		</nc:Person> \n");
 		sb.append("	</rlq-req-doc:RegulatoryLicenseQueryRequest> ");
+		
+		return sb.toString();
+	}	
+	
+	public static String createCannabisLicenseProfessionalRequest(DetailsRequest detailsRequest)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("	<clq-req-doc:CannabisLicenseQueryRequest \n");
+		sb.append("		xmlns:clq-req-doc=\"http://ojbc.org/IEPD/Exchange/CannabisLicenseQueryRequest/1.0\" \n");
+		sb.append("		xmlns:nc=\"http://release.niem.gov/niem/niem-core/4.0/\"> \n");
+		sb.append("		<nc:Person> \n");
+		sb.append("			<nc:PersonLicenseIdentification> \n");
+		sb.append("				<nc:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc:IdentificationID> \n");
+		sb.append("				<nc:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText> \n");
+		sb.append("			</nc:PersonLicenseIdentification> \n");
+		sb.append("		</nc:Person> \n");
+		sb.append("	</clq-req-doc:CannabisLicenseQueryRequest> \n");
 		
 		return sb.toString();
 	}	
@@ -1011,6 +1031,20 @@ public class RequestMessageBuilderUtilities {
         
 		return document;
 	}
+
+	public static Document createNsorCheckResultsQueryRequest(String transactionNumber) throws Exception {
+        Document document = OJBCXMLUtils.createDocument();  
+        Element rootElement = document.createElementNS(NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC, 
+                NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC 
+                +":OrganizationIdentificationNsorQueryRequest");
+        document.appendChild(rootElement);
+        rootElement.setAttribute("xmlns:" + NS_PREFIX_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC, 
+        		NS_ORGANIZATION_IDENTIFICATION_NSOR_QUERY_REQUEST_DOC);
+        buildIdentificationResultsQueryRequest(transactionNumber, rootElement);
+        
+		return document;
+	}	
+    
 
 	private static void buildIdentificationResultsQueryRequest(String transactionNumber, Element rootElement) {
 		rootElement.setAttribute("xmlns:" + NS_PREFIX_INTEL_30, NS_INTEL_30);

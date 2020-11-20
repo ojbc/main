@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>2.0.2</version>
+	<version>2.0.3</version>
 	<name>OJB :: incident-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -281,7 +281,7 @@
 							org.apache.commons.logging;version="[1.1,2)",
 							*
 						</Import-Package>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>

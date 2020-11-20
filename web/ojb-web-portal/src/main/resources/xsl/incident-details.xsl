@@ -47,58 +47,52 @@
 	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
 		<script type="text/javascript">
 			$(function () {
-				$('#incidentDetailTabs').tabs({
-					activate: function( event, ui ) {
-						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 16);
-					}
-				});
 				
-				$("#modalContainer", parent.document).animate({
-        			scrollTop: $("#detailsTab").offset().top
+				$("#detailModal .modal-body", parent.document).animate({
+        			scrollTop: $("#details").offset().top
     			}, 400);
     							
 			});
 		</script>
 
-		<div id="incidentDetailTabs">
-			<ul>
-				<li>
-					<a href="#detailsTab">DETAILS</a>
-				</li>
-				<li>
-					<a href="#partyTab">PARTY(S)</a>
-				</li>
-				<li>
-					<a href="#vehicleTab">VEHICLE(S)</a>
-				</li>
-				<li>
-					<a href="#propertyTab">PROPERTY(S)</a>
-				</li>
-				<li>
-					<a href="#chargeOffenseTab">CHARGE(S)/OFFENSE(S)</a>
-				</li>
-				<li>
-					<a href="#narrativeTab">NARRATIVE</a>
-				</li>
-			</ul>
+		<ul class="nav nav-tabs" id="incidentDetailTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="details-tab" data-toggle="tab" role="tab" aria-controls="details" aria-selected="true" href="#details">DETAILS</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="party-tab" data-toggle="tab" role="tab" aria-controls="party" aria-selected="false" href="#party">PARTY(S)</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="vehicle-tab" data-toggle="tab" role="tab" aria-controls="vehicle" aria-selected="false" href="#vehicle">VEHICLE(S)</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="property-tab" data-toggle="tab" role="tab" aria-controls="property" aria-selected="false" href="#property">PROPERTY(S)</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="chargeOffense-tab" data-toggle="tab" role="tab" aria-controls="chargeOffense" aria-selected="false" href="#chargeOffense">CHARGE(S)/OFFENSE(S)</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="narrative-tab" data-toggle="tab" role="tab" aria-controls="narrative" aria-selected="false" href="#narrative">NARRATIVE</a>
+			</li>
+		</ul>
 
-			<div id="detailsTab">
+		<div class="tab-content" id="incidentDetailTabContent">
+			<div class="tab-pane fade show active p-3 h-100" id="details" role="tabpanel" aria-labelledby="details-tab">
 				<xsl:call-template name="detailsTab" />
 			</div>
-			<div id="partyTab">
+			<div class="tab-pane fade p-3 h-100" id="party" role="tabpanel" aria-labelledby="party-tab">
 				<xsl:call-template name="partyTab" />
 			</div>
-			<div id="vehicleTab"> 
-				<xsl:call-template name="vehicleTab" />
+			<div class="tab-pane fade p-3 h-100" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab"> 
+				<xsl:call-template name="vehicleTab"/>
 			</div>
-			<div id="propertyTab">
+			<div class="tab-pane fade p-3 h-100" id="property" role="tabpanel" aria-labelledby="property-tab">
 				<xsl:call-template name="propertyTab" />
 			</div>
-			<div id="chargeOffenseTab">
+			<div class="tab-pane fade p-3 h-100" id="chargeOffense" role="tabpanel" aria-labelledby="chargeOffense-tab">
 				<xsl:call-template name="chargeOffenseTab" />				
 			</div>
-			<div id="narrativeTab"> 
+			<div class="tab-pane fade p-3 small h-100" id="narrative" role="tabpanel" aria-labelledby="narrative-tab"> 
 				<xsl:call-template name="narrativeTab" />
 			</div>
 		</div>
@@ -114,7 +108,7 @@
 		<xsl:variable name="reportingAgency" select="//lexs:Digest/lexsdigest:EntityOrganization/nc:Organization[@s:id=//lexsdigest:Associations/nc:ActivityReportingOrganizationAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName"/>
 		<xsl:variable name="officerAgency" select="//lexsdigest:EntityOrganization/nc:Organization[@s:id=//nc:PersonAssignedUnitAssociation[nc:PersonReference/@s:ref=//lexsdigest:EntityPerson/lexsdigest:Person[@s:id=../j:EnforcementOfficial/nc:RoleOfPersonReference/@s:ref]/@s:id]/nc:OrganizationReference/@s:ref]/nc:OrganizationName"/>
 		<xsl:variable name="incidentStructuredLocation" select="//lexs:Digest/lexsdigest:EntityLocation/nc:Location[@s:id=//lexsdigest:Associations/lexsdigest:IncidentLocationAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:LocationReference/@s:ref]/nc:LocationAddress/nc:StructuredAddress" />
-		<table>
+		<table class="table table-striped table-sm">
 			<tr>
 				<td class="incidentLabel">Case Number:</td>
 				<td>
@@ -176,26 +170,30 @@
 	</xsl:template>
 
 	<xsl:template name="partyTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Role</td>
-				<td class="incidentLabel">Name</td>
-				<td class="incidentLabel">DOB</td>
-				<td class="incidentLabel">Race</td>
-				<td class="incidentLabel">Gender</td>
-			</tr>
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:ArrestSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Victim/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Witness/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:IncidentSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates
-				select="//lexs:Digest/lexsdigest:EntityPerson[j:Suspect/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
-			<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//nc:ActivityInvolvedPersonAssociation[nc:PersonActivityInvolvementText='Complainant']/nc:PersonReference/@s:ref]/lexsdigest:Person" />
-			<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:OtherInvolvedPerson/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" mode="involvedPersons"/>
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th class="incidentLabel">Role</th>
+					<th class="incidentLabel">Name</th>
+					<th class="incidentLabel">DOB</th>
+					<th class="incidentLabel">Race</th>
+					<th class="incidentLabel">Gender</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates
+					select="//lexs:Digest/lexsdigest:EntityPerson[j:ArrestSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
+				<xsl:apply-templates
+					select="//lexs:Digest/lexsdigest:EntityPerson[j:Victim/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
+				<xsl:apply-templates
+					select="//lexs:Digest/lexsdigest:EntityPerson[j:Witness/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
+				<xsl:apply-templates
+					select="//lexs:Digest/lexsdigest:EntityPerson[j:IncidentSubject/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
+				<xsl:apply-templates
+					select="//lexs:Digest/lexsdigest:EntityPerson[j:Suspect/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" />
+				<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//nc:ActivityInvolvedPersonAssociation[nc:PersonActivityInvolvementText='Complainant']/nc:PersonReference/@s:ref]/lexsdigest:Person" />
+				<xsl:apply-templates select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:OtherInvolvedPerson/nc:RoleOfPersonReference/@s:ref=lexsdigest:Person/@s:id]/lexsdigest:Person" mode="involvedPersons"/>
+			</tbody>
 		</table>
 	</xsl:template>
 	
@@ -286,17 +284,21 @@
 	</xsl:template>
 	
 	<xsl:template name="vehicleTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Year</td>
-				<td class="incidentLabel">Color</td>
-				<td class="incidentLabel">Plate #</td>
-				<td class="incidentLabel">VIN</td>
-			</tr>
-			<xsl:apply-templates select="//lexsdigest:EntityVehicle/nc:Vehicle" />
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th class="incidentLabel">Type</th>
+					<th class="incidentLabel">Make</th>
+					<th class="incidentLabel">Model</th>
+					<th class="incidentLabel">Year</th>
+					<th class="incidentLabel">Color</th>
+					<th class="incidentLabel">Plate #</th>
+					<th class="incidentLabel">VIN</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="//lexsdigest:EntityVehicle/nc:Vehicle" />
+			</tbody>
 		</table>
 	</xsl:template>
 	
@@ -341,17 +343,21 @@
 		</tr>
 	</xsl:template>
 	<xsl:template name="propertyTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Type</td>
-				<td class="incidentLabel">Make/Brand</td>
-				<td class="incidentLabel">Model</td>
-				<td class="incidentLabel">Serial #</td>
-				<td class="incidentLabel">Quantity</td>
-				<td class="incidentLabel">Value</td>
-				<td class="incidentLabel">Description</td>
-			</tr>
-			<xsl:apply-templates select="//lexsdigest:EntityTangibleItem/nc:TangibleItem" />
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th class="incidentLabel">Type</th>
+					<th class="incidentLabel">Make/Brand</th>
+					<th class="incidentLabel">Model</th>
+					<th class="incidentLabel">Serial #</th>
+					<th class="incidentLabel">Quantity</th>
+					<th class="incidentLabel">Value</th>
+					<th class="incidentLabel">Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="//lexsdigest:EntityTangibleItem/nc:TangibleItem" />
+			</tbody>
 		</table>
 	</xsl:template>
 	
@@ -369,20 +375,22 @@
 	</xsl:template>
 	
 	<xsl:template name="chargeOffenseTab">
-		<table>
-			<tr>
-				<td class="incidentLabel">Code</td>
-				<td class="incidentLabel">Description</td>
-				<td class="incidentLabel">Status</td>
-				<td class="incidentLabel"># Premises Entered</td>
-				<td class="incidentLabel">Entry Method</td>
-				<td class="incidentLabel">Location</td>
-				<td class="incidentLabel">Bias</td>
-				<td class="incidentLabel">Weapon</td>
-			</tr>
-<!-- 			<xsl:apply-templates select="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference/@lexslib:ref=//lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Offense']/@s:id]" /> -->
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th class="incidentLabel">Code</th>
+					<th class="incidentLabel">Description</th>
+					<th class="incidentLabel">Status</th>
+					<th class="incidentLabel"># Premises Entered</th>
+					<th class="incidentLabel">Entry Method</th>
+					<th class="incidentLabel">Location</th>
+					<th class="incidentLabel">Bias</th>
+					<th class="incidentLabel">Weapon</th>
+				</tr>
+			</thead>
+			<tbody>
 				<xsl:apply-templates select="//lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense[ndexia:ActivityAugmentation/lexslib:SameAsDigestReference]" />
-		
+			</tbody>
 		</table>
 		
 	</xsl:template>

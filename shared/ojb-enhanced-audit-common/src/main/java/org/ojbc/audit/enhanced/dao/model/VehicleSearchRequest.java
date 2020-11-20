@@ -21,10 +21,14 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
+import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
 
 public class VehicleSearchRequest {
 
-	private Integer vehicleSearchRequestID;
+	private Integer vehicleSearchRequestId;
 	
 	private String vehicleColor;
 	private String vehicleModel;
@@ -43,6 +47,8 @@ public class VehicleSearchRequest {
 	
 	private String messageId;
 	
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime timestamp;
 	
 	public String getVehicleColor() {
@@ -93,11 +99,11 @@ public class VehicleSearchRequest {
 	public void setSourceSystemsList(List<String> sourceSystemsList) {
 		this.sourceSystemsList = sourceSystemsList;
 	}
-	public Integer getVehicleSearchRequestID() {
-		return vehicleSearchRequestID;
+	public Integer getVehicleSearchRequestId() {
+		return vehicleSearchRequestId;
 	}
-	public void setVehicleSearchRequestID(Integer vehicleSearchRequestID) {
-		this.vehicleSearchRequestID = vehicleSearchRequestID;
+	public void setVehicleSearchRequestId(Integer vehicleSearchRequestId) {
+		this.vehicleSearchRequestId = vehicleSearchRequestId;
 	}
 	public String getPurpose() {
 		return purpose;

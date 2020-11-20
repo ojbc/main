@@ -41,7 +41,7 @@
 	<!-- Error handlers in case of submission errors -->
 	<import resource="error-handlers.xml" />
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
 
 		<!-- Some CXF endpoints are inline to support testing -->	
@@ -360,4 +360,11 @@
         <property name="name" value="default" />
         <property name="queueSize" value="2048" />
     </bean>	
+    
+	<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
+	    <property name="spoolDirectory" value="${java.io.tmpdir}/camelcache/#uuid#/"/>
+	    <property name="spoolThreshold" value="65536"/>
+	    <property name="spoolUsedHeapMemoryThreshold" value="70"/>
+	    <property name="anySpoolRules" value="true"/>
+	</bean>    
 </beans>

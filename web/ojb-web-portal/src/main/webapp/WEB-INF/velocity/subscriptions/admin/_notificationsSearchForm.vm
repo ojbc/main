@@ -32,7 +32,7 @@
 			$('#submitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#notificationsSearchForm').serialize();
-	        	console.log(formData);
+	        	//console.log(formData);
 	  	       	xhr = $.post("#springUrl('/subscriptions/admin/notifications')",formData, function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
@@ -55,29 +55,25 @@
 	  });
   </script>
 
-<div id="searchTabs" class="contentBox">
+<div id="searchTabs">
     <form id='notificationsSearchForm' >
 	    #if($errors.hasGlobalErrors())
 	        #foreach( $globalError in $errors.globalErrors )
-	            <div class="error" style="padding:1em;"> $globalError.defaultMessage </div>
+	            <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
 	        #end
 	    #end
-		<table>
-			<tr>
-				<td style="padding-left: 1em;">
-					<p class="searchSubHeader"> Notification Date Range</p>
-			        <div class="labelText" >
-			        	From: #springFormInput("rapbackNotificationDateRange.startDate" "style='width:110px' class='mdate datePicker' placeholder='Start Date'") #springShowErrors( "<br/>" "error" )
-		        	</div> 
-			        <div class="labelText" >
-			        	To: #springFormInput("rapbackNotificationDateRange.endDate"  "style='width:110px' class='mdate datePicker' class='datePicker' placeholder='End Date'") #springShowErrors( "<br/>" "error" )
-			        </div>
-	        	</td>
-	    	<tr>
-	    </table>
-    <div class="searchCancelSection" style="width:100% !important;left:0; bottom:0;margin-right:10px;">
-    	<a id="submitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>SUBMIT</a>
-    	<a id="clearButton" class="grayButton"  >CLEAR</a>
-    </div>
+		<div class='row'>
+			<div class='col col-lg-6 pl-4'>
+				<p class="searchSubHeader"> Notification Date Range</p>
+		        <div class="labelText" >
+		        	#springFormInput("rapbackNotificationDateRange.startDate" "class='mdate datePicker' placeholder='Start Date'") #springShowErrors( "<br/>" "error pl-2" )
+		        	#springFormInput("rapbackNotificationDateRange.endDate"  "class='mdate datePicker' class='datePicker' placeholder='End Date'") #springShowErrors( "<br/>" "error pl-2" )
+	        	</div> 
+        	</div>
+	    </div>
+	    <div class="mx-2 mt-4">
+        	<a id="submitButton" class="btn btn-primary btn-sm" href="#" role="button">SEARCH</a>
+        	<a id="clearButton" class="btn btn-secondary btn-sm" href="#" role="button">CLEAR</a>
+	    </div>
     </form>
 </div>

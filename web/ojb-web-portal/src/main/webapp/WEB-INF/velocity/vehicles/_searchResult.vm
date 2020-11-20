@@ -14,22 +14,25 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
- <script type="text/javascript">
-	  $(function() {
+<script type="text/javascript">
+  $(function() {
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
 	  
-	  	$("#searchResultsTable").dataTable({
-			"pagingType": "full_numbers",
-  			"pageLength": 50,
-  			stateSave: true, 
+	  	oTable = $("#searchResultsTable").dataTable({
+			pagingType: "full_numbers",
+			pageLength: 50,
+			stateSave: true,
+  			responsive: true,
 			"columnDefs": [{
 				targets: [ 8 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
   		});
+  		
+  		new $.fn.dataTable.FixedHeader( oTable );
   		
 	  	#if($singleClickForDetail){
 			$("#searchResultsTable").on('click', 'tbody tr', function(){
@@ -40,100 +43,88 @@
 				$(this).find("a.viewDetails").click();
 			});}
 		#end
+		
+ 		$("#searchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
 				
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/vehicles/searchForm')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
+				$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage);
+		});
 		
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 	  		$.get("#springUrl('/vehicles/searchForm?resetForm=true')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
+	  			$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+			}).fail(ojbc.displayFailMessage);
+		});
 				
-		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '"  id="modalContainer"><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .6;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-						if (incidentsSummary.val() != null) {
-							$(this).css('height', incidentsSummary.height() + 200);
-						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						}
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var persionDataDiv = $('div#'+appendPersonDataDivId);
-            if(persionDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                $("#personInformationInModal").show();
-            }
-            return false;
-        });
+	  $('#searchResultsTable').on('click', 'a.viewDetails',function() {
+		var url = encodeURI(this.href);
+		var title = $(this).attr('searchName');
+		$('#detailModal .modal-title').html(title);
+		
+        var appendPersonDataDivId = $(this).attr('appendPersonData');
+        var persionDataDiv = $('div#'+appendPersonDataDivId);
+        if(persionDataDiv.text().length > 0){
+            $("#personInformationInModal").html($('div#'+appendPersonDataDivId).html());
+            $("#personInformationInModal").show();
+        }
         
-	  });
-	  
- 		
+		ojbc.showDetailModal(url);
+		return false;
+      });
+	   		
 	  if($("#search-results-title").text().indexOf("VEHICLE") > 0) {
         $('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
 		$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
     	$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
 	    
 	  }	
-
 	  
-  </script>
-<div id="searchResultsContainer" class="contentBox" >
-    <div id="searchResultsHeader" > 
-        <p id="search-results-title">SEARCH RESULTS: VEHICLE</p>
-        <div style="float:right" >
-            <a id="returnToSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;" src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
-                RETURN TO SEARCH
-            </a>
-            <a id="newSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
-                NEW SEARCH
-            </a>
-        </div>
-    </div>
-    <div style="padding: 10px">
-        $searchContent
-    </div>
+	  $('.modal-dialog').draggable({
+        handle: ".modal-header"
+      });
+  });
+	  
+</script>
+<div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="vehicleSearchLink">Vehicle Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Vehicle Search Results</li>
+		</ol>
+	</nav>
+	#if($informationMessages && $informationMessages!='')
+		<div class="alert alert-danger" role="alert" id="informationMessages" >
+			$informationMessages
+		</div>
+	#end
+	$searchContent								
 </div>
+
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	  	<div style="display:none" id="personInformationInModal"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>
+

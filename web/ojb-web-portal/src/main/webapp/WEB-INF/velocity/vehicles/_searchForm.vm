@@ -16,34 +16,27 @@
  *#
  <script type="text/javascript">
 	  $(function() {
-	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
-          $.ajaxSetup({ cache: false });
+	      	//to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          	$.ajaxSetup({ cache: false });
           
-		  ojbc.handlePlaceholders(); 
+			if (oTable !== undefined && oTable.fixedHeader !== undefined){
+				//console.log("oTable: " + oTable); 
+				oTable.fixedHeader.disable();
+				oTable.destroy();
+			}    	    	
+		  	ojbc.handlePlaceholders(); 
     	  
-    	  $('#searchForm').validate({
-                rules: {
-                 
-                }
-            });
-    
-            $( "#searchTabs" ).tabs({ active: 0});
-    	    
-    		$('#advanceSearchSubmitButton').click (
-    			function(){
-                    var isValidate=$("#searchForm").valid();
-                    if(!isValidate){
-                        alert("There are errors in your inputs, please correct them and try again");
-                    }else {
-                    	ojbc.clearPlaceholders();
-                        var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
-                    
-    		  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
-    				        $('#portalContent').html(data);
-    				        }).fail(ojbc.displayFailMessage)
-				    }
-    		  	}
-    		)
+    		$('#advanceSearchSubmitButton').click (function(){
+            	ojbc.clearPlaceholders();
+                var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
+            
+	  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
+	  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
+		  	       		$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
+		  	});
     		
 			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
 			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
@@ -58,12 +51,9 @@
 	        #end
 	        
             $('#advanceSearchClearButton').click (function(event){
-                  
                   ojbc.clearSearchPurposeFields();
                   $.get("#springUrl('/vehicles/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
                     $('#portalContent').html(data);
-                    
-                    
                   }).fail(ojbc.displayFailMessage)
               });
 
@@ -80,12 +70,6 @@
 			        $('#advanceSearchSubmitButton').click();
 			    }
 			});	
-
-    	    $('#demogFilterInfo').hide();
-    		$('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
-    		$('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");    		
-			$('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");     				
-   				
        				    	    
 	  });
   </script>
@@ -96,53 +80,53 @@
 <div id="sourceSystemsDisabled" style="display: none;">
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
-<div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">ADVANCED SEARCH: VEHICLE</div>
-    <ul>
-        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
-    </ul>
-    <form id='searchForm' >
-     <div id="advancedSearchTab">
-            #if($errors.hasGlobalErrors())
-                #foreach( $globalError in $errors.globalErrors )
-                    <div class="error"> $globalError.defaultMessage </div>
-                #end
-            #end
-     
-    	  		<table>
-    	  			<tr>
-    	  				<td> <!-- COLUMN 1 -->
-    				        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "" ) </div>
-    				        
-    				        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model'") </div>
-    				        
-    				        <div class="labelText" >
-    				        	Year Range: 
-    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
-    				        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
-    				        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
-                                 #springShowErrors( "<br/>" "error" )
-    				        </div>
-    		        	</td>
-    		  			<td> <!-- COLUMN 2 -->
-    		  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "" ) </div>
-        			  		<div>
-        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #'")<br/> 
-        			  		    #springShowErrors( "<br/>" "error" )
-        			  		</div>
-        			  		<div>
-        			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN'")<br/> 
-        			  		    #springShowErrors( "<br/>" "error" )
-        			  		</div>        			  		
-    					</td>
-    	        	<tr>
-    	        </table>
-    	        <div class="searchCancelSection" >
-    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-    	        </div>
-        </div>
-    </form>
-  
-  
+
+<div class="card" id="searchTabs">
+	<div class="card-header">
+		<div class="pl-0" id="search-results-title">
+	    	ADVANCED SEARCH: VEHICLE
+	    </div>
+	</div>
+	<div class="card-body" id="advancedSearchTab">
+	    <form id='searchForm' >
+	        #if($errors.hasGlobalErrors())
+	            #foreach( $globalError in $errors.globalErrors )
+	                <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
+	            #end
+	        #end
+	 
+	  		<div class='row'>
+	  			<div class='col-12 col-sm-6'>
+			        <div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleMake" $makes "class='form-control form-control-sm'" ) </div>
+			        
+			        <div>#springFormInput("vehicleSearchCommand.advanceSearch.vehicleModel" "placeholder='Model' class='form-control form-control-sm'") </div>
+			        
+		        </div>
+	  			<div class='col'>
+	  				<div>#springFormSingleSelect("vehicleSearchCommand.advanceSearch.vehicleColor" $colors "class='form-control form-control-sm'" ) </div>
+			  		<div>
+			  			#springFormInput("vehicleSearchCommand.advanceSearch.vehiclePlateNumber" "placeholder='Plate #' class='form-control form-control-sm'")
+			  		    #springShowErrors( "<br/>" "error pl-2" )
+			  		</div>
+	        	</div>
+	        </div>
+	        <div class='row'>
+		        <div class="labelText col-12 col-xl-6" >
+		        	Year Range: 
+		        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeStart" "placeholder='From' class='year'")
+		        		#springFormInput("vehicleSearchCommand.advanceSearch.vehicleYearRangeEnd" "placeholder='To' class='year'")
+		        		## #springBind("vehicleSearchCommand.advanceSearch.incidentDateRangeStart")
+                     #springShowErrors( "<br/>" "error pl-2" )
+		        </div>
+		  		<div class="col col-sm-6">
+		  			#springFormInput("vehicleSearchCommand.advanceSearch.vehicleVIN" "placeholder='VIN' class='form-control form-control-sm'")
+		  		    #springShowErrors( "<br/>" "error pl-2" )
+		  		</div>        			  		
+	        </div>
+	    </form>
+	</div>
+	<div class="card-footer text-muted">
+    	<button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</button>
+    	<button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+	</div>
 </div>

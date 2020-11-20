@@ -22,16 +22,22 @@
    </tr>
    <tr>
       <td class="padding0">
-         <div id="warrants" style="overflow:auto; width:100%; height:auto"><script type="text/javascript"> $(function () {
-					$("#vihicleCrashDetail").accordion({ heightStyle: "content",
-					collapsible: true, activate: function( event, ui ) { var
-					modalIframe = $("#modalIframe", parent.document);
-					modalIframe.height(modalIframe.contents().find("body").height() +
-					16); } } ); }); 
+         <div id="warrants" style="overflow:auto; width:100%; height:auto"><script type="text/javascript"> 
+					$(function () {
+						$("#vihicleCrashDetail").accordion({ 
+							heightStyle: "content",
+							active: false,
+							collapsible: true, 
+							activate: function( event, ui ) { 
+								var modalIframe = $("#modalIframe", parent.document);
+								modalIframe.height(modalIframe.contents().find("body").height() + 16); 
+							}
+						}); 
+					}); 
 				</script><div id="vihicleCrashDetail">
                <h3>Crash Detail</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">DATE</td>
                         <td>07/08/2014 - 00:00</td>
@@ -56,8 +62,8 @@
                   </table>
                </div>
                <h3>Damaged Item(s)</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">Item</td>
                         <td>Non Vehicle Property Damage Description</td>
@@ -67,8 +73,8 @@
                   </table>
                </div>
                <h3>Crash Vehicle</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">Make</td>
                         <td colspan="3">AMERICAN MOTORS</td>
@@ -139,8 +145,8 @@
                   </table>
                </div>
                <h3>Crash Vehicle</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">Make</td>
                         <td colspan="3">FIAT</td>
@@ -211,8 +217,8 @@
                   </table>
                </div>
                <h3>Work Zone</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">In Work Zone</td>
                         <td>No</td>
@@ -228,8 +234,8 @@
                   </table>
                </div>
                <h3>Witness</h3>
-               <div>
-                  <table style="width:100%">
+               <div class="table-responsive">
+                  <table class="table">
                      <tr>
                         <td class="detailsLabel">Name</td>
                         <td>Walter  Jones</td>

@@ -34,6 +34,7 @@ import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
+import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.LocalDatePropertyEditor;
 import org.ojbc.web.portal.validators.subscriptions.ExpiringSubscriptionRequestValidator;
 import org.ojbc.web.portal.validators.subscriptions.RapbackNotificationDateRangeValidator;
@@ -57,7 +58,7 @@ import org.w3c.dom.Element;
 @RequestMapping("/subscriptions/admin/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", 
 	"expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions", "expiredSubscriptions", 
-	"expiredSubscriptionRequest", "rapbackNotificationDateRange"})
+	"expiredSubscriptionRequest", "rapbackNotificationDateRange", "subscriptionFilterCommand"})
 public class SubscriptionsAdminController extends SubscriptionsController{
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -83,6 +84,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		
 		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+        model.put("subscriptionFilterCommand", new SubscriptionFilterCommand());
 		
 	    return "subscriptions/admin/_adminLandingPage";
 	}
@@ -310,6 +312,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		model.addAttribute("notificationSystemNameMap", notificationSystemNameMap); 
 		
 		model.addAttribute("validationThreshold", validationThreshold);
+
 	}
     
 

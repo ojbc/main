@@ -14,87 +14,62 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
-<!--[if IE 7 ]> <html class="ie7"> <![endif]-->
-<!--[if IE 8 ]> <html class="ie8"> <![endif]-->
-<!--[if IE 9 ]> <html class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
-<html>
-    <head>
-        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-        <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"  rel="stylesheet" type="text/css"  />
-        <!--<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"  rel="stylesheet" type="text/css"  />-->
-        
-		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/colReorder.dataTables.css')" />
-        <link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery.lwMultiSelect.css')">
-	  	<link href="#springUrl('/static/css/jquerysctipttop.css')" rel="stylesheet" type="text/css">
-
-		
-		
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-        <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
-		<!--<script type="text/javascript" src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
-        <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
-        <script src="#springUrl('/static/js/jquery-datatable/js/dataTables.colReorder.min.js')"></script>
-        
-        <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
-        <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
-        <script src="#springUrl('/static/js/jquery.lwMultiSelect.js')"></script>
-        
-        #if( $secondaryOptionsDisplay)
-			<script src="#springUrl('/static/js/secondaryOptionsDisplay.js')"></script>
-			<script src="#springUrl('/static/js/formValidation.js')"></script>
-		#end
-
-		#if( $customStyleCssPath != "" )
-	        <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
-		#end
-		
-        <title>OJBC Portal</title>
-    </head>
-    <body>
-        <div id="pageRoot">
-        <table cellpadding="0" cellspacing="0" style="height:100%">
-            <tr >
-                <td id="leftMenuTd">
-                    #parse("common/_leftMenu.vm")
-                </td>
-                <td id="leftBarTd">
-		    
-		    <div id="filterColumn">
-		    		    
-		      #set($homePage=$stateSpecificHomePage['thisHomePage'])		    
-		      
-		      #if($homePage=="landingPage")
-              	#parse("common/_landingLeftBar.vm")
-		      
-		      #elseif($homePage=="query")
-		         #parse("common/_leftBar.vm")
-		         
-		      #elseif($homePage=="subscriptions")	
-		      		      
-		      	#* displayed elsewhere *#		      		      	      	      	 		      	 	      		      	    			         		         
-		      #end
-		      
-		    </div>
-                </td>
-                <td>
-			<div id="mainContent">
-			     <div id="stateBanner">
-			     	  #parse("common/_stateBanner.vm")
-			     </div>
-                        
-			     <div id="searchBar">
-			     	  #parse("common/_searchBar.vm")
-			     </div>
-
-			     <div id="searchContent">
+	<header>
+	    <div class="banner mt-5" id="banner">
+        	#parse("common/_stateBanner.vm")
+	    </div>
+	  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top small fh-fixedHeader">
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+	    	data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarCollapse">
+	      <ul class="navbar-nav mr-auto text-white">
+	        <li class="nav-item active">
+	          <a class="nav-link" href="#springUrl('/portal/index')" id="home">Home <span class="sr-only">(current)</span></a>
+	        </li>
+			#foreach($entry in $leftMenuLinks.entrySet())
+				#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
+					&& $entry.getKey() != "queryLink" && $entry.getKey() != "adminLink" && $entry.getKey() != "auditLink" 
+					|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
+					|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
+					|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
+					|| $entry.getKey() == "adminLink" && $sec.allGranted("AUTHZ_ADMIN"))
+			        <li class="nav-item">
+					  <a class="nav-link $entry.getKey()" id="$entry.getKey()" href="$entry.getValue()">$leftMenuLinkTitles[$entry.getKey()] </a> 
+			        </li>
+		        #elseif($entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
+			        <li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$leftMenuLinkTitles[$entry.getKey()]</a>
+			        	<div class="dropdown-menu" aria-labelledby="dropdownQuery">
+			                $searchLinksHtml
+			            </div>
+			        </li>
+		        #elseif($entry.getKey() == "auditLink" && $sec.allGranted("AUTHZ_ADMIN"))
+			        <li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$leftMenuLinkTitles[$entry.getKey()]</a>
+			        	<div class="dropdown-menu" aria-labelledby="dropdownAudit">
+			                <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a>
+			                <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a>
+			            </div>
+			        </li>
+				#end
+						
+			#end		
+	      </ul>
+	      
+	      <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
+	      	<li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <i class="fas fa-user-circle fa-lg"></i>
+	            </a>
+		          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+		            <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong>$!currentUserName</strong></span></a>
+		            <div class="dropdown-divider"></div>
+		            <a class="dropdown-item" href="#springUrl('/portal/performLogout')"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
+		          </div>
+	      	</li>
+		  </ul>
+	    </div>
+	  </nav>
+	</header>

@@ -53,12 +53,18 @@
 					select="qrm:QueryResultsMetadata/iad:InformationAccessDenial" />
 			</xsl:when>
 			<xsl:otherwise>
-				<script type="text/javascript"> $(function () {
-					$("#vihicleCrashDetail").accordion({ heightStyle: "content",
-					collapsible: true, activate: function( event, ui ) { var
-					modalIframe = $("#modalIframe", parent.document);
-					modalIframe.height(modalIframe.contents().find("body").height() +
-					16); } } ); }); 
+				<script type="text/javascript"> 
+					$(function () {
+						$("#vihicleCrashDetail").accordion({ 
+							heightStyle: "content",
+							active: false,
+							collapsible: true, 
+							activate: function( event, ui ) { 
+								var modalIframe = $("#modalIframe", parent.document);
+								modalIframe.height(modalIframe.contents().find("body").height() + 16); 
+							}
+						}); 
+					}); 
 				</script>
 				<div id="vihicleCrashDetail">
 					<xsl:apply-templates select="vcq-res-ext:VehicleCrashReport" />
@@ -77,8 +83,8 @@
 	</xsl:template>
 	<xsl:template match="j:IncidentAugmentation" mode="witness">
 		<h3>Witness</h3>
-		<div>
-			<table style="width:100%">
+		<div class="table-responsive">
+			<table class="table">
 				<xsl:for-each select="j:IncidentWitness/nc:RoleOfPerson">
 					<xsl:variable name="witnessId">
 						<xsl:value-of select="@structures:ref" />
@@ -114,8 +120,8 @@
 	</xsl:template>
 	<xsl:template match="j:CrashWorkZone">
 		<h3>Work Zone</h3>
-		<div>
-			<table style="width:100%">
+		<div class="table-responsive">
+			<table class="table">
 				<tr>
 					<td class="detailsLabel">In Work Zone</td>
 					<td>
@@ -163,8 +169,8 @@
 			<xsl:value-of select="j:CrashDriver/j:DriverLicense/@structures:ref" />
 		</xsl:variable>
 		<h3>Crash Vehicle</h3>
-		<div>
-			<table style="width:100%">
+		<div class="table-responsive">
+			<table class="table">
 				<tr>
 					<td class="detailsLabel">Make</td>
 					<td colspan="3">
@@ -319,8 +325,8 @@
 	</xsl:template>
 	<xsl:template match="j:IncidentAugmentation" mode="damagedItem">
 		<h3>Damaged Item(s)</h3>
-		<div>
-			<table style="width:100%">
+		<div class="table-responsive">
+			<table class="table">
 				<xsl:apply-templates select="j:IncidentDamagedItem" />
 			</table>
 		</div>
@@ -359,8 +365,8 @@
 	</xsl:template>
 	<xsl:template match="j:Crash" mode="crashDetail">
 		<h3>Crash Detail</h3>
-		<div>
-			<table style="width:100%">
+		<div class="table-responsive">
+			<table class="table">
 				<tr>
 					<td class="detailsLabel">DATE</td>
 					<td>
@@ -409,19 +415,17 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="qrer:QueryRequestError">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			Vehicle Crash Query Result Error:
 			<xsl:value-of select="qrer:ErrorText" />
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">
+		<div class="alert alert-warning" role="alert">
 			Access to System
 			<xsl:value-of select="iad:InformationAccessDenyingSystemNameText" />
 			Denied. Denied Reason:
 			<xsl:value-of select="iad:InformationAccessDenialReasonText" />
-		</span>
-		<br />
+		</div>
 	</xsl:template>
 </xsl:stylesheet>

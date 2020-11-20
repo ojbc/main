@@ -54,6 +54,7 @@
       <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>false</oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2016-10-20</nc30:Date>
@@ -96,6 +97,7 @@
       <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>true</oirs-res-ext:NsorFiveYearCheckResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-16</nc30:Date>

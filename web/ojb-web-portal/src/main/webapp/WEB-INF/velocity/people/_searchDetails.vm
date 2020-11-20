@@ -16,22 +16,34 @@
  *#
 <html>
     <head>
+		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
-		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css')" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
         
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
+    	<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+        <script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+		<script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+		<script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
+		<script src="#springUrl('/webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
+        <script src="#springUrl('/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js')"></script>
+        <script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js')"></script>
+		<script type="text/javascript" src="#springUrl('/webjars/datatables-responsive/2.2.3/js/responsive.bootstrap4.js')"></script>
+        
         
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
     </head>
  	<script type="text/javascript">
 	  	$(function() {
+			$( document ).ajaxStart(function() {
+				$( "#modalIframeSpinner" ).show();
+			}).ajaxStop(function() {
+	      	  	$("#modalIframeSpinner").hide();
+			});
 	  	
 	  		if ($.trim(window.parent.$("#personInformationInModal").html())!=''){
 				if ($("#buttonPane").length){
@@ -50,6 +62,10 @@
 	  			$("#modalIframeSpinner").show();
   			});
   			  			
+			$( document ).ajaxStart(function() {
+			  $( "#loading" ).show();
+			});
+				
 			$("#printButton").on("click", function(){
 				window.print();
 			}); 

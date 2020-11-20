@@ -622,6 +622,7 @@ public class XslTemplateTest {
         params.put("hrefBase", "pagination");
         params.put("validateSubscriptionButton", "true");
         params.put("chDisplaySupervisionTroCustodyHeaders", "true");
+        params.put("incidentTypesToDrillDown", "Law,Traffic,Citation,Field Interview");
         return params;
     }
 

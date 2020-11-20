@@ -67,7 +67,12 @@
 	<camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint" 
 		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
 
+	<camel:endpoint id="subscriptionManagerAdapterServiceSecureEndpoint" 
+		uri="cxf:bean:subscriptionManagerAdapterServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
 
+	<camel:endpoint id="notificationBrokerServiceAdapterSecureEndpoint" 
+		uri="cxf:bean:notificationBrokerServiceAdapterSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+		
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${publishSubscribe.notificationBrokerEndpoint}" 
@@ -107,7 +112,7 @@
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
     </cxf:cxfEndpoint>
 
-	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify, called by this s/n intermediary -->
+	<!-- FBI EBTS Adapter endpoint for Unsubscribe/Modify/Validate, called by this s/n intermediary -->
 	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
 		address="${publishSubscribe.fbiEbtsSubscriptionManagerEndpoint}" 
 		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
@@ -140,6 +145,38 @@
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
+    
+	<!-- OJB Subscription Manager Secure Service Adapter -->
+    <cxf:cxfEndpoint 
+        id="subscriptionManagerAdapterServiceSecure"
+        address="${publishSubscribe.subscriptionManagerSecureAdapterEndpoint}" 
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+		serviceName="ojbc:SecureSubscriptionManagerServiceService" 
+		endpointName="ojbc:SecureSubscriptionManager"
+		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>    
+    
+	<!-- OJB Notification Broker Secure Service Adapter -->
+    <cxf:cxfEndpoint 
+        id="notificationBrokerServiceAdapterSecure"
+        address="${publishSubscribe.notificationBrokerSecureAdapterEndpoint}" 
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl"
+		serviceName="ojbc:SecureNotificationBrokerServiceService" 
+		endpointName="ojbc:SecureNotificationBrokerService"
+		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
+		<cxf:properties>
+			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>    
 
     <!-- 
     	Subscription Search Request Service 
@@ -234,6 +271,16 @@
         </property>
 	</bean>
 
+	<!-- Used to retrieve and persist SAML tokens -->
+	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>	
+
+	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
 	
 	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>	 
 

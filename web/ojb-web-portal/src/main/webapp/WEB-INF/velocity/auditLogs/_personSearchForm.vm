@@ -1,0 +1,112 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+	  $(function() {
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+ 		  ojbc.handlePlaceholders(); 
+ 		  ojbc.handleEsc();
+		    $( ".datePicker" ).datepicker({
+		       showOn: "both",
+		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		       buttonImageOnly: true,
+		       shortYearCutoff: "+10",
+		       dateFormat: 'mm/dd/yy'
+		    });
+		    
+			$('#advanceSearchSubmitButton').click (function(){
+	        	ojbc.clearPlaceholders();
+	            var formData = $('#advancedSearchForm').serialize();
+	        
+	  	       	xhr = $.post("#springUrl('/auditLogs/personSearchLogs')",formData,function(data) {
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
+			});
+		
+		   $("a[href='\\#advancedSearchTab']").click (function(){
+		       $("#search-tab-title").html("ADVANCED SEARCH: PERSON SEARCH LOGS SEARCH");
+		   });
+           
+	        $('#advanceSearchClearButton').click (function(event){
+			  $.get("#springUrl('/auditLogs/personSearchForm?resetForm=true')", function(data) {
+			    $('#portalContent').html(data);
+			    
+			  }).fail(ojbc.displayFailMessage)
+	      	});
+	
+			//This allows the input fields on the search form to submit form with enter key
+			$('#advancedSearchTab input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});
+	
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#advancedSearchTab select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});			
+	
+	  });
+  </script>
+  
+	<div class="card" id="searchTabs">
+		<div class="card-header">
+			<div class="pl-0" id="search-results-title">
+		    	PERSON SEARCH LOGS SEARCH
+		    </div>
+		</div>
+		<div class="card-body" id="advancedSearchTab">
+	  	    <form id='advancedSearchForm'>
+	            #if($errors.hasGlobalErrors())
+	                #foreach( $globalError in $errors.globalErrors )
+	                    <div class="error"> $globalError.defaultMessage </div>
+	                #end
+	            #end
+				<input type="hidden" name="${status.expression}" value="ADVANCED" />
+	    	  		<div class="row">
+		  				<div class="col-6">
+					        <label class="searchSubHeader">PERSON SEARCH NAME</label>
+							<div class="alert alert-info" role="alert">
+					  			Use <red>*</red> any where in names for wild card search.  	
+							</div>
+						    <div class="form-group">
+						        #springFormInput("auditPersonSearchRequest.personFirstName" "placeholder='FIRST NAME' class='form-control form-control-sm'")
+					        </div>
+					        <div class="form-group">
+						        #springFormInput("auditPersonSearchRequest.personMiddleName" "placeholder='MIDDLE NAME' class='form-control form-control-sm'")
+						    </div>
+					        <div class="form-group">
+						        #springFormInput("auditPersonSearchRequest.personLastName" "placeholder='LAST NAME' class='form-control form-control-sm'")
+						    </div>
+			        		<label class="searchSubHeader">Action Date Range</label>
+					        <div class="form-group">
+				        		#springFormInput("auditPersonSearchRequest.startDate" "class='datePicker mdate form-control-sm' placeholder='From'" )
+				        		#springFormInput("auditPersonSearchRequest.endDate"  "class='datePicker mdate form-control-sm' placeholder='To'")
+				        		#springBind("auditPersonSearchRequest.startDate")
+					        </div>
+						</div>    				        
+	    	       </div>
+		     </form>
+		</div>
+		<div class="card-footer text-muted">
+	    	<button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</a>
+	    	<button id="advanceSearchClearButton" class="btn btn-sm btn-secondary ml-1">CLEAR</a>
+  		</div>
+	</div>
+  

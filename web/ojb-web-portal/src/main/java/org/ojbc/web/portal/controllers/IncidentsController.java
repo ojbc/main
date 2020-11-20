@@ -152,7 +152,8 @@ public class IncidentsController {
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
 	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication) {
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model, 
+	        Authentication authentication) throws InterruptedException {
 		try {
 			
 			processDetailRequest(request, systemName, detailsRequest, model, authentication);
@@ -160,6 +161,7 @@ public class IncidentsController {
 			return "incidents/_incidentDetails";
 		} catch (Exception e) {
 			e.printStackTrace();
+			Thread.sleep(500);
 			return "common/_searchDetailsError";
 		}
 	}
@@ -206,6 +208,7 @@ public class IncidentsController {
 		else
 		{
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident detail.</span>");
+			Thread.sleep(500);
 		}
 
 	}

@@ -20,11 +20,12 @@
   	$.fn.dataTable.moment( 'MM/DD/YYYY' );
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No subscriptions found"
@@ -33,7 +34,7 @@
            {
                "targets":[3], 
                "type":"name"
-           },
+           }
          ],
 	     "aoColumns": [
 		      { "bSortable": false, "bSearchable":false },
@@ -42,96 +43,106 @@
 		    ] 
 	});
 	
+	new $.fn.dataTable.FixedHeader( table );
+	
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");
+	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
 	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
-		var checkedValues = getCheckedValues();	
+		var checkedValues = ojbc.getCheckedValues();	
 		
 		if(!checkedValues){
-			alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected', 'ERROR');
 			return false;
 		}
 		
-		console.log("checkedValues: " + checkedValues);
+		//console.log("checkedValues: " + checkedValues);
 								
-		var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-		
-		if(confirmUnsubscribe == true){
-																		
-			var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-			
-			//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-			$.get(urlRequest, function(data) {										
-			      $("#subsAdminContent").html(data);					      
-			}).fail(ojbc.displayFailMessage);
+		bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+		    if(ans){
+				var urlRequest = encodeURI('../subscriptions/unsubscribe');					
 				
+				//call the unsubscribe operation and refresh the current page with the subscription search results returned
+				$.ajax({
+					url:urlRequest, 
+					type:"POST",
+  					data: checkedValues,
+  					contentType:"application/json; charset=utf-8",
+  					dataType:"html",
+  					success: function(data) {										
+				      $("#subsAdminContent").html(data);
+				    }, 
+				    error:ojbc.displayFailMessage 					      
+				});
+			} 
 			return false;
-													 																		 
-		}else{
-		  return false;
-		}
+		}); 
 		
     });
 		
-	function getCheckedValues() {
-	
-		var checkedValues = $('input:checkbox:checked').map(function() {
-			var id = JSON.parse(this.value).id;
-		    return '"' + id +'":' + this.value;
-		}).get();
-		
-		if (!String(checkedValues)) {
-			return null; 
-		}
-		else {
-			return	'{' + checkedValues + '}';
-		}	  		
-	}
-		  		
 	// listener for click on any editSubscriptionLink button
-	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-		var editMvcUrl = encodeURI(this + "&admin=true&editSourcePage=adminAdvancedSearch");
-			 	    		    			
-		var dlgHeight = $(window).height() * .9;
-  		$.get(editMvcUrl, 
-  			function(data){			  			
-    			 var vSubDialog = $('<div style="display:none;" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"></div>').appendTo('body');
-    			 var dlgWidth = $(document).width() * .95;	
-    			 vSubDialog.dialog({                    
-						maxWidth: 800,		
-		        		height:dlgHeight,
-		                position: {
-                           my: "left top",
-                           at: "left top",
-                           of: $("#stateBanner")
-		                },
-		                modal:true,
-				        open:function(event,ui){
-							$('#editSubscriptionDialog').html(data);
-				        },
-				        close: function(event, ui){
-				        	$(this).dialog("close");
-				        	$('#editSubscriptionDialog').remove();
-				        }    	                                  
-                    }).css({height:dlgHeight, overflow:"auto"}); 			  						  				  				
-  			}
-  		).fail(ojbc.displayFailMessage);	
+	$('#searchResultsTable').on('click', '.viewDetails',function(event) {
+		event.preventDefault();
+		var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminAdvancedSearch");
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+		var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
+		if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+			$('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+		}
+		else{
+			$('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+		}
+		
+  		$.get(editMvcUrl, function(data){
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);	
   		
-  		//prevent default browser navigation to link<a> href url, because we're using the url 
-  		// as a spring mvc call
   		return false;		  					  					  		                                                     
  	});   		 
-	    
     
   });
     
 </script>
 	
-<div style="padding:10px">
+<div class="card-body" id="subscriptionsContent">
+	#parse("common/_subscriptionsLeftBar.vm")
 	#if($informationMessages && $informationMessages!='')
-		<span class="error">
+		#if ($informationMessages == 'Operation Successful')
+			#set( $divClass = "alert alert-success fade in alert-dismissible show" )
+		#else
+			#set( $divClass = "alert alert-danger fade in alert-dismissible show" )
+		#end
+		<div class="$divClass" id="informationMessages" >
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<i class="fas fa-times" aria-hidden="true"></i>
+			</button>    
 			$informationMessages
-		</span><br/>
+		</div>
 	#end
-	$subscriptionsContent								
+	
+	$subscriptionsContent 
 </div>
+
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">EDIT SUBSCIPTION</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    
+

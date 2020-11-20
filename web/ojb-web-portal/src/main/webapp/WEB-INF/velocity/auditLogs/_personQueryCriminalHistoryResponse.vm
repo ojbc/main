@@ -1,0 +1,77 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+ 
+  $(function() {
+  	
+  });
+    
+</script>
+	#if($personQueryCriminalHistoryResponse)
+		<table class="table table-striped table-bordered" width="100%">
+			<tbody>
+				<tr>
+					<th scope="row">FIRST NAME</th> 
+					<td>$!personQueryCriminalHistoryResponse.firstName</d> 
+				</tr> 
+				<tr>
+					<th scope="row">MIDDLE NAME</th> 
+					<td>$!personQueryCriminalHistoryResponse.middleName</d> 
+				</tr> 
+				<tr>
+					<th scope="row">LAST NAME</th> 
+					<td>$!personQueryCriminalHistoryResponse.lastName</d> 
+				</tr> 
+				<tr>
+					<th scope="row">QUERY RESULTS ERROR TEXT</th> 
+					<td>$!personQueryCriminalHistoryResponse.queryResultsErrorText</d> 
+				</tr> 
+				<tr>
+					<th scope="row">QUERY RESULTS TIMEOUT INDICATOR</th> 
+					<td>$!personQueryCriminalHistoryResponse.queryResultsTimeoutIndicator</d> 
+				</tr> 
+				<tr>
+					<th scope="row">QUERY RESULTS ERROR INDICATOR</th> 
+					<td>$!personQueryCriminalHistoryResponse.queryResultsErrorIndicator</d> 
+				</tr> 
+				<tr>
+					<th scope="row">FBI ID</th> 
+					<td>$!personQueryCriminalHistoryResponse.fbiId</d> 
+				</tr> 
+				<tr>
+					<th scope="row">SID</th> 
+					<td>$!personQueryCriminalHistoryResponse.sid</d> 
+				</tr> 
+				<tr>
+					<th scope="row">SYSTEM NAME</th> 
+					<td>$!personQueryCriminalHistoryResponse.systemName</d> 
+				</tr> 
+				<tr>
+					<th scope="row">MESSAGE ID</th> 
+					<td>$!personQueryCriminalHistoryResponse.messageId</d> 
+				</tr> 
+				<tr>
+					<th scope="row">TIME STAMP</th> 
+					<td>$!personQueryCriminalHistoryResponse.timestamp</d> 
+				</tr> 
+			</tbody> 
+		</table> 
+	#else
+		<div class="alert alert-primary" role="alert">
+  			No person query criminal history response logs found. 	
+		</div>
+	#end

@@ -27,6 +27,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsU
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
+import org.ojbc.adapters.rapbackdatastore.dao.model.NsorFiveYearCheck;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorSearchResult;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
@@ -84,10 +85,12 @@ public interface RapbackDAO {
 	public int archiveIdentificationResult(String transactionNumber);
 	public int unarchiveIdentificationResult(String transactionNumber);
 	
+	public List<NsorFiveYearCheck> getNsorFiveYearChecks(String transactionNumber);
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
 	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn);
 	
 	public List<String> getViewableIdentificationCategories(
 			SAMLTokenPrincipal token, String identificationCategoryType);
 
+    public void updateFbiSubscriptionStatus(Integer subscriptionId, String status);
 }

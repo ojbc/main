@@ -85,30 +85,30 @@ public class PortalController implements ApplicationContextAware {
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
 	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
 	
-	public static final String HOME_LINK_ID = "homeLink";
 	public static final String STATE_LINK_ID = "stateGovLink";
     public static final String QUERY_LINK_ID = "queryLink";
 	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
 	public static final String RAPBACK_LINK_ID = "rapbackLink";
 	public static final String CRIMINAL_ID_LINK_ID = "criminalIdLink";
 	private static final String ADMIN_LINK_ID = "adminLink";
+	private static final String AUDIT_LINK_ID = "auditLink";
 	public static final String HELP_LINK_ID = "helpLink";
 	public static final String HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
     public static final String PRIVACY_LINK_ID = "privacyPolicyLink";
     public static final String FAQ_LINK_ID = "faqLink";
     public static final String SUGGESTIONFORM_LINK_ID = "suggestionFormLink";
 		
-	public static final String HOME_LINK_TITLE = "Home";
 	public static final String STATE_LINK_TITLE = "State.gov";
     public static final String QUERY_LINK_TITLE = "Query";
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
 	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
 	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
 	public static final String ADMIN_LINK_TITLE = "Admin";
+	public static final String AUDIT_LINK_TITLE = "Audit";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
-	public static final String FAQ_LINK_TITLE = "Frequently Asked Questions";
-	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/ Report a Problem";
+	public static final String FAQ_LINK_TITLE = "FAQ";
+	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/Report a Problem";
 	
 	private static final Log log = LogFactory.getLog(PortalController.class);
 
@@ -131,9 +131,6 @@ public class PortalController implements ApplicationContextAware {
 	
 	@Value("${sensitiveInfoAlertMessage:You are about to view sensitive information. Please press OK to proceed.}")
 	String sensitiveInfoAlertMessage;
-	
-	@Resource
-	Map<String, String> systemsToQuery_people;
 	
 	@Resource
 	Map<String, String> races;
@@ -248,7 +245,10 @@ public class PortalController implements ApplicationContextAware {
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
-		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
+		
+		if (model.get("sensitiveInfoAlert") == null) {
+			model.put("sensitiveInfoAlert", sensitiveInfoAlert);
+		}
 		
     	putUserSignoutUrlAndSamlAssertionIntoModel(request, model);
 	}
@@ -365,10 +365,9 @@ public class PortalController implements ApplicationContextAware {
     	return "common/_criminalIdentificationLeftBar";
     }
     
-    @RequestMapping(value="leftBar", method=RequestMethod.POST)
+	@RequestMapping(value="leftBar", method=RequestMethod.POST)
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
-    	
     	model.put("showReasonsForSearch", showReasonsForSearch);
     	model.put("showDemographicsFilter", showDemographicsFilter);
     	
@@ -398,13 +397,13 @@ public class PortalController implements ApplicationContextAware {
 	private List<SearchProfile> getActiveSearchProfiles(Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
 		
-		addProfileToReturnListIfVisible(visibleProfiles, "people", "PERSON SEARCH");
+		addProfileToReturnListIfVisible(visibleProfiles, "people", "Person Search");
 		
 		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
-			addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
-			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+			addProfileToReturnListIfVisible(visibleProfiles, "incident", "Incident Search");
+			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "Vehicle Search");
 		}
-		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "FIREARM SEARCH");
+		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "Firearm Search");
 		
 		return visibleProfiles;
 	}
@@ -418,24 +417,12 @@ public class PortalController implements ApplicationContextAware {
 	
 	String getSearchLinksHtml(Authentication authentication) {
 		StringBuilder links = new StringBuilder();
-		int cnt = 0;
 
 		for(SearchProfile profile : getActiveSearchProfiles(authentication)) {
-			links.append("<a id=\"").append(getLinkId(profile)).append("\" href=\"#\"");
-			String buttonClass = (cnt > 0) ? "grayButton" : "blueButton";
-			links.append(" class=\"" + buttonClass + "\"");
-			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles(authentication).size());
-			links.append(" style=\""  + style + "\"");
-			links.append(">");
-			links.append("<div ");
-			if (cnt == 0) {
-				links.append(" class=\"activeSearchLink\"");
-			}
-			links.append("></div>");
+			links.append("<a id='").append(getLinkId(profile)).append("' href='#' class='dropdown-item small ")
+				.append(getLinkId(profile)).append("'>");
 			links.append(profile.getDisplayName());
 			links.append("</a>");
-			
-			cnt++;
 		}
 		
 		return links.toString();
@@ -443,24 +430,6 @@ public class PortalController implements ApplicationContextAware {
 	
 	private String getLinkId(SearchProfile profile) {
 		return profile.getId() + "SearchLink" + (profile.isEnabled() ? "" : "Disabled");
-	}
-
-	private String calcLinkButtonStyleBasedOnPosition(int cnt, int size) {
-		
-		if (size > 1) {
-			if (cnt == 0) {
-				// leftmost button
-				return "border-bottom-right-radius: 0px; border-top-right-radius: 0px;";
-			} else if (cnt > 0 && cnt < (size-1)) {
-				// middle buttons
-				return "border-radius: 0px 0px 0px 0px;";
-			} else if (cnt == (size - 1)) {
-				// rightmost button
-				return "border-bottom-left-radius: 0px; border-top-left-radius: 0px;";
-			}
-		} 
-
-		return "";
 	}
 
 	public UserLogonInfo getUserLogonInfo(Element assertionElement) {
@@ -533,11 +502,6 @@ public class PortalController implements ApplicationContextAware {
         return sensitiveInfoAlertMessage;
     }
     
-	@ModelAttribute("systemsToQuery")
-	public Map<String, String> getSystemsToQuery() {
-		return systemsToQuery_people;
-	}
-	
 	@ModelAttribute("races")
 	public Map<String, String> getRaces() {
 		return races;
@@ -588,13 +552,13 @@ public class PortalController implements ApplicationContextAware {
 		
 		if(leftMenuLinkTitles == null){			
 			leftMenuLinkTitles = new HashMap<String, String>();
-			leftMenuLinkTitles.put(HOME_LINK_ID, HOME_LINK_TITLE);
 			leftMenuLinkTitles.put(STATE_LINK_ID, STATE_LINK_TITLE);
 			leftMenuLinkTitles.put(QUERY_LINK_ID, QUERY_LINK_TITLE);
 			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
 			leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
 			leftMenuLinkTitles.put(CRIMINAL_ID_LINK_ID, CRIMINAL_ID_LINK_TITLE);
 			leftMenuLinkTitles.put(ADMIN_LINK_ID, ADMIN_LINK_TITLE);
+			leftMenuLinkTitles.put(AUDIT_LINK_ID, AUDIT_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);

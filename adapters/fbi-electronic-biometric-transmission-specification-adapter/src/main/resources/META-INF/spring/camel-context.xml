@@ -452,13 +452,38 @@
 		
 			<from uri="direct:processSubscriptionErrorResponse"/>
 			
+			<camel:wireTap copy="true" uri="direct:sendErrorEmail"/>
+			
+			<setHeader headerName="stateSubscriptionID">
+			      <method bean="fbiSubscriptionAuditProcessor" method="retrieveStateSubscriptionIDFromTransactionControlReferenceId" />                
+			</setHeader>
+			
+			<convertBodyTo type="java.lang.String"/>
+			
+			<to uri="xslt:xsl/RapBackSubscriptionErrorResponseToSubscriptionErrorReport.xsl"/>
+			
+			<log message="\n\n\n ran RapBackErrorResponseToError.xsl \n\n\n" />	
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />			
+			
+			<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionError</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>				
+
+			<to uri="subscriptionReportingServiceEndpoint" />
+
+		</route>		
+
+		<route id="sendErrorEmailRoute">
+			<camel:from uri="direct:sendErrorEmail"/>
+		
 			<camel:log message="Send email notification of error"/>
 			
 			<camel:to uri="bean:fbiEmailErrorProcessor?method=createErrorEmail"/>
 			
 			<camel:to uri="smtpEndpoint"/>
-
-		</route>		
+		</route>
 
 		<route id="processFederalRapbackConsolidationRoute">
 		
@@ -537,11 +562,6 @@
 		
 			<from uri="direct:processRapbackSubscriptionResponse"/>
 		
-			<!-- Why is this in here? -->
-			<setHeader headerName="CamelFileName">
-				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
-			</setHeader>
-			
 			<camel:to uri="bean:fbiEbtsResponseProcessor?method=convertRapsheetToBase64" />
 			
 			<convertBodyTo type="java.lang.String"/>
@@ -565,18 +585,12 @@
 		<route id="processRapbackSubscriptionMaintenanceResponseRoute">
 		
 			<from uri="direct:processRapBackSubscriptionMaintenanceResponse"/>
-		
-			<!-- Why is this in here? -->		
-			<setHeader headerName="CamelFileName">
-				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
-			</setHeader>
-			
+					
 			<convertBodyTo type="java.lang.String"/>
 			
 			<to uri="xslt:xsl/RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl"/>
 			
 			<log message="\n\n\n ran RapBackMaintenanceResponseToSubscriptionUpdateReport.xsl \n\n\n" />	
-			
 			
 			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 			

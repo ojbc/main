@@ -35,7 +35,7 @@ public class VehiclesControllerConfigBrokered implements
 	@Resource (name="${vehicleSearchRequestProcessorBean:vehicleSearchRequestProcessor}")
 	VehicleSearchInterface vehicleSearchInterface;
 
-	@Resource (name="detailQueryDispatcher")
+	@Resource (name="${vehicleSearchDetailsQueryBean:detailQueryDispatcher}")
 	DetailsQueryInterface detailsQueryInterface;
 
 	@Override

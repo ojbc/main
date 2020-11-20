@@ -14,93 +14,58 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<div id="leftBarDiv">
+<div id="leftBarDiv" class="pt-2">
     <script type="text/javascript">
         $(function(){
             ojbc.initializeInputWithDefaultValue('#onBehalfOf','On behalf of');
-        
-            $("#filterForm").validate({
-                rules: {
-                    "filterAgeRangeStart": {
-                        digits: true
-                    },
-                    "filterAgeRangeEnd": {
-                        digits: true
-                    },
-                    "filterHeightInFeet": {
-                        digits: true
-                    },
-                    "filterHeightInInches": {
-                        digits: true
-                    },
-                    "filterHeightTolerance": {
-                        digits: true
-                    },
-                    "filterWeight": {
-                        digits: true
-                    },
-                    "filterWeightTolerance": {
-                        digits: true
-                    }
-                }
-            });   
-            
-        
-	       	// following to allow 'new' button returning on ajax to be assigned to this handler
-	       	$('#demogFilterInfo').on('click', '#filterSearchResults', function(){
-				$('#demogErrors').html("");    			
-				var isValidate=$("#filterForm").valid();
-				
-	            if(!isValidate){
-	                alert("There are errors in your inputs, please correct them and try again");
-	            }else {    			
-			
-	         	var form = $("#filterForm").serialize();
-		  		xhr = $.post("#springUrl('/people/filter')",form,function(data) {
-			  			if (data.indexOf("DEMOGRAPHICS") > 40 && data.indexOf("DEMOGRAPHICS") < 60) {
-			  				$('#demogFilterInfo').html(data); 	    		  				
-			  			}
-			  			else
-			  			{
-					       	$('#portalContent').html(data);	    				         
-				       } 				       
-				    }).fail(ojbc.displayFailMessage)
-				 }
-		  	});
         });
     		
     </script>
-    
-    #if( $showReasonsForSearch )
-		<p class="headerText">REASONS FOR SEARCH </p>
-		<p class="instructionalText"> Enter Search Criteria Here:</p>
-		
-		<select id="purposeSelect"> 
-			#foreach($entry in $searchPurposes.entrySet())
-				<option value="$entry.getKey()">$entry.getValue()</>
-			#end
-		</select>
-		<input id="onBehalfOf" type="text" />
-	#else
-		<div style="height:100px; width:100%; clear:both;"></div>
-	#end
-	
-	<div class="horizontalDivide"> </div>
-	<p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
-	<p class="instructionalText"> Select all that apply.</p>
-	<div id="sourceSystemsCheckBoxes">
-		<!-- This is a placeholder that will be filled in via the search forms -->
-	</div>
-	<div id="sourceSystemsCheckBoxesDisabled">
-		<!-- This is a placeholder that will be filled in via the search forms -->
-	</div>
-		
-	#if( $showDemographicsFilter )
-		<div class="horizontalDivide"> </div>	
-		<div id="demogFilterInfo">	
-			#parse("people/_searchFilter.vm")
+    #*
+    <div class="row">
+    *#
+	    #if( $showReasonsForSearch )
+	    	#*
+	    	<div class="col-2">
+	    	*#
+				<p class="headerText">REASONS FOR SEARCH </p>
+				<p class="instructionalText"> Enter Search Criteria Here:</p>
+				
+				<div class='row'>
+					<div class='col-12'>
+						<select id="purposeSelect" class="form-control form-control-sm"> 
+							#foreach($entry in $searchPurposes.entrySet())
+								<option value="$entry.getKey()" class="small">$entry.getValue()</>
+							#end
+						</select>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-9'>
+						<input id="onBehalfOf" type="text" class="form-control form-control-sm"/>
+					</div>
+				</div>
+			#*
+			</div>
+			*#
+		#end
+		<div class="horizontalDivide"> </div>
+		#*
+	    <div class="col">
+	    *#
+			<p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
+			<p class="instructionalText"> Select all that apply.</p>
+			<div id="sourceSystemsCheckBoxes">
+				<!-- This is a placeholder that will be filled in via the search forms -->
+			</div>
+			<div id="sourceSystemsCheckBoxesDisabled">
+				<!-- This is a placeholder that will be filled in via the search forms -->
+			</div>
+		#*
 		</div>
-	#end
-	
+		*#
+	#*
+	</div>
+	*#
 </div>
 

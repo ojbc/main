@@ -14,19 +14,24 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-	<div id="simpleSearchTab">
-	    <form id='simpleSearchForm'>
-     		#springBind( "personSearchCommand.searchType" )
-			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
-	        <p> Enter search criteria below </p>
-            <div>   
-                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)'") <br/>
-                #springShowErrors( "<br/>" "error" )
-             </div>
-	            
-	         <div class="searchCancelSection" >
-	            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-	            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
-	        </div>
-        </form>
-      </div>
+	<div class="tab-pane active" role="tabpanel" id="simpleSearchTab">
+		<div class="card">
+		  <div class="card-body">
+		    <form id='simpleSearchForm'>
+	     		#springBind( "personSearchCommand.searchType" )
+				<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
+		        <div class='row'>
+		            <div class='col-8 col-lg-4'>   
+				        <p class="instructionalText"> Enter search criteria below </p>
+		                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)' class='form-control form-control-sm'" ) <br/>
+		                #springShowErrors( "<br/>" "error pl-2" )
+		             </div>
+	             </div>
+	        </form>
+		  </div>
+		  <div class="card-footer text-muted">
+            <button id="simpleSearchSubmitButton" class="btn btn-sm btn-primary" >SEARCH</buton>
+            <button id="simpleSearchClearButton" class="btn btn-sm btn-secondary ml-1">CLEAR</button>
+		  </div>
+		</div>
+     </div>

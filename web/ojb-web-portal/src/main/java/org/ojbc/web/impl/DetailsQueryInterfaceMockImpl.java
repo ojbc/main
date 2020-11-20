@@ -27,14 +27,13 @@ import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 
 @Service
 public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	
-	@Autowired(required = false)
+	@Resource(name = "searchURIToQueryURIMap")
 	private Map<String, String> searchURIToQueryURIMap;	
 	
 	private static final Log log = LogFactory.getLog( DetailsQueryInterfaceMockImpl.class );
@@ -43,7 +42,7 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 	public String invokeRequest(DetailsRequest request, String federatedQueryID, Element samlToken) throws Exception {
 
 		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
-
+		Thread.sleep(500);
 		log.info("Identification Source text in request: " + requestIdSrcTxt);
 		log.info("Identification ID in request: " + request.getIdentificationID());
 		
@@ -78,6 +77,8 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/personToIncident/Incident_Person_Search_Results.xml"));
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.VEHICLE_TO_INCIDENT)) {
+//			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+//					"/sampleResponses/vehicleCrash/vehicleCrashResult.xml"));
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 	        		"/sampleResponses/vehicleToIncident/Incident_Vehicle_Search_Results.xml"));
 		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
@@ -107,8 +108,14 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 			// WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 			// "/sampleResponses/wildlifeLicensing/QueryResults-AccessDenied.xml"));
 			return WebUtils.returnStringFromFilePath(getClass()
-					.getResourceAsStream("/sampleResponses/wildlifeLicensing/WildlifeLicenseQueryResults.xml"));
-		}
+					.getResourceAsStream("/sampleResponses/wildlifeLicensing/wildlife.xml"));
+		} else if (OJBCWebServiceURIs.PROFESSIONAL_LICENSING.equals(requestIdSrcTxt)) {
+			return WebUtils.returnStringFromFilePath(getClass()
+					.getResourceAsStream("/sampleResponses/professionalLicensing/regulatoryLicenseResult.xml"));
+		} else if (OJBCWebServiceURIs.CANNABIS_LICENSING.equals(requestIdSrcTxt)) {
+			return WebUtils.returnStringFromFilePath(getClass()
+					.getResourceAsStream("/sampleResponses/cannabisLicensing/cannabis_license_query_results.xml"));
+		} 
 		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){
 	                throw new RuntimeException("Query type required for Juvenile queries");

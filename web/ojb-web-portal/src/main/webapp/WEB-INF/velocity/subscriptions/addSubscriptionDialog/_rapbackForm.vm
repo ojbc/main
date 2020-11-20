@@ -69,7 +69,7 @@
 						}
 																	  						
 					}else{
-						alert('Requested SID not found');
+						bootpopup.alert('Requested SID not found', 'ERROR');
 						$("#fbiId").val("");
 						$("#fbiIdString").html("No FBI UCN found")
 					}
@@ -79,7 +79,7 @@
 	  			}
   			).fail(ojbc.displayFailMessage);
 		}else{
-			alert('$sidRegexValidationErrorMessage');
+			bootpopup.alert('$sidRegexValidationErrorMessage', 'ERROR');
 			$('#fullName').html(nameHtml);
 			$('#dateOfBirth').html(dateOfBirthDropdownHtml)
 			$("#fbiId").val("");
@@ -195,17 +195,17 @@
 	<label>Start Date:</label>
 
 	#if( ${isStartDateEditable} )
-		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
+		#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='enabledDatePicker' placeholder='From'")
 	#else
-		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
+		#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
 	#end					
 
 	<label>End Date:</label>
 
 	#if( ${isEndDateEditable} )
-		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
+		#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='enabledDatePicker' placeholder='End Date'")
 	#else
-		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
+		#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
 	#end	
 </div>
 

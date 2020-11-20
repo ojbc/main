@@ -14,73 +14,41 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
-<div id="subscriptionsLeftBarDiv">
-
-	<script type="text/javascript">
-	
-		$(function(){
+	#set($showSubFilter=$subscriptionFilterProperties['displaySubscriptionFilter'])		    
+	  
+	#if($showSubFilter=="true")
+		<script type="text/javascript">
 		
-			$('#subResultsFilterButton').click(function() {	
-																		
-				validateLinkExists = $("#validateLink").length > 0; 
-				var formData = $('#filterSubscriptionForm').serialize();
-								             	
-		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
-		  			formData,	  		
-		  			function(data) {	
-		  				if (validateLinkExists){	  			
-    						$('#portalContent').html(data);
-    					}
-    					else{
-    						$("#subsAdminContent").html(data);	
-    					}	        									         					        				      
-					}
-				).fail(ojbc.displayFailMessage);				
+			$(function(){
+			
+				$('#portalContent').off('change', '#subscriptionStatus')
+					.on('change', '#subscriptionStatus',  function() {	
+																			
+					validateLinkExists = $("#validateLink").length > 0; 
+					var formData = $('#filterSubscriptionForm').serialize();
+					//console.log("formData:" + formData); 
+					//console.log("validateLinkExists:" + validateLinkExists); 
+									             	
+			  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
+			  			{subscriptionStatus: $('#subscriptionStatus').val()},	  		
+			  			function(data) {	
+			  				if (validateLinkExists){	  			
+	    						$('#portalContent').html(data);
+	    					}
+	    					else{
+	    						$("#subsAdminContent").html(data);	
+	    					}	        									         					        				      
+						}
+					).fail(ojbc.displayFailMessage);				
+				});
+				
 			});
-			
-			
-			$('#subResultsFilterClearButton').click (function() {	
-
-				var formData = 'subscriptionStatus=All';
-				validateLinkExists = $("#validateLink").length > 0;
-								             	
-		  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists,  	
-		  			formData,	  		
-		  			function(data) {		  			
-		  				if (validateLinkExists){	  			
-    						$('#portalContent').html(data);
-    					}
-    					else{
-    						$("#subsAdminContent").html(data);	
-    					}	        									         					        				      
-						$('#subscriptionStatus').val('All');
-					}
-				).fail(ojbc.displayFailMessage);
-			});
-			
-		});
-	            
-	</script>   
+					            
+		</script>   
     
-        
-  #set($showSubFilter=$subscriptionFilterProperties['displaySubscriptionFilter'])		    
-  
-  #if($showSubFilter=="true")
-  		
-	<form id="filterSubscriptionForm">
-			  	  
-		<p class="headerText">SUBSCRIPTIONS FILTER</p>
-		<p class="instructionalText"> Enter Filter Criteria Here:</p>			
-
-		<div>
-			#springFormSingleSelect("subscriptionFilterCommand.subscriptionStatus" $subscriptionFilterValueToLabelMap "")
-		</div>					
-		 	    	        
-	</form>
-	
-	<input type="button" id="subResultsFilterButton" style="margin:4px" class="blueButton" value="FILTER RESULTS"></input>
-	<input type="button" id="subResultsFilterClearButton" style="margin:4px" class="blueButton" value="CLEAR"></input>
-  
-  #end 		    
+        <label id="subscriptionStatusFilter">
+        	Subscription Status: 
+			#springFormSingleSelect("subscriptionFilterCommand.subscriptionStatus" $subscriptionFilterValueToLabelMap "class='ml-1 mr-3 customSelect'")
+		</label>
+	#end 		    
 		      
-</div>

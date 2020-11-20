@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.processor.person.query.CannabisLicensingRequestProcessor;
 import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
@@ -66,7 +67,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private ProfessionalLicensingRequestProcessor professionalLicensingRequestProcessor;
-	
+
+	@Autowired(required=false)
+	private CannabisLicensingRequestProcessor cannabisLicensingRequestProcessor;
+
 	@Autowired(required=false)
 	private WarrantsRequestProcessor warrantsRequestProcessor;
 
@@ -230,11 +234,17 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.WILDLIFE_LICENSING.equals(requestIdSrcTxt)) {
 			
 			return wildlifeLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
 		} else if (OJBCWebServiceURIs.PROFESSIONAL_LICENSING.equals(requestIdSrcTxt)) {
 			
 			return professionalLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} 
+		else if (OJBCWebServiceURIs.CANNABIS_LICENSING.equals(requestIdSrcTxt)) {
+			
+			return cannabisLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} 		
 		
 		else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			
@@ -364,6 +374,14 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	public void setJuvenileIntakeHistoryRequestProcessor(
 			JuvenileQueryRequestProcessor juvenileIntakeHistoryRequestProcessor) {
 		this.juvenileIntakeHistoryRequestProcessor = juvenileIntakeHistoryRequestProcessor;
+	}
+	
+	public CannabisLicensingRequestProcessor getCannabisLicensingRequestProcessor() {
+		return cannabisLicensingRequestProcessor;
+	}
+
+	public void setCannabisLicensingRequestProcessor(CannabisLicensingRequestProcessor cannabisLicensingRequestProcessor) {
+		this.cannabisLicensingRequestProcessor = cannabisLicensingRequestProcessor;
 	}
 
 	public Map<String, String> getSearchURIToQueryURIMap() {

@@ -18,13 +18,14 @@
  
   $(function() {
   	$('#searchBarButtonDiv').hide();    	
-  		
+  	$('[data-toggle="tooltip"]').tooltip();	
   	$.fn.dataTable.moment( 'MM/DD/YYYY' );
 	var table = $("#searchResultsTable").DataTable({
 		 "order": [[ 3, "asc" ]],
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true, 
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No subscriptions found"
@@ -42,6 +43,9 @@
 		    ]
 		     
 	});
+	
+	new $.fn.dataTable.FixedHeader( table );
+	
 	var reStyleButtonsBasedOnSelection = function() {
 			// Make the selected search button blue, and the others gray
 	        $('#subscriptionTopButtons .blueButton').addClass('grayButton').removeClass('blueButton');
@@ -50,195 +54,181 @@
 	$('#subscriptionTopButtons a').click (reStyleButtonsBasedOnSelection);
 			
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  		
+	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
-	function getCheckedValues() {
-	
-		var checkedValues = $('input:checkbox:checked').map(function() {
-			//console.log("value:" + this.value);
-			var id = JSON.parse(this.value).id;
-		    return '"' + id +'":' + this.value;
-		}).get();
-		
-		if (!String(checkedValues)) {
-			return null; 
-		}
-		else {
-			return	'{' + checkedValues + '}';
-		}	  		
-	}
-
 	$('#advancedSearch').click (function() { 
 		$.get("#springUrl('/subscriptions/searchForm')", function(data) {	
 			$("#subscriptionsContent").html(data);
+			$("#searchCancelSection").appendTo
 		}).fail(ojbc.displayFailMessage);
 		return false;
 	});
 
 	$('#subscriptionButtons').on('click', '#validateLink',function() {
-		var checkedValues = getCheckedValues();	
+		var checkedValues = ojbc.getCheckedValues();	
 																																	
 		if( !checkedValues ){
-			alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected');
 			return false;
 		}
 
-		var row = $(this).parent();		    
-	    $( "#dialog-confirm-validate" ).dialog({
-	    	  position: { my: "center center", at: "center center", of: row },
-		      resizable: true,
-		      modal: true,
-		      buttons: {
-		        "Validate": function() {
-					var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
-				
-					//call spring controller and refresh the current page with the subscription search results returned				 
-					$.post(urlRequest, function(data) {										
-					      $('#portalContent').html(data);					      
-						}
-					).fail(ojbc.displayFailMessage);
-					
-			        $( this ).dialog( "close" );
-		        },
-		        "Close": function() {
-	            		 $( this ).dialog( "close" );
-            	}
-		     }
-	    });   		
-		    				    
+		var row = $(this).parent();
 			
+		bootpopup({
+		    title: "Are you authorized?", 
+		    size: "large",
+		    showclose: false,
+		    content: [
+	    		  '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>',
+		          { p: {text: 'If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate". '}},
+		          { p: {text: "If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription."}}
+		          ], 
+		    cancel: function() {},
+		    validate: function(data, array, event) {  
+				var urlRequest = encodeURI('../subscriptions/validate');
+			
+				//call spring controller and refresh the current page with the subscription search results returned
+				$.ajax({
+					url:urlRequest, 
+					type:"POST",
+  					data: checkedValues,
+  					contentType:"application/json; charset=utf-8",
+  					dataType:"html",
+  					success: function(data) {										
+				      $('#portalContent').html(data);
+				    }, 
+				    error:ojbc.displayFailMessage 					      
+				});
+		    },
+		});
+			    
 		return false;
 	});	  
 	
 	$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
-		var checkedValues = getCheckedValues();	
+		var checkedValues = ojbc.getCheckedValues();	
 		
 		if(!checkedValues){
-			alert('No subscriptions selected');
+			bootpopup.alert('No subscriptions selected', 'ERROR');
 			return false;
 		}
 		
-		//console.log("checkedValues: " + checkedValues);
-								
-		var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
-		
-		if(confirmUnsubscribe == true){
-																		
-			var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
-			
-			//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
-			$.get(urlRequest, function(data) {										
-			      $('#portalContent').html(data);					      
-				}
-			).fail(ojbc.displayFailMessage);
+        bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+		    if(ans){
+				var urlRequest = encodeURI('../subscriptions/unsubscribe');					
 				
+				//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
+				$.ajax({
+					url:urlRequest, 
+					type:"POST",
+  					data: checkedValues,
+  					contentType:"application/json; charset=utf-8",
+  					dataType:"html",
+  					success: function(data) {										
+				      $('#portalContent').html(data);
+				    }, 
+				    error:ojbc.displayFailMessage 					      
+				});
+			} 
 			return false;
-													 																		 
-		}else{
-		  return false;
+		}); 
+    });
+		
+	// listener for click on any editSubscriptionLink button
+	$('#searchResultsTable').on('click', '.viewDetails',function(event) {
+		event.preventDefault();
+		var editMvcUrl = encodeURI(this.href);
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+		var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
+		if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+		}
+		else{
+			$('#subscriptionModal .modal-dialog').removeClass('modal-sm'); 
 		}
 		
-    });
-	
-	// listener for click on any editSubscriptionLink button
-	$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
-		var editMvcUrl = encodeURI(this);
-		var dlgHeight = $(window).height() * .9;	 	    		    			
-  		$.get(editMvcUrl, 
-  			function(data){			  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');
-    			 vSubDialog.dialog({                    
-		                position: {
-                           my: "left top",
-                           at: "left bottom",
-                           of: $("#stateBanner")
-		                },
-		                modal:true,
-				        maxWidth:480,
-				        maxHeight:dlgHeight,
-						resizable:false,
-				        open:function(event,ui){
-				        	$('#editSubscriptionDialog').html(data);
-				        },
-				        close: function(event, ui){
-				        	$(this).dialog("close");
-				        	$('#editSubscriptionDialog').remove();
-				        }    	                                  
-                    }).css({height:"auto", overflow:"auto"}); 			  						  				  				
-  			}
-  		).fail(ojbc.displayFailMessage);	
+  		$.get(editMvcUrl, function(data){
+			$('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal .modal-footer').html(
+  				' <button id="editSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+  				' <button id="editSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);	
   		
-  		//prevent default browser navigation to link<a> href url, because we're using the url 
-  		// as a spring mvc call
   		return false;		  					  					  		                                                     
  	});   		 
-    
+	
 	$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
 		// are used by the html in the modal velocity template file
-		var dlgHeight = $(window).height() * .9;
   		$.post("#springUrl('/subscriptions/addSubscription')", 
-  			function(data){			  			
-  							  			
-    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
-    			 
-    			 vSubDialog.dialog({                    
-		                position: {
-                           my: "left top",
-                           at: "left bottom",
-                           of: $("#searchBar")
-		                },
-		                modal:true,
-				        maxWidth:480,
-				        maxHeight:dlgHeight,
-				        resizable:false,
-				        open:function(event,ui){							        							        	
-				        	$('#addSubscriptionDialog').html(data);
-				        	$('#modalIframeSpinner').hide();
-				        },
-				        close: function(event, ui){
-				        	$(this).dialog("close");
-				        	$('#addSubscriptionDialog').remove();
-				        }    	                                  
-                    }).css({height:"auto", overflow:"auto"});; 			  						  				  				
-  			}
-  		).fail(ojbc.displayFailMessage);
+  			function(data){
+  			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+			$('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal .modal-footer').html('');
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);
   		return false;			  					  		                                                      
   	}); 
 
   });
-    
+  
 </script>
 	
 	
-<div id="subscriptionResultsContainer" class="contentBox">
-
-    <div id="subscriptionResultsHeader"> 
-    
-        <p id="subscriptionResultsTitle">MANAGE SUBSCRIPTIONS</p>
-                        
-        <div style="float:right;" id="subscriptionTopButtons">
-        	<a id="addSubLink" class="grayButton sublink" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
-        	<a id="advancedSearch" class="grayButton sublink" href="#">ADVANCED SEARCH</a>
-    	</div>
-        
-    </div>
-    
-    <div style="padding:10px" id="subscriptionsContent">
+<div class="card" id="subscriptionResultsContainer"> 
+	<div class="card-header container-fluid">
+	  <div class="row ml-1 h-100">
+	    <div class="my-auto" id="search-results-title">
+	      MANAGE SUBSCRIPTIONS
+	    </div>
+	    <div class="ml-auto">
+        	<a id="addSubLink" class="grayButton" href="#"><span id="subImgSpan"/>ADD SUBSCRIPTION</a>
+        	<a id="advancedSearch" class="grayButton" href="#">ADVANCED SEARCH</a>
+		</div>
+	  </div>
+	</div>
+	<div class="card-body" id="subscriptionsContent">
+    	#parse("common/_subscriptionsLeftBar.vm")
 		#if($informationMessages && $informationMessages!='')
-			<span class="error">
+			#if ($informationMessages == 'Operation Successful')
+				#set( $divClass = "alert alert-success fade in alert-dismissible show" )
+			#else
+				#set( $divClass = "alert alert-danger fade in alert-dismissible show" )
+			#end
+			<div class="$divClass" id="informationMessages" >
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>    
 				$informationMessages
-			</span><br/>
+			</div>
 		#end
 		$subscriptionsContent								
-    </div>
-    
-    <div id="dialog-confirm-validate" title="Are you authorized?" class="hidden" style="width:400px;height:auto;">
-  		<div style="margin:7px;padding:7px;">
-  			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>
-  			<p>If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate".</p>
-  			<p>If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription.</p>
-  		</div>
 	</div>
-    
 </div>
+
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">Edit Subsciption</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    
+    

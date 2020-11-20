@@ -63,6 +63,11 @@
     		<xsl:otherwise>
 		        <script type="text/javascript">
 		            $(function () {
+						$( document ).ajaxStart(function() {
+							$( "#modalIframeSpinner" ).show();
+						}).ajaxStop(function() {
+				      	  	$("#modalIframeSpinner").hide();
+						});
 		                $('#incidentsSummary tr.clickableIncident').click(function () {
 		                
 		                    var systemName =$(this).attr('systemName');
@@ -88,19 +93,20 @@
 		                });
 		            });
 		        </script>
-		       
-		        <table id="incidentsSummary" class="detailsTable">
-		            <tr>
-		                <td class="detailsTitle" >TYPE/NATURE</td>
-		                <td class="detailsTitle">ROLE</td>
-		                <td class="detailsTitle">INCIDENT #</td>
-		                <td class="detailsTitle">AGENCY</td>
-		                <td class="detailsTitle">DATE</td>
-		                <td class="detailsTitle">LOCATION</td>
-		            </tr>
-		            <xsl:apply-templates /> 
-		        </table>
-		        <div id="incidentDetailTabsHolder" style="height:200px;overflow:scroll;"></div>   
+		        <div class="table-responsive p-0 m-0">
+			        <table id="incidentsSummary" class="detailsTable table">
+			            <tr>
+			                <td class="detailsTitle" >TYPE/NATURE</td>
+			                <td class="detailsTitle">ROLE</td>
+			                <td class="detailsTitle">INCIDENT #</td>
+			                <td class="detailsTitle">AGENCY</td>
+			                <td class="detailsTitle">DATE</td>
+			                <td class="detailsTitle">LOCATION</td>
+			            </tr>
+			            <xsl:apply-templates /> 
+			        </table>
+		        </div>
+		        <div id="incidentDetailTabsHolder" style="height:350px;overflow:scroll;"></div>   
 	        </xsl:otherwise>
         </xsl:choose> 
     </xsl:template>

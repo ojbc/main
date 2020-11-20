@@ -39,7 +39,6 @@
     <module>rapback-data-store-adapter</module>
     <module>custody-analytics-staging-adapter</module>
     <module>person-health-information-search-service-adapter</module>
-    <module>courtview-court-case-filing-service-adapter</module>
     <module>incident-arrest-analytics-staging-adapter</module>
     <module>charge-referral-service-adapter</module>
   </modules>

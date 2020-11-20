@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<oinfq-res-doc:OrganizationIdentificationNsorQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0 ../xsd/NsorQueryResults_schema.xsd"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:oinfq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationNsorQueryResults/1.0"
+	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/">
+	<oirq-res-ext:IdentifiedPerson>
+		<nc:PersonBirthDate>
+			<nc:Date>1972-03-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonFullName>Michael Scott</nc:PersonFullName>
+		</nc:PersonName>
+		<!-- This is sometimes called the OTN -->
+		<oirq-res-ext:IdentifiedPersonTrackingIdentification>
+			<nc:IdentificationID>A1000999</nc:IdentificationID>
+		</oirq-res-ext:IdentifiedPersonTrackingIdentification>
+	</oirq-res-ext:IdentifiedPerson>
+	<oirq-res-ext:IdentificationRequestingOrganization structures:ref="ORG1"
+		xsi:nil="true" />
+	<!-- oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator>true</oirq-res-ext:NsorFiveYearCheckResultsAvailableIndicator -->
+	<oirq-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirq-res-ext:SourceSystemNameText>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>123456</nc:IdentificationID>
+		<nc:SystemName>RapbackDataStore</nc:SystemName>
+	</intel:SystemIdentification>
+	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID23457</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ORI1234</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:EntityOrganization>
+	<oirq-res-ext:NsorFiveYearCheckDocument structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-22T14:02:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+	</oirq-res-ext:NsorFiveYearCheckDocument>
+	<oirq-res-ext:NsorFiveYearCheckDocument structures:id="Doc_02">
+		<nc:DocumentBinary>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-26T15:07:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+	</oirq-res-ext:NsorFiveYearCheckDocument>
+	<oirq-res-ext:NsorFiveYearCheckDocument structures:id="Doc_05">
+		<nc:DocumentBinary>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2008-10-31T15:07:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+	</oirq-res-ext:NsorFiveYearCheckDocument>
+</oinfq-res-doc:OrganizationIdentificationNsorQueryResults>

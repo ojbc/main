@@ -19,51 +19,44 @@
   $(function() {
   	$('#searchBarButtonDiv').hide();    		
   	
-    $("#searchResultsTable").DataTable({
+    var oTable = $("#searchResultsTable").DataTable({
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 responsive: true,
 		 colReorder: true,
 		 "language": {
       		"emptyTable": "No Federal Rapback Subscription Errors found"
     	 } 
 	});
 	
- 	$('#searchResultsTable').on('click', 'tbody tr', function(){
+	new $.fn.dataTable.FixedHeader( oTable );
+	
+	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
+		event.preventDefault();
  		var subscriptionId = $(this).find("td").first().text();
- 		var editMvcUrl = "#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors";
+ 		var editMvcUrl = encodeURI("#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors");
  		
-		var dlgHeight = $(window).height() * .9;
-  		$.get(editMvcUrl, function(data){			  			
-			 var vSubDialog = $('<div style="display:none;" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"></div>').appendTo('body');
-			 var dlgWidth = $(document).width() * .95;	
-			 vSubDialog.dialog({                    
-				maxWidth: 800,		
-        		height:dlgHeight,
-                position: {
-                   my: "left top",
-                   at: "left top",
-                   of: $("#stateBanner")
-                },
-                modal:true,
-		        open:function(event,ui){
-					$('#editSubscriptionDialog').html(data);
-		        },
-		        close: function(event, ui){
-		        	$(this).dialog("close");
-		        	$('#editSubscriptionDialog').remove();
-		        }    	                                  
-            }).css({height:dlgHeight, overflow:"auto"}); 			  						  				  				
-		}).fail(ojbc.displayFailMessage);	
- 	});
+		var row = $(this).closest('tr'); 
+		row.siblings().removeClass("selected");
+	    row.addClass("selected");
+		
+  		$.get(editMvcUrl, function(data){
+			$('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');	  			
+  			$('#subscriptionModal .modal-body').html(data);
+  			$('#subscriptionModal').modal('show');
+  		}).fail(ojbc.displayFailMessage);	
+  		
+  		return false;		  					  					  		                                                     
+ 	}); 
 	
   });
     
 </script>
 	
 <div style="padding:10px">
-	<h4>Federal Rapback Subscription Errors</h4>
-	<table class="searchResultsTable display" id="searchResultsTable">
+	<h5>Federal Rapback Subscription Errors</h5>
+	<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
 		<thead>
 			<tr>
 				<th>STATE SUBSCRIPTION ID</th>
@@ -84,3 +77,21 @@
 		</tbody>
 	</table> 								
 </div>
+<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+	<div class="modal-content">
+	  <div id="modalIframeSpinner"/>
+	  <div class="modal-header">
+	  	<h5 class="modal-title">Edit Subsciption</h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div> 
+     </div>
+	</div>
+  </div>
+</div>				    

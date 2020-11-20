@@ -20,18 +20,15 @@
 	  	  		
 			if(!${initializationSucceeded}){
 			
-				$("#editSubscriptionDialog").dialog('close');
-				alert('Failed retrieving subscription for edit window');
+				bootpopup.alert('Failed retrieving subscription for edit window', 'ERROR');
 				return;
 			}	  	  		
 	  	  		
 	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
-	  	  		$(".ui-dialog").width("480");
-	  	  		$(".ui-dialog").height("auto");
 	  	  		$("#subFormDiv").height("auto");
 				$("#topic").after('<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span>');
-	  	  	}	  	  		
-
+	  	  	}
+	  	  	
     		$('#editSubModalSaveLink').click(
     			function(){
     			    			    			       			    						
@@ -56,7 +53,7 @@
 						savePersonVehicleCrashSubscription();			
 						  				
 					}else{					
-						alert('Subscription type must be specified');
+						bootpopup.alert('Subscription type must be specified', 'ERROR');
 					} 			  				  					
     			}
     		)
@@ -64,13 +61,13 @@
     		
     		$('#editSubModalCancelLink').click(
     			function(){
-    				$("#editSubscriptionDialog").dialog('close');
+    				$("#subscriptionModal").modal('hide');
     			}
     		)
     		
-	  });	
-	
-		  		  		  
+	  });
+	  
+	  	
 	function saveChCycleSubscription(){
 						  					  		
 		var firstName = $('#firstName').val();			  	
@@ -185,14 +182,13 @@
 				$.each(errorsArray, function( index, value ) {												
 				  displayMessage += '\n ' + value;																											
 				});
-				
-				alert(displayMessage);				                            
+				bootpopup.alert(displayMessage, 'Error');				                            
 			}else{				
 			  if(warningsArray != null && warningsArray != ''){
 				    $.each(warningsArray, function( index, value ) {												
 				    	displayMessage += '\n ' + value;																											
 				  	});
-				  	alert(displayMessage);
+				  	bootpopup.alert(displayMessage, 'Warning');
 			   }				
 			   refreshAfterSaveSubscription();
 			}		  	  
@@ -200,7 +196,7 @@
 	  	 
 	  function refreshAfterSaveSubscription(){
 	  
-		$("#editSubscriptionDialog").dialog('close');
+		$("#subscriptionModal").modal('hide');
 		
 		// redisplay subscription results having the new subscription 
 		$.post("#springUrl('/subscriptions/subscriptionResults')", 
@@ -212,9 +208,6 @@
 	  
 </script>
 
-
-
-<!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
 <div style="width:auto;height:auto;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 		<div>
@@ -237,9 +230,3 @@
 	</form>
 </div>
   
-<div style="vertical-align:bottom" id="subscriptionModalButtonBar" >         
- 	<div id="subModalButtonDiv">
-        <a  id="editSubModalCancelLink" class="grayButton" href="#">CANCEL</a>
-        <a  id="editSubModalSaveLink" class="blueButton" href="#">SAVE</a>
-    </div>            
-</div>	  

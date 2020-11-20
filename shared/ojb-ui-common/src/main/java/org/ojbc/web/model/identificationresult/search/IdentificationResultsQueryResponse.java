@@ -16,6 +16,8 @@
  */
 package org.ojbc.web.model.identificationresult.search;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -26,11 +28,19 @@ public class IdentificationResultsQueryResponse {
 	private String stateSearchResultFile; 
 	private List<String> stateCriminalHistoryRecordDocuments;
 	private String fbiSearchResultFile; 
+	private LocalDateTime documentCreationTimeStamp; 
 	private List<String> fbiIdentityHistorySummaryDocuments;
 	private List<String> nsorDemographicsDocuments;
 	private List<String> nsorSearchResultsDocuments;
+	private List<String> nsorCheckResultsDocuments;
 	private String messageId;
 	private String sid; 
+	private String dob; 
+	private String personName; 
+	private String otn; 
+	private String agencyName; 
+	
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm a");
 	
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
@@ -85,5 +95,47 @@ public class IdentificationResultsQueryResponse {
 	public void setNsorSearchResultsDocuments(
 			List<String> nsorSearchResultsDocuments) {
 		this.nsorSearchResultsDocuments = nsorSearchResultsDocuments;
+	}
+	public List<String> getNsorCheckResultsDocuments() {
+		return nsorCheckResultsDocuments;
+	}
+	public void setNsorCheckResultsDocuments(List<String> nsorCheckResultsDocuments) {
+		this.nsorCheckResultsDocuments = nsorCheckResultsDocuments;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public String getOtn() {
+		return otn;
+	}
+	public void setOtn(String otn) {
+		this.otn = otn;
+	}
+	public String getAgencyName() {
+		return agencyName;
+	}
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
+	}
+	public String getPersonName() {
+		return personName;
+	}
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	public LocalDateTime getDocumentCreationTimeStamp() {
+		return documentCreationTimeStamp;
+	}
+	public String getDocumentCreationTimeStampString() {
+		if (this.documentCreationTimeStamp != null) {
+			return this.documentCreationTimeStamp.format(formatter);
+		}
+		return "";
+	}
+	public void setDocumentCreationTimeStamp(LocalDateTime documentCreationTimeStamp) {
+		this.documentCreationTimeStamp = documentCreationTimeStamp;
 	}
 }

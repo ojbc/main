@@ -60,7 +60,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/people/*")
-@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo"})
+@SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo", "activeSearchTab"})
 public class PeopleController {
 	private final Log log = LogFactory.getLog(this.getClass());
 	public static final String PAGINATE_URL = "../people/paginate";
@@ -145,7 +145,9 @@ public class PeopleController {
 			model.put("personSearchCommand", userSession.getMostRecentSearch());
 		}
 
-		model.put("activeSearchTab", activeSearchTab);
+		if (resetForm || model.get("activeSearchTab") == null) {
+			model.put("activeSearchTab", activeSearchTab);
+		}
 
 		return personSearchForm;
 	}
@@ -329,18 +331,24 @@ public class PeopleController {
 		
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory)
-			throws Exception {
+	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model, Authentication authentication, String searchResultCategory) throws Exception{
 		
 		if (searchResultCategory.equals("Incident") && (authentication == null || !SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)))
 		{
 			model.put("searchContent", "<span class='error'>User is not authorized to see incident list.</span>"); 	
-		}	
+			Thread.sleep(500);
+		}
 		else
 		{	
-		    String convertedContent = getConvertedSearchResult(request, systemName,
-					detailsRequest, model);
-	         model.put("searchContent", convertedContent); 
+		    String convertedContent;
+			try {
+				convertedContent = getConvertedSearchResult(request, systemName,
+						detailsRequest, model);
+				model.put("searchContent", convertedContent); 
+			} catch (Exception e) {
+				Thread.sleep(500);
+				throw e; 
+			}
 		}
 	}
 
@@ -353,6 +361,7 @@ public class PeopleController {
 		            (PersonSearchDetailResponses) model.get("juvenileHistoryDetailResponses"); 
 		    if (juvenileHistoryDetailResponses != null) {
 		        searchContent = juvenileHistoryDetailResponses.getDetailResponse(detailsRequest); 
+		        Thread.sleep(500);
 		    }
 		    else {
 		        juvenileHistoryDetailResponses = new PersonSearchDetailResponses(detailsRequest); 

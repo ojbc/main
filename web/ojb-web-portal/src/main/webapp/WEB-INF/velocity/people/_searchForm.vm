@@ -19,45 +19,31 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
- 		  
-    	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
-    	    $( "#searchTabs" ).tabs({ active: index});
-    	    
-    	    switch(index){
-	            case 1:   
-	            	$("#search-tab-title").html("ADVANCED SEARCH: PERSON");
-	            	break; 
-	            case 0:  
-	                $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
-	                break; 
-                default:
-	                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
-	                break; 
-	       }        	  	    
-    	    	
+			if (oTable !== undefined && oTable.fixedHeader !== undefined){
+				oTable.fixedHeader.disable();
+				oTable.destroy();
+			}    	    	
+ 		  	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
+    	    $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
+
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
     	       buttonImageOnly: true,
     	       shortYearCutoff: "+10",
-    	       dateFormat: 'mm/dd/yy',
-      	       onClose: function(dateText, inst) {
-          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
-    	       }
+    	       dateFormat: 'mm/dd/yy'
     	    });
     	    
     		$('#advanceSearchSubmitButton').click (function(){
-                var isValidate=$("#advancedSearchForm").valid();
-                if(!isValidate){
-                    alert("There are errors in your inputs, please correct them and try again");
-                }else {
-                	ojbc.clearPlaceholders();
-                    var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
-                
-		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
-				        $('#portalContent').html(data);
-			        }).fail(ojbc.displayFailMessage);
-			    }
+            	ojbc.clearPlaceholders();
+                var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+            
+	  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+	  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
+		  	       		$('#filterColumn').addClass('d-none');
+	  	       		}
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
     		});
 
     		$('#juvenileSearchSubmitButton').click (
@@ -66,8 +52,11 @@
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
 		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
+			  	       		$('#filterColumn').addClass('d-none');
+		  	       		}
 				        $('#portalContent').html(data);
-				        }).fail(ojbc.displayFailMessage);
+			        }).fail(ojbc.displayFailMessage);
     		  	}
     		);
     			
@@ -75,7 +64,10 @@
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
 		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
-				      $('#portalContent').html(data);
+					if (data.indexOf('id="advancedSearchTab"') === -1){
+						$('#filterColumn').addClass('d-none');
+					}
+				    $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});
     	  
@@ -182,95 +174,108 @@
 <div id="sourceSystemsDisabled" style="display: none;">
 	#parse('common/_systemsToQuery_disabled.vm')
 </div>
-<div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">ADVANCED SEARCH: PERSON</div>
-    <ul>
-        #if($showJuvenileSearchTab)
-        	<li><a href="#juvenileSearchTab">JUVENILE SEARCH</a></li>
-    	#end
-        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
-        <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
-    </ul>
-	#parse('people/_simpleSearchTab.vm')
-    <div id="advancedSearchTab">
-  	    <form id='advancedSearchForm'>
-            #if($errors.hasGlobalErrors())
-                #foreach( $globalError in $errors.globalErrors )
-                    <div class="error"> $globalError.defaultMessage </div>
-                #end
-            #end
-     
-     		#springBind( "personSearchCommand.searchType" )
-			<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
-    	  		<table>
-    	  			<tr>
-    	  				<td>
-    				        <p class="searchSubHeader"> NAME</p>
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name'") #springShowErrors( "<br/>" "error" )</div>
-    				        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name'") #springShowErrors( "<br/>" "error" )</div>
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name'") #springShowErrors( "<br/>" "error" )</div>
-    				        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
-    				        
-    				        <div class="labelText" >
-    				        	DOB From: 
-    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate'")<br>
-    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate'")
-    				        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
-                                 #springShowErrors( "<br/>" "error" )
-    				        </div>
-    				        
-    				        <div class="labelText" >
-    				        	Age Range:
-        			  		     #springFormInput("personSearchCommand.ageRangeStart" "class='shortDigit'") to #springFormInput("personSearchCommand.ageRangeEnd" "class='shortDigit'")<br/> 
-    				        	 #springBind("personSearchCommand.ageRangeStart")
-    				        	 #springShowErrors( "<br/>" "error" )
-    				        </div>
-    				        <p class="searchSubHeader" >DEMOGRAPHICS</p>
-    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personRaceCode" $races "" ) </div>
-    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "" ) </div>
-    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personEyeColor" $eyeColors "" ) </div>
-    				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personHairColor" $hairColors "") </div>
-    				        
-    				        <div class="labelText" >
-        				        Height #springFormInput("personSearchCommand.heightInFeet" "class='shortDigit'")' #springFormInput("personSearchCommand.heightInInches" "class='shortDigit'")" +/-#springFormInput("personSearchCommand.heightTolerance" "class='shortDigit'")" 
-        				        &nbsp;
-        				        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "class='shortDigit'")+/-#springFormInput("personSearchCommand.weightTolerance" "class='shortDigit'")
-    				        </div>
-    		        	</td>
-    		  			<td>
-        			  		  <p class="searchSubHeader" >IDENTIFIERS</p>
-        			  		  <div>
-        			  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #'")
-        			  		     #springShowErrors( "<br/>" "error" )
-        			  		  </div>
-        			  		  <div>
-        			  		  	#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #'")
-        			  		  	#springShowErrors( "<br/>" "error" ) 
-        			  		  </div>
-        			  		  <div>
-        			  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)' class='ssn'")<br/> 
-        			  		     #springShowErrors( "<br/>" "error" )
-        			  		  </div>
-        			  		  <div>
-        			  		  	 #springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #'")
-        			  		  	 #springShowErrors( "<br/>" "error" )
-        			  		   </div>
-        			  		  <div>
-        			  		  	#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "placeholder='Issuer'")
-        			  		  	#springShowErrors( "<br/>" "error" ) 
-        			  		  </div>
-    					</td>
-    	        	<tr>
-    	        </table>
-    	        <div class="searchCancelSection" >
-    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
-    	        </div>
-		    </form>
+
+<div id="searchTabs" class="py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <ul class="nav nav-tabs small justify-content-end" role="tablist" id="personSearchTabs">
+		        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#simpleSearchTab">SIMPLE SEARCH</a></li>
+		        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#advancedSearchTab">ADVANCED SEARCH</a></li>
+		        #if($showJuvenileSearchTab)
+		        	<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#juvenileSearchTab">JUVENILE SEARCH</a></li>
+		    	#end
+            </ul>
+            <div class="tab-content">
+            	#parse('people/_simpleSearchTab.vm')
+            	
+			    <div id="advancedSearchTab" class="tab-pane" role="tabpanel" >
+			    	<div class="card">
+		  				<div class="card-body">
+					  	    <form id='advancedSearchForm'>
+					            #if($errors.hasGlobalErrors())
+					                #foreach( $globalError in $errors.globalErrors )
+					                    <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
+					                #end
+					            #end
+					     
+					     		#springBind( "personSearchCommand.searchType" )
+								<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
+						  		<div class='row'>
+					  				<div class='col-12 col-md-6'>
+								        <p class="searchSubHeader"> NAME</p>
+								        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
+										<div class="form-check-inline">
+										  <label class="form-check-label form-control-sm">
+										    #springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+										  </label>
+										</div>
+								        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
+								        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
+										<div class="form-check-inline">
+										  <label class="form-check-label form-control-sm">
+										    #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+										  </label>
+										</div>
+								        
+								        <div class="labelText" >
+								        	DOB
+								        	 #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate ml-2' placeholder='From'") #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate ml-2' placeholder='End'")
+						                     #springShowErrors( "<br/>" "error pl-2" )
+								        </div>
+								        <div class="labelText" >
+								        	Age Range
+								  		     #springFormInput("personSearchCommand.ageRangeStart" "class='shortDigit ml-2'") to #springFormInput("personSearchCommand.ageRangeEnd" "class='shortDigit'")<br/> 
+								        	 #springBind("personSearchCommand.ageRangeStart")
+								        	 #springShowErrors( "<br/>" "error pl-2" )
+								        </div>
+								        <p class="searchSubHeader" >DEMOGRAPHICS</p>
+								        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personRaceCode" $races "class='form-control form-control-sm mb-2'" ) </div>
+								        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "class='form-control form-control-sm mb-2'" ) </div>
+								        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personEyeColor" $eyeColors "class='form-control form-control-sm mb-2'" ) </div>
+								        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personHairColor" $hairColors "class='form-control form-control-sm mb-2'") </div>
+								        
+								        <div class="labelText" >
+									        Height #springFormInput("personSearchCommand.heightInFeet" "class='shortDigit ml-2'")' #springFormInput("personSearchCommand.heightInInches" "class='shortDigit'")" +/-#springFormInput("personSearchCommand.heightTolerance" "class='shortDigit'")" 
+									        &nbsp;
+									        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "class='shortDigit'")+/-#springFormInput("personSearchCommand.weightTolerance" "class='shortDigit'")
+								        </div>
+						        	</div>
+						  			<div class='col-12 col-md-6'>
+								  		  <p class="searchSubHeader" >IDENTIFIERS</p>
+								  		  <div>
+								  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #' class='form-control form-control-sm'")
+								  		     #springShowErrors( "<br/>" "error pl-2" )
+								  		  </div>
+								  		  <div>
+								  		  	#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #' class='form-control form-control-sm'")
+								  		  	#springShowErrors( "<br/>" "error pl-2" ) 
+								  		  </div>
+								  		  <div>
+								  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)' class='ssn form-control form-control-sm'")
+								  		     #springShowErrors( "<br/>" "error pl-2" )
+								  		  </div>
+								  		  <div>
+								  		  	 #springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #' class='form-control form-control-sm'")
+								  		  	 #springShowErrors( "<br/>" "error pl-2" )
+								  		   </div>
+								  		  <div>
+								  		  	#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "placeholder='Issuer' class='form-control form-control-sm'")
+								  		  	#springShowErrors( "<br/>" "error pl-2" ) 
+								  		  </div>
+									</div>
+						        </div>
+						    </form>
+					    </div>
+					    <div class="card-footer">
+				        	<button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</button>
+				        	<button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+					    </div>
+				    </div>
+			    </div>
+			    #if($showJuvenileSearchTab)
+					#parse('people/_juvenileSearchTab.vm')
+				#end
+              </div>
         </div>
-        #if($showJuvenileSearchTab)
-  			#parse('people/_juvenileSearchTab.vm')
-  		#end
-  
+    </div>
 </div>

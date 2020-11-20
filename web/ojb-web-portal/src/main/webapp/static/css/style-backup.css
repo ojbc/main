@@ -1,0 +1,1446 @@
+/**
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ */
+body {
+	font-family: Arial, Helvetica, sans serif;
+}
+
+#pageRoot {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1250px;
+}
+
+table tr td {
+	vertical-align: top;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
+
+.lightgrayX { 
+	color: lightgray;
+	font-size: 12px;	
+}
+
+#incidentDetailTemp { 
+	position: absolute;
+	background-color: #7e7e7e;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	background-image: url('../images/loading.gif');
+	background-position: center;
+	background-repeat: no-repeat;	
+	z-index: 10000;
+}
+
+#modalIframeSpinner { 
+	position: absolute;
+	background-color: #7e7e7e;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	background-image: url('../images/loading.gif');
+	background-position: center;
+	background-repeat: no-repeat;	
+	z-index: 10000;
+}
+
+#loadingAjaxPane  { 
+	position: absolute;
+	background-color: #7e7e7e;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	background-image: url('../images/loading.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	
+	z-index: 10000;
+}
+.blueButton {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueIcon {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 4px 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueButton:hover:enabled, .blueIcon:hover:enabled {
+	color: #777777;
+}
+
+.blueButton:disabled, .blueIcon:disabled {
+	background-image: url('../images/Backgrounds/bg-button-blue-d.jpg');
+}
+
+.grayButton {
+	background-image: url('../images/Backgrounds/bg-button-gray.jpg');
+	background-repeat: repeat-x;
+	background-color: #ebebeb;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #777777;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.grayButton:hover {
+	color: #ffffff;
+}
+
+.blueButton:hover:enabled,.grayButton:hover:enabled {
+	cursor: pointer;
+}
+
+a.blueButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #ffffff;
+	white-space: nowrap;
+}
+
+a.blueButton:hover {
+	color: #777777;
+}
+
+a.grayButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #777777;
+	white-space: nowrap;
+}
+
+a.grayButton:hover {
+	color: #ffffff;
+}
+
+.contentBox {
+	background-color: #e9e9e9;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	/* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa');
+	
+	
+}
+
+.horizontalDivide {
+	background: url('../images/horizontal-divide.png') repeat-x;
+	width: 250px;
+	height: 2px;
+}
+
+/******************** Left Menu *********************/
+#leftMenuTd {
+	background-image: url('../images/Backgrounds/bg-left-menu.jpg');
+	height: 100%;
+}
+
+#leftMenu .leftMenuLink {
+	font-size: 12px;
+	color: #777777;
+	text-decoration: none;
+	width: 100px;
+	height: 75px;
+	padding-top: 20px;
+	margin-bottom: 4px;
+	display: block;
+	text-align: center;
+	background-repeat: no-repeat;
+}
+
+#leftMenu .leftMenuLinkHidden {
+	display: none;
+}
+
+#leftMenu .leftMenuLink:HOVER {
+	color: #ffffff;
+}
+
+#leftMenu .leftMenuLink div {
+	background-repeat: no-repeat;
+	margin: 0 auto 5px auto;
+}
+
+#leftMenu #homeLink div {
+	width: 26px;
+	height: 22px;
+	background: url('../images/Left Menu/icon-home-off.png');
+}
+
+#leftMenu #homeLink:hover div {
+	background: url('../images/Left Menu/icon-home-on.png');
+}
+
+#leftMenu #stateGovLink div {
+	width: 24px;
+	height: 18px;
+	background: url('../images/Left Menu/icon-external-off.png');
+}
+
+#leftMenu #stateGovLink:hover div {
+	background: url('../images/Left Menu/icon-external-on.png');
+}
+
+#leftMenu #queryLink div {
+	width: 24px;
+	height: 24px;
+	background: url('../images/Left Menu/icon-query-off.png');	
+}
+
+#leftMenu #queryLink:hover div{
+	background: url('../images/Left Menu/icon-query-on.png');
+}
+
+#leftMenu #subscriptionsLink div, 
+#leftMenu #criminalIdLink div, 
+#leftMenu #rapbackLink div {
+	width: 24px;
+	height: 24px;
+	background: url('../images/Left Menu/icon-subscriptions-off.png');	
+}
+
+#leftMenu #subscriptionsLink:hover div,
+#leftMenu #criminalIdLink:hover div,
+#leftMenu #rapbackLink:hover div{
+	background: url('../images/Left Menu/icon-subscriptions-on.png');
+}
+
+
+
+#leftMenu #helpLink div, #leftMenu #helpLinkExternal div{
+	width: 27px;
+	height: 26px;
+	background: url('../images/Left Menu/icon-help-off.png');
+}
+
+#leftMenu #helpLink:hover div, #leftMenu #helpLinkExternal:hover div {
+	background: url('../images/Left Menu/icon-help-on.png');
+}
+
+#leftMenu #privacyPolicyLink div {
+	width: 25px;
+	height: 30px;
+	background: url('../images/Left Menu/icon-privacy-off.png');
+}
+
+#leftMenu #privacyPolicyLink:hover div {
+	background: url('../images/Left Menu/icon-privacy-on.png');
+}
+
+#leftMenu #faqLink div {
+	width: 25px;
+	height: 30px;
+	background: url('../images/Left Menu/icon-faq-off.png');
+}
+
+#leftMenu #faqLink:hover div {
+	background: url('../images/Left Menu/icon-faq-on.png');
+}
+
+#leftMenu #suggestionFormLink div {
+	width: 25px;
+	height: 30px;
+	background: url('../images/Left Menu/icon-suggestionForm-off.png');
+}
+
+#leftMenu #suggestionFormLink:hover div {
+	background: url('../images/Left Menu/icon-suggestionForm-on.png');
+}
+
+#leftMenu #logoutLink div {
+	width: 22px;
+	height: 25px;
+	background: url('../images/Left Menu/icon-logout-off.png');
+}
+
+#leftMenu #logoutLink:hover div {
+	background: url('../images/Left Menu/icon-logout-on.png');
+}
+
+/******************** Filter Column *********************/
+#leftBarTd {
+	background-image: url('../images/Backgrounds/bg-filters-column.jpg');
+	background-repeat: repeat-y;
+}
+
+#filterColumn {
+	width: 239px;
+	height: 100%;
+}
+
+#filterColumn input[type='text'] {
+	height: 15px;
+	width: 200px;
+	padding: 7px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 12px 0 12px 0;
+}
+
+#filterColumn input[type='text']:disabled {
+	color: lightgray;
+}
+
+#filterColumn select {
+	height: 30px;
+	width: 223px;
+	padding: 4px;
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+}
+
+#filterColumn select:disabled {
+	color: lightgray;	
+}
+
+#filterColumn .horizontalDivide {
+	margin: 20px 0px 20px -13px;
+}
+
+#filterColumn .headerText {
+	font-size: 12px;
+	color: #898989;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#filterColumn .headerTextDisabled {
+	font-size: 12px;
+	color: lightgray;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#filterColumn .instructionalText {
+	font-size: 12px;
+	color: #999999;
+}
+
+#filterColumn .instructionalTextDisabled {
+	font-size: 12px;
+	color: lightgray;
+}
+
+#filterColumn .fieldText {
+	font-size: 12px;
+	color: #666666;
+}
+
+#filterColumn .sourceSystemLink {
+    line-height: 50px;
+    font-size: 25px;
+}
+
+/******************** Search/Logged in as Bar *********************/
+#searchBar {
+	margin-top: 23px;
+	height: 26px;
+}
+
+#searchBar a {
+	padding: 8px;
+	font-size: 11px;
+}
+
+#searchBar #peopleSearchLink div, #searchBar #peopleSearchLinkDisabled div {
+	display: inline-block;
+	width: 20px;
+	height: 17px;
+	background: url('../images/Search Bar/icon-person-off.png');
+	background-repeat: no-repeat;
+	margin: 0 5px -3px 0;
+}
+
+#searchBar #peopleSearchLink div.activeSearchLink, #searchBar #peopleSearchLinkDisabled div.activeSearchLink {
+	background: url('../images/Search Bar/icon-person-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #peopleSearchLink:hover div, #searchBar #peopleSearchLinkDisabled:hover div {
+	background: url('../images/Search Bar/icon-person-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #peopleSearchLink:hover div.activeSearchLink, #searchBar #peopleSearchLinkDisabled:hover div.activeSearchLink {
+	background: url('../images/Search Bar/icon-person-off.png');
+	background-repeat: no-repeat;
+}
+
+
+#searchBar #incidentSearchLink div, #searchBar #incidentSearchLinkDisabled div {
+	display: inline-block;
+	width: 20px;
+	height: 17px;
+	background: url('../images/Search Bar/icon-incident-off.png');
+	background-repeat: no-repeat;
+	margin: 0 5px -3px 0;
+}
+
+#searchBar #incidentSearchLink div.activeSearchLink, #searchBar #incidentSearchLinkDisabled div.activeSearchLink {
+	background: url('../images/Search Bar/icon-incident-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #incidentSearchLink:hover div, #searchBar #incidentSearchLinkDisabled:hover div {
+	background: url('../images/Search Bar/icon-incident-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #incidentSearchLink:hover div.activeSearchLink, #searchBar #incidentSearchLinkDisabled:hover div.activeSearchLink {
+	background: url('../images/Search Bar/icon-incident-off.png');
+	background-repeat: no-repeat;
+}
+
+
+#searchBar #vehicleSearchLink div, #searchBar #vehicleSearchLinkDisabled div {
+	display: inline-block;
+	width: 20px;
+	height: 17px;
+	background: url('../images/Search Bar/icon-vehicle-off.png');
+	background-repeat: no-repeat;
+	margin: 0 5px -3px 0;
+}
+
+#searchBar #vehicleSearchLink div.activeSearchLink, #searchBar #vehicleSearchLinkDisabled div.activeSearchLink {
+	background: url('../images/Search Bar/icon-vehicle-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #vehicleSearchLink:hover div, #searchBar #vehicleSearchLinkDisabled:hover div {
+	background: url('../images/Search Bar/icon-vehicle-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #vehicleSearchLink:hover div.activeSearchLink, #searchBar #vehicleSearchLinkDisabled:hover div.activeSearchLink {
+	background: url('../images/Search Bar/icon-vehicle-off.png');
+	background-repeat: no-repeat;
+}
+
+
+#searchBar #firearmSearchLink div, #searchBar #firearmSearchLinkDisabled div {
+	display: inline-block;
+	width: 20px;
+	height: 17px;
+	background: url('../images/Search Bar/icon-firearm-off.png');
+	background-repeat: no-repeat;
+	margin: 0 5px -6px 0;
+}
+
+#searchBar #firearmSearchLink div.activeSearchLink, #searchBar #firearmSearchLinkDisabled div.activeSearchLink {
+	background: url('../images/Search Bar/icon-firearm-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #firearmSearchLink:hover div, #searchBar #firearmSearchLinkDisabled:hover div {
+	background: url('../images/Search Bar/icon-firearm-on.png');
+	background-repeat: no-repeat;
+}
+
+#searchBar #firearmSearchLink:hover div.activeSearchLink, #searchBar #firearmSearchLinkDisabled:hover div.activeSearchLink {
+	background: url('../images/Search Bar/icon-firearm-off.png');
+	background-repeat: no-repeat;
+}
+
+
+#searchBar #loggedInUserInfo {
+	font-size: 11px;
+	color: #999999;
+}
+
+#searchBar #loggedInUserInfo a {
+	color: #4678a6;
+	text-decoration: none;
+}
+
+#mainContent {
+	padding: 15px;
+	min-height: 1000px;
+}
+
+#searchContent {
+	margin-top: 15px;
+	background-color: #f5f5f5;
+}
+
+#landingPageContent {
+    background-color: #ffffff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#landingPageContent h1 {
+    text-align: center;
+}
+
+#landingPageContent td {
+    padding-bottom: 15px;
+}
+
+#landingPageContent a.largeButton {
+    background-image: url('../images/Backgrounds/bg-largeButton-gray.jpg');
+    width:250px;
+    font-size:35px;
+    white-space:normal;
+    display:block;
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.largeButton:hover {
+    color: #777777;
+}
+
+/***********************State Banner ********************/
+#stateBanner {
+	background-color: #ffffff;
+}
+
+
+/********************** subscriptions *********************/
+
+#subscriptionResultsContainer {
+	background-color: #fafafa;
+}
+
+#subscriptionResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+#subscriptionResultsTitle {
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+	top: 13px;
+	left: 13px;
+}
+
+
+.sublink {
+	position: relative;
+	top: -17px;
+	left: -13px;
+}
+
+#subImgSpan {
+	background:url('../images/Subscriptions/icon-add.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0 5px -3px 0;
+}
+
+	
+#addSubLink:hover #subImgSpan{
+	background: url('../images/Subscriptions/icon-add-white.png') no-repeat center;
+}
+
+#subFormDiv {
+	width:230px;
+	height:440px;
+}
+/*************************** Search Content **************/
+#searchForm {
+	margin: 0;
+}
+
+#searchTabs .searchSubHeader {
+	font-size: 12px;
+	color: #898989;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#searchTabs {
+	background-color: #ffffff;
+	border: solid 1px #ebebeb;
+}
+
+#searchTabs .labelText, #filterForm .labelText, .radioButtonBar {
+	font-size: 12px;
+	color: #333333;
+}
+
+#searchTabs input[type='text'],#searchTabs #simpleSearchTab input[type='text'] {
+	height: 15px;
+	width: 390px;
+	padding: 7px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 12px 20px 12px 0;
+	font-size: 12px;
+}
+
+#searchTabs select {
+	margin-bottom: 5px;
+	height: 30px;
+	width: 405px; /* to achieve same visual appearance as searchTabs input fields, needs to be 405 instead of 390 */
+	padding: 4px;
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	font-size: 12px;
+	color: #898989;
+}
+
+#searchTabs #advanceSearch\.personDateOfBirthRangeStart,#searchTabs #advanceSearch\.personDateOfBirthRangeEnd {
+	width: 129px;
+}
+
+#searchTabs #advanceSearch\.incidentDateRangeStart,#searchTabs #advanceSearch\.incidentDateRangeEnd {
+	width: 129px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.vehicleYearRangeStart,#searchTabs #advanceSearch\.vehicleYearRangeEnd {
+	width: 129px;
+}
+
+.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeStart,.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeEnd
+{
+	width: 119px;
+}
+
+#searchTabs #advanceSearch\.personDateOfBirthRangeEnd,#searchTabs #advanceSearch\.incidentDateRangeEnd  {
+	margin-left: -20px;
+}
+
+#searchTabs #advanceSearch\.firearmSerialNumber {
+	width: 178px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.firearmType {
+	margin-top: 12px;
+}
+
+.ui-datepicker-trigger {
+	position: relative;
+	left: -42px;
+	top: 4px;
+}
+
+#searchTabs #ageRangeStart,
+#searchTabs #ageRangeEnd,
+#searchTabs #heightInFeet,
+#searchTabs #heightInInches,
+#searchTabs #heightTolerance,
+#searchTabs #weightTolerance,
+#demogFilterInfo #filterAgeRangeStart,
+#demogFilterInfo #filterAgeRangeEnd,
+#demogFilterInfo #filterHeightInFeet,
+#demogFilterInfo #filterHeightInInches,
+#demogFilterInfo #filterHeightTolerance,
+#demogFilterInfo #filterWeightTolerance
+	{
+	width: 20px;
+	margin-right: 1px;
+}
+
+#searchTabs #advanceSearch\.personWeight,
+#demogFilterInfo #filterWeight {
+	margin-right: 1px;
+	width: 40px;
+}
+
+.ie9 #searchTabs #advanceSearch\.personWeight {
+	width: 25px;
+}
+
+/* .ui-widget-header {
+	background: url('../images/Backgrounds/bg-tabs-header.png') repeat-x;
+	border: none;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+} */
+
+.ui-tabs-anchor {
+	border-radius: 0;
+	height: 15px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#incidentDetailTabs .ui-tabs-anchor {
+	height: 17px;
+	font-size: 10px;
+}
+
+#searchTabs #advancedSearchTab,#searchTabs #simpleSearchTab {
+	overflow: visible;
+	width: 827px;
+}
+
+.searchCancelSection {
+	width: 872px;
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	height: 37px;
+	margin: 0px;
+	position: relative;
+	left: -21px;
+	bottom: -22px;
+	padding: 13px 0 0 9px;
+}
+
+#simpleSearchForm .searchCancelSection{
+	left: -27px !important;
+}
+
+.ie9 .searchCancelSection {
+	bottom: -23px;
+}
+
+.ie8 .searchCancelSection {
+    width: 871px;
+}
+
+.ie8 #advancedSearchTab .searchCancelSection {
+	left: -29px;
+}
+
+
+#search-tab-title {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button {
+	font-size: 11px;
+}
+
+.ui-widget {
+	font-size:small;
+}
+/**************************** Tabs *********************************/
+#searchTabs #simpleSearchTab p {
+	font-size: 12px;
+	color: #898989;
+}
+
+#searchTabs #simpleSearchTab {
+	padding: 17px 24px;
+}
+
+#searchTabs  .ui-tabs-nav li {
+	float: right;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	color: #777777;
+	margin: 1px 0 0 0;
+	border-radius: 0;
+}
+
+#searchTabs .ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
+	color: #777777;
+}
+
+#searchTabs .ui-tabs .ui-tabs-nav {
+	margin: -4px;
+}
+
+/********************* Search results *******************************/
+#searchResultsContainer {
+	background-color: #fafafa;
+}
+
+#searchResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+.ie9 #searchResultsHeader, .ie8 #searchResultsHeader {
+	margin-top: -12px;
+}
+
+#search-results-title {
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+	top: 13px;
+	left: 13px;
+}
+
+#searchResultsHeader a {
+	position: relative;
+	top: -15px;
+	left: -12px;
+}
+
+.searchResultsTable {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	/* background-color: #ffffff; */
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.searchResultsTable .buttonColumn {
+	width: 118px;
+	vertical-align: middle; 
+}
+
+.searchResultsTable .editButtonColumn {
+	width: 60px;
+	vertical-align: middle;
+}
+
+.searchResultsTable td,.searchResultsTable th {
+	border: 1px solid #ebebeb;
+	padding-left:5.5px!important;
+	padding-right:5.5px!important;
+}
+
+/*************************** Modal Dialog *************************/
+/* .ui-dialog {
+	padding: 0;
+	background: none;
+	background-color: #fafafa;
+	position: relative;
+}
+
+.ui-dialog-titlebar .ui-button {
+	top: 16px;
+}
+
+.ui-dialog-title {
+	position: relative;
+	top: 2px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.ui-widget-overlay {
+	opacity: 0.5;
+	background-color: black;
+	background-image: none;
+}
+
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+ */
+.ui-dialog-title,.ui-button-text {
+	font-size: small;
+	color: #777777;
+	font-weight: bold!important;
+	text-transform: uppercase;
+}
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+#dialog-warning p{
+	font-size:small!important;
+	padding-left:1em;
+	padding-right:1em;	
+}
+
+#incidentDetailTabs {
+	border: 1px solid #ebebeb;
+	border-radius: 0;
+	width: 758px;
+	margin-top: 15px;
+}
+
+
+/**********************  Subscriptions Modal Dialog ***************************/
+
+#subscriptionForm {
+	margin: 10;
+}
+
+#addSubscriptionDialog #editSubscriptionDialog{
+	background-color: #ffffff;
+	border: solid 1px #ebebeb;	
+}
+
+#addSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#editSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm input{
+	height: 15px;
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px 6px 6px 6px;
+	padding: 6px;
+	font-size: 12px;
+}
+#subscriptionForm textarea{
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px;
+	padding: 4px;
+	font-size: 12px;
+}
+
+#subscriptionForm select {
+	margin: 6px;
+	padding: 4px;
+	height: 30px;
+	width: 220px; 
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	font-size: 12px;
+	color: #898989;
+}
+
+#subscriptionModalButtonBar {
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	width: 100%;
+	height: 45px;
+	margin: 6px;
+	position: relative;
+	padding: 0 0 0 9px;
+	margin: 0px;
+	bottom: 0px;
+}
+
+#subModalButtonDiv {
+	position: relative;
+	top:6px;
+	float:left;
+	margin: 9px 6px 0 0;
+}
+
+#triggeringEventsDiv {
+	padding-left: 12px; 
+	font-size: 12px;
+}
+
+#idLookupImg {
+	background:url('../images/Search Form/icon-search-gray.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	position:relative;
+	top:4px;
+}
+
+#idLookupImg:hover {
+	background: url('../images/Search Form/icon-search.png') no-repeat center;
+}
+
+
+/****************************Modal Styling ************************/
+#personInformationInModal {
+	padding: 0 8px;
+	width: 98%;
+}
+
+.bigPersonImage {
+	background: url("../images/Search Detail/photo-placeholder.jpg") no-repeat;
+	width: 180px;
+	height: 172px;
+}
+
+.personMugshot {
+    max-width: 180px;
+    max-height: 250px;
+}
+
+.detailsTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.detailsTable .detailsFullName {
+	font-size: 18px;
+	vertical-align: bottom;
+	font-weight: bold;
+}
+
+.detailsTable tr {
+	background-color: #ffffff;
+}
+
+.detailsTable tr.incidentSelected, 
+.detailsTable tr.selected {
+	background-color: #edf2f8;
+}
+
+.detailsTable tr.incidentHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
+.detailsTable tr.custodyDetailHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
+.detailsTable td {
+	border: 1px solid #ebebeb;
+	height: 32px;
+	padding: 0 10px;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+td.detailsTitle {
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+td.detailsLabel {
+	color: #777777;
+	background-color: #fafafa;
+	font-weight: bold;
+	font-weight: bold;
+}
+
+#criminalHistoryTd {
+	padding: 0px;
+}
+
+#criminalHistory table {
+	width: 100%;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#criminalHistory td {
+	vertical-align: top;
+	padding: 10px 10px;
+	border: 0;
+}
+
+#criminalHistory td.detailsLabel {
+	width: 25%;
+}
+
+#criminalHistoryCyclesHolderTD{
+	padding: 0;
+}
+
+#criminalHistoryCycles {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles td {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles .smallLabel {
+	color: #9f9f9f;
+}
+
+#criminalHistoryCycles p{
+	margin:0;
+}
+
+#criminalHistoryCycles .sectionTitle {
+	color: #999999;
+	font-weight: bold;
+	text-decoration: underline;
+	margin-top: 1em;
+}
+
+.ui-accordion .ui-accordion-content {
+	padding: 0;
+	
+}
+
+
+
+#incidentDetailTabs {
+	font-family: Arial, Helvetica, sans serif;
+	font-size: 12px;
+	
+}
+
+.ui-accordion .ui-accordion-header {
+	font-weight: bold;
+	border-radius: 0;
+	margin: 0;
+	padding: 5px 0 5px 12px;
+	height: 21px;
+	color: #777;
+	background-image: url('../images/Backgrounds/bg-accordion-header.png') ;
+	background-repeat: repeat-x;
+	
+}
+
+.ui-accordion .ui-accordion-header:hover {
+	background: none;
+	background-color: #ccdff6;
+	
+}
+
+.ui-accordion .ui-state-active {
+	color:white;
+	background-image: url('../images/Backgrounds/bg-accordion-header-active.png') ;
+}
+
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	float: right;
+	left: -7px;
+	top: 10px;
+	position: relative;
+}
+
+ 
+  #incidentDetailTabs  div.ui-tabs-panel {
+	padding: 1em 0;
+}
+
+#incidentDetailTabs table {
+	font-size: 12px; 
+	width: 100%;
+	border-spacing: 10px 0;
+	
+}
+#incidentDetailTabs .incidentLabel{
+	color: #777;	
+}
+
+#incidentDetailTabs #narrativeTab {
+	padding: 10px;
+}
+
+#warrantsHolderTD, .padding0 {
+	padding: 0;
+}
+
+#firearmRegistrationsHolderTD {
+	padding: 0;
+}
+
+/********************* Mock content *******************************/
+#stateBanner {
+	width: 882px;
+	height: 118px;
+	text-align: center;
+}
+
+/************************ Data Table ****************************/
+
+.dataTables_wrapper{
+	font-size: small
+}
+
+#subscriptionButtons{
+	padding-left: 1em;
+}
+/************************Button Bar*************************/
+.full {
+	width: 100%;
+}
+
+.title {
+	letter-spacing: -.065em;
+}
+
+.spacer {
+	padding: 25px 0;
+}
+
+.buttonBarItem > input {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 2rem;
+/* 	margin: 0 -2rem -2rem 0;
+ */	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: auto;
+	opacity: 0.001;
+}
+
+.buttonBar {
+	display: table;
+	table-layout: fixed;
+	white-space: no-wrap;
+	
+	margin: 0;
+	padding: 0;
+}
+
+.buttonBarItem {
+	display: table-cell;
+	width: auto;
+	border-radius: 0;
+}
+
+.button,
+.buttonBarButton {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	background-clip: padding-box;
+ 	color: inherit;
+	vertical-align: top;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font: inherit;
+	cursor: default;
+	user-select: none;
+}
+
+.buttonBarButton {
+	padding: 0 1.25rem;
+ 	border: 1px solid #cbcbcb;
+	/* Important inheritance to manipulate border radius from parent */
+	border-radius: inherit;
+/* 	background-color: #e5e9e8;
+ */	-webkit-box-shadow: inset 0 1px #fff;
+	box-shadow: inset 0 1px #fff;
+/* 	color: #454545;
+text-shadow: 0 1px #fff; */
+	line-height: 2rem;	
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	
+}
+
+:checked + .buttonBarButton,
+.buttonBarButton:active,
+.buttonBarButton.active,
+.buttonBarButton.is-active {
+	background: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	/* background-color: #d3d7d7; */
+	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+	box-shadow: inset 0 1px rgba(0,0,0,0.12);
+}
+
+.buttonBarItem:disabled,
+.buttonBarItem.is-disabled {
+	opacity: 0.3;
+	cursor: default;
+	pointer-events: none;
+}
+
+.buttonBarButton:focus {
+	border: 1px solid #0940fd;
+	-webkit-box-shadow: 0 0 0 2px #6fb5f1;
+	box-shadow: 0 0 0 2px #6fb5f1;
+	z-index: 1;
+}
+
+/************************ Misc *****************************/
+#portalContent{
+	width: 100%;
+}
+
+.hidden{
+	display:none; 
+}
+
+.hint{
+	color:gray; 
+	font-size: small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.subscriptionHint{
+	color:gray; 
+	font-size: x-small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.detailList{
+	font-size:small; 
+}
+
+.ui-tooltip-content {
+    font-size:small;
+    font-family:Calibri;
+}
+
+#courtCaseDetailTabs li {
+	margin-right: 0 !important; 
+	margin-left:0!important;
+}
+#courtCaseDetailTabs > ul li { 
+	white-space:normal; 
+	height: 50px; 
+	width: 9.4%; }
+
+#courtCaseDetailTabs > ul li:last-child{
+	width:12%; 
+	border-right:0;}
+ 
+#courtCaseDetailTabs li a,
+#custodyDetailTabs li a {
+	font-size: 11px!important; 
+	white-space:normal;} 
+
+.detailTable{
+	width: 100%;
+	font-size: 12px;
+}	
+
+.detailTable th{
+	text-align: left;} 
+.detailTable th label{
+	color:gray; } 
+.detailDataTable {
+	font-size: 11px;
+}	
+
+.detailDataTable thead th{
+	font-weight: bold;
+}
+
+/************************ Suggestion Form *****************************/	
+	
+.defaultTextArea {
+     display: block;
+     width: 400px;
+     height: 150px;
+     padding: 8px;
+     border: 1px solid #cccccc;
+     line-height: 130%;
+     font-size: 13px;
+}
+
+#advancedSearchForm input{
+	text-transform: uppercase;
+}
+
+/************************Slider custom-handle*****************************/
+ #custom-handle {
+   width: 3em;
+   height: 1.6em;
+   top: 50%;
+   margin-top: -.8em;
+   text-align: center;
+   line-height: 1.6em;
+ }
+ 
+
+.print-only {
+	display: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  /* background-color: #f5f5f5; */
+  background-color: #000000;
+  color:white;
+}
+

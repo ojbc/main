@@ -98,12 +98,12 @@
 <div style="padding-left:12px;">
 		<label>Start Date:</label>
 		#if(${isStartDateEditable})
-			#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+			#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='datePicker' placeholder='From'")
 		#else
-			#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+			#springFormInput("subscription.subscriptionStartDate" "style='width:120px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
 		#end			
 		<label>End Date:</label>
-		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+		#springFormInput("subscription.subscriptionEndDate" "style='width:120px' class='datePicker' placeholder='No End Date'")
 </div>
 <div style="padding-left:12px;">
 		<label>Validation Due:</label>

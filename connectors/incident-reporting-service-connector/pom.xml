@@ -24,7 +24,7 @@
 	<groupId>org.ojbc.bundles.connectors</groupId>
 	<artifactId>incident-reporting-service-connector</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>OJB :: incident-reporting-service-connector :: connector</name>
 	<url>http://www.search.org</url>
 
@@ -219,7 +219,7 @@
 							org.springframework.jdbc.datasource,
 							*
 						</Import-Package>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -67,6 +67,7 @@
 						<prop key="webapplication.firearmQuery.firearmPurchaseProhibitionQueryResultsHandlerEndpoint"/>
 						<prop key="webapplication.personQuery.personQueryResultsHandlerWildlifeLicenseEndpoint"/>
 					<prop key="webapplication.personQuery.personQueryResultsHandlerProfessionalLicenseEndpoint"/>
+					<prop key="webapplication.personQuery.personQueryResultsHandlerCannabisLicenseEndpoint"/>
 				</util:properties>
 				
 				<!-- The config file is located in the ojb-web-external-resource project -->

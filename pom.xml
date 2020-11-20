@@ -95,7 +95,7 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.0</version>
 
 				<!-- Reference jar with license txt file on classpath -->
 				<dependencies>
@@ -112,6 +112,8 @@
 					<aggregate>true</aggregate>
 					<excludes>
 						<exclude>**/jquery-datatable/**</exclude>
+						<exclude>**/jquery-ui-themes-1.12.1/**</exclude>
+						<exclude>**/jquery-ui-1.12.1/**</exclude>
 						<exclude>**/jquery-ui/**</exclude>
 						<exclude>**/jquery.maskinput.js</exclude>
 						<exclude>**/bin/**</exclude>
@@ -150,7 +152,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>		
 
 		</plugins>
 	</build>
@@ -240,8 +242,7 @@
 				          </goals>
 				        </execution>
 				      </executions>
-				    </plugin>					
-					
+				    </plugin>							
 					
 				</plugins>
 			</build>

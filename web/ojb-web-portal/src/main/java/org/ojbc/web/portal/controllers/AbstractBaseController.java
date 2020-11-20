@@ -124,12 +124,14 @@ public abstract class AbstractBaseController {
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			Map<String, Object> model) throws InterruptedException {
 				try {
 					processDetailRequest(request, systemName, detailsRequest, model);
 					return getUrlRoot() + "/_searchDetails";
 				} catch (Exception e) {
 					e.printStackTrace();
+					Thread.sleep(500);
 					return "common/_searchDetailsError";
 				}
 			}

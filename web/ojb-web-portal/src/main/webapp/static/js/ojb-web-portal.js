@@ -20,6 +20,9 @@ jQuery(function() {
    if('placeholder' in test) jQuery.support.placeholder = true;
 });
 
+var ua = window.navigator.userAgent;
+var isIE = /MSIE|Trident/.test(ua);
+
 $(function() {
 	xhr = null;
 	$.ajaxSetup ({
@@ -37,6 +40,33 @@ $(function() {
 		   $("#modalIframeSpinner").hide();
 	   }
    });
+   
+   $('#portalContent').unbind('shown.bs.modal', '#detailModal').on('shown.bs.modal', '#detailModal', function (){
+		$("#modalIframeSpinner").height($(".modal-body").height()-32);
+		$("#modalIframeSpinner").width($(this).find('.modal-content').width()-32);
+		$("#modalIframeSpinner").show();
+		$('body').addClass('modal-open'); 
+   }); 
+
+	$('#portalContent').unbind('hidden.bs.modal', '#detailModal').on('hidden.bs.modal', '#detailModal', function(){
+		$('#modalIframe').attr('src', 'about:blank');
+		$("#modalIframeSpinner").height(123);
+		$("#modalIframe").height(123);
+	});    	    	
+
+	$('#portalContent').unbind('click', '.searchResultsTable tbody tr').on('click', '.searchResultsTable tbody tr',function() {
+		$(this).siblings().removeClass("selected");
+	    $(this).addClass("selected");
+	});
+	
+  	$("#navbarCollapse").on('show.bs.collapse', function() {
+  	    $('a.nav-link:not(.dropdown-toggle)').click(function() {
+  	        $("#navbarCollapse").collapse('hide');
+  	    });
+  	    $('a.dropdown-item').click(function() {
+  	    	$("#navbarCollapse").collapse('hide');
+  	    });
+  	});
    
    /*
     * Assuming the name is in the format of "firstName lastName"
@@ -70,10 +100,10 @@ ojbc = {
 	},
 	showLoadingPane: function(){
  		var loadingDiv =  $("#loadingAjaxPane");
- 		var portalContentDiv = $("#portalContent");
+ 		var mainContentDiv = $("#mainContent");
 		
- 		loadingDiv.height(portalContentDiv.height());
- 		loadingDiv.width(portalContentDiv.width());
+ 		loadingDiv.height(mainContentDiv.height());
+ 		loadingDiv.width(mainContentDiv.width());
  		
       	$("#loadingAjaxPane").show();          	
 	},
@@ -180,11 +210,7 @@ ojbc = {
 	 
 	displayFailMessage : function(jqXHR, textStatus, errorThrown) {
     	if (jqXHR.status == 500) {
-			var exceptionPart = "<b>exception</b>";
-	    	var excStartIndex = jqXHR.responseText.indexOf(exceptionPart) + exceptionPart.length;
-	    	var excEndIndex = jqXHR.responseText.indexOf('<b>root cause</b>');
-	    	var errorHeader = "<span class='error'>A server-side error occurred while processing your request. Details below:</span>";
-	    	$('#portalContent').html(errorHeader + jqXHR.responseText.substring(excStartIndex,excEndIndex));
+    		bootpopup.alert(jqXHR.responseText, 'UNABLE TO PROCESS REQUEST');
     	} else if (jqXHR.status == 0) {
     		// Likely that the SAML assertion timed out -- force reload of the page
     		// Do not reload the if the user aborted the ajax request
@@ -194,7 +220,7 @@ ojbc = {
     			window.location.reload();
     		}
     	} else {
-    		$('#portalContent').html("<span class='error'>Unable to talk to Server.  Please try again later.</span>");
+    		bootpopup.alert('Unable to talk to Server.  Please try again later.', 'ERROR');
     	}
 	},
 	
@@ -263,6 +289,49 @@ ojbc = {
 		$('#filterPersonRaceCode').prop('selectedIndex',0);					
 		$('#filterPersonEyeColor').prop('selectedIndex',0);					
 		$('#filterPersonHairColor').prop('selectedIndex',0);
-	}
+	},
 	
+	showDetailModal : function(url, heightIncrement){
+		heightIncrement = heightIncrement || 0;
+		ojbc.clearErrorMessage();
+        $('#modalIframe').attr('src', url);	
+ 		$("#modalIframe").load( function() {
+ 			iframeHeight = $('iframe').contents().height() + heightIncrement;
+ 			if (iframeHeight > 123){
+ 				if (isIE){
+	 				setTimeout(function(){
+	 					$('iframe').css('height', iframeHeight);
+	 				}, 300); 
+ 				}
+ 				else{
+ 					$('iframe').css('height', iframeHeight);
+ 				}
+ 			}
+ 			$("#modalIframeSpinner").hide();				
+		});
+      	$('#detailModal').modal('show');
+	},
+	
+	clearErrorMessage : function(){
+		if ( $( "#informationMessages" ).length ) {
+		    $( "#informationMessages" ).html('');
+		}
+	},
+	
+	getCheckedValues: function() {
+		
+		var checkedValues = $('#searchResultsTable input:checkbox:checked').map(function() {
+			//console.log("value:" + this.value);
+		    return this.value;
+		}).get();
+		
+		if (!String(checkedValues)) {
+			return null; 
+		}
+		else {
+			return	'[' + checkedValues + ']';
+		}	  		
+	}
+
+
 }

@@ -80,6 +80,7 @@ public class ErrorController {
 	    params.put("policyUrlUserName", policyUrlUserName); 
 	    params.put("policyUrlPassword", policyUrlPassword); 
 	    params.put("helpDeskContactInfo", helpDeskContactInfo); 
+	    params.put("actionUrl", request.getContextPath() + "/acknowlegePolicies"); 
 		
 		String accessControlResponse = (String) request.getAttribute("accessControlResponse"); 
 		
@@ -116,10 +117,10 @@ public class ErrorController {
         return sb.toString();
     }
 	
-    @RequestMapping(value = "/acknowlegePolicies", method = RequestMethod.POST, params="acknowledgeAll")
+    @RequestMapping(value = "/acknowlegePolicies", method = RequestMethod.POST)
     public String acknowlegePolicies(HttpServletRequest request, 
             Map<String,Object> model) {
- 
+    	log.info("Acknowlege Policies...");
         Element samlAssertion = (Element)model.get("samlAssertion"); 
         
         try {

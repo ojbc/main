@@ -49,37 +49,31 @@
     	<xsl:apply-templates select="$tooManyResultsErrors" />
 
    		<xsl:if test="exc:RecordLimitExceededIndicator='true'">
-   			<span class="error">Unable to perform Entity Resolution. The search returned too many records.</span>
+   			<div class="alert alert-warning" role="alert">Unable to perform Entity Resolution. The search returned too many records.</div>
    		</xsl:if>
 
     	
-    	<xsl:choose>
-	    	<xsl:when test="($totalCount &gt; 0)">
-		        <table class="searchResultsTable display" id="searchResultsTable">
-		        	<thead>	
-				        <tr>
-		    				<th>ENTITY</th>
-			                <th>MAKE</th>
-			                <th>MODEL</th>
-			                <th>COLOR</th>
-			                <th>YEAR</th>
-			                <th>PLATE</th>
-			                <th>VIN</th>
-			                <th>SYSTEM</th>
-			                <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
-			            </tr>
-		            </thead>
-		            <tbody>
-				        <xsl:apply-templates select="//ext:Entity"/>
-			        </tbody>
-		        </table>
-	    	</xsl:when>
-	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
-	    			No Matches Found
-	    		</xsl:if>
-	    	</xsl:otherwise>
-    	</xsl:choose>
+        <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
+        	<thead>	
+		        <tr>
+    				<th>ENTITY</th>
+	                <th>MAKE</th>
+	                <th>MODEL</th>
+	                <th>COLOR</th>
+	                <th>YEAR</th>
+	                <th>PLATE</th>
+	                <th>VIN</th>
+	                <th>SYSTEM</th>
+	                <th class="d-none"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+	            </tr>
+            </thead>
+            <tbody>
+		    	<xsl:if test="($totalCount &gt; 0)">
+			        <xsl:apply-templates select="//ext:Entity"/>
+		    	</xsl:if>
+	        </tbody>
+        </table>
+    	
     </xsl:template>
 
     <!-- this will print a "merge" on the results screen -->
@@ -131,11 +125,11 @@
                 <td><xsl:value-of select="$vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
                 <td><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
                 
-                <td class="hidden">
+                <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="veh-ext:SourceSystemNameText"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Vehicle</xsl:text></xsl:variable>
                     <a href="{concat('../vehicles/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'_vehicle&amp;identificationSourceText=',$systemSource,'&amp;queryType=',$queryType)}" 
-                        class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
+                        class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('vehicleInformation-',$vehicleId)}"
                         >DETAILS</a>
@@ -157,81 +151,81 @@
     <xsl:template name="vehicleInformationDetail" >
         <xsl:param name="vehicleSearchResult"/>
         <xsl:variable name="expirationDate" select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"/>
-        <table style="width:100%">
-            <tr>
-                <td style="vertical-align: top;"></td>
-                <td> 
-                    <table class="detailsTable">
-                        <tr>
-                            <td class="detailsLabel">CATEGORY</td>
-                            <td><!-- category goes here --></td>
-                            <td class="detailsLabel">VIN</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
-                            <td class="detailsLabel">PLATE TYPE</td>
-                            <td>
-                            	<xsl:choose>
-                            		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode[. != '']">
-                            			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode" />
-                            		</xsl:when>
-                            		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText[. != '']">
-                            			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText" />
-                            		</xsl:when>
-                            	</xsl:choose>
-                            	
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">MODEL YEAR</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelYearDate" /></td>
-                            <td class="detailsLabel">MAKE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" />
-                            <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemMakeName" /></td>
-                            <td class="detailsLabel">MODEL</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelName" /></td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">TYPE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemCategoryText" /></td>
-                            <td class="detailsLabel">COLOR</td>
-                            <td>
-                            	<xsl:call-template name="formatVehicleColor" >
-                            		<xsl:with-param name="vehicleColorCode" select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleColorPrimaryCode"/>
-                            	</xsl:call-template>
-                            	 <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceColorPrimaryText" />
-                           	</td>
-                           	<td class="detailsLabel">DOORS</td>
-                           	<td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleDoorQuantity" /></td>
-                        </tr>
-                        <tr>
-                            <td class="detailsLabel">PLATE #</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"/></td>
-                            <td class="detailsLabel">LICENSE STATE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/j:IdentificationJurisdictionUSPostalServiceCode"/></td>
-                            <td class="detailsLabel">LICENSE EXPIRES</td>
-                            <td>
-                            	<xsl:if test="$expirationDate != ''">
-	                            	<xsl:call-template name="formatDate">
-	                            		<xsl:with-param name="date" select="$expirationDate"/>
-	                            	</xsl:call-template>
-                            	</xsl:if>
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-            </tr>
-        </table>
+        <div class="table-responsive">
+          <table class="detailsTable table">
+              <tr>
+                  <td class="detailsLabel">CATEGORY</td>
+                  <td><!-- category goes here --></td>
+                  <td class="detailsLabel">VIN</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
+                  <td class="detailsLabel">PLATE TYPE</td>
+                  <td>
+                  	<xsl:choose>
+                  		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode[. != '']">
+                  			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode" />
+                  		</xsl:when>
+                  		<xsl:when test="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText[. != '']">
+                  			<xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText" />
+                  		</xsl:when>
+                  	</xsl:choose>
+                  	
+                  </td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">MODEL YEAR</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelYearDate" /></td>
+                  <td class="detailsLabel">MAKE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" />
+                  <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemMakeName" /></td>
+                  <td class="detailsLabel">MODEL</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelName" /></td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">TYPE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemCategoryText" /></td>
+                  <td class="detailsLabel">COLOR</td>
+                  <td>
+                  	<xsl:call-template name="formatVehicleColor" >
+                  		<xsl:with-param name="vehicleColorCode" select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleColorPrimaryCode"/>
+                  	</xsl:call-template>
+                  	 <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceColorPrimaryText" />
+                 	</td>
+                 	<td class="detailsLabel">DOORS</td>
+                 	<td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleDoorQuantity" /></td>
+              </tr>
+              <tr>
+                  <td class="detailsLabel">PLATE #</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"/></td>
+                  <td class="detailsLabel">LICENSE STATE</td>
+                  <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceRegistrationPlateIdentification/j:IdentificationJurisdictionUSPostalServiceCode"/></td>
+                  <td class="detailsLabel">LICENSE EXPIRES</td>
+                  <td>
+                  	<xsl:if test="$expirationDate != ''">
+                   	<xsl:call-template name="formatDate">
+                   		<xsl:with-param name="date" select="$expirationDate"/>
+                   	</xsl:call-template>
+                  	</xsl:if>
+                  </td>
+              </tr>
+          </table>
+        </div>
     
     </xsl:template>
     
 	<xsl:template match="iad:InformationAccessDenial">
-		<span class="error">User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. To request access, contact your IT department.</span><br />
+		<div class="alert alert-warning" role="alert">User does not meet privilege requirements to access <xsl:value-of select="iad:InformationAccessDenyingSystemNameText"/>. 
+			To request access, contact your IT Dep department.</div>
 	</xsl:template>
 
 	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+		<div class="alert alert-warning" role="alert">
+			System Name: <xsl:value-of select="intel:SystemName" />, Error: <xsl:value-of select="srer:ErrorText"/>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="srer:SearchResultsExceedThresholdError">
-		<span class="error">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</span><br />
+		<div class="alert alert-warning" role="alert">
+			System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.
+		</div>
 	</xsl:template>
 </xsl:stylesheet>

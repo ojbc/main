@@ -69,7 +69,7 @@ public class IdentificationResultsModificationRequestProcessor extends RequestRe
 			samlToken = SAMLTokenUtils.createStaticAssertionAsElement("https://idp.ojbc-local.org:9443/idp/shibboleth", 
 					SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, null);
 		}
-		log.info("Processing initial results request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
+		log.info("Processing results modification request with transaction number: " + StringUtils.trimToEmpty(transactionNumber) );
 		
 		Document identificationResultsModificationRequestPayload;
 		identificationResultsModificationRequestPayload = 

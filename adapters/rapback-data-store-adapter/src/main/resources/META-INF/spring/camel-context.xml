@@ -415,6 +415,10 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationSubsequentResultsQueryRequest'</camel:simple>
 					<to uri="direct:identificationSubsequentResultsQueryResponse" />
 				</camel:when>
+				<camel:when>
+					<camel:simple>${in.headers.operationName} == 'SubmitOrganizationIdentificationNsorFiveYearCheckQueryRequest'</camel:simple>
+					<to uri="direct:identificationNsorFiveYearCheckQueryResponse" />
+				</camel:when>
 			</camel:choice>
 		</route>
 
@@ -447,6 +451,25 @@
 
 			<camel:setHeader headerName="operationName">
 	            <constant>SubmitOrganizationIdentificationSubsequentResultsQueryResults</constant>
+	        </camel:setHeader>
+	        
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0</constant>
+	        </camel:setHeader>
+			<to uri="identificationResultsQueryResponseServiceEndpoint" />
+			<log message="Called identification results query Intermediary" />
+		</route>
+
+		<route id="identificationNsorFiveYearCheckQueryResponseRoute">
+			<from uri="direct:identificationNsorFiveYearCheckQueryResponse" />
+			
+			<to uri="bean:nsorFiveYearchCheckResultsQueryProcessor?method=returnNsorFiveYearCheckQueryResponse" />
+			<log message="${body}" loggingLevel="DEBUG"></log>
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+
+			<camel:setHeader headerName="operationName">
+	            <constant>SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults</constant>
 	        </camel:setHeader>
 	        
 	        <camel:setHeader headerName="operationNamespace">

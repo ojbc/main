@@ -20,11 +20,11 @@
 	            <tr>
 	            	<td id=demogErrors>
 		            	#springBind("personFilterCommand.filterAgeRangeStart")
-			  		    #springShowErrors( "<br />" "error" )
+			  		    #springShowErrors( "<br />" "error pl-2" )
 		            	#springBind("personFilterCommand.filterHeightInFeet")
-			  		    #springShowErrors( "<br />" "error" )	
+			  		    #springShowErrors( "<br />" "error pl-2" )	
 			  		    #springBind("personFilterCommand.filterWeight")
-			  		    #springShowErrors( "<br />" "error" )
+			  		    #springShowErrors( "<br />" "error pl-2" )
 		  		    </td>
 		  		</tr>	          
 	          <tr >

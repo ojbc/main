@@ -15,5 +15,5 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  *#
 		#foreach( $entry in $systemsToQuery_disabled.keySet())
-			<p id="checkbox-$entry"><input  type="checkbox" value="$systemsToQuery_disabled.get($entry)" disabled><span class="lightgrayX" >$entry</span></p>
+			<p id="checkbox-$entry" ><input  type="checkbox" value="$systemsToQuery_disabled.get($entry)" class="mr-1" disabled><span class="lightgrayX" >$entry</span></p>
 		#end

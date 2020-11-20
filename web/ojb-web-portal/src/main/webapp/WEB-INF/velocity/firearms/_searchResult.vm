@@ -19,11 +19,14 @@
 
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
+	  	$('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
 	  
-	  	$("#searchResultsTable").DataTable({
-			"pagingType": "full_numbers",
-  			"pageLength": 50,
-  			stateSave: true, 
+	  	oTable = $("#searchResultsTable").DataTable({
+			pagingType: "full_numbers",
+  			pageLength: 50,
+  			stateSave: true,
+  			fixedHeader: true, 
+  			responsive: true, 
   			colReorder: true,
 			"columnDefs": [{
 				targets: [ 12 ],
@@ -31,7 +34,11 @@
 			    sortable: false
 			} ]
   		});
-	  
+  		
+	  	$('.modal-dialog').draggable({
+        	handle: ".modal-header"
+      	});
+	  	
 	  	#if($singleClickForDetail){
 			$("#searchResultsTable").on('click', 'tbody tr', function(){
 				$(this).find("a.viewDetails").click();
@@ -42,99 +49,70 @@
 			}); }
 		#end
 		
+		$("#searchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
+		
+		
 		$('#returnToSearchSubmitButton').click (function(){
 	  		$.get("#springUrl('/firearms/searchForm')",function(data) {
+	  			  $('#filterColumn').removeClass('d-none');
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		  	}
 		);
 		
+		$('#searchResultsTable').on('click', 'a.viewDetails',function() {
+            var url = encodeURI(this.href);
+            var title = $(this).attr('searchName');
+          	$('#detailModal .modal-title').html(title);
+			ojbc.showDetailModal(url);
+			return false;
+        });
+        
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 	  		$.get("#springUrl('/firearms/searchForm?resetForm=true')",function(data) {
-			      $('#portalContent').html(data);
-			    }).fail(ojbc.displayFailMessage)
-		  	}
-		)
-				
-		 $('#searchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = encodeURI(this.href);
-            var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
-			var dlgWidth = $(document).width() * .6;
-			var dlgHeight = $(window).height() * .9;
-            dialog.dialog({
-                width: dlgWidth,
-                height: dlgHeight,
-                close: function(event, ui) {
-                    $('#modalIframe').attr('src', '');
-                    dialog.remove();
-                },
-                open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-						if (incidentsSummary.val() != null) {
-							$(this).css('height', incidentsSummary.height() + 200);
-						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						}
-					});
-		     		
-                 	$('#modalIframe').attr('src', url);		     		
-
-                },
-                position: {
-                           my: "center",
-                           at: "center",
-                           of: window
-                          },
-                modal: true
-            });
-
-            //if there are personal information to display then display in in the modal
-            var appendPersonDataDivId = $(this).attr('appendPersonData');
-            var persionDataDiv = $('div#'+appendPersonDataDivId);
-            if(persionDataDiv.text().length > 0){
-                $("#personInformationInModal").append($('div#'+appendPersonDataDivId).html());
-                $("#personInformationInModal").show();
-            }
-            return false;
+				$('#filterColumn').removeClass('d-none'); 
+				$('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage);
         });
         
 	  });
 	  
  		
-	  if($("#search-results-title").text().indexOf("FIREARM") > 0) {
-        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
-		$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
-    	$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
-	    
-	  }	
-
-	  
   </script>
-<div id="searchResultsContainer" class="contentBox" >
-    <div id="searchResultsHeader" > 
-        <p id="search-results-title">SEARCH RESULTS: FIREARM</p>
-        <div style="float:right" >
-            <a id="returnToSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;" src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
-                RETURN TO SEARCH
-            </a>
-            <a id="newSearchSubmitButton" class="grayButton" >
-                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
-                NEW SEARCH
-            </a>
-        </div>
-    </div>
-    <div style="padding: 10px">
-        $searchContent
-    </div>
+  <div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="firearmSearchLink">Firearm Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Firearm Search Results</li>
+		</ol>
+	</nav>
+	#if($informationMessages && $informationMessages!='')
+		<div class="alert alert-danger" role="alert" id="informationMessages" >
+			$informationMessages
+		</div>
+	#end
+	$searchContent								
+ </div>
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
 </div>
+

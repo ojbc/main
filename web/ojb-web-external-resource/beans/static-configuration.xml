@@ -160,6 +160,8 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing" />
 		<entry key="Professional Licensing"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Professional-Licensing" />
+		<entry key="Cannabis Licensing"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Marijuana-Licensing" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
@@ -193,13 +195,13 @@
 	</util:map>
 
 	<util:map id="leftMenuLinks">
-		<entry key="homeLink" value="#" />
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
 		<entry key="rapbackLink" value="#" />
 		<entry key="criminalIdLink" value="#" />
 		<entry key="adminLink" value="#" />
+		<entry key="auditLink" value="#" />
 
 		<!-- Use this entry if you are using the provided help templates from ojb-web-external-resource -->
 		<entry key="helpLink" value="#" />
@@ -577,6 +579,7 @@
 		<entry key="Firearm Purchase Prohibition" value="firearm-purchase-prohibition.xsl" />
 		<entry key="Wildlife Licensing" value="wildlifeLicensingResult.xsl" />
 		<entry key="Professional Licensing" value="regulatoryLicenseResult.xsl" />
+		<entry key="Marijuana Licensing" value="marijuanaLicensingResult.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
@@ -709,6 +712,7 @@
        
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
+		<entry key="All" value="All" />
 		<entry key="Active" value="Active" />
 		<entry key="Inactive" value="Inactive" />
 		<entry key="Expiring" value="Expiring" />
