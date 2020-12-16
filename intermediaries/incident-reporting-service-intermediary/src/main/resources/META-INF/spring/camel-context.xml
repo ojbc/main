@@ -211,7 +211,7 @@
             
             <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
                         			
-			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
+			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt?saxon=true"/>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
@@ -270,7 +270,7 @@
 				
 				<camel:log message="Processing Arrests to send to Arrest Intermediary"/>
 				
-				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl"/>
+				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl?saxon=true"/>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 				
