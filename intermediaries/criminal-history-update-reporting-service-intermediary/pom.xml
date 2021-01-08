@@ -70,6 +70,11 @@
 			<artifactId>camel-cxf</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 
 		<!-- CXF libs -->
 		<dependency>
@@ -121,6 +126,12 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
 		</dependency>
 
 		<dependency>
