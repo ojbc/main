@@ -18,4 +18,4 @@
 
 -->
 <!-- change the encoded value to false to retrieve non-base64-encoded fingerprints -->
-<TransactionNumber encoded="true">000001820140729014008339990</TransactionNumber>
+<TransactionNumber encoded="true">00000111122222333334444455</TransactionNumber>
