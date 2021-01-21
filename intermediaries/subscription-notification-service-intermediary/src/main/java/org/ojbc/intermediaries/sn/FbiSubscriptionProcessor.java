@@ -359,7 +359,8 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	
 	public void retrieveFingerprintToFile(Exchange exchange, @Header("transactionNumber") String transactionNumber, @Header("encoded") Boolean encoded) throws Exception {
 		
-		log.info("Processing Identification Request report");
+		log.info("Retrieving finger prints for transaction number: " + transactionNumber!=null?transactionNumber: "");
+		log.info("The finger prints file will contain base 64 encoded content: " + BooleanUtils.isTrue(encoded));
 		
 		byte[] fingerprintByteArray = rapbackDao.getCivilFingerPrints(transactionNumber);
 		
