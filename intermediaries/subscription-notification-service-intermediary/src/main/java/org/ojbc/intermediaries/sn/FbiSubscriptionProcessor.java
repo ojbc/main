@@ -357,6 +357,21 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		return hasFbiSubscription;
 	}
 	
+	public void retrieveFingerprintToFile(Exchange exchange, @Header("transactionNumber") String transactionNumber, @Header("encoded") Boolean encoded) throws Exception {
+		
+		log.info("Processing Identification Request report");
+		
+		byte[] fingerprintByteArray = rapbackDao.getCivilFingerPrints(transactionNumber);
+		
+		if (BooleanUtils.isTrue(encoded)) {
+			exchange.getIn().setBody(Base64.encodeBase64String(fingerprintByteArray), String.class);
+		}
+		else {
+			exchange.getIn().setBody(fingerprintByteArray, byte[].class);
+		}
+		
+	}
+
 	/**
 	 * Decide whether to send to EBTS adapter.  
 	 * @param document
