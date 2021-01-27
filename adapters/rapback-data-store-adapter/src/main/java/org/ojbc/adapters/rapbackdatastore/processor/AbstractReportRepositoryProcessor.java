@@ -40,7 +40,7 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 
-    private static final String R_ORIG_NIST_SEND = "R-ORIG-NIST-SEND-REPLY";
+    private static final String R_ORIG_NIST_SEND = "R-ORIG-NIST-SEND";
 
 	@Value("#{'${rapbackDatastoreAdapter.actingFbiOriForCivilPrivateAgencies:}'.split(',')}")
     private List<String> actingFbiOriForCivilPrivateAgencies;
@@ -99,11 +99,11 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 	
 	protected void updateIdentificationTransaction(Node rootNode, 
-			String transactionCategoryReplyText, 
+			String transactionCategoryText, 
 			String transactionNumber)
 					throws Exception {
-		log.info("transactionCategoryReplyText: " + transactionCategoryReplyText);
-		if (!StringUtils.equalsIgnoreCase(R_ORIG_NIST_SEND, transactionCategoryReplyText) && rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+		log.info("transactionCategoryReplyText: " + transactionCategoryText);
+		if (!StringUtils.equalsIgnoreCase(R_ORIG_NIST_SEND, transactionCategoryText) && rapbackDAO.isExistingTransactionNumber(transactionNumber)){
 			String identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
 					"ident-ext:CivilIdentificationReasonCode");
 			if (StringUtils.isNotBlank(identificationCategory)){
@@ -120,7 +120,9 @@ public abstract class AbstractReportRepositoryProcessor {
 		}
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(transactionNumber); 
- 
+/**
+ * TODO need to handle when identification is null.  		
+ */
 		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
 		Assert.notNull(subjectNode);
 		Subject subject = identificationTransaction.getSubject() ;

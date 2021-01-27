@@ -44,19 +44,19 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	@Override
 	@Transactional
 	public void processReport(@Body Document report, 
-			@Header("transactionCategoryReplyText") String transactionCategoryReplyText, 
+			@Header("transactionCategoryText") String transactionCategoryText, 
 			@Header("identificationID") String transactionNumber) throws Exception {
 		
 		log.info("Processing Identification Request report");
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
 
-		if (!StringUtils.startsWith(transactionCategoryReplyText, "R-")) {
-			processIdentificationTransaction(rootNode, transactionCategoryReplyText, transactionNumber);
+		if (!StringUtils.startsWith(transactionCategoryText, "R-")) {
+			processIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
 			processCivilFingerPrints(rootNode, transactionNumber);
 		}
 		else {
-			updateIdentificationTransaction(rootNode, transactionCategoryReplyText, transactionNumber);
+			updateIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
 			updateCivilFingerPrints(rootNode, transactionNumber);
 		}
 		
