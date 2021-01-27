@@ -70,7 +70,9 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	}	
 	
 	@Transactional
-	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception
+	public void processReport(@Body Document report, 
+			@Header("transactionCategoryReplyText") String transactionCategoryReplyText, 
+			@Header("identificationID") String transactionNumber) throws Exception
 	{
 		log.info("Processing Identification Results Report.");
 		
@@ -95,12 +97,12 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		if (criminalRootNode != null)
 		{
-			processCriminalInitialResultsReport(criminalRootNode, transactionNumber); 		
+			processCriminalInitialResultsReport(criminalRootNode, transactionCategoryReplyText, transactionNumber); 		
 		}
 	}
 
-	private void processCriminalInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
-		processIdentificationTransaction(rootNode, transactionNumber);
+	private void processCriminalInitialResultsReport(Node rootNode, String transactionCategoryReplyText, String transactionNumber) throws Exception {
+		processIdentificationTransaction(rootNode, transactionCategoryReplyText, transactionNumber);
 		processCriminalInitialResults(rootNode, transactionNumber); 
 		
 	}
