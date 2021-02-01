@@ -21,7 +21,7 @@
 	<ident-ext:TransactionIdentification>
 		<nc:IdentificationID>000001820140729014008340000</nc:IdentificationID>
 	</ident-ext:TransactionIdentification>
-	<ident-ext:TransactionCategoryText>FBI-NIST-TO-HIJIS</ident-ext:TransactionCategoryText>
+	<ident-ext:TransactionCategoryText>R-FBI-NIST-TO-HIJIS</ident-ext:TransactionCategoryText>
 	<j:Subject structures:id="Subject01">
 		<nc:RoleOfPerson>
 			<nc:PersonBirthDate>
@@ -29,7 +29,7 @@
 			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Joe</nc:PersonGivenName>
-				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonMiddleName>FBIRESEND</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
