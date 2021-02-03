@@ -31,6 +31,10 @@ public class ChargeReferralReport {
 	
 	private Integer warrantId;
 	
+	private boolean chargeReferralWarnings; 
+	
+	private StringBuffer chargeReferralWarningMessage = new StringBuffer();
+	
 	public ChargeReferral getChargeReferral() {
 		return chargeReferral;
 	}
@@ -58,14 +62,30 @@ public class ChargeReferralReport {
 	public List<Person> getPersons() {
 		return persons;
 	}
-
+	
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+	}
+	
+	public boolean isChargeReferralWarnings() {
+		return chargeReferralWarnings;
+	}
+
+	public void setChargeReferralWarnings(boolean chargeReferralWarnings) {
+		this.chargeReferralWarnings = chargeReferralWarnings;
 	}
 
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
-	
+
+	public StringBuffer getChargeReferralWarningMessage() {
+		return chargeReferralWarningMessage;
+	}
+
+	public void setChargeReferralWarningMessage(StringBuffer chargeReferralWarningMessage) {
+		this.chargeReferralWarningMessage = chargeReferralWarningMessage;
+	}
+
 }
