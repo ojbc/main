@@ -55,7 +55,7 @@ public class IncidentReportQueryResponseSQLProcessor extends AbstractIncidentRep
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit professional license query response: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit incident query response: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 		
