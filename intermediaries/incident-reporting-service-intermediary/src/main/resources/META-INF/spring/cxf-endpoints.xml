@@ -53,6 +53,7 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
@@ -80,6 +81,7 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
+			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>	
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 	
@@ -93,7 +95,8 @@
         <cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />        	
+			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />    
+			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>	    	
         </cxf:properties>
 	</cxf:cxfEndpoint>
 		

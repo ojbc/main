@@ -31,16 +31,16 @@
 	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
 	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"  	
-	xsi:schemaLocation="
+    xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
-	
+
 	<!-- Error handlers in case of submission errors -->
 	<import resource="error-handlers.xml" />
-					
+
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
 
@@ -211,7 +211,7 @@
             
             <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
                         			
-			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
+			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt?saxon=true"/>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
@@ -270,7 +270,7 @@
 				
 				<camel:log message="Processing Arrests to send to Arrest Intermediary"/>
 				
-				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl"/>
+				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl?saxon=true"/>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 				

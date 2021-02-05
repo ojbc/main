@@ -51,6 +51,7 @@
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username"
 				value="${incidentChargeReporting.keystoreCertificateAlias}" />
+			<entry key="org.apache.cxf.stax.maxTextLength" value="2147483647"/>
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 

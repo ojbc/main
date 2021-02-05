@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
@@ -42,19 +43,32 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	
 	@Override
 	@Transactional
-	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception {
+	public void processReport(@Body Document report, 
+			@Header("transactionCategoryText") String transactionCategoryText, 
+			@Header("identificationID") String transactionNumber) throws Exception {
 		
 		log.info("Processing Identification Request report");
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
 
-		processIdentificationTransaction(rootNode, transactionNumber);
+		if (!StringUtils.startsWith(transactionCategoryText, "R-")) {
+			processIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
+			processCivilFingerPrints(rootNode, transactionNumber);
+		}
+		else {
+			updateIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
+			updateCivilFingerPrints(rootNode, transactionNumber);
+		}
 		
-		processCivilFingerPrints(rootNode, transactionNumber);
 	}
 
 	private void processCivilFingerPrints(Node rootNode,
 			String transactionNumber) throws Exception, IOException {
+		CivilFingerPrints civilFingerPrints = createCivilFingerPrints(rootNode, transactionNumber);
+		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+	}
+
+	private CivilFingerPrints createCivilFingerPrints(Node rootNode, String transactionNumber) {
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints();
 		
 		civilFingerPrints.setTransactionNumber(transactionNumber);
@@ -72,7 +86,14 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 				);
 		
 		civilFingerPrints.setFingerPrintsFile(binaryData);
-		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+		return civilFingerPrints;
 	}
 
+	private void updateCivilFingerPrints(Node rootNode,
+			String transactionNumber) throws Exception, IOException {
+		CivilFingerPrints civilFingerPrints = createCivilFingerPrints(rootNode, transactionNumber);
+		rapbackDAO.deleteCivilFingerPrints(civilFingerPrints.getTransactionNumber(), civilFingerPrints.getFingerPrintsType());
+		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
+	}
+	
 }

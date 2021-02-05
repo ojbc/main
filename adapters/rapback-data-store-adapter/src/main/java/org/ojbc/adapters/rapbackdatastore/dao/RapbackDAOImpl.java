@@ -47,6 +47,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalHistoryDemographicsUpdateRequest;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorDemographics;
 import org.ojbc.adapters.rapbackdatastore.dao.model.NsorFiveYearCheck;
@@ -196,15 +197,52 @@ public class RapbackDAOImpl implements RapbackDAO {
         		identificationTransaction.getIdentificationCategory(), 
         		Calendar.getInstance().getTime()); 
 	}
+	
+	final String IDENTIFICATION_TRANSACTION_UPDATE="UPDATE IDENTIFICATION_TRANSACTION SET "
+			+ "otn = :otn, "
+			+ "OWNER_ORI = :owner_ori, "
+			+ "OWNER_PROGRAM_OCA = :ownerProgramOca, "
+			+ "ARCHIVED = :archived, "
+			+ "IDENTIFICATION_CATEGORY = :identificationCategory, "
+			+ "AVAILABLE_FOR_SUBSCRIPTION_START_DATE = :availableForSubscriptionStartDate, "
+			+ "REPORT_TIMESTAMP = :reportTimestamp "
+			+ "WHERE TRANSACTION_NUMBER = :transactionNumber";
+	@Override
+	@Transactional
+	public void updateIdentificationTransaction(
+			IdentificationTransaction identificationTransaction) {
+		log.debug("Update IDENTIFICATION_TRANSACTION row with : " + identificationTransaction.toString());
 
+		if ( identificationTransaction.getSubject() == null){
+			throw new IllegalArgumentException("The subject should not be null when saving Identification Transaction :" + 
+					identificationTransaction.toString()); 
+		}
+		else{
+			updateSubject(identificationTransaction.getSubject());
+		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("otn", identificationTransaction.getOtn()); 
+		paramMap.put("owner_ori", identificationTransaction.getOwnerOri()); 
+		paramMap.put("ownerProgramOca", identificationTransaction.getOwnerProgramOca()); 
+		paramMap.put("archived", BooleanUtils.isTrue(identificationTransaction.getArchived())); 
+		paramMap.put("identificationCategory", identificationTransaction.getIdentificationCategory()); 
+		paramMap.put("availableForSubscriptionStartDate", Calendar.getInstance().getTime()); 
+		paramMap.put("reportTimestamp", Calendar.getInstance().getTime()); 
+		paramMap.put("transactionNumber", identificationTransaction.getTransactionNumber()); 
+
+		namedParameterJdbcTemplate.update(IDENTIFICATION_TRANSACTION_UPDATE, paramMap);
+
+	}
+
+	final String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
+			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) "
+			+ "values (?, ?, ?)";
+	
 	@Override
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints) {
         log.debug("Inserting row into CIVIL_FINGER_PRINTS table : " + civilFingerPrints.toString());
 
-        final String CIVIL_FINGER_PRINTS_INSERT="insert into CIVIL_FINGER_PRINTS "
-        		+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) "
-        		+ "values (?, ?, ?)";
-        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -226,6 +264,17 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
+	final String CIVIL_FINGER_PRINTS_DELETE="delete from CIVIL_FINGER_PRINTS "
+			+ "where TRANSACTION_NUMBER = ? and FINGER_PRINTS_TYPE_ID = ? "; 
+	@Override
+	public Integer deleteCivilFingerPrints(String transactionNumber, FingerPrintsType fingerPrintsType) {
+		log.debug("Delete " + fingerPrintsType + " CIVIL_FINGER_PRINTS table with " + transactionNumber );
+		
+        int rowsDeleted = jdbcTemplate.update(CIVIL_FINGER_PRINTS_DELETE, transactionNumber, fingerPrintsType.ordinal() + 1);
+
+		return rowsDeleted;
+	}
+	
 	@Override
 	public Integer saveCivilInitialRapSheet(
 			final CivilInitialRapSheet civilInitialRapSheet) {
@@ -445,21 +494,21 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return subject;
 	}
 
+	final String SUBJECT_UPDATE="UPDATE identification_subject SET "
+			+ "ucn = :ucn, "
+			+ "criminal_sid = :criminalSid, "
+			+ "civil_sid = :civilSid, "
+			+ "first_name = :firstName, "
+			+ "last_name = :lastName, "
+			+ "middle_initial = :middelInitial, "
+			+ "dob = :dob, "
+			+ "sex_code = :sexCode "
+			+ "WHERE subject_id = :subjectId";
+	
 	@Override
 	public void updateSubject(Subject subject) {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		
-		final String SUBJECT_UPDATE="UPDATE identification_subject SET "
-				+ "ucn = :ucn, "
-				+ "criminal_sid = :criminalSid, "
-				+ "civil_sid = :civilSid, "
-				+ "first_name = :firstName, "
-				+ "last_name = :lastName, "
-				+ "middle_initial = :middelInitial, "
-				+ "dob = :dob, "
-				+ "sex_code = :sexCode "
-				+ "WHERE subject_id = :subjectId";
-
 		paramMap.put("ucn", subject.getUcn()); 
 		paramMap.put("criminalSid", subject.getCriminalSid()); 
 		paramMap.put("civilSid", subject.getCivilSid()); 

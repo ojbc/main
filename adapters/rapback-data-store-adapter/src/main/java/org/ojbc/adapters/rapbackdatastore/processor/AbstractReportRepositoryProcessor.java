@@ -40,7 +40,9 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 
-    @Value("#{'${rapbackDatastoreAdapter.actingFbiOriForCivilPrivateAgencies:}'.split(',')}")
+    private static final String R_ORIG_NIST_SEND = "R-ORIG-NIST-SEND";
+
+	@Value("#{'${rapbackDatastoreAdapter.actingFbiOriForCivilPrivateAgencies:}'.split(',')}")
     private List<String> actingFbiOriForCivilPrivateAgencies;
     
     @Value("${rapbackDatastoreAdapter.civilPrivateAgencyOriRegex:}")
@@ -57,9 +59,13 @@ public abstract class AbstractReportRepositoryProcessor {
     private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
     	
     @Transactional
-	public abstract void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception;
+	public abstract void processReport(@Body Document report, 
+			@Header("transactionCategoryReplyText") String transactionCategoryReplyText, 
+			@Header("identificationID") String transactionNumber) throws Exception;
 
-	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
+	protected void processIdentificationTransaction(Node rootNode, 
+			String transactionCategoryReplyText, 
+			String transactionNumber)
 			throws Exception {
 		
 		if (rapbackDAO.isExistingTransactionNumber(transactionNumber)){
@@ -87,6 +93,48 @@ public abstract class AbstractReportRepositoryProcessor {
 		Subject subject = buildSubject(subjectNode) ;
 		identificationTransaction.setSubject(subject);
 		
+		populateIdentificationTransaction(rootNode, identificationTransaction, subjectNode);
+		
+		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
+	}
+	
+	protected void updateIdentificationTransaction(Node rootNode, 
+			String transactionCategoryText, 
+			String transactionNumber)
+					throws Exception {
+		log.info("transactionCategoryReplyText: " + transactionCategoryText);
+		if (!StringUtils.equalsIgnoreCase(R_ORIG_NIST_SEND, transactionCategoryText) && rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+			String identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+					"ident-ext:CivilIdentificationReasonCode");
+			if (StringUtils.isNotBlank(identificationCategory)){
+				rapbackDAO.updateIdentificationCategory(transactionNumber, identificationCategory);
+			}
+			else{
+				identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+						"ident-ext:CriminalIdentificationReasonCode");
+				if (StringUtils.isNotBlank(identificationCategory)){
+					updateSubject(rootNode, transactionNumber);
+				}
+			}
+			return;
+		}
+		
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(transactionNumber); 
+/**
+ * TODO need to handle when identification is null.  		
+ */
+		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
+		Assert.notNull(subjectNode);
+		Subject subject = identificationTransaction.getSubject() ;
+		populateSubject(subjectNode, subject); 
+		
+		populateIdentificationTransaction(rootNode, identificationTransaction, subjectNode);
+		
+		rapbackDAO.updateIdentificationTransaction(identificationTransaction);
+	}
+
+	private void populateIdentificationTransaction(Node rootNode, IdentificationTransaction identificationTransaction, Node subjectNode)
+			throws Exception {
 		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentification/nc30:IdentificationID");
 		identificationTransaction.setOtn(otn);
 		
@@ -113,12 +161,16 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
 		identificationTransaction.setIdentificationCategory(identificationCategory);
-		
-		rapbackDAO.saveIdentificationTransaction(identificationTransaction);
 	}
 
 	protected Subject buildSubject(Node subjectNode) throws Exception {
 		Subject subject = new Subject();
+		populateSubject(subjectNode, subject);
+		 
+		return subject;
+	}
+
+	private void populateSubject(Node subjectNode, Subject subject) throws Exception {
 		String firstName = XmlUtils.xPathStringSearch(subjectNode, "nc30:PersonName/nc30:PersonGivenName");
 		subject.setFirstName(firstName);
 		
@@ -147,8 +199,6 @@ public abstract class AbstractReportRepositoryProcessor {
 				"jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification"
 						+ "[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator = 'true']/nc30:IdentificationID");
 		subject .setCriminalSid(criminalSid);
-		 
-		return subject;
 	}
 
 	protected byte[] getBinaryData(Node rootNode, String xPath) {

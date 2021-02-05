@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
@@ -45,11 +47,16 @@ import org.w3c.dom.Node;
 public class IdentificationResultsReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final String CRIMINAL_SID_TO_HIJIS = "CRIMINAL-SID-TO-HIJIS";
+	private static final String R_CRIMINAL_SID_TO_HIJIS = "R-CRIMINAL-SID-TO-HIJIS";
 	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
+	private static final String R_CIVIL_SID_TO_HIJIS = "R-CIVIL-SID-TO-HIJIS";
 	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-TO-HIJIS";
 	private static final String INCOMING_QXS_RAP = "INCOMING-QXS-RAP";
 	
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
+	
+	private List<String> transactionCategoryToIgnore = Arrays.asList(CRIMINAL_SID_TO_HIJIS, 
+			R_CRIMINAL_SID_TO_HIJIS, CIVIL_SID_TO_HIJIS, R_CIVIL_SID_TO_HIJIS);
     
     private String databaseResendFolder; 
     private String inputFolder; 
@@ -70,13 +77,14 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	}	
 	
 	@Transactional
-	public void processReport(@Body Document report, @Header("identificationID") String transactionNumber) throws Exception
+	public void processReport(@Body Document report, 
+			@Header("transactionCategoryText") String transactionCategoryText, 
+			@Header("identificationID") String transactionNumber) throws Exception
 	{
 		log.info("Processing Identification Results Report.");
 		
-		String transactionCategoryText = XmlUtils.xPathStringSearch(report, "/pidresults:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText|"
-				+ "/pidresults:PersonStateIdentificationResults/ident-ext:TransactionCategoryText");
-		if (CRIMINAL_SID_TO_HIJIS.equals(transactionCategoryText) || CIVIL_SID_TO_HIJIS.equals(transactionCategoryText)){
+		if (transactionCategoryToIgnore.contains(transactionCategoryText)){
+			log.info("transactionCategoryText is ignored in the rapback adapter: " + transactionCategoryText);
 			return; 
 		}
 		
@@ -95,12 +103,12 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		if (criminalRootNode != null)
 		{
-			processCriminalInitialResultsReport(criminalRootNode, transactionNumber); 		
+			processCriminalInitialResultsReport(criminalRootNode, transactionCategoryText, transactionNumber); 		
 		}
 	}
 
-	private void processCriminalInitialResultsReport(Node rootNode, String transactionNumber) throws Exception {
-		processIdentificationTransaction(rootNode, transactionNumber);
+	private void processCriminalInitialResultsReport(Node rootNode, String transactionCategoryReplyText, String transactionNumber) throws Exception {
+		processIdentificationTransaction(rootNode, transactionCategoryReplyText, transactionNumber);
 		processCriminalInitialResults(rootNode, transactionNumber); 
 		
 	}
@@ -265,7 +273,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		try {
 			isOrigNistQueued = Files.list(Paths.get(filePath))
-					.anyMatch(path -> path.getFileName().toString().startsWith("ORIG-NIST-SEND_" + transactionNumber));
+					.anyMatch(path -> ( path.getFileName().toString().startsWith("ORIG-NIST-SEND_" + transactionNumber) 
+							|| path.getFileName().toString().startsWith("R-ORIG-NIST-SEND_" + transactionNumber)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

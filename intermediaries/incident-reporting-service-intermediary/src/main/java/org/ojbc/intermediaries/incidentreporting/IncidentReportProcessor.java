@@ -101,5 +101,15 @@ public class IncidentReportProcessor {
 		return false;
 	}
 
+	public String wrapChargeReferral(String body)
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<crr-doc:ChargeReferralReport xmlns:crr-doc=\"http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0\">");
+		sb.append(body);
+		sb.append("</crr-doc:ChargeReferralReport>");
+		
+		return sb.toString();
+	}
 	
 }

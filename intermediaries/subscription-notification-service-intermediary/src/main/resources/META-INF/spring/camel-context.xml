@@ -52,6 +52,13 @@
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint" uri="file:///${publishSubscribe.criminalHistoryConsolidationFileDrop}/failed" />
 		<endpoint id="subscriptionMigrationFileEndpoint" uri="file:///${publishSubscribe.subscriptionMigrationFileDrop}/subscriptionMigration/input" />
 		<endpoint id="agencyProfileSeedingFileEndpoint" uri="file:///${publishSubscribe.subscriptionMigrationFileDrop}/agencyProfileSeeding/input" />
+		
+		<camel:endpoint id="fingerprintRequestFileDropEndpoint"
+				uri="file:///${publishSubscribe.fingerPrintsDirectory}/input" />
+						
+		<camel:endpoint id="fingerprintFileEndpoint"
+				uri="file:///${publishSubscribe.fingerPrintsDirectory}/fingerPrints" />
+						
         
 		<camel:route>
     
@@ -476,6 +483,24 @@
 			</camel:filter>
 			
 		</camel:route>
+		
+		<camel:route id="fingerprintRequestFileDropRoute">
+			<from uri="fingerprintRequestFileDropEndpoint" />			
+			<camel:setHeader headerName="transactionNumber">
+				<camel:xpath resultType="java.lang.String">/TransactionNumber</camel:xpath>
+			</camel:setHeader>
+			<camel:setHeader headerName="encoded">
+				<camel:xpath resultType="java.lang.Boolean">/TransactionNumber/@encoded</camel:xpath>
+			</camel:setHeader>
+			<camel:to uri="bean:fbiSubscriptionProcessor?method=retrieveFingerprintToFile" />
+			<setHeader headerName="CamelFileName">
+				<simple>${header.transactionNumber}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+			</setHeader>
+			
+			<camel:to uri="fingerprintFileEndpoint"></camel:to>
+			
+		</camel:route>	
+		
 			
 	</camel:camelContext>
 
