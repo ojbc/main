@@ -70,6 +70,10 @@ public class Person {
     private List<PersonSMTAdditional> personSMTSupplementals;
     private List<PersonDOBAdditional> personDOBSupplementals;
     
+	private boolean personProcessingWarnings; 
+	
+	private StringBuffer personProcessingWarningMessage = new StringBuffer();
+    
 	public Integer getPersonID() {
 		return personID;
 	}
@@ -338,6 +342,16 @@ public class Person {
 			List<PersonDOBAdditional> personDOBSupplementals) {
 		this.personDOBSupplementals = personDOBSupplementals;
 	}
-
-
+	public boolean isPersonProcessingWarnings() {
+		return personProcessingWarnings;
+	}
+	public void setPersonProcessingWarnings(boolean personProcessingWarnings) {
+		this.personProcessingWarnings = personProcessingWarnings;
+	}
+	public StringBuffer getPersonProcessingWarningMessage() {
+		return personProcessingWarningMessage;
+	}
+	public void setPersonProcessingWarningMessage(StringBuffer personProcessingWarningMessage) {
+		this.personProcessingWarningMessage = personProcessingWarningMessage;
+	}
 }
