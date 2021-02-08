@@ -22,8 +22,7 @@
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
-	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
@@ -32,8 +31,6 @@
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd" />
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the Incident Report
 		</xsd:documentation>
@@ -498,6 +495,7 @@
 					<xsd:element ref="inc-ext:IncidentTrafficCondition" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:IncidentLightingCondition" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:SpeedMeasurementDeviceTest" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsed" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -612,6 +610,23 @@
 					<xsd:element ref="inc-ext:ScopeAlignmentTestPassIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:KnownDistanceTestPassIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:DisplayLightsTestPassIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ForceUsedType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a use of force by an officer.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="inc-ext:ForceUsedIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsedNoInjuryIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsedMinorInjuryIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsedSeriousInjuryIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsedDeathIndicator" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1317,6 +1332,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ForceUsed" type="inc-ext:ForceUsedType">
+		<xsd:annotation>
+			<xsd:documentation>Details of force used by an officer.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="RadarDeviceTest" type="inc-ext:RadarDeviceTestType">
 		<xsd:annotation>
 			<xsd:documentation>A radar speed device test.
@@ -1518,6 +1539,36 @@
 	<xsd:element name="PersonMiscellaneousRecordIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForceUsedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the officer used force, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForceUsedNoInjuryIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if force used resulted in no injury, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForceUsedMinorInjuryIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if force used resulted in a minor injury, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForceUsedSeriousInjuryIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if force used resulted in a serious injury, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ForceUsedDeathIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if force used resulted in a death, false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
