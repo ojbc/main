@@ -623,10 +623,7 @@
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:ForceUsedIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:ForceUsedNoInjuryIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:ForceUsedMinorInjuryIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:ForceUsedSeriousInjuryIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:ForceUsedDeathIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:ForceUsedInjuryCategoryText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1548,27 +1545,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ForceUsedNoInjuryIndicator" type="niem-xsd:boolean">
+	<xsd:element name="ForceUsedInjuryCategoryText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>True if force used resulted in no injury, false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ForceUsedMinorInjuryIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if force used resulted in a minor injury, false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ForceUsedSeriousInjuryIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if force used resulted in a serious injury, false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="ForceUsedDeathIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if force used resulted in a death, false otherwise.
+			<xsd:documentation>The injury type for an injury that occured when force was used.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
