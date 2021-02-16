@@ -47,6 +47,10 @@ public abstract class AbstractIncidentSearchResponseProcessor {
         	{
         		String systemSearchResultURI = XmlUtils.xPathStringSearch(incidentSearchResults.item(0),"isres:SourceSystemNameText");
         		incidentSearchResult.setSystemSearchResultURI(systemSearchResultURI);
+        		
+        		String systemName = XmlUtils.xPathStringSearch(incidentSearchResults.item(0),"intel:SystemIdentifier/intel:SystemName");
+        		incidentSearchResult.setSystemName(systemName);
+
         	}
         }	
         
