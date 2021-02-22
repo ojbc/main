@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+      <lexs:PublishMessage>
+         <lexs:PDMessageMetadata>
+            <lexs:LEXSVersion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               >3.1.4</lexs:LEXSVersion>
+            <lexs:MessageDateTime>2012-08-02T10:30:04.048-04:00</lexs:MessageDateTime>
+            <lexs:MessageSequenceNumber xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               >1</lexs:MessageSequenceNumber>
+            <lexs:DataSensitivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               >SBU</lexs:DataSensitivity>
+         </lexs:PDMessageMetadata>
+         <lexs:DataSubmitterMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <lexs:SystemIdentifier>
+               <lexs:ORI>Vermont 99999</lexs:ORI>
+               <nc:OrganizationName>Vermont CJIS</nc:OrganizationName>
+               <lexs:SystemID>CJIS</lexs:SystemID>
+            </lexs:SystemIdentifier>
+            <lexs:SystemContact>
+               <nc:PersonGivenName>Joe</nc:PersonGivenName>
+               <nc:PersonSurName>Contact</nc:PersonSurName>
+               <nc:PersonFullName>Joe Contact</nc:PersonFullName>
+               <nc:ContactTelephoneNumber>
+                  <nc:NANPTelephoneNumber>
+                     <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                     <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                     <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                  </nc:NANPTelephoneNumber>
+               </nc:ContactTelephoneNumber>
+               <nc:OrganizationName>Vermont CJIS data center</nc:OrganizationName>
+            </lexs:SystemContact>
+         </lexs:DataSubmitterMetadata>
+         <lexs:DataItemPackage>
+            <lexs:PackageMetadata>
+               <lexs:DataItemID>Incident ID goes here</lexs:DataItemID>
+               <lexs:DataItemContact xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <nc:PersonGivenName>Frank</nc:PersonGivenName>
+                  <nc:PersonSurName>Smith</nc:PersonSurName>
+                  <nc:PersonFullName>Frank Smith</nc:PersonFullName>
+                  <nc:ContactTelephoneNumber>
+                     <nc:NANPTelephoneNumber>
+                        <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                        <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                        <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                     </nc:NANPTelephoneNumber>
+                  </nc:ContactTelephoneNumber>
+               </lexs:DataItemContact>
+               <lexs:DataItemReferenceID>Incident ID also goes here</lexs:DataItemReferenceID>
+               <lexs:DataItemPublishInstruction
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Insert </lexs:DataItemPublishInstruction>
+               <lexs:DataItemStatus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  >Closed</lexs:DataItemStatus>
+               <lexs:DataOwnerMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <lexs:DataOwnerIdentifier>
+                     <lexs:ORI>VT1234567</lexs:ORI>
+                     <nc:OrganizationName>Brattelboro PD</nc:OrganizationName>
+                     <lexs:SystemID>N-DEx Connector</lexs:SystemID>
+                  </lexs:DataOwnerIdentifier>
+                  <lexs:DataOwnerContact>
+                     <nc:PersonGivenName>Bill</nc:PersonGivenName>
+                     <nc:PersonSurName>Johnson</nc:PersonSurName>
+                     <nc:PersonFullName>Bill Johnson</nc:PersonFullName>
+                     <nc:ContactTelephoneNumber>
+                        <nc:NANPTelephoneNumber>
+                           <nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+                           <nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+                           <nc:TelephoneLineID>9999</nc:TelephoneLineID>
+                        </nc:NANPTelephoneNumber>
+                     </nc:ContactTelephoneNumber>
+                  </lexs:DataOwnerContact>
+               </lexs:DataOwnerMetadata>
+               <lexs:DisseminationCriteriaValue>
+                  <lexs:DisseminationCriteriaDomainText
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     >N-DEx</lexs:DisseminationCriteriaDomainText>
+                  <lexs:DisseminationCriteriaText
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     >Green</lexs:DisseminationCriteriaText>
+               </lexs:DisseminationCriteriaValue>
+               <lexs:DataItemCategory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+               </lexs:DataItemCategory>
+            </lexs:PackageMetadata>
+         </lexs:DataItemPackage>
+       </lexs:PublishMessage>     
