@@ -70,6 +70,7 @@ public class ArrestNotificationAttachmentProcessor {
 		if (StringUtils.isNotBlank(transactionNumber)){
 			subsequentResult.setTransactionNumber(transactionNumber);
 			subsequentResult.setNotificationIndicator(true);
+			rapbackDao.deleteSubsequentResults(subsequentResult);
 			rapbackDao.saveSubsequentResults(subsequentResult);
 		}
 		else{
@@ -97,6 +98,7 @@ public class ArrestNotificationAttachmentProcessor {
 				subsequentResult.setTransactionNumber(getTransactionNumber(emailNotification));
 				subsequentResult.setCivilSid(getCivilSid(emailNotification));
 				
+				rapbackDao.deleteSubsequentResults(subsequentResult);
 				rapbackDao.saveSubsequentResults(subsequentResult);
 			}
 		}

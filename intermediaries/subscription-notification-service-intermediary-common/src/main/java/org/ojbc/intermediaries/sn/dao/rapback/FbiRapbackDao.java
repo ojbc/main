@@ -235,6 +235,27 @@ public class FbiRapbackDao {
          return keyHolder.getKey().intValue();
 	}
 	
+	public Integer deleteSubsequentResults(final SubsequentResults subsequentResults) {
+		
+		Integer rowsDeleted = 0;
+		
+		final String sql = "SELECT count(*) FROM SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";	
+		Integer subsequentResultsCount = jdbcTemplate.queryForObject(sql, Integer.class, subsequentResults.getTransactionNumber(), subsequentResults.getResultsSender().ordinal()+1); 
+		
+		
+        log.debug("Total Subsequent Results: " + subsequentResultsCount + ", for transaction number: " + subsequentResults.getTransactionNumber());
+
+        if (subsequentResultsCount != null && subsequentResultsCount > 0)
+        {
+            String sqlQuery = "DELETE FROM SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";
+
+            int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {subsequentResults.getTransactionNumber(), subsequentResults.getResultsSender().ordinal()+1});
+            		
+            rowsDeleted = rowsUpdated;
+        }	
+        
+        return rowsDeleted;
+	}	
 	
 	private final class FbiSubscriptionRowMapper implements RowMapper<FbiRapbackSubscription> {
 		
