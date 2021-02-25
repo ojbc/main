@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,8 +46,13 @@ public class GlobalControllerAdvice {
 	@Resource
 	CodeTableService codeTableService;
 
+	/*
+	 * Use HttpSession to store the full agency mapping.  
+	 *
+	 * Somehow the @SessionAttributes are removed from the model when the @ModelAttribute method is called again. Need to find out why - hw[02/25/2021]
+	 */
     @ModelAttribute
-    public void setupModelAttributes(Model model, Authentication authentication) {
+    public void setupModelAttributes(Model model, Authentication authentication, HttpSession session) {
         model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
         
@@ -54,20 +60,25 @@ public class GlobalControllerAdvice {
 	        OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
 	        model.addAttribute("osbiUser", osbiUser);
 	        
-	        if (!model.containsAttribute("agencyOriMapping")) {
-		        Map<String, String> agencyOriMapping = codeTableService.getAgencies();
-				model.addAttribute("agencyOriMapping", agencyOriMapping);
-				if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
-					model.addAttribute("authorizedOriMapping", agencyOriMapping);
-				}
-				else {
-					Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
-					for (String ori: osbiUser.getOris()) {
-						authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
-					}
-					model.addAttribute("authorizedOriMapping", authorizedOriMapping);
-				}
+	        @SuppressWarnings("unchecked")
+			Map<String, String> agencyOriMapping = (Map<String, String>) session.getAttribute("agencyOriMapping"); 
+	        
+	        if (agencyOriMapping == null) {
+	        	agencyOriMapping = codeTableService.getAgencies();
+	        	session.setAttribute("agencyOriMapping", agencyOriMapping);
 	        }
+	        
+			model.addAttribute("agencyOriMapping", agencyOriMapping);
+			if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
+				model.addAttribute("authorizedOriMapping", agencyOriMapping);
+			}
+			else {
+				Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
+				for (String ori: osbiUser.getOris()) {
+					authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
+				}
+				model.addAttribute("authorizedOriMapping", authorizedOriMapping);
+			}
         }
 
     }
