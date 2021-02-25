@@ -46,7 +46,7 @@
                 </PersonStateFingerprintIdentification>
                 <PersonStateFingerprintIdentification>
                     <IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/"
-                        >A6084031</IdentificationID>
+                        >A999999</IdentificationID>
                     <FingerprintIdentificationIssuedForCriminalPurposeIndicator
                         xmlns="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
                         >true</FingerprintIdentificationIssuedForCriminalPurposeIndicator>

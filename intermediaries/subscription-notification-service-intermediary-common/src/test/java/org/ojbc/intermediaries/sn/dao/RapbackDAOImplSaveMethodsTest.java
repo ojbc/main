@@ -68,7 +68,7 @@ public class RapbackDAOImplSaveMethodsTest {
 		subsequentResults.setUcn("9222201");
 		subsequentResults.setRapSheet("rapsheet".getBytes());
 		subsequentResults.setResultsSender(ResultSender.FBI);
-		subsequentResults.setNotificationIndicator(false);
+		subsequentResults.setNotificationIndicator(true);
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
@@ -78,11 +78,14 @@ public class RapbackDAOImplSaveMethodsTest {
 		assertTrue(rs.next());
 		assertEquals("9222201", rs.getString("ucn"));
 		assertEquals("000001820140729014008339995", rs.getString("transaction_number"));
-		assertEquals(Boolean.FALSE, rs.getBoolean("notification_indicator"));
+		assertEquals(Boolean.TRUE, rs.getBoolean("notification_indicator"));
 		
 		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
 		log.info("Rap sheet content: " + rapsheetContent);
 		assertEquals("rapsheet", rapsheetContent);
+		
+		Integer rowsDeleted = rapbackDao.deleteSubsequentResults(subsequentResults);
+		assertEquals(new Integer(1), rowsDeleted);
 	}
 
 }
