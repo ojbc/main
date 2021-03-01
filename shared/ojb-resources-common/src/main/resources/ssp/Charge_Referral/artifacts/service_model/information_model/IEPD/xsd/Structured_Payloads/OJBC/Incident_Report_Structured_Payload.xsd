@@ -22,7 +22,6 @@
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
-	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
@@ -30,8 +29,12 @@
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the ext Incident Report
 		</xsd:documentation>
@@ -187,6 +190,7 @@
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectInCustodyIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
 					<xsd:element ref="j:Citation" minOccurs="0" />
@@ -406,6 +410,12 @@
 	<xsd:element name="SubjectStatusDescriptionText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A description of a subject's custody or supervision status.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectInCustodyIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subject is in custody, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectViolatedProbationIndicator" type="niem-xsd:boolean">

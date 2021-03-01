@@ -264,6 +264,9 @@
 					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectInCustodyIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
 					<xsd:element ref="j:Citation" minOccurs="0" />
@@ -724,6 +727,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubjectInCustodyIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subject is in custody, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element name="SubjectViolatedProbationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the subject violated probation conditions during the incident, false otherwise.
