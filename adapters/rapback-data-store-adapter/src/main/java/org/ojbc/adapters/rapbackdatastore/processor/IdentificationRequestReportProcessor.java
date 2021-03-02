@@ -47,17 +47,17 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 			@Header("transactionCategoryText") String transactionCategoryText, 
 			@Header("identificationID") String transactionNumber) throws Exception {
 		
-		log.info("Processing Identification Request report");
+		log.info("Processing CIVIL Identification Request report");
 		
 		Node rootNode = XmlUtils.xPathNodeSearch(report, "/pidreq:PersonFederalIdentificationRequest|/pidreq:PersonStateIdentificationRequest");
 
-		if (!StringUtils.startsWith(transactionCategoryText, "R-")) {
-			processIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
-			processCivilFingerPrints(rootNode, transactionNumber);
-		}
-		else {
+		if (StringUtils.startsWith(transactionCategoryText, "R-") && rapbackDAO.isExistingTransactionNumber(transactionNumber)) {
 			updateIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
 			updateCivilFingerPrints(rootNode, transactionNumber);
+		}
+		else {
+			processIdentificationTransaction(rootNode, transactionCategoryText, transactionNumber);
+			processCivilFingerPrints(rootNode, transactionNumber);
 		}
 		
 	}
