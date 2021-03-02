@@ -48,11 +48,15 @@ public interface RapbackDAO {
 	public Integer deleteCivilFingerPrints(String transactionNumber, FingerPrintsType fingerPrintsType);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
+	public Integer deleteCivilInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
 	public List<CivilInitialResults> getCivilInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
+	public Integer deleteCriminalInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer saveNsorDemographics(final NsorDemographics nsorDemographics);
 	public Integer saveNsorSearchResult(final NsorSearchResult nsorSearchResult);
+	public Integer deleteNsorDemographics(String transactionNumber, ResultSender resultSender);
+	public Integer deleteNsorSearchResult(String transactionNumber, ResultSender resultSender);
 	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
 	public Subject getSubject(Integer id);

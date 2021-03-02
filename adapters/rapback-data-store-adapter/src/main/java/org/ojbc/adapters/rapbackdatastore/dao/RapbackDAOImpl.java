@@ -1458,26 +1458,66 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private final class NsorFiveYearCheckResultsRowMapper implements
 	RowMapper<NsorFiveYearCheck> {
 	
-	public NsorFiveYearCheck mapRow(ResultSet rs, int rowNum)
-			throws SQLException {
-	
-		NsorFiveYearCheck nsorFiveYearCheck = new NsorFiveYearCheck();
+		public NsorFiveYearCheck mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
 		
-		nsorFiveYearCheck.setId(rs.getInt("NSOR_FIVE_YEAR_CHECK_ID"));
-		nsorFiveYearCheck.setTransactionNumber(rs.getString("transaction_number"));
-		
-		try{
-			nsorFiveYearCheck.setResultsFile(ZipUtils.unzip(rs.getBytes("FIVE_YEAR_CHECK_FILE")));
+			NsorFiveYearCheck nsorFiveYearCheck = new NsorFiveYearCheck();
+			
+			nsorFiveYearCheck.setId(rs.getInt("NSOR_FIVE_YEAR_CHECK_ID"));
+			nsorFiveYearCheck.setTransactionNumber(rs.getString("transaction_number"));
+			
+			try{
+				nsorFiveYearCheck.setResultsFile(ZipUtils.unzip(rs.getBytes("FIVE_YEAR_CHECK_FILE")));
+			}
+			catch(Exception e){
+				log.error("Got exception extracting the nsor five year check file for " + 
+						nsorFiveYearCheck.getTransactionNumber(), e);
+			}
+			nsorFiveYearCheck.setTimestamp(toDateTime(rs.getTimestamp("CREATION_TIMESTAMP")));
+			
+			return nsorFiveYearCheck;
 		}
-		catch(Exception e){
-			log.error("Got exception extracting the nsor five year check file for " + 
-					nsorFiveYearCheck.getTransactionNumber(), e);
-		}
-		nsorFiveYearCheck.setTimestamp(toDateTime(rs.getTimestamp("CREATION_TIMESTAMP")));
-		
-		return nsorFiveYearCheck;
 	}
-}
+
+	final String CIVIL_INITIAL_RESULTS_DELETE="delete from CIVIL_INITIAL_RESULTS "
+			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
+	final String CIVIL_ININTIAL_RAP_SHEET_DELETE = "delete from CIVIL_INITIAL_RAP_SHEET "
+			+ "where CIVIL_INITIAL_RESULT_ID = "
+			+ "		(select CIVIL_INITIAL_RESULT_ID from CIVIL_INITIAL_RESULTS " 
+			+ "			where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ) ";
+	@Override
+	public Integer deleteCivilInitialResults(String transactionNumber, ResultSender resultSender) {
+		log.debug("Delete " + resultSender + " civil initial results entry with " + transactionNumber );
+		
+		jdbcTemplate.update(CIVIL_ININTIAL_RAP_SHEET_DELETE, transactionNumber, resultSender.ordinal() + 1); 
+        int rowsDeleted = jdbcTemplate.update(CIVIL_INITIAL_RESULTS_DELETE, transactionNumber, resultSender.ordinal() + 1);
+
+		return rowsDeleted;
+	}
+
+	final String CRIMINAL_INITIAL_RESULTS_DELETE="delete from CRIMINAL_INITIAL_RESULTS "
+			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
+	@Override
+	public Integer deleteCriminalInitialResults(String transactionNumber, ResultSender resultSender) {
+		int rowsDeleted = jdbcTemplate.update(CRIMINAL_INITIAL_RESULTS_DELETE, transactionNumber, resultSender.ordinal() + 1);
+		return rowsDeleted;
+	}
+
+	final String NSOR_DEMOGRAPHICS_DELETE="delete from NSOR_DEMOGRAPHICS "
+			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
+	@Override
+	public Integer deleteNsorDemographics(String transactionNumber, ResultSender resultSender) {
+		int rowsDeleted = jdbcTemplate.update(NSOR_DEMOGRAPHICS_DELETE, transactionNumber, resultSender.ordinal() + 1);
+		return rowsDeleted;
+	}
+
+	final String NSOR_SEARCH_RESULT_DELETE="delete from NSOR_SEARCH_RESULT "
+			+ "where TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID = ? ";
+	@Override
+	public Integer deleteNsorSearchResult(String transactionNumber, ResultSender resultSender) {
+		int rowsDeleted = jdbcTemplate.update(NSOR_SEARCH_RESULT_DELETE, transactionNumber, resultSender.ordinal() + 1);
+		return rowsDeleted;
+	}
 	
 
 }
