@@ -311,12 +311,12 @@
 		           });
 					});
 					
-					//348 - Found guilty of different charge
-					//376 - pled guilty of other charge
-					//520 - Nolo contendere to different charge
-					var dispoCodesForAmendedCharge = ['348', '376', '520'];
-					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
-          
+          // 43 -> 348 - Found guilty of different charge
+          // 70 -> 376 - pled guilty of other charge
+          //107 -> 520 - Nolo contendere to different charge
+					var dispoCodesForAmendedCharge = ['43', '70', '107'];
+					// 6 -> 305
+					var dispoCodesForDismissalReason = ['6']; //305-charge dismissal
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
 					 $('#amendedCharge').prop('disabled', false).trigger("chosen:updated");
 					}
@@ -497,11 +497,37 @@
 
 
         });
-        var dispoCodesWithoutSentence = ['301', '302', '305', '306', '307', '314', '320', '331', '377', 
-            '390', '398', '505', '510', '511', '524', '530', '537','539', '540', '541','542'];
+		    
+		    /*
+		      ID CODE DESCRIPTION
+		      2   301 ACQUITTED
+		      3   302 ACQUIT-INSANE
+					6   305 CHARGE DISMISSED
+					7   306 DISMISS-INSANE
+					8   307 DISMIS-MENTAL INCOMPET
+					15  314 EXTRADITED
+					19  320 MISTRIAL-DISCHARGED
+					28  331 BAIL FORFEITED
+					71  377 PLED NOT GUILTY,CASE DISMISSED
+					84  390 DA DECLINED TO FILE CHARGE
+					89  398 CHARGES FILED
+					96  505 REFERRED TO FEDERAL PROSECUTOR
+					101 510 APPLICATION TO ACCELERATE DEFERRED SENT DISMISSED
+					102 511 APPLICATION TO REVOKE SUSPENDED SENTENCE DISMISSED
+					110 524 SENTENCED TO DRUG COURT
+					115 530 DEPORTED
+					165 537 FAILURE TO APPEAR
+					167 539 FAILURE TO PAY
+					166 540 FAILURE TO COMPLY
+					164 541 APPLICATION TO REVOKE
+					163 542 APPLICATION TO ACCELERATE
+		    */
+        var dispoCodesWithoutSentence = ['2', '3', '6', '7', '8', '15', '19', '28', '71', 
+            '84', '89', '96', '101', '102', '110', '115', '165','167', '166', '164','163'];
 
 	      function toggleDefferredYearsDays(){
-	          var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
+	          /* 74 -> 380, 82->388 */
+	          var dispoCodesWithoutDeferredYearsDays = ['74', '82'];
 
             if (dispoCodesWithoutSentence.includes($('#dispositionCode').val()) 
             		|| dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())

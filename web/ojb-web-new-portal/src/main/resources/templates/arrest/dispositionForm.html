@@ -247,11 +247,13 @@
 					$('.date').mask('99/99/9999');
 					$('.money').mask('0,000,000,000,000', {reverse: true});
 					
-					//348 - Found guilty of different charge
-					//376 - pled guilty of other charge
-					//520 - Nolo contendere to different charge
-					var dispoCodesForAmendedCharge = ['348', '376', '520'];
-					var dispoCodesForDismissalReason = ['305']; //305-charge dismissal
+					// 43 -> 348 - Found guilty of different charge
+					// 70 -> 376 - pled guilty of other charge
+					//107 -> 520 - Nolo contendere to different charge
+					var dispoCodesForAmendedCharge = ['43', '70', '107'];
+					
+					// 6 -> 305
+					var dispoCodesForDismissalReason = ['6']; //305-charge dismissal
 					
 					console.log($('#dispositionCode').val());
 					if (dispoCodesForAmendedCharge.includes($('#dispositionCode').val())){
@@ -381,18 +383,19 @@
         });
 	      
 	      function toggleDefferredYearsDays(){
-	          var dispoCodesWithoutDeferredYearsDays = ['380', '388'];
+	    	  /* 74 -> 380, 82->388 */
+          var dispoCodesWithoutDeferredYearsDays = ['74', '82'];
 
-            if (dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())){
-                $('#deferredYears').val('');
-                $('#deferredYears').prop('disabled', true);
-                $('#deferredDays').val('');
-                $('#deferredDays').prop('disabled', true);
-            }
-            else{
-                $('#deferredYears').prop('disabled', false);
-                $('#deferredDays').prop('disabled', false);
-            }
+           if (dispoCodesWithoutDeferredYearsDays.includes($('#dispositionCode').val())){
+               $('#deferredYears').val('');
+               $('#deferredYears').prop('disabled', true);
+               $('#deferredDays').val('');
+               $('#deferredDays').prop('disabled', true);
+           }
+           else{
+               $('#deferredYears').prop('disabled', false);
+               $('#deferredDays').prop('disabled', false);
+           }
 	      }
 	      
 	      function toggleProvisionCode(){
@@ -435,41 +438,49 @@
 	      }
 	      
 	      function toggleSentenceInfo(){
-	          var dispoCodesWithoutSentence = ['301', '305', '326', '377', '331', '538', '398'];
+	    	  /* 2 -> 301
+	    	     6 -> 305
+	    	    23 -> 326
+	    	    71 -> 377
+	    	    28 -> 331
+	    	   162 -> 538
+	    	    89 -> 398
+	    	  */
+          var dispoCodesWithoutSentence = ['2', '6', '23', '71', '28', '162', '89'];
 
-            if (dispoCodesWithoutSentence.includes($('#dispositionCode').val())){
-                $('#fineAmount').val('');
-                $('#fineAmount').prop('disabled', true);
-                $('#fineSuspended').val('');
-                $('#fineSuspended').prop('disabled', true);
-                $('#jailYears').val('');
-                $('#jailYears').prop('disabled', true);
-                $('#jailDays').val('');
-                $('#jailDays').prop('disabled', true);
-                $('#suspendedYears').val('');
-                $('#suspendedYears').prop('disabled', true);
-                $('#suspendedDays').val('');
-                $('#suspendedDays').prop('disabled', true);
-                $('#deferredYears').val('');
-                $('#deferredYears').prop('disabled', true);
-                $('#deferredDays').val('');
-                $('#deferredDays').prop('disabled', true);
-                $('#restitution').val('');
-                $('#restitution').prop('disabled', true);
-                $('#alternateSentences option').removeAttr('selected');
-                $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
-          }
-          else{
-                $('#fineAmount').prop('disabled', false);
-                $('#fineSuspended').prop('disabled', false);
-                $('#jailYears').prop('disabled', false);
-                $('#jailDays').prop('disabled', false);
-                toggleDefferredYearsDays();
-                $('#restitution').prop('disabled', false);
-                $('#alternateSentences').prop('disabled', false);
-                toggleAlternateSentenceFineCostsOption();
-                toggleAlternateSentenceRestitutionOption();
-          }
+          if (dispoCodesWithoutSentence.includes($('#dispositionCode').val())){
+               $('#fineAmount').val('');
+               $('#fineAmount').prop('disabled', true);
+               $('#fineSuspended').val('');
+               $('#fineSuspended').prop('disabled', true);
+               $('#jailYears').val('');
+               $('#jailYears').prop('disabled', true);
+               $('#jailDays').val('');
+               $('#jailDays').prop('disabled', true);
+               $('#suspendedYears').val('');
+               $('#suspendedYears').prop('disabled', true);
+               $('#suspendedDays').val('');
+               $('#suspendedDays').prop('disabled', true);
+               $('#deferredYears').val('');
+               $('#deferredYears').prop('disabled', true);
+               $('#deferredDays').val('');
+               $('#deferredDays').prop('disabled', true);
+               $('#restitution').val('');
+               $('#restitution').prop('disabled', true);
+               $('#alternateSentences option').removeAttr('selected');
+               $('#alternateSentences').prop('disabled', true).trigger("chosen:updated");
+         }
+         else{
+               $('#fineAmount').prop('disabled', false);
+               $('#fineSuspended').prop('disabled', false);
+               $('#jailYears').prop('disabled', false);
+               $('#jailDays').prop('disabled', false);
+               toggleDefferredYearsDays();
+               $('#restitution').prop('disabled', false);
+               $('#alternateSentences').prop('disabled', false);
+               toggleAlternateSentenceFineCostsOption();
+               toggleAlternateSentenceRestitutionOption();
+         }
 
       }
 	      

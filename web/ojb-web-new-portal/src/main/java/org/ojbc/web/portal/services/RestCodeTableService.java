@@ -45,7 +45,7 @@ public class RestCodeTableService implements CodeTableService{
 	}
 	
 	public Map<String, String> getMuniDispositionCodeMap(){
-		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-disposition-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/municipal-disposition-codes");
 	}
 
 	public Map<String, String> getMuniFiledChargeCodeMap(){
@@ -104,7 +104,7 @@ public class RestCodeTableService implements CodeTableService{
 	}
 	@Override
 	public Map<String, String> getDaDispositionCodeMap() {
-		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/da-disposition-codes");
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class RestCodeTableService implements CodeTableService{
 	
 	@Override
 	public Map<String, String> getAgencies() {
-		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
+		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
 	}
 
 	@Override
