@@ -347,7 +347,7 @@
 	                       deferredDays:rowData[16],
 	                       restitution:rowData[17].split('.', 1).toString(),
 	                       alternateSentences:rowData[18],
-	                       reasonForDismissal:rowData[19],
+	                       reasonForDismissal:rowData[19].padStart(3,'0'),
 	                       provisionCode:rowData[20], 
                          arrestDate: $('#arrestDate').text(),
                          chargeOri: chargeOri, 
