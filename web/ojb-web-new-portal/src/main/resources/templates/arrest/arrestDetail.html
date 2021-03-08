@@ -206,8 +206,8 @@
                         {
                              "targets": [19],
                              "render": function ( data, type, row, meta ) {
-                            	   if (muniReasonsForDismissalMapping.hasOwnProperty(data.padStart(3, '0'))){
-                            		   return muniReasonsForDismissalMapping[data.padStart(3, '0')];
+                            	   if (muniReasonsForDismissalMapping.hasOwnProperty(data)){
+                            		   return muniReasonsForDismissalMapping[data];
                             	   }
                             	   else{
 	                                 return data;
@@ -347,7 +347,7 @@
 	                       deferredDays:rowData[16],
 	                       restitution:rowData[17].split('.', 1).toString(),
 	                       alternateSentences:rowData[18],
-	                       reasonForDismissal:rowData[19].padStart(3,'0'),
+	                       reasonForDismissal:rowData[19],
 	                       provisionCode:rowData[20], 
                          arrestDate: $('#arrestDate').text(),
                          chargeOri: chargeOri, 
