@@ -88,8 +88,8 @@ public class AppProperties {
 		setDispoCodesRequiringAmendedCharge(Arrays.asList("376", "520", "348"));
 		setDispoCodesNotRequiringChargeSeverity(Arrays.asList("390"));
 		
-		chargeSeverityCodeMapping.put("F", "Felony");
-		chargeSeverityCodeMapping.put("M", "Misdemeanor");
+		chargeSeverityCodeMapping.put("1", "Felony");
+		chargeSeverityCodeMapping.put("2", "Misdemeanor");
 		
 		daCaseTypeCodeMapping.put("F", "Felony");
 		daCaseTypeCodeMapping.put("M", "Misdemeanor");
@@ -98,8 +98,8 @@ public class AppProperties {
 		daCaseTypeCodeMapping.put("Y", "Youth");
 		
 		Map<String, String> generalOffenseCodeMapping = new LinkedHashMap<String, String>();
-		generalOffenseCodeMapping.put("A", "Attempted");
-		generalOffenseCodeMapping.put("V", "After Felony Conviction");
+		generalOffenseCodeMapping.put("1", "Attempted");
+		generalOffenseCodeMapping.put("14", "After Felony Conviction");
 		setDaGeneralOffenseCodeMapping(generalOffenseCodeMapping);
 		
 		getMuniPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");

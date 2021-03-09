@@ -60,10 +60,10 @@ public class DispositionValidator implements Validator {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
         	
         	if (StringUtils.isNotBlank(disposition.getYear())) {
-        		if ( disposition.getYear().length() < 4) {
-        			errors.rejectValue("year", null, "must be 4-digit");
+        		if ( disposition.getYear().length() < 2) {
+        			errors.rejectValue("year", null, "must be 2-digit");
         		}
-        		else if (Integer.valueOf(disposition.getYear()) > LocalDate.now().getYear()) {
+        		else if (Integer.valueOf(disposition.getYear()) > LocalDate.now().getYear()%100) {
         			errors.rejectValue("year", null, "may not be greater than current year");
         		}
         	}

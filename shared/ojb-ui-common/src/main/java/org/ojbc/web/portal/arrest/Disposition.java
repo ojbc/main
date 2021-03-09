@@ -173,8 +173,8 @@ public class Disposition {
 		if (StringUtils.isNotBlank(this.courtCaseNumber) && this.dispositionType == ArrestType.DA) {
 			this.county = StringUtils.substring(this.courtCaseNumber, 0, 2);
 			this.caseType = StringUtils.substring(this.courtCaseNumber, 2, 3);
-			this.year = StringUtils.substring(this.courtCaseNumber, 3, 7);
-			this.caseNumber = StringUtils.substring(this.courtCaseNumber, 7);
+			this.year = StringUtils.substring(this.courtCaseNumber, 3, 5);
+			this.caseNumber = StringUtils.substring(this.courtCaseNumber, 5);
 		}
 	}
 	
