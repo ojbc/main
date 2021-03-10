@@ -139,7 +139,7 @@ public class RestCodeTableService implements CodeTableService{
 	
 	@Override
 	public Map<String, String> getAgencies() {
-		return getIdDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
+		return getCodeDescriptionMap(this::getCodeTableEntries, "/criminalhistory/agencies");
 	}
 
 	@Override

@@ -17,19 +17,15 @@
 package org.ojbc.web.portal;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.security.OsbiUser;
-import org.ojbc.web.portal.services.CodeTableEntry;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -66,13 +62,9 @@ public class GlobalControllerAdvice {
 	        model.addAttribute("osbiUser", osbiUser);
 	        
 			Map<String, String> agencyOriMapping = (Map<String, String>) session.getAttribute("agencyOriMapping"); 
-	        List<CodeTableEntry> agencyCodeTableEntries = (List<CodeTableEntry>) session.getAttribute("agencyCodeTableEntries"); 
 	        
-	        if (agencyCodeTableEntries == null) {
-	        	agencyCodeTableEntries = codeTableService.getCodeTableEntries("/criminalhistory/agencies");
-	        	session.setAttribute("agencyCodeTableEntries", agencyCodeTableEntries);
-	        	
-	        	agencyOriMapping = getIdDescriptionMap(agencyCodeTableEntries);
+	        if (agencyOriMapping == null) {
+	        	agencyOriMapping = codeTableService.getAgencies();
 	        	session.setAttribute("agencyOriMapping", agencyOriMapping);
 	        }
 	        
@@ -81,24 +73,14 @@ public class GlobalControllerAdvice {
 				model.addAttribute("authorizedOriMapping", agencyOriMapping);
 			}
 			else {
-				Map<String, String> authorizedOriMapping = agencyCodeTableEntries
-						.stream()
-						.filter(entry->osbiUser.getOris().contains(entry.getCode()))
-						.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
-								(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+				Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
+				for (String ori: osbiUser.getOris()) {
+					authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
+				}
 				model.addAttribute("authorizedOriMapping", authorizedOriMapping);
 			}
         }
 
     }
     
-	public Map<String, String> getIdDescriptionMap(List<CodeTableEntry> codeTableEntries){
-		return codeTableEntries
-				.stream()
-				.filter(i->!"no description".equalsIgnoreCase(StringUtils.lowerCase(i.getDescription().trim())))
-				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
-					(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
-	}
-	
-
 }
