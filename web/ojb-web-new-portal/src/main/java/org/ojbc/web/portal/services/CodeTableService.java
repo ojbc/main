@@ -38,5 +38,6 @@ public interface CodeTableService {
 	public Map<String, String> getAuditActivityTypes();
 	public List<AuditUser> getUsers();
 	public UserAttributes auditUserLoginReturnUserAttributes(AuditUser auditUser);
+	public List<CodeTableEntry> getCodeTableEntries(String uri);
 	
 }

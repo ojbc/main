@@ -17,15 +17,19 @@
 package org.ojbc.web.portal;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
 import org.ojbc.web.portal.security.OsbiUser;
+import org.ojbc.web.portal.services.CodeTableEntry;
 import org.ojbc.web.portal.services.CodeTableService;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -52,6 +56,7 @@ public class GlobalControllerAdvice {
 	 * Somehow the @SessionAttributes are removed from the model when the @ModelAttribute method is called again. Need to find out why - hw[02/25/2021]
 	 */
     @ModelAttribute
+    @SuppressWarnings("unchecked")
     public void setupModelAttributes(Model model, Authentication authentication, HttpSession session) {
         model.addAttribute("inactivityTimeout", appProperties.getInactivityTimeout());
         model.addAttribute("inactivityTimeoutInSeconds", appProperties.getInactivityTimeoutInSeconds());
@@ -60,11 +65,14 @@ public class GlobalControllerAdvice {
 	        OsbiUser osbiUser = (OsbiUser) authentication.getPrincipal();
 	        model.addAttribute("osbiUser", osbiUser);
 	        
-	        @SuppressWarnings("unchecked")
 			Map<String, String> agencyOriMapping = (Map<String, String>) session.getAttribute("agencyOriMapping"); 
+	        List<CodeTableEntry> agencyCodeTableEntries = (List<CodeTableEntry>) session.getAttribute("agencyCodeTableEntries"); 
 	        
-	        if (agencyOriMapping == null) {
-	        	agencyOriMapping = codeTableService.getAgencies();
+	        if (agencyCodeTableEntries == null) {
+	        	agencyCodeTableEntries = codeTableService.getCodeTableEntries("/criminalhistory/agencies");
+	        	session.setAttribute("agencyCodeTableEntries", agencyCodeTableEntries);
+	        	
+	        	agencyOriMapping = getIdDescriptionMap(agencyCodeTableEntries);
 	        	session.setAttribute("agencyOriMapping", agencyOriMapping);
 	        }
 	        
@@ -73,14 +81,24 @@ public class GlobalControllerAdvice {
 				model.addAttribute("authorizedOriMapping", agencyOriMapping);
 			}
 			else {
-				Map<String, String> authorizedOriMapping = new LinkedHashMap<>();
-				for (String ori: osbiUser.getOris()) {
-					authorizedOriMapping.put(ori, agencyOriMapping.get(ori));
-				}
+				Map<String, String> authorizedOriMapping = agencyCodeTableEntries
+						.stream()
+						.filter(entry->osbiUser.getOris().contains(entry.getCode()))
+						.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
+								(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
 				model.addAttribute("authorizedOriMapping", authorizedOriMapping);
 			}
         }
 
     }
     
+	public Map<String, String> getIdDescriptionMap(List<CodeTableEntry> codeTableEntries){
+		return codeTableEntries
+				.stream()
+				.filter(i->!"no description".equalsIgnoreCase(StringUtils.lowerCase(i.getDescription().trim())))
+				.collect(Collectors.toMap(CodeTableEntry::getId, CodeTableEntry::getDescription, 
+					(oldValue, newValue) -> oldValue, LinkedHashMap::new)); 
+	}
+	
+
 }

@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,10 +55,12 @@ public class AuditController {
 	CodeTableService codeTableService;
 	
     @ModelAttribute
-    public void addModelAttributes(Model model) {
+    public void addModelAttributes(Model model, HttpSession session) {
     	
-		if (!model.containsAttribute("agencyOriMapping")) {
-			model.addAttribute("agencyOriMapping", codeTableService.getAgencies());
+		if (session.getAttribute("agencyOriMapping")== null) {
+			Map<String, String> agencyOriMapping = codeTableService.getAgencies();
+			session.setAttribute("agencyOriMapping", agencyOriMapping);
+			model.addAttribute("agencyOriMapping", agencyOriMapping);
 		}
 		if (!model.containsAttribute("auditActivityTypeMapping")) {
 			model.addAttribute("auditActivityTypeMapping", codeTableService.getAuditActivityTypes());

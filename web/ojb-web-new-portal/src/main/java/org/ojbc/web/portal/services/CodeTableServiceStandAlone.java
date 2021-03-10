@@ -112,6 +112,12 @@ public class CodeTableServiceStandAlone implements CodeTableService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<CodeTableEntry> getCodeTableEntries(String uri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
