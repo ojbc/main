@@ -170,14 +170,8 @@
              });
             
             function initSearchForm(){
-                $('.date').mask('99/99/9999');
-                $('#auditDateRangeStartDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-                }).focus();
-                $('#auditDateRangeEndDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-                });
-                $(".chosen-select").chosen(); 
+            	$('.date').datepicker();
+            	$(".chosen-select").chosen(); 
             }
         </script>
 	    </div>

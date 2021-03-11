@@ -414,6 +414,14 @@
                        }
                    }
 
+                   var finalDispositionWarning = false;
+                   
+                   var deferredYears = parseInt($("#deferredYears").val()) || 0; 
+                   var deferredDays = parseInt($("#deferredDays").val()) || 0; 
+                   var deferredTime = 360 * deferredYears + deferredDays; 
+
+                   
+                   
                    if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || dispositionDateWarning){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {

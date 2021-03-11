@@ -165,6 +165,31 @@
 		    <version>${datatables.responsive.version}</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>chosen-js</artifactId>
+		    <version>1.8.7</version>
+		</dependency>
+ 		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>momentjs</artifactId>
+		    <version>2.29.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars.bowergithub.bpampuch</groupId>
+		    <artifactId>pdfmake</artifactId>
+		    <version>0.1.65</version>
+		</dependency>
+    <dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>datatables-buttons</artifactId>
+		    <version>1.6.1</version>
+		</dependency>
+ 		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap-datepicker</artifactId>
+		    <version>1.7.1</version>
+		</dependency>
+		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		</dependency>

@@ -37,8 +37,8 @@
 			          <table>
 			            <tr>
 			              <td>Arrest Date </td>
-			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" class="date" width="250" placeholder="From"/></td>
-			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" class="date" width="250" placeholder="To"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeStartDate}" class="date datepicker" width="250" placeholder="From"/></td>
+			              <td><input type="text" th:field="*{arrestDateRangeEndDate}" class="date datepicker" width="250" placeholder="To"/></td>
 			              <td th:errors="*{arrestDateRangeStartDate}">Arrest Date error message</td>
 			            </tr>
 			            <tr>
@@ -137,13 +137,11 @@
 
 	        $(function(){
 	            
-              $('#arrestDateRangeStartDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('#arrestDateRangeEndDate').datepicker({
-                    uiLibrary: 'bootstrap4', size: 'small'
-              });
-              $('#dob').datepicker({
+		        	$('.datepicker').datepicker({
+		        	    format: 'mm/dd/yyyy'
+		        	});
+	        	
+	        	  $('#dob').datepicker({
                     uiLibrary: 'bootstrap4', size: 'small'
               });
               $('.date').mask('99/99/9999');

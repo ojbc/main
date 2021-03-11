@@ -237,9 +237,7 @@
 	      $(function(){
 	    	  $('[data-toggle="popover"]').prop('tabIndex', -1).popover();
           $("#dispositionForm").on("focus", "#dispositionDate", function(){
-              $('#dispositionDate').datepicker({
-                  uiLibrary: 'bootstrap4', size: 'small'
-               });
+              $('#dispositionDate').datepicker();
           });
 	    	  $(".chosen-select").chosen(); 
           $("#arrestChargeIdentification").trigger('chosen:activate');

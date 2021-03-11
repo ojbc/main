@@ -238,16 +238,9 @@
  	        
             function initSearchForm(){
                 $(".chosen-select").chosen(); 
-                $('#arrestDateRangeStartDate').datepicker({
-                      uiLibrary: 'bootstrap4', size: 'small'
-                }).focus();
-                $('#arrestDateRangeEndDate').datepicker({
-                      uiLibrary: 'bootstrap4', size: 'small'
-                });
-                $('#dob').datepicker({
-                      uiLibrary: 'bootstrap4', size: 'small'
-                });
                 $('.date').mask('99/99/9999');
+                $('.date').datepicker();
+
             }
 	
 	        </script>
