@@ -313,6 +313,7 @@
                       $('#arrestChargeIdentification').val(chargeId);
                     	$('#dispositionModal .modal-title').html("Add Disposition");
                     	$('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
+                    	$('#saveDisposition').prop('disabled', false); 
                       $('#dispositionModal').modal('show');
                     }).fail(ojbc.displayFailMessage);
                  }); 
@@ -357,6 +358,7 @@
                       $('#arrestChargeIdentification').val(chargeId);
                       $('#dispositionModal .modal-title').html("Edit Disposition");
                       $('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
+                      $('#saveDisposition').prop('disabled', true); 
                       $('#dispositionModal').modal('show');
                    }).fail(ojbc.displayFailMessage);
                  });
@@ -415,14 +417,14 @@
                    }
 
                    var finalDispositionWarning = false;
-                   
                    var deferredYears = parseInt($("#deferredYears").val()) || 0; 
                    var deferredDays = parseInt($("#deferredDays").val()) || 0; 
                    var deferredTime = 360 * deferredYears + deferredDays; 
-
+                   if (deferredTime > 0 && $('#alternateSentences').val().includes('121')){
+                	   finalDispositionWarning = true; 
+                   }
                    
-                   
-                   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || dispositionDateWarning){
+                   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || dispositionDateWarning || finalDispositionWarning){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                        contentArray.push({ p: {text: "The Fine Amount exceeds $1,000."}});
@@ -439,6 +441,9 @@
                      }
                      if (dispositionDateWarning){
                          contentArray.push({ p: {text: "The disposition date is before the arrest date."}});
+                     }
+                     if (finalDispositionWarning){
+                    	 contentArray.push({ p: {text: '"Expungement Not Granted" can only be added to a disposition that contains a deferred sentence.  The statement will not print on the OSBI RAP sheet, but will remove this arrest from your list of pending arrests in the RAPUP program.  Do you wish to continue?'}});
                      }
 
                      contentArray.push({ p: {text: "Do you want to proceed?"}});

@@ -138,7 +138,7 @@
                data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="1" th:field="*{jailYears}" width="1" class="form-control form-control-sm provision-prerequisite jail-time" th:errorclass="is-invalid"/>
+          <input type="number" min="0" max="1" th:field="*{jailYears}" width="1" class="form-control form-control-sm provision-prerequisite jail-time" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('jailYears')}" th:errors="*{jailYears}" class="invalid-feedback">Jail years error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -147,7 +147,7 @@
                data-content="Jail is served in County Jail. Jail Years must be blank or 1, Jail Days cannot exceed 359.">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="359" th:field="*{jailDays}" width="3" class="form-control form-control-sm provision-prerequisite jail-time" th:errorclass="is-invalid"/>
+          <input type="number" min="0" max="359" th:field="*{jailDays}" width="3" class="form-control form-control-sm provision-prerequisite jail-time" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('jailDays')}" th:errors="*{jailDays}" class="invalid-feedback">Jail days error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -156,7 +156,7 @@
                data-content="Suspended time cannot be greater than Jail time. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="1" th:field="*{suspendedYears}" width="1" class="form-control form-control-sm suspended-time" th:errorclass="is-invalid" disabled/>
+          <input type="number" min="0" max="1" th:field="*{suspendedYears}" width="1" class="form-control form-control-sm suspended-time" th:errorclass="is-invalid" disabled/>
           <div th:if="${#fields.hasErrors('suspendedYears')}" th:errors="*{suspendedYears}" class="invalid-feedback">Suspended years error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -165,7 +165,7 @@
                data-content="Suspended time cannot be greater than Jail time. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="359" th:field="*{suspendedDays}" width="3" class="form-control form-control-sm suspended-time"  th:errorclass="is-invalid" disabled/>
+          <input type="number" min="0" max="359" th:field="*{suspendedDays}" width="3" class="form-control form-control-sm suspended-time"  th:errorclass="is-invalid" disabled/>
           <div th:if="${#fields.hasErrors('suspendedDays')}" th:errors="*{suspendedDays}" class="invalid-feedback">Suspended days error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -175,7 +175,7 @@
                 Cannot have deferred time and Suspended time for same charge. Does not result in a conviction on the rap sheet. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="1" th:field="*{deferredYears}" width="1" class="form-control form-control-sm provision-prerequisite" th:errorclass="is-invalid"/>
+          <input type="number" min="0" max="1" th:field="*{deferredYears}" width="1" class="form-control form-control-sm provision-prerequisite" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('deferredYears')}" th:errors="*{deferredYears}" class="invalid-feedback">Deferred years error message</div>
         </div>
         <div class="col-md-2 mb-2">
@@ -185,7 +185,7 @@
                 Cannot have deferred time and Suspended time for same charge. Does not result in a conviction on the rap sheet. ">
                <i class="fas fa-info-circle"></i></a>
           </label>
-          <input type="number" min="1" max="359" th:field="*{deferredDays}" width="3" class="form-control form-control-sm provision-prerequisite" th:errorclass="is-invalid"/>
+          <input type="number" min="0" max="359" th:field="*{deferredDays}" width="3" class="form-control form-control-sm provision-prerequisite" th:errorclass="is-invalid"/>
           <div th:if="${#fields.hasErrors('deferredDays')}" th:errors="*{deferredDays}" class="invalid-feedback">Deferred days error message</div>
         </div>
       </div>
@@ -264,17 +264,6 @@
 	     	  
 					toggleAlternateSentenceFineCostsOption();
 					toggleAlternateSentenceRestitutionOption();
-					toggleSentenceInfo();
-					toggleProvisionCode();
-					
-          $("#dispositionForm").on("change", "#fineAmount", function(){
-            toggleAlternateSentenceFineCostsOption();
-          });
-			             
-          $("#dispositionForm").on("change", "#restitution", function(){
-            toggleAlternateSentenceRestitutionOption();
-          });
-          
 					if ($('#jailYears').val() > 0){
             $('#jailDays').val(''); 
             $('#jailDays').prop('disabled', true); 
@@ -290,6 +279,27 @@
             $('#deferredYears').prop('disabled', true); 
             $('#deferredDays').prop('disabled', true); 
 					}
+          toggleAlternateSentenceExpungeNotGrantedOption();
+
+					toggleSentenceInfo();
+					toggleProvisionCode();
+					
+          $("#dispositionForm").on("change", "#fineAmount", function(){
+            toggleAlternateSentenceFineCostsOption();
+          });
+			             
+          $("#dispositionForm").on("change", "#restitution", function(){
+            toggleAlternateSentenceRestitutionOption();
+          });
+          $("#dispositionForm").on("change", "#deferredYears", function(){
+            toggleAlternateSentenceExpungeNotGrantedOption();
+          });
+          
+          $("#dispositionForm").on("change", "#deferredDays", function(){
+            toggleAlternateSentenceExpungeNotGrantedOption();
+          });
+            
+          
 					
 					toggleSuspendedInputs();
 					
@@ -305,6 +315,7 @@
                   $('#deferredDays').val(''); 
                   $('#deferredYears').prop('disabled', true); 
                   $('#deferredDays').prop('disabled', true);
+                  toggleAlternateSentenceExpungeNotGrantedOption();
               }
               else{
               	  $('#jailDays').prop('disabled', false);
@@ -324,6 +335,7 @@
                   $('#deferredYears').prop('disabled', true); 
                   $('#deferredDays').val(''); 
                   $('#deferredDays').prop('disabled', true); 
+                  toggleAlternateSentenceExpungeNotGrantedOption();
               }
               else{
                   toggleDefferredYearsDays();
@@ -389,6 +401,7 @@
                $('#deferredYears').prop('disabled', true);
                $('#deferredDays').val('');
                $('#deferredDays').prop('disabled', true);
+               toggleAlternateSentenceExpungeNotGrantedOption();
            }
            else{
                $('#deferredYears').prop('disabled', false);
@@ -482,6 +495,7 @@
 
       }
 	      
+	    var alternateSentenceFineCostsOption = ['30', '64', '63', '27', '62', '28'];
       function toggleAlternateSentenceFineCostsOption(){
           if ($("#fineAmount").val() > 0){
               $('#alternateSentences option[value="28"]').prop('disabled', true);
@@ -490,9 +504,12 @@
               $('#alternateSentences option[value="63"]').prop('disabled', true);
               $('#alternateSentences option[value="27"]').prop('disabled', true);
               $('#alternateSentences option[value="64"]').prop('disabled', true);
+              $('#alternateSentences').val($('#alternateSentences').val().filter(function(item) {
+                  return !alternateSentenceFineCostsOption.includes(item);
+              }));
               $('#alternateSentences').trigger("chosen:updated");
           }
-          else{
+          else if($('#alternateSentences option[value="30"]').prop('disabled')){
               $('#alternateSentences option[value="28"]').prop('disabled', false);
               $('#alternateSentences option[value="30"]').prop('disabled', false);
               $('#alternateSentences option[value="62"]').prop('disabled', false);
@@ -503,19 +520,40 @@
           }
       }
       
+      var alternateSentenceRestitutionOption = ['37', '38'];
       function toggleAlternateSentenceRestitutionOption(){
           if ($("#restitution").val() > 0){
               $('#alternateSentences option[value="37"]').prop('disabled', true);
               $('#alternateSentences option[value="38"]').prop('disabled', true);
+              $('#alternateSentences').val($('#alternateSentences').val().filter(function(item) {
+                  return !alternateSentenceRestitutionOption.includes(item);
+              }));
               $('#alternateSentences').trigger("chosen:updated");
           }
-          else{
+          else if ($('#alternateSentences option[value="37"]').prop('disabled')){
               $('#alternateSentences option[value="37"]').prop('disabled', false);
               $('#alternateSentences option[value="38"]').prop('disabled', false);
               $('#alternateSentences').trigger("chosen:updated");
           }
       }
-	        
+      
+      function toggleAlternateSentenceExpungeNotGrantedOption(){
+          var deferredYears = parseInt($("#dispositionForm #deferredYears").val()) || 0; 
+          var deferredDays = parseInt($("#dispositionForm #deferredDays").val()) || 0; 
+
+          if (deferredYears > 0 || deferredDays > 0){
+              $('#alternateSentences option[value="121"]').prop('disabled', false);;
+              $('#alternateSentences').trigger("chosen:updated");
+
+          }
+          else if (!$('#alternateSentences option[value="121"]').prop('disabled')){
+              $('#alternateSentences').val($('#alternateSentences').val().filter(function(item) {
+                  return item !== '121';
+              }));
+              $('#alternateSentences option[value="121"]').prop('disabled', true);
+              $('#alternateSentences').trigger("chosen:updated");
+          }
+      }
     </script>
   </div>
 	</body>
