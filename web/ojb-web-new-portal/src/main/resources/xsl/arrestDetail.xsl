@@ -286,7 +286,7 @@
         	</a>
         </xsl:if>
         <xsl:if test="contains($authorities, 'CAN_DELETE')">
-	        <a href="#" class="deleteDisposition" data-content="delete" data-toggle="popover" data-trigger="hover">
+	        <a href="#" class="deleteDisposition d-none" data-content="delete" data-toggle="popover" data-trigger="hover">
 	          <i class="fas fa-trash-alt fa-lg"></i>
 	        </a>
         </xsl:if>
