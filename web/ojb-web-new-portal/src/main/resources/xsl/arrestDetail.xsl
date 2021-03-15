@@ -145,7 +145,7 @@
 					   <xsl:value-of select="concat('#charge', $chargeId)"></xsl:value-of>
 					</xsl:attribute>
 					<xsl:value-of select="j:ChargeDescriptionText"/>
-					<xsl:if test="(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326']) or (j:ChargeDisposition[chsres-ext:DispositionCodeText = '329'])">
+					<xsl:if test="(j:ChargeDisposition[chsres-ext:DispositionCodeText = '23']) or (j:ChargeDisposition[chsres-ext:DispositionCodeText = '24'])">
 					   <xsl:text>  (CHARGE DECLINED)</xsl:text>
 					</xsl:if>
 					<xsl:if test="chsres-ext:InProcessIndicator = 'true'">
@@ -235,7 +235,7 @@
 			          <xsl:apply-templates select="j:ChargeDisposition"/>
 			        </tbody>
               <tfoot>
-              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '326']) and not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '329']) and contains($authorities, 'CAN_SAVE')">			          				          
+              	<xsl:if test="not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '23']) and not(j:ChargeDisposition[chsres-ext:DispositionCodeText = '24']) and contains($authorities, 'CAN_SAVE')">			          				          
 		              <tr>
 							      <td style="vertical-align:top; white-space: nowrap" >
 							        <a href="#" class="addDisposition" style="margin-right:3px" data-content="create a new disposition to the current charge" data-toggle="popover" data-trigger="hover">
