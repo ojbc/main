@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({"arrestSearchResults", "arrestSearchRequest", "arrestDetailSearchRequest", "arrestDetail", "arrestDetailTransformed", "dispoCodeMapping", 
 	"muniAmendedChargeCodeMapping", "muniFiledChargeCodeMapping", "muniAlternateSentenceMapping", "muniReasonsForDismissalMapping", 
-	"submitArrestConfirmationMessage", "provisionCodeMapping"})
+	"submitArrestConfirmationMessage", "provisionCodeMapping", "osbiUser"})
 @RequestMapping("/muniArrests")
 public class MuniArrestController {
 	private static final Log log = LogFactory.getLog(MuniArrestController.class);
@@ -82,7 +82,13 @@ public class MuniArrestController {
 		model.addAttribute("disposition", new Disposition(ArrestType.MUNI));
 		
 		if (!model.containsAttribute("dispoCodeMapping")) {
-			model.addAttribute("dispoCodeMapping", codeTableService.getMuniDispositionCodeMap());
+			Map<String, String> dispoCodeMapping = codeTableService.getMuniDispositionCodeMap(); 
+					
+			OsbiUser osbiUser = (OsbiUser) model.asMap().get("osbiUser"); 
+			if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
+				dispoCodeMapping.put("24", "COURT DISPOSITION UNKNOWN");
+			}
+			model.addAttribute("dispoCodeMapping", dispoCodeMapping);
 		}
 		
 		if (!model.containsAttribute("muniAmendedChargeCodeMapping")) {

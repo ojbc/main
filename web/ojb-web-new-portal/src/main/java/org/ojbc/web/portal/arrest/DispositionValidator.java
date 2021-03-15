@@ -20,6 +20,7 @@ package org.ojbc.web.portal.arrest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -46,6 +47,7 @@ public class DispositionValidator implements Validator {
         return Disposition.class.equals(clazz);
     }
 
+    List<String> chargeDelinedDispositionCodeIds = Arrays.asList("23", "24", "84");
     public void validate(Object obj, Errors errors) {
         Disposition disposition = (Disposition) obj;
         
@@ -54,7 +56,7 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("fineSuspended", null, "may not be greater than Fine Amount");
         }
         
-        if (disposition.getDispositionType() == ArrestType.DA && !"390".equals(disposition.getDispositionCode())) {
+        if (disposition.getDispositionType() == ArrestType.DA && !"84".equals(disposition.getDispositionCode())) {
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseType", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", null, "may not be empty");
         	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "caseNumber", null, "may not be empty");
@@ -95,7 +97,8 @@ public class DispositionValidator implements Validator {
         	errors.rejectValue("dispositionCode", null, "the dispo code requires sentence info");
         }
         
-        if (StringUtils.isBlank(disposition.getFiledCharge()) && StringUtils.isBlank(disposition.getFiledChargeLiteral())) {
+        if (StringUtils.isBlank(disposition.getFiledCharge()) && StringUtils.isBlank(disposition.getFiledChargeLiteral())
+        		&& !chargeDelinedDispositionCodeIds.contains(disposition.getDispositionCode())) {
         	errors.rejectValue("filedCharge", null, "may not be blank");
         }
         if (appProperties.getDispoCodesRequiringAmendedCharge().contains(disposition.getDispositionCode()) 

@@ -297,7 +297,7 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
-        <xsl:if test ="not(chsres-ext:DispositionCodeText = '390') and contains($authorities, 'CAN_EDIT')">
+        <xsl:if test ="not(chsres-ext:DispositionCodeText = '84') and contains($authorities, 'CAN_EDIT')">
 	        <a href="#" class="editDisposition" style="margin-right:3px" data-content="edit the recently added disposition" data-toggle="popover" data-trigger="hover">
 	          <i class="fas fa-edit fa-lg"></i>
 	        </a>

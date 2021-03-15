@@ -82,7 +82,13 @@ public class DaArrestController {
 		model.addAttribute("disposition", new Disposition(ArrestType.DA));
 		
 		if (!model.containsAttribute("daDispoCodeMapping")) {
-			model.addAttribute("daDispoCodeMapping", codeTableService.getDaDispositionCodeMap());
+			Map<String, String> daDispoCodeMapping = codeTableService.getDaDispositionCodeMap(); 
+			
+			OsbiUser osbiUser = (OsbiUser) model.asMap().get("osbiUser"); 
+			if (ArrestType.OSBI.getDescription().equals(osbiUser.getEmployerOrganizationCategory())) {
+				daDispoCodeMapping.put("24", "COURT DISPOSITION UNKNOWN");
+			}
+			model.addAttribute("daDispoCodeMapping", daDispoCodeMapping);
 		}
 		
 		if (!model.containsAttribute("daAmendedChargeCodeMapping")) {
