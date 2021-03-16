@@ -597,10 +597,10 @@
                 var requestData = {
                      'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
                      'arrestChargeIdentification': $(this).siblings(".card-link").attr("href").slice(7),
-                     'arrestChargeDescription': $(this).prev(".card-link").text()
+                     'arrestChargeDescription': $(this).siblings(".card-link").text()
                 };
                 
-                chargeRef = $(this).prev(".card-link").attr("href");
+                chargeRef = $(this).siblings(".card-link").attr("href");
                 bootpopup({
                     title: "", 
                     showclose: false,

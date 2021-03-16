@@ -407,7 +407,7 @@
                    var originalChargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                    var newChargeRef = "#charge" + $("#arrestChargeIdentification").val();;
                    var dispositionDateWarning = false;
-                   if ($('#dispositionCode').val() != '398'){
+                   if ($('#dispositionCode').val() != '113'){  //dispo code 398
                        var dispositionDateString = $("#dispositionDate").val();
                        var dispositionDate = date_regex.test(dispositionDateString)? new Date(dispositionDateString):null;
                        var arrestDate = new Date($("#arrestDate").text());
@@ -543,7 +543,7 @@
                     var requestData = {
                          'arrestIdentification': $('#searchResultsTable').attr('arrestId'),
                          'arrestChargeIdentification':$(this).siblings(".card-link").attr("href").slice(7),
-                         'arrestChargeDescription': $(this).prev(".card-link").text()
+                         'arrestChargeDescription': $(this).siblings(".card-link").text()
                     };
                     
                     chargeRef = $(this).prev(".card-link").attr("href");
