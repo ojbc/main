@@ -399,6 +399,12 @@
                  
                  $('#dispositionModal').on('click', '#saveDisposition', function(){
 
+                   if (($('#dispositionCode').val() === '23' || $('#dispositionCode').val() === '24') && 
+                		   $('#filedCharge').val() === ''){
+	                   var originalChargeDescription = $("a.card-link[aria-expanded = 'true']").text();
+	                   $('#filedChargeLiteral').val(originalChargeDescription); 
+                   }
+                   
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
@@ -415,6 +421,7 @@
                          dispositionDateWarning = true; 
                        }
                    }
+                   
 
                    var finalDispositionWarning = false;
                    var deferredYears = parseInt($("#deferredYears").val()) || 0; 
@@ -546,7 +553,7 @@
                          'arrestChargeDescription': $(this).siblings(".card-link").text()
                     };
                     
-                    chargeRef = $(this).prev(".card-link").attr("href");
+                    chargeRef = $(this).siblings(".card-link").attr("href");
                     bootpopup({
                         title: "", 
                         showclose: false,

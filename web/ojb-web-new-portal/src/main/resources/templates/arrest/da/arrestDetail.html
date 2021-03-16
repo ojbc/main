@@ -437,6 +437,12 @@
 
                  
                  $('#dispositionModal').on('click', '#saveDisposition', function(){
+                   if (($('#dispositionCode').val() === '84' || $('#dispositionCode').val() === '24') && 
+                       $('#filedCharge').val() === ''){
+                     var originalChargeDescription = $("a.card-link[aria-expanded = 'true']").text();
+                     $('#filedChargeLiteral').val(originalChargeDescription); 
+                   }
+                         
                 	 var formData = $("#dispositionForm").serialize();
                 	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
