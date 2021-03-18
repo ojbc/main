@@ -32,6 +32,7 @@
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
     xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
     xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
 	exclude-result-prefixes="#all">
 	
 	<xsl:import href="_formatters.xsl" />
@@ -42,6 +43,15 @@
 	
 	<xsl:template match="/ir:IncidentReport/srm:SearchResultsMetadata">
 		<xsl:apply-templates select="srer:SearchRequestError" />
+		<xsl:apply-templates select="iad:InformationAccessDenial" />
+	</xsl:template>
+	
+	<xsl:template match="srer:SearchRequestError">
+		<span class="error">System Name: <xsl:value-of select="intel:SystemName" /><br/> Error: <xsl:value-of select="srer:ErrorText"/></span><br />
+	</xsl:template>
+	
+	<xsl:template match="iad:InformationAccessDenial">
+		<span class="error">System Name: <xsl:value-of select="iad:InformationAccessDenyingSystemNameText" /><br/> Access Denied: <xsl:value-of select="iad:InformationAccessDenialReasonText"/></span><br />
 	</xsl:template>
 
 	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
@@ -98,10 +108,6 @@
 		</div>
 	</xsl:template>
 	
-	<xsl:template match="srer:SearchRequestError">
-		<span class="error">System Name: <xsl:value-of select="intel:SystemName" /><br/> Error: <xsl:value-of select="srer:ErrorText"/></span><br />
-	</xsl:template>
-
 	<xsl:template name="detailsTab">
 <!-- 		<xsl:variable name="officerName" select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//lexsdigest:Associations/j:ActivityEnforcementOfficialAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:PersonReference/@s:ref]/lexsdigest:Person/nc:PersonName/nc:PersonFullName"/> -->
 <!-- 		<xsl:variable name="officerBadge" select="//lexs:Digest/lexsdigest:EntityPerson[lexsdigest:Person/@s:id=//lexsdigest:Associations/j:ActivityEnforcementOfficialAssociation[nc:ActivityReference/@s:ref=//lexsdigest:EntityActivity/nc:Activity/@s:id]/nc:PersonReference/@s:ref]/j:EnforcementOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID"/> -->

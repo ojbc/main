@@ -119,10 +119,8 @@ public abstract class AbstractReportRepositoryProcessor {
 			return;
 		}
 		
-		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(transactionNumber); 
-/**
- * TODO need to handle when identification is null.  		
- */
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(transactionNumber);
+		
 		Node subjectNode = XmlUtils.xPathNodeSearch(rootNode, "jxdm50:Subject/nc30:RoleOfPerson"); 
 		Assert.notNull(subjectNode);
 		Subject subject = identificationTransaction.getSubject() ;

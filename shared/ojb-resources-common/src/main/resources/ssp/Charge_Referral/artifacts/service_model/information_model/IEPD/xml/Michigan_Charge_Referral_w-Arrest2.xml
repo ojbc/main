@@ -524,6 +524,10 @@
 								</inc-ext:Charge>
 								<lexslib:SameAsDigestReference lexslib:ref="Offense_1" />
 							</inc-ext:Incident>
+							<inc-ext:IncidentSubject>
+								<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
+								<inc-ext:SubjectInCustodyIndicator>true</inc-ext:SubjectInCustodyIndicator>
+							</inc-ext:IncidentSubject>
 							<inc-ext:Location>
 								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
 								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />

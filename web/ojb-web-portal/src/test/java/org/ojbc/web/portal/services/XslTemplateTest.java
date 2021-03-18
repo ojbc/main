@@ -195,6 +195,11 @@ public class XslTemplateTest {
     }
 
     @Test
+    public void incidentDetailsAccessDenied() throws Exception {
+        validatePersonSearchTransformation("xsl/incident-details.xsl", "incidentsAccessDenied.xml", "incidentsAccessDenied.html");
+    }
+
+    @Test
     public void vehicleSearchResult() throws Exception {
         validatePersonSearchTransformation("xsl/vehicleSearchResult.xsl", "vehicleSearchResult.xml", "vehicleSearchResult.html");
     }

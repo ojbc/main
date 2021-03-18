@@ -50,14 +50,33 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	private static final String R_CRIMINAL_SID_TO_HIJIS = "R-CRIMINAL-SID-TO-HIJIS";
 	private static final String CIVIL_SID_TO_HIJIS = "CIVIL-SID-TO-HIJIS";
 	private static final String R_CIVIL_SID_TO_HIJIS = "R-CIVIL-SID-TO-HIJIS";
+	private static final String STATE_RESULT_TO_HIJIS = "STATE-RESULT-TO-HIJIS";
+	private static final String FBI_RESULT_TO_HIJIS = "FBI-RESULT-TO-HIJIS";
 	private static final String NSOR_RESULT_TO_HIJIS = "NSOR-TO-HIJIS";
+	private static final String INCOMING_QR_RAP = "INCOMING-QR-RAP";
+	private static final String INCOMING_FQ_RAP = "INCOMING-FQ-RAP";
 	private static final String INCOMING_QXS_RAP = "INCOMING-QXS-RAP";
+	
+	private static final String R_STATE_RESULT_TO_HIJIS = "R-STATE-RESULT-TO-HIJIS";
+	private static final String R_FBI_RESULT_TO_HIJIS = "R-FBI-RESULT-TO-HIJIS";
+	private static final String R_NSOR_RESULT_TO_HIJIS = "R-NSOR-TO-HIJIS";
+	private static final String R_INCOMING_QR_RAP = "R-INCOMING-QR-RAP";
+	private static final String R_INCOMING_FQ_RAP = "R-INCOMING-FQ-RAP";
+	private static final String R_INCOMING_QXS_RAP = "R-INCOMING-QXS-RAP";
 	
 	private static final Log log = LogFactory.getLog( IdentificationResultsReportProcessor.class );
 	
 	private List<String> transactionCategoryToIgnore = Arrays.asList(CRIMINAL_SID_TO_HIJIS, 
 			R_CRIMINAL_SID_TO_HIJIS, CIVIL_SID_TO_HIJIS, R_CIVIL_SID_TO_HIJIS);
+	
+	@SuppressWarnings("unused")
+	private List<String> transactionCategoryTexts = Arrays.asList(STATE_RESULT_TO_HIJIS, FBI_RESULT_TO_HIJIS, 
+			NSOR_RESULT_TO_HIJIS, INCOMING_FQ_RAP, INCOMING_QR_RAP, INCOMING_QXS_RAP);
     
+	@SuppressWarnings("unused")
+	private List<String> resendRransactionCategoryTexts = Arrays.asList(R_STATE_RESULT_TO_HIJIS, R_FBI_RESULT_TO_HIJIS, 
+			R_NSOR_RESULT_TO_HIJIS, R_INCOMING_FQ_RAP, R_INCOMING_QR_RAP, R_INCOMING_QXS_RAP);
+	
     private String databaseResendFolder; 
     private String inputFolder; 
     
@@ -109,11 +128,12 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 
 	private void processCriminalInitialResultsReport(Node rootNode, String transactionCategoryReplyText, String transactionNumber) throws Exception {
 		processIdentificationTransaction(rootNode, transactionCategoryReplyText, transactionNumber);
-		processCriminalInitialResults(rootNode, transactionNumber); 
+		
+		processCriminalInitialResults(rootNode, transactionCategoryReplyText, transactionNumber); 
 		
 	}
 
-	private void processCriminalInitialResults(Node rootNode, String transactionNumber) 
+	private void processCriminalInitialResults(Node rootNode, String transactionCategoryReplyText, String transactionNumber) 
 			throws Exception {
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(transactionNumber);
@@ -129,6 +149,10 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			criminalInitialResults.setResultsSender(ResultSender.State);
 		}
 		
+		if (R_STATE_RESULT_TO_HIJIS.equals(transactionCategoryReplyText) 
+				|| R_FBI_RESULT_TO_HIJIS.equals(transactionCategoryReplyText)) {
+			rapbackDAO.deleteCriminalInitialResults(transactionNumber, criminalInitialResults.getResultsSender());
+		}
 		rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 
 	}
@@ -139,7 +163,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		//Check for NSOR previous result
 		//Save and exit
 		
-		if (INCOMING_QXS_RAP.equals(transactionCategoryText))
+		if (INCOMING_QXS_RAP.equals(transactionCategoryText) || R_INCOMING_QXS_RAP.equals(transactionCategoryText))
 		{
 			if (rapbackDAO.isExistingNsorTransaction(transactionNumber))
 			{	
@@ -164,16 +188,25 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		}
 		
 		updateSubject(rootNode, transactionNumber);
-		  
-		
-		if (NSOR_RESULT_TO_HIJIS.equals(transactionCategoryText))
-		{
+
+		ResultSender resultSender = null; 
+		switch(transactionCategoryText) {
+		case R_NSOR_RESULT_TO_HIJIS: 
+			if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
+				resultSender = ResultSender.FBI;
+			}
+			else{
+				resultSender = ResultSender.State;
+			}			
+
+			rapbackDAO.deleteNsorDemographics(transactionNumber, resultSender);
+			rapbackDAO.deleteNsorSearchResult(transactionNumber, resultSender);
+		case NSOR_RESULT_TO_HIJIS: 
 			log.info("Processing NSOR Result to HIJIS message.");
 			saveNsorDocument(rootNode, transactionNumber);
-		}
-		else
-		{
-			processCivilInitialResults(rootNode, transactionNumber);	
+			break;
+		default:
+			processCivilInitialResults(rootNode, transactionNumber, transactionCategoryText);
 		}
 
 	}
@@ -229,7 +262,7 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 	}
 
-	private void processCivilInitialResults(Node rootNode, String transactionNumber) throws Exception, IOException {
+	private void processCivilInitialResults(Node rootNode, String transactionNumber, String transactionCategoryText) throws Exception, IOException {
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
 		civilInitialResults.setTransactionNumber(transactionNumber);
 		
@@ -240,7 +273,14 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 			civilInitialResults.setResultsSender(ResultSender.State);
 		}
 		
-		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
+		Integer initialResultsPkId = null; 
+		
+		if (R_STATE_RESULT_TO_HIJIS.equals(transactionCategoryText) || R_FBI_RESULT_TO_HIJIS.equals(transactionCategoryText)) {
+			rapbackDAO.deleteCivilInitialResults(transactionNumber, civilInitialResults.getResultsSender());
+		}
+		else {
+			initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
+		}
 		
 		if (initialResultsPkId == null){
 			civilInitialResults.setSearchResultFile(
