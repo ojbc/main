@@ -60,6 +60,7 @@ public class Disposition {
 	private Integer counts; 
 	private String dispositionDescription;
     private String courtCaseNumber;
+    private String muniCourtCaseNumber; 
     
     private String filedCharge;
     private String filedChargeDescription; 
@@ -441,5 +442,11 @@ public class Disposition {
 	}
 	public void setAmendedChargeLiteral(String amendedChargeLiteral) {
 		this.amendedChargeLiteral = amendedChargeLiteral;
+	}
+	public String getMuniCourtCaseNumber() {
+		return muniCourtCaseNumber;
+	}
+	public void setMuniCourtCaseNumber(String muniCourtCaseNumber) {
+		this.muniCourtCaseNumber = muniCourtCaseNumber;
 	}
 }    

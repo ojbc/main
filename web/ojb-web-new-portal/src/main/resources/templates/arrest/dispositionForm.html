@@ -81,8 +81,8 @@
                 data-content="If Court Case Number is not available use Citation Number.">
                 <i class="fas fa-info-circle"></i></a>
            </label>
-           <input type="text" th:field="*{courtCaseNumber}" class="form-control" th:errorclass="is-invalid"/>
-           <div th:if="${#fields.hasErrors('courtCaseNumber')}" th:errors="*{courtCaseNumber}" class="invalid-feedback">Court Case Number error message</div>
+           <input type="text" th:field="*{muniCourtCaseNumber}" class="form-control" th:errorclass="is-invalid"/>
+           <div th:if="${#fields.hasErrors('muniCourtCaseNumber')}" th:errors="*{muniCourtCaseNumber}" class="invalid-feedback">Court Case Number error message</div>
          </div>
       </div>
       <div class="form-row">
@@ -299,8 +299,6 @@
             toggleAlternateSentenceExpungeNotGrantedOption();
           });
             
-          
-					
 					toggleSuspendedInputs();
 					
 			    if ($('#deferredYears').val() > 0){

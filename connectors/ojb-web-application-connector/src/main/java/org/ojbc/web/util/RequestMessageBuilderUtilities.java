@@ -1660,10 +1660,19 @@ public class RequestMessageBuilderUtilities {
     		createChargeStatuteElement(disposition.getFiledCharge(), disposition.getFiledChargeDescription(), filedCharge);
     	}
     	
-    	if (StringUtils.isNotBlank(disposition.getCourtCaseNumber())) {
+    	if (StringUtils.isNotBlank(disposition.getCourtCaseNumber()) || 
+    			StringUtils.isNotBlank(disposition.getMuniCourtCaseNumber())) {
     		Element courtCase = XmlUtils.appendElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "CourtCase");
     		Element activityIdentification = XmlUtils.appendElement(courtCase, NS_NC_40, "ActivityIdentification");
-    		XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", disposition.getCourtCaseNumber());
+    		Element daCourtCaseIndicator = XmlUtils.appendElement(courtCase, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, "DACourtCaseIndicator"); 
+    		if (StringUtils.isNotBlank(disposition.getCourtCaseNumber())) {
+    			XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", disposition.getCourtCaseNumber());
+    			daCourtCaseIndicator.setTextContent("true");
+    		}
+    		else {
+    			XmlUtils.appendTextElement(activityIdentification, NS_NC_40, "IdentificationID", disposition.getMuniCourtCaseNumber());
+    			daCourtCaseIndicator.setTextContent("false");
+    		}
     	}
     	
     	XmlUtils.appendTextElement(chargeDisposition, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
