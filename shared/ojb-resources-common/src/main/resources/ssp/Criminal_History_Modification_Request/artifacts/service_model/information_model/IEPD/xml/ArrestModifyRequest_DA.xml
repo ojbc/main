@@ -61,6 +61,7 @@
 					<nc:ActivityIdentification>
 						<nc:IdentificationID>1234567890</nc:IdentificationID>
 					</nc:ActivityIdentification>
+					<chm-req-ext:DACourtCaseIndicator>true</chm-req-ext:DACourtCaseIndicator>
 				</chm-req-ext:CourtCase>
 				<chm-req-ext:DispositionCodeText>389</chm-req-ext:DispositionCodeText>
 				<chm-req-ext:DispositionProvisionText>Provision</chm-req-ext:DispositionProvisionText>

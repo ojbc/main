@@ -17,22 +17,86 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xs:schema targetNamespace="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/4.0/ ../../../utility/appinfo/4.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../utility/conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:structures="http://release.niem.gov/niem/structures/4.0/">
+<xs:schema targetNamespace="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" version="1" xml:lang="en-US" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/4.0/ ../../../utility/appinfo/4.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../utility/conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/4.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/4.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/4.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xs:annotation>
     <xs:documentation>FBI code lists for the National Crime and Information Center (NCIC-2000).
 Source: FBI Crminal Justice Information Systems (CJIS) Division; 
 Publication: leo.gov database; 
 https://www.leo.gov</xs:documentation>
+    <xs:appinfo>
+      <appinfo:LocalTerm term="MNU" literal="(person identifier) Miscellaneous Number"/>
+      <appinfo:LocalTerm term="PCO" literal="Protection Order Condition"/>
+      <appinfo:LocalTerm term="TYP" literal="(Firearm) Type"/>
+      <appinfo:LocalTerm term="BRA" literal="Boat Brand Name"/>
+      <appinfo:LocalTerm term="RMI" literal="Ransom Money Indicator"/>
+      <appinfo:LocalTerm term="CDA" literal="Manner and Cause of Death"/>
+      <appinfo:LocalTerm term="VMA" literal="Vehicle Make"/>
+      <appinfo:LocalTerm term="RES" literal="Registration State"/>
+      <appinfo:LocalTerm term="PCS" literal="(Fingerprint) Pattern Code Source"/>
+      <appinfo:LocalTerm term="BLT" literal="Blood Type"/>
+      <appinfo:LocalTerm term="EXL" literal="Extradition Limitation"/>
+      <appinfo:LocalTerm term="EPD" literal="(Boat) Engine Power or Displacement"/>
+      <appinfo:LocalTerm term="SMT" literal="Scars, Marks, Tattoos, and Other Characteristics"/>
+      <appinfo:LocalTerm term="MPC" literal="Missing Person Circumstances"/>
+      <appinfo:LocalTerm term="CMC" literal="Caution and Medical Conditions"/>
+      <appinfo:LocalTerm term="PRO" literal="(Boat) Propulsion"/>
+      <appinfo:LocalTerm term="VCO" literal="Vehicle Color"/>
+      <appinfo:LocalTerm term="BXR" literal="Body X-Rays Available"/>
+      <appinfo:LocalTerm term="LIT" literal="License Plate Number"/>
+      <appinfo:LocalTerm term="ETN" literal="Ethnicity"/>
+      <appinfo:LocalTerm term="CTZ" literal="Citizenship"/>
+      <appinfo:LocalTerm term="ECR" literal="(Threat Group Member) Criteria for Entry"/>
+      <appinfo:LocalTerm term="PSC" literal="Physical Feature Sub Class"/>
+      <appinfo:LocalTerm term="LIS" literal="License Plate State"/>
+      <appinfo:LocalTerm term="VST" literal="Vehicle Style"/>
+      <appinfo:LocalTerm term="IFS" literal="Identification for Firearm Sales"/>
+      <appinfo:LocalTerm term="OLS" literal="Operator License State"/>
+      <appinfo:LocalTerm term="HAI" literal="Hair Color"/>
+      <appinfo:LocalTerm term="FPC" literal="Fingerprint Classification"/>
+      <appinfo:LocalTerm term="CAT" literal="(Vehicle/Boat Part) Category"/>
+      <appinfo:LocalTerm term="TYPA" literal="Article Type"/>
+      <appinfo:LocalTerm term="JWT" literal="Jewelry Type"/>
+      <appinfo:LocalTerm term="CAL" literal="(Firearm) Caliber"/>
+      <appinfo:LocalTerm term="SKN" literal="Skin Tone"/>
+      <appinfo:LocalTerm term="CRC" literal="Circumcision"/>
+      <appinfo:LocalTerm term="BCO" literal="Boat Color"/>
+      <appinfo:LocalTerm term="BPS" literal="Body Parts Status"/>
+      <appinfo:LocalTerm term="COL" literal="(Physical Feature) Color"/>
+      <appinfo:LocalTerm term="TYPS" literal="(Securities) Type"/>
+      <appinfo:LocalTerm term="MAK" literal="(Firearm) Make"/>
+      <appinfo:LocalTerm term="BTY" literal="Boat Type"/>
+      <appinfo:LocalTerm term="PCC" literal="Physical Feature Class"/>
+      <appinfo:LocalTerm term="RAC" literal="Race"/>
+      <appinfo:LocalTerm term="IMT" literal="Image Type"/>
+      <appinfo:LocalTerm term="HSP" literal="(Boat) Hull Shape"/>
+      <appinfo:LocalTerm term="EYE" literal="Eye Color"/>
+      <appinfo:LocalTerm term="FILE" literal="FILE fields"/>
+      <appinfo:LocalTerm term="BTMA" literal="Vehicle Make for Boat Trailer"/>
+      <appinfo:LocalTerm term="DCH" literal="Dental Characteristics"/>
+      <appinfo:LocalTerm term="ORI" definition="A nine-character identifier assigned by the FBI Criminal Justice Information Systems (CJIS) staff to an organization, which must have met the established qualifying criteria for ORI assignment to identify the agency in transactions on CJIS Systems."/>
+      <appinfo:LocalTerm term="SDT" literal="Security Date or Series Year"/>
+      <appinfo:LocalTerm term="HUL" literal="(Boat) Outer Hull Material"/>
+      <appinfo:LocalTerm term="MNP" literal="Missing Person"/>
+      <appinfo:LocalTerm term="POB" literal="Place of Birth"/>
+      <appinfo:LocalTerm term="BMA" literal="Boat Make"/>
+      <appinfo:LocalTerm term="SEX" literal="Gender"/>
+      <appinfo:LocalTerm term="DEN" literal="Denomination"/>
+      <appinfo:LocalTerm term="VMO" literal="Vehicle Model"/>
+      <appinfo:LocalTerm term="OFF" literal="Offense Code"/>
+      <appinfo:LocalTerm term="IDT" literal="Identity Theft Type"/>
+      <appinfo:LocalTerm term="LSTA" literal="State/Country Index"/>
+      <appinfo:LocalTerm term="TYPO" literal="ORI Type"/>
+    </xs:appinfo>
   </xs:annotation>
-  <xs:import schemaLocation="../../../utility/structures/4.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/4.0/"/>
+  <xs:import namespace="http://release.niem.gov/niem/structures/4.0/" schemaLocation="../../../utility/structures/4.0/structures.xsd"/>
   <xs:simpleType name="RACECodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for 3 - Race (RAC), Protected Person Race (PPR), and Person with Information Race (PIR) Field Codes</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="A">
+      <xs:enumeration value="I">
         <xs:annotation>
-          <xs:documentation>ASIAN OR PACIFIC ISLANDER - A PERSON HAVING ORIGINS IN ANY OF THE ORIGINAL PEOPLES OF THE FAR EAST, SOUTHEAST ASIA, THE INDIAN SUBCONTINENT OR THE PACIFIC ISLANDS.</xs:documentation>
+          <xs:documentation>AMERICAN INDIAN OR ALASKAN NATIVE - A PERSON HAVING ORIGINS IN ANY OF THE ORIGINAL PEOPLES OF THE AMERICAS AND MAINTAINING CULTURAL IDENTIFICATION THROUGH TRIBAL AFFILIATIONS OR COMMUNITY RECOGNITION.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="B">
@@ -40,9 +104,9 @@ https://www.leo.gov</xs:documentation>
           <xs:documentation>BLACK - A PERSON HAVING ORIGINS IN ANY OF THE BLACK RACIAL GROUPS OF AFRICA.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="I">
+      <xs:enumeration value="A">
         <xs:annotation>
-          <xs:documentation>AMERICAN INDIAN OR ALASKAN NATIVE - A PERSON HAVING ORIGINS IN ANY OF THE ORIGINAL PEOPLES OF THE AMERICAS AND MAINTAINING CULTURAL IDENTIFICATION THROUGH TRIBAL AFFILIATIONS OR COMMUNITY RECOGNITION.</xs:documentation>
+          <xs:documentation>ASIAN OR PACIFIC ISLANDER - A PERSON HAVING ORIGINS IN ANY OF THE ORIGINAL PEOPLES OF THE FAR EAST, SOUTHEAST ASIA, THE INDIAN SUBCONTINENT OR THE PACIFIC ISLANDS.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="U">
@@ -72,9 +136,9 @@ https://www.leo.gov</xs:documentation>
       <xs:documentation>A data type for 2 - Sex, Sex of Victim (SOV), and Protected Person Sex (PSX) Field Codes</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="F">
+      <xs:enumeration value="U">
         <xs:annotation>
-          <xs:documentation>FEMALE</xs:documentation>
+          <xs:documentation>UNKNOWN</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="M">
@@ -82,9 +146,9 @@ https://www.leo.gov</xs:documentation>
           <xs:documentation>MALE</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="U">
+      <xs:enumeration value="F">
         <xs:annotation>
-          <xs:documentation>UNKNOWN</xs:documentation>
+          <xs:documentation>FEMALE</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
