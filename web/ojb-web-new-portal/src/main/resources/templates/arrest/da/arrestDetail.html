@@ -343,6 +343,7 @@
                 	 console.log(rowData[4]);
                 	 console.log(rowData[5]);
                    var countyName = $(this).closest('div.card').find("span.countyName").html();
+                   var dataSource = $(this).closest("tr").attr("data-source");
 
                 	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
                    xhr = $.get( context +"daArrests/dispositionForm", {
@@ -384,7 +385,9 @@
 				                      $('#arrestChargeIdentification').val(chargeId);
 				                      $('#dispositionModal .modal-title').html("Edit Disposition");
 				                      $('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
-				                      $('#saveDisposition').prop('disabled', true); 
+				                      if (dataSource !== 'RAPUP'){
+			                          $('#saveDisposition').prop('disabled', true);
+			                        }
 				                      $('#dispositionModal').modal('show');
 				                   }).fail(ojbc.displayFailMessage);
                  });

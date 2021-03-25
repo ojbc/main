@@ -35,6 +35,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 public class Disposition {
 	private ArrestType dispositionType; 
+	private String source; 
 	private String arrestIdentification;
 	private String arrestChargeIdentification;
 	private String dispositionIdentification;
@@ -448,5 +449,11 @@ public class Disposition {
 	}
 	public void setMuniCourtCaseNumber(String muniCourtCaseNumber) {
 		this.muniCourtCaseNumber = muniCourtCaseNumber;
+	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
 	}
 }    

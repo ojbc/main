@@ -324,6 +324,7 @@
                 	 console.log(rowData);
                    var chargeOri = $(this).closest('div.card').find("span.chargeOri").html();
                    var chargeAgencyName = $(this).closest('div.card').find("span.chargeAgencyName").html();
+                   var dataSource = $(this).closest("tr").attr("data-source");
                    
                 	 xhr = $.get( context +"muniArrests/dispositionForm", {
 	                       arrestIdentification: $('#searchResultsTable').attr('arrestId'),
@@ -358,7 +359,9 @@
                       $('#arrestChargeIdentification').val(chargeId);
                       $('#dispositionModal .modal-title').html("Edit Disposition");
                       $('#dispositionModal .modal-footer').html($("#saveDispositionButtons").html())
-                      $('#saveDisposition').prop('disabled', true); 
+                      if (dataSource !== 'RAPUP'){
+                    	  $('#saveDisposition').prop('disabled', true);
+                      }
                       $('#dispositionModal').modal('show');
                    }).fail(ojbc.displayFailMessage);
                  });
