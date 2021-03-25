@@ -108,6 +108,7 @@
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
+					<chsres-ext:ChargeDispositionSourceText>CCH</chsres-ext:ChargeDispositionSourceText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
 					<chsres-ext:DispositionChargeCountQuantity>3</chsres-ext:DispositionChargeCountQuantity>
 				</j:ChargeDisposition>
@@ -151,6 +152,7 @@
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
+					<chsres-ext:ChargeDispositionSourceText>CCH</chsres-ext:ChargeDispositionSourceText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>F</chsres-ext:ChargeDispositionSeverityCodeText>
 					<chsres-ext:ChargeModificationDescriptionCodeText>V</chsres-ext:ChargeModificationDescriptionCodeText>
 				</j:ChargeDisposition>
@@ -285,6 +287,7 @@
 					<chsres-ext:DispositionDismissalReasonText>Reason for disposition dismissal</chsres-ext:DispositionDismissalReasonText>
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
+					<chsres-ext:ChargeDispositionSourceText>CCH</chsres-ext:ChargeDispositionSourceText>
 					<chsres-ext:ChargeDispositionSeverityCodeText>M</chsres-ext:ChargeDispositionSeverityCodeText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>

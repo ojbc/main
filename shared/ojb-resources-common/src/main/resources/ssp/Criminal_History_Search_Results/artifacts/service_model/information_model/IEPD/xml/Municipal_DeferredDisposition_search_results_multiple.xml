@@ -88,6 +88,7 @@
 						</nc:ActivityIdentification>
 					</chsres-ext:CourtCase>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
+					<chsres-ext:ChargeDispositionSourceText>CCH</chsres-ext:ChargeDispositionSourceText>
 					<chsres-ext:DispositionCodeText>357</chsres-ext:DispositionCodeText>
 					<chsres-ext:DispositionCodeDescriptionText>Disposition Description 1</chsres-ext:DispositionCodeDescriptionText>
 					<chsres-ext:DispositionProvisionCodeText>123</chsres-ext:DispositionProvisionCodeText>
@@ -184,6 +185,7 @@
 					<chsres-ext:DispositionDismissalReasonCodeText>DISCODE</chsres-ext:DispositionDismissalReasonCodeText>
 					<chsres-ext:DispositionChargeCountQuantity>1</chsres-ext:DispositionChargeCountQuantity>
 					<chsres-ext:ChargeDispositionCategoryCode>deferred</chsres-ext:ChargeDispositionCategoryCode>
+					<chsres-ext:ChargeDispositionSourceText>CCH</chsres-ext:ChargeDispositionSourceText>
 				</j:ChargeDisposition>
 				<j:ChargeIdentification>
 					<nc:IdentificationID>C12345678</nc:IdentificationID>
