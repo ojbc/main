@@ -24,6 +24,8 @@
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
 	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0 ../xsd/exchange_schema/Charge_Referral_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
