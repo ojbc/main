@@ -297,7 +297,7 @@
         <xsl:value-of select="normalize-space(chsres-ext:DispositionIdentification/nc:IdentificationID)"/>
       </xsl:attribute>
       <xsl:attribute name="data-source">
-        <xsl:value-of select="normalize-space(chsres-ext:DispositionSource)"/>
+        <xsl:value-of select="normalize-space(chsres-ext:ChargeDispositionSourceText)"/>
       </xsl:attribute>
       <td style="vertical-align:top; white-space: nowrap" >
         <xsl:if test ="not(chsres-ext:DispositionCodeText = '84') and contains($authorities, 'CAN_EDIT')">
