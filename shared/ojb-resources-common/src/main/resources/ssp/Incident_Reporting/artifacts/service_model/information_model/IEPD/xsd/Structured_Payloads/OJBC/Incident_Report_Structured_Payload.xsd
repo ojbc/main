@@ -22,7 +22,7 @@
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
 		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
@@ -31,6 +31,8 @@
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the Incident Report
 		</xsd:documentation>

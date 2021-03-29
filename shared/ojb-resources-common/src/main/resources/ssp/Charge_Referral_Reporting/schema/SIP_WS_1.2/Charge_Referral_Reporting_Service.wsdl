@@ -63,7 +63,7 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 	<wsdl:binding name="Charge-Referral-Reporting-Secure-ServiceSOAPBinding" type="tns:Charge-Referral-Reporting-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
-		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="true"/>
+		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="false"/>
 		<wsdl:operation name="ReportChargeReferral">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0/ReportChargeReferral" style="document"/>
 			<wsdl:input>
