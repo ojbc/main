@@ -486,7 +486,7 @@
                $('#jailDays').prop('disabled', false);
                toggleDefferredYearsDays();
                $('#restitution').prop('disabled', false);
-               $('#alternateSentences').prop('disabled', false);
+               $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
                toggleAlternateSentenceFineCostsOption();
                toggleAlternateSentenceRestitutionOption();
          }

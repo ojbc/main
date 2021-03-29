@@ -605,7 +605,7 @@
                 $('#prisonYears').prop('disabled', false);
                 $('#prisonDays').prop('disabled', false);
                 $('#restitution').prop('disabled', false);
-                $('#alternateSentences').prop('disabled', false);
+                $('#alternateSentences').prop('disabled', false).trigger("chosen:updated");
                 toggleDefferredYearsDays();
                 toggleAlternateSentenceFineCostsOption();
                 toggleAlternateSentenceRestitutionOption();
