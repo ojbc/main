@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.OjbcWebConstants.ArrestType;
@@ -301,6 +302,13 @@ public class MuniArrestController {
 		}
 		
 		setCodeDescriptions(disposition, model); 
+		
+		if (StringUtils.isNotBlank(disposition.getFiledCharge())) {
+			disposition.setChargeSeverityCode("2");
+		}
+		if (StringUtils.isNotBlank(disposition.getAmendedCharge())) {
+			disposition.setAmendedChargeSeverityCode("2");
+		}
 		log.info(disposition);
 		arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));
 //		String response = arrestService.saveDisposition(disposition, samlService.getSamlAssertion(request));

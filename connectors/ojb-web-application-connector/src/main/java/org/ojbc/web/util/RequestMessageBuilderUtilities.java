@@ -1630,6 +1630,8 @@ public class RequestMessageBuilderUtilities {
         	if (StringUtils.isNotBlank(disposition.getAmendedChargeLiteral())) {
         		XmlUtils.appendTextElement(amendedCharge, NS_JXDM_60, "ChargeDescriptionText", disposition.getAmendedChargeLiteral());
         	}
+        	XmlUtils.appendTextElement(amendedCharge, NS_JXDM_60, 
+        			"ChargeSeverityText", disposition.getAmendedChargeSeverityCode());
         	if (disposition.getDispositionType() == ArrestType.MUNI) {
 	        	XmlUtils.appendTextElement(amendedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
 	        			"ChargeMunicipalCodeText", disposition.getAmendedCharge());
@@ -1637,8 +1639,6 @@ public class RequestMessageBuilderUtilities {
 	        			"ChargeMunicipalCodeDescriptionText", disposition.getAmendedChargeDescription());
         	}
         	else if (disposition.getDispositionType() == ArrestType.DA) {
-        		XmlUtils.appendTextElement(amendedCharge, NS_JXDM_60, 
-        				"ChargeSeverityText", disposition.getAmendedChargeSeverityCode());
         		createChargeStatuteElement(disposition.getAmendedCharge(), disposition.getAmendedChargeDescription(), amendedCharge);
         	}
         }
@@ -1648,6 +1648,8 @@ public class RequestMessageBuilderUtilities {
     	if (StringUtils.isNotBlank(disposition.getFiledChargeLiteral())) {
     		XmlUtils.appendTextElement(filedCharge, NS_JXDM_60, "ChargeDescriptionText", disposition.getFiledChargeLiteral());
     	}
+    	XmlUtils.appendTextElement(filedCharge, NS_JXDM_60, 
+    			"ChargeSeverityText", disposition.getChargeSeverityCode());
     	if (disposition.getDispositionType() == ArrestType.MUNI) {
 	    	XmlUtils.appendTextElement(filedCharge, NS_CRIMINAL_HISTORY_MODIFICATION_REQUEST_EXT, 
 	    			"ChargeMunicipalCodeText", disposition.getFiledCharge());
@@ -1655,8 +1657,6 @@ public class RequestMessageBuilderUtilities {
 	    			"ChargeMunicipalCodeDescriptionText", disposition.getFiledChargeDescription());
     	}    	
     	else if (disposition.getDispositionType() == ArrestType.DA) {
-    		XmlUtils.appendTextElement(filedCharge, NS_JXDM_60, 
-    				"ChargeSeverityText", disposition.getChargeSeverityCode());
     		createChargeStatuteElement(disposition.getFiledCharge(), disposition.getFiledChargeDescription(), filedCharge);
     	}
     	
