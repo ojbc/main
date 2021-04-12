@@ -80,7 +80,8 @@
             $(function(){
           	    $('[data-toggle="popover"]').prop('tabIndex', -1).popover(); 
                 $.fn.dataTable.moment( 'MM/DD/YYYY' );
-                
+                $('.date').mask('99/99/9999');
+
                 if ( $.fn.dataTable.isDataTable( '#muniSearchResultsTable' ) ) {
                   table = $('#muniSearchResultsTable').DataTable();
                 }

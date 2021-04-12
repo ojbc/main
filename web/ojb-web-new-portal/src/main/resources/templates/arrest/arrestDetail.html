@@ -97,7 +97,119 @@
 						      </div>
 						    </div>
 						  </div>
-						</div>				    
+						</div>
+										    
+            <!-- Submit disposition Modal -->
+            <div class="modal fade ojbc-modal draggable" id="submitDispositionModal" tabindex="-1" role="dialog" aria-labelledby="submitDispositionModalTitle" aria-hidden="true">
+              <div class="modalIframeSpinner" ></div>
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header draggable-handler">
+                    <h5 class="modal-title" id="submitDispositionModalTitle">Please Confirm Disposition Content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="submitDispositioModalContent">
+                    <p>The disposition that you are saving will be entered into the Criminal History Repository and will appear on the RAP Sheet. Please confirm that the information you entered is correct.</p>
+                    <div id="dispositionModalContent">
+								      <div class="row">
+							          <label class="col">Charge at Arrest</label>
+                        <div class="col fieldValue" data-field="arrestChargeIdentification"></div>
+							        </div>
+							        <div class="row"> 
+							          <label class="col">Court Name</label>
+							          <div class="col fieldValue" data-field="muniCourtName"></div>
+								      </div>
+ 								      <div class="row">
+						            <label class="col">Disposition Date</label>
+						            <div class="col fieldValue" data-field="dispositionDate"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Disposition</label>
+						            <div class="col fieldValue" data-field="dispositionCode"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Counts</label>
+						            <div class="col fieldValue" data-field="counts"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Court Case Number</label>
+						            <div class="col fieldValue" data-field="muniCourtCaseNumber"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Filed Charge Literal</label>
+						            <div class="col fieldValue" data-field="filedChargeLiteral"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Filed Charge</label>
+						            <div class="col fieldValue" data-field="filedCharge"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Amended Charge Literal</label>
+						            <div class="col fieldValue" data-field="amendedChargeLiteral"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Amended Charge</label>
+						            <div class="col fieldValue" data-field="amendedCharge"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Fine Amount</label>
+						            <div class="col fieldValue" data-field="fineAmount"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Fine Suspended</label>
+						            <div class="col fieldValue" data-field="fineSuspended"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Jail Years</label>
+						            <div class="col fieldValue" data-field="jailYears"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Jail Days</label>
+						            <div class="col fieldValue" data-field="jailDays"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Suspended Years</label>
+						            <div class="col fieldValue" data-field="suspendedYears"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Suspended Days</label>
+						            <div class="col fieldValue" data-field="suspendedDays"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Deferred Years</label>
+						            <div class="col fieldValue" data-field="deferredYears"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Deferred Days</label>
+						            <div class="col fieldValue" data-field="deferredDays"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Restitution</label>
+						            <div class="col fieldValue" data-field="restitution"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Additional Sentence</label>
+						            <div class="col fieldValue" data-field="alternateSentences"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Reason For Dismissal</label>
+						            <div class="col fieldValue" data-field="reasonForDismissal"></div>
+						          </div>
+ 								      <div class="row">
+						            <label class="col">Provision</label>
+						            <div class="col fieldValue" data-field="provisionCode"></div>
+						          </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmDispositionContent">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>            
 			   </div>
 		     <script th:inline="javascript">
 		        /*<![CDATA[*/
@@ -471,7 +583,29 @@
                      });
                	   }
                	   else{
-               		   saveDisposition(formData);
+               		   var fieldValues = $("#dispositionModalContent .fieldValue"); 
+               		   jQuery.each( fieldValues, function() {
+										    relatedFieldId = $(this).attr("data-field");
+										    relatedField = $('#' + relatedFieldId);
+										    console.log(relatedField.val());
+										    console.log(relatedField.is("select"));
+										    if (relatedField.is("select")){
+										    	if (!!relatedField.val()){ 
+										    	  selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join();										    	  
+										        $(this).html(selectedText);
+										    	}
+										    }
+										    else {
+										        $(this).html(relatedField.val());
+										    }
+										 });
+               		   $('#submitDispositionModal').modal('show');
+                     $('#submitDispositionModal')
+                       .off('click', '#confirmDispositionContent')
+                       .on('click', '#confirmDispositionContent',function() {
+	                    	  $('#submitDispositionModal .close').click();
+	                    	  saveDisposition(formData);
+                     });
                	   }
                  });
 
