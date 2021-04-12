@@ -93,6 +93,121 @@
                   </div>
                 </div>
               </div>
+            </div> 
+                       
+            <!-- Submit disposition Modal -->
+            <div class="modal fade ojbc-modal draggable" id="submitDispositionModal" tabindex="-1" role="dialog" aria-labelledby="submitDispositionModalTitle" aria-hidden="true">
+              <div class="modalIframeSpinner" ></div>
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header draggable-handler">
+                    <h5 class="modal-title" id="submitDispositionModalTitle">Please Confirm Disposition Content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="submitDispositioModalContent">
+                    <p>The disposition that you are saving will be entered into the Criminal History Repository and will appear on the RAP Sheet. Please confirm that the information you entered is correct.</p>
+                    
+                    <table class="table table-striped table-bordered" style="width:100%" id="dispositionModalContent">
+                      <tr>
+                        <th>Charge at Arrest</th>
+                        <td class="fieldValue" data-field="arrestChargeIdentification"></td>
+                        <th>Court Name</th>
+                        <td class="fieldValue" data-field="daCourtName"></td>
+                      </tr>
+                      <tr>
+                        <th>Disposition Date</th>
+                        <td class="fieldValue" data-field="dispositionDate"></td>
+                        <th>Disposition</th>
+                        <td class=" fieldValue" data-field="dispositionCode"></td>
+                      </tr>
+                      <tr>
+                        <th>Counts</th>
+                        <td class="fieldValue" data-field="counts"></td>
+                        <th>Reason For Dismissal</th>
+                        <td class="fieldValue" data-field="reasonForDismissal"></td>
+                      </tr>
+                      <tr>
+                        <th>Filed Charge Literal</th>
+                        <td class="fieldValue" data-field="filedChargeLiteral"></td>
+                        <th>Filed Charge</th>
+                        <td class=" fieldValue" data-field="filedCharge"></td>
+                      </tr>
+                      <tr>
+                        <th>Filed Charge Severity</th>
+                        <td class="fieldValue" data-field="chargeSeverityCode"></td>
+                        <th>General Offense Code</th>
+                        <td class="fieldValue" data-field="generalOffenseCode"></td>
+                      </tr>
+                      <tr>
+                        <th>Amended Charge Literal</th>
+                        <td class="fieldValue" data-field="amendedChargeLiteral"></td>
+                        <th>Amended Charge</th>
+                        <td class=" fieldValue" data-field="amendedCharge"></td>
+                      </tr>
+                      <tr>
+                        <th>Amended Charge Severity</th>
+                        <td class="fieldValue" data-field="amendedChargeSeverityCode"></td>
+                        <th>Restitution</th>
+                        <td class="fieldValue" data-field="restitution"></td>
+                      </tr>
+                      <tr>
+                        <th>Fine Amount</th>
+                        <td class="fieldValue" data-field="fineAmount"></td>
+                        <th>Fine Suspended</th>
+                        <td class=" fieldValue" data-field="fineSuspended"></td>
+                      </tr>
+                      <tr>
+                        <th>Prison Years</th>
+                        <td class="fieldValue" data-field="prisonYears"></td>
+                        <th>Prison Days</th>
+                        <td class=" fieldValue" data-field="prisonDays"></td>
+                      </tr>
+                      <tr>
+                        <th>Jail Years</th>
+                        <td class="fieldValue" data-field="jailYears"></td>
+                        <th>Jail Days</th>
+                        <td class=" fieldValue" data-field="jailDays"></td>
+                      </tr>
+                      <tr>
+                        <th>Suspended Years</th>
+                        <td class="fieldValue" data-field="suspendedYears"></td>
+                        <th>Suspended Days</th>
+                        <td class=" fieldValue" data-field="suspendedDays"></td>
+                      </tr>
+                      <tr>
+                        <th>Deferred Years</th>
+                        <td class="fieldValue" data-field="deferredYears"></td>
+                        <th>Deferred Days</th>
+                        <td class=" fieldValue" data-field="deferredDays"></td>
+                      </tr>
+                      <tr>
+                        <th>Provision</th>
+                        <td class=" fieldValue" data-field="provisionCode"></td>
+                        <th>Additional Sentence</th>
+                        <td class=" fieldValue" data-field="alternateSentences"></td>
+                      </tr>
+                      <tr>
+                        <th>Court Case Number County</th>
+                        <td class="fieldValue" data-field="county"></td>
+                        <th>Court Case Number Case Type</th>
+                        <td class="fieldValue" data-field="caseType"></td>
+                      </tr>
+                      <tr>
+                        <th>Court Case Number Year</th>
+                        <td class="fieldValue" data-field="year"></td>
+                        <th>Case Number </th>
+                        <td class="fieldValue" data-field="caseNumber"></td>
+                      </tr>
+                    </table>
+                   </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmDispositionContent">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
             </div>            
 			   </div>
 		     <script th:inline="javascript">
@@ -538,7 +653,29 @@
 
                	   }
                	   else{
-               		   saveDisposition(formData);
+                       var fieldValues = $("#dispositionModalContent .fieldValue"); 
+                       jQuery.each( fieldValues, function() {
+                          relatedFieldId = $(this).attr("data-field");
+                          relatedField = $('#' + relatedFieldId);
+                          console.log(relatedField.val());
+                          console.log(relatedField.is("select"));
+                          if (relatedField.is("select")){
+                            if (!!relatedField.val()){ 
+                              selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join(', ');                           
+                              $(this).html(selectedText);
+                            }
+                          }
+                          else {
+                              $(this).html(relatedField.val());
+                          }
+                       });
+                       $('#submitDispositionModal').modal('show');
+                       $('#submitDispositionModal')
+                         .off('click', '#confirmDispositionContent')
+                         .on('click', '#confirmDispositionContent',function() {
+                            $('#submitDispositionModal .close').click();
+                            saveDisposition(formData);
+                       });
                	   }
                  });
 
