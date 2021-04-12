@@ -36,7 +36,7 @@
            </ol>
         </nav>
         <form action="#" th:action="@{/daArrests/advancedSearch}" th:object="${daArrestSearchRequest}" id="daSearchForm" method="post" th:fragment="daArrestSearchForm">
-	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"/>
+	        <div class="row" th:replace="arrest/arrestSearchForm.html :: arrestSearchFormContent"></div>
         </form>
         <hr/>
         
@@ -80,6 +80,7 @@
               $(function(){
                   $('[data-toggle="popover"]').prop('tabIndex', -1).popover(); 
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
+                  $('.date').mask('99/99/9999');
 
                   if ( $.fn.dataTable.isDataTable( '#daSearchResultsTable' ) ) {
                 	  daSearchResultsTable = $('#daSearchResultsTable').DataTable();
