@@ -43,7 +43,7 @@
 						       <H5>ARREST DETAIL </h5>
 					       </div>
 					       <div class="col-2" style="text-align:right;" sec:authorize="hasAuthority('CAN_SUBMIT')"> 
-						       <button type="button" class="btn-primary" id="presentArrest">Submit Arrest</button>
+						       <button type="button" class="btn-primary" id="presentArrest">Complete Arrest</button>
 					       </div> 
 				       </div>
 		        </div>
@@ -83,7 +83,7 @@
 						  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
-						        <h5 class="modal-title" id="submitArrestModalTitle">Submit Arrest</h5>
+						        <h5 class="modal-title" id="submitArrestModalTitle">Complete Arrest</h5>
 						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						          <span aria-hidden="true">&times;</span>
 						        </button>
@@ -499,8 +499,6 @@
 	                   $('#filedChargeLiteral').val(originalChargeDescription); 
                    }
                    
-                	 var formData = $("#dispositionForm").serialize();
-                	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
                 	 var fineAmount = parseInt($("#fineAmount").val().replace(',', ''));
                    var counts = parseInt($("#counts").val()) || 0; 
@@ -521,11 +519,16 @@
                    var deferredYears = parseInt($("#deferredYears").val()) || 0; 
                    var deferredDays = parseInt($("#deferredDays").val()) || 0; 
                    var deferredTime = 360 * deferredYears + deferredDays; 
+                   var jailYears = parseInt($("#jailYears").val()) || 0; 
+                   var jailDays = parseInt($("#jailDays").val()) || 0; 
+                   var jailTime = 360 * jailYears + jailDays;
+
                    if (deferredTime > 0 && $('#alternateSentences').val().includes('121')){
                 	   finalDispositionWarning = true; 
                    }
                    
-                   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || dispositionDateWarning || finalDispositionWarning){
+                   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || dispositionDateWarning 
+                		   || finalDispositionWarning || jailTime > 360 || counts > 10){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                        contentArray.push({ p: {text: "The Fine Amount exceeds $1,000."}});
@@ -547,6 +550,10 @@
                     	 contentArray.push({ p: {text: '"Expungement Not Granted" can only be added to a disposition that contains a deferred sentence.  The statement will not print on the OSBI RAP sheet, but will remove this arrest from your list of pending arrests in the RAPUP program.  Do you wish to continue?'}});
                      }
 
+                     if (jailTime > 360 ){
+                       contentArray.push({ p: {text: "Jail Time exceeds one year. This is in violation of the law."}});
+                     }
+                     
                      contentArray.push({ p: {text: "Do you want to proceed?"}});
                      bootpopup({
                          title: "", 
@@ -556,38 +563,43 @@
                          complete: function() {
                              $('#dispositionModal').css('overflow-y', 'auto');
                          },
-                         yes: function(data, array, event) {  
-                           saveDisposition(formData);
+                         yes: function(data, array, event) { 
+                        	 confirmDispositionContent();
                          },
                      });
                	   }
                	   else{
-               		   var fieldValues = $("#dispositionModalContent .fieldValue"); 
-               		   jQuery.each( fieldValues, function() {
-										    relatedFieldId = $(this).attr("data-field");
-										    relatedField = $('#' + relatedFieldId);
-										    console.log(relatedField.val());
-										    console.log(relatedField.is("select"));
-										    if (relatedField.is("select")){
-										    	if (!!relatedField.val()){ 
-										    	  selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join(', ');										    	  
-										        $(this).html(selectedText);
-										    	}
-										    }
-										    else {
-										        $(this).html(relatedField.val());
-										    }
-										 });
-               		   $('#submitDispositionModal').modal('show');
-                     $('#submitDispositionModal')
-                       .off('click', '#confirmDispositionContent')
-                       .on('click', '#confirmDispositionContent',function() {
-	                    	  $('#submitDispositionModal .close').click();
-	                    	  saveDisposition(formData);
-                     });
+                       confirmDispositionContent();
                	   }
                  });
 
+                 function confirmDispositionContent(){
+                     var formData = $("#dispositionForm").serialize();
+                     var fieldValues = $("#dispositionModalContent .fieldValue"); 
+                     jQuery.each( fieldValues, function() {
+                        relatedFieldId = $(this).attr("data-field");
+                        relatedField = $('#' + relatedFieldId);
+                        console.log(relatedField.val());
+                        console.log(relatedField.is("select"));
+                        if (relatedField.is("select")){
+                          if (!!relatedField.val()){ 
+                            selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join(', ');                           
+                            $(this).html(selectedText);
+                          }
+                        }
+                        else {
+                            $(this).html(relatedField.val());
+                        }
+                     });
+                     $('#submitDispositionModal').css('overflow-y', 'auto');
+                     $('#submitDispositionModal').modal('show');
+                     $('#submitDispositionModal')
+                       .off('click', '#confirmDispositionContent')
+                       .on('click', '#confirmDispositionContent',function() {
+                          $('#submitDispositionModal .close').click();
+                          saveDisposition(formData);
+                     });
+                 }
                  function expungeDisposition(formData){
                      chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "muniArrests/expungeDisposition",formData,function(data) {

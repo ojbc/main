@@ -164,9 +164,9 @@ public class DispositionValidator implements Validator {
     	}
     	
     	if (disposition.getDispositionType() == ArrestType.MUNI) {
-    		if (jailDays > 360) {
-    			errors.rejectValue("jailYears", null, "may not be greater than 1");
-    		}
+//    		if (jailDays > 360) {
+//    			errors.rejectValue("jailYears", null, "may not be greater than 1");
+//    		}
     		
     		if (suspendedDays > 360) {
     			errors.rejectValue("suspendedYears", null, "may not be greater than 1");
@@ -217,9 +217,9 @@ public class DispositionValidator implements Validator {
 	    			errors.rejectValue("deferredYears", null, "must be empty when jail years or prison time are not empty");
 	    		}
         	}
-        	else if (jailDays > 90  && deferredDays <= 3600) {
-        		errors.rejectValue("jailDays", null, "may not be greater than 90 when deferred time is not empty");
-        	}
+//        	else if (jailDays > 90  && deferredDays <= 3600) {
+//        		errors.rejectValue("jailDays", null, "may not be greater than 90 when deferred time is not empty");
+//        	}
         	else if (deferredDays > 3600) {
     			errors.rejectValue("deferredDays", null, "Deferred time may not be greater than 10 years");
         	}

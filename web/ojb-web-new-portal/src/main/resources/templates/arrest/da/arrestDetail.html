@@ -397,8 +397,8 @@
                          'chargeIds': chargeIds
                      };
 
-                     console.log("requestData: "  + requestData);
-                     console.log("requestData: "  + $.param(requestData));
+                     //console.log("requestData: "  + requestData);
+                     //console.log("requestData: "  + $.param(requestData));
                       
                      var contentArray = [];
                      emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length
@@ -452,12 +452,12 @@
                  
                  $('.dispositionsTable tbody').off('click', 'a.editDisposition').on('click', 'a.editDisposition',function() {
                 	 var chargeId = $(this).closest("table").attr("id");
-                	 console.log("chargeId:" + chargeId);
+                	 //console.log("chargeId:" + chargeId);
                 	 var rowData = dispoTables[chargeId].row($(this).closest("tr")).data(); 
-                	 console.log(rowData);
+/*                 	 console.log(rowData);
                 	 console.log(rowData[4]);
                 	 console.log(rowData[5]);
-                   var countyName = $(this).closest('div.card').find("span.countyName").html();
+ */                   var countyName = $(this).closest('div.card').find("span.countyName").html();
                    var dataSource = $(this).closest("tr").attr("data-source");
 
                 	 console.log($("#dispositionForm").serialize()+ "&amendedCharge=" + rowData[5]);
@@ -561,8 +561,6 @@
                      $('#filedChargeLiteral').val(originalChargeDescription); 
                    }
                          
-                	 var formData = $("#dispositionForm").serialize();
-                	 
                 	 var restitution = parseInt($("#restitution").val().replace(',', ''));
                 	 var fineAmount = parseInt($("#fineAmount").val().replace(',', '')); 
                 	 var jailYears = parseInt($("#jailYears").val()) || 0; 
@@ -597,13 +595,18 @@
                      finalDispositionWarning = true; 
                    }
                    
-                	 var chargeSeverity = $('#amendedChargeSeverityCode').val() || $('#chargeSeverityCode').val(); 
+                   if (!!$('#amendedChargeSeverityCode').val()){
+                	   var chargeSeverity = $('#amendedChargeSeverityCode option:selected').text();
+                   }
+                   else if (!!$('#chargeSeverityCode').val()){
+                	   var chargeSeverity = $('#chargeSeverityCode option:selected').text();
+                   }
                    var originalChargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                    var newChargeRef = "#charge" + $("#arrestChargeIdentification").val();;
 
                	   if ( !(originalChargeRef === newChargeRef) || restitution > 5000 || fineAmount > 1000 || jailTime > 360  || 
-               			   (chargeSeverity === 'M' && ( deferredTime > 360 || prisonTime > 0) ) || dispositionDateWarning || 
-               			   finalDispositionWarning){
+               			   (chargeSeverity === 'Misdemeanor' && ( jailTime > 360 || deferredTime > 360 || prisonTime > 0) ) || dispositionDateWarning || 
+               			   finalDispositionWarning || (jailTime > 90 && deferredTime> 0 &&  deferredTime < 3600) ){
                		   var contentArray = [];
                		   if (fineAmount > 1000) {
                			   contentArray.push({ p: {text: "The Fine Amount exceeds $1,000. "}});
@@ -612,15 +615,19 @@
                        contentArray.push({ p: {text: "The Restitution exceeds $5,000. "}});
                		   }
                		   
-               		   if (jailTime > 360 && chargeSeverity === 'F'){
+               		   if (jailTime > 360 && chargeSeverity === 'Felony'){
                        contentArray.push({ p: {text: "Jail Time exceeds one year."}});
                		   }
                		   
-               		   if ((jailTime > 360 || deferredTime > 360 )&& chargeSeverity === 'M'){
-                       contentArray.push({ p: {text: "The sentence exceeds one year on a misdemeanor offense."}});
+               		   if ((jailTime > 360 || deferredTime > 360 )&& chargeSeverity === 'Misdemeanor'){
+                       contentArray.push({ p: {text: "The sentence exceeds one year on a misdemeanor offense and is in violation of the law."}});
                		   }
                		   
-               		   if (prisonTime > 0 && chargeSeverity === 'M'){
+               		   if (jailTime > 90 && deferredTime > 0 && deferredTime < 3600 ){
+               			   contentArray.push({ p: {text: "The jail itme is greater than 90 when deferred time is not empty. This is in violation of the law."}});
+               		   }
+               		   
+               		   if (prisonTime > 0 && chargeSeverity === 'Misdemeanor'){
                			   contentArray.push({ p: {text: "The sentence includes prison time on a misdemeanor offense. "}});
                		   }
                		   if (counts > 10){
@@ -647,38 +654,45 @@
                         	 $('#dispositionModal').css('overflow-y', 'auto');
                          },
                          yes: function(data, array, event) { 
-                        	 saveDisposition(formData);
+                        	 confirmDispositionContent();
                        	 },
                      });
 
                	   }
                	   else{
-                       var fieldValues = $("#dispositionModalContent .fieldValue"); 
-                       jQuery.each( fieldValues, function() {
-                          relatedFieldId = $(this).attr("data-field");
-                          relatedField = $('#' + relatedFieldId);
-                          console.log(relatedField.val());
-                          console.log(relatedField.is("select"));
-                          if (relatedField.is("select")){
-                            if (!!relatedField.val()){ 
-                              selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join(', ');                           
-                              $(this).html(selectedText);
-                            }
-                          }
-                          else {
-                              $(this).html(relatedField.val());
-                          }
-                       });
-                       $('#submitDispositionModal').modal('show');
-                       $('#submitDispositionModal')
-                         .off('click', '#confirmDispositionContent')
-                         .on('click', '#confirmDispositionContent',function() {
-                            $('#submitDispositionModal .close').click();
-                            saveDisposition(formData);
-                       });
+               		   confirmDispositionContent();
                	   }
                  });
 
+                 
+                 function confirmDispositionContent(){
+                     var formData = $("#dispositionForm").serialize();
+                     var fieldValues = $("#dispositionModalContent .fieldValue"); 
+                     jQuery.each( fieldValues, function() {
+                        relatedFieldId = $(this).attr("data-field");
+                        relatedField = $('#' + relatedFieldId);
+                        console.log(relatedField.val());
+                        console.log(relatedField.is("select"));
+                        if (relatedField.is("select")){
+                          if (!!relatedField.val()){ 
+                            selectedText = $('#' + relatedFieldId +' option:selected').toArray().map(item => item.text).join(', ');                           
+                            $(this).html(selectedText);
+                          }
+                        }
+                        else {
+                            $(this).html(relatedField.val());
+                        }
+                     });
+                     $('#submitDispositionModal').css('overflow-y', 'auto');
+                     $('#submitDispositionModal').modal('show');
+                     $('#submitDispositionModal')
+                       .off('click', '#confirmDispositionContent')
+                       .on('click', '#confirmDispositionContent',function() {
+                          $('#submitDispositionModal .close').click();
+                          saveDisposition(formData);
+                     });
+                 }
+                 
                  function expungeDisposition(formData){
                      chargeRef = $("a.card-link[aria-expanded = 'true']").attr("href");
                      xhr = $.post(context + "daArrests/expungeDisposition",formData,function(data) {
