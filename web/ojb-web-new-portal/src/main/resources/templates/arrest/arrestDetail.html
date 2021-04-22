@@ -334,9 +334,17 @@
                     	$('#submitArrestModalContent').html(data);
                     	var dispositionTableCount = $(".dispositionsTable").length;
                     	var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length;
-                    	if (dispositionTableCount === emptyDispositionTableCount){
-                    		$("#confirmSubmitArrest").addClass("d-none");
-                    	}
+                      if (emptyDispositionTableCount > 0){
+                          var message = "Please add disposition to, decline or refer the charge(s) before completing the arrest. ";  
+                          if (emptyDispositionTableCount == 1){
+                            $('#submitArrestModalContent').prepend('<div class="alert alert-danger" role="alert">There is one charge with no disposition. ' + message + '</div>');
+                          }
+                          else if (emptyDispositionTableCount > 1){
+                            $('#submitArrestModalContent').prepend('<div class="alert alert-danger" role="alert">There are charges with no disposition. ' + message + '</div>');
+                          }
+
+                          $("#confirmSubmitArrest").addClass("d-none");
+                      }
                     	else{
                     		$("#confirmSubmitArrest").removeClass("d-none");
                     	}
@@ -358,14 +366,6 @@
                     console.log("requestData: "  + $.param(requestData));
                     
                     var contentArray = [];
-                    emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length;
-                    
-                    if (emptyDispositionTableCount == 1){
-                    	contentArray.push({ p: {text: "One of the charges has no disposition. "}});
-                    }
-                    else if (emptyDispositionTableCount > 1){
-                    	contentArray.push({ p: {text: "Some of the charges have no dispositions. "}});
-                    }
                     contentArray.push({ p: {text: submitArrestConfirmationMessage}});
                     contentArray.push({ p: {text: "Do you want to proceed?"}});
                     bootpopup({
