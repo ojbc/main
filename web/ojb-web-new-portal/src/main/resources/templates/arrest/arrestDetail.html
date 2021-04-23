@@ -332,6 +332,12 @@
                  $('#portalContent').on('click', '#presentArrest',function() {
                     xhr = $.get( context +"muniArrests/summary", function(data) {
                     	$('#submitArrestModalContent').html(data);
+                      $('#submitArrestModalContent .dispositionCode').each(function(){
+                          $(this).html(dispoCodeMapping[$(this).text()]);
+                      }); 
+                      $('#submitArrestModalContent .chargeDismissalCode').each(function(){
+                          $(this).html(reasonsForDismissalMapping[$(this).text()]);
+                      }); 
                     	var dispositionTableCount = $(".dispositionsTable").length;
                     	var emptyDispositionTableCount = $(".dispositionsTable .dataTables_empty").length;
                       if (emptyDispositionTableCount > 0){
@@ -596,6 +602,7 @@
                      $('#submitDispositionModal')
                        .off('click', '#confirmDispositionContent')
                        .on('click', '#confirmDispositionContent',function() {
+                          $('#dispositionModal').css('overflow-y', 'auto');
                           $('#submitDispositionModal .close').click();
                           saveDisposition(formData);
                      });

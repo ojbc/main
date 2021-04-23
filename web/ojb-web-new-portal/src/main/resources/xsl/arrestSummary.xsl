@@ -92,7 +92,7 @@
 			</td>
 		</tr>
 		<xsl:choose>
-			<xsl:when test="j:ChargeDisposition[. !='']">
+			<xsl:when test="j:ChargeDisposition">
 				<xsl:apply-templates select="j:ChargeDisposition">
 					<xsl:sort select="translate(./nc:DispositionDate/nc:Date,'-', '')" order="descending" />
 				</xsl:apply-templates>
@@ -117,8 +117,8 @@
 			<xsl:variable name="ccID" select="chsres-ext:CourtCase/nc:ActivityIdentification/nc:IdentificationID" />
 			<xsl:variable name="county" select="substring($ccID,1,2)" />
 			<xsl:variable name="caseType" select="substring($ccID,3,1)" />
-			<xsl:variable name="year" select="substring($ccID,6,2)" />
-			<xsl:variable name="caseNum" select="number(substring($ccID,8,5))" />
+			<xsl:variable name="year" select="substring($ccID,4,2)" />
+			<xsl:variable name="caseNum" select="number(substring($ccID,6,5))" />
 			<tr>
 				<td class="dispositionLabel">CASE NUMBER:</td>
 				<td>
@@ -156,11 +156,11 @@
 			</tr>
 		</xsl:if>
 		<xsl:choose>
-			<xsl:when test="chsres-ext:DispositionCodeDescriptionText[. !='']">
+			<xsl:when test="chsres-ext:DispositionCodeText[. !='']">
 				<tr>
 					<td class="dispositionLabel">DISPOSITION:</td>
-					<td>
-						<xsl:value-of select="upper-case(chsres-ext:DispositionCodeDescriptionText)" />
+					<td class="dispositionCode">
+						<xsl:value-of select="upper-case(chsres-ext:DispositionCodeText)" />
 					</td>
 				</tr>
 			</xsl:when>
@@ -186,6 +186,14 @@
 				<td class="dispositionLabel">DISPOSITION DATE:</td>
 				<td>
 					<xsl:value-of select="nc:DispositionDate/nc:Date" />
+				</td>
+			</tr>
+		</xsl:if>
+		<xsl:if test="chsres-ext:ChargeDispositionSourceText[. !='']">
+			<tr>
+				<td class="dispositionLabel">SOURCE:</td>
+				<td>
+					<xsl:value-of select="chsres-ext:ChargeDispositionSourceText" />
 				</td>
 			</tr>
 		</xsl:if>
@@ -215,15 +223,13 @@
 				</tr>
 			</xsl:for-each>
 		</xsl:if>
-		<xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
-			<xsl:for-each select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText">
-				<tr>
-					<td class="chargeLabel">AMENDED CHARGE:</td>
-					<td>
-						<xsl:value-of select="upper-case(.)" />
-					</td>
-				</tr>
-			</xsl:for-each>
+		<xsl:if test="chsres-ext:FiledCharge/j:ChargeDescriptionText[. !='']">
+      <tr>
+        <td class="chargeLabel">FILED CHARGE LITERAL:</td>
+        <td>
+          <xsl:value-of select="upper-case(chsres-ext:FiledCharge/j:ChargeDescriptionText)" />
+        </td>
+      </tr>
 		</xsl:if>
 		<xsl:if test="chsres-ext:FiledCharge/j:ChargeStatute/j:StatuteDescriptionText[. !='']">
 			<xsl:for-each select="chsres-ext:FiledCharge">
@@ -238,13 +244,31 @@
 						<xsl:if test="j:ChargeSeverityText[. !='']">
 							<xsl:variable name="severity" select="j:ChargeSeverityText" />
 							<xsl:value-of select="' - '" />
-							<xsl:if test="$severity = 'M'">
+							<xsl:if test="$severity = '2'">
 								<xsl:value-of select="'MISDEMEANOR'" />
 							</xsl:if>
-							<xsl:if test="$severity = 'F'">
+							<xsl:if test="$severity = '1'">
 								<xsl:value-of select="'FELONY'" />
 							</xsl:if>
 						</xsl:if>
+					</td>
+				</tr>
+			</xsl:for-each>
+		</xsl:if>
+    <xsl:if test="chsres-ext:AmendedCharge/j:ChargeDescriptionText[. !='']">
+      <tr>
+        <td class="chargeLabel">AMENDED CHARGE LITERAL:</td>
+        <td>
+          <xsl:value-of select="upper-case(chsres-ext:AmendedCharge/j:ChargeDescriptionText)" />
+        </td>
+      </tr>
+    </xsl:if>
+		<xsl:if test="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText[. !='']">
+			<xsl:for-each select="chsres-ext:AmendedCharge/chsres-ext:ChargeMunicipalCodeDescriptionText">
+				<tr>
+					<td class="chargeLabel">AMENDED CHARGE:</td>
+					<td>
+						<xsl:value-of select="upper-case(.)" />
 					</td>
 				</tr>
 			</xsl:for-each>
@@ -262,16 +286,24 @@
 						<xsl:if test="j:ChargeSeverityText[. !='']">
 							<xsl:variable name="severity" select="j:ChargeSeverityText" />
 							<xsl:value-of select="' - '" />
-							<xsl:if test="$severity = 'M'">
+							<xsl:if test="$severity = '2'">
 								<xsl:value-of select="'MISDEMEANOR'" />
 							</xsl:if>
-							<xsl:if test="$severity = 'F'">
+							<xsl:if test="$severity = '1'">
 								<xsl:value-of select="'FELONY'" />
 							</xsl:if>
 						</xsl:if>
 					</td>
 				</tr>
 			</xsl:for-each>
+		</xsl:if>
+		<xsl:if test="chsres-ext:DispositionDismissalReasonCodeText">
+        <tr>
+          <td class="chargeLabel">CHARGE DISMISSAL REASON:</td>
+          <td class="chargeDismissalCode">
+            <xsl:value-of select="chsres-ext:DispositionDismissalReasonCodeText" />
+          </td>
+        </tr>
 		</xsl:if>
 		<xsl:apply-templates
 			select="../j:ChargeSentence[@structures:id=../../../chsres-ext:DispositionSentenceAssociation[nc:Disposition/@structures:ref=$CDid]/j:Sentence/@structures:ref]">
