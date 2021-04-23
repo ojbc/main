@@ -62,7 +62,7 @@
 	            <li class="nav-item" sec:authorize="hasAuthority('AUTHZ_DA') && hasAuthority('CAN_SEARCH')">
 	              <a class="nav-link daArrest" href="#" id="daArrest">State Charges</span></a>
 	            </li>
-	            <li class="nav-item" sec:authorize="hasAuthority('CAN_LOOKUP_ARREST')">
+	            <li class="nav-item d-none" sec:authorize="hasAuthority('CAN_LOOKUP_ARREST')">
 	              <a class="nav-link daArrest" href="#" id="arrestLookup">Arrest Lookup</span></a>
 	            </li>
 	            <li class="nav-item dropdown" sec:authorize="hasAuthority('CAN_VIEW_ADMIN_REPORTS')">
