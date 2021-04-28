@@ -56,7 +56,7 @@ public class AppProperties {
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
 	private String submitArrestConfirmationMessage="You are about to submit this arrest to OSBI.  "
-			+ "If you would like to edit this arrest in the future, you will need to use the \"Arrest Lookup\" functionality in this tool";
+			+ "Once the record is completed, you will not be able to modify it in RAPUP and the arrest will no longer appear on your list of records to be updated.";
 	private String signOutUrl = "/logoutSuccess"; 
 	
 	/*
@@ -103,7 +103,6 @@ public class AppProperties {
 		setDaGeneralOffenseCodeMapping(generalOffenseCodeMapping);
 		
 		getMuniPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");
-		getMuniPendingChargesMapping().put("filedCharges", "Filed Charges");
 		
 		getDaPendingChargesMapping().put("deferredDisposition", "Deferred Dispositions");
 		getDaPendingChargesMapping().put("filedCharges", "Filed Charges");
