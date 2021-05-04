@@ -31,6 +31,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.audit.AuditUser;
 import org.ojbc.web.portal.services.CodeTableService;
+import org.ojbc.web.portal.services.otp.OTPService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -51,6 +52,8 @@ public class PortalPreAuthenticatedUserDetailsService implements
 	AppProperties appProperties;
 	@Resource
 	CodeTableService codeTableService;
+	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	OTPService otpService;
 
     private final Log log = LogFactory.getLog(this.getClass());
 	/**
@@ -96,42 +99,55 @@ public class PortalPreAuthenticatedUserDetailsService implements
         List<SimpleGrantedAuthority> grantedAuthorities = 
                 new ArrayList<SimpleGrantedAuthority>();
 
+        OsbiUser osbiUser = null; 
         if (samlAssertion == null){
         	log.info("samlAssertion is null ");
+        	osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities);
         }
         else {
-        	SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
-        	grantedAuthorities.add(rolePortalUser);
+        	
+        	if (appProperties.getRequireOtpAuthentication()) {
+            	if (addOtpAuthenticationRole(samlAssertion))
+            	{
+            		SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
+            		grantedAuthorities.add(rolePortalUser);
+            	}
+            	else{
+            		osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities); 
+            	}
+
+        	}
+        	
+        	if (osbiUser == null) {
+                String employerOrganizationCategoryText = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText);
+                
+                
+                AuditUser userInfo = getUserInfo(samlAssertion);
+                UserAttributes userAttributes = codeTableService.auditUserLoginReturnUserAttributes(userInfo);
+                
+                for (String roleName : userAttributes.getRoles()) {
+                	SimpleGrantedAuthority role = new SimpleGrantedAuthority(roleName);
+                	grantedAuthorities.add(role);
+                }
+                switch (StringUtils.trimToEmpty(employerOrganizationCategoryText)) {
+                case "District Attorney": 
+                	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+                	break; 
+                case "Municipal Court": 
+                	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+                	break; 
+                case "Criminal History Repository":
+                	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
+                	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
+                	userAttributes.getOris().clear();
+                	break;
+                }
+                
+            	osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, userAttributes.getOris(), userInfo);
+            	osbiUser.setEmployerOrganizationCategory(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText));
+        	}
         }
         
-        String employerOrganizationCategoryText = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText);
-        
-        
-        AuditUser userInfo = getUserInfo(samlAssertion);
-        UserAttributes userAttributes = codeTableService.auditUserLoginReturnUserAttributes(userInfo);
-        
-        for (String roleName : userAttributes.getRoles()) {
-        	SimpleGrantedAuthority role = new SimpleGrantedAuthority(roleName);
-        	grantedAuthorities.add(role);
-        }
-        switch (StringUtils.trimToEmpty(employerOrganizationCategoryText)) {
-        case "District Attorney": 
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        	break; 
-        case "Municipal Court": 
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        	break; 
-        case "Criminal History Repository":
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_DA.name()));
-        	grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_MUNI.name()));
-        	userAttributes.getOris().clear();
-        	break;
-        }
-        
-        //TODO call the rest service to get the list ORIs and access roles. 
-    	
-    	OsbiUser osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities, userAttributes.getOris(), userInfo);
-		osbiUser.setEmployerOrganizationCategory(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerOrganizationCategoryText));
 		return osbiUser;
 	}
 
@@ -145,4 +161,30 @@ public class PortalPreAuthenticatedUserDetailsService implements
 		userInfo.setOrganizationName(SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName));
 		return userInfo;
 	}
+	
+	private boolean addOtpAuthenticationRole(Element samlAssertion) {
+		   
+		if (otpService != null)
+		{
+			log.info("Validate OTP using service");
+			
+			String userEmail = "";
+			try {
+				userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+			} catch (Exception e) {
+				log.error("Unable to retrieve SAML assertion");
+				return false;
+			}
+
+			if (otpService.isUserAuthenticated(userEmail))
+			{
+				log.info("Role OTP should be granted");
+				return true;
+			}	
+		}
+		
+		return false;
+	}
+
+
 }

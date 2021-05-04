@@ -17,6 +17,7 @@
 
 package org.ojbc.web.portal.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class OsbiUser extends User implements UserDetails, CredentialsContainer {
 
 	private static final long serialVersionUID = 1606369551188528192L;
-	private List<String> oris;
+	private List<String> oris = new ArrayList<>();
 	private String federationId;
 	private String firstName;
 	private String lastName;
@@ -59,6 +60,11 @@ public class OsbiUser extends User implements UserDetails, CredentialsContainer 
 		this.setOrganizationName(auditUser.getOrganizationName());
 	}
 
+	public OsbiUser(String username, String password,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, true, true, true, true, authorities);
+	}
+	
 	// ~ Methods
 	// ========================================================================================================
 

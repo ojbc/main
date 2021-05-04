@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.ojbc.web.portal.security.OsbiAccessDeniedHandler;
 import org.ojbc.web.portal.security.PortalAuthenticationDetailsSource;
 import org.ojbc.web.portal.security.PortalPreAuthenticatedUserDetailsService;
 import org.ojbc.web.portal.security.SamlAuthenticationFilter;
@@ -54,9 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Resource
 	PortalPreAuthenticatedUserDetailsService portalPreAuthenticatedUserDetailsService;
 	
+	@Resource
+	OsbiAccessDeniedHandler osbiAccessDeniedHandler;
+	
 	@Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/otp/**", "otp/requestOtp", "/resources/css/**");
     }
 
     @Override
@@ -67,13 +71,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers("/daArrests/**").hasAuthority("AUTHZ_DA")
 		    .antMatchers("/arrests/**").hasAnyAuthority("AUTHZ_DA", "AUTHZ_MUNI")
 		    .antMatchers("/audit/**").hasAnyAuthority("CAN_VIEW_ADMIN_REPORTS")
-		    .anyRequest().authenticated()
+		    .anyRequest().hasAuthority("AUTHZ_PORTAL")
 		    .and()
 	    	.logout().logoutUrl("/logout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
 		    .and().securityContext()
 		    .and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
-		      LogoutFilter.class);
+		      LogoutFilter.class)
+		    .exceptionHandling().accessDeniedHandler(osbiAccessDeniedHandler)
+		    ;
     }
     
     @Autowired

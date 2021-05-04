@@ -51,7 +51,9 @@ public class AppProperties {
 	private Boolean allowQueriesWithoutSAMLToken = true; 
 	private Boolean inactivityTimeout=true;
 	private Integer inactivityTimeoutInSeconds = 1800; 
-	private Integer arrestSearchDateRange = 30; 
+	private Integer arrestSearchDateRange = 30;
+	
+	private Boolean requireOtpAuthentication = true; 
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
@@ -337,6 +339,14 @@ public class AppProperties {
 
 	public void setDaPendingChargesMapping(Map<String, String> daPendingChargesMapping) {
 		this.daPendingChargesMapping = daPendingChargesMapping;
+	}
+
+	public Boolean getRequireOtpAuthentication() {
+		return requireOtpAuthentication;
+	}
+
+	public void setRequireOtpAuthentication(Boolean requireOtpAuthentication) {
+		this.requireOtpAuthentication = requireOtpAuthentication;
 	}
 
 }

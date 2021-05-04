@@ -58,26 +58,4 @@ public class WebUtils {
 		return xmlString;
 
 	}
-	
-//	public static Boolean getFederatedQueryUserIndicator(Element samlAssertion) {
-//		String federatedQueryUserIndicatorString = null;
-//        try {
-//			federatedQueryUserIndicatorString  = XmlUtils.xPathStringSearch(samlAssertion,
-//			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-//			        + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue");
-//		} catch (Exception e) {
-//			log.warn("Failed to retrieve FederatedQueryUserIndicator");
-//			e.printStackTrace();
-//		}
-//        
-//        if (federatedQueryUserIndicatorString !=null && federatedQueryUserIndicatorString.equals("1"))
-//        {
-//        	federatedQueryUserIndicatorString="true";
-//        }	
-//        
-//        Boolean federatedQueryUserIndicator = BooleanUtils.toBooleanObject(StringUtils.trimToNull(federatedQueryUserIndicatorString));
-//		return federatedQueryUserIndicator;
-//	}
-
-
 }
