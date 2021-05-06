@@ -108,7 +108,7 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Override
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Entering Is user authenticated: " + userIdentifier);
+		log.info("Checking isUserAuthenticated: " + userIdentifier);
 		
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
