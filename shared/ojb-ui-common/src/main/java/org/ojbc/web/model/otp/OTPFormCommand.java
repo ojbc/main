@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.controllers.dto;
+package org.ojbc.web.model.otp;
 
 import java.io.Serializable;
 
@@ -22,7 +22,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.ojbc.web.model.otp.OTPRequest;
 
 public class OTPFormCommand implements Serializable{
 	
