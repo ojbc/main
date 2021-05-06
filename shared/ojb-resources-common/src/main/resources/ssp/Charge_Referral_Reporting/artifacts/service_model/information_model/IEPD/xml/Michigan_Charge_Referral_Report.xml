@@ -23,7 +23,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
 	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0 ../xsd/exchange_schema/Charge_Referral_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -330,7 +331,7 @@
 								<nc:OrganizationName>Genesee County Prosecution
 								</nc:OrganizationName>
 							</nc:Organization>
-						</lexsdigest:EntityOrganization>									
+						</lexsdigest:EntityOrganization>
 						<!-- ======================= Residence Location Telephone Number ======================= -->
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber s:id="Res_Tel_1">
@@ -466,12 +467,10 @@
 										<nc:IdentificationID>83655221</nc:IdentificationID>
 									</j:OrganizationORIIdentification>
 								</j:OrganizationAugmentation>
-								<ndexia:OrganizationAugmentation
-									xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
-									<lexslib:SameAsDigestReference
-										lexslib:ref="Prosecution_Agency_1" />
+								<ndexia:OrganizationAugmentation xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+									<lexslib:SameAsDigestReference lexslib:ref="Prosecution_Agency_1" />
 								</ndexia:OrganizationAugmentation>
-							</ndexia:Organization>							
+							</ndexia:Organization>
 						</ndexia:IncidentReport>
 					</lexs:StructuredPayload>
 					<lexs:StructuredPayload>
@@ -480,7 +479,10 @@
 							<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
 							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 						</lexs:StructuredPayloadMetadata>
-						<inc-ext:IncidentReport>
+						<inc-ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+							xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+							xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+							xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include">
 							<inc-ext:Incident>
 								<inc-ext:Charge s:id="idCHG002">
 									<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
@@ -493,8 +495,8 @@
 							</inc-ext:Incident>
 							<inc-ext:Location>
 								<inc-ext:LocationCountyCodeText>22</inc-ext:LocationCountyCodeText>
-								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />	
-							</inc-ext:Location>															
+								<lexslib:SameAsDigestReference lexslib:ref="Incident_Loc_1" />
+							</inc-ext:Location>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
 								<j:PersonAugmentation>

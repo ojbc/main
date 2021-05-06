@@ -19,6 +19,7 @@ package org.ojbc.web.portal.services;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
@@ -108,7 +109,7 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Override
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Entering Is user authenticated: " + userIdentifier);
+		log.info("Checking isUserAuthenticated: " + userIdentifier);
 		
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
@@ -165,9 +166,9 @@ public class OTPServiceMemoryImpl implements OTPService{
 	}	
 	
 	private void removeOldEntries() {
-		Iterator it = otpMap.entrySet().iterator();
+		Iterator<Entry<String, UserOTPDetails>> it = otpMap.entrySet().iterator();
 		while (it.hasNext()) {
-		    Map.Entry pair = (Map.Entry)it.next();
+		    Map.Entry<String, UserOTPDetails> pair = (Entry<String, UserOTPDetails>)it.next();
 
 		    UserOTPDetails userOTPDetails = (UserOTPDetails) pair.getValue();
 		    

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.portal.controllers.dto.OTPFormCommand;
+import org.ojbc.web.model.otp.OTPFormCommand;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -51,6 +51,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -325,7 +326,7 @@ public class XmlUtils {
     public static final Attr addAttribute(Element parent, String ns, String attributeName, String value) {
         Document doc = parent.getOwnerDocument();
         Attr ret = doc.createAttributeNS(ns, attributeName);
-        ret.setTextContent(value);
+        ret.setTextContent(removeNonValidChars(value));
         ret.setPrefix(OJBC_NAMESPACE_CONTEXT.getPrefix(ns));
         parent.setAttributeNode(ret);
         return ret;
@@ -347,10 +348,27 @@ public class XmlUtils {
 		if (StringUtils.isNotBlank(textValue)){
 			Element element = 
 					XmlUtils.appendElement(parent, namespace, elementName);
-			element.setTextContent(textValue);
+			element.setTextContent(removeNonValidChars(textValue));
 		}
 	}
 
+    public static String removeNonValidChars(String str) {
+
+		if(StringUtils.isBlank(str)) return "";
+		
+		StringBuffer s = new StringBuffer();
+		
+		for (char c : StringEscapeUtils.unescapeXml(str).toCharArray()) {
+
+	    	if ((c == 0x9) || (c == 0xA) || (c == 0xD)
+		    	|| ((c >= 0x20) && (c <= 0xD7FF))
+		    	|| ((c >= 0xE000) && (c <= 0xFFFD))
+		    	|| ((c >= 0x10000) && (c <= 0x10FFFF))) {
+	    		s.append(c);
+	    	}
+    	}
+    	return s.toString();
+	}
 	public static void appendActivityDateRangeElement(Element parent, String namespace, DateTime startDate, DateTime endDate ) {
 		if (startDate != null || endDate != null)
         {	
@@ -710,5 +728,8 @@ public class XmlUtils {
 		return returnValue;
 	}
 
+	public static void main(String[] args) {
+		System.out.println(removeNonValidChars(StringEscapeUtils.unescapeXml("010017123&#x18;")).length());
+	}
 
 }

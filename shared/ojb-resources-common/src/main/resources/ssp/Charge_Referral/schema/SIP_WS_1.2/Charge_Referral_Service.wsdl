@@ -25,7 +25,15 @@ xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0"
 xmlns:tns="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0"
 xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
 xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+xmlns:wsoma="http://www.w3.org/2007/08/soap12-mtom-policy"
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
 targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
+	
+	<wsp:Policy wsu:Id="MTOMPolicy" 
+		xmlns:mtom="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" >
+	    <mtom:OptimizedMimeSerialization wsp:Optional="true"/>
+	</wsp:Policy>
+	
 	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
 	<wsdl:types>
 		<xsd:schema>
@@ -44,6 +52,7 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0">
 	<wsdl:binding name="Charge-Referral-ServiceSOAPBinding" type="tns:Charge-Referral-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
+		<wsp:PolicyReference URI="#MTOMPolicy" wsdl:required="false"/>		
 		<wsdl:operation name="SubmitChargeReferral">
 			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralService/1.0/SubmitChargeReferral" style="document"/>
 			<wsdl:input>
