@@ -24,14 +24,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.portal.AppProperties;
 import org.ojbc.web.portal.audit.AuditUser;
 import org.ojbc.web.portal.services.CodeTableService;
-import org.ojbc.web.portal.services.otp.OTPService;
+import org.ojbc.web.portal.services.OTPService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,11 +49,11 @@ import org.w3c.dom.Element;
 public class PortalPreAuthenticatedUserDetailsService implements
 		AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
 	
-	@Resource
-	AppProperties appProperties;
+    @Value("${requireOtpAuthentication:false}")
+    boolean requireOtpAuthentication;
 	@Resource
 	CodeTableService codeTableService;
-	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	@Resource(name="${otpServiceBean:OTPServiceMemoryImpl}")
 	OTPService otpService;
 
     private final Log log = LogFactory.getLog(this.getClass());
@@ -106,7 +107,7 @@ public class PortalPreAuthenticatedUserDetailsService implements
         }
         else {
         	
-        	if (appProperties.getRequireOtpAuthentication()) {
+        	if (BooleanUtils.isTrue(requireOtpAuthentication)) {
             	if (addOtpAuthenticationRole(samlAssertion))
             	{
             		SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
@@ -116,6 +117,10 @@ public class PortalPreAuthenticatedUserDetailsService implements
             		osbiUser = new OsbiUser(userName, "N/A", grantedAuthorities); 
             	}
 
+        	}
+        	else {
+        		SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
+        		grantedAuthorities.add(rolePortalUser);
         	}
         	
         	if (osbiUser == null) {

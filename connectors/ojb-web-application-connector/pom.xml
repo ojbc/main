@@ -41,7 +41,7 @@
 		<servlet-api-version>4.0.1</servlet-api-version>
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-camel-common>[3.0.0,)</ojb-camel-common>
-		<ojb-common-version>[3.0.2,)</ojb-common-version>
+		<ojb-common-version>[4.0.1,)</ojb-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
 		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
 		<ojb-web-application-connector-extension-version>[2.0.0,)</ojb-web-application-connector-extension-version>

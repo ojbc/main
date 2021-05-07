@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 
 @Service("osbiAccessDeniedHandler")
 public class OsbiAccessDeniedHandler implements AccessDeniedHandler {
-    @Value("${requireOtpAuthentication:true}")
+    @Value("${requireOtpAuthentication:false}")
     Boolean requireOtpAuthentication;
 
 	private final Log log = LogFactory.getLog(this.getClass());

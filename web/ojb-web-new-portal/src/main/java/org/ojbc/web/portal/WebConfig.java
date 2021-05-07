@@ -21,6 +21,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
@@ -34,9 +37,22 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 
 @Configuration
+@PropertySources({
+	@PropertySource(value = "${spring.config.additional-location}application.properties"),
+    @PropertySource(value = "${spring.config.additional-location}ojbc-web-application-connector.cfg")
+})
 public class WebConfig implements WebMvcConfigurer {
     @Autowired 
-    AppProperties appProperties; 
+    AppProperties appProperties;
+    
+    @Bean  
+    /**
+     * This bean + the @PropertySources is needed to use @Value.
+     * @return
+     */
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }    
     
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")

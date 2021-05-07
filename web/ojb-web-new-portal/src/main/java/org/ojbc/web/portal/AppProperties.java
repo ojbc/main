@@ -53,7 +53,7 @@ public class AppProperties {
 	private Integer inactivityTimeoutInSeconds = 1800; 
 	private Integer arrestSearchDateRange = 30;
 	
-	private Boolean requireOtpAuthentication = true; 
+	private Boolean requireOtpAuthentication = false; 
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
