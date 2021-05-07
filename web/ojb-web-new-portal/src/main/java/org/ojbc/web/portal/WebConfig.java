@@ -17,6 +17,7 @@
 package org.ojbc.web.portal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -132,6 +135,20 @@ public class WebConfig implements WebMvcConfigurer {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+    
+    @Bean
+    @ConditionalOnProperty(name = "ojbcMailSenderBean", havingValue = "ojbcMailSender")
+    public JavaMailSender ojbcMailSender() {
+    	JavaMailSenderImpl ojbcMailSender = new JavaMailSenderImpl(); 
+    	ojbcMailSender.setHost(appProperties.getMailSenderHost());
+    	ojbcMailSender.setPort(appProperties.getMailSenderPort());
+    	
+    	ojbcMailSender.getJavaMailProperties().put("mail.transport.protocol", appProperties.getMailSenderTransportProtocol()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.auth", appProperties.getMailSenderSmtpAuth()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", appProperties.getMailSenderSmtpStarttlesEnable()); 
+    	ojbcMailSender.getJavaMailProperties().put("mail.debug", appProperties.getMailSenderDebug()); 
+    	return ojbcMailSender;
     }
     
     @Override

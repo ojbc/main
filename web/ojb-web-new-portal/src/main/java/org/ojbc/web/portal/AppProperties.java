@@ -53,7 +53,12 @@ public class AppProperties {
 	private Integer inactivityTimeoutInSeconds = 1800; 
 	private Integer arrestSearchDateRange = 30;
 	
-	private Boolean requireOtpAuthentication = false; 
+	private String mailSenderHost; 
+	private Integer mailSenderPort; 
+	private String mailSenderTransportProtocol; 
+	private String mailSenderSmtpAuth; 
+	private String mailSenderSmtpStarttlesEnable; 
+	private String mailSenderDebug; 
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
@@ -341,12 +346,52 @@ public class AppProperties {
 		this.daPendingChargesMapping = daPendingChargesMapping;
 	}
 
-	public Boolean getRequireOtpAuthentication() {
-		return requireOtpAuthentication;
+	public String getMailSenderHost() {
+		return mailSenderHost;
 	}
 
-	public void setRequireOtpAuthentication(Boolean requireOtpAuthentication) {
-		this.requireOtpAuthentication = requireOtpAuthentication;
+	public void setMailSenderHost(String mailSenderHost) {
+		this.mailSenderHost = mailSenderHost;
+	}
+
+	public Integer getMailSenderPort() {
+		return mailSenderPort;
+	}
+
+	public void setMailSenderPort(Integer mailSenderPort) {
+		this.mailSenderPort = mailSenderPort;
+	}
+
+	public String getMailSenderTransportProtocol() {
+		return mailSenderTransportProtocol;
+	}
+
+	public void setMailSenderTransportProtocol(String mailSenderTransportProtocol) {
+		this.mailSenderTransportProtocol = mailSenderTransportProtocol;
+	}
+
+	public String getMailSenderSmtpAuth() {
+		return mailSenderSmtpAuth;
+	}
+
+	public void setMailSenderSmtpAuth(String mailSenderSmtpAuth) {
+		this.mailSenderSmtpAuth = mailSenderSmtpAuth;
+	}
+
+	public String getMailSenderSmtpStarttlesEnable() {
+		return mailSenderSmtpStarttlesEnable;
+	}
+
+	public void setMailSenderSmtpStarttlesEnable(String mailSenderSmtpStarttlesEnable) {
+		this.mailSenderSmtpStarttlesEnable = mailSenderSmtpStarttlesEnable;
+	}
+
+	public String getMailSenderDebug() {
+		return mailSenderDebug;
+	}
+
+	public void setMailSenderDebug(String mailSenderDebug) {
+		this.mailSenderDebug = mailSenderDebug;
 	}
 
 }
