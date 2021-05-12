@@ -237,7 +237,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
@@ -248,12 +248,22 @@
       <version>${ojb-test-common-version}</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
+ -->    <dependency>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-configuration-processor</artifactId>
     	<optional>true</optional>
     </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <scope>test</scope>
+    </dependency>
+    
 	</dependencies>
 
 	<build>
@@ -277,7 +287,8 @@
 	              <artifactId>junit-jupiter-engine</artifactId>
 	              <version>5.2.0</version>
 	          </dependency>
-	      </dependencies>     <configuration>
+	      </dependencies>
+	      <configuration>
 	        <argLine>-Xmx1024m</argLine>
 	      </configuration>
       </plugin>

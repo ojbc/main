@@ -48,13 +48,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired 
     AppProperties appProperties;
     
-    @Bean  
     /**
      * This bean + the @PropertySources is needed to use @Value.
      * @return
      */
+    @Bean  
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-        return new PropertySourcesPlaceholderConfigurer();
+    	PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer(); 
+    	propertySourcesPlaceholderConfigurer.setIgnoreUnresolvablePlaceholders(Boolean.TRUE);
+        return propertySourcesPlaceholderConfigurer;
     }    
     
     @Bean

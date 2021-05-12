@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.w3c.dom.Element;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "--spring.config.additional-location=classpath:/")
 public class SamlServiceTest {
 
 	@Autowired
