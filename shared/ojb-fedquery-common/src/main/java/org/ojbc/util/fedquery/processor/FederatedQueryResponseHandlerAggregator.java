@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -88,7 +89,9 @@ public class FederatedQueryResponseHandlerAggregator {
 				
 		        String bodyAsString = OJBUtils.getStringFromDocument(elementList.get(0).getOwnerDocument());
 		        sb.append(bodyAsString);
-		        groupedExchange.getIn().getAttachments().putAll(exchange.getIn().getAttachments());
+		        
+		        AttachmentMessage attachmentInGroupExchange = groupedExchange.getIn(AttachmentMessage.class); 
+		        attachmentInGroupExchange.getAttachments().putAll(exchange.getIn(AttachmentMessage.class).getAttachments());
 		        continue; 
 			}	
 			
@@ -187,11 +190,6 @@ public class FederatedQueryResponseHandlerAggregator {
 			groupedExchange.getIn().setHeader("operationName", lastExchange.getIn().getHeader("operationName"));
 
 		}	
-		else
-		{
-			groupedExchange.getIn().setBody("<OJBAggregateResponseWrapper></OJBAggregateResponseWrapper>");
-		}	
-
 	}
 
 	/**

@@ -22,7 +22,7 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-fedquery-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>3.0.1</version> 
+	<version>4.0.0</version> 
 	<name>OJB :: ojb-fedquery-common :: Shared</name>
 	<url>http://www.ojbc.org</url>
 
@@ -33,12 +33,13 @@
 	</parent>
 
 	<properties>
-		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
-		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.2,)</ojb-common-version>
+		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
+		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<java-version>1.8</java-version>
+    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
 	<dependencies>
@@ -87,6 +88,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
