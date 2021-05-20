@@ -23,8 +23,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -183,22 +184,25 @@ public class MessageProcessor {
 
 		//Call method to create proper request context map
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
-		exchange.getOut().setHeader(Client.REQUEST_CONTEXT , requestContext);
+		exchange.getMessage().setHeader(Client.REQUEST_CONTEXT , requestContext);
 
 		//We do this so we can preserve the recipient list rather than losing it in the out message
 		String recipientListReplyTo = (String) exchange.getIn().getHeader("recipientListReplyToEndpoint");
 		
 		if (StringUtils.isNotEmpty(recipientListReplyTo))
 		{	
-			exchange.getOut().setHeader("recipientListReplyToEndpoint", recipientListReplyTo);
+			exchange.getMessage().setHeader("recipientListReplyToEndpoint", recipientListReplyTo);
 		}	
 		
 		//preserve the destination override URL so we can override a URL in an cxf endpoint
 		//This is used to set reply to addresses.
-		exchange.getOut().setHeader(Exchange.DESTINATION_OVERRIDE_URL, exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
+		exchange.getMessage().setHeader(Exchange.DESTINATION_OVERRIDE_URL, exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
 		
-		exchange.getOut().setBody(exchange.getIn().getBody());
-		exchange.getOut().setAttachments(exchange.getIn().getAttachments());
+		exchange.getMessage().setBody(exchange.getIn().getBody());
+		
+		AttachmentMessage attachmentMessageIn = exchange.getIn(AttachmentMessage.class);
+		AttachmentMessage attachmentMessageOut = exchange.getMessage(AttachmentMessage.class);
+		attachmentMessageOut.setAttachments(attachmentMessageIn.getAttachments());
 	}
 
 

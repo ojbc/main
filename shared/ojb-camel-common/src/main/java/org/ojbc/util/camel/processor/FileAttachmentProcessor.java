@@ -23,6 +23,7 @@ import javax.activation.FileDataSource;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,7 +41,8 @@ public class FileAttachmentProcessor implements Processor
         String currentXMLFilePath = (String) exchange.getProperty("currentXMLFilePath");
         log.debug("Attaching file.");
         log.debug("currentXMLFilePath=[" + currentXMLFilePath + "]");
-        exchange.getIn().addAttachment("Bad.xml", new DataHandler(new FileDataSource(new File(currentXMLFilePath))));
+		AttachmentMessage attachmentMessage = exchange.getIn(AttachmentMessage.class);
+		attachmentMessage.addAttachment("Bad.xml", new DataHandler(new FileDataSource(new File(currentXMLFilePath))));
     }
 
 }

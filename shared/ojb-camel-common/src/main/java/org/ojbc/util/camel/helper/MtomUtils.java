@@ -21,6 +21,7 @@ import java.io.IOException;
 import javax.activation.DataHandler;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +42,8 @@ public class MtomUtils {
 	public static byte[] getAttachment(Exchange exchange, String transactionNumber,
 			String attachmentId) throws IOException {
 		byte[] attachment;
-		DataHandler dataHandler = exchange.getIn().getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
+		AttachmentMessage attachmentMessage = exchange.getIn(AttachmentMessage.class);
+		DataHandler dataHandler = attachmentMessage.getAttachment(StringUtils.substringAfter(attachmentId, "cid:"));
 		
 		if (dataHandler != null){
 			attachment = IOUtils.readBytesFromStream(dataHandler.getInputStream());
