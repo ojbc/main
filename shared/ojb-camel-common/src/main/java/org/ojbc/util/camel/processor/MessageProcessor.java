@@ -201,8 +201,10 @@ public class MessageProcessor {
 		exchange.getMessage().setBody(exchange.getIn().getBody());
 		
 		AttachmentMessage attachmentMessageIn = exchange.getIn(AttachmentMessage.class);
-		AttachmentMessage attachmentMessageOut = exchange.getMessage(AttachmentMessage.class);
-		attachmentMessageOut.setAttachments(attachmentMessageIn.getAttachments());
+		if (attachmentMessageIn.getAttachments() != null) {
+			AttachmentMessage attachmentMessageOut = exchange.getMessage(AttachmentMessage.class);
+			attachmentMessageOut.setAttachments(attachmentMessageIn.getAttachments());
+		}
 	}
 
 
