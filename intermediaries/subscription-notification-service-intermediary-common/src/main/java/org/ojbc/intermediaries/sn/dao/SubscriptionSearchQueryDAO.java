@@ -514,6 +514,9 @@ public class SubscriptionSearchQueryDAO {
         String queryString = BASE_QUERY_STRING + staticCriteria.toString()
                 + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
         queryString+= " order by subscriptionOwnerEmailAddress";
+        
+        log.debug("Query for Subscription: " + queryString);
+        
         ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
         return ret;
