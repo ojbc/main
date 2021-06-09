@@ -36,7 +36,7 @@
 	<properties>
 		<camel.version>3.9.0</camel.version>
 		<osgi-core-version>1.4.0</osgi-core-version>
-		<spring-version>5.3.6</spring-version>	
+		<spring-version>5.3.7</spring-version>	
 		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 		<junit-platform-launcher-version>1.3.2</junit-platform-launcher-version>
