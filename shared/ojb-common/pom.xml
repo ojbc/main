@@ -33,8 +33,7 @@
 	</parent>
 
 	<properties>
-		<spring.version>5.3.6</spring.version>	
-		<slf4j-version>2.0.0-alpha1</slf4j-version>
+		<spring.version>5.3.7</spring.version>	
 		<log4j-version>1.2.17</log4j-version>		
 		<commons.lang.version>2.6</commons.lang.version>
 		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
@@ -42,13 +41,13 @@
 		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
 		<wss4j-version>2.2.2</wss4j-version>
 		<apache-commons-codec-version>1.6</apache-commons-codec-version>
-		<cxf-version>3.2.5</cxf-version>
+		<cxf-version>3.4.2</cxf-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
 		<io-utils-version>1.3.2</io-utils-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
 		<httpcomponents.version>4.3.3</httpcomponents.version>
-		<saxon-version>8.7</saxon-version>
+		<saxon-version>9.9.1-7</saxon-version>
 		<java-version>1.8</java-version>
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.5</xmlunit.version>
@@ -67,16 +66,11 @@
 		 	saxon jars.  Having saxon on the classpath causes TransformerFactory instances and other
 		 	transform code to behave unexpectedly when saxon is included unintentionally.
 		-->
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon</artifactId>
-			<version>${saxon-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon-dom</artifactId>
-			<version>${saxon-version}</version>
-		</dependency>
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>${saxon-version}</version>
+    </dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -171,22 +165,6 @@
 		    <artifactId>woodstox-core-asl</artifactId>
 		    <version>4.4.1</version>
 		</dependency>
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>		
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
 		    <artifactId>junit-jupiter-engine</artifactId>
