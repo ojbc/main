@@ -81,7 +81,7 @@ public abstract class AbstractIncidentSearchRequestProcessor {
         	
         }
         
-    	String cityTown = XmlUtils.xPathStringSearch(document, "/isr-doc:IncidentSearchRequest/nc:Location/nc:LocationAddress/isr:StructuredAddress/*:LocationCityTownCode");
+    	String cityTown = XmlUtils.xPathStringSearch(document, "/isr-doc:IncidentSearchRequest/nc:Location/nc:LocationAddress/isr:StructuredAddress/*[local-name()='LocationCityTownCode']");
     	
     	if (StringUtils.isNotBlank(cityTown))
     	{

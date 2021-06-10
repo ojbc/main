@@ -29,7 +29,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
@@ -69,6 +68,7 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -82,9 +82,8 @@ public class EnhancedAuditDaoTest {
 	@Autowired
 	private EnhancedAuditDAO enhancedAuditDao;
 		
-	@BeforeAll
+	@BeforeTestMethod
 	public void init(){
-	
 		assertNotNull(enhancedAuditDao);
 	}
 	

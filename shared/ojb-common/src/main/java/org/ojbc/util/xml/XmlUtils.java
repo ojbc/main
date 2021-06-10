@@ -27,9 +27,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import org.apache.xml.security.utils.Base64;
-
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -53,6 +50,9 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.xml.security.utils.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -79,6 +79,8 @@ import org.xml.sax.SAXException;
  * 
  */
 public class XmlUtils {
+	@SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(XmlUtils.class);
 
     public static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
     
@@ -253,7 +255,7 @@ public class XmlUtils {
      * @throws Exception
      */
     public static final String xPathStringSearch(Node context, String xPath) throws Exception {
-        if (xPath == null)
+        if (StringUtils.isBlank(xPath))
         {
             return null;
         }
