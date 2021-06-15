@@ -23,7 +23,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>criminal-history-consolidation-reporting-service-intermediary</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>bundle</packaging>
 
 	<name>OJB :: criminal_history_consolidation_reporting_intermediary :: intermediary</name>
@@ -43,9 +43,9 @@
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<xmlunit-version>1.5</xmlunit-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[1.0.0, 2.0.0)</ojb-resources-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<osgi-core-version>1.4.0</osgi-core-version>		

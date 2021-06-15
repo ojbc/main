@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>OJB :: vehicle-crash-reporting-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -40,9 +40,9 @@
 		<log4j-version>1.2.17</log4j-version>
 		<cxf-version>3.0.6</cxf-version>
 		<saxon-version>9.5.1-5</saxon-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[1.0.0, 2.0.0)</ojb-resources-common-version>
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
