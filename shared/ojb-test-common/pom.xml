@@ -30,7 +30,7 @@
 
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-test-common</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>ojb-test-common</name>
 
@@ -39,8 +39,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xmlunit-version>1.5</xmlunit-version>
 		<junit-version>4.10</junit-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 

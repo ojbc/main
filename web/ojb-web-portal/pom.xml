@@ -24,7 +24,7 @@
 	<artifactId>ojb-web-portal</artifactId>
 	<name>ojb-web-portal</name>
 	<packaging>war</packaging>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
@@ -49,10 +49,10 @@
 		<mockito.version>1.9.0</mockito.version>
 		<commonsCodec.version>1.7</commonsCodec.version>
 		<commonsIo.version>2.4</commonsIo.version>
-		<ojb-web-application-connector-version>[2.0.1,)</ojb-web-application-connector-version>
+		<ojb-web-application-connector-version>[2.0.1, 3.0.0)</ojb-web-application-connector-version>
 		<velocity-tools-version>2.0</velocity-tools-version>
-		<ojb-ui-common-version>[2.0.0,)</ojb-ui-common-version>
-		<ojb-enhanced-audit-common-version>[1.0.0,)</ojb-enhanced-audit-common-version>
+		<ojb-ui-common-version>[2.0.0, 2.0.4)</ojb-ui-common-version>
+		<ojb-enhanced-audit-common-version>[1.0.0, 2.0.0)</ojb-enhanced-audit-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<pragmatists.version>1.0.2</pragmatists.version>
 		<beanutils.version>1.8.3</beanutils.version>

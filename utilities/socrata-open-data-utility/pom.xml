@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>socrata-open-data-utility</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>OJB :: socrata-open-data-utility :: utilities</name>
 	<url>http://www.ojbc.org</url>
 	
@@ -42,10 +42,10 @@
 		<saxon-version>9.5.1-5</saxon-version>
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[1.0.0, 2.0.0)</ojb-resources-common-version>
+		<h2-mock-database-version>[2.0.0, 3.0.0)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<mysql-connector-version>5.1.17</mysql-connector-version>
