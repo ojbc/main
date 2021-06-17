@@ -76,43 +76,6 @@ public class SamlServiceImpl implements SamlService{
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
 		if (request == null) return null;
-		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
-		
-		/*
-		 *  fix for Exception in thread "main" javax.net.ssl.SSLHandshakeException:
-		 *       sun.security.validator.ValidatorException:
-		 *           PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException:
-		 *               unable to find valid certification path to requested target
-		 */
-		 TrustManager[] trustAllCerts = new TrustManager[]{
-				    new X509TrustManager() {
-				        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-				            return null;
-				        }
-				        public void checkClientTrusted(
-				            java.security.cert.X509Certificate[] certs, String authType) {
-				        }
-				        public void checkServerTrusted(
-				            java.security.cert.X509Certificate[] certs, String authType) {
-				        }
-				    }
-				};
-		SSLContext sc = SSLContext.getInstance("SSL");
-		sc.init(null, trustAllCerts, new java.security.SecureRandom());
-		HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-		// Create all-trusting host name verifier
-		HostnameVerifier allHostsValid = new HostnameVerifier() {
-			@Override
-			public boolean verify(String arg0, SSLSession arg1) {
-				return true;  // andrew had this as false...dont know how that would work...
-			}
-		};
-		// Install the all-trusting host verifier
-		HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-		/*
-		 * end of the fix
-		 */
 		 //Hard coded to pick up a single assertion...could loop through assertion headers if there will  be more than one
 		String assertionHttpHeaderName = request.getHeader("Shib-Assertion-01");
 		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
