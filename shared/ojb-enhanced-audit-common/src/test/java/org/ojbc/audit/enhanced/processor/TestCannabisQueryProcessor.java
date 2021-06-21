@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.CannabisLicensingQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.WildlifeQueryResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,6 +39,7 @@ import org.w3c.dom.Document;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
+
 public class TestCannabisQueryProcessor {
 
 	private static final Log log = LogFactory.getLog(TestCannabisQueryProcessor.class);
