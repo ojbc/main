@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.topic.rapback;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.HashMap;
@@ -27,7 +27,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultMessage;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -54,7 +55,7 @@ public class RapbackSubscriptionRequestTest {
 
 	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithRapbackData.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext());
         
         message.setHeader("subscriptionOwner", "someone");
         message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
@@ -65,34 +66,34 @@ public class RapbackSubscriptionRequestTest {
 		
 		RapbackSubscriptionRequest sub = new RapbackSubscriptionRequest(message, allowedEmailAddressPatterns);
 		
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("Test Person"));
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "Test Person");
 		
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertTrue(sub.getEmailAddresses().contains("po6@localhost"));
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(6));
-		assertThat(sub.getSubscriptionOwner(), is("someone"));
-		assertThat(sub.getSubscriptionOwnerEmailAddress(), is("email@local.gov"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Test"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Person"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1972-08-02"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FBI_ID), is("123456789"));
-		assertThat(sub.getTopic(), is("{http://ojbc.org/wsn/topics}:person/rapback"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 6);
+		assertEquals(sub.getSubscriptionOwner(), "someone");
+		assertEquals(sub.getSubscriptionOwnerEmailAddress(), "email@local.gov");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Test");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Person");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1972-08-02");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FBI_ID), "123456789");
+		assertEquals(sub.getTopic(), "{http://ojbc.org/wsn/topics}:person/rapback");
 		
 		Map<String, String> subscriptionProperties = sub.getSubscriptionProperties();
 		
-		assertThat(subscriptionProperties.size(), is(7));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()), is("ARREST"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DEATH.toString()), is("DEATH"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_SOR_ENTRY.toString()), is("NCIC-SOR-ENTRY"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString()), is("NCIC-WARRANT-ENTRY"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DISPOSITION.toString()), is("DISPOSITION"));
-		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR.toString()), is("true"));		
-		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT.toString()), is("Detective George Jones"));				
+		assertEquals(subscriptionProperties.size(), 7);
+		assertEquals(subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()), "ARREST");
+		assertEquals(subscriptionProperties.get(FederalTriggeringEventCode.DEATH.toString()), "DEATH");
+		assertEquals(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_SOR_ENTRY.toString()), "NCIC-SOR-ENTRY");
+		assertEquals(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString()), "NCIC-WARRANT-ENTRY");
+		assertEquals(subscriptionProperties.get(FederalTriggeringEventCode.DISPOSITION.toString()), "DISPOSITION");
+		assertEquals(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR.toString()), "true");		
+		assertEquals(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT.toString()), "Detective George Jones");				
 		
 	}
 		

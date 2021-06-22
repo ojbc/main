@@ -16,8 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.vehicleCrash;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -45,13 +44,13 @@ public class VehicleCrashUnSubscriptionRequestTest {
 		
 		VehicleCrashUnSubscriptionRequest request = new VehicleCrashUnSubscriptionRequest(message);
 		
-		assertThat(request.getSubscriptionQualifier(), is("302593"));
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/vehicleCrash"));
-		assertThat(request.getSubjectIdentifiers().size(), is(4));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1980-01-01"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
+		assertEquals(request.getSubscriptionQualifier(), "302593");
+		assertEquals(request.getTopic(), "{http://ojbc.org/wsn/topics}:person/vehicleCrash");
+		assertEquals(request.getSubjectIdentifiers().size(), 4);
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "John");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Doe");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1980-01-01");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "302593");
 	}
 	
 	@Test

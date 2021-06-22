@@ -34,10 +34,10 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -113,7 +113,7 @@ public class NotificationProcessorTest {
                 "//notfm-exch:NotificationMessage/jxdm41:Person[1]/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         sidElement.setTextContent("A5008305");
 
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
 
@@ -133,10 +133,10 @@ public class NotificationProcessorTest {
             e.getIn().setBody(notification);
             e.getIn().setHeader(NotificationConstants.HEADER_NOTIFICATION_TOPIC, "");
             notificationProcessor.createNotificationEmail(e);
-            String toAddys = (String) e.getOut().getHeader(NotificationConstants.HEADER_TO);
+            String toAddys = (String) e.getMessage().getHeader(NotificationConstants.HEADER_TO);
             if (toAddys == null) {
                 @SuppressWarnings("unchecked")
-                Set<String> blockedAddressees = (Set<String>) e.getOut().getHeader(NotificationConstants.HEADER_BLOCKED);
+                Set<String> blockedAddressees = (Set<String>) e.getMessage().getHeader(NotificationConstants.HEADER_BLOCKED);
                 assertNotNull(blockedAddressees);
                 foundPO3Blocked = blockedAddressees.contains("po3@localhost");
             } else if (toAddys.equals("po1@localhost")) {
@@ -158,7 +158,7 @@ public class NotificationProcessorTest {
                 "//notfm-exch:NotificationMessage/jxdm41:Person[1]/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         sidElement.setTextContent("A5008305"); // a sid that has a subscription
 
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
 
@@ -187,7 +187,7 @@ public class NotificationProcessorTest {
                 "//notfm-exch:NotificationMessage/jxdm41:Person[1]/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         sidElement.setTextContent("XXXXXXX"); // a sid that doesn't have a subscription
 
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange(new DefaultCamelContext());
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
 
@@ -213,7 +213,7 @@ public class NotificationProcessorTest {
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
         Document notificationMessageDocument = XmlUtils.parseFileToDocument(notificationMessageFile);
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
@@ -256,7 +256,7 @@ public class NotificationProcessorTest {
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
         Document notificationMessageDocument = XmlUtils.parseFileToDocument(notificationMessageFile);
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
@@ -300,7 +300,7 @@ public class NotificationProcessorTest {
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
         Document notificationMessageDocument = XmlUtils.parseFileToDocument(notificationMessageFile);
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);
@@ -370,7 +370,7 @@ public class NotificationProcessorTest {
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
         Document notificationMessageDocument = XmlUtils.parseFileToDocument(notificationMessageFile);
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
         NotificationRequest request = notificationProcessor.makeNotificationRequestFromIncomingMessage(inMessage);

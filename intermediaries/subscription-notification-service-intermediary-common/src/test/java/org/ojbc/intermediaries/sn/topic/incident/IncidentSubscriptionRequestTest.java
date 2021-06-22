@@ -16,8 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.incident;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.HashMap;
@@ -26,12 +25,11 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-
 import org.apache.camel.Message;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.w3c.dom.Document;
 
 public class IncidentSubscriptionRequestTest {
@@ -57,18 +55,18 @@ public class IncidentSubscriptionRequestTest {
 		
 		IncidentSubscriptionRequest sub = new IncidentSubscriptionRequest(message, null);
 		
-		assertThat(sub.getSubscriptionQualifier(), is("302593"));
-		assertThat(sub.getSubjectName(), is("John Doe"));
+		assertEquals(sub.getSubscriptionQualifier(), "302593");
+		assertEquals(sub.getSubjectName(), "John Doe");
 		
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(4));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1980-01-01"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 4);
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "John");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Doe");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1980-01-01");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "302593");
 	}
 	
 	private Document getMessageBody() throws Exception {

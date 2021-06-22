@@ -23,16 +23,16 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.notification.EmailNotification;
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.notification.EmailNotification;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,16 +66,16 @@ public class ChCycleNotificationProcessorTest {
         email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new ChCycleNotificationRequest(getNotificationMessage()));
         
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setHeader("notificationTopic", "criminalHistoryCycleTrackingIdentifierAssignment");
         inMessage.setBody(email);
 
         chCycleNotifProcessor.createNotificationEmail(e);
         
-        assertEquals(EXPECTED_EMAIL_TEXT, e.getOut().getBody());
-        assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
-        assertEquals("{http://ojbc.org}ProbationChCyleTrackingID", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
+        assertEquals(EXPECTED_EMAIL_TEXT, e.getMessage().getBody());
+        assertEquals("po1@localhost", e.getMessage().getHeader(NotificationConstants.HEADER_TO));
+        assertEquals("{http://ojbc.org}ProbationChCyleTrackingID", e.getMessage().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
         
     }
     

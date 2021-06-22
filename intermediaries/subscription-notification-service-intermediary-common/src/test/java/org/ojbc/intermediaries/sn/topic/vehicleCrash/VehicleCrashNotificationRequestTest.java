@@ -16,8 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.vehicleCrash;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
@@ -47,28 +46,28 @@ public class VehicleCrashNotificationRequestTest {
 		
 		VehicleCrashNotificationRequest request = new VehicleCrashNotificationRequest(message);
 		
-		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(true));
+		assertEquals(request.isNotificationEventDateInclusiveOfTime(), true);
 		
 		DateTime notifiationEventDateTime = request.getNotificationEventDate();
-		assertThat(notifiationEventDateTime.toString(DATE_FORMATTER), is("2016-06-22T15:08:15"));
+		assertEquals(notifiationEventDateTime.toString(DATE_FORMATTER), "2016-06-22T15:08:15");
 		
-		assertThat(request.getNotifyingAgencyName(), is("Auburn Police Department"));
-		assertThat(request.getNotificationEventIdentifier(), is("CitationNumber"));
-		assertThat(request.getPersonFirstName(), is("Jane"));
-		assertThat(request.getPersonLastName(), is("Doe"));
-		assertThat(request.getPersonBirthDate(), is("1955-12-25"));
-		assertThat(request.getOfficerNames().get(0), is("John V. Matthews"));
-		assertThat(request.getOfficerNames().size(), is(1));
-		assertThat(request.getSubjectIdentifiers().size(), is(3));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Jane"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1955-12-25"));
-		assertThat(request.getCrashLocation(), is("HighwayFullText"));
-		assertThat(request.getCrashDateTimeDisplay(), is("2017-06-22 15:08:15"));
+		assertEquals(request.getNotifyingAgencyName(), "Auburn Police Department");
+		assertEquals(request.getNotificationEventIdentifier(), "CitationNumber");
+		assertEquals(request.getPersonFirstName(), "Jane");
+		assertEquals(request.getPersonLastName(), "Doe");
+		assertEquals(request.getPersonBirthDate(), "1955-12-25");
+		assertEquals(request.getOfficerNames().get(0), "John V. Matthews");
+		assertEquals(request.getOfficerNames().size(), 1);
+		assertEquals(request.getSubjectIdentifiers().size(), 3);
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Jane");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Doe");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1955-12-25");
+		assertEquals(request.getCrashLocation(), "HighwayFullText");
+		assertEquals(request.getCrashDateTimeDisplay(), "2017-06-22 15:08:15");
 		
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/vehicleCrash"));
+		assertEquals(request.getTopic(), "{http://ojbc.org/wsn/topics}:person/vehicleCrash");
 		
-		assertThat(request.getPersonNotificationSubjectName(), is("Doe, Jane"));
+		assertEquals(request.getPersonNotificationSubjectName(), "Doe, Jane");
 		
 	}
 

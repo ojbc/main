@@ -16,15 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import junit.framework.Assert;
 
 import org.apache.camel.Message;
 import org.junit.Test;
@@ -42,12 +41,12 @@ public class ArrestUnSubscriptionRequestTest {
 		
 		ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest(message);
 		
-		assertThat(request.getSubscriptionQualifier(), is("1234578"));
-		Assert.assertNotNull(request.getEmailAddresses());
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
-		assertThat(request.getSubjectIdentifiers().size(), is(5));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertEquals(request.getSubscriptionQualifier(), "1234578");
+		assertNotNull(request.getEmailAddresses());
+		assertEquals(request.getTopic(), "{http://ojbc.org/wsn/topics}:person/arrest");
+		assertEquals(request.getSubjectIdentifiers().size(), 5);
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
 		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
 		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
 		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));

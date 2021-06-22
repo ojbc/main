@@ -26,10 +26,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
 
 public class SubscriptionSAMLTokenProcessor {
 

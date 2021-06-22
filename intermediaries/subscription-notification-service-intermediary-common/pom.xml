@@ -22,8 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary-common</artifactId>
-	<packaging>bundle</packaging>
-	<version>2.0.24</version>
+	<version>3.0.0</version>
 	<name>OJB :: subscription-notification-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
@@ -37,25 +36,27 @@
 		<camel-version>2.14.4</camel-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<jodatime-version>2.2</jodatime-version>
-		<commons-lang-version>2.6</commons-lang-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-enhanced-audit-common-version>[1.0.21,)</ojb-enhanced-audit-common-version>
+		<commons-lang3-version>3.12.0</commons-lang3-version>
+    <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
+    <ojb-common-version>[5.0.0,)</ojb-common-version>
+    <ojb-resources-common-version>[2.0.1,)</ojb-resources-common-version>
+		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<slf4j-version>1.7.12</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		<junit.version>4.10</junit.version>
-		<hamcrest.version>1.3.RC2</hamcrest.version>
+    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
+    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+    <junit-platform-launcher-version>1.7.2</junit-platform-launcher-version>
 		<velocity-version>1.7</velocity-version>
 		<mockito.version>1.9.0</mockito.version>
 		<httpcomponents.version>4.2.5</httpcomponents.version>
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
-		<commonsIo.version>2.4</commonsIo.version>
-		<spring-version>3.2.11.RELEASE</spring-version>	
-		<h2-mock-database-version>[2.0.5,)</h2-mock-database-version>
-		<ojb-test-common-version>1.0.0</ojb-test-common-version>
+		<commonsIo.version>2.10.0</commonsIo.version>
+    <spring-version>5.3.7</spring-version>
+    <camel-test-version>3.9.0</camel-test-version>
+		<h2-mock-database-version>[3.0.2,)</h2-mock-database-version>
+		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
 		<java-version>1.8</java-version>
 	</properties>
 
@@ -80,9 +81,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons-lang-version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -119,25 +120,41 @@
 				</exclusion>				
 			</exclusions>	
 	    </dependency>		
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit-dep</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- for testing -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring3</artifactId>
-			<version>${camel-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring-version}</version>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit-jupiter-engine-version}</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>${junit-platform-launcher-version}</version>
+        <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>${junit-vintage-engine-version}</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test-spring-junit5</artifactId>
+      <version>${camel-test-version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring-version}</version>
+      <scope>test</scope>
+    </dependency>
+
 		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
@@ -169,13 +186,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Test -->
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-library</artifactId>
-			<version>${hamcrest.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

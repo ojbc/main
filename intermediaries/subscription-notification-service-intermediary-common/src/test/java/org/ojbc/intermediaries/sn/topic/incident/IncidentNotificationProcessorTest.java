@@ -23,16 +23,16 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.notification.EmailNotification;
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.notification.EmailNotification;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -76,17 +76,17 @@ public class IncidentNotificationProcessorTest {
         email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new IncidentNotificationRequest(getNotificationMessage()));
         
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange(new DefaultCamelContext());
         Message inMessage = e.getIn();
         inMessage.setHeader("notificationTopic", "incident");
         inMessage.setBody(email);
 
         unit.createNotificationEmail(e);
         
-        String receivedEmailBody = (String) e.getOut().getBody();
+        String receivedEmailBody = (String) e.getMessage().getBody();
         assertEquals(EXPECTED_EMAIL_TEXT, receivedEmailBody);
-        assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
-        assertEquals("{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
+        assertEquals("po1@localhost", e.getMessage().getHeader(NotificationConstants.HEADER_TO));
+        assertEquals("{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority", e.getMessage().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
         
     }
     

@@ -189,17 +189,17 @@ public abstract class NotificationProcessor {
         String emailBody = emailFormatter.getEmailBody(emailNotification);
         String subject = emailFormatter.getEmailSubject(emailNotification);
         
-        exchange.getOut().setBody(emailBody);
-        exchange.getOut().setHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER, emailNotification.getSubscribingSystemIdentifier());
-        exchange.getOut().setHeader(NotificationConstants.HEADER_SUBJECT, subject);
-        exchange.getOut().setHeader(NotificationConstants.HEADER_TO, toAddressees);
+        exchange.getMessage().setBody(emailBody);
+        exchange.getMessage().setHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER, emailNotification.getSubscribingSystemIdentifier());
+        exchange.getMessage().setHeader(NotificationConstants.HEADER_SUBJECT, subject);
+        exchange.getMessage().setHeader(NotificationConstants.HEADER_TO, toAddressees);
         if (ccAddressees != null && !ccAddressees.isEmpty()) {
-            exchange.getOut().setHeader(NotificationConstants.HEADER_CC, ccAddressees);
+            exchange.getMessage().setHeader(NotificationConstants.HEADER_CC, ccAddressees);
         }
         if (bccAddressees != null && !bccAddressees.isEmpty()) {
-            exchange.getOut().setHeader(NotificationConstants.HEADER_BCC, bccAddressees);
+            exchange.getMessage().setHeader(NotificationConstants.HEADER_BCC, bccAddressees);
         }
-        exchange.getOut().setHeader(NotificationConstants.HEADER_BLOCKED, blockedAddressees);
+        exchange.getMessage().setHeader(NotificationConstants.HEADER_BLOCKED, blockedAddressees);
 
     }
 

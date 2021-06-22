@@ -74,7 +74,7 @@ public abstract class SubscriptionProcessor {
         
         subscriptionSearchQueryDAO.subscribe(request, new LocalDate());
         
-        exchange.getOut().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
+        exchange.getMessage().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
     }
 
     /**
@@ -86,7 +86,7 @@ public abstract class SubscriptionProcessor {
         Message incomingMsg = exchange.getIn();
         UnSubscriptionRequest request = makeUnSubscriptionRequestFromIncomingMessage(incomingMsg);        
                 
-        Message out = exchange.getOut();
+        Message out = exchange.getMessage();
         
 //		Note "Camel" prefix in spelling required for cxf "drop headers" hack which only removes http headers 
 //		beginning with "Camel"

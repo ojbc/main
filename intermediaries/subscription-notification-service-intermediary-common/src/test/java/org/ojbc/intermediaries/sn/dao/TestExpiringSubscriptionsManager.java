@@ -60,9 +60,6 @@ public class TestExpiringSubscriptionsManager {
 	private DataSource dataSource;
 
 	@Autowired
-	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
-	
-	@Autowired
 	private ExpiringSubscriptionsManager expiringSubscriptionsManager;
 
 	private void loadTestData(final String manualTestFileName)

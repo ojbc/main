@@ -19,17 +19,18 @@ package org.ojbc.intermediaries.sn.notification.filter;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
+import org.springframework.test.annotation.DirtiesContext;
 
 @DirtiesContext
 public class TestNotificationDateBasedNotificationFilterStrategy {
@@ -47,7 +48,7 @@ public class TestNotificationDateBasedNotificationFilterStrategy {
 		
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/notificationMessage-incidentOldNotificationDate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -74,7 +75,7 @@ public class TestNotificationDateBasedNotificationFilterStrategy {
 		
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/notificationMessage-incidentFutureNotificationDate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    

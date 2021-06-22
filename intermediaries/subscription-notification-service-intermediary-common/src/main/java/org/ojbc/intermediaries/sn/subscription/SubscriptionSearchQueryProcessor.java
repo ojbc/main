@@ -46,7 +46,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcessor{
-    private static final Log log = LogFactory.getLog(SubscriptionMessageProcessor.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SubscriptionMessageProcessor.class);
 
 	public final String SUBSCRIPTION_SEARCH_RESPONSE_SYSTEM_NAME = "Subscriptions";
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;

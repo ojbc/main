@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -27,8 +28,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-
-import junit.framework.Assert;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
@@ -71,9 +70,9 @@ public class RapbackDAOImplGetMethodsTest {
 	
 		List<Subscription> stateSubList = rapbackDao.getStateSubscriptions("1234", "CI");
 		
-		Assert.assertNotNull(stateSubList);		
+		assertNotNull(stateSubList);		
 		
-		Assert.assertFalse(stateSubList.isEmpty());		
+		assertFalse(stateSubList.isEmpty());		
 	}
 	
 	
@@ -82,7 +81,7 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		String personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode("62727", "CI");
 		
-		Assert.assertEquals("1234", personFbiUcnId);
+		assertEquals("1234", personFbiUcnId);
 	}
 	
 	@Test
@@ -90,7 +89,7 @@ public class RapbackDAOImplGetMethodsTest {
 		
 		int stateSubCount = rapbackDao.countStateSubscriptions("1234", "CI");
 		
-		Assert.assertEquals(1, stateSubCount);
+		assertEquals(1, stateSubCount);
 	}
 	
 	
@@ -100,30 +99,30 @@ public class RapbackDAOImplGetMethodsTest {
 		FbiRapbackSubscription fbiSubscription = rapbackDao.getFbiRapbackSubscription("CI", "123456789");
 				
 		String fbiSubId = fbiSubscription.getFbiSubscriptionId();		
-		Assert.assertEquals("fbiSubscriptionId", fbiSubId);
+		assertEquals("fbiSubscriptionId", fbiSubId);
 		
 		String format = fbiSubscription.getRapbackActivityNotificationFormat();
-		Assert.assertEquals("2", format);
+		assertEquals("2", format);
 				
 		String category = fbiSubscription.getRapbackCategory();	
-		Assert.assertEquals("CI", category);
+		assertEquals("CI", category);
 				
 		boolean optOutInState = fbiSubscription.getRapbackOptOutInState();
-		Assert.assertEquals(false, optOutInState);
+		assertEquals(false, optOutInState);
 		
 		LocalDate expDate = fbiSubscription.getRapbackExpirationDate();
 		String sExpDate = expDate.toString();
-		Assert.assertEquals("2015-12-19", sExpDate);
+		assertEquals("2015-12-19", sExpDate);
 		
 		LocalDate startDate = fbiSubscription.getRapbackStartDate();
 		String sStartDate = startDate.toString();
-		Assert.assertEquals("2014-10-19", sStartDate);
+		assertEquals("2014-10-19", sStartDate);
 				
 		String term = fbiSubscription.getSubscriptionTerm();
-		Assert.assertEquals("5", term);
+		assertEquals("5", term);
 			
 		String ucn = fbiSubscription.getUcn();
-		Assert.assertEquals("123456789", ucn);				
+		assertEquals("123456789", ucn);				
 	}	
 	
 	@Test

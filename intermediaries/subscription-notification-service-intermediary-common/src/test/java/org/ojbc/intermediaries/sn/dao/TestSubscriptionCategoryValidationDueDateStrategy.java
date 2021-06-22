@@ -18,8 +18,10 @@ package org.ojbc.intermediaries.sn.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultMessage;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -50,7 +52,8 @@ public class TestSubscriptionCategoryValidationDueDateStrategy {
 
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
 		
-		Message message = new DefaultMessage();
+		CamelContext context = new DefaultCamelContext();
+		Message message = new DefaultMessage(context);
 		
 		message.setHeader("subscriptionOwner", "someone");
 		message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");

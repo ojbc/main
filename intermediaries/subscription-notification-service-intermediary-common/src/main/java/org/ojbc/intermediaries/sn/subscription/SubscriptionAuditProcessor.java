@@ -38,6 +38,7 @@ import org.w3c.dom.Node;
  */
 public class SubscriptionAuditProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( SubscriptionAuditProcessor.class );
 	
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;

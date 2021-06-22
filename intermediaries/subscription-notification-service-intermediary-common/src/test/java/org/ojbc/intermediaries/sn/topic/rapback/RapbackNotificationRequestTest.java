@@ -16,9 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.topic.rapback;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 import org.apache.camel.Message;
 import org.junit.Test;
@@ -38,33 +37,33 @@ public class RapbackNotificationRequestTest {
 		
 		RapbackNotificationRequest request = new RapbackNotificationRequest(message);
 		
-		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(false));
-		assertThat(request.getPersonFirstName(), is("Charlie"));
+		assertEquals(request.isNotificationEventDateInclusiveOfTime(), false);
+		assertEquals(request.getPersonFirstName(), "Charlie");
 		assertNull(request.getPersonMiddleName());
-		assertThat(request.getPersonLastName(), is("Macdonald"));
+		assertEquals(request.getPersonLastName(), "Macdonald");
 		assertNull(request.getPersonNameSuffix());
-		assertThat(request.getNotifyingAgencyName(), is("FBI"));
-		assertThat(request.getNotificationEventIdentifier(), is("123456"));
-		assertThat(request.getSID(), is("A5186353"));
-		assertThat(request.getUCN(), is("223276SG5"));
-		assertThat(request.getSubjectIdentifiers().size(), is(1));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A5186353"));
+		assertEquals(request.getNotifyingAgencyName(), "FBI");
+		assertEquals(request.getNotificationEventIdentifier(), "123456");
+		assertEquals(request.getSID(), "A5186353");
+		assertEquals(request.getUCN(), "223276SG5");
+		assertEquals(request.getSubjectIdentifiers().size(), 1);
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A5186353");
 		
-		assertThat(request.getTriggeringEvents().size(), is(2));
+		assertEquals(request.getTriggeringEvents().size(), 2);
 		
 		RapbackTriggeringEvent event1 = request.getTriggeringEvents().get(0);
 		RapbackTriggeringEvent event2 = request.getTriggeringEvents().get(1);
 		
-		assertThat(event1.getTriggeringEventCode(), is("ARREST"));
-		assertThat(event1.getTriggeringEventDate(), is("01-29-2013"));
-		assertThat(event1.getTriggeringEventText(), is("Event 1 that triggered the rap back"));
+		assertEquals(event1.getTriggeringEventCode(), "ARREST");
+		assertEquals(event1.getTriggeringEventDate(), "01-29-2013");
+		assertEquals(event1.getTriggeringEventText(), "Event 1 that triggered the rap back");
 		
-		assertThat(event2.getTriggeringEventCode(), is("DISPOSITION"));
-		assertThat(event2.getTriggeringEventDate(), is("02-28-2013"));
-		assertThat(event2.getTriggeringEventText(), is("Event 2 that triggered the rap back"));
+		assertEquals(event2.getTriggeringEventCode(), "DISPOSITION");
+		assertEquals(event2.getTriggeringEventDate(), "02-28-2013");
+		assertEquals(event2.getTriggeringEventText(), "Event 2 that triggered the rap back");
 		
 		
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/rapback"));
+		assertEquals(request.getTopic(), "{http://ojbc.org/wsn/topics}:person/rapback");
 		
 		
 	}

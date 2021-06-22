@@ -16,7 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.util;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,12 +25,12 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.notification.Offense;
-import org.ojbc.util.xml.XmlUtils;
-import org.w3c.dom.Document;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.notification.Offense;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
 
 public class NotificationBrokerUtilsTest {
 

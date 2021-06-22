@@ -16,15 +16,16 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultMessage;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -56,7 +57,7 @@ public class ArrestSubscriptionRequestTest {
 
 	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         
         message.setHeader("subscriptionOwner", "someone");
         message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
@@ -67,18 +68,18 @@ public class ArrestSubscriptionRequestTest {
 		
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
 		
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("Test Person"));
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "Test Person");
 		
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertTrue(sub.getEmailAddresses().contains("po6@localhost"));
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(5));
-		assertThat(sub.getSubscriptionOwner(), is("someone"));
-		assertThat(sub.getSubscriptionOwnerEmailAddress(), is("email@local.gov"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertTrue(sub.getSubjectIdentifiers().size()== 5);
+		assertEquals(sub.getSubscriptionOwner(), "someone");
+		assertEquals(sub.getSubscriptionOwnerEmailAddress(), "email@local.gov");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));
@@ -89,26 +90,26 @@ public class ArrestSubscriptionRequestTest {
 
 	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_arrestWithSIDNameDOB.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
         
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
 		
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
 		
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("John Doe"));
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "John Doe");
 		
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(5));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1990-10-20"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 5);
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "John");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Doe");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1990-10-20");
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class ArrestSubscriptionRequestTest {
 		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
         
         String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(test.com)";
@@ -136,24 +137,24 @@ public class ArrestSubscriptionRequestTest {
 
 	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithStartAndEndDate.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
         
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, null);
 		
 		assertNull(sub.getSubscriptionSystemId());
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("Test Person"));
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "Test Person");
 
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 
-		assertThat(sub.getSubjectIdentifiers().size(), is(5));
-		assertThat(sub.getStartDateString(), is("2014-04-14"));
-		assertThat(sub.getEndDateString(), is("2014-04-21"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 5);
+		assertEquals(sub.getStartDateString(), "2014-04-14");
+		assertEquals(sub.getEndDateString(), "2014-04-21");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));
@@ -166,7 +167,7 @@ public class ArrestSubscriptionRequestTest {
 		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithEndDateBeforeStartDate.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
         
         @SuppressWarnings("unused")
@@ -179,24 +180,24 @@ public class ArrestSubscriptionRequestTest {
 	    
 	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithSubscriptionSystemID.xml");
 		
-	    Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
 	    message.setBody(messageDocument);
 	    
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, null);
 		
-		assertThat(sub.getSubscriptionSystemId(), is("60109"));
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("Test Person"));
+		assertEquals(sub.getSubscriptionSystemId(), "60109");
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "Test Person");
 		
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(5));
-		assertThat(sub.getStartDateString(), is("2014-04-14"));
-		assertThat(sub.getEndDateString(), is("2014-04-21"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 5);
+		assertEquals(sub.getStartDateString(), "2014-04-14");
+		assertEquals(sub.getEndDateString(), "2014-04-21");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));
@@ -209,22 +210,22 @@ public class ArrestSubscriptionRequestTest {
 		
 		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_duplicateEmails.xml");
         
-        Message message = new DefaultMessage();
+        Message message = new DefaultMessage(new DefaultCamelContext() );
         message.setBody(messageDocument);
 		
 		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, null);
 		
 		assertNull(sub.getSubscriptionSystemId());
-		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
-		assertThat(sub.getSubjectName(), is("Test Person"));
+		assertEquals(sub.getSubscriptionQualifier(), "1234578");
+		assertEquals(sub.getSubjectName(), "Test Person");
 
 		//Assert size of set and only entry
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 
-		assertThat(sub.getSubjectIdentifiers().size(), is(5));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 5);
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "1234578");
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));

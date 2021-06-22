@@ -16,11 +16,9 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,9 +31,7 @@ import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
@@ -58,9 +54,6 @@ public class TestSubscriptionSearchQueryProcessor {
         processor = new SubscriptionSearchQueryProcessor();
         processor.setMaxSubscriptionsCount(500);
     }
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void testSubscriptionQueryResponseBuildWithValidationDate() throws Exception {
@@ -302,7 +295,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertNotNull(subscription);
         
         String subscriptionRefId = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/@s:id"); 
-        assertThat(subscriptionRefId, is("S001")); 
+        assertEquals(subscriptionRefId, "S001"); 
 
         String startDate = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date");
         assertEquals("2013-03-13", startDate);
@@ -390,11 +383,11 @@ public class TestSubscriptionSearchQueryProcessor {
         
         NodeList fbiSubScripitonNodes = XmlUtils.xPathNodeListSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:FBISubscription"); 
         assertNotNull(fbiSubScripitonNodes);
-        assertThat(fbiSubScripitonNodes.getLength(), is(1));
+        assertEquals(fbiSubScripitonNodes.getLength(), 1);
         
         Node fbiSubscriptionNode = fbiSubScripitonNodes.item(0);
         String fbiSubscriptionRefId = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "@s:id");
-        assertThat(fbiSubscriptionRefId, is("FBI001"));
+        assertEquals(fbiSubscriptionRefId, "FBI001");
         
         String fbiSubStartDate = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:StartDate/nc:Date");
         assertEquals("2013-03-13", fbiSubStartDate);
@@ -403,19 +396,19 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("2014-03-13", fbiSubEndDate);
         
         String fbiSubId = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
-        assertThat(fbiSubId, is("fbiId1"));
+        assertEquals(fbiSubId, "fbiId1");
 
         String criminalSubscriptionReasonCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:CriminalSubscriptionReasonCode");
-        assertThat(criminalSubscriptionReasonCode, is("CI"));
+        assertEquals(criminalSubscriptionReasonCode, "CI");
         
         String rapBackSubscriptionTermCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackSubscriptionTermCode");
-        assertThat(rapBackSubscriptionTermCode, is("2"));
+        assertEquals(rapBackSubscriptionTermCode, "2");
         
         String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackActivityNotificationFormatCode");
-        assertThat(rapBackActivityNotificationFormatCode, is("1"));
+        assertEquals(rapBackActivityNotificationFormatCode, "1");
         
         String rapBackInStateOptOutIndicator = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackInStateOptOutIndicator");
-        assertThat(rapBackInStateOptOutIndicator, is("true"));
+        assertEquals(rapBackInStateOptOutIndicator, "true");
 
     }
 

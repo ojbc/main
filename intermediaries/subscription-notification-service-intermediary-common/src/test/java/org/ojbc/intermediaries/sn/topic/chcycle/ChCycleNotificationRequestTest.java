@@ -16,20 +16,18 @@
  */
 package org.ojbc.intermediaries.sn.topic.chcycle;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -44,24 +42,24 @@ public class ChCycleNotificationRequestTest {
 		
 		ChCycleNotificationRequest chCycleRequest = new ChCycleNotificationRequest(message);		
 		
-		assertThat(chCycleRequest.isNotificationEventDateInclusiveOfTime(), is(false));
+		assertEquals(chCycleRequest.isNotificationEventDateInclusiveOfTime(), false);
 		
-		assertThat(chCycleRequest.getNotificationEventDate().toString("yyyy-MM-dd"), is("2014-11-11"));
+		assertEquals(chCycleRequest.getNotificationEventDate().toString("yyyy-MM-dd"), "2014-11-11");
 		
-		assertThat(chCycleRequest.getNotifyingAgencyName(), is("Springfield PD"));
+		assertEquals(chCycleRequest.getNotifyingAgencyName(), "Springfield PD");
 		
-		assertThat(chCycleRequest.getNotificationEventIdentifier(), is("123456"));
+		assertEquals(chCycleRequest.getNotificationEventIdentifier(), "123456");
 
-		assertThat(chCycleRequest.getPersonFirstName(), is("Maggie"));
-		assertThat(chCycleRequest.getPersonLastName(), is("Simpson"));
+		assertEquals(chCycleRequest.getPersonFirstName(), "Maggie");
+		assertEquals(chCycleRequest.getPersonLastName(), "Simpson");
 		
-		assertThat(chCycleRequest.getSubjectIdentifiers().size(), is(3));
+		assertEquals(chCycleRequest.getSubjectIdentifiers().size(), 3);
 		
-		assertThat(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Maggie"));
-		assertThat(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Simpson"));
-		assertThat(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1995-01-01"));
+		assertEquals(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Maggie");
+		assertEquals(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Simpson");
+		assertEquals(chCycleRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1995-01-01");
 		
-        assertThat(chCycleRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"));
+        assertEquals(chCycleRequest.getTopic(), "{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment");
 								
 	}
 

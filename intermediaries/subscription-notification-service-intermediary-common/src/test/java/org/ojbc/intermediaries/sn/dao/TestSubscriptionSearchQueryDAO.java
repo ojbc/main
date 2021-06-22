@@ -16,11 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.dao;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -46,7 +45,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -341,15 +340,15 @@ public class TestSubscriptionSearchQueryDAO {
 		
 		assertNotNull(response.getFbiRapbackSubscription());
 		FbiRapbackSubscription fbiRapbackSubscription = response.getFbiRapbackSubscription();
-		assertThat(fbiRapbackSubscription.getFbiSubscriptionId(), is("fbiId1"));
-		assertThat(fbiRapbackSubscription.getRapbackCategory(), is("CI"));
-		assertThat(fbiRapbackSubscription.getSubscriptionTerm(), is("5"));
-		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(java.time.LocalDate.of(2017,9,27)));
-		assertThat(fbiRapbackSubscription.getRapbackTermDate(), is(java.time.LocalDate.of(2017,9,27)));
-		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(java.time.LocalDate.of(2012,9,27)));
-		assertThat(fbiRapbackSubscription.getRapbackOptOutInState(), is(true));
-		assertThat(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), is("1"));
-		assertThat(fbiRapbackSubscription.getUcn(), is("074644NG0"));
+		assertEquals(fbiRapbackSubscription.getFbiSubscriptionId(), "fbiId1");
+		assertEquals(fbiRapbackSubscription.getRapbackCategory(), "CI");
+		assertEquals(fbiRapbackSubscription.getSubscriptionTerm(), "5");
+		assertEquals(fbiRapbackSubscription.getRapbackExpirationDate(), java.time.LocalDate.of(2017,9,27));
+		assertEquals(fbiRapbackSubscription.getRapbackTermDate(), java.time.LocalDate.of(2017,9,27));
+		assertEquals(fbiRapbackSubscription.getRapbackStartDate(), java.time.LocalDate.of(2012,9,27));
+		assertEquals(fbiRapbackSubscription.getRapbackOptOutInState(), true);
+		assertEquals(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), "1");
+		assertEquals(fbiRapbackSubscription.getUcn(), "074644NG0");
 	}
 
 	@Test
@@ -935,7 +934,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(1);
 
-		assertThat(whereClause, is(expectedResult));
+		assertEquals(whereClause, expectedResult);
 	}
 
 	@Test
@@ -946,7 +945,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(2);
 
-		assertThat(whereClause, is(expectedResult));
+		assertEquals(whereClause, expectedResult);
 	}
 
 	@Test
@@ -960,7 +959,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Object[] result = SubscriptionSearchQueryDAO.buildCriteriaArray(input);
 
-		assertThat(result, is(expectedResult));
+		assertArrayEquals(result, expectedResult);
 	}
 
 	@Test

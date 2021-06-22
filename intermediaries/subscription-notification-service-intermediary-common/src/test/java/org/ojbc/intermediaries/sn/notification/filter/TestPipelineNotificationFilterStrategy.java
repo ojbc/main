@@ -19,19 +19,19 @@ package org.ojbc.intermediaries.sn.notification.filter;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 
 public class TestPipelineNotificationFilterStrategy {
 
@@ -61,7 +61,7 @@ public class TestPipelineNotificationFilterStrategy {
 		
 	    //Read the notification request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/notificationMessage-incidentOldNotificationDate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -101,7 +101,7 @@ public class TestPipelineNotificationFilterStrategy {
 		
 	    //Read the notification request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/notificationMessage-incidentFutureNotificationDate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    

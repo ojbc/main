@@ -16,8 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.chcycle;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
@@ -39,18 +38,18 @@ public class ChCycleSubscriptionRequestTest {
 		
 		ChCycleSubscriptionRequest sub = new ChCycleSubscriptionRequest(message, null);		
 		
-		assertThat(sub.getSubscriptionQualifier(), is("302593"));
+		assertEquals(sub.getSubscriptionQualifier(), "302593");
 		
-		assertThat(sub.getSubjectName(), is("Maggie Simpson"));
+		assertEquals(sub.getSubjectName(), "Maggie Simpson");
 		
-		assertThat(sub.getEmailAddresses().size(), is(1));
-		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		assertEquals(sub.getEmailAddresses().size(), 1);
+		assertEquals(sub.getEmailAddresses().contains("po6@localhost"), true);
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(4));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Maggie"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Simpson"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1993-01-01"));
-		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
+		assertEquals(sub.getSubjectIdentifiers().size(), 4);
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Maggie");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Simpson");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1993-01-01");
+		assertEquals(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "302593");
 	}
 	
 	private Document getMessageBody() throws Exception {

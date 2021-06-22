@@ -23,11 +23,12 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.support.DefaultMessage;
+import org.apache.cxf.binding.soap.SoapFault;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,18 +82,18 @@ public class SubscriptionProcessorTest {
 
     @Test
     public void testProcessUnSubscriptionRequest_noRowsUnsubscribed() throws Exception {
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext());
         Message m = e.getIn();
         m.setHeader("operationName", "Unsubscribe");
         ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("{http://ojbc.org/wsn/topics}:person/arrest", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId","first", "last", "10-10-2001");
         unit.setTopic(request.getTopic());
         unit.processUnSubscriptionRequest(request, m, "SYSTEM");
-        assertTrue(e.getOut().isFault());
+        assertTrue(e.getMessage().getBody() instanceof SoapFault);
     }
 
     @Test
     public void testProcessUnSubscriptionRequest_invalidTopic() throws Exception {
-        Message m = new DefaultMessage();
+        Message m = new DefaultMessage(new DefaultCamelContext());
         ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("arbitraryTopic", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId","first", "last", "10-10-2001");
         unit.setTopic("validTopic");
         unit.processUnSubscriptionRequest(request, m, "SYSTEM");

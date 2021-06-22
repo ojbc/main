@@ -52,7 +52,7 @@ public class FaultMessageProcessor {
 		String operationName = (String)exchange.getIn().getHeader("operationName");
 		
 		//Use the out message so we have a clean message
-		Message outMessage = exchange.getOut();
+		Message outMessage = exchange.getMessage();
 		String returnValue = "";
 		
 		Document detailPayload = null;
@@ -120,8 +120,6 @@ public class FaultMessageProcessor {
 	    detail.appendChild(detail.getOwnerDocument().importNode(detailPayload.getDocumentElement(), true));
 	    
 		outMessage.setHeader(org.apache.cxf.message.Message.RESPONSE_CODE, new Integer(500));
-		outMessage.setFault(true);
-		
 		outMessage.setBody(fault);
 	}
 	

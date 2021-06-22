@@ -23,10 +23,10 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
@@ -76,20 +76,20 @@ public class VehicleCrashNotificationProcessorTest {
         email.setSubscriptionCategoryCode("default");
         email.setNotificationRequest(new VehicleCrashNotificationRequest(getNotificationMessage()));
         
-        Exchange e = new DefaultExchange((CamelContext) null);
+        Exchange e = new DefaultExchange( new DefaultCamelContext() );
         Message inMessage = e.getIn();
         inMessage.setHeader("notificationTopic", "incident");
         inMessage.setBody(email);
 
         unit.createNotificationEmail(e);
         
-        String receivedEmailBody = (String) e.getOut().getBody();
+        String receivedEmailBody = (String) e.getMessage().getBody();
         
         log.info("Recieved email body: "  + receivedEmailBody);
         
         assertEquals(EXPECTED_EMAIL_TEXT, receivedEmailBody);
-        assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
-        assertEquals("someSystem", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
+        assertEquals("po1@localhost", e.getMessage().getHeader(NotificationConstants.HEADER_TO));
+        assertEquals("someSystem", e.getMessage().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
         
     }
     
