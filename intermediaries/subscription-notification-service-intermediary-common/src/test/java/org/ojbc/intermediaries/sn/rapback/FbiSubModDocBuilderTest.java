@@ -16,14 +16,13 @@
  */
 package org.ojbc.intermediaries.sn.rapback;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
@@ -92,7 +91,7 @@ public class FbiSubModDocBuilderTest {
 			XmlUtils.printNode(fbiSubModDoc);
 		}		
 		
-		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);		
+		assertEquals(detailedDiff.toString(), 0, diffCount);		
 	}
 		
 	
