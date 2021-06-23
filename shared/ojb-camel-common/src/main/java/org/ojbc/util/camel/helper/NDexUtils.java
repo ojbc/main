@@ -21,10 +21,10 @@ import java.util.Calendar;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.StringEscapeUtils;
 import org.ojbc.util.ndex.util.UniqueIDGenerator;
 
 public class NDexUtils {
@@ -43,7 +43,7 @@ public class NDexUtils {
 		StringBuffer message = new StringBuffer();
 		
 		message.append("<com:submitNDExIEPD1_0 xmlns:com=\"urn://com.raytheon.ndex.ai.webservice\">");
-		message.append("	<com:data >" + StringEscapeUtils.escapeXml(lexsPayload) +  "</com:data>");
+		message.append("	<com:data >" + StringEscapeUtils.escapeXml10(lexsPayload) +  "</com:data>");
 		message.append("	<com:submittingAgencyName>" + submittingAgencyName +  "</com:submittingAgencyName>");
 		message.append("	<com:fileName>" + fileName +  "</com:fileName>");
 		message.append("</com:submitNDExIEPD1_0>");

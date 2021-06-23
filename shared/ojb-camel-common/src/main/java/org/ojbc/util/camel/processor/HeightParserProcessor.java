@@ -17,7 +17,7 @@
 package org.ojbc.util.camel.processor;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.helper.HeightUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;

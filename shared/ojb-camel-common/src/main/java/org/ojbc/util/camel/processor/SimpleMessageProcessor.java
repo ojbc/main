@@ -30,7 +30,7 @@ public class SimpleMessageProcessor {
 	public void prepareNewSimpleExchangeResponseMessage(Exchange exchange) throws Exception
 	{
 			
-		exchange.getOut().setBody(exchange.getIn().getBody());
+		exchange.getMessage().setBody(exchange.getIn().getBody());
 	}
 
 

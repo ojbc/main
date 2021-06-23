@@ -36,11 +36,11 @@
 	</parent>
 
 	<properties>
-		<camel-version>3.9.0</camel-version>
-		<cxf-version>3.4.2</cxf-version>
+		<camel-version>3.10.0</camel-version>
+		<cxf-version>3.4.3</cxf-version>
 		<saxon-version>9.9.1-7</saxon-version>
-		<spring-version>5.3.7</spring-version>
-		<apache-commons-io-version>1.3.2</apache-commons-io-version>
+		<spring-version>5.3.8</spring-version>
+		<apache-commons-io-version>2.8.0</apache-commons-io-version>
 		<xmlunit-version>1.6</xmlunit-version>
 		<commons-lang>2.6</commons-lang>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
@@ -48,10 +48,10 @@
 		<saxon-version>9.9.1-7</saxon-version>
 		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
-		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
+		<junit-platform-launcher-version>1.7.2</junit-platform-launcher-version>
 		<java-version>1.8</java-version>
 		<h2-mock-database-version>[3.0.2,)</h2-mock-database-version>
-		<commons-dbcp-version>1.2.2</commons-dbcp-version>
+		<commons-dbcp2-version>2.8.0</commons-dbcp2-version>
     <!-- Plugin versions -->
     <surefire.version>2.21.0</surefire.version>
 		<jackson.version>1.9.12</jackson.version> 
@@ -72,9 +72,9 @@
 		 	<scope>test</scope>		 	
 		 </dependency>	
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>${commons-dbcp-version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>${commons-dbcp2-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -144,7 +144,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>

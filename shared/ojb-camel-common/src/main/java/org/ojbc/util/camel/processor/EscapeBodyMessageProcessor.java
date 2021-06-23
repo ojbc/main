@@ -17,7 +17,7 @@
 package org.ojbc.util.camel.processor;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 public class EscapeBodyMessageProcessor {
 
@@ -26,7 +26,7 @@ public class EscapeBodyMessageProcessor {
 		
 		String body = exchange.getIn().getBody(String.class);
 		
-		String escapedBody = StringEscapeUtils.escapeXml(body);
+		String escapedBody = StringEscapeUtils.escapeXml10(body);
 		
 		exchange.getIn().setBody(escapedBody);
 		

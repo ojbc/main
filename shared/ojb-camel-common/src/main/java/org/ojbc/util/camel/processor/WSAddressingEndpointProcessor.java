@@ -19,7 +19,7 @@ package org.ojbc.util.camel.processor;
 import java.util.HashMap;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class uses a Camel header named "WSAddressingReplyTo" to lookup an endpoint to send

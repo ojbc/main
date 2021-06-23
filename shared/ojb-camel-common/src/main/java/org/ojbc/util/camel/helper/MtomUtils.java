@@ -22,7 +22,7 @@ import javax.activation.DataHandler;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.helpers.IOUtils;
