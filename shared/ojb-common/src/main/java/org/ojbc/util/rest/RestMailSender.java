@@ -101,13 +101,13 @@ public class RestMailSender implements JavaMailSender {
 	}
 
 	@Override
-	public void send(MimeMessage[] mimeMessages) throws MailException {
+	public void send(MimeMessage... mimeMessages) throws MailException {
 		log.info("Method not implementede (mimeMessages[]): ");
 		
 	}
 
 	@Override
-	public void send(MimeMessagePreparator[] mimeMessagePreparators)
+	public void send(MimeMessagePreparator... mimeMessagePreparators)
 			throws MailException {
 		log.info("Method not implemented (MimeMessagePreparator[]): ");
 		
@@ -139,7 +139,7 @@ public class RestMailSender implements JavaMailSender {
 	}
 
 	@Override
-	public void send(SimpleMailMessage[] simpleMessages) throws MailException {
+	public void send(SimpleMailMessage... simpleMessages) throws MailException {
 		log.info("Method not implemented (SimpleMailMessage[]): ");
 		
 	}

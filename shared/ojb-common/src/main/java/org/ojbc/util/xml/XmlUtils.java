@@ -48,11 +48,11 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xml.security.utils.Base64;
+import org.apache.commons.text.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -706,7 +706,7 @@ public class XmlUtils {
 				throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);
 			}
 			
-			return Base64.decode(base64BinaryData);
+			return Base64.decodeBase64(base64BinaryData);
 			
 		} catch (Exception e) {			
 			throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);

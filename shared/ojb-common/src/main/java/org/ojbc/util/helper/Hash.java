@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.helper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * See here: http://stackoverflow.com/questions/415953/how-can-i-generate-an-md5-hash

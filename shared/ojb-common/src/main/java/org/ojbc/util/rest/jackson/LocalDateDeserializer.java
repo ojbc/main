@@ -19,7 +19,7 @@ package org.ojbc.util.rest.jackson;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;

@@ -18,12 +18,9 @@ package org.ojbc.util.helper;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.zip.DataFormatException;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
@@ -92,6 +89,7 @@ public class ZipUtilsTest {
 		System.out.println(originalData + " compressed as "+ StringUtils.trimAllWhitespace(bytesToHexString(compressedData)));
 	}
 
+	@SuppressWarnings("unused")
 	private void printUnCompressedString(String compressedData) throws IOException {
 		byte[] uncompressedData = ZipUtils.unzip(compressedData.getBytes());
 		System.out.println(compressedData + " uncompressed as "+ StringUtils.trimAllWhitespace(uncompressedData.toString()));

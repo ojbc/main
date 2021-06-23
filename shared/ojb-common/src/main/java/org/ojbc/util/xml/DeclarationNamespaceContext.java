@@ -60,7 +60,7 @@ public class DeclarationNamespaceContext implements NamespaceContext {
     }
 
     @Override
-    public Iterator getPrefixes(String uri) {
+    public Iterator<String> getPrefixes(String uri) {
         List<String> l = new ArrayList<String>();
         l.add(getPrefix(uri));
         return l.iterator();

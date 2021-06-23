@@ -34,7 +34,8 @@ package org.ojbc.util.ndex.util;
  */
 
 import java.util.concurrent.atomic.AtomicInteger;
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * N-DEx submissions require a unique sequence number in the web service payload.

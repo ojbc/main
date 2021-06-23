@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.1</version>   
+	<version>5.0.2</version>   
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -33,16 +33,17 @@
 	</parent>
 
 	<properties>
-		<spring.version>5.3.7</spring.version>	
+		<spring.version>5.3.8</spring.version>	
     <slf4j-version>1.7.30</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>		
-		<commons.lang.version>2.6</commons.lang.version>
+		<commons.lang3.version>3.12.0</commons.lang3.version>
+		<commons.text.version>1.9</commons.text.version>
 		<junit-jupiter-engine-version>5.2.0</junit-jupiter-engine-version>
 		<junit-vintage-engine-version>5.2.0</junit-vintage-engine-version>
 		<junit-platform-launcher-version>1.2.0</junit-platform-launcher-version>
 		<wss4j-version>2.2.2</wss4j-version>
 		<apache-commons-codec-version>1.6</apache-commons-codec-version>
-		<cxf-version>3.4.2</cxf-version>
+		<cxf-version>3.4.3</cxf-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
 		<io-utils-version>1.3.2</io-utils-version>
@@ -121,9 +122,14 @@
 			<version>${joda-time.version}</version>
 		</dependency>		
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons.lang.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>${commons.text.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>

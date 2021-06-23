@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.security;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.helper.Hash;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
