@@ -22,22 +22,22 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="subscriptionTestDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+	<bean id="subscriptionTestDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:mem:subscription" />
 		<property name="username" value="sa" />
 		<property name="initialSize" value="1" />
-		<property name="maxActive" value="3" />
+		<property name="maxTotal" value="3" />
 		<property name="validationQuery" value="select 1" />
 		<property name="testOnBorrow" value="true" />
 	</bean>
 
-	<bean id="auditLogTestDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+	<bean id="auditLogTestDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:mem:auditlog" />
 		<property name="username" value="sa" />
 		<property name="initialSize" value="1" />
-		<property name="maxActive" value="3" />
+		<property name="maxTotal" value="3" />
 		<property name="validationQuery" value="select 1" />
 		<property name="testOnBorrow" value="true" />
 	</bean>

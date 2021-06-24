@@ -26,12 +26,12 @@
 
 	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer"
 		init-method="start" destroy-method="stop" depends-on="h2WebServer">
-		<constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,49093" />
+		<constructor-arg value="-tcp,-tcpAllowOthers,-ifNotExists,-tcpPort,49093" />
 	</bean>
 	
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer"
 		init-method="start" destroy-method="stop">
-		<constructor-arg value="-web,-webAllowOthers,-webPort,48083" />
+		<constructor-arg value="-web,-webAllowOthers,-ifNotExists,-webPort,48083" />
 	</bean>
 	
 </beans>

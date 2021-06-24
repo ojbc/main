@@ -66,7 +66,7 @@ CREATE TABLE person_alias (
                 alias_middle VARCHAR(50),
                 alias_sex VARCHAR(1),
                 alias_dob DATE,
-                CONSTRAINT id PRIMARY KEY (id)
+                CONSTRAINT person_alias_id PRIMARY KEY (id)
 );
 
 CREATE TABLE booking (
@@ -90,7 +90,7 @@ CREATE TABLE booking (
                 in_process_indicator BOOLEAN,
                 mistaken_booking_indicator BOOLEAN,
                 last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-                CONSTRAINT id PRIMARY KEY (id)
+                CONSTRAINT booking_id PRIMARY KEY (id)
 );
 
 CREATE TABLE arrest (
@@ -98,7 +98,7 @@ CREATE TABLE arrest (
                 booking_id INTEGER NOT NULL,
                 arrest_unique_identifier VARCHAR(100) NOT NULL,
                 arrest_agency VARCHAR(200),
-                CONSTRAINT id PRIMARY KEY (id)
+                CONSTRAINT arrest_id PRIMARY KEY (id)
 );
 
 CREATE TABLE charge (
@@ -116,7 +116,7 @@ CREATE TABLE charge (
                 holding_for_agency VARCHAR(100),
                 sentence_date DATE,
                 case_jurisdiction_court VARCHAR(200),
-                CONSTRAINT id PRIMARY KEY (id)
+                CONSTRAINT charge_id PRIMARY KEY (id)
 );
 
 CREATE TABLE location (
@@ -128,7 +128,7 @@ CREATE TABLE location (
                 city VARCHAR(200),
                 state_code VARCHAR(10),
                 postal_code VARCHAR(20),
-                CONSTRAINT id PRIMARY KEY (id)
+                CONSTRAINT location_id PRIMARY KEY (id)
 );
 
 ALTER TABLE booking ADD CONSTRAINT person_booking_fk

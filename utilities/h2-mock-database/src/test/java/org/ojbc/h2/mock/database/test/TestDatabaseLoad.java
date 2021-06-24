@@ -31,7 +31,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -57,31 +56,31 @@ public class TestDatabaseLoad {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestDatabaseLoad.class);
 
-    @Resource
+    @Resource(name = "auditLogTestDataSource")
     private DataSource auditLogTestDataSource;
 
-    @Autowired
+    @Resource(name = "enhancedAuditLogDataSource")
     private DataSource enhancedAuditLogDataSource;
     
-    @Autowired
+    @Resource(name = "subscriptionDataSource")
     private DataSource subscriptionDataSource;
 
-    @Autowired
+    @Resource(name = "rapbackDataSource")
     private DataSource rapbackDataSource;
 
-    @Autowired
+    @Resource(name = "policyAcknowledgementDataSource")
     private DataSource policyAcknowledgementDataSource;
 
-    @Autowired
+    @Resource(name = "incidentReportingStateCacheDataSource")
     private DataSource incidentReportingStateCacheDataSource;
 
-    @Autowired
+    @Resource(name = "custodyDataSource")
     private DataSource custodyDataSource;
 
-    @Autowired
+    @Resource(name = "warrantRepositorySource")
     private DataSource warrantRepositorySource;
 
-    @Autowired
+    @Resource(name="consentManagementDataSource")
     private DataSource consentManagementDataSource;
 
 	@Test
