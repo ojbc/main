@@ -18,7 +18,7 @@ package org.ojbc.web.model.person.query;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.ojbc.web.OJBCWebServiceURIs;
 
 public class DetailsRequest implements Serializable{

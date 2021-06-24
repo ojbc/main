@@ -38,7 +38,7 @@ public class RemoveSoapActionInInterceptor extends AbstractSoapInterceptor {
     @Override 
         public void handleMessage(SoapMessage message) throws Fault { 
         if (message.getVersion() instanceof Soap11) { 
-            Map<String, List<String>> headers = CastUtils.cast((Map)message.get(Message.PROTOCOL_HEADERS)); 
+            Map<String, List<String>> headers = CastUtils.cast((Map<?, ?>)message.get(Message.PROTOCOL_HEADERS)); 
             headers.remove("SOAPAction"); 
         } 
     } 

@@ -18,10 +18,10 @@ package org.ojbc.web.portal.audit;
 
 import java.time.LocalDate;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.ojbc.web.SearchFieldMetadata;
 import org.springframework.format.annotation.DateTimeFormat;
 

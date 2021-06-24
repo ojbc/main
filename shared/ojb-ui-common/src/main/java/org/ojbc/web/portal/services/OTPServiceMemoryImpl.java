@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.security.UserOTPDetails;
@@ -64,11 +64,11 @@ public class OTPServiceMemoryImpl implements OTPService{
 		
 		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
 		{	
-			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "M")));
+			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "M")));
 		} 
 		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
 		{
-			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "S")));
+			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.removeEnd(otpValidityPeriod.toUpperCase(), "S")));
 		}	
 		else
 		{

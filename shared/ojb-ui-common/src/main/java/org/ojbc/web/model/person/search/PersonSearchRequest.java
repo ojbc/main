@@ -23,8 +23,8 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
@@ -93,14 +93,14 @@ public class PersonSearchRequest implements Serializable{
 		return personName.getGivenName();
 	}
 	public void setPersonGivenName(String personGivenName) {
-		this.personName.setGivenName(StringEscapeUtils.escapeHtml(personGivenName)) ;
+		this.personName.setGivenName(StringEscapeUtils.escapeHtml4(personGivenName)) ;
 	}
     @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonMiddleName() {
 		return personName.getMiddleName();
 	}
 	public void setPersonMiddleName(String personMiddleName) {
-		this.personName.setMiddleName(StringEscapeUtils.escapeHtml(personMiddleName));
+		this.personName.setMiddleName(StringEscapeUtils.escapeHtml4(personMiddleName));
 	}
 	
     @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
@@ -108,7 +108,7 @@ public class PersonSearchRequest implements Serializable{
 		return personName.getSurName();
 	}
 	public void setPersonSurName(String personSurName) {
-		this.personName.setSurName(StringEscapeUtils.escapeHtml(personSurName));
+		this.personName.setSurName(StringEscapeUtils.escapeHtml4(personSurName));
 	}
 	public String getPersonSexCode() {
 		return personSexCode;
@@ -127,25 +127,25 @@ public class PersonSearchRequest implements Serializable{
 		return personSocialSecurityNumber;
 	}
 	public void setPersonSocialSecurityNumber(String personSocialSecurityNumber) {
-		this.personSocialSecurityNumber = StringEscapeUtils.escapeHtml(personSocialSecurityNumber);
+		this.personSocialSecurityNumber = StringEscapeUtils.escapeHtml4(personSocialSecurityNumber);
 	}
 	public String getPersonDriversLicenseNumber() {
 		return personDriversLicenseNumber;
 	}
 	public void setPersonDriversLicenseNumber(String personDriversLicenseNumber) {
-		this.personDriversLicenseNumber = StringEscapeUtils.escapeHtml(personDriversLicenseNumber);
+		this.personDriversLicenseNumber = StringEscapeUtils.escapeHtml4(personDriversLicenseNumber);
 	}
 	public String getPersonFBINumber() {
 		return personFBINumber;
 	}
 	public void setPersonFBINumber(String personFBINumber) {
-		this.personFBINumber = StringEscapeUtils.escapeHtml(personFBINumber);
+		this.personFBINumber = StringEscapeUtils.escapeHtml4(personFBINumber);
 	}
 	public String getPersonSID() {
 		return personSID;
 	}
 	public void setPersonSID(String personSID) {
-		this.personSID = StringUtils.upperCase(StringEscapeUtils.escapeHtml(personSID));
+		this.personSID = StringUtils.upperCase(StringEscapeUtils.escapeHtml4(personSID));
 	}
 	public SearchFieldMetadata getPersonGivenNameMetaData() {
 		return personName.getGivenNameMetaData();
@@ -163,7 +163,7 @@ public class PersonSearchRequest implements Serializable{
 		return personDriversLicenseIssuer;
 	}
 	public void setPersonDriversLicenseIssuer(String personDriversLicenseIssuer) {
-		this.personDriversLicenseIssuer = StringEscapeUtils.escapeHtml(personDriversLicenseIssuer);
+		this.personDriversLicenseIssuer = StringEscapeUtils.escapeHtml4(personDriversLicenseIssuer);
 	}
 	public DateTime getPersonDateOfBirth() {
 		return personDateOfBirth;

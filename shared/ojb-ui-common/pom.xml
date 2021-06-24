@@ -36,7 +36,6 @@
 		<junit.version>4.10</junit.version>
 		<json.version>20140107</json.version>
 		<joda-time.version>2.2</joda-time.version>
-		<commons.lang3.version>3.3.2</commons.lang3.version>
 		<hibernate.validator.version>6.0.11.Final</hibernate.validator.version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<java-version>1.8</java-version>
@@ -81,11 +80,6 @@
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${joda-time.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons.lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
