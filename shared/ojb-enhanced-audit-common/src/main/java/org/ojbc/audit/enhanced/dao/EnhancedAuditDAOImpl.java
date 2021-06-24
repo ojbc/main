@@ -429,7 +429,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(PERSON_SYSTEMS_TO_SEARCH_INSERT, new String[] {"USER_INFO_ID"});
+        	                connection.prepareStatement(PERSON_SYSTEMS_TO_SEARCH_INSERT, new String[] {"PERSON_SYSTEMS_TO_SEARCH_ID"});
         	            DaoUtils.setPreparedStatementVariable(pearchSearchPk, ps, 1);
         	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
         	            
@@ -714,7 +714,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(WARRANT_QUERY_RESULTS_INSERT, new String[] {"CRIMINAL_HISTORY_QUERY_RESULTS_ID"});
+        	                connection.prepareStatement(WARRANT_QUERY_RESULTS_INSERT, new String[] {"WARRANT_QUERY_RESULTS_ID"});
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getFirstName(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getMiddleName(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getLastName(), ps, 3);
@@ -999,7 +999,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(SUBSCRIPTION_SEARCH_REQUEST_INSERT, new String[] {"SUBSCRIPTION_SEARCH_REQUEST_INSERT_ID"});
+        	                connection.prepareStatement(SUBSCRIPTION_SEARCH_REQUEST_INSERT, new String[] {"SUBSCRIPTION_SEARCH_REQUEST_ID"});
         	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getMessageId(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getSubjectFirstName(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(subscriptionSearchRequest.getSubjectLastName(), ps, 3);
@@ -2168,7 +2168,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(FIREARMS_SYSTEMS_TO_SEARCH_INSERT, new String[] {"USER_INFO_ID"});
+        	                connection.prepareStatement(FIREARMS_SYSTEMS_TO_SEARCH_INSERT, new String[] {"FIREARMS_SYSTEMS_TO_SEARCH_ID"});
         	            DaoUtils.setPreparedStatementVariable(firearmsSearchPk, ps, 1);
         	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
         	            

@@ -43,8 +43,8 @@
 
 	<bean id="enhancedAuditDao" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl"/>
 	
-	<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-	    <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" id="dataSource">
+	    <property name="driverClassName" value="org.h2.Driver" />
 	    <property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
 	    <property name="username" value="sa" />
 	    <property name="password" value="" />
