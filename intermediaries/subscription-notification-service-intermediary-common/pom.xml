@@ -33,8 +33,8 @@
 	</parent>
 
 	<properties>
-		<camel-version>2.14.4</camel-version>
-		<xmlunit.version>1.5</xmlunit.version>
+		<camel-version>3.10.0</camel-version>
+		<xmlunit.version>1.6</xmlunit.version>
 		<jodatime-version>2.2</jodatime-version>
 		<commons-lang3-version>3.12.0</commons-lang3-version>
     <ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
@@ -53,8 +53,7 @@
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<commonsIo.version>2.10.0</commonsIo.version>
-    <spring-version>5.3.7</spring-version>
-    <camel-test-version>3.9.0</camel-test-version>
+    <spring-version>5.3.8</spring-version>
 		<h2-mock-database-version>[3.0.2,)</h2-mock-database-version>
 		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
 		<java-version>1.8</java-version>
@@ -145,7 +144,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-spring-junit5</artifactId>
-      <version>${camel-test-version}</version>
+      <version>${camel-version}</version>
     </dependency>
 
     <dependency>
