@@ -186,7 +186,7 @@ public class TestSubscriptionSearchQueryDAOH2Data {
 		assertEquals(1, postRecordCount);
 
 		rs.close();
-		rs = s.executeQuery("select * from subscription_subject_identifier where subscriptionid="
+		rs = s.executeQuery("select * from rapback_datastore.subscription_subject_identifier where subscriptionid="
 				+ subscriptionId);
 		// ResultSetMetaData rsmd = rs.getMetaData();
 		// for (int i=0;i < rsmd.getColumnCount();i++) {

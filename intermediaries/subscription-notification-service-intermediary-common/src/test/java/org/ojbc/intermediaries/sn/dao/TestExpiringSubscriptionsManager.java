@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -50,13 +51,15 @@ import org.w3c.dom.Document;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		})
 @DirtiesContext
 public class TestExpiringSubscriptionsManager {
 
 	private static final Log log = LogFactory.getLog(TestExpiringSubscriptionsManager.class);
 	
-	@Resource
+	@Resource(name = "rapbackDataSource")
 	private DataSource dataSource;
 
 	@Autowired
@@ -66,9 +69,11 @@ public class TestExpiringSubscriptionsManager {
 			throws FileNotFoundException, DatabaseUnitException, SQLException,
 			DataSetException {
 		FileInputStream manualTestFile = new FileInputStream(manualTestFileName);
+		Connection conn = dataSource.getConnection();
+		conn.createStatement().execute("use rapback_datastore");
+
 		IDatabaseConnection connection = new DatabaseConnection(
-				dataSource.getConnection());
-		
+				conn);
 		FileInputStream emptyDataSetFile = new FileInputStream("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml");
 		DatabaseOperation.DELETE_ALL.execute(connection, new FlatXmlDataSetBuilder().build(emptyDataSetFile));
 		

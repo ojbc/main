@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.topic.courtdispositionupdate;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
@@ -43,26 +43,26 @@ public class CourtDispositionUpdateNotificationRequestTest {
 		
 		CourtDispositionUpdateNotificationRequest courtDispositionUpdateNotificationRequest = new CourtDispositionUpdateNotificationRequest(message);		
 		
-		assertThat(courtDispositionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime(), is(false));
+		assertFalse(courtDispositionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime());
 		
 		//TODO: Update these asssertions after xpaths are fixed.
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), is(""));
+		//assertEquals(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), ""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
+		//assertEquals(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), ""));
 		
-		assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
+		assertEquals(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), "123456A");
 
-		assertThat(courtDispositionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
-		assertThat(courtDispositionUpdateNotificationRequest.getPersonLastName(), is("White"));
+		assertEquals(courtDispositionUpdateNotificationRequest.getPersonFirstName(), "Walter");
+		assertEquals(courtDispositionUpdateNotificationRequest.getPersonLastName(), "White");
 		
-		assertThat(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().size(), is(4));
+		assertEquals(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().size(), 4);
 		
-		assertThat(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Walter"));
-		assertThat(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("White"));
-		assertThat(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1977-12-17"));
-		assertThat(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
+		assertEquals(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Walter");
+		assertEquals(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "White");
+		assertEquals(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1977-12-17");
+		assertEquals(courtDispositionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
 		
-        assertThat(courtDispositionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate"));
+        assertEquals(courtDispositionUpdateNotificationRequest.getTopic(), "{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate");
 								
 	}
 

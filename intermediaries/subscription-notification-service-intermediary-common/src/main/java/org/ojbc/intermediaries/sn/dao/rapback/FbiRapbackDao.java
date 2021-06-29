@@ -128,7 +128,7 @@ public class FbiRapbackDao {
     	String fbiUcnId = null;
     	
     	try{
-    		fbiUcnId = jdbcTemplate.queryForObject(FBI_UCN_ID_SELECT, new Object[]{subscriptionId, reasonCode}, String.class);
+    		fbiUcnId = jdbcTemplate.queryForObject(FBI_UCN_ID_SELECT, String.class, subscriptionId, reasonCode);
     	}catch(Exception e){
     		logger.error("\n\n\n Exception while querying to get ucn: " + e.getMessage() + "\n\n\n");
     	}
@@ -139,7 +139,7 @@ public class FbiRapbackDao {
 
     public int countStateSubscriptions(String fbiUcnId, String reasonCategoryCode){
     	
-    	int stateSubCount = jdbcTemplate.queryForObject(STATE_SUB_COUNT, new Object[] {fbiUcnId, reasonCategoryCode}, Integer.class);
+    	int stateSubCount = jdbcTemplate.queryForObject(STATE_SUB_COUNT, Integer.class, fbiUcnId, reasonCategoryCode);
     	
     	logger.info("\n\n\n fbidao, stateSubCount = " + stateSubCount + "\n\n\n");
     	    	
@@ -239,7 +239,7 @@ public class FbiRapbackDao {
 		
 		Integer rowsDeleted = 0;
 		
-		final String sql = "SELECT count(*) FROM SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";	
+		final String sql = "SELECT count(*) FROM rapback_datastore.SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";	
 		Integer subsequentResultsCount = jdbcTemplate.queryForObject(sql, Integer.class, subsequentResults.getTransactionNumber(), subsequentResults.getResultsSender().ordinal()+1); 
 		
 		
@@ -247,7 +247,7 @@ public class FbiRapbackDao {
 
         if (subsequentResultsCount != null && subsequentResultsCount > 0)
         {
-            String sqlQuery = "DELETE FROM SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";
+            String sqlQuery = "DELETE FROM rapback_datastore.SUBSEQUENT_RESULTS WHERE NOTIFICATION_INDICATOR = true and  TRANSACTION_NUMBER = ? and RESULTS_SENDER_ID =?";
 
             int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {subsequentResults.getTransactionNumber(), subsequentResults.getResultsSender().ordinal()+1});
             		

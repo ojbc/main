@@ -48,7 +48,6 @@
     <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
     <junit-platform-launcher-version>1.7.2</junit-platform-launcher-version>
 		<velocity-version>1.7</velocity-version>
-		<mockito.version>1.9.0</mockito.version>
 		<httpcomponents.version>4.2.5</httpcomponents.version>
 		<wiser.version>3.1.7</wiser.version>
 		<dbunit.version>2.4.9</dbunit.version>
@@ -60,7 +59,22 @@
 	</properties>
 
 	<dependencies>
-
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>2.5.1</version>
+</dependency> 
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.200</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <version>2.5.1</version>
+</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -165,18 +179,6 @@
 			<artifactId>h2-mock-database</artifactId>
 			<version>${h2-mock-database-version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>

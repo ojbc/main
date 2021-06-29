@@ -17,8 +17,8 @@
 package org.ojbc.intermediaries.sn.notification;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -63,11 +63,12 @@ import org.w3c.dom.Node;
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext
 public class NotificationProcessorTest {
 
-    @Resource
+    @Resource(name="rapbackDataSource")
     DataSource dataSource;
 
     @Resource
@@ -89,9 +90,12 @@ public class NotificationProcessorTest {
         };
 
         notificationProcessor.setSubscriptionSearchQueryDAO(subscriptionSearchQueryDAO);
+		IDatabaseConnection iDatabaseConnection = getConnection();
+		Connection connection = iDatabaseConnection.getConnection();
+		connection.createStatement().execute("use rapback_datastore;");
 
-        DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml"));
-        DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
+        DatabaseOperation.DELETE_ALL.execute(iDatabaseConnection, getDataSet("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml"));
+        DatabaseOperation.CLEAN_INSERT.execute(iDatabaseConnection, getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
     }
 
     private IDataSet getDataSet(String fileName) throws Exception {
@@ -163,8 +167,7 @@ public class NotificationProcessorTest {
         inMessage.setBody(notificationMessageDocument);
 
         notificationProcessor.findSubscriptionsForNotification(e);
-
-        assertNull(e.getProperty(Exchange.ROUTE_STOP));
+        assertFalse(e.isRouteStop());
 
         notificationProcessor.setNotificationFilterStrategy(new NotificationFilterStrategy() {
             @Override

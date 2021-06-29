@@ -60,7 +60,8 @@ import org.w3c.dom.Node;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext
 public class TestSubscriptionValidationMessageProcessor {
@@ -107,7 +108,7 @@ public class TestSubscriptionValidationMessageProcessor {
 		
 		ex.getIn().setBody(document);
 
-		int rowsUpdated = this.jdbcTemplate.update("update SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62723'");
+		int rowsUpdated = this.jdbcTemplate.update("update rapback_datastore.SUBSCRIPTION set SUBSCRIPTION_CATEGORY_CODE='CS' where ID ='62723'");
 		assertEquals(1,rowsUpdated);
 		
 		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionWithFbiInfoBySubscriptionId("62723"); 

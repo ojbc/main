@@ -79,11 +79,11 @@ public class SubscriptionSearchQueryDAO {
 			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
-			+ "FROM subscription s "
-			+ "LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "	
-			+ "     notification_mechanism nm, 	subscription_subject_identifier si, "		
-			+ "     subscription_owner so  "
-			+ "LEFT JOIN agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
+			+ "FROM rapback_datastore.subscription s "
+			+ "LEFT JOIN rapback_datastore.fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "	
+			+ "     rapback_datastore.notification_mechanism nm, 	rapback_datastore.subscription_subject_identifier si, "		
+			+ "     rapback_datastore.subscription_owner so  "
+			+ "LEFT JOIN rapback_datastore.agency_profile ap on ap.AGENCY_ID = so.AGENCY_ID  "
 			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id "
 			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID";
 	
@@ -235,7 +235,9 @@ public class SubscriptionSearchQueryDAO {
         parameters.addValue("subscriptionOwner", subscriptionOwner);
         parameters.addValue("civilSubscriptionCategoryCodes", SubscriptionCategoryCode.getCivilCodes());
 
-        String sqlQuery = "select count(*) from subscription s, subscription_owner so where so.federation_id= :subscriptionOwner and active =1 "
+        String sqlQuery = "select count(*) from rapback_datastore.subscription s, "
+        		+ "rapback_datastore.subscription_owner so "
+        		+ "where so.federation_id= :subscriptionOwner and active =1 "
         		+ " and s.SUBSCRIPTION_OWNER_ID = so.SUBSCRIPTION_OWNER_ID "
         		+ " and (s.subscription_category_code is null or s.subscription_category_code not in ( :civilSubscriptionCategoryCodes ))";
 
@@ -285,7 +287,7 @@ public class SubscriptionSearchQueryDAO {
 				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName,  s.timestamp as lastUpdatedDate, s.active, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, ap.agency_name, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + " fbi_sub.* "
-                + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + " FROM subscription s, notification_mechanism nm, rapback_datastore.subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
                 + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id "
                 + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ? and s.active=1";
@@ -380,12 +382,12 @@ public class SubscriptionSearchQueryDAO {
         };
 
         String queryString = BASE_QUERY_STRING + " and s.startDate <=? and ((s.startDate <=? and s.endDate >?) or (s.startDate <=? and s.endDate is null)) and s.topic=? and active=1 and ";
-        queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from subscription_subject_identifier where identifierValue='*')) ");
+        queryString += (" (" + buildCriteriaSql(subjectIdentifiers.size()) + " or s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierValue='*')) ");
 
         Object[] subjectIdArray = buildCriteriaArray(subjectIdentifiers);
         criteriaArray = ArrayUtils.addAll(criteriaArray, subjectIdArray);
         
-        List<Subscription> subscriptions = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
+        List<Subscription> subscriptions = this.jdbcTemplate.query(queryString, resultSetExtractor, criteriaArray);
         log.debug("Found " + subscriptions.size() + " subscriptions:" + subscriptions);
         List<Subscription> wildcardFilteredSubscriptions = new ArrayList<Subscription>();
         
@@ -514,7 +516,7 @@ public class SubscriptionSearchQueryDAO {
         String queryString = BASE_QUERY_STRING + staticCriteria.toString()
                 + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
         queryString+= " order by subscriptionOwnerEmailAddress";
-        ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
+        ret = this.jdbcTemplate.query(queryString, resultSetExtractor, criteriaArray);
 
         return ret;
 
@@ -634,7 +636,9 @@ public class SubscriptionSearchQueryDAO {
 	private void updateSubscription(java.util.Date validationDueDate, String offenderName, Date startDate, Date endDate,
 			java.util.Date lastValidationDate, String fullyQualifiedTopic,
 			long subscriptionID, Integer subscriptionOwnerFk) {
-		this.jdbcTemplate.update("update subscription set validationDueDate=?, topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? where id=?", new Object[] {
+		this.jdbcTemplate.update("update rapback_datastore.subscription "
+				+ "set validationDueDate=?, topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? "
+				+ "where id=?", new Object[] {
 				validationDueDate, fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), lastValidationDate, subscriptionOwnerFk, subscriptionID
 		});
 	}
@@ -658,14 +662,14 @@ public class SubscriptionSearchQueryDAO {
         log.debug("Updating row in notification_mechanism table");
 
         // We will delete all email addresses associated with the subscription and re-add them
-        this.jdbcTemplate.update("delete from notification_mechanism where subscriptionId = ?", subscriptionID);
+        this.jdbcTemplate.update("delete from rapback_datastore.notification_mechanism where subscriptionId = ?", subscriptionID);
 
 	    saveEmailAddresses(emailAddresses, subscriptionID);
 	}
 
 	private void saveEmailAddresses(List<String> emailAddresses, long subscriptionID) {
 		this.jdbcTemplate.batchUpdate(
-    		"insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", 
+    		"insert into rapback_datastore.notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", 
     		new BatchPreparedStatementSetter() { public void setValues(PreparedStatement ps, int i)
                     throws SQLException {
                 ps.setLong(1, subscriptionID);
@@ -702,31 +706,29 @@ public class SubscriptionSearchQueryDAO {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
-                "insert into SUBSCRIPTION_OWNER (FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) "
+                "insert into rapback_datastore.SUBSCRIPTION_OWNER (FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) "
                 + "values (?, ?, ?, ?, ?)", new Object[] {
                 		firstName, lastName, emailAddress, federationId, agencyPk
-                }), keyHolder);
+                }, "SUBSCRIPTION_OWNER_ID"), keyHolder);
 
 		return keyHolder.getKey();
 	}
 
 	public void saveAgencyProfileEntry(String agencyOri, String agencyName, boolean fbiSubscriptionQualification, boolean stateSubscriptionQualification, boolean civilAgencyIndicator) {
-		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(
-			buildPreparedInsertStatementCreator(
-		        "insert into AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION , STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR) "
+		        "insert into rapback_datastore.AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION , STATE_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR) "
 		        + "	values (?,?,?,?,?) ", new Object[] {
 		        		agencyOri, agencyName, fbiSubscriptionQualification, stateSubscriptionQualification, civilAgencyIndicator
-		        }), keyHolder);
+		        });
 	}
 
 	public Integer returnAgencyPkFromORI(String ori)
 	{
-    	String sql = "SELECT AGENCY_ID from AGENCY_PROFILE where AGENCY_ORI=?";
+    	String sql = "SELECT AGENCY_ID from rapback_datastore.AGENCY_PROFILE where AGENCY_ORI=?";
     	
     	Integer agencyProfilePk;
 		try {
-			agencyProfilePk = jdbcTemplate.queryForObject(sql, new Object[] {ori}, Integer.class);
+			agencyProfilePk = jdbcTemplate.queryForObject(sql, Integer.class, ori);
 		} catch (DataAccessException e) {
 			log.info("Unable to retrieve agency PK from ORI : " + ori);
 			agencyProfilePk = null;
@@ -738,11 +740,11 @@ public class SubscriptionSearchQueryDAO {
 	
 	Integer returnSubscriptionOwnerFromFederationId(String federationId)
 	{
-    	String sql = "SELECT SUBSCRIPTION_OWNER_ID from SUBSCRIPTION_OWNER where FEDERATION_ID=?";
+    	String sql = "SELECT SUBSCRIPTION_OWNER_ID from rapback_datastore.SUBSCRIPTION_OWNER where FEDERATION_ID=?";
     	
     	Integer subscriptionOwnerPk = null;
 		try {
-			subscriptionOwnerPk = jdbcTemplate.queryForObject(sql, new Object[] {federationId}, Integer.class);
+			subscriptionOwnerPk = jdbcTemplate.queryForObject(sql, Integer.class, federationId);
 		} catch (DataAccessException e) {
 			log.info("Unable to find existing subscription owner, insert new record.");
 		}
@@ -784,12 +786,12 @@ public class SubscriptionSearchQueryDAO {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
-                "insert into subscription ("
+                "insert into rapback_datastore.subscription ("
                 + "topic, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subjectName, active, subscription_category_code, "
                 + "lastValidationDate, agency_case_number, subscription_owner_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
                     fullyQualifiedTopic, startDate, endDate, creationDate, validationDueDate, request.getSystemName(), 
                     request.getSubjectName(), 1, request.getReasonCategoryCode(), creationDate, request.getAgencyCaseNumber(), subscriptionOwnerPk
-                }), keyHolder);
+                }, "id"), keyHolder);
 
 		ret = keyHolder.getKey();
 
@@ -798,7 +800,9 @@ public class SubscriptionSearchQueryDAO {
 		log.debug("Inserting row(s) into subscription_subject_identifier table");
 
 		for (Map.Entry<String, String> entry : request.getSubjectIdentifiers().entrySet()) {
-		    this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
+		    this.jdbcTemplate.update("insert into "
+		    		+ "rapback_datastore.subscription_subject_identifier (subscriptionId, identifierName, identifierValue) "
+		    		+ "values (?,?,?)", keyHolder.getKey(), entry.getKey(),
 		            entry.getValue());
 		}
 
@@ -808,7 +812,7 @@ public class SubscriptionSearchQueryDAO {
 
 	public int insertSubjectIdentifier(long subscriptionID, String key, String value)
 	{
-	    return this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", subscriptionID, key, value);
+	    return this.jdbcTemplate.update("insert into rapback_datastore.subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", subscriptionID, key, value);
 	}
 	
 	public int saveSubscriptionProperties(
@@ -819,7 +823,8 @@ public class SubscriptionSearchQueryDAO {
 		if (subscriptionProperties != null)
 		{	
 		    for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
-		        int rowsUpdated = this.jdbcTemplate.update("insert into subscription_properties (subscriptionId, propertyname, propertyvalue) values (?,?,?)", subscriptionID, entry.getKey(),
+		        int rowsUpdated = this.jdbcTemplate.update("insert into rapback_datastore.subscription_properties "
+		        		+ "(subscriptionId, propertyname, propertyvalue) values (?,?,?)", subscriptionID, entry.getKey(),
 		                entry.getValue());
 		        
 		        if (rowsUpdated == 1)
@@ -895,7 +900,7 @@ public class SubscriptionSearchQueryDAO {
     private void unsubscribeIdentificationTransaction(Integer subscriptionId){
     	
     	//We also set the FBI subscription status to null here since we have unsubscribed
-    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE identification_transaction "
+    	final String IDENTIFICATION_TRANSACTION_UNSUBSCRIBE = "UPDATE rapback_datastore.identification_transaction "
     			+ "SET available_for_subscription_start_date = ?, FBI_SUBSCRIPTION_STATUS=null WHERE subscription_id = ? ";
     	
     	this.jdbcTemplate.update(IDENTIFICATION_TRANSACTION_UNSUBSCRIBE, Calendar.getInstance().getTime(), subscriptionId);
@@ -922,7 +927,7 @@ public class SubscriptionSearchQueryDAO {
             Object[] criteriaArray = new Object[] {
                 fullyQualifiedTopic, subscriptionSystemId
             };
-            String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=? and s.active != 0";
+            String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.id=? and s.active != 0";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
 
             log.debug("fbiSubscriptionMember? " + BooleanUtils.toStringTrueFalse(fbiSubscriptionMember));
@@ -940,7 +945,7 @@ public class SubscriptionSearchQueryDAO {
                 fullyQualifiedTopic, systemName
             };
             criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIds));
-            String queryString = "update subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and"
+            String queryString = "update rapback_datastore.subscription s set s.active=0 where s.topic=? and s.active!=0 and s.subscribingSystemIdentifier=? and"
                     + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIds.size());
 
             log.debug("Query String: " + queryString);
@@ -952,10 +957,10 @@ public class SubscriptionSearchQueryDAO {
         return returnCount;
     }
 
-    private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE subscription_subject_identifier SET identifierValue = ? "
+    private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE rapback_datastore.subscription_subject_identifier SET identifierValue = ? "
     		+ "WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?";
     
-    private final String DELETE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "DELETE from subscription_subject_identifier WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
+    private final String DELETE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "DELETE from rapback_datastore.subscription_subject_identifier WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
 
     /**
      * Update the subscripiton_subject_identifier using the provided parameters
@@ -1004,7 +1009,7 @@ public class SubscriptionSearchQueryDAO {
     		if (i > 0) {
     			sql.append(" and s.id in");
     		}
-    		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ");
+    		sql.append(" (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ");
     	}
     	
     	return sql.toString();
@@ -1019,7 +1024,7 @@ public class SubscriptionSearchQueryDAO {
     		if (i > 0) {
     			sql.append(" and s.id in");
     		}
-    		sql.append(" (select subscriptionId from subscription_subject_identifier where identifierName= :identifierName" + i 
+    		sql.append(" (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierName= :identifierName" + i 
     				+ " and upper(identifierValue) = upper(:identifierValueName" + i + "))  ");
     	}
     	
@@ -1042,7 +1047,7 @@ public class SubscriptionSearchQueryDAO {
     
     public List<String> getUniqueSubscriptionOwners()
     {
-    	String queryString = "SELECT distinct(FEDERATION_ID) as subscriptionOwner FROM SUBSCRIPTION_OWNER where FEDERATION_ID <> 'SYSTEM' order by FEDERATION_ID";
+    	String queryString = "SELECT distinct(FEDERATION_ID) as subscriptionOwner FROM rapback_datastore.SUBSCRIPTION_OWNER where FEDERATION_ID <> 'SYSTEM' order by FEDERATION_ID";
     	
     	List<String> subscriptionOwners = (List<String>) jdbcTemplate.queryForList(queryString, String.class);
     	
@@ -1051,7 +1056,7 @@ public class SubscriptionSearchQueryDAO {
     
     public Map<String, String > getSubscriptionProperties(String id)
     {
-        String sqlQuery = "select * from subscription_properties where subscriptionId=? order by propertyName";
+        String sqlQuery = "select * from rapback_datastore.subscription_properties where subscriptionId=? order by propertyName";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery, new Object[] {id});
         		
@@ -1073,7 +1078,7 @@ public class SubscriptionSearchQueryDAO {
     
     public int deleteSubscriptionProperties(String id)
     {
-        String sqlQuery = "delete from subscription_properties where subscriptionId=?";
+        String sqlQuery = "delete from rapback_datastore.subscription_properties where subscriptionId=?";
 
         int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {id});
         		
@@ -1094,14 +1099,12 @@ public class SubscriptionSearchQueryDAO {
     	return 	this.jdbcTemplate.update(SUBSCRIPTION_VALIDATION_QUERY_CIVIL, validationDueDateString, validationDueDateString, startDateString, subscriptionId);
     }
 
-    private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
+    private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params, final String pkIdName) {
         return new PreparedStatementCreator() {
 
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement(sql, new String[] {
-                    "id"
-                });
+                PreparedStatement ps = connection.prepareStatement(sql, new String[] {pkIdName});
                 int paramIndex = 1;
                 for (Object param : params) {
                     ps.setObject(paramIndex, param);

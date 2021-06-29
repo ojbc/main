@@ -25,13 +25,13 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter.EmailTemplate;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
-import org.junit.Before;
-import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 @DirtiesContext

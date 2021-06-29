@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.migration;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -111,8 +112,7 @@ public class SubscriptionMigrationProcessor {
 			{	
 				emailAddressToORILookupMap  = new HashMap<String, String>();
 				
-				@SuppressWarnings("unchecked")
-				List<String> lines = FileUtils.readLines(new File(pathToOriLookupFile));
+				List<String> lines = FileUtils.readLines(new File(pathToOriLookupFile), Charset.defaultCharset());
 				
 				for (String line : lines)
 				{

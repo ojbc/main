@@ -27,7 +27,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
@@ -48,6 +47,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
 @DirtiesContext
 public class RapbackDAOImplGetMethodsTest {
@@ -56,9 +56,6 @@ public class RapbackDAOImplGetMethodsTest {
 	@Resource
 	private FbiRapbackDao rapbackDao;
 	
-    @Resource  
-    private DataSource dataSource;  
-
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDao);

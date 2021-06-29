@@ -44,6 +44,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
 @DirtiesContext
 public class RapbackDAOImplSaveMethodsTest {
@@ -52,8 +53,8 @@ public class RapbackDAOImplSaveMethodsTest {
 	@Resource
 	private FbiRapbackDao rapbackDao;
 	
-    @Resource  
-    private DataSource dataSource;  
+    @Resource(name = "rapbackDataSource" )  
+    private DataSource rapbackDataSource;  
 
 	@Before
 	public void setUp() throws Exception {
@@ -73,7 +74,8 @@ public class RapbackDAOImplSaveMethodsTest {
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
 		
-		Connection conn = dataSource.getConnection();
+		Connection conn = rapbackDataSource.getConnection();
+		conn.createStatement().execute("use rapback_datastore");
 		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = " + pkId.toString());
 		assertTrue(rs.next());
 		assertEquals("9222201", rs.getString("ucn"));

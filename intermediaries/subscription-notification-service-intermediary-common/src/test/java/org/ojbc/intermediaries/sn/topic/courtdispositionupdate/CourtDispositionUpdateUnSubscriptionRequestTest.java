@@ -16,15 +16,13 @@
  */
 package org.ojbc.intermediaries.sn.topic.courtdispositionupdate;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import junit.framework.Assert;
 
 import org.apache.camel.Message;
 import org.junit.Test;
@@ -42,15 +40,15 @@ public class CourtDispositionUpdateUnSubscriptionRequestTest {
 		
 		CourtDispositionUpdateUnSubscriptionRequest request = new CourtDispositionUpdateUnSubscriptionRequest(message);
 		
-		assertThat(request.getSubscriptionQualifier(), is("302593"));
-		Assert.assertNotNull(request.getEmailAddresses());
-		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate"));
-		assertThat(request.getSubjectIdentifiers().size(), is(5));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1990-10-20"));
+		assertEquals(request.getSubscriptionQualifier(), "302593");
+		assertNotNull(request.getEmailAddresses());
+		assertEquals(request.getTopic(), "{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate");
+		assertEquals(request.getSubjectIdentifiers().size(), 5);
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), "302593");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "John");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "Doe");
+		assertEquals(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1990-10-20");
 		
 	}
 

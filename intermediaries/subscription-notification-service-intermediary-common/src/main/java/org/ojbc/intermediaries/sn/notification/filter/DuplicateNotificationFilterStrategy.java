@@ -65,7 +65,7 @@ public class DuplicateNotificationFilterStrategy implements NotificationFilterSt
 
 		Object[] criteriaArray = new Object[] { notificationId,subjectIdentifier, notifyingSystem};
 		
-		List<Notification> notificationsSent = this.jdbcTemplate.query(queryString, criteriaArray , new NotificationsSentMapper() );
+		List<Notification> notificationsSent = this.jdbcTemplate.query(queryString, new NotificationsSentMapper(), criteriaArray  );
 		
 		if (notificationsSent.size() == 0)
 		{	

@@ -92,14 +92,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml" })
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionSearchQueryDAO {
 
 	private static final Log log = LogFactory
 			.getLog(TestSubscriptionSearchQueryDAO.class);
 
-	@Resource
+	@Resource(name="rapbackDataSource")
 	private DataSource dataSource;
 
 	@Autowired
@@ -163,8 +165,11 @@ public class TestSubscriptionSearchQueryDAO {
 			throws FileNotFoundException, DatabaseUnitException, SQLException,
 			DataSetException {
 		FileInputStream manualTestFile = new FileInputStream(manualTestFileName);
+		Connection conn = dataSource.getConnection();
+		conn.createStatement().execute("use rapback_datastore");
+
 		IDatabaseConnection connection = new DatabaseConnection(
-				dataSource.getConnection());
+				conn);
 		
 		FileInputStream emptyDataSetFile = new FileInputStream("src/test/resources/xmlInstances/dbUnit/emptyDataSet.xml");
 		DatabaseOperation.DELETE_ALL.execute(connection, new FlatXmlDataSetBuilder().build(emptyDataSetFile));
@@ -626,7 +631,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Statement s = dataSource.getConnection().createStatement();
 
-		ResultSet rs = s.executeQuery("select * from subscription");
+		ResultSet rs = s.executeQuery("select * from rapback_datastore.subscription");
 
 		assertTrue(rs.next());
 		int id = rs.getInt("id");
@@ -638,7 +643,7 @@ public class TestSubscriptionSearchQueryDAO {
 		subscriptionSearchQueryDAO
 				.unsubscribe("" + id, topic, null, null, null);
 
-		rs = s.executeQuery("select * from subscription where id=" + id);
+		rs = s.executeQuery("select * from rapback_datastore.subscription where id=" + id);
 
 		assertTrue(rs.next());
 		active = rs.getByte("ACTIVE");
@@ -656,7 +661,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement s = dataSource.getConnection().createStatement();
 
 		ResultSet rs = s
-				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from subscription s, subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active=1");
+				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from rapback_datastore.subscription s, rapback_datastore.subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active=1");
 
 		assertTrue(rs.next());
 		int id = rs.getInt("id");
@@ -669,7 +674,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		rs.close();
 
-		rs = s.executeQuery("select * from subscription_subject_identifier where subscriptionid="
+		rs = s.executeQuery("select * from rapback_datastore.subscription_subject_identifier where subscriptionid="
 				+ id);
 
 		Map<String, String> subjectIdMap = new HashMap<String, String>();
@@ -682,7 +687,7 @@ public class TestSubscriptionSearchQueryDAO {
 		subscriptionSearchQueryDAO.unsubscribe(null, topic, subjectIdMap,
 				systemName, owner);
 
-		rs = s.executeQuery("select * from subscription where id=" + id);
+		rs = s.executeQuery("select * from rapback_datastore.subscription where id=" + id);
 
 		assertTrue(rs.next());
 		active = rs.getByte("ACTIVE");
@@ -778,7 +783,8 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request,
 				new LocalDate()).intValue();
 
-		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
+		rs = s.executeQuery("select * from rapback_datastore.notification_mechanism "
+				+ "where subscriptionid="
 				+ subscriptionId);
 
 		int recordCount = 0;
@@ -821,7 +827,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, originalDate)
 				.intValue();
 
-		rs = s.executeQuery("select * from subscription where id="
+		rs = s.executeQuery("select * from rapback_datastore.subscription where id="
 				+ subscriptionId);
 
 		int recordCount = 0;
@@ -852,7 +858,9 @@ public class TestSubscriptionSearchQueryDAO {
 															// been an update
 															// not insert
 
-		rs = s.executeQuery("select s.*, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress from subscription s, subscription_owner so where s.subscription_owner_id = so.subscription_owner_id and id="
+		rs = s.executeQuery("select s.*, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress "
+				+ "from rapback_datastore.subscription s, rapback_datastore.subscription_owner so "
+				+ "where s.subscription_owner_id = so.subscription_owner_id and id="
 				+ subscriptionId);
 
 		recordCount = 0;
@@ -930,7 +938,7 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_single() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
+		String expectedResult = " s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(1);
 
@@ -940,8 +948,8 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildWhereClause_multiple() {
-		String expectedResult = " s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) "
-				+ " and s.id in (select subscriptionId from subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
+		String expectedResult = " s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) "
+				+ " and s.id in (select subscriptionId from rapback_datastore.subscription_subject_identifier where identifierName=? and upper(identifierValue) = upper(?)) ";
 
 		String whereClause = SubscriptionSearchQueryDAO.buildCriteriaSql(2);
 
@@ -997,7 +1005,10 @@ public class TestSubscriptionSearchQueryDAO {
 		Exception, MalformedURLException, DataSetException, DatabaseUnitException {
 	
 		// Fetch database data after executing your code
-		IDataSet databaseDataSet = getConnection().createDataSet();
+		IDatabaseConnection iDatabaseConnection = getConnection();
+		Connection connection = iDatabaseConnection.getConnection();
+		connection.createStatement().execute("use rapback_datastore;");
+		IDataSet databaseDataSet = iDatabaseConnection.createDataSet();
 		ITable filteredActualSubscriptionTable = getFilteredTableFromDataset(databaseDataSet, "subscription");
 		ITable filteredActualNotficationMechanismTable = getFilteredTableFromDataset(databaseDataSet, "notification_mechanism");
 		ITable filteredActualSubjectIdentiferTable = getFilteredTableFromDataset(databaseDataSet, "subscription_subject_identifier");

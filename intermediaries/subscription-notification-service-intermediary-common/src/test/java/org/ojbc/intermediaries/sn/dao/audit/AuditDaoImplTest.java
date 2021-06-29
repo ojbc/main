@@ -43,6 +43,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
 public class AuditDaoImplTest {

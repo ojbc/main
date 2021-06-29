@@ -36,8 +36,8 @@
 	</bean>
 
     <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
-        <property name="dataSource" ref="dataSource"/>
-		<property name="fbiSubscriptionMember" value="true"/>
+        <property name="dataSource" ref="rapbackDataSource"/>
+		    <property name="fbiSubscriptionMember" value="true"/>
     </bean>
     
     <bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
@@ -61,7 +61,7 @@
 	</bean>
 
     <bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
 		<property name="username" value="sa" />
 	</bean>
@@ -294,15 +294,15 @@ If you require more information, please utilize the Federated Query Tool – htt
 	
 	<bean id="namedParameterJdbcTemplate" 
       class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
+ 	   <constructor-arg ref="rapbackDataSource"/>
 	</bean>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
+ 	   <constructor-arg ref="rapbackDataSource"/>
 	</bean>
 
 	<bean id="jdbcTemplateAudit" class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSourceAudit"/>
+ 	   <constructor-arg ref="enhancedAuditLogDataSource"/>
 	</bean>
 
 </beans>

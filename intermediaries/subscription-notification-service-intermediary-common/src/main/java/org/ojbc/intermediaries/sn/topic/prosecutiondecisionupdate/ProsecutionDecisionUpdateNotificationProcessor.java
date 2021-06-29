@@ -25,7 +25,6 @@ import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateNotificationRequest;
 import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class ProsecutionDecisionUpdateNotificationProcessor extends NotificationProcessor {

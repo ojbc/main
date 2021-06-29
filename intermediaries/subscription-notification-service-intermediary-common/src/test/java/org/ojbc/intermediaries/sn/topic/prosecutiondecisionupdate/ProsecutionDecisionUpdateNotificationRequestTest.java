@@ -16,8 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
@@ -43,26 +42,26 @@ public class ProsecutionDecisionUpdateNotificationRequestTest {
 		
 		ProsecutionDecisionUpdateNotificationRequest prosecutionDecisionUpdateNotificationRequest = new ProsecutionDecisionUpdateNotificationRequest(message);		
 		
-		assertThat(prosecutionDecisionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime(), is(false));
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime(), false);
 		
 		//TODO: Update these asssertions after xpaths are fixed.
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), is(""));
+		//assertEquals(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), ""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
+		//assertEquals(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), ""));
 		
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getNotificationEventIdentifier(), "123456A");
 
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonLastName(), is("White"));
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getPersonFirstName(), "Walter");
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getPersonLastName(), "White");
 		
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().size(), is(4));
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().size(), 4);
 		
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Walter"));
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("White"));
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1977-12-17"));
-		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), "Walter");
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), "White");
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), "1977-12-17");
+		assertEquals(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), "A9999999");
 		
-        assertThat(prosecutionDecisionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate"));
+        assertEquals(prosecutionDecisionUpdateNotificationRequest.getTopic(), "{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate");
 								
 	}
 

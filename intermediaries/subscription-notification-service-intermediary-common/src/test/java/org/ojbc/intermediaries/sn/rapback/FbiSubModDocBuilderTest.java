@@ -48,7 +48,9 @@ import org.w3c.dom.Document;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml", 
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml", })
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class FbiSubModDocBuilderTest {
 	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilderTest.class);
