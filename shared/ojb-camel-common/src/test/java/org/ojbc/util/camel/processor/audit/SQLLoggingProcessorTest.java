@@ -63,7 +63,9 @@ import org.xml.sax.SAXException;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {
-		"classpath:META-INF/spring/SQLLoggingProcessorTest-spring-context.xml"
+		"classpath:META-INF/spring/SQLLoggingProcessorTest-spring-context.xml",
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
+		"classpath:META-INF/spring/h2-mock-database-context-auditlog.xml"		
 		})
 @DirtiesContext
 public class SQLLoggingProcessorTest {
