@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.apache.cxf.rt.security.saml.claims.SAMLSecurityContext;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -232,6 +233,10 @@ public class SAMLTokenUtils {
         if (cxfMessage != null) {
             SAMLTokenPrincipal token = (SAMLTokenPrincipal) cxfMessage
                     .get("wss4j.principal.result");
+            if (token == null) {
+            	SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
+            	token = (SAMLTokenPrincipal) samlSecurityContext.getUserPrincipal(); 
+            }
             return getAttributeValueFromSamlToken(token, samlAttribute); 
         }
 
