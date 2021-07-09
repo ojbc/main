@@ -35,6 +35,7 @@
 
 	<properties>
 		<camel.version>3.10.0</camel.version>
+		<cxf.version>3.4.3</cxf.version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<spring-version>5.3.8</spring-version>	
 		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
@@ -150,6 +151,11 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring</artifactId>
 			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-security-saml</artifactId>
+		    <version>${cxf.version}</version>
 		</dependency>
 		
 	</dependencies>
