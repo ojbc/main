@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,8 +79,8 @@ public class XsltTransformerServiceTest {
 	@Test
 	public void simpleTransform() throws Exception{
 		
-		String xml = FileUtils.readFileToString(new File( "src/test/resources/xml/simple/simpleXml.xml"));
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/xml/simple/simpleXmlTransform.xsl"));
+		String xml = FileUtils.readFileToString(new File( "src/test/resources/xml/simple/simpleXml.xml"), Charset.defaultCharset());
+		String xslt = FileUtils.readFileToString(new File("src/test/resources/xml/simple/simpleXmlTransform.xsl"), Charset.defaultCharset());
 		String expectedXml = unit.transform(createSource(xml), createSource(xslt),null);
 
 		assertTrue(expectedXml.contains("<div>Maker:Tella</div>"));
@@ -90,7 +91,7 @@ public class XsltTransformerServiceTest {
 	public void simpleTransformWithParameters() throws Exception{
 		
 		String xml = "<xml></xml>";
-		String xslt = FileUtils.readFileToString(new File("src/test/resources/xml/simple/simpleXmlTransformWithParams.xsl"));
+		String xslt = FileUtils.readFileToString(new File("src/test/resources/xml/simple/simpleXmlTransformWithParams.xsl"), Charset.defaultCharset());
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("param1","value1");
 		params.put("param2", 2);
