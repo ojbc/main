@@ -35,6 +35,7 @@ import org.w3c.dom.NodeList;
 
 public abstract class AbstractIdentificationSearchRequestProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractIdentificationSearchRequestProcessor.class);
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

@@ -22,8 +22,6 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.FirearmSearchResult;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionSearchResult;
 import org.w3c.dom.Document;
 

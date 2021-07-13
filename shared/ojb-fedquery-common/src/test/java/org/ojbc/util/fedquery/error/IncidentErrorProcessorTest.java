@@ -17,6 +17,7 @@
 package org.ojbc.util.fedquery.error;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -50,7 +51,7 @@ public class IncidentErrorProcessorTest {
 
 		File expectedVehicleMessageFile = new File("src/test/resources/xml/VehicleToIncidentErrorMessage.xml");			
 		
-		String sExpectedVehicleXmlMessage = FileUtils.readFileToString(expectedVehicleMessageFile);
+		String sExpectedVehicleXmlMessage = FileUtils.readFileToString(expectedVehicleMessageFile, Charset.defaultCharset());
 		
 		String sActualVehicleXmlMessage = IncidentSearchErrorProcessor.returnVehicleToIncidentErrorMessage();						
 														
@@ -67,7 +68,7 @@ public class IncidentErrorProcessorTest {
 
 		File expectedPersonMessageFile = new File("src/test/resources/xml/PersonToIncidentErrorMessage.xml");			
 		
-		String sExpectedPersonMessage = FileUtils.readFileToString(expectedPersonMessageFile);
+		String sExpectedPersonMessage = FileUtils.readFileToString(expectedPersonMessageFile, Charset.defaultCharset());
 		
 		String sActualPersonMessage = IncidentSearchErrorProcessor.returnPersonToIncidentErrorMessage();						
 														

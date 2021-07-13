@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 
 public abstract class AbstractProfessionalLicensingQueryResponseProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractProfessionalLicensingQueryResponseProcessor.class);
 	
 	public abstract void auditProfessionalLicenseQueryResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID);

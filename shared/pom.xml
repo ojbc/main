@@ -35,8 +35,6 @@
     <module>ojb-test-common</module>
     <module>ojb-camel-common</module>
     <module>ojb-fedquery-common</module>
-    <module>ojb-osgi-common</module>
-    <module>ojb-osgi-test-common</module>
     <module>ojb-policy-decision-point-service</module>
     <module>ojb-resources-common</module>
     <module>ojb-ui-common</module>

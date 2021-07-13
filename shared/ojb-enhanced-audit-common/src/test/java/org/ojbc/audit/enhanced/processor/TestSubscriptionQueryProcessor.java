@@ -29,7 +29,6 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionQueryResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;

@@ -27,6 +27,7 @@ import org.w3c.dom.Document;
 
 public abstract class AbstractFirearmsQueryResponseProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractFirearmsQueryResponseProcessor.class);
 	
 	public abstract void auditFirearmsQueryResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID);

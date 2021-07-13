@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 

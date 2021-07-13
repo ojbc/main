@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 
 public abstract class AbstractCannabisLicensingQueryResponseProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractCannabisLicensingQueryResponseProcessor.class);
 	
 	public abstract void auditCannabisLicenseQueryResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID);

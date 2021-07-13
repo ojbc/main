@@ -87,7 +87,6 @@ public class FileResendProcessor {
 		return fileToResend;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<File> findFailedFile(String recordNumber, String pathToProcessedFolder, String fileNamePrefix) {
 
 		File directory = new File(pathToProcessedFolder);

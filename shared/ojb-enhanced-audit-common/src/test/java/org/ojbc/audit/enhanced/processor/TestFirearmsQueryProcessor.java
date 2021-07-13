@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

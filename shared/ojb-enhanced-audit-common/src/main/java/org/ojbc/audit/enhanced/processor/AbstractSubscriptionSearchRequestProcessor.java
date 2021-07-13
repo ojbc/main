@@ -26,6 +26,7 @@ import org.w3c.dom.Document;
 
 public abstract class AbstractSubscriptionSearchRequestProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractSubscriptionSearchRequestProcessor.class);
 	
 	public abstract void auditSubscriptionSearchRequest(Exchange exchange, @Body Document document);

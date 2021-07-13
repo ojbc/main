@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.ojbc.audit.enhanced.dao.model.IncidentReportQueryResponse;
-import org.ojbc.audit.enhanced.dao.model.ProfessionalLicensingQueryResponse;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.jdbc.core.RowMapper;
 

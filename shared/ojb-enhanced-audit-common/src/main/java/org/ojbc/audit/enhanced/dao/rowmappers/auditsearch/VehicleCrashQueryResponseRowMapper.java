@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.audit.enhanced.dao.model.CrashVehicle;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.VehicleCrashQueryResponse;
 import org.ojbc.audit.enhanced.util.EnhancedAuditUtils;
 import org.springframework.dao.DataAccessException;

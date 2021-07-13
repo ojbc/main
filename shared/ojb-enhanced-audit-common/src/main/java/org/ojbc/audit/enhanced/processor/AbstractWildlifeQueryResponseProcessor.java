@@ -27,6 +27,7 @@ import org.w3c.dom.Document;
 
 public abstract class AbstractWildlifeQueryResponseProcessor {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(AbstractWildlifeQueryResponseProcessor.class);
 	
 	public abstract void auditWildlifeQueryResponse(@Body Document document,  @Header(value = "federatedQueryRequestGUID")String messageID);
