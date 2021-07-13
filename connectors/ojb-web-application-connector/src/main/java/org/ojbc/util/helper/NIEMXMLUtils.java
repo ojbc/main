@@ -16,7 +16,7 @@
  */
 package org.ojbc.util.helper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -168,13 +168,11 @@ public class NIEMXMLUtils {
 			personGivenNameElement.setTextContent(personGivenName);
 			personNameElement.appendChild(personGivenNameElement);
 			
-			if (personGivenNameMetaData == SearchFieldMetadata.ExactMatch)
-			{
-				personGivenNameElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "metadata", "SM001");
+			if (personGivenNameMetaData == SearchFieldMetadata.ExactMatch){
+				XmlUtils.addAttribute(personGivenNameElement, NIEMNamespaces.STRUCT_NS, "metadata", "SM001");
 			}
-			if (personGivenNameMetaData == SearchFieldMetadata.StartsWith)
-			{
-				personGivenNameElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "metadata", "SM002");
+			if (personGivenNameMetaData == SearchFieldMetadata.StartsWith){
+				XmlUtils.addAttribute(personGivenNameElement, NIEMNamespaces.STRUCT_NS, "metadata", "SM002");
 			}	
 			
 		}
@@ -194,11 +192,11 @@ public class NIEMXMLUtils {
 			
 			if (personSurNameMetaData == SearchFieldMetadata.ExactMatch)
 			{
-				personSurNameElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "metadata", "SM001");
+				XmlUtils.addAttribute(personSurNameElement, NIEMNamespaces.STRUCT_NS, "metadata", "SM001");
 			}
 			if (personSurNameMetaData == SearchFieldMetadata.StartsWith)
 			{
-				personSurNameElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "metadata", "SM002");
+				XmlUtils.addAttribute(personSurNameElement, NIEMNamespaces.STRUCT_NS, "metadata", "SM002");
 			}	
 			
 		}
@@ -209,8 +207,7 @@ public class NIEMXMLUtils {
 	public static Element createPersonsSearchRequestElement(Document doc, String id)
 	{
 		Element element = doc.createElementNS(OJBNamespaces.PERSON_SEARCH_REQUEST, "PersonSearchRequest");
-		element.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM003");
-		
+		XmlUtils.addAttribute(element, NIEMNamespaces.STRUCT_NS, "id", "SM003");
 		return element;
 	}
 
@@ -318,7 +315,7 @@ public class NIEMXMLUtils {
 		    switch(searchFieldMetadata) {
 		    case ExactMatch:
 		    case StartsWith:
-		        searchFieldMetadataElement.setAttributeNS(structNamespace, "id", getMetaDataId(searchFieldMetadata));
+		        XmlUtils.addAttribute(searchFieldMetadataElement, structNamespace, "id", getMetaDataId(searchFieldMetadata));
 		        break;
             default:
                 break; 
@@ -360,7 +357,7 @@ public class NIEMXMLUtils {
 	public static Element createSearchMetaDataPurposeOnBehalfOf(Document doc, String searchFieldMetaDataNamespace, String id, String onBehalfOfText, String searchPurposeText)
 	{
 		Element searchFieldMetadataElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchMetadata");
-		searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", id);
+		XmlUtils.addAttribute(searchFieldMetadataElement, NIEMNamespaces.STRUCT_NS, "id", id);
 		
 		if (StringUtils.isNotBlank(onBehalfOfText))
 		{
@@ -410,8 +407,7 @@ public class NIEMXMLUtils {
 		Element parentElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, parentElementName);
 		Element	identificationIDElement  = doc.createElementNS(NIEMNamespaces.NC_20_NS, "IdentificationID");
 		identificationIDElement.setTextContent(identificationID.trim());
-		identificationIDElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, structureAttrName, structureAttrValue);
-		
+		XmlUtils.addAttribute(identificationIDElement, NIEMNamespaces.STRUCT_NS, structureAttrName, structureAttrValue);
 		parentElement.appendChild(identificationIDElement);
 		
 		return parentElement;
@@ -446,8 +442,7 @@ public class NIEMXMLUtils {
     // </Incident>
 	public static Element createIncidentElement(Document doc, String structureId) {
 		Element incidentElement = doc.createElementNS(OJBNamespaces.INCIDENT_SEARCH_REQUEST_EXT, "Incident");
-		incidentElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", structureId);
-		
+		XmlUtils.addAttribute(incidentElement, NIEMNamespaces.STRUCT_NS, "id", structureId);
 		return incidentElement;
 	}
 	
@@ -456,7 +451,7 @@ public class NIEMXMLUtils {
     // </Location>
 	public static Element createLocationElement(Document doc, String structureId) {
 		Element locationElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "Location");
-		locationElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", structureId);
+		XmlUtils.addAttribute(locationElement, NIEMNamespaces.STRUCT_NS, "id", structureId);
 		
 		return locationElement;
 	}
@@ -549,10 +544,9 @@ public class NIEMXMLUtils {
 		Element parentElement = doc.createElementNS(NIEMNamespaces.JXDM_41_NS, "ActivityLocationAssociation");
 		
 		Element activityReferenceElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "ActivityReference");
-		activityReferenceElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "ref", activityRef);
-		
+		XmlUtils.addAttribute(activityReferenceElement, NIEMNamespaces.STRUCT_NS, "ref", activityRef);
 		Element locationReferenceElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "LocationReference");
-		locationReferenceElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "ref", locationRef);
+		XmlUtils.addAttribute(locationReferenceElement, NIEMNamespaces.STRUCT_NS, "ref", locationRef);
 		
 		parentElement.appendChild(activityReferenceElement);
 		parentElement.appendChild(locationReferenceElement);
@@ -565,8 +559,7 @@ public class NIEMXMLUtils {
 	// </ext:Firearm>
 	public static Element createFirearmElement(Document doc, String structureId) {
 		Element firearmElement = doc.createElementNS(OJBNamespaces.FIREARM_SEARCH_REQUEST_EXT, "Firearm");
-		firearmElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", structureId);
-		
+		XmlUtils.addAttribute(firearmElement,NIEMNamespaces.STRUCT_NS, "id", structureId);
 		return firearmElement;
 	}
 	
@@ -579,7 +572,7 @@ public class NIEMXMLUtils {
 	// </ItemRegistration>
 	public static Element createFirearmItemRegistration(Document doc, String structureId, String registrationId, String countyName, Boolean currentRegIndicator) {
 		Element itemRegistrationElement = doc.createElementNS(OJBNamespaces.FIREARM_SEARCH_REQUEST_EXT, "ItemRegistration");
-		itemRegistrationElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", structureId);
+		XmlUtils.addAttribute(itemRegistrationElement, NIEMNamespaces.STRUCT_NS, "id", structureId);
 		
 		if (StringUtils.isNotBlank(registrationId)) {
 			Element registrationIdElement = createIdentificationElementWithParent(doc, "RegistrationIdentification", registrationId);
@@ -611,10 +604,10 @@ public class NIEMXMLUtils {
 		Element parentElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "PropertyRegistrationAssociation");
 		
 		Element itemRegistrationReferenceElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "ItemRegistrationReference");
-		itemRegistrationReferenceElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "ref", itemRegistrationRef);
+		XmlUtils.addAttribute(itemRegistrationReferenceElement, NIEMNamespaces.STRUCT_NS, "ref", itemRegistrationRef);
 		
 		Element itemReferenceElement = doc.createElementNS(NIEMNamespaces.NC_20_NS, "ItemReference");
-		itemReferenceElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "ref", itemRef);
+		XmlUtils.addAttribute(itemReferenceElement, NIEMNamespaces.STRUCT_NS, "ref", itemRef);
 		
 		parentElement.appendChild(itemRegistrationReferenceElement);
 		parentElement.appendChild(itemReferenceElement);
@@ -630,14 +623,12 @@ public class NIEMXMLUtils {
 	{
 		Element searchFieldMetadataElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchMetadata");
 		
-		if (searchFieldMetadata == SearchFieldMetadata.ExactMatch)
-		{	
-			searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM001");
+		if (searchFieldMetadata == SearchFieldMetadata.ExactMatch){
+			XmlUtils.addAttribute(searchFieldMetadataElement, NIEMNamespaces.STRUCT_NS, "id", "SM001");
 		}	
 
-		if (searchFieldMetadata == SearchFieldMetadata.Partial)
-		{	
-			searchFieldMetadataElement.setAttributeNS(NIEMNamespaces.STRUCT_NS, "id", "SM002");
+		if (searchFieldMetadata == SearchFieldMetadata.Partial){	
+			XmlUtils.addAttribute(searchFieldMetadataElement, NIEMNamespaces.STRUCT_NS, "id", "SM002");
 		}	
 
 		Element searchFieldQualifierCodeElement = doc.createElementNS(searchFieldMetaDataNamespace, "SearchQualifierCode");

@@ -16,14 +16,14 @@
  */
 package org.ojbc.web.model.firearm.search;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
+import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 //import org.ojbc.util.xml.namespaces.NIEMNamespaces;
 import org.ojbc.web.SearchFieldMetadata;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.ojbc.util.xml.OjbcNamespaceContext;
 
 public class FirearmSearchRequestDomUtils {
 	

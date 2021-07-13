@@ -34,8 +34,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.camel.impl.DefaultExchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapMessage;
@@ -115,7 +115,7 @@ public class FaultableSynchronousMessageProcessor {
 	 */
 	private FaultableSoapResponse getResponseFromExchangeOutHeaders(Exchange returnExchange) throws Exception{
 		
-        Map<String, Object> headerMap = returnExchange.getOut().getHeaders();
+        Map<String, Object> headerMap = returnExchange.getMessage().getHeaders();
         
         SoapMessage cxfMessage = (SoapMessage)headerMap.get("camelcxfmessage");
                             

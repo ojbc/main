@@ -17,32 +17,40 @@
 
 -->
 <FirearmSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0">
-    <Firearm xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:id="FIREARM" xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">
-        <ItemSerialIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
-            <IdentificationID ns0:metadata="SM002">123476576</IdentificationID>
-        </ItemSerialIdentification>
-        <ItemModelName xmlns="http://niem.gov/niem/niem-core/2.0">Model</ItemModelName>
-        <nc:FirearmCategoryCode xmlns:nc="http://niem.gov/niem/niem-core/2.0">D</nc:FirearmCategoryCode>
-        <firearm-search-req-ext:FirearmMakeText xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">Make</firearm-search-req-ext:FirearmMakeText>
-    </Firearm>
-    <ItemRegistration xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:id="REGISTRATION" xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">
-        <RegistrationIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
-            <IdentificationID>Registration Number</IdentificationID>
-        </RegistrationIdentification>
-        <LocationCountyName xmlns="http://niem.gov/niem/niem-core/2.0">County</LocationCountyName>
-        <CurrentRegistrationIndicator>true</CurrentRegistrationIndicator>
-    </ItemRegistration>
-    <PropertyRegistrationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
-        <ItemRegistrationReference xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:ref="REGISTRATION"/>
-        <ItemReference xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:ref="FIREARM"/>
-    </PropertyRegistrationAssociation>
-    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">System</SourceSystemNameText>
-    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">PD</SourceSystemNameText>
-    <SearchMetadata xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:id="SM002" xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">
-        <SearchQualifierCode>partial</SearchQualifierCode>
-    </SearchMetadata>
-    <SearchMetadata xmlns:ns0="http://niem.gov/niem/structures/2.0" ns0:id="SM003" xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">
-        <SearchRequestOnBehalfOfText>John Doe</SearchRequestOnBehalfOfText>
-        <SearchPurposeText>Criminal Justice</SearchPurposeText>
-    </SearchMetadata>
+   <Firearm xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+            xmlns:s="http://niem.gov/niem/structures/2.0"
+            s:id="FIREARM">
+      <ItemSerialIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+         <IdentificationID s:metadata="SM002">123476576</IdentificationID>
+      </ItemSerialIdentification>
+      <ItemModelName xmlns="http://niem.gov/niem/niem-core/2.0">Model</ItemModelName>
+      <nc:FirearmCategoryCode xmlns:nc="http://niem.gov/niem/niem-core/2.0">D</nc:FirearmCategoryCode>
+      <firearm-search-req-ext:FirearmMakeText xmlns:firearm-search-req-ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">Make</firearm-search-req-ext:FirearmMakeText>
+   </Firearm>
+   <ItemRegistration xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                     xmlns:s="http://niem.gov/niem/structures/2.0"
+                     s:id="REGISTRATION">
+      <RegistrationIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+         <IdentificationID>Registration Number</IdentificationID>
+      </RegistrationIdentification>
+      <LocationCountyName xmlns="http://niem.gov/niem/niem-core/2.0">County</LocationCountyName>
+      <CurrentRegistrationIndicator>true</CurrentRegistrationIndicator>
+   </ItemRegistration>
+   <PropertyRegistrationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+      <ItemRegistrationReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="REGISTRATION"/>
+      <ItemReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="FIREARM"/>
+   </PropertyRegistrationAssociation>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">System</SourceSystemNameText>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0">PD</SourceSystemNameText>
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                   s:id="SM002">
+      <SearchQualifierCode>partial</SearchQualifierCode>
+   </SearchMetadata>
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                   s:id="SM003">
+      <SearchRequestOnBehalfOfText>John Doe</SearchRequestOnBehalfOfText>
+      <SearchPurposeText>Criminal Justice</SearchPurposeText>
+   </SearchMetadata>
 </FirearmSearchRequest>

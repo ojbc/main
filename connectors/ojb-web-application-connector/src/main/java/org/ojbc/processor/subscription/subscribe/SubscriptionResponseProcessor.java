@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.subscription.response.SubscriptionAccessDenialResponse;
 import org.ojbc.web.model.subscription.response.SubscriptionInvalidEmailResponse;

@@ -17,8 +17,8 @@
 
 -->
 <PersonSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
-                     xmlns:NS1="http://niem.gov/niem/structures/2.0"
-                     NS1:id="SM003">
+                     xmlns:s="http://niem.gov/niem/structures/2.0"
+                     s:id="SM003">
    <Person xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">
       <PersonEyeColorCode xmlns="http://niem.gov/niem/niem-core/2.0">BLK</PersonEyeColorCode>
       <PersonHairColorCode xmlns="http://niem.gov/niem/niem-core/2.0">BLK</PersonHairColorCode>
@@ -30,9 +30,9 @@
          <LengthUnitCode>INH</LengthUnitCode>
       </PersonHeightMeasure>
       <PersonName xmlns="http://niem.gov/niem/niem-core/2.0">
-         <PersonGivenName NS1:metadata="SM001">Frank</PersonGivenName>
+         <PersonGivenName s:metadata="SM001">Frank</PersonGivenName>
          <PersonMiddleName>f</PersonMiddleName>
-         <PersonSurName NS1:metadata="SM001">Smith</PersonSurName>
+         <PersonSurName s:metadata="SM001">Smith</PersonSurName>
       </PersonName>
       <PersonRaceCode xmlns="http://niem.gov/niem/niem-core/2.0">I</PersonRaceCode>
       <PersonSexCode xmlns="http://niem.gov/niem/niem-core/2.0">M</PersonSexCode>
@@ -71,10 +71,10 @@
    </Person>
    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</SourceSystemNameText>
    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants</SourceSystemNameText>
-   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="SM001">
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" s:id="SM001">
       <SearchQualifierCode>exact</SearchQualifierCode>
    </SearchMetadata>
-   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="OBO3">
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" s:id="OBO3">
       <SearchRequestOnBehalfOfText>On Behalf Of</SearchRequestOnBehalfOfText>
       <SearchPurposeText>This is the purpose</SearchPurposeText>
    </SearchMetadata>

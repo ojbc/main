@@ -16,16 +16,18 @@
  */
 package org.ojbc.web.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.Diff;
@@ -78,7 +80,7 @@ public class RequestMessageBuilderUtilitiesTest {
         
         File expectedReponseFile = new File("src/test/resources/xml/policyAcknowledgementRecordingRequest"
                 + "/acknowledgementRecordingRequestForAllPolicies.xml");
-        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
         
         //Use XML Unit to compare these files
         Diff myDiff = new Diff(documentInString, expectedResponseAsString);
@@ -98,7 +100,7 @@ public class RequestMessageBuilderUtilitiesTest {
     	Assert.assertNotNull(document);
     	
     	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsQuery/identificationResultsQueryRequest.xml");
-    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
     	
     	//Use XML Unit to compare these files
     	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
@@ -117,7 +119,7 @@ public class RequestMessageBuilderUtilitiesTest {
     	Assert.assertNotNull(document);
     	
     	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsQuery/identificationSubsequentResultsQueryRequest.xml");
-    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
     	
     	//Use XML Unit to compare these files
     	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
@@ -150,7 +152,7 @@ public class RequestMessageBuilderUtilitiesTest {
     	Assert.assertNotNull(document);
     	
     	File expectedReponseFile = new File("src/test/resources/xml/identificationResultsModification/identificationResultsModificationRequest.xml");
-    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
     	
     	//Use XML Unit to compare these files
     	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
@@ -180,7 +182,7 @@ public class RequestMessageBuilderUtilitiesTest {
         
         File expectedReponseFile = new File("src/test/resources/xml/identityBasedAccessControlRequest"
                 + "/createdIdentityBasedAccessControlRequest.xml");
-        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+        String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
         
         //Use XML Unit to compare these files
         Diff myDiff = new Diff(documentInString, expectedResponseAsString);
@@ -204,19 +206,13 @@ public class RequestMessageBuilderUtilitiesTest {
     	
     	Document document = RequestMessageBuilderUtilities.createfirearmsPurchaseProhibition(detailsRequest);
     	
-    	String documentInString = OJBUtils.getStringFromDocument(document);
-    	log.debug("\nFirearms Prohibition Query Request:\n"+ StringUtils.trimToEmpty(documentInString));
-    	
     	Assert.assertNotNull(document);
     	
-    	File expectedReponseFile = new File("src/test/resources/xml/firearmsProhibitionQueryRequest/firearmsProhibitionQueryRequest.xml");
-    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	Document expectedUnsubDoc = XmlUtils.parseFileToDocument(
+    			new File("src/test/resources/xml/firearmsProhibitionQueryRequest/firearmsProhibitionQueryRequest.xml"));
     	
     	//Use XML Unit to compare these files
-    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
-    	Assert.assertTrue("XML identical " + myDiff.toString(),
-    			myDiff.identical());     
-    	
+    	XmlTestUtils.compareDocuments(document, expectedUnsubDoc);
     }
     
     @Test

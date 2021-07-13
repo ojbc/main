@@ -73,6 +73,7 @@
 	<import resource="audit-search.xml"/>
 	
 	<import resource="professional-license-query.xml"/>
+	<import resource="cannabis-license-query.xml"/>
 	
 	<import resource="camel-context.xml"/>
 	

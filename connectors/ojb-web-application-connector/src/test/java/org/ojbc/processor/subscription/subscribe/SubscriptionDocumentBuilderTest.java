@@ -46,6 +46,9 @@ import org.w3c.dom.NodeList;
 @ContextConfiguration(locations={"/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
 @ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
 		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
+		"professional-license-query", "rapback-search", "arrest-search", "initial-results-query", "identification-results-modification", 
+		"person-to-court-case-search" ,"cannabis-license-query", "wildlife-license-query", "court-case-query","person-to-custody-search",
+		"custody-query", "vehicle-crash-query", "firearms-purchase-prohibition-query",
 		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query"})
 public class SubscriptionDocumentBuilderTest {
 		

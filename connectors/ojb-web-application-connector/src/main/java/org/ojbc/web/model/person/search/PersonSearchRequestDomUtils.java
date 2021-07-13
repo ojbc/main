@@ -16,12 +16,12 @@
  */
 package org.ojbc.web.model.person.search;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class PersonSearchRequestDomUtils {
 

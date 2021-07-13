@@ -17,6 +17,7 @@
 package org.ojbc.web.model.firearm.search;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -77,7 +78,7 @@ public class FirearmSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/firearmSearchRequest/firearmSearchRequest-partialSerial.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
 		
 		//Use XML Unit to compare these files
 		Diff myDiff = new Diff(OJBUtils.getStringFromDocument(doc), expectedResponseAsString);

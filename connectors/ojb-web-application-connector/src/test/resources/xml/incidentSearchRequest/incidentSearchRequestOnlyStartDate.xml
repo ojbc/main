@@ -17,45 +17,45 @@
 
 -->
 <IncidentSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/IncidentSearchRequest/1.0">
-    <Incident xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
-        xmlns:NS1="http://niem.gov/niem/structures/2.0"
-        NS1:id="I001">
-        <ActivityIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
-            <IdentificationID>12345</IdentificationID>
-        </ActivityIdentification>
-        <ActivityDateRange xmlns="http://niem.gov/niem/niem-core/2.0">
-            <StartDate>
-                <DateTime>2013-04-01T00:00:00</DateTime>
-            </StartDate>
-            <EndDate>
-                <DateTime>2013-04-02T00:00:00</DateTime>
-            </EndDate>
-        </ActivityDateRange>
-        <IncidentCategoryCode>Law</IncidentCategoryCode>
-    </Incident>
-    <Location xmlns="http://niem.gov/niem/niem-core/2.0"
-        xmlns:NS1="http://niem.gov/niem/structures/2.0"
-        NS1:id="L001">
-        <LocationAddress>
-            <StructuredAddress xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">
-                <LocationCityTownCode xmlns="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0">Brattleboro</LocationCityTownCode>
-            </StructuredAddress>
-        </LocationAddress>
-    </Location>
-    <ActivityLocationAssociation xmlns="http://niem.gov/niem/domains/jxdm/4.1">
-        <ActivityReference xmlns="http://niem.gov/niem/niem-core/2.0"
-            xmlns:NS1="http://niem.gov/niem/structures/2.0"
-            NS1:ref="I001"/>
-        <LocationReference xmlns="http://niem.gov/niem/niem-core/2.0"
-            xmlns:NS1="http://niem.gov/niem/structures/2.0"
-            NS1:ref="L001"/>
-    </ActivityLocationAssociation>
-    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">System 1</SourceSystemNameText>
-    <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">System 2</SourceSystemNameText>
-    <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
-        xmlns:NS1="http://niem.gov/niem/structures/2.0"
-        NS1:id="SM003">
-        <SearchRequestOnBehalfOfText>John Doe</SearchRequestOnBehalfOfText>
-        <SearchPurposeText>Criminal Justice</SearchPurposeText>
-    </SearchMetadata>
+   <Incident xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+             xmlns:s="http://niem.gov/niem/structures/2.0"
+             s:id="I001">
+      <ActivityIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+         <IdentificationID>12345</IdentificationID>
+      </ActivityIdentification>
+      <ActivityDateRange xmlns="http://niem.gov/niem/niem-core/2.0">
+         <StartDate>
+            <DateTime>2013-04-01T00:00:00</DateTime>
+         </StartDate>
+         <EndDate>
+            <DateTime>2013-04-02T00:00:00</DateTime>
+         </EndDate>
+      </ActivityDateRange>
+      <IncidentCategoryCode>Law</IncidentCategoryCode>
+   </Incident>
+   <Location xmlns="http://niem.gov/niem/niem-core/2.0"
+             xmlns:s="http://niem.gov/niem/structures/2.0"
+             s:id="L001">
+      <LocationAddress>
+         <StructuredAddress xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">
+            <LocationCityTownCode xmlns="http://ojbc.org/IEPD/Extensions/DemostateLocationCodes/1.0">Brattleboro</LocationCityTownCode>
+         </StructuredAddress>
+      </LocationAddress>
+   </Location>
+   <ActivityLocationAssociation xmlns="http://niem.gov/niem/domains/jxdm/4.1">
+      <ActivityReference xmlns="http://niem.gov/niem/niem-core/2.0"
+                         xmlns:s="http://niem.gov/niem/structures/2.0"
+                         s:ref="I001"/>
+      <LocationReference xmlns="http://niem.gov/niem/niem-core/2.0"
+                         xmlns:s="http://niem.gov/niem/structures/2.0"
+                         s:ref="L001"/>
+   </ActivityLocationAssociation>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">System 1</SourceSystemNameText>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0">System 2</SourceSystemNameText>
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/IncidentSearchRequest/1.0"
+                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                   s:id="SM003">
+      <SearchRequestOnBehalfOfText>John Doe</SearchRequestOnBehalfOfText>
+      <SearchPurposeText>Criminal Justice</SearchPurposeText>
+   </SearchMetadata>
 </IncidentSearchRequest>

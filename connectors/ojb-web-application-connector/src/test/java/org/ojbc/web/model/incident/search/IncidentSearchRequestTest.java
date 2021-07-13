@@ -17,6 +17,7 @@
 package org.ojbc.web.model.incident.search;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -64,7 +65,7 @@ public class IncidentSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/incidentSearchRequest/incidentSearchRequest.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
 		
 		//System.out.println(OJBUtils.getStringFromDocument(doc));
 		
@@ -111,7 +112,7 @@ public class IncidentSearchRequestTest {
 		
 	    //Read the expected response into a string
 		File expectedReponseFile = new File("src/test/resources/xml/incidentSearchRequest/incidentSearchRequestOnlyStartDate.xml");
-		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+		String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile, Charset.defaultCharset());
 		
 		//System.out.println(OJBUtils.getStringFromDocument(doc));
 		

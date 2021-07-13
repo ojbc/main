@@ -22,8 +22,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultHeadersMapFactory;
+import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.util.CaseInsensitiveMap;
@@ -49,7 +49,7 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 	@Mock
 	private MessageProcessor mockPersonToIncidentMessageProcessor;
 	@Mock
-	private CamelContext mockCamelContext;
+	private ExtendedCamelContext mockCamelContext;
 	
 	@Mock
 	private OJBSamlMap mockSamlMap;
@@ -78,7 +78,6 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 		
 		HeadersMapFactory mockHeadersMapFactory = mock(DefaultHeadersMapFactory.class);
 		when(mockHeadersMapFactory.newMap()).thenReturn(new CaseInsensitiveMap());
-		when(mockCamelContext.getHeadersMapFactory()).thenReturn(mockHeadersMapFactory);
 
 		DetailsRequest detailRequest = new DetailsRequest();
 		
@@ -102,7 +101,6 @@ public class PersonVehicleToIncidentSearchRequestProcessorTest {
 		
 		HeadersMapFactory mockHeadersMapFactory = mock(DefaultHeadersMapFactory.class);
 		when(mockHeadersMapFactory.newMap()).thenReturn(new CaseInsensitiveMap());
-		when(mockCamelContext.getHeadersMapFactory()).thenReturn(mockHeadersMapFactory);
 		
 		DetailsRequest detailRequest = new DetailsRequest();
 		
