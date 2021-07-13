@@ -17,6 +17,7 @@
 package org.ojbc.util.camel.interceptor;
 
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -60,7 +61,7 @@ public class SoapMessageInterceptor extends AbstractSoapInterceptor
             message.setContent (  InputStream.class, os.getInputStream ( ) );
             is.close ( );
             
-            entireSoapMessage = IOUtils.toString ( os.getInputStream ( ));
+            entireSoapMessage = IOUtils.toString ( os.getInputStream (), Charset.defaultCharset());
 
             log.debug ("The request is: " +  entireSoapMessage);
             os.close ( );
