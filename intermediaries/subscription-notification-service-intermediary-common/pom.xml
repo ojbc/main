@@ -42,11 +42,10 @@
     <ojb-resources-common-version>[2.0.1,)</ojb-resources-common-version>
 		<ojb-enhanced-audit-common-version>[3.0.0,)</ojb-enhanced-audit-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<slf4j-version>1.7.12</slf4j-version>
+		<slf4j-version>1.7.31</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
     <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
     <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
-    <junit-platform-launcher-version>1.7.2</junit-platform-launcher-version>
 		<velocity-version>1.7</velocity-version>
 		<httpcomponents.version>4.2.5</httpcomponents.version>
 		<wiser.version>3.1.7</wiser.version>
@@ -56,6 +55,7 @@
 		<h2-mock-database-version>[4.0.0,)</h2-mock-database-version>
 		<ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
 		<java-version>1.8</java-version>
+		<surefire.version>2.22.2</surefire.version>
 	</properties>
 
 	<dependencies>
@@ -140,14 +140,6 @@
         <version>${junit-jupiter-engine-version}</version>
         <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
-    <dependency>
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-launcher</artifactId>
-        <version>${junit-platform-launcher-version}</version>
-        <scope>test</scope>
-    </dependency>
-    
     <dependency>
         <groupId>org.junit.vintage</groupId>
         <artifactId>junit-vintage-engine</artifactId>
@@ -229,10 +221,23 @@
 		<defaultGoal>install</defaultGoal>
 
 		<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${surefire.version}</version>
+      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
