@@ -16,11 +16,11 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,16 +34,16 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
 import org.apache.camel.EndpointInject;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.geronimo.mail.util.StringBufferOutputStream;
 import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.dao.audit.AuditDAO;
 import org.ojbc.intermediaries.sn.dao.audit.NotificationsSent;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
@@ -54,12 +54,11 @@ import org.ojbc.util.model.rapback.Subscription;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.WiserMessage;
 
-@SuppressWarnings("deprecation")
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
     private static final Log log = LogFactory.getLog(SubscriptionNotificationIntegrationTest.class);
     
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
 	
 	@Resource
@@ -71,24 +70,21 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
     //This is used to update database to achieve desired state for test
     private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
-
-    	    }              
-    	});    	    	
+    	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+			route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
+    	});
+    	
+		context.start();		
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -311,7 +307,8 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void notificationArrest_sendEmailsSetToFalse() throws Exception {
 		
 		
-		BooleanPropertyWrapper sendEmailNotificationsByConfigurationProcessor = (BooleanPropertyWrapper)context.getRegistry().lookup("sendEmailNotificationsByConfigurationProcessor");
+		BooleanPropertyWrapper sendEmailNotificationsByConfigurationProcessor = (BooleanPropertyWrapper)context.getRegistry()
+				.lookupByName("sendEmailNotificationsByConfigurationProcessor");
 		sendEmailNotificationsByConfigurationProcessor.setBooleanProperty(false);
 		
 		notifyAndAssertBasics("notificationSoapRequest_A5008305.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 

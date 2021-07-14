@@ -59,8 +59,8 @@ public class XmlTestUtils {
 	 * @param testXML the XML to compare against the expected document
 	 * @throws Exception
 	 */
-	public static final void compareDocuments(String expectedXML, Document testXML) throws Exception {
-		File xmlFile = new File(expectedXML);
+	public static final void compareDocuments(String expectedXMLFilePath, Document testXML) throws Exception {
+		File xmlFile = new File(expectedXMLFilePath);
 		Document expectedXmlDoc = XmlUtils.toDocument(xmlFile);
 		compareDocuments(expectedXmlDoc, testXML);		
 	}

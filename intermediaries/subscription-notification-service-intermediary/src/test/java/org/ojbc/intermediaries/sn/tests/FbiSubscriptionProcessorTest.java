@@ -18,18 +18,17 @@ package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Resource;
 
-import junit.framework.Assert;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -48,7 +47,7 @@ public class FbiSubscriptionProcessorTest extends AbstractSubscriptionNotificati
     	
     	Document civilSubscriptionDocument = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/OJBC_Civil_Subscription_Request_Document.xml"));
     	
-    	Assert.assertTrue(fbiSubscriptionProcessor.routeToProcessFbiSubscriptionRoute(civilSubscriptionDocument));
+    	assertTrue(fbiSubscriptionProcessor.routeToProcessFbiSubscriptionRoute(civilSubscriptionDocument));
     	
     	String base64File = XmlUtils.xPathStringSearch(civilSubscriptionDocument, "//submsg-exch:SubscriptionMessage/submsg-ext:FingerprintDocument/nc:DocumentBinary/submsg-ext:Base64BinaryObject");
     	

@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,9 +48,9 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -70,13 +70,13 @@ public class ProsecutionDecisionUpdateSubscriptionManagerTest extends AbstractSu
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 
 	}

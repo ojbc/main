@@ -26,19 +26,20 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.notification.NotificationsSentStrategy;
 
 public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotificationTest {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextNotificationsSentTest.class );
 	
     @Resource
@@ -47,23 +48,17 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:smtpEndpoint")
+    @EndpointInject(value = "mock:smtpEndpoint")
     protected MockEndpoint smtpEndpointMock;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
-		
-    	//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("checkNotificationsSentRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:checkNotificationsSent");
-    	    	
-    	    	interceptSendToEndpoint("smtpEndpoint").skipSendToOriginalEndpoint().to("mock:smtpEndpoint");
-    	    }              
+		//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
+    	AdviceWith.adviceWith(context, "checkNotificationsSentRoute", route -> {
+    		route.replaceFromWith("direct:checkNotificationsSent");
+    		route.interceptSendToEndpoint("smtpEndpoint").skipSendToOriginalEndpoint().to(smtpEndpointMock).stop(); 
     	});
-
+    	
 		context.start();		
 		
 	}
@@ -95,7 +90,7 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
 		}	
 
 		// waits but allows match to break out and continue before timeout
-		boolean done = notify.matches(10, TimeUnit.SECONDS);
+		notify.matches(10, TimeUnit.SECONDS);
 		
 		smtpEndpointMock.assertIsSatisfied();
 		

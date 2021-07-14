@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +34,11 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,14 +49,14 @@ import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -72,27 +73,24 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:bean:arrestNotificationAttachmentProcessor")
+    @EndpointInject(value = "mock:bean:arrestNotificationAttachmentProcessor")
     protected MockEndpoint arrestNotificationAttachmentProcessorMock;
-    @EndpointInject(uri = "mock:bean:arrestNotificationProcessor")
+    @EndpointInject(value = "mock:bean:arrestNotificationProcessor")
     protected MockEndpoint arrestNotificationProcessorMock;
     
     @Resource  
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;  
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("processNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	mockEndpoints("bean:arrestNotificationAttachmentProcessor*");
-    	    	mockEndpoints("bean:arrestNotificationProcessor*");
-    	    }              
-    	});
-    	
+    	AdviceWith.adviceWith(context, "processNotificationRoute", 
+    			route -> {
+    				route.mockEndpoints("bean:arrestNotificationAttachmentProcessor*");
+				    route.mockEndpoints("bean:arrestNotificationProcessor*");; 
+				}
+		);
+
 		context.start();		
 		
 	}
@@ -112,7 +110,7 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
     	
 	    //Read the notification with attachment request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/fbi/Arrest_NotificationMessage_wAttach_Sample.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 	    
 	    assertNotNull(inputStr);
 	    
@@ -134,7 +132,7 @@ public class CamelContextArrestNotificationWithAttachmentTest extends AbstractSu
 		Exchange sender2Exchange = createSenderExchangeNotification();
 	    //Read the notification without attachment request file from the file system
 	    File inputWithoutAttachmentFile = new File("src/test/resources/xmlInstances/fbi/Arrest_NotificationMessage_woAttach_Sample.xml");
-	    String inputWithoutAttachmentStr = FileUtils.readFileToString(inputWithoutAttachmentFile);
+	    String inputWithoutAttachmentStr = FileUtils.readFileToString(inputWithoutAttachmentFile, Charset.defaultCharset());
 	    
 	    assertNotNull(inputWithoutAttachmentStr);
 	    

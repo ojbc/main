@@ -16,16 +16,16 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -108,7 +108,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 
 		List<WiserMessage> messages = notify(notificationFileName, activityDateTimeXpath);
 
-		assertThat(messages.size(), is(expectedMessageCount));
+		assertEquals(messages.size(), expectedMessageCount);
 		for (WiserMessage message : messages) {
 			String emailBodyString = message.getMimeMessage().getContent().toString();
 			emailBodyString = emailBodyString.replaceAll("\r\n", "\n");
@@ -214,7 +214,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 
 	protected static String invokeRequest(String fileName, String url) throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
-		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile);
+		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
 		String response = HttpUtils.post(subscriptionBody, url);
 		return response;
 	}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />
+
+  <!-- Only use this setting when doing a bulk load, otherwise comment it out. -->
+	<bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+		<property name="name" value="default" />
+		<property name="queueSize" value="2048" />
+	</bean>
+
+	<bean id="invalidTopicException" class="org.ojbc.intermediaries.sn.exception.InvalidTopicException">
+		<constructor-arg index="0" value="Invalid topic in message." />
+	</bean>
+
+	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
+
+	<bean id="sendEmailNotificationsByConfigurationProcessor" class="org.ojbc.util.model.BooleanPropertyWrapper">
+		<property name="booleanProperty" value="${publishSubscribe.sendEmailNotifications}" />
+	</bean>
+  
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="txPolicy" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+		<property name="transactionManager" ref="txManager" />
+		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
+	</bean>
+	
+	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" >
+		<property name="rapbackDao" ref="rapbackDao"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember}"/>
+		<property name="nonFbiSubscriptionReasonCodes" value="#{'${nonFbiSubscriptionReasonCodes:F}'.split(',')}"/>
+	</bean>
+	
+	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
+	
+	<bean id="simpleMsgProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
+	
+	<bean id="subscriptionAuditProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionAuditProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>
+	</bean>
+	
+	<bean id="subscriptionMigrationProcessor" class="org.ojbc.intermediaries.sn.migration.SubscriptionMigrationProcessor">
+		<property name="defaultSubscriptionMigrationOri" value="${defaultSubscriptionMigrationOri}"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="subscriptionOwnerPrefix" value="${subscriptionOwnerPrefix}"></property>
+		<property name="pathToOriLookupFile" value="${pathToOriLookupFile}"/>		
+		<property name="defaultAgencyProfileState" value="${defaultAgencyProfileState}"/>
+	</bean>
+
+</beans>

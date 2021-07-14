@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,11 +35,11 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,16 +52,16 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.Subscription;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -83,64 +84,48 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:direct:processSubscription")
+    @EndpointInject(value = "mock:direct:processSubscription")
     protected MockEndpoint subscriptionProcessorMock;
 
-    @EndpointInject(uri = "mock:direct:processUnsubscription")
+    @EndpointInject(value = "mock:direct:processUnsubscription")
     protected MockEndpoint unsubscriptionProcessorMock;
     
-    @EndpointInject(uri = "mock:faultProcessorMock")
+    @EndpointInject(value = "mock:faultProcessorMock")
     protected MockEndpoint subscriptionManagerServiceFaultMock;
 
-    @EndpointInject(uri = "mock:subscriptionValidationMock")
+    @EndpointInject(value = "mock:subscriptionValidationMock")
     protected MockEndpoint subscriptionValidationMock;
 
     @Resource  
     private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;  
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("subscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:subscriptionSecureEndpoint");
-    	    	
-    	    	interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
-    	    }              
+    	AdviceWith.adviceWith(context, "subscriptionSecureRoute", route -> {
+    		// The line below allows us to bypass CXF and send a message directly into the route
+    		route.replaceFromWith("direct:subscriptionSecureEndpoint");
+    		route.interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock"); 
     	});
     	
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
-    	    }              
-    	});    	    
-    	
-    	
-    	context.getRouteDefinition("subscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	interceptSendToEndpoint("direct:processSubscription").to("mock:direct:processSubscription");
-    	    }              
+    	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
+    		// The line below allows us to bypass CXF and send a message directly into the route
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
     	});
-
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("subscriptionManagerServiceSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:unsubscriptionSecureEndpoint");
-    	    	interceptSendToEndpoint("bean:subscriptionValidationMessageProcessor?method=validateSubscription").to("mock:subscriptionValidationMock");
-    	    	interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
-    	    	interceptSendToEndpoint("direct:processUnsubscription").to("mock:direct:processUnsubscription").stop();
-    	    }	
+    	
+    	AdviceWith.adviceWith(context, "subscriptionSecureRoute", route -> {
+    		route.interceptSendToEndpoint("direct:processSubscription").to("mock:direct:processSubscription");
     	});
-
+    	
+    	AdviceWith.adviceWith(context, "subscriptionManagerServiceSecureRoute", route -> {
+    		route.replaceFromWith("direct:unsubscriptionSecureEndpoint");
+    		route.interceptSendToEndpoint("bean:subscriptionValidationMessageProcessor?method=validateSubscription").to("mock:subscriptionValidationMock");
+    		route.interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
+    		route.interceptSendToEndpoint("direct:processUnsubscription").to("mock:direct:processUnsubscription").stop();
+    		
+    	});
+    	
 		context.start();		
 		
 	}
@@ -167,7 +152,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -225,7 +210,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -296,7 +281,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -379,7 +364,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 	    //Read the subscription request file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/editSubscribeRequestTemplate.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
 	    inputStr = inputStr.replace("END_DATE_TOKEN", today.minusDays(1).toString("yyyy-MM-dd"));
@@ -419,7 +404,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 	    //Read the subscription request file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/editSubscribeRequestTemplate.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
 	    inputStr = inputStr.replace("END_DATE_TOKEN", today.plusYears(1).toString("yyyy-MM-dd"));
@@ -462,7 +447,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 	    //Read the subscription request file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/editSubscribeRequestTemplate.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
 	    inputStr = inputStr.replace("END_DATE_TOKEN", today.plusYears(1).toString("yyyy-MM-dd"));
@@ -521,7 +506,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
 	    //Read the subscription request file from the file system
 	    inputFile = new File("src/test/resources/xmlInstances/editSubscribeRequestTemplate.xml");
-	    inputStr = FileUtils.readFileToString(inputFile);
+	    inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
 	    inputStr = inputStr.replace("END_DATE_TOKEN", today.plusYears(1).toString("yyyy-MM-dd"));
@@ -585,7 +570,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -669,7 +654,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestMultipleEmailsTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -767,7 +752,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/subscribeRequestTemplate.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    DateTime today = new DateTime();
 	    inputStr = inputStr.replace("START_DATE_TOKEN", today.toString("yyyy-MM-dd"));
@@ -837,7 +822,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/unSubscribeRequest.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -902,7 +887,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/unSubscribeRequest.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -971,7 +956,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription validation request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Criminal.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -1041,7 +1026,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription validation request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Civil.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    
@@ -1120,7 +1105,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
 	    //Read the subscription validation request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/Validation_Request_Invalid.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Charset.defaultCharset());
 
 	    assertNotNull(inputStr);
 	    

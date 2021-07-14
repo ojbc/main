@@ -16,21 +16,21 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.util.List;
 
 import org.apache.camel.EndpointInject;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.StaticValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -40,7 +40,8 @@ import org.subethamail.wiser.WiserMessage;
 
 public class SubscriptionNotificationStaticValidationDateTest extends AbstractSubscriptionNotificationIntegrationTest {
     
-    private static final Log log = LogFactory.getLog(SubscriptionNotificationStaticValidationDateTest.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SubscriptionNotificationStaticValidationDateTest.class);
     
     @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint;
@@ -48,24 +49,21 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
     //This is used to update database to achieve desired state for test
     private JdbcTemplate jdbcTemplate;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
 		super.setUp();
-		
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
-    	    }              
-    	});    	    	
+    	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+			route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
+    	});
+    	
+		context.start();		
         
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
         
     	//Grab the DAO bean from the Spring Registry
-    	SubscriptionSearchQueryDAO subscriptionSearchQueryDAO = (SubscriptionSearchQueryDAO)context.getRegistry().lookup("subscriptionSearchQueryDAO");
+    	SubscriptionSearchQueryDAO subscriptionSearchQueryDAO = (SubscriptionSearchQueryDAO)context.getRegistry().lookupByName("subscriptionSearchQueryDAO");
     	
     	//Create a static valiation due date strategy with a validity period of 365 days
     	StaticValidationDueDateStrategy staticValidationDueDateStrategy = new StaticValidationDueDateStrategy();
@@ -73,21 +71,21 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
     	subscriptionSearchQueryDAO.setValidationDueDateStrategy(staticValidationDueDateStrategy);
 
     	//Consolidate email addresses to successfully run tests
-    	ArrestNotificationProcessor arrestNotificationProcessor = (ArrestNotificationProcessor)context.getRegistry().lookup("arrestNotificationProcessor");
+    	ArrestNotificationProcessor arrestNotificationProcessor = (ArrestNotificationProcessor)context.getRegistry().lookupByName("arrestNotificationProcessor");
     	arrestNotificationProcessor.setConsolidateEmailAddresses(true);
     	
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		
 		super.tearDown();
     	
 		//Grab the DAO bean from the Spring Registry and set back to their original state
-    	SubscriptionSearchQueryDAO subscriptionSearchQueryDAO = (SubscriptionSearchQueryDAO)context.getRegistry().lookup("subscriptionSearchQueryDAO");
+    	SubscriptionSearchQueryDAO subscriptionSearchQueryDAO = (SubscriptionSearchQueryDAO)context.getRegistry().lookupByName("subscriptionSearchQueryDAO");
     	subscriptionSearchQueryDAO.setValidationDueDateStrategy(new DefaultValidationDueDateStrategy());
 
-    	ArrestNotificationProcessor arrestNotificationProcessor = (ArrestNotificationProcessor)context.getRegistry().lookup("arrestNotificationProcessor");
+    	ArrestNotificationProcessor arrestNotificationProcessor = (ArrestNotificationProcessor)context.getRegistry().lookupByName("arrestNotificationProcessor");
     	arrestNotificationProcessor.setConsolidateEmailAddresses(false);
     	
 	}

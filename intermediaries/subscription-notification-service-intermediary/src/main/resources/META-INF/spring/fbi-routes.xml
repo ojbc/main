@@ -24,7 +24,7 @@
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 		
@@ -41,7 +41,7 @@
 		<route id="sendToFbiEbtsAdapter">
 			<from uri="direct:sentToFbiEbtsAdapter"/>								
 			<log message="\n Operation Name: ${header.operationName} \n"/>
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
 			
 			<camel:choice>
 				<when>
@@ -56,7 +56,7 @@
 					
 					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
 					
-					<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+					<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 
 					<to uri="fbiEbtsSubscriptionManagerEndpoint" />
 				</camel:when>
@@ -74,7 +74,7 @@
 			<convertBodyTo type="java.lang.String"/>
 			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
 			
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
 			
 			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
 
@@ -86,8 +86,8 @@
 			
 			<camel:log message="\nCalling fbi ebts service to modify the FBI subscription from FBI... \n"/>
 			
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-			<camel:setHeader headerName="operationName"><constant>Modify</constant></camel:setHeader>
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Modify</constant></camel:setHeader>
 			
 			<camel:to uri="direct:sentToFbiEbtsAdapter" />														
 

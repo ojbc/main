@@ -16,10 +16,10 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.File;
 import java.sql.Connection;
@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,9 +39,9 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.sn.FbiSubscriptionProcessor;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.test.util.XmlTestUtils;
@@ -69,21 +69,18 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	@Resource
 	private DataSource dataSource;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
 		
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+    	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+    	});
+    	context.start();
 
-    	    }              
-    	});    	    	
 	}		
 			
 	protected IDatabaseConnection getConnection() throws Exception {
@@ -93,7 +90,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		return connection;
 	}	
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -139,6 +136,6 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		Document originalUnsubscribeRequest = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/unSubscribeFbiSubscriptionRequest.xml"));
 		Document preparedRequest = fbiSubscriptionProcessor.prepareUnsubscribeMessageForFbiEbts(originalUnsubscribeRequest);
 		
-		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/expectedPreparedUnsubscribeFbiRequest.xml", preparedRequest);
+		XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/expectedPreparedUnsubscribeFbiRequest.xml", preparedRequest);
 	}	
 }

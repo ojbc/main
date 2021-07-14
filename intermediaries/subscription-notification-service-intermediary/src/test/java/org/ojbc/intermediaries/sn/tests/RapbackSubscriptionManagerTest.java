@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
@@ -54,9 +54,9 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,23 +83,20 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
     @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
-		
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+    	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
+	    	route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+	    	route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+    	});
 
-    	    }              
-    	});   
+    	context.start();
+    	
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
         //DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet());
 	}
@@ -129,7 +126,7 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
 		Exchange receivedExchange = fbiEbtsSubscriptionMockEndpoint.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		log.info("Message to send to the EBTS adapter: " + body );
-		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/rapback/output/subscribeRequestToEBTS.xml", body);
+		XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/rapback/output/subscribeRequestToEBTS.xml", body);
 
 		//Unsubscribe record and confirm with expected dataset
 		response = invokeRequest("rapback/unSubscribeSoapRequestRapback.xml", subscriptionManagerUrl);

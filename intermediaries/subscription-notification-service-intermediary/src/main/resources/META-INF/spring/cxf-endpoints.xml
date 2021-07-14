@@ -29,7 +29,7 @@
     xmlns:camel="http://camel.apache.org/schema/spring"
     xsi:schemaLocation="
     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
     http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd

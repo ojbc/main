@@ -29,10 +29,10 @@
     xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 		
 	<routeContext id="notificationRoutes" xmlns="http://camel.apache.org/schema/spring">		
 
@@ -46,7 +46,7 @@
 					<camel:choice>
 						<camel:when>
 							<camel:xpath>normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject)!=''</camel:xpath>
-							<camel:setHeader headerName="base64BinaryData">
+							<camel:setHeader name="base64BinaryData">
 								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
 							</camel:setHeader>
 							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processBase64BinaryObject"></camel:to>
@@ -62,7 +62,7 @@
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
 
-							<camel:setHeader headerName="base64BinaryData">
+							<camel:setHeader name="base64BinaryData">
 								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
 							</camel:setHeader>
 							
@@ -151,7 +151,7 @@
 					
 				</camel:choice>
 
-				<camel:setHeader headerName="emailBody">
+				<camel:setHeader name="emailBody">
 					<camel:simple>${body}</camel:simple>
 				</camel:setHeader>
 
@@ -164,14 +164,14 @@
 
 							<camel:header>blocked</camel:header>
 
-							<camel:setHeader headerName="blockedAddress">
+							<camel:setHeader name="blockedAddress">
 								<camel:simple>${body}</camel:simple>
 							</camel:setHeader>
 							<camel:setBody>
 								<camel:simple>${header.emailBody}</camel:simple>
 							</camel:setBody>
 
-							<camel:setHeader headerName="CamelFileName">
+							<camel:setHeader name="CamelFileName">
 								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
 							</camel:setHeader>
 
@@ -180,10 +180,10 @@
 								logName="notificationLogger" />
 						
 						<!-- We throttle here in case multiple messages come in at the same time -->
-							<camel:throttle timePeriodMillis="1000">
+							<camel:throttle timePeriodMillis="1000" >
 								<camel:constant>1</camel:constant>
-								<camel:to uri="notificationNonwhitelistFileDrop" />
 							</camel:throttle>
+							<to uri="notificationNonwhitelistFileDrop" />
 
 						</camel:split>
 
@@ -269,7 +269,7 @@
 				<!-- The body is a list of unsubscriptions documents-->
 				<camel:simple>${body}</camel:simple>
 				
-				<camel:setHeader headerName="subscriptionId">
+				<camel:setHeader name="subscriptionId">
 					<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc20:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
@@ -294,11 +294,11 @@
 		
 			<!-- If we get here the route was not stopped by the filter -->
 		
-			<camel:setHeader headerName="to">
+			<camel:setHeader name="to">
 				<constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
 			</camel:setHeader>
 		
-			<camel:setHeader headerName="subject">
+			<camel:setHeader name="subject">
 				<constant>Check subscription notification intermediary.  Notifications not sent in defined interval</constant>
 			</camel:setHeader>
 		

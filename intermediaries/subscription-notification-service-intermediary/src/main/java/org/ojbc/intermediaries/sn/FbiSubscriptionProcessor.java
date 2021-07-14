@@ -29,7 +29,8 @@ import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultMessage;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -136,7 +137,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	public SubscriptionRequest getSubReqFromSubDoc(Document subDoc) throws Exception{
 		
 		// create a sub-optimal Message wrapper so the doc-creation constructor can be reused below 
-		Message msg = new DefaultMessage();		
+		Message msg = new DefaultMessage(new DefaultCamelContext());		
 		msg.setBody(subDoc);
 		
 		SubscriptionRequest subRequest = new ArrestSubscriptionRequest(msg, null);

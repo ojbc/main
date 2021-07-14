@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -33,9 +34,10 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.http.HttpEntity;
@@ -43,7 +45,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -55,14 +57,17 @@ import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
+@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
 @DirtiesContext
+@ActiveProfiles("dev")
 public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
 	
 	@Resource
@@ -77,26 +82,23 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
     
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    
-    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
-
-    	    }              
-    	});   
+		AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", 
+				route -> {
+					route.interceptSendToEndpoint("cxf:bean:fbiEbtsSubscriptionRequestService*").skipSendToOriginalEndpoint().to(fbiEbtsSubscriptionMockEndpoint).stop(); 
+					route.mockEndpoints("cxf:bean:fbiEbtsSubscriptionManagerService*");
+				});
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        context.start();
 	}
 	
-	@After
+	@AfterAll
 	public void tearDown() throws Exception {
         //DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet());
 	}
@@ -188,13 +190,13 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
     private String invokeRequest(String fileName, String url)
     	throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
-		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile);
+		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
 		String response = callServiceViaHttp(subscriptionBody, url);
 		return response;
 	}
 		
 	private String callServiceViaHttp(String msgBody, String url) throws Exception {
-		HttpClient client = new DefaultHttpClient();
+		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		post.setEntity(new StringEntity(msgBody));
 		HttpResponse response = client.execute(post);

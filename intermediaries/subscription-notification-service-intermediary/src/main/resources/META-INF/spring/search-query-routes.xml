@@ -30,10 +30,10 @@
 	xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryRequest/1.0"	
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- Subscription Search flow -->
 	<routeContext id="searchQueryRoutes" xmlns="http://camel.apache.org/schema/spring">		
@@ -66,7 +66,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -108,18 +108,18 @@
 				</camel:when>
 			</camel:choice>
 			
-			<camel:setHeader headerName="CamelDestinationOverrideUrl">
+			<camel:setHeader name="CamelDestinationOverrideUrl">
 				<simple>${in.headers.WSAddressingReplyTo}</simple>
 			</camel:setHeader>	
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						 							
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>ReportSubscriptionSearchResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0</constant>
 	        </camel:setHeader>
 			
@@ -182,7 +182,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -193,8 +193,8 @@
 			<camel:doTry>
 				<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
 				
-				<camel:setHeader headerName="subscriptionQueryId"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:SubscriptionIdentification/nc:IdentificationID/text()</xpath></camel:setHeader>
-				<camel:setHeader headerName="adminQuery"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath></camel:setHeader>
+				<camel:setHeader name="subscriptionQueryId"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:SubscriptionIdentification/nc:IdentificationID/text()</xpath></camel:setHeader>
+				<camel:setHeader name="adminQuery"><xpath>/sqr:SubscriptionQueryRequest/sqr-ext:AdminQueryRequestIndicator/text()</xpath></camel:setHeader>
 				<camel:log message="adminQuery: ${in.headers.adminQuery}"/>
 				
 				<camel:to uri="direct:processSubscriptionQuery"/>
@@ -226,18 +226,18 @@
 				</camel:when>
 			</camel:choice>			
 			
-			<camel:setHeader headerName="CamelDestinationOverrideUrl">
+			<camel:setHeader name="CamelDestinationOverrideUrl">
 				<simple>${in.headers.WSAddressingReplyTo}</simple>
 			</camel:setHeader>	
 
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						 							
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>ReportSubscriptionQueryResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0</constant>
 	        </camel:setHeader>
 			

@@ -16,11 +16,12 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 
 import javax.annotation.Resource;
@@ -33,7 +34,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
@@ -42,9 +43,9 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 
 public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionNotificationTest {
@@ -55,13 +56,13 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
     @Value("${publishSubscribe.subscriptionManagerEndpoint}")
     private String subscriptionManagerUrl;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
         //DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet());
 	}
@@ -85,7 +86,7 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
 		
 	    File subscriptionInputFile = new File("src/test/resources/xmlInstances/unSubscribeSoapRequest-chCycle.xml");
 	    
-	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile);
+	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
 	    
 		String response = callServiceViaHttp(subscriptionBody);
 		
@@ -119,7 +120,7 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
 	}
 
 	private String callServiceViaHttp(String msgBody) throws Exception {
-		HttpClient client = new DefaultHttpClient();
+		HttpClient client = HttpClientBuilder.create().build();
 		
 		HttpPost post = new HttpPost(subscriptionManagerUrl);
 		post.setEntity(new StringEntity(msgBody));

@@ -18,16 +18,21 @@ package org.ojbc.intermediaries.sn.tests;
 
 import java.io.FileInputStream;
 
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationService;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@DirtiesContext
-@ContextConfiguration(locations={
+@CamelSpringBootTest
+@SpringBootTest(classes=SubscriptionNotificationService.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ContextConfiguration(locations={ //TODO see if we can remove this
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/email-formatters.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",

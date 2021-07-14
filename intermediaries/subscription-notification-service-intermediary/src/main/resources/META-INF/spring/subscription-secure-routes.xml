@@ -30,10 +30,10 @@
 	xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     
 		
 	<!-- Subscription Secure flow -->
@@ -51,7 +51,7 @@
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 			
 			<!-- perform auditing request here -->
-			<camel:setHeader headerName="subscriptionId">
+			<camel:setHeader name="subscriptionId">
 				<camel:xpath resultType="java.lang.String">//submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
 			</camel:setHeader>
 			
@@ -101,22 +101,22 @@
 			<camel:to uri="bean:subscriptionSAMLTokenProcessor?method=retrieveSAMLTokenFromMessageAndAddCamelHeader" />	
 
 			<!-- These headers are used when saving the subscription to the database -->
-			<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
 
-			<camel:setHeader headerName="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}"/>
 			
-			<camel:setHeader headerName="subscriptionOwnerFirstName"><simple>${in.headers.saml_FirstName}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwnerFirstName"><simple>${in.headers.saml_FirstName}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner first name: ${in.headers.subscriptionOwnerFirstName}"/>
 
-			<camel:setHeader headerName="subscriptionOwnerLastName"><simple>${in.headers.saml_LastName}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwnerLastName"><simple>${in.headers.saml_LastName}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner last name: ${in.headers.subscriptionOwnerLastName}"/>
 
-			<camel:setHeader headerName="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwnerOri"><simple>${in.headers.saml_EmployerOri}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerOri}"/>
 
-			<camel:setHeader headerName="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
+			<camel:setHeader name="subscriptionOwnerAgencyName"><simple>${in.headers.saml_EmployerAgencyName}</simple></camel:setHeader>
 			<camel:log message="This is the subscription owner ori: ${in.headers.subscriptionOwnerAgencyName}"/>
 		</camel:route>
 		
@@ -134,7 +134,7 @@
 
 					<camel:log message="Entering Unsubscription Secure Route"/>
 					
-					<camel:setHeader headerName="subscriptionId">
+					<camel:setHeader name="subscriptionId">
 						<camel:xpath resultType="java.lang.String">/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
 					</camel:setHeader>
 					
@@ -187,7 +187,7 @@
 					
 					<camel:log message="Entering validate route"/>	
 					
-					<camel:setHeader headerName="subscriptionId">
+					<camel:setHeader name="subscriptionId">
 						<camel:xpath resultType="java.lang.String">//svm:SubscriptionValidationMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID/text()</camel:xpath>
 					</camel:setHeader>
 					
@@ -196,7 +196,7 @@
 						
 						<camel:log message="This is a civil validation with SubscriptionId is ${in.header.subscriptionId}"/>
 						
-						<camel:setHeader headerName="validationType">
+						<camel:setHeader name="validationType">
 							<camel:constant>civil</camel:constant>
 						</camel:setHeader>
 						
@@ -207,7 +207,7 @@
 						
 						<camel:log message="This is a criminal validation with SubscriptionId is ${in.header.subscriptionId}"/>
 						
-						<camel:setHeader headerName="validationType">
+						<camel:setHeader name="validationType">
 							<camel:constant>criminal</camel:constant>
 						</camel:setHeader>
 						
@@ -217,11 +217,11 @@
 						
 					<camel:doTry>
 					
-						<camel:setHeader headerName="subscription">
-							 <camel:method bean="subscriptionSearchQueryDAO" method="findSubscriptionWithFbiInfoBySubscriptionId" />   
+						<camel:setHeader name="subscription">
+							 <camel:method ref="subscriptionSearchQueryDAO" method="findSubscriptionWithFbiInfoBySubscriptionId" />   
 						</camel:setHeader>
-						<camel:setHeader headerName="validationDueDateString">
-							 <camel:method bean="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />   
+						<camel:setHeader name="validationDueDateString">
+							 <camel:method ref="subscriptionValidationMessageProcessor" method="getValidationDueDateString" />   
 						</camel:setHeader>
 						<camel:log message="validationDueDateString is ${in.header.validationDueDateString}"/>
 						

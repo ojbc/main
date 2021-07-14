@@ -16,13 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -37,7 +38,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -48,9 +49,9 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -69,13 +70,13 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
 	}
 	
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 
 	}
@@ -138,13 +139,13 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
     private String invokeRequest(String fileName, String url)
     	throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
-		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile);
+		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
 		String response = callServiceViaHttp(subscriptionBody, url);
 		return response;
 	}
 		
 	private String callServiceViaHttp(String msgBody, String url) throws Exception {
-		HttpClient client = new DefaultHttpClient();
+		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		post.setEntity(new StringEntity(msgBody));
 		HttpResponse response = client.execute(post);
