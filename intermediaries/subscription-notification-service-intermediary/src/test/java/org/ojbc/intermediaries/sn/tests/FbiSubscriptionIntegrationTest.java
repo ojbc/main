@@ -55,7 +55,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
     @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(FbiSubscriptionIntegrationTest.class);
     
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
 	
 	@Resource
@@ -71,13 +71,12 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/fbiSubscriptionDataSet.xml"));
 		
     	AdviceWith.adviceWith(context, "sendToFbiEbtsAdapter", route -> {
     		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
-    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService**");
+    		route.mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
     	});
     	context.start();
 
@@ -86,6 +85,7 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 	protected IDatabaseConnection getConnection() throws Exception {
 		
 		Connection con = dataSource.getConnection();
+//		con.createStatement().execute("use rapback_datastore;"); 
 		IDatabaseConnection connection = new DatabaseConnection(con);
 		return connection;
 	}	

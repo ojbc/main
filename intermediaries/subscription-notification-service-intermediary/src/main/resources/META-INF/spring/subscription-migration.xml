@@ -38,7 +38,7 @@
 			<camel:split streaming="true">
 				<tokenize  token="\r\n|\n|\r" xml="false" trim="true"/>
 		
-				<camel:log message="Processing migration, CSV position ${property.CamelSplitIndex} of ${property.CamelSplitSize}" />
+				<camel:log message="Processing migration, CSV position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
 		
 				<camel:doTry>
 					<camel:to uri="bean:subscriptionMigrationProcessor?method=processSubscriptionCSVRecord"/>
@@ -56,7 +56,7 @@
 			<camel:split>
 				<camel:simple>${body}</camel:simple>
 			
-				<camel:log message="Processing subscriptions at position ${property.CamelSplitIndex} of ${property.CamelSplitSize}" />
+				<camel:log message="Processing subscriptions at position ${exchangeProperty.CamelSplitIndex} of ${exchangeProperty.CamelSplitSize}" />
 				<camel:log message="This is the split body: ${body}"/>
 				
 				<camel:doTry>

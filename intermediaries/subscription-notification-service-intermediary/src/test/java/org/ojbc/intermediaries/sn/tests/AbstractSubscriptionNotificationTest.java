@@ -37,7 +37,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/email-formatters.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",
+		"classpath:META-INF/spring/dev-beans.xml",
 		"classpath:META-INF/spring/properties-context.xml",
 		"classpath:META-INF/spring/search-query-routes.xml",
 		"classpath:META-INF/spring/subscription-secure-routes.xml",

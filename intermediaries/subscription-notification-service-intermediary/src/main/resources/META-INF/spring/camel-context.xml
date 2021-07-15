@@ -345,7 +345,7 @@
 								
 			<camel:choice>
 				<camel:when>
-					<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
+					<camel:simple>${bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute}</camel:simple>
 					
 					<camel:log message="Process FBI subscription, processor returned true."/>
 					
@@ -404,7 +404,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+					<camel:simple>${bean:fbiSubscriptionProcessor?method=hasFbiSubscription}</camel:simple>
 					
 					<camel:log message="Subscription has FBI subscription, sending cancellation message"/>
 					

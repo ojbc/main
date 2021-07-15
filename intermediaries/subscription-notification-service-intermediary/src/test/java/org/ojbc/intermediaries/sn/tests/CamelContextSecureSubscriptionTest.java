@@ -120,6 +120,7 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	
     	AdviceWith.adviceWith(context, "subscriptionManagerServiceSecureRoute", route -> {
     		route.replaceFromWith("direct:unsubscriptionSecureEndpoint");
+//    		route.weaveByToString("To[bean:subscriptionValidationMessageProcessor?method=validateSubscription]").replace().to(subscriptionValidationMock);
     		route.interceptSendToEndpoint("bean:subscriptionValidationMessageProcessor?method=validateSubscription").to("mock:subscriptionValidationMock");
     		route.interceptSendToEndpoint("bean:genericFaultProcessor?method=createFault").to("mock:faultProcessorMock");
     		route.interceptSendToEndpoint("direct:processUnsubscription").to("mock:direct:processUnsubscription").stop();

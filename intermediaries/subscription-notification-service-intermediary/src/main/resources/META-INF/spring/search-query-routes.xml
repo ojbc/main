@@ -123,7 +123,7 @@
 	            <constant>http://ojbc.org/Services/WSDL/SubscriptionSearchResultsService/1.0</constant>
 	        </camel:setHeader>
 			
-			<camel:to uri="cxf:bean:subscriptionSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+			<camel:to uri="cxf:bean:subscriptionSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 			
 			<camel:log message="Called Subscription Search Response Handler"/>
 			
@@ -241,7 +241,7 @@
 	            <constant>http://ojbc.org/Services/WSDL/SubscriptionQueryResultsService/1.0</constant>
 	        </camel:setHeader>
 			
-			<camel:to uri="cxf:bean:subscriptionQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+			<camel:to uri="cxf:bean:subscriptionQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 			
 			<camel:log message="Called Subscription Query Response Handler"/>
 			

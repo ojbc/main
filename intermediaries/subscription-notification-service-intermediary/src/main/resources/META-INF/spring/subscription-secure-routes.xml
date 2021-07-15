@@ -227,7 +227,7 @@
 						
 						<camel:choice>
 							<camel:when>
-								<camel:simple>bean:fbiSubscriptionProcessor?method=hasFbiSubscription</camel:simple>
+								<camel:simple>${bean:fbiSubscriptionProcessor?method=hasFbiSubscription}</camel:simple>
 
 								<camel:wireTap uri="direct:processFbiValidationUpdate"/>
 								

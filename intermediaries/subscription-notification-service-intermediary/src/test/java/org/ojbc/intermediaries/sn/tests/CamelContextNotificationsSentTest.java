@@ -56,7 +56,7 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
 		//We replace the 'from' quartz endpoint with a direct endpoint we call in our test
     	AdviceWith.adviceWith(context, "checkNotificationsSentRoute", route -> {
     		route.replaceFromWith("direct:checkNotificationsSent");
-    		route.interceptSendToEndpoint("smtpEndpoint").skipSendToOriginalEndpoint().to(smtpEndpointMock).stop(); 
+    		route.weaveByToString("To[smtpEndpoint]").replace().to(smtpEndpointMock).stop(); 
     	});
     	
 		context.start();		

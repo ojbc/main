@@ -54,24 +54,24 @@
 
 	<!-- Search Endpoints, the results endpoints are inline in the route to support camel testing -->
     <camel:endpoint id="subscriptionSearchRequestServiceEndpoint"
-        uri="cxf:bean:subscriptionSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+        uri="cxf:bean:subscriptionSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
 
 	<!-- Query Endpoints, the results endpoints are inline in the route to support camel testing -->
     <camel:endpoint id="subscriptionQueryRequestServiceEndpoint"
-        uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+        uri="cxf:bean:subscriptionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
         
     <camel:endpoint id="fbiEbtsSubscriptionRequestServiceEndpoint"  
-		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+		uri="cxf:bean:fbiEbtsSubscriptionRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
 
 	<!-- hosted by fbi ebts adapter for Unsubscribe/Modify operations -->
 	<camel:endpoint id="fbiEbtsSubscriptionManagerEndpoint" 
-		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}" />
+		uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}" />
 
 	<camel:endpoint id="subscriptionManagerAdapterServiceSecureEndpoint" 
-		uri="cxf:bean:subscriptionManagerAdapterServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+		uri="cxf:bean:subscriptionManagerAdapterServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
 
 	<camel:endpoint id="notificationBrokerServiceAdapterSecureEndpoint" 
-		uri="cxf:bean:notificationBrokerServiceAdapterSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionSearchQuery.Cxflogging}"/>
+		uri="cxf:bean:notificationBrokerServiceAdapterSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{subscriptionSearchQuery.Cxflogging}}"/>
 		
 	<!-- OJB Notification Broker Service -->
 	<cxf:cxfEndpoint id="notificationBrokerService"

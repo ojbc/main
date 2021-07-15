@@ -22,7 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "publishSubscribe")
+@ConfigurationProperties(prefix = "publish-subscribe")
 public class SubscriptionNotificationServiceProperties {
 
 	private String dbAuditLog="false";

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ImportResource;
 		"classpath:META-INF/spring/cxf-endpoints.xml", 
 		"classpath:META-INF/spring/beans.xml", 
 		"classpath:META-INF/spring/email-formatters.xml", 
-		"classpath:META-INF/spring/extensible-beans.xml", 
+		"classpath:META-INF/spring/dev-beans.xml", 
 		"classpath:META-INF/spring/fbi-routes.xml", 
 		"classpath:META-INF/spring/notification-routes.xml", 
 		"classpath:META-INF/spring/search-query-routes.xml", 

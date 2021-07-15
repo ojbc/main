@@ -58,7 +58,7 @@ import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -98,7 +98,7 @@ public class ArrestSubscriptionManagerTest extends AbstractSubscriptionNotificat
         context.start();
 	}
 	
-	@AfterAll
+	@AfterEach
 	public void tearDown() throws Exception {
         //DatabaseOperation.DELETE_ALL.execute(getConnection(), getDataSet());
 	}
