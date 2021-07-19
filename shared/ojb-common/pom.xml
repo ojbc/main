@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>3.0.7</version>
+	<version>3.0.8</version>
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -50,7 +50,7 @@
 		<java-version>1.8</java-version>
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.5</xmlunit.version>
-		<javax.mail.version>1.6.2</javax.mail.version>
+		<javax.mail.version>1.5.0-b01</javax.mail.version>
 		<jackson.version>1.9.12</jackson.version>
 	</properties>
 
@@ -168,7 +168,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
-			<artifactId>javax.mail-api</artifactId>
+			<artifactId>mail</artifactId>
 			<version>${javax.mail.version}</version>
 		</dependency>	
 		<dependency>
