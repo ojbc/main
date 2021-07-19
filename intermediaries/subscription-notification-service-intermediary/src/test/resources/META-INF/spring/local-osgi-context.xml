@@ -24,7 +24,7 @@
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 
 	<bean id="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" class="org.ojbc.util.osgi.OjbcContextImpl"/>

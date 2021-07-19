@@ -262,7 +262,6 @@
 			<groupId>org.ojbc.bundles.utilities</groupId>
 			<artifactId>h2-mock-database</artifactId>
 			<version>${h2-mock-database-version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.subethamail</groupId>

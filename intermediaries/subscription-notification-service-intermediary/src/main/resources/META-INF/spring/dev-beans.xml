@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       "
+  profile="dev">
+
+	<bean id="notificationFilterStrategy" class="org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy"/>
+	
+	<bean id="sendToSubscriptionAdapterStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultSendToSubscriptionAdapterStrategy"></bean>	
+	
+	<bean id="jdbcTemplateAudit" class="org.springframework.jdbc.core.JdbcTemplate">
+    <constructor-arg ref="dataSourceAudit"/>
+	</bean>
+	
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor"/>
+	
+	<bean id="subscriptionSearchRequestSQLProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionSearchRequestNullObjectProcessor">
+		<property name="userInfoProcessor" ref="userInfoProcessor"/>
+	</bean>
+
+	<bean id="subscriptionSearchResponseSQLProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionSearchResponseNullObjectProcessor" />
+
+	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+		<property name="userInfoProcessor" ref="userInfoProcessor"/>
+	</bean>
+
+	<bean id="subscriptionQueryResponseSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionQueryResponseNullObjectProcessor">
+	</bean>
+	
+	<bean id="emailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter">
+		<property name="systemIdentifierToDescriptorMap" ref="systemIdentifierToDescriptorMap" />
+		<property name="defaultEmailTemplate" ref="defaultEmailFormatter" />
+		<property name="topicSystemTemplateMap">
+			<util:map>
+				<entry key="{http://ojbc.org/wsn/topics}:person/arrest">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultArrestEmailFormatter"/>
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/rapback">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="inStateArrestNotificationFormatKeyCI" value-ref="defaultArrestEmailFormatter" />
+						<entry key-ref="inStateArrestNotificationFormatKeyCS" value-ref="defaultArrestEmailFormatter" />
+						<entry key-ref="rapbackNotificationFormatKeyCI" value-ref="defaultRapbackEmailFormatter" />
+						<entry key-ref="rapbackNotificationFormatKeyCS" value-ref="defaultRapbackEmailFormatter" />
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/incident">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultIncidentEmailFormatter"/>
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultCourtDispositionUpdateEmailFormatter"/>
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultProsecutionDecisionUpdateEmailFormatter"/>
+					</util:map>
+				</entry>
+				<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash">
+					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultVehicleCrashEmailFormatter"/>
+					</util:map>
+				</entry>
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="url" value="${publishSubscribe.dataSource.jdbcUrl}" />
+		<property name="username" value="sa" />
+	</bean>
+
+	<bean id="dataSourceAudit" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+		<property name="url" value="${publishSubscribe.dataSourceAudit.jdbcUrl}" />
+		<property name="username" value="sa" />
+	</bean>
+		
+	<util:map id="systemIdentifierToDescriptorMap">
+		<entry key="{http://demostate.gov/SystemNames/1.0}SystemA" value="Parole case information" />
+		<entry key="{http://demostate.gov/SystemNames/1.0}SystemB" value="Probation case information" />
+		<entry key="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" value="Subscription" />
+		<entry key="{http://ojbc.org}CriminalHistoryCycleTrackingID" value="Criminal History Cycle Information" />
+	</util:map>
+
+	<bean id="emailEnhancementStrategy" class="org.ojbc.intermediaries.sn.notification.CompositeEmailEnhancementStrategy">
+		<property name="compositeStrategy">
+			<util:list id="emailEnhancementStrategyList">
+				<bean class="org.ojbc.intermediaries.sn.notification.WhitelistFilteringEmailEnhancementStrategy">
+					<property name="whitelist" ref="whitelist-set" />
+				</bean>
+				<bean class="org.ojbc.intermediaries.sn.notification.CCLookupEmailEnhancementStrategy">
+					<property name="ccLookupMap" ref="cc-map" />
+				</bean>
+				<bean class="org.ojbc.intermediaries.sn.notification.StaticBCCEmailEnhancementStrategy">
+					<property name="bccAddress" value="${publishSubscribe.bcc}" />
+				</bean>
+			</util:list>
+		</property>
+	</bean>
+	
+  <!-- This Spring config file is responsible for setting up two objects.  One is a Map (with id="cc-map") that
+       establishes an email address to be cc'd for each "to" address.  The other is a Set (with id="whitelist-set") that
+       establishes a whitelist for email notifications, such that if a "to" address is not in this list, it will not get
+       notified. Note that the "whitelist-set" can be any Set...we just happen to make the Map do double-duty as both
+       the cc lookup and the whitelist.  -->
+
+	<util:map map-class="java.util.HashMap" id="cc-map">
+		<!-- If you add new test data, you'll need to add the email addys to the whitelist or they won't produce notifications -->
+		<entry key="po1@localhost" value="sup@localhost" />
+		<entry key="po2@localhost" value="sup@localhost" />
+		<entry key="po3@localhost" value="sup@localhost" />
+		<entry key="po4@localhost" value="sup@localhost" />
+		<entry key="po5@localhost" value="sup@localhost" />
+		<entry key="po6@localhost" value="sup@localhost" />
+	</util:map>
+
+	<bean id="whitelist-set" factory-bean="cc-map" factory-method="keySet" />
+
+	<bean id="validationExemptionFilter" class="org.ojbc.intermediaries.sn.dao.DefaultValidationExemptionFilter">
+	</bean>
+	
+	<bean id="defaultValidationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy"/>
+	<bean id="defaultGracePeriodStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultGracePeriodStrategy"/>
+	<bean id="staticGracePeriodStrategy" class="org.ojbc.intermediaries.sn.dao.StaticGracePeriodStrategy">
+		<property name="gracePeriodDays" value="0"/>
+	</bean>
+	
+	<bean id="gracePeriodStrategy" class="org.ojbc.intermediaries.sn.dao.TopicMapGracePeriodStrategy">
+		<constructor-arg name="map">
+			<util:map id="gracePeriodTopicMap">
+				<entry key="{http://ojbc.org/wsn/topics}:person/incident" value-ref="defaultGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash" value-ref="defaultGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticGracePeriodStrategy" />
+				<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value-ref="defaultGracePeriodStrategy" />
+			</util:map>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="validationDueDateStrategy" class="org.ojbc.intermediaries.sn.dao.SubscriptionCategoryValidationDueDateStrategy">
+	</bean>
+	
+	<bean id="subscriptionValidationMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionValidationMessageProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
+		<property name="faultMessageProcessor" ref="faultMessageProcessor" />
+   	<property name="subscriptionActionAuditProcessor" ref="subscriptionActionAuditProcessor"/>			
+	</bean>
+
+	<bean id="subscriptionActionAuditProcessor" class="org.ojbc.audit.enhanced.processor.SubscriptionActionNullObjectProcessor">
+		<property name="userInfoProcessor" ref="userInfoProcessor"/>
+	</bean>
+		
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>	
+		
+	<bean id="notificationsSentStrategy" class="org.ojbc.intermediaries.sn.notification.DefaultNotificationsSentStrategy">
+		<property name="maxHoursBetweenNotifications" value="24"/>
+	</bean>	
+	
+	<util:list id="courtDispositionUpdateSubscriptionSubjectIdentifiers">
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+	</util:list>	
+	
+	<util:list id="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers">
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+	</util:list>
+
+	<util:list id="activeProsecutionDecisionUpdateNotificationSubjectIdentifiers">
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+	</util:list>
+
+	<util:list id="alternateConfiguredProsecutionDecisionUpdateNotificationSubjectIdentifiers">
+		<util:list>
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+		</util:list>
+	</util:list>	
+	
+	<util:list id="courtDispositionUpdateNotificationSubjectIdentifiers">
+		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+	</util:list>
+	
+	<util:list id="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers">
+		<util:list>
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+		</util:list>
+	</util:list>	
+	
+</beans>

@@ -80,7 +80,7 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
     @Value("${publishSubscribe.notificationBrokerEndpoint}")
     private String notificationBrokerUrl;
     
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint; 
     
 	@BeforeEach

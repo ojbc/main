@@ -19,6 +19,7 @@ package org.ojbc.intermediaries.sn.tests;
 import java.io.FileInputStream;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationService;
@@ -33,23 +34,12 @@ import org.springframework.test.context.ContextConfiguration;
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations={ //TODO see if we can remove this
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/email-formatters.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/dev-beans.xml",
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/search-query-routes.xml",
-		"classpath:META-INF/spring/subscription-secure-routes.xml",
-		"classpath:META-INF/spring/fbi-routes.xml",
-		"classpath:META-INF/spring/notification-routes.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml",
-		"classpath:META-INF/spring/subscription-migration.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 }) 
+@UseAdviceWith
 public abstract class AbstractSubscriptionNotificationTest {
 
 	protected static final String SUBSCRIPTION_REFERENCE_ELEMENT_STRING = "<b-2:SubscriptionReference>";

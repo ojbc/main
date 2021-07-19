@@ -48,7 +48,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 					
@@ -95,7 +95,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:subscriptionSearchResponseSQLProcessor?method=auditSubscriptionSearchResponse"/>
@@ -152,7 +152,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -167,7 +167,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
@@ -213,7 +213,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbEnhancedAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbEnhancedAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:subscriptionQueryResponseSQLLoggingProcessor?method=auditSubscriptionQueryResponse"/>
@@ -264,7 +264,7 @@
 		
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:dbAuditLog} == 'true'</camel:simple>
+					<camel:simple>{{publishSubscribe.dbAuditLog}} == 'true'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>

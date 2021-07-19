@@ -39,7 +39,6 @@
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="subscription-notification-service-intermediary">
-		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties" />
 		<camel:routeContextRef ref="searchQueryRoutes" />
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
 		<camel:routeContextRef ref="fbiRoutes" />
@@ -59,7 +58,6 @@
 		<camel:endpoint id="fingerprintFileEndpoint"
 				uri="file:///${publishSubscribe.fingerPrintsDirectory}/fingerPrints" />
 						
-        
 		<camel:route>
     
 			<camel:from uri="notificationBrokerServiceEndpoint" />
