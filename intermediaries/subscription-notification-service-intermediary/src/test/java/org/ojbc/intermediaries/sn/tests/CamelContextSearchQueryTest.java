@@ -110,7 +110,8 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     		// The line below allows us to bypass CXF and send a message directly into the route
     		route.replaceFromWith("direct:subscriptionSearchServiceEndpoint");
     		//We mock the results service endpoint and intercept any submissions
-    		route.mockEndpointsAndSkip("cxf:bean:subscriptionSearchResultsHandlerService*");
+    		route.interceptSendToEndpoint("direct:processSubscriptionSearch").to(subscriptionSAMLTokenProcessorSearchMock);
+    		route.interceptSendToEndpoint("cxf:bean:subscriptionSearchResultsHandlerService*").to(subscriptionSearchResultsMock).stop();
     	});
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
     	AdviceWith.adviceWith(context, "subscriptionQueryRoute", route -> {
@@ -118,7 +119,7 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     		route.replaceFromWith("direct:subscriptionQueryServiceEndpoint");
     		route.mockEndpoints("direct:processSubscriptionQuery*");
     		//We mock the results service endpoint and intercept any submissions
-    		route.mockEndpointsAndSkip("cxf:bean:subscriptionQueryResultsHandlerService*");
+    		route.interceptSendToEndpoint("cxf:bean:subscriptionQueryResultsHandlerService*").to(subscriptionQueryResultsMock).stop();
     	});
     	
     	this.jdbcTemplate = new JdbcTemplate(dataSource);
