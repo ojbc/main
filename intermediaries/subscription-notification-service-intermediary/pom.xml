@@ -33,8 +33,8 @@
 	</parent>
 
 	<properties>
-    <spring-boot-version>2.5.1</spring-boot-version>
-		<camel.version>3.10.0</camel.version>
+    <spring-boot-version>2.5.2</spring-boot-version>
+		<camel.version>3.11.0</camel.version>
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
@@ -154,6 +154,10 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-mail</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.camel.springboot</groupId>
+		  <artifactId>camel-mail-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -283,7 +287,31 @@
 		  <groupId>org.apache.camel.springboot</groupId>
 		  <artifactId>camel-mock-starter</artifactId>
 		</dependency>
-	</dependencies>
+		<dependency>
+		    <groupId>com.icegreen</groupId>
+		    <artifactId>greenmail-junit5</artifactId>
+		    <version>2.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>jakarta.mail</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.activation</groupId>
+		    <artifactId>jakarta.activation</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.activation</groupId>
+		    <artifactId>jakarta.activation-api</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+ 	</dependencies>
 
 	<build>
 
