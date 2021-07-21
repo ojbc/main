@@ -63,6 +63,8 @@
 			<camel:from uri="notificationBrokerServiceEndpoint" />
 
 			<camel:log message="This is the operation: ${header.operationName}" />
+      <convertBodyTo type="java.lang.String"/>
+      <camel:log message="Process notification Request: ${body}" loggingLevel="DEBUG"/>
 
 			<camel:choice>
 				<camel:when>

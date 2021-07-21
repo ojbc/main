@@ -39,7 +39,7 @@
 		<camel:route id="processNotificationRoute">
 
 			<camel:from uri="direct:processNotification" />
-
+      <camel:log message="body: ${body}"></camel:log>
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
@@ -151,6 +151,9 @@
 					
 				</camel:choice>
 
+        <camel:log message="emailBody: + ${body}"/>
+        <camel:log message="in.header.to + ${in.header.to}"/>
+        <camel:log message="in.header.blocked + ${in.header.blocked}"/>
 				<camel:setHeader name="emailBody">
 					<camel:simple>${body}</camel:simple>
 				</camel:setHeader>
@@ -158,8 +161,9 @@
 				<camel:choice>
 					<camel:when>    			
     				<!-- If this notification object has some blocked (non-whitelisted) email addresses -->
-						<camel:simple>${in.header.blocked} != '[]'</camel:simple>
-
+						<camel:simple>${in.header.blocked.size} > 0</camel:simple>
+            <camel:log message="blocked list is not empty"/> 
+            
 						<camel:split>
 
 							<camel:header>blocked</camel:header>
@@ -192,8 +196,8 @@
 					<camel:when>
 				
 					<!-- When this notification object has a non-null "to" address (i.e., a valid email can be sent) -->
-						<camel:simple>${in.header.to} != null</camel:simple>
-					
+						<camel:simple>${header.to} != null</camel:simple>
+					  <camel:log message="About to call direct:processEmailNotifications"/> 
 						<camel:log message="headers: ${in.headers}" />
 						<camel:log message="Email Address is in whitelist: TO=${in.header.to}" />
 

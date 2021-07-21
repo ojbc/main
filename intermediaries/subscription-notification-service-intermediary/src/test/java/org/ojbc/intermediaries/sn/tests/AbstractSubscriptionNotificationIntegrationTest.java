@@ -16,8 +16,8 @@
  */
 package org.ojbc.intermediaries.sn.tests;
 
-import static org.junit.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -42,6 +42,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -64,6 +66,8 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractSubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationTest {
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(AbstractSubscriptionNotificationIntegrationTest.class);
 
 	private static final int MAIL_READ_DELAY = 3000;
 	public static final String CXF_OPERATION_NAME_SUBSCRIBE = "Subscribe";
@@ -82,7 +86,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 	private String mailServerName;
 	@Value("${publishSubscribe.smtpServerPort}")
 	private Integer mailPort;
-
+	
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet("src/test/resources/xmlInstances/dbUnit/subscriptionDataSet.xml"));
@@ -107,8 +111,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 			int expectedMessageCount) throws Exception {
 
 		List<WiserMessage> messages = notify(notificationFileName, activityDateTimeXpath);
-
-		assertEquals(messages.size(), expectedMessageCount);
+		assertEquals(expectedMessageCount, messages.size());
 		for (WiserMessage message : messages) {
 			String emailBodyString = message.getMimeMessage().getContent().toString();
 			emailBodyString = emailBodyString.replaceAll("\r\n", "\n");
@@ -214,7 +217,7 @@ public abstract class AbstractSubscriptionNotificationIntegrationTest extends Ab
 
 	protected static String invokeRequest(String fileName, String url) throws IOException, Exception {
 		File subscriptionInputFile = new File("src/test/resources/xmlInstances/" + fileName);
-		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
+		String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.forName("UTF-8"));
 		String response = HttpUtils.post(subscriptionBody, url);
 		return response;
 	}

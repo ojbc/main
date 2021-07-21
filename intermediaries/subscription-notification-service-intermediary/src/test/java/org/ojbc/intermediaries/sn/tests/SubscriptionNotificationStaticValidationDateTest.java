@@ -43,7 +43,7 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
     @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(SubscriptionNotificationStaticValidationDateTest.class);
     
-    @EndpointInject(uri="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
+    @EndpointInject(value="mock:cxf:bean:fbiEbtsSubscriptionRequestService")
     protected MockEndpoint fbiEbtsSubscriptionMockEndpoint;
 	
     //This is used to update database to achieve desired state for test
@@ -60,6 +60,7 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
     	
 		context.start();		
         
+//		super.greenMail.start();
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
         
     	//Grab the DAO bean from the Spring Registry
@@ -87,6 +88,7 @@ public class SubscriptionNotificationStaticValidationDateTest extends AbstractSu
 
     	ArrestNotificationProcessor arrestNotificationProcessor = (ArrestNotificationProcessor)context.getRegistry().lookupByName("arrestNotificationProcessor");
     	arrestNotificationProcessor.setConsolidateEmailAddresses(false);
+//		super.greenMail.start();
     	
 	}
 	
