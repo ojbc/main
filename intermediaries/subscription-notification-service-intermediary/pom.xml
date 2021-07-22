@@ -38,7 +38,7 @@
 		<ojb-camel-common-version>[4.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[5.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
-    <cxf-boot-starter-version>3.4.3</cxf-boot-starter-version>
+    <cxf-boot-starter-version>3.4.4</cxf-boot-starter-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<sn-intermediary-common-version>[3.0.0,)</sn-intermediary-common-version>
@@ -310,7 +310,6 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${surefire.version}</version>
       </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -336,7 +335,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
 							org.springframework.beans.factory.config,
