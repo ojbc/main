@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.4</version>   
+	<version>5.0.5</version>   
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -42,7 +42,7 @@
 		<junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 		<wss4j-version>2.3.1</wss4j-version>
 		<apache-commons-codec-version>1.6</apache-commons-codec-version>
-		<cxf-version>3.4.3</cxf-version>
+		<cxf-version>3.4.4</cxf-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-resources-common-version>[2.0.0,)</ojb-resources-common-version>
 		<io-utils-version>2.8.0</io-utils-version>

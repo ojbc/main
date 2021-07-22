@@ -18,9 +18,6 @@ drop schema if exists rapback_datastore;
 CREATE schema rapback_datastore;
 use rapback_datastore;
 
-
-
-
 CREATE TABLE AGENCY_EMAIL_CATEGORY (
                 AGENCY_EMAIL_CATEGORY_ID IDENTITY NOT NULL,
                 CODE VARCHAR(50) NOT NULL,

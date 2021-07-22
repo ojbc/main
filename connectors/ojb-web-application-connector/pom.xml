@@ -34,10 +34,10 @@
 	</parent>
 
 	<properties>
-		<camel-version>3.10.0</camel-version>
+		<camel-version>3.11.0</camel-version>
 		<slf4j-version>1.7.31</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		<cxf-version>3.4.3</cxf-version>
+		<cxf-version>3.4.4</cxf-version>
 		<servlet-api-version>4.0.1</servlet-api-version>
 		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
 		<ojb-camel-common>[4.0.0,)</ojb-camel-common>

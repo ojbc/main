@@ -33,7 +33,7 @@
 	</parent>
 
 	<properties>
-		<camel-version>3.10.0</camel-version>
+		<camel-version>3.11.0</camel-version>
 		<xmlunit.version>1.6</xmlunit.version>
 		<jodatime-version>2.2</jodatime-version>
 		<commons-lang3-version>3.12.0</commons-lang3-version>
@@ -62,7 +62,7 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-jpa</artifactId>
-		    <version>2.5.1</version>
+		    <version>2.5.2</version>
 		</dependency> 
 		<dependency>
 		    <groupId>com.h2database</groupId>
@@ -73,7 +73,7 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-test</artifactId>
-		    <version>2.5.1</version>
+		    <version>2.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>

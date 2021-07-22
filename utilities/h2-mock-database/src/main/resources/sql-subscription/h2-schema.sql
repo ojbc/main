@@ -16,6 +16,7 @@
  */
 drop schema if exists publish_subscribe;
 CREATE schema publish_subscribe;
+USE publish_subscribe;
 
 --
 -- Create tables for subscription notification processor
