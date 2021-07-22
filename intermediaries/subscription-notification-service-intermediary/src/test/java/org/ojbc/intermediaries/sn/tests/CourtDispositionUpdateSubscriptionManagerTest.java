@@ -74,6 +74,7 @@ public class CourtDispositionUpdateSubscriptionManagerTest extends AbstractSubsc
 	public void setUp() throws Exception {
     	DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        context.start();
 	}
 	
 	@AfterEach

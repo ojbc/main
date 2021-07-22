@@ -21,14 +21,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.helpers.IOUtils;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -51,7 +52,10 @@ import org.springframework.beans.factory.annotation.Value;
 public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptionNotificationTest {
 	
     @Resource  
-    private DataSource dataSource;  
+    private DataSource dataSource;
+    
+    @Resource
+    private ModelCamelContext context;
     
     @Value("${publishSubscribe.subscriptionManagerEndpoint}")
     private String subscriptionManagerUrl;
@@ -60,6 +64,7 @@ public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptio
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getDataSet());
+        context.start();
 	}
 	
 	@AfterEach
@@ -83,7 +88,7 @@ public class IncidentSubscriptionManagerServiceTest  extends AbstractSubscriptio
 	@Test
 	public void unsubscribe() throws Exception {
 	    File subscriptionInputFile = new File("src/test/resources/xmlInstances/unSubscribeSoapRequest-incident.xml");
-	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Charset.defaultCharset());
+	    String subscriptionBody = FileUtils.readFileToString(subscriptionInputFile, Consts.UTF_8);
 	    
 		String response = callServiceViaHttp(subscriptionBody);
 		

@@ -254,7 +254,7 @@
 		<camel:route id="processUnsubscriptions">
     
 			<camel:from uri="direct:processUnsubscription" />
-
+      <camel:convertBodyTo type="java.lang.String"></camel:convertBodyTo>
 			<camel:choice>
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/arrest' and

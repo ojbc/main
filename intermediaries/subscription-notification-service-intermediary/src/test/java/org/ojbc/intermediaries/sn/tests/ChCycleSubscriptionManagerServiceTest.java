@@ -27,6 +27,7 @@ import java.sql.Connection;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.http.HttpEntity;
@@ -53,13 +54,17 @@ public class ChCycleSubscriptionManagerServiceTest extends AbstractSubscriptionN
     @Resource  
     private DataSource dataSource;  
     
-    @Value("${publishSubscribe.subscriptionManagerEndpoint}")
+	@Resource
+	protected ModelCamelContext context;
+
+	@Value("${publishSubscribe.subscriptionManagerEndpoint}")
     private String subscriptionManagerUrl;
     
 	@BeforeEach
 	public void setUp() throws Exception {
         DatabaseOperation.DELETE_ALL.execute(getConnection(), getCleanDataSet());
         DatabaseOperation.INSERT.execute(getConnection(), getDataSet());
+        context.start();
 	}
 	
 	@AfterEach
