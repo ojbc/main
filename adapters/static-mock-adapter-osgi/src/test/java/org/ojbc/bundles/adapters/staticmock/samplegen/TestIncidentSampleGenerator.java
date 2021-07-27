@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.samplegen.IncidentSampleGenerator;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -33,7 +32,8 @@ import org.w3c.dom.Document;
  */
 public class TestIncidentSampleGenerator extends AbstractSampleGeneratorTestCase {
 
-    private static final Log LOG = LogFactory.getLog(TestIncidentSampleGenerator.class);
+    @SuppressWarnings("unused")
+	private static final Log LOG = LogFactory.getLog(TestIncidentSampleGenerator.class);
 
     private IncidentSampleGenerator sampleGenerator;
 

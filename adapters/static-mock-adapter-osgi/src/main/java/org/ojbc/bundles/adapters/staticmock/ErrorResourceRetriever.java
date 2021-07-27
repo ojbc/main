@@ -24,11 +24,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.osgi.io.OsgiBundleResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -65,15 +62,8 @@ class ErrorResourceRetriever {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
-        PathMatchingResourcePatternResolver resolver = null;
-        Resource resource = null;
-        Bundle bundle = FrameworkUtil.getBundle(getClass());
-        if ((bundle != null)) {
-            resolver = new OsgiBundleResourcePatternResolver(bundle);
-        } else {
-            resolver = new PathMatchingResourcePatternResolver();
-        }
-        resource = resolver.getResource("classpath:" + filename);
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource resource = resolver.getResource("classpath:" + filename);
         Document d = db.parse(resource.getInputStream());
         return d;
     }

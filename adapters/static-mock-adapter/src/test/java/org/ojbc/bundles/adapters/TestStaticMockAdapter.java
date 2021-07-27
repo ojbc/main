@@ -32,39 +32,42 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@CamelSpringBootTest
+@SpringBootTest(classes=StaticMockAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ContextConfiguration(locations={ //TODO see if we can remove this
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
+		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+}) 
 @UseAdviceWith
-// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-    "classpath:META-INF/spring/camel-context.xml",
-    "classpath:META-INF/spring/dao.xml",
-    "classpath:META-INF/spring/cxf-endpoints.xml",
-    "classpath:META-INF/spring/jetty-server.xml",
-    "classpath:META-INF/spring/properties-context.xml"
-})
 public class TestStaticMockAdapter {
 
     @SuppressWarnings("unused")
@@ -76,36 +79,36 @@ public class TestStaticMockAdapter {
     @Produce
     private ProducerTemplate template;
 
-    @EndpointInject(uri = "mock:personSearchResultsHandlerServiceEndpoint")
+    @EndpointInject(value = "mock:personSearchResultsHandlerServiceEndpoint")
     private MockEndpoint personSearchResultsMock;
 
-    @EndpointInject(uri = "mock:firearmSearchResultsServiceEndpoint")
+    @EndpointInject(value = "mock:firearmSearchResultsServiceEndpoint")
     private MockEndpoint firearmSearchResultsMock;
 
-    @EndpointInject(uri = "mock:vehicleSearchResultsServiceEndpoint")
+    @EndpointInject(value = "mock:vehicleSearchResultsServiceEndpoint")
     private MockEndpoint vehicleSearchResultsMock;
 
-    @EndpointInject(uri = "mock:incidentSearchResultsServiceEndpoint")
+    @EndpointInject(value = "mock:incidentSearchResultsServiceEndpoint")
     private MockEndpoint incidentSearchResultsMock;
 
-    @EndpointInject(uri = "mock:personQueryResultsHandlerCriminalHistoryServiceEndpoint")
+    @EndpointInject(value = "mock:personQueryResultsHandlerCriminalHistoryServiceEndpoint")
     private MockEndpoint criminalHistoryQueryResultsMock;
 
-    @EndpointInject(uri = "mock:personQueryResultsHandlerWarrantsServiceEndpoint")
+    @EndpointInject(value = "mock:personQueryResultsHandlerWarrantsServiceEndpoint")
     private MockEndpoint warrantQueryResultsMock;
     
-    @EndpointInject(uri = "mock:juvenileIntakeHistoryResultsServiceEndpoint")
+    @EndpointInject(value = "mock:juvenileIntakeHistoryResultsServiceEndpoint")
     private MockEndpoint juvenileIntakeQueryResultsMock;
 
-    @EndpointInject(uri = "mock:personQueryIncidentReportResultsServiceEndpoint")
+    @EndpointInject(value = "mock:personQueryIncidentReportResultsServiceEndpoint")
     private MockEndpoint incidentReportQueryResultsMock;
 
-    @EndpointInject(uri = "mock:personQueryFirearmRegistratonQueryResultsServiceEndpoint")
+    @EndpointInject(value = "mock:personQueryFirearmRegistratonQueryResultsServiceEndpoint")
     private MockEndpoint firearmReportQueryResultsMock;
 
     private DocumentBuilder documentBuilder;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -280,16 +283,11 @@ public class TestStaticMockAdapter {
         submitExchange(p);
     }
 
-    @SuppressWarnings("deprecation")
     private Document submitExchange(final RequestParameter p) throws Exception, InterruptedException {
-
-        context.getRouteDefinition(p.routeId).adviceWith(context, new AdviceWithRouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                weaveByToString("To[" + p.resultsHandlerEndpointName + "]").replace().to("mock:" + p.resultsHandlerEndpointName);
-                replaceFromWith("direct:" + p.requestEndpointName);
-            }
-        });
+    	AdviceWith.adviceWith(context, p.routeId, route -> {
+	    	route.weaveByToString("To[" + p.resultsHandlerEndpointName + "]").replace().to("mock:" + p.resultsHandlerEndpointName);
+	    	route.replaceFromWith("direct:" + p.requestEndpointName);
+    	});
 
         context.start();
 

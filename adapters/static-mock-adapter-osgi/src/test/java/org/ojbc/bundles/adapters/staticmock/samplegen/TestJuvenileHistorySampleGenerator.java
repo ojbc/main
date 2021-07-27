@@ -27,12 +27,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.bundles.adapters.staticmock.JuvenileHistoryContainer;
 import org.ojbc.bundles.adapters.staticmock.JuvenileHistoryContainerTestUtils;
-import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractSampleGenerator;
-import org.ojbc.bundles.adapters.staticmock.samplegen.JuvenileHistorySampleGenerator;
 import org.w3c.dom.Document;
 
 public class TestJuvenileHistorySampleGenerator {
 
+	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory.getLog(TestJuvenileHistorySampleGenerator.class);
 	private static final int TEST_CASES = 10;
 

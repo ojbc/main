@@ -16,10 +16,6 @@
  */
 package org.ojbc.bundles.adapters.staticmock.samplegen;
 
-import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractPersonSampleGenerator;
-import org.ojbc.bundles.adapters.staticmock.samplegen.CriminalHistorySampleGenerator;
-
-
 /**
  * Test for the criminal history sample generator.
  *

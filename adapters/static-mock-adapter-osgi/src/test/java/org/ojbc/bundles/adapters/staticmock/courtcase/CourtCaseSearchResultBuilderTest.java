@@ -21,9 +21,6 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 
-import junit.framework.Assert;
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
 import org.junit.Test;
 import org.ojbc.bundles.adapters.staticmock.ClasspathXmlDataSource;
 import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
@@ -32,6 +29,10 @@ import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
+
+import junit.framework.Assert;
 
 public class CourtCaseSearchResultBuilderTest {
 	

@@ -19,11 +19,11 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+
+import junit.framework.Assert;
 
 public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 	

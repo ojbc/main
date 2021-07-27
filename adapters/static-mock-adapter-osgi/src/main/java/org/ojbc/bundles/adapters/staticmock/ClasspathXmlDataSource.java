@@ -29,11 +29,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.osgi.io.OsgiBundleResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -62,16 +59,8 @@ public class ClasspathXmlDataSource {
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            Bundle bundle = FrameworkUtil.getBundle(getClass());
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-            PathMatchingResourcePatternResolver resolver = null;
-            if (bundle != null) {
-                LOG.info("ClasspathXmlDataSource running in OSGi context, bundle=" + bundle.getSymbolicName());
-                resolver = new OsgiBundleResourcePatternResolver(bundle);
-            } else {
-                LOG.info("ClasspathXmlDataSource running in non-OSGi context");
-                resolver = new PathMatchingResourcePatternResolver();
-            }
             Resource[] resources = resolver.getResources("classpath:" + directory + "/*.xml");
             LOG.info("Loaded " + resources.length + " instance files from " + directory);
 

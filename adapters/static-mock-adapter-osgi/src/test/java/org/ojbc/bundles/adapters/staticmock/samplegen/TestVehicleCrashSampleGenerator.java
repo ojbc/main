@@ -19,13 +19,11 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
-import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+
+import junit.framework.Assert;
 
 public class TestVehicleCrashSampleGenerator extends AbstractSampleGeneratorTestCase{
 	

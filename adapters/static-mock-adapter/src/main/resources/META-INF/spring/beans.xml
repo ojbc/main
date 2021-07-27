@@ -17,25 +17,29 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
+<!-- Configures the Camel Context -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:cht-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryTextDocument/1.0"
 	xsi:schemaLocation="
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="auditLogDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.h2.Driver" />
-       	<!-- FYI to connect to an in-memory H2 database remotely, use a URL like:  jdbc:h2:tcp:demoserver.ojbc-local.org:49093/mem:auditlog -->
-        <property name="url" value="jdbc:h2:mem:auditlog"/>
-        <property name="username" value="sa"/>
-    </bean>
-    
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.SQLLoggingProcessor">
-        <property name="dataSource" ref="auditLogDataSource"/>
-    </bean>
+	<!-- Spring Beans -->
 
+	<bean id="staticMockAdapterProcessor" class="org.ojbc.bundles.adapters.StaticMockAdapterProcessor">
+		<property name="staticMockQuery" ref="staticMockQuery" />
+	</bean>
+
+	<bean id="staticMockQuery" class="org.ojbc.bundles.adapters.staticmock.StaticMockQuery" />
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+		
 </beans>

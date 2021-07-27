@@ -19,7 +19,7 @@ package org.ojbc.bundles.adapters.staticmock.custody;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.util.xml.OjbcNamespaceContext;

@@ -18,11 +18,9 @@ package org.ojbc.bundles.adapters.staticmock;
 
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.ClasspathXmlDataSource;
-import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
+
+import junit.framework.TestCase;
 
 public class ClasspathXmlDataSourceTest extends TestCase {
     

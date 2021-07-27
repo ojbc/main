@@ -16,7 +16,7 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
@@ -24,7 +24,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.JuvenileHistoryContainer;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

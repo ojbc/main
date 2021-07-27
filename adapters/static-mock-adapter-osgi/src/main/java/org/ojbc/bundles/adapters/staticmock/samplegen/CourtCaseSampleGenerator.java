@@ -18,6 +18,7 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CYFS_31;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IAD;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_31;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_51;
@@ -26,7 +27,6 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_QRER;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_QRM;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_CYFS_31;
 
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
@@ -38,11 +38,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -50,6 +48,8 @@ import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 
 public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
@@ -1040,11 +1040,11 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		Element obligationDueAmount = XmlUtils.appendElement(disciplinaryActionRestitution, NS_NC_30, "ObligationDueAmount");
 		Element dueAmount = XmlUtils.appendElement(obligationDueAmount, NS_NC_30, "Amount");
-		dueAmount.setTextContent(String.valueOf(RandomUtils.nextInt(100000)) + ".00");
+		dueAmount.setTextContent(String.valueOf(RandomUtils.nextInt(1, 100000)) + ".00");
 		
 		Element obligationPaidAmount = XmlUtils.appendElement(disciplinaryActionRestitution, NS_NC_30, "ObligationPaidAmount");
 		Element paidAmount = XmlUtils.appendElement(obligationPaidAmount, NS_NC_30, "Amount");
-		paidAmount.setTextContent(String.valueOf(RandomUtils.nextInt(100000)) + ".00");
+		paidAmount.setTextContent(String.valueOf(RandomUtils.nextInt(1,100000)) + ".00");
 	}
 
 	private void appendVictimElement(Element rootCourtCaseElement) {

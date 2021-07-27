@@ -27,8 +27,6 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.joda.time.DateTime;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -38,6 +36,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import junit.framework.Assert;
 
 public class SearchTest extends AbstractStaticMockTest {
 

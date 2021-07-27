@@ -19,9 +19,6 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractPersonSampleGenerator;
-import org.ojbc.bundles.adapters.staticmock.samplegen.FirearmRegistrationSampleGenerator;
-
 
 public class TestFirearmRegistrationSampleGenerator extends AbstractPersonSampleGeneratorTestCase {
     

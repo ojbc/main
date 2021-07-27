@@ -18,12 +18,12 @@ package org.ojbc.bundles.adapters.staticmock;
 
 import java.io.File;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery.SearchValueXPaths;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+
+import junit.framework.Assert;
 
 
 public class XpathTest {

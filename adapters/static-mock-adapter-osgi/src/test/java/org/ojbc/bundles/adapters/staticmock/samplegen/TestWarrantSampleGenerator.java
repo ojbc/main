@@ -19,8 +19,6 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 import java.util.List;
 
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractPersonSampleGenerator;
-import org.ojbc.bundles.adapters.staticmock.samplegen.WarrantSampleGenerator;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

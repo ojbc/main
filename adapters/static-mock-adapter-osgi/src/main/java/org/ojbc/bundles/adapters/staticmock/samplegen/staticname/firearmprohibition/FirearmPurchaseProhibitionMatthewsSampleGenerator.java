@@ -21,7 +21,6 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ojbc.bundles.adapters.staticmock.samplegen.FirearmPurchaseProhibitionSampleGenerator;
-import org.ojbc.bundles.adapters.staticmock.samplegen.VehicleCrashSampleGenerator;
 
 public class FirearmPurchaseProhibitionMatthewsSampleGenerator extends FirearmPurchaseProhibitionSampleGenerator{
 

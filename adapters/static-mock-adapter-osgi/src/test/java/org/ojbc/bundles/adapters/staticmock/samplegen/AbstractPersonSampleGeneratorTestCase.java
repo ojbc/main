@@ -30,7 +30,8 @@ import org.w3c.dom.Document;
  */
 public abstract class AbstractPersonSampleGeneratorTestCase extends AbstractSampleGeneratorTestCase {
 
-    private static final Log LOG = LogFactory.getLog( AbstractPersonSampleGeneratorTestCase.class );
+    @SuppressWarnings("unused")
+	private static final Log LOG = LogFactory.getLog( AbstractPersonSampleGeneratorTestCase.class );
     
     protected AbstractPersonSampleGenerator sampleGenerator;
     

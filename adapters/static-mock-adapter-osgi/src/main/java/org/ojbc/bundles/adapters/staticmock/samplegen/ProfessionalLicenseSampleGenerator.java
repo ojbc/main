@@ -18,21 +18,20 @@ package org.ojbc.bundles.adapters.staticmock.samplegen;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 
 public class ProfessionalLicenseSampleGenerator extends AbstractSampleGenerator {
 
@@ -61,8 +60,6 @@ public class ProfessionalLicenseSampleGenerator extends AbstractSampleGenerator 
 
 	private Document buildProfessionalLicenseDetailDoc(PersonElementWrapper iGeneratedPerson)
 			throws ParserConfigurationException, IOException {
-
-		PersonElementWrapper randomPerson2 = getRandomIdentity(null);
 
 		Document rProfessionalLicenseDetailDoc = getNewDocument();
 

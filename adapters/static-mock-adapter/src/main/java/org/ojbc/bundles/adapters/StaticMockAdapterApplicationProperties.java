@@ -14,25 +14,22 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters.staticmock;
+package org.ojbc.bundles.adapters;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-public class Activator implements BundleActivator {
-	
-	private static final Log LOG = LogFactory.getLog(Activator.class);
+@Component
+@ConfigurationProperties(prefix = "genericMockAdapter")
+public class StaticMockAdapterApplicationProperties {
+	private String dbAuditLog = "false";
 
-    @Override
-    public void start(BundleContext context) throws Exception {
-    	LOG.info("Static Mock Adapter bundle starting");
-    }
+	public String getDbAuditLog() {
+		return dbAuditLog;
+	}
 
-    @Override
-    public void stop(BundleContext context) throws Exception {
-    	LOG.info("Static Mock Adapter bundle stopping");
-    }
+	public void setDbAuditLog(String dbAuditLog) {
+		this.dbAuditLog = dbAuditLog;
+	} 
 
 }

@@ -28,10 +28,10 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
@@ -210,7 +210,7 @@
 			<camel:log message="Inside Person Search Request Mock Adapter Route" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
 			</camel:setHeader>
 
@@ -222,10 +222,10 @@
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=search" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportPersonSearchResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/PersonSearchResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -248,7 +248,7 @@
 			<camel:log message="\n\n\n Inside Custody Search Request Mock Adapter Route \n\n\n" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
 			</camel:setHeader>
 
@@ -259,10 +259,10 @@
 
 			<camel:to uri="bean:staticMockAdapterProcessor?method=search" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitCustodySearchResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -285,7 +285,7 @@
 			<camel:log message="\n\n\n Inside Court Case Search Request Mock Adapter Route \n\n\n" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
 			</camel:setHeader>
 
@@ -296,10 +296,10 @@
 
 			<camel:to uri="bean:staticMockAdapterProcessor?method=search" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitCourtCaseSearchRequest</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0</constant>
 			</camel:setHeader>
 
@@ -323,7 +323,7 @@
 			<camel:log message="Inside Firearm Search Request Mock Adapter Route" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -335,10 +335,10 @@
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=search" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitFirearmSearchResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/FirearmSearchResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -360,7 +360,7 @@
 			<camel:log message="Inside Vehicle Search Request Mock Adapter Route" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -372,10 +372,10 @@
 			<camel:to
 				uri="bean:staticMockAdapterProcessor?method=search" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitVehicleSearchResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/VehicleSearchResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -401,7 +401,7 @@
 
 			<camel:convertBodyTo type="java.lang.String" />
 
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -418,7 +418,7 @@
 				<camel:to
 					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>SubmitIncidentSearchResults</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -437,7 +437,7 @@
 				<camel:to
 					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>SubmitIncidentPersonSearchResults</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -456,7 +456,7 @@
 				<camel:to
 					uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>SubmitIncidentVehicleSearchResults</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -473,7 +473,7 @@
 			<camel:log message="Inside Person Query Criminal History Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -492,17 +492,17 @@
 			<camel:choice>
 				<camel:when>
 					<camel:xpath>/cht-doc:CriminalHistoryTextDocument</camel:xpath>
-					<camel:setHeader headerName="operationName">
+					<camel:setHeader name="operationName">
 						<constant>SubmitCriminalHistoryTextDocument</constant>
 					</camel:setHeader>
 				</camel:when>
 				<camel:otherwise>
-					<camel:setHeader headerName="operationName">
+					<camel:setHeader name="operationName">
 						<constant>SubmitCriminalHistoryQueryResults</constant>
 					</camel:setHeader>
 				</camel:otherwise>
 			</camel:choice>
- 			<camel:setHeader headerName="operationNamespace">
+ 			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
 			</camel:setHeader>
 
@@ -522,7 +522,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -535,10 +535,10 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitCustodyQueryResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -559,7 +559,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -572,10 +572,10 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitFirearmPurchaseProhibitionQueryResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0</constant>
 			</camel:setHeader>
 
@@ -596,7 +596,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -609,10 +609,10 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-        	<camel:setHeader headerName="operationName">
+        	<camel:setHeader name="operationName">
         		<constant>SubmitWildlifeLicenseQueryResults</constant>
         	</camel:setHeader>
-       		<camel:setHeader headerName="operationNamespace">
+       		<camel:setHeader name="operationNamespace">
        			<constant>http://ojbc.org/Services/WSDL/Wildlife_License_Query_Results_Service/1.0</constant>
        		</camel:setHeader>
 
@@ -633,7 +633,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -646,10 +646,10 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitCourtCaseQueryResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -670,7 +670,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -683,10 +683,10 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitVehicleCrashQueryResults</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0</constant>
 			</camel:setHeader>
 
@@ -705,7 +705,7 @@
 			<camel:log message="Inside Person Query Criminal Warrants Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -722,10 +722,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>Report-Person-Query-Results---Warrants</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0</constant>
 			</camel:setHeader>
 
@@ -742,7 +742,7 @@
 			<camel:log message="Inside Person Query Incident Report Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -759,10 +759,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportIncident</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
 
@@ -781,7 +781,7 @@
 			<camel:log message="Inside Person Query Firearm Reg Detail Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -798,33 +798,33 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="firearmQueryResultByPerson">
+			<camel:setHeader name="firearmQueryResultByPerson">
 				<xpath resultType="java.lang.String">count(//firearms-exchange:PersonFirearmRegistrationQueryResults)</xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="firearmQueryResultByFirearm">
+			<camel:setHeader name="firearmQueryResultByFirearm">
 				<xpath resultType="java.lang.String">count(//firearms-exchange:FirearmRegistrationQueryResults)</xpath>
 			</camel:setHeader>
 
 			<camel:filter>
-				<camel:simple>${in.header.firearmQueryResultByPerson} == 1 and ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
+				<camel:simple>${in.header.firearmQueryResultByPerson} == 1 &amp;&amp; ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
 				<camel:log message="Use operation name for Firearm Query Result by Person" />
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>SubmitPersonFirearmRegistrationQueryResults</constant>
 				</camel:setHeader>
 			</camel:filter>
 
 			<camel:filter>
-				<camel:simple>${in.header.firearmQueryResultByPerson} == 0 and ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
+				<camel:simple>${in.header.firearmQueryResultByPerson} == 0 &amp;&amp; ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
 				<camel:log message="Use operation name for Firearm Query Result by Firearm" />
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>SubmitFirearmRegistrationQueryResults</constant>
 				</camel:setHeader>
 			</camel:filter>
 
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0</constant>
 			</camel:setHeader>
 
@@ -841,7 +841,7 @@
 			<camel:log message="Inside Juvenile Case Plan Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -850,7 +850,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 			
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileCasePlanHistory</constant>
 			</camel:setProperty>
 			
@@ -862,10 +862,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenileCasePlanHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/CasePlanResults/1.0</constant>
 			</camel:setHeader>
 
@@ -882,7 +882,7 @@
 			<camel:log message="Inside Juvenile Hearing Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -891,7 +891,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileHearingHistory</constant>
 			</camel:setProperty>
 			
@@ -903,10 +903,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenileHearingHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/HearingResults/1.0</constant>
 			</camel:setHeader>
 
@@ -923,7 +923,7 @@
 			<camel:log message="Inside Juvenile Intake Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -932,7 +932,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileIntakeHistory</constant>
 			</camel:setProperty>
 			
@@ -944,10 +944,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenileIntakeHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/IntakeResults/1.0</constant>
 			</camel:setHeader>
 
@@ -964,7 +964,7 @@
 			<camel:log message="Inside Juvenile Offense Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -973,7 +973,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileOffenseHistory</constant>
 			</camel:setProperty>
 			
@@ -985,10 +985,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenileOffenseHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/OffenseResults/1.0</constant>
 			</camel:setHeader>
 
@@ -1005,7 +1005,7 @@
 			<camel:log message="Inside Juvenile Placement Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -1014,7 +1014,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenilePlacementHistory</constant>
 			</camel:setProperty>
 			
@@ -1026,10 +1026,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenilePlacementHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/PlacementResults/1.0</constant>
 			</camel:setHeader>
 
@@ -1046,7 +1046,7 @@
 			<camel:log message="Inside Juvenile Referral Mock" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<simple>${in.header.platformSafeFileName}.xml</simple>
 			</camel:setHeader>
 
@@ -1055,7 +1055,7 @@
 
 			<camel:log message="Calling static mock adapter" />
 
-			<camel:setProperty propertyName="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
+			<camel:setProperty name="org.ojbc.bundles.adapters.StaticMockAdapterProcessor.context">
 				<constant>JuvenileReferralHistory</constant>
 			</camel:setProperty>
 			
@@ -1067,10 +1067,10 @@
 			<camel:to
 				uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitJuvenileReferralHistoryResponse</constant>
 			</camel:setHeader>
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/JuvenileHistoryResults/ReferralResults/1.0</constant>
 			</camel:setHeader>
 

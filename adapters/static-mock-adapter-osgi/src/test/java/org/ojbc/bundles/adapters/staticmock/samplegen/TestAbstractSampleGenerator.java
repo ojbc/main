@@ -21,7 +21,6 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractSampleGenerator;
 
 import junit.framework.TestCase;
 
