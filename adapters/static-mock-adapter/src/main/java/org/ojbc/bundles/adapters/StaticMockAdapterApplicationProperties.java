@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "genericMockAdapter")
+@ConfigurationProperties(prefix = "generic-mock-adapter")
 public class StaticMockAdapterApplicationProperties {
 	private String dbAuditLog = "false";
 

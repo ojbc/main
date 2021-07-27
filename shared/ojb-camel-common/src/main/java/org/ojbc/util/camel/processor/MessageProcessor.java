@@ -181,6 +181,8 @@ public class MessageProcessor {
 			log.debug("WS Addressing from Camel Header: " + from);
 			wsAddressingMessageProperties.put("From",from);
 		}
+		
+		exchange.getMessage().removeHeaders("*");
 
 		//Call method to create proper request context map
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
