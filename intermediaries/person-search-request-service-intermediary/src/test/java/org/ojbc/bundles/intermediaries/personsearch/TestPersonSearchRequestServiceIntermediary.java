@@ -27,29 +27,29 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.apache.http.Consts;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
-@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+
+@CamelSpringBootTest
+@SpringBootTest(classes=PersonSearchIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 public class TestPersonSearchRequestServiceIntermediary {
 	
 	private static final Log log = LogFactory.getLog( TestPersonSearchRequestServiceIntermediary.class );
@@ -60,7 +60,7 @@ public class TestPersonSearchRequestServiceIntermediary {
     @Produce
     protected ProducerTemplate template;
     	
-    @EndpointInject(uri = "mock:maxRecordsProcessorMock")
+    @EndpointInject(value = "mock:maxRecordsProcessorMock")
     protected MockEndpoint maxRecordsProcessorMock;
 
     
@@ -69,17 +69,12 @@ public class TestPersonSearchRequestServiceIntermediary {
     	assertTrue(true);
     }	
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 
-    	context.getRouteDefinition("processFederatedResponseRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-				// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("direct:sendMergeMessageResponse").to("mock:maxRecordsProcessorMock").stop();    	
-    	    }              
-    	});
-
+		AdviceWith.adviceWith(context, "processFederatedResponseRoute", 
+				route-> route.interceptSendToEndpoint("direct:sendMergeMessageResponse")
+					.to(maxRecordsProcessorMock).stop());
     	
     	context.start();
 	}
@@ -94,13 +89,13 @@ public class TestPersonSearchRequestServiceIntermediary {
 
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/personSearchResults/personSearchResultsLarge.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:processFederatedResponse", senderExchange);
+		template.send("direct:processFederatedResponse", senderExchange);
 
     	
     	maxRecordsProcessorMock.assertIsSatisfied();
