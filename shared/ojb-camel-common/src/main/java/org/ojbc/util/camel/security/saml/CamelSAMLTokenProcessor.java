@@ -21,6 +21,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.apache.cxf.rt.security.saml.claims.SAMLSecurityContext;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.w3c.dom.Element;
 
@@ -37,10 +38,14 @@ public class CamelSAMLTokenProcessor {
 		if (cxfMessage != null)
 		{	
 			Object token = cxfMessage.get("wss4j.principal.result");
+            if (token == null) {
+            	SAMLSecurityContext samlSecurityContext = (SAMLSecurityContext) cxfMessage.get("org.apache.cxf.security.SecurityContext");
+            	token = samlSecurityContext.getUserPrincipal(); 
+            }
 			
 			if (token instanceof SAMLTokenPrincipal)
 			{	
-				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+				SAMLTokenPrincipal samlToken = (SAMLTokenPrincipal) token;
 				
 				Element assertionElement = null;
 				

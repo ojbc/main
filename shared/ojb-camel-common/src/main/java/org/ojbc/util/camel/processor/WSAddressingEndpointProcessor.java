@@ -19,6 +19,7 @@ package org.ojbc.util.camel.processor;
 import java.util.HashMap;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePropertyKey;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -48,6 +49,7 @@ public class WSAddressingEndpointProcessor {
 		{
 			exchange.getIn().setHeader("recipientListReplyToEndpoint", endpointNameFromReplyToAddress);
     		exchange.getIn().setHeader(Exchange.DESTINATION_OVERRIDE_URL,replyTo);
+    		exchange.setProperty(ExchangePropertyKey.EVALUATE_EXPRESSION_RESULT, replyTo);
 		}	
 
 	}

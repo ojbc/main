@@ -44,13 +44,13 @@ public class FederatedQueryResponseHandlerAggregator {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void aggregateGroupMessagesString(Exchange groupedExchange)
 	{
-		List<Exchange> grouped = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
+		List<Exchange> grouped = groupedExchange.getIn().getBody(List.class);
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<OJBAggregateResponseWrapper>");
         
         List<String> endpointsThatDidNotRespond = new ArrayList<String>();
-        
+
         log.info("grouped size: " + grouped.size());
 		for (Exchange exchange : grouped)
 		{
@@ -91,7 +91,14 @@ public class FederatedQueryResponseHandlerAggregator {
 		        sb.append(bodyAsString);
 		        
 		        AttachmentMessage attachmentInGroupExchange = groupedExchange.getIn(AttachmentMessage.class); 
-		        attachmentInGroupExchange.getAttachments().putAll(exchange.getIn(AttachmentMessage.class).getAttachments());
+		        if (exchange.getIn(AttachmentMessage.class).getAttachments() != null) {
+		        	if (attachmentInGroupExchange.getAttachments() != null) {
+		        		attachmentInGroupExchange.getAttachments().putAll(exchange.getIn(AttachmentMessage.class).getAttachments());
+		        	}
+		        	else {
+		        		attachmentInGroupExchange.setAttachments(exchange.getIn(AttachmentMessage.class).getAttachments());
+		        	}
+		        }
 		        continue; 
 			}	
 			

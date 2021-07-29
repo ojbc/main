@@ -46,7 +46,7 @@ public class EntityResolutionResponseHandlerAggregator {
 	public void aggregateMergedMessageWithErrorResponses(Exchange groupedExchange) throws Exception
 	{
 		//Get the grouped exchanged consisting of the aggregated search results and merged results
-		List<Exchange> grouped = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
+		List<Exchange> grouped = groupedExchange.getIn().getBody(List.class);
         
 		boolean responseHasErrors = false;
 		Document erResponseBodyDocument = null;
@@ -80,7 +80,7 @@ public class EntityResolutionResponseHandlerAggregator {
 			 {
 				 responseHasErrors = true;
 				 
-				 if (exchange.getIn().getBody().getClass().equals("java.lang.String"))
+				 if (exchange.getIn().getBody().getClass().getName().equals("java.lang.String"))
 				 {
 					 String aggregatedResponse = (String)exchange.getIn().getBody();
 					 

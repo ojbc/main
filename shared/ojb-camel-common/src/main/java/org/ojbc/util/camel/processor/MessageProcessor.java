@@ -182,23 +182,13 @@ public class MessageProcessor {
 			wsAddressingMessageProperties.put("From",from);
 		}
 		
-		exchange.getMessage().removeHeaders("*");
+		exchange.getMessage().removeHeaders("*", Exchange.DESTINATION_OVERRIDE_URL, "recipientListReplyToEndpoint");
 
 		//Call method to create proper request context map
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
 		exchange.getMessage().setHeader(Client.REQUEST_CONTEXT , requestContext);
 
 		//We do this so we can preserve the recipient list rather than losing it in the out message
-		String recipientListReplyTo = (String) exchange.getIn().getHeader("recipientListReplyToEndpoint");
-		
-		if (StringUtils.isNotEmpty(recipientListReplyTo))
-		{	
-			exchange.getMessage().setHeader("recipientListReplyToEndpoint", recipientListReplyTo);
-		}	
-		
-		//preserve the destination override URL so we can override a URL in an cxf endpoint
-		//This is used to set reply to addresses.
-		exchange.getMessage().setHeader(Exchange.DESTINATION_OVERRIDE_URL, exchange.getIn().getHeader(Exchange.DESTINATION_OVERRIDE_URL));
 		
 		exchange.getMessage().setBody(exchange.getIn().getBody());
 		
