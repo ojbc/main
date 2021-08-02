@@ -22,7 +22,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-resources-common</artifactId>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<name>OJB :: ojb-resources-common :: shared</name>
 	<packaging>bundle</packaging>
 
