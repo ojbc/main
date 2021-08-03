@@ -91,7 +91,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -104,13 +104,13 @@
 
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+			<camel:setHeader name="federatedQueryEndpointsNodeList">
 				<camel:xpath>//alreq-ext:SourceSystemNameText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 			
-			<camel:setHeader headerName="operationName"><camel:simple>${in.headers.operationName}</camel:simple></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/AuditLogSearchRequestService/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><camel:simple>${in.headers.operationName}</camel:simple></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/AuditLogSearchRequestService/1.0</constant></camel:setHeader>
 			<camel:log message="operationName ${in.headers.operationName}" />
 									                                   
 			<!-- Call method to populate federated query map -->
@@ -122,7 +122,7 @@
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader headerName="requestMessageBody">
+			<camel:setHeader name="requestMessageBody">
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 			</camel:setHeader>
 
@@ -154,18 +154,18 @@
 		<camel:route>
 			<from uri="direct:aggregateFederatedQuery" />
 			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:federatedQueryTimeout}</camel:simple>
-				</completionTimeout>
-				<completionSize>
+				</completionTimeoutExpression>
+				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSize>
+				</completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -199,7 +199,7 @@
 				</camel:when>
 			</camel:choice>
 
-			<camel:setHeader headerName="searchProfile">
+			<camel:setHeader name="searchProfile">
 				<camel:xpath resultType="java.lang.String">//alsres-ext:SourceSystemNameText/text()</camel:xpath>
 			</camel:setHeader>
 			
@@ -234,34 +234,34 @@
 			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
 			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
 			
-			<camel:setHeader headerName="searchResponseNodeCount">
+			<camel:setHeader name="searchResponseNodeCount">
 				<xpath resultType="java.lang.String">count(//alsres-ext:AuditLogSearchResult)</xpath>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="errorResponseNodeCount">
+			<camel:setHeader name="errorResponseNodeCount">
 				<xpath resultType="java.lang.String">count(//srm:SearchResultsMetadata)</xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="containerNodeCount">
+			<camel:setHeader name="containerNodeCount">
 				<xpath resultType="java.lang.String">count(//alsres-doc:AuditLogSearchResults)</xpath>
 			</camel:setHeader>
 			
 			<log message="Error nodes: ${in.headers.errorResponseNodeCount}, Search Nodes: ${in.headers.searchResponseNodeCount}"/>
 			
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 &amp;&amp; ${in.headers.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="No search results returned, however, response contains error results"/>
 			</camel:filter>
 
 			<!-- In this case, we have errors and no search results, there is no need to call ER -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} == 0</camel:simple>
+				<camel:simple>${in.headers.searchResponseNodeCount} == 0 &amp;&amp; ${in.headers.errorResponseNodeCount} == 0</camel:simple>
 				<camel:log message="No search results returned or error results"/>
 			</camel:filter>
 
 			<!-- In this case, we have no errors and no search results, not even a container, create an error message and return -->
 			<camel:filter>
-				<camel:simple>${in.header.containerNodeCount} == 0</camel:simple>
+				<camel:simple>${in.headers.containerNodeCount} == 0</camel:simple>
 				<camel:log message="No search results or error results, not even a container, the adapter timed or had an issue"/>
 				
 				<!-- TODO: add an error response processor here -->
@@ -278,8 +278,8 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-					<camel:setHeader headerName="operationName"><constant>SubmitAuditLogSearchResults</constant></camel:setHeader>	
-					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/AuditLogSearchResultsService/1.0</constant></camel:setHeader>
+					<camel:setHeader name="operationName"><constant>SubmitAuditLogSearchResults</constant></camel:setHeader>	
+					<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/AuditLogSearchResultsService/1.0</constant></camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
@@ -302,49 +302,4 @@
 	<!-- Spring Beans -->
 	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
-	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
-	    <!--  Set relayHeaders to false to drop all SOAP headers -->
-    	<property name="relayHeaders" value="false"/>
-	</bean>
-
-	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-		<property name="addressToAdapterURIMap" ref="addressToAdapterURIMap"/>
-	</bean>
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-
-	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-	
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
-	</bean>
-
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-	
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-
-	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
-	</bean>	
-	
 </beans>
