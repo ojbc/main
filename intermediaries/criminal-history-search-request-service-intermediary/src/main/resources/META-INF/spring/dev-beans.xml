@@ -25,15 +25,10 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
-	
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-		</constructor-arg>
-	</bean>
+       "
+       profile="dev">
+       
+			<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 
 <!-- 	<bean id="criminalHistorySearchSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject"> -->
 <!-- 		<constructor-arg name="beanName" value="criminalHistorySearchSQLLoggingProcessor" /> -->
@@ -55,33 +50,17 @@
 <!-- 		</constructor-arg> -->
 <!-- 	</bean> -->
 
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
 				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
 				<property name="username" value="sa" />
 			</bean>
-		</constructor-arg>
-	</bean>
 	
-	<bean id="endpointReplyToMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="endpointReplyToMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
+			<util:map id="endpointReplyToMap">
 		        <entry key="${criminalHistorySearchPresentResultsServiceEndpoint}" value="criminalHistorySearchPresentResultsServiceEndpoint"/>
 	   		</util:map>
-		</constructor-arg>
-	</bean>	
 	
-	<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="defaultFederatedSearchTimeoutProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
+			<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
 				<property name="uriToErrorMessageMap">
 					<util:map>
 						<entry key="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" value="Criminal History search timed out or had an error." />
@@ -95,15 +74,8 @@
 				<property name="parentElementName" value="CriminalHistorySearchResults"/>
 				<property name="parentElementNamespace" value="http://ojbc.org/IEPD/Exchange/CriminalHistorySearchResults/1.0"/>
 		  	</bean>
-		</constructor-arg>
-	</bean>
 	
-	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap" ref="federatedQueryEndpointMap"/>
 
 				<property name="adapterURItoAddressMap">
@@ -112,26 +84,12 @@
 					</util:map>				
 				</property>
 		  	</bean>
-		</constructor-arg>
-	</bean>		
 	
-	<bean id="federatedQueryEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="federatedQueryEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap" >
+			<util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap" >
 				<entry key="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" value="criminalHistorySearchRequestServiceAdapterEndpoint" />
 			</util:map>
-		</constructor-arg>
-	</bean>
 	
-	<bean id="addressToAdapterURIMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="addressToSystemNameMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap" >
+			<util:map id="addressToAdapterURIMap" map-class="java.util.HashMap" >
 				<entry key="${criminalHistorySearchRequestServiceAdapterEndpoint}" value="{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest" />
 			</util:map>
-		</constructor-arg>
-	</bean>	
 </beans>
