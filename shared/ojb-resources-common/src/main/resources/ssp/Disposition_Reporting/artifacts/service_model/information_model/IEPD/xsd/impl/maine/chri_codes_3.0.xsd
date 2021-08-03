@@ -788,6 +788,14 @@
 			<xsd:enumeration value="JAIL BOARD REIMBURSEMENT TO COUNTY TREASURER" />
 			<xsd:enumeration value="JUVENILE DETENTION FACILITY" />
 			<xsd:enumeration value="PROBATION CONVERTED TO ADMINISTRATIVE RELEASE" />
+			<!-- ADDED 08/03/2021 -->
+			<xsd:enumeration value="SUPERVISED RELEASE REVOKED" />
+			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - CONTINUED" />
+			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - TERMINATED" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - CONTINUED" />
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - TERMINATED" />
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - CONTINUED" />
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - TERMINATED" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="SentenceTermCategoryCodeType">
@@ -1080,9 +1088,7 @@
 			<xsd:enumeration value="DISMISSED WITHOUT PREJUDICE" />
 			<xsd:enumeration value="SUPERVISED RELEASE NOT VIOLATED" />
 			<xsd:enumeration value="SUPERVISED RELEASE VIOLATED" />
-			<xsd:enumeration value="MOTION - MOTION TO TERMINATE SUPERVISED RELEASE" />
-			<xsd:enumeration value="OTHER FILING - FILED WITH COSTS" />
-			<xsd:enumeration value="OTHER FILING - FILED WITHOUT COSTS" />
+			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventStatusCodeType">
