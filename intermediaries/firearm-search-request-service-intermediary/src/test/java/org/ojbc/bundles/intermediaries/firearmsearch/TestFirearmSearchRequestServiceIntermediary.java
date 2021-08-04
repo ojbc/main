@@ -31,13 +31,14 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.Route;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,28 +50,26 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.custommonkey.xmlunit.Diff;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
-import org.springframework.test.context.ContextConfiguration;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",	
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+@CamelSpringBootTest
+@SpringBootTest(classes=FirearmSearchRequestServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 public class TestFirearmSearchRequestServiceIntermediary {
 	public static final String CXF_OPERATION_NAME = "SubmitFirearmSearchRequest";
 	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0";
@@ -83,10 +82,10 @@ public class TestFirearmSearchRequestServiceIntermediary {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:firearmSearchRequestServiceAdapter")
+    @EndpointInject(value = "mock:cxf:bean:firearmSearchRequestServiceAdapter")
     protected MockEndpoint firearmSearchResultsMock;
 	
-    @EndpointInject(uri = "mock:maxRecordsProcessorMock")
+    @EndpointInject(value = "mock:cxf:bean:entityResolutionRequestServiceEndpoint")
     protected MockEndpoint maxRecordsProcessorMock;
 
     
@@ -95,27 +94,19 @@ public class TestFirearmSearchRequestServiceIntermediary {
     	assertTrue(true);
     }	
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
+		
     	//Advise the firearm search results endpoint and replace it with a mock endpoint.
     	//We then will test this mock endpoint to see if it gets the proper payload.
-    	context.getRouteDefinition("searchRequestFederatedServiceEndpointRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:searchRequestFederatedServiceEndpoint");
-    	    	mockEndpoints("firearmSearchRequestServiceAdapterEndpoint");
-    	    }              
-    	});
+		AdviceWith.adviceWith(context, context.getRouteDefinition("searchRequestFederatedServiceEndpointRoute"), route -> {
+			route.replaceFromWith("direct:searchRequestFederatedServiceEndpoint");
+			route.mockEndpoints();
+		});
 
-    	context.getRouteDefinition("processFederatedResponseRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-				// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("direct:sendMergeMessageResponse").to("mock:maxRecordsProcessorMock").stop();    	
-    	    }              
-    	});
-
+		AdviceWith.adviceWith(context, context.getRouteDefinition("processFederatedResponseRoute"), route -> {
+			route.weaveByToString("To[direct:sendMergeMessageResponse]").replace().to("mock:cxf:bean:entityResolutionRequestServiceEndpoint");
+		});
     	
     	context.start();
 	}
@@ -127,7 +118,7 @@ public class TestFirearmSearchRequestServiceIntermediary {
 
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
-
+    	
 	    //Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/firearmSearchResults/firearmSearchResultsLarge.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
@@ -137,7 +128,6 @@ public class TestFirearmSearchRequestServiceIntermediary {
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:processFederatedResponse", senderExchange);
-
     	
     	maxRecordsProcessorMock.assertIsSatisfied();
     	String errorMessage = (String)maxRecordsProcessorMock.getReceivedExchanges().get(0).getIn().getBody();
