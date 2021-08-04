@@ -25,63 +25,30 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       "
+       profile="dev">
+       
+			<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 	
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-		</constructor-arg>
-	</bean>
-	
-	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="queryRequestSQLLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
+			<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestNullObjectProcessor">
 				<property name="userInfoProcessor" ref="userInfoNullObjectProcessor"/>
 			</bean>		
-		</constructor-arg>
-	</bean>
 	
-	<bean id="queryResponseSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="queryResponseSQLLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.audit.enhanced.processor.FirearmsQueryResponseNullObjectProcessor"/>
-		</constructor-arg>
-	</bean>
+			<bean id="queryResponseSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.FirearmsQueryResponseNullObjectProcessor"/>
 
-	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
+			<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoNullObjectProcessor"/>
 
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
 				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
 				<property name="username" value="sa" />
 			</bean>
-		</constructor-arg>
-	</bean>
 	
-	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap">
+			<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
 		        <entry key="${federatedQuery.firearms.presentFirearmRegistrationQueryResultsEndpoint}" value="presentFirearmRegistrationQueryResultsServiceEndpoint"/>
 		  	</util:map>
-		</constructor-arg>
-	</bean>	
 	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.firearm-registration-query-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap">
 					<util:map >
 						<entry key="{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm" value="firearmRegistrationQueryRequestServiceAdapterEndpoint" />
@@ -98,7 +65,5 @@
 					</util:map>	
 				</property>
 		  	</bean>
-		</constructor-arg>
-	</bean>		
 	
 </beans>
