@@ -16,8 +16,10 @@
  */
 package org.ojbc.bundles.intermediaries;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,13 +33,13 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,28 +51,27 @@ import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.custommonkey.xmlunit.Diff;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaires.firearmpurchase.FirearmPurchaseProhibitionQueryRequestServiceApplication;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
-import org.springframework.test.context.ContextConfiguration;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",	
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+@CamelSpringBootTest
+@SpringBootTest(classes=FirearmPurchaseProhibitionQueryRequestServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
 
 	private static final Log log = LogFactory.getLog( TestFirearmsProhibitionQueryRequestServiceIntermediary.class );
@@ -84,21 +85,18 @@ public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:firearmsPurchaseProhibitionQueryServiceAdapter")
+    @EndpointInject(value = "mock:cxf:bean:firearmsPurchaseProhibitionQueryServiceAdapter")
     protected MockEndpoint firearmsPurchaseProhibitionQueryServiceMock;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
+		
+		AdviceWith.adviceWith(context, context.getRouteDefinition("firearmsPurchaseProhibitionQueryServiceRoute"), route -> {
+			route.replaceFromWith("direct:firearmsPurchaseProhibitionQueryServiceEndpoint");
+			route.mockEndpoints();
+		});
     	//Advise the firearm search results endpoint and replace it with a mock endpoint.
     	//We then will test this mock endpoint to see if it gets the proper payload.
-    	context.getRouteDefinition("firearmsPurchaseProhibitionQueryServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:firearmsPurchaseProhibitionQueryServiceEndpoint");
-    	    	mockEndpoints("firearmsPurchaseProhibitionQueryServiceAdapterEndpoint");
-    	    }              
-    	});
 
     	context.start();
 	}
@@ -181,8 +179,7 @@ public class TestFirearmsProhibitionQueryRequestServiceIntermediary {
 	
 		//Use XML Unit to compare these files
 		Diff myDiff = new Diff(expectedResponseAsString, actualResponse);
-		assertTrue("XML should be identical " + myDiff.toString(),
-		               myDiff.identical());
+		assertTrue(myDiff.identical());
     	
     }
 
