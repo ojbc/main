@@ -112,7 +112,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -125,7 +125,7 @@
 
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+			<camel:setHeader name="federatedQueryEndpointsNodeList">
 				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
@@ -133,7 +133,7 @@
 			<camel:filter>
 				<camel:xpath>/pqr-doc:PersonRecordRequest</camel:xpath>
 				
-           		<camel:setHeader headerName="operationName">
+           		<camel:setHeader name="operationName">
            			<constant>SubmitCriminalHistoryQueryRequest</constant>
            		</camel:setHeader>
        		</camel:filter>
@@ -141,15 +141,15 @@
 			<camel:filter>
 				<camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
 				
-           		<camel:setHeader headerName="operationName">
+           		<camel:setHeader name="operationName">
            			<constant>SubmitFBICriminalHistoryQueryRequest</constant>
            		</camel:setHeader>
        		</camel:filter>			
 			
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Request_Service/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
-			<camel:setHeader headerName="adapterURI">
+			<camel:setHeader name="adapterURI">
 				<camel:xpath resultType="java.lang.String">//nc20:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 
@@ -162,7 +162,7 @@
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 			
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader headerName="requestMessageBody">
+			<camel:setHeader name="requestMessageBody">
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 			</camel:setHeader>
 
@@ -196,7 +196,7 @@
 			<camel:from uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint"/>
 			
 			<camel:log message="Entering Person Query Results Handler Criminal History"></camel:log>
-			<camel:setHeader headerName="searchProfile">
+			<camel:setHeader name="searchProfile">
 				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Criminal_History/1.0}Person-Query-Service---Criminal-History</constant>
 			</camel:setHeader>
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
@@ -239,18 +239,18 @@
 	    <camel:route>
 	      <from uri="direct:aggregateFederatedQuery" />
 			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy"  eagerCheckCompletion="true">
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
-				</completionTimeout>
-				<completionSize>
+				</completionTimeoutExpression>
+				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSize>
+				</completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -284,18 +284,18 @@
 					<camel:choice>
 						<camel:when>
 							<camel:xpath>/cht-doc:CriminalHistoryTextDocument</camel:xpath>
-							<camel:setHeader headerName="operationName">
+							<camel:setHeader name="operationName">
 								<constant>SubmitCriminalHistoryTextDocument</constant>
 							</camel:setHeader>
 						</camel:when>
 						<camel:otherwise>
-							<camel:setHeader headerName="operationName">
+							<camel:setHeader name="operationName">
 								<constant>SubmitCriminalHistoryQueryResults</constant>
 							</camel:setHeader>
 						</camel:otherwise>
 					</camel:choice>
 
-	        		<camel:setHeader headerName="operationNamespace">
+	        		<camel:setHeader name="operationNamespace">
 	        			<constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</constant>
 	        		</camel:setHeader>
 	        		
@@ -319,44 +319,5 @@
 	<!-- Spring Beans -->
 	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
-	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
-	</bean>
-
-   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
-	</bean>		
-
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-	 
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
 	
 </beans>
