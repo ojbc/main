@@ -43,7 +43,6 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
-		profile="arrest-search"       
        >
        
    <!-- Arrest Search Request Service, hosted by OJB -->

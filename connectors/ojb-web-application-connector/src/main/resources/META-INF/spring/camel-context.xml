@@ -35,16 +35,16 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	  <camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 	    
 	    
 	    <!--Person Merge Notification Search Response Listener -->
-	    <camel:route id="personMergeSearchResultsHandlerRoute" autoStartup="false">
+	    <camel:route id="personMergeSearchResultsHandlerRoute" autoStartup="false" >
 	    	<from uri="personMergeSearchResultsHandlerServiceEndpoint"/>
 	    	<camel:log message="Received response message - Person Merge Search Results: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
-			<camel:to uri="bean:personSearchMessageProcessor?method=processRequestPayload" />
+			  <camel:to uri="bean:personSearchMessageProcessor?method=processRequestPayload" />
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	
