@@ -16,9 +16,9 @@
  */
 package org.ojbc.xslt;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -29,15 +29,15 @@ import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 
 public class XsltTransformerServiceTest {
 
 	XsltTransformerService unit;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		unit = new XsltTransformerService();
 	}

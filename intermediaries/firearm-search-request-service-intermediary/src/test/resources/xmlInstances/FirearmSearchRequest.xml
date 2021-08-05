@@ -1,55 +1,37 @@
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2017 Open Justice Broker Consortium
-
--->
 <exchange:FirearmSearchRequest xmlns:exchange="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0"
-                               xmlns:s="http://niem.gov/niem/structures/2.0"
-                               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                                xmlns:ext="http://ojbc.org/IEPD/Extensions/FirearmSearchRequest/1.0"
+                               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                               xmlns:s="http://niem.gov/niem/structures/2.0"
                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmSearchRequest/1.0 ../xsd/exchange_schema.xsd">
-	  <ext:Firearm s:id="FIREARM">
-		    <nc:ItemSerialIdentification>
-			      <nc:IdentificationID s:metadata="SM001">123476576</nc:IdentificationID>
-		    </nc:ItemSerialIdentification>
-		    <nc:ItemMakeName>Make</nc:ItemMakeName>
-		    <nc:ItemModelName>Model</nc:ItemModelName>
-		    <ext:FirearmTypeCode>Disguised Gun</ext:FirearmTypeCode>
-	  </ext:Firearm>
-	  <ext:ItemRegistration s:id="REGISTRATION">
-		    <nc:RegistrationIdentification>
-			      <nc:IdentificationID>Registration Number</nc:IdentificationID>
-		    </nc:RegistrationIdentification>
-		    <nc:LocationCountyName>County</nc:LocationCountyName>
-		    <ext:CurrentRegistrationIndicator>true</ext:CurrentRegistrationIndicator>
-	  </ext:ItemRegistration>
-	  <nc:PropertyRegistrationAssociation>
-		    <nc:ItemRegistrationReference s:ref="REGISTRATION"/>
-		    <nc:ItemReference s:ref="FIREARM"/>
-	  </nc:PropertyRegistrationAssociation>
-	  <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext:SourceSystemNameText>
-	  <ext:SearchMetadata s:id="SM001">
-		    <ext:SearchQualifierCode>complete</ext:SearchQualifierCode>
-	  </ext:SearchMetadata>
-	  <ext:SearchMetadata s:id="SM002">
-		    <ext:SearchQualifierCode>partial</ext:SearchQualifierCode>
-	  </ext:SearchMetadata>
-	  <ext:SearchMetadata s:id="SM003">
-		    <ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
-		    <ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
-	  </ext:SearchMetadata>
+   <ext:Firearm s:id="FIREARM">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID s:metadata="SM001">123476576</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemMakeName>Make</nc:ItemMakeName>
+      <nc:ItemModelName>Model</nc:ItemModelName>
+      <ext:FirearmTypeCode>Disguised Gun</ext:FirearmTypeCode>
+   </ext:Firearm>
+   <ext:ItemRegistration s:id="REGISTRATION">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>Registration Number</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>County</nc:LocationCountyName>
+      <ext:CurrentRegistrationIndicator>true</ext:CurrentRegistrationIndicator>
+   </ext:ItemRegistration>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="REGISTRATION"/>
+      <nc:ItemReference s:ref="FIREARM"/>
+   </nc:PropertyRegistrationAssociation>
+   <ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest</ext:SourceSystemNameText>
+   <ext:SearchMetadata s:id="SM001">
+      <ext:SearchQualifierCode>complete</ext:SearchQualifierCode>
+   </ext:SearchMetadata>
+   <ext:SearchMetadata s:id="SM002">
+      <ext:SearchQualifierCode>partial</ext:SearchQualifierCode>
+   </ext:SearchMetadata>
+   <ext:SearchMetadata s:id="SM003">
+      <ext:SearchRequestOnBehalfOfText>John Doe</ext:SearchRequestOnBehalfOfText>
+      <ext:SearchPurposeText>Criminal Justice</ext:SearchPurposeText>
+   </ext:SearchMetadata>
 </exchange:FirearmSearchRequest>
