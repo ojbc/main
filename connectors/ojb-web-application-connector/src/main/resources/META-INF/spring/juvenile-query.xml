@@ -42,7 +42,6 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
-		profile="juvenile-query"       
        >
        
 		<!-- Juvenile Case Plan History Request Service, hosted by Broker -->
