@@ -29,12 +29,13 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.message.MessageImpl;
@@ -42,32 +43,31 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.bundles.intermediaries.policyacknowledgement.PolicyAcknowledgementServiceIntermediaryApplication;
 import org.ojbc.policyacknowledgement.dao.Policy;
 import org.ojbc.policyacknowledgement.dao.PolicyDAOImpl;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+@CamelSpringBootTest
+@SpringBootTest(classes=PolicyAcknowledgementServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @UseAdviceWith
-// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
 		})
-@DirtiesContext
 public class TestPolicyAcknowledgementRecordingRequestService {
 
     @Autowired
@@ -86,26 +86,24 @@ public class TestPolicyAcknowledgementRecordingRequestService {
         assertTrue(true);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // Advise the Policy Acknowledgement Recording Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
-        context.getRouteDefinition("policyAcknowledgementRecordingRequestRoute")
-                .adviceWith(context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:acknowlegePolicies");
-
-                        interceptSendToEndpoint(
-                                "policyAcknowlegementRecordingResponseServiceEndpoint")
-                                .to("mock:result")
-                                .log("Called Policy Acknowledgement Recording Response Handler")
-                                .stop();
-                    }
-                });
+    	
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("policyAcknowledgementRecordingRequestRoute"), route -> {
+    		route.replaceFromWith("direct:acknowlegePolicies");
+//    		route.interceptSendToEndpoint(
+//                    "policyAcknowlegementRecordingResponseServiceEndpoint")
+//                    .to("mock:result")
+//                    .log("Called Policy Acknowledgement Recording Response Handler")
+//                    .stop();
+    	});
+    	
+    	AdviceWith.adviceWith(context, "policyAcknowledgementRecordingResponseRoute", route -> {
+    		route.weaveById("policyAcknowlegementRecordingResponseServiceEndpoint").replace().to(resultEndpoint);
+    	});
 
         context.start();
     }

@@ -25,18 +25,12 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       "
+       profile="dev">
 	
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.policy-acknowledgement-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:mem:policy-acknowledgement" />
+				<property name="url" value="jdbc:h2:mem:policy-acknowledgement;INIT=CREATE SCHEMA IF NOT EXISTS policy_acknowledgement" />
 				<property name="username" value="sa" />
 			</bean>
-		</constructor-arg>
-	</bean>
-	
 </beans>

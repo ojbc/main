@@ -22,25 +22,28 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.ojbc.bundles.intermediaries.policyacknowledgement.PolicyAcknowledgementServiceIntermediaryApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=PolicyAcknowledgementServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
 		})
-@DirtiesContext
 public class PolicyDAOImplTest {
     @Autowired
     private PolicyDAOImpl policyDAO;
@@ -49,34 +52,39 @@ public class PolicyDAOImplTest {
         assertNotNull(policyDAO);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetOutstandingPoliciesForUserWithEmptyFedId() {
-        policyDAO.getOutstandingPoliciesForUser("", "H00000001");  
+        //policyDAO.getOutstandingPoliciesForUser("", "H00000001");  
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.getOutstandingPoliciesForUser("", "H00000001"));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetOutstandingPoliciesForUserWithNullFedId() {
-        policyDAO.getOutstandingPoliciesForUser(null, "H00000001");  
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.getOutstandingPoliciesForUser(null, "H00000001"));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetOutstandingPoliciesForUserWithEmptyOris() {
-        policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris", "");  
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris", ""));
+
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAcknowledgeOutstandingPoliciesWithEmptyFedId() {
-        policyDAO.acknowledgeOutstandingPolicies("", "H00000001");
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.acknowledgeOutstandingPolicies("", "H00000001"));
+
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAcknowledgeOutstandingPoliciesWithNonExistingFedId() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:non-existent", "H00000001");
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:non-existent", "H00000001"));
+
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testAcknowledgeOutstandingPoliciesWithEmptyOris() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hpotter", "");
+        Assertions.assertThrows((IllegalArgumentException.class), () -> policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hpotter", ""));
+
     }
     
     @Test

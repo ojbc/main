@@ -28,34 +28,33 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.ws.addressing.AddressingProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.bundles.intermediaries.policyacknowledgement.PolicyAcknowledgementServiceIntermediaryApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
+@CamelSpringBootTest
+@SpringBootTest(classes=PolicyAcknowledgementServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @UseAdviceWith
-// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
 		})
-@DirtiesContext
 public class TestAccessControlRequestService {
 
     @Autowired
@@ -64,7 +63,7 @@ public class TestAccessControlRequestService {
     @Produce
     protected ProducerTemplate template;
 
-    @EndpointInject(uri = "mock:result")
+    @EndpointInject(value = "mock:result")
     protected MockEndpoint resultEndpoint;
     
     @Test
@@ -72,28 +71,25 @@ public class TestAccessControlRequestService {
         assertTrue(true);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
+    	
         // Advise the Access Control Request Service endpoint and replace it
         // with a mock endpoint.We then will test this mock endpoint to see if 
         // it gets the proper payload.
-        context.getRouteDefinition("accessControlRequestRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:accessControlRequest");
-
-                        interceptSendToEndpoint(
-                                "accessControlResponseServiceEndpoint")
-                                .to("mock:result")
-                                .log("Called Access Control Response Handler")
-                                .stop();
-                    }
-                });
-
-        context.start();
+    	AdviceWith.adviceWith(context, "accessControlRequestRoute", route -> {
+    		route.replaceFromWith("direct:accessControlRequest");
+//    		route.interceptSendToEndpoint(
+//                    "accessControlResponseServiceEndpoint")
+//                    .to("mock:result")
+//                    .log("Called Access Control Response Handler")
+//                    .stop();
+    	});
+    	
+    	AdviceWith.adviceWith(context, "accessControlResponseRoute", route -> {
+    		route.weaveById("accessControlResponseServiceEndpoint").replace().to("mock:result");
+    	});       
+    	context.start();
     }
 
     @Test
@@ -220,7 +216,7 @@ public class TestAccessControlRequestService {
         resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
 
         Map<String, Object> headers = SoapMessageUtils.createHeaders();
-        template.sendBodyAndHeaders("direct:accessControlRequest", requestBody,headers);
+        template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
         
         resultEndpoint.assertIsSatisfied();
     }

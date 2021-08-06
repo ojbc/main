@@ -69,27 +69,29 @@
 				<camel:to
 					uri="bean:policyAcknowledgementProcessor?method=buildAccessControlErrorResponse" />
 				<log message="${body}" loggingLevel="DEBUG"></log>
+				<log message="Before Access Control Response Error" />
 				<to uri="direct:accessControlResponse" />
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			<camel:setHeader headerName="federationId">
+			<camel:setHeader name="federationId">
 				<camel:xpath resultType="java.lang.String">
 					/acr:IdentityBasedAccessControlRequest/ext:PersonIdentity/ext:IdentityIdentification/nc:IdentificationID
 				</camel:xpath>
 			</camel:setHeader>
-			<camel:setHeader headerName="requestedResourceUri">
+			<camel:setHeader name="requestedResourceUri">
 				<camel:xpath resultType="java.lang.String">
 					/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI
 				</camel:xpath>
 			</camel:setHeader>
-			<camel:setHeader headerName="ori">
+			<camel:setHeader name="ori">
 				<camel:xpath resultType="java.lang.String">
 					/acr:IdentityBasedAccessControlRequest/ext:PersonIdentity/nc:PersonEmploymentAssociation/nc:Employer/nc:EntityOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID
 				</camel:xpath>
 			</camel:setHeader>
 			<to uri="bean:policyAcknowledgementProcessor?method=returnAccessControlResponse" />
 			<log message="${body}"></log>
-			<to uri="direct:accessControlResponse" />
+			<log message="Before Access Control Response" />
+			<to uri="direct:accessControlResponse"/>
 		</route>
 
 		<route id="accessControlResponseRoute">
@@ -97,20 +99,21 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitAccessControlResponse</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0</constant>
 	        </camel:setHeader>
-			<to uri="accessControlResponseServiceEndpoint" />
+	        <log message="${body}" />
+			<to uri="accessControlResponseServiceEndpoint" id="accessControlResponseServiceEndpoint"/>
 			<log message="Called Access Control Response Handler" />
 		</route>
 
 		<route id="policyAcknowledgementRecordingRequestRoute">
 			<from uri="policyAcknowlegementRecordingRequestServiceEndpoint" />
-			<camel:setHeader headerName="policyAcknowledgementIndicator">
+			<camel:setHeader name="policyAcknowledgementIndicator">
 				<xpath resultType="java.lang.String">
 					/arrExchange:AcknowledgementRecordingRequestForAllPolicies/arrExt:PolicyAcknowledgementIndicator
 				</xpath>
@@ -135,46 +138,19 @@
 			<from uri="direct:policyAcknowlegementRecordingResponse" />
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitAcknowledgementRecordingResponse</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/PolicyAcknowledgementRecordingResponseService/1.0</constant>
 	        </camel:setHeader>
-			<to uri="policyAcknowlegementRecordingResponseServiceEndpoint" /> 
+			<to uri="policyAcknowlegementRecordingResponseServiceEndpoint" id="policyAcknowlegementRecordingResponseServiceEndpoint"/> 
 			<log message="Called Policy Acknowledgement Recording Response Handler" />
 		</route>
 
 		
 	</camelContext>
 
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.policyacknowledgement" />
-	<context:component-scan base-package="org.ojbc.processor.policyacknowledgement" />
-
-	<!-- Transaction manager and scan for annotations -->
-	<tx:annotation-driven transaction-manager="transactionManager"
-		proxy-target-class="true" />
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-	</bean>
-	
-	<bean id="namedParameterJdbcTemplate" 
-      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
-	<bean id="jdbcTemplate" 
-      class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
-	
 </beans>
 
