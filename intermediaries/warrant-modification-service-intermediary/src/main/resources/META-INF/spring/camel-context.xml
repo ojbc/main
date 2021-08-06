@@ -60,15 +60,15 @@
 
 			<to uri="bean:warrantModMockInputProcessor?method=prepareMockInputMessage" />
 
-			<camel:setHeader headerName="federatedQueryRequestGUID">
+			<camel:setHeader name="federatedQueryRequestGUID">
 				<constant>12345</constant>				
 			</camel:setHeader>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>SubmitWarrantModificationRequest</constant>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant>
 			</camel:setHeader>
 								
@@ -97,7 +97,7 @@
 			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
 						
-			<setHeader headerName="WSAddressingReplyTo">
+			<setHeader name="WSAddressingReplyTo">
 				<simple>{{warrantMod.warrantModResultsIntermediaryEndpoint}}</simple>
 			</setHeader>
 			
@@ -110,8 +110,8 @@
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 							
-				<camel:setHeader headerName="operationName"><constant>SubmitWarrantModificationRequest</constant></camel:setHeader>
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant></camel:setHeader>			
+				<camel:setHeader name="operationName"><constant>SubmitWarrantModificationRequest</constant></camel:setHeader>
+				<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant></camel:setHeader>			
 				
 			</camel:filter>
 
@@ -122,16 +122,16 @@
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 							
-			  	<camel:setHeader headerName="operationName">
+			  	<camel:setHeader name="operationName">
 					<constant>SubmitWarrantSupplementalModificationRequest</constant>
 				</camel:setHeader>
 				
-				<camel:setHeader headerName="operationNamespace">
+				<camel:setHeader name="operationNamespace">
 					<constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant>
 				</camel:setHeader>				
 			</camel:filter>
 			
-			<to uri="warrantModAdapterRequestEndpoint"/>
+			<to uri="warrantModAdapterRequestEndpoint" id="warrantModAdapterRequestEndpoint"/>
 			
 		</camel:route>			
 				     
@@ -169,24 +169,24 @@
 	      
 			<log message="\n\n\n Aggregator correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
 			
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 			
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
 				
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:warrantMod.timeout}</camel:simple>
-				</completionTimeout>
+				</completionTimeoutExpression>
 				
 					<!-- Completion size for 2 messages that arrive in this order:
 						1) Timer message 
 						2) WarrantModResults -->						
-				<completionSize>
+				<completionSizeExpression>
 					<constant>2</constant>					
-				</completionSize>
+				</completionSizeExpression>
 				
-				<log message="\n\n\n WarrantMod Aggregator Completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{warrantMod.timeout}} \n\n\n" />
+				<log message="\n\n\n WarrantMod Aggregator Completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{warrantMod.timeout}} \n\n\n" />
 				
 				<to uri="bean:warrantModResponseAggregator?method=prepareResponseExchange" />
 
@@ -203,11 +203,11 @@
 		
 			<from uri="direct:callWarrantModConnectorResultHandler"/>
 									
-	        <camel:setHeader headerName="operationName">
+	        <camel:setHeader name="operationName">
 	            <constant>SubmitWarrantModificationResponse</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/WarrantModificationResponseService/1.0</constant>
 	        </camel:setHeader>
 			
@@ -215,7 +215,7 @@
 			
 			<camel:log message="\n\n\n Sending warrant mod response to connector result handler \n\n\n" />			
 						
-			<to uri="warrantModConnectorResultsHandlerEndpoint"/>
+			<to uri="warrantModConnectorResultsHandlerEndpoint" id="warrantModConnectorResultsHandlerEndpoint"/>
 		</route>
 	    
 	    
@@ -241,13 +241,4 @@
 					    
 	</camel:camelContext>
   
-	<!-- Spring Beans -->
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-
-	<bean id="warrantModResponseAggregator"
-		class="org.ojbc.bundles.intermediaries.warrantmodification.aggregator.WarrantModResponseAggregator"/>
-			
-	<bean id="warrantModMockInputProcessor" 
-		class="org.ojbc.bundles.intermediaries.warrantmodification.processor.WarrantModMockInputProcessor" />
-					
 </beans>

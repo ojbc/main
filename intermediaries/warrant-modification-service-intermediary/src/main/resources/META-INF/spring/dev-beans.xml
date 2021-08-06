@@ -17,37 +17,17 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<!-- Spring beans having to do with OSGi -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:osgi="http://www.springframework.org/schema/osgi"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
-       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
+       "
+       profile="dev">
 
-	<!-- OSGi service reference to the context service defined in the derived bundle -->
-	<osgi:reference id="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context"
-		interface="org.ojbc.util.osgi.OjbcContext"
-		bean-name="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context"/>
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
 
-	<!-- Properties list built from four components, in order of precedence:
-	
-		1. Properties defined in the derived bundle
-		2. Properties defined in the "compendium" config file (i.e., file placed in Karaf/etc)
-		3. Properties defined in the camel context (spring)
-		4. Properties defined in classpath properties file
-	
-	-->
-	<util:list id="propertiesList">
-		<ref bean="classpathProperties"/>
-		<ref bean="contextProperties"/>
-		<osgix:cm-properties id="osgiProperties" persistent-id="warrant_modification_service_intermediary"/>
-		<ref bean="derivedBundleOsgiProperties"/>
-	</util:list>
-	
 </beans>

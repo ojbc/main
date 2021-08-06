@@ -31,13 +31,14 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,26 +46,24 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",	
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"})
+@CamelSpringBootTest
+@SpringBootTest(classes=WarrantModificationServiceIntermediary.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 public class CamelContextTest {
 	
 	public static final String CXF_OPERATION_NAME = "SubmitWarrantModificationRequest";
@@ -79,10 +78,10 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:warrantModificationAdapterRequestService")
+    @EndpointInject(value = "mock:cxf:bean:warrantModificationAdapterRequestService")
     protected MockEndpoint warrantModRequestMockEndpoint;
     
-    @EndpointInject(uri = "mock:warrantModResponseMock")
+    @EndpointInject(value = "mock:warrantModResponseMock")
     protected MockEndpoint warrantModResponseMockEndpoint;
 	
     
@@ -91,30 +90,25 @@ public class CamelContextTest {
     	assertTrue(true);
     }	
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	context.getRouteDefinition("warrantModRequest_webservice_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:warrantModReqRouteMockEntry");
-    	    	
-    	    	mockEndpointsAndSkip("warrantModAdapterRequestEndpoint");
-    	    }              
-    	});
-
-    	context.getRouteDefinition("warrantModResultsHandler_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-
-    	    	// bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:warrantModResponseRouteMockEntry");    	    	
-    	    	
-    	    	interceptSendToEndpoint("direct:aggregateWarrantModResponse").to("mock:warrantModResponseMock").stop();    	
-    	    }              
-    	});
+		AdviceWith.adviceWith(context, "warrantModRequest_webservice_Route", route -> {
+			route.replaceFromWith("direct:warrantModReqRouteMockEntry");
+		});
+		
+		AdviceWith.adviceWith(context, "processWarrantModRequest_route", route -> {
+			route.weaveById("warrantModAdapterRequestEndpoint").replace().to(warrantModRequestMockEndpoint);
+		});
+		
+		AdviceWith.adviceWith(context, "warrantModResultsHandler_route", route -> {
+			route.replaceFromWith("direct:warrantModResponseRouteMockEntry"); 
+			
+		});
+		
+		AdviceWith.adviceWith(context, "callWarrantModConnectorResultHandler_route", route -> {
+			route.weaveById("warrantModConnectorResultsHandlerEndpoint").replace().to(warrantModResponseMockEndpoint);
+		});
     	
     	context.start();
 	}
@@ -183,7 +177,7 @@ public class CamelContextTest {
     }
     
     
-    @Ignore
+    @Disabled
     public void testWarrantModResponseHandler() throws Exception {
     	
     	warrantModResponseMockEndpoint.expectedMessageCount(1);
