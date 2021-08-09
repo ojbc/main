@@ -161,7 +161,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         //All Federated Response routes go hear 
     	AdviceWith.adviceWith(context, context.getRouteDefinition("processFederatedResponseRoute"), route -> {
     		route.interceptSendToEndpoint(
-                    "cxf:bean:juvenileCasePlanHistoryResultsPortalService*")
+                    "juvenileCasePlanHistoryResultsPortalServiceEndpoint")
     				.skipSendToOriginalEndpoint()
                     .to(casePlanPortalResponseEndpoint)
                     .log("Called Case Plan Adapter Portal Endpoint")
