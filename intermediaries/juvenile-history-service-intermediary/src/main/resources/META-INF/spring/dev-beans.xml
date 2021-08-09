@@ -25,33 +25,18 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       "
+       profile="dev">
 	
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-		</constructor-arg>
-	</bean>
+			<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
 				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
 				<property name="username" value="sa" />
 			</bean>
-		</constructor-arg>
-	</bean>
 	
-	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap">
+			<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap">
 		        <entry key="${juvenileHistoryServices.presentCasePlanHistoryResultsServiceEndpoint}" value="juvenileCasePlanHistoryResultsPortalServiceEndpoint"/>
 		        <entry key="${juvenileHistoryServices.presentHearingHistoryResultsServiceEndpoint}" value="juvenileHearingHistoryResultsPortalServiceEndpoint"/>
 		        <entry key="${juvenileHistoryServices.presentIntakeHistoryResultsServiceEndpoint}" value="juvenileIntakeHistoryResultsPortalServiceEndpoint"/>
@@ -59,24 +44,12 @@
 		        <entry key="${juvenileHistoryServices.presentPlacementHistoryResultsServiceEndpoint}" value="juvenilePlacementHistoryResultsPortalServiceEndpoint"/>
 		        <entry key="${juvenileHistoryServices.presentReferralHistoryResultsServiceEndpoint}" value="juvenileReferralHistoryResultsPortalServiceEndpoint"/>
 		  	</util:map>
-		</constructor-arg>
-	</bean>	
 	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.intermediaries.juvenilehistory.ServiceContextExchangeDestinationLookupStrategy">
+			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.intermediaries.juvenilehistory.ServiceContextExchangeDestinationLookupStrategy">
 				<property name="historyTypeToAddressMap" ref="historyTypeToAddressMap"/>
 		  	</bean>
-		</constructor-arg>
-	</bean>		
 	
-	<bean id="historyTypeToAddressMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="historyTypeToAddressMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
+			<util:map id="historyTypeToAddressMap">
 				<entry key="CasePlan" value="${juvenileHistoryServices.casePlanHistoryRequestService.adapter.endpoint}" />
 				<entry key="Hearing" value="${juvenileHistoryServices.hearingHistoryRequestService.adapter.endpoint}" />
 				<entry key="Intake" value="${juvenileHistoryServices.intakeHistoryRequestService.adapter.endpoint}" />
@@ -84,7 +57,4 @@
 				<entry key="Placement" value="${juvenileHistoryServices.placementHistoryRequestService.adapter.endpoint}" />
 				<entry key="Referral" value="${juvenileHistoryServices.referralHistoryRequestService.adapter.endpoint}" />
 			</util:map>
-		</constructor-arg>
-	</bean>
-	
 </beans>

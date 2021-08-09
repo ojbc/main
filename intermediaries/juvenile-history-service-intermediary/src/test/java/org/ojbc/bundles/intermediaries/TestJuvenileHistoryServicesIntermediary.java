@@ -16,8 +16,9 @@
  */
 package org.ojbc.bundles.intermediaries;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,14 +34,14 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.CxfPayload;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
@@ -50,32 +51,27 @@ import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaries.juvenilehistory.JuvenileHistoryServiceApplication;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+@CamelSpringBootTest
+@SpringBootTest(classes=JuvenileHistoryServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @UseAdviceWith
-//NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-        "classpath:META-INF/spring/camel-context.xml", 
-        "classpath:META-INF/spring/federated-query-routes.xml", 
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/extensible-beans.xml",       
-        "classpath:META-INF/spring/jetty-server.xml",       
-        "classpath:META-INF/spring/local-osgi-context.xml",
-        "classpath:META-INF/spring/properties-context.xml"}) 
-@DirtiesContext
 public class TestJuvenileHistoryServicesIntermediary {
 
 	
@@ -96,189 +92,136 @@ public class TestJuvenileHistoryServicesIntermediary {
     }
     
     //Case Plan
-    @EndpointInject(uri = "mock:casePlanAdapterRequest")
+    @EndpointInject(value = "mock:casePlanAdapterRequest")
     protected MockEndpoint casePlanAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:casePlanPortalResponse")
+    @EndpointInject(value = "mock:casePlanPortalResponse")
     protected MockEndpoint casePlanPortalResponseEndpoint;
 
     //Hearing
-    @EndpointInject(uri = "mock:hearingAdapterRequest")
+    @EndpointInject(value = "mock:hearingAdapterRequest")
     protected MockEndpoint hearingAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:hearingPortalResponse")
+    @EndpointInject(value = "mock:hearingPortalResponse")
     protected MockEndpoint hearingPortalResponseEndpoint;
 
     //Intake
-    @EndpointInject(uri = "mock:intakeAdapterRequest")
+    @EndpointInject(value = "mock:intakeAdapterRequest")
     protected MockEndpoint intakeAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:intakePortalResponse")
+    @EndpointInject(value = "mock:intakePortalResponse")
     protected MockEndpoint intakePortalResponseEndpoint;
 
     //Offense
-    @EndpointInject(uri = "mock:offenseAdapterRequest")
+    @EndpointInject(value = "mock:offenseAdapterRequest")
     protected MockEndpoint offenseAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:offensePortalResponse")
+    @EndpointInject(value = "mock:offensePortalResponse")
     protected MockEndpoint offensePortalResponseEndpoint;
 
     //Placement
-    @EndpointInject(uri = "mock:placementAdapterRequest")
+    @EndpointInject(value = "mock:placementAdapterRequest")
     protected MockEndpoint placementAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:placementPortalResponse")
+    @EndpointInject(value = "mock:placementPortalResponse")
     protected MockEndpoint placementPortalResponseEndpoint;
 
     //Referral
-    @EndpointInject(uri = "mock:referralAdapterRequest")
+    @EndpointInject(value = "mock:referralAdapterRequest")
     protected MockEndpoint referralAdapterRequestEndpoint;
 
-    @EndpointInject(uri = "mock:referralPortalResponse")
+    @EndpointInject(value = "mock:referralPortalResponse")
     protected MockEndpoint referralPortalResponseEndpoint;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     	
     	//Case Plan - Request
-        context.getRouteDefinition("juvenileCasePlanHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:casePlanFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenileCasePlanHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:casePlanAdapterRequest")
-                                .log("Called Case Plan Adapter Endpoint")
-                                .stop();
-                    }
-                });
-
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileCasePlanHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:casePlanFederatedServiceRequest");
+    		route.mockEndpoints();
+    		//route.weaveByToString("To[juvenileCasePlanHistoryRequestAdapterServiceEndpoint]").replace().to("mock:casePlanAdapterRequest")
+//    		route.interceptSendToEndpoint(
+//                    "cxf:bean:juvenileCasePlanHistoryRequestAdapterService*")
+//                    .to("mock:casePlanAdapterRequest")
+//                    .log("Called Case Plan Adapter Endpoint")
+//                    .stop();
+    	});
+    	
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
+    		route.weaveById("recipientListEndpointToCall").replace().to("mock:casePlanAdapterRequest");
+    	});
+    	
+    	
     	//Case Plan - Response routes
-        context.getRouteDefinition("juvenileCasePlanHistoryResultsHandlerServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:casePlanFederatedServiceResults");
-                    }
-                });
-        
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileCasePlanHistoryResultsHandlerServiceRoute"), route -> {
+    		route.replaceFromWith("direct:casePlanFederatedServiceResults");
+    	});
+    	
         //All Federated Response routes go hear 
-        context.getRouteDefinition("processFederatedResponseRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        interceptSendToEndpoint(
-                                "juvenileCasePlanHistoryResultsPortalServiceEndpoint")
-                                .to("mock:casePlanPortalResponse")
-                                .log("Called Case Plan Adapter Portal Endpoint")
-                                .stop();
-                        
-                        interceptSendToEndpoint(
-		                        "juvenileHearingHistoryResultsPortalServiceEndpoint")
-		                        .to("mock:hearingPortalResponse")
-		                        .log("Called Hearing Adapter Portal Endpoint")
-		                        .stop();
-                        
-                    }
-                });
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("processFederatedResponseRoute"), route -> {
+    		route.interceptSendToEndpoint(
+                    "juvenileCasePlanHistoryResultsPortalServiceEndpoint")
+                    .to("mock:casePlanPortalResponse")
+                    .log("Called Case Plan Adapter Portal Endpoint")
+                    .stop();
+    		route.interceptSendToEndpoint(
+                    "juvenileHearingHistoryResultsPortalServiceEndpoint")
+                    .to("mock:hearingPortalResponse")
+                    .log("Called Hearing Adapter Portal Endpoint")
+                    .stop();
+    	});
 
         //Hearing - Request
-        context.getRouteDefinition("juvenileHearingHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:hearingFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenileHearingHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:hearingAdapterRequest")
-                                .log("Called Hearing Adapter Endpoint");
-                    }
-                });
-
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileHearingHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:hearingFederatedServiceRequest");
+    		route.interceptSendToEndpoint(
+                    "juvenileHearingHistoryRequestAdapterServiceEndpoint")
+                    .to("mock:hearingAdapterRequest")
+                    .log("Called Hearing Adapter Endpoint");
+    	});
+    	
     	//Hearing - Response
-        context.getRouteDefinition("juvenileHearingHistoryResultsHandlerServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:hearingFederatedServiceResults");
-
-                    }
-                });
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileHearingHistoryResultsHandlerServiceRoute"), route -> {
+    		route.replaceFromWith("direct:hearingFederatedServiceResults");
+    	});
         
         //Intake
-        context.getRouteDefinition("juvenileIntakeHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:intakeFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenileIntakeHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:intakeAdapterRequest")
-                                .log("Called Intake Adapter Endpoint");
-                    }
-                });
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileIntakeHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:intakeFederatedServiceRequest");
+    		route.interceptSendToEndpoint(
+                    "juvenileIntakeHistoryRequestAdapterServiceEndpoint")
+                    .to("mock:intakeAdapterRequest")
+                    .log("Called Intake Adapter Endpoint");
+    	});
 
         //Offense
-        context.getRouteDefinition("juvenileOffenseHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:offenseFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenileOffenseHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:offenseAdapterRequest")
-                                .log("Called Offense Adapter Endpoint");
-                    }
-                });
-
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileOffenseHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:offenseFederatedServiceRequest");
+    		route.interceptSendToEndpoint(
+                    "juvenileOffenseHistoryRequestAdapterServiceEndpoint")
+                    .to("mock:offenseAdapterRequest")
+                    .log("Called Offense Adapter Endpoint");
+    	});
+    	
         //Placement
-        context.getRouteDefinition("juvenilePlacementHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:placementFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenilePlacementHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:placementAdapterRequest")
-                                .log("Called Placement Adapter Endpoint");
-                    }
-                });
+    	AdviceWith.adviceWith(context,  context.getRouteDefinition("juvenilePlacementHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:placementFederatedServiceRequest");
+    		route.interceptSendToEndpoint(
+                    "juvenilePlacementHistoryRequestAdapterServiceEndpoint")
+                    .to("mock:placementAdapterRequest")
+                    .log("Called Placement Adapter Endpoint");
+    	});
+    	
 
         //Referral
-        context.getRouteDefinition("juvenileReferralHistoryRequestFederatedServiceRoute").adviceWith(
-                context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:referralFederatedServiceRequest");
-
-                        interceptSendToEndpoint(
-                                "juvenileReferralHistoryRequestAdapterServiceEndpoint")
-                                .to("mock:referralAdapterRequest")
-                                .log("Called Referral Adapter Endpoint");
-                    }
-                });
+    	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileReferralHistoryRequestFederatedServiceRoute"), route -> {
+    		route.replaceFromWith("direct:referralFederatedServiceRequest");
+    		route.interceptSendToEndpoint(
+                    "juvenileReferralHistoryRequestAdapterServiceEndpoint")
+                    .to("mock:referralAdapterRequest")
+                    .log("Called Referral Adapter Endpoint");
+    	});
 
         context.start();
     }
