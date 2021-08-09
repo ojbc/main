@@ -95,7 +95,7 @@ public class TestJuvenileHistoryServicesIntermediary {
     @EndpointInject(value = "mock:casePlanAdapterRequest")
     protected MockEndpoint casePlanAdapterRequestEndpoint;
 
-    @EndpointInject(value = "mock:casePlanPortalResponse")
+    @EndpointInject(value = "mock:cxf:bean:juvenileCasePlanHistoryResultsPortalService")
     protected MockEndpoint casePlanPortalResponseEndpoint;
 
     //Hearing
@@ -141,11 +141,11 @@ public class TestJuvenileHistoryServicesIntermediary {
     		route.replaceFromWith("direct:casePlanFederatedServiceRequest");
     		route.mockEndpoints();
     		//route.weaveByToString("To[juvenileCasePlanHistoryRequestAdapterServiceEndpoint]").replace().to("mock:casePlanAdapterRequest")
-//    		route.interceptSendToEndpoint(
-//                    "cxf:bean:juvenileCasePlanHistoryRequestAdapterService*")
-//                    .to("mock:casePlanAdapterRequest")
-//                    .log("Called Case Plan Adapter Endpoint")
-//                    .stop();
+    		route.interceptSendToEndpoint(
+                    "cxf:bean:juvenileCasePlanHistoryRequestAdapterService*")
+                    .to("mock:casePlanAdapterRequest")
+                    .log("Called Case Plan Adapter Endpoint")
+                    .stop();
     	});
     	
     	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
@@ -161,12 +161,14 @@ public class TestJuvenileHistoryServicesIntermediary {
         //All Federated Response routes go hear 
     	AdviceWith.adviceWith(context, context.getRouteDefinition("processFederatedResponseRoute"), route -> {
     		route.interceptSendToEndpoint(
-                    "juvenileCasePlanHistoryResultsPortalServiceEndpoint")
-                    .to("mock:casePlanPortalResponse")
+                    "cxf:bean:juvenileCasePlanHistoryResultsPortalService*")
+    				.skipSendToOriginalEndpoint()
+                    .to(casePlanPortalResponseEndpoint)
                     .log("Called Case Plan Adapter Portal Endpoint")
                     .stop();
     		route.interceptSendToEndpoint(
                     "juvenileHearingHistoryResultsPortalServiceEndpoint")
+    				.skipSendToOriginalEndpoint()
                     .to("mock:hearingPortalResponse")
                     .log("Called Hearing Adapter Portal Endpoint")
                     .stop();
@@ -268,6 +270,7 @@ public class TestJuvenileHistoryServicesIntermediary {
         responseFromAdapterExchange.getIn().setBody(responsePayload);
 
         template.send("direct:casePlanFederatedServiceResults", responseFromAdapterExchange);
+		Thread.sleep(3000);
 
         //This was not working as expected, but the message is getting to the response endpoint and it printed.
         //casePlanPortalResponseEndpoint.expectedBodiesReceived(responseFromAdapter);
