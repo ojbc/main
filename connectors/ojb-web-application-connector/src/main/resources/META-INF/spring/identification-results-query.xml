@@ -43,6 +43,7 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
+		profile="initial-results-query"       
        >
        
    <!-- Identification Initial Results Query Request Service, hosted by OJB -->

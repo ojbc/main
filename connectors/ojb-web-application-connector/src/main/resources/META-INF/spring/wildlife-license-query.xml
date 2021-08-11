@@ -42,6 +42,7 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
+		profile="wildlife-license-query"       
        >
        
        <!-- Wildlife License Request Service, hosted by OJB -->
