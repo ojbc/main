@@ -85,8 +85,6 @@ public class TestJuvenileHistoryServicesIntermediary {
 
     private static DocumentBuilder documentBuilder;
     
-    private String mockEndpointStr = "";
-    
     @Test
     public void testApplicationStartup()
     {
@@ -94,42 +92,42 @@ public class TestJuvenileHistoryServicesIntermediary {
     }
     
     //Case Plan
-    @EndpointInject(value = "mock:casePlanAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenileCasePlanHistoryRequestAdapterService")
     protected MockEndpoint casePlanAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenileCasePlanHistoryResultsPortalService")
     protected MockEndpoint casePlanPortalResponseEndpoint;
 
     //Hearing
-    @EndpointInject(value = "mock:hearingAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenileHearingHistoryRequestAdapterService")
     protected MockEndpoint hearingAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenileHearingHistoryResultsPortalService")
     protected MockEndpoint hearingPortalResponseEndpoint;
 
     //Intake
-    @EndpointInject(value = "mock:intakeAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenileIntakeHistoryRequestAdapterService")
     protected MockEndpoint intakeAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenileIntakeHistoryResultsPortalService")
     protected MockEndpoint intakePortalResponseEndpoint;
 
     //Offense
-    @EndpointInject(value = "mock:offenseAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenileOffenseHistoryRequestAdapterService")
     protected MockEndpoint offenseAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenileOffenseHistoryResultsPortalService")
     protected MockEndpoint offensePortalResponseEndpoint;
 
     //Placement
-    @EndpointInject(value = "mock:placementAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenilePlacementHistoryRequestAdapterService")
     protected MockEndpoint placementAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenilePlacementHistoryResultsPortalService")
     protected MockEndpoint placementPortalResponseEndpoint;
 
     //Referral
-    @EndpointInject(value = "mock:referralAdapterRequest")
+    @EndpointInject(value = "mock:cxf:bean:juvenileReferralHistoryRequestAdapterService")
     protected MockEndpoint referralAdapterRequestEndpoint;
 
     @EndpointInject(value = "mock:cxf:bean:juvenileReferralHistoryResultsPortalService")
@@ -145,7 +143,7 @@ public class TestJuvenileHistoryServicesIntermediary {
     		//route.weaveByToString("To[juvenileCasePlanHistoryRequestAdapterServiceEndpoint]").replace().to("mock:casePlanAdapterRequest")
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenileCasePlanHistoryRequestAdapterService*")
-                    .to("mock:casePlanAdapterRequest")
+                    .to(casePlanAdapterRequestEndpoint)
                     .log("Called Case Plan Adapter Endpoint")
                     .stop();
     	});
@@ -198,9 +196,10 @@ public class TestJuvenileHistoryServicesIntermediary {
         //Hearing - Request
     	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileHearingHistoryRequestFederatedServiceRoute"), route -> {
     		route.replaceFromWith("direct:hearingFederatedServiceRequest");
+    		route.mockEndpoints();
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenileHearingHistoryRequestAdapterService*")
-                    .to("mock:hearingAdapterRequest")
+                    .to(hearingAdapterRequestEndpoint)
                     .log("Called Hearing Adapter Endpoint")
     				.stop();
     	});
@@ -213,9 +212,10 @@ public class TestJuvenileHistoryServicesIntermediary {
         //Intake
     	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileIntakeHistoryRequestFederatedServiceRoute"), route -> {
     		route.replaceFromWith("direct:intakeFederatedServiceRequest");
+    		route.mockEndpoints();
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenileIntakeHistoryRequestAdapterService*")
-                    .to("mock:intakeAdapterRequest")
+                    .to(intakeAdapterRequestEndpoint)
                     .log("Called Intake Adapter Endpoint")
                     .stop();
     	});
@@ -223,9 +223,10 @@ public class TestJuvenileHistoryServicesIntermediary {
         //Offense
     	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileOffenseHistoryRequestFederatedServiceRoute"), route -> {
     		route.replaceFromWith("direct:offenseFederatedServiceRequest");
+    		route.mockEndpoints();
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenileOffenseHistoryRequestAdapterService*")
-                    .to("mock:offenseAdapterRequest")
+                    .to(offenseAdapterRequestEndpoint)
                     .log("Called Offense Adapter Endpoint")
                     .stop();
     	});
@@ -233,9 +234,10 @@ public class TestJuvenileHistoryServicesIntermediary {
         //Placement
     	AdviceWith.adviceWith(context,  context.getRouteDefinition("juvenilePlacementHistoryRequestFederatedServiceRoute"), route -> {
     		route.replaceFromWith("direct:placementFederatedServiceRequest");
+    		route.mockEndpoints();
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenilePlacementHistoryRequestAdapterService*")
-                    .to("mock:placementAdapterRequest")
+                    .to(placementAdapterRequestEndpoint)
                     .log("Called Placement Adapter Endpoint")
                     .stop();
     	});
@@ -244,9 +246,10 @@ public class TestJuvenileHistoryServicesIntermediary {
         //Referral
     	AdviceWith.adviceWith(context, context.getRouteDefinition("juvenileReferralHistoryRequestFederatedServiceRoute"), route -> {
     		route.replaceFromWith("direct:referralFederatedServiceRequest");
+    		route.mockEndpoints();
     		route.interceptSendToEndpoint(
                     "cxf:bean:juvenileReferralHistoryRequestAdapterService*")
-                    .to("mock:referralAdapterRequest")
+                    .to(referralAdapterRequestEndpoint)
                     .log("Called Referral Adapter Endpoint")
                     .stop();
     	});
@@ -258,9 +261,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     @Test
     public void testCasePlanHistory() throws Exception
     {    	    	    	    	
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:casePlanAdapterRequest");
-    	});
     	
         // Read the access control request file from the file system
     	String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/casePlan/JuvenileHistoryQuery_Sample.xml");
@@ -327,10 +327,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     @Test
     public void testHearingHistory() throws Exception
     {
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:hearingAdapterRequest");
-    	});
-    	
         // Read the access control request file from the file system        
         String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/hearing/JuvenileHistoryQuery_Sample.xml");
                         
@@ -357,10 +353,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     @Test
     public void testIntakeHistory() throws Exception
     {
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:intakeAdapterRequest");
-    	});
-    	
         // Read the access control request file from the file system       
         String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Intake/JuvenileHistoryQuery_Sample.xml");                        
 
@@ -390,10 +382,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testOffenseHistory() throws Exception
     {
     	
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:offenseAdapterRequest");
-    	});
-    	
         // Read the access control request file from the file system        
         String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Offense/JuvenileHistoryQuery_Sample.xml");
         
@@ -422,10 +410,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     public void testPlacementHistory() throws Exception
     {
     	
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:placementAdapterRequest");
-    	});
-    	
         // Read the access control request file from the file system        
         String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Placement/JuvenileHistoryQuery_Sample.xml");                
         
@@ -452,10 +436,6 @@ public class TestJuvenileHistoryServicesIntermediary {
     @Test
     public void testReferralHistory() throws Exception
     {
-    	
-    	AdviceWith.adviceWith(context, context.getRouteDefinition("federatedQueryRoute"), route -> {
-    		route.weaveById("recipientListEndpointToCall").replace().to("mock:referralAdapterRequest");
-    	});
     	
         // Read the access control request file from the file system        
         String requestBody = XmlUtils.getRootNodeAsString("src/test/resources/xml/Referral/JuvenileHistoryQuery_Sample.xml");
