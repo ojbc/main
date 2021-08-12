@@ -238,6 +238,7 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
+    <finalName>person-search-request-service-intermediary</finalName>
 
 	<resources>
 		<resource>
@@ -248,7 +249,7 @@
 		</resource>
 	</resources>
 
-    <plugins>
+  <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
