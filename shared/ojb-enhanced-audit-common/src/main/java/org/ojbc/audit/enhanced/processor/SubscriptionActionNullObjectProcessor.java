@@ -17,7 +17,7 @@
 package org.ojbc.audit.enhanced.processor;
 
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.SubscriptionAction;
