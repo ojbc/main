@@ -144,7 +144,7 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="keystoreProperties">
-		<prop key="org.apache.wss4j.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${keystorePassword}</prop>
 		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${keystoreCertificateAlias}</prop>
