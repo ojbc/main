@@ -22,7 +22,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ConditionalOnProperty(name = "spring.config.additional-location")
-@ImportResource(value = {"file:${spring.config.additional-location}META-INF/spring/*.xml"})
+@ImportResource(value = {"file:${spring.config.additional-location}beans/*.xml"})
 public class StateBeans{
 
 }
