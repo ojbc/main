@@ -32,28 +32,30 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="criminal-history-search-request-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="criminal-history-search-request-service-intermediary" streamCache="true">
 	
 		<endpoint id="criminalHistorySearchRequestServiceEndpoint"
-			uri="cxf:bean:criminalHistorySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}" />
+			uri="cxf:bean:criminalHistorySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false" />
 
 		<endpoint id="criminalHistorySearchResultsServiceEndpoint"
-			uri="cxf:bean:criminalHistorySearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}" />
+			uri="cxf:bean:criminalHistorySearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="criminalHistorySearchRequestServiceAdapterEndpoint" 
-	    	uri="cxf:bean:criminalHistorySearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
+	    	uri="cxf:bean:criminalHistorySearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false"/>
 		
 		<endpoint id="criminalHistorySearchPresentResultsServiceEndpoint" 
-			uri="cxf:bean:criminalHistorySearchPresentResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>                        
+			uri="cxf:bean:criminalHistorySearchPresentResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false"/>                        
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="criminalHistorySearchRequestServiceEndpoint" />
+
+ 			<camel:convertBodyTo type="java.lang.String" />
 
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
@@ -130,6 +132,8 @@
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 
 			<camel:log message="Timer started"/>
+
+			<camel:log message="Body before calling adapter endpoints: ${body}"/> 
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//chsreq-ext:SourceSystemNameText</camel:xpath>
