@@ -188,6 +188,10 @@
 	      <artifactId>ojb-resources-common</artifactId>
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
+	    <dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+    	</dependency>
 
 		<!-- for testing -->
 		<dependency>
@@ -241,6 +245,7 @@
 	</dependencies>
 
   <build>
+  	<finalName>${artifactId}</finalName>
     <defaultGoal>install</defaultGoal>
 
     <plugins>

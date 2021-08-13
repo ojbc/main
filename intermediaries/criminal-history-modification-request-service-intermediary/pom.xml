@@ -257,6 +257,7 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
+    <finalName>${artifactId}</finalName>
 
     <plugins>
       <plugin>
