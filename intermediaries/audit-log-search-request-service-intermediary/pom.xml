@@ -76,6 +76,12 @@
 
 	<dependencies>
 	
+		<dependency>
+    		<groupId>com.h2database</groupId>
+    		<artifactId>h2</artifactId>
+    		<scope>runtime</scope>
+		</dependency>
+	
 		<!-- Spring Boot -->
 	    <dependency>
 	      <groupId>org.springframework.boot</groupId>
@@ -182,6 +188,10 @@
 	      <artifactId>ojb-resources-common</artifactId>
 	      <version>${ojb-resources-common-version}</version>
 	    </dependency>
+	    <dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+    	</dependency>
 
 		<!-- for testing -->
 		<dependency>
@@ -235,6 +245,7 @@
 	</dependencies>
 
   <build>
+  	<finalName>${artifactId}</finalName>
     <defaultGoal>install</defaultGoal>
 
     <plugins>

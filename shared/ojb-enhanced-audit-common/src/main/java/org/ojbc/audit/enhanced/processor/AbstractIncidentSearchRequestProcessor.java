@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IncidentSearchRequest;
