@@ -29,12 +29,12 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="personQueryWildlifeLicenseContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="personQueryWildlifeLicenseContext" streamCache="true">
 	
 		<endpoint id="personQueryWildlifeLicenseRequestServiceEndpoint"
 			uri="cxf:bean:personQueryWildlifeLicenseRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.wildlifeLicense.cxfLogging}&amp;allowStreaming=false" />
@@ -52,6 +52,8 @@
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="personQueryWildlifeLicenseRequestServiceEndpoint" />
+			
+			<camel:convertBodyTo type="java.lang.String" />
 			
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />

@@ -35,30 +35,30 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Firearm_Search_Request_Service_Intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Firearm_Search_Request_Service_Intermediary" streamCache="true">
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:firearmSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:firearmSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<!-- State Specific endpoints -->	
 		<camel:endpoint id="firearmSearchRequestServiceAdapterEndpoint"
 			uri="cxf:bean:firearmSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:firearmSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:firearmSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="entityResolutionRequestServiceEndpoint"
-			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="mergeNotificationServiceEndpoint"
-			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
 			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
@@ -66,6 +66,8 @@
 		<!-- Federated Search Request Handler-->
 		<camel:route id="searchRequestFederatedServiceEndpointRoute">
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
+			
+			<camel:convertBodyTo type="java.lang.String" />
 
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
