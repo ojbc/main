@@ -35,30 +35,30 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person-query-service-criminal-history-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person-query-service-criminal-history-intermediary" streamCache="true">
 	
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint"
-			uri="cxf:bean:personQueryRequestCriminalHistorySystemsToSystemIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:personQueryRequestCriminalHistorySystemsToSystemIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryResultsHandlerCriminalHistoryServiceEndpoint"
 			uri="cxf:bean:personQueryResultsHandlerCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryRequestCriminalHistoryServiceAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>
+	    	uri="cxf:bean:personQueryRequestCriminalHistoryServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 
 	    <endpoint id="personQueryRequestCriminalHistorySystemToSystemAdapterServiceEndpoint" 
-	    	uri="cxf:bean:personQueryRequestCriminalHistorySystemToSystemAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>
+	    	uri="cxf:bean:personQueryRequestCriminalHistorySystemToSystemAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 	
 		<endpoint id="presentPersonQueryResultsCriminalHistoryServiceEndpoint" 
-			uri="cxf:bean:presentPersonQueryResultsCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}"/>                        
+			uri="cxf:bean:presentPersonQueryResultsCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.criminalHistory.personQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
 
 		<camel:route>
 			<camel:from uri="personQueryRequestCriminalHistorySystemsToSystemIntermediaryServiceEndpoint" />
@@ -70,6 +70,8 @@
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
+			
+			<camel:convertBodyTo type="java.lang.String" />
 			
 			<camel:to uri="direct:processWsMessage"/>			
 		</camel:route>			

@@ -29,24 +29,24 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="court-case-query-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="court-case-query-service-intermediary" streamCache="true">
 	
 		<endpoint id="courtCaseQueryRequestServiceEndpoint"
-			uri="cxf:bean:courtCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:courtCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="courtCaseQueryResultsHandlerEndpoint"
-			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="courtCaseQueryRequestAdapterEndpoint" 
-	    	uri="cxf:bean:courtCaseQueryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}"/>
+	    	uri="cxf:bean:courtCaseQueryRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 	
 		<endpoint id="courtCasePresentQueryResultsEndpoint" 
-			uri="cxf:bean:courtCasePresentQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}"/>                        
+			uri="cxf:bean:courtCasePresentQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${courtCaseQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
 
 
 		<!-- Federated Search Request Handler-->
@@ -56,6 +56,8 @@
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:courtCaseQuery.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:convertBodyTo type="java.lang.String" />
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
