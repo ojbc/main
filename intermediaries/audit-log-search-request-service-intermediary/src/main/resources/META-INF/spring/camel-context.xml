@@ -32,29 +32,29 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="audit-log-search-request-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="audit-log-search-request-service-intermediary" streamCache="true">
 	
 		<endpoint id="auditSearchRequestServiceEndpoint"
-			uri="cxf:bean:auditSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}" />
+			uri="cxf:bean:auditSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false" />
 
 		<endpoint id="auditSearchResultsServiceEndpoint"
-			uri="cxf:bean:auditSearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}" />
+			uri="cxf:bean:auditSearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="auditLogSearchRequestServiceAdapterEndpoint" 
-	    	uri="cxf:bean:auditSearchRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>
+	    	uri="cxf:bean:auditSearchRequestAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false"/>
 		
 		<endpoint id="auditLogSearchPresentResultsServiceEndpoint" 
-			uri="cxf:bean:auditSearchPresentResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}"/>                        
+			uri="cxf:bean:auditSearchPresentResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${cxfLogging}&amp;allowStreaming=false"/>                        
 
 		<!-- Federated Search Request Handler-->
 		<camel:route>
 			<camel:from uri="auditSearchRequestServiceEndpoint" />
-
+      <camel:convertBodyTo type="java.lang.String" />
 			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
