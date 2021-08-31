@@ -17,29 +17,20 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
+<!-- Configures the Camel Context -->
+
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
-	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-
-	<bean id="bridgePropertyPlaceholder"
-		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
-		<property name="propertiesArray">
-			<array>
-				<!-- The .cfg file from the classpath will be consulted first, followed 
-					by the optional .cfg file under $KARAF_HOME/etc -->
-				<util:properties
-					location="classpath:arrest_reporting_service_intermediary.cfg" />
-				<osgix:cm-properties id="osgiProperties"
-					persistent-id="arrest_reporting_service_intermediary" />
-			</array>
-		</property>
-	</bean>
-
+	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+  <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+      <property name="name" value="default" />
+      <property name="queueSize" value="2048" />
+  </bean>	
 </beans>

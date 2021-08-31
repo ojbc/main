@@ -25,7 +25,7 @@
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">
 	<!-- needed cxf imports -->
@@ -76,7 +76,7 @@
 			<camel:from uri="direct:enrichContent"/>
 		
 			<!-- Set up derived endpoints -->
-			<camel:setHeader headerName="routingSlipEnrichContent"><simple>{{arrestReportingService.enrichContentURI}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipEnrichContent"><simple>{{arrestReportingService.enrichContentURI}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipEnrichContent} != ''</camel:simple>
@@ -95,7 +95,7 @@
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up derived endpoints -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{arrestReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipDerivedRoutes"><simple>{{arrestReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
@@ -129,7 +129,7 @@
 			<camel:filter>
 				<camel:simple>${properties:prop:arrestReportingService.notifyingSystemName} != ''</camel:simple>
 				<!-- Add header here to indicate system name -->
-				<camel:setHeader headerName="notifyingSystemName">
+				<camel:setHeader name="notifyingSystemName">
 					<camel:simple>{{arrestReportingService.notifyingSystemName}}</camel:simple>				
 				</camel:setHeader>
 			</camel:filter>			
@@ -137,7 +137,7 @@
 			<camel:filter>
 				<camel:simple>${properties:prop:arrestReportingService.defaultTopicName} != ''</camel:simple>
 				<!-- Add header here to indicate system name -->
-				<camel:setHeader headerName="topic">
+				<camel:setHeader name="topic">
 					<camel:simple>{{arrestReportingService.defaultTopicName}}</camel:simple>				
 				</camel:setHeader>
 			</camel:filter>								
@@ -150,17 +150,17 @@
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
          
 			<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
 			
-            <camel:throttle timePeriodMillis="1000">
-            	<constant>1</constant>
-            	<to uri="notificationBrokerServiceEndpoint"/>
-        	</camel:throttle>    
+      <camel:throttle timePeriodMillis="1000">
+        	<constant>1</constant>
+    	</camel:throttle>    
+    	<to uri="notificationBrokerServiceEndpoint"/>
             
-        </route>
+    </route>
 
 	</camel:camelContext>
 	

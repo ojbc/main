@@ -32,32 +32,35 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.http.Consts;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+@CamelSpringBootTest
+@SpringBootTest(classes=ArrestReportIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
 public class CamelContextTest {
 
 	@SuppressWarnings("unused")
@@ -72,44 +75,33 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceMockEndpoint;
     
-    @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.arrestreporting")
+    @EndpointInject(value = "mock:log:org.ojbc.intermediaries.arrestreporting")
     protected MockEndpoint loggingEndpoint;
 
     
-	@Before
+    @BeforeEach
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
 		//We mock the 'log' endpoint to test against.
-    	context.getRouteDefinition("ArrestReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:ArrestReportingServiceEndpoint");
-    	    	mockEndpoints("log:org.ojbc.intermediaries.arrestreporting*");
-    	    	
-    	    }              
-    	});
-    	
+		AdviceWith.adviceWith(context, "ArrestReportingServiceHandlerRoute", 
+			route-> {
+				route.replaceFromWith("direct:ArrestReportingServiceEndpoint");
+				route.mockEndpoints("log:org.ojbc.intermediaries.arrestreporting*");
+		});    	
     	//We mock the web service endpoints here
-    	context.getRouteDefinition("callNotificationBrokerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	//We mock the notification broker endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
-    	    	
-    	    }              
-    	});
-    	
+		AdviceWith.adviceWith(context, "callNotificationBrokerRoute", 
+			route-> {
+				route.mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
+		});    	
     	
 		context.start();		
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 	}
 	
@@ -139,7 +131,7 @@ public class CamelContextTest {
 
 	    //Read the arrest report from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/arrestReport/Arrest_Report.xml");
-	    String inputStr = FileUtils.readFileToString(inputFile);
+	    String inputStr = FileUtils.readFileToString(inputFile, Consts.UTF_8);
 	    
 	    assertNotNull(inputStr);
 	    
