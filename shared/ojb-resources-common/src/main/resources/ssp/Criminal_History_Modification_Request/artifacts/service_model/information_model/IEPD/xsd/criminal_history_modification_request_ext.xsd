@@ -318,6 +318,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DispositionOwner" type="nc:TextType"
+		substitutionGroup="nc:DispositionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The owner of a disposition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="DispositionChargeCountQuantity" type="niem-xs:positiveInteger"
 		substitutionGroup="nc:DispositionAugmentationPoint">
 		<xsd:annotation>

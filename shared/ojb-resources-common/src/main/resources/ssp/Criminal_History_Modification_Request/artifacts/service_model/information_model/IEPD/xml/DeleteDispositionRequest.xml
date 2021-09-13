@@ -42,6 +42,7 @@
 				<chm-req-ext:DispositionIdentification>
 					<nc:IdentificationID>D96487</nc:IdentificationID>
 				</chm-req-ext:DispositionIdentification>
+				<chm-req-ext:DispositionOwner>DA</chm-req-ext:DispositionOwner>
 			</j:ChargeDisposition>
 			<chm-req-ext:ChargePrimarySystemIdentification>
 				<nc:IdentificationID>C4567893</nc:IdentificationID>
