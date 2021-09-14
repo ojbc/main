@@ -16,6 +16,7 @@
  */
 package org.ojbc.policyacknowledgement.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,9 +34,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +51,6 @@ public class PolicyDAOImpl implements PolicyDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate; 
-	private SimpleJdbcInsert insertUser;
 	private static final String EMPTY_FED_ID_ERROR_MESSAGE="FederationId can not be empty"; 
 	private static final String NON_EXISTING_FED_ID_ERROR_MESSAGE="FederationId must exist"; 
 	private static final String INVALID_ORI_ERROR_MESSAGE="ORI empty or not found in database"; 
@@ -57,11 +59,6 @@ public class PolicyDAOImpl implements PolicyDAO {
 	
     @Value("#{'${policyAcknowledgement.orisWithoutPrivacyPolicy:}'.split(',')}")
     private List<String> orisWithoutPrivacyPolicy;
-    
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.insertUser = new SimpleJdbcInsert(dataSource).withTableName("ojbc_user").usingGeneratedKeyColumns("id");
-    }
     
 	private final String OUTSTANDING_POLICY_SELECT_BY_FED_ID = "SELECT p.*, o.* FROM policy p "
 	        + "LEFT OUTER JOIN policy_ori po ON p.id = po.policy_id "
@@ -77,8 +74,13 @@ public class PolicyDAOImpl implements PolicyDAO {
 		validateOriPolicyCompliance(ori); 
 		
 		Long userId = getUserIdByFedId(federationId); 
+		
+		log.debug("User ID: " + userId);
+		
 		if (userId == null){
 		    userId = saveNewUser(federationId);
+		    
+		    log.debug("User ID after save new user: " + userId);
 		}
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -208,12 +210,22 @@ public class PolicyDAOImpl implements PolicyDAO {
     }
     
     private Long saveNewUser(String federationId){
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("federation_id", federationId);
-        params.put("create_date", getCurrentTimeStamp());
         
-        final Number key = this.insertUser.executeAndReturnKey(params);
-        return key.longValue(); 
+        final String insertStatement = "INSERT INTO ojbc_user (federation_id, create_date) VALUES (?, CURRENT_TIMESTAMP())";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(
+						insertStatement, 
+						new String[] {"id" });
+				ps.setString(1, federationId);
+				return ps;
+			}
+		}, keyHolder);
+
+        return keyHolder.getKey().longValue();
     }
     
     private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*)>0 FROM ori t WHERE t.ori = ?; "; 
@@ -225,10 +237,4 @@ public class PolicyDAOImpl implements PolicyDAO {
         return valid; 
     }
     
-    private static java.sql.Timestamp getCurrentTimeStamp() {
-
-    	java.util.Date today = new java.util.Date();
-    	return new java.sql.Timestamp(today.getTime());
-
-    }
 }

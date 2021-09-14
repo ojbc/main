@@ -30,7 +30,7 @@
 
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-test-common</artifactId>
-	<version>4.0.0</version>
+	<version>4.0.0</version> 
 
 	<name>ojb-test-common</name>
 

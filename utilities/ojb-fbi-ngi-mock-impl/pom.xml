@@ -34,7 +34,7 @@
 	
 	<packaging>bundle</packaging>	
 	<name>OJB :: ojb-fbi-ngi-mock-impl :: mockimpl</name>	
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<url>http://www.ojbc.org</url>
 
 	<properties>
@@ -45,9 +45,9 @@
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<cxf-version>3.0.5</cxf-version>
 		<camel-version>2.14.4</camel-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>	
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
+		<ojb-resources-common-version>[1.0.0, 2.0.0)</ojb-resources-common-version>	
 		
 		<xmlunit.version>1.5</xmlunit.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>

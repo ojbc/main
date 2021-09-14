@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>parole-event-handler-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>OJB :: parole-event-handler-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
@@ -45,9 +45,9 @@
 		<xmlunit-version>1.3</xmlunit-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
-		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-camel-common-version>[2.0.0, 3.0.0)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0, 4.0.0)</ojb-common-version>
+		<ojb-resources-common-version>[1.0.0, 2.0.0)</ojb-resources-common-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>

@@ -705,7 +705,7 @@ public class SubscriptionSearchQueryDAO {
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(
-			buildPreparedInsertStatementCreator(
+			buildPreparedInsertStatementCreator( 
                 "insert into rapback_datastore.SUBSCRIPTION_OWNER (FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) "
                 + "values (?, ?, ?, ?, ?)", new Object[] {
                 		firstName, lastName, emailAddress, federationId, agencyPk
