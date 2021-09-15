@@ -28,6 +28,11 @@
        "
   profile="dev">
 
+  <import resource="classpath:META-INF/spring/h2-mock-database-application-context.xml"/>
+  <import resource="classpath:META-INF/spring/h2-mock-database-context-subscription.xml"/>
+  <import resource="classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"/>
+  <import resource="classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"/>
+  
 	<bean id="notificationFilterStrategy" class="org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy"/>
 	
 	<bean id="sendToSubscriptionAdapterStrategy" class="org.ojbc.intermediaries.sn.dao.DefaultSendToSubscriptionAdapterStrategy"></bean>	
