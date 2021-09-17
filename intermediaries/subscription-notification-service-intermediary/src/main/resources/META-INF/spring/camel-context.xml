@@ -223,6 +223,16 @@
 					
 				</camel:when>
 				
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/ncicWarrant' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ncicWarrant'</camel:xpath>
+	      			
+	      			<camel:log message="Within Warrant Block" />
+	      			
+	      			<camel:to uri="direct:processWarrantFile" />
+				</camel:when>
+				
 				<camel:otherwise>
 					<camel:log message="Subscription does not contain valid topic" />
 					<camel:throwException ref="invalidTopicException" />
@@ -298,7 +308,6 @@
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
 					
 					<camel:to uri="direct:processUnsubscribeVehicleCrash" />
-					
 				</camel:when>
 				<camel:otherwise>
 					<camel:log message="Unsubscription does not contain valid topic" />
@@ -385,7 +394,13 @@
 			<camel:from uri="direct:processSubscriptionVehicleCrash" />
 			<camel:log message="Processing Subscription(Vehicle Crash)" />
 			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=subscribe" />
-		</camel:route>		
+		</camel:route>	
+		
+		<camel:route>
+			<camel:from uri="direct:processWarrantFile" />
+			<camel:log message="Processing Subscription(Warrant File)" />
+			<camel:to uri="bean:warrantFileSubscriptionProcessor?method=subscribe" />
+		</camel:route>	
 			
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeArrest" />

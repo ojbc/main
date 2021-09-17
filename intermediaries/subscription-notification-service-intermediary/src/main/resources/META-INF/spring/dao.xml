@@ -78,6 +78,13 @@
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
 	</bean>
+	
+	<bean id="warrantFileSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.warrantfile.WarrantFileSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.warrantFile.allowedEmailAddressPatterns}"/>
+	</bean>
 		
 	<bean id="chCycleSubscriptionProcessor"
 		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleSubscriptionProcessor">

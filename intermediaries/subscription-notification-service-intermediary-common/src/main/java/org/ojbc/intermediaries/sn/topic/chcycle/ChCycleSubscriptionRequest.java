@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.topic.chcycle;
 
 import java.util.HashMap;
 
+
 import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
