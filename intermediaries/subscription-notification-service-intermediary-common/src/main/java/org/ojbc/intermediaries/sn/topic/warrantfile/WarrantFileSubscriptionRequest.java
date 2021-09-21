@@ -1,5 +1,6 @@
 /*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
  * or executable form, except in compliance with the terms and conditions of the RPL
@@ -14,34 +15,27 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.topic.chcycle;
+package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import java.util.HashMap;
 
-import java.util.List;
-
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
-import org.ojbc.util.xml.XmlUtils;
 
 import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.util.xml.XmlUtils;
 
-public class ChCycleUnsubscriptionRequest extends UnSubscriptionRequest {
+public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
+	public WarrantFileSubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception {
 
-	public ChCycleUnsubscriptionRequest(Message message) throws Exception{
-		super(message);
-		String firstName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
-		String lastName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
-		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
-		
+		super(message, allowedEmailAddressPatterns);
+
+		String firstName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
+		String lastName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
+		String dateOfBirth = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
+
 		buildSubjectIdMap(firstName, lastName, dateOfBirth);
-	}
-
-	public ChCycleUnsubscriptionRequest(String topic, List<String> emailAddresses, String systemName, String subscriptionQualifier, 
-			String firstName, String lastName, String dateOfBirth) {
 		
-		super(topic, emailAddresses, systemName, subscriptionQualifier);
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
 	}
 
 	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth) {
@@ -49,7 +43,6 @@ public class ChCycleUnsubscriptionRequest extends UnSubscriptionRequest {
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 	}
-
 }

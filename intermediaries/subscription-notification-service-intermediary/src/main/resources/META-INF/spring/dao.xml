@@ -78,6 +78,13 @@
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
 	</bean>
+	
+	<bean id="warrantFileSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.warrantfile.WarrantFileSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.warrantFile.allowedEmailAddressPatterns}"/>
+	</bean>
 		
 	<bean id="chCycleSubscriptionProcessor"
 		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleSubscriptionProcessor">
@@ -131,7 +138,16 @@
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
-	</bean>			
+	</bean>		
+	
+	<bean id="warrantFileNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.warrantFile.WarrantFileNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>		
 	
 	<bean id="prosecutionDecisionUpdateNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateNotificationProcessor">

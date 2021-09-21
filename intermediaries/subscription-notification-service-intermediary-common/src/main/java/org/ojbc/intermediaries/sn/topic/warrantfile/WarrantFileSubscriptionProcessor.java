@@ -15,20 +15,34 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.topic.chcycle;
 
-import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+package org.ojbc.intermediaries.sn.topic.warrantfile;
 
 import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
 
-public class ChCycleNotificationProcessor extends NotificationProcessor {
+public class WarrantFileSubscriptionProcessor extends SubscriptionProcessor{
+	private static final String WARRANT_FILE_TOPIC = "{http://ojbc.org/wsn/topics}:person/ncicWarrant";
 	
 	@Override
-	protected NotificationRequest makeNotificationRequestFromIncomingMessage(
+	protected SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(
 			Message msg) throws Exception {
 
-		return new ChCycleNotificationRequest(msg);
+		return new WarrantFileSubscriptionRequest(msg, allowedEmailAddressPatterns);
+	}
+	
+	@Override
+	protected UnSubscriptionRequest makeUnSubscriptionRequestFromIncomingMessage(
+			Message msg) throws Exception {
+
+		return new WarrantFileUnsubscriptionRequest(msg);
+	}
+
+	@Override
+	protected String getTopic() {
+
+		return WARRANT_FILE_TOPIC;
 	}
 }
-

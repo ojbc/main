@@ -107,7 +107,11 @@
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
-					<camel:to uri="bean:vehicleCrashNotificationProcessor?method=findSubscriptionsForNotification" />
+					<camel:to uri="bean:  r?method=findSubscriptionsForNotification" />
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
+					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
 
 			</camel:choice>
@@ -147,6 +151,10 @@
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
 						<camel:to uri="bean:vehicleCrashNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
+						<camel:to uri="bean:warrantFileNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
 					
 				</camel:choice>

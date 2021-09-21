@@ -38,6 +38,20 @@ public class TestEmailAddressPatternValidator {
 		
 		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
 	}
+	
+	@Test
+	public void testAreEmailAddressesValidSuccessGov()
+	{
+		EmailAddressPatternValidator emailDomainProcessor = new EmailAddressPatternValidator("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*.gov");
+		
+		List<String> emailAddresses = new ArrayList<String>();
+		emailAddresses.add("1@wyo.gov");
+		emailAddresses.add("2@state.wi.gov");
+
+		EmailAddressValidatorResponse addressValidatorResponse = emailDomainProcessor.areEmailAddressesValid(emailAddresses);
+		
+		Assert.assertTrue(addressValidatorResponse.isAreAllEmailAddressValid());
+	}
 
 	@Test
 	public void testAreEmailAddressesValidSuccess()

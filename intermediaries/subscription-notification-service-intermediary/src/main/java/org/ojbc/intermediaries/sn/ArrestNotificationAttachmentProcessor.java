@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
@@ -33,6 +33,8 @@ import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+
 
 public class ArrestNotificationAttachmentProcessor {
 	
