@@ -30,6 +30,5 @@ public class ChCycleNotificationProcessor extends NotificationProcessor {
 
 		return new ChCycleNotificationRequest(msg);
 	}
-		
 }
 
