@@ -176,6 +176,7 @@ public final class EmailNotification {
         copy.notificationRequest = notificationRequest;
         copy.subscriptionCategoryCode=subscriptionCategoryCode;
         copy.subscriptionSubjectIdentifiers = subscriptionSubjectIdentifiers;
+        copy.subscription = subscription;
         return copy;
     }
 
