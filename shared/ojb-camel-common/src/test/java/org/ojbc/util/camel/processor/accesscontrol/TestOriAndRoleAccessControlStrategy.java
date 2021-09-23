@@ -35,7 +35,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.accesscontrol.AccessControlResponse;

@@ -1,0 +1,127 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!-- This is based on the OJB_Resources/src/main/resources/ssp/Subscription_Notification/samples/notification/Arrest_NotificationMessage_Sample.xml -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing">
+    <soapenv:Header>
+        <add:Action>http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify</add:Action>
+    </soapenv:Header>
+    <soapenv:Body>
+        <b-2:Notify xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:topics="http://ojbc.org/wsn/topics">
+            <!--1 or more repetitions:-->
+            <b-2:NotificationMessage>
+                <!--Optional:-->
+                <b:SubscriptionReference>
+                    <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+                    <!--Optional:-->
+                    <add:ReferenceParameters>
+                        <!--You may enter ANY elements at this point-->
+                    </add:ReferenceParameters>
+                    <!--Optional:-->
+                    <add:Metadata>
+                        <!--You may enter ANY elements at this point-->
+                    </add:Metadata>
+                    <!--You may enter ANY elements at this point-->
+                </b:SubscriptionReference>
+                <!--Optional:-->
+                <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+                    >topics:person/ncicWarrant</b:Topic>
+
+                <!--Optional:-->
+                <b:ProducerReference>
+                    <add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
+                    <!--Optional:-->
+                    <add:ReferenceParameters>
+                        <!--You may enter ANY elements at this point-->
+                    </add:ReferenceParameters>
+                    <!--Optional:-->
+                    <add:Metadata>
+                        <!--You may enter ANY elements at this point-->
+                    </add:Metadata>
+                    <!--You may enter ANY elements at this point-->
+                </b:ProducerReference>
+                <b-2:Message>
+					<notfm-exch:NotificationMessage 
+						xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+						xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+						xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+						xmlns:s="http://niem.gov/niem/structures/2.0" 
+						xmlns:notfm-exch="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
+						xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
+						xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+						xmlns:hi="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
+						xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
+					  <notfm-ext:NotifyingActivityReportingSystemNameText>Test</notfm-ext:NotifyingActivityReportingSystemNameText>
+					  <tns1:NotifyingArrest s:id="A001">
+					  	<tns1:NotifyingActivityExtensions>
+					  		<hi:AttorneyGeneralCaseDetails>
+					  			<hi:AttorneyGeneralCaseIndicator>false</hi:AttorneyGeneralCaseIndicator>
+					  		</hi:AttorneyGeneralCaseDetails>
+					  	</tns1:NotifyingActivityExtensions>
+					  	<j:Arrest>
+					  		<nc:ActivityDate>
+					  			<nc:Date>2013-09-06</nc:Date>
+					  		</nc:ActivityDate>
+					  		<j:Booking>
+					  			<nc:ActivityDate>
+					  				<nc:Date>2013-09-06</nc:Date>
+					  			</nc:ActivityDate>
+					  			<j:BookingSubject>
+					  				<nc:RoleOfPersonReference s:ref="P001"/>
+					  			</j:BookingSubject>
+					  		</j:Booking>
+					  		<j:ArrestAgency>
+					  			<nc:OrganizationName>Honolulu PD</nc:OrganizationName>
+					  		</j:ArrestAgency>
+					  		<j:ArrestCharge>
+					  			<j:ChargeSeverityText>very severe</j:ChargeSeverityText>
+			                     <j:ChargeIdentification>
+			                        <nc:IdentificationID>I-04679</nc:IdentificationID>
+			                     </j:ChargeIdentification>					  			
+					  			<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
+					  		</j:ArrestCharge>
+					  		<j:ArrestOfficial>
+  								<nc:RoleOfPersonReference s:ref="P002"/>
+  							</j:ArrestOfficial>
+					  	</j:Arrest>
+					  </tns1:NotifyingArrest>
+					  <nc:ActivityInvolvedPersonAssociation>
+					    <nc:ActivityReference s:ref="A001"/>
+					    <nc:PersonReference s:ref="P001"/>
+					  </nc:ActivityInvolvedPersonAssociation>
+					  <j:Person s:id="P001">
+					  	<nc:PersonBirthDate>
+					  		<nc:Date>1955-01-15</nc:Date>
+					  	</nc:PersonBirthDate>
+					  	<nc:PersonName>
+					  		<nc:PersonGivenName>Homer</nc:PersonGivenName>
+					  		<nc:PersonSurName>Simpson</nc:PersonSurName>
+					  	</nc:PersonName>
+					  	<j:PersonAugmentation>
+					  		<j:PersonStateFingerprintIdentification>
+					  			<nc:IdentificationID>A9999999</nc:IdentificationID>
+					  		</j:PersonStateFingerprintIdentification>
+					  	</j:PersonAugmentation>
+					  </j:Person>
+					</notfm-exch:NotificationMessage>
+                </b-2:Message>
+            </b-2:NotificationMessage>
+        </b-2:Notify>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -39,7 +39,6 @@
 		<camel:route id="processNotificationRoute">
 
 			<camel:from uri="direct:processNotification" />
-      <camel:log message="body: ${body}"></camel:log>
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
@@ -107,11 +106,11 @@
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
-					<camel:to uri="bean:  r?method=findSubscriptionsForNotification" />
+					<camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
-					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification" />
+					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
 
 			</camel:choice>
@@ -120,7 +119,7 @@
 				
 				<!-- The body is a list of Email Notifications -->
 				<camel:simple>${body}</camel:simple>
-
+				
 				<camel:to uri="bean:notificationLoggingProcessor?method=logNotification"/>
 
 				<camel:choice>
@@ -159,9 +158,9 @@
 					
 				</camel:choice>
 
-        <camel:log message="emailBody: + ${body}"/>
-        <camel:log message="in.header.to + ${in.header.to}"/>
-        <camel:log message="in.header.blocked + ${in.header.blocked}"/>
+        <camel:log message="emailBody: ${body}"/>
+        <camel:log message="in.header.to: ${in.header.to}"/>
+        <camel:log message="in.header.blocked: ${in.header.blocked}"/>
 				<camel:setHeader name="emailBody">
 					<camel:simple>${body}</camel:simple>
 				</camel:setHeader>

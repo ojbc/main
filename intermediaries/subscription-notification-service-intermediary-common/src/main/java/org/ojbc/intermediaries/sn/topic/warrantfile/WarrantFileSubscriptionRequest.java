@@ -33,16 +33,20 @@ public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
 		String firstName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
 		String lastName = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
 		String dateOfBirth = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
+		String gender = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Sex");
+		String race = XmlUtils.xPathStringSearch(document, "//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:Race");
 
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
+		buildSubjectIdMap(firstName, lastName, dateOfBirth, gender, race);
 		
 	}
 
-	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth) {
+	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth, String gender, String race) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
+		subjectIdentifiers.put("sex", gender);
+		subjectIdentifiers.put("race", race);
 	}
 }

@@ -9,14 +9,13 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class WarrantFileNotificationRequest extends NotificationRequest{
 	
-	private static final Logger logger = Logger.getLogger(ChCycleNotificationRequest.class);
+	private static final Logger logger = Logger.getLogger(WarrantFileNotificationRequest.class);
 	
     public WarrantFileNotificationRequest(Message message) throws Exception{
         this(message.getBody(Document.class));
@@ -81,7 +80,7 @@ public class WarrantFileNotificationRequest extends NotificationRequest{
 	
 	@Override
 	protected String getNotifyingSystemNameXPath(){
-		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCriminalHistoryUpdate/notfm-ext:NotifyingActivityReportingSystemNameText";
+		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingActivityReportingSystemNameText";
 	}
 	
 	@Override

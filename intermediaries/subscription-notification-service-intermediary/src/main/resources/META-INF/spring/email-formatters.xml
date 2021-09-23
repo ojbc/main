@@ -142,6 +142,15 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 		</property>
 	</bean>
 	
+	<bean id="defaultWarrantFileEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+		<property name="emailSubjectTemplate">
+			<value>"Warrant File Notification [Subject $emailNotification.subjectName]"</value>
+		</property>
+		<property name="emailBodyTemplate">
+			<value><![CDATA[Offender: $emailNotification.notificationRequest.personLastName, $emailNotification.notificationRequest.personFirstName, DOB: $emailNotification.notificationRequest.personBirthDate, Sex: $emailNotification.subscriptionSubjectIdentifiers.get("sex"), Race: $emailNotification.subscriptionSubjectIdentifiers.get("race")]]></value>
+		</property>
+	</bean>
+	
 	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 		<property name="subscriptionCategoryCode" value="default"/>

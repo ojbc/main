@@ -141,7 +141,7 @@
 	</bean>		
 	
 	<bean id="warrantFileNotificationProcessor"
-		class="org.ojbc.intermediaries.sn.topic.warrantFile.WarrantFileNotificationProcessor">
+		class="org.ojbc.intermediaries.sn.topic.warrantfile.WarrantFileNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
