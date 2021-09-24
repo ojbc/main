@@ -112,6 +112,14 @@
 					<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
 					<camel:to uri="bean:warrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
 				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
+					<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=findSubscriptionsForNotification"/>
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
+					<camel:to uri="bean:srfNotificationProcessor?method=findSubscriptionsForNotification"/>
+				</camel:when>
 
 			</camel:choice>
 
@@ -154,6 +162,14 @@
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'warrantFile'</camel:simple>
 						<camel:to uri="bean:warrantFileNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'stateWarrantFile'</camel:simple>
+						<camel:to uri="bean:stateWarrantFileNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'SRF'</camel:simple>
+						<camel:to uri="bean:srfNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
 					
 				</camel:choice>

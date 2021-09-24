@@ -135,6 +135,22 @@
 								<constant>warrantFile</constant>
 							</camel:setHeader>
 						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/nletsWarrant' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/nletsWarrant'</camel:xpath>
+							<camel:setHeader name="notificationTopic">
+								<constant>stateWarrantFile</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/srf' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/srf'</camel:xpath>
+							<camel:setHeader name="notificationTopic">
+								<constant>SRF</constant>
+							</camel:setHeader>
+						</camel:when>
 						<camel:otherwise>
 							<camel:log message="Notification does not contain a valid topic" />
 						</camel:otherwise>
@@ -226,7 +242,6 @@
 					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/VehicleCrash' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
-					
 					<camel:to uri="direct:processSubscriptionVehicleCrash" />
 					
 				</camel:when>
@@ -239,6 +254,26 @@
 	      			<camel:log message="Within Warrant Block" />
 	      			
 	      			<camel:to uri="direct:processWarrantFile" />
+				</camel:when>
+					
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/nletsWarrant' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/nletsWarrant'</camel:xpath>
+	      			
+	      			<camel:log message="Within NLETS Warrant Block" />
+	      			
+	      			<camel:to uri="direct:processNletsWarrantFile" />
+				</camel:when>
+				
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/srf' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/srf'</camel:xpath>
+	      			
+	      			<camel:log message="Within SRF Block" />
+	      			
+	      			<camel:to uri="direct:processSRF" />
 				</camel:when>
 				
 				<camel:otherwise>
@@ -410,6 +445,17 @@
 			<camel:to uri="bean:warrantFileSubscriptionProcessor?method=subscribe" />
 		</camel:route>	
 			
+		<camel:route>
+			<camel:from uri="direct:processNletsWarrantFile" />
+			<camel:log message="Processing Subscription(NLETS Warrant File)" />
+			<camel:to uri="bean:stateWarrantFileSubscriptionProcessor?method=subscribe" />
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:processSRF" />
+			<camel:log message="Processing SRF" />
+			<camel:to uri="bean:srfFileSubscriptionProcessor?method=subscribe" />
+		</camel:route>
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeArrest" />
 			

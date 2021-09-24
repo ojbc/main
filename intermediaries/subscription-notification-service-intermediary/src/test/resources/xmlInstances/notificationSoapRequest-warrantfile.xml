@@ -40,7 +40,7 @@
                 </b:SubscriptionReference>
                 <!--Optional:-->
                 <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
-                    >topics:person/ncicWarrant</b:Topic>
+                    >topics:person/srf</b:Topic>
 
                 <!--Optional:-->
                 <b:ProducerReference>

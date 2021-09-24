@@ -15,7 +15,7 @@
 			</b-2:ConsumerReference>
 			<b-2:Filter>
 				<b-2:TopicExpression
-					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/ncicWarrant
+					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/srf
 				</b-2:TopicExpression>
 			</b-2:Filter>
 			<b-2:SubscriptionPolicy />
