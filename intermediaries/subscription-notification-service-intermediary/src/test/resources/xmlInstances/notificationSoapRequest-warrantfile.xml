@@ -40,7 +40,7 @@
                 </b:SubscriptionReference>
                 <!--Optional:-->
                 <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
-                    >topics:person/srf</b:Topic>
+                    >topics:person/srfNotification</b:Topic>
 
                 <!--Optional:-->
                 <b:ProducerReference>
