@@ -1,0 +1,66 @@
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Body>
+		<b-2:Subscribe
+			xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+			xmlns:add="http://www.w3.org/2005/08/addressing"
+			xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+			xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+			xmlns:submsg-exch="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+			xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
+			<b-2:ConsumerReference>
+				<add:Address>http://www.ojbc.org/OJB/SubscribeNotify</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b-2:ConsumerReference>
+			<b-2:Filter>
+				<b-2:TopicExpression
+					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/srf
+				</b-2:TopicExpression>
+			</b-2:Filter>
+			<b-2:SubscriptionPolicy />
+			<submsg-exch:SubscriptionMessage>
+				<submsg-ext:SubscriptionRelatedCaseIdentification>
+					<nc:IdentificationID>1533715</nc:IdentificationID>
+				</submsg-ext:SubscriptionRelatedCaseIdentification>
+				<submsg-ext:Subject>
+					<nc:PersonBirthDate>
+						<nc:Date>1955-01-15</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>Homer</nc:PersonGivenName>
+						<nc:PersonSurName>Simpson</nc:PersonSurName>
+						<nc:PersonFullName>Homer Simpson</nc:PersonFullName>
+					</nc:PersonName>
+					<jxdm41:PersonAugmentation>
+						<jxdm41:PersonFBIIdentification>
+							<nc:IdentificationID>VCCCNL9TK</nc:IdentificationID>
+						</jxdm41:PersonFBIIdentification>
+					</jxdm41:PersonAugmentation>
+					<nc:Sex>M</nc:Sex>
+					<nc:Race>White</nc:Race>
+				</submsg-ext:Subject>
+				<nc:ContactEmailID>po1@localhost</nc:ContactEmailID>
+				<nc:ContactEmailID>po2@localhost</nc:ContactEmailID>
+				<submsg-ext:SystemName>{http:// ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+				</submsg-ext:SystemName>
+				<submsg-ext:SubscriptionQualifierIdentification>
+					<nc:IdentificationID>2259</nc:IdentificationID>
+				</submsg-ext:SubscriptionQualifierIdentification>
+				<nc:DateRange>
+					<nc:StartDate>
+						<nc:Date>2021-08-08</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date />
+					</nc:EndDate>
+				</nc:DateRange>
+				<submsg-ext:SubscriptionIdentification>
+					<nc:IdentificationID>1110711</nc:IdentificationID>
+					<nc:IdentificationSourceText>Subscriptions
+					</nc:IdentificationSourceText>
+				</submsg-ext:SubscriptionIdentification>
+			</submsg-exch:SubscriptionMessage>
+		</b-2:Subscribe>
+	</soapenv:Body>
+</soapenv:Envelope>

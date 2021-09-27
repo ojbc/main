@@ -63,6 +63,10 @@ public class Subscription implements Serializable {
 	
 	private String lastName;
 	
+	private String sex;
+	
+	private String race;
+	
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private Date dateOfBirth;
@@ -441,6 +445,22 @@ public class Subscription implements Serializable {
 
 	public void setOwnerProgramOca(String ownerProgramOca) {
 		this.ownerProgramOca = ownerProgramOca;
+	}
+	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
 	}
 
 }

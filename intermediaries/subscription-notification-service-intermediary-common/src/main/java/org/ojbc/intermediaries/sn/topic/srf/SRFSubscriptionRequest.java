@@ -15,7 +15,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.topic.warrantfile;
+package org.ojbc.intermediaries.sn.topic.srf;
 
 import java.util.HashMap;
 
@@ -25,8 +25,8 @@ import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
 
-public class WarrantFileSubscriptionRequest extends SubscriptionRequest{
-	public WarrantFileSubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception {
+public class SRFSubscriptionRequest extends SubscriptionRequest{
+	public SRFSubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception {
 
 		super(message, allowedEmailAddressPatterns);
 

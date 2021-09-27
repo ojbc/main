@@ -58,6 +58,8 @@ public class AuditDAOImpl implements AuditDAO {
 		
 		Subscription subscription = emailNotification.getSubscription();
 		
+		log.debug("Notification Request: " + emailNotification.getNotificationRequest().getNotifyingSystemName());
+		
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplateAudit.update(
         	    new PreparedStatementCreator() {

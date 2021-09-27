@@ -391,9 +391,27 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildPersonNameNode(subjectNode,subscription);
 		
-		buildPesonAugmentationElement(subjectNode,subscription);				
+		buildPesonAugmentationElement(subjectNode,subscription);
+		
+		buildPersonTraitsNode(subjectNode, subscription);
 	}
 	
+	private static void buildPersonTraitsNode(Element subjectNode, Subscription subscription) {
+		
+		String gender = subscription.getSex();
+		
+		if(!(gender.isEmpty())) {
+			Element genderNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "Sex");
+			genderNode.setTextContent(gender);
+		}
+		
+		String race = subscription.getRace();
+		
+		if(!(race.isEmpty())) {
+			XmlUtils.appendTextElement(subjectNode, OjbcNamespaceContext.NS_NC, "Race", race);
+		}
+		
+	}
 	
 	private static void buildDobNode(Element subjectNode, Subscription subscription) {
 

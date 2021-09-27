@@ -1,4 +1,4 @@
-package org.ojbc.intermediaries.sn.topic.warrantfile;
+package org.ojbc.intermediaries.sn.topic.srf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,15 +13,15 @@ import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
-public class WarrantFileNotificationRequest extends NotificationRequest{
+public class SRFNotificationRequest extends NotificationRequest{
 	
-	private static final Logger logger = Logger.getLogger(WarrantFileNotificationRequest.class);
+	private static final Logger logger = Logger.getLogger(SRFNotificationRequest.class);
 	
-    public WarrantFileNotificationRequest(Message message) throws Exception{
+    public SRFNotificationRequest(Message message) throws Exception{
         this(message.getBody(Document.class));
     }
 
-    public WarrantFileNotificationRequest(Document document) throws Exception {
+    public SRFNotificationRequest(Document document) throws Exception {
         super(document);
         buildSubjectIdMap();        
     }
