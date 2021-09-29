@@ -796,6 +796,8 @@
 			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - TERMINATED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - CONTINUED" />
 			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - TERMINATED" />
+<!-- ADDED 09/29/21  -->			
+			<xsd:enumeration value="ORIGINAL SENTENCE" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="SentenceTermCategoryCodeType">
@@ -1089,6 +1091,14 @@
 			<xsd:enumeration value="SUPERVISED RELEASE NOT VIOLATED" />
 			<xsd:enumeration value="SUPERVISED RELEASE VIOLATED" />
 			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />
+<!-- ADDED 09/29/21  -->				
+			<xsd:enumeration value="FINDING INCOMPETENCE TO STAND TRIAL" />			
+			<xsd:enumeration value="MOTION TO CONVERT ADMIN REL" />
+			<xsd:enumeration value="ORDER TO REOPEN CRIMINAL HISTORY FILE" />
+			<xsd:enumeration value="SUPERCEDING INDICTMENT" />
+			<xsd:enumeration value="DISMISSED BY DA/AG - PLED TO OTHER CHARGE" />
+			<xsd:enumeration value="GUILTY - CONTINUED FOR SENTENCING" />
+			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />			
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventStatusCodeType">
