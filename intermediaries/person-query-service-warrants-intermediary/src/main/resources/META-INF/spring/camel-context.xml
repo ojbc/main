@@ -29,9 +29,9 @@
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
@@ -39,16 +39,16 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Query_Service_Warrants_Intermediary">
 	
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}" />
 
 		<endpoint id="personQueryResultsHandlerWarrantsServiceEndpoint"
-			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:personQueryResultsHandlerWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}" />
 
 	    <endpoint id="personQueryRequestWarrantsServiceAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryRequestWarrantsServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}"/>
+	    	uri="cxf:bean:personQueryRequestWarrantsServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}"/>
 	
 		<endpoint id="presentPersonQueryResultsWarrantsServiceEndpoint" 
-			uri="cxf:bean:presentPersonQueryResultsWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.warrants.personQueryIntermediaryCxflogging}"/>                        
+			uri="cxf:bean:presentPersonQueryResultsWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}"/>                        
 
 
 		<!-- Federated Search Request Handler-->
@@ -91,7 +91,7 @@
 			
 			<camel:choice>
 				<camel:when>
-					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:method ref="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
 				<camel:otherwise>
@@ -104,16 +104,16 @@
 
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+			<camel:setHeader name="federatedQueryEndpointsNodeList">
 				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
-			<camel:setHeader headerName="operationName"><constant>Submit-Person-Query---Warrants</constant></camel:setHeader>
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Submit-Person-Query---Warrants</constant></camel:setHeader>
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0</constant></camel:setHeader>
 									
 			<!-- Since this is a query, we only call one endpoint -->						
-			<camel:setHeader headerName="adapterURI">
+			<camel:setHeader name="adapterURI">
 				<camel:xpath resultType="java.lang.String">//nc20:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 
@@ -126,7 +126,7 @@
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 			
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader headerName="requestMessageBody">
+			<camel:setHeader name="requestMessageBody">
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 
 			</camel:setHeader>
@@ -161,7 +161,7 @@
 			<camel:from uri="personQueryResultsHandlerWarrantsServiceEndpoint"/>
 			
 			<camel:log message="Entering Person Query Results Handler Warrants"></camel:log>
-			<camel:setHeader headerName="searchProfile">
+			<camel:setHeader name="searchProfile">
 				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants</constant>
 			</camel:setHeader>
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
@@ -205,18 +205,18 @@
 	    <camel:route>
 	      <from uri="direct:aggregateFederatedQuery" />
 			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:personQuery.warrants.personQueryIntermediaryFederatedQueryTimeout}</camel:simple>
-				</completionTimeout>
-				<completionSize>
+				</completionTimeoutExpression>
+				<completionSizeExpression>
 					<header>federatedQueryNumberOfEndpointsRequested</header>
-				</completionSize>
+				</completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.warrants.personQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by ${exchangeProperty.CamelAggregatedCompletedBy}, completion size ${exchangeProperty.CamelAggregatedSize}, aggregation key ${exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.warrants.personQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -245,10 +245,10 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-			        <camel:setHeader headerName="operationName">
+			        <camel:setHeader name="operationName">
 			            <constant>Report-Person-Query-Results---Warrants</constant>
 			        </camel:setHeader>
-			        <camel:setHeader headerName="operationNamespace">
+			        <camel:setHeader name="operationNamespace">
 			            <constant>http://ojbc.org/Services/WSDL/Person_Query_Results_Handler_Service-Warrants/1.0</constant>
 			        </camel:setHeader>
 					
@@ -264,53 +264,7 @@
 					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
 				</camel:otherwise>		
 			</camel:choice>	
-
 		</camel:route>
-	    
-	    
 	</camel:camelContext>
   
-	<!-- Spring Beans -->
-	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
-
-	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
-	</bean>
-
-   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
-	</bean>		
-
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	
 </beans>
