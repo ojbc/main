@@ -122,6 +122,10 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.cannabisLicense.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.cannabisLicense.keystorePassword}" 
+          url="${federatedQuery.cannabisLicense.keystoreLocation}" />
+      </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.cannabisLicense.truststorePassword}"

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "person-query-service")
-public class PersonQueryServiceWarrantsIntermediaryProperties {
+public class PersonQueryServiceCannabisIntermediaryProperties {
 	private String dbAuditLog = "false";
 
 	public String getDbAuditLog() {

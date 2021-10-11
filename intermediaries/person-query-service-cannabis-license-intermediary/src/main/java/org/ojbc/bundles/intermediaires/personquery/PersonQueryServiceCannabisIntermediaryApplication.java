@@ -15,13 +15,13 @@ import org.springframework.context.annotation.ImportResource;
 		"classpath:META-INF/spring/cxf-endpoints.xml", 
 		"classpath:META-INF/spring/beans.xml", 
 		"classpath:META-INF/spring/dev-beans.xml"})
-public class PersonQueryServiceWarrantsIntermediaryApplication {
+public class PersonQueryServiceCannabisIntermediaryApplication {
 	@Autowired
-	PersonQueryServiceWarrantsIntermediaryProperties adatperProperties; 
+	PersonQueryServiceCannabisIntermediaryProperties adatperProperties; 
     /**
      * A main method to start this application.
      */
     public static void main(String[] args) {
-        SpringApplication.run(PersonQueryServiceWarrantsIntermediaryApplication.class, args);
+        SpringApplication.run(PersonQueryServiceCannabisIntermediaryApplication.class, args);
     }
 }
