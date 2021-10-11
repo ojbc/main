@@ -24,7 +24,6 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>person-query-service-criminal-history-intermediary</artifactId>
-	<packaging>bundle</packaging>
 	<version>2.0.0</version> 
 	<name>OJB :: person-query-service-criminal-history-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
