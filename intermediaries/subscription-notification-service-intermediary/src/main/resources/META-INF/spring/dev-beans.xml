@@ -109,9 +109,9 @@
 						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultStateWarrantFileEmailFormatter"/>
 					</util:map>
 				</entry>
-				<entry key="{http://ojbc.org/wsn/topics}:person/srf">
+				<entry key="{http://ojbc.org/wsn/topics}:person/srfNotification">
 					<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
-						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultStateWarrantFileEmailFormatter"/>
+						<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultSRFEmailFormatter"/>
 					</util:map>
 				</entry>
 			</util:map>
