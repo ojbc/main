@@ -252,7 +252,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				<log
-					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by ${exchangeProperty.CamelAggregatedCompletedBy}, completion size ${exchangeProperty.CamelAggregatedSize}, aggregation key ${exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.criminalHistory.personQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 

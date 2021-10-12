@@ -151,6 +151,10 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.criminalHistory.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.criminalHistory.keystorePassword}" 
+          url="${federatedQuery.criminalHistory.keystoreLocation}" />
+      </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.criminalHistory.truststorePassword}"
