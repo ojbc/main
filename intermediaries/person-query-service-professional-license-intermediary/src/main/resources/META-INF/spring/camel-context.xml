@@ -219,7 +219,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				
-				<log message="\n\n\n completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.professionalLicense.queryTimeout}} \n\n\n"></log>
+				<log message="\n\n\n completed by ${exchangeProperty.CamelAggregatedCompletedBy}, completion size ${exchangeProperty.CamelAggregatedSize}, aggregation key ${exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personQuery.professionalLicense.queryTimeout}} \n\n\n"></log>
 				
 				<to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -250,9 +250,9 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-            		<camel:setHeader name="operationName">
-            			<constant>SubmitProfessionalLicenseQueryResults</constant>
-            		</camel:setHeader>
+           		<camel:setHeader name="operationName">
+           			<constant>SubmitProfessionalLicenseQueryResults</constant>
+           		</camel:setHeader>
 	        		<camel:setHeader name="operationNamespace">
 	        			<constant>http://ojbc.org/Services/WSDL/Professional_License_Query_Results_Service/1.0</constant>
 	        		</camel:setHeader>
