@@ -122,6 +122,9 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.vehicleCrash.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.vehicleCrash.keystorePassword}" url="${federatedQuery.vehicleCrash.keystoreLocation}" />
+      </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.vehicleCrash.truststorePassword}"
