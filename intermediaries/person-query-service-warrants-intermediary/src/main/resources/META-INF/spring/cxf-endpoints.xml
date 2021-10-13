@@ -23,23 +23,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
-       xmlns:wsa="http://cxf.apache.org/ws/addressing"
-       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
-       xmlns:policy="http://cxf.apache.org/policy"
+     xmlns:policy="http://cxf.apache.org/policy"
+     xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
        xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
        xmlns:sec="http://cxf.apache.org/configuration/security"
-       xmlns:util="http://www.springframework.org/schema/util"        
-	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:http="http://cxf.apache.org/transports/http/configuration"
        xsi:schemaLocation="
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
-       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
-       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        ">
 
     <!-- Warrants Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
@@ -121,6 +119,9 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+      <sec:keyManagers keyPassword="${federatedQuery.warrants.keyPassword}">
+        <sec:keyStore type="jks" password="${federatedQuery.warrants.keystorePassword}" url="${federatedQuery.warrants.keystoreLocation}" />
+      </sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.warrants.truststorePassword}"

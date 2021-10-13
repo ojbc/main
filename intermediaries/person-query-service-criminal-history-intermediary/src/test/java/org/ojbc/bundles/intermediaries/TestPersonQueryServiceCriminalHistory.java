@@ -16,7 +16,6 @@
  */
 package org.ojbc.bundles.intermediaries;
 
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
