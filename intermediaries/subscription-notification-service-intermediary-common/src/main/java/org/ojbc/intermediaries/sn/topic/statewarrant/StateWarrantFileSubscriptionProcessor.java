@@ -1,6 +1,5 @@
 /*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
-
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
  * or executable form, except in compliance with the terms and conditions of the RPL
@@ -15,7 +14,6 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
 package org.ojbc.intermediaries.sn.topic.statewarrant;
 
 import org.apache.camel.Message;

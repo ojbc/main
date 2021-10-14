@@ -28,6 +28,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -86,6 +87,7 @@ public class TestSubscriptionMigrationProcessor {
     }
 	
     @Test
+    @Ignore
     public void testSubscriptionMigration() throws Exception {
     	
     	subscriptionMigrationProcessor.clearSubscriptionMap();

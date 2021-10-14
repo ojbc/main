@@ -547,12 +547,6 @@
 		</camel:route>
 		
 		<camel:route>
-			<camel:from uri="direct:processUnsubscribeVehicleCrash" />
-			<camel:log message="Processing Unsubscription(Vehicle Crash" />
-			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=unsubscribe" />
-		</camel:route>
-		
-		<camel:route>
 			<camel:from uri="direct:processUnsubscribeWarrantFile" />
 			<camel:log message="Processing Unsubscription(Warrant File)" />
 			<camel:to uri="bean:warrantFileSubscriptionProcessor?method=unsubscribe" />
