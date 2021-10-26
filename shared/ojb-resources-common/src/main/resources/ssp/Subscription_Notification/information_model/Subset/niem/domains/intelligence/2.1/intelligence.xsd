@@ -17,16 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/domains/intelligence/2.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/intelligence/2.1" version="1" xml:lang="en-US" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
   <xsd:annotation>
     <xsd:documentation>Intelligence</xsd:documentation>
     <xsd:appinfo>
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
-  <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
-  <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../structures/2.0/structures.xsd"/>
   <xsd:element name="SystemName" type="nc:TextType">
     <xsd:annotation>
       <xsd:documentation>The name of the kind or the source of a system identifier.</xsd:documentation>

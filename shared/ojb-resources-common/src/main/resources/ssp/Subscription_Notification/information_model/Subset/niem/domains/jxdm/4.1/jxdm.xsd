@@ -17,19 +17,19 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/domains/jxdm/4.1" version="1" xml:lang="en-US" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" xmlns:i="http://niem.gov/niem/appinfo/2.0">
   <xsd:annotation>
     <xsd:documentation>Justice</xsd:documentation>
     <xsd:appinfo>
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
-  <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
-  <xsd:import schemaLocation="../../../fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
-  <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
-  <xsd:import schemaLocation="../../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
-  <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../../appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="../../../appinfo/2.1/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../../fbi/2.0/fbi.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../niem-core/2.0/niem-core.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../../proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../structures/2.0/structures.xsd"/>
   <xsd:complexType name="ActivityChargeAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between an activity and a charge.</xsd:documentation>
@@ -124,6 +124,22 @@
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="nc:ActivityType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CourtOrderType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a direction of a judge not including a judgement, which determines some point or directs some steps in proceedings.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType">
+        <xsd:sequence>
+          <xsd:element ref="j:CourtOrderDesignatedSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:CourtOrderEnforcementAgency" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="CrashDriverType">
@@ -445,6 +461,17 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="WarrantType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an authorization for an enforcement official to perform a specified action.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="CourtOrderType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="j:CourtOrderType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An association between an activity and a charge.</xsd:documentation>
@@ -536,6 +563,16 @@
   <xsd:element name="Citation" type="j:CitationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderDesignatedSubject" type="j:SubjectType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A person to which a court order applies. The subject could be a Protected Party, the recipient of a Summons or Subpoena, the subject of a Warrant, etc.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtOrderEnforcementAgency" type="nc:OrganizationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An agency responsible for enforcing a court order.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Crash" type="j:CrashType" nillable="true">
@@ -644,7 +681,7 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
+  <xsd:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="s:Augmentation">
     <xsd:annotation>
       <xsd:documentation>Additional information about an organization.</xsd:documentation>
       <xsd:appinfo>
@@ -726,6 +763,11 @@
   <xsd:element name="TermLifeIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>True if the term is not for a set duration length but for life; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Warrant" type="j:WarrantType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An authorization for an enforcement official to perform a specified action.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
 </xsd:schema>

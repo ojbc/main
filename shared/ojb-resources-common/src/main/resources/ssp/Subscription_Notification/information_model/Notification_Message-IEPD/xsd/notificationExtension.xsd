@@ -17,16 +17,22 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
-	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+<xsd:schema
+	xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
+	xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
 	xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0"
 	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
 	xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0"
 	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	elementFormDefault="qualified" attributeFormDefault="qualified"
 	version="1">
@@ -34,13 +40,16 @@
 		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
 		schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
+	<xsd:import
+		namespace="http://niem.gov/niem/domains/jxdm/4.1"
 		schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
 		schemaLocation="impl/hawaii/HawaiiExtensions.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
 		schemaLocation="CriminalHistoryUpdate.xsd" />
 	<xsd:import
 		namespace="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0"
@@ -48,30 +57,36 @@
 	<xsd:import
 		namespace="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0"
 		schemaLocation="ProsecutionDecisionUpdate.xsd" />
-	<xsd:import namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
+	<xsd:import
+		namespace="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
 		schemaLocation="FBI_NDEx_Codes.xsd" />
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+	<xsd:import
+		namespace="http://www.w3.org/2004/08/xop/include"
 		schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
 		schemaLocation="./xmime_schema.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
 		schemaLocation="./VehicleCrash.xsd" />
-	<xsd:complexType name="NotifyingActivityType" abstract="true"
-		mixed="false">
+	<xsd:complexType name="NotifyingActivityType"
+		abstract="true" mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="notfm-ext:NotifyingActivityExtensions"
+					<xsd:element
+						ref="notfm-ext:NotifyingActivityExtensions" minOccurs="0" />
+					<xsd:element
+						ref="notfm-ext:NotifyingActivityReportingOrganization"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:NotifyingActivityReportingOrganization"
+					<xsd:element
+						ref="notfm-ext:NotifyingActivityReportingSystemNameText"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemNameText"
-						minOccurs="0" />
-					<xsd:element ref="notfm-ext:NotifyingActivityReportingSystemURI"
-						minOccurs="0" />
+					<xsd:element
+						ref="notfm-ext:NotifyingActivityReportingSystemURI" minOccurs="0" />
 					<xsd:element ref="notfm-ext:RelatedFBISubscription"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:CriminalHistoryDocumentRepresentation"
+					<xsd:element
+						ref="notfm-ext:CriminalHistoryDocumentRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -85,55 +100,74 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="hawaii-ext:AttorneyGeneralCaseDetails"
-						minOccurs="0" />
+					<xsd:element
+						ref="hawaii-ext:AttorneyGeneralCaseDetails" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingArrestType" abstract="false"
-		mixed="false">
+	<xsd:complexType name="NotifyingArrestType"
+		abstract="false" mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
 					<xsd:element ref="j:Arrest" />
 					<xsd:element ref="j:Incident" minOccurs="0" />
-					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Offense" minOccurs="0"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingIncidentType" abstract="false"
+	<xsd:complexType
+		name="NotifyingWarrantType" abstract="false"
 		mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
-					<xsd:element ref="j:Incident" />
-					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Warrant" />
+					<xsd:element
+						ref="notfm-ext:NotifyingOrganizationReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingCriminalHistoryUpdateType"
+	<xsd:complexType name="NotifyingIncidentType"
 		abstract="false" mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
-					<xsd:element ref="chu:CycleTrackingIdentifierAssignment" />
+					<xsd:element ref="j:Incident" />
+					<xsd:element ref="j:Offense" minOccurs="0"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingFederalCriminalHistoryUpdateType"
-		abstract="false" mixed="false">
+	<xsd:complexType
+		name="NotifyingCriminalHistoryUpdateType" abstract="false"
+		mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="notfm-ext:NotifyingActivityType">
+				<xsd:sequence>
+					<xsd:element
+						ref="chu:CycleTrackingIdentifierAssignment" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType
+		name="NotifyingFederalCriminalHistoryUpdateType" abstract="false"
+		mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence />
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingCourtDispositionUpdateType"
-		abstract="false" mixed="false">
+	<xsd:complexType
+		name="NotifyingCourtDispositionUpdateType" abstract="false"
+		mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
@@ -152,8 +186,9 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="NotifyingProsecutionDecisionUpdateType"
-		abstract="false" mixed="false">
+	<xsd:complexType
+		name="NotifyingProsecutionDecisionUpdateType" abstract="false"
+		mixed="false">
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
@@ -176,19 +211,22 @@
 						minOccurs="0" />
 					<xsd:element ref="notfm-ext:RapBackSubscriptionDate"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RecordRapBackSubscriptionIdentification"
+					<xsd:element
+						ref="notfm-ext:RecordRapBackSubscriptionIdentification"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RapBackSubscriptionTermCode"
+					<xsd:element
+						ref="notfm-ext:RapBackSubscriptionTermCode" minOccurs="0" />
+					<xsd:element ref="notfm-ext:RapBackTermDate"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RapBackTermDate" minOccurs="0" />
-					<xsd:element ref="notfm-ext:SubscriptionQualifierIdentification"
-						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RapBackActivityNotificationIdentification"
+					<xsd:element
+						ref="notfm-ext:SubscriptionQualifierIdentification" minOccurs="0" />
+					<xsd:element
+						ref="notfm-ext:RapBackActivityNotificationIdentification"
 						minOccurs="0" />
 					<xsd:element ref="notfm-ext:RapBackAttentionText"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:TriggeringEvent" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="notfm-ext:TriggeringEvent"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -202,8 +240,9 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="NotifyingFederalCriminalHistoryUpdate"
-		type="notfm-ext:NotifyingFederalCriminalHistoryUpdateType" abstract="false"
-		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
+		type="notfm-ext:NotifyingFederalCriminalHistoryUpdateType"
+		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
+		nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>A federal incident that results in notification.
 			</xsd:documentation>
@@ -218,24 +257,25 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="NotifyingProsecutionDecisionUpdate"
-		type="notfm-ext:NotifyingProsecutionDecisionUpdateType" abstract="false"
+		type="notfm-ext:NotifyingProsecutionDecisionUpdateType"
+		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
+		nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>An incident that results in notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotifyingVehicleCrash"
+		type="notfm-ext:NotifyingVehicleCrashType" abstract="false"
 		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NotifyingVehicleCrash" type="notfm-ext:NotifyingVehicleCrashType"
-		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
-		nillable="false">
-		<xsd:annotation>
-			<xsd:documentation>An incident that results in notification.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="NotifyingIncident" type="notfm-ext:NotifyingIncidentType"
-		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
-		nillable="false">
+	<xsd:element name="NotifyingIncident"
+		type="notfm-ext:NotifyingIncidentType" abstract="false"
+		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.
 			</xsd:documentation>
@@ -249,16 +289,25 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NotifyingArrest" type="notfm-ext:NotifyingArrestType"
-		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
-		nillable="false">
+	<xsd:element name="NotifyingArrest"
+		type="notfm-ext:NotifyingArrestType" abstract="false"
+		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An arrest that results in notification
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="NotifyingActivityReportingSystemNameText"
-		type="nc:TextType">
+	<xsd:element name="NotifyingWarrant"
+		type="notfm-ext:NotifyingWarrantType"
+		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
+		nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>A warrant that results in notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element
+		name="NotifyingActivityReportingSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of the system that reported the activity.
 			</xsd:documentation>
@@ -271,14 +320,16 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OffenseFBINDEXCode" type="ndexiacodes:OffenseCodeType"
+	<xsd:element name="OffenseFBINDEXCode"
+		type="ndexiacodes:OffenseCodeType"
 		substitutionGroup="j:OffenseCategory">
 		<xsd:annotation>
 			<xsd:documentation>An offense as defined by the FBI N-DEX program
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryRecordDocument" type="nc:DocumentType"
+	<xsd:element name="CriminalHistoryRecordDocument"
+		type="nc:DocumentType"
 		substitutionGroup="notfm-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document that contains the person's criminal
@@ -293,7 +344,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RelatedFBISubscription" type="notfm-ext:RelatedFBISubscriptionType">
+	<xsd:element name="RelatedFBISubscription"
+		type="notfm-ext:RelatedFBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>Additional details regarding an FBI subscription.
 			</xsd:documentation>
@@ -307,17 +359,43 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
-		type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain" />
+	<xsd:element name="OffenderSendingOrganization"
+		type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that sent a transferred offender.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OffenderReceivingOrganization"
+		type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that received a transferred
+				offender.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotifyingOrganizationReference"
+		type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A subscription identifier provided by the
+				subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject"
+		substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary"
+		xmime:expectedContentType="text/plain" />
 	<!-- Added 3/21/17 jd -->
-	<xsd:element name="RapBackExpirationDate" type="nc:DateType">
+	<xsd:element name="RapBackExpirationDate"
+		type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date a Rap Back Subscription expires under the
 				Subscriber's Privacy Strategy.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionDate" type="nc:DateType">
+	<xsd:element name="RapBackSubscriptionDate"
+		type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The Date a rap back subscription was created.
 			</xsd:documentation>
@@ -331,7 +409,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionTermCode" type="notfm-ext:RBSubscriptionTermCodeType">
+	<xsd:element name="RapBackSubscriptionTermCode"
+		type="notfm-ext:RBSubscriptionTermCodeType">
 		<xsd:annotation>
 			<xsd:documentation>A representation of the length of a Rap Back
 				Subscription Term.
@@ -345,8 +424,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension base="notfm-ext:RBSubscriptionTermCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			<xsd:extension
+				base="notfm-ext:RBSubscriptionTermCodeSimpleType">
+				<xsd:attributeGroup
+					ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -389,7 +470,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackActivityNotificationIdentification"
+	<xsd:element
+		name="RapBackActivityNotificationIdentification"
 		type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identification assigned to a rap back
@@ -411,7 +493,8 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TriggeringEvent" type="notfm-ext:TriggeringEventType">
+	<xsd:element name="TriggeringEvent"
+		type="notfm-ext:TriggeringEventType">
 		<xsd:annotation>
 			<xsd:documentation>A rap back triggering event code.
 			</xsd:documentation>
@@ -428,25 +511,30 @@
 				<xsd:sequence>
 					<xsd:element ref="notfm-ext:RapBackEventDate"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:TriggeringEventRepresentation"
-						minOccurs="0" />
+					<xsd:element
+						ref="notfm-ext:TriggeringEventRepresentation" minOccurs="0" />
 					<xsd:element ref="notfm-ext:RapBackEventText"
 						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
+	<xsd:element name="TriggeringEventRepresentation"
+		abstract="true" />
 	<xsd:element name="FederalTriggeringEventCode"
-		substitutionGroup="notfm-ext:TriggeringEventRepresentation" type="notfm-ext:FederalTriggeringEventCodeSimpleType" />
+		substitutionGroup="notfm-ext:TriggeringEventRepresentation"
+		type="notfm-ext:FederalTriggeringEventCodeSimpleType" />
 	<xsd:complexType name="FederalTriggeringEventCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="notfm-ext:FederalTriggeringEventCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			<xsd:extension
+				base="notfm-ext:FederalTriggeringEventCodeSimpleType">
+				<xsd:attributeGroup
+					ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
+	<xsd:simpleType
+		name="FederalTriggeringEventCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="ARREST">
 				<xsd:annotation>

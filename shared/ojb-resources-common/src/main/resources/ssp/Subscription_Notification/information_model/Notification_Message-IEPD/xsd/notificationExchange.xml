@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<notfm-doc:NotificationMessage xmlns:Hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0" xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 notificationExchange.xsd ">
+  <notfm-ext:NotifyingArrest>
+    <notfm-ext:NotifyingActivityExtensions/>
+    <notfm-ext:NotifyingActivityReportingOrganization/>
+    <notfm-ext:NotifyingActivityReportingSystemNameText>notfm-ext:NotifyingActivityReportingSystemNameText</notfm-ext:NotifyingActivityReportingSystemNameText>
+    <notfm-ext:NotifyingActivityReportingSystemURI>http://tempuri.org</notfm-ext:NotifyingActivityReportingSystemURI>
+    <notfm-ext:RelatedFBISubscription/>
+    <notfm-ext:CriminalHistoryRecordDocument/>
+    <j:Arrest/>
+    <j:Incident/>
+    <j:Offense/>
+  </notfm-ext:NotifyingArrest>
+  <nc:ActivityInvolvedPersonAssociation>
+    <nc:ActivityReference/>
+    <nc:PersonReference/>
+    <nc:PersonActivityInvolvementText>nc:PersonActivityInvolvementText</nc:PersonActivityInvolvementText>
+  </nc:ActivityInvolvedPersonAssociation>
+  <notfm-doc:Person>
+    <nc:PersonAlternateName/>
+    <nc:PersonBirthDate/>
+    <nc:PersonEyeColorCode>BLK</nc:PersonEyeColorCode>
+    <nc:PersonHairColorCode>BLU</nc:PersonHairColorCode>
+    <nc:PersonHeightMeasure/>
+    <nc:PersonName/>
+    <nc:PersonRaceCode>A</nc:PersonRaceCode>
+    <nc:PersonSexCode>F</nc:PersonSexCode>
+    <nc:PersonSSNIdentification/>
+    <nc:PersonStateIdentification/>
+    <nc:PersonWeightMeasure/>
+    <notfm-doc:PersonStateFingerprintIdentification/>
+  </notfm-doc:Person>
+  <j:Person>
+    <nc:PersonAlternateName/>
+    <nc:PersonBirthDate/>
+    <nc:PersonEyeColorCode>BLK</nc:PersonEyeColorCode>
+    <nc:PersonHairColorCode>BLU</nc:PersonHairColorCode>
+    <nc:PersonHeightMeasure/>
+    <nc:PersonName/>
+    <nc:PersonRaceCode>A</nc:PersonRaceCode>
+    <nc:PersonSexCode>F</nc:PersonSexCode>
+    <nc:PersonSSNIdentification/>
+    <nc:PersonStateIdentification/>
+    <nc:PersonWeightMeasure/>
+    <j:PersonAugmentation/>
+  </j:Person>
+  <nc:Organization>
+    <nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
+    <nc:OrganizationPrimaryContactInformation/>
+  </nc:Organization>
+  <nc:ContactInformation>
+    <nc:ContactTelephoneNumber/>
+  </nc:ContactInformation>
+  <nc:PersonContactInformationAssociation>
+    <nc:PersonReference/>
+    <nc:ContactInformationReference/>
+  </nc:PersonContactInformationAssociation>
+  <j:PersonChargeAssociation>
+    <nc:PersonReference/>
+    <j:ChargeReference/>
+  </j:PersonChargeAssociation>
+  <j:ActivityChargeAssociation>
+    <nc:ActivityReference/>
+    <j:ChargeReference/>
+  </j:ActivityChargeAssociation>
+  <notfm-doc:ChargeDispositionAssociation>
+    <j:ChargeReference/>
+    <j:DispositionReference/>
+  </notfm-doc:ChargeDispositionAssociation>
+</notfm-doc:NotificationMessage>

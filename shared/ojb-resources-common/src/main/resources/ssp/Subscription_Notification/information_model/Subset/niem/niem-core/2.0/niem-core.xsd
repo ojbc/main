@@ -17,18 +17,18 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema targetNamespace="http://niem.gov/niem/niem-core/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+<xsd:schema targetNamespace="http://niem.gov/niem/niem-core/2.0" version="1" xml:lang="en-US" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:usps="http://niem.gov/niem/usps_states/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
   <xsd:annotation>
     <xsd:documentation>NIEM Core includes both Universal (U) and Common (C) components.  The identities for U and C components in Core are maintained with metadata.</xsd:documentation>
     <xsd:appinfo>
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
-  <xsd:import schemaLocation="../../fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
-  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
-  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
-  <xsd:import schemaLocation="../../usps_states/2.0/usps_states.xsd" namespace="http://niem.gov/niem/usps_states/2.0"/>
+  <xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../../appinfo/2.0/appinfo.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../fbi/2.0/fbi.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../proxy/xsd/2.0/xsd.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../structures/2.0/structures.xsd"/>
+  <xsd:import namespace="http://niem.gov/niem/usps_states/2.0" schemaLocation="../../usps_states/2.0/usps_states.xsd"/>
   <xsd:complexType name="ActivityInvolvedPersonAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between an activity and a person involved in that activity.</xsd:documentation>
@@ -62,8 +62,7 @@
   </xsd:complexType>
   <xsd:complexType name="ActivityType">
     <xsd:annotation>
-      <xsd:documentation>A data type for a single or set of related actions, events, or process steps.
-</xsd:documentation>
+      <xsd:documentation>A data type for a single or set of related actions, events, or process steps.\n</xsd:documentation>
       <xsd:appinfo>
         <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
       </xsd:appinfo>
@@ -581,6 +580,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="PersonOrganizationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a person and an organization.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:OrganizationReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="PersonResidenceAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between a person and a location where that person lives.</xsd:documentation>
@@ -739,8 +754,7 @@
   </xsd:attribute>
   <xsd:element name="ActivityReference" type="s:ReferenceType">
     <xsd:annotation>
-      <xsd:documentation>A single or set of related actions, events, or process steps.
-</xsd:documentation>
+      <xsd:documentation>A single or set of related actions, events, or process steps.\n</xsd:documentation>
       <xsd:appinfo>
         <i:ReferenceTarget i:name="ActivityType"/>
       </xsd:appinfo>
@@ -748,8 +762,7 @@
   </xsd:element>
   <xsd:element name="Activity" type="nc:ActivityType" nillable="true">
     <xsd:annotation>
-      <xsd:documentation>A single or set of related actions, events, or process steps.
-</xsd:documentation>
+      <xsd:documentation>A single or set of related actions, events, or process steps.\n</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ActivityCategoryText" type="nc:TextType" nillable="true">
@@ -1145,6 +1158,14 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="OrganizationReference" type="s:ReferenceType">
+    <xsd:annotation>
+      <xsd:documentation>A unit which conducts some sort of business or operations.</xsd:documentation>
+      <xsd:appinfo>
+        <i:ReferenceTarget i:name="OrganizationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="Organization" type="nc:OrganizationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A unit which conducts some sort of business or operations.</xsd:documentation>
@@ -1244,6 +1265,11 @@
       <xsd:documentation>A combination of names and/or titles by which a person is known.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="PersonOrganizationAssociation" type="nc:PersonOrganizationAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and an organization.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonRace" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A classification of a person based on factors such as geographical locations and genetics.</xsd:documentation>
@@ -1257,11 +1283,6 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
-  <xsd:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>A unique reference to a living person; assigned by the United States Social Security Administration.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
   <xsd:element name="PersonSex" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A gender or sex of a person.</xsd:documentation>
@@ -1273,6 +1294,11 @@
       <xsd:appinfo>
         <i:Base i:name="PersonSex"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A unique reference to a living person; assigned by the United States Social Security Administration.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonStateIdentification" type="nc:IdentificationType" nillable="true">
