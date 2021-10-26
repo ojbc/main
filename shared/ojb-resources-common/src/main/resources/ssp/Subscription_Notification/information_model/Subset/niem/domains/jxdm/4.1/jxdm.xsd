@@ -445,6 +445,33 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="SupervisionAugmentationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for additional information about a supervision.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:AugmentationType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SupervisionType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for type nc:SupervisionType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="SupervisionType"/>
+        <i2:AugmentedTypeIndicator>true</i2:AugmentedTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:SupervisionType">
+        <xsd:sequence>
+          <xsd:element ref="j:SupervisionAugmentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="TermType">
     <xsd:annotation>
       <xsd:documentation>A data type for a duration length either in specific terms or as a range.</xsd:documentation>
@@ -753,6 +780,22 @@
   <xsd:element name="StatuteText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>The full text of a statute or law.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Supervision" type="j:SupervisionType" substitutionGroup="nc:Supervision" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Applied augmentation for type nc:SupervisionType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Supervision"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SupervisionAugmentation" type="j:SupervisionAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Additional information about a supervision.</xsd:documentation>
+      <xsd:appinfo>
+        <i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="SupervisionType"/>
+      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="TermDuration" type="niem-xsd:duration" nillable="true">

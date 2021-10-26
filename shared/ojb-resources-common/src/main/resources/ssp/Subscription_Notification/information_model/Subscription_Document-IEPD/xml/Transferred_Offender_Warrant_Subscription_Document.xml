@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<submsg-doc:SubscriptionMessage
+	s20:id="A001" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:s20="http://niem.gov/niem/structures/2.0"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
+	<submsg-ext:SubscriptionRelatedCaseIdentification>
+		<nc20:IdentificationID>OCA Number</nc20:IdentificationID>
+	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:SubscribingOrganization>
+		<nc20:OrganizationPrimaryContactInformation
+			s20:id="CI001">
+			<nc20:ContactMailingAddress>
+				<nc20:StructuredAddress>
+					<nc20:LocationStateName>KS</nc20:LocationStateName>
+				</nc20:StructuredAddress>
+			</nc20:ContactMailingAddress>
+		</nc20:OrganizationPrimaryContactInformation>
+	</submsg-ext:SubscribingOrganization>
+	<submsg-ext:Subject>
+		<nc20:PersonBirthDate>
+			<nc20:Date>1972-08-02</nc20:Date>
+		</nc20:PersonBirthDate>
+		<nc20:PersonHairColorText>Blonde</nc20:PersonHairColorText>
+		<nc20:PersonHeightMeasure>
+			<nc20:MeasureText>6ft</nc20:MeasureText>
+		</nc20:PersonHeightMeasure>
+		<nc20:PersonName>
+			<nc20:PersonGivenName>John</nc20:PersonGivenName>
+			<nc20:PersonSurName>Doe</nc20:PersonSurName>
+			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+		</nc20:PersonName>
+		<!-- OFFENDER ID -->
+		<nc20:PersonOtherIdentification>
+			<nc20:IdentificationID>000000000</nc20:IdentificationID>
+		</nc20:PersonOtherIdentification>
+		<nc20:PersonRaceText></nc20:PersonRaceText>
+		<nc20:PersonSexCode>M</nc20:PersonSexCode>
+		<nc20:PersonSSNIdentification>
+			<nc20:IdentificationID>000000000</nc20:IdentificationID>
+		</nc20:PersonSSNIdentification>
+		<nc20:PersonWeightMeasure>
+			<nc20:MeasureText>240 lbs</nc20:MeasureText>
+		</nc20:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc20:IdentificationID>123456789</nc20:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</submsg-ext:Subject>
+	<nc20:ContactEmailID>jjones@ks.gov</nc20:ContactEmailID>
+	<submsg-ext:SystemName>portal</submsg-ext:SystemName>
+	<submsg-ext:SubscriptionQualifierIdentification>
+		<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc20:IdentificationID>
+	</submsg-ext:SubscriptionQualifierIdentification>
+	<nc20:DateRange>
+		<nc20:StartDate>
+			<nc20:Date>2014-06-20</nc20:Date>
+		</nc20:StartDate>
+		<nc20:EndDate>
+			<nc20:Date>2015-06-20</nc20:Date>
+		</nc20:EndDate>
+	</nc20:DateRange>
+	<!-- SENDING/SUBSCRIBER -->
+	<nc20:ActivityInvolvedPersonAssociation>
+		<nc20:ActivityReference s20:ref="A001" />
+		<nc20:PersonReference s20:ref="P001" />
+		<nc20:PersonActivityInvolvementText>Sending</nc20:PersonActivityInvolvementText>
+	</nc20:ActivityInvolvedPersonAssociation>
+	<!-- RECEIVING -->
+	<nc20:ActivityInvolvedPersonAssociation>
+		<nc20:ActivityReference s20:ref="A001" />
+		<nc20:PersonReference s20:ref="P002" />
+		<nc20:PersonActivityInvolvementText>Receiving</nc20:PersonActivityInvolvementText>
+	</nc20:ActivityInvolvedPersonAssociation>
+	<submsg-ext:Supervision>
+		<nc20:SupervisionSupervisor s20:id="S001" />
+		<submsg-ext:SupervisionDateRange>
+			<nc20:StartDate>
+				<nc20:Date>2018-03-23</nc20:Date>
+			</nc20:StartDate>
+			<nc20:EndDate>
+				<nc20:Date>2020-03-20</nc20:Date>
+			</nc20:EndDate>
+		</submsg-ext:SupervisionDateRange>
+	</submsg-ext:Supervision>
+	<nc20:Person s20:id="P001">
+		<nc20:PersonName>
+			<nc20:PersonGivenName>Joeseph</nc20:PersonGivenName>
+			<nc20:PersonMiddleName>E</nc20:PersonMiddleName>
+			<nc20:PersonSurName>Jones</nc20:PersonSurName>
+		</nc20:PersonName>
+	</nc20:Person>
+	<nc20:Person s20:id="P002">
+		<nc20:PersonName>
+			<nc20:PersonGivenName>Pat</nc20:PersonGivenName>
+			<nc20:PersonMiddleName>E</nc20:PersonMiddleName>
+			<nc20:PersonSurName>Connely</nc20:PersonSurName>
+		</nc20:PersonName>
+	</nc20:Person>
+	<j:Organization s20:id="N001">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc20:IdentificationID>MD101260001</nc20:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<nc20:ContactInformation s20:id="CI002">
+		<nc20:ContactEmailID>pconnely@mo.gov</nc20:ContactEmailID>
+		<nc20:ContactMailingAddress>
+			<nc20:StructuredAddress>
+				<nc20:LocationStateName>MO</nc20:LocationStateName>
+			</nc20:StructuredAddress>
+		</nc20:ContactMailingAddress>
+	</nc20:ContactInformation>
+	<nc20:ContactInformation s20:id="CI003">
+		<nc20:ContactEmailID>ssmith@ks.gov</nc20:ContactEmailID>
+	</nc20:ContactInformation>
+	<nc20:PersonContactInformationAssociation>
+		<nc20:PersonReference s20:ref="P001" />
+		<nc20:ContactInformationReference
+			s20:ref="CI001" />
+	</nc20:PersonContactInformationAssociation>
+	<nc20:PersonContactInformationAssociation>
+		<nc20:PersonReference s20:ref="S001" />
+		<nc20:ContactInformationReference
+			s20:ref="CI003" />
+	</nc20:PersonContactInformationAssociation>
+	<nc20:PersonOrganizationAssociation>
+		<nc20:PersonReference s20:ref="P001" />
+		<nc20:OrganizationReference s20:ref="N001" />
+	</nc20:PersonOrganizationAssociation>
+</submsg-doc:SubscriptionMessage>

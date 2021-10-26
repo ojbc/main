@@ -24,7 +24,9 @@
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0">
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
 	<b-2:NotificationMessage>
 		<b-2:SubscriptionReference>
 			<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
@@ -44,7 +46,7 @@
 			topics:person/arrest</b-2:Topic>
 		<!--Optional: -->
 		<b-2:ProducerReference>
-			<add:Address>http://www.hawaii.gov/arrestNotificationProducer
+			<add:Address>http://www.state.gov/arrestNotificationProducer
 			</add:Address>
 			<!--Optional: -->
 			<add:ReferenceParameters>
