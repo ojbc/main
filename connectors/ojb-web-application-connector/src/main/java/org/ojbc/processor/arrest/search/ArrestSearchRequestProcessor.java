@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 @Configuration
 @Profile("arrest-search")
 public class ArrestSearchRequestProcessor extends RequestResponseProcessor implements CamelContextAware{
-	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
+	private static final Log log = LogFactory.getLog( ArrestSearchRequestProcessor.class );
 	/**
 	 * Camel context needed to use producer template to send messages
 	 */
@@ -102,14 +102,14 @@ public class ArrestSearchRequestProcessor extends RequestResponseProcessor imple
 		
 		String response = pollMap(federatedQueryID);
 		
-		if (response.length() > 500)
-		{	
-			log.debug("Here is the response (truncated): " + response.substring(0,500));
-		}
-		else
-		{
+//		if (response.length() > 500)
+//		{	
+//			log.debug("Here is the response (truncated): " + response.substring(0,500));
+//		}
+//		else
+//		{
 			log.debug("Here is the response: " + response);
-		}
+//		}
 		
 		//return response here
 		return response;
