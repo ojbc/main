@@ -56,7 +56,7 @@
                     <!--You may enter ANY elements at this point-->
                 </b:ProducerReference>
                 <b:Message>
-					<t:NotificationMessage 
+					<tns:NotificationMessage 
 						xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
 						xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
 						xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 

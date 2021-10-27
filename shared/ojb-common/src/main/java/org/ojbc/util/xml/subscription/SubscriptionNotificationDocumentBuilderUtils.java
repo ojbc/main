@@ -400,14 +400,14 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		String gender = subscription.getSex();
 		
-		if(!(gender.isEmpty())) {
+		if(StringUtils.isNotBlank(gender)){
 			Element genderNode = XmlUtils.appendElement(subjectNode, OjbcNamespaceContext.NS_NC, "Sex");
 			genderNode.setTextContent(gender);
 		}
 		
 		String race = subscription.getRace();
 		
-		if(!(race.isEmpty())) {
+		if(StringUtils.isNotBlank(race)) {
 			XmlUtils.appendTextElement(subjectNode, OjbcNamespaceContext.NS_NC, "Race", race);
 		}
 		

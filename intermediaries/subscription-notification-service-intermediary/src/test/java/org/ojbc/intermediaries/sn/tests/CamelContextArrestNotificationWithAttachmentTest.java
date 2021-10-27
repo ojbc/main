@@ -17,6 +17,7 @@
 package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertNotNull;
+
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
