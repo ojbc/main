@@ -209,6 +209,22 @@ public class SubscriptionSearchQueryDAO {
         return subscriptions;
     }
     
+    /**
+     * Search for subscription by the topic of the subscription.
+     * @param topic the topic of the subscription
+     * @return the list of matching subscription objects
+     */
+    public List<Subscription> searchForSubscriptionsByTopic(String topic) {
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
+    	parameters.addValue("topic", topic);
+    	
+    	String sqlQuery = BASE_QUERY_STRING + " and s.topic=:topic";
+    	
+    	List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
+    	
+    	return subscriptions;
+    }
+    
     public List<String> returnAgencyProfileEmailForSubscription(String subscriptionId, String subscriptionCategory)
     {
 		String sql = "select ace.AGENCY_EMAIL from subscription s, subscription_owner so, agency_profile ap, agency_contact_email ace, AGENCY_CONTACT_EMAIL_JOINER acej,"
@@ -472,7 +488,8 @@ public class SubscriptionSearchQueryDAO {
         return ret;
 
     }
-
+    
+    
     /**
      * Retrieves subscriptions that matches the specified subscribing system, the specified owner, and the specified subject
      * 
