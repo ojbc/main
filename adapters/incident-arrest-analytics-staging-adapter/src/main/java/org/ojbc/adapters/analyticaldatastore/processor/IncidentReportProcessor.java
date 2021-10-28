@@ -244,6 +244,11 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 
 		}	
 		
+		
+		String incidentCategoryCodeText = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:IncidentCategoryCode");
+		log.debug("Incident Category Code Text: " + incidentCategoryCodeText);
+		incident.setIncidentCategoryCode(incidentCategoryCodeText);
+		
 		Integer incidentPk = analyticalDatastoreDAO.saveIncident(incident);
 
 		//Add Incident Description Text

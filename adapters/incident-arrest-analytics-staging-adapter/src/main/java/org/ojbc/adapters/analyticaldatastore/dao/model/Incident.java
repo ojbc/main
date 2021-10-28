@@ -43,6 +43,16 @@ public class Incident {
 	
     private String incidentDescriptionText;
     
+    private String incidentCategoryCode;
+    
+	public String getIncidentCategoryCode() {
+		return incidentCategoryCode;
+	}
+
+	public void setIncidentCategoryCode(String incidentCategoryCode) {
+		this.incidentCategoryCode = incidentCategoryCode;
+	}
+
 	private char recordType;
 
 	private String reportingSystem;
