@@ -304,6 +304,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_SCREENING = "screening";
 	public static final String NS_SCREENING = "http://niem.gov/niem/domains/screening/2.0";
 	public static final String NS_PREFIX_SCREENING_21 = "screening21";
+	
+	public static final String NS_N2 = "http://www.nlets.org/niem/1.0";
+	public static final String NS_PREFIX_N2 = "n2";
+	public static final String NS_NH2 = "http://www.nlets.org/niem/nlets-hdr/1.0";
+	public static final String NS_PREFIX_NH2 = "nh2";
+	
 	public static final String NS_SCREENING_21 = "http://niem.gov/niem/domains/screening/2.1";
 
 	public static final String NS_JXDM_41 = "http://niem.gov/niem/domains/jxdm/4.1";
