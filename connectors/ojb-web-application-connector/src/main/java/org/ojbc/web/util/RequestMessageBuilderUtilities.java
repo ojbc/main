@@ -1262,8 +1262,8 @@ public class RequestMessageBuilderUtilities {
         document.appendChild(rootElement);
 
         XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "IncludeOnlyAdminOwnedChargesIndicator", 
-			BooleanUtils.toString(arrestSearchRequest.getIncludeOnlyAdminOwnedCharges(), "true", "false", "false"));
-
+        		BooleanUtils.toString(arrestSearchRequest.getIncludeOnlyAdminOwnedCharges(), "true", "false", "false"));
+	
         if (arrestSearchRequest.getPendingChargeIndicators() != null && arrestSearchRequest.getPendingChargeIndicators().size()>0){
         	for (String indicator: arrestSearchRequest.getPendingChargeIndicators()) {
         		switch (indicator) {
@@ -1396,17 +1396,17 @@ public class RequestMessageBuilderUtilities {
         		}
         	}
 //        		<chsreq-ext:SourceSystemNameText>CH1</chsreq-ext:SourceSystemNameText>
-        	XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
-        			"{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest");
-        	Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
-        	XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
-        	XmlUtils.appendTextElement(exactMatchMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
-        	
-        	Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
-        	XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
-        	XmlUtils.appendTextElement(startsWithMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
         	
         }
+        XmlUtils.appendTextElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SourceSystemNameText", 
+        		"{http://ojbc.org/Services/WSDL/CriminalHistorySearchRequestService/1.0}SubmitCriminalHistorySearchRequest");
+        Element exactMatchMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+        XmlUtils.addAttribute(exactMatchMetaData, NS_STRUCTURES_40, "id", "SM001");
+        XmlUtils.appendTextElement(exactMatchMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.ExactMatch.getMetadata());
+        
+        Element startsWithMetaData = XmlUtils.appendElement(rootElement, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchMetadata");
+        XmlUtils.addAttribute(startsWithMetaData, NS_STRUCTURES_40, "id", "SM002");
+        XmlUtils.appendTextElement(startsWithMetaData, NS_CRIMINAL_HISTORY_SEARCH_REQUEST_EXT, "SearchQualifierCode", SearchFieldMetadata.StartsWith.getMetadata());
 		return document;
 	}
 //<adsreq-doc:ArrestDetailSearchRequest
