@@ -132,7 +132,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setDate(7, new java.sql.Date(inboundIncident.getIncidentDate().getTime()));
         	            ps.setTime(8, new java.sql.Time(inboundIncident.getIncidentDate().getTime()));
         	            ps.setString(9, inboundIncident.getIncidentCategoryCode());
-        	            ps.setString(10, inboundIncident.getIncidentDescriptionText());
+        	            ps.setString(10, inboundIncident.getIncidentDispositionCodeText());
         	            ps.setString(11, inboundIncident.getReportingSystem());
         	            ps.setString(12, String.valueOf(inboundIncident.getRecordType()));
         	            
