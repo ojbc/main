@@ -100,17 +100,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	            if (inboundIncident.getIncidentID() == null){	
-        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
-            	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
+            	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
         	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","IncidentDispositionCodeText", "ReportingSystem","RecordType"};	
         	            }	
         	            else{
-        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
-            	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
+            	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
         	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode", "IncidentDispositionCodeText", "ReportingSystem","RecordType", "IncidentID"};	
         	            }	
         	        	
@@ -123,22 +123,30 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            {
         	            	ps.setNull(1, java.sql.Types.NULL);
         	            }	
+        	            
+        	            if (inboundIncident.getTroopID() != null){
+        	            	ps.setInt(2, inboundIncident.getTroopID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(2, java.sql.Types.NULL);
+        	            }	        	            
 
-        	            ps.setString(2, inboundIncident.getIncidentCaseNumber());
-        	            ps.setBigDecimal(3, inboundIncident.getIncidentLocationLatitude());
-        	            ps.setBigDecimal(4, inboundIncident.getIncidentLocationLongitude());
-        	            ps.setString(5, inboundIncident.getIncidentLocationStreetAddress());
-        	            ps.setString(6, inboundIncident.getIncidentLocationTown());
-        	            ps.setDate(7, new java.sql.Date(inboundIncident.getIncidentDate().getTime()));
-        	            ps.setTime(8, new java.sql.Time(inboundIncident.getIncidentDate().getTime()));
-        	            ps.setString(9, inboundIncident.getIncidentCategoryCode());
-        	            ps.setString(10, inboundIncident.getIncidentDispositionCodeText());
-        	            ps.setString(11, inboundIncident.getReportingSystem());
-        	            ps.setString(12, String.valueOf(inboundIncident.getRecordType()));
+        	            ps.setString(3, inboundIncident.getIncidentCaseNumber());
+        	            ps.setBigDecimal(4, inboundIncident.getIncidentLocationLatitude());
+        	            ps.setBigDecimal(5, inboundIncident.getIncidentLocationLongitude());
+        	            ps.setString(6, inboundIncident.getIncidentLocationStreetAddress());
+        	            ps.setString(7, inboundIncident.getIncidentLocationTown());
+        	            ps.setDate(8, new java.sql.Date(inboundIncident.getIncidentDate().getTime()));
+        	            ps.setTime(9, new java.sql.Time(inboundIncident.getIncidentDate().getTime()));
+        	            ps.setString(10, inboundIncident.getIncidentCategoryCode());
+        	            ps.setString(11, inboundIncident.getIncidentDispositionCodeText());
+        	            ps.setString(12, inboundIncident.getReportingSystem());
+        	            ps.setString(13, String.valueOf(inboundIncident.getRecordType()));
         	            
         	            if (inboundIncident.getIncidentID() != null)
         	            {	
-        	            	ps.setInt(13, inboundIncident.getIncidentID());
+        	            	ps.setInt(14, inboundIncident.getIncidentID());
         	            }	
         	            
         	            return ps;
@@ -816,6 +824,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			}	
 			
 			return agency.getAgencyID();
+			
+	}
+	
+	@Override
+	public Integer searchForTroopIDbyTroopName(String troopName) {
+			String sql = "select TroopID from Troop where TroopName = ?";
+			
+			Integer troopID = (Integer) jdbcTemplate.queryForObject(
+					sql, Integer.class, troopName);
+			
+			return troopID;
 			
 	}
 	

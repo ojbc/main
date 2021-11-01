@@ -56,6 +56,11 @@ CREATE TABLE Agency (
                 CONSTRAINT AgencyID PRIMARY KEY (AgencyID)
 );
 
+CREATE TABLE Troop (
+                TroopID INT AUTO_INCREMENT NOT NULL,
+                TroopName VARCHAR(40) NOT NULL,
+                PRIMARY KEY (TroopID)
+);
 
 CREATE TABLE County (
                 CountyID IDENTITY NOT NULL,
@@ -140,6 +145,7 @@ COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to p
 CREATE TABLE Incident (
                 IncidentID IDENTITY NOT NULL,
                 ReportingAgencyID INTEGER NOT NULL,
+                ReportingTroopID INT,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 IncidentLocationLatitude NUMERIC(14,10),
                 IncidentLocationLongitude NUMERIC(14,10),
@@ -242,6 +248,12 @@ ON UPDATE NO ACTION;
 ALTER TABLE Incident ADD CONSTRAINT Agency_Incident_fk
 FOREIGN KEY (ReportingAgencyID)
 REFERENCES Agency (AgencyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE Incident ADD CONSTRAINT troop_incident_fk
+FOREIGN KEY (ReportingTroopID)
+REFERENCES Troop (TroopID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

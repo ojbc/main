@@ -90,6 +90,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
+	public Integer searchForTroopIDbyTroopName(String troopName);
+	
 	public Person getPerson(Integer personId);
 
 	public void savePretrialServiceAssociations(

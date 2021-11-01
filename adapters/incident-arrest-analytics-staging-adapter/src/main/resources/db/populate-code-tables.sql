@@ -30,6 +30,9 @@ insert into PersonRace(PersonRaceDescription) values('W');
 insert into Agency(AgencyName, AgencyORI) values ('Placeholder Agency Name', 'ST123');
 insert into Agency(AgencyName, AgencyORI) values ('Some PD', '99999');
 
+-- Troop - placeholders
+insert into Troop(TroopName) values ('Placeholder Troop Name');
+
 -- AssessedNeed - adding code table values
 insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('1','Housing');
 insert into AssessedNeed (AssessedNeedID, AssessedNeedDescription) values('2', 'Substance Abuse');

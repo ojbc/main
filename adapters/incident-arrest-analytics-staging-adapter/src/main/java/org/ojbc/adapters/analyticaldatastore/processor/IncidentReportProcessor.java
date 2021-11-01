@@ -94,6 +94,27 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 					", Agency ORI is: " + StringUtils.trimToEmpty(reportingAgencyORI));
 		}
 		
+		//Save Troop if it exists
+		String troop = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:EnforcementUnit/jxdm40:EnforcementUnitNumberIdentification");
+		log.debug("Troop: " + troop);
+
+		Integer troopId = null;
+				
+		if (StringUtils.isNotBlank(troop))
+		{
+			troopId = analyticalDatastoreDAO.searchForTroopIDbyTroopName(troop);
+			
+			if (troopId == null)
+			{
+				log.error("Unable to find troop information for: " + troop);
+			}	
+			else
+			{	
+				incident.setTroopID(troopId);
+			}
+		}
+
+		
 		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
 		log.debug("Incident Case Number: " + incidentCaseNumber);
 		

@@ -30,7 +30,10 @@ public class Incident {
 	
 	//fk to Agency table
 	private Integer reportingAgencyID;
-		
+
+	//fk to Troop table
+	private Integer troopID;
+
 	private Date incidentDate;
 	private Time incidentTime;
 	
@@ -163,6 +166,14 @@ public class Incident {
 	public void setReportingSystem(String reportingSystem) {
 		this.reportingSystem = reportingSystem;
 	}
+	
+	public Integer getTroopID() {
+		return troopID;
+	}
+
+	public void setTroopID(Integer troopID) {
+		this.troopID = troopID;
+	}	
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
