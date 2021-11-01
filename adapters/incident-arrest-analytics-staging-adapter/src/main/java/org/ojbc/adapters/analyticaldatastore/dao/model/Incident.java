@@ -45,6 +45,16 @@ public class Incident {
     
     private String incidentCategoryCode;
     
+    private String incidentDispositionCodeText;
+    
+	public String getIncidentDispositionCodeText() {
+		return incidentDispositionCodeText;
+	}
+
+	public void setIncidentDispositionCodeText(String incidentDispositionCodeText) {
+		this.incidentDispositionCodeText = incidentDispositionCodeText;
+	}
+
 	public String getIncidentCategoryCode() {
 		return incidentCategoryCode;
 	}

@@ -101,17 +101,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	
         	            if (inboundIncident.getIncidentID() == null){	
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?)";
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","ReportingSystem","RecordType"};	
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","IncidentDispositionCodeText", "ReportingSystem","RecordType"};	
         	            }	
         	            else{
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"ReportingAgencyID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode","ReportingSystem","RecordType", "IncidentID"};	
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode", "IncidentDispositionCodeText", "ReportingSystem","RecordType", "IncidentID"};	
         	            }	
         	        	
         	            PreparedStatement ps =
@@ -132,12 +132,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setDate(7, new java.sql.Date(inboundIncident.getIncidentDate().getTime()));
         	            ps.setTime(8, new java.sql.Time(inboundIncident.getIncidentDate().getTime()));
         	            ps.setString(9, inboundIncident.getIncidentCategoryCode());
-        	            ps.setString(10, inboundIncident.getReportingSystem());
-        	            ps.setString(11, String.valueOf(inboundIncident.getRecordType()));
+        	            ps.setString(10, inboundIncident.getIncidentDescriptionText());
+        	            ps.setString(11, inboundIncident.getReportingSystem());
+        	            ps.setString(12, String.valueOf(inboundIncident.getRecordType()));
         	            
         	            if (inboundIncident.getIncidentID() != null)
         	            {	
-        	            	ps.setInt(12, inboundIncident.getIncidentID());
+        	            	ps.setInt(13, inboundIncident.getIncidentID());
         	            }	
         	            
         	            return ps;

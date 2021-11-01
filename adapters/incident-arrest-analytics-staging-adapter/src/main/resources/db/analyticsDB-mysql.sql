@@ -153,6 +153,7 @@ CREATE TABLE Incident (
                 IncidentDate DATE NOT NULL,
                 IncidentTime TIME NOT NULL,
                 IncidentCategoryCode VARCHAR(100),
+                IncidentDispositionCodeText VARCHAR(100),
                 ReportingSystem VARCHAR(30) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

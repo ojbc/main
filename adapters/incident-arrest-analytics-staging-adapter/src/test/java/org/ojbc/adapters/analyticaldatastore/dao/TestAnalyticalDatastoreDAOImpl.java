@@ -130,6 +130,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setIncidentLocationTown("Town");
 		incident.setReportingSystem("RMS");
 		incident.setIncidentCategoryCode("Category Code");
+		incident.setIncidentDispositionCodeText("Incident Disposition");
 		
 		//Explicitly set incident ID and make sure database honors it
 		incident.setIncidentID(new Integer(999999999));
