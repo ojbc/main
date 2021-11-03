@@ -198,6 +198,13 @@ CREATE TABLE IncidentCircumstance (
                 CONSTRAINT IncidentCircumstance_pk PRIMARY KEY (IncidentCircumstanceID)
 );
 
+CREATE TABLE IncidentOffense (
+                IncidentOffenseID IDENTITY NOT NULL,
+                IncidentID INTEGER NOT NULL,
+                IncidentOffenseCode VARCHAR(80) NOT NULL,
+                IncidentOffenseText VARCHAR(80) NOT NULL,
+                CONSTRAINT IncidentOffenseID PRIMARY KEY (IncidentOffenseID)
+);
 
 CREATE TABLE Arrest (
                 ArrestID IDENTITY NOT NULL,
@@ -306,6 +313,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE IncidentCircumstance ADD CONSTRAINT Incident_IncidentCircumstance_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentOffense ADD CONSTRAINT Incident_IncidentOffense_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION

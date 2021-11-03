@@ -27,8 +27,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import junit.framework.Assert;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -42,6 +40,8 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentOffense;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -52,6 +52,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
@@ -156,6 +158,14 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int incidentCircumstancePk = analyticalDatastoreDAOImpl.saveIncidentCircumstance(incidentCircumstance);
 		assertEquals(1, incidentCircumstancePk);
 
+		IncidentOffense incidentOffense = new IncidentOffense();
+		incidentOffense.setIncidentID(incidentPk);
+		incidentOffense.setIncidentOffenseCode("offense code");
+		incidentOffense.setIncidentOffenseText("offense text");
+		
+		int incidentOffensePk = analyticalDatastoreDAOImpl.saveIncidentOffense(incidentOffense);
+		assertEquals(1, incidentOffensePk);
+		
 
 		Person person = returnPerson();
 		

@@ -28,11 +28,12 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentOffense;
 import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.lucene.personid.IdentifierGenerationStrategy;
@@ -282,6 +283,9 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		//Save circumstance codes
 		processCircumstanceCodes(incidentReport, incidentPk);
 		
+		//Save incident offenses
+		processIncidentOffenses(incidentReport, incidentPk);
+		
 		processArrests(incidentReport, incidentPk, reportingSystem);
 		
 		processTrafficStopData(incidentReport, incidentPk);
@@ -411,6 +415,51 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		}	
 		
 	}
+	
+
+	private void processIncidentOffenses(Document incidentReport,
+			Integer incidentPk) throws Exception{
+		
+		//<ndexia:Offense>
+		//    <ndexia:ActivityAugmentation>
+		//        <lexslib:SameAsDigestReference lexslib:ref="OFFENSE01"/>
+		//    </ndexia:ActivityAugmentation>
+		//	  <j:Statute>
+		//		<j:StatuteCodeIdentification>
+		//			<nc:IdentificationID>ABC123</nc:IdentificationID>
+		//		</j:StatuteCodeIdentification>
+		//	  </j:Statute>
+		//	  <ndexia:OffenseCode>Violation of a Court Order</ndexia:OffenseCode>
+		//    <ndexia:OffenseText>Offense Text</ndexia:OffenseText>
+		//</ndexia:Offense>
+		
+		NodeList ndexOffenses = XmlUtils.xPathNodeListSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/ndexia:IncidentReport/ndexia:Offense");
+		
+	    if (ndexOffenses == null || ndexOffenses.getLength() == 0) 
+	    {
+			log.debug("No ndex offenses in document");
+			return;
+	    }
+		
+		for (int i = 0; i < ndexOffenses.getLength(); i++) 
+		{
+			IncidentOffense incidentOffense = new IncidentOffense();
+			
+			String offenseCode = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "//ndexia:OffenseCode");
+			String offenseText = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "//ndexia:OffenseText");
+			
+			log.debug("Incident Offense code: " + offenseCode);
+			log.debug("Incident Offense text: " + offenseText);
+			
+			incidentOffense.setIncidentID(incidentPk);
+			incidentOffense.setIncidentOffenseCode(offenseCode);
+			incidentOffense.setIncidentOffenseText(offenseText);
+			
+			analyticalDatastoreDAO.saveIncidentOffense(incidentOffense);
+			
+		}	
+		
+	}	
 
 	protected void processArrests(Document incidentReport, Integer incidentPk, String reportingSystem)
 			throws Exception {

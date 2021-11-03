@@ -36,6 +36,8 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentOffense;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -956,6 +958,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	String INCIDENT_CIRCUMSTANCE_DELETE = "delete from IncidentCircumstance where IncidentID = ?";
 	String INCIDENT_TYPE_DELETE = "delete from IncidentType where IncidentID = ?";
 	String INCIDENT_TRAFFIC_STOP_DELETE = "delete from TrafficStop where IncidentID = ?";
+	String INCIDENT_OFFENSE_DELETE = "delete from IncidentOffense where IncidentID = ?";
 	@Override
 	public void deleteIncident(Integer incidentID) throws Exception{
 		 
@@ -975,6 +978,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		jdbcTemplate.update(INCIDENT_CIRCUMSTANCE_DELETE, incidentID);
 		jdbcTemplate.update(INCIDENT_TYPE_DELETE,incidentID);
 		jdbcTemplate.update(INCIDENT_TRAFFIC_STOP_DELETE, incidentID);
+		jdbcTemplate.update(INCIDENT_OFFENSE_DELETE, incidentID);
 		int resultSize = this.jdbcTemplate.update(INCIDENT_DELETE, incidentID);
 		
 		if (resultSize == 0)
@@ -1094,5 +1098,28 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		List<TrafficStop> TrafficStops = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new TrafficStopRowMapper());
 		
 		return TrafficStops;
+	}
+
+	@Override
+	public Integer saveIncidentOffense(IncidentOffense incidentOffense) {
+        log.debug("Inserting row into IncidentOffense table");
+
+        final String incidentOffenseInsertStatement="INSERT into IncidentOffense (IncidentOffenseCode,IncidentOffenseText, IncidentID) values (?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(incidentOffenseInsertStatement, new String[] {"IncidentOffenseCodeID"});
+        	            ps.setString(1, incidentOffense.getIncidentOffenseCode());
+        	            ps.setString(2, incidentOffense.getIncidentOffenseText());
+        	            ps.setInt(3, incidentOffense.getIncidentID());
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
 	}
 }

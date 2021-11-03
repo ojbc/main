@@ -204,6 +204,13 @@ CREATE TABLE IncidentCircumstance (
                 PRIMARY KEY (IncidentCircumstanceID)
 );
 
+CREATE TABLE IncidentOffense (
+                IncidentOffenseID INT AUTO_INCREMENT NOT NULL,
+                IncidentID INT NOT NULL,
+                IncidentOffenseCode VARCHAR(80) NOT NULL,
+                IncidentOffenseText VARCHAR(80) NOT NULL,
+                PRIMARY KEY (IncidentOffenseID)
+);
 
 CREATE TABLE Arrest (
                 ArrestID INT AUTO_INCREMENT NOT NULL,
@@ -312,6 +319,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE IncidentCircumstance ADD CONSTRAINT incident_incidentcircumstance_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentOffense ADD CONSTRAINT incident_incidentoffense_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
