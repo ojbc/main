@@ -1054,6 +1054,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_N2, NS_N2);
+		uriToPrefixMap.put(NS_N2, NS_PREFIX_N2);
+		
+		prefixToUriMap.put(NS_PREFIX_NH2, NS_NH2);
+		uriToPrefixMap.put(NS_NH2, NS_PREFIX_NH2);
 
 		prefixToUriMap.put(NS_PREFIX_INTEL_40, NS_INTEL_40);
 		uriToPrefixMap.put(NS_INTEL_40, NS_PREFIX_INTEL_40);

@@ -214,11 +214,11 @@ public class SubscriptionSearchQueryDAO {
      * @param topic the topic of the subscription
      * @return the list of matching subscription objects
      */
-    public List<Subscription> searchForSubscriptionsByTopic(String topic) {
+    public List<Subscription> searchForSubscriptionsByTopic(@Header("topic") String topic) {
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("topic", topic);
     	
-    	String sqlQuery = BASE_QUERY_STRING + " and s.topic=:topic";
+    	String sqlQuery = BASE_QUERY_STRING + " and s.topic= :topic and s.active=1";
     	
     	List<Subscription> subscriptions = this.jdbcTemplateNamedParameter.query(sqlQuery, parameters, resultSetExtractor);
     	
