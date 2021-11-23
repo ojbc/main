@@ -44,6 +44,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="ActivityOrganizationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an a association between an activity and an organization.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ActivityReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:OrganizationReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="ActivityPersonAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between an activity and a person.</xsd:documentation>
@@ -390,6 +406,7 @@
       <xsd:extension base="nc:ActivityType">
         <xsd:sequence>
           <xsd:element ref="nc:IncidentLocation" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:IncidentJurisdictionalOrganization" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -815,6 +832,11 @@
       <xsd:documentation>An association between an activity and a person involved in that activity.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ActivityResponsibleOrganizationAssociation" type="nc:ActivityOrganizationAssociationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An association between an activity and an organization with responsibility over that activity.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="AddressDeliveryPoint" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A single place or unit at which mail is delivered.</xsd:documentation>
@@ -1044,6 +1066,11 @@
   <xsd:element name="Incident" type="nc:IncidentType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An occurrence or an event that may require a response.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IncidentJurisdictionalOrganization" type="nc:OrganizationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An organization or agency who has jurisdiction over an incident.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="IncidentLocation" type="nc:LocationType" nillable="true">

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<notfm-doc:NotificationMessage
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
+	<notfm-ext:NotifyingWanted s:id="A001">
+		<notfm-ext:NotifyingActivityReportingSystemNameText>notfm-ext:NotifyingActivityReportingSystemNameText
+		</notfm-ext:NotifyingActivityReportingSystemNameText>
+		<notfm-ext:NotifyingActivityReportingSystemURI>http://tempuri.org
+		</notfm-ext:NotifyingActivityReportingSystemURI>
+		<j:Warrant />
+		<nc:Incident s:id="I001">
+			<nc:IncidentJurisdictionalOrganization />
+		</nc:Incident>
+		<j:Offense>
+			<nc:ActivityDescriptionText>Robbery</nc:ActivityDescriptionText>
+		</j:Offense>
+		<notfm-ext:NotifyingOrganizationReference
+			s:ref="N001" />
+	</notfm-ext:NotifyingWanted>
+	<nc:ActivityInvolvedPersonAssociation>
+		<nc:ActivityReference s:ref="A001" />
+		<nc:PersonReference s:ref="P001" />
+		<nc:PersonActivityInvolvementText>Sending</nc:PersonActivityInvolvementText>
+	</nc:ActivityInvolvedPersonAssociation>
+	<nc:ActivityInvolvedPersonAssociation>
+		<nc:ActivityReference s:ref="A001" />
+		<nc:PersonReference s:ref="P002" />
+		<nc:PersonActivityInvolvementText>Receiving</nc:PersonActivityInvolvementText>
+	</nc:ActivityInvolvedPersonAssociation>
+	<nc:ActivityInvolvedPersonAssociation>
+		<nc:ActivityReference s:ref="A001" />
+		<nc:PersonReference s:ref="P003" />
+		<nc:PersonActivityInvolvementText>Subject</nc:PersonActivityInvolvementText>
+	</nc:ActivityInvolvedPersonAssociation>
+	<nc:ActivityResponsibleOrganizationAssociation>
+		<nc:ActivityReference s:ref="I001" />
+		<nc:OrganizationReference s:ref="N004" />
+	</nc:ActivityResponsibleOrganizationAssociation>
+	<notfm-doc:Person s:id="P001">
+		<nc:PersonName>
+			<nc:PersonGivenName>Joeseph</nc:PersonGivenName>
+			<nc:PersonMiddleName>E</nc:PersonMiddleName>
+			<nc:PersonSurName>Jones</nc:PersonSurName>
+		</nc:PersonName>
+	</notfm-doc:Person>
+	<notfm-doc:Person s:id="P002">
+		<nc:PersonName>
+			<nc:PersonGivenName>Pat</nc:PersonGivenName>
+			<nc:PersonMiddleName>E</nc:PersonMiddleName>
+			<nc:PersonSurName>Connely</nc:PersonSurName>
+		</nc:PersonName>
+	</notfm-doc:Person>
+	<notfm-doc:Person s:id="P003">
+		<nc:PersonBirthDate>
+			<nc:Date>1990-03-24</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonName>
+			<nc:PersonGivenName>Kim</nc:PersonGivenName>
+			<nc:PersonMiddleName>S</nc:PersonMiddleName>
+			<nc:PersonSurName>Jones</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonOtherIdentification>
+		<nc:PersonRaceCode>I</nc:PersonRaceCode>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>111111111</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>230</nc:MeasureText>
+		</nc:PersonWeightMeasure>
+	</notfm-doc:Person>
+	<j:Organization s:id="N001">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>MD101260001</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<j:Organization s:id="N002">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>MD10126002</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<j:Organization s:id="N003">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>MD10126003</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<j:Organization s:id="N004">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>UT025021J</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</j:Organization>
+	<nc:ContactInformation s:id="CI001">
+		<nc:ContactEmailID>jjones@ks.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="CI002">
+		<nc:ContactEmailID>pconnely@mo.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<nc:PersonContactInformationAssociation>
+		<nc:PersonReference s:ref="P001" />
+		<nc:ContactInformationReference
+			s:ref="CI001" />
+	</nc:PersonContactInformationAssociation>
+	<nc:PersonContactInformationAssociation>
+		<nc:PersonReference s:ref="P002" />
+		<nc:ContactInformationReference
+			s:ref="CI002" />
+	</nc:PersonContactInformationAssociation>
+	<nc:PersonContactInformationAssociation>
+		<nc:PersonReference s:ref="P002" />
+		<nc:ContactInformationReference
+			s:ref="CI002" />
+	</nc:PersonContactInformationAssociation>
+	<nc:PersonOrganizationAssociation>
+		<nc:PersonReference s:ref="P001" />
+		<nc:OrganizationReference s:ref="N002" />
+	</nc:PersonOrganizationAssociation>
+	<nc:PersonOrganizationAssociation>
+		<nc:PersonReference s:ref="P002" />
+		<nc:OrganizationReference s:ref="N003" />
+	</nc:PersonOrganizationAssociation>
+</notfm-doc:NotificationMessage>

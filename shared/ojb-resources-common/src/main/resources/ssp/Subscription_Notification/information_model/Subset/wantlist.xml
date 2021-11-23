@@ -50,6 +50,8 @@
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityInvolvedPersonAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ActivityResponsibleOrganizationAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressFullText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:BinaryBase64Object" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="false"/>
@@ -70,6 +72,7 @@
   <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:FullTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:HighwayFullText" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Incident" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ItemColor" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationHighway" w:isReference="false" w:nillable="true"/>
@@ -694,6 +697,12 @@
     <w:ElementInType w:name="nc:PersonActivityInvolvementText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="nc:ActivityOrganizationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Organization" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="1"/>
@@ -793,6 +802,8 @@
   <w:Type w:name="nc:IncidentType" w:isRequested="true">
     <w:ElementInType w:name="nc:IncidentLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IncidentJurisdictionalOrganization"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ItemRegistrationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ItemRegistration" w:isReference="true"

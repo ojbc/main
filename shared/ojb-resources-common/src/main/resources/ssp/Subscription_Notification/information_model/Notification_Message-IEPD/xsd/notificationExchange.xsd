@@ -40,6 +40,7 @@
 				<xsd:sequence>
 					<xsd:element ref="notfm-ext:NotifyingActivity" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ActivityResponsibleOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />					
 					<xsd:element ref="notfm-doc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
