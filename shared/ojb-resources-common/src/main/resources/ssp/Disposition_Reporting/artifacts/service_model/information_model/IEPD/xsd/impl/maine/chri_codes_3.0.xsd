@@ -861,6 +861,8 @@
 			<xsd:enumeration value="VACATED" />
 			<xsd:enumeration value="WITHDRAWN" />
 			<xsd:enumeration value="WITNESS UNAVAILABLE" />
+<!-- ADDED 11/29/21  -->
+			<xsd:enumeration value="AMENDED" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventActionCodeType">
@@ -1108,7 +1110,9 @@
 			<xsd:enumeration value="PROBATION REVOKED"/>
 			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - CONTINUED"/>
 			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - TERMINATED"/>
-			<xsd:enumeration value="SUPERVISED RELEASE REVOKED" />								
+			<xsd:enumeration value="SUPERVISED RELEASE REVOKED" />
+<!-- ADDED 11/29/21  -->
+			<xsd:enumeration value="DISMISSED AFTER DEFERRED DISPOSITION" />											
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventStatusCodeType">
