@@ -32,9 +32,7 @@
 		<notfm-ext:NotifyingActivityReportingSystemURI>http://tempuri.org
 		</notfm-ext:NotifyingActivityReportingSystemURI>
 		<j:Warrant />
-		<nc:Incident s:id="I001">
-			<nc:IncidentJurisdictionalOrganization />
-		</nc:Incident>
+		<nc:Incident s:id="I001" />
 		<j:Offense>
 			<nc:ActivityDescriptionText>Robbery</nc:ActivityDescriptionText>
 		</j:Offense>
