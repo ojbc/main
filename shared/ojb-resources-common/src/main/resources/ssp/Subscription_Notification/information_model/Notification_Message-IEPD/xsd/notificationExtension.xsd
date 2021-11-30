@@ -132,6 +132,21 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType
+		name="NotifyingWantedType" abstract="false"
+		mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="notfm-ext:NotifyingActivityType">
+				<xsd:sequence>
+					<xsd:element ref="j:Warrant" minOccurs="0" />
+					<xsd:element ref="nc:Incident" minOccurs="0" />
+					<xsd:element ref="j:Offense" minOccurs="0" />
+					<xsd:element
+						ref="notfm-ext:NotifyingOrganizationReference" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>	
 	<xsd:complexType name="NotifyingIncidentType"
 		abstract="false" mixed="false">
 		<xsd:complexContent mixed="false">
@@ -306,6 +321,15 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="NotifyingWanted"
+		type="notfm-ext:NotifyingWantedType"
+		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
+		nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>A wanted record that results in notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>	
 	<xsd:element
 		name="NotifyingActivityReportingSystemNameText" type="nc:TextType">
 		<xsd:annotation>
