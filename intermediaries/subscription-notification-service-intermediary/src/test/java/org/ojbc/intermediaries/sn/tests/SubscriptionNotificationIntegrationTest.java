@@ -357,6 +357,29 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
                 , 3);
         
     }
+
+    @Test
+    public void notificationWithNoAgencyNameIncident() throws Exception {
+    	
+        String response = invokeRequest("subscribeSoapRequest-incident.xml", notificationBrokerUrl);
+        
+        assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
+        
+        String dateString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        
+        notifyAndAssertBasics("notificationSoapRequest-incident-noAgencyName.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:ActivityDate", 
+                "An individual for whom you have subscribed to be notified was involved in an incident documented:<br/>\n" +
+                "Incident Date/Time: " + dateString +"<br/>\n" +
+                "Incident Report #:123457 <br/>\n" +
+                "Subject Name: Doe, John<br/>\n" +
+                "Subject date of birth:1980-01-01<br/>\n" +
+                "Role: Witness<br/>\n" +
+                "Offense Code: Driving Under Influence<br/>Offense Description: Driving Under The Influence, First Offense 23 VSA 1201 90D<br/><br/>\n" +
+                "Offense Code: Robbery<br/>Offense Description: Robbery<br/><br/>\n" +
+                "Officer: Clancy Wiggum<br/>\n" 
+                , 3);
+        
+    }
     
     @Test
     public void notificationOfDuplicateIncident() throws Exception {

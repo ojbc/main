@@ -76,8 +76,11 @@ $chargeString<br/>
 			<value>Incident Notification [Subject $emailNotification.subjectName]</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented by the following demostate law enforcement agency:<br/>
+			<value><![CDATA[An individual for whom you have subscribed to be notified was involved in an incident documented#if ($$emailNotification.notificationRequest.notifyingAgencyName && $$emailNotification.notificationRequest.notifyingAgencyName != "") by the following demostate law enforcement agency:<br/>
 $emailNotification.notificationRequest.notifyingAgencyName<br/>
+#else 
+:<br/>
+#end
 Incident Date/Time: $emailNotification.notificationRequest.incidentDateTimeDisplay<br/>
 Incident Report #:$emailNotification.notificationRequest.notificationEventIdentifier <br/>
 Subject Name: $emailNotification.notificationRequest.personNotificationSubjectName<br/>
@@ -92,7 +95,7 @@ $offenseString<br/>
 #foreach ($officerNameString in $emailNotification.notificationRequest.officerNames)
 Officer: $officerNameString<br/>
 #end
-To follow up on this incident, please call $emailNotification.notificationRequest.notifyingAgencyName.]]></value>
+#if ($$emailNotification.notificationRequest.notifyingAgencyName && $$emailNotification.notificationRequest.notifyingAgencyName != "")To follow up on this incident, please call $emailNotification.notificationRequest.notifyingAgencyName.#end]]></value>
 		</property>
 	</bean>
 	
