@@ -37,24 +37,25 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.analyticaldatastore.application.IncidentArrestAnalyticsStagingAdapterApplication;
 import org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentCircumstance;
 import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
@@ -70,19 +71,18 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.ojbc.adapters.analyticaldatastore.processor.AbstractReportRepositoryProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 	
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
@@ -96,7 +96,7 @@ public class CamelContextTest {
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
 	
-	@EndpointInject(uri = "mock:direct:failedInvocation")
+	@EndpointInject(value = "mock:direct:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
     
 	private static final DateFormat DATE_FOMRAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -106,43 +106,27 @@ public class CamelContextTest {
 		assertTrue(true);
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("Incident_Repository_Service").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:incidentReportingServiceEndpoint");
-    	    }              
-    	});
-
-    	context.getRouteDefinition("Incident_Repository_Service_Process_Incident").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	//This assists testing an invocation failure
-    	    	interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
-    	    }              
-    	});
-    	
+		AdviceWith.adviceWith(context, "Incident_Repository_Service", route -> {
+			route.replaceFromWith("direct:incidentReportingServiceEndpoint");
+		});
+		
+		
+		AdviceWith.adviceWith(context, "Failed_Invocation_Route", route -> {
+			route.weaveById("invocationFailedFileEndpoint").replace().to(failedInvocationEndpoint);
+		});
     	
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("Pretrial_Service_Enrollment_Reporting_Service_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:pretrialEnrollmentReportingServiceEndpoint");
-    	    }              
-    	});
-
-    	context.getRouteDefinition("Disposition_Reporting_Service_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:dispositionReportingServiceEndpoint");
-    	    }              
-    	});
+		AdviceWith.adviceWith(context, "Pretrial_Service_Enrollment_Reporting_Service_Route", route -> {
+			route.replaceFromWith("direct:pretrialEnrollmentReportingServiceEndpoint");
+		});
+    	
+		AdviceWith.adviceWith(context, "Disposition_Reporting_Service_Route", route -> {
+			route.replaceFromWith("direct:dispositionReportingServiceEndpoint");
+		});
 
     	context.start();
 	}	

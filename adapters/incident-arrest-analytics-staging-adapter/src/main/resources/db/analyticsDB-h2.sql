@@ -15,6 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 CREATE schema AnalyticsDataStore;
+use AnalyticsDataStore;
 
 -- Go to analytics staging database model OJBStagingModel.architect and click Tools -> Forward Engineer, select H2
 -- and paste the contents below this comment.

@@ -16,35 +16,35 @@
  */
 package org.ojbc.adapters.analyticaldatastore.service;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.analyticaldatastore.application.IncidentArrestAnalyticsStagingAdapterApplication;
 import org.ojbc.adapters.analyticaldatastore.dao.model.CodeTable;
 import org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor.AssessedNeeds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml"
-		})
-@DirtiesContext
+@CamelSpringBootTest
+@SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class DescriptionCodeLookupServiceTest {
 	//private final Log log = LogFactory.getLog(this.getClass());
 
 	@Autowired
 	private DescriptionCodeLookupService descriptionCodeLookupService;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(descriptionCodeLookupService);
 	}

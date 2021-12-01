@@ -25,21 +25,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.analyticaldatastore.application.IncidentArrestAnalyticsStagingAdapterApplication;
 import org.ojbc.util.lucene.personid.IndexedIdentifierGenerationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml"
-		})
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
+
+@CamelSpringBootTest
+@SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class IndexedPersonIdentifierStrategyTest {
 
 	@Autowired
@@ -47,7 +48,7 @@ public class IndexedPersonIdentifierStrategyTest {
 	
 	private Map<String, Object> attributeMap;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		attributeMap = new HashMap<String, Object>();
 		

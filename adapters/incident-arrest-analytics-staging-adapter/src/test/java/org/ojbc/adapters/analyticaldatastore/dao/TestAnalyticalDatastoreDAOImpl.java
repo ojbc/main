@@ -16,9 +16,11 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+
 import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,13 +29,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import junit.framework.Assert;
-
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.analyticaldatastore.application.IncidentArrestAnalyticsStagingAdapterApplication;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Agency;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.AssessedNeed;
@@ -49,18 +51,16 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
 import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml"
-		})
-@DirtiesContext
+
+@CamelSpringBootTest
+@SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class TestAnalyticalDatastoreDAOImpl {
 
 	private static final Log log = LogFactory.getLog(TestAnalyticalDatastoreDAOImpl.class);
@@ -71,7 +71,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 	@Autowired
 	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		Assert.assertNotNull(analyticalDatastoreDAOImpl);
 		Assert.assertNotNull(dataSource);
@@ -348,7 +348,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 	}
 	
-	@Test(expected=Exception.class)
+	@Test
 	public void testDispositionDelete() throws Exception
 	{
 		DispositionType dispositionType = new DispositionType();

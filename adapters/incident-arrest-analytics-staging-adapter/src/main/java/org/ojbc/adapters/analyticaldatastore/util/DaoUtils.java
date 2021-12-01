@@ -19,7 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.util;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 public class DaoUtils {

@@ -26,20 +26,36 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
-
-	<!-- Spring Embeded DB -->
-	<jdbc:embedded-database id="dataSource" type="H2">
+	
+	
+	<bean id="dataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
+        <constructor-arg>
+            <bean class="org.h2.jdbcx.JdbcDataSource">
+                <property name="URL" value="jdbc:h2:tcp:localhost:9092/mem:AnalyticsDataStore;schema=AnalyticsDataStore"/>
+                <property name="user" value="sa"/>
+             </bean>
+        </constructor-arg>
+    </bean>
+    
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
         <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>
         <jdbc:script location="classpath:db/populate-code-tables.sql"/>
-    </jdbc:embedded-database>
+	</jdbc:initialize-database>
 
-	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
-	    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
+	<!-- Spring Embeded DB -->
+	<!-- <jdbc:embedded-database id="dataSource" type="H2">
+    	<jdbc:script location="classpath:db/analyticsDB-h2.sql"/>
+        <jdbc:script location="classpath:db/populate-code-tables.sql"/>
+    </jdbc:embedded-database> -->
+	
+	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" 
+	destroy-method="stop" depends-on="h2WebServer">
+	    <constructor-arg value="-tcp,-tcpAllowOthers,-ifNotExists, -tcpPort,9092"/>
 	</bean>
 	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-	    <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
+	    <constructor-arg value="-web,-webAllowOthers,-ifNotExists, -webPort,8082"/>
 	</bean>
 	
 </beans>

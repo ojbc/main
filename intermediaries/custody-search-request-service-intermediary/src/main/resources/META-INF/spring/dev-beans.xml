@@ -25,31 +25,16 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
-	
-	<bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
-		</constructor-arg>
-	</bean>
+       "
+       profile="dev">
+			
+	<bean id="sqlLoggingProcessor" class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />		
 
-	<bean id="endpointReplyToMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="endpointReplyToMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
+			<util:map id="endpointReplyToMap">
 		        <entry key="${federatedQuery.custodySearch.presentResultsEndpoint}" value="presentCustodySearchResultsServiceEndpoint"/>
 	   		</util:map>
-		</constructor-arg>
-	</bean>	
 	
-	<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="defaultFederatedSearchTimeoutProcessor" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
+			<bean id="defaultFederatedSearchTimeoutProcessor" class="org.ojbc.util.fedquery.processor.DefaultFederatedSearchTimeoutProcessor">
 				<property name="uriToErrorMessageMap">
 					<util:map>
 						<entry key="{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest" value="Custody search timed out or had an error." />
@@ -64,15 +49,9 @@
 				<property name="parentElementName" value="CustodySearchResults"/>
 				<property name="parentElementNamespace" value="http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0"/>
 		  	</bean>
-		</constructor-arg>
-	</bean>
 	
 	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap" ref="federatedQueryEndpointMap"/>
 
 				<property name="adapterURItoAddressMap">
@@ -81,17 +60,9 @@
 					</util:map>				
 				</property>
 		  	</bean>
-		</constructor-arg>
-	</bean>		
 	
-	<bean id="federatedQueryEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="federatedQueryEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap" >
+			<util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap" >
 				<entry key="{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest" value="custodySearchRequestServiceAdapterEndpoint" />
 			</util:map>
-		</constructor-arg>
-	</bean>
 	
 </beans>

@@ -19,7 +19,7 @@ package org.ojbc.adapters.analyticaldatastore.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.springframework.jdbc.core.RowMapper;
 
