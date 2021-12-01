@@ -29,12 +29,11 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
@@ -48,9 +47,13 @@ import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
+import org.ojbc.bundles.utiltities.auditing.application.AuditRestUtility;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -58,18 +61,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/test-beans.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml" })
+@CamelSpringBootTest
+@SpringBootTest(classes=AuditRestUtility.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class TestAuditRestImpl {
 
 	private Logger logger = Logger.getLogger(TestAuditRestImpl.class.getName());
@@ -88,12 +89,18 @@ public class TestAuditRestImpl {
 	
 	@Resource(name="dataSourceSubscriptions")
 	private DataSource dataSource;
-
-	@Before
+	
+	@BeforeEach
 	public void setUp() throws Exception {
 		
     	context.start();
     	this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	   // Do any additional configuration here
+	   return builder.build();
 	}
     
 	@Test
