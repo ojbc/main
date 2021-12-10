@@ -18,14 +18,14 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
 import java.io.IOException;
 
-import junit.framework.Assert;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.ws.security.util.Base64;
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 
 public class RapsheetProcessorTest {

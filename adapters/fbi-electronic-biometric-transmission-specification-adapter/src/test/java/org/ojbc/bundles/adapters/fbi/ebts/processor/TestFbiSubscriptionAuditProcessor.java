@@ -16,7 +16,9 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
@@ -25,29 +27,23 @@ import javax.annotation.Resource;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.Test;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.bundles.adapters.fbi.ebts.application.FbiElectronicBiometricTransmissionSpecificationAdapterApplication;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/file-drop-routes.xml",
-        "classpath:META-INF/spring/criminal-history-routes.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",  
-        "classpath:META-INF/spring/error-handlers.xml",  
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
-        
-        })
+@CamelSpringBootTest
+@SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class TestFbiSubscriptionAuditProcessor {
 
 	@Resource

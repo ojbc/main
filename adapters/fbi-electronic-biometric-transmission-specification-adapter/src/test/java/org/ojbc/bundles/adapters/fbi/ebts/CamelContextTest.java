@@ -31,11 +31,13 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
@@ -45,29 +47,24 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.bundles.adapters.fbi.ebts.application.FbiElectronicBiometricTransmissionSpecificationAdapterApplication;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/file-drop-routes.xml",
-        "classpath:META-INF/spring/criminal-history-routes.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",  
-        "classpath:META-INF/spring/error-handlers.xml",  
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml"
-        })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 	
 	private static final Logger logger = Logger.getLogger(CamelContextTest.class);
@@ -81,7 +78,7 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:ngiUserServiceRequestEndpoint")
     protected MockEndpoint fbiEbtsSubscriptionManagerService;
     
-    @Before
+    @BeforeEach
     public void setup() throws Exception{
     	
 		XMLUnit.setIgnoreWhitespace(true);
@@ -90,42 +87,25 @@ public class CamelContextTest {
     	XMLUnit.setXSLTVersion("2.0");
     	
     	// replace'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("fbiEbtsInputWebServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:fbiEbtsInputEndpoint");    	    	
-    	    }              
-    	}); 
-    	
-    	context.getRouteDefinition("fbiEbtsProcessingRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:ngiUserService*");
-    	    }              
+    	AdviceWith.adviceWith(context, "fbiEbtsInputWebServiceRoute", route -> {
+    		route.replaceFromWith("direct:fbiEbtsInputEndpoint");
     	});
     	
-    	context.getRouteDefinition("ngiResponseServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:ngiResponseService*");
-    	    }              
-    	});      
+    	AdviceWith.adviceWith(context, "fbiEbtsProcessingRoute", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:ngiUserService*");
+    	});
     	
-    	context.getRouteDefinition("federalRapbackNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");    	    	
-    	    }              
-    	});      
+    	AdviceWith.adviceWith(context, "ngiResponseServiceRoute", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:ngiResponseService*");
+    	});
     	
-    	context.getRouteDefinition("processOperationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    	
-    	    	interceptSendToEndpoint("https4:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");    	    	
-    	    }              
-    	});     
+    	AdviceWith.adviceWith(context, "federalRapbackNotificationRoute", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:arrestReportingService*"); 
+    	});
+    	
+    	AdviceWith.adviceWith(context, "processOperationRoute", route -> {
+    		route.interceptSendToEndpoint("https4:*").skipSendToOriginalEndpoint().to("mock:ngiUserServiceRequestEndpoint");
+    	});
     	
     	context.start();	
     }

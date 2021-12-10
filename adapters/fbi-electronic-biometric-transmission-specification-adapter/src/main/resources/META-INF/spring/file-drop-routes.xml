@@ -73,7 +73,7 @@
 			
 			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
 			
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>Subscribe</constant>
 			</camel:setHeader>		
 		
@@ -81,11 +81,11 @@
 				<camel:when>
 					<camel:xpath>/fqr-doc:FBIRecordRequest</camel:xpath>
 				
-					<camel:setHeader headerName="operationName">
+					<camel:setHeader name="operationName">
 						<constant>SubmitFBICriminalHistoryQueryRequest</constant>
 					</camel:setHeader>		
 					
-					<setHeader headerName="federatedQueryRequestGUID">
+					<setHeader name="federatedQueryRequestGUID">
 						<simple>bean:uuidGenerator?method=generateUUID</simple>
 					</setHeader>
 				
@@ -98,7 +98,7 @@
 				
 					<camel:log message="Message is Report Subscription List, RBRPT"/>
 				
-					<camel:setHeader headerName="operationName">
+					<camel:setHeader name="operationName">
 						<constant>ReportSubscriptionList</constant>
 					</camel:setHeader>		
 					
@@ -115,11 +115,11 @@
 			<camel:log message="FBI Response message in file drop: ${body}"/>
 		
 			<!-- Save the fbi synchronous response(control number) to a file -->
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="fbiResponseControlNumber">
+			<camel:setHeader name="fbiResponseControlNumber">
 				<camel:xpath resultType="java.lang.String">/ngi-core:NGIControlNumber</camel:xpath>												
 			</camel:setHeader>
 			

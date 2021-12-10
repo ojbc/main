@@ -16,14 +16,14 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;

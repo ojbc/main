@@ -1,0 +1,91 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   	<util:map id="triggeringEventCodeLookup">
+		<entry key="1" value="ARREST" />
+		<entry key="2" value="DISPOSITION" />
+		<entry key="3" value="ARREST" />
+		<entry key="5" value="NCIC-WARRANT-ENTRY’" />
+		<entry key="6" value="NCIC-WARRANT-DELETION" />
+		<entry key="7" value="NCIC-WARRANT-MODIFICATION" />
+		<entry key="8" value="NCIC-SOR-ENTRY" />
+		<entry key="9" value="NCIC-SOR-DELETION" />
+		<entry key="10" value="NCIC-SOR-MODIFICATION" />
+		<entry key="12" value="DEATH" />
+	</util:map>
+
+	<bean id="fbiRapbackIdentityHistoryAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiRapbackIdentityHistoryAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiSubscriptionAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiSubscriptionAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiRapbackRenewalAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiRapbackRenewalAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+	</bean>	
+
+	<bean id="fbiNotificationAuditProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiNotificationAuditProcessor">
+		<property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+		<property name="triggeringEventCodeLookup" ref="triggeringEventCodeLookup"/>
+	</bean>	
+	
+	<bean id="fbiEmailErrorProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEmailErrorProcessor">
+		<property name="toEmailAddress" value="${fbiEbtsAdapter.errorToAddress}"/>
+		<property name="emailSubjectPrefix" value="${fbiEbtsAdapter.emailSubjectPrefix}"/>
+	</bean>	
+		
+	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
+	
+	<bean id="fbiEbtsResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEbtsResponseProcessor"/>
+	
+	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
+	
+	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="rapbackEventTextProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapbackEventTextProcessor"/>
+	
+	<bean id="nistImageProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NistImageProcessor"/>
+	
+	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
+	
+	<bean id="criminalHistoryTextResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.CriminalHistoryTextResponseProcessor"/>
+</beans>

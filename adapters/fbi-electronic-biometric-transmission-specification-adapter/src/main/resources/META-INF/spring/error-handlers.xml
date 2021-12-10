@@ -43,11 +43,11 @@
 			
 			<camel:log message="FBI Dead Letter Channel Entered, unable to send to FBI." />
 			
-			<camel:setHeader headerName="fbiID">
+			<camel:setHeader name="fbiID">
 				<camel:xpath resultType="java.lang.String">//j:PersonFBIIdentification/nc20:IdentificationID</camel:xpath>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<camel:simple>FBI_Submission_Error_${in.headers.fbiID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 			</camel:setHeader>
 			

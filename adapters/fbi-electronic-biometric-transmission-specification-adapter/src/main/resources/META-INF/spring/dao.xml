@@ -28,13 +28,13 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" init-method="createDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" init-method="createDataSource">
 		<property name="driverClassName" value="${fbiEbtsAdapter.dataSource.driverClass}" />
 		<property name="url" value="${fbiEbtsAdapter.dataSource.jdbcUrl}" />
 		<property name="username" value="${fbiEbtsAdapter.dataSource.user}" />
 		<property name="password" value="${fbiEbtsAdapter.dataSource.password}" />
 		<property name="initialSize" value="${fbiEbtsAdapter.dataSource.minPoolSize}" />
-		<property name="maxActive" value="${fbiEbtsAdapter.dataSource.maxPoolSize}" />
+		<property name="maxTotal" value="${fbiEbtsAdapter.dataSource.maxPoolSize}" />
 		<property name="validationQuery" value="select 1" />
 		<property name="testOnBorrow" value="true" />
 	</bean>

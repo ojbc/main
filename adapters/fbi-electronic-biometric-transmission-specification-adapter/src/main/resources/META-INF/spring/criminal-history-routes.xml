@@ -53,20 +53,20 @@
 		<route id="personQueryRequestCriminalHistoryDirectRoute">
 			<from uri="direct:processPersonQueryRequestCriminalHistory"/>
 	
-			<setHeader headerName="controlID"><camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple></setHeader>	
-			<setHeader headerName="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
-			<setHeader headerName="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
-			<setHeader headerName="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
-			<setHeader headerName="domainVersion"><simple>{{fbiEbtsAdapter.domainVersion}}</simple></setHeader>
-			<setHeader headerName="domainName"><simple>{{fbiEbtsAdapter.domainName}}</simple></setHeader>
-			<setHeader headerName="transactionMajorVersion"><simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple></setHeader>
-			<setHeader headerName="transactionMinorVersion"><simple>{{fbiEbtsAdapter.transactionMinorVersion}}</simple></setHeader>
-			<setHeader headerName="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
-			<setHeader headerName="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
-			<setHeader headerName="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
-			<setHeader headerName="transactionContentSummaryContentRecordCount"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
-			<setHeader headerName="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
-			<setHeader headerName="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
+			<setHeader name="controlID"><camel:simple>${in.headers.federatedQueryRequestGUID}</camel:simple></setHeader>	
+			<setHeader name="rapBackTransactionDate"><simple>${date:now:yyyy-MM-dd}</simple></setHeader>
+			<setHeader name="destinationOrganizationORI"><simple>{{fbiEbtsAdapter.destinationOrganizationORI}}</simple></setHeader>
+			<setHeader name="originatorOrganizationORI"><simple>{{fbiEbtsAdapter.originatorOrganizationORI}}</simple></setHeader>
+			<setHeader name="domainVersion"><simple>{{fbiEbtsAdapter.domainVersion}}</simple></setHeader>
+			<setHeader name="domainName"><simple>{{fbiEbtsAdapter.domainName}}</simple></setHeader>
+			<setHeader name="transactionMajorVersion"><simple>{{fbiEbtsAdapter.transactionMajorVersion}}</simple></setHeader>
+			<setHeader name="transactionMinorVersion"><simple>{{fbiEbtsAdapter.transactionMinorVersion}}</simple></setHeader>
+			<setHeader name="rapBackRecipient"><simple>{{fbiEbtsAdapter.rapBackRecipient}}</simple></setHeader>
+			<setHeader name="controllingAgencyID"><simple>{{fbiEbtsAdapter.controllingAgencyID}}</simple></setHeader>
+			<setHeader name="transactionContentSummaryContentFirstRecordCategoryCode"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentFirstRecordCategoryCode}}</simple></setHeader>
+			<setHeader name="transactionContentSummaryContentRecordCount"><simple>{{fbiEbtsAdapter.transactionContentSummaryContentRecordCountCriminal}}</simple></setHeader>
+			<setHeader name="nativeScanningResolution"><simple>{{fbiEbtsAdapter.nativeScanningResolution}}</simple></setHeader>
+			<setHeader name="nominalTransmittingResolution"><simple>{{fbiEbtsAdapter.nominalTransmittingResolution}}</simple></setHeader>
 	
 			<camel:to uri="xslt:xsl/FBI_Identity_History_Summary_Request.xsl" />
 			
@@ -74,11 +74,11 @@
 			
 			<camel:convertBodyTo type="java.lang.String"/>							
 			
-			<camel:setHeader headerName="CamelFileName">
+			<camel:setHeader name="CamelFileName">
 				<camel:simple>FBI_Identity_History_Summary_Request_${in.headers.controlID}.xml</camel:simple>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="pathToRequestFile">
+			<camel:setHeader name="pathToRequestFile">
 				<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiIdentitySummaryRequests/requests/$simple{in.headers.CamelFileName}</camel:simple>
 			</camel:setHeader>
 			
@@ -99,18 +99,18 @@
 			
 			<!-- Check for error here and create error response -->
 
-			<camel:setHeader headerName="federatedQueryRequestGUID">
+			<camel:setHeader name="federatedQueryRequestGUID">
 				<camel:simple>${in.headers.transactionControlReferenceIdentification}</camel:simple>				
 			</camel:setHeader>
 			
 			<camel:choice>
 				<when>
-					<simple>${header.trxCatCode} == 'ERRI'</simple>
+					<simple>${in.headers.trxCatCode} == 'ERRI'</simple>
 				
 					<camel:to uri="xslt:xsl/RapBackErrorResponseToOJBQueryResultError.xsl"/>
 				</when>
 				<when>
-					<simple>${header.trxCatCode} == 'RBIHSR'</simple>
+					<simple>${in.headers.trxCatCode} == 'RBIHSR'</simple>
 					
 					<camel:to uri="bean:criminalHistoryTextResponseProcessor?method=createCriminalHistoryTextResponse"/>	
 				</when>
@@ -118,11 +118,11 @@
 
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<camel:constant>SubmitCriminalHistoryTextDocument</camel:constant>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<camel:constant>http://ojbc.org/Services/WSDL/Criminal_History_Query_Results_Service/1.0</camel:constant>
 			</camel:setHeader>
 			

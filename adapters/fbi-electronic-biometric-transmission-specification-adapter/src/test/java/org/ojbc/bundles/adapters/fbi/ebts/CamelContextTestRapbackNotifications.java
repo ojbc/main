@@ -33,10 +33,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
@@ -44,29 +46,24 @@ import org.apache.cxf.headers.Header;
 import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackNotification;
+import org.ojbc.bundles.adapters.fbi.ebts.application.FbiElectronicBiometricTransmissionSpecificationAdapterApplication;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/file-drop-routes.xml",
-        "classpath:META-INF/spring/criminal-history-routes.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",  
-        "classpath:META-INF/spring/error-handlers.xml",  
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml"
-        })
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTestRapbackNotifications {
 	
 	private static final Logger logger = Logger.getLogger(CamelContextTestRapbackNotifications.class);
@@ -80,7 +77,7 @@ public class CamelContextTestRapbackNotifications {
     @Resource
     private EnhancedAuditDAOImpl enhanceAuditDaoImpl;
     	
-    @Before
+    @BeforeEach
     public void setup() throws Exception{
     	
 		XMLUnit.setIgnoreWhitespace(true);
@@ -88,11 +85,8 @@ public class CamelContextTestRapbackNotifications {
     	XMLUnit.setIgnoreComments(true);
     	XMLUnit.setXSLTVersion("2.0");
     	
-    	context.getRouteDefinition("fbiEbtsProcessingRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {    	    	
-    	    	mockEndpointsAndSkip("cxf:bean:criminalHistoryUpdateReportingService*");
-    	    }              
+    	AdviceWith.adviceWith(context, "fbiEbtsProcessingRoute", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:criminalHistoryUpdateReportingService*");
     	});
     	
     	context.start();	

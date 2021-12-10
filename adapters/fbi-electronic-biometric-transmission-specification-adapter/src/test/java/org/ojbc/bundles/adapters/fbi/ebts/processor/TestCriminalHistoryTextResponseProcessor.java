@@ -16,7 +16,7 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -24,11 +24,12 @@ import java.nio.charset.StandardCharsets;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.xml.security.utils.Base64;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.xml.util.Base64;
 import org.w3c.dom.Document;
+
 
 public class TestCriminalHistoryTextResponseProcessor {
 
