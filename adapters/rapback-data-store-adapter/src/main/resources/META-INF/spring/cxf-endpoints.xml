@@ -290,7 +290,6 @@
 				<sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
-		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>
       
 </beans>

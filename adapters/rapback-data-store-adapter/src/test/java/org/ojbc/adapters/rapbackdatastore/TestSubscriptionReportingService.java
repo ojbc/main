@@ -32,35 +32,31 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-        "classpath:META-INF/spring/subscription-management-routes.xml"
-      })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestSubscriptionReportingService {
 	
 	private static final Log log = LogFactory.getLog( TestSubscriptionReportingService.class );
@@ -77,7 +73,7 @@ public class TestSubscriptionReportingService {
     @Produce
     protected ProducerTemplate template;
     
-	@EndpointInject(uri = "mock:failedInvocation")
+	@EndpointInject(value = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
 	@Test
@@ -85,18 +81,14 @@ public class TestSubscriptionReportingService {
 		assertTrue(true);
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("subscription_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:subscriptionReportingServiceEndpoint");
-    	    }              
-    	});
-
+		//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+		AdviceWith.adviceWith(context, "subscription_reporting_service", route -> {
+			route.replaceFromWith("direct:subscriptionReportingServiceEndpoint");
+		});
+		
     	context.start();
 	}	
 	

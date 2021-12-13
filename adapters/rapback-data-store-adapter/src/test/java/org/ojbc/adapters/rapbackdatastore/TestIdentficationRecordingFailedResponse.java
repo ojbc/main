@@ -30,38 +30,34 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.xml.sax.SAXException;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/subscription-management-routes.xml",
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-      })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestIdentficationRecordingFailedResponse {
 	
 	@SuppressWarnings("unused")
@@ -81,7 +77,7 @@ public class TestIdentficationRecordingFailedResponse {
     @Produce
     protected ProducerTemplate template;
     
-	@EndpointInject(uri = "mock:failedInvocation")
+	@EndpointInject(value = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
 	@Value("${rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}")
@@ -91,27 +87,23 @@ public class TestIdentficationRecordingFailedResponse {
 		assertTrue(true);
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
 		assertNotNull(identificationRequestReportProcessor);
-
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("identification_recording_service").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:identificationRecordingServiceEndpoint");
-    	    }              
-    	});
-
+		
+		//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+		AdviceWith.adviceWith(context, "identification_recording_service", route -> {
+			route.replaceFromWith("direct:identificationRecordingServiceEndpoint");
+		});
+    	
     	context.start();
 	}	
 	
 	
 	@Test
 	@DirtiesContext
-	@Ignore
+	@Disabled
 	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
 		civilRecordingRequestSuccessResponseSentToFailedFolder(); 

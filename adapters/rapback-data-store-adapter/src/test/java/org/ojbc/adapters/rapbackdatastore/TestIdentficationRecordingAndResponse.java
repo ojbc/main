@@ -34,18 +34,18 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.codec.binary.Base64;
-
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
@@ -54,23 +54,18 @@ import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportP
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-        "classpath:META-INF/spring/subscription-management-routes.xml"
-      })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestIdentficationRecordingAndResponse {
 	
 	private static final Log log = LogFactory.getLog( TestIdentficationRecordingAndResponse.class );
@@ -89,10 +84,10 @@ public class TestIdentficationRecordingAndResponse {
     @Produce
     protected ProducerTemplate template;
     
-	@EndpointInject(uri = "mock:failedInvocation")
+	@EndpointInject(value = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
-    @EndpointInject(uri = "mock:cxf:bean:identificationReportingResponseService")
+    @EndpointInject(value = "mock:cxf:bean:identificationReportingResponseService")
     protected MockEndpoint identificationReportingResponseService;
     
 	@Test
@@ -100,27 +95,20 @@ public class TestIdentficationRecordingAndResponse {
 		assertTrue(true);
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
 		assertNotNull(identificationRequestReportProcessor);
-
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("identification_recording_service").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:identificationRecordingServiceEndpoint");
-    	    }              
+		
+		//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+		AdviceWith.adviceWith(context, "identification_recording_service", route -> {
+			route.replaceFromWith("direct:identificationRecordingServiceEndpoint");
+		});
+		
+    	AdviceWith.adviceWith(context, "send_identification_reporting_response_route", route -> {
+    		route.mockEndpointsAndSkip("cxf:bean:identificationReportingResponseService*");
     	});
-
-    	context.getRouteDefinition("send_identification_reporting_response_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:identificationReportingResponseService*");
-    	    }              
-    	});
+    	
     	context.start();
 	}	
 	

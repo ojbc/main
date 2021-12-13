@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore;
 
 import static org.junit.Assert.assertNotNull;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.support.DefaultExchange;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;

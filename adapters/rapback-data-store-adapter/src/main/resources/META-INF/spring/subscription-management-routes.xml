@@ -55,7 +55,7 @@
 				<handled><constant>true</constant></handled>
 				<camel:log message="An exception was thrown: ${exception.cause.message}"
 					loggingLevel="WARN" />
-				<setHeader headerName="CamelFileName">
+				<setHeader name="CamelFileName">
 					<simple>FailedCriminalHistoryUpdate_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 				</setHeader>	
 				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
@@ -72,38 +72,38 @@
 			<camel:filter>
 				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
 
-				<camel:setHeader headerName="currentSid">
+				<camel:setHeader name="currentSid">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="newSid">
+				<camel:setHeader name="newSid">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PostConsolidationIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="newUcn">
+				<camel:setHeader name="newUcn">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PostConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationType">
+				<camel:setHeader name="consolidationType">
 					<constant>criminalHistoryConsolidationReport</constant>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationJurisdiction">
+				<camel:setHeader name="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="transactionNumber">
+				<camel:setHeader name="transactionNumber">
 					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chc-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
 				<camel:filter>
 					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/chc-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>criminal</constant>
 					</camel:setHeader>				
 				</camel:filter>
 
 				<camel:filter>
 					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/chc-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>civil</constant>
 					</camel:setHeader>				
 				</camel:filter>
@@ -113,29 +113,29 @@
 			<camel:filter>
 				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
 
-				<camel:setHeader headerName="currentSid">
+				<camel:setHeader name="currentSid">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationType">
+				<camel:setHeader name="consolidationType">
 					<constant>criminalHistoryExpungementReport</constant>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationJurisdiction">
+				<camel:setHeader name="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/che-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 				
 				<camel:filter>
 					<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/che-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>criminal</constant>
 					</camel:setHeader>				
 				</camel:filter>
 
 				<camel:filter>
 					<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/che-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>civil</constant>
 					</camel:setHeader>				
 				</camel:filter>				
@@ -146,16 +146,16 @@
 
 				<camel:log message="Identifier deletion requested.  Treated as expungement report." />
 
-				<camel:setHeader headerName="currentSid">
+				<camel:setHeader name="currentSid">
 					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/nc:Person/chid-report-ext:IdentifierDeletionIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/nc:Person/chid-report-ext:IdentifierDeletionIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationType">
+				<camel:setHeader name="consolidationType">
 					<constant>criminalHistoryExpungementReport</constant>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationJurisdiction">
+				<camel:setHeader name="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/chid-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 			</camel:filter>			
@@ -163,38 +163,38 @@
 			<camel:filter>
 				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
 
-				<camel:setHeader headerName="currentSid">
+				<camel:setHeader name="currentSid">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="newSid">
+				<camel:setHeader name="newSid">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PostIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="newUcn">
+				<camel:setHeader name="newUcn">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PostIdentifierUpdateIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationType">
+				<camel:setHeader name="consolidationType">
 					<constant>criminalHistoryIdentifierUpdateReport</constant>
 				</camel:setHeader>		
-				<camel:setHeader headerName="consolidationJurisdiction">
+				<camel:setHeader name="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="transactionNumber">
+				<camel:setHeader name="transactionNumber">
 					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
 				<camel:filter>
 					<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/chiu-report-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>criminal</constant>
 					</camel:setHeader>				
 				</camel:filter>
 
 				<camel:filter>
 					<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/chiu-report-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true'</camel:xpath>
-					<camel:setHeader headerName="fingerprintPurpose">
+					<camel:setHeader name="fingerprintPurpose">
 						<constant>civil</constant>
 					</camel:setHeader>				
 				</camel:filter>					
@@ -203,18 +203,18 @@
 			<camel:filter>
 				<camel:xpath>/chr-report-doc:CriminalHistoryRestorationReport</camel:xpath>
 
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/nc:Person/chr-report-ext:RestorationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
-				<camel:setHeader headerName="transactionNumber">
+				<camel:setHeader name="transactionNumber">
 					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="consolidationType">
+				<camel:setHeader name="consolidationType">
 					<constant>criminalHistoryRestorationReport</constant>
 				</camel:setHeader>		
 				
-				<camel:setHeader headerName="consolidationJurisdiction">
+				<camel:setHeader name="consolidationJurisdiction">
 					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 
@@ -223,11 +223,11 @@
 			<camel:filter>
 				<camel:xpath>/chr-doc:CriminalHistoryReport</camel:xpath>
 			
-				<camel:setHeader headerName="currentUcn">
+				<camel:setHeader name="currentUcn">
 					<camel:xpath resultType="java.lang.String">/chr-doc:CriminalHistoryReport/nc:Person/j51:PersonAugmentation/j51:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
-				<camel:setHeader headerName="transactionNumber">
+				<camel:setHeader name="transactionNumber">
 					<camel:xpath resultType="java.lang.String">/chr-doc:CriminalHistoryReport/chr-ext:TransactionDescriptiveRecord/chr-ext:RapBackSubscription/chr-ext:FingerprintIdentificationTransactionIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				
@@ -325,7 +325,7 @@
 					logName="notificationLogger" />
 	
 				<camel:filter>
-					<camel:simple>${properties:rapbackDatastoreAdapter.sendConsolidationNotificationEmails} == true</camel:simple>
+					<camel:simple>{{rapbackDatastoreAdapter.sendConsolidationNotificationEmails}} == true</camel:simple>
 					<camel:to uri="smtpEndpoint" />
 				</camel:filter>
 
@@ -350,11 +350,11 @@
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
 				<!-- Call broker here -->
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 		            <constant>Subscribe</constant>
 		        </camel:setHeader>
 		        
-		        <camel:setHeader headerName="operationNamespace">
+		        <camel:setHeader name="operationNamespace">
 		            <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
 		        </camel:setHeader>
 

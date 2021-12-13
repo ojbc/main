@@ -16,7 +16,8 @@
  */
 package org.ojbc.adapters.rapbackdatastore;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.sql.Connection;
@@ -33,12 +34,13 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,29 +48,24 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
-        "classpath:META-INF/spring/subscription-management-routes.xml"
-      })
-@DirtiesContext
+@UseAdviceWith
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestCriminalHistoryDemographicUpdates {
 	
 	@SuppressWarnings("unused")
@@ -92,29 +89,18 @@ public class TestCriminalHistoryDemographicUpdates {
     @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceEndpointMock;
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
-    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("criminalHistoryUpdateReportingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:criminalHistoryConsolidationRequest");
+		//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+		AdviceWith.adviceWith(context, "criminalHistoryUpdateReportingServiceRoute", route -> {
+			route.replaceFromWith("direct:criminalHistoryConsolidationRequest");
+		});
+		
+		AdviceWith.adviceWith(context, "directUpdateSubscriptionsRoute", route -> {
+			route.interceptSendToEndpoint("cxf:bean:notificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:notificationBrokerService");
+		});
 
-    	    }              
-    	});
-
-    	context.getRouteDefinition("directUpdateSubscriptionsRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("cxf:bean:notificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:notificationBrokerService");
-
-    	    }              
-    	});
-
-    	
     	context.start();
 	}	
 

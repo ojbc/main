@@ -145,31 +145,31 @@
 			<choice>
 				<when>
 					<xpath>/pidreq-doc:PersonStateIdentificationRequest</xpath>
-					<setHeader headerName="operationName">
+					<setHeader name="operationName">
 						<camel:constant>RecordPersonStateIdentificationRequest</camel:constant>
 					</setHeader>
 				</when>
 				<when>
 					<xpath>/pidreq-doc:PersonFederalIdentificationRequest</xpath>
-					<setHeader headerName="operationName">
+					<setHeader name="operationName">
 						<camel:constant>RecordPersonFederalIdentificationRequest</camel:constant>
 					</setHeader>
 				</when>
 				<when>
 					<xpath>/pidres-doc:PersonStateIdentificationResults</xpath>
-					<setHeader headerName="operationName">
+					<setHeader name="operationName">
 						<camel:constant>RecordPersonStateIdentificationResults</camel:constant>
 					</setHeader>
 				</when>
 				<when>
 					<xpath>/pidres-doc:PersonFederalIdentificationResults</xpath>
-					<setHeader headerName="operationName">
+					<setHeader name="operationName">
 						<camel:constant>RecordPersonFederalIdentificationResults</camel:constant>
 					</setHeader>
 				</when>
 			</choice>
 			
-			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 			
 			<camel:log message="Generated message ID for resend: ${in.headers.federatedQueryRequestGUID}"/>
 			
@@ -183,14 +183,14 @@
 			
 			<log message="* * *  processIdentificationReport 111   * * *"/>
 			
-			<setHeader headerName="identificationID">
+			<setHeader name="identificationID">
 				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
 					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
 					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
 					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
 				</xpath>
 			</setHeader>
-			<setHeader headerName="transactionCategoryText">
+			<setHeader name="transactionCategoryText">
 				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionCategoryText
 					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionCategoryText
 					|/pidres-doc:PersonFederalIdentificationResults/ident-ext:TransactionCategoryText
@@ -206,7 +206,7 @@
 				<camel:stop/>
 			</camel:filter>
 
-			<setHeader headerName="transactionCategoryReplyText">
+			<setHeader name="transactionCategoryReplyText">
 				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
 			</setHeader>
 				
@@ -243,8 +243,8 @@
 
 					<log message="\n\n\n Unable to connect to database: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
 					
-					<setHeader headerName="CamelFileName">
-						<simple>${header.transactionCategoryText}_${header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					<setHeader name="CamelFileName">
+						<simple>${in.header.transactionCategoryText}_${in.header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>
 						
 					<to uri="bean:databaseConnectionMonitor?method=checkDatabaseConnection" />
@@ -255,8 +255,8 @@
 					<exception>org.ojbc.adapters.rapbackdatastore.RapbackIllegalStateException</exception>
 					<log message="\n Queue results report to be processed later: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
 					
-					<setHeader headerName="CamelFileName">
-						<simple>${header.transactionCategoryText}_${header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					<setHeader name="CamelFileName">
+						<simple>${in.header.transactionCategoryText}_${in.header.identificationID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>
 					
 					<to uri="resendDatabaseFailedFileEndpoint"/>
@@ -287,7 +287,7 @@
 		<route id="failed_identification_recording_invocation_route">
 			<from uri="direct:failedIdentificationRecordingInvocation"/>
 			
-			<setHeader headerName="CamelFileName">
+			<setHeader name="CamelFileName">
 				<simple>identificationRecordingReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 			</setHeader>	
 			<camel:multicast>
@@ -295,7 +295,7 @@
 				<camel:pipeline>
 					<to uri="bean:identificationReportingResponseProcessor?method=createErrorResponse"/>
 					
-					<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+					<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 					
 					<to uri="direct:sendIdentificationReportingResponseMessage"/>
 				</camel:pipeline>
@@ -308,7 +308,7 @@
 			<choice>
 				<when>
 					<xpath>/pidrepres-doc:PersonIdentificationReportResponse</xpath>
-					<setHeader headerName="CamelFileName">
+					<setHeader name="CamelFileName">
 						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>
 				</when>
@@ -324,11 +324,11 @@
 			<doTry>
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 		            <constant>SubmitPersonIdentificationReportResponse</constant>
 		        </camel:setHeader>
 		        
-		        <camel:setHeader headerName="operationNamespace">
+		        <camel:setHeader name="operationNamespace">
 		            <constant>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</constant>
 		        </camel:setHeader>
 				<log message="About to send response file to the broker" loggingLevel="INFO"/>
@@ -341,7 +341,7 @@
 					<camel:log 
 						message="Failed to send the identification Response message: ${exception.stacktrace}"
 						loggingLevel="WARN" />
-					<setHeader headerName="CamelFileName">
+					<setHeader name="CamelFileName">
 						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>	
 					<log message="${body}" loggingLevel="DEBUG"></log>
@@ -355,7 +355,7 @@
 			<from uri="identificationRecordingResposneFileEndpoint" />
 			<log message="resending response file ${body}" loggingLevel="INFO"/>
 			
-			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+			<setHeader name="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 			
 			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
@@ -384,11 +384,11 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="rapbackSearchResponseServiceEndpoint" />
@@ -430,11 +430,11 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitOrganizationIdentificationInitialResultsQueryResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="identificationResultsQueryResponseServiceEndpoint" />
@@ -449,11 +449,11 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitOrganizationIdentificationSubsequentResultsQueryResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="identificationResultsQueryResponseServiceEndpoint" />
@@ -468,11 +468,11 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitOrganizationIdentificationNsorFiveYearCheckQueryResults</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="identificationResultsQueryResponseServiceEndpoint" />
@@ -508,7 +508,7 @@
 				<doCatch >
 					<exception>java.lang.Exception</exception>
 					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>	
-					<setHeader headerName="CamelFileName">
+					<setHeader name="CamelFileName">
 						<simple>subscriptionReport/FailedSubscriptionReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
 					</setHeader>	
 					<to uri="direct:deadLetterChannel"/>
@@ -536,12 +536,12 @@
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
-			<camel:setHeader headerName="archiveTransactionNumber">
+			<camel:setHeader name="archiveTransactionNumber">
 				<camel:xpath resultType="java.lang.String">/ira-req-doc:IdentificationResultsArchiveRequest/ira-req-doc:IdentificationResultsIdentification/nc:IdentificationID
 					|/irua-req-doc:IdentificationResultsUnarchiveRequest/irua-req-doc:IdentificationResultsIdentification/nc:IdentificationID</camel:xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="systemName">
+			<camel:setHeader name="systemName">
 				<camel:xpath>/ira-req-doc:IdentificationResultsArchiveRequest/nc:SystemName
 					|/irua-req-doc:IdentificationResultsUnarchiveRequest/nc:SystemName</camel:xpath>
 			</camel:setHeader>
@@ -557,11 +557,11 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitIdentificationResultsModificationResponse</constant>
 	        </camel:setHeader>
 	        
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0</constant>
 	        </camel:setHeader>
 			<to uri="identificationResultsModificationResponseServiceEndpoint" />

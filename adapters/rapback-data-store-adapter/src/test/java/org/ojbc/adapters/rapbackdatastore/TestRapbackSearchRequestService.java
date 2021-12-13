@@ -21,31 +21,25 @@ import static org.junit.Assert.assertTrue;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 
 @UseAdviceWith
-// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/subscription-management-routes.xml"
-		})
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestRapbackSearchRequestService {
 
@@ -54,7 +48,7 @@ public class TestRapbackSearchRequestService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:result")
+    @EndpointInject(value = "mock:result")
     protected MockEndpoint resultEndpoint;
 
     @Autowired
@@ -65,27 +59,21 @@ public class TestRapbackSearchRequestService {
         assertTrue(true);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
+    	
         // Advise the Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
-        context.getRouteDefinition("rapbackSearchRequestRoute")
-                .adviceWith(context, new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        // The line below allows us to bypass CXF and send a
-                        // message directly into the route
-                        replaceFromWith("direct:rapbackSearchRequest");
-
-                        interceptSendToEndpoint(
-                                "rapbackSearchResponseServiceEndpoint")
-                                .to("mock:result")
-                                .log("Called Rapback Search Response Service Endpoint")
-                                .stop();
-                    }
-                });
-
+    	AdviceWith.adviceWith(context, "rapbackSearchRequestRoute", route -> {
+    		route.replaceFromWith("direct:rapbackSearchRequest");
+    		route.interceptSendToEndpoint(
+                    "rapbackSearchResponseServiceEndpoint")
+                    .to("mock:result")
+                    .log("Called Rapback Search Response Service Endpoint")
+                    .stop();
+    	});
+    	
         context.start();
     }
 
