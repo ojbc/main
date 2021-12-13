@@ -198,6 +198,11 @@
 			<artifactId>h2-mock-database</artifactId>
 			<version>${h2-mock-database-version}</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>mysql</groupId>
+   			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
 
 
 		<!-- CXF libs -->
