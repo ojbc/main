@@ -24,7 +24,8 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
@@ -53,7 +54,7 @@ import org.w3c.dom.Document;
 		})
 @DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class FbiSubModDocBuilderTest {
-	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilderTest.class);
+	private static final Log logger = LogFactory.getLog(FbiSubModDocBuilderTest.class);
 
 	@Autowired
 	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;	

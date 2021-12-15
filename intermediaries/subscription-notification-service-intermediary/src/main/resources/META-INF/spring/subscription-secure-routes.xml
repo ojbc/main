@@ -30,7 +30,7 @@
 	xmlns:svm="http://ojbc.org/IEPD/Exchange/SubscriptionValidationMessage/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-3.10.0.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
