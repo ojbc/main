@@ -34,7 +34,7 @@
 
 	<properties>
 		<spring.version>5.3.8</spring.version>	
-    	<slf4j-version>2.15.0</slf4j-version>
+    <slf4j-version>2.16.0</slf4j-version>
 		<commons.lang3.version>3.12.0</commons.lang3.version>
 		<commons.text.version>1.9</commons.text.version>
 		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
