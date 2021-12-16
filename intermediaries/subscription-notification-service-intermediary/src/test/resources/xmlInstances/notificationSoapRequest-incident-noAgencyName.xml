@@ -1,0 +1,137 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!-- This is based on the OJB_Resources/src/main/resources/ssp/Subscription_Notification/samples/notification/Incident_NotificationMessage_Sample.xml -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing">
+    <soapenv:Header>
+        <add:Action>http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify</add:Action>
+    </soapenv:Header>
+    <soapenv:Body>
+        <b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:topics="http://ojbc.org/wsn/topics">
+            <!--1 or more repetitions:-->
+            <b:NotificationMessage>
+                <!--Optional:-->
+                <b:SubscriptionReference>
+                    <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+                    <!--Optional:-->
+                    <add:ReferenceParameters>
+                        <!--You may enter ANY elements at this point-->
+                    </add:ReferenceParameters>
+                    <!--Optional:-->
+                    <add:Metadata>
+                        <!--You may enter ANY elements at this point-->
+                    </add:Metadata>
+                    <!--You may enter ANY elements at this point-->
+                </b:SubscriptionReference>
+                <!--Optional:-->
+                <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+                    >topics:person/incident</b:Topic>
+
+                <!--Optional:-->
+                <b:ProducerReference>
+                    <add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
+                    <!--Optional:-->
+                    <add:ReferenceParameters>
+                        <!--You may enter ANY elements at this point-->
+                    </add:ReferenceParameters>
+                    <!--Optional:-->
+                    <add:Metadata>
+                        <!--You may enter ANY elements at this point-->
+                    </add:Metadata>
+                    <!--You may enter ANY elements at this point-->
+                </b:ProducerReference>
+                <b:Message>
+					<tns:NotificationMessage 
+						xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+						xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+						xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+						xmlns:s="http://niem.gov/niem/structures/2.0" 
+						xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" 
+						xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"> 
+						<tns1:NotifyingIncident s:id="I001">
+						<tns1:NotifyingActivityReportingSystemNameText>Spillman RMS</tns1:NotifyingActivityReportingSystemNameText>
+					    <j:Incident>
+						  <nc:ActivityIdentification>
+						    <nc:IdentificationID>123457</nc:IdentificationID>
+						  </nc:ActivityIdentification>
+					      <nc:ActivityCategoryText>Law Incident</nc:ActivityCategoryText>
+					      <nc:ActivityDate>
+					        <nc:Date>2013-10-01</nc:Date>
+					      </nc:ActivityDate>
+					      <j:IncidentAugmentation>
+					        <j:IncidentReportingOfficial>
+					          <nc:RoleOfPersonReference s:ref="P002"/>
+					          <j:EnforcementOfficialUnit>
+					            <nc:OrganizationName/>
+								<nc:OrganizationPrimaryContactInformation>
+									<nc:ContactTelephoneNumber>
+										<nc:FullTelephoneNumber>
+											<nc:TelephoneNumberFullID>8926610093</nc:TelephoneNumberFullID>
+										</nc:FullTelephoneNumber>
+									</nc:ContactTelephoneNumber>
+								</nc:OrganizationPrimaryContactInformation>					            
+					          </j:EnforcementOfficialUnit>
+					        </j:IncidentReportingOfficial>
+					      </j:IncidentAugmentation>
+					    </j:Incident>
+						<j:Offense>
+							<nc:ActivityDescriptionText>Driving Under The Influence, First Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
+							<tns1:OffenseFBINDEXCode>Driving Under Influence</tns1:OffenseFBINDEXCode>
+							<j:OffenseCategoryText>DUI</j:OffenseCategoryText>
+						</j:Offense>
+						<j:Offense>
+				           <nc:ActivityDescriptionText>Robbery</nc:ActivityDescriptionText>
+				           <tns1:OffenseFBINDEXCode>Robbery</tns1:OffenseFBINDEXCode>
+				           <j:OffenseCategoryText>ROB</j:OffenseCategoryText>
+				        </j:Offense>					    
+					  </tns1:NotifyingIncident>
+					  <tns1:SubscriptionIdentity>
+					    <nc:Person>
+					      <nc:PersonName>
+					      	<nc:PersonGivenName>John</nc:PersonGivenName>
+					        <nc:PersonSurName>Doe</nc:PersonSurName>
+					      </nc:PersonName>
+					    </nc:Person>
+					  </tns1:SubscriptionIdentity>
+					  <nc:ActivityInvolvedPersonAssociation>
+					    <nc:ActivityReference s:ref="I001"/>
+					    <nc:PersonReference s:ref="P001"/>
+					    <nc:PersonActivityInvolvementText>Witness</nc:PersonActivityInvolvementText>
+					  </nc:ActivityInvolvedPersonAssociation>
+					  <j:Person s:id="P001">
+					  	<nc:PersonBirthDate>
+					  		<nc:Date>1980-01-01</nc:Date>
+					  	</nc:PersonBirthDate>
+					  	<nc:PersonName>
+					  		<nc:PersonGivenName>John</nc:PersonGivenName>
+					  		<nc:PersonSurName>Doe</nc:PersonSurName>
+					  	</nc:PersonName>
+					  </j:Person>
+					   <j:Person s:id="P002">
+					  	<nc:PersonName>
+					  		<nc:PersonGivenName>Clancy</nc:PersonGivenName>
+					  		<nc:PersonSurName>Wiggum</nc:PersonSurName>
+							<nc:PersonFullName>Clancy Wiggum</nc:PersonFullName>					  		
+					  	</nc:PersonName>
+					  </j:Person>
+					</tns:NotificationMessage>                 
+                </b:Message>
+            </b:NotificationMessage>
+        </b:Notify>
+    </soapenv:Body>
+</soapenv:Envelope>

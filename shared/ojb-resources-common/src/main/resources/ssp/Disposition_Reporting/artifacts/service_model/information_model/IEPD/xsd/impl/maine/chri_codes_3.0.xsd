@@ -861,6 +861,8 @@
 			<xsd:enumeration value="VACATED" />
 			<xsd:enumeration value="WITHDRAWN" />
 			<xsd:enumeration value="WITNESS UNAVAILABLE" />
+<!-- ADDED 11/29/21  -->
+			<xsd:enumeration value="AMENDED" />
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventActionCodeType">
@@ -1098,7 +1100,19 @@
 			<xsd:enumeration value="SUPERCEDING INDICTMENT" />
 			<xsd:enumeration value="DISMISSED BY DA/AG - PLED TO OTHER CHARGE" />
 			<xsd:enumeration value="GUILTY - CONTINUED FOR SENTENCING" />
-			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />			
+			<xsd:enumeration value="MTN TO TERMINATE SUPERVISD REL" />
+<!-- ADDED 11/22/21  -->				
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - CONTINUED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE PARTIALLY REVOKED - TERMINATED"/>
+			<xsd:enumeration value="ADMINISTRATIVE RELEASE REVOKED"/>
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - CONTINUED"/>
+			<xsd:enumeration value="PROBATION PARTIALLY REVOKED - TERMINATED"/>
+			<xsd:enumeration value="PROBATION REVOKED"/>
+			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - CONTINUED"/>
+			<xsd:enumeration value="SUPERVISED RELEASE PARTIALLY REVOKED - TERMINATED"/>
+			<xsd:enumeration value="SUPERVISED RELEASE REVOKED" />
+<!-- ADDED 11/29/21  -->
+			<xsd:enumeration value="DISMISSED AFTER DEFERRED DISPOSITION" />											
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="EventStatusCodeType">

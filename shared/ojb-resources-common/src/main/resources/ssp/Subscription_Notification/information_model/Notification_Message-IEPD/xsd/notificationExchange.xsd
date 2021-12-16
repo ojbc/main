@@ -39,12 +39,14 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="notfm-ext:NotifyingActivity" maxOccurs="unbounded" />
-					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" />
+					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ActivityResponsibleOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />					
 					<xsd:element ref="notfm-doc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:ContactInformation" minOccurs="0" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="notfm-doc:ChargeDispositionAssociation" minOccurs="0" maxOccurs="unbounded" />

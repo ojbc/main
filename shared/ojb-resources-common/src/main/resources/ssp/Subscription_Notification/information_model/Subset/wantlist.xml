@@ -40,12 +40,17 @@
   <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Organization" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Sentence" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Supervision" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Warrant" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Activity" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityInvolvedPersonAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ActivityResponsibleOrganizationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressFullText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:BinaryBase64Object" w:isReference="false" w:nillable="false"/>
@@ -64,8 +69,10 @@
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Disposition" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:EntityOrganization" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:FullTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:HighwayFullText" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Incident" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ItemColor" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationHighway" w:isReference="false" w:nillable="true"/>
@@ -81,10 +88,16 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonOrganizationAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonRaceCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ResidenceAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:RoleOfPerson" w:isReference="true" w:nillable="false"/>
   <w:Element w:name="nc:StructuredAddress" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="fbi:EYECodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="BLK"/>
@@ -571,6 +584,12 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="j:CitationType" w:isRequested="true"/>
+  <w:Type w:name="j:CourtOrderType" w:isRequested="true">
+    <w:ElementInType w:name="j:CourtOrderDesignatedSubject"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtOrderEnforcementAgency"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:CrashDriverType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -619,11 +638,11 @@
     <w:ElementInType w:name="j:OffenseCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
+  <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="true">
     <w:ElementInType w:name="j:OrganizationORIIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="j:OrganizationType" w:isRequested="false">
+  <w:Type w:name="j:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="j:OrganizationAugmentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
@@ -641,7 +660,7 @@
     <w:ElementInType w:name="j:Charge" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:PersonType" w:isRequested="false">
+  <w:Type w:name="j:PersonType" w:isRequested="true">
     <w:ElementInType w:name="j:PersonAugmentation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
@@ -663,15 +682,26 @@
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="j:SupervisionType" w:isRequested="false">
+    <w:ElementInType w:name="j:SupervisionAugmentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:TermType" w:isRequested="false">
     <w:ElementInType w:name="j:TermDuration" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:TermLifeIndicator" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:WarrantType" w:isRequested="true"/>
   <w:Type w:name="nc:ActivityInvolvedPersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonActivityInvolvementText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
+  <w:Type w:name="nc:ActivityOrganizationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Organization" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="true"
@@ -772,6 +802,8 @@
   <w:Type w:name="nc:IncidentType" w:isRequested="true">
     <w:ElementInType w:name="nc:IncidentLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IncidentJurisdictionalOrganization"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ItemRegistrationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ItemRegistration" w:isReference="true"
@@ -797,7 +829,7 @@
     <w:ElementInType w:name="nc:ObligationDue" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:OrganizationType" w:isRequested="false">
+  <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:OrganizationPrimaryContactInformation"
@@ -825,8 +857,14 @@
     <w:ElementInType w:name="nc:PersonFullName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="nc:PersonOrganizationAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Organization" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonResidenceAssociationType" w:isRequested="true"/>
-  <w:Type w:name="nc:PersonType" w:isRequested="false">
+  <w:Type w:name="nc:PersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:PersonAlternateName"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
@@ -839,6 +877,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSex" w:isReference="false"
@@ -866,6 +906,12 @@
     <w:ElementInType w:name="nc:LocationState" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:LocationPostalCode"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:SupervisionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:SupervisionPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:SupervisionSupervisor"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TangibleItemType" w:isRequested="true">

@@ -30,7 +30,10 @@ public class Incident {
 	
 	//fk to Agency table
 	private Integer reportingAgencyID;
-		
+
+	//fk to Troop table
+	private Integer troopID;
+
 	private Date incidentDate;
 	private Time incidentTime;
 	
@@ -43,6 +46,26 @@ public class Incident {
 	
     private String incidentDescriptionText;
     
+    private String incidentCategoryCode;
+    
+    private String incidentDispositionCodeText;
+    
+	public String getIncidentDispositionCodeText() {
+		return incidentDispositionCodeText;
+	}
+
+	public void setIncidentDispositionCodeText(String incidentDispositionCodeText) {
+		this.incidentDispositionCodeText = incidentDispositionCodeText;
+	}
+
+	public String getIncidentCategoryCode() {
+		return incidentCategoryCode;
+	}
+
+	public void setIncidentCategoryCode(String incidentCategoryCode) {
+		this.incidentCategoryCode = incidentCategoryCode;
+	}
+
 	private char recordType;
 
 	private String reportingSystem;
@@ -143,6 +166,14 @@ public class Incident {
 	public void setReportingSystem(String reportingSystem) {
 		this.reportingSystem = reportingSystem;
 	}
+	
+	public Integer getTroopID() {
+		return troopID;
+	}
+
+	public void setTroopID(Integer troopID) {
+		this.troopID = troopID;
+	}	
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

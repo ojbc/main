@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticaldatastore.dao;
+package org.ojbc.adapters.analyticaldatastore.dao.model;
 
 public class IncidentCircumstance {
 

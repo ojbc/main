@@ -26,6 +26,8 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.County;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.DispositionType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentOffense;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
@@ -44,6 +46,8 @@ public interface AnalyticalDatastoreDAO {
 	public Integer saveIncidentType(IncidentType incidentType);
 	
 	public Integer saveIncidentCircumstance(IncidentCircumstance incidentCircumstance);
+	
+	public Integer saveIncidentOffense(IncidentOffense incidentOffense);
 	
 	public Integer saveCounty(County county);
 
@@ -89,6 +93,8 @@ public interface AnalyticalDatastoreDAO {
 	public List<IncidentType> returnIncidentDescriptionsFromIncident(Integer incidentPk);
 	
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
+	
+	public Integer searchForTroopIDbyTroopName(String troopName);
 	
 	public Person getPerson(Integer personId);
 
