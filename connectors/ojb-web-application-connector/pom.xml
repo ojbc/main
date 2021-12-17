@@ -52,15 +52,26 @@
 		<mockito.version>2.21.0</mockito.version>
 		<nij-er-resources-version>1.0.2</nij-er-resources-version>
 		<java-version>1.8</java-version>
-    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
-    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+	    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
+	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
+	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 
 		<!-- Plugin versions -->
 		<surefire.version>2.22.2</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-bom</artifactId>
+         <version>2.16.0</version>
+         <type>pom</type>
+         <scope>import</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 	<dependencies>
 		<!-- ERS Resources -->
 		<dependency>
