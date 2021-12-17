@@ -48,10 +48,6 @@ public class Subscription implements Serializable {
 	
 	private String fullName;
 	
-	private String sex;
-	
-	private String race;
-	
 	private Boolean active; 
 	
 	@JsonSerialize(using = LocalDateSerializer.class)
