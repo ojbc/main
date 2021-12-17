@@ -55,10 +55,10 @@
                      <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                   </j:ArrestAgency>
                   <j:ArrestOfficial>
-                     <nc:RoleOfPersonReference s:ref="d1e254"/>
+                     <nc:RoleOfPersonReference s:ref="d1e166"/>
                   </j:ArrestOfficial>
                   <j:ArrestSubject>
-                     <nc:RoleOfPersonReference s:ref="d1e129"/>
+                     <nc:RoleOfPersonReference s:ref="d1e85"/>
                   </j:ArrestSubject>
                </j:Arrest>
                <j:Incident>
@@ -83,7 +83,7 @@
                   </nc:IncidentLocation>
                   <j:IncidentAugmentation>
                      <j:IncidentReportingOfficial>
-                        <nc:RoleOfPersonReference s:ref="d1e254"/>
+                        <nc:RoleOfPersonReference s:ref="d1e166"/>
                         <j:EnforcementOfficialUnit>
                            <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                            <nc:OrganizationPrimaryContactInformation>
@@ -98,7 +98,7 @@
                   </j:IncidentAugmentation>
                   <j:IncidentAugmentation>
                      <j:IncidentReportingOfficial>
-                        <nc:RoleOfPersonReference s:ref="d1e267"/>
+                        <nc:RoleOfPersonReference s:ref="d1e176"/>
                         <j:EnforcementOfficialUnit>
                            <nc:OrganizationName>Local Police Department</nc:OrganizationName>
                            <nc:OrganizationPrimaryContactInformation>
@@ -125,10 +125,10 @@
             </notificationExt:NotifyingArrest>
             <nc:ActivityInvolvedPersonAssociation>
                <nc:ActivityReference s:ref="A001"/>
-               <nc:PersonReference s:ref="d1e129"/>
+               <nc:PersonReference s:ref="d1e85"/>
                <nc:PersonActivityInvolvementText>Arrest Subject</nc:PersonActivityInvolvementText>
             </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e129">
+            <j:Person s:id="d1e85">
                <nc:PersonAlternateName>
                   <nc:PersonGivenName>Mark</nc:PersonGivenName>
                   <nc:PersonSurName>Smitty</nc:PersonSurName>
@@ -146,12 +146,12 @@
                   <nc:PersonFullName>Smith, Mark</nc:PersonFullName>
                </nc:PersonName>
             </j:Person>
-            <j:Person s:id="d1e254">
+            <j:Person s:id="d1e166">
                <nc:PersonName>
                   <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
                </nc:PersonName>
             </j:Person>
-            <j:Person s:id="d1e267">
+            <j:Person s:id="d1e176">
                <nc:PersonName>
                   <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
                </nc:PersonName>
@@ -174,7 +174,7 @@
                </nc:ContactTelephoneNumber>
             </nc:ContactInformation>
             <nc:PersonContactInformationAssociation>
-               <nc:PersonReference s:ref="d1e129"/>
+               <nc:PersonReference s:ref="d1e85"/>
                <nc:ContactInformationReference s:ref="CI001"/>
             </nc:PersonContactInformationAssociation>
          </notification:NotificationMessage>

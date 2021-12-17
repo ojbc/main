@@ -62,10 +62,10 @@
             </notificationExt:NotifyingArrest>
             <nc:ActivityInvolvedPersonAssociation>
                <nc:ActivityReference s:ref="A001"/>
-               <nc:PersonReference s:ref="d1e25"/>
+               <nc:PersonReference s:ref="d1e20"/>
                <nc:PersonActivityInvolvementText>Arrest Subject</nc:PersonActivityInvolvementText>
             </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e25">
+            <j:Person s:id="d1e20">
                <nc:PersonBirthDate>
                   <nc:Date>1977-08-25</nc:Date>
                </nc:PersonBirthDate>
