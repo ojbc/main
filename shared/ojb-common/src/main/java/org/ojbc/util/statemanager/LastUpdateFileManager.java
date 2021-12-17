@@ -19,6 +19,7 @@ package org.ojbc.util.statemanager;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,8 +75,19 @@ public class LastUpdateFileManager implements LastUpdateManager {
 		if (lastUpdateDate == null)
 		{
 			// Read properties file.
-			Properties properties = new Properties();
-			    properties.load(new FileInputStream(configurationFileLocation));
+			Properties properties;
+			try {
+				properties = new Properties();
+				    properties.load(new FileInputStream(configurationFileLocation));
+			} catch (Exception e) {
+
+				InputStream input = getFileFromResourceAsStream(configurationFileLocation);
+				
+				log.info("Input Stream: " + input);
+				
+				properties = new Properties();
+			    properties.load(input);
+			}
 
 			//This file has only one property: lastDatabaseRecordProcessedDateTime    
 			String lastUpdateString = properties.getProperty("lastDatabaseRecordProcessedDateTime");
@@ -126,6 +138,21 @@ public class LastUpdateFileManager implements LastUpdateManager {
 		}
     	
 	}
+	
+    private InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }	
 
 	public void setConfigurationFileLocation(String configurationFileLocation) {
 		this.configurationFileLocation = configurationFileLocation;

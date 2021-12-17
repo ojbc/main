@@ -21,15 +21,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-ui-common</artifactId>
-	<version>4.0.1</version> 
+	<version>4.0.2</version> 
 	<name>ojb-ui-common</name>
 	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-shared-aggregate</artifactId>
-	  <version>1.0.0</version>
+        <artifactId>ojb-shared-aggregate</artifactId>
+        <version>1.0.0</version>
 	</parent>
 
 	<properties>

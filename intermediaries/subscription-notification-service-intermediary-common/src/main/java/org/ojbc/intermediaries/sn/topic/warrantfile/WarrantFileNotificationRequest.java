@@ -21,7 +21,8 @@ import java.util.Map;
 
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
@@ -31,7 +32,7 @@ import org.w3c.dom.Document;
 
 public class WarrantFileNotificationRequest extends NotificationRequest{
 	
-	private static final Logger logger = Logger.getLogger(WarrantFileNotificationRequest.class);
+	private static final Log logger = LogFactory.getLog(WarrantFileNotificationRequest.class);
 	
     public WarrantFileNotificationRequest(Message message) throws Exception{
         this(message.getBody(Document.class));

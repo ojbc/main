@@ -33,8 +33,8 @@
 			<property name="driverClassName" value="${analyticsAdapter.dataSource.driverClass}" />
 			<property name="url" value="${analyticsAdapter.dataSource.jdbcUrl}" />
 			<property name="username" value="${analyticsAdapter.dataSource.user}" />
-<!-- 			<property name="password" value="${analyticsAdapter.dataSource.password}" />
- -->			<property name="initialSize" value="${analyticsAdapter.dataSource.minPoolSize}" />
+			<property name="password" value="${analyticsAdapter.dataSource.password}" />
+			<property name="initialSize" value="${analyticsAdapter.dataSource.minPoolSize}" />
 			<property name="maxActive" value="${analyticsAdapter.dataSource.maxPoolSize}" />
 			<property name="validationQuery" value="select 1" />
 			<property name="testOnBorrow" value="true" />

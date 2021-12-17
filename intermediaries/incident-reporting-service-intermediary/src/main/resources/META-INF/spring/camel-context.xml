@@ -63,6 +63,8 @@
 		<camel:endpoint id="arrestReportingServiceEndpoint" 
 			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>
 			
+		<camel:endpoint id="analyticalDataStorePersistenceServiceEndpoint" 
+			uri="cxf:bean:analyticalDataStorePersistenceService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>
 			
 		<!-- Incident Reporting Service Handler -->
 		<camel:route id="IncidentReportingServiceHandlerRoute">
@@ -92,6 +94,16 @@
 				<!-- Multicast to the core services and derived bundle specific routes 
 					so each route gets original message -->
 				<camel:multicast stopOnException="false">
+				
+					<camel:pipeline>
+						<camel:filter>
+							<camel:simple>${bean:callIncidentAnalyticsService.trim} == 'true'</camel:simple>
+
+							<camel:to uri="direct:callIncidentAnalyticsService" />
+
+						</camel:filter>
+					</camel:pipeline>
+				
 					<camel:pipeline>
 						<camel:filter>
 							<camel:simple>${in.header.callNDExSubmissionService} == 'true'</camel:simple>
@@ -174,6 +186,45 @@
 			<camel:to
 				uri="ndexSubmissionServiceEndpoint" />
 			<log message="Called NDEx service" />
+		</camel:route>
+		
+		<camel:route errorHandlerRef="incidentAnalyticsDeadLetterErrorHandler" id="CallIncidentAnalyticsServiceRoute">
+			<camel:from uri="direct:callIncidentAnalyticsService" />
+			
+			<camel:log message="Inside route to call Anaytical DataStore Persistence service"/>
+			
+			<camel:log message="Here is the body to send to the analytics adapter: ${body}" loggingLevel="DEBUG"/>
+			
+			<!-- prepare new exchange will delete almost all headers, we filter on operation name before calling -->			
+						
+			<camel:filter>
+				<camel:simple>${in.header.operationName} == 'ReportIncident'</camel:simple>
+			
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncident</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:simple>${in.header.operationName} == 'ReportIncidentUpdate'</camel:simple>
+          			           			
+          			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+          	
+	            <camel:setHeader headerName="operationName">
+					<constant>ReportIncidentUpdate</constant>
+				</camel:setHeader>
+				
+			</camel:filter>
+						
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
+			</camel:setHeader>				
+			
+			<camel:to
+				uri="analyticalDataStorePersistenceServiceEndpoint" />
+			<log message="Called Analytical Data Store Persistence service" />
 		</camel:route>
 		
         <camel:route id="CallChargeReferralServiceRoute" errorHandlerRef="chargeReferralDeadLetterErrorHandler">
@@ -351,6 +402,10 @@
 	
     <bean id="callArrestReportingService" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
+    </bean>	
+
+    <bean id="callIncidentAnalyticsService" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="${incidentReportingService.callIncidentAnalyticsService}" />
     </bean>	
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />

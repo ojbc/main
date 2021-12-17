@@ -63,6 +63,13 @@
 					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure" minOccurs="0" />
 					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0" />
 					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityInvolvedPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="submsg-ext:Supervision" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded"/>					
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -145,12 +152,41 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalSubscriptionReasonCode" type="submsg-ext:CriminalSubscriptionReasonCodeType"
-		substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
+		 >
 		<xsd:annotation>
 			<xsd:documentation>A code value for the reason for creating a subscription
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="Supervision" type="submsg-ext:SupervisionType">	
+	<xsd:annotation>
+			<xsd:documentation>A process of overseeing, supervising, or keeping track in some capacity of a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	
+	
+	<xsd:complexType name="SupervisionType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:SupervisionType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:SupervisionDateRange" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	
+	<xsd:element name="SupervisionDateRange" type="nc:DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>A period of supervision.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	
 	<xsd:complexType name="CriminalSubscriptionReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:CriminalSubscriptionReasonCodeSimpleType">

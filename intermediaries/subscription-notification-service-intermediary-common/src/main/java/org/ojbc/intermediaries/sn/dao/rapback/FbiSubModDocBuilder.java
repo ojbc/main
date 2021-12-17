@@ -24,7 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.Subscription;
@@ -38,7 +39,7 @@ public class FbiSubModDocBuilder {
 	@SuppressWarnings("unused")
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
-	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilder.class);
+	private static final Log logger = LogFactory.getLog(FbiSubModDocBuilder.class);
 	
 	private OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 	private Map<String, String> reasonCodeTypeMap = new HashMap<>();

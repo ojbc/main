@@ -57,6 +57,11 @@ CREATE TABLE Agency (
                 CONSTRAINT AgencyID PRIMARY KEY (AgencyID)
 );
 
+CREATE TABLE Troop (
+                TroopID INT AUTO_INCREMENT NOT NULL,
+                TroopName VARCHAR(40) NOT NULL,
+                PRIMARY KEY (TroopID)
+);
 
 CREATE TABLE County (
                 CountyID IDENTITY NOT NULL,
@@ -141,6 +146,7 @@ COMMENT ON COLUMN Disposition.RecordType IS 'N for new record, U for update to p
 CREATE TABLE Incident (
                 IncidentID IDENTITY NOT NULL,
                 ReportingAgencyID INTEGER NOT NULL,
+                ReportingTroopID INT,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 IncidentLocationLatitude NUMERIC(14,10),
                 IncidentLocationLongitude NUMERIC(14,10),
@@ -148,6 +154,8 @@ CREATE TABLE Incident (
                 IncidentLocationTown VARCHAR(50),
                 IncidentDate DATE NOT NULL,
                 IncidentTime TIME NOT NULL,
+                IncidentCategoryCode VARCHAR(100),
+                IncidentDispositionCodeText VARCHAR(100),
                 ReportingSystem VARCHAR(30) NOT NULL,
                 RecordType CHAR(1) NOT NULL,
                 Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
@@ -191,6 +199,13 @@ CREATE TABLE IncidentCircumstance (
                 CONSTRAINT IncidentCircumstance_pk PRIMARY KEY (IncidentCircumstanceID)
 );
 
+CREATE TABLE IncidentOffense (
+                IncidentOffenseID IDENTITY NOT NULL,
+                IncidentID INTEGER NOT NULL,
+                IncidentOffenseCode VARCHAR(80) NOT NULL,
+                IncidentOffenseText VARCHAR(80) NOT NULL,
+                CONSTRAINT IncidentOffenseID PRIMARY KEY (IncidentOffenseID)
+);
 
 CREATE TABLE Arrest (
                 ArrestID IDENTITY NOT NULL,
@@ -244,6 +259,12 @@ REFERENCES Agency (AgencyID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE Incident ADD CONSTRAINT troop_incident_fk
+FOREIGN KEY (ReportingTroopID)
+REFERENCES Troop (TroopID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT County_PretrialServiceParticipation_fk
 FOREIGN KEY (CountyID)
 REFERENCES County (CountyID)
@@ -293,6 +314,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE IncidentCircumstance ADD CONSTRAINT Incident_IncidentCircumstance_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE IncidentOffense ADD CONSTRAINT Incident_IncidentOffense_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION

@@ -29,7 +29,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.helper.ZipUtils;
@@ -79,7 +78,7 @@ public class FbiRapbackDao {
 	  "and fbidsub.rap_back_category_code=?;";
 	
 	
-	private static final Logger logger = Logger.getLogger(FbiRapbackDao.class);
+	private static final Log logger = LogFactory.getLog(FbiRapbackDao.class);
 	
     @Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;

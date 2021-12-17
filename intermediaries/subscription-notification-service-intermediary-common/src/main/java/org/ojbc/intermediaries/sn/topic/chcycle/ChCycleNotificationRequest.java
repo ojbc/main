@@ -19,19 +19,20 @@ package org.ojbc.intermediaries.sn.topic.chcycle;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.Message;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.apache.camel.Message;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.w3c.dom.Document;
 
 public class ChCycleNotificationRequest extends NotificationRequest {
 	
-	private static final Logger logger = Logger.getLogger(ChCycleNotificationRequest.class);
+	private static final Log logger = LogFactory.getLog(ChCycleNotificationRequest.class);
 	
     public ChCycleNotificationRequest(Message message) throws Exception{
         this(message.getBody(Document.class));

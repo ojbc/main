@@ -35,8 +35,6 @@
 
 	<properties>
 		<camel-version>3.11.0</camel-version>
-		<slf4j-version>1.7.31</slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<servlet-api-version>4.0.1</servlet-api-version>
 		<ojb-fedquery-common-version>[4.0.0,)</ojb-fedquery-common-version>
@@ -54,15 +52,26 @@
 		<mockito.version>2.21.0</mockito.version>
 		<nij-er-resources-version>1.0.2</nij-er-resources-version>
 		<java-version>1.8</java-version>
-    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
-    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
-    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
+	    <ojb-test-common-version>[4.0.0,)</ojb-test-common-version>
+	    <junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
+	    <junit-vintage-engine-version>5.7.2</junit-vintage-engine-version>
 
 		<!-- Plugin versions -->
 		<surefire.version>2.22.2</surefire.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-bom</artifactId>
+         <version>2.16.0</version>
+         <type>pom</type>
+         <scope>import</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 	<dependencies>
 		<!-- ERS Resources -->
 		<dependency>
@@ -285,11 +294,11 @@
 			<version>${apache-commons-io-version}</version>
 			<scope>test</scope>
 		</dependency>
-    <dependency>
-        <groupId>org.xmlunit</groupId>
-        <artifactId>xmlunit-core</artifactId>
-        <version>${xmlunitcore-version}</version>
-    </dependency>
+	    <dependency>
+	        <groupId>org.xmlunit</groupId>
+	        <artifactId>xmlunit-core</artifactId>
+	        <version>${xmlunitcore-version}</version>
+	    </dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -308,41 +317,25 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-    <dependency>
-      <groupId>org.ojbc.bundles.shared</groupId>
-      <artifactId>ojb-test-common</artifactId>
-      <version>${ojb-test-common-version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter-engine-version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>${junit-vintage-engine-version}</version>
-        <scope>test</scope>
-    </dependency>
+	    <dependency>
+	      <groupId>org.ojbc.bundles.shared</groupId>
+	      <artifactId>ojb-test-common</artifactId>
+	      <version>${ojb-test-common-version}</version>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.junit.jupiter</groupId>
+	        <artifactId>junit-jupiter-engine</artifactId>
+	        <version>${junit-jupiter-engine-version}</version>
+	        <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.junit.vintage</groupId>
+	        <artifactId>junit-vintage-engine</artifactId>
+	        <version>${junit-vintage-engine-version}</version>
+	        <scope>test</scope>
+	    </dependency>
 
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j-version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
