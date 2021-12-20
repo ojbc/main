@@ -106,7 +106,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(SUBJECT_INSERT, new String[] {"UCN","CRIMINAL_SID", "CIVIL_SID", "FIRST_NAME", "LAST_NAME", "MIDDLE_INITIAL", "DOB"});
+        	                connection.prepareStatement(SUBJECT_INSERT, new String[] {"SUBJECT_ID"});
         	            ps.setString(1, subject.getUcn());
         	            ps.setString(2, subject.getCriminalSid());
         	            ps.setString(3, subject.getCivilSid()); 
@@ -249,7 +249,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_FINGER_PRINTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "FINGER_PRINTS_TYPE"});
+        	                		new String[] {"FINGER_PRINTS_ID"});
         	            ps.setString(1, civilFingerPrints.getTransactionNumber());
         	            
         	            if (civilFingerPrints.getFingerPrintsFile() != null){
@@ -290,7 +290,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RAP_SHEET_INSERT, 
-        	                		new String[] {"CIVIL_INITIAL_RESULT_ID", "RAP_SHEET"});
+        	                		new String[] {"CIVIL_INITIAL_RESULT_ID"});
         	            ps.setInt(1, civilInitialRapSheet.getCivilIntitialResultId());
 						ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialRapSheet.getRapSheet())));
         	            return ps;
@@ -317,8 +317,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CIVIL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "MATCH_NO_MATCH",  
-        	                			"RESULTS_SENDER_ID"});
+        	                		new String[] {"CIVIL_INITIAL_RESULT_ID"});
         	            ps.setString(1, civilInitialResults.getTransactionNumber());
 						ps.setBlob(2, new SerialBlob(ZipUtils.zip(civilInitialResults.getSearchResultFile())));
         	            ps.setInt(3, civilInitialResults.getResultsSender().ordinal()+1);
@@ -345,8 +344,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(CRIMINAL_INITIAL_RESULTS_INSERT, 
-        	                		new String[] {"TRANSACTION_NUMBER", "SEARCH_RESULT_FILE",  
-        	                			"RESULTS_SENDER_ID"});
+        	                		new String[] {"CRIMINAL_INITIAL_RESULT_ID"});
         	            ps.setString(1, criminalInitialResults.getTransactionNumber());
 						ps.setBlob(2, new SerialBlob(ZipUtils.zip(criminalInitialResults.getSearchResultFile())));
         	            ps.setInt(3, criminalInitialResults.getResultsSender().ordinal()+1);

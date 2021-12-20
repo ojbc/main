@@ -256,7 +256,7 @@
 										
 					</camel:when>
 					<camel:when>
-						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport'</camel:simple>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport' || ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport'</camel:simple>
 						<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistoryState" />
 						<log message="State Criminal History consolidated"/>
 					</camel:when>
@@ -272,7 +272,7 @@
 				
 				<!-- Save subsequent results for only consolidations and restorations, not expungements -->
 				<camel:filter>
-					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' or ${in.headers.consolidationType} == 'criminalHistoryRestorationReport' or ${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport'</camel:simple>
+					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' || ${in.headers.consolidationType} == 'criminalHistoryRestorationReport' || ${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport'</camel:simple>
 					<log message="Saving Subsequent Results"/>
 					<camel:to uri="bean:subscriptionNotificationReportingProcessor?method=processFbiNotificationReport"/>
 					
@@ -288,7 +288,7 @@
 										
 					</camel:when>
 					<camel:when>
-						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport' || ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
 						<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistoryFederal" />
 						<log message="Federal Criminal History consolidated"/>
 					</camel:when>

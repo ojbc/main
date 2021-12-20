@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -35,14 +35,15 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
@@ -57,19 +58,21 @@ import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
-@DirtiesContext
 public class RapbackDAOImplGetMethodsTest {
 
     @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
@@ -86,7 +89,7 @@ public class RapbackDAOImplGetMethodsTest {
     @Resource  
     private DataSource dataSource;  
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
 		assertNotNull(fbiSubscriptionDao);

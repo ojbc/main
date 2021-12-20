@@ -20,8 +20,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,14 +33,15 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
@@ -56,23 +58,23 @@ import org.ojbc.util.model.rapback.FbiRapbackSubscription;
 import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
         "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class RapbackDAOImplTest {
     private static final String COUNT_SID_A123457 = "select count(*) as rowcount from identification_subject "
     		+ "where civil_sid = 'A123457' or criminal_Sid = 'A123457'";
@@ -99,7 +101,7 @@ public class RapbackDAOImplTest {
     //This is used to update database to achieve desired state for test
     private JdbcTemplate jdbcTemplate;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
 		assertNotNull(fbiSubscriptionDao);
@@ -175,9 +177,9 @@ public class RapbackDAOImplTest {
 		rapbackDAO.saveIdentificationTransaction(transaction);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
-		IdentificationTransaction transaction = new IdentificationTransaction(); 
+		assertThrows(IllegalArgumentException.class, () -> { IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
@@ -185,7 +187,8 @@ public class RapbackDAOImplTest {
 		transaction.setIdentificationCategory("CAR");
 		transaction.setCurrentState(IdentificationTransactionState.Available_for_Subscription);
 		
-		rapbackDAO.saveIdentificationTransaction(transaction); 
+		rapbackDAO.saveIdentificationTransaction(transaction);
+		});
 		
 	}
 	
@@ -359,9 +362,9 @@ public class RapbackDAOImplTest {
 		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), equalTo(62725)); 
 	}
 	
-	@Test(expected=DuplicateKeyException.class)
+	@Test
 	public void testSaveFbiSubscriptionError() throws Exception {
-		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
+		assertThrows(DuplicateKeyException.class, () -> { FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
 		fbiRapbackSubscription.setFbiSubscriptionId("fbiSubscriptionId");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
@@ -374,6 +377,7 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setStateSubscriptionId(62725);
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
+		});
 		
 	}
 

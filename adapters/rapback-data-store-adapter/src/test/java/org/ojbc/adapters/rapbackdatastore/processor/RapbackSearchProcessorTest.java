@@ -48,12 +48,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 
 @CamelSpringBootTest
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
 @ActiveProfiles("dev")
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ContextConfiguration(locations = {
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		})
 public class RapbackSearchProcessorTest {
 	private static final Log log = LogFactory.getLog( RapbackSearchProcessorTest.class );
 

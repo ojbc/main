@@ -66,7 +66,7 @@
 			uri="file://{{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/error&amp;move=processed/" />
 
 		<endpoint id="identificationRecordingResposneFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse/error&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendFailedIdResponseCronExpression}}" />
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse/error&amp;move=processed/&amp;scheduler=quartz&amp;scheduler.cron={{rapbackDatastoreAdapter.resendFailedIdResponseCronExpression}}" />
 			
 		<endpoint id="identificationReportingResponseServiceEndpoint"
 			uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}&amp;synchronous=true" />
@@ -112,11 +112,11 @@
 
 		<!-- Automatic Archiving Timer Endpoint -->
 		<endpoint id="automaticArchivingCivilTimerEndpoint"
-			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
+			uri="quartz://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
 		<endpoint id="automaticArchivingCriminalTimerEndpoint"
-			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
+			uri="quartz://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
 		<endpoint id="checkDatabaseConnectionTimerEndpoint"
-			uri="quartz2://rapbackDataStore/checkDBConnectionTimer?cron={{rapbackDatastoreAdapter.checkDatabaseConnectionCronExpression}}" />
+			uri="quartz://rapbackDataStore/checkDBConnectionTimer?cron={{rapbackDatastoreAdapter.checkDatabaseConnectionCronExpression}}" />
 
 		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>
 		
@@ -570,12 +570,4 @@
 		
 	</camelContext>
 
-	<bean id="opertaionNameNotSupported" class="java.lang.IllegalArgumentException">
-	   <constructor-arg index="0" value="Operation Name is not supported."/>
-	</bean>
-	
-	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
 </beans>

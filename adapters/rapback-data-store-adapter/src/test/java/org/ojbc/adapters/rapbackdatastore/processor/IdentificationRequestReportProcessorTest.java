@@ -18,33 +18,33 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/properties-context.xml",
-		})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class IdentificationRequestReportProcessorTest {
 
 	@Autowired
 	IdentificationRequestReportProcessor identificationRequestReportProcessor;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(identificationRequestReportProcessor);
 	}
 
 	@Test
+	@Disabled
 	public void test() {
 		//fail("Not yet implemented");
 	}

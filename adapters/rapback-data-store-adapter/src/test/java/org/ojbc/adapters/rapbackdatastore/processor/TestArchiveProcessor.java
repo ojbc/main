@@ -19,24 +19,27 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
@@ -48,7 +51,7 @@ public class TestArchiveProcessor {
 	@Autowired
 	RapbackDAOImpl rapbackDAO;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
 	}

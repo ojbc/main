@@ -20,30 +20,32 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
-        "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
         "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class EnhancedAuditDAOImplTest {
     
 	@Autowired
 	EnhancedAuditDAO enhancedAuditDAO;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(enhancedAuditDAO);
 	}

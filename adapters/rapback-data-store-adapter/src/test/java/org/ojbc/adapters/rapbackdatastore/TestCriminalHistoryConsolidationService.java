@@ -64,6 +64,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -72,6 +73,10 @@ import org.w3c.dom.Element;
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@ContextConfiguration(locations = {
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+		})
 public class TestCriminalHistoryConsolidationService {
 	
 	@SuppressWarnings("unused")

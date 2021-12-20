@@ -21,36 +21,37 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.test.util.IgnoreNamedElementsDifferenceListener;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
-        "classpath:META-INF/spring/spring-context.xml",
-        "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/properties-context.xml",
-		})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"})
 public class IdentificationReportingResponseProcessorTest {
 	
 	@Autowired
 	IdentificationReportingResponseProcessor identificationReportingResponseProcessor;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		assertNotNull(identificationReportingResponseProcessor);
 	}

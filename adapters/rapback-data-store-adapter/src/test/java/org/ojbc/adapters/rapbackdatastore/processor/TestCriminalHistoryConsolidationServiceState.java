@@ -36,6 +36,7 @@ import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ojbc.adapters.rapbackdatastore.application.RapbackDatastoreAdapterApplication;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
@@ -44,6 +45,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
  * 
@@ -57,6 +59,11 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(classes=RapbackDatastoreAdapterApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@ContextConfiguration(locations = {
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
+		})
 public class TestCriminalHistoryConsolidationServiceState {
 	
 	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationServiceState.class );
@@ -167,6 +174,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     }
     
 	@Test
+	@Disabled
 	public void testReturnCamelEmail() throws Exception
 	{
 		 CamelContext ctx = new DefaultCamelContext(); 

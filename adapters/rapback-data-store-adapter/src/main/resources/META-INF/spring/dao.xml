@@ -42,6 +42,8 @@
     <bean id="subscriptionSearchQueryDAO" class="org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    
+    <bean id="rapbackDAO" class="org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl" />
     	
 	<bean id="enhancedAuditDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
@@ -54,5 +56,32 @@
 		<property name="validationQuery" value="select 1" />
 		<property name="testOnBorrow" value="true" />
 	</bean>	
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="jdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="enhancedAuditJdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="enhancedAuditDataSource"/>
+	</bean>
+	
+	<bean id="fbiSubscriptionDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>	
+	</bean>
 	
 </beans>

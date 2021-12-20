@@ -40,6 +40,7 @@
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<cxf-version>3.4.4</cxf-version>
+		<log4j-version>2.16.0</log4j-version>
 		<commons-lang-version>3.12.0</commons-lang-version>
 		<commons-codec-version>1.6</commons-codec-version>
 		<spring-version>5.3.8</spring-version>
@@ -215,6 +216,16 @@
 			<groupId>org.ojbc.bundles.intermediaries</groupId>
 			<artifactId>subscription-notification-service-intermediary-common</artifactId>
 			<version>${sn-intermediary-common-version}</version>
+			<exclusions>
+				<exclusion>
+    				<groupId>org.slf4j</groupId>
+   					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
@@ -242,6 +253,16 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
 			<version>${ojb-osgi-common-version}</version>
+			<exclusions>
+				<exclusion>
+    				<groupId>org.slf4j</groupId>
+   					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -336,8 +357,14 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.logging.log4j</groupId>
+    		<artifactId>log4j-api</artifactId>
+    		<version>${log4j-version}</version>
 		</dependency>
 	</dependencies>
 

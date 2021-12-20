@@ -48,16 +48,16 @@ public class DatabaseConnectionMonitor{
 
 	public void checkDatabaseConnection(Exchange exchange) throws Exception{
 		
-		ServiceStatus status = exchange.getContext().getRouteStatus("resend_database_failed_endpoint_route");
+		ServiceStatus status = exchange.getContext().getRouteController().getRouteStatus("resend_database_failed_endpoint_route");
 		log.debug("route resend_database_failed_endpoint_route status: " + status.toString());
 		
 		
 		if ( ServiceStatus.Started != status && isDatabaseConnected()){
-			exchange.getContext().startRoute("resend_database_failed_endpoint_route");
+			exchange.getContext().getRouteController().startRoute("resend_database_failed_endpoint_route");
 			log.info("route resend_database_failed_endpoint_route is started");
 		}
 		else if ( ServiceStatus.Started == status && !isDatabaseConnected()){
-			exchange.getContext().stopRoute("resend_database_failed_endpoint_route");
+			exchange.getContext().getRouteController().stopRoute("resend_database_failed_endpoint_route");
 			log.info("route resend_database_failed_endpoint_route is stopped");
 		}
 	}
