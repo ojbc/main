@@ -1,3 +1,4 @@
+package org.ojbc.bundles.intermediaries.incidentsearch;
 /*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
@@ -15,22 +16,13 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-package org.ojbc.bundles.intermediaries.incidentsearch;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+@Configuration
+@ConditionalOnProperty(name = "spring.config.additional-location")
+@ImportResource(value = {"file:${spring.config.additional-location}beans/*.xml"})
+public class StateBeans{
 
-@Component
-@ConfigurationProperties(prefix = "federated-query-person-search")
-public class IncidentSearchRequestServiceIntermediaryProperties {
-	private String dbAuditLog = "false";
-
-	public String getDbAuditLog() {
-		return dbAuditLog;
-	}
-
-	public void setDbAuditLog(String dbAuditLog) {
-		this.dbAuditLog = dbAuditLog;
-	} 
-
-} 
+}
