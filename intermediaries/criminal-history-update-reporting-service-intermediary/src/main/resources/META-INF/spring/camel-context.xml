@@ -119,7 +119,7 @@
 			<camel:from uri="direct:memberSpecificRoutes"/>
 		
 			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipJurisdiction"><simple>{{criminalHistoryUpdateReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipJurisdiction"><simple>{{criminalHistoryUpdateReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipJurisdiction} != ''</camel:simple>
@@ -140,7 +140,7 @@
 			<camel:filter>
 				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
 		
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportCriminalHistoryConsolidation</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -148,7 +148,7 @@
 			<camel:filter>
 				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
 
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportCriminalHistoryExpungement</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -156,7 +156,7 @@
 			<camel:filter>
 				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
 			
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportCriminalHistoryIdentifierUpdate</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -164,7 +164,7 @@
 			<camel:filter>
 				<camel:xpath>/chrestoration-report-doc:CriminalHistoryRestorationReport</camel:xpath>
 			
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportCriminalHistoryRestoration</constant>
 				</camel:setHeader>				
 			</camel:filter>
@@ -172,7 +172,7 @@
 			<camel:filter>
 				<camel:xpath>/chr-doc:CriminalHistoryReport</camel:xpath>
 			
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportNewCriminalHistoryEvent</constant>
 				</camel:setHeader>				
 			</camel:filter>
@@ -180,7 +180,7 @@
 			<camel:filter>
 				<camel:xpath>/chdu-report-doc:CriminalHistoryDemographicsUpdateReport</camel:xpath>
 			
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportCriminalHistoryDemographicsUpdate</constant>
 				</camel:setHeader>
 			</camel:filter>			
@@ -190,10 +190,10 @@
 				
 				<camel:log message="Routing court disposition recording status update message"/>
 								
-				<camel:setHeader headerName="operationName"><constant>ReportCourtDispositionRecordingStatusUpdate</constant></camel:setHeader>	
+				<camel:setHeader name="operationName"><constant>ReportCourtDispositionRecordingStatusUpdate</constant></camel:setHeader>	
 			</camel:filter>
 
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
 			</camel:setHeader>
 			
@@ -235,8 +235,8 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
                                       	
 		    <camel:to uri="notificationBrokerServiceEndpoint"/>
 		        		
@@ -244,18 +244,6 @@
 
 	</camel:camelContext>
 		
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<bean id="cycleIdToNotifXsltParamMapper" class="org.ojbc.intermediaries.crimhistoryupdate.CycleIdToNotifXsltParamMapper">
-		<property name="cycleIdToNotifXsltParamMap" ref="cycleIdToNotifXsltParamMap" />
-	</bean>
-	
-	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>	
-    
 </beans>
 
 

@@ -50,14 +50,14 @@
                   <chu:CycleTrackingIdentification>
                      <nc:IdentificationID>123456A</nc:IdentificationID>
                   </chu:CycleTrackingIdentification>
-                  <chu:OriginatorOrganizationReference s:ref="d1e139"/>
-                  <chu:ProsecutionAttorneyOrganizationReference s:ref="d1e154"/>
+                  <chu:OriginatorOrganizationReference s:ref="d1e122"/>
+                  <chu:ProsecutionAttorneyOrganizationReference s:ref="d1e135"/>
                   <nc:Case>
                      <nc:ActivityIdentification>
                         <nc:IdentificationID>1234</nc:IdentificationID>
                      </nc:ActivityIdentification>
                   </nc:Case>
-                  <j:Charge s:id="d1e34">
+                  <j:Charge s:id="d1e31">
                      <j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
                      <chu:ChargeEnhancingFactor>
                         <j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
@@ -73,7 +73,7 @@
                         <nc:IdentificationID>123</nc:IdentificationID>
                      </j:ChargeTrackingIdentification>
                   </j:Charge>
-                  <j:Charge s:id="d1e67">
+                  <j:Charge s:id="d1e58">
                      <j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
                      <chu:ChargeEnhancingFactor>
                         <j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
@@ -93,9 +93,9 @@
             </notificationExt:NotifyingCriminalHistoryUpdate>
             <nc:ActivityInvolvedPersonAssociation>
                <nc:ActivityReference s:ref="d1e1"/>
-               <nc:PersonReference s:ref="d1e169"/>
+               <nc:PersonReference s:ref="d1e148"/>
             </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e169">
+            <j:Person s:id="d1e148">
                <nc:PersonBirthDate>
                   <nc:Date>1970-11-22</nc:Date>
                </nc:PersonBirthDate>
@@ -104,7 +104,7 @@
                   <nc:PersonSurName>SUR</nc:PersonSurName>
                </nc:PersonName>
             </j:Person>
-            <j:Organization s:id="d1e139">
+            <j:Organization s:id="d1e122">
                <nc:OrganizationName>Example Police Department</nc:OrganizationName>
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
@@ -112,7 +112,7 @@
                   </j:OrganizationORIIdentification>
                </j:OrganizationAugmentation>
             </j:Organization>
-            <j:Organization s:id="d1e154">
+            <j:Organization s:id="d1e135">
                <nc:OrganizationName>Example Prosecutor</nc:OrganizationName>
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>

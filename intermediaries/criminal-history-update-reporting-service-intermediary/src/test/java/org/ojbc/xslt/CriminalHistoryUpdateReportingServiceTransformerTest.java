@@ -24,18 +24,18 @@ import java.util.logging.Logger;
 
 import javax.xml.transform.sax.SAXSource;
 
-import junit.framework.Assert;
-
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.XsltTransformer;
+
+import junit.framework.Assert;
 
 public class CriminalHistoryUpdateReportingServiceTransformerTest {
 				
@@ -43,7 +43,7 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 		
 	private Logger logger = Logger.getLogger(CriminalHistoryUpdateReportingServiceTransformerTest.class.getName());
 
-	@Before
+	@BeforeEach
 	public void setup() throws Exception {
 		
 		xsltTransformer = new XsltTransformer();

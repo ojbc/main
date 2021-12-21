@@ -24,19 +24,14 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       "
+       profile="dev">
 	
-	<bean id="cycleIdToNotifXsltParamMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="adapterURItoAddressMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.criminal-history-update-reporting-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
+			<util:map id="cycleIdToNotifXsltParamMap">
 				<entry key="systemIdCourtDisposition" value="Maine CHRI Court Disposition" />
 				<entry key="systemIdCycleTracking" value="Maine CHRI Cycle Tracking" />
 				<entry key="systemIdProsecutionDecision" value="Maine CHRI Prosecution Decision" />
 			</util:map>		
-		</constructor-arg>
-	</bean>		
 	
 </beans>
