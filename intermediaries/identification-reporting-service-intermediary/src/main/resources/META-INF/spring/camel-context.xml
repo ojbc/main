@@ -96,13 +96,13 @@
 	                <camel:when>
 	                    <camel:xpath>normalize-space(/pidres-doc:PersonStateIdentificationResults/j:Subject/nc:RoleOfPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc:IdentificationID) != ''</camel:xpath>
 	                    <camel:log message="CAR state identification results for civil message, need to transform it and sent to Arresting Report Service."/>
-	                    <camel:to uri="xslt:xsl/arrestReportTransform.xsl?saxon=true"/>
+	                    <camel:to uri="xslt:xsl/arrestReportTransform.xsl"/>
 	                    
 	                    <camel:log message="About to call Arrest Report Service: ${body}" loggingLevel="INFO"/>
 			            <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-	                    <camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
-						<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
-						<camel:to uri="arrestReportingServiceEndpoint" />
+	                    <camel:setHeader name="operationName"><constant>ReportArrest</constant></camel:setHeader>	
+						<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
+						<camel:to uri="arrestReportingServiceEndpoint" id="arrestReportingServiceEndpoint"/>
 			            <camel:log message="Called Arrest Reporting service" />
 	                </camel:when>
 	            </camel:choice>
@@ -117,7 +117,7 @@
             <camel:log message="Inside route to call Identification Recording service"/>
             
             <camel:to
-                uri="identificationRecordingServiceEndpoint" />
+                uri="identificationRecordingServiceEndpoint" id="identificationRecordingServiceEndpoint"/>
             <log message="Called Identification Recording service" />
         </camel:route>
         
@@ -130,30 +130,21 @@
             
             <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
             
-            <camel:setHeader headerName="operationName">
+            <camel:setHeader name="operationName">
                 <camel:simple>{{identificationReportingService.responseRecipientOperationName}}</camel:simple>
             </camel:setHeader>
-            <camel:setHeader headerName="operationNamespace">
+            <camel:setHeader name="operationNamespace">
                 <camel:simple>{{identificationReportingService.responseRecipientServiceNamespace}}</camel:simple>
             </camel:setHeader>
             
             <camel:log message="About to send identification recording response message to {{identificationReportingService.responseRecipientServiceEndpoint}}" />			
             <camel:log message="About to send identification recording response message: ${body}" />			
             
-            <camel:to uri="identificationReportingResponseRecipientEndpoint" />
+            <camel:to uri="identificationReportingResponseRecipientEndpoint" id="identificationReportingResponseRecipientEndpoint"/>
             <log message="Called {{identificationReportingService.responseRecipientServiceEndpoint}}" />
             
         </camel:route>
         
     </camel:camelContext>
     
-    <bean id="identificationReportProcessor" class="org.ojbc.intermediaries.identificationreporting.IdentificationReportProcessor"/>
-    
-    <bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-    
-    <!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>	
 </beans>

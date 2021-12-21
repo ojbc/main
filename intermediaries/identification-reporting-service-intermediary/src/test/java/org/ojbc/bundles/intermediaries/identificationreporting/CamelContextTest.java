@@ -36,11 +36,11 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,23 +48,22 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaries.identificationreporting.IdentificationReportingServiceApplication;
 import org.ojbc.test.util.XmlTestUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",		
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/jetty-server.xml",
-		})
+@CamelSpringBootTest
+@SpringBootTest(classes=IdentificationReportingServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 
 	@SuppressWarnings("unused")
@@ -79,16 +78,16 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:IdentificationRecordingService")
+    @EndpointInject(value = "mock:cxf:bean:IdentificationRecordingService")
     protected MockEndpoint identificationRecordingServiceMock;
     
-    @EndpointInject(uri = "mock:cxf:bean:identificationReportingResponseRecipient")
+    @EndpointInject(value = "mock:cxf:bean:identificationReportingResponseRecipient")
     protected MockEndpoint identificationRecordingResponseRecipientMock;
     
-    @EndpointInject(uri = "mock:cxf:bean:arrestReportingService")
+    @EndpointInject(value = "mock:cxf:bean:arrestReportingService")
     protected MockEndpoint arrestReportingServiceMock;
     
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
 		XMLUnit.setIgnoreWhitespace(true);
     	XMLUnit.setIgnoreAttributeOrder(true);
@@ -96,37 +95,23 @@ public class CamelContextTest {
     	XMLUnit.setXSLTVersion("2.0");
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("IdentificationReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:IdentificationReportingServiceEndpoint");
-    	    }              
-    	});
-
-    	//We mock the IdentificationRecordingService endpoint and intercept any submissions
-    	context.getRouteDefinition("CallIdentificationRecordingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:IdentificationRecordingService*");
-    	    }              
-    	});
-
-    	context.getRouteDefinition("identificationReportingResponseHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:IdentificationReportingResponseEndpoint");
-    	    	mockEndpointsAndSkip("cxf:bean:identificationReportingResponseRecipient*");
-    	    }              
+    	AdviceWith.adviceWith(context, "IdentificationReportingServiceHandlerRoute", route -> {
+    		route.replaceFromWith("direct:IdentificationReportingServiceEndpoint");
     	});
     	
-    	context.getRouteDefinition("stateIdentificationReportServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    		@Override
-    		public void configure() throws Exception {
-    			mockEndpointsAndSkip("cxf:bean:arrestReportingService*");
-    		}              
+    	
+    	//We mock the IdentificationRecordingService endpoint and intercept any submissions
+    	AdviceWith.adviceWith(context, "CallIdentificationRecordingServiceRoute", route -> {
+    		route.weaveById("identificationRecordingServiceEndpoint").replace().to(identificationRecordingServiceMock);
+    	});
+    	
+    	AdviceWith.adviceWith(context, "identificationReportingResponseHandlerRoute", route -> {
+    		route.replaceFromWith("direct:IdentificationReportingResponseEndpoint");
+    		route.weaveById("identificationReportingResponseRecipientEndpoint").replace().to(identificationRecordingResponseRecipientMock);
+    	});
+    	
+    	AdviceWith.adviceWith(context, "stateIdentificationReportServiceRoute", route -> {
+    		route.weaveById("arrestReportingServiceEndpoint").replace().to(arrestReportingServiceMock);
     	});
     	
 		context.start();		
@@ -286,7 +271,7 @@ public class CamelContextTest {
 	
 	@Test
 	@DirtiesContext
-	@Ignore("Need to research why this is failing")
+	@Disabled("Need to research why this is failing")
 	public void testArrestReportingContextRoutesWithCivilSidToHijisMessage() throws Exception
 	{
 		identificationRecordingServiceMock.reset(); 

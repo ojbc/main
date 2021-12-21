@@ -65,7 +65,7 @@
                      </nc20:Activity>
                   </lexsdigest:EntityActivity>
                   <lexsdigest:EntityPerson>
-                     <lexsdigest:Person s:id="d1e15">
+                     <lexsdigest:Person s:id="d1e13">
                         <nc20:PersonBirthDate>
                            <nc20:Date>1950-01-02</nc20:Date>
                         </nc20:PersonBirthDate>
@@ -75,16 +75,16 @@
                            <nc20:PersonSurName>Smith</nc20:PersonSurName>
                         </nc20:PersonName>
                         <j40:PersonAugmentation>
-                           <j40:PersonStateFingerprintIdentification s:id="d1e37">
+                           <j40:PersonStateFingerprintIdentification s:id="d1e31">
                               <nc20:IdentificationID>A123456</nc20:IdentificationID>
                            </j40:PersonStateFingerprintIdentification>
-                           <j40:PersonStateFingerprintIdentification s:id="d1e46">
+                           <j40:PersonStateFingerprintIdentification s:id="d1e38">
                               <nc20:IdentificationID>L456789</nc20:IdentificationID>
                            </j40:PersonStateFingerprintIdentification>
                         </j40:PersonAugmentation>
                      </lexsdigest:Person>
                      <j40:ArrestSubject>
-                        <nc20:RoleOfPersonReference s:ref="d1e15"/>
+                        <nc20:RoleOfPersonReference s:ref="d1e13"/>
                      </j40:ArrestSubject>
                   </lexsdigest:EntityPerson>
                </lexs:Digest>
@@ -99,17 +99,17 @@
                         <ojbc:PersonTrackingIdentification>
                            <nc20:IdentificationID>12345</nc20:IdentificationID>
                         </ojbc:PersonTrackingIdentification>
-                        <lexslib:SameAsDigestReference lexslib:ref="d1e15"/>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e13"/>
                      </ojbc:Person>
                      <ojbc:PersonStateFingerprintIdentification>
                         <ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
 					</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-                        <lexslib:SameAsDigestReference lexslib:ref="d1e37"/>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e31"/>
                      </ojbc:PersonStateFingerprintIdentification>
                      <ojbc:PersonStateFingerprintIdentification>
                         <ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
 					</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
-                        <lexslib:SameAsDigestReference lexslib:ref="d1e46"/>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e38"/>
                      </ojbc:PersonStateFingerprintIdentification>
                   </ojbc:ArrestReport>
                </lexs:StructuredPayload>

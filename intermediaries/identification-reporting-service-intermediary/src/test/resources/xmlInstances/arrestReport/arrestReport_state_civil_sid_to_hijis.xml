@@ -76,10 +76,10 @@
                            <nc20:PersonSurName>TEST</nc20:PersonSurName>
                         </nc20:PersonName>
                         <j40:PersonAugmentation>
-                           <j40:PersonStateFingerprintIdentification s:id="d1e39">
+                           <j40:PersonStateFingerprintIdentification s:id="d1e36">
                               <nc20:IdentificationID/>
                            </j40:PersonStateFingerprintIdentification>
-                           <j40:PersonStateFingerprintIdentification s:id="d1e47">
+                           <j40:PersonStateFingerprintIdentification s:id="d1e44">
                               <nc20:IdentificationID>A6084031</nc20:IdentificationID>
                            </j40:PersonStateFingerprintIdentification>
                         </j40:PersonAugmentation>
@@ -105,12 +105,12 @@
                      <ojbc:PersonStateFingerprintIdentification>
                         <ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
 					</ojbc:FingerprintIdentificationIssuedForCivilPurposeIndicator>
-                        <lexslib:SameAsDigestReference lexslib:ref="d1e39"/>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e36"/>
                      </ojbc:PersonStateFingerprintIdentification>
                      <ojbc:PersonStateFingerprintIdentification>
                         <ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true
 					</ojbc:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-                        <lexslib:SameAsDigestReference lexslib:ref="d1e47"/>
+                        <lexslib:SameAsDigestReference lexslib:ref="d1e44"/>
                      </ojbc:PersonStateFingerprintIdentification>
                   </ojbc:ArrestReport>
                </lexs:StructuredPayload>
