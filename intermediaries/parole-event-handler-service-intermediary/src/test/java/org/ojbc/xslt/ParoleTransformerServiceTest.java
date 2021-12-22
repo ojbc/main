@@ -30,8 +30,8 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.InputSource;
 
@@ -39,7 +39,7 @@ public class ParoleTransformerServiceTest {
 
 	private XsltTransformer xsltTransformer;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		xsltTransformer = new XsltTransformer();
 	}
@@ -108,7 +108,7 @@ public class ParoleTransformerServiceTest {
 
 	private SAXSource createSource(String xml) {
 		InputSource inputSource = new InputSource(new ByteArrayInputStream(xml.getBytes()));
-		inputSource.setEncoding(org.apache.commons.lang.CharEncoding.UTF_8);
+		inputSource.setEncoding(org.apache.commons.lang3.CharEncoding.UTF_8);
 		return new SAXSource(inputSource);
 	}
 	

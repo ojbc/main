@@ -25,17 +25,12 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       "
+       profile="dev">
 	
-	<bean id="systemNameToTopicMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="systemNameToTopicMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.parole-event-handler-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<util:map>
+			<util:map id="systemNameToTopicMap">
 				<entry key="{http://ojbc.org/ParoleCase/1.0}ParolingAuthority" value="topics:person/arrest" />
 				<entry key="{http://objc.org/ProbationCase/1.0}ProbationAuthority" value="topics:person/arrest" />
 			</util:map>
-		</constructor-arg>
-	</bean>		
 	
 </beans>

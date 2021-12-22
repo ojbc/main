@@ -18,19 +18,21 @@ package org.ojbc.bundles.intermediaries;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaries.parole.eventhandler.ParoleEventHandlerServiceIntermediaryApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=ParoleEventHandlerServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",		
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/local-osgi-context.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+		"classpath:META-INF/spring/jetty-server.xml"}) 
 public class CamelContextTest {
 
 	@Test

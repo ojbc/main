@@ -59,7 +59,7 @@
 			
 			<log message="\n\n\n Received input message: \n\n ${body} \n\n"/>
 						
-			<setHeader headerName="operationName">
+			<setHeader name="operationName">
 				<constant>Report-Parole-Case-Initiation</constant>
 			</setHeader>			
 			
@@ -74,7 +74,7 @@
 			
 			<log message="\n\n\n Received in caseTerminateInputDir: \n\n ${body}  \n\n\n" loggingLevel="INFO"/>
 			
-			<setHeader headerName="operationName">
+			<setHeader name="operationName">
 				<constant>Report-Parole-Case-Termination</constant>
 			</setHeader>
 			
@@ -101,7 +101,7 @@
 			
 			<camel:log message="\n\n\n processing parole document... \n\n\n" />			
 									
-			<camel:setHeader headerName="systemName">
+			<camel:setHeader name="systemName">
 				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
 			</camel:setHeader>
 
@@ -113,7 +113,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Initiation'</camel:simple>
 												
-				<camel:setHeader headerName="derivedRoutes">
+				<camel:setHeader name="derivedRoutes">
 					<simple>{{parole.event.camelEndpointsToCall}}</simple>
 				</camel:setHeader>
 	
@@ -132,7 +132,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Parole-Case-Termination'</camel:simple>
 				
-				<setHeader headerName="derivedUnsubscribeEndpoint">
+				<setHeader name="derivedUnsubscribeEndpoint">
 					<simple>{{parole.event.terminationUnsubscribeEndpoint}}</simple>
 				</setHeader>				
 				
@@ -201,35 +201,4 @@
 					    
 	</camel:camelContext>
 	
-	
-	<bean id="notificationBrokerServiceMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
-		<property name="operationName">
-			<value>Subscribe</value>
-		</property>
-		<property name="operationNamespace">
-			<value>http://docs.oasis-open.org/wsn/brw-2</value>
-		</property>
-		<property name="destinationEndpoint">
-			<value>notificationBrokerService</value>
-		</property>
-	</bean>
-
-	<bean id="subscriptionManagerServiceMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
-		<property name="operationName">
-			<value>Unsubscribe</value>
-		</property>
-		<property name="operationNamespace">
-			<value>http://docs.oasis-open.org/wsn/bw-2</value>
-		</property>
-		<property name="destinationEndpoint">
-			<value>subscriptionManagerService</value>
-		</property>
-	</bean>
-
-	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">
-		<property name="systemNameToTopicMap" ref="systemNameToTopicMap" />
-	</bean>			
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />	
-		
 </beans>
