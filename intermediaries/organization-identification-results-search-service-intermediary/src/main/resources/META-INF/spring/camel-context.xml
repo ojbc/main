@@ -84,19 +84,19 @@
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
-			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+			<camel:setHeader name="federatedQueryEndpointsNodeList">
 				<camel:xpath>/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:IdentificationResultsCategoryCode</camel:xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 	            <constant>SubmitOrganizationIdentificationResultsSearchRequest</constant>
 	        </camel:setHeader>
-	        <camel:setHeader headerName="operationNamespace">
+	        <camel:setHeader name="operationNamespace">
 	            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0</constant>
 	        </camel:setHeader>
 	        
 			<!-- We only call one endpoint -->						
-			<camel:setHeader headerName="adapterURI">
+			<camel:setHeader name="adapterURI">
 				<camel:xpath resultType="java.lang.String">/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:IdentificationResultsCategoryCode</camel:xpath>
 			</camel:setHeader>
 			
@@ -109,7 +109,7 @@
 				uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
 			
 			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
-			<camel:setHeader headerName="requestMessageBody">
+			<camel:setHeader name="requestMessageBody">
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 			</camel:setHeader>
 
@@ -170,16 +170,16 @@
 	    <camel:route>
 	      <from uri="direct:aggregateFederatedQuery" />
 			<log message="In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
-			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			<aggregate strategyRef="groupedExchangeAggregationStrategy" eagerCheckCompletion="true">
 				<correlationExpression>
 					<camel:header>federatedQueryRequestGUID</camel:header>
 				</correlationExpression>
-				<completionTimeout>
+				<completionTimeoutExpression>
 					<camel:simple>${properties:rapbackSearchIntermediary.rapbackSearchIntermediaryFederatedQueryTimeout}</camel:simple>
-				</completionTimeout>
-				<completionSize><constant>2</constant></completionSize>
+				</completionTimeoutExpression>
+				<completionSizeExpression><constant>2</constant></completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{rapbackSearchIntermediary.rapbackSearchIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{rapbackSearchIntermediary.rapbackSearchIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -210,11 +210,11 @@
 			
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
-					<camel:setHeader headerName="operationName">
+					<camel:setHeader name="operationName">
 			            <constant>ReportOrganizationIdentificationResultsSearchResults</constant>
 			        </camel:setHeader>
 			        
-			        <camel:setHeader headerName="operationNamespace">
+			        <camel:setHeader name="operationNamespace">
 			            <constant>http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0</constant>
 			        </camel:setHeader>
 					
@@ -232,107 +232,6 @@
 		</camel:route>
 
 	</camelContext>
-	
-	<!-- Spring Beans -->
-	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
-
-	<bean id="federatedQueryResponseAggregator"
-		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<!-- Used to retrieve and persist SAML tokens -->
-	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-	
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>
-
-	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
-		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>
-	</bean>
-
-   	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
-		<property name ="endpointReplyToMap" ref="wsAddressReplyToEndpointMap"/>
-	</bean>		
-
-    <bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
-	</bean>
-	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
-		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
-	</bean>
-	 
-	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
-	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
-		<property name="federatedQueryEndpointMap">
-			<util:map >
-				<entry key="Criminal" value="rapbackSearchRequestServiceAdapterEndpoint" />
-				<entry key="Civil" value="rapbackSearchRequestServiceAdapterEndpoint" />
-			</util:map>	
-		</property>
-
-		<property name="adapterURItoAddressMap">
-			<util:map >
-				<entry key="Criminal" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
-				<entry key="Civil" value="${rapbackSearchIntermediary.rapbackDataStoreEndpoint}" />
-			</util:map>	
-		</property>
-  	</bean>
-	
-	<util:map map-class="java.util.HashMap"  id="wsAddressReplyToEndpointMap" >
-        <entry key="${rapbackSearchIntermediary.presentRapbackSearchResultEndpoint}" value="presentRapbackSearchResultServiceEndpoint"/>
-  	</util:map>
-	
-	<bean id="userInfoSQLProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoSQLProcessor">
-        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
-    </bean>	
-	
-	<bean class="org.ojbc.audit.enhanced.processor.IdentificationSearchResponseSQLProcessor" id ="organizationIdentificationSearchResponseSQLLoggingProcessor">
-        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
-    </bean>    
-
-	<bean class="org.ojbc.audit.enhanced.processor.IdentificationSearchRequestSQLProcessor" id ="organizationIdentificationSearchSQLLoggingProcessor">
-        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
-        <property name="userInfoSQLProcessor" ref="userInfoSQLProcessor"/>
-    </bean>    
-
-	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>
-		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSourceEnhancedAudit"/>
-	</bean>
-	
-	<bean id="namedParameterJdbcTemplate" 
-      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSourceEnhancedAudit"/>
-	</bean>
-
-	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
-		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
-	</bean>    
-    
-	<bean id="dataSourceEnhancedAudit" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${enhancedAudit.dataSource.driverClass}" />
-		<property name="url" value="${enhancedAudit.dataSource.jdbcUrl}" />
-		<property name="username" value="${enhancedAudit.dataSource.user}" />
-		<property name="password" value="${enhancedAudit.dataSource.password}" />
-		<property name="initialSize" value="${enhancedAudit.dataSource.minPoolSize}" />
-		<property name="maxActive" value="${enhancedAudit.dataSource.maxPoolSize}" />
-		<property name="validationQuery" value="select 1" />
-		<property name="testOnBorrow" value="true" />
-	</bean>
 	
 </beans>
 
