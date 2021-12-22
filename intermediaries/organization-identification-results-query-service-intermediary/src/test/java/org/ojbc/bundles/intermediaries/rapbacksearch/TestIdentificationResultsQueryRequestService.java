@@ -16,24 +16,23 @@
  */
 package org.ojbc.bundles.intermediaries.rapbacksearch;
 
-import static junit.framework.Assert.assertTrue;
 
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
-import org.apache.camel.test.spring.UseAdviceWith;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
+import org.apache.camel.test.spring.junit5.UseAdviceWith;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaries.organization.identification.OrganizationIdentificationResultsQueryServiceApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
 @UseAdviceWith
-// NOTE: this causes Camel contexts to not start up automatically
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:META-INF/spring/camel-context.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",
-        "classpath:META-INF/spring/properties-context.xml"
-		})
-@DirtiesContext
+@CamelSpringBootTest
+@SpringBootTest(classes=OrganizationIdentificationResultsQueryServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class TestIdentificationResultsQueryRequestService {
 
     @Test
