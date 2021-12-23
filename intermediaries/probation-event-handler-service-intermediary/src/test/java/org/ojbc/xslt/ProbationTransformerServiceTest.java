@@ -190,7 +190,7 @@ public class ProbationTransformerServiceTest {
 
 	private SAXSource createSource(String xml) {
 		InputSource inputSource = new InputSource(new ByteArrayInputStream(xml.getBytes()));
-		inputSource.setEncoding(org.apache.commons.lang.CharEncoding.UTF_8);
+		inputSource.setEncoding(org.apache.commons.lang3.CharEncoding.UTF_8);
 		return new SAXSource(inputSource);
 	}
 

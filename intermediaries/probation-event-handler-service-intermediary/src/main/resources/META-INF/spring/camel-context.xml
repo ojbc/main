@@ -54,7 +54,7 @@
 			
 			<camel:log message="\n\n\n Received File Drop doc: \n\n ${body} \n\n\n" />
 						
-			<camel:setHeader headerName="operationName">			
+			<camel:setHeader name="operationName">			
 				<camel:constant>Report-Probation-Case-Initiation</camel:constant>
 			</camel:setHeader>
 			
@@ -69,7 +69,7 @@
 			
 			<log message="\n\n\n Received in caseTerminateInputDir: \n\n ${body}  \n\n\n" loggingLevel="INFO"/>
 			
-			<setHeader headerName="operationName">
+			<setHeader name="operationName">
 				<constant>Report-Probation-Case-Termination</constant>
 			</setHeader>
 			
@@ -96,7 +96,7 @@
 			<camel:choice>
 				<camel:when>
 					<simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</simple>
-					<camel:setHeader headerName="sid">
+					<camel:setHeader name="sid">
 						<camel:xpath resultType="java.lang.String">/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>																		
 					</camel:setHeader>		
 					
@@ -104,7 +104,7 @@
 				</camel:when>				
 				<camel:when>
 					<simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</simple>
-					<camel:setHeader headerName="sid">
+					<camel:setHeader name="sid">
 						<camel:xpath resultType="java.lang.String">/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>						
 					</camel:setHeader>	
 					
@@ -145,7 +145,7 @@
 			
 			<camel:log message="\n\n\n Processing Probation document...\n\n\n" />
 
-			<camel:setHeader headerName="systemName">
+			<camel:setHeader name="systemName">
 				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
 			</camel:setHeader>
 
@@ -156,7 +156,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</camel:simple>
 								
-				<camel:setHeader headerName="officerEmailAddress">
+				<camel:setHeader name="officerEmailAddress">
 					<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
 				</camel:setHeader>
 										
@@ -164,7 +164,7 @@
 					<camel:when>
 						<simple>${in.headers.officerEmailAddress} != ''</simple>
 
-							<camel:setHeader headerName="derivedRoutes">
+							<camel:setHeader name="derivedRoutes">
 								<simple>{{probation.event.camelEndpointsToCall}}</simple>
 							</camel:setHeader>
 				
@@ -190,7 +190,7 @@
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</camel:simple>
 								
-				<setHeader headerName="derivedUnsubscribeEndpoint">
+				<setHeader name="derivedUnsubscribeEndpoint">
 					<simple>{{probation.event.terminationUnsubscribeEndpoint}}</simple>
 				</setHeader>				
 				
@@ -216,7 +216,7 @@
 			
 			<log message="\n\n\n direct-vm:parentEntryTransformSubscription... \n\n\n"/>
 			
-			<to uri="direct:transformAndInvokeSubscriptionProcessor"/>
+			<to uri="direct:transformAndInvokeSubscriptionProcessor" />
 		</camel:route>
 
 
@@ -232,10 +232,10 @@
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
 			
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Subscribe</constant></camel:setHeader>	
 			
-			<camel:to uri="notificationBrokerServiceEndpoint" />
+			<camel:to uri="notificationBrokerServiceEndpoint" id="notificationBrokerServiceEndpoint"/>
 		</camel:route>
 
 
@@ -249,10 +249,10 @@
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewSimpleExchangeResponseMessage"/>
 			
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
-			<camel:setHeader headerName="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Unsubscribe</constant></camel:setHeader>	
 			
-			<camel:to uri="subscriptionManagerServiceEndpoint" />
+			<camel:to uri="subscriptionManagerServiceEndpoint" id="subscriptionManagerServiceEndpoint"/>
 		</camel:route>
 		
 		
@@ -268,26 +268,5 @@
 		</camel:route>		
 		
 	</camel:camelContext>
-
-
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.SimpleMessageProcessor" />
-	
-	<bean id="systemNameToTopicExpressionMapper" class="org.ojbc.util.camel.processor.SystemNameToTopicExpressionMapper">
-		<property name="systemNameToTopicMap" ref="systemNameToTopicMap" />
-	</bean>
-	
-	<!-- Only use this setting when doing a bulk load, otherwise comment it out. -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>
-    
-    <bean id ="xmlHashProcessor" class="org.ojbc.util.security.XmlHashProcessor">
-		<property name="salt" value="${saltValue}"/>  	
-  	</bean>
-
-	<bean id ="probationHashProcessor" class="org.ojbc.intermediaries.probation.ProbationHashProcessor">
-		<property name="xmlHashProcessor" ref="xmlHashProcessor"/>  	
-  	</bean>
 
 </beans>

@@ -18,7 +18,7 @@ package org.ojbc.intermediaries.probation;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.security.XmlHashProcessor;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
