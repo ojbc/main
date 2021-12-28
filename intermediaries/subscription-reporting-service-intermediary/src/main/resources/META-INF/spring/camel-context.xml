@@ -56,16 +56,16 @@
 			<camel:filter>
 				<camel:simple>${in.headers.operationName} == 'Subscribe'</camel:simple>
 				
-				<camel:setHeader headerName="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
+				<camel:setHeader name="operationName"><constant>ReportFederalSubscriptionCreation</constant></camel:setHeader>	
+				<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
 				
 			</camel:filter>
 			
 			<camel:filter>
 				<camel:simple>${in.headers.operationName} == 'Modify'</camel:simple>
 				
-				<camel:setHeader headerName="operationName"><constant>FederalSubscriptionUpdateReport</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
+				<camel:setHeader name="operationName"><constant>FederalSubscriptionUpdateReport</constant></camel:setHeader>	
+				<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
 				
 			</camel:filter>
 			
