@@ -36,7 +36,6 @@
 	<properties>
 		<ojb-ui-common-version>[4.0.0,)</ojb-ui-common-version>
 		<java-version>1.8</java-version>
-
 	</properties>
 
 	<dependencies>

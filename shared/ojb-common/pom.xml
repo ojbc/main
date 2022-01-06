@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>5.0.7</version> 
+	<version>5.0.8</version> 
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>
@@ -34,7 +34,7 @@
 
 	<properties>
 		<spring.version>5.3.8</spring.version>	
-    <slf4j-version>2.16.0</slf4j-version>
+        <slf4j-version>2.17.1</slf4j-version>
 		<commons.lang3.version>3.12.0</commons.lang3.version>
 		<commons.text.version>1.9</commons.text.version>
 		<junit-jupiter-engine-version>5.7.2</junit-jupiter-engine-version>
@@ -52,11 +52,11 @@
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.6</xmlunit.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
-		<jackson.version>1.9.12</jackson.version>
+		<jackson.version>1.9.13</jackson.version>
 		
-    <!-- Plugin versions -->
-    <surefire.version>2.22.2</surefire.version>
-    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+	    <!-- Plugin versions -->
+	    <surefire.version>2.22.2</surefire.version>
+	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 	</properties>
 
 	<dependencies>
@@ -66,11 +66,11 @@
 		 	saxon jars.  Having saxon on the classpath causes TransformerFactory instances and other
 		 	transform code to behave unexpectedly when saxon is included unintentionally.
 		-->
-    <dependency>
-      <groupId>net.sf.saxon</groupId>
-      <artifactId>Saxon-HE</artifactId>
-      <version>${saxon-version}</version>
-    </dependency>
+	    <dependency>
+	      <groupId>net.sf.saxon</groupId>
+	      <artifactId>Saxon-HE</artifactId>
+	      <version>${saxon-version}</version>
+	    </dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
