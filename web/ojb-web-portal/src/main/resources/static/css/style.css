@@ -37,7 +37,7 @@ body {
 }
 
 .banner{
-  background-image: url('../images/osbi-banner-background.png');
+  background-image: url('../images/banner/banner-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position:center;

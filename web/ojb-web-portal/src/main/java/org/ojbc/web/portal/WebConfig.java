@@ -160,5 +160,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry
           .addResourceHandler("/resources/**")
           .addResourceLocations("/resources/","file:" + System.getProperty("web.external.resource.home") + "/");
+        registry
+          .addResourceHandler("/static/**")
+          .addResourceLocations("/resources/static/","file:" + System.getProperty("web.external.resource.home") + "/static/");
     }
 }

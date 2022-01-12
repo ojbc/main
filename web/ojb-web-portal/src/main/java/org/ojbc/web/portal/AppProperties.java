@@ -43,6 +43,10 @@ public class AppProperties {
 	private String signOutUrl = "/logoutSuccess"; 
 	
 	private String footerText="Copyright &copy; 2021 OJBC. All rights reserved.";
+	private String bannerPath="/images/banner/Banner.png";
+	private String bannerInitial="OJBC";
+	private String bannerFullname="Federated Query";
+
 	/*
 	 * demo user Saml attributes
 	 */
@@ -177,6 +181,30 @@ public class AppProperties {
 
 	public void setFooterText(String footerText) {
 		this.footerText = footerText;
+	}
+
+	public String getBannerPath() {
+		return bannerPath;
+	}
+
+	public void setBannerPath(String bannerPath) {
+		this.bannerPath = bannerPath;
+	}
+
+	public String getBannerInitial() {
+		return bannerInitial;
+	}
+
+	public void setBannerInitial(String bannerInitial) {
+		this.bannerInitial = bannerInitial;
+	}
+
+	public String getBannerFullname() {
+		return bannerFullname;
+	}
+
+	public void setBannerFullname(String bannerFullname) {
+		this.bannerFullname = bannerFullname;
 	}
 
 }
