@@ -29,7 +29,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
 <!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.15.4/css/all.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
 <!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
@@ -56,37 +56,53 @@
 	            <li class="nav-item active">
 	              <a class="nav-link" th:href="@{/}" id="home">Home <span class="sr-only">(current)</span></a>
 	            </li>
-	            <li class="nav-item" sec:authorize="hasAuthority('AUTHZ_MUNI') && hasAuthority('CAN_SEARCH')">
-	              <a class="nav-link muniArrest" id="muniArrest">Municipal Charges</span></a>
+	            <li class="nav-item dropdown" sec:authorize="hasAuthority('AUTHZ_QUERY')" th:if="${#sets.contains(leftMenuLinks.keySet(), 'queryLink')}">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownQuery" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles['queryLink']}"></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownQuery" th:utext="${searchLinksHtml}">
+                  </div>
 	            </li>
-	            <li class="nav-item" sec:authorize="hasAuthority('AUTHZ_DA') && hasAuthority('CAN_SEARCH')">
-	              <a class="nav-link daArrest" id="daArrest">State Charges</span></a>
+                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'subscriptionsLink')}" 
+                    sec:authorize="hasAuthority('AUTHZ_CRIMINAL_SUBSCRIPTION')">
+                  <a class="nav-link subscriptionsLink" id="subscriptionsLink" th:href="${leftMenuLinks['subscriptionsLink']}" th:text="${leftMenuLinkTitles[subscriptionsLink]}"></a> 
+                </li>
+                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'rapbackLink')}" 
+                     sec:authorize="hasAuthority('AUTHZ_CIVIL_SUBSCRIPTION')">
+                  <a class="nav-link rapbackLink" id="rapbackLink" th:href="${leftMenuLinks['rapbackLink']}" th:text="${leftMenuLinkTitles['rapbackLink']}"></a> 
+                </li>
+                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'criminalIdLink')}" 
+                     sec:authorize="hasAuthority('AUTHZ_CRIMINAL_ID_RESULTS')">
+                  <a class="nav-link criminalIdLink" id="criminalIdLink" th:href="${leftMenuLinks['criminalIdLink']}" th:text="${leftMenuLinkTitles['criminalIdLink']}"></a> 
+                </li>
+                <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'adminLink')}" 
+                     sec:authorize="hasAuthority('AUTHZ_ADMIN')">
+                  <a class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a> 
+                </li>
+	            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles[auditLink]}"></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownAudit">
+                      <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a>
+                      <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a>
+                  </div>
 	            </li>
-	            <li class="nav-item d-none" sec:authorize="hasAuthority('CAN_LOOKUP_ARREST')">
-	              <a class="nav-link daArrest" id="arrestLookup">Arrest Lookup</span></a>
-	            </li>
-	            <li class="nav-item dropdown" sec:authorize="hasAuthority('CAN_VIEW_ADMIN_REPORTS')">
-	              <a class="nav-link dropdown-toggle" th:href="@{/}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-	              <div class="dropdown-menu" aria-labelledby="dropdown09">
-	                <a class="dropdown-item auditLogs" id="auditLogs">Audit Logs</a>
-	                <a class="dropdown-item users" id="users">Users</a>
-	                <a class="dropdown-item totpUsers" id="totpUsers">TOTP Users</a>
-	              </div>
-	            </li>
+                <li class="nav-item" th:each="entry : ${leftMenuLinks.entrySet()}" 
+                    th:if="${entry.key != 'subscriptionsLink' && entry.key != 'rapbackLink' && entry.key != 'criminalIdLink'
+                            && entry.key != 'queryLink' && entry.key != 'adminLink' && entry.key != 'auditLink'}">
+                  <a class="nav-link" th:classappend="${entry.key}" th:id="${entry.key}" th:href="${entry.value}" th:text="${leftMenuLinkTitles[entry.key]}"></a> 
+                </li>
 	          </ul>
 	          
 	          <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-					    <li class="nav-item dropdown">
-  				      <a class="nav-link dropdown-toggle text-primary"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				          <i class="fas fa-user-circle fa-lg"></i>
-				        </a>
-				        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${#authentication.getPrincipal().getUsername()}"/></span></a>
-				          <div class="dropdown-divider"></div>
-				          <a class="dropdown-item" th:href="@{/logout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
-				        </div>
-              </li>
-            </ul>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-primary"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					 <i class="fas fa-user-circle fa-lg"></i>
+					</a>
+			        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${currentUserName}"/></span></a>
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
+			        </div>
+                </li>
+              </ul>
 	        </div>
 	      </nav>
       </header>

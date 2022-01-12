@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.AppProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @ControllerAdvice
-@SessionAttributes({"showPrintButton", "sensitiveInfoAlert" })
+@SessionAttributes({"showPrintButton", "sensitiveInfoAlert", "userLogonInfo" })
 public class GlobalControllerAdvice {
 	
 	@Resource
@@ -72,7 +73,7 @@ public class GlobalControllerAdvice {
     private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     @ModelAttribute
-    public void setupModelAttributes(Model model) {
+    public void setupModelAttributes(Model model, Authentication authentication ) {
         model.addAttribute("bannerPath", appProperties.getBannerPath());
         model.addAttribute("bannerInitial", appProperties.getBannerInitial());
         model.addAttribute("bannerFullname", appProperties.getBannerFullname());

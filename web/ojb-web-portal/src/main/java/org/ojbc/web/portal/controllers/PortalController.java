@@ -19,6 +19,7 @@ package org.ojbc.web.portal.controllers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -67,6 +68,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,7 +77,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Element;
 
 @Controller
-@RequestMapping("/portal/*")
 @SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl", "samlAssertion"})
 public class PortalController implements ApplicationContextAware {
 
@@ -205,23 +206,23 @@ public class PortalController implements ApplicationContextAware {
 		visibleProfileStateMap.put("disabled", false);
 	}
 
-    @RequestMapping("landingPage")
+    @RequestMapping("/portal/landingPage")
     public String landingPage(){
 	    return "portal/landingPage";
 	}
 
-    @RequestMapping("helpPage")
+    @RequestMapping("/portal/helpPage")
     public String helpPage(){
 	    return "portal/helpPage";
 	}
 
-    @RequestMapping("faq")
+    @RequestMapping("/portal/faq")
     public String faq(){
 	    return "portal/faq";
 	}
 
-    @RequestMapping("index")
-    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
+    @GetMapping("/")
+    public String index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
@@ -251,6 +252,8 @@ public class PortalController implements ApplicationContextAware {
 		}
 		
     	putUserSignoutUrlAndSamlAssertionIntoModel(request, model);
+    	
+    	return "index";
 	}
 
 	private void putUserSignoutUrlAndSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
@@ -280,7 +283,7 @@ public class PortalController implements ApplicationContextAware {
     	model.put("samlAssertion", samlAssertion);
 	}
 
-    @RequestMapping("performLogout")
+    @RequestMapping("/portal/performLogout")
     public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
     	String userSignoutUrl = (String) model.get("userSignOutUrl");
     	
@@ -342,12 +345,12 @@ public class PortalController implements ApplicationContextAware {
     }
     
 
-    @RequestMapping("landingLeftBar")
+    @RequestMapping("/portal/landingLeftBar")
     public String landingLeftBar(){
     	return "common/_landingLeftBar";
     }
 
-    @RequestMapping(value="subscriptionsLeftBar", method=RequestMethod.POST)
+    @RequestMapping(value="/portal/subscriptionsLeftBar", method=RequestMethod.POST)
     public String subscriptionsLeftBar(HttpServletRequest request, 
     		@ModelAttribute("subscriptionFilterCommand") SubscriptionFilterCommand subscriptionFilterCommand, 
     		Map<String, Object> model){   
@@ -355,17 +358,17 @@ public class PortalController implements ApplicationContextAware {
     	return "common/_subscriptionsLeftBar";
     }
     
-    @RequestMapping(value="rapbackLeftBar", method=RequestMethod.POST)
+    @RequestMapping(value="/portal/rapbackLeftBar", method=RequestMethod.POST)
     public String rapbackLeftBar(Map<String, Object> model){   
         return "common/_rapbackLeftBar";
     }
     
-    @RequestMapping(value="criminalIdentificationLeftBar", method=RequestMethod.POST)
+    @RequestMapping(value="/portal/criminalIdentificationLeftBar", method=RequestMethod.POST)
     public String criminalIdentificationLeftBar(Map<String, Object> model){   
     	return "common/_criminalIdentificationLeftBar";
     }
     
-	@RequestMapping(value="leftBar", method=RequestMethod.POST)
+	@RequestMapping(value="/portal/leftBar", method=RequestMethod.POST)
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
     	model.put("showReasonsForSearch", showReasonsForSearch);
@@ -374,7 +377,7 @@ public class PortalController implements ApplicationContextAware {
 	    return "common/_leftBar";
 	}
     
-    @RequestMapping(value="negateSenstiveInfoAlert", method=RequestMethod.POST)
+    @RequestMapping(value="/portal/negateSenstiveInfoAlert", method=RequestMethod.POST)
     public @ResponseBody String negateSenstiveInfoAlert( Map<String, Object> model ){
         model.put("sensitiveInfoAlert", false); 
         return "success";
@@ -386,7 +389,7 @@ public class PortalController implements ApplicationContextAware {
 			org.springframework.core.io.Resource preBodyClose = applicationContext.getResource("classpath:" + includeFileName);
 			try {
 				InputStream inputStream = preBodyClose.getInputStream();
-				return IOUtils.toString(inputStream);
+				return IOUtils.toString(inputStream, Charset.defaultCharset());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
