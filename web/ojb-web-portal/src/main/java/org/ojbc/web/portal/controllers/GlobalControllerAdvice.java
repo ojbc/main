@@ -19,11 +19,13 @@ package org.ojbc.web.portal.controllers;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.web.portal.AppProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -37,6 +39,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @ControllerAdvice
 @SessionAttributes({"showPrintButton", "sensitiveInfoAlert" })
 public class GlobalControllerAdvice {
+	
+	@Resource
+    AppProperties appProperties;
 	
 	private final Log log = LogFactory.getLog(this.getClass());
 
@@ -73,9 +78,6 @@ public class GlobalControllerAdvice {
     @Value("${inactivityTimeoutInSeconds:1800}")
     String inactivityTimeoutInSeconds;
     
-    @Value("${footerText}")
-    String footerText;
-    
     private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     @ModelAttribute
@@ -92,7 +94,7 @@ public class GlobalControllerAdvice {
         model.addAttribute("showPrintButton", showPrintButton);
         model.addAttribute("dateTimeformatter", dateTimeformatter);
         model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
-        model.addAttribute("footerText", footerText);
+        model.addAttribute("footerText", appProperties.getFooterText());
     }
     
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)

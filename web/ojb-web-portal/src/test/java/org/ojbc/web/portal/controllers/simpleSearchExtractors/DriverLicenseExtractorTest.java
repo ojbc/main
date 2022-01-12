@@ -26,16 +26,17 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -48,7 +49,7 @@ import org.ojbc.web.model.person.search.PersonSearchRequest;
 @DirtiesContext
 public class DriverLicenseExtractorTest {
 
-	private static final Logger logger = Logger.getLogger(DriverLicenseExtractorTest.class);
+	private static final Log logger = LogFactory.getLog(DriverLicenseExtractorTest.class);
 	
 	@Resource
     DriverLicenseExtractor unit;

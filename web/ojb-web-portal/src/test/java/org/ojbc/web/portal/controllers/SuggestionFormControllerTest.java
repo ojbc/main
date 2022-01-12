@@ -32,7 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.web.impl.MockMailSender;
+import org.ojbc.util.mail.MockMailSender;
 import org.ojbc.web.model.suggestionForm.SuggestionFormRequest;
 import org.ojbc.web.portal.controllers.dto.SuggestionFormCommand;
 import org.ojbc.web.portal.controllers.helpers.UserSession;

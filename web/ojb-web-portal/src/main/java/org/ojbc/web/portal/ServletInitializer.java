@@ -14,8 +14,16 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojb.web.portal;
+package org.ojbc.web.portal;
 
-public class WebPortalConstants {
-    public static final String EMPTY_FEDERATION_ID = "EmptyFederationID";
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+public class ServletInitializer extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(OjbcWebPortalApplication.class);
+	}
+
 }

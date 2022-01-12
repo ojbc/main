@@ -14,19 +14,15 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojb.web.portal.velocity;
+package org.ojbc.web.portal;
 
-/**
- * Custom view resolver is being used to allow Velocity Tools functionality to
- * be used, to provide access to the Velocity ImportTool - which is being used
- * in the portal to display external urls.
- */
-public class VelocityViewResolver extends
-		org.springframework.web.servlet.view.velocity.VelocityViewResolver {
-	
-	public VelocityViewResolver() {
-		
-		setViewClass(OjbVelocityToolboxView.class);
-		setSuffix(".vm");
-	}
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+
+@Configuration
+@ConditionalOnProperty(name = "web.external.resource.home")
+@ImportResource(value = {"file:${web.external.resource.home}/beans/*.xml"})
+public class StateBeans{
+
 }

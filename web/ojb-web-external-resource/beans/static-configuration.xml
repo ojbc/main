@@ -749,7 +749,7 @@
         <constructor-arg ref="clientHttpRequestFactory"/>
         <property name="messageConverters">
 	        <list>
-	            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 	        </list>
 		</property>
     </bean>	 

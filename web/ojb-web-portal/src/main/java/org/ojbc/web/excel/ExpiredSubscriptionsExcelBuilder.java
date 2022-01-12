@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
  
@@ -35,13 +36,13 @@ public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder 
     @SuppressWarnings("unchecked")
 	@Override
     protected void buildExcelDocument(Map<String, Object> model,
-            HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
+            Workbook workbook, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 		List<Subscription> subscriptions = (List<Subscription>) model.get("expiredSubscriptions");
         ExpiringSubscriptionRequest expiredSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiredSubscriptionRequest");
          
         // create a new Excel sheet
-        HSSFSheet sheet = workbook.createSheet("Expired Subscriptions");
+        HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Expired Subscriptions");
         setupSheet(sheet);
         
         setupHeader(subscriptions, expiredSubscriptionRequest, sheet, "Expired Subscriptions");
@@ -50,7 +51,7 @@ public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder 
         createTheInfoRows(subscriptions, expiredSubscriptionRequest, sheet);
         
         // create style for header cells
-        createTheTable(workbook, subscriptions, sheet);
+        createTheTable((HSSFWorkbook) workbook, subscriptions, sheet);
     }
  
 }

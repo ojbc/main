@@ -27,10 +27,10 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
@@ -165,7 +165,7 @@ public class PortalAuthenticationDetailsSource implements
             String accessControlResponseString = accessControlServicesConfig
                     .getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
                             UUID.randomUUID().toString(), samlAssertion, policyAccessControlResourceURI);
-            Assert.notNull(accessControlResponseString); 
+            Assert.notNull(accessControlResponseString, "The Access Control Response should not be Null"); 
             
             /*
              * Grant the "PortalUser" Role only if accessDenied is "false"
