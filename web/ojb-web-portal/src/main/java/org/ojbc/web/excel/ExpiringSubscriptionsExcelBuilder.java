@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
  
@@ -32,16 +33,15 @@ import org.ojbc.util.model.rapback.Subscription;
  */
 public class ExpiringSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder {
  
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-    protected void buildExcelDocument(Map<String, Object> model,
-            HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		List<Subscription> subscriptions = (List<Subscription>) model.get("expiringSubscriptions");
         ExpiringSubscriptionRequest expiringSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiringSubscriptionRequest");
          
         // create a new Excel sheet
-        HSSFSheet sheet = workbook.createSheet("Expiring Subscriptions");
+        HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Expiring Subscriptions");
         setupSheet(sheet);
         
         setupHeader(subscriptions, expiringSubscriptionRequest, sheet, "Subscriptions Expiring or Requiring Validation");
@@ -50,7 +50,8 @@ public class ExpiringSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder
         createTheInfoRows(subscriptions, expiringSubscriptionRequest, sheet);
         
         // create style for header cells
-        createTheTable(workbook, subscriptions, sheet);
-    }
+        createTheTable((HSSFWorkbook) workbook, subscriptions, sheet);
+        
+	}
  
 }

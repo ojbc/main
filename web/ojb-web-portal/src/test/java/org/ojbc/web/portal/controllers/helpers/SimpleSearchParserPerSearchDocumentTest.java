@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.util.Arrays;
 
@@ -79,7 +79,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Norm"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurNameMetaData().toString(), is("StartsWith"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Van"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Halen"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -99,7 +99,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Eddie"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Van Halen"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 		
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Eddie"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Van Halen"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -122,7 +122,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getMonthOfYear(), is(5));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getDayOfMonth(), is(3));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getYear(), is(1946));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -140,7 +140,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6789"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -149,7 +149,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A123456"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -159,7 +159,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6788"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A123456"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test
@@ -169,7 +169,7 @@ public class SimpleSearchParserPerSearchDocumentTest {
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6789"));
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 
 	@Test

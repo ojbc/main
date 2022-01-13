@@ -1,0 +1,85 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>OSBI RAPUP Tool</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+  </head>
+  <body data-spy="scroll" data-target=".navbar">
+    <header>
+      <div class="banner" >
+        <div th:replace="fragments/general.html :: bannerContent"></div>
+      </div> 
+    </header>
+      <!-- Begin page content -->
+    <main role="main" class="container pt-4">
+      <div id="portalContent">
+        <div id="loadingAjaxPane" ></div>
+        <div class="card">
+          <div class="card-header font-weight-bold" id="search-results-title">
+                ONE-TIME PASSWORD AUTHENTICATION
+          </div>
+          <div class="card-body" style="font-size: 12px;color: #333333; padding: 1.5em; ">
+            <form method="post" id="otpForm" th:object="${otpFormCommand}">
+              <p>Enter the One-Time Password Sent to your email address:</p>
+              <div class="labelText">
+                <input type="text" th:field="*{otpRequest.oneTimePassword}" width="250" placeholder="One-Time Password" autofocus="autofocus" th:errorclass="is-invalid" autocomplete='off'/>
+              </div>  
+               <div class="alert alert-primary mt-3" role="alert" th:if="${otpInfoMessage}" th:text="${otpInfoMessage}"></div>
+               <div class="alert alert-danger mt-3" role="alert" th:if="${otpInfoMessageError}" th:text="${otpInfoMessageError}"></div>
+            </form>
+          </div>
+          <div class="card-footer">
+             <button id="submitOtpButton" class="btn btn-sm btn-primary" >SUBMIT OTP</button>
+             <button id="requestOtpSubmitButton" alt="Request OTP" class="ml-1 btn btn-sm btn-secondary">REQUEST NEW OTP</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  
+    <footer th:replace="fragments/general.html :: footer"></footer> 
+    <!-- /.container -->
+    <th:block th:include="fragments/general.html :: javascripts"></th:block>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+        var context = [[@{/}]];
+      /*]]>*/
+      $(function(){
+        $('#submitOtpButton').click (function(){
+            $('#otpForm').attr('action', context + "otp/submitOtp").submit();
+        });
+            
+            
+        $('#requestOtpSubmitButton').click (function(){
+        	var formData = $("#otpForm").serialize();
+        	xhr = $.post(context +"otp/requestOtp",formData, function(data) {
+          }).fail(ojbc.displayFailMessage);
+          return false; 
+        });
+            
+        $('#otpForm').on('keypress', 'input', function(e){
+          if (e.keyCode == 13) {
+            $('#otpForm').attr('action', context + "otp/submitOtp").submit();
+          } 
+        });
+      });
+    </script>
+  </body>
+</html>

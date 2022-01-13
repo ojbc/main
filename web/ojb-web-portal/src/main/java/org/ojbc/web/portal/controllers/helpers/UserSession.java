@@ -23,11 +23,11 @@ import org.ojbc.web.portal.controllers.dto.FirearmSearchCommand;
 import org.ojbc.web.portal.controllers.dto.IncidentSearchCommand;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.ojbc.web.portal.controllers.dto.VehicleSearchCommand;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Component
-@Scope("session")
+@SessionScope
 public class UserSession implements Serializable{
 	
 	// note value shouldn't matter so long as we don't require backwards compatibility of 

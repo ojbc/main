@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
-import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -103,7 +103,6 @@ public class SamlServiceImpl implements SamlService{
 
 		// Create all-trusting host name verifier
 		HostnameVerifier allHostsValid = new HostnameVerifier() {
-			@Override
 			public boolean verify(String arg0, SSLSession arg1) {
 				return true;  // andrew had this as false...dont know how that would work...
 			}

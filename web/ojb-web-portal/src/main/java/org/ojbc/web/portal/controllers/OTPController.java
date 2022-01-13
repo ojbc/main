@@ -29,13 +29,15 @@ import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.w3c.dom.Element;
 
 @Controller
-@RequestMapping("/otp/*")
+@RequestMapping("/otp")
 public class OTPController {
 
 	@Resource
@@ -46,7 +48,7 @@ public class OTPController {
 
 	private final Log log = LogFactory.getLog(this.getClass());
 	
-	@RequestMapping(value = "inputForm", method = RequestMethod.GET)
+	@GetMapping(value = "/inputForm")
 	public String searchForm(HttpServletRequest request,
 	        Map<String, Object> model) throws Exception {
 
@@ -77,7 +79,7 @@ public class OTPController {
 		return "otp/inputForm";
 	}
 	
-	@RequestMapping(value = "requestOtp", method = RequestMethod.POST)
+	@PostMapping(value = "/requestOtp")
 	public String requestOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, Map<String, Object> model) throws Exception {
 
 		log.info("Entering function to request OTP.");
@@ -105,7 +107,8 @@ public class OTPController {
 	}
 
 	@RequestMapping(value = "submitOtp", method = RequestMethod.POST)
-	public String submitOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, Map<String, Object> model) throws Exception {
+	public String submitOtp(HttpServletRequest request, @ModelAttribute("otpFormCommand") OTPFormCommand otpFormCommand, 
+			Map<String, Object> model) throws Exception {
 	
 		log.info("Entering function to confirm OTP.");
 		
@@ -118,7 +121,7 @@ public class OTPController {
 		if (otpService.confirmOTP(userEmail, oneTimePassword))
 		{
 			log.info("OTP confirmed for: " + userEmail);
-			return "redirect:/portal/index";
+			return "redirect:/";
 		}	
 		else
 		{

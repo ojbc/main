@@ -19,8 +19,8 @@ package org.ojbc.web.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.portal.WebPortalConstants;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.w3c.dom.Element;

@@ -45,6 +45,7 @@ import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
 import org.ojbc.web.security.Authorities;
 import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +62,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @RequestMapping("/people/*")
 @SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo", "activeSearchTab"})
+@Profile("person-search")
 public class PeopleController {
 	private final Log log = LogFactory.getLog(this.getClass());
 	public static final String PAGINATE_URL = "../people/paginate";

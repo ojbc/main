@@ -18,7 +18,7 @@ package org.ojbc.web.portal.validators;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import java.util.Arrays;
 
@@ -121,7 +121,7 @@ public class PersonSearchCommandValidatorTest {
 		unit.validate(personSearchCommand, errors);
 		
 
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 	
 	@Test
@@ -151,7 +151,7 @@ public class PersonSearchCommandValidatorTest {
 		
 		unit.validate(personSearchCommand, errors);
 		
-		verifyZeroInteractions(errors);
+		verifyNoInteractions(errors);
 	}
 	
 	@Test

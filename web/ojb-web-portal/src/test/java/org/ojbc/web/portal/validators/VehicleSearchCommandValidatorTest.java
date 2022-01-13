@@ -106,6 +106,6 @@ public class VehicleSearchCommandValidatorTest {
 		
 		unit.validate(vehicleSearchCommand, errors);
 		
-		Mockito.verifyZeroInteractions(errors);
+		Mockito.verifyNoInteractions(errors);
 	}
 }

@@ -19,12 +19,13 @@ package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 public abstract class SearchTermExtractorBase implements SearchTermExtractorInterface {
 
-	private Logger logger = Logger.getLogger(SearchTermExtractorBase.class);
+	private Log logger = LogFactory.getLog(SearchTermExtractorBase.class);
 	
 	public List<String> extractTerm(List<String> pSearchTokensList, PersonSearchRequest pPersonSearchRequest){
 		

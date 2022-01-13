@@ -30,13 +30,13 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
  
 /**
  * This class builds an Excel spreadsheet document with the .
  *
  */
-public abstract class SubscriptionsExcelBuilder extends AbstractExcelView {
+public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
  
 	void createTheTable(HSSFWorkbook workbook,
 			List<Subscription> subscriptions, HSSFSheet sheet) {
