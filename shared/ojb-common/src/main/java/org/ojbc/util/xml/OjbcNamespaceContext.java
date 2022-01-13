@@ -327,6 +327,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PERSON_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0";
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_EXT = "psr";
 	
+	public static final String NS_INCIDENT_QUERY_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IncidentReport/1.0";
+	public static final String NS_PREFIX_INCIDENT_QUERY_RESPONSE_DOC = "ir-doc";
+	
 	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
 					
@@ -1054,6 +1057,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_INCIDENT_QUERY_RESPONSE_DOC, NS_INCIDENT_QUERY_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_INCIDENT_QUERY_RESPONSE_DOC, NS_PREFIX_INCIDENT_QUERY_RESPONSE_DOC);
 		
 		prefixToUriMap.put(NS_PREFIX_N2, NS_N2);
 		uriToPrefixMap.put(NS_N2, NS_PREFIX_N2);
