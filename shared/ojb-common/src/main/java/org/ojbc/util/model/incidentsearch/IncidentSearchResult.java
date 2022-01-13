@@ -48,6 +48,14 @@ public class IncidentSearchResult {
 	
 	private String sourceSystemNameText;
 	
+	private String systemNameText;
+	
+	public String getSystemNameText() {
+		return systemNameText;
+	}
+	public void setSystemNameText(String systemNameText) {
+		this.systemNameText = systemNameText;
+	}
 	public String getSourceSystemNameText() {
 		return sourceSystemNameText;
 	}
