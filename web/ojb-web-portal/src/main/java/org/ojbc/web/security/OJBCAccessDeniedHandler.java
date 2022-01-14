@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.WebUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
@@ -52,17 +54,23 @@ public class OJBCAccessDeniedHandler implements AccessDeniedHandler {
 			ServletException {
 		
     	@SuppressWarnings("unchecked")
-		Collection<SimpleGrantedAuthority> existingGrantedAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		Collection<SimpleGrantedAuthority> existingGrantedAuthorities = 
+			(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    	
 
     	log.info("Current granted authorities: " + existingGrantedAuthorities);
     	
+    	boolean otpRoleGranted = existingGrantedAuthorities.stream().anyMatch(item->item.getAuthority().equalsIgnoreCase(Authorities.AUTHZ_PORTAL_OTP.name())); 
     	log.info("requireOtpAuthentication:" + BooleanUtils.isTrue(requireOtpAuthentication));
-		if (BooleanUtils.isTrue(requireOtpAuthentication) && !request.isUserInRole(Authorities.AUTHZ_PORTAL_OTP.name()))
+
+    	if (BooleanUtils.isTrue(requireOtpAuthentication) && !otpRoleGranted)
 		{
 			if (requireFederatedQueryUserIndicator)
 			{
 				Element samlAssertion = (Element)request.getAttribute("samlAssertion");
-		        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
+		        Boolean federatedQueryUserIndicator =
+		        		BooleanUtils.toBooleanObject(
+		        				SAMLTokenUtils.getAttributeValue(samlAssertion, SamlAttribute.FederatedQueryUserIndicator));
 		        
 		        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
 		        	log.warn("User does not have FederatedQueryUserIndicator");

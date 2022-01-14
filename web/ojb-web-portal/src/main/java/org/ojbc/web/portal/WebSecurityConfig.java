@@ -38,10 +38,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
         		"/otp/**", "/resources/css/**", "/logout","/code/**", "/index.jsp", "/acknowlegePolicies",
-        		"/portal/defaultLogout", "/portal/performLogout");
+        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm");
     }
 
     @Override
@@ -74,8 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		    .and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
 		      LogoutFilter.class)
-		    .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
-		    .accessDeniedHandler(ojbcAccessDeniedHandler);
+		    .exceptionHandling().accessDeniedHandler(ojbcAccessDeniedHandler);
     }
     
     @Autowired
@@ -114,4 +113,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("AUTHZ_"); 
     }
+    
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludeClientInfo(true);
+        loggingFilter.setIncludeQueryString(true);
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setIncludeHeaders(false);
+        return loggingFilter;
+    }    
 }
