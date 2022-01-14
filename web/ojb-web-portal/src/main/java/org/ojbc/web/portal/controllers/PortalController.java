@@ -338,10 +338,10 @@ public class PortalController implements ApplicationContextAware {
     	return "redirect:" + userSignoutUrl;
 	}
 
-    @RequestMapping("defaultLogout")
+    @RequestMapping("/portal/defaultLogout")
     public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
     	
-    	return "portal/logout";
+    	return "logoutSuccess";
     }
     
 

@@ -38,6 +38,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
@@ -57,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", 
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
         		"/otp/**", "/resources/css/**", "/logout","/code/**", "/index.jsp", "/acknowlegePolicies",
         		"/portal/defaultLogout", "/portal/performLogout");
     }
@@ -66,14 +67,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	http
 		    .authorizeRequests()
-		    .anyRequest().hasAuthority("AUTHZ_PORTAL_OTP")
+		    .anyRequest().hasAuthority("AUTHZ_PORTAL")
 		    .and()
 	    	.logout().logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
 		    .and().securityContext()
 		    .and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
 		      LogoutFilter.class)
-		    .exceptionHandling().accessDeniedHandler(ojbcAccessDeniedHandler);
+		    .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+		    .accessDeniedHandler(ojbcAccessDeniedHandler);
     }
     
     @Autowired
