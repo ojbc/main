@@ -176,7 +176,7 @@ public class PortalController implements ApplicationContextAware {
 	@Value("#{getObject('entityLogoutReturnUrlMap')}")
 	Map<String, String> entityLogoutReturnUrlMap;
 	
-    @Value("${userSignOutUrl:defaultLogout}")
+    @Value("${userSignOutUrl:/portal/defaultLogout}")
     String userSignOutUrl;
     
 	@Resource
@@ -340,7 +340,7 @@ public class PortalController implements ApplicationContextAware {
 
     @RequestMapping("/portal/defaultLogout")
     public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
-    	
+    	model.put("sensitiveInfoAlert", false); 
     	return "logoutSuccess";
     }
     

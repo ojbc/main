@@ -19,14 +19,18 @@ package org.ojbc.web.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.WebPortalConstants;
+import org.ojbc.web.portal.controllers.PortalController;
 import org.ojbc.web.portal.services.SamlService;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.w3c.dom.Element;
 
 public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
-    
+	private static final Log log = LogFactory.getLog(SamlAuthenticationFilter.class);
+   
 	private SamlService samlService;
     
     @Override
@@ -34,6 +38,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
         Element samlAssertion = this.extractSAMLAssertion(request);
         request.setAttribute("samlAssertion", samlAssertion);
 
+        log.info("request url: " + request.getRequestURI()); 
         String federationId = null;
         if ( samlAssertion != null) {
            try {

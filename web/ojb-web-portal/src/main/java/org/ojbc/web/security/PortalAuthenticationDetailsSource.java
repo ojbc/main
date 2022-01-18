@@ -168,7 +168,7 @@ public class PortalAuthenticationDetailsSource implements
             String accessControlResponseString = accessControlServicesConfig
                     .getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
                             UUID.randomUUID().toString(), samlAssertion, policyAccessControlResourceURI);
-            Assert.notNull(accessControlResponseString, "The Access Control Response should not be Null"); 
+            	Assert.notNull(accessControlResponseString, "The Access Control Response should not be Null"); 
             
             /*
              * Grant the "PortalUser" Role only if accessDenied is "false"
