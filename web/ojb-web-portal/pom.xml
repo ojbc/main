@@ -66,8 +66,7 @@
 		
 		<fontawesome.version>5.15.4</fontawesome.version>
 		<bootstrap.version>4.3.1</bootstrap.version>
-		<jquery.version>3.3.1</jquery.version>
-		<popper.version>1.14.3</popper.version>
+		<jquery.version>3.6.0</jquery.version>
 		<datatables.version>1.10.20</datatables.version>
 		<datatables.fixedheader.version>3.1.6</datatables.fixedheader.version>
 		<datatables.responsive.version>2.2.3</datatables.responsive.version>
@@ -349,6 +348,31 @@
 		    <artifactId>datatables-responsive</artifactId>
 		    <version>${datatables.responsive.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>chosen-js</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>momentjs</artifactId>
+            <version>2.29.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bowergithub.bpampuch</groupId>
+            <artifactId>pdfmake</artifactId>
+            <version>0.1.65</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>datatables-buttons</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.7.1</version>
+        </dependency>
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>jquery</artifactId>
@@ -364,6 +388,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+		
 		<!-- TEST dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

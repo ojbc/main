@@ -139,12 +139,14 @@ public class PortalAuthenticationDetailsSource implements
         }
         
         SimpleGrantedAuthority rolePortalUserOTP = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL_OTP.name());
+        boolean rolePortalUserOTPGranted = false; 
         
         if (requireOtpAuthentication)
         {	
         	if (addOtpAuthenticationRole(samlAssertion))
         	{
         		grantedAuthorities.add(rolePortalUserOTP); 	
+        		rolePortalUserOTPGranted = true; 
         	}
         	else
         	{
@@ -155,6 +157,7 @@ public class PortalAuthenticationDetailsSource implements
         else
         {
         	grantedAuthorities.add(rolePortalUserOTP);
+        	rolePortalUserOTPGranted = true; 
         }	
         
         String principal = (String) context.getAttribute("principal");
@@ -165,21 +168,21 @@ public class PortalAuthenticationDetailsSource implements
             String accessControlResponseString = accessControlServicesConfig
                     .getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
                             UUID.randomUUID().toString(), samlAssertion, policyAccessControlResourceURI);
-            Assert.notNull(accessControlResponseString, "The Access Control Response should not be Null"); 
+            	Assert.notNull(accessControlResponseString, "The Access Control Response should not be Null"); 
             
             /*
              * Grant the "PortalUser" Role only if accessDenied is "false"
              */
             String accessDenied = getAccessDeniedIndicator(accessControlResponseString, policyAccessControlResourceURI);
                 
-            if (StringUtils.isNotBlank(accessDenied) && !Boolean.valueOf(accessDenied)) {
+            if (StringUtils.isNotBlank(accessDenied) && !Boolean.valueOf(accessDenied) && rolePortalUserOTPGranted ) {
                 grantedAuthorities.add(rolePortalUser);
             }
             else {
                 context.setAttribute("accessControlResponse", accessControlResponseString);
             }
         }
-        else if (!requireIdentityBasedAccessControl){
+        else if (!requireIdentityBasedAccessControl && rolePortalUserOTPGranted){
             grantedAuthorities.add(rolePortalUser); 
         }
         

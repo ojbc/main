@@ -131,7 +131,7 @@ public class ErrorController {
            model.put("accessControlResponse", "Failed to acknowledge the policies! Please try again later");
            return "/error/403"; 
         }
-        return "redirect:/portal/index";
+        return "redirect:/";
     }
 	
 }

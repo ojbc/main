@@ -40,7 +40,7 @@ public class AppProperties {
 	
 	private Integer ajpPort = 9090; 
 	private Boolean ajpEnabled = true; 
-	private String signOutUrl = "/logoutSuccess"; 
+	private String signOutUrl = "/portal/defaultLogout"; 
 	
 	private String footerText="Copyright &copy; 2021 OJBC. All rights reserved.";
 	private String bannerPath="/images/banner/Banner.png";

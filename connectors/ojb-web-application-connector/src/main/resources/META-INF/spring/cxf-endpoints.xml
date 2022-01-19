@@ -102,7 +102,8 @@
 		<camel:endpoint id="subscriptionManagerServiceSecureEndpoint" uri="cxf:bean:subscriptionManagerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>
        
 		<!-- Identity Based Access Control (used for Identity Based Access Control) -->
-		<camel:endpoint id="accessControlResponseServiceEndpoint" uri="cxf:bean:accessControlResponseService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>                        
+		<camel:endpoint id="accessControlResponseServiceEndpoint" 
+            uri="cxf:bean:accessControlResponseService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false"/>                        
 
 		<!--  Juvenile Query Case Plan -->
 		<camel:endpoint id="juvenileCasePlanHistoryResultsHandlerServiceEndpoint"
@@ -173,20 +174,20 @@
 			uri="cxf:bean:personQueryProfessionalLicenseResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 	    <!-- Arrest Search Results Handler-->
-    <camel:endpoint id="arrestSearchResultsHandlerServiceEndpoint"
-      uri="cxf:bean:arrestSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+	    <camel:endpoint id="arrestSearchResultsHandlerServiceEndpoint"
+	      uri="cxf:bean:arrestSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 	    <!-- Arrest Modify Results Handler-->
-    <camel:endpoint id="arrestModifyResultsHandlerServiceEndpoint"
-      uri="cxf:bean:arrestModifyResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+	    <camel:endpoint id="arrestModifyResultsHandlerServiceEndpoint"
+	      uri="cxf:bean:arrestModifyResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 	    <!-- Arrest Modify Results Handler-->
-    <camel:endpoint id="recordReplicationResultsHandlerServiceEndpoint"
-      uri="cxf:bean:recordReplicationResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+	    <camel:endpoint id="recordReplicationResultsHandlerServiceEndpoint"
+	      uri="cxf:bean:recordReplicationResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
-      <!-- Audit Search Results Handler-->
-    <camel:endpoint id="auditSearchResultsHandlerServiceEndpoint"
-      uri="cxf:bean:auditSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+        <!-- Audit Search Results Handler-->
+   	    <camel:endpoint id="auditSearchResultsHandlerServiceEndpoint"
+	      uri="cxf:bean:auditSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
       
 	    <!-- Cannabis License Query Endpoint -->
 		<camel:endpoint id="personQueryCannabisLicenseResultsServiceEndpoint"
@@ -384,8 +385,6 @@
 	            </policy:policies>
 	        </cxf:features>
 	    </cxf:cxfEndpoint>
-		
-       
        
 		<!-- OJB Notification Broker Secure Service -->
 	    <cxf:cxfEndpoint 
@@ -910,17 +909,16 @@
 	</http:conduit>
 	
    	<!-- Used for SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection -->
-	<httpj:engine-factory id="ClientAuthHttpsSettings"
+  	<httpj:engine-factory id="ClientAuthHttpsSettings"
 		bus="cxf">
 		<httpj:engine port="${webapplication.webServices.portNumber}">
 			<httpj:tlsServerParameters>
 				<sec:keyManagers keyPassword="${webapplication.connector.keyPassword}">
 					<sec:keyStore type="jks" password="${webapplication.connector.keystorePassword}" file="${webapplication.connector.keystoreLocation}" />
 				</sec:keyManagers>
-        <sec:clientAuthentication want="false" 
+                <sec:clientAuthentication want="false" 
 					required="false" />
 			</httpj:tlsServerParameters>
 		</httpj:engine>
 	</httpj:engine-factory> 	
-
 </beans>

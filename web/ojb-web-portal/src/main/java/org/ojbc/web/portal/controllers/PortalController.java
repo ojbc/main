@@ -176,7 +176,7 @@ public class PortalController implements ApplicationContextAware {
 	@Value("#{getObject('entityLogoutReturnUrlMap')}")
 	Map<String, String> entityLogoutReturnUrlMap;
 	
-    @Value("${userSignOutUrl:defaultLogout}")
+    @Value("${userSignOutUrl:/portal/defaultLogout}")
     String userSignOutUrl;
     
 	@Resource
@@ -338,10 +338,10 @@ public class PortalController implements ApplicationContextAware {
     	return "redirect:" + userSignoutUrl;
 	}
 
-    @RequestMapping("defaultLogout")
+    @RequestMapping("/portal/defaultLogout")
     public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
-    	
-    	return "portal/logout";
+    	model.put("sensitiveInfoAlert", false); 
+    	return "logoutSuccess";
     }
     
 
@@ -377,7 +377,7 @@ public class PortalController implements ApplicationContextAware {
 	    return "common/_leftBar";
 	}
     
-    @RequestMapping(value="/portal/negateSenstiveInfoAlert", method=RequestMethod.POST)
+    @GetMapping(value="/portal/negateSenstiveInfoAlert")
     public @ResponseBody String negateSenstiveInfoAlert( Map<String, Object> model ){
         model.put("sensitiveInfoAlert", false); 
         return "success";

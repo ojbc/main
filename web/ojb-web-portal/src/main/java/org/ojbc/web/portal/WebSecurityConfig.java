@@ -41,6 +41,7 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesUserDetailsService;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -57,16 +58,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", 
-        		"/otp/**", "/resources/css/**", "/logout","/code/**", "/index.jsp", "/acknowlegePolicies",
-        		"/portal/defaultLogout", "/portal/performLogout");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/logoutSuccess/**", "/static/**",
+        		"/otp/**", "/resources/css/**", "/code/**", "/index.jsp", "/acknowlegePolicies", "/portal/**", 
+        		"/portal/defaultLogout", "/portal/performLogout", "/403", "/otp/inputForm", "/error");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
 		    .authorizeRequests()
-		    .anyRequest().hasAuthority("AUTHZ_PORTAL_OTP")
+		    .anyRequest().hasAuthority("AUTHZ_PORTAL")
 		    .and()
 	    	.logout().logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
 		    .and().securityContext()
@@ -112,4 +113,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("AUTHZ_"); 
     }
+    
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludeClientInfo(true);
+        loggingFilter.setIncludeQueryString(true);
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setIncludeHeaders(false);
+        return loggingFilter;
+    }    
 }
