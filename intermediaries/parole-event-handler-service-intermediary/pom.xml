@@ -24,8 +24,8 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>parole-event-handler-service-intermediary</artifactId>
-	<packaging>bundle</packaging>
-	<version>1.0.2</version>
+	<packaging>jar</packaging>
+	<version>2.0.0</version>
 	<name>OJB :: parole-event-handler-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
