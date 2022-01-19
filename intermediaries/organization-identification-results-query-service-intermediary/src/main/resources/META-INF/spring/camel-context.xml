@@ -156,7 +156,7 @@
 				</completionTimeoutExpression>
 				<completionSizeExpression><constant>2</constant></completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{identificationResultsQueryIntermediary.identificationResultsQueryIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{identificationResultsQueryIntermediary.identificationResultsQueryIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
