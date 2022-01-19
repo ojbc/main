@@ -26,12 +26,12 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        "
-       profile="dev">
+       profile="!prod">
 	
 			<util:map id="cycleIdToNotifXsltParamMap">
-				<entry key="systemIdCourtDisposition" value="Maine CHRI Court Disposition" />
-				<entry key="systemIdCycleTracking" value="Maine CHRI Cycle Tracking" />
-				<entry key="systemIdProsecutionDecision" value="Maine CHRI Prosecution Decision" />
+				<entry key="systemIdCourtDisposition" value="Hawaii CHRI Court Disposition" />
+				<entry key="systemIdCycleTracking" value="Hawaii CHRI Cycle Tracking" />
+				<entry key="systemIdProsecutionDecision" value="Hawaii CHRI Prosecution Decision" />
 			</util:map>		
 	
 </beans>
