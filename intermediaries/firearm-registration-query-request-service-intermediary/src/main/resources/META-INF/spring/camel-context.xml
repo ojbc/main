@@ -274,7 +274,7 @@
 					</camel:setHeader>
 		
 					<camel:filter>
-						<camel:simple>${in.header.firearmQueryResultByPerson} == 1 and ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
+						<camel:simple>${in.header.firearmQueryResultByPerson} == 1 &amp;&amp; ${in.header.firearmQueryResultByFirearm} == 0</camel:simple>
 						<camel:log message="Use operation name for Firearm Query Result by Person" />
 		
 						<camel:setHeader name="operationName">
@@ -283,7 +283,7 @@
 					</camel:filter>
 		
 					<camel:filter>
-						<camel:simple>${in.header.firearmQueryResultByPerson} == 0 and ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
+						<camel:simple>${in.header.firearmQueryResultByPerson} == 0 &amp;&amp; ${in.header.firearmQueryResultByFirearm} == 1</camel:simple>
 						<camel:log message="Use operation name for Firearm Query Result by Firearm" />
 		
 						<camel:setHeader name="operationName">
