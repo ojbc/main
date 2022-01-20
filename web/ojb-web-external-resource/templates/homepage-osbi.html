@@ -1,0 +1,64 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Home Page</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+      <!-- Begin page content -->
+   <div th:fragment="homepageContent">
+     <div class="row">
+       <div class='col-12 border'>
+					<h3>WELCOME TO RAPUP</h3>  
+					<p>The Oklahoma State Bureau of Investigation (OSBI) is the repository for all fingerprint-based criminal history records 
+						for the state of Oklahoma. Oklahoma's records are a part of the nationwide criminal history record maintained by the Federal  
+						Bureau of Investigation. It is vital that the records retained by the OSBI be timely, accurate and complete. The RAPUP 
+						system allows disposition providers to electronically submit filing and final disposition of charges to the repository for 
+						real-time updating by the OSBI.
+          </p>
+			 </div>
+     </div>
+     <div class='row mt-3'>
+        <div class='col col-lg-8 border mr-3'>
+          <h3>STATUTORY MANDATE</h3>  
+			    <p>
+			       <a href="http://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=436672" target="_blank">Title 74 Oklahoma Statutes 150.12</a> 
+			       mandates that arresting agencies submit records of arrest within 72 hours. Prosecutors have 72 hours to report declination
+			       of charges presented, otherwise, courts and prosecutors have 30 days to report filing of charges and final disposition to
+			       the OSBI.   
+			    </p> 
+        </div>
+        <div class='col border'>
+          <h3>CONTACT US</h3>  
+			    <p>Email OSBI's Disposition Services Unit at <a href="mailto:dispositions@osbi.ok.gov">dispositions@osbi.ok.gov</a> 
+			    </p>
+			    <p>
+			     Or Call:  (405) 858-5256 
+			    </p>  
+        </div>
+     </div>
+    <script th:inline="javascript">
+    </script>
+  </div>
+  </body>
+</html>

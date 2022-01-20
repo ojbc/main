@@ -25,15 +25,73 @@
 	<body data-spy="scroll" data-target=".navbar">
 		<header th:replace="fragments/general.html :: header"> </header>
 	    <!-- Begin page content -->
-    <main role="main" class="container pt-4">
-      <div id="portalContent">
-	      <div id="loadingAjaxPane" ></div>
-        <div th:replace="homepage::homepageContent"></div>
-      </div>
-    </main>
+	    <main role="main" class="container pt-4">
+	      <div id="portalContent">
+			<div id="loadingAjaxPane" ></div>
+	        <div th:replace="homepage::homepageContent"></div>
+	      </div>
+	    </main>
 	
 		<footer th:replace="fragments/general.html :: footer"></footer>	
 		<!-- /.container -->
 		<th:block th:include="fragments/general.html :: javascripts"></th:block>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+		        var inactivityTimeout = [[${inactivityTimeout}]]; 
+		        var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
+		        var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];
+		        var sensitiveInfoAlertMessage = [[${sensitiveInfoAlertMessage}]];
+		        var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
+	        /*]]>*/
+            $(function(){
+            	showHomepage();
+                if( !!sensitiveInfoAlert ){
+                    bootpopup({
+                      title: "NOTICE TO USERS", 
+                      showclose: false,
+                      content: [
+                            '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>' + sensitiveInfoAlertMessage + '</p>'
+                            ], 
+                      ok: function(data, array, event) {
+                          sensitiveInfoAlert = false;
+                          $.get(context + "portal/negateSenstiveInfoAlert", function(data) {
+                          }).fail(ojbc.displayFailMessage);
+                      },
+                    });
+                }
+            });
+	        
+            function showHomepage(){
+                if(homePage==="landingPage"){
+                    $('#searchBarButtonDiv').css("display", "none");
+                    $('#filterColumn').removeClass('d-none');                                    
+                
+                    ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
+                }
+                else if(homePage==="query"){
+                    $.post(context + "portal/leftBar", function(data) {
+                        $('#filterColumn').html(data);   
+                        $("#demogFilterInfo").hide();
+                        $('#filterColumn').removeClass('d-none');                                    
+                        
+                        $.get(context + "people/searchForm", function(data) {      
+                              $('#portalContent').html(data);
+                        }).fail(ojbc.displayFailMessage);                                                           
+                    }).fail(ojbc.displayFailMessage);   
+                } 
+                     
+                    // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
+                else if (homePage==="subscriptions"){
+                    xhr = $.post(context + "subscriptions/subscriptionResults", function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data); 
+                    }).fail(ojbc.displayFailMessage);                                   
+                }
+                else {
+                    alert('Error: unknown page cannot be displayed');
+                }                
+            }
+	    </script>
 	</body>
 </html>

@@ -18,6 +18,7 @@ package org.ojbc.web.portal.controllers;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +71,9 @@ public class GlobalControllerAdvice {
     @Value("${inactivityTimeoutInSeconds:1800}")
     String inactivityTimeoutInSeconds;
     
+    @Resource
+    Map<String, String> stateSpecificHomePage;
+    
     private DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     @ModelAttribute
@@ -89,6 +93,11 @@ public class GlobalControllerAdvice {
         model.addAttribute("footerText", appProperties.getFooterText());
     }
     
+    @ModelAttribute("stateSpecificHomePage")
+    public Map<String, String> getStateSpecificHomePage() {
+    	return stateSpecificHomePage;
+    }
+
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
     public String handle405Exception(HttpServletRequest request, Exception ex){
     	

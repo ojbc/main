@@ -19,21 +19,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Home Page</title>
+    <title>Landing Page</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
   </head>
   <body>
       <!-- Begin page content -->
-    <div th:fragment="homepageContent">
-       <div id="mainContent" class="row ml-0 mr-0">
-           <div id="filterColumn" class="col-12 col-xl-2 col-md-3 d-none">
-           </div>
-           <div id="portalContent" class="col">
-             <h3>Welcome to the new portal</h3>
-           </div>
-       </div>
+    <div th:fragment="landingPageContent" id="landingPageContent" class="container">
+        <div th:replace="landingPage::welcomeContent"></div>
+        <hr/>
+        <div class="row">
+            <div class="col" th:replace="landingPage::announcementsContent"></div>
+        </div>
+        <hr/>
+        <div class="mt-5">
+            <div class="col" th:replace="landingPage::disclaimerContent"></div>
+        </div>
      </div>
     <script th:inline="javascript">
     </script>

@@ -49,6 +49,7 @@ function bootpopup(options) {
 		ok: function() {},
 		cancel: function() {},
 		yes: function() {},
+		validate: function() {},
 		no: function() {},
 		complete: function() {},
 		submit: function(e) {
@@ -63,7 +64,7 @@ function bootpopup(options) {
 			if(key in this.options)
 				this.options[key] = options[key];
 			// If an event for a button is given, show the respective button
-			if(["close", "ok", "cancel", "yes", "no"].indexOf(key) >= 0)
+			if(["close", "ok", "cancel", "yes", "no", "validate"].indexOf(key) >= 0)
 				buttons.push(key);
 		}
 		// Copy news buttons to this.options.buttons
@@ -97,7 +98,7 @@ function bootpopup(options) {
 		if(this.options.size == "small") classModalDialog += " modal-sm";
 
 		// Create HTML elements for modal dialog
-		this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
+		this.modal = $('<div class="modal fade small" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title" aria-hidden="true"></div>');
 		this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
 		this.content = $('<div class="modal-content"></div>');
 		this.dialog.append(this.content);
@@ -105,7 +106,7 @@ function bootpopup(options) {
 
 		// Header
 		this.header = $('<div class="modal-header"></div>');
-		this.header.append('<h5 class="modal-title" id="bootpopup-title">' + this.options.title + '</h4>');
+		this.header.append('<div class="modal-title" id="bootpopup-title">' + this.options.title + '</div>');
 		if(this.options.showclose)	// Close button
 			this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
 		this.content.append(this.header);
@@ -212,11 +213,12 @@ function bootpopup(options) {
 			var btnText = "";
 
 			switch(item) {
-			case "close": btnClass = "btn-primary"; btnText = "Close"; break;
-			case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
-			case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
-			case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
-			case "no": btnClass = "btn-default"; btnText = "No"; break;
+			case "close": btnClass = "btn-primary btn-sm"; btnText = "Close"; break;
+			case "ok": btnClass = "btn-primary btn-sm"; btnText = "OK"; break;
+			case "cancel": btnClass = "btn-secondary btn-sm"; btnText = "Cancel"; break;
+			case "yes": btnClass = "btn-primary btn-sm"; btnText = "Yes"; break;
+			case "validate": btnClass = "btn-primary btn-sm"; btnText = "Validate"; break;
+			case "no": btnClass = "btn-secondary btn-sm"; btnText = "No"; break;
 			}
 
 			var button = $("<button></button>", {
@@ -238,6 +240,7 @@ function bootpopup(options) {
 			switch(item) {
 			case "close": this.btnClose = button; break;
 			case "ok": this.btnOk = button; break;
+			case "validate": this.btnValidate = button; break;
 			case "cancel": this.btnCancel = button; break;
 			case "yes": this.btnYes = button; break;
 			case "no": this.btnNo = button; break;
@@ -302,6 +305,7 @@ function bootpopup(options) {
 	this.submit = function() { this.callback("submit"); };
 	this.close = function() { this.callback("close"); };
 	this.ok = function() { this.callback("ok"); };
+	this.validate = function() { this.callback("validate"); };
 	this.cancel = function() { this.callback("cancel"); };
 	this.yes = function() { this.callback("yes"); };
 	this.no = function() { this.callback("no"); };

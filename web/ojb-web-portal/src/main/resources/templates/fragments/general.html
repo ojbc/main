@@ -136,7 +136,8 @@
 	    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.print.min.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/datatables-buttons/1.6.1/js/buttons.colVis.min.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/pdfmake/build/pdfmake.min.js}"></script>
-		  <script type="text/javascript" th:src="@{/js/plugins/pdfmake_vfs_fonts.js}"></script> 
+		<script type="text/javascript" th:src="@{/js/plugins/pdfmake_vfs_fonts.js}"></script> 
+		<script type="text/javascript" th:src="@{/js/ojb-web-portal.js}"></script> 
 <!--	    <script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js" type="text/javascript"></script>-->
 	    
         <script th:inline="javascript">
@@ -146,6 +147,7 @@
 	          var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
 	          var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];
 	          var sensitiveInfoAlertMessage = [[${sensitiveInfoAlertMessage}]];
+	          var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
 	      /*]]>*/
 	      var idleTime;
 
@@ -158,21 +160,6 @@
    	              });
     		  }
 	    	  
-              if( !!sensitiveInfoAlert ){
-                  bootpopup({
-                    title: "NOTICE TO USERS", 
-                    showclose: false,
-                    content: [
-                          '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>' + sensitiveInfoAlertMessage + '</p>'
-                          ], 
-                    ok: function(data, array, event) {
-                    	sensitiveInfoAlert = false;
-                        $.get(context + "portal/negateSenstiveInfoAlert", function(data) {
-                        }).fail(ojbc.displayFailMessage);
-                    },
-                  });
-              }
-   	      
               $(".navbar-nav .nav-link").on("click", function(){
                   $(this).parent().siblings().removeClass('show');
                   $(this).parent().addClass('active').siblings().removeClass('active');
@@ -217,36 +204,44 @@
  	          
  	           $('[data-toggle="popover"]').popover(); 
  	          
+               $('#home').click (function() {       
+                   if($homePage==="landingPage"){
+                       $('#searchBarButtonDiv').css("display", "none");
+                       $('#filterColumn').removeClass('d-none');                                    
+                   
+                       //TODO likely needs refactor(2 jquery ajax asynch calls in a row)
+                       ojbc.populateLeftBarContentFromUrl(context + "portal/landingLeftBar");
+                       ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
+                   }
+                   else if(homePage==="query") {
+                       // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
+                       $.post(context + "portal/leftBar", function(data) {
+                           $('#filterColumn').html(data);   
+                           $("#demogFilterInfo").hide();
+                           $('#filterColumn').removeClass('d-none');                                    
+                           
+                           $.get(context + "people/searchForm", function(data) {      
+                                 $('#portalContent').html(data);
+                           }).fail(ojbc.displayFailMessage);                                                           
+                       }).fail(ojbc.displayFailMessage);   
+                   }
+                   else if(homePage==="subscriptions"){
+                       xhr = $.post(context + "subscriptions/subscriptionResults", function(data) {
+                           $('#filterColumn').addClass('d-none');
+                           $('#portalContent').html(data); 
+                       }).fail(ojbc.displayFailMessage);                                   
+                   }
+                   else{
+                       alert('Error: unknown page cannot be displayed');
+                   }
+                   return false;
+               })
+       
 	      });
 	      
-          ojbc = {
-	          displayFailMessage : function(jqXHR, textStatus, errorThrown) {
-	            if (jqXHR.status == 500) {
-	              var errorHeader = "A server-side error occurred while processing your request. Please contact the IT department or try again later.";
-	              bootpopup.alert(errorHeader, "Error");   
-	            } else if (jqXHR.status == 0) {
-	              if (jqXHR.textStatus != "aborted"){
-	                window.location.reload();
-	              }
-	            } else if (jqXHR.status == 403) {
-                bootpopup.alert("Access is denied. Please check if you have the access right for the item.", "Error");
-              } else {
-	          	  bootpopup.alert("Unable to talk to Server.  Please try again later.", "Error");
-	            }
-	         }, 
-	         
-	         reloadPage: function() {
-	             clearTimeout(idleTime);
-	             idleTime = setTimeout(function () {
-	                 window.location.assign(context + "logout");
-	             }, inactivityTimeoutInSeconds * 1000);
-	         }
-         };
-              
-
       </script>
 		  
-	  </div>		
+	</div>		
     
 </body>
 </html>

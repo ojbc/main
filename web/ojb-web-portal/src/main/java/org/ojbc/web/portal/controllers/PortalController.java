@@ -160,9 +160,6 @@ public class PortalController implements ApplicationContextAware {
 	Map<String, String> leftBarLinks;
 
 	Map<String, String> leftBarTitles;
-
-    @Resource
-    Map<String, String> stateSpecificHomePage;
     
     @Resource
     Map<String, String> subscriptionFilterProperties;
@@ -208,7 +205,7 @@ public class PortalController implements ApplicationContextAware {
 
     @RequestMapping("/portal/landingPage")
     public String landingPage(){
-	    return "portal/landingPage";
+	    return "portal/landingPage::landingPageContent";
 	}
 
     @RequestMapping("/portal/helpPage")
@@ -340,7 +337,6 @@ public class PortalController implements ApplicationContextAware {
 
     @RequestMapping("/portal/defaultLogout")
     public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
-    	model.put("sensitiveInfoAlert", false); 
     	return "logoutSuccess";
     }
     
@@ -524,11 +520,6 @@ public class PortalController implements ApplicationContextAware {
 	public Map<String, String> getSearchPurposes() {
 		return searchPurposes;
 	}
-
-    @ModelAttribute("stateSpecificHomePage")
-    public Map<String, String> getStateSpecificHomePage() {
-    	return stateSpecificHomePage;
-    }
     
     @ModelAttribute("subscriptionFilterProperties")
     public Map<String, String> getSubscriptionFilterProperties(){

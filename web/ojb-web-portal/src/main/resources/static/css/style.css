@@ -46,6 +46,11 @@ body {
   opacity: 1; 
  }
  
+ .lightgrayX { 
+	color: lightgray;
+	font-size: 12px;	
+}
+ 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -83,6 +88,114 @@ main, table{
   background-repeat: no-repeat;
   display:none;
   z-index: 10000;
+}
+
+.blueButton {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueIcon {
+	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	background-color: # 477dae;
+	border: 1px solid #477dae;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #ffffff;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 4px 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.blueButton:hover:enabled, .blueIcon:hover:enabled {
+	color: #777777;
+}
+
+.blueButton:disabled, .blueIcon:disabled {
+	background-image: url('../images/Backgrounds/bg-button-blue-d.jpg');
+}
+
+.grayButton {
+	background-image: url('../images/Backgrounds/bg-button-gray.jpg');
+	background-repeat: repeat-x;
+	background-color: #ebebeb;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px #dddddd;
+	color: #777777;
+	font-family: Tahoma;
+	font-size: 11px;
+	font-weight: bold;
+	height: 31px;
+	padding: 0 14px;
+	text-decoration: none;
+	text-transform: uppercase;
+	zoom: 1;
+}
+
+.grayButton:hover {
+	color: #ffffff;
+}
+
+.blueButton:hover:enabled,.grayButton:hover:enabled {
+	cursor: pointer;
+}
+
+a.blueButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #ffffff;
+	white-space: nowrap;
+}
+
+a.blueButton:hover {
+	color: #777777;
+}
+
+a.grayButton {
+	padding: 8px 12px 8px 12px;
+	font-size: 12px;
+	color: #777777;
+	white-space: nowrap;
+}
+
+a.grayButton:hover {
+	color: #ffffff;
+}
+
+.contentBox {
+	background-color: #e9e9e9;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	/* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#bababa');
+	
+	
+}
+
+.horizontalDivide {
+	background: url('../images/horizontal-divide.png') repeat-x;
+	height: 2px;
 }
 
 table.dispositionsTable td.dataTables_empty {
@@ -136,10 +249,999 @@ header span.fullname {
   background-color: #808080;
 }
 
-.osbi-warning {
-  background-color: #FEEFB3;
+/************* from the old style.css   ******/
+
+/*************************** Search Content **************/
+#searchForm {
+	margin: 0;
 }
 
+#searchTabs .labelText, #filterForm .labelText, .radioButtonBar {
+	font-size: 12px;
+	color: #333333;
+}
+#searchTabs .searchSubHeader {
+	font-size: 12px;
+	color: #898989;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#searchTabs #advanceSearch\.personDateOfBirthRangeStart,#searchTabs #advanceSearch\.personDateOfBirthRangeEnd {
+	width: 129px;
+}
+
+#searchTabs #advanceSearch\.incidentDateRangeStart,#searchTabs #advanceSearch\.incidentDateRangeEnd {
+	width: 129px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.vehicleYearRangeStart,#searchTabs #advanceSearch\.vehicleYearRangeEnd {
+	width: 129px;
+}
+
+.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeStart,.ie9 #searchTabs #advanceSearch\.personDateOfBirthRangeEnd
+{
+	width: 119px;
+}
+
+#searchTabs #advanceSearch\.personDateOfBirthRangeEnd,#searchTabs #advanceSearch\.incidentDateRangeEnd  {
+	margin-left: -20px;
+}
+
+#searchTabs #advanceSearch\.firearmSerialNumber {
+	width: 178px;
+	margin-right: 12px;
+}
+
+#searchTabs #advanceSearch\.firearmType {
+	margin-top: 12px;
+}
+
+.ui-datepicker-trigger {
+	position: relative;
+	left: -42px;
+}
+
+#searchTabs #ageRangeStart,
+#searchTabs #ageRangeEnd,
+#searchTabs #heightInFeet,
+#searchTabs #heightInInches,
+#searchTabs #heightTolerance,
+#searchTabs #weightTolerance,
+#demogFilterInfo #filterAgeRangeStart,
+#demogFilterInfo #filterAgeRangeEnd,
+#demogFilterInfo #filterHeightInFeet,
+#demogFilterInfo #filterHeightInInches,
+#demogFilterInfo #filterHeightTolerance,
+#demogFilterInfo #filterWeightTolerance
+	{
+	width: 3.5em;
+	margin-right: 1px;
+}
+
+#searchTabs #advanceSearch\.personWeight,
+#demogFilterInfo #filterWeight {
+	margin-right: 1px;
+	width: 3.5em;
+}
+
+.ie9 #searchTabs #advanceSearch\.personWeight {
+	width: 25px;
+}
+
+/*.ui-widget-header {
+	background: url('../images/Backgrounds/bg-tabs-header.png') repeat-x;
+	border: none;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}*/
+
+.ui-tabs-anchor {
+	border-radius: 0;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#incidentDetailTabs .ui-tabs-anchor {
+	height: 17px;
+	font-size: 10px;
+}
+
+#searchTabs #advancedSearchTab,#searchTabs #simpleSearchTab {
+	overflow: visible;
+}
+
+.searchCancelSection {
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	height: 42px;
+	margin: 0px;
+	position: relative;
+	bottom: -20px;
+	padding: 1em 0 0 1em;
+	margin-left: -1.5vw;
+  	padding-left: 1.5vw;
+  	margin-right: -1.5vw;
+  	padding-right: 1.5vw;
+  	border-bottom-right-radius:4px;
+  	border-bottom-left-radius:4px;
+}
+
+#subscriptionsContent .searchCancelSection,
+#subsAdminContent .searchCancelSection, 
+#subscriptionResultsContainer .searchCancelSection{
+	margin-left: -.75vw;
+  	padding-left: .75vw;
+  	margin-right: -.75vw;
+  	padding-right: .75vw;
+	
+}
+
+.ie9 .searchCancelSection {
+	bottom: -23px;
+}
+
+.ie8 #advancedSearchTab .searchCancelSection {
+	left: -29px;
+}
+
+
+#search-tab-title {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button {
+	font-size: 11px;
+}
+
+.ui-widget {
+	font-size:small;
+	font-family: Arial, Helvetica, sans serif !important;
+}
+/********************** subscriptions *********************/
+
+#subscriptionResultsContainer {
+	background-color: #fafafa;
+}
+
+#subscriptionResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+#subscriptionResultsTitle {
+	font-size: .9375em;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+	left: 13px;
+}
+
+
+.sublink {
+	position: relative;
+	top: 9px;
+	left: -13px;
+}
+
+#subImgSpan {
+	background:url('../images/Subscriptions/icon-add.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0 5px -3px 0;
+}
+
+	
+#addSubLink:hover #subImgSpan{
+	background: url('../images/Subscriptions/icon-add-white.png') no-repeat center;
+}
+
+#subFormDiv {
+	width:230px;
+	height:440px;
+}
+
+*************************** Tabs ********************************
+#searchTabs #simpleSearchTab p {
+	font-size: 12px;
+	color: #898989;
+}
+
+#searchTabs  .ui-tabs-nav li {
+	float: right;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	color: #777777;
+	margin: 1px 0 0 0;
+	border-radius: 0;
+}
+ 
+#searchTabs .ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
+	color: #777777;
+}
+
+#searchTabs .ui-tabs .ui-tabs-nav {
+	margin: -4px;
+}
+
+******************** Search results ******************************
+#searchResultsContainer {
+	background-color: #fafafa;
+}
+
+#searchResultsHeader {
+	background: url('../images/Backgrounds/bg-search-results-header.png') repeat-x;
+	height: 41px;
+}
+
+.ie9 #searchResultsHeader, .ie8 #searchResultsHeader {
+	margin-top: -12px;
+}
+
+#search-results-title, #bootpopup-title, .modal-title {
+	font-size: 12px;
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+	position: relative;
+}
+
+#searchResultsHeader a {
+	position: relative;
+	top: -15px;
+	left: -12px;
+}
+
+.searchResultsTable {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	/* background-color: #ffffff; */
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.searchResultsTable .buttonColumn {
+	width: 118px;
+	vertical-align: middle; 
+}
+
+.searchResultsTable .editButtonColumn {
+	width: 60px;
+}
+
+.searchResultsTable td,.searchResultsTable th {
+	border: 1px solid #ebebeb;
+}
+
+/*************************** Modal Dialog *************************/
+.ui-dialog-title,.ui-button-text {
+	font-size: small;
+	color: #777777;
+	font-weight: bold!important;
+	text-transform: uppercase;
+}
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+#dialog-warning p{
+	font-size:small!important;
+	padding-left:1em;
+	padding-right:1em;	
+}
+
+#incidentDetailTabs {
+	border: 1px solid #ebebeb;
+	border-radius: 0;
+	width: 758px;
+	margin-top: 15px;
+}
+
+
+*********************  Subscriptions Modal Dialog **************************
+
+#subscriptionForm {
+	margin: 10;
+	font-size: 12px;
+}
+
+#addSubscriptionDialog #editSubscriptionDialog{
+	background-color: #ffffff;
+	border: solid 1px #ebebeb;	
+}
+
+#addSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#editSubscriptionDialog label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm label{
+	font-size: 12px;
+	color: #333333;
+}
+
+#subscriptionForm input{
+	width: 200px;
+	margin: 6px;
+	padding: 6px;
+	font-size:12px;
+}
+
+#subscriptionForm textarea{
+	width: 200px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: 6px;
+	padding: 4px;
+	font-size: 12px;
+}
+
+#subscriptionForm select {
+	margin: 6px;
+	padding: 4px;
+	height: 30px;
+	width: 220px; 
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	font-size: 12px;
+	color: #898989;
+}
+
+#subscriptionModalButtonBar {
+	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
+	height: 45px;
+	position: relative;
+	padding: 0 0 0 9px;
+	margin-left: -1vw;
+  	padding-left: 1vw;
+  	margin-right: -1vw;
+  	padding-right: 1vw;
+  	margin-bottom: -1vw;
+  	padding-bottom: 1vw;
+  	border-bottom-right-radius:4px;
+  	border-bottom-left-radius:4px;
+	
+	bottom: 0px;
+}
+
+#subModalButtonDiv {
+	position: relative;
+	float:left;
+	margin: 10px 6px 0 0;
+}
+
+#triggeringEventsDiv {
+	padding-left: 12px; 
+	font-size: 12px;
+}
+
+#idLookupImg {
+	background:url('../images/Search Form/icon-search-gray.png') no-repeat center;	
+	display: inline-block;	
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	position:relative;
+	top:4px;
+}
+
+#idLookupImg:hover {
+	background: url('../images/Search Form/icon-search.png') no-repeat center;
+}
+
+
+***************************Modal Styling ***********************
+#personInformationInModal {
+	padding: 0 8px;
+	width: 98%;
+}
+
+.bigPersonImage {
+	background: url("../images/Search Detail/photo-placeholder.jpg") no-repeat;
+	width: 180px;
+	height: 172px;
+}
+
+.personMugshot {
+    max-width: 180px;
+    max-height: 250px;
+}
+
+.detailsTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.detailsTable .detailsFullName {
+	font-size: 18px;
+	vertical-align: bottom;
+	font-weight: bold;
+}
+
+.detailsTable tr {
+	background-color: #ffffff;
+}
+
+.detailsTable tr.incidentSelected, 
+.detailsTable tr.selected {
+	background-color: #edf2f8;
+}
+
+#searchResultsTable tr.incidentHover,
+.searchResultsTable tr.incidentHover,
+.detailsTable tr.incidentHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6 !important;
+	cursor: pointer;
+}
+
+.detailsTable tr.custodyDetailHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
+.detailsTable td {
+	border: 1px solid #ebebeb;
+	height: 32px;
+	padding: 0 10px;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+td.detailsTitle {
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+td.detailsLabel {
+	color: #777777;
+	background-color: #fafafa;
+	font-weight: bold;
+	font-weight: bold;
+}
+
+#criminalHistoryTd {
+	padding: 0px;
+}
+
+#criminalHistory table {
+	width: 100%;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#criminalHistory td {
+	vertical-align: top;
+	padding: 10px 10px;
+	border: 0;
+}
+
+#criminalHistory td.detailsLabel {
+	width: 25%;
+}
+
+#criminalHistoryCyclesHolderTD{
+	padding: 0;
+}
+
+#criminalHistoryCycles {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles td {
+	font-size: 12px;
+}
+
+#criminalHistoryCycles .smallLabel {
+	color: #9f9f9f;
+}
+
+#criminalHistoryCycles p{
+	margin:0;
+}
+
+#criminalHistoryCycles .sectionTitle {
+	color: #999999;
+	font-weight: bold;
+	text-decoration: underline;
+	margin-top: 1em;
+}
+
+.ui-accordion .ui-accordion-content {
+	padding: 0;
+}
+
+
+#incidentDetailTabs {
+	font-family: Arial, Helvetica, sans serif;
+	font-size: 12px;
+	
+}
+
+.ui-accordion .ui-accordion-header {
+	font-weight: bold;
+	border-radius: 0;
+	margin: 0;
+	padding: 5px 0 5px 12px;
+	color: #777;
+	background-image: url('../images/Backgrounds/bg-accordion-header.png') ;
+	background-repeat: repeat-x;
+	
+}
+
+.ui-accordion .ui-accordion-header:hover {
+	background: none;
+	background-color: #ccdff6;
+	
+}
+
+.ui-accordion .ui-state-active {
+	color:white;
+	background-image: url('../images/Backgrounds/bg-accordion-header-active.png') ;
+}
+
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	float: right;
+	left: -7px;
+	top: 10px;
+	position: relative;
+}
+
+ 
+#incidentDetailTabs  div.ui-tabs-panel{
+	padding: 1em 0;
+}
+
+#incidentDetailTabs table, #incidentDetailTabContent table {
+	font-size: 12px; 
+	width: 100%;
+	border-spacing: 10px 0;
+	
+}
+#incidentDetailTabs .incidentLabel, #incidentDetailTabContent .incidentLabel{
+	color: #777;	
+}
+
+#incidentDetailTabs #narrativeTab, #incidentDetailTabContent #narrative {
+	padding: 10px;
+}
+
+#warrantsHolderTD, .padding0 {
+	padding: 0;
+}
+
+#firearmRegistrationsHolderTD {
+	padding: 0;
+}
+
+/********************* Mock content *******************************/
+#stateBanner {
+	width: 882px;
+	height: 118px;
+	text-align: center;
+}
+
+/************************ Data Table ****************************/
+
+.dataTables_wrapper{
+	font-size: 12px;
+}
+
+#subscriptionButtons{
+	padding-left: 1em;
+}
+***********************Button Bar************************
+.full {
+	width: 100%;
+}
+
+.title {
+	letter-spacing: -.065em;
+}
+
+.spacer {
+	padding: 25px 0;
+}
+
+.buttonBarItem > input {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 2rem;
+/* 	margin: 0 -2rem -2rem 0;
+ */	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: auto;
+	opacity: 0.001;
+}
+
+.buttonBar {
+	display: table;
+	table-layout: fixed;
+	white-space: no-wrap;
+	
+	margin: 0;
+	padding: 0;
+}
+
+.buttonBarItem {
+	display: table-cell;
+	width: auto;
+	border-radius: 0;
+}
+
+.button,
+.buttonBarButton {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: transparent;
+	background-clip: padding-box;
+ 	color: inherit;
+	vertical-align: top;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font: inherit;
+	cursor: default;
+	user-select: none;
+}
+
+.buttonBarButton {
+	padding: 0 1.25rem;
+ 	border: 1px solid #cbcbcb;
+	/* Important inheritance to manipulate border radius from parent */
+	border-radius: inherit;
+/* 	background-color: #e5e9e8;
+ */	-webkit-box-shadow: inset 0 1px #fff;
+	box-shadow: inset 0 1px #fff;
+/* 	color: #454545;
+text-shadow: 0 1px #fff; */
+	line-height: 2rem;	
+	background: url('../images/Backgrounds/bg-table-header.jpg');
+	background-repeat: repeat-x;
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	
+}
+
+:checked + .buttonBarButton,
+.buttonBarButton:active,
+.buttonBarButton.active,
+.buttonBarButton.is-active {
+	background: url('../images/Backgrounds/bg-button-blue.jpg');
+	background-repeat: repeat-x;
+	/* background-color: #d3d7d7; */
+	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+	box-shadow: inset 0 1px rgba(0,0,0,0.12);
+}
+
+.buttonBarItem:disabled,
+.buttonBarItem.is-disabled {
+	opacity: 0.3;
+	cursor: default;
+	pointer-events: none;
+}
+
+.buttonBarButton:focus {
+	border: 1px solid #0940fd;
+	-webkit-box-shadow: 0 0 0 2px #6fb5f1;
+	box-shadow: 0 0 0 2px #6fb5f1;
+	z-index: 1;
+}
+
+/************************ Misc *****************************/
+#portalContent{
+	width: 100%;
+}
+
+.hidden{
+	display:none; 
+}
+
+.hint{
+	color:gray; 
+	font-size: small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.subscriptionHint{
+	color:gray; 
+	font-size: 12px; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.detailList{
+	font-size:small; 
+}
+
+.ui-tooltip-content {
+    font-size:small;
+    font-family:Calibri;
+}
+
+#courtCaseDetailTabs li {
+	margin-right: 0 !important; 
+	margin-left:0!important;
+}
+#courtCaseDetailTabs > ul li { 
+	white-space:normal; 
+	height: 50px; 
+	width: 9.4%; }
+
+#courtCaseDetailTabs > ul li:last-child{
+	width:12%; 
+	border-right:0;}
+ 
+#courtCaseDetailTabs li a,
+#custodyDetailTabs li a {
+	font-size: 11px!important; 
+	white-space:normal;} 
+
+.detailTable{
+	width: 100%;
+	font-size: 12px;
+}	
+
+.detailTable th{
+	text-align: left;} 
+.detailTable th label{
+	color:gray; } 
+.detailDataTable {
+	font-size: 11px;
+}	
+
+.detailDataTable thead th{
+	font-weight: bold;
+}
+
+/************************ Suggestion Form *****************************/	
+	
+.defaultTextArea {
+     display: block;
+     width: 400px;
+     height: 150px;
+     padding: 8px;
+     border: 1px solid #cccccc;
+     line-height: 130%;
+     font-size: 13px;
+}
+
+#advancedSearchForm input{
+	text-transform: uppercase;
+}
+
+/************************Slider custom-handle*****************************/
+ #custom-handle {
+   width: 3em;
+   height: 1.6em;
+   top: 50%;
+   margin-top: -.8em;
+   text-align: center;
+   line-height: 1.6em;
+ }
+ 
+
+.print-only {
+	display: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  Set the fixed height of the footer here
+  height: 60px;
+  line-height: 60px; Vertically center the text there
+  background-color: #f5f5f5;
+  background-color: #000000;
+  color:white;
+}
+
+
+ 
+ .ui-dialog-title,.ui-button-text {
+	font-size: small;
+	color: #777777;
+	font-weight: bold!important;
+	text-transform: uppercase;
+}
+.ui-dialog .ui-dialog-content {
+	padding: 0;
+}
+
+#dialog-warning p{
+	font-size:small!important;
+	padding-left:1em;
+	padding-right:1em;	
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button {
+	font-size: 11px;
+}
+
+.ui-widget {
+	font-size:small!important;
+}
+
+.ui-dialog{
+	z-index:2000!important;
+}
+
+/******************** Filter Column *********************/
+#leftBarTd {
+	background-image: url('../images/Backgrounds/bg-filters-column.jpg');
+	background-repeat: repeat-y;
+}
+
+input[type='text'] {
+	padding: 7px;
+	background: url('../images/input-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+	margin: .75em 0 .75em 0;
+	height:28px;
+}
+
+input .shortDigit{
+	height:28px; 
+}
+
+#filterColumn input[type='text']:disabled {
+	color: lightgray;
+}
+
+#filterColumn select {
+	height:28px;
+	padding: 4px;
+	background: url('../images/select-gradiant.png') repeat-x;
+	border-radius: 2px;
+	border: 1px solid #d9d9d9;
+	color: #898989;
+}
+
+#filterColumn select:disabled {
+	color: lightgray;	
+}
+
+#filterColumn .horizontalDivide {
+	margin: 20px 0px 20px 0px;
+}
+
+#filterColumn .headerText {
+	font-size: 12px;
+	color: #898989;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+#filterColumn .headerTextDisabled {
+	font-size: 12px;
+	color: lightgray;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+.instructionalText {
+	font-size: 12px;
+	color: #999999;
+}
+
+#filterColumn .instructionalTextDisabled {
+	font-size: 12px;
+	color: lightgray;
+}
+
+#filterColumn .fieldText {
+	font-size: 12px;
+	color: #666666;
+}
+
+#filterColumn .sourceSystemLink {
+    line-height: 50px;
+    font-size: 25px;
+}
+
+.form-control-sm{
+	font-size:.75rem !important;
+}
+
+.col-form-label-sm{
+	font-size:.75rem;
+	color: #333333;
+	margin: .75em 0 .75em 0;
+}
+
+.btn-group-sm>.btn,  
+.btn-sm{
+	font-size:.75rem!important;
+}
+
+.nav-tabs .nav-item{
+	font-size: 12px;
+    font-weight: bold;
+}
+
+.tab-pane .card{
+	border-top: none;
+	border-top-left-radius:unset; 
+	border-top-right-radius:unset; 
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
+
+.customSelect{
+	color:#495057;
+	height: calc(1.5em + .5rem + 2px);
+	font-size: .75rem !important;
+	font-weight: 400;
+	border: 1px solid #ced4da;
+	background-clip: padding-box;
+	border-radius: .2rem;
+	border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.card .card-header{
+	color: #777777;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.card .card-header .btn-link{
+	font-size: small;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.tab-pane{
+  height:auto;
+  overflow-y:scroll;
+  width:100%;
+}
 /* to fix the bootstrap-datepicker position bug. */ 
 .datepicker {
   transform: translate(0, 3.1em);
