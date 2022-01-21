@@ -25,23 +25,14 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       "
+       profile="dev">
 	
-	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.shared.ojb-policy-decision-point-service-context" />
-		<constructor-arg name="defaultObject">
-			<util:map map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String">
+			<util:map id="wsAddressReplyToEndpointMap" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String">
 		        <entry key="${pdp.accessControlResponsePolicyAcknowledgementEndpoint}" value="accessControlResponseServicePolicyAcknowledgementEndpoint"/>
 	   		</util:map>
-		</constructor-arg>
-	</bean>	
 	
-	<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="exchangeDestinationLookupStrategy" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.shared.ojb-policy-decision-point-service-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
+			<bean id="exchangeDestinationLookupStrategy" class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap">
 					<util:map map-class="java.util.HashMap">
 						<entry key="{http://ojbc.org/OJB_Portal/1.0}OJB" value="accessControlRequestServicePolicyAcknowledgementEndpoint" />
@@ -61,8 +52,6 @@
 					</util:map>	
 				</property>
 		  	</bean>
-		</constructor-arg>
-	</bean>		
 
 
 </beans>
