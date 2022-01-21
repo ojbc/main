@@ -150,7 +150,7 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"/>
 						
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
@@ -161,7 +161,7 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitMessageBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>//personsearch-ext:SourceSystemNameText</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"/>
 							
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
