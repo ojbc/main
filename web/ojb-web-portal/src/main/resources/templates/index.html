@@ -25,9 +25,10 @@
 	<body data-spy="scroll" data-target=".navbar">
 		<header th:replace="fragments/general.html :: header"> </header>
 	    <!-- Begin page content -->
-	    <main role="main" class="container pt-4">
-	      <div id="portalContent">
-			<div id="loadingAjaxPane" ></div>
+	    <main role="main" class="row ml-0 mr-0">
+          <div id="loadingAjaxPane" ></div>
+          <div id="filterColumn" class="col-12 col-xl-2 col-md-3 d-none"></div>
+	      <div id="portalContent" class="col">
 	        <div th:replace="homepage::homepageContent"></div>
 	      </div>
 	    </main>
@@ -60,12 +61,36 @@
                       },
                     });
                 }
+                
+                $('#home').click (function() {
+                	showHomepage();
+                    return false;
+                })
+                
+                $('body').off('click','.peopleSearchLink').on('click','.peopleSearchLink',function() {
+
+                    $(this).parent().toggleClass('show');
+                    // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
+                    $.post(context + "portal/leftBar", function(data) {
+                                                    
+                        $('#filterColumn').html(data);   
+                        $("#demogFilterInfo").hide();
+                        $('#filterColumn').removeClass('d-none');                                    
+                        
+                         $.get(context + "people/searchForm", function(data) {      
+                              $('#portalContent').html(data);
+                        }).fail(ojbc.displayFailMessage);                                                           
+                        
+                    }).fail(ojbc.displayFailMessage);               
+                                           
+                    return false;
+                });
             });
 	        
             function showHomepage(){
                 if(homePage==="landingPage"){
                     $('#searchBarButtonDiv').css("display", "none");
-                    $('#filterColumn').removeClass('d-none');                                    
+                    $('#filterColumn').addClass('d-none');                                    
                 
                     ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
                 }
@@ -78,7 +103,7 @@
                         $.get(context + "people/searchForm", function(data) {      
                               $('#portalContent').html(data);
                         }).fail(ojbc.displayFailMessage);                                                           
-                    }).fail(ojbc.displayFailMessage);   
+                     }).fail(ojbc.displayFailMessage);   
                 } 
                      
                     // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  

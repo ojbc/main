@@ -60,7 +60,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@RequestMapping("/people/*")
+@RequestMapping("/people")
 @SessionAttributes({"personSearchCommand", "juvenileHistoryDetailResponses", "userLogonInfo", "activeSearchTab"})
 @Profile("person-search")
 public class PeopleController {
@@ -69,7 +69,7 @@ public class PeopleController {
 
 	public static final int ROWS_PER_PAGE = 50;
 
-    @Value("${personSearchForm:people/_searchForm}")
+    @Value("${personSearchForm:people/searchForm :: personSearchFormContent}")
     String personSearchForm;
     
     @Value("${personSearchResultPage:people/_searchResult}")
@@ -133,7 +133,7 @@ public class PeopleController {
 		binder.addValidators(personSearchCommandValidator);
 	}
 
-	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchForm", method = RequestMethod.GET)
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
 	        @RequestParam(value = "activeSearchTab", defaultValue = "simpleSearchTab") String activeSearchTab,
 	        Map<String, Object> model) {

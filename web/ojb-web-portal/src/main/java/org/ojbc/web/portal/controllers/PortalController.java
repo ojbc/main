@@ -370,7 +370,7 @@ public class PortalController implements ApplicationContextAware {
     	model.put("showReasonsForSearch", showReasonsForSearch);
     	model.put("showDemographicsFilter", showDemographicsFilter);
     	
-	    return "common/_leftBar";
+	    return "common/leftBar::leftBarContent";
 	}
     
     @GetMapping(value="/portal/negateSenstiveInfoAlert")

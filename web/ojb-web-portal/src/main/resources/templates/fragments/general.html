@@ -204,39 +204,6 @@
  	          
  	           $('[data-toggle="popover"]').popover(); 
  	          
-               $('#home').click (function() {       
-                   if($homePage==="landingPage"){
-                       $('#searchBarButtonDiv').css("display", "none");
-                       $('#filterColumn').removeClass('d-none');                                    
-                   
-                       //TODO likely needs refactor(2 jquery ajax asynch calls in a row)
-                       ojbc.populateLeftBarContentFromUrl(context + "portal/landingLeftBar");
-                       ojbc.populatePortalContentFromUrl(context + "portal/landingPage");
-                   }
-                   else if(homePage==="query") {
-                       // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
-                       $.post(context + "portal/leftBar", function(data) {
-                           $('#filterColumn').html(data);   
-                           $("#demogFilterInfo").hide();
-                           $('#filterColumn').removeClass('d-none');                                    
-                           
-                           $.get(context + "people/searchForm", function(data) {      
-                                 $('#portalContent').html(data);
-                           }).fail(ojbc.displayFailMessage);                                                           
-                       }).fail(ojbc.displayFailMessage);   
-                   }
-                   else if(homePage==="subscriptions"){
-                       xhr = $.post(context + "subscriptions/subscriptionResults", function(data) {
-                           $('#filterColumn').addClass('d-none');
-                           $('#portalContent').html(data); 
-                       }).fail(ojbc.displayFailMessage);                                   
-                   }
-                   else{
-                       alert('Error: unknown page cannot be displayed');
-                   }
-                   return false;
-               })
-       
 	      });
 	      
       </script>
