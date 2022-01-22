@@ -46,78 +46,108 @@
 		                <div th:replace="people/simpleSearchTab::simpleSearchTabContent"></div>
 		                
 		                <div id="advancedSearchTab" class="tab-pane" role="tabpanel" >
-<!-- 		                    <div class="card">
+ 		                    <div class="card">
 		                        <div class="card-body">
-		                            <form id='advancedSearchForm'>
-		                                #if($errors.hasGlobalErrors())
-		                                    #foreach( $globalError in $errors.globalErrors )
-		                                        <div class="alert alert-danger" role="alert"> $globalError.defaultMessage </div>
-		                                    #end
-		                                #end
+		                            <form id='advancedSearchForm' th:object="${personSearchCommand}">
+					                   <th:block th:if="${errors?.hasGlobalErrors()}">
+					                       <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" th:text="${globalError.defaultMessage}">Global error message</div>
+					                   </th:block>
 		                         
-		                                #springBind( "personSearchCommand.searchType" )
-		                                <input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
+		                                <input type="hidden" th:field="*{searchType}" value="ADVANCED" /><br>
 		                                <div class='row'>
 		                                    <div class='col-12 col-md-6'>
 		                                        <p class="searchSubHeader"> NAME</p>
-		                                        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
+		                                        <div>
+                                                    <input type="text" th:field="*{advanceSearch.personGivenName}" class="form-control form-control-sm" placeholder="First Name" th:errorclass="is-invalid"/>
+                                                    <div th:if="${#fields.hasErrors('advanceSearch.personGivenName')}" th:errors="*{advanceSearch.personGivenName}" class="invalid-feedback d-block error pl-2">First Name error message</div>
+	                                            </div>
 		                                        <div class="form-check-inline">
 		                                          <label class="form-check-label form-control-sm">
-		                                            #springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+					                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+					                                    <input type="radio" th:field="*{advanceSearch.personGivenNameMetaData}" th:value="${metadata}" class="form-check-input">
+					                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.personGivenNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+					                                </th:block>
 		                                          </label>
 		                                        </div>
-		                                        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
-		                                        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name' class='form-control form-control-sm'") #springShowErrors( "<br/>" "error pl-2" )</div>
+		                                        <div>
+	                                              <input type="text" th:field="*{advanceSearch.personMiddleName}" class="form-control form-control-sm" placeholder="Middle Name" th:errorclass="is-invalid"/>
+	                                              <div th:if="${#fields.hasErrors('advanceSearch.personMiddleName')}" th:errors="*{advanceSearch.personMiddleName}" class="invalid-feedback d-block error pl-2">Middle Name error message</div>
+		                                        </div>
+		                                        <div>
+		                                          <input type="text" th:field="*{advanceSearch.personSurName}" class="form-control form-control-sm" placeholder="Last Name" th:errorclass="is-invalid"/>
+                                                  <div th:if="${#fields.hasErrors('advanceSearch.personSurName')}" th:errors="*{advanceSearch.personSurName}" class="invalid-feedback d-block error pl-2">Last Name error message</div>
+	                                            </div>
 		                                        <div class="form-check-inline">
 		                                          <label class="form-check-label form-control-sm">
-		                                            #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "class='form-check-input'" )
+					                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+					                                    <input type="radio" th:field="*{advanceSearch.personSurNameMetaData}" th:value="${metadata}" class="form-check-input">
+					                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.personSurNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+					                                </th:block>
 		                                          </label>
 		                                        </div>
 		                                        
 		                                        <div class="labelText" >
-		                                            DOB
-		                                             #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate ml-2' placeholder='From'") #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate ml-2' placeholder='End'")
-		                                             #springShowErrors( "<br/>" "error pl-2" )
+					                                DOB
+					                                <input type="text" th:field="*{advanceSearch.personDateOfBirthRangeStart}" class="mdate ml-2" placeholder="From"/>
+					                                <input type="text" th:field="*{advanceSearch.personDateOfBirthRangeEnd}" class="mdate ml-2" placeholder="End"/>
+					                                <div th:if="${#fields.hasErrors('advanceSearch.personDateOfBirthRangeStart')}" th:errors="*{advanceSearch.personDateOfBirthRangeStart}" class="invalid-feedback d-block error pl-2">DOB From error message</div>
+					                                <div th:if="${#fields.hasErrors('advanceSearch.personDateOfBirthRangeEnd')}" th:errors="*{advanceSearch.personDateOfBirthRangeEnd}" class="invalid-feedback d-block error pl-2">DOB End error message</div>
 		                                        </div>
 		                                        <div class="labelText" >
 		                                            Age Range
-		                                             #springFormInput("personSearchCommand.ageRangeStart" "class='shortDigit ml-2'") to #springFormInput("personSearchCommand.ageRangeEnd" "class='shortDigit'")<br/> 
-		                                             #springBind("personSearchCommand.ageRangeStart")
-		                                             #springShowErrors( "<br/>" "error pl-2" )
+		                                            <input type="text" th:field="*{ageRangeStart}" class="shortDigit ml-2" placeholder="Min"/> to 
+		                                            <input type="text" th:field="*{ageRangeEnd}" class="shortDigit" placeholder="Max"/> to 
+                                                    <div th:if="${#fields.hasErrors('ageRangeStart')}" th:errors="*{ageRangeStart}" class="invalid-feedback d-block error pl-2">Age Min error message</div>
 		                                        </div>
 		                                        <p class="searchSubHeader" >DEMOGRAPHICS</p>
-		                                        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personRaceCode" $races "class='form-control form-control-sm mb-2'" ) </div>
-		                                        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personSexCode" $genders "class='form-control form-control-sm mb-2'" ) </div>
-		                                        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personEyeColor" $eyeColors "class='form-control form-control-sm mb-2'" ) </div>
-		                                        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personHairColor" $hairColors "class='form-control form-control-sm mb-2'") </div>
+		                                        <div>
+					                                <select th:field="*{advanceSearch.personRaceCode}" class="form-control form-control-sm mb-2" data-placeholder="All">
+					                                  <option th:each="item: ${races}" th:value="${item.key}" th:text="${item.value}" />
+					                                </select>
+	                                            </div>
+		                                        <div>
+					                                <select th:field="*{advanceSearch.personSexCode}" class="form-control form-control-sm mb-2" data-placeholder="All">
+					                                  <option th:each="item: ${genders}" th:value="${item.key}" th:text="${item.value}" />
+					                                </select>
+				                                </div>
+		                                        <div>
+					                                <select th:field="*{advanceSearch.personEyeColor}" class="form-control form-control-sm mb-2" data-placeholder="All">
+					                                  <option th:each="item: ${eyeColors}" th:value="${item.key}" th:text="${item.value}" />
+					                                </select>
+	                                            </div>
+		                                        <div>
+                                                    <select th:field="*{advanceSearch.personHairColor}" class="form-control form-control-sm mb-2" data-placeholder="All">
+                                                      <option th:each="item: ${hairColors}" th:value="${item.key}" th:text="${item.value}" />
+                                                    </select>
+		                                        </div>
 		                                        
 		                                        <div class="labelText" >
-		                                            Height #springFormInput("personSearchCommand.heightInFeet" "class='shortDigit ml-2'")' #springFormInput("personSearchCommand.heightInInches" "class='shortDigit'")" +/-#springFormInput("personSearchCommand.heightTolerance" "class='shortDigit'")" 
+		                                            Height <input type="text" th:field="*{heightInFeet}" class="shortDigit ml-2"/>' <input type="text" th:field="*{heightInInches}" class="shortDigit" placeholder="Inches"/>" +/-<input type="text" th:field="*{heightTolerance}" class="shortDigit"/>" 
 		                                            &nbsp;
-		                                            Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "class='shortDigit'")+/-#springFormInput("personSearchCommand.weightTolerance" "class='shortDigit'")
+		                                            Weight <input type="text" th:field="*{advanceSearch.personWeight}" class="shortDigit"/>+/-<input type="text" th:field="*{weightTolerance}" class="shortDigit"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class='col-12 col-md-6'>
 		                                          <p class="searchSubHeader" >IDENTIFIERS</p>
 		                                          <div>
-		                                             #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #' class='form-control form-control-sm'")
-		                                             #springShowErrors( "<br/>" "error pl-2" )
+		                                              <input type="text" th:field="*{advanceSearch.personSID}" class="form-control form-control-sm" placeholder='SID #'/>
+		                                              <div th:if="${#fields.hasErrors('advanceSearch.personSID')}" th:errors="*{advanceSearch.personSID}" class="invalid-feedback d-block error pl-2">SID error message</div>
 		                                          </div>
 		                                          <div>
-		                                            #springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #' class='form-control form-control-sm'")
-		                                            #springShowErrors( "<br/>" "error pl-2" ) 
+                                                      <input type="text" th:field="*{advanceSearch.personFBINumber}" class="form-control form-control-sm" placeholder='FBI #'/>
+                                                      <div th:if="${#fields.hasErrors('advanceSearch.personFBINumber')}" th:errors="*{advanceSearch.personFBINumber}" class="invalid-feedback d-block error pl-2">FBI # error message</div>
 		                                          </div>
 		                                          <div>
-		                                             #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)' class='ssn form-control form-control-sm'")
-		                                             #springShowErrors( "<br/>" "error pl-2" )
+                                                      <input type="text" th:field="*{advanceSearch.personSocialSecurityNumber}" class="ssn form-control form-control-sm" placeholder='SSN (XXX-XX-XXXX)'/>
+                                                      <div th:if="${#fields.hasErrors('advanceSearch.personSocialSecurityNumber')}" th:errors="*{advanceSearch.personSocialSecurityNumber}" class="invalid-feedback d-block error pl-2">SSN error message</div>
 		                                          </div>
 		                                          <div>
-		                                             #springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #' class='form-control form-control-sm'")
-		                                             #springShowErrors( "<br/>" "error pl-2" )
-		                                           </div>
+                                                      <input type="text" th:field="*{advanceSearch.personDriversLicenseNumber}" class="form-control form-control-sm" placeholder='DL/ID #'/>
+                                                      <div th:if="${#fields.hasErrors('advanceSearch.personDriversLicenseNumber')}" th:errors="*{advanceSearch.personDriversLicenseNumber}" class="invalid-feedback d-block error pl-2">DL/ID error message</div>
+		                                          </div>
 		                                          <div>
-		                                            #springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "placeholder='Issuer' class='form-control form-control-sm'")
-		                                            #springShowErrors( "<br/>" "error pl-2" ) 
+                                                      <input type="text" th:field="*{advanceSearch.personDriversLicenseIssuer}" class="form-control form-control-sm" placeholder='Issuer'/>
+                                                      <div th:if="${#fields.hasErrors('advanceSearch.personDriversLicenseIssuer')}" th:errors="*{advanceSearch.personDriversLicenseNumber}" class="invalid-feedback d-block error pl-2">Issuer error message</div>
 		                                          </div>
 		                                    </div>
 		                                </div>
@@ -128,9 +158,9 @@
 		                            <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
 		                        </div>
 		                    </div>
- -->		                </div>
+		                </div>
 		                <div th:replace="people/juvenileSearchTab::juvenileSearchTabContent" th:if="${showJuvenileSearchTab}"></div>
-		              </div>
+		            </div>
 		        </div>
 		    </div>
 		</div>
