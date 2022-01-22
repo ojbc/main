@@ -34,7 +34,7 @@
 		  th:replace="common/systemsToQuery::sourceSystemsDisabledContent">
 		</div>
 		
-<!-- 		<div id="searchTabs" class="py-3">
+ 		<div id="searchTabs" class="py-3">
 		    <div class="row">
 		        <div class="col-12 mx-auto">
 		            <ul class="nav nav-tabs small justify-content-end" role="tablist" id="personSearchTabs">
@@ -43,10 +43,10 @@
 	                    <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#juvenileSearchTab" th:if="${showJuvenileSearchTab}">JUVENILE SEARCH</a></li>
 		            </ul>
 		            <div class="tab-content">
-		                #parse('people/_simpleSearchTab.vm')
+		                <div th:replace="people/simpleSearchTab::simpleSearchTabContent"></div>
 		                
 		                <div id="advancedSearchTab" class="tab-pane" role="tabpanel" >
-		                    <div class="card">
+<!-- 		                    <div class="card">
 		                        <div class="card-body">
 		                            <form id='advancedSearchForm'>
 		                                #if($errors.hasGlobalErrors())
@@ -128,15 +128,13 @@
 		                            <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
 		                        </div>
 		                    </div>
-		                </div>
-		                #if($showJuvenileSearchTab)
-		                    #parse('people/_juvenileSearchTab.vm')
-		                #end
+ -->		                </div>
+		                <div th:replace="people/juvenileSearchTab::juvenileSearchTabContent" th:if="${showJuvenileSearchTab}"></div>
 		              </div>
 		        </div>
 		    </div>
 		</div>
- -->        <script th:inline="javascript">
+        <script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = [[@{/}]];
 		        var sourceSystems = [[${personSearchCommand.advanceSearch.sourceSystems}]];
@@ -151,7 +149,7 @@
                 }               
  */                $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
                 $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
-    
+                $(".chosen-select").chosen();
                 $( ".datePicker" ).datepicker({
                    showOn: "both",
                    buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",

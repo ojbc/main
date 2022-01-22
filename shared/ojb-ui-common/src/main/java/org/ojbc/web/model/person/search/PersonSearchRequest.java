@@ -90,25 +90,25 @@ public class PersonSearchRequest implements Serializable{
 	
     @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonGivenName() {
-		return personName.getGivenName();
+		return getPersonName().getGivenName();
 	}
 	public void setPersonGivenName(String personGivenName) {
-		this.personName.setGivenName(StringEscapeUtils.escapeHtml4(personGivenName)) ;
+		this.getPersonName().setGivenName(StringEscapeUtils.escapeHtml4(personGivenName)) ;
 	}
     @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonMiddleName() {
-		return personName.getMiddleName();
+		return getPersonName().getMiddleName();
 	}
 	public void setPersonMiddleName(String personMiddleName) {
-		this.personName.setMiddleName(StringEscapeUtils.escapeHtml4(personMiddleName));
+		this.getPersonName().setMiddleName(StringEscapeUtils.escapeHtml4(personMiddleName));
 	}
 	
     @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonSurName() {
-		return personName.getSurName();
+		return getPersonName().getSurName();
 	}
 	public void setPersonSurName(String personSurName) {
-		this.personName.setSurName(StringEscapeUtils.escapeHtml4(personSurName));
+		this.getPersonName().setSurName(StringEscapeUtils.escapeHtml4(personSurName));
 	}
 	public String getPersonSexCode() {
 		return personSexCode;
@@ -148,16 +148,16 @@ public class PersonSearchRequest implements Serializable{
 		this.personSID = StringUtils.upperCase(StringEscapeUtils.escapeHtml4(personSID));
 	}
 	public SearchFieldMetadata getPersonGivenNameMetaData() {
-		return personName.getGivenNameMetaData();
+		return getPersonName().getGivenNameMetaData();
 	}
 	public void setPersonGivenNameMetaData(SearchFieldMetadata personGivenNameMetaData) {
-		this.personName.setGivenNameMetaData( personGivenNameMetaData );
+		this.getPersonName().setGivenNameMetaData( personGivenNameMetaData );
 	}
 	public SearchFieldMetadata getPersonSurNameMetaData() {
-		return personName.getSurNameMetaData();
+		return getPersonName().getSurNameMetaData();
 	}
 	public void setPersonSurNameMetaData(SearchFieldMetadata personSurNameMetaData) {
-		this.personName.setSurNameMetaData( personSurNameMetaData );
+		this.getPersonName().setSurNameMetaData( personSurNameMetaData );
 	}
 	public String getPersonDriversLicenseIssuer() {
 		return personDriversLicenseIssuer;
@@ -290,4 +290,10 @@ public class PersonSearchRequest implements Serializable{
     public void setPlacement(String placement) {
         this.placement = placement;
     }
+	public PersonName getPersonName() {
+		return personName;
+	}
+	public void setPersonName(PersonName personName) {
+		this.personName = personName;
+	}
 }

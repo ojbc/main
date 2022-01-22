@@ -25,7 +25,7 @@ package org.ojbc.web;
  */
 public enum SearchFieldMetadata {
 
-	StartsWith("startsWith"), Partial("partial"), ExactMatch("exact");
+	StartsWith("Starts With"), Partial("Partial"), ExactMatch("Exact Match");
 
 	private String metadata;
 

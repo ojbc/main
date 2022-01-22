@@ -19,24 +19,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Systems To Query Page</title>
+    <title>Simple Search Tab Page</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
   </head>
   <body>
-      <!-- Begin page content -->
-    <div class="tab-pane active" role="tabpanel" id="simpleSearchTab" th:fragment="systemsToQueryContent">
+    <!-- Begin page content -->
+    <div class="tab-pane active" role="tabpanel" id="simpleSearchTab" th:fragment="simpleSearchTabContent">
         <div class="card">
           <div class="card-body">
-            <form id='simpleSearchForm'>
-                #springBind( "personSearchCommand.searchType" )
-                <input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
+            <form id='simpleSearchForm' th:object="${personSearchCommand}">
+                <input type="hidden" value="SIMPLE" th:field="*{searchType}"/><br/>
                 <div class='row'>
                     <div class='col-8 col-lg-4'>   
                         <p class="instructionalText"> Enter search criteria below </p>
-                        #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)' class='form-control form-control-sm'" ) <br/>
-                        #springShowErrors( "<br/>" "error pl-2" )
+                        <input type="text" th:field="*{simpleSearch}" class="form-control form-control-sm" placeholder="Search Term(s)" autofocus="autofocus" th:errorclass="is-invalid"/>
+                        <div th:if="${#fields.hasErrors('simpleSearch')}" th:errors="*{simpleSearch}" class="invalid-feedback d-block error pl-2">Simple Search error message</div>
                      </div>
                  </div>
             </form>
@@ -46,6 +45,6 @@
             <button id="simpleSearchClearButton" class="btn btn-sm btn-secondary ml-1">CLEAR</button>
           </div>
         </div>
-     </div>
+    </div>
   </body>
 </html>

@@ -1,0 +1,177 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Simple Search Tab Page</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+	<div id="juvenileSearchTab" class="tab-pane" role="tabpanel" th:fragment="juvenileSearchTabContent">
+	    <div class="card">
+	        <div class="card-body">
+	    
+	            <form id='juvenileSearchForm' th:object="${personSearchCommand}">
+	               <th:block th:if="${errors?.hasGlobalErrors()}">
+	                   <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" th:text="${globalError.defaultMessage}">Global error message</div>
+	               </th:block>
+	                
+	                <input type="hidden" th:field="*{searchType}" value="JUVENILE" /><br>
+	                <div class='row'>
+	                    <div class='col-12 col-md-6'>
+	                        <p class="searchSubHeader"> NAME</p>
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.personGivenName}" class="form-control form-control-sm" placeholder="First Name" th:errorclass="is-invalid"/>
+                            </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+	                            <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.personGivenNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.personGivenNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+ 	                        <div class="radioButtonBar" > </div>   
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.personMiddleName}" class="form-control form-control-sm" placeholder="Middle Name" th:errorclass="is-invalid"/>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.personSurName}" class="form-control form-control-sm" placeholder="Last Name" th:errorclass="is-invalid"/>
+                            </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.personSurNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.personSurNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+
+	                        <p class="searchSubHeader"> ALIAS</p>
+	                       <div>
+                                <input type="text" th:field="*{advanceSearch.alias.givenName}" class="form-control form-control-sm" placeholder="First Name" th:errorclass="is-invalid"/>
+                           </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.alias.givenNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.alias.givenNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.alias.middleName}" class="form-control form-control-sm" placeholder="Middle Name" th:errorclass="is-invalid"/>
+	                        </div>
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.alias.surName}" class="form-control form-control-sm" placeholder="Last Name" th:errorclass="is-invalid"/>
+                            </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.alias.surNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.alias.surNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+	                        <div class="labelText" >
+	                            DOB
+	                            <input type="text" th:field="*{advanceSearch.personDateOfBirthRangeStart}" class="mdate ml-2" placeholder="From"/>
+	                            <input type="text" th:field="*{advanceSearch.personDateOfBirthRangeEnd}" class="mdate ml-2" placeholder="End"/>
+	                            <div th:if="${#fields.hasErrors('advanceSearch.personDateOfBirthRangeStart')}" th:errors="*{advanceSearch.personDateOfBirthRangeStart}" class="invalid-feedback d-block error pl-2">DOB From error message</div>
+	                            <div th:if="${#fields.hasErrors('advanceSearch.personDateOfBirthRangeEnd')}" th:errors="*{advanceSearch.personDateOfBirthRangeEnd}" class="invalid-feedback d-block error pl-2">DOB End error message</div>
+	                        </div>
+	                        <div>
+                                <select th:field="*{advanceSearch.personSexCode}" class="form-control form-control-sm" data-placeholder="All">
+                                  <option th:each="item: ${genders}" th:value="${item.key}" th:text="${item.value}" />
+                                </select>
+	                        </div>
+	                    </div>
+	                    <div class='col-12 col-md-6'>
+	                        <div> 
+                                <select th:field="*{advanceSearch.placement}" class="form-control form-control-sm">
+                                  <option th:each="item: ${placements}" th:value="${item.key}" th:text="${item.value}" />
+                                </select>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.personSocialSecurityNumber}" class="ssn form-control form-control-sm" placeholder="SSN"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.personSocialSecurityNumber')}" th:errors="*{advanceSearch.personSocialSecurityNumber}" class="invalid-feedback d-block error pl-2">SSN error message</div>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.personSID}" class="form-control form-control-sm" placeholder="SID #"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.personSID')}" th:errors="*{advanceSearch.personSID}" class="invalid-feedback d-block error pl-2">SID error message</div>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.address.address1}" class="form-control form-control-sm" placeholder="Address"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.address.address1')}" th:errors="*{advanceSearch.address.address1}" class="invalid-feedback d-block error pl-2">Address1 error message</div>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.address.city}" class="form-control form-control-sm" placeholder="City"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.address.city')}" th:errors="*{advanceSearch.address.city}" class="invalid-feedback d-block error pl-2">City error message</div>
+	                        </div>
+	                        <div>
+                                <select th:field="*{advanceSearch.address.stateCode}" class="form-control form-control-sm">
+                                  <option th:each="item: ${states}" th:value="${item.key}" th:text="${item.value}" />
+                                </select>
+	                        </div>
+	                        <div>
+                                <input type="text" th:field="*{advanceSearch.address.zipCode}" class="zipCode form-control form-control-sm" placeholder="Zip Code"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.address.zipCode')}" th:errors="*{advanceSearch.address.zipCode}" class="invalid-feedback d-block error pl-2">Zip Code error message</div>
+	                        </div>
+	                          
+	                        <p class="searchSubHeader"> PARENT</p>
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.parentName.givenName}" class="form-control form-control-sm" placeholder="First Name"/>
+	                        </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.parentName.givenNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.parentName.givenNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.parentName.middleName}" class="form-control form-control-sm" placeholder="Middle Name"/>
+   	                        </div>
+	                        <div>
+	                           <input type="text" th:field="*{advanceSearch.parentName.surName}" class="form-control form-control-sm" placeholder="Last Name"/>
+	                        </div>
+	                        <div class="form-check-inline">
+	                          <label class="form-check-label form-control-sm">
+                                <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Partial'}">
+                                    <input type="radio" th:field="*{advanceSearch.parentName.surNameMetaData}" th:value="${metadata}" class="form-check-input">
+                                    <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.parentName.surNameMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                </th:block>
+	                          </label>
+	                        </div>
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+	        <div class="card-footer text-muted">
+	            <button id="juvenileSearchSubmitButton" class="btn btn-sm btn-primary" >SEARCH</button>
+	            <button id="juvenileSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+	        </div>
+	    </div>
+	</div>
+  </body>
+</html>
