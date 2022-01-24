@@ -41,7 +41,7 @@
 		xmlns:acr="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0"
 		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-		id="policy-acknowledge-service-intermediary">
+		id="policy-acknowledge-service-intermediary" streamCache="true">
 
 		<!-- Access Control Request Endpoints -->
 		<endpoint id="accessControlRequestServiceEndpoint"
@@ -88,6 +88,7 @@
 					/acr:IdentityBasedAccessControlRequest/ext:PersonIdentity/nc:PersonEmploymentAssociation/nc:Employer/nc:EntityOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID
 				</camel:xpath>
 			</camel:setHeader>
+			<log message="ORI Header: {in.headers.ori}, Requested Resource URI: ${in.headers.requestedResourceUri}" />
 			<to uri="bean:policyAcknowledgementProcessor?method=returnAccessControlResponse" />
 			<log message="${body}"></log>
 			<log message="Before Access Control Response" />

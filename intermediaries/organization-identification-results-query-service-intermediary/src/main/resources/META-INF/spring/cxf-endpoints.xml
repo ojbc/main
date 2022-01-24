@@ -130,11 +130,11 @@
 	</bean>
 
 	<util:properties id= "identificationResultsQueryKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${identificationResultsQueryIntermediary.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${identificationResultsQueryIntermediary.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${identificationResultsQueryIntermediary.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${identificationResultsQueryIntermediary.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${identificationResultsQueryIntermediary.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${identificationResultsQueryIntermediary.keystoreLocation}</prop>
 	</util:properties>	
       
 	<!-- 
@@ -143,10 +143,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${identificationResultsQueryIntermediary.keyPassword}">
+	        	<sec:keyStore type="jks" password="${identificationResultsQueryIntermediary.keystorePassword}" url="${identificationResultsQueryIntermediary.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${identificationResultsQueryIntermediary.truststorePassword}"
-					file="${identificationResultsQueryIntermediary.truststoreLocation}" />
+					url="${identificationResultsQueryIntermediary.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 

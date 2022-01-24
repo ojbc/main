@@ -92,10 +92,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${criminalHistoryReporting.intermediaryKeyPassword}">
+	       		<sec:keyStore type="jks" password="${criminalHistoryReporting.intermediaryKeystorePassword}" url="${criminalHistoryReporting.intermediaryKeystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${criminalHistoryReporting.intermediaryTruststorePassword}"
-					file="${criminalHistoryReporting.intermediaryTruststoreLocation}" />
+					url="${criminalHistoryReporting.intermediaryTruststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
@@ -114,12 +117,12 @@
 	<util:properties id="criminalHistoryReportingKeystoreProperties">
 			
 		<!-- Defines the implementation class. -->
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 				
 		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>		
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${criminalHistoryReporting.intermediaryKeystorePassword}</prop>				
-		<prop key="org.apache.ws.security.crypto.merlin.file">${criminalHistoryReporting.intermediaryKeystoreLocation}</prop>		
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>		
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${criminalHistoryReporting.intermediaryKeystorePassword}</prop>				
+		<prop key="org.apache.wss4j.crypto.merlin.file">${criminalHistoryReporting.intermediaryKeystoreLocation}</prop>		
 	</util:properties>
 	
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">

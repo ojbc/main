@@ -37,11 +37,10 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-       	<bean id="federatedQueryResponseAggregator"
+     <bean id="federatedQueryResponseAggregator"
 		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
+		<property name="federatedQueryManager" ref="federatedQueryManager"/>
+		<property name="addressToAdapterURIMap" ref="addressToAdapterURIMap"/>
 	</bean>
 
 	<bean id="entityResolutionResponseAggregator"

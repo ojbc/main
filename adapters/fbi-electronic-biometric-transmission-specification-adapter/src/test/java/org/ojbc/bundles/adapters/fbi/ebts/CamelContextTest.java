@@ -32,7 +32,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.support.DefaultExchange;
@@ -42,7 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -60,6 +60,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)
@@ -67,7 +68,7 @@ import org.w3c.dom.NodeList;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 	
-	private static final Logger logger = Logger.getLogger(CamelContextTest.class);
+	private static final Logger logger = (Logger) LogManager.getLogger(CamelContextTest.class);
 	    
     @Resource
     private ModelCamelContext context;

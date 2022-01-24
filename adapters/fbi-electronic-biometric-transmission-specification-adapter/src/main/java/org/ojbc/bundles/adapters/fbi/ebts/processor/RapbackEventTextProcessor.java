@@ -19,9 +19,10 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+
+import com.sun.istack.logging.Logger;
 
 public class RapbackEventTextProcessor {
 

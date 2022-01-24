@@ -19,7 +19,8 @@ package org.ojbc.bundles.adapters.fbi.ebts.processor;
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -31,7 +32,7 @@ import org.junit.Test;
 public class NgiResponseProcessorTest {
 	
 	@SuppressWarnings("unused")
-	private Logger logger = Logger.getLogger(NgiResponseProcessorTest.class);
+	private Logger logger = (Logger) LogManager.getLogger(NgiResponseProcessorTest.class);
 	
 	@Before
 	public void setup(){

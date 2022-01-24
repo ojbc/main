@@ -76,10 +76,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${publishSubscribe.keyPassword}">
+	        	<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" url="${publishSubscribe.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${publishSubscribe.truststorePassword}"
-					file="${publishSubscribe.truststoreLocation}" />
+					url="${publishSubscribe.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 

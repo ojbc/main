@@ -471,7 +471,13 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subscription.setStartDate(toDateTime(rs.getDate("startDate")));
 		subscription.setEndDate(toDateTime(rs.getDate("endDate")));
 		subscription.setLastValidationDate(toDateTime(rs.getDate("lastValidationDate")));
-		subscription.setActive(rs.getInt("active"));
+		int activeInt = rs.getInt("active");
+		if(activeInt == 1) {
+			subscription.setActive(true);
+		}
+		else {
+			subscription.setActive(false);
+		}
 		subscription.setTopic(rs.getString("topic"));
 		subscription.setValidationDueDate(toDateTime(rs.getDate("validationDueDate")));
 		return subscription;

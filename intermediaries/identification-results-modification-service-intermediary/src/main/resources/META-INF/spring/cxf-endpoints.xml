@@ -120,6 +120,9 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${identificationModification.keyPassword}">
+	        	<sec:keyStore type="jks" password="${identificationModification.keystorePassword}" url="${identificationModification.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${identificationModification.truststorePassword}"
@@ -147,11 +150,11 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="identificationResultsModificationKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${identificationModification.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${identificationModification.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${identificationModification.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${identificationModification.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${identificationModification.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${identificationModification.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>

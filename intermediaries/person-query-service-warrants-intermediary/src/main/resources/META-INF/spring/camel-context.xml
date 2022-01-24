@@ -36,7 +36,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Query_Service_Warrants_Intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="Person_Query_Service_Warrants_Intermediary" streamCache="true">
 	
 		<endpoint id="searchRequestFederatedServiceEndpoint"
 			uri="cxf:bean:personQueryRequestWarrantsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{personQuery.warrants.personQueryIntermediaryCxflogging}}" />

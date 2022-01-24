@@ -285,11 +285,11 @@
 	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>	 
 
 	<util:properties id= "subscriptionSearchQueryKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${subscriptionSearchQuery.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${subscriptionSearchQuery.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${subscriptionSearchQuery.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${subscriptionSearchQuery.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${subscriptionSearchQuery.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${subscriptionSearchQuery.keystoreLocation}</prop>
 	</util:properties>	
       
 	<!-- 
@@ -298,10 +298,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${subscriptionSearchQuery.keyPassword}">
+	        	<sec:keyStore type="jks" password="${subscriptionSearchQuery.keystorePassword}" url="${subscriptionSearchQuery.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${subscriptionSearchQuery.truststorePassword}"
-					file="${subscriptionSearchQuery.truststoreLocation}" />
+					url="${subscriptionSearchQuery.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 

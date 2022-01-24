@@ -81,10 +81,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${publishSubscribe.keyPassword}">
+					<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" url="${publishSubscribe.keystoreLocation}" />
+				</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${parole.event.truststorePassword}"
-					file="${parole.event.truststoreLocation}" />
+					url="${parole.event.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
@@ -103,7 +106,7 @@
 		<httpj:engine port="${parole.event.portNumber}">
 			<httpj:tlsServerParameters>
 				<sec:keyManagers keyPassword="${publishSubscribe.keyPassword}">
-					<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" file="${publishSubscribe.keystoreLocation}" />
+					<sec:keyStore type="jks" password="${publishSubscribe.keystorePassword}" url="${publishSubscribe.keystoreLocation}" />
 				</sec:keyManagers>
 				<sec:cipherSuitesFilter>
 					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>

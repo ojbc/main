@@ -38,9 +38,8 @@
 
 	<bean id="federatedQueryResponseAggregator"
 		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
-		<property name="federatedQueryManager">
-			<ref bean="federatedQueryManager" />
-		</property>
+		<property name="federatedQueryManager" ref="federatedQueryManager" />
+		<property name="addressToAdapterURIMap" ref="addressToAdapterURIMap"/>
 	</bean>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />

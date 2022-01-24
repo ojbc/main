@@ -41,7 +41,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 		
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
 		<camel:endpoint id="CriminalHistoryUpdateReportingServiceEndpoint"
 			uri="cxf:bean:CriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />

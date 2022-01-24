@@ -150,6 +150,8 @@
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 
 			<camel:log message="Timer started"/>
+			
+			<camel:log message="${body}" />
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>

@@ -36,7 +36,7 @@
 	<!-- Error handlers in case of submission errors -->
 	<import resource="error-handlers.xml" />
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="subscription-reporting-service-intermediary">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="subscription-reporting-service-intermediary" streamCache="true">
 
 		<!-- some CXF endpoints are inline to support testing -->	
 		<camel:endpoint id="subscriptionReportingRequestServiceEndpoint"
