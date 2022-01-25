@@ -316,7 +316,7 @@
 			<log message="This is the entity resolution request: ${body}"  loggingLevel="DEBUG"/>	
 			
 			<!-- We set a WS Addressing Reply to so the ER service knows where to reply -->
-			<camel:setHeader name="WSAddressingReplyTo"><camel:simple>{{federatedQuery.mergeNotificationServiceEndpoint}}</camel:simple></camel:setHeader>
+			<camel:setHeader name="WSAddressingReplyTo"><camel:simple>{{federatedQuery.mergeNotificationReplyToEndpoint}}</camel:simple></camel:setHeader>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			

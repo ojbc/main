@@ -34,7 +34,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
@@ -43,7 +42,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,6 +59,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+
 @UseAdviceWith
 @CamelSpringBootTest
 @SpringBootTest(classes=FbiElectronicBiometricTransmissionSpecificationAdapterApplication.class)
@@ -66,7 +67,7 @@ import org.w3c.dom.Element;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTestRapbackNotifications {
 	
-	private static final Logger logger = Logger.getLogger(CamelContextTestRapbackNotifications.class);
+	private static final Logger logger = (Logger) LogManager.getLogger(CamelContextTestRapbackNotifications.class);
 	    
     @Resource
     private ModelCamelContext context;

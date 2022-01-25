@@ -56,9 +56,14 @@
 					</util:map>				
 				</property>
 		  	</bean>
+		  	
 	
 			<util:map id="federatedQueryEndpointMap" map-class="java.util.HashMap" >
 				<entry key="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest" value="firearmSearchRequestServiceAdapterEndpoint" />
 			</util:map>
+			
+			<util:map id="addressToAdapterURIMap" map-class="java.util.HashMap">
+				<entry key="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest" value="${federatedQuery.firearmSearch.firearmSearchRequestServiceRMS}" />
+			</util:map>	
 	
 </beans>

@@ -95,7 +95,7 @@
 					
 					<camel:doTry>
 						<camel:filter>
-							<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest'</camel:simple>
+							<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest'</camel:simple>
 							<camel:log message="Enhanced auditing of Person/Vehicle to Incident"/>
 							
 							<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
@@ -213,7 +213,7 @@
 					<header>federatedQueryNumberOfEndpointsRequested</header>
 				</completionSizeExpression>
 				<log
-					message="completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.incidentSearch.incidentSearchIntermediaryFederatedQueryTimeout}}"></log>
+					message="completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.incidentSearch.incidentSearchIntermediaryFederatedQueryTimeout}}"></log>
 				<to
 					uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 
@@ -254,7 +254,7 @@
 
 			<camel:choice>
 				<camel:when>
-					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true' and ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
+					<camel:simple>${properties:personQuery.dbEnancedAuditLog} == 'true' &amp;&amp; ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
 					
 					<camel:doTry>
 						<camel:to uri="bean:incidentSearchResponseSQLLoggingProcessor?method=auditIncidentSearchResponse"/>
@@ -316,11 +316,11 @@
 			<!-- We check for either the request or response operation because it is possible that we never got a response, in which case the original exchange still has the incoming operation name -->
 			<!-- The aggregator will copy the operation name for us since this service has three different operations -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.searchPersonResponseNodeCount} == 0 and ${in.header.searchVehicleResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 &amp;&amp; ${in.header.searchPersonResponseNodeCount} == 0 &amp;&amp; ${in.header.searchVehicleResponseNodeCount} == 0 &amp;&amp; ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="No search results returned, however, response contains error results"/>
 				
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
 					
 					<to uri="xslt:xslt/IncidentSearchResultsErrorToMergeNotificationMessage.xsl"/>	
 					
@@ -328,7 +328,7 @@
 				</camel:filter>
 					
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentPersonSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentPersonSearchResults'</camel:simple>
 					
 					<!-- This line remove the OJBWrapper element that the aggregator adds -->
 					<camel:setBody><xpath>//isr:IncidentPersonSearchResults</xpath></camel:setBody>
@@ -337,7 +337,7 @@
 				</camel:filter>
 
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentVehicleSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentVehicleSearchResults'</camel:simple>
 					
 					<!-- This line remove the OJBWrapper element that the aggregator adds -->
 					<camel:setBody><xpath>//isr:IncidentVehicleSearchResults</xpath></camel:setBody>
@@ -351,18 +351,18 @@
 			
 			<!-- In this case, we have no errors and no search results, create an error message and return, We test for the existence of the container nodes to allow for responses with no results -->
 			<camel:filter>
-				<camel:simple>${in.header.incidentPersonSearchContainerNodeCount} == 0 and ${in.header.incidentVehicleSearchContainerNodeCount} == 0 and ${in.header.incidentSearchContainerNodeCount} == 0 and ${in.header.errorResponseNodeCount} == 0</camel:simple>
+				<camel:simple>${in.header.incidentPersonSearchContainerNodeCount} == 0 &amp;&amp; ${in.header.incidentVehicleSearchContainerNodeCount} == 0 &amp;&amp; ${in.header.incidentSearchContainerNodeCount} == 0 &amp;&amp; ${in.header.errorResponseNodeCount} == 0</camel:simple>
 				<camel:log message="No search results or error results, the adapter timed or had an issue, send response based on this inbound operation: ${in.headers.operationName}"/>
 				
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentSearchResults'</camel:simple>
 					<camel:log message="Entering submit incident search results error creation route"/>
 					<to uri="bean:mergeNotificationErrorProcessor?method=returnMergeNotificationErrorMessage"/>	
 					<camel:to uri="direct:sendMergeMessageResponse"/>
 				</camel:filter>	
 				
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentPersonSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentPersonSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentPersonSearchResults'</camel:simple>
 
 					<to uri="bean:incidentSearchErrorProcessor?method=returnPersonToIncidentErrorMessage"/>	
 					
@@ -370,7 +370,7 @@
 				</camel:filter>
 
 				<camel:filter>
-					<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest' or ${in.headers.operationName} == 'SubmitIncidentVehicleSearchResults'</camel:simple>
+					<camel:simple>${in.headers.operationName} == 'SubmitIncidentVehicleSearchRequest' || ${in.headers.operationName} == 'SubmitIncidentVehicleSearchResults'</camel:simple>
 					
 					<to uri="bean:incidentSearchErrorProcessor?method=returnVehicleToIncidentErrorMessage"/>	
 					
@@ -403,7 +403,7 @@
 				<log message="This is the entity resolution request: ${body}" loggingLevel="DEBUG"/>	
 				
 				<!-- We set a WS Addressing Reply to so the ER service knows where to reply -->
-				<camel:setHeader name="WSAddressingReplyTo"><camel:simple>{{federatedQuery.mergeNotificationServiceEndpoint}}</camel:simple></camel:setHeader>
+				<camel:setHeader name="WSAddressingReplyTo"><camel:simple>{{federatedQuery.mergeNotificationReplyToEndpoint}}</camel:simple></camel:setHeader>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 				
@@ -532,11 +532,11 @@
 						<constant>2</constant>
 					</completionSizeExpression>
 					<log
-						message="Entity Resolution completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.   Timeout for aggregation set at: {{federatedQuery.incidentSearch.incidentSearchIntermediaryFederatedQueryTimeout}}"></log>
+						message="Entity Resolution completed by $simple{exchangeProperty.CamelAggregatedCompletedBy}, completion size $simple{exchangeProperty.CamelAggregatedSize}, aggregation key $simple{exchangeProperty.CamelAggregatedCorrelationKey}.   Timeout for aggregation set at: {{federatedQuery.incidentSearch.incidentSearchIntermediaryFederatedQueryTimeout}}"></log>
 
 					<camel:filter>
 							<!-- This indicates that the ER service timed out or had an error condition -->
-							<camel:simple>${property.CamelAggregatedSize} == 1 and ${property.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
+							<camel:simple>${exchangeProperty.CamelAggregatedSize} == 1 &amp;&amp; ${exchangeProperty.CamelAggregatedCompletedBy} == 'timeout'</camel:simple>
 							
 							<camel:log message="The Entity Resolution service is down or timed out."/>
 					</camel:filter>

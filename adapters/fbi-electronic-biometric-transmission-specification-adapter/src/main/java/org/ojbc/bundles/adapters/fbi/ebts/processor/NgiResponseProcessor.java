@@ -16,17 +16,20 @@
  */
 package org.ojbc.bundles.adapters.fbi.ebts.processor;
 
+
 import org.apache.camel.Exchange;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
+
 public class NgiResponseProcessor {
 	
-	private Logger logger = Logger.getLogger(NgiResponseProcessor.class);
+	private Logger logger = (Logger) LogManager.getLogger(NgiResponseProcessor.class);
 	
 	public void sendVoidResponse(Exchange camelExchange) throws Exception{
 		

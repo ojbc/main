@@ -38,7 +38,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
-		id="subscription-notification-service-intermediary">
+		id="subscription-notification-service-intermediary" streamCache="true">
 		<camel:routeContextRef ref="searchQueryRoutes" />
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
 		<camel:routeContextRef ref="fbiRoutes" />

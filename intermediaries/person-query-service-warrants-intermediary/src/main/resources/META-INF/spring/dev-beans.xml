@@ -25,7 +25,8 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       ">
+       "
+       profile="dev">
 	
 	<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" id="sqlLoggingProcessor" />		
 	
@@ -60,5 +61,9 @@
 			</util:map>
 		</property>
  	</bean>
+ 	
+			<util:map id="addressToAdapterURIMap" map-class="java.util.HashMap">
+				<entry key="{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants" value="${federatedQuery.warrants.personQueryWarrantsEndpoint}" />
+			</util:map>
 	
 </beans>

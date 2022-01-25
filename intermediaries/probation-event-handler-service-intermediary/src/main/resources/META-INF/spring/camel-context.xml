@@ -40,7 +40,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" streamCache="true">
 	
 		<endpoint id="inputDir"
 			uri="file:///${publishSubscribe.probationIntermediaryDirectory}/input?idempotent=true&amp;moveFailed=${publishSubscribe.probationIntermediaryDirectory}/error&amp;move=processed/" />

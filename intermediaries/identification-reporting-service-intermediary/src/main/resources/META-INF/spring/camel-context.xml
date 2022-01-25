@@ -42,7 +42,7 @@
     <!-- Error handlers in case of submission errors -->
     <import resource="error-handlers.xml" />
     
-    <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-reporting-service-intermediary">
+    <camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="identification-reporting-service-intermediary" streamCache="true">
         
         <camel:endpoint id="identificationReportingServiceEndpoint"
             uri="cxf:bean:IdentificationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identificationReportingService.cxflogging}}" />
