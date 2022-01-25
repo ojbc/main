@@ -281,7 +281,7 @@ public class PeopleController {
 			ex.printStackTrace();
 			model.put("searchContent", "error");
 		}
-		return "people/_searchDetails";
+		return "people/searchDetails";
 	}
 
 	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)

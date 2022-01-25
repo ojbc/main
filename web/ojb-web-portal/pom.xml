@@ -388,6 +388,18 @@
 		    <artifactId>jquery-ui</artifactId>
 		    <version>1.13.0</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-migrate</artifactId>
+		    <version>3.3.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-ui-themes</artifactId>
+		    <version>1.13.0</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

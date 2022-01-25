@@ -303,7 +303,7 @@ ojbc = {
 		heightIncrement = heightIncrement || 0;
 		ojbc.clearErrorMessage();
         $('#modalIframe').attr('src', url);	
- 		$("#modalIframe").load( function() {
+ 		$("#modalIframe").on('load', function() {
  			iframeHeight = $('iframe').contents().height() + heightIncrement;
  			if (iframeHeight > 123){
  				if (isIE){

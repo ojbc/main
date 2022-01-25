@@ -72,6 +72,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    	.logout().logoutUrl("/portal/performLogout").deleteCookies("JSESSIONID").clearAuthentication(true).permitAll()
 		    .and().securityContext()
 		    .and()
+		    .headers()
+		    .frameOptions()
+			.sameOrigin()
+			.and()
 		    .addFilterBefore(samlAuthenticationFilter(authenticationManager()),
 		      LogoutFilter.class)
 		    .exceptionHandling().accessDeniedHandler(ojbcAccessDeniedHandler);
