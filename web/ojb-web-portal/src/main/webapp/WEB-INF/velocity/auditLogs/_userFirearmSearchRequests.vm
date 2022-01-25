@@ -38,7 +38,7 @@
 			row.siblings().removeClass("selected");
 		    row.addClass("selected");
 			
-	 		var firearmSearchResponseUrl = encodeURI("#springUrl('/auditLogs/firearmSearchResults')");
+	 		var firearmSearchResponseUrl = encodeURI(context + 'auditLogs/firearmSearchResults')");
 	  		$.post( firearmSearchResponseUrl, $.param(requestData), function(data) {
 				$('#firearmSearchResultModalContent').html(data);
 				$('#firearmSearchResultModal').modal('show');

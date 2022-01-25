@@ -26,7 +26,7 @@
 		oTable.fixedHeader.disable();
 		oTable.destroy();
 	
-       	xhr = $.get("#springUrl('/auditLogs/userAuthenticationSearchResults')",function(data) {
+       	xhr = $.get(context + 'auditLogs/userAuthenticationSearchResults')",function(data) {
 	        $('#portalContent').html(data);
         }).fail(ojbc.displayFailMessage);
 	});
@@ -35,7 +35,7 @@
   		var collapseId = $(this).attr("id");
   		var cardBody = $(this).find(".card-body");
   		var url = '/auditLogs/' + collapseId;
-       	xhr = $.get("#springUrl('/auditLogs/')" + collapseId,function(data) {
+       	xhr = $.get(context + 'auditLogs/')" + collapseId,function(data) {
 	        cardBody.html(data);
         }).fail(ojbc.displayFailMessage);
   		
@@ -51,7 +51,7 @@
   		var tabPaneId = $(this).attr("aria-controls");
   		var tabPane = $("#" + tabPaneId);
   		var tabName =  tabPaneId.slice(4);
-       	xhr = $.get("#springUrl('/auditLogs/')" + tabName,function(data) {
+       	xhr = $.get(context + 'auditLogs/')" + tabName,function(data) {
 	        tabPane.html(data);
         }).fail(ojbc.displayFailMessage);
   		
@@ -91,7 +91,7 @@
 <div style="padding:10px">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="userLoginAuditLink">User Authentication Search Form</a></li>
 			<li class="breadcrumb-item"><a href="#" class="userAuthenticationSearchResults">User Authentication Search Results</a></li>
 			<li class="breadcrumb-item active" aria-current="page">User Activities</li>

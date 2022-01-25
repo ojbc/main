@@ -95,14 +95,14 @@
 	// is serialized	    	   		    			
     $(".disabledDatePicker").datepicker({
        showOn: "both",
-       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",    	  
        buttonImageOnly: true,
        beforeShow: function(i) {  return false; } 
     });	
     	        	        	   
     $(".enabledDatePicker").datepicker({
        showOn: "both",
-       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
        buttonImageOnly: true,
     });	        	        	     	      	    
     	        

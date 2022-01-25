@@ -16,14 +16,14 @@
  *#
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print-tabs.css')" media="print">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/print-tabs.css')" media="print">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/modal-frame.css')">
         
-    	<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src=context + 'webjars/jquery/3.3.1/jquery.min.js')"></script>
     	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
-        <script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+        <script src=context + 'static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
     </head>
     <body id="searchDetailsFrame">
         <script type="text/javascript">
@@ -58,7 +58,7 @@
 					var selector = '#tabs > ul > li';
 					var activeTabID = $(selector).eq(activeTabIdx).attr('id');
 
-					$.post("#springUrl('/rapbacks/auditRapsheetPrint')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+					$.post(context + 'rapbacks/auditRapsheetPrint')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
 
 					window.print();
 				}); 
@@ -73,7 +73,7 @@
 				</li>
 				
 				#if( "$!rapsheetQueryRequest.hasFbiRapsheet" == 'true' ) 
-					#set( $url = "#springUrl('/rapbacks/fbiRapsheet/')" + $!rapsheetQueryRequest.transactionNumber )
+					#set( $url = context + 'rapbacks/fbiRapsheet/')" + $!rapsheetQueryRequest.transactionNumber )
 					<li id="FBI Rap Sheet">
 						<a href="$url">FBI Rap Sheet</a>
 					</li>

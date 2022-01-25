@@ -23,7 +23,7 @@
     	  
 		    $( ".datePicker" ).datepicker({
 		       showOn: "both",
-		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
 		       buttonImageOnly: true,
 		       shortYearCutoff: "+10",
 		       dateFormat: 'mm/dd/yy'
@@ -32,13 +32,13 @@
 			$('#advanceSearchSubmitButton').click (function(){
 	        	ojbc.clearPlaceholders();
 	        	var formData = $('#advancedSearchForm').serialize();
-	  	       	xhr = $.post("#springUrl('/subscriptions/admin/adminAdvancedsearch')",formData,function(data) {
+	  	       	xhr = $.post(context + 'subscriptions/admin/adminAdvancedsearch')",formData,function(data) {
 			       $("#subsAdminContent").html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
 		
 	        $('#advanceSearchClearButton').click (function(event){
-			  $.get("#springUrl('/subscriptions/admin/adminSearchForm?resetForm=true')", function(data) {
+			  $.get(context + 'subscriptions/admin/adminSearchForm?resetForm=true')", function(data) {
 			    $('#subsAdminContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)

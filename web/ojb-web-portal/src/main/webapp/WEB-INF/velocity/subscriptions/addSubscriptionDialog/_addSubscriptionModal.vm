@@ -70,7 +70,7 @@
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
-  		$.post("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post(context + 'subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
   				handleDisplayAfterSave(data);  														  						  						  				  			
@@ -90,7 +90,7 @@
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
-  		$.post("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post(context + 'subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
   				handleDisplayAfterSave(data);  														  						  						  				  			
@@ -105,7 +105,7 @@
 		
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
 		
-  		$.post("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post(context + 'subscriptions/saveSubscription')", 
   			formData,
   			function(data){		  					  		  			  	
 				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
@@ -120,7 +120,7 @@
 		
 		var formData = $('#subscriptionForm').serialize();    				
 		
-  		$.post("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post(context + 'subscriptions/saveSubscription')", 
   			formData,
   			function(data){		  					  		  			  	
 				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
@@ -184,7 +184,7 @@
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
-  		$.post("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post(context + 'subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
   				handleDisplayAfterSave(data);														  						  						  				  			
@@ -200,7 +200,7 @@
   		
   		// redisplay subscription results having the new subscription 
   		ojbc.showLoadingPane();
-		$.post("#springUrl('/subscriptions/subscriptionResults')", 
+		$.post(context + 'subscriptions/subscriptionResults')", 
 			function(data) {	
 		      $('#portalContent').html(data);					      
 			}
@@ -217,7 +217,7 @@
 		if(subTypeTxt === 'Arrest'){
 			$("#ori").remove();
 			$('#subscriptionModal .modal-dialog').addClass('modal-sm');
-	  		$.post("#springUrl('/subscriptions/arrestForm')", 
+	  		$.post(context + 'subscriptions/arrestForm')", 
 	  			function(data){
 	  			$('#subModalDynamicContents').html(data);
 				$("#subFormDiv").height("auto");	
@@ -228,7 +228,7 @@
 		}else if(subTypeTxt === 'Rapback'){	
 			$('#subscriptionModal .modal-dialog').removeClass('modal-sm');					
 			$("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
-	  		$.post("#springUrl('/subscriptions/rapbackForm')", function(data){		  			
+	  		$.post(context + 'subscriptions/rapbackForm')", function(data){		  			
 	  			$('#subModalDynamicContents').html(data);		  						  				  				
 				$("#subFormDiv").height("auto");
 				$('#subscriptionModal .modal-footer').html(
@@ -238,7 +238,7 @@
 		}else if(subTypeTxt === 'Incident'){		
 			$("#ori").remove();
 			$('#subscriptionModal .modal-dialog').addClass('modal-sm');	
-	  		$.post("#springUrl('/subscriptions/incidentForm')", function(data){	
+	  		$.post(context + 'subscriptions/incidentForm')", function(data){	
 	  			$('#subModalDynamicContents').html(data);		  						  				  				
 				$("#subFormDiv").height("auto");
 				$('#subscriptionModal .modal-footer').html(
@@ -249,7 +249,7 @@
 	  	}else if(subTypeTxt === 'ATN Assignment'){
 			$("#ori").remove();
 			$('#subscriptionModal .modal-dialog').addClass('modal-sm');	
-	  		$.post("#springUrl('/subscriptions/chCycleForm')", function(data){		  			
+	  		$.post(context + 'subscriptions/chCycleForm')", function(data){		  			
 	  			$('#subModalDynamicContents').html(data);			  						  				  				
 				$("#subFormDiv").height("auto");
 				$('#subscriptionModal .modal-footer').html(
@@ -258,7 +258,7 @@
 	  		}).fail(ojbc.displayFailMessage);	  	
 		}else if(subTypeTxt == 'Person Vehicle Crash'){
 			$('#subscriptionModal .modal-dialog').addClass('modal-sm');
-	  		$.post("#springUrl('/subscriptions/vehicleCrashForm')", function(data){		  			
+	  		$.post(context + 'subscriptions/vehicleCrashForm')", function(data){		  			
 	  			$('#subModalDynamicContents').html(data);			  						  				  				
 				$("#subFormDiv").height("auto");	
 				$('#subscriptionModal .modal-footer').html(

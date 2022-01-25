@@ -53,6 +53,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,7 @@ public class PeopleController {
     @Value("${personSearchForm:people/searchForm :: personSearchFormContent}")
     String personSearchForm;
     
-    @Value("${personSearchResultPage:people/_searchResult}")
+    @Value("${personSearchResultPage:people/searchResult::personSearchResultContent}")
     String personSearchResultPage;
     
 	@Value("${showJuvenileSearchTab:false}")
@@ -155,7 +156,7 @@ public class PeopleController {
 	}
 
 
-	@RequestMapping(value = "simpleSearch", method = RequestMethod.POST)
+	@PostMapping(value = "simpleSearch")
 	public String simpleSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") @Valid PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		
@@ -414,6 +415,7 @@ public class PeopleController {
 		userSession.setMostRecentSearchResult(searchContent);
 		userSession.setSavedMostRecentSearchResult(null);
 		String convertPersonSearchResult = searchResultConverter.convertPersonSearchResult(searchContent,getParams( personSearchRequest.getPurpose(), personSearchRequest.getOnBehalfOf()));
+		log.debug("convertPersonSearchResult: " + convertPersonSearchResult);
 		model.put("searchContent", convertPersonSearchResult);
 		
 		return personSearchResultPage;

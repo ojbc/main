@@ -90,7 +90,7 @@
     	} );
     	
     	$('#searchResultsTable').on('click', 'a.archive',function() {
-    		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.get(context + 'rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -111,7 +111,7 @@
     	}
     	
     	function refreshSearchResultsTable(){
-    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		$.post(context + 'rapbacks/criminalIdentificationsResults')", function(data) {
 				$('#portalContent').html(data);	
 			}).fail(ojbc.displayFailMessage);
 							    
@@ -125,7 +125,7 @@
         });
         
 		$('#returnToSearchSubmitButton').click (function(){
-	  		$.get("#springUrl('/rapbacks/criminalIdentificationSearchForm')",function(data) {
+	  		$.get(context + 'rapbacks/criminalIdentificationSearchForm')",function(data) {
 	  			$('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage)
 	  	}); 
@@ -133,7 +133,7 @@
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 			ojbc.clearSearchResultsFilterFields();
-	  		$.get("#springUrl('/rapbacks/criminalIdentificationSearchForm?resetForm=true')",function(data) {
+	  		$.get(context + 'rapbacks/criminalIdentificationSearchForm?resetForm=true')",function(data) {
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});

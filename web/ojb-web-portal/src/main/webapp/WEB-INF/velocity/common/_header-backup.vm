@@ -28,12 +28,12 @@
         
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/colReorder.dataTables.css')" />
+        <link rel="stylesheet" type="text/css"  src=context + 'static/js/jquery-datatable/css/colReorder.dataTables.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/print.css')">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery.lwMultiSelect.css')">
-	  	<link href="#springUrl('/static/css/jquerysctipttop.css')" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/jquery.lwMultiSelect.css')">
+	  	<link href=context + 'static/css/jquerysctipttop.css')" rel="stylesheet" type="text/css">
 
 		
 		
@@ -43,16 +43,16 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
         <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 		<!--<script type="text/javascript" src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
-        <script src="#springUrl('/static/js/jquery-datatable/js/dataTables.colReorder.min.js')"></script>
+        <script src=context + 'static/js/jquery-datatable/js/dataTables.colReorder.min.js')"></script>
         
 		
-        <script src="#springUrl('/static/js/jquery.maskinput.js')"></script>
-        <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
-        <script src="#springUrl('/static/js/jquery.lwMultiSelect.js')"></script>
+        <script src=context + 'static/js/jquery.maskinput.js')"></script>
+        <script src=context + 'static/js/ojb-web-portal.js')"></script>
+        <script src=context + 'static/js/jquery.lwMultiSelect.js')"></script>
         
         #if( $secondaryOptionsDisplay)
-			<script src="#springUrl('/static/js/secondaryOptionsDisplay.js')"></script>
-			<script src="#springUrl('/static/js/formValidation.js')"></script>
+			<script src=context + 'static/js/secondaryOptionsDisplay.js')"></script>
+			<script src=context + 'static/js/formValidation.js')"></script>
 		#end
 
 		#if( $customStyleCssPath != "" )

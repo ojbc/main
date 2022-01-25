@@ -16,8 +16,8 @@
  *#
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/modal-frame.css')">
     </head>
     <body>
     	<table class="detailsTable">

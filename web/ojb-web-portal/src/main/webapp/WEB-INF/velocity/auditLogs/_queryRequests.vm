@@ -50,7 +50,7 @@
 		row.siblings().removeClass("selected");
 	    row.addClass("selected");
 		
- 		var personQueryResponseUrl = encodeURI("#springUrl('/auditLogs/personQueryResponse')");
+ 		var personQueryResponseUrl = encodeURI(context + 'auditLogs/personQueryResponse')");
   		$.post( personQueryResponseUrl, $.param(requestData), function(data) {
 			$('#personQueryResponseModalContent').html(data);
 			$('#personQueryResponseModal').modal('show');

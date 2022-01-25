@@ -51,7 +51,7 @@
         });
 				
 		$('#returnToSearchSubmitButton').click (function(){
-	  		$.get("#springUrl('/vehicles/searchForm')",function(data) {
+	  		$.get(context + 'vehicles/searchForm')",function(data) {
 				$('#filterColumn').removeClass('d-none');
 			    $('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage);
@@ -59,7 +59,7 @@
 		
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
-	  		$.get("#springUrl('/vehicles/searchForm?resetForm=true')",function(data) {
+	  		$.get(context + 'vehicles/searchForm?resetForm=true')",function(data) {
 	  			$('#filterColumn').removeClass('d-none');
 			    $('#portalContent').html(data);
 			}).fail(ojbc.displayFailMessage);
@@ -97,7 +97,7 @@
 <div>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="vehicleSearchLink">Vehicle Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Vehicle Search Results</li>
 		</ol>

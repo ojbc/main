@@ -87,7 +87,7 @@
 		// serialize() generates get request string for springforminput html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -108,7 +108,7 @@
 		// serialize() generates get request string for springforminput html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -129,7 +129,7 @@
 		// serialize() generates get request string for <springforminput> html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
   				handleDisplayAfterSave(data);						  				  				
@@ -148,7 +148,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
 		    								    					    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -162,7 +162,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize();    				
 		    								    					    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -208,21 +208,21 @@
 		
 		// redisplay subscription results having the new subscription 
 		if ('$editSourcePage' === 'RBN'){
-			$.get("#springUrl('/subscriptions/admin/notifications')", function(data) {	
+			$.get(context + 'subscriptions/admin/notifications')", function(data) {	
 				$("#subsAdminContent").html(data);
 			}).fail(ojbc.displayFailMessage);
 		}
 		else if ('$editSourcePage' === 'errors'){
-			$.get("#springUrl('/subscriptions/admin/federalRapbackSubscriptionErrors')", function(data) {	
+			$.get(context + 'subscriptions/admin/federalRapbackSubscriptionErrors')", function(data) {	
 				$("#subsAdminContent").html(data);
 			}).fail(ojbc.displayFailMessage);
 		}
 		else if ('$editSourcePage' === 'adminAdvancedSearch'){
-  	       	xhr = $.post("#springUrl('/subscriptions/admin/search')", function(data) {
+  	       	xhr = $.post(context + 'subscriptions/admin/search')", function(data) {
 		       $("#subsAdminContent").html(data);
 	        }).fail(ojbc.displayFailMessage);		}
 		else {
-			$.post("#springUrl('/subscriptions/admin/landingPage')", function(data) {										
+			$.post(context + 'subscriptions/admin/landingPage')", function(data) {										
 			      $('#portalContent').html(data);					      
 			}).fail(ojbc.displayFailMessage);
 		}  

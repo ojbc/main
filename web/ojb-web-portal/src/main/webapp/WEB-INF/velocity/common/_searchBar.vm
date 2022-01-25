@@ -28,27 +28,27 @@
         	$('#searchBar a:not(#signOut)').click (reStyleButtonsBasedOnSelection);
         	
         	$('#peopleSearchLink').click (function() { 
-		    		return ojbc.populatePortalContentFromUrl("#springUrl('/people/searchForm')")
+		    		return ojbc.populatePortalContentFromUrl(context + 'people/searchForm')")
 		    	}
     		 )
     		 
     		$('#incidentSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+    				return ojbc.populatePortalContentFromUrl(context + 'incidents/searchForm')");
     			}
     		 )
     		 
         	$('#vehicleSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");
+    				return ojbc.populatePortalContentFromUrl(context + 'vehicles/searchForm')");
     			}
     		 )
     		 
     		$('#firearmSearchLink').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')");
+    				return ojbc.populatePortalContentFromUrl(context + 'firearms/searchForm')");
     			}
     		 )
     		     		 
     		$('#peopleSearchLinkDisabled, #incidentSearchLinkDisabled, #vehicleSearchLinkDisabled, #firearmSearchLinkDisabled').click (function() {
-    				return ojbc.populatePortalContentFromUrl("#springUrl('/static/html/comingSoon.html')");
+    				return ojbc.populatePortalContentFromUrl(context + 'static/html/comingSoon.html')");
     			}
     		 )
         })
@@ -60,7 +60,7 @@
 	<div style="float:right" id="loggedInUserInfo">
 		<i class="fa fa-user" aria-hidden="true" style="color: black"></i> Welcome, $!currentUserName
 		#if ($showSignOutButton)
-			&nbsp;<a style="padding:0; margin: 0;" title="Sign out" href="#springUrl('/portal/performLogout')" id="signOut"><i class="fas fa-sign-out-alt"></i></a>
+			&nbsp;<a style="padding:0; margin: 0;" title="Sign out" href=context + 'portal/performLogout')" id="signOut"><i class="fas fa-sign-out-alt"></i></a>
 		#end	
 	</div>
 	<div style="float: left" id="searchBarButtonDiv">

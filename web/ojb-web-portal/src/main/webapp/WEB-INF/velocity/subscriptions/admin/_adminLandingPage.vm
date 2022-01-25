@@ -30,29 +30,29 @@
 		$('#adminButtons a:not(.active)').click (reStyleButtonsBasedOnSelection);
 		
     	$('#portalContent').on('click', '#advancedAdminSearch', function() { 
-			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/adminSearchForm')")
+			return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/adminSearchForm')")
 	    });
 	    
     	$('#expiringSubscriptions').click (function() {
     		$('#reportsButton').dropdown("toggle");;
     		$('#adminButtons a.active').removeClass('active');
     		$('#reportsButton').addClass('active');
- 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
+ 			return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/expiringSubscriptionsForm')")
 	    });
 	    
     	$('#expiredSubscriptions').click (function() { 
     		$('#reportsButton').dropdown("toggle");;
     		$('#adminButtons a.active').removeClass('active');
     		$('#reportsButton').addClass('active');
- 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiredSubscriptionsForm')")
+ 			return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/expiredSubscriptionsForm')")
 	    });
 	    
     	$('#activeErrorsSearch').click (function() { 
- 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/federalRapbackSubscriptionErrors')")
+ 			return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/federalRapbackSubscriptionErrors')")
 	    });
 	    
     	$('#notifications').click (function() { 
- 			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/notifications')")
+ 			return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/notifications')")
 	    });
 	    
 	    var oTable = $("#searchResultsTable").DataTable({

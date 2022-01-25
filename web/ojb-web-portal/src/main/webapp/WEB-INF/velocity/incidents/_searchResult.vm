@@ -52,7 +52,7 @@
         
 		$('#returnToSearchSubmitButton').click (function(){
 			$('#filterColumn').removeClass('d-none');
-	  		$.get("#springUrl('/incidents/searchForm')",function(data) {
+	  		$.get(context + 'incidents/searchForm')",function(data) {
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		  	}
@@ -62,7 +62,7 @@
 			ojbc.clearSearchPurposeFields();
 			$('#filterColumn').removeClass('d-none');    				    			 
 			
-	  		$.get("#springUrl('/incidents/searchForm?resetForm=true')",function(data) {
+	  		$.get(context + 'incidents/searchForm?resetForm=true')",function(data) {
 		      $('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage)
 		});
@@ -82,7 +82,7 @@
   <div>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="incidentSearchLink">Incident Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Incident Search Results</li>
 		</ol>

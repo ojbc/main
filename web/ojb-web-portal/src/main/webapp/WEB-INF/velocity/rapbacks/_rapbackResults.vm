@@ -108,7 +108,7 @@
 		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
     		clearErrorMessage();
-    		$.post("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.post(context + 'rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
 				if (data === 'success'){
 					refreshSearchResultsTable();
@@ -122,7 +122,7 @@
     	
     	$('#searchResultsTable').on('click', 'a.archive',function() {
     		clearErrorMessage();
-    		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.get(context + 'rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -135,7 +135,7 @@
     	
     	$('#searchResultsTable').on('click', 'a.unarchive',function() {
     		clearErrorMessage();
-    		$.get("#springUrl('/rapbacks/unarchive')", {transactionNumber: $(this).attr("id")}, function(data) {
+    		$.get(context + 'rapbacks/unarchive')", {transactionNumber: $(this).attr("id")}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -162,7 +162,7 @@
     	}
     	
     	function refreshSearchResultsTable(message){
-    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		$.post(context + 'rapbacks/rapbackResults')", function(data) {
 				$('#portalContent').html(data);
 				
 				if (message){	
@@ -191,7 +191,7 @@
 			        { p: {text: "If the person is no longer employed by, licensed by or volunteering with your agency, you must cancel the subscription."}}
 			    ],
 			    validate: function(data,e) { 			        	
-		    		$.get("#springUrl('/rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
+		    		$.get(context + 'rapbacks/validate')", {'subscriptionId': id, 'reasonCode': reasonCode}, function(data) {
 						if (data === 'success'){
 							refreshSearchResultsTable("Validation Successful");	
 						}
@@ -230,11 +230,11 @@
 			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
 			    ],
 			    yes: function(data,e) { 			        	
-			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			    	$.post(context + 'rapbacks/userAcknowledgement')/true/" + subscriptionId);
 			        subsequentResultButton.click();
  				},
 			    no: function(data) {
-			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	$.post(context + 'rapbacks/userAcknowledgement')/false/" + subscriptionId);
 			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
 	            		bootpopup({
 						    title: "Unsubscribe?",
@@ -264,11 +264,11 @@
 			        '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
 			    ],
 			    yes: function(data,e) { 			        	
-			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/true/" + subscriptionId);
+			    	$.post(context + 'rapbacks/userAcknowledgement')/true/" + subscriptionId);
 			        viewRapsheetButton.click();
  				},
 			    no: function(data) {
-			    	$.post("#springUrl('/rapbacks/userAcknowledgement')/false/" + subscriptionId);
+			    	$.post(context + 'rapbacks/userAcknowledgement')/false/" + subscriptionId);
 			    	if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
 	            		bootpopup({
 						    title: "Unsubscribe?",
@@ -297,7 +297,7 @@
         });
     	
 		function unsubscribe(id){
-    		$.get("#springUrl('/rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
+    		$.get(context + 'rapbacks/unsubscribe')", {subscriptionId: id}, function(data) {
 				if (data === 'success'){
 					refreshSearchResultsTable();
 				}
@@ -309,7 +309,7 @@
 		}
 		
 		$('#returnToSearchSubmitButton').click (function(){
-	  		$.get("#springUrl('/rapbacks/searchForm')",function(data) {
+	  		$.get(context + 'rapbacks/searchForm')",function(data) {
 	  			$('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage)
 	  	}); 
@@ -317,7 +317,7 @@
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 			ojbc.clearSearchResultsFilterFields();
-	  		$.get("#springUrl('/rapbacks/searchForm?resetForm=true')",function(data) {
+	  		$.get(context + 'rapbacks/searchForm?resetForm=true')",function(data) {
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});

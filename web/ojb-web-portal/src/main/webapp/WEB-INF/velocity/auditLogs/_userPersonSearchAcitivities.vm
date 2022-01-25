@@ -28,7 +28,7 @@
 <div style="padding:10px">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="personSearchAuditLink">Person Search Logs Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">User Person Search Activities</li>
 		</ol>

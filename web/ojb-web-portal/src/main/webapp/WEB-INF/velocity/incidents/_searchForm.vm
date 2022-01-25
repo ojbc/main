@@ -26,7 +26,7 @@
 		}    	    	
 		$( ".datePicker" ).datepicker({
 		   showOn: "both",
-		   buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		   buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
 		   buttonImageOnly: true,
 		   shortYearCutoff: "+10",
 		   dateFormat: 'mm/dd/yy'
@@ -37,7 +37,7 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
 	        
-	  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
+	  	       	xhr = $.post(context + 'incidents/advanceSearch')",formData,function(data) {
 	  	       		if (data.indexOf('id="advancedSearchTab"') === -1){
 	  	       			$('#filterColumn').addClass('d-none');
 	  	       		}
@@ -60,7 +60,7 @@
 		$('#advanceSearchClearButton').click (function(event){
 		      
 		      ojbc.clearSearchPurposeFields();
-		      $.get("#springUrl('/incidents/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+		      $.get(context + 'incidents/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
 		        $('#portalContent').html(data);                                        
 		      }).fail(ojbc.displayFailMessage)
 		  });

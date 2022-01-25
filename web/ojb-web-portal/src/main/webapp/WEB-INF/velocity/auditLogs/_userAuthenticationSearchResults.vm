@@ -41,7 +41,7 @@
 	
 		event.preventDefault();
  		var userInfoId = $(this).attr("title");
- 		var userActivitiesUrl = encodeURI("#springUrl('/auditLogs/userActivities?userInfoId=')"+ userInfoId);
+ 		var userActivitiesUrl = encodeURI(context + 'auditLogs/userActivities?userInfoId=')"+ userInfoId);
  		
 		var row = $(this).closest('tr'); 
 		row.siblings().removeClass("selected");
@@ -65,7 +65,7 @@
 <div style="padding:10px">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="userLoginAuditLink">User Authentication Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">User Authentication Search Results</li>
 		</ol>

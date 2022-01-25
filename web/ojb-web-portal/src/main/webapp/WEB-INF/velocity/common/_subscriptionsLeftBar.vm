@@ -29,7 +29,7 @@
 					//console.log("formData:" + formData); 
 					//console.log("validateLinkExists:" + validateLinkExists); 
 									             	
-			  		$.post("#springUrl('/subscriptions/filter/')" + validateLinkExists ,  	
+			  		$.post(context + 'subscriptions/filter/')" + validateLinkExists ,  	
 			  			{subscriptionStatus: $('#subscriptionStatus').val()},	  		
 			  			function(data) {	
 			  				if (validateLinkExists){	  			

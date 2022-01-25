@@ -29,7 +29,7 @@
 	    	ojbc.clearPlaceholders();
             var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
         
-  	       	xhr=$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
+  	       	xhr=$.post(context + 'firearms/advanceSearch')",formData,function(data) {
   	       		if (data.indexOf('id="advancedSearchTab"') === -1){
   	       			$('#filterColumn').addClass('d-none');
   	       		}
@@ -52,7 +52,7 @@
         $('#advanceSearchClearButton').click (function(event){
               
               ojbc.clearSearchPurposeFields();
-              $.get("#springUrl('/firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+              $.get(context + 'firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
                 $('#portalContent').html(data);
                 
               }).fail(ojbc.displayFailMessage)

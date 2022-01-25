@@ -80,7 +80,7 @@
 		// serialize() generates get request string for springforminput html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -101,7 +101,7 @@
 		// serialize() generates get request string for springforminput html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -122,7 +122,7 @@
 		// serialize() generates get request string for <springforminput> html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
   				handleDisplayAfterSave(data);						  				  				
@@ -141,7 +141,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
 		    								    					    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -155,7 +155,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize();    				
 		    								    					    				
-  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post(context + 'subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -199,7 +199,7 @@
 		$("#subscriptionModal").modal('hide');
 		
 		// redisplay subscription results having the new subscription 
-		$.post("#springUrl('/subscriptions/subscriptionResults')", 
+		$.post(context + 'subscriptions/subscriptionResults')", 
 			function(data) {										
 		      $('#portalContent').html(data);					      
 			}

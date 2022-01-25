@@ -22,13 +22,13 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 <html>
     <head>
-		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+		<link rel="stylesheet" type="text/css" href=context + 'webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
 
-    	<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src=context + 'webjars/jquery/3.3.1/jquery.min.js')"></script>
     	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
-        <script src="#springUrl('/static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+        <script src=context + 'static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
 
         <title>OJBC One-Time Password Authentication</title>
        
@@ -47,7 +47,7 @@
 					
 					$('#otpForm').on('keypress', 'input', function(e){
 						if (e.keyCode == 13) {
-							$('#otpForm').attr('action', "#springUrl('/otp/submitOtp')").submit();
+							$('#otpForm').attr('action', context + 'otp/submitOtp')").submit();
 						}	
 					});
 			 })

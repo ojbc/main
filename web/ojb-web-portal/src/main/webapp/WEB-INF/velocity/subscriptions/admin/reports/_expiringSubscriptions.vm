@@ -32,7 +32,7 @@
 	$("#subscriptionButtons").appendTo("#searchResultsTable_length");	  
 	
 	$('#returnToSearchForm').click (function() { 
-		return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/admin/expiringSubscriptionsForm')")
+		return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/expiringSubscriptionsForm')")
     });
 			
     
@@ -42,7 +42,7 @@
 	
 <div style="padding:10px">
 	<span id="subscriptionButtons">
-		<a id="exportToExcel" href="#springUrl('/subscriptions/admin/exportExpiringSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
+		<a id="exportToExcel" href=context + 'subscriptions/admin/exportExpiringSubscriptions')" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>EXPORT TO EXCEL</a>
 		<a id="returnToSearchForm" href="#" class="blueButton viewDetails"><img style="margin-right:6px;" src="../static/images/Search%20Detail/icon-close.png"/>RETURN</a>
 	</span>    				
 	<h5>Expiring Subscriptions</h5>

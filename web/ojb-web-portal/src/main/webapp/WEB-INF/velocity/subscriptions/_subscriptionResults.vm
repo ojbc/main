@@ -57,7 +57,7 @@
 	$("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");	  		
 	
 	$('#advancedSearch').click (function() { 
-		$.get("#springUrl('/subscriptions/searchForm')", function(data) {	
+		$.get(context + 'subscriptions/searchForm')", function(data) {	
 			$("#subscriptionsContent").html(data);
 			$("#searchCancelSection").appendTo
 		}).fail(ojbc.displayFailMessage);
@@ -166,7 +166,7 @@
 		// call the spring controller method we need by this GET URL request,
 		// that method populates the mvc model map with objects needed that 
 		// are used by the html in the modal velocity template file
-  		$.post("#springUrl('/subscriptions/addSubscription')", 
+  		$.post(context + 'subscriptions/addSubscription')", 
   			function(data){
   			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
 			$('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');	  			

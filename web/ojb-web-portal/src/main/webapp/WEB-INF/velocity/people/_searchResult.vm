@@ -35,14 +35,14 @@
        	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
 			ojbc.clearSearchResultsFilterFields();
 			
-	  		$.get("#springUrl('/people/clearFilter')",function(data) {
+	  		$.get(context + 'people/clearFilter')",function(data) {
 			      $('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage);
 			
     	});
     	    		
 		$('#returnToSearchSubmitButton').click (function(){
-	  		$.get("#springUrl('/people/searchForm')?activeSearchTab=${activeSearchTab}",function(data) {
+	  		$.get(context + 'people/searchForm')?activeSearchTab=${activeSearchTab}",function(data) {
 	  			$('#portalContent').html(data);
 		    }).fail(ojbc.displayFailMessage)
 	  	}); 
@@ -50,7 +50,7 @@
 		$('#newSearchSubmitButton').click (function(){
 			ojbc.clearSearchPurposeFields();
 			ojbc.clearSearchResultsFilterFields();
-	  		$.get("#springUrl('/people/searchForm?resetForm=true')",function(data) {
+	  		$.get(context + 'people/searchForm?resetForm=true')",function(data) {
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});
@@ -69,7 +69,7 @@
 			
 			var sourcePage="personSearch";		
 
-	  		$.post("#springUrl('/subscriptions/addSubscription')", subscription,
+	  		$.post(context + 'subscriptions/addSubscription')", subscription,
 	  			function(data){
 	  			$('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
 				$('#subscriptionModal .modal-title').html('ADD Subsciption');	  			
@@ -142,7 +142,7 @@
 <div>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#springUrl('/portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
 			<li class="breadcrumb-item"><a href="#" class="peopleSearchLink">Person Search Form</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Person Search Results</li>
 		</ol>

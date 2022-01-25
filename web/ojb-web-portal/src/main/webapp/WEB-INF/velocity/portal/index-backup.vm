@@ -65,7 +65,7 @@
 	          closeOnEscape: false,
 		      buttons: {
 		        Ok: function() {
-	        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
+	        		$.post(context + 'portal/negateSenstiveInfoAlert')", function() {
 					})
 					
 					$( this ).dialog( "close" );
@@ -85,13 +85,13 @@
 	#if($homePage=="landingPage")
 	
 		$("#searchBarButtonDiv").hide();
-		$.get("#springUrl('/portal/landingPage')", function(data) {
+		$.get(context + 'portal/landingPage')", function(data) {
 			$('#portalContent').html(data);
 		}).fail(function(data) {$('#portalContent').html(data); });
 	
 	#elseif($homePage=="query")
 	
-		$.get("#springUrl('/people/searchForm')", function(data) {
+		$.get(context + 'people/searchForm')", function(data) {
 			$('#portalContent').html(data);
 		}).fail(function(data) {$('#portalContent').html(data); });
 	
@@ -99,11 +99,11 @@
 	
 		$("#searchBarButtonDiv").hide();
 	
-		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+		$.post(context + 'subscriptions/subscriptionResults')", function(data) {
 		
 			$('#portalContent').html(data);	
 													
-			$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+			$.post(context + 'portal/subscriptionsLeftBar')", function(data) {
 				    	
     			$('#filterColumn').html(data);
     			$('#filterColumn').css('visibility', 'visible');
@@ -116,7 +116,7 @@
 	function reloadPage() {
 	    clearTimeout(idleTime);
 	    idleTime = setTimeout(function () {
-	        window.location.assign("#springUrl('/portal/performLogout')");
+	        window.location.assign(context + 'portal/performLogout')");
 	    }, $inactivityTimeoutInSeconds * 1000);
 	}
 	

@@ -35,7 +35,7 @@
 	$('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
 		event.preventDefault();
  		var subscriptionId = $(this).find("td").first().text();
- 		var editMvcUrl = encodeURI("#springUrl('/subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors");
+ 		var editMvcUrl = encodeURI(context + 'subscriptions/editSubscription?identificationID=')"+ subscriptionId + "&admin=true&editSourcePage=errors");
  		
 		var row = $(this).closest('tr'); 
 		row.siblings().removeClass("selected");

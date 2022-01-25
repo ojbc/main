@@ -28,7 +28,7 @@
 
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
     	       buttonImageOnly: true,
     	       shortYearCutoff: "+10",
     	       dateFormat: 'mm/dd/yy'
@@ -38,7 +38,7 @@
             	ojbc.clearPlaceholders();
                 var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
             
-	  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+	  	       	xhr = $.post(context + 'people/advanceSearch')",formData,function(data) {
 	  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
 		  	       		$('#filterColumn').addClass('d-none');
 	  	       		}
@@ -51,7 +51,7 @@
                 	ojbc.clearPlaceholders();
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
-		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	xhr = $.post(context + 'people/advanceSearch')",formData,function(data) {
 		  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
 			  	       		$('#filterColumn').addClass('d-none');
 		  	       		}
@@ -63,7 +63,7 @@
     		$('#simpleSearchSubmitButton').click (function(){
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+		  		xhr = $.post(context + 'people/simpleSearch')",formData,function(data) {
 					if (data.indexOf('id="advancedSearchTab"') === -1){
 						$('#filterColumn').addClass('d-none');
 					}
@@ -99,7 +99,7 @@
             $('#juvenileSearchClearButton').click (function(event){
               ojbc.clearSearchPurposeFields();
               ojbc.clearSearchResultsFilterFields();
-              $.get("#springUrl('/people/searchForm?resetForm=true&activeSearchTab=juvenileSearchTab')", function(data) {
+              $.get(context + 'people/searchForm?resetForm=true&activeSearchTab=juvenileSearchTab')", function(data) {
                 $('#portalContent').html(data);
                 
                 
@@ -109,7 +109,7 @@
             $('#advanceSearchClearButton').click (function(event){
 			  ojbc.clearSearchPurposeFields();
 			  ojbc.clearSearchResultsFilterFields();
-			  $.get("#springUrl('/people/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+			  $.get(context + 'people/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
 			    $('#portalContent').html(data);
 			    
 			    
@@ -120,7 +120,7 @@
                   
                   ojbc.clearSearchPurposeFields();
                   ojbc.clearSearchResultsFilterFields();
-                  $.get("#springUrl('/people/searchForm?resetForm=true')", function(data) {
+                  $.get(context + 'people/searchForm?resetForm=true')", function(data) {
                     $('#portalContent').html(data);
                     
                     

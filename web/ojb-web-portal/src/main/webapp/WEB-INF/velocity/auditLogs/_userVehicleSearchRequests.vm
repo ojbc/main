@@ -38,7 +38,7 @@
 			row.siblings().removeClass("selected");
 		    row.addClass("selected");
 			
-	 		var vehicleSearchResponseUrl = encodeURI("#springUrl('/auditLogs/vehicleSearchResults')");
+	 		var vehicleSearchResponseUrl = encodeURI(context + 'auditLogs/vehicleSearchResults')");
 	  		$.post( vehicleSearchResponseUrl, $.param(requestData), function(data) {
 				$('#vehicleSearchResultModalContent').html(data);
 				$('#vehicleSearchResultModal').modal('show');

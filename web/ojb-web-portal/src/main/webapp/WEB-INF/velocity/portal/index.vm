@@ -103,7 +103,7 @@
                              '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i> $sensitiveInfoAlertMessage </p>'
                              ], 
                        ok: function(data, array, event) {  
-			        		$.post("#springUrl('/portal/negateSenstiveInfoAlert')", function() {
+			        		$.post(context + 'portal/negateSenstiveInfoAlert')", function() {
 							}).fail(ojbc.displayFailMessage);
                        },
                      });
@@ -120,25 +120,25 @@
 				    	$('#filterColumn').removeClass('d-none');    				    			 
 				    
 				    	//TODO likely needs refactor(2 jquery ajax asynch calls in a row)
-						ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
-				    	ojbc.populatePortalContentFromUrl("#springUrl('/portal/landingPage')");
+						ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar')");
+				    	ojbc.populatePortalContentFromUrl(context + 'portal/landingPage')");
 				    
 				    #elseif($homePage=="query")	
 				    	 
 						// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
-						$.post("#springUrl('/portal/leftBar')", function(data) {
+						$.post(context + 'portal/leftBar')", function(data) {
 			    			$('#filterColumn').html(data);	 
 			    			$("#demogFilterInfo").hide();
 			    			$('#filterColumn').removeClass('d-none');    				    			 
 			    			
-							$.get("#springUrl('/people/searchForm')", function(data) {		
+							$.get(context + 'people/searchForm')", function(data) {		
 							      $('#portalContent').html(data);
 							}).fail(ojbc.displayFailMessage);	    				    				    			
 			    		}).fail(ojbc.displayFailMessage);	
 			    		
 			    	#elseif($homePage=="subscriptions")
 			    	
-			    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+			    		xhr = $.post(context + 'subscriptions/subscriptionResults')", function(data) {
 			    			$('#filterColumn').addClass('d-none');
 							$('#portalContent').html(data);	
 						}).fail(ojbc.displayFailMessage);								    
@@ -156,9 +156,9 @@
 											
 				    $('#filterColumn').removeClass('d-none');
 		
-				    ojbc.populateLeftBarContentFromUrl("#springUrl('/help/helpLeftBar')");
+				    ojbc.populateLeftBarContentFromUrl(context + 'help/helpLeftBar')");
 		
-				    ojbc.populatePortalContentFromUrl("#springUrl('/help/introduction')");
+				    ojbc.populatePortalContentFromUrl(context + 'help/introduction')");
 							    
 				    return false;							       	        	
 				})
@@ -167,7 +167,7 @@
 
 					$(this).parent().toggleClass('show');
 					// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
-					$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post(context + 'portal/leftBar')", function(data) {
 						    		    			
 		    			$('#filterColumn').html(data);	 
 		    			
@@ -175,7 +175,7 @@
 		    			
 		    			$('#filterColumn').removeClass('d-none');    				    			 
 		    			
-						$.get("#springUrl('/people/searchForm')", function(data) {		
+						$.get(context + 'people/searchForm')", function(data) {		
 									
 						      $('#portalContent').html(data);
 						      
@@ -188,14 +188,14 @@
 		    		 
 		    	$('body').off('click','.incidentSearchLink').on('click', '.incidentSearchLink',function() {
 					$(this).parent().toggleClass('show');
-					$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post(context + 'portal/leftBar')", function(data) {
 						    		    			
 		    			$('#filterColumn').html(data);	 
 		    			
 		    			$("#demogFilterInfo").hide();
 		    			
 		    			$('#filterColumn').removeClass('d-none');    				    			 
-		    			ojbc.populatePortalContentFromUrl("#springUrl('/incidents/searchForm')");
+		    			ojbc.populatePortalContentFromUrl(context + 'incidents/searchForm')");
 		    		}).fail(ojbc.displayFailMessage);			    
 				    					   
 				    return false;
@@ -203,21 +203,21 @@
     		 
 				$('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
 					$(this).parent().toggleClass('show');
-					$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post(context + 'portal/leftBar')", function(data) {
 						//console.log("vehicle left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
 		    			$('#filterColumn').removeClass('d-none');    
-		    			ojbc.populatePortalContentFromUrl("#springUrl('/vehicles/searchForm')");				    			 
+		    			ojbc.populatePortalContentFromUrl(context + 'vehicles/searchForm')");				    			 
 		    		}).fail(ojbc.displayFailMessage);
     			});
     		 
     		 	$('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
 					$(this).parent().toggleClass('show');
-					$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post(context + 'portal/leftBar')", function(data) {
 						//console.log("firearm left bar: " + data); 
 		    			$('#filterColumn').html(data);	 
 		    			$('#filterColumn').removeClass('d-none');    
-		    			ojbc.populatePortalContentFromUrl("#springUrl('/firearms/searchForm')")				    			 
+		    			ojbc.populatePortalContentFromUrl(context + 'firearms/searchForm')")				    			 
 		    		}).fail(ojbc.displayFailMessage);
     			});
 		    		 
@@ -227,7 +227,7 @@
 						oTable.fixedHeader.disable();
 						oTable.destroy();
 					}    	    	
-					xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+					xhr = $.post(context + 'subscriptions/subscriptionResults')", function(data) {
 						$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);
 					}).fail(ojbc.displayFailMessage);
@@ -240,7 +240,7 @@
 						oTable.fixedHeader.disable();
 						oTable.destroy();
 					}    	    	
-		    		xhr = $.post("#springUrl('/rapbacks/rapbackDefaultSearch')", function(data) {
+		    		xhr = $.post(context + 'rapbacks/rapbackDefaultSearch')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 					}).fail(ojbc.displayFailMessage);
@@ -250,7 +250,7 @@
 				
 				$('body').off('click','.userLoginAuditLink').on('click','.userLoginAuditLink',function() {
 					$(this).parent().toggleClass('show');
-		    		xhr = $.get("#springUrl('/auditLogs/searchForm')",function(data) {
+		    		xhr = $.get(context + 'auditLogs/searchForm')",function(data) {
 		    			$('#filterColumn').addClass('d-none');
 	  					$('#portalContent').html(data);
 	    			}).fail(ojbc.displayFailMessage)
@@ -260,7 +260,7 @@
 				
 				$('body').off('click','.personSearchAuditLink').on('click','.personSearchAuditLink',function() {
 					$(this).parent().toggleClass('show');
-		    		xhr = $.get("#springUrl('/auditLogs/personSearchLogsSearchForm')",function(data) {
+		    		xhr = $.get(context + 'auditLogs/personSearchLogsSearchForm')",function(data) {
 		    			$('#filterColumn').addClass('d-none');
 	  					$('#portalContent').html(data);
 	    			}).fail(ojbc.displayFailMessage)
@@ -273,7 +273,7 @@
 						oTable.fixedHeader.disable();
 						oTable.destroy();
 					}    	    	
-		    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationDefaultSearch')", function(data) {
+		    		xhr = $.post(context + 'rapbacks/criminalIdentificationDefaultSearch')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 													
@@ -289,9 +289,9 @@
 					}    	    	
 				    $('#filterColumn').removeClass('d-none');
 		
-				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
+				    ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar')");
 		
-				    ojbc.populatePortalContentFromUrl("#springUrl('/portal/faq')");
+				    ojbc.populatePortalContentFromUrl(context + 'portal/faq')");
 							    
 				    return false;
 				});
@@ -304,9 +304,9 @@
 					}    	    	
 				    $('#filterColumn').removeClass('d-none');
 		
-				    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
+				    ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar')");
 		
-				    ojbc.populatePortalContentFromUrl("#springUrl('/suggestion/suggestionForm')");
+				    ojbc.populatePortalContentFromUrl(context + 'suggestion/suggestionForm')");
 							    
 				    return false;
 				})
@@ -319,7 +319,7 @@
 					}    	    	
 				    $('#searchBarButtonDiv').css("display", "none");
 		
-		    		xhr = $.get("#springUrl('/subscriptions/admin/landingPage')", function(data) {
+		    		xhr = $.get(context + 'subscriptions/admin/landingPage')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 					}).fail(ojbc.displayFailMessage);
@@ -336,13 +336,13 @@
 			#if($homePage=="landingPage")
 			
 				$("#searchBarButtonDiv").hide();
-				$.get("#springUrl('/portal/landingPage')", function(data) {
+				$.get(context + 'portal/landingPage')", function(data) {
 					$('#portalContent').html(data);
 				}).fail(function(data) {$('#portalContent').html(data); });
 			
 			#elseif($homePage=="query")
 			
-				$.get("#springUrl('/people/searchForm')", function(data) {
+				$.get(context + 'people/searchForm')", function(data) {
 					$('#portalContent').html(data);
 				}).fail(function(data) {$('#portalContent').html(data); });
 			
@@ -350,11 +350,11 @@
 			
 				$("#searchBarButtonDiv").hide();
 			
-				$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+				$.post(context + 'subscriptions/subscriptionResults')", function(data) {
 				
 					$('#portalContent').html(data);	
 															
-					$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
+					$.post(context + 'portal/subscriptionsLeftBar')", function(data) {
 						    	
 		    			$('#filterColumn').html(data);
 		    			$('#filterColumn').css('visibility', 'visible');
@@ -367,7 +367,7 @@
 			function reloadPage() {
 			    clearTimeout(idleTime);
 			    idleTime = setTimeout(function () {
-			        window.location.assign("#springUrl('/portal/performLogout')");
+			        window.location.assign(context + 'portal/performLogout')");
 			    }, $inactivityTimeoutInSeconds * 1000);
 			}
 			
@@ -380,25 +380,25 @@
 			    	$('#filterColumn').removeClass('d-none');    				    			 
 			    
 			    	//TODO likely needs refactor(2 jquery ajax asynch calls in a row)
-					ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
-			    	ojbc.populatePortalContentFromUrl("#springUrl('/portal/landingPage')");
+					ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar')");
+			    	ojbc.populatePortalContentFromUrl(context + 'portal/landingPage')");
 			    
 			    #elseif($homePage=="query")	
 			    	 
 					// TODO cleanup these nested jquery ajax calls to make them easier to read		    		    			    		    
-					$.post("#springUrl('/portal/leftBar')", function(data) {
+					$.post(context + 'portal/leftBar')", function(data) {
 		    			$('#filterColumn').html(data);	 
 		    			$("#demogFilterInfo").hide();
 		    			$('#filterColumn').removeClass('d-none');    				    			 
 		    			
-						$.get("#springUrl('/people/searchForm')", function(data) {		
+						$.get(context + 'people/searchForm')", function(data) {		
 						      $('#portalContent').html(data);
 						}).fail(ojbc.displayFailMessage);	    				    				    			
 		    		}).fail(ojbc.displayFailMessage);	
 		    		
 		    	#elseif($homePage=="subscriptions")
 		    	
-		    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+		    		xhr = $.post(context + 'subscriptions/subscriptionResults')", function(data) {
 		    			$('#filterColumn').addClass('d-none');
 						$('#portalContent').html(data);	
 					}).fail(ojbc.displayFailMessage);								    

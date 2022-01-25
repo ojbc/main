@@ -23,7 +23,7 @@
 	        }else {
 	            var formData = $("#reportForm").serialize();
 	
-	            xhr = $.post("#springUrl('/suggestion/submitEmail')",formData,function(data) {
+	            xhr = $.post(context + 'suggestion/submitEmail')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 		    }

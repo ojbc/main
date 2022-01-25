@@ -23,7 +23,7 @@
     	  
     $( ".datePicker" ).datepicker({
        showOn: "both",
-       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
        buttonImageOnly: true,
        shortYearCutoff: "+10",
        dateFormat: 'mm/dd/yy'
@@ -33,7 +33,7 @@
     	ojbc.clearPlaceholders();
         var formData = $('#advancedSearchForm').serialize();
     
-       	xhr = $.post("#springUrl('/rapbacks/criminalIdentificationAdvancedSearch')",formData,function(data) {
+       	xhr = $.post(context + 'rapbacks/criminalIdentificationAdvancedSearch')",formData,function(data) {
 	        $('#portalContent').html(data);
         }).fail(ojbc.displayFailMessage);
 	});
@@ -45,7 +45,7 @@
     $('#advanceSearchClearButton').click (function(event){
 	  ojbc.clearSearchPurposeFields();
 	  ojbc.clearSearchResultsFilterFields();
-	  $.get("#springUrl('/rapbacks/criminalIdentificationSearchForm?resetForm=true')", function(data) {
+	  $.get(context + 'rapbacks/criminalIdentificationSearchForm?resetForm=true')", function(data) {
 	    $('#portalContent').html(data);
 	    
 	  }).fail(ojbc.displayFailMessage)

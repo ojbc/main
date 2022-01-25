@@ -30,7 +30,7 @@
             	ojbc.clearPlaceholders();
                 var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
             
-	  	       	xhr = $.post("#springUrl('/vehicles/advanceSearch')",formData,function(data) {
+	  	       	xhr = $.post(context + 'vehicles/advanceSearch')",formData,function(data) {
 	  	       	    if (data.indexOf('id="advancedSearchTab"') === -1){
 		  	       		$('#filterColumn').addClass('d-none');
 	  	       		}
@@ -52,7 +52,7 @@
 	        
             $('#advanceSearchClearButton').click (function(event){
                   ojbc.clearSearchPurposeFields();
-                  $.get("#springUrl('/vehicles/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
+                  $.get(context + 'vehicles/searchForm?resetForm=true&activeSearchTab=advancedSearchTab')", function(data) {
                     $('#portalContent').html(data);
                   }).fail(ojbc.displayFailMessage)
               });

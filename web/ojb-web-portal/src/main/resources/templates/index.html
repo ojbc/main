@@ -46,6 +46,9 @@
 		        var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
 	        /*]]>*/
             $(function(){
+                var oTable;
+                var idleTime;
+
             	showHomepage();
                 if( !!sensitiveInfoAlert ){
                     bootpopup({

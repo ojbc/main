@@ -22,7 +22,7 @@
  		  ojbc.handleEsc();
 		    $( ".datePicker" ).datepicker({
 		       showOn: "both",
-		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		       buttonImage: context + 'static/images/Search Form/icon-calendar.png')",
 		       buttonImageOnly: true,
 		       shortYearCutoff: "+10",
 		       dateFormat: 'mm/dd/yy'
@@ -32,7 +32,7 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#advancedSearchForm').serialize();
 	        
-	  	       	xhr = $.post("#springUrl('/auditLogs/personSearchLogs')",formData,function(data) {
+	  	       	xhr = $.post(context + 'auditLogs/personSearchLogs')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
@@ -42,7 +42,7 @@
 		   });
            
 	        $('#advanceSearchClearButton').click (function(event){
-			  $.get("#springUrl('/auditLogs/personSearchForm?resetForm=true')", function(data) {
+			  $.get(context + 'auditLogs/personSearchForm?resetForm=true')", function(data) {
 			    $('#portalContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)

@@ -38,7 +38,7 @@
 			row.siblings().removeClass("selected");
 		    row.addClass("selected");
 			
-	 		var personSearchResponseUrl = encodeURI("#springUrl('/auditLogs/personSearchResults')");
+	 		var personSearchResponseUrl = encodeURI(context + 'auditLogs/personSearchResults')");
 	  		$.post( personSearchResponseUrl, $.param(requestData), function(data) {
 				$('#personSearchResultModalContent').html(data);
 				$('#personSearchResultModal').modal('show');

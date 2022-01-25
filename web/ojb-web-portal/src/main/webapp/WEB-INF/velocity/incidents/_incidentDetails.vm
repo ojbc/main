@@ -16,13 +16,13 @@
  *#
 <html>
     <head>
-		<link rel="stylesheet" type="text/css" href="#springUrl('/webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
+		<link rel="stylesheet" type="text/css" href=context + 'webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/modal-frame.css')">
         
-		<script src="#springUrl('/webjars/jquery/3.3.1/jquery.min.js')"></script>
-		<script src="#springUrl('/webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
-		<script src="#springUrl('/webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+		<script src=context + 'webjars/jquery/3.3.1/jquery.min.js')"></script>
+		<script src=context + 'webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
+		<script src=context + 'webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
     </head>
     <body id="searchDetailsFrame">
         $searchContent
