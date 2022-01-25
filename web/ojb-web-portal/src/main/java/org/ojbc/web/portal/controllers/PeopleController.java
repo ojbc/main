@@ -415,7 +415,6 @@ public class PeopleController {
 		userSession.setMostRecentSearchResult(searchContent);
 		userSession.setSavedMostRecentSearchResult(null);
 		String convertPersonSearchResult = searchResultConverter.convertPersonSearchResult(searchContent,getParams( personSearchRequest.getPurpose(), personSearchRequest.getOnBehalfOf()));
-		log.debug("convertPersonSearchResult: " + convertPersonSearchResult);
 		model.put("searchContent", convertPersonSearchResult);
 		
 		return personSearchResultPage;

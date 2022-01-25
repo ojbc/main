@@ -252,7 +252,8 @@
                     $('#sourceSystemsCheckBoxes input').prop("checked", false); 
                     
                     sourceSystems.forEach(function(selectedSourceSystem){
-                    	$("#sourceSystemsCheckBoxes input[value=" + selectedSourceSystem + "]").prop('checked',true);
+                    	console.log("selectedSourceSystem:" + selectedSourceSystem);
+                    	$("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
                     });
                 }
                 else{
