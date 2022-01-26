@@ -27,7 +27,7 @@ public class WarrantQueryResultsRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("personVehicleToIncidentSearchResultsHandlerServiceEndpoint")
+        from("personQueryResultsHandlerWarrantsServiceEndpoint")
         .routeId("personQueryResultsHandlerWarrantsServiceEndpoint")
         .log(LoggingLevel.DEBUG, "Received response message - Warrants: ${body}")
         .to("bean:warrantsMessageProcessor?method=processRequestPayload")
