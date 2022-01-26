@@ -1,0 +1,37 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href=context + 'webjars/bootstrap/4.3.1/css/bootstrap.min.css')" />
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/modal-frame.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+		<link rel="stylesheet" type="text/css" href=context + 'webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css')" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
+        
+		<script src=context + 'webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+        <script src=context + 'static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+		<script src=context + 'webjars/bootstrap/4.3.1/js/bootstrap.min.js')"></script>
+		<script src=context + 'webjars/popper.js/1.14.7/umd/popper.min.js')"></script>
+		<script src=context + 'webjars/datatables/1.10.20/js/jquery.dataTables.min.js')"></script>
+        <script src=context + 'static/js/ojb-web-portal.js')"></script>
+    </head>
+    <body id="searchDetailsFrame">
+        $searchContent
+    </body>
+</html>

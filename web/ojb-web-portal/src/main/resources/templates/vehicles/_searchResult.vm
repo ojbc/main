@@ -1,0 +1,130 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+  $(function() {
+
+	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+	    $.ajaxSetup({ cache: false });
+	  
+	  	oTable = $("#searchResultsTable").dataTable({
+			pagingType: "full_numbers",
+			pageLength: 50,
+			stateSave: true,
+  			responsive: true,
+			"columnDefs": [{
+				targets: [ 8 ],
+			    searchable: false, 
+			    sortable: false
+			} ]
+  		});
+  		
+  		new $.fn.dataTable.FixedHeader( oTable );
+  		
+	  	#if($singleClickForDetail){
+			$("#searchResultsTable").on('click', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});}
+		#else{ 
+			$("#searchResultsTable").on('dblclick', 'tbody tr', function(){
+				$(this).find("a.viewDetails").click();
+			});}
+		#end
+		
+ 		$("#searchResultsTable tbody tr").on('mouseenter', function(){
+             $(this).addClass("incidentHover");
+	    }).on('mouseleave', function () {
+             $(this).removeClass("incidentHover");
+        });
+				
+		$('#returnToSearchSubmitButton').click (function(){
+	  		$.get(context + 'vehicles/searchForm')",function(data) {
+				$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage);
+		});
+		
+		$('#newSearchSubmitButton').click (function(){
+			ojbc.clearSearchPurposeFields();
+	  		$.get(context + 'vehicles/searchForm?resetForm=true')",function(data) {
+	  			$('#filterColumn').removeClass('d-none');
+			    $('#portalContent').html(data);
+			}).fail(ojbc.displayFailMessage);
+		});
+				
+	  $('#searchResultsTable').on('click', 'a.viewDetails',function() {
+		var url = encodeURI(this.href);
+		var title = $(this).attr('searchName');
+		$('#detailModal .modal-title').html(title);
+		
+        var appendPersonDataDivId = $(this).attr('appendPersonData');
+        var persionDataDiv = $('div#'+appendPersonDataDivId);
+        if(persionDataDiv.text().length > 0){
+            $("#personInformationInModal").html($('div#'+appendPersonDataDivId).html());
+            $("#personInformationInModal").show();
+        }
+        
+		ojbc.showDetailModal(url);
+		return false;
+      });
+	   		
+	  if($("#search-results-title").text().indexOf("VEHICLE") > 0) {
+        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', true);
+		$('#sourceSystemsCheckBoxes > p > span').removeClass("fieldText");     				
+    	$('#sourceSystemsCheckBoxes > p > span').addClass("lightgrayX"); 	    
+	    
+	  }	
+	  
+	  $('.modal-dialog').draggable({
+        handle: ".modal-header"
+      });
+  });
+	  
+</script>
+<div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href=context + 'portal/index')">Home</a></li>
+			<li class="breadcrumb-item"><a href="#" class="vehicleSearchLink">Vehicle Search Form</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Vehicle Search Results</li>
+		</ol>
+	</nav>
+	#if($informationMessages && $informationMessages!='')
+		<div class="alert alert-danger" role="alert" id="informationMessages" >
+			$informationMessages
+		</div>
+	#end
+	$searchContent								
+</div>
+
+<div class="modal fade ojbc-modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+	  	<h5 class="modal-title"></h5>
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	  	<div id="modalIframeSpinner"/>
+	  	<div style="display:none" id="personInformationInModal"/>
+	    <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0" />
+      </div>
+	</div>
+  </div>
+</div>
+

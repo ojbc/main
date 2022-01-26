@@ -44,13 +44,13 @@ import org.w3c.dom.Element;
 
 @Controller
 @Profile({"vehicle-search", "standalone"})
-@RequestMapping("/vehicles/*")
+@RequestMapping("/vehicles")
 public class VehiclesController {
 	public static final String PAGINATE_URL = "../vehicles/paginate";
 
 	public static final int ROWS_PER_PAGE = 50;
 
-    @Value("${vehiclesSearchResultPage:vehicles/_searchResult}")
+    @Value("${vehiclesSearchResultPage:vehicles/searchResult::searchResultContent}")
     String vehiclesSearchResultPage;
 
 	@Resource
@@ -95,7 +95,7 @@ public class VehiclesController {
 			model.put("vehicleSearchCommand", userSession.getMostRecentVehicleSearch());
 		}
 
-		return "vehicles/_searchForm";
+		return "vehicles/searchForm::searchFormContent";
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
@@ -108,32 +108,12 @@ public class VehiclesController {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
 			userSession.setMostRecentVehicleSearchResult(null);
-			return "vehicles/_searchForm";
+			return "vehicles/searchForm::searchFormContent";
 		}
 
 		VehicleSearchRequest vehicleSearchRequest = vehicleSearchCommandUtils.getVehicleSearchRequest(vehicleSearchCommand);
 		
 		return performSearchAndReturnResults(request, model, vehicleSearchRequest);
-	}
-
-    /**
-     * Not needed since jQuery dataTable is used to accomplish pagination. 
-     * @param start
-     * @param model
-     * @return
-     */
-    @Deprecated
-	@RequestMapping(value="paginate", method = RequestMethod.GET)
-	public String paginate(@RequestParam(value="start",defaultValue="0") int start, Map<String,Object> model){
-		String mostRecentSearch = userSession.getMostRecentVehicleSearchResult();
-		
-		if(mostRecentSearch == null){
-			return "redirect: searchForm";
-		}
-		String convertVehicleSearchResult = searchResultConverter.convertVehicleSearchResult(mostRecentSearch,getParams(start));
-		model.put("searchContent", convertVehicleSearchResult);
-		
-		return vehiclesSearchResultPage;
 	}
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
@@ -142,11 +122,11 @@ public class VehiclesController {
 	        Map<String, Object> model) throws InterruptedException {
 		try {
 			processDetailRequest(request, systemName, detailsRequest, model);
-			return "vehicles/_searchDetails";
+			return "vehicles/searchDetails";
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 
 	}
@@ -157,7 +137,7 @@ public class VehiclesController {
 	        throws Exception {
 		processDetailRequest(request, systemName, detailsRequest, model);
 
-		return "vehicles/_incidentDetails";
+		return "vehicles/incidentDetails::incidentDetailsContent";
 	}
 
 	@ModelAttribute("makes")

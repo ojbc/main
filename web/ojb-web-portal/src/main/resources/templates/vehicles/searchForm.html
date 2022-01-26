@@ -1,0 +1,171 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="searchFormContent" id="vehicleSearchFormContent">
+        <div id="sourceSystems" style="display: none;" 
+          th:replace="common/systemsToQuery::sourceSystemsContent">
+        </div>
+        <div id="sourceSystemsDisabled" style="display: none;" 
+          th:replace="common/systemsToQuery::sourceSystemsDisabledContent">
+        </div>
+		<div class="card" id="searchTabs">
+		    <div class="card-header">
+		        <div class="pl-0" id="search-results-title">
+		            ADVANCED SEARCH: VEHICLE
+		        </div>
+		    </div>
+		    <div class="card-body" id="advancedSearchTab">
+		        <form id='searchForm' th:object="${vehicleSearchCommand}">
+                    <th:block th:if="${errors?.hasGlobalErrors()}">
+                        <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" 
+                            th:text="${globalError.defaultMessage}">Global error message</div>
+                    </th:block>
+		     
+		            <div class='row'>
+		                <div class='col-12 col-sm-6'>
+		                    <div>
+                                <select th:field="*{advanceSearch.vehicleMake}" class="form-control form-control-sm" data-placeholder="All">
+                                  <option th:each="item: ${makes}" th:value="${item.key}" th:text="${item.value}" />
+                                </select>
+		                    </div>
+		                    
+		                    <div>
+                                <input type="text" th:field="*{advanceSearch.vehicleModel}" class="form-control form-control-sm" placeholder="Model" th:errorclass="is-invalid"/>		                  
+		                    </div>
+		                    
+		                </div>
+		                <div class='col'>
+		                    <div>
+                                <select th:field="*{advanceSearch.vehicleColor}" class="form-control form-control-sm" data-placeholder="All">
+                                  <option th:each="item: ${colors}" th:value="${item.key}" th:text="${item.value}" />
+                                </select>
+		                    </div>
+		                    <div>
+                                <input type="text" th:field="*{advanceSearch.vehiclePlateNumber}" class="form-control form-control-sm" placeholder="Plate #" th:errorclass="is-invalid"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.vehiclePlateNumber')}" 
+                                  th:errors="*{advanceSearch.vehiclePlateNumber}" class="invalid-feedback d-block error pl-2">Plate Number error message</div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class='row'>
+		                <div class="labelText col-12 col-xl-6" >
+		                    Year Range: 
+		                        <input type="text" th:field="*{advanceSearch.vehicleYearRangeStart}" class="year" placeholder="From"/>
+		                        <input type="text" th:field="*{advanceSearch.vehicleYearRangeEnd}" class="year" placeholder="To"/>
+                                <div th:if="${#fields.hasErrors('advanceSearch.vehicleYearRangeStart')}" 
+                                  th:errors="*{advanceSearch.vehicleYearRangeStart}" class="invalid-feedback d-block error pl-2">Year Range error message</div>
+		                </div>
+		                <div class="col col-sm-6">
+                           <input type="text" th:field="*{advanceSearch.vehicleVIN}" class="form-control form-control-sm" placeholder="VIN" th:errorclass="is-invalid"/>
+                           <div th:if="${#fields.hasErrors('advanceSearch.vehicleVIN')}" 
+                             th:errors="*{advanceSearch.vehicleVIN}" class="invalid-feedback d-block error pl-2">VIN error message</div>
+		                </div>                          
+		            </div>
+		        </form>
+		    </div>
+		    <div class="card-footer text-muted">
+		        <button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</button>
+		        <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+		    </div>
+		</div>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+		        var sourceSystems = [[${vehicleSearchCommand.advanceSearch.sourceSystems}]];
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+	        $(function() {
+	            //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+	            $.ajaxSetup({ cache: false });
+	          
+	            if (oTable !== undefined && oTable.fixedHeader !== undefined){
+	                //console.log("oTable: " + oTable); 
+	                oTable.fixedHeader.disable();
+	                oTable.destroy();
+	            }               
+	            ojbc.handlePlaceholders(); 
+	          
+	            $('#advanceSearchSubmitButton').click (function(){
+	                ojbc.clearPlaceholders();
+	                var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
+	                formData += '&'+_csrf_param_name+'='+_csrf_token;
+	                
+	                xhr = $.post(context + 'vehicles/advanceSearch',formData,function(data) {
+	                    if (data.indexOf('id="advancedSearchTab"') === -1){
+	                        $('#filterColumn').addClass('d-none');
+	                    }
+	                    $('#portalContent').html(data);
+	                }).fail(ojbc.displayFailMessage);
+	            });
+	            
+	            $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+	            $('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+	            
+	            $('#sourceSystemsCheckBoxes input').each (function(){
+	                this.checked = true
+                });
+	            
+                if( !!sourceSystems ){
+                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
+                    sourceSystems.forEach(function(selectedSourceSystem){
+                        /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
+                        $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
+                    });
+                }
+                else{
+                    $('#sourceSystemsCheckBoxes input').prop("checked", true);
+                }
+	            
+	            $('#advanceSearchClearButton').click (function(event){
+	                  ojbc.clearSearchPurposeFields();
+	                  $.get(context + 'vehicles/searchForm?resetForm=true&activeSearchTab=advancedSearchTab', function(data) {
+	                    $('#portalContent').html(data);
+	                  }).fail(ojbc.displayFailMessage)
+	              });
+	
+	            //This allows the input fields on the search form to submit form with enter key
+	            $('#advancedSearchTab input').keyup(function(e) {
+	                if (e.keyCode == 13) {
+	                    $('#advanceSearchSubmitButton').click();
+	                }
+	            });
+	
+	            //This allows the select fields on the search form to submit form with enter key            
+	            $('#advancedSearchTab select').keyup(function(e) {
+	                if (e.keyCode == 13) {
+	                    $('#advanceSearchSubmitButton').click();
+	                }
+	            }); 
+	                                
+	        });
+		</script>
+        
+    </th:block>
+  </body>
+</html>

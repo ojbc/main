@@ -68,7 +68,7 @@
 		            <div class='row'>
 		                <div class="labelText col-12 col-xl-6" >
 		                    Date Range: 
-		                        <input type="text" th:field="*{advanceSearch.incidentDateRangeStart}" class="datePicker mdate" placeholder="From"/>
+		                        <input type="text" th:field="*{advanceSearch.incidentDateRangeStart}" class="datePicker mdate mr-2" placeholder="From"/>
 		                        <input type="text" th:field="*{advanceSearch.incidentDateRangeEnd}" class="datePicker mdate" placeholder="To"/>
 		                        <div th:if="${#fields.hasErrors('advanceSearch.incidentDateRangeStart')}" 
 		                          th:errors="*{advanceSearch.incidentDateRangeStart}" class="invalid-feedback d-block error pl-2">Date Range error message</div>
@@ -123,16 +123,17 @@
 		        $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
 		        $('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
 		        
-		        $('#sourceSystemsCheckBoxes input').each (function(){
-		            this.checked = true
-		            }
-		        );
-		        
-                sourceSystems.forEach(function(selectedSourceSystem){
-                    /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
-                    $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
-                });
-
+                if( !!sourceSystems ){
+                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
+                    
+                    sourceSystems.forEach(function(selectedSourceSystem){
+                        /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
+                        $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
+                    });
+                }
+                else{
+                    $('#sourceSystemsCheckBoxes input').prop("checked", true);
+                }
 		        
 		        $('#advanceSearchClearButton').click (function(event){
 		              

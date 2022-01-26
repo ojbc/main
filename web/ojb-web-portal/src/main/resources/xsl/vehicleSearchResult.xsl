@@ -128,7 +128,7 @@
                 <td class="d-none">
                     <xsl:variable name="systemSource"><xsl:value-of select="veh-ext:SourceSystemNameText"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Vehicle</xsl:text></xsl:variable>
-                    <a href="{concat('../vehicles/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'_vehicle&amp;identificationSourceText=',$systemSource,'&amp;queryType=',$queryType)}" 
+                    <a href="{concat('vehicles/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'_vehicle&amp;identificationSourceText=',$systemSource,'&amp;queryType=',$queryType)}" 
                         class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('vehicleInformation-',$vehicleId)}"
