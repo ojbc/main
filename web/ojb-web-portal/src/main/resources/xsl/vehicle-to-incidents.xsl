@@ -83,6 +83,7 @@
 		                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
 		                    
 		                    xhr=$.get("incidentDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+		                      console.log("data:" + data);
 		                      $('#incidentDetailTabsHolder').html(data);
 		                    }).fail(ojbc.displayIncidentDetailFailMessage);
 		                    

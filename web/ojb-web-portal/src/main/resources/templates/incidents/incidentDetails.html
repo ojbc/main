@@ -42,6 +42,7 @@
     
     <script th:src='@{/js/ojb-web-portal.js}'></script>
   </head>
-  <body id="searchDetailsFrame" th:utext="${searchContent}">
+  <body>
+    <th:block id="searchDetailsFrame" th:utext="${searchContent}" th:fragment="incidentDetailsContent"></th:block>
   </body>
 </html>

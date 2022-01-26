@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Element;
 
 @Controller
@@ -132,12 +133,12 @@ public class VehiclesController {
 	}
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
-	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
+	public @ResponseBody String incidentDetails(HttpServletRequest request, @RequestParam String systemName,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
 	        throws Exception {
-		processDetailRequest(request, systemName, detailsRequest, model);
+		String convertedResult = processDetailRequest(request, systemName, detailsRequest, model);
 
-		return "vehicles/incidentDetails::incidentDetailsContent";
+		return convertedResult;
 	}
 
 	@ModelAttribute("makes")
@@ -160,13 +161,14 @@ public class VehiclesController {
 		return systemsToQuery_vehicles_disabled;
 	}
 
-	private void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
+	private String processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
 		Element samlAssertion = samlService.getSamlAssertion(request);
 		
 		String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
 		String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName,null);
 		model.put("searchContent", convertedContent);
+		return convertedContent;
 	}
 
 	private Map<String, Object> getParams(int start) {
