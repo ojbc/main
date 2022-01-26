@@ -272,7 +272,6 @@ public class PeopleController {
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 	        Map<String, Object> model, Authentication authentication) {
-		log.info("in searchDetails");
 		
 		try {
 			

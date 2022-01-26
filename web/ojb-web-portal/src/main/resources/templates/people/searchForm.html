@@ -53,7 +53,6 @@
 					                       <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" th:text="${globalError.defaultMessage}">Global error message</div>
 					                   </th:block>
 		                         
-		                                <input type="hidden" th:field="*{searchType}" value="ADVANCED" /><br>
 		                                <div class='row'>
 		                                    <div class='col-12 col-md-6'>
 		                                        <p class="searchSubHeader"> NAME</p>
@@ -168,6 +167,7 @@
 	        /*<![CDATA[*/
 		        var context = [[@{/}]];
 		        var sourceSystems = [[${personSearchCommand.advanceSearch.sourceSystems}]];
+		        var activeSearchTab = [[${activeSearchTab}]];
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
@@ -181,7 +181,7 @@
                 }               
  */                 
                 $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
-                $('#personSearchTabs a[href="#${activeSearchTab}"]').tab('show')
+                $('#personSearchTabs a[href="#'+ activeSearchTab +'"]').tab('show')
                 $(".chosen-select").chosen();
                 $( ".datePicker" ).datepicker({
                    showOn: "both",
@@ -193,8 +193,10 @@
                 
                 $('#advanceSearchSubmitButton').click (function(){
                     ojbc.clearPlaceholders();
-                    var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
-                
+                    var formData = $('#advancedSearchForm').serialize()+"&searchType=ADVANCED" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                    formData += '&'+_csrf_param_name+'='+_csrf_token;
+                    
+                    console.log("formData: " + formData); 
                     xhr = $.post(context + "people/advanceSearch",formData,function(data) {
                         if (data.indexOf('id="advancedSearchTab"') === -1){
                             $('#filterColumn').addClass('d-none');
@@ -206,8 +208,10 @@
                 $('#juvenileSearchSubmitButton').click (
                     function(){
                         ojbc.clearPlaceholders();
-                        var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-                    
+
+                        var formData = $('#juvenileSearchForm').serialize()+ "&searchType=JUVENILE" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
+                        formData += '&'+_csrf_param_name+'='+_csrf_token;
+	                    console.log("formData: " + formData); 
                         xhr = $.post(context + "people/advanceSearch",formData,function(data) {
                             if (data.indexOf('id="advancedSearchTab"') === -1){
                                 $('#filterColumn').addClass('d-none');
@@ -224,7 +228,6 @@
                     
                     formData += '&'+_csrf_param_name+'='+_csrf_token;
 
-                    console.log("formData: " + formData); 
                     xhr = $.post(context + "people/simpleSearch",formData, function(data) {
                         if (data.indexOf('id="advancedSearchTab"') === -1){
                             $('#filterColumn').addClass('d-none');
