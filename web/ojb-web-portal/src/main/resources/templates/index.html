@@ -19,7 +19,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>OSBI RAPUP Tool</title>
+		<title>OJBC Portal</title>
 		<th:block th:include="fragments/general.html :: headerfiles"></th:block>
 	</head>
 	<body data-spy="scroll" data-target=".navbar">
@@ -46,7 +46,6 @@
 		        var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
 	        /*]]>*/
             $(function(){
-                var oTable;
                 var idleTime;
 
             	showHomepage();
@@ -88,6 +87,39 @@
                                            
                     return false;
                 });
+                
+                $('body').off('click','.incidentSearchLink').on('click', '.incidentSearchLink',function() {
+                    $(this).parent().toggleClass('show');
+                    $.post(context + 'portal/leftBar', function(data) {
+                                                    
+                        $('#filterColumn').html(data);   
+                        $("#demogFilterInfo").hide();
+                        $('#filterColumn').removeClass('d-none');                                    
+                        ojbc.populatePortalContentFromUrl(context + 'incidents/searchForm');
+                    }).fail(ojbc.displayFailMessage);               
+                                           
+                    return false;
+                });
+             
+                $('body').off('click','.vehicleSearchLink').on('click', '.vehicleSearchLink',function() {
+                    $(this).parent().toggleClass('show');
+                    $.post(context + 'portal/leftBar', function(data) {
+                        //console.log("vehicle left bar: " + data); 
+                        $('#filterColumn').html(data);   
+                        $('#filterColumn').removeClass('d-none');    
+                        ojbc.populatePortalContentFromUrl(context + 'vehicles/searchForm');                                
+                    }).fail(ojbc.displayFailMessage);
+                });
+             
+                $('body').off('click','.firearmSearchLink').on('click', '.firearmSearchLink',function() {
+                    $(this).parent().toggleClass('show');
+                    $.post(context + 'portal/leftBar', function(data) {
+                        //console.log("firearm left bar: " + data); 
+                        $('#filterColumn').html(data);   
+                        $('#filterColumn').removeClass('d-none');    
+                        ojbc.populatePortalContentFromUrl(context + 'firearms/searchForm');                               
+                    }).fail(ojbc.displayFailMessage);
+                });
             });
 	        
             function showHomepage(){
@@ -106,7 +138,7 @@
                         $.get(context + "people/searchForm", function(data) {      
                               $('#portalContent').html(data);
                         }).fail(ojbc.displayFailMessage);                                                           
-                     }).fail(ojbc.displayFailMessage);   
+                    }).fail(ojbc.displayFailMessage);   
                 } 
                      
                     // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  

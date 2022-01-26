@@ -196,7 +196,7 @@
                     var formData = $('#advancedSearchForm').serialize()+"&searchType=ADVANCED" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     formData += '&'+_csrf_param_name+'='+_csrf_token;
                     
-                    console.log("formData: " + formData); 
+                    /* console.log("formData: " + formData);  */
                     xhr = $.post(context + "people/advanceSearch",formData,function(data) {
                         if (data.indexOf('id="advancedSearchTab"') === -1){
                             $('#filterColumn').addClass('d-none');
@@ -211,7 +211,7 @@
 
                         var formData = $('#juvenileSearchForm').serialize()+ "&searchType=JUVENILE" + "&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                         formData += '&'+_csrf_param_name+'='+_csrf_token;
-	                    console.log("formData: " + formData); 
+	                    /* console.log("formData: " + formData); */ 
                         xhr = $.post(context + "people/advanceSearch",formData,function(data) {
                             if (data.indexOf('id="advancedSearchTab"') === -1){
                                 $('#filterColumn').addClass('d-none');
@@ -255,7 +255,7 @@
                     $('#sourceSystemsCheckBoxes input').prop("checked", false); 
                     
                     sourceSystems.forEach(function(selectedSourceSystem){
-                    	console.log("selectedSourceSystem:" + selectedSourceSystem);
+                    	/* console.log("selectedSourceSystem:" + selectedSourceSystem); */
                     	$("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
                     });
                 }

@@ -57,7 +57,6 @@
 	<xsl:template match="/ir:IncidentReport/lexspd:doPublish">
 		<script type="text/javascript">
 			$(function () {
-				
 				$("#detailModal .modal-body", parent.document).animate({
         			scrollTop: $("#details").offset().top
     			}, 400);

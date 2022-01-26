@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @Profile({"incident-search", "standalone"})
-@RequestMapping("/incidents/*")
+@RequestMapping("/incidents")
 public class IncidentsController {
 	public static final String PAGINATE_URL = "../incidents/paginate";
 
@@ -109,7 +109,7 @@ public class IncidentsController {
 			model.put("incidentSearchCommand", userSession.getMostRecentIncidentSearch());
 		}
 
-		return "incidents/_searchForm";
+		return "incidents/searchForm::searchFormContent";
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
@@ -122,32 +122,12 @@ public class IncidentsController {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
 			userSession.setMostRecentIncidentSearchResult(null);
-			return "incidents/_searchForm";
+			return "incidents/searchForm::searchFormContent";
 		}
 
 		IncidentSearchRequest incidentSearchRequest = incidentSearchCommandUtils.getIncidentSearchRequest(incidentSearchCommand);
 		
 		return performSearchAndReturnResults(request, model, incidentSearchRequest);
-	}
-
-    /**
-     * Not needed since jQuery dataTable is used to accomplish pagination. 
-     * @param start
-     * @param model
-     * @return
-     */
-    @Deprecated
-	@RequestMapping(value="paginate", method = RequestMethod.GET)
-	public String paginate(@RequestParam(value="start",defaultValue="0") int start, Map<String,Object> model){
-		String mostRecentSearch = userSession.getMostRecentIncidentSearchResult();
-		
-		if(mostRecentSearch == null){
-			return "redirect: searchForm";
-		}
-		String convertIncidentSearchResult = searchResultConverter.convertIncidentSearchResult(mostRecentSearch,getParams(start, getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
-		model.put("searchContent", convertIncidentSearchResult);
-		
-		return "incidents/_searchResult";
 	}
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
@@ -158,11 +138,11 @@ public class IncidentsController {
 			
 			processDetailRequest(request, systemName, detailsRequest, model, authentication);
 			
-			return "incidents/_incidentDetails";
+			return "incidents/incidentDetails";
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 
@@ -239,7 +219,7 @@ public class IncidentsController {
 		String convertIncidentSearchResult = searchResultConverter.convertIncidentSearchResult(searchContent,getParams(0, getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
 		model.put("searchContent", convertIncidentSearchResult);
 		
-		return "incidents/_searchResult";
+		return "incidents/searchResult::searchResultContent";
 	}
 	
 	String getFederatedQueryId() {

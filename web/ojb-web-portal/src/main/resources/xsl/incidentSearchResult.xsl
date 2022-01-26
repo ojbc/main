@@ -147,7 +147,7 @@
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="systemName"><xsl:value-of select="normalize-space(intel:SystemIdentifier/intel:SystemName)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Incident</xsl:text></xsl:variable>
-                    <a href="{concat('../incidents/incidentDetails?identificationID=','{',$incident/ext1:IncidentCategoryCode,'}',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=',$systemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
+                    <a href="{concat('incidents/incidentDetails?identificationID=','{',$incident/ext1:IncidentCategoryCode,'}',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=',$systemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
                         class="btn btn-primary btn-sm viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$incidentId)}"
