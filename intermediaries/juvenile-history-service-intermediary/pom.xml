@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>juvenile-history-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>OJB :: juvenile-history-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
