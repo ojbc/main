@@ -27,7 +27,7 @@ public class IncidentSearchRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("arrestSearchResultsHandlerServiceEndpoint").routeId("incidentSearchResultsHandlerRoute")
+        from("incidentSearchResultsHandlerServiceEndpoint").routeId("incidentSearchResultsHandlerRoute")
         .log(LoggingLevel.DEBUG, "Received response message - Incident Merge Search Response: ${body}")
         .to("bean:incidentSearchMessageProcessor?method=processRequestPayload")
         .convertBodyTo(String.class)
