@@ -1,0 +1,80 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Result</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+	<div id="searchPersonContent" th:fragment="searchPersonContent" class="p-4">
+		<p><b>PERSON SEARCH</b></p>
+		
+		<i>***THIS IS AN EXAMPLE OF WHAT A HELP PAGE COULD LOOK LIKE***</i>
+		
+		<br/>
+		<br/>
+		
+		<img th:src="@{/static/images/helpImages/personSearchExample.jpg}"/>
+		
+		<h2>Person Search Parameters</h2>
+		
+		<br/>
+		<br/>
+		<h3>First Name</h3>
+		Also known as "Given Name". User has the ability to specify:
+		    <ul>
+		        <li>"Starts With": Results in subjects with the first name searched, as well as subjects with the first name plus additional characters. For example, a "Starts With" search on 'Bob' will return 'Bob', and then 'Bobby', etc.</li>
+		        <li>"Exact Match": Results in subjects with <b>only</b> this exact first name. For example, an "Exact Match" search on 'Bob' will return <b>only</b> subjects with 'Bob' as their first name.</li>
+		    </ul>
+		<h3>Middle Name</h3>
+		This parameter uses a "Starts With" qualifier by default.
+		<h3>LAST NAME</h3>
+		User has the ability to specify:
+		    <ul>
+		        <li>"Starts With": Results in subjects with the last name searched, as well as subjects with the last name plus additional characters. For example, a "Starts With" search on 'Johns' will return 'Johns', and then 'Johnson', etc.</li>
+		        <li>"Exact Match": Results in subjects with <b>only</b> this exact last name. For example, an "Exact Match" search on 'Johns' will return <b>only</b> subjects with 'Johns' as their last name.</li>
+		    </ul>
+		<br/>
+		<h3>SID #, FBI #, SSN, DL/ID #</h3>
+		All of these parameters are valid identifiers. Only exact matches will return a result.
+		<h4>SID #</h4>
+		State Identification numbers are usually formatted with 1 letter, followed by 7 digits.
+		<h4>FBI #</h4>
+		Federal Bureau of Investigation numbers are typically 9 alpha numeric characters.
+		<h4>SSN</h4>
+		Social security numbers should be searched using the format xxx-xx-xxxx.
+		<br/>
+		<h4>DL/ID #, Issuer</h4>
+		The drive license number for a person.  <br/>
+		<br/>
+		
+		<h3>Here is an example of how to insert graphics in your help pages:</h3>
+		<br/>
+		<img th:src="@{/static/images/helpImages/personSearchDemographicsExample.jpg}"/>
+		
+		<br/>
+		<br/>
+        <br/>	
+    </div>
+  </body>
+</html>

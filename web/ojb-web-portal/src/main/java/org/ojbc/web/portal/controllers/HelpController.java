@@ -17,85 +17,86 @@
 package org.ojbc.web.portal.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/help/*")
+@RequestMapping("/help")
 public class HelpController  {
 
-    @RequestMapping("helpLeftBar")
+    @GetMapping("helpLeftBar")
     public String helpLeftBar()  {
-	return "help/_helpLeftBar";
+    	return "help/helpLeftBar::helpLeftBarContent";
     }
 
-    @RequestMapping("introduction")	
+    @GetMapping("introduction")	
     public String introduction()  {
-	return "help/_introduction";
+    	return "help/introduction::introductionContent";
     }
 
-    @RequestMapping("search")	
+    @GetMapping("search")	
     public String search()  {
-	return "help/_search";
+	return "help/search::searchContent";
     }
 
-    @RequestMapping("search_Person")	
+    @GetMapping("searchPerson")	
     public String search_Person()  {
-	return "help/_search_Person";
+	return "help/searchPerson::searchPersonContent";
     }
 
-    @RequestMapping("search_Incident")	
+    @RequestMapping("searchIncident")	
     public String search_Incident()  {
-	return "help/_search_Incident";
+	return "help/searchIncident::searchIncidentContent";
     }
 
-    @RequestMapping("search_Firearm")	
+    @RequestMapping("searchFirearm")	
     public String search_Firearm()  {
-	return "help/_search_Firearm";
+	return "help/searchFirearm::searchFirearmContent";
     }
 
     @RequestMapping("sources")	
     public String sources()  {
-	return "help/_sources";
+	return "help/sources::sourcesContent";
     }
 
-    @RequestMapping("sources_CJIS")	
+    @RequestMapping("sourcesCjis")	
     public String sources_CJIS()  {
-	return "help/_sources_CJIS";
+	return "help/sourcesCjis::sourcesCjisContent";
     }
 
-    @RequestMapping("sources_eBW")	
+    @RequestMapping("sourcesEbw")	
     public String sources_eBW()  {
-	return "help/_sources_eBW";
+	return "help/sourcesEbw::sourcesEbwContent";
     }
 
-    @RequestMapping("sources_Firearms")	
+    @RequestMapping("sourcesFirearms")	
     public String sources_Firearms()  {
-	return "help/_sources_Firearms";
+	return "help/sourcesFirearms::sourcesFirearmsContent";
     }
 
     @RequestMapping("simpleSearch")	
     public String simpleSearch()  {
-	return "help/_simpleSearch";
+	return "help/simpleSearch::simpleSearchContent";
     }
 
     @RequestMapping("howSearchWorks")	
     public String howSearchWorks()  {
-	return "help/_howSearchWorks";
+	return "help/howSearchWorks::howSearchWorksContent";
     }
 
     @RequestMapping("subManual")	
     public String subManual()  {
-	return "help/_subManual";
+	return "help/subManual::subManualContent";
     }
 
-    @RequestMapping("subManual_Arrest")	
+    @RequestMapping("subManualArrest")	
     public String subManual_Arrest()  {
-	return "help/_subManual_Arrest";
+	return "help/subManualArrest::subManualArrestContent";
     }
 
     @RequestMapping("howAuthWorks")	
     public String howAuthWorks()  {
-	return "help/_howAuthWorks";
+	return "help/howAuthWorks::howAuthWorksContent";
     }
 
 }

@@ -1,0 +1,84 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Result</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+	<div id="simpleSearchContent" th:fragment="simpleSearchContent" class="p-4">
+		<p><b>SIMPLE SEARCH TUTORIAL</b></p>
+		
+		<p>
+		By default, the 'Simple Search' screen will start with the source systems available for the query selected. The user must uncheck any systems that will not be a part of the search.
+		</p>
+		<div>
+		  Once the source system(s) are set, the user must type the search parameter(s) into the box initially labeled 'Search term(s)'. Some of the valid parameter combinations are:
+		    <ul>
+		        <li>
+		            <p>
+		            Last name only<br/>
+		            If the last name contains spaces or hyphens, combine all into 1 word. For example, if searching for the last name "De Los Santos", enter "DeLosSantos" into the parameter box. As mentioned in '2. Search Parameters - Person Search', last name searches only use 'sounds like' qualifiers currently.<br/>
+		            <i>*May return "System CJIS HI returned too many records, please refine your criteria." The Criminal History search only allows 250 returns maximum. If this error is shown, the user must refine the search by adding a first name parameter.</i>
+		            </p>
+		        </li>
+		        <li>
+		            <p>
+		            First and last name<br/>
+		            The format for this combination is 'John Doe' (FirstName LastName).
+		            </p>
+		        </li>
+		        <li>
+		            <p>
+		            Social security number<br/>
+		            The format for this parameter is nnn-nn-nnnn.
+		            </p>
+		        </li>
+		        <li>
+		            <p>
+		            Driver's License number<br/>
+		            The format for this parameter is Hnnnnnnnn<br/>
+		            <i>*This parameter is currently only valid for the Warrants source system, using this parameter to search the Criminal History source system will cause the "too many records" error.</i>
+		            </p>
+		        </li>
+		        <li>
+		            <p>
+		            State Identification number<br/>
+		            The format for this parameter is annnnnnn, 1 letter followed by 7 numbers.
+		            </p>
+		        </li>
+		        <li>
+		            <p>
+		            FBI number<br/>
+		            The format for this parameter is 9 alphanumeric characters.
+		            </p>
+		        </li>
+		    </ul>
+		    <br/>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+  </body>
+</html>

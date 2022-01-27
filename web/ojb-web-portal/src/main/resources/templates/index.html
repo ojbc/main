@@ -120,6 +120,17 @@
                         ojbc.populatePortalContentFromUrl(context + 'firearms/searchForm');                               
                     }).fail(ojbc.displayFailMessage);
                 });
+                
+                $('#helpLink').click (function() {  
+                    
+                    $('#filterColumn').removeClass('d-none');
+        
+                    ojbc.populateLeftBarContentFromUrl(context + 'help/helpLeftBar');
+                    ojbc.populatePortalContentFromUrl(context + 'help/introduction');
+                                
+                    return false;                                               
+                })
+        
             });
 	        
             function showHomepage(){

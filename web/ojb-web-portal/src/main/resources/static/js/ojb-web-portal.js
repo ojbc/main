@@ -272,7 +272,7 @@ ojbc = {
 	},
 
    populateLeftBarContentFromUrl : function(url) {
-	    $.post(url, function(data) {	    	
+	    $.get(url, function(data) {	    	
 	    	$('#filterColumn').html(data);
 	    }).fail(ojbc.displayFailMessage);
 	    return false;

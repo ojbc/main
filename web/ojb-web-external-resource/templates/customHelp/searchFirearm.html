@@ -1,0 +1,59 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Result</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+	<div id="searchFirearmContent" th:fragment="searchFirearmContent" class="p-4">
+		<p><b>FIREARM SEARCH</b></p>
+		
+		<i>***THIS IS AN EXAMPLE OF WHAT A HELP PAGE COULD LOOK LIKE***</i>
+		<br/>
+		<br/>
+		<img th:src="@{/static/images/helpImages/firearmsQueryExample.jpg}"/>
+		
+		<h2>Firearm Search Parameters</h2>
+		
+		<br/><br/>
+		<h3>SERIAL NUMBER</h3>
+		This is the Factory-specific Serial Number, and as such, there is no specific format that this parameter follows.
+		<br/><br/>
+		The user may select "Includes" which will search for the specific string anywhere within existing serial numbers. For example, searching for '111' with the "Includes" option will return '...111', '...111...', '111', and '111...' entries. Using the "Exact Match" option will only return the specific string searched for. So '111' searches with the "Exact Match" option will only return registrations with '111' as the serial number.
+		<h3>REGISTRATION NUMBER</h3>
+		This number should be unique for each county.
+		<br/><br/>
+		For Maui County, this number seems to be digits-only, 2-5 digits in length.
+		<h3>County</h3>
+		This field is currently not functional, and is going to be removed in a future version of the Portal.
+		<h3>MAKE/MODEL</h3>
+		These fields functions as if an "Includes" option was selected. This allows users to search for a specific maker (i.e. "REMINGTON ARMS CO., INC." will return a smaller, easier to search list of matches than "REMINGTON"), or use a broad search ("ARMS") to return a large list and then attempt to use subsequent searches to filter down further.
+		<h3>Firearm Type</h3>
+		This field is meant to allow users to filter large result sets based on the type of firearm (e.g. pistol, rifle, shotgun).
+		<br/>
+		<br/>
+		<br/>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/jquery-ui-themes-1.12.1/themes/smoothness/jquery-ui.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/print-tabs.css')" media="print">
+        <link rel="stylesheet" type="text/css" href=context + 'static/css/modal-frame.css')">
+        
+        
+    	<script src=context + 'webjars/jquery/3.3.1/jquery.min.js')"></script>
+    	<script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+        <script src=context + 'static/js/jquery-ui-1.12.1/jquery-ui.js')"></script>
+
+    </head>
+    <body id="searchDetailsFrame">
+        <script type="text/javascript">
+			$(function () {
+				$('#tabs').tabs({
+					create: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					},
+					activate: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					}
+				});
+				
+				$("#printButton").button();
+				
+				$("#printButton").on("click", function(){
+
+					var activeTabIdx = $('#tabs').tabs('option','active');
+
+					// ID OF ACTIVE TAB
+					// make sure to change #tabs to your selector for tabs
+					var selector = '#tabs > ul > li';
+					var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+					
+					$.post(context + 'rapbacks/auditPrintResults')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+
+					window.print();
+				}); 
+			});
+		</script>
+
+		<div id="tabs">
+
+			<ul>
+				<li id="State Initial Results">
+					<a href="#stateInitialResultTab">State Initial Results</a>
+				</li>
+				<li id="FBI Initial Results">
+					<a href="#fbiInitialResultTab">FBI Initial Results</a>
+				</li>
+				
+				#if(
+					(($identificationResultsQueryResponse.nsorDemographicsDocuments) && ($identificationResultsQueryResponse.nsorDemographicsDocuments.size() > 0)) 
+					||
+					(($identificationResultsQueryResponse.nsorSearchResultsDocuments) && ($identificationResultsQueryResponse.nsorSearchResultsDocuments.size() > 0))
+				   ) 
+					<li id="NSOR Results">
+						<a href="#nsorResultTab">NSOR Results</a>
+					</li>
+				#end
+				
+				<button id="printButton" class="greyButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
+			</ul>
+
+			<div id="stateInitialResultTab">
+				<!--A better way of checking String is not null or empty--> 
+				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
+				#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
+   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
+				#end
+				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>
+			<div id="fbiInitialResultTab">
+				#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
+					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+				#end
+				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>
+			<div id="nsorResultTab">
+				#foreach($item in $identificationResultsQueryResponse.nsorDemographicsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+				#foreach($item in $identificationResultsQueryResponse.nsorSearchResultsDocuments)
+					<div class="rapsheet"><pre>$item</pre></div>
+				#end
+			</div>			
+			
+		</div>
+        
+    </body>
+</html>

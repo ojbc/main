@@ -1,0 +1,200 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Landing Page</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+      <!-- Begin page content -->
+    <th:block th:fragment="helpTableOfContent" id="helpTableOfContent" class="container">
+        <ol>
+		    <li><a id="help_Introduction" class="helpLink" href="#">Introduction and Overview</a></li>
+		    <li><a id="help_Search" class="helpLink" href="#">Search Parameters</a>
+			    <ul>
+			      <li><a id="help_Search_Person" class="helpLink" href="#">Person Search</a></li>
+			      <li><a id="help_Search_Incident" class="helpLink" href="#">Incident Search</a></li>
+			      <li><a id="help_Search_Firearm" class="helpLink" href="#">Firearm Search</a></li>
+			    </ul>
+		    </li>
+		    <li><a id="help_Sources" class="helpLink" href="#">Data Sources Available</a>
+			    <ul>
+			      <li><a id="help_Sources_CJIS" class="helpLink" href="#">Criminal History</a></li>
+			      <li><a id="help_Sources_eBW" class="helpLink" href="#">Warrants</a></li>
+			      <li><a id="help_Sources_Firearms" class="helpLink" href="#">Firearms</a></li>
+			    </ul>
+		    </li>
+		    <li><a id="help_simpleSearch" class="helpLink" href="#">Simple Search Tutorial</a></li>
+		    <li><a id="help_howSearchWorks" class="helpLink" href="#">Record Grouping (Entity Resolution)</a></li>
+		    <li><a id="help_subManual" class="helpLink" href="#">Subscriptions</a></li>
+		    <li><a id="help_howAuthWorks" class="helpLink" href="#">User Authentication</a></li>
+	    </ol>
+	    <script th:inline="javascript">
+	        /*<![CDATA[*/
+    	        var context = [[@{/}]];
+	        /*]]>*/
+		    $(function(){
+		        
+		        $('#help_Introduction').click (function(){                         
+	                $('#searchBarButtonDiv').css("display", "none");
+		
+	                $.get(context + 'help/introduction', function(data) {
+	                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Search').click (function() {                       
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/search', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Search_Person').click (function() {                        
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/searchPerson', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Search_Incident').click (function() {                      
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/searchIncident', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Search_Firearm').click (function() {                       
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/searchFirearm', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		            return false;
+		        });
+		
+		        $('#help_Sources').click (function() {                      
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/sources', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Sources_CJIS').click (function() {                         
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/sourcesCjis', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Sources_eBW').click (function() {                      
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/sourcesEbw', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_Sources_Firearms').click (function() {                         
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/sourcesFirearms', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_simpleSearch').click (function() {                         
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/simpleSearch', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_howSearchWorks').click (function() {                       
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/howSearchWorks', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_subManual').click (function() {                        
+                    $('#searchBarButtonDiv').css("display", "none");
+                    
+	                $.get(context + 'help/subManual', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_subManual_Arrest').click (function() {                         
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/subManualArrest', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		        $('#help_howAuthWorks').click (function() {                         
+                    $('#searchBarButtonDiv').css("display", "none");
+	
+	                $.get(context + 'help/howAuthWorks', function(data) {
+                      $('#portalContent').html(data);                         
+	                }).fail(ojbc.displayFailMessage);
+		                    
+		            return false;
+		        });
+		
+		   });
+	    </script>
+    </th:block>
+  </body>
+</html>
