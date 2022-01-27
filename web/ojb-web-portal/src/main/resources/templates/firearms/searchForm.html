@@ -1,0 +1,180 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="searchFormContent" id="vehicleSearchFormContent">
+        <div id="sourceSystems" style="display: none;" 
+          th:replace="common/systemsToQuery::sourceSystemsContent">
+        </div>
+        <div id="sourceSystemsDisabled" style="display: none;" 
+          th:replace="common/systemsToQuery::sourceSystemsDisabledContent">
+        </div>
+		<div class="card" id="searchTabs">
+		    <div class="card-header">
+		        <div class="pl-0" id="search-results-title">
+		            ADVANCED SEARCH: FIREARM
+		        </div>
+		    </div>
+		    <div class="card-body" id="advancedSearchTab">
+		        <form id='searchForm' th:object="${firearmSearchCommand}">
+                    <th:block th:if="${errors?.hasGlobalErrors()}">
+                        <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" 
+                            th:text="${globalError.defaultMessage}">Global error message</div>
+                    </th:block>
+		         
+		            <div class='row'>
+		                <div class='col-12 col-xl-6'>
+		                    <div class='row'>
+		                        <div class='col-5'>
+                                    <input type="text" th:field="*{advanceSearch.firearmSerialNumber}" class="form-control form-control-sm" placeholder="Serial Number" th:errorclass="is-invalid"/>		                          
+		                        </div>
+		                        <div class='col'>
+		                            <div class="form-check-inline">
+		                              <label class="form-check-label form-control-sm mt-2 pt-2">
+                                        <th:block th:each="metadata : ${T(org.ojbc.web.SearchFieldMetadata).values()}" th:unless="${metadata.metadata == 'Starts With'}">
+                                            <input type="radio" th:field="*{advanceSearch.firearmSerialNumberMetaData}" th:value="${metadata}" class="form-check-input">
+                                            <span class="form-check-label form-control-sm col-form-label" th:for="${#ids.prev('advanceSearch.firearmSerialNumberMetaData')}" th:text="${metadata.metadata}">metadata</span>
+                                        </th:block>
+		                              </label>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class='col col-sm-6'>
+		                    <div>
+		                      <input type="text" th:field="*{advanceSearch.firearmMake}" class="form-control form-control-sm" placeholder="Make" th:errorclass="is-invalid"/>
+	                        </div>
+		                </div>
+		            </div>
+		            <div class='row'>
+		                <div class='col-12 col-sm-6'>
+		                    <div>
+		                      <input type="text" th:field="*{advanceSearch.firearmRegistrationNumber}" class="form-control form-control-sm" placeholder="Registration Number" th:errorclass="is-invalid"/>
+		                    </div>
+		                    
+		                    <div>
+                              <select th:field="*{advanceSearch.firearmType}" class="form-control form-control-sm" data-placeholder="All">
+                                <option th:each="item: ${types}" th:value="${item.key}" th:text="${item.value}" />
+                              </select>
+		                    </div>                                                 
+		                </div>
+		                <div class='col'>
+		                    <div>
+                              <input type="text" th:field="*{advanceSearch.firearmModel}" class="form-control form-control-sm" placeholder="Model" th:errorclass="is-invalid"/>
+		                    </div>
+		                    <div class="labelText">
+				               <input type="checkbox" th:field="*{advanceSearch.firearmCurrentRegOnly}"/>
+				               <label class="font-weight-bold " th:for="${#ids.prev('advanceSearch.firearmCurrentRegOnly')}" >Current Registrations Only</label>
+		                    </div>  
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		    <div class="card-footer text-muted">
+		        <button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary" >SEARCH</button>
+		        <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary">CLEAR</button>
+		    </div>
+		</div>	
+		<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script> 
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+		        var sourceSystems = [[${firearmSearchCommand.advanceSearch.sourceSystems}]];
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+		    $(function() {
+		        //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+		        $.ajaxSetup({ cache: false });
+		        ojbc.handlePlaceholders();
+		        if (oTable !== undefined && oTable.fixedHeader !== undefined){
+		            oTable.fixedHeader.disable();
+		            oTable.destroy();
+		        }               
+		           
+		        $('#advanceSearchSubmitButton').click(function(){
+		            var isValidate=$("#searchForm").valid();
+		            ojbc.clearPlaceholders();
+		            var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
+                    formData += '&'+_csrf_param_name+'='+_csrf_token;
+		        
+		            xhr=$.post(context + 'firearms/advanceSearch',formData,function(data) {
+		                if (data.indexOf('id="advancedSearchTab"') === -1){
+		                    $('#filterColumn').addClass('d-none');
+		                }
+		                $('#portalContent').html(data);
+		            }).fail(ojbc.displayFailMessage)
+		        });
+		        
+		        $('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
+		        $('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
+		        
+                if( !!sourceSystems ){
+                    $('#sourceSystemsCheckBoxes input').prop("checked", false); 
+                    sourceSystems.forEach(function(selectedSourceSystem){
+                        /* console.log("selectedSourceSystem:" + selectedSourceSystem); */
+                        $("#sourceSystemsCheckBoxes input[value='" + selectedSourceSystem + "']").prop('checked',true);
+                    });
+                }
+                else{
+                    $('#sourceSystemsCheckBoxes input').prop("checked", true);
+                }
+		        
+		        $('#advanceSearchClearButton').click (function(event){
+		              
+		              ojbc.clearSearchPurposeFields();
+		              $.get(context + 'firearms/searchForm?resetForm=true&activeSearchTab=advancedSearchTab', function(data) {
+		                $('#portalContent').html(data);
+		                
+		              }).fail(ojbc.displayFailMessage)
+		          });
+		
+		
+		        //This allows the input fields on the search form to submit form with enter key
+		        $('#advancedSearchTab input').keyup(function(e) {
+		            if (e.keyCode == 13) {
+		                $('#advanceSearchSubmitButton').click();
+		            }
+		        });
+		
+		        //This allows the select fields on the search form to submit form with enter key            
+		        $('#advancedSearchTab select').keyup(function(e) {
+		            if (e.keyCode == 13) {
+		                $('#advanceSearchSubmitButton').click();
+		            }
+		        }); 
+		
+		        $('#demogFilterInfo').hide();
+		        $('#sourceSystemsCheckBoxes > p > input').attr('disabled', false);
+		        $('#sourceSystemsCheckBoxes > p > span').removeClass("lightgrayX");         
+		        $('#sourceSystemsCheckBoxes > p > span').addClass("fieldText");                     
+		    });
+		</script>
+        
+    </th:block>
+  </body>
+</html>

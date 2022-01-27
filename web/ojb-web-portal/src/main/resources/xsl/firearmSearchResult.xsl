@@ -188,7 +188,7 @@
                 	<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(fa-ext:SourceSystemNameText)"/></xsl:variable>
                 	                    
 					<!-- TODO use Identification ID for detail query rather than registration ID -->                    
-                    <a href="{concat('../firearms/searchDetails?identificationID=', intel:SystemIdentifier/nc:IdentificationID, '&amp;systemName=Firearm Reg.&amp;identificationSourceText=',$systemSource)}" 
+                    <a href="{concat('firearms/searchDetails?identificationID=', intel:SystemIdentifier/nc:IdentificationID, '&amp;systemName=Firearm Reg.&amp;identificationSourceText=',$systemSource)}" 
                         class="btn btn-primary btn-sm viewDetails" searchName='Firearm Registration Detail' 
                         
                             appendPersonData="{concat('firearmInformation-',$firearmId)}"

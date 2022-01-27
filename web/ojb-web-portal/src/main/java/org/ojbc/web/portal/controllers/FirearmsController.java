@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @Profile({"firearms-search", "standalone"})
-@RequestMapping("/firearms/*")
+@RequestMapping("/firearms")
 public class FirearmsController extends AbstractBaseController {
 
 	private static final String URL_ROOT = "firearms";
@@ -117,7 +117,7 @@ public class FirearmsController extends AbstractBaseController {
 			model.put("firearmSearchCommand", userSession.getMostRecentFirearmSearch());
 		}
 
-		return "firearms/_searchForm";
+		return "firearms/searchForm::searchFormContent";
 	}
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
@@ -130,7 +130,7 @@ public class FirearmsController extends AbstractBaseController {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
 			userSession.setMostRecentFirearmSearchResult(null);
-			return "firearms/_searchForm";
+			return "firearms/searchForm::searchFormContent";
 		}
 
 		FirearmSearchRequest firearmSearchRequest = firearmSearchCommandUtils.getFirearmSearchRequest(firearmSearchCommand);
@@ -168,6 +168,6 @@ public class FirearmsController extends AbstractBaseController {
 		String convertFirearmSearchResult = searchResultConverter.convertFirearmSearchResult(searchContent,getParams(0, getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
 		model.put("searchContent", convertFirearmSearchResult);
 		
-		return "firearms/_searchResult";
+		return "firearms/searchResult::searchResultContent";
 	}
 }

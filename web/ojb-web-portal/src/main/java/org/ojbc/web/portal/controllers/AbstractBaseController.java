@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Element;
 
 public abstract class AbstractBaseController {
@@ -74,20 +75,6 @@ public abstract class AbstractBaseController {
 	
 	protected abstract Map<String, String> getSystemsToQueryDisabledMap();
 
-	@RequestMapping(value = "paginate", method = RequestMethod.GET)
-	public String paginate(@RequestParam(value="start",defaultValue="0") int start, Map<String,Object> model) {
-		String mostRecentSearch = getMostRecentSearchResult();
-		
-		if(mostRecentSearch == null){
-			return "redirect: searchForm";
-		}
-
-		String convertedSearchResult = convertSearchResult(mostRecentSearch, getParams(start, getMostRecentSearchPurpose(), getMostRecentSearchOnBehalfOf()));
-		model.put("searchContent", convertedSearchResult);
-		
-		return getUrlRoot() + "/_searchResult";
-	}
-
 	@ModelAttribute("systemsToQuery")
 	public Map<String, String> getSystemsToQuery() {
 		return getSystemsToQueryMap();
@@ -113,13 +100,14 @@ public abstract class AbstractBaseController {
 		return params;
 	}
 
-	protected void processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
+	protected String processDetailRequest(HttpServletRequest request, String systemName, DetailsRequest detailsRequest, Map<String, Object> model)
 			throws Exception {
 				Element samlAssertion = samlService.getSamlAssertion(request);
 				
 				String searchContent = getDetailsQueryInterface().invokeRequest(detailsRequest, getFederatedQueryId(), samlAssertion);
 				String convertedContent = searchResultConverter.convertDetailSearchResult(searchContent, systemName, null);
 				model.put("searchContent", convertedContent);
+				return convertedContent;
 	}
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
@@ -128,20 +116,21 @@ public abstract class AbstractBaseController {
 			Map<String, Object> model) throws InterruptedException {
 				try {
 					processDetailRequest(request, systemName, detailsRequest, model);
-					return getUrlRoot() + "/_searchDetails";
+					return getUrlRoot() + "/searchDetails";
 				} catch (Exception e) {
 					e.printStackTrace();
 					Thread.sleep(500);
-					return "common/_searchDetailsError";
+					return "common/searchDetailsError::searchDetailsErrorContent";
 				}
 			}
 
 	@RequestMapping(value = "incidentDetails", method = RequestMethod.GET)
-	public String incidentDetails(HttpServletRequest request, @RequestParam String systemName, @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model)
-			throws Exception {
-				processDetailRequest(request, systemName, detailsRequest, model);
+	public @ResponseBody String incidentDetails(HttpServletRequest request, 
+			@RequestParam String systemName, @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			Map<String, Object> model) throws Exception {
+				String convertedResult = processDetailRequest(request, systemName, detailsRequest, model);
 			
-				return getUrlRoot() + "/_incidentDetails";
+				return convertedResult;
 			}
 
 }

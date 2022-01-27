@@ -138,7 +138,6 @@ ojbc = {
 	},
 	  
 	initializeInputWithDefaultValue : function (cssSelector,defaultValue){
-        alert("called initialization");
 	   if($(cssSelector).val() == ""){
 	     $(cssSelector).val(defaultValue);
 	   }
