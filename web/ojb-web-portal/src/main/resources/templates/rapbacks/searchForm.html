@@ -1,0 +1,159 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vehicle Search Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="searchFormContent" id="rapbackSearchFormContent">
+	    <div class="card" id="searchTabs">
+	        <div class="card-header">
+	            <div class="pl-0" id="search-results-title">
+	                ADVANCED SEARCH: RAP BACK
+	            </div>
+	        </div>
+	        <div class="card-body" id="advancedSearchTab">
+	           <form id='advancedSearchForm' th:object="${rapbackSearchRequest}">
+                    <th:block th:if="${errors?.hasGlobalErrors()}">
+                        <div class="alert alert-danger" role="alert" th:each="globalError: ${errors.globalErrors}" 
+                            th:text="${globalError.defaultMessage}">Global error message</div>
+                    </th:block>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="searchSubHeader"> NAME</label>
+                                <input type="text" th:field="*{firstName}" class="form-control form-control-sm" placeholder="FIRST NAME" th:errorclass="is-invalid"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{lastName}" class="form-control form-control-sm" placeholder="LAST NAME" th:errorclass="is-invalid"/>
+                            </div>
+                            <label class="searchSubHeader">Reported Date Range</label>
+                            <div class="form-group">
+                                <input type="text" th:field="*{reportedDateStartDate}" class="datePicker mdate form-control-sm" placeholder="From" th:errorclass="is-invalid"/>
+                                <input type="text" th:field="*{reportedDateEndDate}" class="datePicker mdate form-control-sm" placeholder="To" th:errorclass="is-invalid"/>
+                                <div th:if="${#fields.hasErrors('reportedDateStartDate')}" th:errors="*{reportedDateStartDate}" class="invalid-feedback d-block error pl-2">Report Date Range error message</div>
+                            </div>
+                            <label class="searchSubHeader">Identification Result Status</label>
+                            <div>
+                                <th:block th:each="status, stat : ${identificationResultStatusCodeMap}">
+							        <input type="checkbox"
+							            th:value="${status.key}"
+							            th:field="*{identificationTransactionStatus}"/>                                
+                                     <label th:for="${#ids.prev('identificationTransactionStatus')}" 
+                                            th:text="${status.value}" class="form-check-label form-control-sm">Reason Code</label>
+                                     <br th:if="${stat.index == 2}">
+                                </th:blcok>
+                            </div>
+                        </div>                          
+                        <div class="col">
+                            <label class="searchSubHeader">IDENTIFIERS</label>
+                            <div class="form-group">
+                                <input type="text" th:field="*{sid}" class="form-control form-control-sm" placeholder="SID #" th:errorclass="is-invalid"/>
+                                <div th:if="${#fields.hasErrors('sid')}" th:errors="*{sid}" class="invalid-feedback d-block error pl-2">SID message</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{ucn}" class="form-control form-control-sm" placeholder="UCN" th:errorclass="is-invalid"/>
+                                <div th:if="${#fields.hasErrors('ucn')}" th:errors="*{ucn}" class="invalid-feedback d-block error pl-2">UCN message</div>
+                            </div>
+                            <div>
+                                <input type="text" th:field="*{otn}" class="form-control form-control-sm" placeholder="OTN" th:errorclass="is-invalid"/>
+                            </div>
+                            <label class="searchSubHeader mt-2">Civil Identification Reason Code</label>
+                            <div class="form-group">
+	                                <th:blcok th:each="entry : ${civilIdentificationReasonCodeMap}">
+									    <input type="checkbox" th:field="*{civilIdentificationReasonCodes}" th:value="${entry.key}"/>
+									    <label th:for="${#ids.prev('civilIdentificationReasonCodes')}" 
+									           th:text="${entry.value}" class="form-check-label form-control-sm">Reason Code</label>
+									    <br>
+	                                </th:blcok>
+                            </div>
+                        </div>
+                   </div>
+	             </form>
+	        </div>
+	        <div class="card-footer text-muted">
+	            <button id="advanceSearchSubmitButton" class="btn btn-sm btn-primary">SEARCH</button>
+	            <button id="advanceSearchClearButton" class="btn btn-sm btn-secondary ml-1">CLEAR</button>
+	        </div>
+	    </div>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+			$(function() {
+			    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+			    $.ajaxSetup({ cache: false });
+			    ojbc.handlePlaceholders(); 
+			    ojbc.handleEsc();
+			      $( ".datePicker" ).datepicker({
+			         showOn: "both",
+			         buttonImage: context + 'static/images/Search Form/icon-calendar.png',
+			         buttonImageOnly: true,
+			         dateFormat: 'mm/dd/yy'
+			      });
+			      
+			      $('#advanceSearchSubmitButton').click (function(){
+			          ojbc.clearPlaceholders();
+			          var formData = $('#advancedSearchForm').serialize();
+			      
+			          xhr = $.post(context + 'rapbacks/rapbackAdvancedSearch',formData,function(data) {
+			              $('#portalContent').html(data);
+			          }).fail(ojbc.displayFailMessage);
+			      });
+			  
+			     $("a[href='\\#advancedSearchTab']").click (function(){
+			         $("#search-tab-title").html("ADVANCED SEARCH: RAP BACK");
+			     });
+			     
+			      $('#advanceSearchClearButton').click (function(event){
+			        ojbc.clearSearchPurposeFields();
+			        ojbc.clearSearchResultsFilterFields();
+			        $.get(context + 'rapbacks/searchForm?resetForm=true', function(data) {
+			          $('#portalContent').html(data);
+			          
+			        }).fail(ojbc.displayFailMessage)
+			      });
+			
+			      //This allows the input fields on the search form to submit form with enter key
+			      $('#advancedSearchTab input').keyup(function(e) {
+			          if (e.keyCode == 13) {
+			              $('#advanceSearchSubmitButton').click();
+			          }
+			      });
+			
+			      //This allows the select fields on the search form to submit form with enter key            
+			      $('#advancedSearchTab select').keyup(function(e) {
+			          if (e.keyCode == 13) {
+			              $('#advanceSearchSubmitButton').click();
+			          }
+			      });         
+			
+			});
+		</script>
+        
+    </th:block>
+  </body>
+</html>

@@ -28,7 +28,7 @@
       <!-- Begin page content -->
       <div id="sourceSystems" style="display: none;" th:fragment="sourceSystemsContent">
           <p th:id="'checkbox-' + ${entry}" th:each="entry : ${systemsToQuery.keySet()}">
-            <input  type="checkbox" th:value="${systemsToQuery.get(entry)}" checked="checked" class="mr-1"><span class="fieldText" th:text="${entry}">entry</span>
+            <input type="checkbox" th:value="${systemsToQuery.get(entry)}" checked="checked" class="mr-1"><span class="fieldText" th:text="${entry}">entry</span>
           </p>
       </div>
       <div id="sourceSystemsDisabled" style="display: none;" th:fragment="sourceSystemsDisabledContent">
