@@ -215,7 +215,7 @@ public class PortalController implements ApplicationContextAware {
 
     @RequestMapping("/portal/faq")
     public String faq(){
-	    return "portal/faq";
+	    return "portal/faq::faqContent";
 	}
 
     @GetMapping("/")
@@ -343,7 +343,7 @@ public class PortalController implements ApplicationContextAware {
 
     @RequestMapping("/portal/landingLeftBar")
     public String landingLeftBar(){
-    	return "common/_landingLeftBar";
+    	return "common/landingLeftBar::landingLeftBarContent";
     }
 
     @RequestMapping(value="/portal/subscriptionsLeftBar", method=RequestMethod.POST)

@@ -221,7 +221,7 @@
 
 	<!-- These left bar links are provided on the home page and can link to whatever the implementer desires -->
 	<util:map id="leftBarLinks">
-<!-- 		<entry key="Link1" value="http://local.gov/link1" /> -->
+ 		<!-- <entry key="Link1" value="http://local.gov/link1" /> --> 
 	</util:map>
 
 	<!-- People-related maps -->

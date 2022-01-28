@@ -1,0 +1,68 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>FAQ Page</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+      <!-- Begin page content -->
+    <div th:fragment="faqContent" id="faqContent" class="container">
+		<div><hr /></div>
+		
+		<p>This is an example of a FAQ page.  Implementers have full control over the content and layout of the FAQ page.  Below are just some examples of questions and answers.</p> 
+		
+		<p><a name="top"></a></p>
+		
+		<ol>
+		
+		<li><a href="#welcome">I've logged in with my username and password.  Why can't I see the portal welcome page?</a></li>
+		<li><a href="#display">I can access the portal, but why does some or all of the portal display incorrectly?</a></li>
+		
+		</ol>
+		
+		<div><hr /></div>
+		
+		<p><a name="welcome"></a><b>I've logged in with my username and password.  Why can't I see the portal welcome page?</b></p>
+		
+		<p>A1:  Bookmarking the login page may prevent you from accessing the portal.  If this scenario applies to you, restart your browser and navigate back to the portal.</p> 
+		
+		<p>A2:  Your organization populates and sends a set of "attributes" containing non-sensitive information about you to the portal.  These attributes will determine if you can access the portal and which portal capabilities will be available to you.  Contact your IT administrator to ensure that these attributes have been populated correctly.</p>
+		
+		<p>A3:  The portal service may be down.  Confirm with your IT administrator.</p>
+		
+		<p>(<a href="#top">top</a>)</p>
+		
+		<div><hr /></div>
+		
+		<p><a name="display"></a><b>I can access the portal, but why does some or all of the portal display incorrectly?</b></p>
+		
+		<p>A1:  If you are using Internet Explorer, turn off compatibility view under "Tools".  You will need to restart your browser.</p>
+		
+		<p>A2:  Use other internet browsers, such as Mozilla Firefox or Google Chrome.</p>
+		
+		<p>(<a href="#top">top</a>)</p>
+     </div>
+    <script th:inline="javascript">
+    </script>
+  </body>
+</html>

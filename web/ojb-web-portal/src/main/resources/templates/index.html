@@ -131,6 +131,35 @@
                     return false;                                               
                 })
         
+                $('#faqLink').click (function() {     
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    $('#filterColumn').removeClass('d-none');
+        
+                    ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar');
+        
+                    ojbc.populatePortalContentFromUrl(context + 'portal/faq');
+                                
+                    return false;
+                });
+                     
+                $('#suggestionFormLink').click (function() {        
+                    
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    $('#filterColumn').removeClass('d-none');
+        
+                    ojbc.populateLeftBarContentFromUrl(context + 'portal/landingLeftBar');
+        
+                    ojbc.populatePortalContentFromUrl(context + 'suggestion/suggestionForm');
+                                
+                    return false;
+                })
+                     
             });
 	        
             function showHomepage(){
