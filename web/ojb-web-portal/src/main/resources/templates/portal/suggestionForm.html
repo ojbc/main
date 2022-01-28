@@ -1,0 +1,147 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Suggestion Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="suggestionFormContent" id="suggestionFormContent">
+		<div id="landingPageContent">
+			<div class="card" id="searchTabs">
+			    <div class="card-header">
+			        <div class="pl-0" id="search-results-title">
+			            SUGGESTIONS/REPORT A PROBLEM FORM
+			        </div>
+			    </div>
+			    <div class="card-body" id="advancedSearchTab">
+			        <form id="reportForm" enctype="multipart/form-data" th:object="${suggestionFormCommand}">
+			            <table class="table table-borderless">
+			                <tr>
+			                    <td>
+			                        The area that my Suggestion/Problem best relates to:
+			                    </td>
+			                    <td>
+									<select th:field="*{suggestionFormRequest.suggestionProblem}" class="form-control form-control-sm" data-placeholder="All">
+									  <option th:each="item: ${suggestionProblemList}" th:value="${item.key}" th:text="${item.value}" />
+									</select>
+			                    </td>
+			                </tr>
+			        
+			                <tr>
+			                    <td>
+			                        The urgency of my issue is:
+			                    </td>
+			                    <td colspan="2">
+                                    <select th:field="*{suggestionFormRequest.urgency}" class="form-control form-control-sm" data-placeholder="All">
+                                      <option th:each="item: ${urgencyList}" th:value="${item.key}" th:text="${item.value}" />
+                                    </select>
+			                    </td>
+			                </tr>
+			        
+			                <tr>
+			                    <td>
+			                        Suggestion/Problem Explanation:
+			                    </td>
+			                    <td colspan="2">
+			                        <p>
+			                            1. Please include step-by-step process of how you arrived at this issue</br>
+			                            2. Expected functionality (what you expected but did not get)</br>
+			                        </p>
+	                                <textarea th:field="*{suggestionFormRequest.userFeedback}" class="form-control form-control-sm" rows="9" data-toggle="tooltip" title="Feedback" placeholder="Feedback" maxlength="1000" th:errorClass="is-invalid"></textarea>
+			                    </td>
+			                </tr>
+			        
+			                <tr>
+			                    <td>
+			                        User Name:
+			                    </td>
+			                    <td colspan="2">
+			                        <input type="text" th:field="*{suggestionFormRequest.userName}" class="form-control form-control-sm" placeholder="Name" th:errorclass="is-invalid"/>
+			                    </td>
+			                </tr>
+			                <tr>
+			                    <td>
+			                        User Agency:
+			                    </td>
+			                    <td colspan="2">
+                                    <input type="text" th:field="*{suggestionFormRequest.userAgency}" class="form-control form-control-sm" placeholder="Agency" th:errorclass="is-invalid"/>
+			                    </td>
+			                </tr>
+			                <tr>
+			                    <td>
+			                        User Email Address:
+			                    </td>
+			                    <td colspan="2">
+                                    <input type="text" th:field="*{suggestionFormRequest.userEmail}" class="form-control form-control-sm" placeholder="Email" th:errorclass="is-invalid"/>
+			                    </td>
+			                </tr>
+			                <tr>
+			                    <td>
+			                        User Phone Number:
+			                    </td>
+			                    <td colspan="2">
+                                    <input type="text" th:field="*{suggestionFormRequest.userPhone}" class="form-control form-control-sm" placeholder="Phone Number" th:errorclass="is-invalid"/>
+			                    </td>
+			                </tr>
+			            </table>
+			        </form>
+			    </div>
+			    <div class="card-footer">
+			        <button id="emailFormSubmitButton" class="btn btn-sm btn-primary" >SUBMIT</button>
+			    </div>
+			</div>
+		</div>
+        <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+		    $(function() {
+		        $('#portalContent').on("click", "#emailFormSubmitButton", function(){
+		            var isValidate=$("#reportForm").valid();
+		            if(!isValidate){
+		                bootpopup.alert("There are errors in your inputs, please correct them and try again", "ERROR");
+		            }else {
+		                var formData = $("#reportForm").serialize();
+	                    formData += '&'+_csrf_param_name+'='+_csrf_token;
+
+		                xhr = $.post(context + 'suggestion/submitEmail',formData,function(data) {
+		                    $('#landingPageContent').html(data);
+		                }).fail(ojbc.displayFailMessage);
+		            }
+		            return false; 
+		        });
+		    });
+		</script>
+        
+    </th:block>
+    <th:block th:fragment="suggestionConfirmationContent">
+		<h1>Suggestion/Problem sent</h1>
+		
+		Thank you for your suggestion.
+    </th:block>
+  </body>
+</html>

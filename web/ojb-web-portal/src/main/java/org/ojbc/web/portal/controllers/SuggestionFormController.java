@@ -39,14 +39,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/suggestion/*")
+@RequestMapping("/suggestion")
 @Profile("suggestionForm")
 public class SuggestionFormController {
 
     @Value("${suggestionFormEmailFrom:test@localhost}")
     String emailFrom;
     
-    @Value("${suggestionFormResultsPage:portal/suggestionConfirmation}")
+    @Value("${suggestionFormResultsPage:portal/suggestionForm::suggestionConfirmationContent}")
     String suggestionFormResultsPage;
 
     @Value("${suggestionFormEmailRecipient:test@localhost}")
@@ -58,7 +58,7 @@ public class SuggestionFormController {
 	@Resource
 	SamlService samlService;
 	
-	@Value("${suggestionFormLandingPage:portal/suggestionForm}")
+	@Value("${suggestionFormLandingPage:portal/suggestionForm::suggestionFormContent}")
 	String suggestionFormLandingPage;
 	
 	@Resource(name="suggestionProblemList")

@@ -1260,3 +1260,30 @@ input .shortDigit{
   overflow-y:scroll;
   width:100%;
 }
+
+#landingPageContent {
+    background-color: #ffffff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#landingPageContent h1 {
+    text-align: center;
+}
+
+#landingPageContent td {
+    padding-bottom: 15px;
+}
+
+#landingPageContent a.largeButton {
+    background-image: url('../images/Backgrounds/bg-largeButton-gray.jpg');
+    width:250px;
+    font-size:35px;
+    white-space:normal;
+    display:block;
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+}
