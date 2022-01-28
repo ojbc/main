@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>organization-identification-results-query-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 
 	<name>OJB :: organization-identification-results-query-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
