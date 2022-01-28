@@ -26,7 +26,8 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	   profile="dev">
 	
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 	
@@ -61,8 +62,8 @@
 
 	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl"/>
 	
-	<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-	    <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" id="dataSource">
+	    <property name="driverClassName" value="org.h2.Driver" />
 	    <property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
 	    <property name="username" value="sa" />
 	    <property name="password" value="" />
