@@ -39,7 +39,7 @@
 		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0"
 		xmlns:personsearch-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
 		
-		id="pdpIntermediaryContext">
+		id="pdpIntermediaryContext" streamCache="true">
 
 		<!-- Access Control Request Endpoints -->
 		<endpoint id="accessControlRequestServiceEndpoint"
@@ -56,7 +56,7 @@
 			uri="cxf:bean:accessControlResponseServicePolicyAcknowledgement?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${pdp.cxflogging}" />
 
 		<!-- Access Control Request flow -->
-		<route id="accessControlRequestRoute">
+		<route id="accessControlRequestRoute" >
 			<from uri="accessControlRequestServiceEndpoint" />
 			<onException>
 				<exception>java.lang.Exception</exception>
@@ -143,7 +143,7 @@
 			</camel:setHeader>
 			
 			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
-			<camel:log message="Timer started"/>
+			<camel:log message="Timer started, operation name: ${in.headers.operationName}"/>
 
 			<camel:choice>
 				<camel:when>

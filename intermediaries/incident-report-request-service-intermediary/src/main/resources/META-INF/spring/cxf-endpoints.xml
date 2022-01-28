@@ -141,7 +141,7 @@
    	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator"/>
 
 	<util:properties id="incidentReportKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${federatedQuery.incidentReport.keystorePassword}</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${federatedQuery.incidentReport.keystoreCertificateAlias}</prop>
@@ -153,10 +153,13 @@
 	<http:conduit
 		name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${federatedQuery.incidentReport.keyPassword}">
+	        	<sec:keyStore type="jks" password="${federatedQuery.incidentReport.keystorePassword}" url="${federatedQuery.incidentReport.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${federatedQuery.incidentReport.truststorePassword}"
-					file="${federatedQuery.incidentReport.truststoreLocation}" />
+					url="${federatedQuery.incidentReport.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 					<!-- these filters ensure that a strong ciphersuite will be used --> 
