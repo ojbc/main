@@ -209,7 +209,7 @@
 		</a>
 		
 		<xsl:if test="oirsr-ext:NsorFiveYearCheckResultsAvailableIndicator ='true'"> 
-			<a href="{string-join(('../rapbacks/nsorCheckResults', intel:SystemIdentification/nc:IdentificationID), '/')}" 
+			<a href="{string-join(('rapbacks/nsorCheckResults', intel:SystemIdentification/nc:IdentificationID), '/')}" 
 				class="btn btn-primary btn-sm nsor5YearCheckResults" style="margin-right:3px" title="NSOR 5 Year Check Results" data-toggle="tooltip" role="button"><i class="far fa-calendar-check fa-lg"></i></a>
 		</xsl:if>
 		<a href="#" class="btn btn-primary btn-sm unsubscribe" style="margin-right:3px" title="Unsubscribe" data-toggle="tooltip" role="button">
@@ -224,7 +224,7 @@
 			</xsl:attribute>
 			<i class="fa fa-eye fa-lg"></i>
 		</a>
-		<a href="{string-join(('../rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
+		<a href="{string-join(('rapbacks/stateRapsheet', $sid, intel:SystemIdentification/nc:IdentificationID, $hasFbiRapsheet), '/')}" 
 					class="btn btn-primary btn-sm getStateRapsheet d-none"></a>
 		<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 			<a href="#" class="btn btn-primary btn-sm subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results" data-toggle="tooltip" role="button">
@@ -233,7 +233,7 @@
 				</xsl:attribute>
 				<i class="fas fa-bell fa-lg"></i>
 			</a>
-			<a href="{concat('../rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
+			<a href="{concat('rapbacks/subsequentResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 				class="btn btn-primary btn-sm subsequentResults d-none">
 			</a>
 		</xsl:if>

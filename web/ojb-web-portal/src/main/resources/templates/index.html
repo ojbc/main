@@ -121,6 +121,67 @@
                     }).fail(ojbc.displayFailMessage);
                 });
                 
+                $('body').off("click", "#subscriptionsLink").on("click", "#subscriptionsLink", function() {   
+                    
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    xhr = $.post(context + 'subscriptions/subscriptionResults', function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data);
+                    }).fail(ojbc.displayFailMessage);
+                    
+                    return false;
+                });
+                     
+                $('#rapbackLink').click(function() {      
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    xhr = $.get(context + 'rapbacks/rapbackDefaultSearch', function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data); 
+                    }).fail(ojbc.displayFailMessage);
+                                        
+                    return false;
+                });
+                
+                $('body').off('click','.userLoginAuditLink').on('click','.userLoginAuditLink',function() {
+                    $(this).parent().toggleClass('show');
+                    xhr = $.get(context + 'auditLogs/searchForm',function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data);
+                    }).fail(ojbc.displayFailMessage)
+                                        
+                    return false;
+                });
+                
+                $('body').off('click','.personSearchAuditLink').on('click','.personSearchAuditLink',function() {
+                    $(this).parent().toggleClass('show');
+                    xhr = $.get(context + 'auditLogs/personSearchLogsSearchForm',function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data);
+                    }).fail(ojbc.displayFailMessage)
+                                        
+                    return false;
+                });
+                
+                $('#criminalIdLink').click(function() {   
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    xhr = $.post(context + 'rapbacks/criminalIdentificationDefaultSearch', function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data); 
+                                                    
+                    }).fail(ojbc.displayFailMessage);
+                                        
+                    return false;
+                });
+                
                 $('#helpLink').click (function() {  
                     
                     $('#filterColumn').removeClass('d-none');

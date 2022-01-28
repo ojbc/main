@@ -70,6 +70,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -187,7 +188,7 @@ public class RapbackController {
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 
-	@RequestMapping(value = "/rapbackDefaultSearch", method = RequestMethod.POST)
+	@GetMapping(value = "/rapbackDefaultSearch")
 	public String rapbackDefaultSearch(HttpServletRequest request, 
 	        Map<String, Object> model) {
 		
@@ -224,7 +225,7 @@ public class RapbackController {
 		
 		model.put("informationMessages", informationMessage);
 		
-		return "rapbacks/_rapbackResults";
+		return "rapbacks/rapbackResults::rapbackResultsContent";
 	}
 	
 	@RequestMapping(value = "rapbackAdvancedSearch", method = RequestMethod.POST)
