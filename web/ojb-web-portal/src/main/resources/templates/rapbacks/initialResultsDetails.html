@@ -94,6 +94,8 @@
     <script th:inline="javascript">
 	    /*<![CDATA[*/
 		    var context = [[@{/}]];
+            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	    /*]]>*/
 	    $(function () {
 	        $('#tabs').tabs({
@@ -117,8 +119,12 @@
 	            // make sure to change #tabs to your selector for tabs
 	            var selector = '#tabs > ul > li';
 	            var activeTabID = $(selector).eq(activeTabIdx).attr('id');
-	            
-	            $.post(context + 'rapbacks/auditPrintResults', { messageId: $(this).attr('messageId'), activeTab: activeTabID} );                 
+                var requestData = {
+                        'messageId': $(this).attr('messageId'),
+                        'activeTab': activeTabID
+                     };
+                requestData[_csrf_param_name] = _csrf_token;
+	            $.post(context + 'rapbacks/auditPrintResults', requestData );                 
 	
 	            window.print();
 	        }); 
