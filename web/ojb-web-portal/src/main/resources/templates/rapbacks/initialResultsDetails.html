@@ -19,7 +19,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Person Search Details</title>
+    <title>Initial Results Details</title>
     <link rel="stylesheet" type="text/css" th:href='@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}' />
     <link rel="stylesheet" type="text/css" th:href='@{/css/style.css}'>
     <link rel="stylesheet" type="text/css" th:href='@{/css/print.css}'>
@@ -59,7 +59,7 @@
                     <a href="#nsorResultTab">NSOR Results</a>
                 </li>
                 
-                <button id="printButton" class="greyButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
+                <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
             </ul>
 
             <div id="stateInitialResultTab">

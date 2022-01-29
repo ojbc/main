@@ -79,6 +79,8 @@
 	        /*<![CDATA[*/
 		        var context = [[@{/}]];
 		        var singleClickForDetail = [[${singleClickForDetail}]];
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
 		    $.fn.dataTable.ext.search.push(
 		        function( settings, data, dataIndex ) {
@@ -173,7 +175,11 @@
 		        
 		        $('#searchResultsTable').on('click', 'a.subscribe',function() {
 		            clearErrorMessage();
-		            $.post(context + 'rapbacks/subscribe', {transactionNumber: $(this).attr("id")}, function(data) {
+	                var requestData = {
+	                        'transactionNumber': $(this).attr("id")
+	                     };
+	                requestData[_csrf_param_name] = _csrf_token;
+		            $.post(context + 'rapbacks/subscribe', requestData, function(data) {
 		            
 		                if (data === 'success'){
 		                    refreshSearchResultsTable();
