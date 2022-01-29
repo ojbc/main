@@ -118,7 +118,8 @@
 			      $('#advanceSearchSubmitButton').click (function(){
 			          ojbc.clearPlaceholders();
 			          var formData = $('#advancedSearchForm').serialize();
-			      
+			          formData += '&'+_csrf_param_name+'='+_csrf_token;
+			          
 			          xhr = $.post(context + 'rapbacks/rapbackAdvancedSearch',formData,function(data) {
 			              $('#portalContent').html(data);
 			          }).fail(ojbc.displayFailMessage);

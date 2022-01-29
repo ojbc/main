@@ -127,7 +127,7 @@
 					or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI Error)'
 					or normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed(State/FBI Pending)']" mode="subscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Archived']" mode="archived"/>
-				<a href="{string-join(('../rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
+				<a href="{string-join(('rapbacks/initialResults', $sid, intel:SystemIdentification/nc:IdentificationID), '/')}" 
 					class="btn btn-primary btn-sm initialResults" style="margin-right:3px" title="Initial Results" data-toggle="tooltip" role="button"><i class="fa fa-file-alt fa-lg"></i></a>
 			</td>
 		</tr>
