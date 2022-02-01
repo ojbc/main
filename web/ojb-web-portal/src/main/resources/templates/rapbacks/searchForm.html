@@ -81,12 +81,12 @@
                             </div>
                             <label class="searchSubHeader mt-2">Civil Identification Reason Code</label>
                             <div class="form-group">
-	                                <th:blcok th:each="entry : ${civilIdentificationReasonCodeMap}">
-									    <input type="checkbox" th:field="*{civilIdentificationReasonCodes}" th:value="${entry.key}"/>
-									    <label th:for="${#ids.prev('civilIdentificationReasonCodes')}" 
-									           th:text="${entry.value}" class="form-check-label form-control-sm">Reason Code</label>
-									    <br>
-	                                </th:blcok>
+                               <th:blcok th:each="entry : ${civilIdentificationReasonCodeMap}">
+							    <input type="checkbox" th:field="*{civilIdentificationReasonCodes}" th:value="${entry.key}"/>
+							    <label th:for="${#ids.prev('civilIdentificationReasonCodes')}" 
+							           th:text="${entry.value}" class="form-check-label form-control-sm">Reason Code</label>
+							    <br>
+                               </th:blcok>
                             </div>
                         </div>
                    </div>

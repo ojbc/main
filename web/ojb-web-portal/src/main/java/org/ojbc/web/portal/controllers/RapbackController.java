@@ -349,7 +349,7 @@ public class RapbackController {
 		
 	}
 	
-	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.GET)
 	public String criminalIdentificationAdvancedSearch(HttpServletRequest request,
 			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest searchRequest,
 			BindingResult errors, Map<String, Object> model) throws Exception {
@@ -838,7 +838,7 @@ public class RapbackController {
 	}
 
 	
-	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
+	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.GET)
 	public String criminalIdentificationResults(HttpServletRequest request, 
 			Map<String, Object> model) {
 		
@@ -853,7 +853,7 @@ public class RapbackController {
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
-	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.GET)
 	public String criminalIdentificationDefaultSearch(HttpServletRequest request, 
 			Map<String, Object> model) {
 		
