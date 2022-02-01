@@ -173,7 +173,7 @@
                         oTable.fixedHeader.disable();
                         oTable.destroy();
                     }               
-                    xhr = $.post(context + 'rapbacks/criminalIdentificationDefaultSearch', function(data) {
+                    xhr = $.get(context + 'rapbacks/criminalIdentificationDefaultSearch', function(data) {
                         $('#filterColumn').addClass('d-none');
                         $('#portalContent').html(data); 
                                                     

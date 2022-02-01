@@ -235,7 +235,7 @@ public class RapbackController {
 
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "rapbacks/_searchForm";
+			return "rapbacks/searchForm::searchFormContent";
 		}
 
 		model.put("rapbackSearchRequest", rapbackSearchRequest);
@@ -349,14 +349,14 @@ public class RapbackController {
 		
 	}
 	
-	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.GET)
 	public String criminalIdentificationAdvancedSearch(HttpServletRequest request,
 			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest searchRequest,
 			BindingResult errors, Map<String, Object> model) throws Exception {
 		
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "rapbacks/_criminalIdentificationSearchForm";
+			return "rapbacks/criminalIdentificationSearchForm::criminalIdentificationSearchFormContent";
 		}
 		
 		return performCriminalIdentificationSearchAndReturnResult(request, model, searchRequest);
@@ -389,7 +389,7 @@ public class RapbackController {
 		
 		model.put("informationMessages", informationMessage);
 		
-		return "rapbacks/_criminalIdentificationResults";
+		return "rapbacks/criminalIdentificationResults::criminalIdentificationResultsContent";
 	}
 
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
@@ -402,7 +402,7 @@ public class RapbackController {
 			model.put("rapbackSearchRequest", rapbackSearchRequest);
 		} 
 
-		return "rapbacks/_searchForm";
+		return "rapbacks/searchForm::searchFormContent";
 	}
 
 	@RequestMapping(value = "criminalIdentificationSearchForm", method = RequestMethod.GET)
@@ -415,7 +415,7 @@ public class RapbackController {
 			model.put("criminalIdentificationSearchRequest", searchRequest);
 		} 
 		
-		return "rapbacks/_criminalIdentificationSearchForm";
+		return "rapbacks/criminalIdentificationSearchForm::criminalIdentificationSearchFormContent";
 	}
 	
 	private IdentificationResultSearchRequest getDefaultCivilIdentificationSearchRequest() {
@@ -459,10 +459,10 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, sid, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
-			return "rapbacks/_initialResultsDetails";
+			return "rapbacks/initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 	
@@ -472,10 +472,10 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.NSORCheckResults, model);
-			return "rapbacks/_nsorFiveYearCheckResults";
+			return "rapbacks/nsorFiveYearCheckResults";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 	
@@ -485,10 +485,10 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.InitialResults, model);
-			return "rapbacks/_initialResultsDetails";
+			return "rapbacks/initialResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 	
@@ -503,10 +503,10 @@ public class RapbackController {
 		
 		try {
 			processStateRapsheetRequest(request, sid, model);
-			return "rapbacks/_rapsheets";
+			return "rapbacks/rapsheets";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 	
@@ -614,10 +614,10 @@ public class RapbackController {
 			Map<String, Object> model) {
 		try {
 			processDetailRequest(request, null, transactionNumber, IdentificationDetailQueryType.SubsequentResults, model);
-			return "rapbacks/_subsequentResultsDetails";
+			return "rapbacks/subsequentResultsDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "common/_searchDetailsError";
+			return "common/searchDetailsError::searchDetailsErrorContent";
 		}
 	}
 	
@@ -838,7 +838,7 @@ public class RapbackController {
 	}
 
 	
-	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
+	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.GET)
 	public String criminalIdentificationResults(HttpServletRequest request, 
 			Map<String, Object> model) {
 		
@@ -853,7 +853,7 @@ public class RapbackController {
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
-	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/criminalIdentificationDefaultSearch", method = RequestMethod.GET)
 	public String criminalIdentificationDefaultSearch(HttpServletRequest request, 
 			Map<String, Object> model) {
 		
