@@ -28,24 +28,26 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.connectors.warrant.issuereporting.application.WarrantIssueReportingServiceApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",		
-		"classpath:META-INF/spring/properties-context.xml",
-		})
+@CamelSpringBootTest
+@SpringBootTest(classes=WarrantIssueReportingServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
@@ -56,23 +58,17 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:warrantIssueReportingService")
+    @EndpointInject(value = "mock:cxf:bean:warrantIssueReportingService")
     protected MockEndpoint warrantIssueReportingServiceMockEndpoint;
 	
     private static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0";
     
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
 
     	//We mock the web service endpoints here
-    	context.getRouteDefinition("WarrantIssueReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	//We mock the notification broker endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssueReportingService*");
-    	    	
-    	    }              
+    	AdviceWith.adviceWith(context, "WarrantIssueReportingServiceHandlerRoute", route -> {
+    		route.weaveById("warrantIssueReportingServiceEndpoint").replace().to(warrantIssueReportingServiceMockEndpoint);
     	});
     	
 		context.start();		

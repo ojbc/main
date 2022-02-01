@@ -36,7 +36,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
 	
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant-issue-reporting-service-connector">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant-issue-reporting-service-connector" streamCache="true">
 	
 		<endpoint id="inputDir"
 			uri="file:///${warrantIssueReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${warrantIssueReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
@@ -53,46 +53,46 @@
 			
 			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
 			
-			<camel:to uri="direct:derivedRoutes"/>	
+			<camel:to uri="direct:derivedRoutes" />	
 
 			<camel:log message="This is the ${body}" loggingLevel="DEBUG"/>
 
 			<camel:filter>
 				<camel:xpath>/wir-doc:WarrantIssuedReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportWarrantIssued</constant>
 				</camel:setHeader>
 			</camel:filter>
 			
 			<camel:filter>
 				<camel:xpath>/war-doc:WarrantAcceptedReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportWarrantAccepted</constant>
 				</camel:setHeader>
 			</camel:filter>	
 
 			<camel:filter>
 				<camel:xpath>/wrr-doc:WarrantRejectedReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportWarrantRejected</constant>
 				</camel:setHeader>
 			</camel:filter>
 			
 			<camel:filter>
 				<camel:xpath>/wmr-doc:WarrantModificationReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportWarrantModification</constant>
 				</camel:setHeader>
 			</camel:filter>	
 
 			<camel:filter>
 				<camel:xpath>/wcr-doc:WarrantCancelledReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportWarrantCancelled</constant>
 				</camel:setHeader>
 			</camel:filter>	
 	                        		
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 			
@@ -102,8 +102,10 @@
 			
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
-				<camel:to uri="warrantIssueReportingServiceEndpoint" />
 			</camel:throttle>
+			
+			<camel:to uri="warrantIssueReportingServiceEndpoint" id="warrantIssueReportingServiceEndpoint"/>
+			
 			
 			<camel:log message="Called intermediary" />
 
@@ -115,7 +117,7 @@
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes">
+			<camel:setHeader name="routingSlipDerivedRoutes">
 				<simple>{{warrantIssueReporting.camelEndpointsToCall}}</simple>
 			</camel:setHeader>
 
