@@ -32,31 +32,33 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.ojbc.intermediaries.warrant.issuedreporting.application.WarrantIssuedReportingServiceApplication;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+@CamelSpringBootTest
+@SpringBootTest(classes=WarrantIssuedReportingServiceApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 public class CamelContextTest {
 
 	@SuppressWarnings("unused")
@@ -72,10 +74,10 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:warrantIssuedReportingAdapterService")
+    @EndpointInject(value = "mock:cxf:bean:warrantIssuedReportingAdapterService")
     protected MockEndpoint warrantReportingMockEndpoint;
     
-    @EndpointInject(uri = "mock:log:org.ojbc.bundles.intermediaries.warrantissuedreporting")
+    @EndpointInject(value = "mock:log:org.ojbc.bundles.intermediaries.warrantissuedreporting")
     protected MockEndpoint loggingEndpoint;
 
 	
@@ -84,70 +86,40 @@ public class CamelContextTest {
 		assertTrue(true);
 	}
     
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
 		//We mock the 'log' endpoint to test against.
-    	context.getRouteDefinition("warrantIssuedReporting_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:WarrantIssuedReportingService");
-    	    	mockEndpoints("log:org.ojbc.bundles.intermediaries.warrantissuedreporting*");    	    	
-    	    }              
-    	});
+		AdviceWith.adviceWith(context, "warrantIssuedReporting_Route", route -> {
+			route.replaceFromWith("direct:WarrantIssuedReportingService");
+	    	route.mockEndpoints("log:org.ojbc.bundles.intermediaries.warrantissuedreporting*");  
+		});
+		
+    	// mock the web service endpoints
+		AdviceWith.adviceWith(context, "warrant_issued_route", route -> {
+			route.weaveById("warrantIssuedReportingServiceAdapterEndpoint3").replace().to(warrantReportingMockEndpoint);    
+		});
     	
     	// mock the web service endpoints
-    	context.getRouteDefinition("warrant_issued_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// mock the adapter endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
-    	    }              
-    	});    	
-    	
-    	
-    	// mock the web service endpoints
-    	context.getRouteDefinition("warrant_accepted_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// mock the adapter endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
-    	    }              
-    	});       	
+		AdviceWith.adviceWith(context, "warrant_accepted_route", route -> {
+			route.weaveById("warrantIssuedReportingServiceAdapterEndpoint4").replace().to(warrantReportingMockEndpoint);
+		});
+		
+		// mock the web service endpoints
+		AdviceWith.adviceWith(context, "warrant_rejected_route", route -> {
+			route.weaveById("warrantIssuedReportingServiceAdapterEndpoint5").replace().to(warrantReportingMockEndpoint);
+		});
     	
     	// mock the web service endpoints
-    	context.getRouteDefinition("warrant_rejected_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// mock the adapter endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
-    	    }              
-    	});       	
+		AdviceWith.adviceWith(context, "warrant_modification_route", route -> {
+			route.weaveById("warrantIssuedReportingServiceAdapterEndpoint2").replace().to(warrantReportingMockEndpoint);
+		});
 
     	// mock the web service endpoints
-    	context.getRouteDefinition("warrant_modification_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// mock the adapter endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
-    	    }              
-    	});       	
-
-    	// mock the web service endpoints
-    	context.getRouteDefinition("warrant_cancellation_route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	
-    	    	// mock the adapter endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
-    	    }              
-    	});  
+		AdviceWith.adviceWith(context, "warrant_cancellation_route", route -> {
+			route.weaveById("warrantIssuedReportingServiceAdapterEndpoint").replace().to(warrantReportingMockEndpoint);
+		});
     	
 		context.start();		
 	}

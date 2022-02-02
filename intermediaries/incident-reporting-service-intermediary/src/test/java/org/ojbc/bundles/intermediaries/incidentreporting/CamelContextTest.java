@@ -32,33 +32,36 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.ojbc.intermediaries.incidentreporting.IncidentReportProcessor;
+import org.ojbc.intermediaries.incidentreporting.IncidentReportingServiceIntermediaryApplication;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@SpringBootTest(classes=IncidentReportingServiceIntermediaryApplication.class)
+@ActiveProfiles("dev")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations = {
-		"classpath:META-INF/spring/camel-context.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml",		
-		"classpath:META-INF/spring/properties-context.xml",
-		"classpath:META-INF/spring/jetty-server.xml",
-		"classpath:META-INF/spring/dao.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"		
 		})
@@ -75,78 +78,55 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:N-DexSubmissionServiceFacade")
+    @EndpointInject(value = "mock:cxf:bean:N-DexSubmissionServiceFacade")
     protected MockEndpoint ndexServiceMock;
     
-    @EndpointInject(uri = "mock:cxf:bean:ChargeReferralService")
+    @EndpointInject(value = "mock:cxf:bean:ChargeReferralService")
     protected MockEndpoint chargeReferralServiceMock;
     
-    @EndpointInject(uri = "mock:cxf:bean:ChargeReferralReportingService")
+    @EndpointInject(value = "mock:cxf:bean:ChargeReferralReportingService")
     protected MockEndpoint chargeReferralReportingServiceMock;     
     
-    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    @EndpointInject(value = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceMock;
 
-    @EndpointInject(uri = "mock:cxf:bean:arrestReportingService")
+    @EndpointInject(value = "mock:cxf:bean:arrestReportingService")
     protected MockEndpoint arrestReportingBrokerServiceMock;
     
 
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("IncidentReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:IncidentReportingServiceEndpoint");
-    	    }              
+    	AdviceWith.adviceWith(context, "IncidentReportingServiceHandlerRoute", route -> {
+    		route.replaceFromWith("direct:IncidentReportingServiceEndpoint");
     	});
 
     	//We mock the 'N-DEx' web service endpoint and intercept any submissions
-    	context.getRouteDefinition("CallNDExSubmissionServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:N-DexSubmissionServiceFacade*");
-    	    }              
+    	AdviceWith.adviceWith(context, "CallNDExSubmissionServiceRoute", route -> {
+    		route.weaveById("ndexSubmissionServiceEndpoint").replace().to(ndexServiceMock);
     	});
 
     	//We mock the Charge Referral web service endpoint and intercept any submissions
-    	context.getRouteDefinition("CallChargeReferralServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:ChargeReferralService*");
-    	    }              
+    	AdviceWith.adviceWith(context, "CallChargeReferralServiceRoute", route -> {
+    		route.weaveById("chargeReferralServiceEndpoint").replace().to(chargeReferralServiceMock);
     	});
     	
     	    
     	//We mock the Charge Referral Reporting web service endpoint and intercept any submissions
-    	context.getRouteDefinition("CallChargeReferralReportingService_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:ChargeReferralReportingService*");
-    	    }              
-    	});    	    	    	
+    	AdviceWith.adviceWith(context, "CallChargeReferralReportingService_Route", route -> {
+    		route.weaveById("chargeReferralReportingServiceEndpoint").replace().to(chargeReferralReportingServiceMock);
+    	});
 
     	//We mock the Notification Broker web service endpoint and intercept any submissions
-    	context.getRouteDefinition("callNotificationBrokerServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:notificationBrokerService*");
-    	    }              
+    	AdviceWith.adviceWith(context, "callNotificationBrokerServiceRoute", route -> {
+    		route.weaveById("notificationBrokerServiceEndpoint").replace().to(notificationBrokerServiceMock);
     	});
 
     	//We mock the Arrest Reporting web service endpoint and intercept any submissions
-    	context.getRouteDefinition("callArrestReportingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");
-    	    }              
+    	
+    	AdviceWith.adviceWith(context, "callArrestReportingServiceRoute", route -> {
+    		route.weaveById("arrestReportingServiceEndpoint").replace().to(arrestReportingBrokerServiceMock);
     	});
 
 		context.start();		

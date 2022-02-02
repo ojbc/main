@@ -27,7 +27,7 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">       						
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
 		<camel:endpoint id="warrantIssuedReportingServiceIntermediaryEndpoint"
 			uri="cxf:bean:warrantIssuedReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantIssuedReporting.cxfLogging}&amp;allowStreaming=false" />
@@ -72,7 +72,7 @@
 			<camel:choice>
 			
 				<camel:when>				
-					<simple>${header.operationName} == 'ReportWarrantIssued'</simple>
+					<simple>${in.headers.operationName} == 'ReportWarrantIssued'</simple>
 					
 					<log message="\n\n\n Running: direct:callReportWarrantIssued... \n\n\n"/>
 					
@@ -80,25 +80,25 @@
 				</camel:when>
 
 				<camel:when>				
-					<simple>${header.operationName} == 'ReportWarrantAccepted'</simple>
+					<simple>${in.headers.operationName} == 'ReportWarrantAccepted'</simple>
 					
 					<camel:to uri="direct:callReportWarrantAccepted"/>	
 				</camel:when>
 				
 				<camel:when>				
-					<simple>${header.operationName} == 'ReportWarrantRejected'</simple>
+					<simple>${in.headers.operationName} == 'ReportWarrantRejected'</simple>
 					
 					<camel:to uri="direct:callReportWarrantRejected"/>	
 				</camel:when>						
 									
 				<camel:when>				
-					<simple>${header.operationName} == 'ReportWarrantModification'</simple>
+					<simple>${in.headers.operationName} == 'ReportWarrantModification'</simple>
 					
 					<camel:to uri="direct:callReportWarrantModification"/>	
 				</camel:when>											
 
 				<camel:when>				
-					<simple>${header.operationName} == 'ReportWarrantCancelled'</simple>
+					<simple>${in.headers.operationName} == 'ReportWarrantCancelled'</simple>
 					
 					<camel:to uri="direct:callReportWarrantCancellation"/>	
 				</camel:when>																					
@@ -113,17 +113,17 @@
 	
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportWarrantCancelled</constant>
 			</camel:setHeader>
 	
 			<log message="\n\n\n Sending Warrant Cancellation to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" id="warrantIssuedReportingServiceAdapterEndpoint"/>
 		</camel:route>		
 			
 		<camel:route id="warrant_modification_route">
@@ -132,17 +132,17 @@
 	
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportWarrantModification</constant>
 			</camel:setHeader>
 	
 			<log message="\n\n\n Sending Warrant Modification to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" id="warrantIssuedReportingServiceAdapterEndpoint2"/>
 		</camel:route>		
 		
 		<camel:route id="warrant_issued_route">
@@ -151,17 +151,17 @@
 	
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportWarrantIssued</constant>
 			</camel:setHeader>
 	
 			<log message="\n\n\n Sending Warrant Issue to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" id="warrantIssuedReportingServiceAdapterEndpoint3"/>
 		</camel:route>
 		
 		
@@ -171,17 +171,17 @@
 	
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportWarrantAccepted</constant>
 			</camel:setHeader>
 			
 			<log message="\n\n\n Sending Warrant Accepted to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>	
 	
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" id="warrantIssuedReportingServiceAdapterEndpoint4"/>
 		</camel:route>
 		
 		
@@ -191,17 +191,17 @@
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportWarrantRejected</constant>
 			</camel:setHeader>
 			
 			<log message="\n\n\n Sending Warrant Rejected to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" id="warrantIssuedReportingServiceAdapterEndpoint5"/>
 		</camel:route>
 		
 		
@@ -210,7 +210,7 @@
 			
 			<camel:from uri="direct:callDerivedBundleChildRoutes"/>
 		
-			<camel:setHeader headerName="derivedRoutes">
+			<camel:setHeader name="derivedRoutes">
 				<simple>{{warrantIssuedReporting.camelEndpointsToCall}}</simple>
 			</camel:setHeader>
 
@@ -228,7 +228,5 @@
 								
 	</camel:camelContext>
 			
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-		
 </beans>
 

@@ -16,18 +16,19 @@
  */
 package org.ojbc.incidentReporting.dao;
 
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.ojbc.util.helper.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
+@CamelSpringBootTest
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
 @ContextConfiguration(locations={"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"})

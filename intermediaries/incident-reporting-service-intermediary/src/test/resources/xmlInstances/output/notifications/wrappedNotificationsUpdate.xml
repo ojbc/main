@@ -53,7 +53,7 @@
                         </nc:ActivityDate>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e453"/>
+                              <nc:RoleOfPersonReference s:ref="d1e371"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -67,7 +67,7 @@
                               </j:EnforcementOfficialUnit>
                            </j:IncidentReportingOfficial>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e482"/>
+                              <nc:RoleOfPersonReference s:ref="d1e397"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -91,10 +91,10 @@
                   </notificationExt:NotifyingIncident>
                   <nc:ActivityInvolvedPersonAssociation>
                      <nc:ActivityReference s:ref="I001"/>
-                     <nc:PersonReference s:ref="d1e232"/>
+                     <nc:PersonReference s:ref="d1e190"/>
                      <nc:PersonActivityInvolvementText>Arrest Subject</nc:PersonActivityInvolvementText>
                   </nc:ActivityInvolvedPersonAssociation>
-                  <j:Person s:id="d1e232">
+                  <j:Person s:id="d1e190">
                      <nc:PersonBirthDate>
                         <nc:Date>2015-09-03</nc:Date>
                      </nc:PersonBirthDate>
@@ -103,12 +103,12 @@
                         <nc:PersonSurName>Smith</nc:PersonSurName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e453">
+                  <j:Person s:id="d1e371">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e482">
+                  <j:Person s:id="d1e397">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
                      </nc:PersonName>
@@ -146,7 +146,7 @@
                         </nc:ActivityDate>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e453"/>
+                              <nc:RoleOfPersonReference s:ref="d1e371"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -160,7 +160,7 @@
                               </j:EnforcementOfficialUnit>
                            </j:IncidentReportingOfficial>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e482"/>
+                              <nc:RoleOfPersonReference s:ref="d1e397"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -184,10 +184,10 @@
                   </notificationExt:NotifyingIncident>
                   <nc:ActivityInvolvedPersonAssociation>
                      <nc:ActivityReference s:ref="I001"/>
-                     <nc:PersonReference s:ref="d1e321"/>
+                     <nc:PersonReference s:ref="d1e263"/>
                      <nc:PersonActivityInvolvementText>poi</nc:PersonActivityInvolvementText>
                   </nc:ActivityInvolvedPersonAssociation>
-                  <j:Person s:id="d1e321">
+                  <j:Person s:id="d1e263">
                      <nc:PersonBirthDate>
                         <nc:Date>2015-09-03</nc:Date>
                      </nc:PersonBirthDate>
@@ -196,12 +196,12 @@
                         <nc:PersonSurName>Smith</nc:PersonSurName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e453">
+                  <j:Person s:id="d1e371">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e482">
+                  <j:Person s:id="d1e397">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
                      </nc:PersonName>
@@ -239,7 +239,7 @@
                         </nc:ActivityDate>
                         <j:IncidentAugmentation>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e453"/>
+                              <nc:RoleOfPersonReference s:ref="d1e371"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -253,7 +253,7 @@
                               </j:EnforcementOfficialUnit>
                            </j:IncidentReportingOfficial>
                            <j:IncidentReportingOfficial>
-                              <nc:RoleOfPersonReference s:ref="d1e482"/>
+                              <nc:RoleOfPersonReference s:ref="d1e397"/>
                               <j:EnforcementOfficialUnit>
                                  <nc:OrganizationName>Burlington Police
                                     Department</nc:OrganizationName>
@@ -277,10 +277,10 @@
                   </notificationExt:NotifyingIncident>
                   <nc:ActivityInvolvedPersonAssociation>
                      <nc:ActivityReference s:ref="I001"/>
-                     <nc:PersonReference s:ref="d1e406"/>
+                     <nc:PersonReference s:ref="d1e332"/>
                      <nc:PersonActivityInvolvementText>Victim</nc:PersonActivityInvolvementText>
                   </nc:ActivityInvolvedPersonAssociation>
-                  <j:Person s:id="d1e406">
+                  <j:Person s:id="d1e332">
                      <nc:PersonBirthDate>
                         <nc:Date/>
                      </nc:PersonBirthDate>
@@ -289,12 +289,12 @@
                         <nc:PersonSurName>Vermont</nc:PersonSurName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e453">
+                  <j:Person s:id="d1e371">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
                      </nc:PersonName>
                   </j:Person>
-                  <j:Person s:id="d1e482">
+                  <j:Person s:id="d1e397">
                      <nc:PersonName>
                         <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
                      </nc:PersonName>
