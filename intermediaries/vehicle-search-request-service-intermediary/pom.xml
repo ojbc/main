@@ -24,7 +24,7 @@
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>vehicle-search-request-service-intermediary</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>2.0.0</version> 
 
 	<name>OJB :: vehicle-search-request-service-intermediary :: intermediary</name>
@@ -40,7 +40,7 @@
 		<spring-boot-version>2.5.2</spring-boot-version>
 		<camel-version>3.11.0</camel-version>
 		<slf4j-version>1.7.10</slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
+		<log4j-version>2.17.1</log4j-version>
 		<cxf-version>3.4.4</cxf-version>
 		<entity-resolution-resources>1.0.2</entity-resolution-resources>
 		<commons-lang-version>3.12.0</commons-lang-version>
@@ -74,7 +74,12 @@
 	        <version>${camel-version}</version>
 	        <type>pom</type>
 	        <scope>import</scope>
-	      </dependency>   
+	      </dependency> 
+	      <dependency>
+	        <groupId>org.apache.logging.log4j</groupId>
+	        <artifactId>log4j-bom</artifactId>
+	        <version>${log4j-version}</version>
+	      </dependency>  
 	    </dependencies>
 	  </dependencyManagement>
 
@@ -279,6 +284,18 @@
 		<defaultGoal>install</defaultGoal>
 		<finalName>${artifactId}</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
