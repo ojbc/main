@@ -95,7 +95,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 						
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/chargeReferral/chargeReferralOutput.xml",
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/chargeReferral/chargeReferralOutput.xml",
         		actualTransformedResultXml);
 	}
 	
@@ -112,7 +112,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 		        
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/chargeReferralReporting/chargeReferralReportOutput.xml", 
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/chargeReferralReporting/chargeReferralReportOutput.xml", 
         		actualTransformedResultXml);
 	}	
 	
@@ -129,7 +129,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 				        
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/arrestReports/IncidentReport-Multiple_Arrest_Subjects._Output.xml", 
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/arrestReports/IncidentReport-Multiple_Arrest_Subjects._Output.xml", 
         		actualTransformedResultXml);
 	}
 	
@@ -145,7 +145,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);				
         
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/arrestReports/No-namespace-prefixes-output.xml", 
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/arrestReports/No-namespace-prefixes-output.xml", 
         		actualTransformedResultXml);
 	}
 	
@@ -162,7 +162,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 				        
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/notifications/wrappedNotifications.xml", actualTransformedResultXml);
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/notifications/wrappedNotifications.xml", actualTransformedResultXml);
 	}
 
 
@@ -178,7 +178,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);				
                 
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/notifications/wrappedNotificationsUpdate.xml", 
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/notifications/wrappedNotificationsUpdate.xml", 
         		actualTransformedResultXml);
 	}
 
@@ -194,7 +194,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
 				        
-        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/structuredPayloads/IncidentReportNoCustomStructuredPayloads.xml", 
+        XmlTestUtils.compareDocuments("src/test/resources/xmlInstances/output/structuredPayloads/IncidentReportNoCustomStructuredPayloads.xml", 
         		actualTransformedResultXml);
 	}
 	

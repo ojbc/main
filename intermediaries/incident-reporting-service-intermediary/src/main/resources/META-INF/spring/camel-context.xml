@@ -42,8 +42,11 @@
 	<import resource="error-handlers.xml" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
+	
+		<streamCaching id="myCacheConfig" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true"/>
+		
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
-
+		
 		<!-- Some CXF endpoints are inline to support testing -->	
 		<camel:endpoint id="incidentReportingServiceEndpoint"
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
@@ -74,11 +77,11 @@
 
 			<convertBodyTo type="java.lang.String" />
 
-			<camel:setHeader headerName="submittingORI">
+			<camel:setHeader name="submittingORI">
 				<camel:xpath resultType="java.lang.String">//lexs:DataOwnerMetadata/lexs:DataOwnerIdentifier/lexs:ORI</camel:xpath>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="arrestSubjects">
+			<camel:setHeader name="arrestSubjects">
 				<xpath resultType="java.lang.String">count(//lexsdigest:ArrestSubjectAssociation)</xpath>
 			</camel:setHeader>
 			
@@ -167,24 +170,24 @@
 						
 			<camel:filter>
 				<camel:xpath>/ir:IncidentReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportIncident</constant>
 				</camel:setHeader>
 			</camel:filter>
 			
 			<camel:filter>
 				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportIncidentUpdate</constant>
 				</camel:setHeader>
 			</camel:filter>	
 			
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>				
 			
 			<camel:to
-				uri="ndexSubmissionServiceEndpoint" />
+				uri="ndexSubmissionServiceEndpoint" id="ndexSubmissionServiceEndpoint"/>
 			<log message="Called NDEx service" />
 		</camel:route>
 		
@@ -202,7 +205,7 @@
 			
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportIncident</constant>
 				</camel:setHeader>
 			</camel:filter>
@@ -212,13 +215,13 @@
           			           			
           			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
           	
-	            <camel:setHeader headerName="operationName">
+	            <camel:setHeader name="operationName">
 					<constant>ReportIncidentUpdate</constant>
 				</camel:setHeader>
 				
 			</camel:filter>
 						
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>				
 			
@@ -243,10 +246,10 @@
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 					
-					<camel:setHeader headerName="operationName"><constant>SubmitChargeReferral</constant></camel:setHeader>	
-					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralService/1.0</constant></camel:setHeader>
+					<camel:setHeader name="operationName"><constant>SubmitChargeReferral</constant></camel:setHeader>	
+					<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralService/1.0</constant></camel:setHeader>
 				
-					<to uri="chargeReferralServiceEndpoint" />
+					<to uri="chargeReferralServiceEndpoint" id="chargeReferralServiceEndpoint"/>
 					<log message="Called Charge Referral Service" />
 					
 				</camel:filter>
@@ -262,14 +265,14 @@
             
             <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
                         			
-			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt?saxon=true"/>
+			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
-			<camel:setHeader headerName="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
 		
-			<to uri="chargeReferralReportingServiceEndpoint" />										
+			<to uri="chargeReferralReportingServiceEndpoint" id="chargeReferralReportingServiceEndpoint"/>										
 				            
         </camel:route>        
         
@@ -280,12 +283,12 @@
         
 			<camel:log message="Processing Incident Report Notifications"/>
 						
-			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?saxon=true"/>								
+			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl"/>								
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader name="operationName"><constant>Notify</constant></camel:setHeader>	
+			<camel:setHeader name="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
 	        
 	        <camel:split streaming="true">
 				<tokenize token="wrapper" xml="true" inheritNamespaceTagName="notifications" includeTokens="false"/>
@@ -296,7 +299,7 @@
 	
 				<camel:choice>
 					<camel:when>
-						<camel:method bean="incidentReportPersonInvolvementProcessor" method="hasThisPersonInvolvmentBeenProcessedBefore" />
+						<camel:method ref="incidentReportPersonInvolvementProcessor" method="hasThisPersonInvolvmentBeenProcessedBefore" />
 						<camel:log message="Person Involvement processed in previous invocation, stopping exchange"/>
 					</camel:when>
 					<camel:otherwise>
@@ -305,8 +308,9 @@
 						
 			            <camel:throttle timePeriodMillis="1000">
 			            	<constant>1</constant>
-			            	<to uri="notificationBrokerServiceEndpoint"/>
 			        	</camel:throttle>  
+			        	
+			        	<to uri="notificationBrokerServiceEndpoint" id="notificationBrokerServiceEndpoint"/>
 					</camel:otherwise>
 				</camel:choice>
 			</camel:split>
@@ -321,12 +325,12 @@
 				
 				<camel:log message="Processing Arrests to send to Arrest Intermediary"/>
 				
-				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl?saxon=true"/>
+				<camel:to uri="xslt:xslt/incidentReportToArrestReport.xsl"/>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 				
-				<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>
+				<camel:setHeader name="operationName"><constant>ReportArrest</constant></camel:setHeader>	
+				<camel:setHeader name="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>
           
           			<camel:split streaming="true">
 					<tokenize token="wrapper" xml="true" inheritNamespaceTagName="arrestReports" includeTokens="false"/>
@@ -337,7 +341,7 @@
 
 					<camel:choice>
 						<camel:when>
-							<camel:method bean="arrestReportProcessor" method="hasThisPersonArrestBeenProcessedBefore" />
+							<camel:method ref="arrestReportProcessor" method="hasThisPersonArrestBeenProcessedBefore" />
 							<camel:log message="Person Arrest Involvement processed in previous invocation, stopping exchange"/>
 						</camel:when>
 						<camel:otherwise>
@@ -346,8 +350,9 @@
 							
 				            <camel:throttle timePeriodMillis="1000">
 				            	<constant>1</constant>
-				            	<to uri="arrestReportingServiceEndpoint"/>
 				        	</camel:throttle>  
+				        	
+				        	<to uri="arrestReportingServiceEndpoint" id="arrestReportingServiceEndpoint"/>
 						</camel:otherwise>
 					</camel:choice>
 				</camel:split>
@@ -361,7 +366,7 @@
 			<!-- Set up derived endpoints -->
 			<!-- typically we would use the {{ }} camel construct to get the property -->
 			<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes">
+			<camel:setHeader name="routingSlipDerivedRoutes">
 				<simple>${bean:endpointsToCall.trim}</simple>
 			</camel:setHeader>
 
@@ -380,46 +385,4 @@
 
 	</camel:camelContext>
 	
-	<!-- bean that check to see if this is an authorized N-DEx or Charge Referral submission-->
-	<bean id="incidentReportProcessor" class="org.ojbc.intermediaries.incidentreporting.IncidentReportProcessor">
-		<constructor-arg type="java.lang.String">
-			<value>${ndexAuthorizedORIList}</value>
-		</constructor-arg>
-		<constructor-arg type="java.lang.String">
-			<value>${chargeReferralAuthorizedORIList}</value>
-		</constructor-arg>
-	</bean>
-	
-	<!-- typically we would use the {{ }} camel construct to get the property -->
-	<!-- but this was causing an issue with an @ in a property.  This caused an attempted file resolution of a property -->
-    <bean id="endpointsToCall" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.camelEndpointsToCall}" />
-    </bean>	
-
-    <bean id="callNotificationBrokerService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callNotificationBrokerService}" />
-    </bean>	
-	
-    <bean id="callArrestReportingService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
-    </bean>	
-
-    <bean id="callIncidentAnalyticsService" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${incidentReportingService.callIncidentAnalyticsService}" />
-    </bean>	
-	
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
-    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
-        <property name="name" value="default" />
-        <property name="queueSize" value="2048" />
-    </bean>	
-    
-	<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
-	    <property name="spoolDirectory" value="${java.io.tmpdir}/camelcache/#uuid#/"/>
-	    <property name="spoolThreshold" value="65536"/>
-	    <property name="spoolUsedHeapMemoryThreshold" value="70"/>
-	    <property name="anySpoolRules" value="true"/>
-	</bean>    
 </beans>

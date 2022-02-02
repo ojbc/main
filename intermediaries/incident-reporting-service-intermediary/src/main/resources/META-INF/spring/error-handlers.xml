@@ -62,20 +62,20 @@
 			<camel:route id="NDExDeliveryFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
 				<camel:from uri="deadLetterDirNDEx" />
 	
-				<camel:setHeader headerName="incidentID">
+				<camel:setHeader name="incidentID">
 					<camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="CamelFileName">
+				<camel:setHeader name="CamelFileName">
 					<camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 				</camel:setHeader>
 				<camel:to uri="deadLetterDirNDExArchive" />
-				<camel:setHeader headerName="to">
+				<camel:setHeader name="to">
 					<camel:simple>${bean:FailedNDExSubmissionNotificationEmailAddress.trim}</camel:simple>
 				</camel:setHeader>
-				<camel:setHeader headerName="subject">
+				<camel:setHeader name="subject">
 					<camel:simple>${bean:FailedNDExSubmissionNotificationEmailSubject.trim}</camel:simple>
 				</camel:setHeader>
-				<camel:setHeader headerName="dataItemID">
+				<camel:setHeader name="dataItemID">
 					<camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
 				</camel:setHeader>
 				<camel:setBody>
@@ -89,20 +89,20 @@
 			<camel:route id="ChargeReferralFailureEmailNotificationRoute" errorHandlerRef="deadLetterChannelErrorHandler">
 				<camel:from uri="deadLetterDirChargeReferral" />
 				
-				<camel:setHeader headerName="incidentID">
+				<camel:setHeader name="incidentID">
 					<camel:xpath resultType="java.lang.String">//nc:Activity[nc:ActivityCategoryText='Incident']/nc:ActivityIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="CamelFileName">
+				<camel:setHeader name="CamelFileName">
 					<camel:simple>Incident_${in.header.incidentID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 				</camel:setHeader>
 				<camel:to uri="deadLetterDirChargeReferralArchive" />
-				<camel:setHeader headerName="to">
+				<camel:setHeader name="to">
 					<camel:simple>${bean:FailedChargeReferralNotificationEmailAddress.trim}</camel:simple>
 				</camel:setHeader>
-				<camel:setHeader headerName="subject">
+				<camel:setHeader name="subject">
 					<camel:simple>${bean:FailedChargeReferralNotificationEmailSubject.trim}</camel:simple>
 				</camel:setHeader>
-				<camel:setHeader headerName="dataItemID">
+				<camel:setHeader name="dataItemID">
 					<camel:xpath resultType="java.lang.String">//lexs:DataItemID</camel:xpath>
 				</camel:setHeader>
 				<camel:setBody>

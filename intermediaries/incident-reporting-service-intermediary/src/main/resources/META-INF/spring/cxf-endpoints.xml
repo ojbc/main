@@ -143,10 +143,13 @@
 	<http:conduit
 		name="*.http-conduit">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${incidentReportingService.intermediaryKeyPassword}">
+	        	<sec:keyStore type="jks" password="${incidentReportingService.intermediaryKeystorePassword}" url="${incidentReportingService.intermediaryKeystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
 					password="${incidentReportingService.truststorePassword}"
-					file="${incidentReportingService.truststoreLocation}" />
+					url="${incidentReportingService.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
@@ -171,14 +174,14 @@
 		and validation. -->
 	<util:properties id="incidentReportingKeystoreProperties">
 		<!-- Defines the implementation class. -->
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
 		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
 		<!-- The password for the keystore file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${incidentReportingService.intermediaryKeystorePassword}
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentReportingService.intermediaryKeystorePassword}
 		</prop>
 		<!-- The password for the keystore file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.file">${incidentReportingService.intermediaryKeystoreLocation}
+		<prop key="org.apache.wss4j.crypto.merlin.file">${incidentReportingService.intermediaryKeystoreLocation}
 		</prop>
 	</util:properties>
 

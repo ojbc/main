@@ -34,14 +34,14 @@
 	</bean>
 
 	<!-- RDBMS datasource, this connection is pooled -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
 		destroy-method="close">
 		<property name="driverClassName" value="${incidentReportingService.dataSource.driverClass}" />
 		<property name="url" value="${incidentReportingService.dataSource.jdbcUrl}" />
 		<property name="username" value="${incidentReportingService.dataSource.user}" />
 		<property name="password" value="${incidentReportingService.dataSource.password}" />
 		<property name="initialSize" value="${incidentReportingService.dataSource.minPoolSize}" />
-		<property name="maxActive" value="${incidentReportingService.dataSource.maxPoolSize}" />
+		<property name="maxTotal" value="${incidentReportingService.dataSource.maxPoolSize}" />
 		<property name="validationQuery" value="select 1" />
 		<property name="testOnBorrow" value="true" />
 	</bean>	
