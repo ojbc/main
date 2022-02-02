@@ -65,28 +65,27 @@
             <div id="stateInitialResultTab">
                 <!--A better way of checking String is not null or empty--> 
                 <!-- http://wiki.apache.org/velocity/CheckingForNull -->
-                <div th:if="${identificationResultsQueryResponse.stateSearchResultFile} != ''" th:utext="${identificationResultsQueryResponse.stateSearchResultFile}">
-                    State Search Result File
+                <div th:if="${identificationResultsQueryResponse.stateSearchResultFile} != ''">
+                   <pre th:utext="${identificationResultsQueryResponse.stateSearchResultFile}"> State Search Result File</pre>
                 </div> 
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments}" th:utext="${item}">
-                    State Criminal History Record Documents
+                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments}">
+                    <pre th:utext="${item}">State Criminal History Record Documents</pre>
                 </div>
             </div>
             <div id="fbiInitialResultTab">
-                <div th:utext="${identificationResultsQueryResponse.fbiSearchResultFile}" 
-                    th:if="${identificationResultsQueryResponse.fbiSearchResultFile} != ''">
-                    FBI Search Result File 
+                <div th:if="${identificationResultsQueryResponse.fbiSearchResultFile} != ''">
+                    <pre th:utext="${identificationResultsQueryResponse.fbiSearchResultFile}">FBI Search Result File </pre>
                 </div>
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments}" th:utext="${item}">
-                    FBI Criminal History Record Documents
+                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments}">
+                    <pre th:utext="${item}">FBI Criminal History Record Documents</pre>
                 </div>
             </div>
             <div id="nsorResultTab">
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorDemographicsDocuments}" th:utext="${item}">
-                    NSOR Demographics Documents
+                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorDemographicsDocuments}">
+                    <pre th:utext="${item}">NSOR Demographics Documents</pre>
                 </div>
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorSearchResultsDocuments}" th:utext="${item}">
-                    NSOR Search Results Documents
+                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorSearchResultsDocuments}">
+                    <pre th:utext="${item}">NSOR Search Results Documents</pre>
                 </div>
             </div>          
             

@@ -44,23 +44,21 @@
         
   </head>
   <body id="searchDetailsFrame">
-    <div id="tabs">
-
+    <div id="subsequentResultsDetailTabs">
         <ul>
-            <li id="State Rap Sheet">
-                <a href="#stateRapsheetTab">State Rap Sheet</a>
+            <li>
+                <a href="#stateSubsequentResultTab">State Subsequent Results</a>
             </li>
-            
-            <li id="FBI Rap Sheet" th:if="${rapsheetQueryRequest.hasFbiRapsheet == 'true'}">
-                <a th:href="@{/rapbacks/fbiRapsheet/} + ${rapsheetQueryRequest.transactionNumber}">FBI Rap Sheet</a>
+            <li>
+                <a href="#fbiSubsequentResultTab">FBI Subsequent Results</a>
             </li>
-            <button id="printButton" style="float:right;" th:messageId="${detailsRequest.federatedQueryId}">Print</button>
         </ul>
 
-        <div id="stateRapsheetTab">
-            <!--A better way of checking String is not null or empty--> 
-            <!-- http://wiki.apache.org/velocity/CheckingForNull -->
-            <div th:if="${stateRapsheet != ''}"><pre th:utext="${stateRapsheet}">State Rapsheet</pre></div> 
+        <div id="stateSubsequentResultTab">
+            <div th:each="item : ${identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments}" ><pre th:utext="${item}">State Criminal History Record</pre></div>
+        </div>
+        <div id="fbiSubsequentResultTab">
+            <div th:each="item : ${identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments}" ><pre th:utext="${item}">FBI Criminal History Record</pre></div>
         </div>
     </div>
     <script th:inline="javascript">
@@ -70,45 +68,12 @@
             var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	    /*]]>*/
         $(function () {
-            $('#tabs').tabs({
-                create: function( event, ui ) {
-                    var modalIframe = $("#modalIframe", parent.document);
-                    modalIframe.height(modalIframe.contents().find("body").height() + 20);
-                },
+            $('#subsequentResultsDetailTabs').tabs({
                 activate: function( event, ui ) {
                     var modalIframe = $("#modalIframe", parent.document);
-                    modalIframe.height(modalIframe.contents().find("body").height() + 20);
-                },
-                beforeLoad: function( event, ui ) {
-                    var tempDiv = '<div style="height: 50"> <div id="modalIframeSpinner" style="height:50%;width:100%; top:50; left:0;"/></div>';
-                    ui.panel.html(tempDiv);
-                    ui.jqXHR.fail(function(e) {
-                      ui.panel.html(
-                        "The FBI's NGI system has not responded.  Please try again later.");
-                    });
+                    modalIframe.height(modalIframe.contents().find("body").height() + 16);
                 }
             });
-            
-            $("#printButton").button();
-            
-            $("#printButton").on("click", function(){
-
-                var activeTabIdx = $('#tabs').tabs('option','active');
-
-                // ID OF ACTIVE TAB
-                // make sure to change #tabs to your selector for tabs
-                var selector = '#tabs > ul > li';
-                var activeTabID = $(selector).eq(activeTabIdx).attr('id');
-                var requestData = {
-                        'messageId': $(this).attr('messageId'),
-                        'activeTab': activeTabID
-                     };
-                requestData[_csrf_param_name] = _csrf_token;
-
-                $.post(context + 'rapbacks/auditRapsheetPrint', requestData);                    
-
-                window.print();
-            }); 
         });
     </script>
   </body>

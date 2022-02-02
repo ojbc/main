@@ -47,6 +47,7 @@ public class AppProperties {
 	private String bannerInitial="OJBC";
 	private String bannerFullname="Federated Query";
 
+	private String enhancedAuditServerBaseUrl = "https://localhost:8443/OJB/";
 	/*
 	 * demo user Saml attributes
 	 */
@@ -205,6 +206,14 @@ public class AppProperties {
 
 	public void setBannerFullname(String bannerFullname) {
 		this.bannerFullname = bannerFullname;
+	}
+
+	public String getEnhancedAuditServerBaseUrl() {
+		return enhancedAuditServerBaseUrl;
+	}
+
+	public void setEnhancedAuditServerBaseUrl(String enhancedAuditServerBaseUrl) {
+		this.enhancedAuditServerBaseUrl = enhancedAuditServerBaseUrl;
 	}
 
 }

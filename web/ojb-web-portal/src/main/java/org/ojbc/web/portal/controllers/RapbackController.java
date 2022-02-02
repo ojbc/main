@@ -73,6 +73,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -173,7 +174,7 @@ public class RapbackController {
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
 	}
     
-	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
+	@RequestMapping(value = "/rapbackResults", method = RequestMethod.GET)
 	public String rapbackResults(HttpServletRequest request, 
 	        Map<String, Object> model) {
 		
@@ -304,11 +305,11 @@ public class RapbackController {
 		auditPrintResults(messageId, activeTab, userLogonInfo, printResults);
 	}
 	
-	@RequestMapping(value = "userAcknowledgement/{decision}/{subscriptionId}", method = RequestMethod.POST)
+	@PostMapping("userAcknowledgement")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void auditUserAcknowledgement(HttpServletRequest request,
-			@PathVariable("decision") Boolean decision,
-			@PathVariable("subscriptionId") String subscriptionId,
+			@RequestParam Boolean decision,
+			@RequestParam String subscriptionId,
 			Map<String, Object> model) throws Exception {
 		
 		logger.info("decision: " + BooleanUtils.toStringYesNo(decision));
@@ -601,7 +602,8 @@ public class RapbackController {
 		}
 		
 		try {
-			String stateRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(stateRapsheetDoc), "/cht-doc:CriminalHistoryTextDocument/cht-doc:StateCriminalHistoryRecordDocument/cht-doc:Base64BinaryObject");
+			String stateRapsheet = XmlUtils.getStringFromBinaryDataElement(OJBUtils.loadXMLFromString(stateRapsheetDoc), 
+					"/cht-doc:CriminalHistoryTextDocument//cht-doc:Base64BinaryObject");
 			model.put("stateRapsheet", stateRapsheet);
 		} catch (Exception e){
 			throw new IllegalStateException(e.getMessage());
