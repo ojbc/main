@@ -24,6 +24,12 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
+/**
+ * @Deprecated
+ * 
+ * Please use {@link com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer}  instead.
+ */
+@Deprecated
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     @Override
     public void serialize(LocalDateTime arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException, JsonProcessingException {

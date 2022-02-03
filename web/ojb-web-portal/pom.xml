@@ -307,9 +307,7 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
-		
 		<!-- front end jars -->
 		<dependency>
 			<groupId>org.webjars</groupId>

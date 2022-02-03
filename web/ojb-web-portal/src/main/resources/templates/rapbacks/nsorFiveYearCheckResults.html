@@ -44,52 +44,35 @@
         
   </head>
   <body id="searchDetailsFrame">
-        <div id="tabs">
+    <div id="tabs">
 
-            <ul>
-                <li id="State Initial Results">
-                    <a href="#stateInitialResultTab">State Initial Results</a>
-                </li>
-                <li id="FBI Initial Results">
-                    <a href="#fbiInitialResultTab">FBI Initial Results</a>
-                </li>
+        <ul>
+            <li id="nsor5YearCheckLink">
+                <a href="#nsor5YearCheckTab">FBI NSOR Check Results</a>
+            </li>
+            <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+        </ul>
+        <div id="nsor5YearCheckTab">
+            <div class="mx-auto mb-4">
+                <p class="text-center">Date/Time: <span th:text="${identificationResultsQueryResponse.documentCreationTimeStampString}">Time Stamp</span></p>
+                <p class="text-center font-weight-bold"><u>Hawaii Criminal Justice Data Center</u><br><u>NSOR Search Results</u></p>
                 
-                <li id="NSOR Results" th:if="${identificationResultsQueryResponse.nsorDemographicsDocuments ne null and #lists.size(identificationResultsQueryResponse.nsorDemographicsDocuments) > 0 
-                    or identificationResultsQueryResponse.nsorSearchResultsDocuments ne null and #lists.size(identificationResultsQueryResponse.nsorSearchResultsDocuments) > 0}">
-                    <a href="#nsorResultTab">NSOR Results</a>
-                </li>
-                
-                <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
-            </ul>
-
-            <div id="stateInitialResultTab">
-                <!--A better way of checking String is not null or empty--> 
-                <!-- http://wiki.apache.org/velocity/CheckingForNull -->
-                <div th:if="${identificationResultsQueryResponse.stateSearchResultFile} != ''">
-                   <pre th:utext="${identificationResultsQueryResponse.stateSearchResultFile}"> State Search Result File</pre>
-                </div> 
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments}">
-                    <pre th:utext="${item}">State Criminal History Record Documents</pre>
-                </div>
+                <p class="text-center mt-3">Applicant <br> Response from NSOR</p> 
+                <p class="text-center">***The information furnished is based on the name(s) and date of birth provided, and is 
+                    <br>NOT a result of a fingerprint comparison. There is no guarantee that the record 
+                    <br>concerns the person in whom you are interested.***</p>
+                <p>Name (Master Name): <span th:text="${identificationResultsQueryResponse.personName}">Person Name</span></p>   
+                <p>DOB: <span th:text="${identificationResultsQueryResponse.dob}">DOB</span></p>     
+                <p>OTN: <span th:text="${identificationResultsQueryResponse.otn}">OTN</span></p>     
+                <p>Agency: <span th:text="${identificationResultsQueryResponse.agencyName}">Agency Name</span></p>   
             </div>
-            <div id="fbiInitialResultTab">
-                <div th:if="${identificationResultsQueryResponse.fbiSearchResultFile} != ''">
-                    <pre th:utext="${identificationResultsQueryResponse.fbiSearchResultFile}">FBI Search Result File </pre>
-                </div>
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments}">
-                    <pre th:utext="${item}">FBI Criminal History Record Documents</pre>
-                </div>
-            </div>
-            <div id="nsorResultTab">
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorDemographicsDocuments}">
-                    <pre th:utext="${item}">NSOR Demographics Documents</pre>
-                </div>
-                <div class="rapsheet" th:each="item : ${identificationResultsQueryResponse.nsorSearchResultsDocuments}">
-                    <pre th:utext="${item}">NSOR Search Results Documents</pre>
-                </div>
-            </div>          
-            
+             
+            <th:block th:each="item : ${identificationResultsQueryResponse.nsorCheckResultsDocuments}">
+                <hr/>
+                <div class="rapsheet"><pre th:utext="${item}">NSOR Check Results Documents</pre></div>
+            </th:block>
         </div>
+    </div>
     <script th:inline="javascript">
 	    /*<![CDATA[*/
 		    var context = [[@{/}]];

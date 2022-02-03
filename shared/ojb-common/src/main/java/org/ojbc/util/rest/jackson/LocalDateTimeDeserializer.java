@@ -17,6 +17,7 @@
 package org.ojbc.util.rest.jackson;
 
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 
 import org.codehaus.jackson.JsonParser;
@@ -24,6 +25,13 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 
+/**
+ * @Deprecated
+ * 
+ * Please use com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer instead.
+ *
+ */
+@Deprecated
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
     @Override
     public LocalDateTime deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException, JsonProcessingException {

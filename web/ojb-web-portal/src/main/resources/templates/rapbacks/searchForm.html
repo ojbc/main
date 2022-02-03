@@ -117,6 +117,7 @@
 			      
 			      $('#advanceSearchSubmitButton').click (function(){
 			          ojbc.clearPlaceholders();
+                      $( ".datePicker" ).datepicker( "hide" );
 			          var formData = $('#advancedSearchForm').serialize();
 			          formData += '&'+_csrf_param_name+'='+_csrf_token;
 			          
