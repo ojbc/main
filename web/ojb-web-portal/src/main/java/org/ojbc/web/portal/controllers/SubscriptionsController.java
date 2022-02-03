@@ -99,6 +99,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,7 +118,7 @@ import org.xml.sax.InputSource;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
-@RequestMapping("/subscriptions/*")
+@RequestMapping("/subscriptions")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage", "subscriptionFilterCommand"})
 public class SubscriptionsController {
 	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
@@ -259,7 +260,7 @@ public class SubscriptionsController {
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
     }
     
-	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
+	@GetMapping("subscriptionResults")
 	public String searchSubscriptions(HttpServletRequest request,	        
 			Map<String, Object> model) {		
 		
@@ -270,7 +271,7 @@ public class SubscriptionsController {
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
         model.put("subscriptionFilterCommand", new SubscriptionFilterCommand());
 		
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
