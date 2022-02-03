@@ -114,6 +114,7 @@
 		    
 		    $('#advanceSearchSubmitButton').click (function(){
 		        ojbc.clearPlaceholders();
+		        $( ".datePicker" ).datepicker( "hide" );
 		        var formData = $('#advancedSearchForm').serialize();
 		    
 		        xhr = $.get(context + 'rapbacks/criminalIdentificationAdvancedSearch',formData,function(data) {

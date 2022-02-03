@@ -336,17 +336,24 @@
 		            var subscriptionId = $(this).attr("id");
 		            var row = $(this).parent().parent();
 		            
+                    var requestData = {
+                            'subscriptionId': subscriptionId
+                         };
+                    requestData[_csrf_param_name] = _csrf_token;
+
 		            bootpopup({
 		                title: "Are you authorized?",
 		                content: [
 		                    '<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>I certify that to the best of my knowledge this individual is still employed, licensed, or volunteering with my agency/organization and that I am still authorized to review criminal history record information relating to this individual.</p>'
 		                ],
-		                yes: function(data,e) {                         
-		                    $.get(context + 'rapbacks/userAcknowledgement/true/' + subscriptionId);
+		                yes: function(data,e) {
+		                	requestData['decision']= true; 
+		                    $.post(context + 'rapbacks/userAcknowledgement', requestData);
 		                    viewRapsheetButton.click();
 		                },
 		                no: function(data) {
-		                    $.get(context + 'rapbacks/userAcknowledgement/false/' + subscriptionId);
+                            requestData['decision']= false; 
+		                    $.post(context + 'rapbacks/userAcknowledgement', requestData);
 		                    if (recordStatus !== "Archived" && recordStatus !=="Available for Subscription"){
 		                        bootpopup({
 		                            title: "Unsubscribe?",
