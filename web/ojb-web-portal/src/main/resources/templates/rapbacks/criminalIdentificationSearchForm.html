@@ -106,7 +106,7 @@
 		          
 		    $( ".datePicker" ).datepicker({
 		       showOn: "both",
-		       buttonImage: context + 'static/images/Search Form/icon-calendar.png',
+		       buttonImage: context + 'images/Search Form/icon-calendar.png',
 		       buttonImageOnly: true,
 		       shortYearCutoff: "+10",
 		       dateFormat: 'mm/dd/yy'
@@ -114,7 +114,6 @@
 		    
 		    $('#advanceSearchSubmitButton').click (function(){
 		        ojbc.clearPlaceholders();
-		        $( ".datePicker" ).datepicker( "hide" );
 		        var formData = $('#advancedSearchForm').serialize();
 		    
 		        xhr = $.get(context + 'rapbacks/criminalIdentificationAdvancedSearch',formData,function(data) {
