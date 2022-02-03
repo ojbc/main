@@ -283,7 +283,7 @@ public class SubscriptionsController {
 			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
 		} 
 
-		return "subscriptions/_searchForm";
+		return "subscriptions/searchForm::searchFormContent";
 	}
     
 
@@ -294,14 +294,14 @@ public class SubscriptionsController {
 	        Map<String, Object> model, Authentication authentication) {	
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/_searchForm";
+			return "subscriptions/searchForm::searchFormContent";
 		}
 					
 		Element samlElement = samlService.getSamlAssertion(request);
 		subscriptionSearchRequest.setOwnerFederatedId((String) request.getAttribute("principal"));
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
@@ -350,10 +350,10 @@ public class SubscriptionsController {
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 		convertSubscriptionSearchResults(model, "", filteredResults, subscriptionSearchRequest);
 		if (showValidationButton){
-			return "subscriptions/_subscriptionResults";
+			return "subscriptions/subscriptionResults::subscriptionResultsContent";
 		}
 		else{
-			return "subscriptions/admin/_subscriptionResults";
+			return "subscriptions/admin/subscriptionResults::subscriptionResultsContent";
 		}
 	}
 
@@ -455,7 +455,7 @@ public class SubscriptionsController {
 			
 		logger.info("inside addSubscription()");
 		
-		return "subscriptions/addSubscriptionDialog/_addSubscriptionModal";
+		return "subscriptions/addSubscriptionDialog/addSubscriptionModal::addSubscriptionModalContent";
 	}
 
 	/**
@@ -535,7 +535,7 @@ public class SubscriptionsController {
 							
 		model.put("subscription", subscription);
 		
-		return "subscriptions/addSubscriptionDialog/_arrestForm";
+		return "subscriptions/addSubscriptionDialog/arrestForm::arrestFormContent";
 	}
 	
 	@RequestMapping(value="rapbackForm", method=RequestMethod.POST)
@@ -569,7 +569,7 @@ public class SubscriptionsController {
 		
 		model.put("showCaseIdInput", showCaseIdInput);
 		
-		return "subscriptions/addSubscriptionDialog/_rapbackForm";
+		return "subscriptions/addSubscriptionDialog/rapbackForm::rapbackFormContent";
 	}
 	
 	
@@ -662,7 +662,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_incidentForm";
+		return "subscriptions/addSubscriptionDialog/incidentForm::incidentFormContent";
 	}
 
 	@RequestMapping(value="chCycleForm", method=RequestMethod.POST)
@@ -691,7 +691,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_chCycleForm";
+		return "subscriptions/addSubscriptionDialog/chCycleForm::chCycleFormContent";
 	}	
 	
 	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.POST)
@@ -720,7 +720,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_vehicleCrashForm";
+		return "subscriptions/addSubscriptionDialog/vehicleCrashForm::vehicleCrashFormContent";
 	}
 	
 	/**
@@ -1162,10 +1162,10 @@ public class SubscriptionsController {
 		}
 		
 		if (!BooleanUtils.isTrue(admin)){
-			return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
+			return "subscriptions/editSubscriptionDialog/editSubscriptionModal";
 		}
 		else{
-			return "subscriptions/admin/edit/_editSubscriptionModal";
+			return "subscriptions/admin/edit/editSubscriptionModal";
 		}
 	}
 	
@@ -1223,7 +1223,7 @@ public class SubscriptionsController {
 						
 		processValidateSubscription(request, subscriptions, model, samlAssertion);
 			
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	
@@ -1406,10 +1406,10 @@ public class SubscriptionsController {
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 
 		if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())){
-			return "subscriptions/_subscriptionResults";
+			return "subscriptions/subscriptionResults::subscriptionResultsContent";
 		}
 		else {
-			return "subscriptions/admin/_subscriptionResults";
+			return "subscriptions/admin/subscriptionResults::subscriptionResultsContent";
 		}
 	}
 	
