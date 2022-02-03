@@ -110,14 +110,14 @@
 			    ojbc.handleEsc();
 			      $( ".datePicker" ).datepicker({
 			         showOn: "both",
-			         buttonImage: context + 'static/images/Search Form/icon-calendar.png',
+			         buttonImage: context + 'images/Search Form/icon-calendar.png',
 			         buttonImageOnly: true,
 			         dateFormat: 'mm/dd/yy'
 			      });
 			      
 			      $('#advanceSearchSubmitButton').click (function(){
 			          ojbc.clearPlaceholders();
-                      $( ".datePicker" ).datepicker( "hide" );
+                      
 			          var formData = $('#advancedSearchForm').serialize();
 			          formData += '&'+_csrf_param_name+'='+_csrf_token;
 			          
