@@ -56,12 +56,12 @@
 	</cxf:cxfEndpoint>
 
 	<util:properties id="incidentReportingKeystoreProperties">
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${incidentChargeReporting.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${incidentChargeReporting.keystoreCertificateAlias}
+		<prop key="org.apache.wss4j.crypto.provider">org.apache.wss4j.common.crypto.Merlin</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.password">${incidentChargeReporting.keystorePassword}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.alias">${incidentChargeReporting.keystoreCertificateAlias}
 		</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${incidentChargeReporting.keystoreLocation}</prop>
+		<prop key="org.apache.wss4j.crypto.merlin.keystore.file">${incidentChargeReporting.keystoreLocation}</prop>
 	</util:properties>
 
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
@@ -75,9 +75,12 @@
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit name="https://.*">
 		<http:tlsClientParameters disableCNCheck="true">
+			<sec:keyManagers keyPassword="${incidentChargeReporting.keyPassword}">
+	        	<sec:keyStore type="jks" password="${incidentChargeReporting.keystorePassword}" url="${incidentChargeReporting.keystoreLocation}" />
+	    	</sec:keyManagers>
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${incidentChargeReporting.truststorePassword}" file="${incidentChargeReporting.truststoreLocation}" />
+					password="${incidentChargeReporting.truststorePassword}" url="${incidentChargeReporting.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				<sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
