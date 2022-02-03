@@ -27,7 +27,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
        
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector" streamCache="true">
 	
 		<endpoint id="inputDirectory"
 			uri="file:///${dispositionReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${dispositionReporting.ConnectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${dispositionReporting.deleteInputFiles}" />
@@ -56,7 +56,7 @@
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{dispositionReporting.camelEndpointsToCall}}</simple></camel:setHeader>
+			<camel:setHeader name="routingSlipDerivedRoutes"><simple>{{dispositionReporting.camelEndpointsToCall}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
@@ -83,15 +83,15 @@
 			
 			<camel:log message="In Direct Call Intermediary with body of: ${body}" loggingLevel="DEBUG"/>
 		
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportDisposition</constant>
 			</camel:setHeader>
 			
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/DispositionReportingService/1.0</constant>
 			</camel:setHeader>
 			
-			<camel:to uri="intermediaryEndpoint" />							
+			<camel:to uri="intermediaryEndpoint" id="intermediaryEndpoint"/>							
 		
 		</camel:route>						
 		
