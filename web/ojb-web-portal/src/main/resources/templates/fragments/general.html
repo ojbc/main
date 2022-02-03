@@ -26,7 +26,6 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/jquery-ui/1.13.0/jquery-ui.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/fixedHeader.bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}" />
 <!--  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.bootstrap4.min.css" /> -->
@@ -34,9 +33,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/chosen-js/1.8.7/chosen.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables-buttons/1.6.1/css/buttons.dataTables.min.css}" />
 <!--   <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css}" />
-	<link rel="stylesheet" th:href="@{/css/style.css}" href="../../css/style.css" />
-	<link rel="stylesheet" th:href="@{/resources/css/customStyle.css}" />
+	<link rel="stylesheet" th:href="@{/css/print.css}"/>
+	<link rel="stylesheet" th:href="@{/css/jquery.lwMultiSelect.css}"/>
+	<link rel="stylesheet" th:href="@{/css/jquerysctipttop.css}"/>
+	<link rel="stylesheet" th:unless="${#strings.isEmpty(themePath)}" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" th:unless="${#strings.isEmpty(customStyleCssPath)}" th:href="@{/resources/css/customStyle.css}" />
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
 	<link rel="shortcut icon"/>
 </head>
 <body>
@@ -98,7 +100,9 @@
 					 <i class="fas fa-user-circle fa-lg"></i>
 					</a>
 			        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item disabled"><span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${currentUserName}"/></span></a>
+			          <a class="dropdown-item disabled">
+			             <span class="small font-italic pr-2 text-secondary">Signed in as <strong th:text="${currentUserName}"></strong></span>
+		              </a>
 			          <div class="dropdown-divider"></div>
 			          <a class="dropdown-item" th:href="@{/portal/performLogout}"><span class="small font-italic pr-2">Sign Out</span> <i class="fas fa-sign-out-alt"></i></a>
 			        </div>
@@ -128,7 +132,7 @@
 	    <script type="text/javascript" th:src="@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}"></script>
 	    <script type="text/javascript" th:src="@{/webjars/font-awesome/5.15.4/js/all.js}"></script>
 	     
-	    <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+<!-- 	    <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script> -->
 		<script type="text/javascript" th:src="@{/js/plugins/jquery.mask.min.js}"></script> 
 		<script type="text/javascript" th:src="@{/js/plugins/bootpopup.js}"></script> 
 	    <script type="text/javascript" th:src="@{/webjars/chosen-js/1.8.7/chosen.jquery.min.js}"></script>

@@ -95,7 +95,7 @@
 		                                        <div class="labelText" >
 		                                            Age Range
 		                                            <input type="text" th:field="*{ageRangeStart}" class="shortDigit ml-2" placeholder="Min"/> to 
-		                                            <input type="text" th:field="*{ageRangeEnd}" class="shortDigit" placeholder="Max"/> to 
+		                                            <input type="text" th:field="*{ageRangeEnd}" class="shortDigit" placeholder="Max"/> 
                                                     <div th:if="${#fields.hasErrors('ageRangeStart')}" th:errors="*{ageRangeStart}" class="invalid-feedback d-block error pl-2">Age Min error message</div>
 		                                        </div>
 		                                        <p class="searchSubHeader" >DEMOGRAPHICS</p>
@@ -121,7 +121,7 @@
 		                                        </div>
 		                                        
 		                                        <div class="labelText" >
-		                                            Height <input type="text" th:field="*{heightInFeet}" class="shortDigit ml-2"/>' <input type="text" th:field="*{heightInInches}" class="shortDigit" placeholder="Inches"/>" +/-<input type="text" th:field="*{heightTolerance}" class="shortDigit"/>" 
+		                                            Height <input type="text" th:field="*{heightInFeet}" class="shortDigit ml-2"/>' <input type="text" th:field="*{heightInInches}" class="shortDigit" />" +/-<input type="text" th:field="*{heightTolerance}" class="shortDigit"/>" 
 		                                            &nbsp;
 		                                            Weight <input type="text" th:field="*{advanceSearch.personWeight}" class="shortDigit"/>+/-<input type="text" th:field="*{weightTolerance}" class="shortDigit"/>
 		                                        </div>
@@ -183,13 +183,6 @@
                 $('html, body').animate({scrollTop:$('#banner').position().top}, 'slow');
                 $('#personSearchTabs a[href="#'+ activeSearchTab +'"]').tab('show')
                 $(".chosen-select").chosen();
-                $( ".datePicker" ).datepicker({
-                   showOn: "both",
-                   buttonImage: context + 'static/images/Search Form/icon-calendar.png',
-                   buttonImageOnly: true,
-                   shortYearCutoff: "+10",
-                   dateFormat: 'mm/dd/yy'
-                });
                 
                 $('#advanceSearchSubmitButton').click (function(){
                     ojbc.clearPlaceholders();
