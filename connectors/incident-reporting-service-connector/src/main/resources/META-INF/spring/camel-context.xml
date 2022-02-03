@@ -33,7 +33,8 @@
 	
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="incident-reporting-service-connector" streamCache="true">
-	
+		
+		<streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
 		<endpoint id="inputDir"
 			uri="file:///${incidentChargeReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${incidentChargeReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
 
@@ -55,19 +56,19 @@
 
 			<camel:filter>
 				<camel:xpath>/ir:IncidentReport</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportIncident</constant>
 				</camel:setHeader>
 			</camel:filter>
 			
 			<camel:filter>
 				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
-				<camel:setHeader headerName="operationName">
+				<camel:setHeader name="operationName">
 					<constant>ReportIncidentUpdate</constant>
 				</camel:setHeader>
 			</camel:filter>	
 	                        		
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
 			
@@ -76,8 +77,9 @@
 			
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
-				<camel:to uri="IncidentReportingServiceEndpoint" />
 			</camel:throttle>
+			
+			<camel:to uri="IncidentReportingServiceEndpoint" />
 			
 			<camel:log message="Called intermediary" />
 
@@ -89,7 +91,7 @@
 			<camel:from uri="direct:derivedRoutes"/>
 		
 			<!-- Set up member specific endpoints -->
-			<camel:setHeader headerName="routingSlipDerivedRoutes">
+			<camel:setHeader name="routingSlipDerivedRoutes">
 				<simple>{{incidentChargeReporting.camelEndpointsToCall}}</simple>
 			</camel:setHeader>
 
@@ -108,12 +110,5 @@
 		
 
 	</camel:camelContext>
-	
-	<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
-	    <property name="spoolDirectory" value="${java.io.tmpdir}/camelcache/#uuid#/"/>
-	    <property name="spoolThreshold" value="65536"/>
-	    <property name="spoolUsedHeapMemoryThreshold" value="70"/>
-	    <property name="anySpoolRules" value="true"/>
-	</bean>   
 	
 </beans>
