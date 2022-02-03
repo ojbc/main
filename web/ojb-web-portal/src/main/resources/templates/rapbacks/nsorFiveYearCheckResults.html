@@ -1,0 +1,116 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Initial Results Details</title>
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}' />
+    <link rel="stylesheet" type="text/css" th:href='@{/css/style.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/css/print.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/css/modal-frame.css}'>
+    <link rel="stylesheet" type="text/css" th:href='@{/webjars/jquery-ui-themes/1.13.0/smoothness/jquery-ui.min.css}'>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css}" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" />
+    
+    <script th:src='@{/webjars/jquery/3.6.0/jquery.min.js}'></script>
+    <script th:src="@{/webjars/jquery-migrate/3.3.2/jquery-migrate.min.js}"></script>
+    <script th:src='@{/webjars/jquery-ui/1.13.0/jquery-ui.min.js}'></script>
+    <script th:src='@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}'></script>
+    <script th:src='@{/webjars/popper.js/1.14.7/umd/popper.min.js}'></script>
+    <script th:src='@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}'></script>
+    <script th:src='@{/webjars/datatables/1.10.20/js/dataTables.bootstrap4.min.js}'></script>
+    <script type="text/javascript" th:src='@{/webjars/datatables-responsive/2.2.3/js/dataTables.responsive.js}'></script>
+    <script type="text/javascript" th:src='@{/webjars/datatables-responsive/2.2.3/js/responsive.bootstrap4.js}'></script>
+    
+    
+    <script th:src='@{/js/ojb-web-portal.js}'></script>
+        
+  </head>
+  <body id="searchDetailsFrame">
+    <div id="tabs">
+
+        <ul>
+            <li id="nsor5YearCheckLink">
+                <a href="#nsor5YearCheckTab">FBI NSOR Check Results</a>
+            </li>
+            <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+        </ul>
+        <div id="nsor5YearCheckTab">
+            <div class="mx-auto mb-4">
+                <p class="text-center">Date/Time: <span th:text="${identificationResultsQueryResponse.documentCreationTimeStampString}">Time Stamp</span></p>
+                <p class="text-center font-weight-bold"><u>Hawaii Criminal Justice Data Center</u><br><u>NSOR Search Results</u></p>
+                
+                <p class="text-center mt-3">Applicant <br> Response from NSOR</p> 
+                <p class="text-center">***The information furnished is based on the name(s) and date of birth provided, and is 
+                    <br>NOT a result of a fingerprint comparison. There is no guarantee that the record 
+                    <br>concerns the person in whom you are interested.***</p>
+                <p>Name (Master Name): <span th:text="${identificationResultsQueryResponse.personName}">Person Name</span></p>   
+                <p>DOB: <span th:text="${identificationResultsQueryResponse.dob}">DOB</span></p>     
+                <p>OTN: <span th:text="${identificationResultsQueryResponse.otn}">OTN</span></p>     
+                <p>Agency: <span th:text="${identificationResultsQueryResponse.agencyName}">Agency Name</span></p>   
+            </div>
+             
+            <th:block th:each="item : ${identificationResultsQueryResponse.nsorCheckResultsDocuments}">
+                <hr/>
+                <div class="rapsheet"><pre th:utext="${item}">NSOR Check Results Documents</pre></div>
+            </th:block>
+        </div>
+    </div>
+    <script th:inline="javascript">
+	    /*<![CDATA[*/
+		    var context = [[@{/}]];
+            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	    /*]]>*/
+	    $(function () {
+	        $('#tabs').tabs({
+	            create: function( event, ui ) {
+	                var modalIframe = $("#modalIframe", parent.document);
+	                modalIframe.height(modalIframe.contents().find("body").height() + 20);
+	            },
+	            activate: function( event, ui ) {
+	                var modalIframe = $("#modalIframe", parent.document);
+	                modalIframe.height(modalIframe.contents().find("body").height() + 20);
+	            }
+	        });
+	        
+	        $("#printButton").button();
+	        
+	        $("#printButton").on("click", function(){
+	
+	            var activeTabIdx = $('#tabs').tabs('option','active');
+	
+	            // ID OF ACTIVE TAB
+	            // make sure to change #tabs to your selector for tabs
+	            var selector = '#tabs > ul > li';
+	            var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+                var requestData = {
+                        'messageId': $(this).attr('messageId'),
+                        'activeTab': activeTabID
+                     };
+                requestData[_csrf_param_name] = _csrf_token;
+	            $.post(context + 'rapbacks/auditPrintResults', requestData );                 
+	
+	            window.print();
+	        }); 
+	    });
+    </script>
+  </body>
+</html>
