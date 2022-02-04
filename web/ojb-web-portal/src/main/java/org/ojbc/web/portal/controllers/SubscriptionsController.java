@@ -636,7 +636,7 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);		
 	}
 	
-	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
+	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		

@@ -82,7 +82,8 @@
 	           // note we don't have a full name field, so just concatenate first & last with a space
 	           var fullName = firstName + ' ' + lastName;
 	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
-	                       
+	           formData += '&'+_csrf_param_name+'='+_csrf_token;
+           
 	           $.post(context + 'subscriptions/saveSubscription', 
 	               formData,
 	               function(data){     
@@ -99,7 +100,8 @@
 	           // note we don't have a full name field, so just concatenate first & last with a space
 	           var fullName = firstName + ' ' + lastName;
 	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
-	                       
+               formData += '&'+_csrf_param_name+'='+_csrf_token;
+           
 	           $.post(context + 'subscriptions/saveSubscription', 
 	               formData,
 	               function(data){     
@@ -130,7 +132,8 @@
 	           var personNameVal = $('#personNameSelect').val();
 	           
 	           var formData = $('#subscriptionForm').serialize();                  
-	           
+               formData += '&'+_csrf_param_name+'='+_csrf_token;
+
 	           $.post(context + 'subscriptions/saveSubscription', 
 	               formData,
 	               function(data){                                                 
@@ -194,7 +197,8 @@
 	           var fullName = firstName + ' ' + lastName;
 	                 
 	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
-	                       
+               formData += '&'+_csrf_param_name+'='+_csrf_token;
+       
 	           $.post(context + 'subscriptions/saveSubscription', 
 	               formData,
 	               function(data){     
@@ -239,7 +243,7 @@
 	           }else if(subTypeTxt === 'Rapback'){ 
 	               $('#subscriptionModal .modal-dialog').removeClass('modal-sm');                  
 	               $("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
-	               $.post(context + 'subscriptions/rapbackForm', function(data){                 
+	               $.get(context + 'subscriptions/rapbackForm', function(data){                 
 	                   $('#subModalDynamicContents').html(data);                                                               
 	                   $("#subFormDiv").height("auto");
 	                   $('#subscriptionModal .modal-footer').html(
@@ -249,7 +253,7 @@
 	           }else if(subTypeTxt === 'Incident'){        
 	               $("#ori").remove();
 	               $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
-	               $.post(context + 'subscriptions/incidentForm', function(data){    
+	               $.get(context + 'subscriptions/incidentForm', function(data){    
 	                   $('#subModalDynamicContents').html(data);                                                               
 	                   $("#subFormDiv").height("auto");
 	                   $('#subscriptionModal .modal-footer').html(
@@ -260,7 +264,7 @@
 	           }else if(subTypeTxt === 'ATN Assignment'){
 	               $("#ori").remove();
 	               $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
-	               $.post(context + 'subscriptions/chCycleForm', function(data){                 
+	               $.get(context + 'subscriptions/chCycleForm', function(data){                 
 	                   $('#subModalDynamicContents').html(data);                                                                   
 	                   $("#subFormDiv").height("auto");
 	                   $('#subscriptionModal .modal-footer').html(
@@ -269,7 +273,7 @@
 	               }).fail(ojbc.displayFailMessage);       
 	           }else if(subTypeTxt == 'Person Vehicle Crash'){
 	               $('#subscriptionModal .modal-dialog').addClass('modal-sm');
-	               $.post(context + 'subscriptions/vehicleCrashForm', function(data){                    
+	               $.get(context + 'subscriptions/vehicleCrashForm', function(data){                    
 	                   $('#subModalDynamicContents').html(data);                                                                   
 	                   $("#subFormDiv").height("auto");    
 	                   $('#subscriptionModal .modal-footer').html(
