@@ -385,7 +385,7 @@ public class SubscriptionsController {
 	 * displayed for adding a subscription. Another method calls the service 
 	 * to create the subscription
 	 */
-	@RequestMapping(value="addSubscription", method = RequestMethod.POST)
+	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
 	public String getAddSubscriptionModal(HttpServletRequest request,@RequestParam Map<String,String> allRequestParams,
 			Map<String, Object> model) throws Exception{
 		
@@ -504,7 +504,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	@RequestMapping(value="arrestForm", method=RequestMethod.POST)
+	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		

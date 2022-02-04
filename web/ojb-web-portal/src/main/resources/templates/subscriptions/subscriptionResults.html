@@ -231,7 +231,7 @@
 		        // call the spring controller method we need by this GET URL request,
 		        // that method populates the mvc model map with objects needed that 
 		        // are used by the html in the modal velocity template file
-		        $.post(context + 'subscriptions/addSubscription', 
+		        $.get(context + 'subscriptions/addSubscription', 
 		            function(data){
 		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
 		            $('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');               

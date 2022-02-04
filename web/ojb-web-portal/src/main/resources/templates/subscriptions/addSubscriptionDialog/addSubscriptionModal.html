@@ -1,0 +1,288 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Add Subscription Modal</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="addSubscriptionModalContent" id="addSubscriptionModalContent">
+		<div style="width:auto;height:320px;" id="subFormDiv">
+		    <form id="subscriptionForm" th:object="${subscription}">      
+		        <div>
+                    <select th:field="*{topic}" class="form-control form-control-sm" data-placeholder="All" onChange='refreshDisplayFromSubType()'>
+                      <option th:each="item: ${subscriptionTypeValueToLabelMap}" th:value="${item.key}" th:text="${item.value}" />
+                    </select>
+		        </div>          
+		        
+		        <div id="subModalDynamicContents"></div>
+		        
+		        <input type="hidden" id="sourcePage" name="sourcePage" value="${sourcePage}"/>                      
+		    </form>
+		</div>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = [[@{/}]];
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+            $(function() {              
+	                 
+				//refresh when page displayed in case there's a default sub type value set already        
+				refreshDisplayFromSubType();
+				             
+			    $('#subscriptionModal').off('click', '#addSubModalSaveLink')
+				     .on('click', '#addSubModalSaveLink', function(){                
+			         var subTypeTxt = $('#topic option:selected').text().trim();
+			         if(subTypeTxt === 'Arrest'){    
+			             saveArrestSubscritption();
+			         }else if(subTypeTxt === 'Rapback'){
+			             saveRapbackSubscription();
+			         }else if(subTypeTxt == 'Incident'){
+			             saveIncidentSubscription();
+			         }else if(subTypeTxt == 'ATN Assignment'){
+			             saveChCycleSubscription();
+			         } else if(subTypeTxt == 'Person Vehicle Crash'){
+			             savePersonVehicleCrashSubscription();
+			         }else{
+			             bootpopup.alert('Subscription type must be specified', 'ERROR');
+			         }                                                                                                                                                                   
+			     });
+				 
+				 $('#subscriptionModal').off('click', '#addSubModalCancelLink')
+				     .on('click', '#addSubModalCancelLink', function(){
+				     $("#subscriptionModal").modal('hide');
+				 });
+	         });   
+	         
+	         function saveChCycleSubscription(){
+	           var firstName = $('#firstName').val();      
+	           var lastName = $('#lastName').val();
+	           
+	           // note we don't have a full name field, so just concatenate first & last with a space
+	           var fullName = firstName + ' ' + lastName;
+	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
+	                       
+	           $.post(context + 'subscriptions/saveSubscription', 
+	               formData,
+	               function(data){     
+	                   handleDisplayAfterSave(data);                                                                                                                                   
+	               },
+	               "text"
+	           ).fail(ojbc.displayFailMessage);          
+	         }       
+	             
+	         function savePersonVehicleCrashSubscription(){
+	           var firstName = $('#firstName').val();      
+	           var lastName = $('#lastName').val();
+	           
+	           // note we don't have a full name field, so just concatenate first & last with a space
+	           var fullName = firstName + ' ' + lastName;
+	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
+	                       
+	           $.post(context + 'subscriptions/saveSubscription', 
+	               formData,
+	               function(data){     
+	                   handleDisplayAfterSave(data);                                                                                                                                   
+	               },
+	               "text"
+	           ).fail(ojbc.displayFailMessage);          
+	         }               
+	             
+	         function saveArrestSubscritption(){     
+	                                                       
+	           var personNameVal = $('#personNameSelect').val();
+	           
+	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;                   
+	           formData += '&'+_csrf_param_name+'='+_csrf_token;
+	           
+	           $.post(context + 'subscriptions/saveSubscription', 
+	               formData,
+	               function(data){                                                 
+	                   handleDisplayAfterSave(data);                                                                                                                                           
+	               },
+	               "text"
+	           ).fail(ojbc.displayFailMessage);                                                                          
+	         }
+	         
+	         function saveRapbackSubscription(){    
+	                                                       
+	           var personNameVal = $('#personNameSelect').val();
+	           
+	           var formData = $('#subscriptionForm').serialize();                  
+	           
+	           $.post(context + 'subscriptions/saveSubscription', 
+	               formData,
+	               function(data){                                                 
+	                   handleDisplayAfterSave(data);                                                                                                                                           
+	               },
+	               "text"
+	           ).fail(ojbc.displayFailMessage);                                                                          
+	         }
+	         
+	         function handleDisplayAfterSave(subscriptionResponse){
+	               
+	         
+	               var parsedData = JSON.parse(subscriptionResponse);
+	         
+	               var messagesJson = parsedData.errorMsgsWarnMsgsJson;
+	               var sourcePage = parsedData.sourcePage;
+	         
+	               var messagesJsFromSubscribeJson = ''; 
+	               var errorsArray = '';
+	               var warningsArray = '';
+	               var displayMessage = '';                                
+	                               
+	               if(messagesJson != null && messagesJson != ''){                                 
+	                 messagesJsFromSubscribeJson = JSON.parse(messagesJson);                                                           
+	               }               
+	               if(messagesJsFromSubscribeJson != null && messagesJsFromSubscribeJson != ''){
+	                 errorsArray = messagesJsFromSubscribeJson.errors;
+	                 warningsArray = messagesJsFromSubscribeJson.warnings; 
+	               }                               
+	               if(errorsArray != null && errorsArray != ''){
+	                   $.each(errorsArray, function( index, value ) {                                              
+	                     displayMessage += '\n ' + value;                                                                                                          
+	                   });
+	                   
+	                   bootpopup.alert(displayMessage, "ERROR");                                           
+	               }else{              
+	                 if(warningsArray != null && warningsArray != ''){
+	                       $.each(warningsArray, function( index, value ) {                                                
+	                           displayMessage += '\n ' + value;                                                                                                            
+	                       });
+	                       bootpopup.alert(displayMessage, "WARNING");
+	                  }    
+	                  if (sourcePage === 'personSearch')
+	                  {        
+	                       $("#subscriptionModal").modal('hide');
+	                       bootpopup.alert("Your subscription was saved successfully. Click the subscriptions link to view it.", "SUCCESS");
+	                  }
+	                  else
+	                  {            
+	                       refreshAfterSaveSubscription();
+	                  }    
+	               }             
+	         }
+	         
+	         
+	         function saveIncidentSubscription(){
+	                   
+	           var firstName = $('#firstName').val();      
+	           var lastName = $('#lastName').val();
+	           // note we don't have a full name field, so just concatenate first & last with a space
+	           var fullName = firstName + ' ' + lastName;
+	                 
+	           var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;            
+	                       
+	           $.post(context + 'subscriptions/saveSubscription', 
+	               formData,
+	               function(data){     
+	                   handleDisplayAfterSave(data);                                                                                                                                   
+	               },
+	               "text"
+	           ).fail(ojbc.displayFailMessage);          
+	         }
+	         
+	         
+	         function refreshAfterSaveSubscription(){
+	         
+	           $("#subscriptionModal").modal('hide');
+	           
+	           // redisplay subscription results having the new subscription 
+	           ojbc.showLoadingPane();
+	           $.get(context + 'subscriptions/subscriptionResults', 
+	               function(data) {    
+	                 $('#portalContent').html(data);                         
+	               }
+	           ).fail(ojbc.displayFailMessage)
+	           .always(function(){
+	               $("#loadingAjaxPane").hide();   
+	           });   
+	         }
+	         
+	         function refreshDisplayFromSubType(){   
+	           
+	           var subTypeTxt = $("#topic option:selected").text().trim();
+	                   
+	           if(subTypeTxt === 'Arrest'){
+	               $("#ori").remove();
+	               $('#subscriptionModal .modal-dialog').addClass('modal-sm');
+	               $.get(context + 'subscriptions/arrestForm', 
+	                   function(data){
+	                   $('#subModalDynamicContents').html(data);
+	                   $("#subFormDiv").height("auto");    
+	                   $('#subscriptionModal .modal-footer').html(
+	                       ' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+	                       ' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	               }).fail(ojbc.displayFailMessage);               
+	           }else if(subTypeTxt === 'Rapback'){ 
+	               $('#subscriptionModal .modal-dialog').removeClass('modal-sm');                  
+	               $("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
+	               $.post(context + 'subscriptions/rapbackForm', function(data){                 
+	                   $('#subModalDynamicContents').html(data);                                                               
+	                   $("#subFormDiv").height("auto");
+	                   $('#subscriptionModal .modal-footer').html(
+	                       ' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+	                       ' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	               }).fail(ojbc.displayFailMessage);               
+	           }else if(subTypeTxt === 'Incident'){        
+	               $("#ori").remove();
+	               $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+	               $.post(context + 'subscriptions/incidentForm', function(data){    
+	                   $('#subModalDynamicContents').html(data);                                                               
+	                   $("#subFormDiv").height("auto");
+	                   $('#subscriptionModal .modal-footer').html(
+	                       ' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+	                       ' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	               }).fail(ojbc.displayFailMessage);
+	               
+	           }else if(subTypeTxt === 'ATN Assignment'){
+	               $("#ori").remove();
+	               $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+	               $.post(context + 'subscriptions/chCycleForm', function(data){                 
+	                   $('#subModalDynamicContents').html(data);                                                                   
+	                   $("#subFormDiv").height("auto");
+	                   $('#subscriptionModal .modal-footer').html(
+	                       ' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+	                       ' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	               }).fail(ojbc.displayFailMessage);       
+	           }else if(subTypeTxt == 'Person Vehicle Crash'){
+	               $('#subscriptionModal .modal-dialog').addClass('modal-sm');
+	               $.post(context + 'subscriptions/vehicleCrashForm', function(data){                    
+	                   $('#subModalDynamicContents').html(data);                                                                   
+	                   $("#subFormDiv").height("auto");    
+	                   $('#subscriptionModal .modal-footer').html(
+	                       ' <button id="addSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+	                       ' <button id="addSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
+	               }).fail(ojbc.displayFailMessage);       
+	                               
+	           }else{
+	               $('#subModalDynamicContents').html('');
+	           }
+	         }
+		</script>
+        
+    </th:block>
+  </body>
+</html>
