@@ -38,7 +38,7 @@
 		<th:block th:include="fragments/general.html :: javascripts"></th:block>
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var inactivityTimeout = [[${inactivityTimeout}]]; 
 		        var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
 		        var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];

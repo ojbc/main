@@ -246,30 +246,6 @@ public class VehicleControllerTest {
 	}
 
 	@Test
-	public void paginateReturnsToSearchWhenSearchIsNull() throws Exception {
-		when(userSession.getMostRecentSearchResult()).thenReturn(null);
-		
-		String expectedView = unit.paginate(33,model);
-		
-		assertThat(expectedView,is("redirect: searchForm"));
-	}
-
-	@Test
-	public void paginateSuccess() throws Exception {
-		when(userSession.getMostRecentVehicleSearchResult()).thenReturn("saved search xml");
-		
-		when(searchResultConverter.convertVehicleSearchResult(eq("saved search xml"), paramsCaptor.capture())).thenReturn("saved search html");
-		String expectedView = unit.paginate(33,model);
-		
-		assertThat(expectedView,is("vehicles/_searchResult"));
-		assertThat((String)model.get("searchContent"),is("saved search html"));
-		
-		assertThat((Integer)paramsCaptor.getValue().get("start"),is(33));
-		assertThat((Integer)paramsCaptor.getValue().get("rows"),is(VehiclesController.ROWS_PER_PAGE));
-		assertThat((String)paramsCaptor.getValue().get("hrefBase"),is(VehiclesController.PAGINATE_URL));
-	}
-
-	@Test
 	public void systemsToQueryReturnsValueFromMap() {
 		Map<String, String> hashMap = new HashMap<String, String>();
 		unit.systemsToQuery_vehicles = hashMap;

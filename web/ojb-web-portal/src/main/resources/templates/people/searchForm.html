@@ -165,7 +165,7 @@
 		</div>
         <script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var sourceSystems = [[${personSearchCommand.advanceSearch.sourceSystems}]];
 		        var activeSearchTab = [[${activeSearchTab}]];
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';

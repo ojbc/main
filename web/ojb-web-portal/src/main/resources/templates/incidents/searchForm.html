@@ -84,7 +84,7 @@
 		</div>        
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var sourceSystems = [[${incidentSearchCommand.advanceSearch.sourceSystems}]];
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';

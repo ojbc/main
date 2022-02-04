@@ -79,7 +79,7 @@
 
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var singleClickForDetail = [[${singleClickForDetail}]];
                 var _csrf_token = /*[[${_csrf.token}]]*/ '';
                 var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';

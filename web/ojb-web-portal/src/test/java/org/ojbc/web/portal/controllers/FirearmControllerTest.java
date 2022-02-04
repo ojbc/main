@@ -265,33 +265,6 @@ public class FirearmControllerTest {
 	}
 
 	@Test
-	public void paginateReturnsToSearchWhenSearchIsNull() throws Exception {
-		when(userSession.getMostRecentSearchResult()).thenReturn(null);
-		
-		String expectedView = unit.paginate(33,model);
-		
-		assertThat(expectedView,is("redirect: searchForm"));
-	}
-
-	@Test
-	public void paginateSuccess() throws Exception {
-		FirearmSearchRequest request = new FirearmSearchRequest();
-		firearmSearchCommand.setAdvanceSearch(request);
-		when(userSession.getMostRecentFirearmSearchResult()).thenReturn("saved search xml");
-		when(userSession.getMostRecentFirearmSearch()).thenReturn(firearmSearchCommand);
-		
-		when(searchResultConverter.convertFirearmSearchResult(eq("saved search xml"), paramsCaptor.capture())).thenReturn("saved search html");
-		String expectedView = unit.paginate(33,model);
-		
-		assertThat(expectedView,is("firearms/_searchResult"));
-		assertThat((String)model.get("searchContent"),is("saved search html"));
-		
-		assertThat((Integer)paramsCaptor.getValue().get("start"),is(33));
-		assertThat((Integer)paramsCaptor.getValue().get("rows"),is(unit.getRowsPerPage()));
-		assertThat((String)paramsCaptor.getValue().get("hrefBase"),is(unit.getPaginateUrl()));
-	}
-
-	@Test
 	public void systemsToQueryReturnsValueFromMap() {
 		Map<String, String> hashMap = new HashMap<String, String>();
 		unit.systemsToQuery_firearms = hashMap;

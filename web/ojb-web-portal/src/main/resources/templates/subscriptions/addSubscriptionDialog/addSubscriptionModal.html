@@ -30,7 +30,7 @@
 		<div style="width:auto;height:320px;" id="subFormDiv">
 		    <form id="subscriptionForm" th:object="${subscription}">      
 		        <div>
-                    <select th:field="*{topic}" class="form-control form-control-sm" data-placeholder="All" onChange='refreshDisplayFromSubType()'>
+                    <select th:field="*{topic}" data-placeholder="All" onChange='refreshDisplayFromSubType()'>
                       <option th:each="item: ${subscriptionTypeValueToLabelMap}" th:value="${item.key}" th:text="${item.value}" />
                     </select>
 		        </div>          
@@ -42,9 +42,10 @@
 		</div>
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	            var userEmployerOri = /*[[${userLogonInfo.employerOri}]]*/ '';
 	        /*]]>*/
             $(function() {              
 	                 
@@ -242,7 +243,7 @@
 	               }).fail(ojbc.displayFailMessage);               
 	           }else if(subTypeTxt === 'Rapback'){ 
 	               $('#subscriptionModal .modal-dialog').removeClass('modal-sm');                  
-	               $("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
+	               $("#topic").after('<span class="subscriptionHint" id="ori">ORI: ' + userEmployerOri + '</span>');
 	               $.get(context + 'subscriptions/rapbackForm', function(data){                 
 	                   $('#subModalDynamicContents').html(data);                                                               
 	                   $("#subFormDiv").height("auto");
