@@ -538,7 +538,7 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/arrestForm::arrestFormContent";
 	}
 	
-	@RequestMapping(value="rapbackForm", method=RequestMethod.POST)
+	@RequestMapping(value="rapbackForm", method=RequestMethod.GET)
 	public String getRapbackForm(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
 			Map<String, Object> model) throws Exception{
@@ -665,7 +665,7 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/incidentForm::incidentFormContent";
 	}
 
-	@RequestMapping(value="chCycleForm", method=RequestMethod.POST)
+	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
 	public String getChCycleForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -694,7 +694,7 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/chCycleForm::chCycleFormContent";
 	}	
 	
-	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.POST)
+	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.GET)
 	public String getVehicleCrashForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
