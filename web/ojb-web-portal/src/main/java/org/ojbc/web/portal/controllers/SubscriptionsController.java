@@ -1162,10 +1162,10 @@ public class SubscriptionsController {
 		}
 		
 		if (!BooleanUtils.isTrue(admin)){
-			return "subscriptions/editSubscriptionDialog/editSubscriptionModal";
+			return "subscriptions/editSubscriptionDialog/editSubscriptionModal::editSubscriptionModalContent";
 		}
 		else{
-			return "subscriptions/admin/edit/editSubscriptionModal";
+			return "subscriptions/admin/edit/editSubscriptionModal::editSubscriptionModalContent";
 		}
 	}
 	
