@@ -59,7 +59,7 @@
 		</div>
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var singleClickForDetail = [[${singleClickForDetail}]];
 	        /*]]>*/
 	      $(function() {

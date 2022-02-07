@@ -59,7 +59,7 @@
                                 <th:block th:each="status, stat : ${identificationResultStatusCodeMap}">
 							        <input type="checkbox"
 							            th:value="${status.key}"
-							            th:field="*{identificationTransactionStatus}"/>                                
+							            th:field="*{identificationTransactionStatus}" style='width: auto;'/>                                
                                      <label th:for="${#ids.prev('identificationTransactionStatus')}" 
                                             th:text="${status.value}" class="form-check-label form-control-sm">Reason Code</label>
                                      <br th:if="${stat.index == 2}">
@@ -99,7 +99,7 @@
 	    </div>
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/

@@ -1,0 +1,110 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Incident Subscription Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="incidentFormContent" id="incidentSubscriptionFormContent">
+		<div>
+            <input type="text" th:field="*{firstName}" placeholder="First Name" th:errorclass="is-invalid" class="form-control form-control-sm" readonly/>
+		</div>
+		<div>
+            <input type="text" th:field="*{lastName}" placeholder="Last Name" th:errorclass="is-invalid" class="form-control form-control-sm" readonly/>
+		</div>
+		
+		<table style="white-space:nowrap;">
+		    <tr>
+		        <td style="text-align:right;vertical-align:middle;">
+		            <label>DOB:</label>
+		        </td>
+		        <td>
+                    <input type="text" th:field="*{dateOfBirth}" style='width:120px;' placeholder="DOB" th:errorclass="is-invalid"
+                        class="disabledDatePicker" readonly/>
+		        </td>
+		    </tr>
+		
+		    <tr>
+		        <td style="text-align:right;vertical-align:middle;">
+		            <label>Start Date:</label>
+		        </td>
+		        <td>
+                    <input type="text" th:field="*{subscriptionStartDate}" style='width:120px;' placeholder="From" th:errorclass="is-invalid"
+                        th:class="${isStartDateEditable}?enabledDatePicker:disabledDatePicker" th:readonly="!${isStartDateEditable}"/>
+		        </td>
+		    </tr>
+		    
+		    <tr>
+		        <td style="text-align:right;vertical-align:middle;">
+		            <label>End Date:</label>
+		        </td>
+		        <td>
+                    <input type="text" th:field="*{subscriptionEndDate}" style='width:120px;' placeholder="No End Date"
+                        class='datePicker'/>
+		        </td>
+		    </tr>           
+		</table>
+		
+        <div>
+            <input type="email" th:field="*{emailList[0]}" class="form-control form-control-sm" placeholder="Email Address 1" th:errorclass="is-invalid"/>
+        </div>
+        <div>
+            <input type="email" th:field="*{emailList[1]}" class="form-control form-control-sm" placeholder="Email Address 2" th:errorclass="is-invalid"/>
+        </div>
+        <div>
+            <input type="email" th:field="*{emailList[2]}" class="form-control form-control-sm" placeholder="Email Address 3" th:errorclass="is-invalid"/>
+        </div>
+
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+			$(function() {              
+			      
+			      $(".datePicker").datepicker({
+			         showOn: "both",
+			         buttonImage: context + 'images/Search Form/icon-calendar.png',
+			         buttonImageOnly: true
+			      }); 
+			      
+			      // note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+			      // displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+			      // allows being disabled but that prevents the html field value from being sent to the server when the form 
+			      // is serialized                                    
+			      $(".disabledDatePicker").datepicker({
+			         showOn: "both",
+			         buttonImage: context + 'images/Search Form/icon-calendar.png',        
+			         buttonImageOnly: true,
+			         beforeShow: function(i) {  return false; } 
+			      });         
+			                  
+			});   
+			
+		</script>
+        
+    </th:block>
+  </body>
+</html>

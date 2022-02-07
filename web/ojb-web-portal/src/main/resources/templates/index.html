@@ -38,7 +38,7 @@
 		<th:block th:include="fragments/general.html :: javascripts"></th:block>
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
-		        var context = [[@{/}]];
+		        var context = /*[[@{/}]]*/ '';
 		        var inactivityTimeout = [[${inactivityTimeout}]]; 
 		        var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
 		        var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];
@@ -127,7 +127,7 @@
                         oTable.fixedHeader.disable();
                         oTable.destroy();
                     }               
-                    xhr = $.post(context + 'subscriptions/subscriptionResults', function(data) {
+                    xhr = $.get(context + 'subscriptions/subscriptionResults', function(data) {
                         $('#filterColumn').addClass('d-none');
                         $('#portalContent').html(data);
                     }).fail(ojbc.displayFailMessage);
@@ -244,7 +244,7 @@
                      
                     // TODO cleanup these nested jquery ajax calls to make them easier to read                                                  
                 else if (homePage==="subscriptions"){
-                    xhr = $.post(context + "subscriptions/subscriptionResults", function(data) {
+                    xhr = $.get(context + "subscriptions/subscriptionResults", function(data) {
                         $('#filterColumn').addClass('d-none');
                         $('#portalContent').html(data); 
                     }).fail(ojbc.displayFailMessage);                                   

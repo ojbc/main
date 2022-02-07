@@ -99,6 +99,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,7 +118,7 @@ import org.xml.sax.InputSource;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
-@RequestMapping("/subscriptions/*")
+@RequestMapping("/subscriptions")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", "editSourcePage", "subscriptionFilterCommand"})
 public class SubscriptionsController {
 	private static final String FBI_SUBSCRIPTION_REQUEST_PROCESSING = "State subscription created. FBI subscription request processing";
@@ -259,7 +260,7 @@ public class SubscriptionsController {
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
     }
     
-	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
+	@GetMapping("subscriptionResults")
 	public String searchSubscriptions(HttpServletRequest request,	        
 			Map<String, Object> model) {		
 		
@@ -270,7 +271,7 @@ public class SubscriptionsController {
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
         model.put("subscriptionFilterCommand", new SubscriptionFilterCommand());
 		
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
@@ -282,7 +283,7 @@ public class SubscriptionsController {
 			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
 		} 
 
-		return "subscriptions/_searchForm";
+		return "subscriptions/searchForm::searchFormContent";
 	}
     
 
@@ -293,14 +294,14 @@ public class SubscriptionsController {
 	        Map<String, Object> model, Authentication authentication) {	
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/_searchForm";
+			return "subscriptions/searchForm::searchFormContent";
 		}
 					
 		Element samlElement = samlService.getSamlAssertion(request);
 		subscriptionSearchRequest.setOwnerFederatedId((String) request.getAttribute("principal"));
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
@@ -349,10 +350,10 @@ public class SubscriptionsController {
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 		convertSubscriptionSearchResults(model, "", filteredResults, subscriptionSearchRequest);
 		if (showValidationButton){
-			return "subscriptions/_subscriptionResults";
+			return "subscriptions/subscriptionResults::subscriptionResultsContent";
 		}
 		else{
-			return "subscriptions/admin/_subscriptionResults";
+			return "subscriptions/admin/subscriptionResults::subscriptionResultsContent";
 		}
 	}
 
@@ -384,7 +385,7 @@ public class SubscriptionsController {
 	 * displayed for adding a subscription. Another method calls the service 
 	 * to create the subscription
 	 */
-	@RequestMapping(value="addSubscription", method = RequestMethod.POST)
+	@RequestMapping(value="addSubscription", method = RequestMethod.GET)
 	public String getAddSubscriptionModal(HttpServletRequest request,@RequestParam Map<String,String> allRequestParams,
 			Map<String, Object> model) throws Exception{
 		
@@ -454,7 +455,7 @@ public class SubscriptionsController {
 			
 		logger.info("inside addSubscription()");
 		
-		return "subscriptions/addSubscriptionDialog/_addSubscriptionModal";
+		return "subscriptions/addSubscriptionDialog/addSubscriptionModal::addSubscriptionModalContent";
 	}
 
 	/**
@@ -503,7 +504,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	@RequestMapping(value="arrestForm", method=RequestMethod.POST)
+	@RequestMapping(value="arrestForm", method=RequestMethod.GET)
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -534,10 +535,10 @@ public class SubscriptionsController {
 							
 		model.put("subscription", subscription);
 		
-		return "subscriptions/addSubscriptionDialog/_arrestForm";
+		return "subscriptions/addSubscriptionDialog/arrestForm::arrestFormContent";
 	}
 	
-	@RequestMapping(value="rapbackForm", method=RequestMethod.POST)
+	@RequestMapping(value="rapbackForm", method=RequestMethod.GET)
 	public String getRapbackForm(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
 			Map<String, Object> model) throws Exception{
@@ -568,7 +569,7 @@ public class SubscriptionsController {
 		
 		model.put("showCaseIdInput", showCaseIdInput);
 		
-		return "subscriptions/addSubscriptionDialog/_rapbackForm";
+		return "subscriptions/addSubscriptionDialog/rapbackForm::rapbackFormContent";
 	}
 	
 	
@@ -635,7 +636,7 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);		
 	}
 	
-	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
+	@RequestMapping(value="incidentForm", method=RequestMethod.GET)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -661,10 +662,10 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_incidentForm";
+		return "subscriptions/addSubscriptionDialog/incidentForm::incidentFormContent";
 	}
 
-	@RequestMapping(value="chCycleForm", method=RequestMethod.POST)
+	@RequestMapping(value="chCycleForm", method=RequestMethod.GET)
 	public String getChCycleForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -690,10 +691,10 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_chCycleForm";
+		return "subscriptions/addSubscriptionDialog/chCycleForm::chCycleFormContent";
 	}	
 	
-	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.POST)
+	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.GET)
 	public String getVehicleCrashForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
 		
@@ -719,7 +720,7 @@ public class SubscriptionsController {
 				
 		model.put("subscription", subscription);
 				
-		return "subscriptions/addSubscriptionDialog/_vehicleCrashForm";
+		return "subscriptions/addSubscriptionDialog/vehicleCrashForm::vehicleCrashFormContent";
 	}
 	
 	/**
@@ -1161,10 +1162,10 @@ public class SubscriptionsController {
 		}
 		
 		if (!BooleanUtils.isTrue(admin)){
-			return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
+			return "subscriptions/editSubscriptionDialog/editSubscriptionModal::editSubscriptionModalContent";
 		}
 		else{
-			return "subscriptions/admin/edit/_editSubscriptionModal";
+			return "subscriptions/admin/edit/editSubscriptionModal::editSubscriptionModalContent";
 		}
 	}
 	
@@ -1222,7 +1223,7 @@ public class SubscriptionsController {
 						
 		processValidateSubscription(request, subscriptions, model, samlAssertion);
 			
-		return "subscriptions/_subscriptionResults";
+		return "subscriptions/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	
@@ -1405,10 +1406,10 @@ public class SubscriptionsController {
 		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 
 		if (BooleanUtils.isNotTrue(subscriptionSearchRequest.getAdminSearch())){
-			return "subscriptions/_subscriptionResults";
+			return "subscriptions/subscriptionResults::subscriptionResultsContent";
 		}
 		else {
-			return "subscriptions/admin/_subscriptionResults";
+			return "subscriptions/admin/subscriptionResults::subscriptionResultsContent";
 		}
 	}
 	

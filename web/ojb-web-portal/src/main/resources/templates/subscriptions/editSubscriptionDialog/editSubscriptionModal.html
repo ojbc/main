@@ -1,0 +1,247 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Edit Subscription Modal</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="editSubscriptionModalContent" id="editSubscriptionModalContent">
+		<div style="width:auto;height:auto;" id="subFormDiv">
+		    <form id="subscriptionForm" th:object="${subscription}">    
+		        <div>
+                    <select th:field="*{topic}" data-placeholder="All" onChange='refreshDisplayFromSubType()' disabled>
+                      <option th:each="item: ${subscriptionTypeValueToLabelMap}" th:value="${item.key}" th:text="${item.value}" />
+                    </select>
+                    <input type="hidden" th:field="*{topic}"/>
+                    <input type="hidden" th:field="*{systemId}"/>
+		        </div>
+		                  
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/arrest'">
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/arrestForm::arrestFormContent"></th:block>
+                </th:block> 
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/rapback'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/rapbackForm::rapbackFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/incident'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/incidentForm::incidentFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/chCycleForm::chCycleFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/vehicleCrash'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/vehicleCrashForm::vehicleCrashFormContent"></th:block>
+                </th:block>
+		    </form>
+		</div>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	            var userEmployerOri = /*[[${userLogonInfo.employerOri}]]*/ '';
+	            var initializationSucceeded = /*[[${initializationSucceeded}]]*/ '';
+	            var topic = /*[[${subscription.topic}]]*/ '';
+	        /*]]>*/
+	        $(function() {   
+	        	
+		        if(!!!initializationSucceeded){
+		            bootpopup.alert('Failed retrieving subscription for edit window', 'ERROR');
+		            return;
+		        }               
+		            
+		        if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
+		            $("#subFormDiv").height("auto");
+		            $("#topic").after('<span class="subscriptionHint">ORI:' + userEmployerOri + '</span>');
+		        }
+		        
+		        $('#editSubModalSaveLink').click(function(){
+	                if( topic  === '{http://ojbc.org/wsn/topics}:person/arrest'){                      
+	                    saveArrestSubscription();                                                                                       
+	                }else if(topic  === '{http://ojbc.org/wsn/topics}:person/rapback'){                       
+	                    saveRapbackSubscription();                                                                                      
+	                }else if(topic  === '{http://ojbc.org/wsn/topics}:person/incident'){
+	                    saveIncidentSubscription(); 
+	                }else if(topic  === '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
+	                    saveChCycleSubscription();          
+	                }else if(topic  === '{http://ojbc.org/wsn/topics}:person/vehicleCrash'){
+	                    savePersonVehicleCrashSubscription();           
+	                }else{                  
+	                    bootpopup.alert('Subscription type must be specified', 'ERROR');
+	                }                                               
+	            });
+		        
+		        
+		        $('#editSubModalCancelLink').click(
+		            function(){
+		                $("#subscriptionModal").modal('hide');
+		            }
+		        )
+		        
+		  });
+		  
+		    
+          function saveChCycleSubscription(){
+		                                                
+		    var firstName = $('#firstName').val();              
+		    var lastName = $('#lastName').val();
+		    
+		    // note we don't have a full name field, so just concatenate first & last with a space
+		    var fullName = firstName + ' ' + lastName;
+		    // serialize() generates get request string for springforminput html fields
+		    var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
+		    formData += '&'+_csrf_param_name+'='+_csrf_token;
+		    
+		    $.post(context + 'subscriptions/updateSubscription', 
+		        formData,
+		        function(data){                                                             
+		            handleDisplayAfterSave(data);                                                       
+		        },
+		        "text"
+		    ).fail(ojbc.displayFailMessage);        
+		  }
+		    
+			function savePersonVehicleCrashSubscription(){
+			                                               
+			   var firstName = $('#firstName').val();              
+			   var lastName = $('#lastName').val();
+			   
+			   // note we don't have a full name field, so just concatenate first & last with a space
+			   var fullName = firstName + ' ' + lastName;
+			                                                                                                               
+			   // serialize() generates get request string for springforminput html fields
+			   var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
+			   formData += '&'+_csrf_param_name+'='+_csrf_token;
+			   
+			   $.post(context + 'subscriptions/updateSubscription', 
+			       formData,
+			       function(data){                                                             
+			           handleDisplayAfterSave(data);                                                       
+			       },
+			       "text"
+			   ).fail(ojbc.displayFailMessage);        
+			}  
+			     
+			function saveIncidentSubscription(){
+			                                                
+			    var firstName = $('#firstName').val();              
+			    
+			    var lastName = $('#lastName').val();
+			    
+			    // note we don't have a full name field, so just concatenate first & last with a space
+			    var fullName = firstName + ' ' + lastName;
+			    
+			    // serialize() generates get request string for <springforminput> html fields
+			    var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
+			    formData += '&'+_csrf_param_name+'='+_csrf_token;
+			    
+			    $.post(context + 'subscriptions/updateSubscription', 
+			        formData,
+			        function(data){ 
+			            handleDisplayAfterSave(data);                                                       
+			        },
+			        "text"
+			    ).fail(ojbc.displayFailMessage);        
+			}
+		  
+		  
+			function saveArrestSubscription(){
+			                                                                            
+			    var personNameVal = $('#personNameSelect').val();
+			            
+			    var  stateIdVal = $('#stateIdInput').val();                                                     
+			    
+			    // serialize() generates get request string for <springforminput> html fields 
+			    var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal;                    
+			    formData += '&'+_csrf_param_name+'='+_csrf_token;
+			    
+			    $.post(context + 'subscriptions/updateSubscription', 
+			        formData,
+			        function(data){                                                             
+			            handleDisplayAfterSave(data);                                                       
+			        },
+			        "text"
+			    ).fail(ojbc.displayFailMessage);            
+			}  
+		 
+			function saveRapbackSubscription(){
+			                                                                            
+			    // serialize() generates get request string for <springforminput> html fields 
+			    var formData = $('#subscriptionForm').serialize();                  
+			    formData += '&'+_csrf_param_name+'='+_csrf_token;
+			    
+			    $.post(context + 'subscriptions/updateSubscription', 
+			        formData,
+			        function(data){                                                             
+			            handleDisplayAfterSave(data);                                                       
+			        },
+			        "text"
+			    ).fail(ojbc.displayFailMessage);            
+			}  
+		 
+			function handleDisplayAfterSave(messagesJson){
+			
+			      var messagesJsFromSubscribeJson = ''; 
+			      var errorsArray = '';
+			      var warningsArray = '';
+			      var displayMessage = '';                                
+			                      
+			      if(messagesJson != null && messagesJson != ''){                                 
+			        messagesJsFromSubscribeJson = JSON.parse(messagesJson);                                                           
+			      }               
+			      if(messagesJsFromSubscribeJson != null && messagesJsFromSubscribeJson != ''){
+			        errorsArray = messagesJsFromSubscribeJson.errors;
+			        warningsArray = messagesJsFromSubscribeJson.warnings; 
+			      }                               
+			      if(errorsArray != null && errorsArray != ''){
+			          $.each(errorsArray, function( index, value ) {                                              
+			            displayMessage += '\n ' + value;                                                                                                          
+			          });
+			          bootpopup.alert(displayMessage, 'Error');                                           
+			      }else{              
+			        if(warningsArray != null && warningsArray != ''){
+			              $.each(warningsArray, function( index, value ) {                                                
+			                  displayMessage += '\n ' + value;                                                                                                            
+			              });
+			              bootpopup.alert(displayMessage, 'Warning');
+			         }                
+			         refreshAfterSaveSubscription();
+			      }             
+			}
+			   
+			function refreshAfterSaveSubscription(){
+			
+			  $("#subscriptionModal").modal('hide');
+			  
+			  // redisplay subscription results having the new subscription 
+			  $.get(context + 'subscriptions/subscriptionResults', 
+			      function(data) {                                        
+			        $('#portalContent').html(data);                         
+			      }
+			  ).fail(ojbc.displayFailMessage);  
+			}
+		</script>
+        
+    </th:block>
+  </body>
+</html>

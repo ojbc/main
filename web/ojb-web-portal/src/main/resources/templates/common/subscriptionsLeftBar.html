@@ -1,0 +1,72 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Subscriptions Left Bar Content</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+      <!-- Begin page content -->
+    <th:blcok th:fragment="subscriptionsLeftBarContent" th:with="showSubFilter = ${subscriptionFilterProperties['displaySubscriptionFilter']}">
+        <th:block th:if="${showSubFilter} == 'true'">
+	        <script th:inline="javascript">
+	            /*<![CDATA[*/
+		            var context = /*[[@{/}]]*/ '';
+		            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+		            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	            /*]]>*/
+	            $(function(){
+	                $('#portalContent').off('change', '#subscriptionStatus')
+	                    .on('change', '#subscriptionStatus',  function() {  
+	                                                                            
+	                    validateLinkExists = $("#validateLink").length > 0; 
+	                    var formData = $('#filterSubscriptionForm').serialize();
+	                    //console.log("formData:" + formData); 
+	                    //console.log("validateLinkExists:" + validateLinkExists); 
+	                                                    
+	                    $.post(context + 'subscriptions/filter/' + validateLinkExists ,   
+	                        {subscriptionStatus: $('#subscriptionStatus').val(), _csrf_param_name:_csrf_token},           
+	                        function(data) {    
+	                            if (validateLinkExists){                
+	                                $('#portalContent').html(data);
+	                            }
+	                            else{
+	                                $("#subsAdminContent").html(data);  
+	                            }                                                                                                         
+	                        }
+	                    ).fail(ojbc.displayFailMessage);                
+	                });
+	                
+	            });
+	                                
+	        </script>   
+	    
+	        <label id="subscriptionStatusFilter">
+	            Subscription Status: 
+                <select th:field="*{subscriptionFilterCommand.subscriptionStatus}" class="ml-1 mr-3 customSelect" data-placeholder="All">
+                  <option th:each="item: ${subscriptionFilterValueToLabelMap}" th:value="${item.key}" th:text="${item.value}" />
+                </select>
+	        </label>
+        </th:block> 
+    </th:block>
+  </body>
+</html>
