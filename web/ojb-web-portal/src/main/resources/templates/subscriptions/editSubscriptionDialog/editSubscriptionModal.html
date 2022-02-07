@@ -35,18 +35,23 @@
                     </select>
                     <input type="hidden" th:field="*{topic}"/>
                     <input type="hidden" th:field="*{systemId}"/>
-		        </div>          
-
-                <th:block th:if="${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest'" 
-                    th:replace="subscriptions/editSubscriptionDialog/arrestForm::arrestFormContent">		                            
-                <th:block th:if="${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/rapback'" 
-                    th:replace="subscriptions/editSubscriptionDialog/rapbackForm::rapbackFormContent">		                            
-                <th:block th:if="${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/incident'" 
-                    th:replace="subscriptions/editSubscriptionDialog/incidentForm::incidentFormContent">		                            
-                <th:block th:if="${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'" 
-                    th:replace="subscriptions/editSubscriptionDialog/chCycleForm::chCycleFormContent">		                            
-                <th:block th:if="${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/vehicleCrash'" 
-                    th:replace="subscriptions/editSubscriptionDialog/vehicleCrashForm::vehicleCrashFormContent">		                            
+		        </div>
+		                  
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/arrest'">
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/arrestForm::arrestFormContent"></th:block>
+                </th:block> 
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/rapback'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/rapbackForm::rapbackFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/incident'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/incidentForm::incidentFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/chCycleForm::chCycleFormContent"></th:block>
+                </th:block>
+                <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/vehicleCrash'"> 
+                    <th:block th:replace="subscriptions/editSubscriptionDialog/vehicleCrashForm::vehicleCrashFormContent"></th:block>
+                </th:block>
 		    </form>
 		</div>
 		<script th:inline="javascript">
