@@ -103,7 +103,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,6 +114,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
@@ -230,6 +232,7 @@ public class SubscriptionsController {
 	
 	private Map<String, String> subscriptionStatusMap = new HashMap<String, String>();
 	private Map<String, String> subscriptionPurposeMap = new HashMap<String, String>();
+	private ObjectMapper mapper = new ObjectMapper();;
 
 	@ModelAttribute("subscriptionFilterValueToLabelMap")
 	public Map<String, String> getSubscriptionFilterValueToLabelMap(){
@@ -1204,26 +1207,31 @@ public class SubscriptionsController {
 
 
 	/**
-	 * @param idToTopicJsonProps
-	 * 		a json formatted string that's an object of name-value pairs where the 
-	 * 		id is the name(key) and the topic is the value.  ex:
-	 * 		 {"62723":"{http://ojbc.org/wsn/topics}:person/arrest","62724":"{http://ojbc.org/wsn/topics}:person/arrest"}
 	 * 
 	 * @return
 	 * 		the subscription results page(refreshed after validate)
+	 * @throws JsonProcessingException 
+	 * @throws com.fasterxml.jackson.databind.JsonMappingException 
 	 */
-	@RequestMapping(value="validate", method = RequestMethod.POST, consumes = {"application/json"})
+	@RequestMapping(value="validate", method = RequestMethod.POST)
 	public String  validate(HttpServletRequest request, 
-			@RequestBody List<Subscription> subscriptions, 
-			Map<String, Object> model) {
-		
+			@RequestParam String subscriptionsJsonString, 
+			Map<String, Object> model) throws com.fasterxml.jackson.databind.JsonMappingException, JsonProcessingException {
+		List<Subscription> subscriptions = parseSubscriptions(subscriptionsJsonString);
 		logger.info("Received subscriptions to validate: " + subscriptions);
-		
+
 		Element samlAssertion = samlService.getSamlAssertion(request);
 						
 		processValidateSubscription(request, subscriptions, model, samlAssertion);
 			
 		return "subscriptions/subscriptionResults::subscriptionResultsContent";
+	}
+
+	private List<Subscription> parseSubscriptions(String subscriptionsJsonString)
+			throws JsonProcessingException, com.fasterxml.jackson.databind.JsonMappingException {
+		List<Subscription> subscriptions = new ArrayList<>();
+		subscriptions = Arrays.asList(mapper.readValue(subscriptionsJsonString, Subscription[].class));
+		return subscriptions;
 	}
 	
 	
@@ -1367,10 +1375,11 @@ public class SubscriptionsController {
 	}
 
 
-	@RequestMapping(value = "unsubscribe", method = RequestMethod.POST, consumes = {"application/json"})
-	public String unsubscribe(HttpServletRequest request, @RequestBody List<Subscription> subscriptions, 
+	@RequestMapping(value = "unsubscribe", method = RequestMethod.POST)
+	public String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionsJsonString, 
 			Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
-					
+		List<Subscription> subscriptions = parseSubscriptions(subscriptionsJsonString);
+
 		Element samlAssertion = samlService.getSamlAssertion(request);	
 		
 		logger.info("in unsubscribe");

@@ -83,6 +83,7 @@
 		    $('#searchBarButtonDiv').hide();        
 		    $('[data-toggle="tooltip"]').tooltip(); 
 		    $.fn.dataTable.moment( 'MM/DD/YYYY' );
+		    
 		    var table = $("#searchResultsTable").DataTable({
 		         "order": [
 		        	 [ 3, "asc" ]
@@ -130,16 +131,20 @@
 		    });
 		
 		    $('#subscriptionButtons').on('click', '#validateLink',function() {
-		        var checkedValues = ojbc.getCheckedValues();    
-		                                                                                                                                    
-		        if( !checkedValues ){
+		        var checkedValues = ojbc.getCheckedValues();
+		        
+		        if( !!!checkedValues ){
 		            bootpopup.alert('No subscriptions selected');
 		            return false;
 		        }
 		
 		        var row = $(this).parent();
-		            
-		        bootpopup({
+
+		        var requestData = {'subscriptionsJsonString' : checkedValues}; 
+		        
+		        requestData[_csrf_param_name] = _csrf_token;
+
+ 		        bootpopup({
 		            title: "Are you authorized?", 
 		            size: "large",
 		            showclose: false,
@@ -150,20 +155,16 @@
 		                  ], 
 		            cancel: function() {},
 		            validate: function(data, array, event) {  
-		                var urlRequest = encodeURI('subscriptions/validate');
+		                var urlRequest = context + 'subscriptions/validate';
 		            
 		                //call spring controller and refresh the current page with the subscription search results returned
-		                $.ajax({
-		                    url:urlRequest, 
-		                    type:"POST",
-		                    data: checkedValues,
-		                    contentType:"application/json; charset=utf-8",
-		                    dataType:"html",
-		                    success: function(data) {                                       
-		                      $('#portalContent').html(data);
-		                    }, 
-		                    error:ojbc.displayFailMessage                         
-		                });
+		                 $.post(
+	                         context + 'subscriptions/validate', 
+	                         requestData,
+	                         function(data) {                                       
+	                           $('#portalContent').html(data);
+	                         }
+	                     ).fail(ojbc.displayFailMessage);
 		            },
 		        });
 		                
@@ -178,16 +179,18 @@
 		            return false;
 		        }
 		        
+                var requestData = {'subscriptionsJsonString' : checkedValues}; 
+                requestData[_csrf_param_name] = _csrf_token;
+		        
 		        bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
 		            if(ans){
-		                var urlRequest = encodeURI('subscriptions/unsubscribe');                 
+		                var urlRequest = context + 'subscriptions/unsubscribe';                 
 		                
 		                //call the unsubscribe operation and refresh the current page with the subscription search results returned              
 		                $.ajax({
 		                    url:urlRequest, 
 		                    type:"POST",
-		                    data: checkedValues,
-		                    contentType:"application/json; charset=utf-8",
+		                    data: requestData,
 		                    dataType:"html",
 		                    success: function(data) {                                       
 		                      $('#portalContent').html(data);

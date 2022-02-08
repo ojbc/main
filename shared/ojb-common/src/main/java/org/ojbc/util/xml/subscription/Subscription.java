@@ -28,11 +28,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.ojbc.util.model.rapback.FbiRapbackSubscription;
-import org.ojbc.util.rest.jackson.LocalDateDeserializer;
-import org.ojbc.util.rest.jackson.LocalDateSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 public class Subscription implements Serializable {
 	private static final long serialVersionUID = 7990280609495398189L;

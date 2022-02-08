@@ -100,8 +100,9 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
     public String handle405Exception(HttpServletRequest request, Exception ex){
-    	
-    	log.error("Got exception when processing the request", ex); 
+    	log.error("Not able to process request url: " + request.getRequestURL());
+    	log.error("Not able to process request method: " + request.getMethod());
+    	log.error("Http Request Method Not Supported Exception", ex); 
     	return "/error/405";
     }
     
