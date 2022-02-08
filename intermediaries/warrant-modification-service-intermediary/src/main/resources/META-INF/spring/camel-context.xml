@@ -29,12 +29,12 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant_modification_context">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant_modification_context" streamCache="true">
 	
 		<endpoint id="warrantModIntermediaryRequestEndpoint"
 			uri="cxf:bean:warrantModificationIntermediaryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}" />
