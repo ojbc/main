@@ -135,6 +135,9 @@ public class TestAnalyticalDatastoreDAOImpl {
 		incident.setIncidentCategoryCode("Category Code");
 		incident.setIncidentDispositionCodeText("Incident Disposition");
 		
+		int countyID = analyticalDatastoreDAOImpl.searchForCountyIDbyCountyName("Cumberland");
+		incident.setCountyID(countyID);
+		
 		//Explicitly set incident ID and make sure database honors it
 		incident.setIncidentID(new Integer(999999999));
 		
@@ -279,7 +282,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		county.setCountyName("County Name");
 		
 		int countyTypePk = analyticalDatastoreDAOImpl.saveCounty(county);
-		assertEquals(2, countyTypePk);
+		assertEquals(3, countyTypePk);
 		
 		log.debug("County Type primary key: " + countyTypePk);
 		

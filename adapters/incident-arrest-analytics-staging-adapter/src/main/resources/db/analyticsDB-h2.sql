@@ -146,6 +146,7 @@ CREATE TABLE Incident (
                 IncidentID IDENTITY NOT NULL,
                 ReportingAgencyID INTEGER NOT NULL,
                 ReportingTroopID INT,
+                CountyID INT,
                 IncidentCaseNumber VARCHAR(30) NOT NULL,
                 IncidentLocationLatitude NUMERIC(14,10),
                 IncidentLocationLongitude NUMERIC(14,10),
@@ -263,6 +264,13 @@ FOREIGN KEY (ReportingTroopID)
 REFERENCES Troop (TroopID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+ALTER TABLE Incident ADD CONSTRAINT county_incident_fk
+FOREIGN KEY (CountyID)
+REFERENCES County (CountyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 
 ALTER TABLE PretrialServiceParticipation ADD CONSTRAINT County_PretrialServiceParticipation_fk
 FOREIGN KEY (CountyID)

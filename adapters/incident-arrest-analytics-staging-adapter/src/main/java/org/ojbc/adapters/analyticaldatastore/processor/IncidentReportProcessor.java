@@ -115,6 +115,26 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			}
 		}
 
+		//GET COUNTY information 
+		String countyName =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/inc-ext:LocationCountyCodeText");
+		log.debug("County: " + countyName);
+		
+		Integer countyId = null;
+				
+		if (StringUtils.isNotBlank(countyName))
+		{
+			countyId = analyticalDatastoreDAO.searchForCountyIDbyCountyName(countyName);
+			
+			if (countyId == null)
+			{
+				log.error("Unable to find county information for: " + countyName);
+			}	
+			else
+			{	
+				incident.setCountyID(countyId);
+			}
+		}		
+		
 		
 		String incidentCaseNumber=XmlUtils.xPathStringSearch(incidentReport,  PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:PackageMetadata/lexs:DataItemID");
 		log.debug("Incident Case Number: " + incidentCaseNumber);
@@ -128,20 +148,16 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		List<Incident> incidents = analyticalDatastoreDAO.searchForIncidentsByIncidentNumberAndReportingAgencyID(incidentCaseNumber, reportingAgencyId);
 		
 		//if incidents exist, delete them prior to inserting a new one
-		if (incidents.size() >1)
+		if (incidents.size() > 0)
 		{
-			throw new IllegalStateException("Error condition. Duplicate records with same incident number and agency ID exists in database");
-		}	
-		
-		Integer incidentIDToReplace = null;
+			for (Incident incidentToDelete : incidents)
+			{	
+				Integer incidentIDToReplace = incidentToDelete.getIncidentID();
 				
-		if (incidents.size() == 1)
-		{
-			incidentIDToReplace = incidents.get(0).getIncidentID();
-			incident.setIncidentID(incidentIDToReplace);
-			log.debug("Incident ID to replace: " + incidentIDToReplace);
-			
-			analyticalDatastoreDAO.deleteIncident(incidents.get(0).getIncidentID());
+				log.info("Delete incident: " + incidentToDelete.getIncidentCaseNumber());
+				
+				analyticalDatastoreDAO.deleteIncident(incidentIDToReplace);
+			}
 		}	
 		
 		

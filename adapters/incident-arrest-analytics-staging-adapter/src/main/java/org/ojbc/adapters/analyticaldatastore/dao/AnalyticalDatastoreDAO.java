@@ -96,6 +96,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer searchForTroopIDbyTroopName(String troopName);
 	
+	public Integer searchForCountyIDbyCountyName(String countyName);
+	
 	public Person getPerson(Integer personId);
 
 	public void savePretrialServiceAssociations(

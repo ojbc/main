@@ -34,6 +34,9 @@ public class Incident {
 	//fk to Troop table
 	private Integer troopID;
 
+	//fk to County table
+	private Integer countyID;
+
 	private Date incidentDate;
 	private Time incidentTime;
 	
@@ -174,6 +177,14 @@ public class Incident {
 	public void setTroopID(Integer troopID) {
 		this.troopID = troopID;
 	}	
+	
+	public Integer getCountyID() {
+		return countyID;
+	}
+
+	public void setCountyID(Integer countyID) {
+		this.countyID = countyID;
+	}
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

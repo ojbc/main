@@ -246,6 +246,7 @@ public class CamelContextTest {
 		int incidentPk = incident.getIncidentID();
 		
 		log.info("PK of incident that was just saved: " + incidentPk);
+		String caseNumberToConfirm=incident.getIncidentCaseNumber();
 		
 		List<Arrest> arrestsInIncident = analyticalDatastoreDAOImpl.searchForArrestsByIncidentPk(incidentPk);
 		
@@ -294,10 +295,10 @@ public class CamelContextTest {
 		incidents = analyticalDatastoreDAOImpl.searchForIncidentsByIncidentNumberAndReportingAgencyID("15999999999", reportingAgencyID);
 		assertEquals(1,incidents.size());
 		
-		//Assert it has the same PK
-		assertEquals(incidentPk, incidents.get(0).getIncidentID().intValue());
+		//Assert it has the same incident number
+		assertEquals(caseNumberToConfirm, incidents.get(0).getIncidentCaseNumber());
 		
-		List<TrafficStop> trafficStops = analyticalDatastoreDAOImpl.returnTrafficStopsFromIncident(incidentPk);
+		List<TrafficStop> trafficStops = analyticalDatastoreDAOImpl.returnTrafficStopsFromIncident(incidents.get(0).getIncidentID());
 		
 		assertEquals(1, trafficStops.size());
 

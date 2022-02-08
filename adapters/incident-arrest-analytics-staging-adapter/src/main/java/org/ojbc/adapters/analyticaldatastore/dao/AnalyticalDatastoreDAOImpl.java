@@ -103,17 +103,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	
         	            if (inboundIncident.getIncidentID() == null){	
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, CountyID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
             	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","IncidentDispositionCodeText", "ReportingSystem","RecordType"};	
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate", "IncidentTime", "IncidentCategoryCode","IncidentDispositionCodeText", "ReportingSystem","RecordType","CountyID"};	
         	            }	
         	            else{
         	            	incidentInsertStatement="INSERT into INCIDENT (ReportingAgencyID, ReportingTroopID, IncidentCaseNumber,"
-        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	            			+ "IncidentLocationLatitude, IncidentLocationLongitude, IncidentLocationStreetAddress,IncidentLocationTown,IncidentDate,IncidentTime,incidentCategoryCode, IncidentDispositionCodeText, ReportingSystem,RecordType, CountyID, IncidentID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	            	
-            	        	insertArgs = new String[] {"ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
-        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode", "IncidentDispositionCodeText", "ReportingSystem","RecordType", "IncidentID"};	
+            	        	insertArgs = new String[] {"CountyID","ReportingAgencyID", "ReportingTroopID", "IncidentCaseNumber"
+        	                		+ "IncidentLocationLatitude", "IncidentLocationLongitude","IncidentLocationStreetAddress","IncidentLocationTown","IncidentDate","IncidentTime","IncidentCategoryCode", "IncidentDispositionCodeText", "ReportingSystem","RecordType", "CountyID", "IncidentID"};	
         	            }	
         	        	
         	            PreparedStatement ps =
@@ -146,9 +146,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setString(12, inboundIncident.getReportingSystem());
         	            ps.setString(13, String.valueOf(inboundIncident.getRecordType()));
         	            
+        	            if (inboundIncident.getCountyID() != null){
+        	            	ps.setInt(14, inboundIncident.getCountyID());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(14, java.sql.Types.NULL);
+        	            }	        	            
+        	            
+        	            //Incident ID has to be last since it is not required
         	            if (inboundIncident.getIncidentID() != null)
         	            {	
-        	            	ps.setInt(14, inboundIncident.getIncidentID());
+        	            	ps.setInt(15, inboundIncident.getIncidentID());
         	            }	
         	            
         	            return ps;
@@ -839,6 +848,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			return troopID;
 			
 	}
+	
+	@Override
+	public Integer searchForCountyIDbyCountyName(String countyName) {
+		String sql = "select CountyID from County where CountyName = ?";
+		
+		Integer countyID = (Integer) jdbcTemplate.queryForObject(
+				sql, Integer.class, countyName);
+		
+		return countyID;
+	}	
 	
 	public class AgencyRowMapper implements RowMapper<Agency>
 	{
