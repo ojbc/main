@@ -239,7 +239,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		FederalRapbackSubscriptionDetail federalRapbackSubscriptionDetail = 
 				subscriptionsRestClient.getFederalRapbackSubscriptionDetail(subscriptionId);
 		model.put("federalRapbackSubscriptionDetail", federalRapbackSubscriptionDetail);
-		return "subscriptions/admin/edit/_federalRapbackSubscriptionDetail";
+		return "subscriptions/admin/edit/federalRapbackSubscriptionDetail::federalRapbackSubscriptionDetailContent";
 	}
 	
 	
