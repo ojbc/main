@@ -27,50 +27,37 @@
   <body>
     <!-- Begin page content -->
     <th:block th:fragment="subscriptionResultsContent">
-		<div class="card" id="subscriptionResultsContainer"> 
-		    <div class="card-header container-fluid">
-		      <div class="row ml-1 h-100">
-		        <div class="my-auto" id="search-results-title">
-		          MANAGE SUBSCRIPTIONS
-		        </div>
-		        <div class="ml-auto">
-		            <a id="addSubLink" class="grayButton" href="#"><span id="subImgSpan"></span>ADD SUBSCRIPTION</a>
-		            <a id="advancedSearch" class="grayButton" href="#">ADVANCED SEARCH</a>
-		        </div>
-		      </div>
-		    </div>
-		    <div class="card-body" id="subscriptionsContent">
-		        <th:block th:replace="common/subscriptionsLeftBar::subscriptionsLeftBarContent"></th:block>
-		        <th:block th:unless="${#strings.isEmpty(informationMessages)}">
-		            <div class="alert fade in alert-dismissible show" id="informationMessages" 
-		              th:classappend="${informationMessages} == 'Operation Successful'?alert-success:alert-danger">
-		                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		                    <i class="fas fa-times" aria-hidden="true"></i>
-		                </button>    
-		                <th:block th:text="${informationMessages}"></th:block>
-		            </div>
-		        </th:block>
-		        <th:block th:utext="${subscriptionsContent}"></th:block>
-		    </div>
-		</div>
+	    <div class="card-body" id="subscriptionsContent">
+	        <th:block th:replace="common/subscriptionsLeftBar::subscriptionsLeftBarContent"></th:block>
+	        <th:block th:unless="${#strings.isEmpty(informationMessages)}">
+	            <div class="alert fade in alert-dismissible show" id="informationMessages" 
+	              th:classappend="${informationMessages} == 'Operation Successful'?alert-success:alert-danger">
+	                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                    <i class="fas fa-times" aria-hidden="true"></i>
+	                </button>    
+	                <th:block th:text="${informationMessages}"></th:block>
+	            </div>
+	        </th:block>
+	        <th:block th:utext="${subscriptionsContent}"></th:block>
+	    </div>
 		
 		<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content">
-		      <div id="modalIframeSpinner"></div>
-		      <div class="modal-header">
-		        <h5 class="modal-title">Edit Subscription</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      </div>
-		      <div class="modal-footer">
-		      </div> 
-		     </div>
-		   </div>
-	     </div>
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content">
+			    <div id="modalIframeSpinner"></div>
+			    <div class="modal-header">
+			      <h5 class="modal-title">EDIT SUBSCIPTION</h5>
+			      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <span aria-hidden="true">&times;</span>
+			      </button>
+			    </div>
+			    <div class="modal-body">
+			    </div>
+			    <div class="modal-footer">
+			    </div> 
+			   </div>
+            </div>
+        </div>
 
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
@@ -100,14 +87,13 @@
 		           {
 		               "targets":[3], 
 		               "type":"name"
-		           },
+		           }
 		         ],
 		         "aoColumns": [
 		              { "bSortable": false, "bSearchable":false },
 		              { "bSortable": false, "bSearchable":false },
-		                  null, null,null, null, null, null, null
-		            ]
-		             
+		                  null, null,null, null, null, null, null, null, null
+		            ] 
 		    });
 		    
 		    new $.fn.dataTable.FixedHeader( table );
@@ -121,55 +107,6 @@
 		            
 		    $("#subscriptionButtons").appendTo("#searchResultsTable_length");           
 		    $("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");         
-		    
-		    $('#advancedSearch').click (function() { 
-		        $.get(context + 'subscriptions/searchForm', function(data) {  
-		            $("#subscriptionsContent").html(data);
-		            $("#searchCancelSection").appendTo
-		        }).fail(ojbc.displayFailMessage);
-		        return false;
-		    });
-		
-		    $('#subscriptionButtons').on('click', '#validateLink',function() {
-		        var checkedValues = ojbc.getCheckedValues();
-		        
-		        if( !!!checkedValues ){
-		            bootpopup.alert('No subscriptions selected');
-		            return false;
-		        }
-		
-		        var row = $(this).parent();
-
-		        var requestData = {'subscriptionsJsonString' : checkedValues}; 
-		        
-		        requestData[_csrf_param_name] = _csrf_token;
-
- 		        bootpopup({
-		            title: "Are you authorized?", 
-		            size: "large",
-		            showclose: false,
-		            content: [
-		                  '<p><i class="fas fa-exclamation-triangle mr-2 mb-4 float-left"></i>You are required to review this subscription and determine whether you are still authorized to receive criminal history record information on this individual. </p>',
-		                  { p: {text: 'If the individual is still under court-ordered supervision or authorized law enforcement investigation with your agency you may select "Validate". '}},
-		                  { p: {text: "If the person is no longer under court-ordered supervision or authorized law enforcement investigation with your agency, you must cancel the subscription."}}
-		                  ], 
-		            cancel: function() {},
-		            validate: function(data, array, event) {  
-		                var urlRequest = context + 'subscriptions/validate';
-		            
-		                //call spring controller and refresh the current page with the subscription search results returned
-		                 $.post(
-	                         context + 'subscriptions/validate', 
-	                         requestData,
-	                         function(data) {                                       
-	                           $('#portalContent').html(data);
-	                         }
-	                     ).fail(ojbc.displayFailMessage);
-		            },
-		        });
-		                
-		        return false;
-		    });   
 		    
 		    $('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
 		        var checkedValues = ojbc.getCheckedValues();    
@@ -205,27 +142,46 @@
 		    // listener for click on any editSubscriptionLink button
 		    $('#searchResultsTable').on('click', '.viewDetails',function(event) {
 		        event.preventDefault();
-		        var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminAdvancedSearch");
+		        var editMvcUrl = encodeURI(this.href);
 		        var row = $(this).closest('tr'); 
 		        row.siblings().removeClass("selected");
 		        row.addClass("selected");
 		        
 		        var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
 		        if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
-		            $('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
 		        }
 		        else{
-		            $('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+		            $('#subscriptionModal .modal-dialog').removeClass('modal-sm'); 
 		        }
 		        
 		        $.get(editMvcUrl, function(data){
+		            $('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');              
 		            $('#subscriptionModal .modal-body').html(data);
+		            $('#subscriptionModal .modal-footer').html(
+		                ' <button id="editSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+		                ' <button id="editSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
 		            $('#subscriptionModal').modal('show');
 		        }).fail(ojbc.displayFailMessage);   
 		        
 		        return false;                                                                                                            
 		    });          
 		    
+		    $('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
+		        // call the spring controller method we need by this GET URL request,
+		        // that method populates the mvc model map with objects needed that 
+		        // are used by the html in the modal velocity template file
+		        $.get(context + 'subscriptions/addSubscription', 
+		            function(data){
+		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+		            $('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');               
+		            $('#subscriptionModal .modal-body').html(data);
+		            $('#subscriptionModal .modal-footer').html('');
+		            $('#subscriptionModal').modal('show');
+		        }).fail(ojbc.displayFailMessage);
+		        return false;                                                                                             
+		    }); 
+		
 		  });
 		        
 		</script>

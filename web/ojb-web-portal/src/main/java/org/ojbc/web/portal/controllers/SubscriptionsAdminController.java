@@ -115,7 +115,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
-		return "subscriptions/admin/_subscriptionResults";
+		return "subscriptions/admin/subscriptionResults::subscriptionResultsContent";
 	}
 	
 	@RequestMapping(value = "expiringSubscriptions", method = RequestMethod.POST)
