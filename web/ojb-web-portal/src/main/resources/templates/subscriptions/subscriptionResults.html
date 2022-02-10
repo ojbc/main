@@ -205,27 +205,46 @@
 		    // listener for click on any editSubscriptionLink button
 		    $('#searchResultsTable').on('click', '.viewDetails',function(event) {
 		        event.preventDefault();
-		        var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminAdvancedSearch");
+		        var editMvcUrl = encodeURI(this.href);
 		        var row = $(this).closest('tr'); 
 		        row.siblings().removeClass("selected");
 		        row.addClass("selected");
 		        
 		        var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
 		        if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
-		            $('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
 		        }
 		        else{
-		            $('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+		            $('#subscriptionModal .modal-dialog').removeClass('modal-sm'); 
 		        }
 		        
 		        $.get(editMvcUrl, function(data){
+		            $('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');              
 		            $('#subscriptionModal .modal-body').html(data);
+		            $('#subscriptionModal .modal-footer').html(
+		                ' <button id="editSubModalCancelLink" class="btn btn-sm btn-secondary">CANCEL</button>' + 
+		                ' <button id="editSubModalSaveLink" class="btn btn-sm btn-primary">SAVE</button>');
 		            $('#subscriptionModal').modal('show');
 		        }).fail(ojbc.displayFailMessage);   
 		        
 		        return false;                                                                                                            
 		    });          
 		    
+		    $('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
+		        // call the spring controller method we need by this GET URL request,
+		        // that method populates the mvc model map with objects needed that 
+		        // are used by the html in the modal velocity template file
+		        $.get(context + 'subscriptions/addSubscription', 
+		            function(data){
+		            $('#subscriptionModal .modal-dialog').addClass('modal-sm'); 
+		            $('#subscriptionModal .modal-title').html('ADD SUBSCIPTION');               
+		            $('#subscriptionModal .modal-body').html(data);
+		            $('#subscriptionModal .modal-footer').html('');
+		            $('#subscriptionModal').modal('show');
+		        }).fail(ojbc.displayFailMessage);
+		        return false;                                                                                             
+		    }); 
+		
 		  });
 		        
 		</script>
