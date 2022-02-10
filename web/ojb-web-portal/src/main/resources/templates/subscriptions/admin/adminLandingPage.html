@@ -1,0 +1,255 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Person Search Result</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="adminLandingPageContent">
+		<div class="card"> 
+		    <div class="card-header container-fluid">
+		      <div class="row ml-1 h-100">
+		        <div class="my-auto" id="search-results-title">
+		          SUBSCRIPTIONS ADMIN
+		        </div>
+		        <div class="btn-group btn-group-toggle ml-auto mr-3" role="group" aria-label="adminButtons" id="adminButtons" data-toggle="buttons">
+		            <a id="advancedAdminSearch" class="btn btn-secondary btn-sm" href="#" role="button">
+		                ADVANCED SEARCH
+		            </a>
+		            <a id="activeErrorsSearch" class="btn btn-secondary btn-sm" href="#" role="button">
+		                ERRORS
+		            </a>
+		            <a id="notifications" class="btn btn-secondary btn-sm" href="#" role="button">
+		                NOTIFICATIONS
+		            </a>
+		            <div class="btn-group" role="group">
+		                <button id="reportsButton" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                  REPORTS
+		                </button>
+		                <div class="dropdown-menu" aria-labelledby="reportsButton">
+		                  <a class="dropdown-item small" href="#" id="expiringSubscriptions">Expiring Subscriptions</a>
+		                  <a class="dropdown-item small" href="#" id="expiredSubscriptions">Expired Subscriptions</a>
+		                </div>
+		            </div>
+		            <a id="modifySubsOwnerInfo" class="btn btn-secondary btn-sm disabled"  href="#" role="button" tabindex=-1>
+		                MODIFY OWNER INFO
+		            </a>
+		            
+		        </div>
+		      </div>
+		    </div>
+		    <div class="card-body" id="subsAdminContent">
+                <th:block th:replace="common/subscriptionsLeftBar::subscriptionsLeftBarContent"></th:block>
+                <th:block th:unless="${#strings.isEmpty(informationMessages)}">
+                    <div class="alert fade in alert-dismissible show" id="informationMessages" 
+                      th:classappend="${informationMessages} == 'Operation Successful'?alert-success:alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>    
+                        <th:block th:text="${informationMessages}"></th:block>
+                    </div>
+                </th:block>
+		        <th:block th:utext="${subscriptionsContent}"></th:block>
+		    </div>
+		</div>
+		
+		<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+				  <div id="modalIframeSpinner"></div>
+				  <div class="modal-header">
+				    <h5 class="modal-title">EDIT SUBSCIPTION</h5>
+				    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				      <span aria-hidden="true">&times;</span>
+				    </button>
+				  </div>
+				  <div class="modal-body"></div>
+				  <div class="modal-footer"></div> 
+				</div>
+            </div>
+		</div>
+
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ '';
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+		    $(function() {
+		        $('#searchBarButtonDiv').hide();            
+		    
+		        var reStyleButtonsBasedOnSelection = function() {
+		                // Make the selected search button blue, and the others gray
+		                $('#adminButtons a.active').removeClass('active');
+		                $('#reportsButton').removeClass('active');
+		                $(this).addClass('active');
+		        };
+		    
+		        $('#adminButtons a:not(.active)').click (reStyleButtonsBasedOnSelection);
+		        
+		        $('#portalContent').on('click', '#advancedAdminSearch', function() { 
+		            return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/adminSearchForm')
+		        });
+		        
+		        $('#expiringSubscriptions').click (function() {
+		            $('#reportsButton').dropdown("toggle");;
+		            $('#adminButtons a.active').removeClass('active');
+		            $('#reportsButton').addClass('active');
+		            return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/expiringSubscriptionsForm')
+		        });
+		        
+		        $('#expiredSubscriptions').click (function() { 
+		            $('#reportsButton').dropdown("toggle");;
+		            $('#adminButtons a.active').removeClass('active');
+		            $('#reportsButton').addClass('active');
+		            return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/expiredSubscriptionsForm')
+		        });
+		        
+		        $('#activeErrorsSearch').click (function() { 
+		            return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/federalRapbackSubscriptionErrors')
+		        });
+		        
+		        $('#notifications').click (function() { 
+		            return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/notifications')
+		        });
+		        
+		        var oTable = $("#searchResultsTable").DataTable({
+		             "order": [
+		            	 [ 3, "asc" ]
+	            	 ],
+		             "pagingType": "full_numbers",
+		             "pageLength": 25,
+		             stateSave: true,
+		             responsive: true, 
+		             colReorder: true,
+		             "language": {
+		                "emptyTable": "No subscriptions found"
+		             }, 
+		             columnDefs: [
+		               {
+		                   "targets":[3], 
+		                   "type":"name"
+		               },
+		             ],
+		             "aoColumns": [
+		                  { "bSortable": false, "bSearchable":false },
+		                  { "bSortable": false, "bSearchable":false },
+		                      null, null,null, null, null, null, null, null, null
+		                ] 
+		        });
+		        new $.fn.dataTable.FixedHeader( oTable );
+		        
+		        $("#subscriptionButtons").appendTo("#searchResultsTable_length");           
+		        $("#subscriptionStatusFilter").prependTo("#searchResultsTable_filter");         
+		
+		        $('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
+		            var checkedValues = ojbc.getCheckedValues();    
+		            
+		            if(!checkedValues){
+		                bootpopup.alert('No subscriptions selected', 'ERROR');
+		                return false;
+		            }
+		            
+		            //console.log("checkedValues: " + checkedValues);
+		
+		            bootpopup.confirm("Are you sure you want to unsubscribe?" , "", function(ans) { 
+		                if(ans){
+		                    var urlRequest = encodeURI('../subscriptions/unsubscribe');                 
+		                    $.ajax({
+		                        url:urlRequest, 
+		                        type:"POST",
+		                        data: checkedValues,
+		                        contentType:"application/json; charset=utf-8",
+		                        dataType:"html",
+		                        success: function(data) {                                       
+		                          $("#subsAdminContent").html(data);
+		                        }, 
+		                        error:ojbc.displayFailMessage                         
+		                    });
+		                } 
+		                return false;
+		            }); 
+		            
+		        });
+		        
+		        // listener for click on any editSubscriptionLink button
+		        $('#searchResultsTable').on('click', '.viewDetails',function(event) {
+		            event.preventDefault();
+		            var editMvcUrl = encodeURI(this.href + "&admin=true&editSourcePage=adminLanding");
+		            var row = $(this).closest('tr'); 
+		            row.siblings().removeClass("selected");
+		            row.addClass("selected");
+		            
+		            var topic = jQuery.parseJSON(row.find('input:checkbox').val()).topic;
+		            if (topic !== '{http://ojbc.org/wsn/topics}:person/rapback'){
+		                $('#subscriptionModal .modal-dialog').removeClass('modal-lg').addClass('modal-sm'); 
+		            }
+		            else{
+		                $('#subscriptionModal .modal-dialog').removeClass('modal-sm').addClass('modal-lg'); 
+		            }
+		            
+		            $.get(editMvcUrl, function(data){
+		                //console.log("data" + data); 
+		                $('#subscriptionModal .modal-body').html(data);
+		                $('#subscriptionModal').modal('show');
+		            }).fail(ojbc.displayFailMessage);   
+		            
+		            return false;                                                                                                            
+		        });          
+		
+		    });
+		    
+		    adminPage = {
+		        populateSubsAdminContentContentFromUrl : function(url) {
+		            $.get(url, function(data) { 
+		                $("#subsAdminContent").html(data);
+		            }).fail(ojbc.displayFailMessage);
+		            return false;
+		        }
+		    }
+		    
+		    function myFunction() {
+		        document.getElementById("myDropdown").classList.toggle("show");
+		    }
+		
+		    // Close the dropdown if the user clicks outside of it
+		    window.onclick = function(event) {
+		      if (!event.target.matches('.dropbtn')) {
+		    
+		        var dropdowns = document.getElementsByClassName("dropdown-content");
+		        var i;
+		        for (i = 0; i < dropdowns.length; i++) {
+		          var openDropdown = dropdowns[i];
+		          if (openDropdown.classList.contains('show')) {
+		            openDropdown.classList.remove('show');
+		          }
+		        }
+		      }
+		    }
+		        
+		</script>
+    </th:block>
+  </body>
+</html>

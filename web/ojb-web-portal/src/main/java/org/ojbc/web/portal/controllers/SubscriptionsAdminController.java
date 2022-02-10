@@ -86,7 +86,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
         model.put("subscriptionFilterCommand", new SubscriptionFilterCommand());
 		
-	    return "subscriptions/admin/_adminLandingPage";
+	    return "subscriptions/admin/adminLandingPage::adminLandingPageContent";
 	}
     
 	@RequestMapping(value = "adminSearchForm", method = RequestMethod.GET)
