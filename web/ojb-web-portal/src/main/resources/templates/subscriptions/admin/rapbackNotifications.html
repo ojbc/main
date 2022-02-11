@@ -48,7 +48,7 @@
 	                    <td th:text="${#strings.defaultString(notification.triggeringEventsString, ' ')}"></td>
 	                    <td th:text="${#strings.defaultString(notification.subscriptionOwnerEmailAddress, ' ')}"></td>
 	                    <td th:text="${#strings.defaultString(notification.subscriptionOwnerAgency, ' ')}"></td>
-	                    <td th:text="${notificationSystemNameMap.get($notification.notifyingSystemName)}">$!notificationSystemNameMap.get($!notification.notifyingSystemName)</td>
+	                    <td th:text="${notificationSystemNameMap.get(notification.notifyingSystemName)}"></td>
 	                    <td  th:text="${#strings.isEmpty(notification.notificationSentTimestamp)}? 'NA' :  ${#temporals.format(notification.notificationSentTimestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
 	                </tr>
 		        </tbody>
