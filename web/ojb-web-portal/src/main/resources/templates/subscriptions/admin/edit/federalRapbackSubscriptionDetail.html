@@ -61,8 +61,8 @@
 	        </thead>
 	        <tbody>
                 <tr th:each="federalRapbackSubscription : ${federalRapbackSubscriptionDetail.federalRapbackSubscriptions}">
-                    <td class="pl-2" th:text="${#strings.isEmpty(federalRapbackSubscription.requestSentTimestamp)}? 'NA' :  ${#dates.format(federalRapbackSubscription.requestSentTimestamp, 'yyyy-MM-dd HH:mm:ss')}">No Timestamp</td>
-                    <td class="pl-2" th:text="${#strings.isEmpty(federalRapbackSubscription.responseRecievedTimestamp)}? 'NA' :  ${#dates.format(federalRapbackSubscription.responseRecievedTimestamp, 'yyyy-MM-dd HH:mm:ss')}">No Timestamp</td>
+                    <td class="pl-2" th:text="${#strings.isEmpty(federalRapbackSubscription.requestSentTimestamp)}? 'NA' :  ${#temporals.format(federalRapbackSubscription.requestSentTimestamp, 'yyyy-MM-dd HH:mm:ss')}">No Timestamp</td>
+                    <td class="pl-2" th:text="${#strings.isEmpty(federalRapbackSubscription.responseRecievedTimestamp)}? 'NA' :  ${#temporals.format(federalRapbackSubscription.responseRecievedTimestamp, 'yyyy-MM-dd HH:mm:ss')}">No Timestamp</td>
                     <td class="pl-2" th:text="${#strings.defaultString(federalRapbackSubscription.transactionCategoryCodeResponse, 'NA')}">No response</td>
                     <td class="pl-2" th:text="${#strings.defaultString(federalRapbackSubscription.transactionStatusText, 'NA')}"></td>
                 </tr>
