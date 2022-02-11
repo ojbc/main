@@ -32,6 +32,8 @@
 					
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext" streamCache="true">
 	
+		<streamCaching id="streamStrategy" spoolDirectory="${java.io.tmpdir}/camelcache/#uuid#/" spoolThreshold="65536" spoolUsedHeapMemoryThreshold="70" anySpoolRules="true" />
+	
 		<camel:endpoint id="chargeReferralReportingIntermediaryEndpoint"
 			uri="cxf:bean:chargeReferralReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}&amp;allowStreaming=false" />
 		
@@ -76,15 +78,15 @@
 							
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>							
 							
-			<camel:setHeader headerName="operationName">
+			<camel:setHeader name="operationName">
 				<constant>ReportChargeReferral</constant>
 			</camel:setHeader>	
 			
-			<camel:setHeader headerName="operationNamespace">
+			<camel:setHeader name="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant>
 			</camel:setHeader>						
 																	
-			<camel:to uri="chargeReferralReportingAdapterEndpoint" />
+			<camel:to uri="chargeReferralReportingAdapterEndpoint" id="chargeReferralReportingAdapterEndpoint"/>
 			
 		</camel:route>					
 			
@@ -94,7 +96,7 @@
 		
 			<from uri="direct:callDerivedBundleChildRoutes"/>
 			
-			<camel:setHeader headerName="derivedRoutes">
+			<camel:setHeader name="derivedRoutes">
 				<simple>{{chargeReferralReporting.camelEndpointsToCall}}</simple>
 			</camel:setHeader>
 			
@@ -112,14 +114,6 @@
 					
 	</camel:camelContext>
 			
-	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-		
-	<bean id="streamStrategy" class="org.apache.camel.impl.DefaultStreamCachingStrategy">
-	    <property name="spoolDirectory" value="${java.io.tmpdir}/camelcache/#uuid#/"/>
-	    <property name="spoolThreshold" value="65536"/>
-	    <property name="spoolUsedHeapMemoryThreshold" value="70"/>
-	    <property name="anySpoolRules" value="true"/>
-	</bean>   		
 </beans>
 
 
