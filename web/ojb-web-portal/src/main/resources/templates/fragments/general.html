@@ -150,11 +150,11 @@
         <script th:inline="javascript">
 	      /*<![CDATA[*/
 	          var context = /*[[@{/}]]*/ '';
-	          var inactivityTimeout = [[${inactivityTimeout}]]; 
-	          var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
-	          var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];
-	          var sensitiveInfoAlertMessage = [[${sensitiveInfoAlertMessage}]];
-	          var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
+	          var inactivityTimeout = /*[[${inactivityTimeout}]]*/ ''; 
+	          var inactivityTimeoutInSeconds = /*[[${inactivityTimeoutInSeconds}]]*/ '';
+	          var sensitiveInfoAlert = /*[[${sensitiveInfoAlert}]]*/ '';
+	          var sensitiveInfoAlertMessage = /*[[${sensitiveInfoAlertMessage}]]*/ '';
+	          var homePage = /*[[${stateSpecificHomePage['thisHomePage']}]]*/ '';
 	      /*]]>*/
 	      var idleTime;
 	      var oTable;

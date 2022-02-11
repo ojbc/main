@@ -39,11 +39,11 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var inactivityTimeout = [[${inactivityTimeout}]]; 
-		        var inactivityTimeoutInSeconds = [[${inactivityTimeoutInSeconds}]];
-		        var sensitiveInfoAlert = [[${sensitiveInfoAlert}]];
-		        var sensitiveInfoAlertMessage = [[${sensitiveInfoAlertMessage}]];
-		        var homePage = [[${stateSpecificHomePage['thisHomePage']}]];
+		        var inactivityTimeout = /*[[${inactivityTimeout}]]*/ true; 
+		        var inactivityTimeoutInSeconds = /*[[${inactivityTimeoutInSeconds}]]*/ 1800;
+		        var sensitiveInfoAlert = /*[[${sensitiveInfoAlert}]]*/ false;
+		        var sensitiveInfoAlertMessage = /*[[${sensitiveInfoAlertMessage}]]*/ '';
+		        var homePage = /*[[${stateSpecificHomePage['thisHomePage']}]]*/ '';
 	        /*]]>*/
             $(function(){
                 var idleTime;
@@ -181,6 +181,22 @@
                                         
                     return false;
                 });
+                
+                $('#adminLink').click (function() {     
+                    
+                    if (oTable !== undefined && oTable.fixedHeader !== undefined){
+                        oTable.fixedHeader.disable();
+                        oTable.destroy();
+                    }               
+                    $('#searchBarButtonDiv').css("display", "none");
+        
+                    xhr = $.get(context + 'subscriptions/admin/landingPage', function(data) {
+                        $('#filterColumn').addClass('d-none');
+                        $('#portalContent').html(data); 
+                    }).fail(ojbc.displayFailMessage);
+                                                                
+                    return false;
+                })
                 
                 $('#helpLink').click (function() {  
                     

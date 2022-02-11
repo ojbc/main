@@ -1,0 +1,294 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Rapback Subscription Form</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="rapbackFormContent" id="rapbackFormContent">
+	    <table class="detailsTable">
+	    
+	        <tr>
+	            <td class="detailsLabel" width="100px">ORI</td>
+	            <td th:text = "${subscription.ori}"> ORI value</td>
+	            <td  class="detailsLabel">
+	                Agency Name
+	            </td>
+	            <td th:text="${subscription.agencyName}">
+	                Agency Name Value
+	            </td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">System Identifier</td>
+	            <td th:text="${subscription.systemId}">
+	                Value
+	            </td>
+	            <td  class="detailsLabel">
+	                Qualifier
+	            </td>
+	            <td th:text="${subscription.subscriptionQualificationId}">
+	                ID value
+	            </td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">Triggering Event</td>
+	            <td colspan = 3>
+		            <th:block th:each="entry, stat : ${triggeringEventCodeMap}">
+		                  <input type="checkbox"
+		                      th:value="${entry.key}"
+		                      th:field="*{federalTriggeringEventCode}" style='width: auto;'/>                                
+		                   <label th:for="${#ids.prev('federalTriggeringEventCode')}" 
+		                          th:text="${entry.value}">Event Code</label>
+		                   <br th:if="${stat.index} == 2"/>
+		            </th:blcok>
+	            </td>
+	        </tr>
+	        <th:block th:if="${showSubscriptionPurposeDropDown}">
+	            <tr>
+	                <td class="detailsLabel">Purpose</td>
+	                <td>
+			            <select th:field="*{subscriptionPurpose}" class="form-control form-control-sm" 
+			                 data-placeholder="All" disabled th:if="${subscription.subscriptionPurpose} == 'CI'or ${subscription.subscriptionPurpose} == 'CS'">
+			              <option th:each="item: ${subscriptionPurposeMap}" th:value="${item.key}" th:text="${item.value}" />
+			            </select>
+                        <input type="text" name="temp" value="CIVIL" readonly="readonly" 
+                            th:unless="${subscription.subscriptionPurpose} == 'CI' or ${subscription.subscriptionPurpose} == 'CS'">
+	                    <input type="hidden" th:field="*{subscriptionPurpose}"/>
+	                </td>
+	                <td th:text="${subscription.active}? Active: Inactive">
+	                   Active or Inactive
+	                </td>
+	                <td>
+	                    <input type="checkbox" th:field="*{federalRapSheetDisclosureIndicator}" style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'/>
+	                    <span class="subscriptionHint">Disclosure Indicator</span>>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td class="detailsLabel">Disclosure Contact Information</td>
+	                <td colspan=1>
+			            <textarea th:field="*{federalRapSheetDisclosureAttentionDesignationText}" placeholder='Disclosure Contact Information' 
+			                style='width:200px' title='Federal RapSheet Disclosure Contact Info' disabled rows='2' cols='25' maxlength='50'></textarea>
+	                </td>
+	                <td class="detailsLabel">Case ID</td>
+	                <td>
+			            <input type="text" th:field="*{caseId}" class="form-control form-control-sm" placeholder="Case ID" 
+			                 maxlength='20' readonly/>
+	                </td>
+	            </tr>
+	        </th:block>
+	        <tr>
+	            <td class="detailsLabel">SID</td>
+	            <td>
+	               <input type="text" th:field="*{stateId}" style='width:110px;' placeholder="SID" readonly/>
+	            </td>
+	            <td class="detailsLabel">FBI UCN</td>
+	            <td>
+	               <input type="text" th:field="*{formattedFbiId}" style='width:110px;' placeholder="FBI ID" readonly/>
+                    <a th:if="${#strings.isEmpty(subscription.fbiId)}" id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
+                    <input type="hidden" th:field="*{fbiId}"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">Full Name</td>
+	            <td><input type="text" th:field="*{fullName}" style='width:200px;' readonly/></td>
+	            <td class="detailsLabel">DOB</td>
+	            <td><input type="text" th:field="*{dateOfBirth}" title='DOB' style='width:200px;' readonly/></td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">Start Date</td>
+	            <td>
+		            <input type="text" th:field="*{subscriptionStartDate}" style='width:120px;' placeholder="From" th:errorclass="is-invalid"
+		                th:class="${isStartDateEditable}?enabledDatePicker:disabledDatePicker" th:readonly="!${isStartDateEditable}"/>
+	            </td>
+	            <td class="detailsLabel">End Date</td>
+	            <td>
+                    <input type="text" th:field="*{subscriptionEndDate}" style='width:120px;' placeholder="No End Date" th:errorclass="is-invalid"
+                        class="datePicker" />
+	            </td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">Creation Date</td>
+	            <td th:text="${subscription.creationDateString}">creationDateString</td>
+	            <td class="detailsLabel">Last Update Date</td>
+	            <td th:text="${subscription.lastUpdatedDateString}">lastUpdatedDateString</td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">Last Validated</td>
+	            <td th:text="${subscription.lastValidationDateString}">lastValidationDateString</td>
+	            <td class="detailsLabel">Validation Due</td>
+	            <td th:text="${subscription.validationDueDateString}">validationDueDateString</td>
+	        </tr>
+	        <tr>
+	            <td class="detailsLabel">E-mail</td>
+	            <td colspan=3>
+	               <input type="email" th:field="*{emailList[0]}" style='width:190px' placeholder="Email Address 1" th:errorclass="is-invalid"/>
+	               <input type="email" th:field="*{emailList[1]}" style='width:190px' placeholder="Email Address 2" th:errorclass="is-invalid"/>
+	               <input type="email" th:field="*{emailList[2]}" style='width:190px' placeholder="Email Address 3" th:errorclass="is-invalid"/>
+	            </td>
+	        </tr>
+	    </table>
+	    <div id="accordion">
+	      <h3>FBI Rap Back Subscription Info</h3>
+	      <div>
+	        <table class="detailsTable">
+	            <tr>
+	                <td class="detailsLabel" style="width:35%">START DATE</td>
+	                <td style="width:20%" th:text="${subscription.fbiRapbackSubscription?.rapbackStartDateString}">fbiRapbackSubscription.rapbackStartDateString</td>
+	                <td class="detailsLabel" style="width:25%">EXPIRATION DATE</td>
+	                <td style="width:20%" th:text="${subscription.fbiRapbackSubscription?.rapbackExpirationDateString}">fbiRapbackSubscription.rapbackExpirationDateString</td>
+	            </tr>
+	            <tr>
+	                <td class="detailsLabel">UCN</td>
+	                <td th:text="${subscription.fbiRapbackSubscription?.ucn}">fbiRapbackSubscription.ucn</td>
+	                <td class="detailsLabel">OPT OUT IN STATE</td>
+	                <td th:text="${subscription.fbiRapbackSubscription?.rapbackOptOutInState}">fbiRapbackSubscription.rapbackOptOutInState</td>
+	            </tr>
+	            <tr>
+	                <td class="detailsLabel">ACTIVITY NOTIFICATION FORMAT</td>
+	                <td th:text="${subscription.fbiRapbackSubscription?.rapbackActivityNotificationFormat}">fbiRapbackSubscription.rapbackActivityNotificationFormat</td>
+	                <td class="detailsLabel">RAP BACK CATEGORY</td>
+	                <td th:text="${subscription.fbiRapbackSubscription?.rapbackCategory}">fbiRapbackSubscription.rapbackCategory</td>
+	            </tr>
+	            <tr>
+	                <td class="detailsLabel">FBI SUBSCRIPTION ID</td>
+	                <td th:text="${subscription.fbiRapbackSubscription?.fbiSubscriptionId}">fbiRapbackSubscription.fbiSubscriptionId</td>
+	                <td class="detailsLabel"></td>
+	                <td></td>
+	            </tr>
+	        </table>
+	      </div>
+	      
+	      <h3><a th:href= "@{/} + 'subscriptions/admin/federalRapbackSubscriptionDetail/' + ${subscription.systemId}">FBI Subscription Activities</a></h3> 
+	      <div>
+	      </div> 
+	    </div>
+
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+		        var ciDefaultEndDate = /*[[${ciDefaultEndDate}]]*/ '';
+		        var csDefaultEndDate = /*[[${csDefaultEndDate}]]*/ '';
+		        var sidRegexForAddSubscription = /*[[${sidRegexForAddSubscription}]]*/ '';
+		        var sidRegexValidationErrorMessage = /*[[${sidRegexValidationErrorMessage}]]*/ '';
+		        var subscriptionPurpose = /*[[${subscription.subscriptionPurpose}]]*/ '';
+	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
+	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+			$(function() {    
+			  $( "#accordion" ).accordion({
+			      heightStyle: "content",
+			      activate: function (e, ui) {
+			          $url = $(ui.newHeader[0]).children('a').attr('href');
+			          
+			          if ($url){
+			              $.get($url, function (data) {
+			                  $(ui.newHeader[0]).next().html(data);
+			              });
+			          }
+			      }
+			  });
+			  
+			  $('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");     
+			
+			  $('#subscriptionForm').tooltip();
+			                                                                      
+			  $(".datePicker").datepicker({
+			     showOn: "both",
+			     buttonImage: context + 'images/Search Form/icon-calendar.png',
+			     buttonImageOnly: true
+			  }); 
+			  
+			  // note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+			  // displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+			  // allows being disabled but that prevents the html field value from being sent to the server when the form 
+			  // is serialized                                    
+			  $(".disabledDatePicker").datepicker({
+			     showOn: "both",
+			     buttonImage: context + 'images/Search Form/icon-calendar.png',        
+			     buttonImageOnly: true,
+			     beforeShow: function(i) {  return false; } 
+			  });             
+			
+			  if( '${subscription.subscriptionPurpose}'  === 'CS'){
+			      $('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+			      $('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();      
+			  }
+			  
+			  $('#idLookupLink').click(function(){        
+			      var sidPattern = new RegExp('$sidRegexForAddSubscription');
+			      var sidVal = $('#stateId').val();
+			      
+			      if (sidPattern.test(sidVal)){   
+			                                                                                                                       
+			          var requestUrl = 'subscriptions/sidLookup?identificationID=' + sidVal;                                                                            
+			                  
+			          // calls a spring mvc method returning a json string w/format key,value
+			          // where the key is an int index as a string - and the value is an object {first, last}
+			          // TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+			          // to js layer here instead of using json                                            
+			          $.get(requestUrl, function(data){                               
+			                  //console.log(data);
+			                  //generate html drop-down options based on json values from java layer
+			                  if( data && Object.keys(data.allNames).length > 0){
+			                      $("#fbiId").val(data.fbiId);
+			                      $("#formattedFbiId").val(data.formattedFbiId)
+			                  }else{
+			                      bootpopup.alert('Requested SID not found', 'ERROR');
+			                      $("#fbiId").val("");
+			                      $("#formattedFbiId").val("No FBI UCN found");
+			                  }
+			                  
+			              }
+			          ).fail(ojbc.displayFailMessage);
+			      }else{
+			          bootpopup.alert('$sidRegexValidationErrorMessage', 'ERROR');
+			          $("#fbiId").val("");
+			          $("#formattedFbiId").val("No FBI UCN found");
+			      }   
+			  });         
+			  
+			  $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+			  
+			      if ('${subscription.subscriptionPurpose}'==="CI"){
+			          var checked = $(this).prop('checked');
+			          //console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+			          if (checked){
+			              $('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();   
+			          }
+			          else{
+			              $('#federalRapSheetDisclosureAttentionDesignationText').val('');
+			              $('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);   
+			          }
+			      }
+			      else if ('${subscription.subscriptionPurpose}'==="CS") {
+			          $('#federalRapSheetDisclosureAttentionDesignationText').focus();      
+			      }
+			  });  
+			  
+			});     
+		</script>
+        
+    </th:block>
+  </body>
+</html>

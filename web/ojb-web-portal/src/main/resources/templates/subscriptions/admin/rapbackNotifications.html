@@ -1,0 +1,126 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Rapback Notifications</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="rapbackNotificationsContent">
+		<div style="padding:10px">
+		    <span id="subscriptionButtons">
+		        <button id="searchForm" class="btn btn-sm btn-primary viewDetails">SEARCH</button>
+		    </span>                 
+		    <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="searchResultsTable">
+		        <thead>
+		            <tr>
+		                <th>SUBJECT</th>
+		                <th>TRIGGERING EVENTS</th>
+		                <th>OWNER EMAIL</th>
+		                <th>OWNER AGENCY</th>
+		                <th>TYPE</th>
+		                <th>DATETIME RECEIVED</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+	                <tr th:each="notification : ${notifications}" th:title='${notification.subscriptionIdentifier}'>
+	                    <td th:text="${#strings.defaultString(notification.subscriptionSubject, ' ')}"></td>
+	                    <td th:text="${#strings.defaultString(notification.triggeringEventsString, ' ')}"></td>
+	                    <td th:text="${#strings.defaultString(notification.subscriptionOwnerEmailAddress, ' ')}"></td>
+	                    <td th:text="${#strings.defaultString(notification.subscriptionOwnerAgency, ' ')}"></td>
+	                    <td th:text="${notificationSystemNameMap.get($notification.notifyingSystemName)}">$!notificationSystemNameMap.get($!notification.notifyingSystemName)</td>
+	                    <td  th:text="${#strings.isEmpty(notification.notificationSentTimestamp)}? 'NA' :  ${#temporals.format(notification.notificationSentTimestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+	                </tr>
+		        </tbody>
+		    </table>                                
+		</div>
+		<div class="modal fade ojbc-modal" id="subscriptionModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionModal" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		    <div class="modal-content">
+		      <div id="modalIframeSpinner"></div>
+		      <div class="modal-header">
+		        <h5 class="modal-title">Edit Subscription</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      </div>
+		      <div class="modal-footer">
+		      </div> 
+	       </div>
+          </div>
+        </div>
+		<script th:inline="javascript">
+	        /*<![CDATA[*/
+		        var context = /*[[@{/}]]*/ '';
+		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ '';
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+	        /*]]>*/
+			$(function() {
+			  $('#searchBarButtonDiv').hide();            
+			  
+			  var oTable = $("#searchResultsTable").DataTable({
+			       "pagingType": "full_numbers",
+			       "pageLength": 25,
+			       stateSave: true,
+			       responsive: true, 
+			       colReorder: true,
+			       "language": {
+			          "emptyTable": "No Federal Rapback Notifications found"
+			       } 
+			  });
+			  
+			  new $.fn.dataTable.FixedHeader( oTable );
+			  
+			  $("#subscriptionButtons").appendTo("#searchResultsTable_length");     
+			  
+			  $('#searchForm').click (function() { 
+			      return adminPage.populateSubsAdminContentContentFromUrl(context + 'subscriptions/admin/notificationsSearchForm');
+			  });
+			  
+			  $('#searchResultsTable').on('dblclick', 'tbody tr',function(event) {
+			      event.preventDefault();
+			      var subscriptionId = $(this).attr("title");
+			      var editMvcUrl = encodeURI(context + 'subscriptions/editSubscription?identificationID='+ subscriptionId + "&admin=true&editSourcePage=RBN");
+			      
+			      var row = $(this).closest('tr'); 
+			      row.siblings().removeClass("selected");
+			      row.addClass("selected");
+			      
+			      $.get(editMvcUrl, function(data){
+			          $('#subscriptionModal .modal-title').html('EDIT SUBSCIPTION');              
+			          $('#subscriptionModal .modal-body').html(data);
+			          $('#subscriptionModal').modal('show');
+			      }).fail(ojbc.displayFailMessage);   
+			      
+			      return false;                                                                                                            
+			  }); 
+			           
+			});
+			  
+		</script>
+    </th:block>
+  </body>
+</html>

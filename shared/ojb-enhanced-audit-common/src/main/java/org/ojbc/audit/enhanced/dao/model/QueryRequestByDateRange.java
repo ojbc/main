@@ -19,19 +19,22 @@ package org.ojbc.audit.enhanced.dao.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.ojbc.util.rest.jackson.LocalDateDeserializer;
-import org.ojbc.util.rest.jackson.LocalDateSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 public class QueryRequestByDateRange implements Serializable{
 
 	private static final long serialVersionUID = -201569486981457565L;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate startDate;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate endDate;

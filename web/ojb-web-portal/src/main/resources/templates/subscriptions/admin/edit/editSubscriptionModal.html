@@ -27,21 +27,22 @@
   <body>
     <!-- Begin page content -->
     <th:block th:fragment="editSubscriptionModalContent" id="editSubscriptionModalContent">
-		<div style="width:auto;height:auto;" id="subFormDiv">
+		<div style="width:auto; height:auto" id="subFormDiv">
 		    <form id="subscriptionForm" th:object="${subscription}">    
 		        <div>
-                    <select th:field="*{topic}" data-placeholder="All" onChange='refreshDisplayFromSubType()' disabled>
+                    <select th:field="*{topic}" disabled>
                       <option th:each="item: ${subscriptionTypeValueToLabelMap}" th:value="${item.key}" th:text="${item.value}" />
                     </select>
                     <input type="hidden" th:field="*{topic}"/>
                     <input type="hidden" th:field="*{systemId}"/>
-		        </div>
-		                  
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		        </div>          
+		                            
                 <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/arrest'">
                     <th:block th:replace="subscriptions/editSubscriptionDialog/arrestForm::arrestFormContent"></th:block>
                 </th:block> 
                 <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/rapback'"> 
-                    <th:block th:replace="subscriptions/editSubscriptionDialog/rapbackForm::rapbackFormContent"></th:block>
+                    <th:block th:replace="subscriptions/admin/edit/rapbackForm::rapbackFormContent"></th:block>
                 </th:block>
                 <th:block th:if="${subscription.topic}  eq '{http://ojbc.org/wsn/topics}:person/incident'"> 
                     <th:block th:replace="subscriptions/editSubscriptionDialog/incidentForm::incidentFormContent"></th:block>
@@ -57,15 +58,15 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
-	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	            var userEmployerOri = /*[[${userLogonInfo.employerOri}]]*/ '';
 	            var initializationSucceeded = /*[[${initializationSucceeded}]]*/ '';
 	            var topic = /*[[${subscription.topic}]]*/ '';
+	            var isActive = /*[[${subscription.active}]]*/ false;
 	        /*]]>*/
 	        $(function() {   
 	        	
 		        if(!!!initializationSucceeded){
+		        	$("#subscriptionModal").modal('hide');
 		            bootpopup.alert('Failed retrieving subscription for edit window', 'ERROR');
 		            return;
 		        }               
@@ -74,6 +75,14 @@
 		            $("#subFormDiv").height("auto");
 		            $("#topic").after('<span class="subscriptionHint">ORI:' + userEmployerOri + '</span>');
 		        }
+	            else{
+	                $('#subscriptionModal .modal-title').html( 'EDIT SUBSCIPTION');
+	            }
+	            
+	            if( isActive ){
+	                $('#subscriptionModal .modal-footer')
+	                   .html('<a id="editSubModalCancelLink" class="btn btn-secondary btn-sm" href="#" role="button">CANCEL</a><a id="editSubModalSaveLink" class="btn btn-primary btn-sm" href="#" role="button">SAVE</a>');
+	            }
 		        
 		        $('#editSubModalSaveLink').click(function(){
 	                if( topic  === '{http://ojbc.org/wsn/topics}:person/arrest'){                      
@@ -110,7 +119,6 @@
 		    var fullName = firstName + ' ' + lastName;
 		    // serialize() generates get request string for springforminput html fields
 		    var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
-		    formData += '&'+_csrf_param_name+'='+_csrf_token;
 		    
 		    $.post(context + 'subscriptions/updateSubscription', 
 		        formData,
@@ -131,7 +139,6 @@
 			                                                                                                               
 			   // serialize() generates get request string for springforminput html fields
 			   var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
-			   formData += '&'+_csrf_param_name+'='+_csrf_token;
 			   
 			   $.post(context + 'subscriptions/updateSubscription', 
 			       formData,
@@ -153,7 +160,6 @@
 			    
 			    // serialize() generates get request string for <springforminput> html fields
 			    var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
-			    formData += '&'+_csrf_param_name+'='+_csrf_token;
 			    
 			    $.post(context + 'subscriptions/updateSubscription', 
 			        formData,
@@ -173,7 +179,6 @@
 			    
 			    // serialize() generates get request string for <springforminput> html fields 
 			    var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal;                    
-			    formData += '&'+_csrf_param_name+'='+_csrf_token;
 			    
 			    $.post(context + 'subscriptions/updateSubscription', 
 			        formData,
@@ -188,7 +193,6 @@
 			                                                                            
 			    // serialize() generates get request string for <springforminput> html fields 
 			    var formData = $('#subscriptionForm').serialize();                  
-			    formData += '&'+_csrf_param_name+'='+_csrf_token;
 			    
 			    $.post(context + 'subscriptions/updateSubscription', 
 			        formData,
@@ -233,12 +237,25 @@
 			
 			  $("#subscriptionModal").modal('hide');
 			  
-			  // redisplay subscription results having the new subscription 
-			  $.get(context + 'subscriptions/subscriptionResults', 
-			      function(data) {                                        
-			        $('#portalContent').html(data);                         
-			      }
-			  ).fail(ojbc.displayFailMessage);  
+				if ('$editSourcePage' === 'RBN'){
+				    $.get(context + 'subscriptions/admin/notifications', function(data) { 
+				        $("#subsAdminContent").html(data);
+				    }).fail(ojbc.displayFailMessage);
+				}
+				else if ('$editSourcePage' === 'errors'){
+				    $.get(context + 'subscriptions/admin/federalRapbackSubscriptionErrors', function(data) {  
+				        $("#subsAdminContent").html(data);
+				    }).fail(ojbc.displayFailMessage);
+				}
+				else if ('$editSourcePage' === 'adminAdvancedSearch'){
+				    xhr = $.get(context + 'subscriptions/admin/search', function(data) {
+				       $("#subsAdminContent").html(data);
+				    }).fail(ojbc.displayFailMessage);       }
+				else {
+				    $.get(context + 'subscriptions/admin/landingPage', function(data) {                                      
+				          $('#portalContent').html(data);                         
+				    }).fail(ojbc.displayFailMessage);
+				}  
 			}
 		</script>
         
