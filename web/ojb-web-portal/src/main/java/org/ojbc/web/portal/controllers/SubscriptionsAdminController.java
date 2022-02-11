@@ -98,7 +98,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
 		} 
 
-		return "subscriptions/admin/_searchForm";
+		return "subscriptions/admin/searchForm::searchFormContent";
 	}
     
 	@RequestMapping(value = "adminAdvancedsearch", method = RequestMethod.POST)
@@ -108,7 +108,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	        Map<String, Object> model) {	
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/admin/_searchForm";
+			return "subscriptions/admin/searchForm::searchFormContent";
 		}
 					
 		Element samlElement = samlService.getSamlAssertion(request);
@@ -125,7 +125,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+			return "subscriptions/admin/reports/expiringSubscriptionsForm::expiringSubscriptionsFormContent";
 		}
 					
 		finalize(expiringSubscriptionRequest, model);
@@ -135,11 +135,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		if (subscriptions.size() == 0){
 			errors.reject(null, "No subscriptions found");
 			model.put("errors", errors);
-			return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+			return "subscriptions/admin/reports/expiringSubscriptionsForm::expiringSubscriptionsFormContent";
 		}
 		
 		model.put("expiringSubscriptions", subscriptions);
-		return "subscriptions/admin/reports/_expiringSubscriptions";
+		return "subscriptions/admin/reports/expiringSubscriptions::expiringSubscriptionsContent";
 	}
 
 	@RequestMapping(value = "expiredSubscriptions", method = RequestMethod.POST)
@@ -149,7 +149,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			Map<String, Object> model) {
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+			return "subscriptions/admin/reports/expiredSubscriptionsForm::expiredSubscriptionsFormContent";
 		}
 		
 		finalize(expiredSubscriptionRequest, model);
@@ -159,11 +159,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		if (subscriptions.size() == 0){
 			errors.reject(null, "No subscriptions found");
 			model.put("errors", errors);
-			return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+			return "subscriptions/admin/reports/expiredSubscriptionsForm::expiredSubscriptionsFormContent";
 		}
 		
 		model.put("expiredSubscriptions", subscriptions);
-		return "subscriptions/admin/reports/_expiredSubscriptions";
+		return "subscriptions/admin/reports/expiredSubscriptions::expiredSubscriptionsContent";
 	}
 	
 	@RequestMapping(value = "exportExpiringSubscriptions")
@@ -199,7 +199,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			model.put("expiringSubscriptionRequest", expiringSubscriptionRequest);
 		}
 		
-		return "subscriptions/admin/reports/_expiringSubscriptionsForm";
+		return "subscriptions/admin/reports/expiringSubscriptionsForm::expiringSubscriptionsFormContent";
 	}
     
 	@RequestMapping(value = "expiredSubscriptionsForm", method = RequestMethod.GET)
@@ -213,7 +213,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			model.put("expiredSubscriptionRequest", expiredSubscriptionRequest);
 		}
 		
-		return "subscriptions/admin/reports/_expiredSubscriptionsForm";
+		return "subscriptions/admin/reports/expiredSubscriptionsForm::expiredSubscriptionsFormContent";
 	}
 	
 	@RequestMapping(value = "notificationsSearchForm", method = RequestMethod.GET)
@@ -228,7 +228,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 			model.put("rapbackNotificationDateRange", rapbackNotificationDateRange);
 		}
 		
-		return "subscriptions/admin/_notificationsSearchForm";
+		return "subscriptions/admin/notificationsSearchForm::notificationsSearchFormContent";
 	}
 	
 	@RequestMapping(value = "federalRapbackSubscriptionDetail/{subscriptionId}", method = RequestMethod.GET)
@@ -249,7 +249,7 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     	List<FederalRapbackSubscription> federalRapbackSubscriptionErrors = subscriptionsRestClient.getFederalRapbackSubscriptionErrors();
 		
     	model.put("federalRapbackSubscriptionErrors", federalRapbackSubscriptionErrors);
-	    return "subscriptions/admin/_federalRapbackSubscriptionErrors";
+	    return "subscriptions/admin/federalRapbackSubscriptionErrors::federalRapbackSubscriptionErrorsContent";
 	}
     
     @RequestMapping("notifications")
@@ -260,12 +260,12 @@ public class SubscriptionsAdminController extends SubscriptionsController{
     	
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
-			return "subscriptions/admin/_notificationsSearchForm";
+			return "subscriptions/admin/notificationsSearchForm::notificationsSearchFormContent";
 		}
 		
 		List<NotificationSent> notifications = subscriptionsRestClient.getNotificationsSent(rapbackNotificationDateRange );
     	model.put("notifications", notifications);
-    	return "subscriptions/admin/_rapbackNotifications";
+    	return "subscriptions/admin/rapbackNotifications::rapbackNotificationsContent";
     }
     
 	@InitBinder("rapbackNotificationDateRange")
