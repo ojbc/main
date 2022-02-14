@@ -115,24 +115,32 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 			}
 		}
 
-		//GET COUNTY information 
 		String countyName =XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Location/inc-ext:LocationCountyCodeText");
 		log.debug("County: " + countyName);
-		
-		Integer countyId = null;
-				
-		if (StringUtils.isNotBlank(countyName))
-		{
-			countyId = analyticalDatastoreDAO.searchForCountyIDbyCountyName(countyName);
+
+		//GET COUNTY information 
+		try {
 			
-			if (countyId == null)
+			Integer countyId = null;
+					
+			if (StringUtils.isNotBlank(countyName))
 			{
-				log.error("Unable to find county information for: " + countyName);
-			}	
-			else
-			{	
-				incident.setCountyID(countyId);
+				countyId = analyticalDatastoreDAO.searchForCountyIDbyCountyName(countyName);
+				
+				if (countyId == null)
+				{
+					log.error("Unable to find county information for: " + countyName);
+				}	
+				else
+				{	
+					incident.setCountyID(countyId);
+				}
 			}
+		} catch (Exception e) {
+
+			log.error("Unable to find county information for: " + countyName);
+			
+			e.printStackTrace();
 		}		
 		
 		
