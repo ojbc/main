@@ -21,9 +21,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
  
@@ -42,7 +42,7 @@ public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder 
         ExpiringSubscriptionRequest expiredSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiredSubscriptionRequest");
          
         // create a new Excel sheet
-        HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Expired Subscriptions");
+        XSSFSheet sheet = (XSSFSheet) workbook.createSheet("Expired Subscriptions");
         setupSheet(sheet);
         
         setupHeader(subscriptions, expiredSubscriptionRequest, sheet, "Expired Subscriptions");
@@ -51,7 +51,7 @@ public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder 
         createTheInfoRows(subscriptions, expiredSubscriptionRequest, sheet);
         
         // create style for header cells
-        createTheTable((HSSFWorkbook) workbook, subscriptions, sheet);
+        createTheTable((XSSFWorkbook) workbook, subscriptions, sheet);
     }
  
 }

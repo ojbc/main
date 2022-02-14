@@ -217,6 +217,12 @@ public class PortalController implements ApplicationContextAware {
     public String faq(){
 	    return "portal/faq::faqContent";
 	}
+    
+//	 @GetMapping("/")
+//	 public String handle(Model model) {
+//		 model.addAttribute("msg", "test msg from controller");
+//		 return "myCustomView";
+//	 }
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{

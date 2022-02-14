@@ -238,7 +238,7 @@ public class Subscription {
 		this.active = active;
 	}
 	
-	public void setActive(Integer active) {
+	public void setActiveInt(Integer active) {
 		this.active = (active.intValue() == 1);
 	}
 

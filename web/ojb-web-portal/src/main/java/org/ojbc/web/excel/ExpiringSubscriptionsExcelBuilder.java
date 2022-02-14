@@ -21,27 +21,33 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.stereotype.Component;
  
 /**
  * This class builds an Excel spreadsheet document with the .
  *
  */
+@Component
 public class ExpiringSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder {
  
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
+	public void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		populateData(model, workbook);
+	}
+
+	private void populateData(Map<String, Object> model, Workbook workbook) {
+		@SuppressWarnings("unchecked")
 		List<Subscription> subscriptions = (List<Subscription>) model.get("expiringSubscriptions");
         ExpiringSubscriptionRequest expiringSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiringSubscriptionRequest");
          
         // create a new Excel sheet
-        HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Expiring Subscriptions");
+        XSSFSheet sheet = (XSSFSheet) workbook.createSheet("Expiring Subscriptions");
         setupSheet(sheet);
         
         setupHeader(subscriptions, expiringSubscriptionRequest, sheet, "Subscriptions Expiring or Requiring Validation");
@@ -50,8 +56,12 @@ public class ExpiringSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder
         createTheInfoRows(subscriptions, expiringSubscriptionRequest, sheet);
         
         // create style for header cells
-        createTheTable((HSSFWorkbook) workbook, subscriptions, sheet);
-        
+        createTheTable((XSSFWorkbook) workbook, subscriptions, sheet);
 	}
- 
+	
+	public XSSFWorkbook createWorkbook(Map<String, Object> model) {
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
+		populateData(model, workbook);
+		return workbook;
+	} 
 }

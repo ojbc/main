@@ -17,30 +17,35 @@
 package org.ojbc.web.excel;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFHeader;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
-import org.springframework.web.servlet.view.document.AbstractXlsView;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
  
 /**
  * This class builds an Excel spreadsheet document with the .
  *
  */
-public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
+public abstract class SubscriptionsExcelBuilder extends AbstractXlsxView {
  
-	void createTheTable(HSSFWorkbook workbook,
-			List<Subscription> subscriptions, HSSFSheet sheet) {
-		HSSFCellStyle borderedBoldstyle = workbook.createCellStyle();
+	public SubscriptionsExcelBuilder() {
+		super();
+	}
+
+	void createTheTable(XSSFWorkbook workbook,
+			List<Subscription> subscriptions, XSSFSheet sheet) {
+		XSSFCellStyle borderedBoldstyle = workbook.createCellStyle();
         Font font = workbook.createFont();
         font.setFontName("Arial");
         font.setBold(true);
@@ -51,13 +56,13 @@ public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
         borderedBoldstyle.setBorderLeft(BorderStyle.THIN);
         borderedBoldstyle.setBorderRight(BorderStyle.THIN);
          
-        HSSFCellStyle borderedStyle = workbook.createCellStyle();
+        XSSFCellStyle borderedStyle = workbook.createCellStyle();
         borderedStyle.setBorderBottom(BorderStyle.THIN);
         borderedStyle.setBorderTop(BorderStyle.THIN);
         borderedStyle.setBorderLeft(BorderStyle.THIN);
         borderedStyle.setBorderRight(BorderStyle.THIN);
         // create header row
-        HSSFRow header = sheet.createRow(5);
+        XSSFRow header = sheet.createRow(5);
          
         header.createCell(0).setCellValue("Agency Name");
         header.getCell(0).setCellStyle(borderedBoldstyle);
@@ -90,7 +95,7 @@ public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
         int rowCount = 6;
          
         for (Subscription subscription : subscriptions) {
-            HSSFRow aRow = sheet.createRow(rowCount++);
+            XSSFRow aRow = sheet.createRow(rowCount++);
             aRow.createCell(0).setCellValue(subscription.getAgencyName());
             aRow.createCell(1).setCellValue(subscription.getOri());
             aRow.createCell(2).setCellValue(subscription.getSubscriptionOwnerName());
@@ -109,26 +114,26 @@ public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
 
 	void createTheInfoRows(List<Subscription> subscriptions,
 			ExpiringSubscriptionRequest expiringSubscriptionRequest,
-			HSSFSheet sheet) {
-		HSSFRow row2 = sheet.createRow(2);
+			XSSFSheet sheet) {
+		XSSFRow row2 = sheet.createRow(2);
         row2.createCell(0).setCellValue("Time Period(X):");
         row2.createCell(1).setCellValue(expiringSubscriptionRequest.getDaysUntilExpiry());
-        HSSFRow row3 = sheet.createRow(3);
+        XSSFRow row3 = sheet.createRow(3);
         row3.createCell(0).setCellValue("Total Count:");
         row3.createCell(1).setCellValue(subscriptions.size());
 	}
 
 	void setupHeader(List<Subscription> subscriptions,
 			ExpiringSubscriptionRequest expiringSubscriptionRequest,
-			HSSFSheet sheet, String centerString) {
-		HSSFHeader sheetHeader = sheet.getHeader(); 
+			XSSFSheet sheet, String centerString) {
+		Header sheetHeader = sheet.getHeader(); 
         sheetHeader.setCenter(centerString);
         sheetHeader.setLeft("Time Period(X): "  + expiringSubscriptionRequest.getDaysUntilExpiry() + 
         		"\nTotal Count: " + subscriptions.size());
         sheetHeader.setRight("Page " + HSSFHeader.page());
 	}
 
-	void setupSheet(HSSFSheet sheet) {
+	void setupSheet(XSSFSheet sheet) {
 		sheet.setDefaultColumnWidth(15);
         sheet.setFitToPage(true);
         sheet.setAutobreaks(true);
@@ -137,7 +142,7 @@ public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
         sheet.getPrintSetup().setFitHeight((short) 0);
 	}
  
-	void createTheTitleRow(HSSFSheet sheet, String titleString) {
+	void createTheTitleRow(XSSFSheet sheet, String titleString) {
         Font font = sheet.getWorkbook().createFont();
         font.setFontName("Arial");
         font.setBold(true);
@@ -146,8 +151,8 @@ public abstract class SubscriptionsExcelBuilder extends AbstractXlsView {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setFont(font);
 
-		HSSFRow row = sheet.createRow(0);
-		HSSFCell cell = row.createCell(0);
+		XSSFRow row = sheet.createRow(0);
+		XSSFCell cell = row.createCell(0);
 		cell.setCellStyle(style);
 		cell.setCellValue(titleString);
 		

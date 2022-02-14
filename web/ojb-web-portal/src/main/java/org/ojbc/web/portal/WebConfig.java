@@ -32,7 +32,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -111,21 +110,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     @Description("Thymeleaf view resolver")
-    public ViewResolver viewResolver() {
+    public ViewResolver thymeleafViewResolver() {
 
     	ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
 
         return viewResolver;
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
-    
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource

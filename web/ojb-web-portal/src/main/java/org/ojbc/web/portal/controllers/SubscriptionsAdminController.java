@@ -16,6 +16,9 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,16 +26,19 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscriptionDetail;
 import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.web.excel.ExpiringSubscriptionsExcelBuilder;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.LocalDatePropertyEditor;
@@ -44,6 +50,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,11 +58,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Element;
 
 @Controller
 @Profile({"subscriptions", "standalone"})
-@RequestMapping("/subscriptions/admin/*")
+@RequestMapping("/subscriptions/admin")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest", 
 	"expiringSubscriptionRequest", "agencyMap", "expiringSubscriptions", "expiredSubscriptions", 
 	"expiredSubscriptionRequest", "rapbackNotificationDateRange", "subscriptionFilterCommand"})
@@ -70,6 +78,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	@Resource
 	RapbackNotificationDateRangeValidator rapbackNotificationDateRangeValidator;
+	
+	@Resource
+	ExpiringSubscriptionsExcelBuilder expiringSubscriptionsExcelBuilder;
 	
 	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
@@ -166,18 +177,19 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 		return "subscriptions/admin/reports/expiredSubscriptions::expiredSubscriptionsContent";
 	}
 	
-	@RequestMapping(value = "exportExpiringSubscriptions")
-	public String exportExpiringSubscriptions(HttpServletRequest request,	
-			Map<String, Object> model) {
-		
-		return "expiringSubscriptionsExcelView";
+	@GetMapping(value = "exportExpiringSubscriptions")
+	public void exportExpiringSubscriptions(HttpServletRequest request,	
+			Map<String, Object> model, HttpServletResponse response) throws IOException {
+		XSSFWorkbook workbook = expiringSubscriptionsExcelBuilder.createWorkbook(model);
+		String fileName = "ExpiringSubscriptions.xlsx";
+		downloadReport(response, workbook, fileName);;
 	}
 	
 	@RequestMapping(value = "exportExpiredSubscriptions")
-	public String exportExpiredSubscriptions(HttpServletRequest request,	
+	public ModelAndView exportExpiredSubscriptions(HttpServletRequest request,	
 			Map<String, Object> model) {
 		
-		return "expiredSubscriptionsExcelView";
+		return new ModelAndView("excelView", "expiredSubscriptionsExcelView", model); 
 	}
 	
 	private void finalize(
@@ -315,6 +327,35 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 
 	}
     
+	private void downloadReport(HttpServletResponse response, XSSFWorkbook workbook, String fileName) throws IOException {
+		String mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		// set content attributes for the response
+		response.setContentType(mimeType);
+		
+//		response.setContentLength();
+		
+		// set headers for the response
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", fileName);
+		response.setHeader(headerKey, headerValue);
+		
+		// get output stream of the response
+		OutputStream outStream = response.getOutputStream();
+		
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream(8192)) { 
+            try { 
+                workbook.write(baos); 
+            } finally { 
+                workbook.close(); 
+            }
+            
+            baos.writeTo(outStream);
+            baos.close(); 
+        } finally{
+        	outStream.close();
+        }
+		log.info("The report is writen to fileName: " + fileName);
+	}
 
 }
 

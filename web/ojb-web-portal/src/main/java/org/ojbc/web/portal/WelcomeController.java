@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +30,10 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class WelcomeController {
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(WelcomeController.class);
 
 	@Resource
@@ -43,14 +42,6 @@ public class WelcomeController {
 	@Resource
 	SamlService samlService;
 
-	@RequestMapping("/")
-	public String welcome(HttpServletRequest request, Map<String, Object> model) throws Exception {
-		
-		log.info("in welcome");
-		samlService.getSamlAssertion(request);
-		return "index";
-	}
-	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
