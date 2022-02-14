@@ -61,8 +61,7 @@
 		<java.version>1.8</java.version>
 		<javax.mail.version>1.5.0-b01</javax.mail.version>
 		<jackson.version>1.9.13</jackson.version>
-		<poi.version>3.17</poi.version>
-		<poi.ooxml.version>3.15</poi.ooxml.version>
+		<poi.version>5.2.0</poi.version>
 		
 		<fontawesome.version>5.15.4</fontawesome.version>
 		<bootstrap.version>4.3.1</bootstrap.version>
