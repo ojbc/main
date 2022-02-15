@@ -482,18 +482,24 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		{
 			IncidentOffense incidentOffense = new IncidentOffense();
 			
-			String offenseCode = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "//ndexia:OffenseCode");
-			String offenseText = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "//ndexia:OffenseText");
+			String offenseCode = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "ndexia:OffenseCode");
+			String offenseText = XmlUtils.xPathStringSearch(ndexOffenses.item(i), "ndexia:OffenseText");
 			
 			log.debug("Incident Offense code: " + offenseCode);
 			log.debug("Incident Offense text: " + offenseText);
 			
-			incidentOffense.setIncidentID(incidentPk);
-			incidentOffense.setIncidentOffenseCode(offenseCode);
-			incidentOffense.setIncidentOffenseText(offenseText);
-			
-			analyticalDatastoreDAO.saveIncidentOffense(incidentOffense);
-			
+			if (StringUtils.isNotBlank(offenseCode) && StringUtils.isNotBlank(offenseText))
+			{	
+				incidentOffense.setIncidentID(incidentPk);
+				incidentOffense.setIncidentOffenseCode(offenseCode);
+				incidentOffense.setIncidentOffenseText(offenseText);
+				
+				analyticalDatastoreDAO.saveIncidentOffense(incidentOffense);
+			}
+			else
+			{
+				log.error("Offense Code and Offense Text not provided. It will not be saved. Offense Code: " + offenseCode + ", Offense Text: " + offenseText );
+			}	
 		}	
 		
 	}	

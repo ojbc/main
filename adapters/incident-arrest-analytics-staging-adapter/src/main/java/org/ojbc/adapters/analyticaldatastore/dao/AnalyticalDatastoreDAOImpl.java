@@ -1118,6 +1118,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		return TrafficStops;
 	}
+	
+	@Override
+	public List<IncidentOffense> returnOffensesFromIncident(Integer incidentPk) {
+		String sql = "select * from IncidentOffense where IncidentID = ?";
+		 
+		List<IncidentOffense> incidentOffenses = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentOffenseRowMapper());
+		
+		return incidentOffenses;
+	}
 
 	@Override
 	public Integer saveIncidentOffense(IncidentOffense incidentOffense) {

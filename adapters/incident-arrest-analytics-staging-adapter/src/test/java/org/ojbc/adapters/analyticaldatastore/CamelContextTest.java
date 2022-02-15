@@ -63,6 +63,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Disposition;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentCircumstance;
+import org.ojbc.adapters.analyticaldatastore.dao.model.IncidentOffense;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
@@ -264,8 +265,8 @@ public class CamelContextTest {
 		assertEquals("2621",charges.get(0).getOffenseDescriptionText());
 		assertEquals("13V3017",charges.get(0).getOffenseDescriptionText1());
 
-		assertEquals("Violation of a Court Order",charges.get(1).getOffenseDescriptionText());
-		assertEquals("DRIVING - LICENSE SUSPENDED",charges.get(1).getOffenseDescriptionText1());
+		assertEquals("Violation of a Supreme Court Order",charges.get(1).getOffenseDescriptionText());
+		assertEquals("DRIVING - LICENSE REVOKED",charges.get(1).getOffenseDescriptionText1());
 
 		List<IncidentCircumstance> incidentCircumstances = analyticalDatastoreDAOImpl.returnCircumstancesFromIncident(incidentPk);
 		assertEquals(1, incidentCircumstances.size());
@@ -277,6 +278,15 @@ public class CamelContextTest {
 		assertEquals("Nature 1", incidentTypes.get(0).getIncidentDescriptionText());
 		assertEquals("Nature 2", incidentTypes.get(1).getIncidentDescriptionText());
 		
+		List<IncidentOffense> incidentOffenses = analyticalDatastoreDAOImpl.returnOffensesFromIncident(incidentPk);
+		
+		assertEquals(2, incidentOffenses.size());
+
+		assertEquals("Violation of a Court Order",incidentOffenses.get(0).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE SUSPENDED",incidentOffenses.get(0).getIncidentOffenseText() );
+
+		assertEquals("Violation of a Supreme Court Order",incidentOffenses.get(1).getIncidentOffenseCode() );
+		assertEquals("DRIVING - LICENSE REVOKED",incidentOffenses.get(1).getIncidentOffenseText() );
 		
 		log.debug("Person ID of arrestee: " + arrest.getPersonID());
 		
@@ -313,6 +323,8 @@ public class CamelContextTest {
 		assertEquals("MAL", trafficStops.get(0).getVehicleModel());
 		assertEquals(Integer.valueOf(2005), trafficStops.get(0).getVehicleYear());
 		assertEquals("GA", trafficStops.get(0).getVehicleRegistrationState());
+
+		
 	}
 	
 	@Test

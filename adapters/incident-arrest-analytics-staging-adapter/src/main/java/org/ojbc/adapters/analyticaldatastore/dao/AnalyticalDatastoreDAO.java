@@ -88,6 +88,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public List<TrafficStop> returnTrafficStopsFromIncident(Integer incidentPk);
 	
+	public List<IncidentOffense> returnOffensesFromIncident(Integer incidentPk);
+	
 	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
 	
 	public List<IncidentType> returnIncidentDescriptionsFromIncident(Integer incidentPk);
