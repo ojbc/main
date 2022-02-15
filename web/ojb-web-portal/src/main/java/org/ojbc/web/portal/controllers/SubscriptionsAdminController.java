@@ -38,6 +38,7 @@ import org.ojbc.audit.enhanced.dao.model.NotificationSent;
 import org.ojbc.audit.enhanced.dao.model.QueryRequestByDateRange;
 import org.ojbc.util.model.rapback.AgencyProfile;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
+import org.ojbc.web.excel.ExpiredSubscriptionsExcelBuilder;
 import org.ojbc.web.excel.ExpiringSubscriptionsExcelBuilder;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
@@ -58,7 +59,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Element;
 
 @Controller
@@ -81,6 +81,9 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	
 	@Resource
 	ExpiringSubscriptionsExcelBuilder expiringSubscriptionsExcelBuilder;
+	
+	@Resource
+	ExpiredSubscriptionsExcelBuilder expiredSubscriptionsExcelBuilder;
 	
 	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
@@ -186,10 +189,11 @@ public class SubscriptionsAdminController extends SubscriptionsController{
 	}
 	
 	@RequestMapping(value = "exportExpiredSubscriptions")
-	public ModelAndView exportExpiredSubscriptions(HttpServletRequest request,	
-			Map<String, Object> model) {
-		
-		return new ModelAndView("excelView", "expiredSubscriptionsExcelView", model); 
+	public void exportExpiredSubscriptions(HttpServletRequest request,	
+			Map<String, Object> model, HttpServletResponse response) throws IOException {
+		XSSFWorkbook workbook = expiredSubscriptionsExcelBuilder.createWorkbook(model);
+		String fileName = "ExpiredSubscriptions.xlsx";
+		downloadReport(response, workbook, fileName);;
 	}
 	
 	private void finalize(

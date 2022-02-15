@@ -26,18 +26,25 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ojbc.util.model.rapback.ExpiringSubscriptionRequest;
 import org.ojbc.util.model.rapback.Subscription;
+import org.springframework.stereotype.Component;
  
 /**
  * This class builds an Excel spreadsheet document with the .
  *
  */
+
+@Component
 public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder {
  
-    @SuppressWarnings("unchecked")
 	@Override
     protected void buildExcelDocument(Map<String, Object> model,
             Workbook workbook, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+    	populateData(model, workbook);
+    }
+
+	private void populateData(Map<String, Object> model, Workbook workbook) {
+		@SuppressWarnings("unchecked")
 		List<Subscription> subscriptions = (List<Subscription>) model.get("expiredSubscriptions");
         ExpiringSubscriptionRequest expiredSubscriptionRequest = (ExpiringSubscriptionRequest) model.get("expiredSubscriptionRequest");
          
@@ -52,6 +59,13 @@ public class ExpiredSubscriptionsExcelBuilder extends SubscriptionsExcelBuilder 
         
         // create style for header cells
         createTheTable((XSSFWorkbook) workbook, subscriptions, sheet);
-    }
+	}
+	
+
+	public XSSFWorkbook createWorkbook(Map<String, Object> model) {
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
+		populateData(model, workbook);
+		return workbook;
+	}
  
 }
