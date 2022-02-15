@@ -121,7 +121,6 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ false;
                 var _csrf_token = /*[[${_csrf.token}]]*/ '';
                 var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
@@ -149,6 +148,7 @@
                       'personSearchRequestId': $(this).attr("title"),
                   };
                   
+                  requestData[_csrf_param_name] = _csrf_token;
                   var row = $(this).closest('tr'); 
                   row.siblings().removeClass("selected");
                   row.addClass("selected");

@@ -66,7 +66,7 @@
 	                <td th:text="${personSearchRequest.firstName}">firstName</td>
 	                <td th:text="${personSearchRequest.lastName}">lastName</td>
 	                <td th:text="${personSearchRequest.systemsToSearch}">systemsToSearch</td>
-	                <td th:text="${#temporals.format(personSearchRequest..timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+	                <td th:text="${#temporals.format(personSearchRequest.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
 	                <td th:text="${personSearchRequest.firstNameQualifierCode}">firstNameQualifierCode</td>
 	                <td th:text="${personSearchRequest.lastNameQualifierCode}">lastNameQualifierCode</td>
 	                <td th:text="${personSearchRequest.dobFrom}">dobFrom</td>

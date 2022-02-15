@@ -1,0 +1,59 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Person Search Results</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="personSearchResultsContent">
+		<div style="padding:10px">
+		    <table class="searchResultsTable table table-striped table-bordered" style="width:100%" id="personSearchResultsTable">
+		        <thead>
+		            <tr>
+		                <th>SYSTEM NAME</th>
+		                <th>RESULTS COUNT</th>
+		                <th>ERROR INDICATOR</th>
+		                <th>ERROR TEXT</th>
+		                <th>TIMEOUT INDICATOR</th>
+		                <th>ACCESS DENIED INDICATOR</th>
+		                <th>TIMESTAMP</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+	                <tr th:each="personSearchResult: ${personSearchResults}" th:title='${personSearchResult.personSearchResultsId}'>
+	                    <td th:text="${personSearchResult.systemName}">systemName</td>
+	                    <td th:text="${personSearchResult.searchResultsCount}">searchResultsCount</td>
+	                    <td th:text="${personSearchResult.searchResultsErrorIndicator}">searchResultsErrorIndicator</td>
+	                    <td th:text="${personSearchResult.searchResultsErrorText}">searchResultsErrorText</td>
+	                    <td th:text="${personSearchResult.searchResultsTimeoutIndicator}">searchResultsTimeoutIndicator</td>
+	                    <td th:text="${personSearchResult.searchResultsAccessDeniedIndicator}">searchResultsAccessDeniedIndicator</td>
+	                    <td th:text="${#temporals.format(personSearchResult.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+	                </tr>
+		        </tbody>
+		    </table>                                
+		</div>
+
+    </th:block>
+  </body>
+</html>
