@@ -14,6 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
+drop schema if exists AnalyticsDataStore;
 CREATE schema AnalyticsDataStore;
 use AnalyticsDataStore;
 

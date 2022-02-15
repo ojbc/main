@@ -30,20 +30,20 @@
        ">
 	
 	
+	<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+        <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>
+        <jdbc:script location="classpath:db/populate-code-tables.sql"/>
+	</jdbc:initialize-database>
+	
 	<bean id="dataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
         <constructor-arg>
             <bean class="org.h2.jdbcx.JdbcDataSource">
-                <property name="URL" value="jdbc:h2:tcp:localhost:9092/mem:AnalyticsDataStore;schema=AnalyticsDataStore"/>
+                <property name="URL" value="jdbc:h2:tcp:localhost:9092/mem:AnalyticsDataStore"/>
                 <property name="user" value="sa"/>
              </bean>
         </constructor-arg>
     </bean>
     
-    <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-        <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>
-        <jdbc:script location="classpath:db/populate-code-tables.sql"/>
-	</jdbc:initialize-database>
-
 	<!-- Spring Embeded DB -->
 	<!-- <jdbc:embedded-database id="dataSource" type="H2">
     	<jdbc:script location="classpath:db/analyticsDB-h2.sql"/>

@@ -38,7 +38,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
@@ -75,6 +74,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -83,6 +83,10 @@ import org.w3c.dom.Element;
 @SpringBootTest(classes=IncidentArrestAnalyticsStagingAdapterApplication.class)
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD) 
+@ContextConfiguration(locations={
+		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
+		"classpath:META-INF/spring/dao.xml"
+		})
 public class CamelContextTest {
 	
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );

@@ -29,13 +29,13 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        ">
 	
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 			<property name="driverClassName" value="${analyticsAdapter.dataSource.driverClass}" />
 			<property name="url" value="${analyticsAdapter.dataSource.jdbcUrl}" />
 			<property name="username" value="${analyticsAdapter.dataSource.user}" />
 			<property name="password" value="${analyticsAdapter.dataSource.password}" />
 			<property name="initialSize" value="${analyticsAdapter.dataSource.minPoolSize}" />
-			<property name="maxActive" value="${analyticsAdapter.dataSource.maxPoolSize}" />
+			<property name="maxTotal" value="${analyticsAdapter.dataSource.maxPoolSize}" />
 			<property name="validationQuery" value="select 1" />
 			<property name="testOnBorrow" value="true" />
 		</bean>
