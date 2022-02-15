@@ -166,8 +166,8 @@
         <script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var sourceSystems = [[${personSearchCommand.advanceSearch.sourceSystems}]];
-		        var activeSearchTab = [[${activeSearchTab}]];
+		        var sourceSystems = /*[[${personSearchCommand.advanceSearch.sourceSystems}]]*/ [];
+		        var activeSearchTab = /*[[${activeSearchTab}]]*/ '';
 	            var _csrf_token = /*[[${_csrf.token}]]*/ '';
 	            var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
@@ -216,8 +216,7 @@
                     
                 $('#simpleSearchSubmitButton').click (function(){
                     ojbc.clearPlaceholders();
-                    $("#searchType").val("SIMPLE");
-                    var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val(); 
+                    var formData = $('#simpleSearchForm').serialize()+ "&searchType=SIMPLE"  +"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val(); 
                     
                     formData += '&'+_csrf_param_name+'='+_csrf_token;
 

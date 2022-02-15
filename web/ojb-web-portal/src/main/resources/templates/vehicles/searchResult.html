@@ -63,7 +63,7 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var singleClickForDetail = [[${singleClickForDetail}]];
+		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ false;
 	        /*]]>*/
 		    $(function() {
 		

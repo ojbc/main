@@ -80,8 +80,8 @@
                      sec:authorize="hasAuthority('AUTHZ_ADMIN')">
                   <a class="nav-link adminLink" id="adminLink" th:href="${leftMenuLinks['adminLink']}" th:text="${leftMenuLinkTitles['adminLink']}"></a> 
                 </li>
-	            <li class="nav-item" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles[auditLink]}"></a>
+	            <li class="nav-item dropdown" th:if="${#sets.contains(leftMenuLinks.keySet(), 'auditLink')}" sec:authorize="hasAuthority('AUTHZ_ADMIN')">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownAudit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${leftMenuLinkTitles['auditLink']}"></a>
                   <div class="dropdown-menu" aria-labelledby="dropdownAudit">
                       <a id='userLoginAuditLink' href='#' class='dropdown-item small userLoginAuditLink'>User Login Logs</a>
                       <a id='personSearchAuditLink' href='#' class='dropdown-item small personSearchAuditLink'>Person Search Logs</a>

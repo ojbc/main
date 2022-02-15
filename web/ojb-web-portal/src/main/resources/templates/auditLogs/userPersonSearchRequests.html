@@ -1,0 +1,110 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>User Person Search Requests</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="userPersonSearchRequestsContent">
+		<div class="alert alert-info" role="alert">
+            Double click on the rows to retrieve person search results log.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		 <table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="personSearchRequestTable">
+		    <thead>
+		        <tr>
+		            <th>FIRST NAME</th>
+		            <th>LAST NAME</th>
+		            <th>SYSTEMS TO SEARCH</th>
+		            <th>TIMESTAMP</th>
+		            <th>FIRSTNAME QUALIFIER</th>
+		            <th>LAST NAME QUALIFIER</th>
+		            <th>DOB FROM</th>
+		            <th>DOB TO</th>
+		            <th>SSN</th>
+		            <th>DRIVER LICENSE</th>
+		            <th>DRIVER LICENSE ISSUER</th>
+		            <th>FBI NUMBER</th>
+		            <th>STATE ID</th>
+		            <th>RACE CODE</th>
+		            <th>GENDER CODE</th>
+		            <th>EYE CODE</th>
+		            <th>HAIR CODE</th>
+		            <th>HEIGHT</th>
+		            <th>HEIGHT MIN</th>
+		            <th>HEIGHT MAX</th>
+		            <th>PURPOSE</th>
+		            <th>ON BEHALF OF</th>
+		            <th>MESSAGE ID</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+	            <tr th:each="personSearchRequest : ${personSearchRequests}" th:title='${personSearchRequest.personSearchRequestId}'>
+	                <td th:text="${personSearchRequest.firstName}">firstName</td>
+	                <td th:text="${personSearchRequest.lastName}">lastName</td>
+	                <td th:text="${personSearchRequest.systemsToSearch}">systemsToSearch</td>
+	                <td th:text="${#temporals.format(personSearchRequest..timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+	                <td th:text="${personSearchRequest.firstNameQualifierCode}">firstNameQualifierCode</td>
+	                <td th:text="${personSearchRequest.lastNameQualifierCode}">lastNameQualifierCode</td>
+	                <td th:text="${personSearchRequest.dobFrom}">dobFrom</td>
+	                <td th:text="${personSearchRequest.dobTo}">dobTo</td>
+	                <td th:text="${personSearchRequest.ssn}">ssn</td>
+	                <td th:text="${personSearchRequest.driverLicenseId}">driverLicenseId</td>
+	                <td th:text="${personSearchRequest.driverLiscenseIssuer}">driverLiscenseIssuer</td>
+	                <td th:text="${personSearchRequest.fbiNumber}">fbiNumber</td>
+	                <td th:text="${personSearchRequest.stateId}">stateId</td>
+	                <td th:text="${personSearchRequest.raceCode}">raceCode</td>
+	                <td th:text="${personSearchRequest.hairCode}">genderCode</td>
+	                <td th:text="${personSearchRequest.eyeCode}">eyeCode</td>
+	                <td th:text="${personSearchRequest.hairCode}">hairCode</td>
+	                <td th:text="${personSearchRequest.height}">height</td>
+	                <td th:text="${personSearchRequest.heightMin}">heightMin</td>
+	                <td th:text="${personSearchRequest.heightMax}">heightMax</td>
+	                <td th:text="${personSearchRequest.purpose}">purpose</td>
+	                <td th:text="${personSearchRequest.onBehalfOf}">onBehalfOf</td>
+	                <td th:text="${personSearchRequest.messageId}">messageId</td>
+	            </tr>
+		    </tbody>
+		</table>        
+		
+		<div class="modal fade ojbc-modal" id="personSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="personSearchResultModalTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="personSearchResultModalTitle">PERSON SEARCH RESULTS</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="personSearchResultModalContent">
+		        ...
+		      </div>
+		    </div>
+		  </div>
+		</div>                  
+    </th:block>
+  </body>
+</html>

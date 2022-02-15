@@ -45,7 +45,6 @@ import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditPersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.AuditSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.auditsearch.UserAuthenticationSearchResponse;
-import org.ojbc.web.portal.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -56,8 +55,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class RestEnhancedAuditClient {
@@ -67,15 +64,8 @@ public class RestEnhancedAuditClient {
 	@Autowired(required=false)
 	private RestTemplate restTemplate;
 	
-	private final WebClient webClient;
-	
 	@Value("${enhancedAuditServerBaseUrl:https://localhost:8443/OJB/}")
 	private String restServiceBaseUrl;
-
-	@Autowired
-	public RestEnhancedAuditClient(WebClient.Builder webClientBuilder, AppProperties appProperties) {
-		this.webClient = webClientBuilder.baseUrl(appProperties.getEnhancedAuditServerBaseUrl()).build();
-	}
 
 	public void auditPrintResults(PrintResults printResults) {
 //		this.webClient.post().uri("/auditServer/audit/printResults")
