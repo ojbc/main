@@ -92,7 +92,7 @@
 		                </div>
 		                <th:block th:each="searchProfile, stat : ${enabledSearchProfiles}">
 	                        <div class="card" th:if="${stat.index > 0}">
-	                            <div class="card-header" id="heading-$searchProfile">
+	                            <div class="card-header" th:id="'heading-' + ${searchProfile}">
 	                              <h5 class="mb-0">
 	                                <button class="btn btn-link collapsed" data-toggle="collapse" th:data-target="'#' + ${searchProfile}" aria-expanded="false" 
 	                                   th:aria-controls="${searchProfile}" th:text="${searchRequestAccordionHeaderMap.get(searchProfile)}">
@@ -171,7 +171,7 @@
                   
                   return false;                                                                                                            
               });
-                 
+              
 			  $('.userAuthenticationSearchResults').click (function(){
 			      oTable.fixedHeader.disable();
 			      oTable.destroy();

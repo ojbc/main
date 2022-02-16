@@ -1,0 +1,122 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>User Incident Search Requests</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="userIncidentSearchRequestsContent">
+		<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="incidentSearchRequestTable">
+		    <thead>
+		        <tr>
+		            <th>START DATE</th>
+		            <th>END DATE</th>
+		            <th>CITY TOWN</th>
+		            <th>CATEGORY TYPE</th>
+		            <th>INCIDENT NUMBER</th>
+		            <th>TIMESTAMP</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+	            <tr th:each="incidentSearchRequest : ${incidentSearchRequests}" th:title='${incidentSearchRequest.incidentSearchRequestId}'>
+	                <td th:text="${incidentSearchRequest.startDate}">startDate</td>
+	                <td th:text="${incidentSearchRequest.endDate}">endDate</td>
+	                <td th:text="${incidentSearchRequest.cityTown}">cityTown</td>
+	                <td th:text="${incidentSearchRequest.categoryType}">categoryType</td>
+	                <td th:text="${incidentSearchRequest.incidentNumber}">incidentNumber</td>
+	                <td th:text="${#temporals.format(incidentSearchRequest.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+	            </tr>
+		    </tbody>
+		</table>
+		                
+		<div class="modal fade ojbc-modal" id="incidentSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="incidentSearchResultModalTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="incidentSearchResultModalTitle">INCIDENT SEARCH RESULTS</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="incidentSearchResultModalContent">
+		        ...
+		      </div>
+		    </div>
+		  </div>
+		</div>                  
+		                
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var context = /*[[@{/}]]*/ '';
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+            /*]]>*/
+			$(function() {
+			  oTable = $("#incidentSearchRequestTable").DataTable({
+			       "pagingType": "full_numbers",
+			       "pageLength": 25,
+			       stateSave: true,
+			       fixedHeader: true, 
+			       responsive: true, 
+			       colReorder: true,
+			       "language": {
+			          "emptyTable": "No Incident Search Request Logs Found"
+			       } 
+			  });
+			  
+			  $('#incidentSearchRequestTable').on('dblclick', 'tbody tr',function(event) {
+			      event.preventDefault();
+			      var requestData = {
+			          'incidentSearchRequestId': $(this).attr("title"),
+			      };
+			      requestData[_csrf_param_name] = _csrf_token;
+			      
+			      var row = $(this).closest('tr'); 
+			      row.siblings().removeClass("selected");
+			      row.addClass("selected");
+			      
+			      var incidentSearchResponseUrl = encodeURI(context + 'auditLogs/incidentSearchResults');
+			      $.post( incidentSearchResponseUrl, $.param(requestData), function(data) {
+			          $('#incidentSearchResultModalContent').html(data);
+			          $('#incidentSearchResultModal').modal('show');
+			          $("#incidentSearchResultsTable").DataTable({
+			               "pagingType": "full_numbers",
+			               "pageLength": 25,
+			               responsive: true,
+			               stateSave: true,
+			               "language": {
+			                  "emptyTable": "No Incident Search Results Logs Found"
+			               } 
+			          });
+			          
+			      }).fail(ojbc.displayFailMessage); ; 
+			      
+			      return false;                                                                                                            
+			  }); 
+			      
+			});
+        </script>
+    </th:block>
+  </body>
+</html>
