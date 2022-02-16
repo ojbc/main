@@ -1,0 +1,135 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>User Vehicle Search Requests</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="userVehicleSearchRequestsContent">
+		<table class="searchResultsTable table table-striped table-bordered nowrap" style="width:100%" id="vehicleSearchRequestTable">
+		    <thead>
+		        <tr>
+		            <th>COLOR</th>
+		            <th>SOURCE SYSTEMS</th>
+		            <th>MODEL</th>
+		            <th>MAKE</th>
+		            <th>LICENSE PLATE</th>
+		            <th>VIN</th>
+		            <th>VEHICLE YEAR RANGE START</th>
+		            <th>VEHICLE YEAR RANGE END</th>
+		            <th>PURPOSE</th>
+		            <th>ON BEHALF OF</th>
+		            <th>MESSAGE ID</th>
+		            <th>TIMESTAMP</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+				<tr th:each="vehicleSearchRequest : ${vehicleSearchRequests}" th:title='${vehicleSearchRequest.vehicleSearchRequestId}' class="clickable">
+				    <td th:text="${vehicleSearchRequest.vehicleColor}">vehicleColor</td>
+				    <td th:text="${vehicleSearchRequest.sourceSystemsList}">sourceSystemsList</td>
+				    <td th:text="${vehicleSearchRequest.vehicleModel}">vehicleModel</td>
+				    <td th:text="${vehicleSearchRequest.vehicleMake}">vehicleMake</td>
+				    <td th:text="${vehicleSearchRequest.vehicleLicensePlate}">vehicleLicensePlate</td>
+				    <td th:text="${vehicleSearchRequest.vehicleIdentificationNumber}">vehicleIdentificationNumber</td>
+				    <td th:text="${vehicleSearchRequest.vehicleYearRangeStart}">vehicleYearRangeStart</td>
+				    <td th:text="${vehicleSearchRequest.vehicleYearRangeEnd}">vehicleYearRangeEnd</td>
+				    <td th:text="${vehicleSearchRequest.purpose}">purpose</td>
+				    <td th:text="${vehicleSearchRequest.onBehalfOf}">onBehalfOf</td>
+				    <td th:text="${vehicleSearchRequest.messageId}">messageId</td>
+				    <td th:text="${#temporals.format(vehicleSearchRequest.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+				</tr>
+		    </tbody>
+		</table>                                
+		
+		<div class="modal fade ojbc-modal" id="vehicleSearchResultModal" tabindex="-1" role="dialog" aria-labelledby="vehicleSearchResultModalTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="vehicleSearchResultModalTitle">VEHICLE SEARCH RESULTS</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="vehicleSearchResultModalContent">
+		        ...
+		      </div>
+		    </div>
+		  </div>
+		</div>                  
+		                        
+		                
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var context = /*[[@{/}]]*/ '';
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+            /*]]>*/
+			$(function() {
+			    oTable = $("#vehicleSearchRequestTable").DataTable({
+			     "pagingType": "full_numbers",
+			     "pageLength": 25,
+			     stateSave: true,
+			     responsive: true, 
+			     fixedHeader: true, 
+			     colReorder: true,
+			     "language": {
+			        "emptyTable": "No Vehicle Search Request Logs Found"
+			         } 
+			    });
+			    
+			    $('#vehicleSearchRequestTable').on('dblclick', 'tbody tr',function(event) {
+			        event.preventDefault();
+			        var requestData = {
+			            'vehicleSearchRequestId': $(this).attr("title"),
+			        };
+			        
+			        var row = $(this).closest('tr'); 
+			        row.siblings().removeClass("selected");
+			        row.addClass("selected");
+			        requestData[_csrf_param_name] = _csrf_token;
+			        
+			        var vehicleSearchResponseUrl = encodeURI(context + 'auditLogs/vehicleSearchResults');
+			        $.post( vehicleSearchResponseUrl, $.param(requestData), function(data) {
+			            $('#vehicleSearchResultModalContent').html(data);
+			            $('#vehicleSearchResultModal').modal('show');
+			            $("#vehicleSearchResultsTable").DataTable({
+			                 "pagingType": "full_numbers",
+			                 "pageLength": 25,
+			                 responsive: true,
+			                 stateSave: true,
+			                 "language": {
+			                    "emptyTable": "No Vehicle Search Results Logs Found"
+			                 } 
+			            });
+			            
+			        }).fail(ojbc.displayFailMessage); ; 
+			        
+			        return false;                                                                                                            
+			    }); 
+			    
+			});
+        </script>
+    </th:block>
+  </body>
+</html>

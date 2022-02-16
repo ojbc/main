@@ -93,7 +93,7 @@ main, table{
 .blueButton {
 	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
 	background-repeat: repeat-x;
-	background-color: # 477dae;
+	background-color: #477dae;
 	border: 1px solid #477dae;
 	border-radius: 3px;
 	box-shadow: 0 1px 3px #dddddd;
@@ -111,7 +111,7 @@ main, table{
 .blueIcon {
 	background-image: url('../images/Backgrounds/bg-button-blue.jpg');
 	background-repeat: repeat-x;
-	background-color: # 477dae;
+	background-color: #477dae;
 	border: 1px solid #477dae;
 	border-radius: 3px;
 	box-shadow: 0 1px 3px #dddddd;
@@ -170,6 +170,10 @@ a.blueButton:hover {
 	color: #777777;
 }
 
+.hover {
+  background-color: #ccdff6 !important;
+  cursor: pointer;
+}
 a.grayButton {
 	padding: 8px 12px 8px 12px;
 	font-size: 12px;
@@ -1064,9 +1068,9 @@ text-shadow: 0 1px #fff; */
   position: absolute;
   bottom: 0;
   width: 100%;
-  Set the fixed height of the footer here
+  /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; Vertically center the text there
+  line-height: 60px; /* Vertically center the text there */
   background-color: #f5f5f5;
   background-color: #000000;
   color:white;

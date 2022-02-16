@@ -62,7 +62,8 @@
 		        </tr>
 		    </thead>
 		    <tbody>
-	            <tr th:each="personSearchRequest : ${personSearchRequests}" th:title='${personSearchRequest.personSearchRequestId}'>
+	            <tr th:each="personSearchRequest : ${personSearchRequests}" class="clickable" 
+	                th:title='${personSearchRequest.personSearchRequestId}'>
 	                <td th:text="${personSearchRequest.firstName}">firstName</td>
 	                <td th:text="${personSearchRequest.lastName}">lastName</td>
 	                <td th:text="${personSearchRequest.systemsToSearch}">systemsToSearch</td>

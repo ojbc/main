@@ -39,7 +39,8 @@
 		        </tr>
 		    </thead>
 		    <tbody>
-	            <tr th:each="incidentSearchRequest : ${incidentSearchRequests}" th:title='${incidentSearchRequest.incidentSearchRequestId}'>
+	            <tr th:each="incidentSearchRequest : ${incidentSearchRequests}" class="clickable" 
+	                th:title='${incidentSearchRequest.incidentSearchRequestId}'>
 	                <td th:text="${incidentSearchRequest.startDate}">startDate</td>
 	                <td th:text="${incidentSearchRequest.endDate}">endDate</td>
 	                <td th:text="${incidentSearchRequest.cityTown}">cityTown</td>

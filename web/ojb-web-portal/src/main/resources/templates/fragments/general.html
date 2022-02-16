@@ -211,6 +211,12 @@
                });
  	          
  	           $('[data-toggle="popover"]').popover(); 
+ 	           
+               $("body").on('mouseenter', ".clickable", function(){
+                   $(this).addClass("hover");
+	           }).on('mouseleave', ".clickable", function () {
+	                 $(this).removeClass("hover");
+               });
  	          
 	      });
 	      
