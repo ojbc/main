@@ -18,10 +18,10 @@ package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDateTime;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.ojbc.util.rest.jackson.LocalDateTimeDeserializer;
-import org.ojbc.util.rest.jackson.LocalDateTimeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 public class PrintResults {
 
