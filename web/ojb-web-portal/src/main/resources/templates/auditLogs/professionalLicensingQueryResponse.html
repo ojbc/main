@@ -19,52 +19,64 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Incident Report Query Response</title>
+    <title>Professional Licensing Query Response</title>
     <th:block th:include="fragments/general.html :: headerfiles"></th:block>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
   </head>
   <body>
     <!-- Begin page content -->
-    <th:block th:fragment="incidentReportQueryResponseContent">
-        <table class="table table-striped table-bordered max-width" th:if="${incidentReportQueryResponse}">
+    <th:block th:fragment="professionalLicensingQueryResponseContent">
+        <table class="table table-striped table-bordered max-width" th:if="${professionalLicensingQueryResponse}">
             <tbody>
                 <tr>
-                    <th scope="row">INCIDENT NUMBER</th> 
-                    <td th:text="${incidentReportQueryResponse.incidentNumber}">incidentNumber</td> 
+                    <th scope="row">LICENSE NUMBER</th> 
+                    <td th:text="${professionalLicensingQueryResponse.licenseNumber}">licenseNumber</td> 
                 </tr> 
                 <tr>
-                    <th scope="row">QUERY RESULTS ERROR INDICATOR</th> 
-                    <td th:text="${incidentReportQueryResponse.queryResultsErrorIndicator}">queryResultsErrorIndicator</td>
+                    <th scope="row">LICENSE TYPE</th> 
+                    <td th:text="${professionalLicensingQueryResponse.licenseType}">licenseType</td> 
+                </tr> 
+                <tr>
+                    <th scope="row">ISSUE DATE</th> 
+                    <td th:text="${professionalLicensingQueryResponse.issueDate}">issueDate</td> 
+                </tr> 
+                <tr>
+                    <th scope="row">EXPIRATION DATE</th> 
+                    <td th:text="${professionalLicensingQueryResponse.expirationDate}">expirationDate</td> 
                 </tr> 
                 <tr>
                     <th scope="row">QUERY RESULTS ERROR TEXT</th> 
-                    <td th:text="${incidentReportQueryResponse.queryResultsErrorText}">queryResultsErrorText</td>
+                    <td th:text="${professionalLicensingQueryResponse.queryResultsErrorText}">queryResultsErrorText</td> 
                 </tr> 
                 <tr>
                     <th scope="row">QUERY RESULTS TIMEOUT INDICATOR</th> 
-                    <td th:text="${incidentReportQueryResponse.queryResultsTimeoutIndicator}">queryResultsTimeoutIndicator</td>
+                    <td th:text="${professionalLicensingQueryResponse.queryResultsTimeoutIndicator}">queryResultsTimeoutIndicator</td> 
+                </tr> 
+                <tr>
+                    <th scope="row">QUERY RESULTS ERROR INDICATOR</th> 
+                    <td th:text="${professionalLicensingQueryResponse.queryResultsErrorIndicator}">queryResultsErrorIndicator</td> 
                 </tr> 
                 <tr>
                     <th scope="row">QUERY RESULTS ACCESS DENIED INDICATOR</th> 
-                    <td th:text="${incidentReportQueryResponse.queryResultsAccessDeniedIndicator}">queryResultsAccessDeniedIndicator</td>
+                    <td th:text="${professionalLicensingQueryResponse.queryResultsAccessDeniedIndicator}">queryResultsAccessDeniedIndicator</td> 
                 </tr> 
                 <tr>
                     <th scope="row">SYSTEM NAME</th> 
-                    <td th:text="${incidentReportQueryResponse.systemName}">systemName</td>
+                    <td th:text="${professionalLicensingQueryResponse.systemName}">systemName</td> 
                 </tr> 
                 <tr>
                     <th scope="row">MESSAGE ID</th> 
-                    <td th:text="${incidentReportQueryResponse.messageId}">messageId</td>
+                    <td th:text="${professionalLicensingQueryResponse.messageId}">messageId</td> 
                 </tr> 
                 <tr>
                     <th scope="row">TIME STAMP</th> 
-                    <td th:text="${incidentReportQueryResponse.timestamp}">timestamp</td>
+                    <td th:text="${#temporals.format(professionalLicensingQueryResponse.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td> 
                 </tr> 
             </tbody> 
         </table> 
-        <div class="alert alert-primary" role="alert" th:unless="${incidentReportQueryResponse}">
-            No incident report query response logs found.   
+        <div class="alert alert-primary" role="alert" th:unless="${professionalLicensingQueryResponse}">
+            No professional licensing query response logs found.   
         </div>
     </th:block>
   </body>
