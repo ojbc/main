@@ -1,0 +1,169 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Query Requests</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/datatables/1.10.19/css/dataTables.bootstrap4.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.2.0/css/all.css}" />
+  </head>
+  <body>
+    <!-- Begin page content -->
+    <th:block th:fragment="queryRequestsContent">
+		<div style="padding:10px">
+		    <div id="queryRequestAccordion">
+				<div th:each = "entry,stat :${clickableQueryRequestListMap.entrySet()}" class="card">
+					<div class="card-header" id="heading$entry.getKey()">
+					    <button class="btn btn-link" data-toggle="collapse" th:data-target="'#' + ${entry.key}" 
+					      aria-expanded="true" th:aria-controls="${entry.key}" th:text="${queryRequestAccordionHeaderMap[entry.key]}">
+					      Accordion Header
+					    </button> 
+					</div>
+				
+                    <div th:id="${entry.key}" class="collapse" th:aria-labelledby="${entry.key}" data-parent="#queryRequestAccordion" 
+				        th:classappend="${stat.index} == 0? 'show': ''">
+					    <div class="card-body">
+					      <div class="alert alert-info" role="alert">
+					          Double click on the rows to retrieve query response.
+					      </div>
+					      <table class="searchResultsTable table table-striped table-bordered queryRequestsTable" style="width:100%">
+					          <thead>
+					              <tr>
+					                  <th>IDENTIFICATION</th>
+					                  <th>IDENTIFICATION SOURCE TEXT</th>
+					                  <th>TIMESTAMP</th>
+					                  <th>MESSAGE ID</th>
+					              </tr>
+					          </thead>
+					          <tbody>
+				                  <tr th:each="queryRequest : ${entry.value}" th:title='${queryRequest.queryRequestId}' class="clickable">
+				                      <td th:text="${queryRequest.identificationId}">identificationId</td>
+				                      <td th:text="${queryRequest.identificationSourceText}">identificationSourceText</td>
+				                      <td th:text="${#temporals.format(queryRequest.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+				                      <td th:text="${queryRequest.messageId}">messageId</td>
+				                  </tr>
+					          </tbody>
+					      </table>                                
+					    </div>
+				  </div>
+				</div>
+				<div th:each="entry : ${nonClickableQueryRequestListMap.entrySet()}" class="card">
+				  <div class="card-header" th:id="'heading' + ${entry.key}">
+				      <button class="btn btn-link" data-toggle="collapse" th:data-target="'#' + ${entry.key}" 
+				        aria-expanded="true" th:aria-controls="${entry.key}" th:text="${queryRequestAccordionHeaderMap[entry.key]}">
+				        Accordion Header
+				      </button>
+				  </div>
+				
+				  <div th:id="${entry.key}" class="collapse" th:aria-labelledby="${entry.key}" data-parent="#queryRequestAccordion">
+				    <div class="card-body">
+				      <table class="searchResultsTable table table-striped table-bordered queryRequestsTable" style="width:100%">
+				          <thead>
+				              <tr>
+				                  <th>IDENTIFICATION</th>
+				                  <th>IDENTIFICATION SOURCE TEXT</th>
+				                  <th>TIMESTAMP</th>
+				                  <th>MESSAGE ID</th>
+				              </tr>
+				          </thead>
+				          <tbody>
+			                  <tr th:each="queryRequest : ${entry.value}" title='${queryRequest.queryRequestId}'>
+	                              <td th:text="${queryRequest.identificationId}">identificationId</td>
+	                              <td th:text="${queryRequest.identificationSourceText}">identificationSourceText</td>
+	                              <td th:text="${#temporals.format(queryRequest.timestamp, 'yyyy-MM-dd HH:mm:ss')}">timestamp</td>
+	                              <td th:text="${queryRequest.messageId}">messageId</td>
+			                  </tr>
+				          </tbody>
+				      </table>                                
+				    </div>
+				  </div>
+				</div>
+		    </div>
+		</div>
+		
+		<div class="modal fade ojbc-modal" id="personQueryResponseModal" tabindex="-1" role="dialog" aria-labelledby="personQueryResponseModalTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="personQueryResponseModalTitle">PERSON QUERY RESPONSE</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="personQueryResponseModalContent">
+		        ...
+		      </div>
+		    </div>
+		  </div>
+		</div>    
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+                var context = /*[[@{/}]]*/ '';
+                var _csrf_token = /*[[${_csrf.token}]]*/ '';
+                var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
+            /*]]>*/
+			$(function() {
+			  oTable = $(".queryRequestsTable").first().DataTable({
+			       "pagingType": "full_numbers",
+			       "pageLength": 25,
+			       stateSave: true,
+			       fixedHeader: true,
+			       "language": {
+			          "emptyTable": "No User Query Requests Found"
+			       } 
+			  });
+			  
+			  $(".queryRequestsTable:not(:first)").DataTable({
+			       "pagingType": "full_numbers",
+			       "pageLength": 25,
+			       stateSave: true,
+			       "language": {
+			          "emptyTable": "No User Query Requests Found"
+			       } 
+			  });
+			
+			  $('.queryRequestsTable').on('dblclick', 'tr.clickable',function(event) {
+			      event.preventDefault();
+			      var queryRequestId = $(this).attr("title");
+			      var systemName = $(this).closest(".collapse").attr("id");
+			      var requestData = {
+			          'queryRequestId': $(this).attr("title"),
+			          'systemName': systemName
+			      };
+			      requestData[_csrf_param_name] = _csrf_token;
+			      
+			      var row = $(this).closest('tr'); 
+			      row.siblings().removeClass("selected");
+			      row.addClass("selected");
+			      
+			      var personQueryResponseUrl = encodeURI(context + 'auditLogs/personQueryResponse');
+			      $.post( personQueryResponseUrl, $.param(requestData), function(data) {
+			          $('#personQueryResponseModalContent').html(data);
+			          $('#personQueryResponseModal').modal('show');
+			      }).fail(ojbc.displayFailMessage); ; 
+			      
+			      return false;                                                                                                            
+			  }); 
+			      
+			});
+        </script>		              
+    </th:block>
+  </body>
+</html>
