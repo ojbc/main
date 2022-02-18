@@ -227,7 +227,7 @@ public class AuditLogsController {
 		log.info("personSearchRequests:" + personSearchRequests );
 		model.put("auditPersonSearchRequest", auditPersonSearchRequest);
 		model.put("personSearchRequests", personSearchRequests); 
-		return "auditLogs/userPersonSearchAcitivities::userPersonSearchAcitivitiesContent";
+		return "auditLogs/userPersonSearchActivities::userPersonSearchActivitiesContent";
 	}
 	
 	@RequestMapping(value="/userAuthenticationSearchResults")
