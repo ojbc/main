@@ -46,7 +46,7 @@
   <body id="searchDetailsFrame">
     <div id="tabs">
 
-        <ul>
+        <ul class="nav nav-tabs">
             <li id="State Rap Sheet">
                 <a href="#stateRapsheetTab">State Rap Sheet</a>
             </li>
@@ -54,7 +54,9 @@
             <li id="FBI Rap Sheet" th:if="${rapsheetQueryRequest.hasFbiRapsheet == 'true'}">
                 <a th:href="@{/rapbacks/fbiRapsheet/} + ${rapsheetQueryRequest.transactionNumber}">FBI Rap Sheet</a>
             </li>
-            <button id="printButton" style="float:right;" th:messageId="${detailsRequest.federatedQueryId}">Print</button>
+            <li class="ml-auto">
+                <button id="printButton" class="grayButton" style="float:right;" th:messageId="${detailsRequest.federatedQueryId}">Print</button>
+            </li>
         </ul>
 
         <div id="stateRapsheetTab">

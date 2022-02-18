@@ -46,16 +46,18 @@
   <body id="searchDetailsFrame">
     <div id="tabs">
 
-        <ul>
+        <ul class="nav nav-tabs">
             <li id="nsor5YearCheckLink">
                 <a href="#nsor5YearCheckTab">FBI NSOR Check Results</a>
             </li>
-            <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+            <li class="ml-auto">
+                <button id="printButton" class="grayButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+            </li>
         </ul>
         <div id="nsor5YearCheckTab">
             <div class="mx-auto mb-4">
                 <p class="text-center">Date/Time: <span th:text="${identificationResultsQueryResponse.documentCreationTimeStampString}">Time Stamp</span></p>
-                <p class="text-center font-weight-bold"><u>Hawaii Criminal Justice Data Center</u><br><u>NSOR Search Results</u></p>
+                <p class="text-center font-weight-bold" style="text-decoration:underline;">Hawaii Criminal Justice Data Center<br>NSOR Search Results</p>
                 
                 <p class="text-center mt-3">Applicant <br> Response from NSOR</p> 
                 <p class="text-center">***The information furnished is based on the name(s) and date of birth provided, and is 

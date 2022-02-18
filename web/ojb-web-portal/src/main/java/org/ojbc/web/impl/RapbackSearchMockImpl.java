@@ -32,6 +32,7 @@ import org.w3c.dom.Element;
 @Profile({"rapbacks","standalone"})
 public class RapbackSearchMockImpl implements RapbackSearchInterface{
 		
+	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource

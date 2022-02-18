@@ -46,7 +46,7 @@
   <body id="searchDetailsFrame">
         <div id="tabs">
 
-            <ul>
+            <ul class="nav nav-tabs">
                 <li id="State Initial Results">
                     <a href="#stateInitialResultTab">State Initial Results</a>
                 </li>
@@ -58,8 +58,9 @@
                     or identificationResultsQueryResponse.nsorSearchResultsDocuments ne null and #lists.size(identificationResultsQueryResponse.nsorSearchResultsDocuments) > 0}">
                     <a href="#nsorResultTab">NSOR Results</a>
                 </li>
-                
-                <button id="printButton" class="greyButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+                <li class="ml-auto">
+                    <button id="printButton" class="grayButton" style="float:right;" th:messageId="${identificationResultsQueryResponse.messageId}">Print</button>
+                </li>   
             </ul>
 
             <div id="stateInitialResultTab">

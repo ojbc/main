@@ -53,7 +53,7 @@
 		      </div>
 		      <div class="modal-body">
 		        <div id="modalIframeSpinner"></div>
-		        <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%" scrolling="no"  frameBorder="0"></iframe>
+		        <iframe id="modalIframe" src="" style="border:0;overflow:hidden;width:99%"></iframe>
 		      </div>
 		    </div>
 		  </div>
@@ -62,7 +62,7 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var singleClickForDetail = [[${singleClickForDetail}]];
+		        var singleClickForDetail = /*[[${singleClickForDetail}]]*/ false;
 	        /*]]>*/
 	      $(function() {
 	

@@ -19,7 +19,6 @@ package org.ojbc.web.portal.validators.subscriptions;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

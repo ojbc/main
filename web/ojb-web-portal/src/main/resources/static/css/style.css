@@ -343,7 +343,6 @@ header span.fullname {
 }*/
 
 .ui-tabs-anchor {
-	border-radius: 0;
 	font-size: 12px;
 	color: #777777;
 	font-weight: bold;
@@ -1250,3 +1249,9 @@ input .shortDigit{
 .datepicker {
   transform: translate(0, 3.1em);
 } 
+
+#tabs.nav-tabs #tabs.nav-link {
+    border: inherit; 
+    border-top-left-radius: inherit; 
+    border-top-right-radius: inherit; 
+}

@@ -71,7 +71,7 @@
 		      </div>
 		      <div class="modal-body">
 		        <div id="modalIframeSpinner"></div>
-		        <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%" scrolling="no"  frameBorder="0" ></iframe>
+		        <iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:auto;width:99%; border:0;"></iframe>
 		      </div>
 		    </div>
 		  </div>
@@ -80,7 +80,6 @@
 		<script th:inline="javascript">
 	        /*<![CDATA[*/
 		        var context = /*[[@{/}]]*/ '';
-		        var singleClickForDetail = [[${singleClickForDetail}]];
                 var _csrf_token = /*[[${_csrf.token}]]*/ '';
                 var _csrf_param_name = /*[[${_csrf.parameterName}]]*/ '';
 	        /*]]>*/
