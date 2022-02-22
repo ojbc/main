@@ -16,8 +16,8 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -29,25 +29,19 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BindingResult;
 
 // Tests based on Simple Search Requirements Doc
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-//        "classpath:/META-INF/spring/demostate/routes-demostate.xml",
-//        "classpath:/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" 
-        })
-@ActiveProfiles("standalone")
+@RunWith(SpringRunner.class)
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
 public class SimpleSearchParserPerSearchDocumentTest {
 

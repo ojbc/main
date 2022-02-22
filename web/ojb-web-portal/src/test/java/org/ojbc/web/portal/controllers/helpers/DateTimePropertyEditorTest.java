@@ -18,7 +18,7 @@ package org.ojbc.web.portal.controllers.helpers;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
