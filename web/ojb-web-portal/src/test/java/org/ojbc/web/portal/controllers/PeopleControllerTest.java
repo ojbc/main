@@ -16,9 +16,9 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -44,6 +44,7 @@ import org.ojbc.web.PersonSearchInterface;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.ojbc.web.portal.OjbcWebPortalApplication;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.ojbc.web.portal.controllers.helpers.PersonSearchCommandUtils;
@@ -54,21 +55,16 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BindingResult;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({
-        "classpath:dispatcher-servlet.xml",
-        "classpath:application-context.xml",
-        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
-        })
-@ActiveProfiles("standalone")
+@RunWith(SpringRunner.class)
+@SpringBootTest(args = {"--spring.config.additional-location=classpath:/"}, 
+	classes = OjbcWebPortalApplication.class)
+@ContextConfiguration({"classpath:beans/static-configuration-demostate.xml"})
 @DirtiesContext
 public class PeopleControllerTest {
 	@InjectMocks
@@ -83,7 +79,7 @@ public class PeopleControllerTest {
 	private SearchResultConverter searchResultConverter;
 	@Autowired
 	private SimpleSearchParser simpleSearchParser;
-	private ArgumentCaptor<Map> paramsCaptor;
+	private ArgumentCaptor<Map<String, Object>> paramsCaptor;
 
 	private BindingResult errors;
 	private DetailsQueryInterface detailsQueryInterface;
@@ -93,9 +89,10 @@ public class PeopleControllerTest {
 	private SamlService samlService;
 	
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setup() {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		personSearchCommand = new PersonSearchCommand();
 		model = new HashMap<String, Object>();
 		personSearchInterface = mock(PersonSearchInterface.class);
@@ -124,7 +121,7 @@ public class PeopleControllerTest {
 		unit.userSession = userSession;
 		unit.simpleSearchParser = simpleSearchParser;
 		unit.samlService = samlService;
-		unit.personSearchForm="people/_searchForm";
+		unit.personSearchForm="people/searchForm::personSearchFormContent";
 		unit.personSearchResultPage="people/_searchResult";
 		
 		unit.config = new PeopleControllerConfigInterface() {
@@ -153,7 +150,7 @@ public class PeopleControllerTest {
 	public void searchFormReturnsCorrectViewNameAndInitialData() {
 		String viewName = unit.searchForm(false, null, model);
 
-		assertThat(viewName, is("people/_searchForm"));
+		assertThat(viewName, is("people/searchForm::personSearchFormContent"));
 
 		PersonSearchCommand initialState = (PersonSearchCommand) model.get("personSearchCommand");
 		assertThat(initialState.getAdvanceSearch().getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
@@ -164,7 +161,7 @@ public class PeopleControllerTest {
 	public void searchFormUsesNewFromWhenResetIsSetToTrueAndMostRecentSearchIsReset() {
 		String viewName = unit.searchForm(true, null, model);
 
-		assertThat(viewName, is("people/_searchForm"));
+		assertThat(viewName, is("people/searchForm::personSearchFormContent"));
 
 		PersonSearchCommand initialState = (PersonSearchCommand) model.get("personSearchCommand");
 		assertThat(initialState.getAdvanceSearch().getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
@@ -203,7 +200,6 @@ public class PeopleControllerTest {
 		return newPersonSearchRequest;
 	}
 
-	@SuppressWarnings("unchecked")
     @Test
 	public void advanceSearchSuccess() throws Exception {
 		PersonSearchRequest advanceSearch = new PersonSearchRequest();
@@ -245,7 +241,7 @@ public class PeopleControllerTest {
 		String expectedView = unit.advanceSearch( servletRequest, personSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentSearchResult(null);
-		assertThat(expectedView, Matchers.is("people/_searchForm"));
+		assertThat(expectedView, Matchers.is("people/searchForm::personSearchFormContent"));
 		assertThat((BindingResult) model.get("errors"), Matchers.is(errors));
 		assertThat((String) model.get("activeSearchTab"), Matchers.is("advancedSearchTab"));
 	}
@@ -271,7 +267,7 @@ public class PeopleControllerTest {
 
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", "",detailsRequest, model, null);
 
-		assertThat(expectedView, is("people/_searchDetails"));
+		assertThat(expectedView, is("people/searchDetails"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
 	}
 	
@@ -284,7 +280,7 @@ public class PeopleControllerTest {
 		
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", "",detailsRequest, model, null);
 		
-		assertThat(expectedView, is("people/_searchDetails"));
+		assertThat(expectedView, is("people/searchDetails"));
 		assertThat((String) model.get("searchContent"), is("error"));
 	}
 
@@ -303,7 +299,6 @@ public class PeopleControllerTest {
 		
 	}
 
-	@SuppressWarnings("unchecked")
     @Test
 	public void simpleSearchSuccess() throws Exception {
 		
@@ -339,7 +334,7 @@ public class PeopleControllerTest {
 		String expectedView = unit.simpleSearch( servletRequest, personSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentSearchResult(null);
-		assertThat(expectedView, is("people/_searchForm"));
+		assertThat(expectedView, is("people/searchForm::personSearchFormContent"));
 		assertThat((String) model.get("activeSearchTab"), is("simpleSearchTab"));
 		assertThat((BindingResult) model.get("errors"), is(errors));
 	}

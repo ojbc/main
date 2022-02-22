@@ -16,9 +16,10 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -56,7 +57,7 @@ public class VehicleControllerTest {
 	private VehicleSearchCommandValidator vehicleSearchCommandValidator;
 	private VehicleSearchCommandUtils vehicleSearchCommandUtils;
 	private SearchResultConverter searchResultConverter;
-	private ArgumentCaptor<Map> paramsCaptor;
+	private ArgumentCaptor<Map<String, Object>> paramsCaptor;
 
 	private BindingResult errors;
 	private DetailsQueryInterface detailsQueryInterface;
@@ -66,6 +67,7 @@ public class VehicleControllerTest {
 	private SamlService samlService;
 	
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setup() {
 		vehicleSearchCommand = new VehicleSearchCommand();
@@ -114,19 +116,21 @@ public class VehicleControllerTest {
 	public void searchFormReturnsCorrectViewNameAndInitialData() {
 		String viewName = unit.searchForm(false, model);
 
-		assertThat(viewName, is("vehicles/_searchForm"));
+		assertThat(viewName, is("vehicles/searchForm::searchFormContent"));
 
 		VehicleSearchCommand initialState = (VehicleSearchCommand) model.get("vehicleSearchCommand");
+		assertNotNull(initialState);
 	}
 
 	@Test
 	public void searchFormUsesNewFromWhenResetIsSetToTrueAndMostRecentSearchIsReset() {
 		String viewName = unit.searchForm(true, model);
 
-		assertThat(viewName, is("vehicles/_searchForm"));
+		assertThat(viewName, is("vehicles/searchForm::searchFormContent"));
 
 		VehicleSearchCommand initialState = (VehicleSearchCommand) model.get("vehicleSearchCommand");
 		verify(userSession).setMostRecentVehicleSearch(Mockito.any(VehicleSearchCommand.class));
+		assertNotNull(initialState);
 	}
 
 	@Test
@@ -186,7 +190,7 @@ public class VehicleControllerTest {
 		String expectedView = unit.advanceSearch(servletRequest, vehicleSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentVehicleSearchResult(null);
-		assertThat(expectedView, Matchers.is("vehicles/_searchForm"));
+		assertThat(expectedView, Matchers.is("vehicles/searchForm::searchFormContent"));
 		assertThat((BindingResult) model.get("errors"), Matchers.is(errors));
 	}
 
@@ -212,7 +216,7 @@ public class VehicleControllerTest {
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
 
 		verify(samlService).getSamlAssertion(servletRequest);
-		assertThat(expectedView, is("vehicles/_searchDetails"));
+		assertThat(expectedView, is("vehicles/searchDetails"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
 	}
 	
@@ -225,7 +229,7 @@ public class VehicleControllerTest {
 		
 		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
 		
-		assertThat(expectedView, is("common/_searchDetailsError"));
+		assertThat(expectedView, is("common/searchDetailsError::searchDetailsErrorContent"));
 	}
 
 	@Test
@@ -240,7 +244,7 @@ public class VehicleControllerTest {
 		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model);
 		
 		verify(samlService).getSamlAssertion(servletRequest);
-		assertThat(expectedView, is("vehicles/_incidentDetails"));
+		assertThat(expectedView, is("converted details xml"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
 		
 	}

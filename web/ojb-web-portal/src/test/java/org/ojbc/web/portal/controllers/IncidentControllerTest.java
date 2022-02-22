@@ -16,9 +16,10 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -34,6 +35,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.IncidentSearchInterface;
@@ -57,7 +59,8 @@ public class IncidentControllerTest {
 	private IncidentSearchCommandValidator incidentSearchCommandValidator;
 	private IncidentSearchCommandUtils incidentSearchCommandUtils;
 	private SearchResultConverter searchResultConverter;
-	private ArgumentCaptor<Map> paramsCaptor;
+	@Captor
+	private ArgumentCaptor<Map<String, Object>> paramsCaptor;
 
 	private BindingResult errors;
 	private DetailsQueryInterface detailsQueryInterface;
@@ -66,6 +69,7 @@ public class IncidentControllerTest {
 	private HttpServletRequest servletRequest;
 	private SamlService samlService;
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setup() {
 		incidentSearchCommand = new IncidentSearchCommand();
@@ -114,19 +118,21 @@ public class IncidentControllerTest {
 	public void searchFormReturnsCorrectViewNameAndInitialData() {
 		String viewName = unit.searchForm(false, model);
 
-		assertThat(viewName, is("incidents/_searchForm"));
+		assertThat(viewName, is("incidents/searchForm::searchFormContent"));
 
 		IncidentSearchCommand initialState = (IncidentSearchCommand) model.get("incidentSearchCommand");
+		assertNotNull(initialState);
 	}
 
 	@Test
 	public void searchFormUsesNewFromWhenResetIsSetToTrueAndMostRecentSearchIsReset() {
 		String viewName = unit.searchForm(true, model);
 
-		assertThat(viewName, is("incidents/_searchForm"));
+		assertThat(viewName, is("incidents/searchForm::searchFormContent"));
 
 		IncidentSearchCommand initialState = (IncidentSearchCommand) model.get("incidentSearchCommand");
 		verify(userSession).setMostRecentIncidentSearch(Mockito.any(IncidentSearchCommand.class));
+		assertNotNull(initialState);
 	}
 
 	@Test
@@ -180,7 +186,7 @@ public class IncidentControllerTest {
 		verify(userSession).setMostRecentIncidentSearchResult("some xml");
 		verify(samlService).getSamlAssertion(servletRequest);
 
-		assertThat(expectedView, Matchers.is("incidents/_searchResult"));
+		assertThat(expectedView, Matchers.is("incidents/searchResult::searchResultContent"));
 		assertThat((String) model.get("searchContent"), is("some html"));
 		
 		assertThat((Integer)paramsCaptor.getValue().get("start"),is(0));
@@ -201,7 +207,7 @@ public class IncidentControllerTest {
 		String expectedView = unit.advanceSearch(servletRequest, incidentSearchCommand, errors, model);
 
 		verify(userSession).setMostRecentIncidentSearchResult(null);
-		assertThat(expectedView, Matchers.is("incidents/_searchForm"));
+		assertThat(expectedView, Matchers.is("incidents/searchForm::searchFormContent"));
 		assertThat((BindingResult) model.get("errors"), Matchers.is(errors));
 	}
 
@@ -227,7 +233,7 @@ public class IncidentControllerTest {
 		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model, null);
 		
 		verify(samlService).getSamlAssertion(servletRequest);
-		assertThat(expectedView, is("incidents/_incidentDetails"));
+		assertThat(expectedView, is("incidents/incidentDetails"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
 	}
 	
@@ -240,7 +246,7 @@ public class IncidentControllerTest {
 		
 		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model, null);
 		
-		assertThat(expectedView, is("common/_searchDetailsError"));
+		assertThat(expectedView, is("common/searchDetailsError::searchDetailsErrorContent"));
 	}
 
 	@Test
